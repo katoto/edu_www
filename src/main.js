@@ -1,15 +1,28 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import 'es6-promise/auto'
 import Vue from 'vue'
-import App from './App'
+import App from './pages/App.vue'
+import storeFactory from './store'
 import router from './router'
+import { sync } from 'vuex-router-sync'
+import vueTap from 'v-tap'
 
-Vue.config.productionTip = false
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+// import '~/styles/index.scss' // global css
+// import '~/icons'
+
+// Vue.use(ElementUI)
+
+Vue.use(vueTap)
+const store = storeFactory()
+sync(store, router)
+
+const app = new Vue(Object.assign({
+	router,
+	store
+}, App))
+
+app.$mount('#app')
+
+export { app, router, store }
