@@ -9,11 +9,12 @@ import vueTap from 'v-tap'
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 
-// import '~/styles/index.scss' // global css
+import '~/styles/test.scss' // global scss
+
+// import '~/styles/test.less' // global less
 // import '~/icons'
 
 // Vue.use(ElementUI)
-
 Vue.use(vueTap)
 const store = storeFactory()
 sync(store, router)

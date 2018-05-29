@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <p>fsfsfsd</p>
+        <p>fsfsfs{{ title }}d</p>
     </div>
 </template>
 

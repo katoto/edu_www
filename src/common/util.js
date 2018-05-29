@@ -28,8 +28,6 @@ export function mapMutations (muts, ns) {
     const mutations = {}
     Object.keys(muts).forEach((key) => {
         mTypes[key] = [ns, key].join('/')
-        // console.log(key);
-        // console.log(mTypes[key])
         mutations[mTypes[key]] = muts[key]
     })
     return {mutations, mTypes}

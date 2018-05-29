@@ -1,5 +1,5 @@
 /**
- * Created by xiezg on 2018/4/9.
+ * Created by xiezg on 2018/5/29
  */
 
 import ajax from '~common/ajax'
@@ -14,7 +14,7 @@ const mutationsInfo = mapMutations({
         state.withdrawList = data
     },
 
-}, 'adminModule')
+}, 'cs1105')
 
 const actionsInfo = mapActions({
     /* ads adminCenter 列表接口 */
@@ -37,9 +37,7 @@ const actionsInfo = mapActions({
         // }
     },
 
-
-
-}, 'adminModule')
+}, 'cs1105')
 
 export const mTypes = mutationsInfo.mTypes
 const mutations = mutationsInfo.mutations
