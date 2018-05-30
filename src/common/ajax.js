@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 	options.baseURL = 'http://10.0.1.41:6899'
 	// options.baseURL = 'http://crazybet.choopaoo.com:8090'
 } else {
-	options.baseURL = 'http://47.96.104.111/api'
+	options.baseURL = 'https://www.coinslot.com/api'
 }
 
 const _axios = axios.create(options)
