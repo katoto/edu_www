@@ -8,6 +8,7 @@ export const access_token = '3d81a4a18c5a943303bed1c467ec9047'
 export const account_id = '2389175'
 
 export const src = 'pc'
+export const tipsTime = 3000
 
 export function mapActions (acts, ns) {
     const aTypes = {}

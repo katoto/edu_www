@@ -3,7 +3,9 @@
  */
 
 import ajax from '~common/ajax'
-import { src, mapMutations, mapActions,platform} from '~common/util'
+import { src, mapMutations, mapActions,platform , tipsTime} from '~common/util'
+
+import {Message} from 'element-ui'
 
 const state = {
     withdrawList: null
@@ -26,15 +28,23 @@ const actionsInfo = mapActions({
             } else {
                 InfoData = await ajax.get(`/expect/hisopencode`)
             }
-	        console.log(InfoData);
-	        console.log('InfoData');
-	        return InfoData
+            if( InfoData.status == '100'){
+            	return InfoData.data
+            }else{
+	            Message({
+		            message: InfoData.message,
+		            type: 'error',
+		            duration: tipsTime
+	            })
+	            return false
+            }
         } catch (e) {
             Message({
                 message: e.message,
                 type: 'error',
-                duration: 5 * 1000
+                duration: tipsTime
             })
+
         }
     },
 }, 'cs1105')
