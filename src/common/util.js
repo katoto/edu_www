@@ -9,6 +9,7 @@ export const account_id = '2389175'
 
 export const src = 'pc'
 export const tipsTime = 3000
+export const ethUrl = 'https://etherscan.io/'
 
 export function mapActions (acts, ns) {
     const aTypes = {}
