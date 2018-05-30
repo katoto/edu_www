@@ -1,15 +1,19 @@
 <template>
     <!--面包屑-->
     <div class="b-nav">
-        <a href="./index.html">Home</a>
-        <a href="javascript:;" class="now">terms</a>
+        <router-link to="/">Home</router-link>
+        <a href="javascript:;" class="now">
+            {{mysite}}
+        </a>
     </div>
 </template>
 
 <script>
     export default {
         data(){
-            return {}
+            return {
+                mysite:''
+            }
         },
         watch: {},
         methods: {},
