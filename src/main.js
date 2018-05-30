@@ -6,6 +6,9 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import vueTap from 'v-tap'
 
+
+
+import "./styles/lib-reset.css";
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 
