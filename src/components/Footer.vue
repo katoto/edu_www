@@ -1,8 +1,10 @@
 <template>
     <div class="footer">
         <p>Use of this Website constitutes acceptance of the Coinslot.com
-            <a target="_blank" href="https://www.coinslot.com/coinslot/html/terms.html">Terms of Use</a> and <a
-                target="_blank" href="https://www.coinslot.com/coinslot/html/policy.html">Privacy Policy</a>.</p>
+            <a href="https://www.coinslot.com/coinslot/html/terms.html">Terms of Use</a>
+            and
+            <a href="https://www.coinslot.com/coinslot/html/policy.html">Privacy Policy</a>
+        </p>
         <p>© Copyright 2018 . All Rights Reserved.</p>
     </div>
 </template>

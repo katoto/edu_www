@@ -221,7 +221,6 @@
         },
         computed: {},
         mounted(){
-
         }
     }
 </script>
