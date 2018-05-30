@@ -8,13 +8,16 @@ import { src, mapMutations, mapActions,platform , tipsTime} from '~common/util'
 import {Message} from 'element-ui'
 
 const state = {
-    withdrawList: null
+	navFix:false,
 }
 
 const mutationsInfo = mapMutations({
     setWithDrawList (state, data) {
         state.withdrawList = data
     },
+	setNavFix(state,data){
+		state.navFix = data
+	}
 }, 'cs1105')
 
 const actionsInfo = mapActions({
