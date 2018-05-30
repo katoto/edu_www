@@ -1,9 +1,9 @@
 <template>
     <div class="footer">
         <p>Use of this Website constitutes acceptance of the Coinslot.com
-            <a href="https://www.coinslot.com/coinslot/html/terms.html">Terms of Use</a>
+            <router-link to="/terms" @click.native="scroll">Terms of Use</router-link>
             and
-            <a href="https://www.coinslot.com/coinslot/html/policy.html">Privacy Policy</a>
+            <router-link to="/policy" @click.native="scroll">Privacy Policy</router-link>
         </p>
         <p>© Copyright 2018 . All Rights Reserved.</p>
     </div>
@@ -15,7 +15,11 @@
             return {}
         },
         watch: {},
-        methods: {},
+        methods: {
+            scroll(){
+                window.scrollTo(0,0)
+            }
+        },
         computed: {},
         mounted(){
 
