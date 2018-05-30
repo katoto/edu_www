@@ -9,15 +9,19 @@
 </template>
 
 <script>
+    import store from '../store'
     export default {
         data(){
             return {
-                mysite:''
             }
         },
         watch: {},
         methods: {},
-        computed: {},
+        computed: {
+            mysite(){
+               return this.$store.state.route.name
+            }
+        },
         mounted(){
 
         }
