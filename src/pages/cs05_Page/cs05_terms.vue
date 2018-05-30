@@ -1,7 +1,6 @@
 <template>
     <div class="terms">
         <p class="red">这是协议</p>
-        {{ title }}
     </div>
 </template>
 
@@ -13,8 +12,14 @@
 			}
 		},
 		watch: {},
-		methods: {},
-		computed: {},
+		methods: {
+
+        },
+		computed: {
+			routeData(){
+			 	return  this.$store.state.route.name
+			}
+        },
 		mounted(){
 
 		}
