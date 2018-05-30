@@ -8,9 +8,9 @@ const options = {}
 // todo
 if (process.env.NODE_ENV === 'production') {
 	if (window.location.protocol === 'http:') {
-		options.baseURL = window.location.protocol + '//crazybet.choopaoo.com:6899'
+		options.baseURL = window.location.protocol + '//www.coinslot.com/api'
 	} else {
-		options.baseURL = window.location.protocol + '//crazybet.choopaoo.com:46899'
+		options.baseURL = window.location.protocol + '//www.coinslot.com/api'
 	}
 } else if (process.env.NODE_ENV === 'preRelease') {
 	// 线下167

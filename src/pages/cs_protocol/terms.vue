@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Header></Header>
         <div class="main">
             <BreadCrumbs></BreadCrumbs>
             <!--主体内容-->
@@ -205,6 +206,7 @@
 </template>
 
 <script>
+    import Header from '~/components/Header.vue'
     import Footer from '~/components/Footer.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     export default {
@@ -216,6 +218,7 @@
         watch: {},
         methods: {},
         components:{
+	        Header,
             Footer,
             BreadCrumbs
         },

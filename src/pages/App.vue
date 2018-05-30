@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+      <!-- 公用的弹窗 fail success-->
+      <div id="toast" class="" style="text-transform: none !important;"></div>
       <router-view/>
   </div>
 </template>
