@@ -25,15 +25,14 @@
         methods: {
             fixNav() {
                 this.scroll = document.documentElement.scrollTop || document.body.scrollTop;
-                if(this.scroll == 0){
-                	this.$store.commit(mTypes.setNavFix,false)
-//                    this.$store.state.navFix = false;
+                if(this.scroll >= 90){
+                	this.$store.commit(mTypes.setNavFix,true)
                 }else{
-	                this.$store.commit(mTypes.setNavFix,true)
-//                    this.$store.state.navFix = true;
+	                this.$store.commit(mTypes.setNavFix,false)
                 }
             }
         },
+
         components: {
             Footer,
             Header,
@@ -41,8 +40,12 @@
         },
         mounted(){
             window.addEventListener('scroll',this.fixNav)
+        },
+        destroyed(){
+            window.removeEventListener('scroll',this.fixNav)
         }
     }
 </script>
-<style scoped lang="less">
+<style lang="less">
+    @import "../../styles/lib-mixins.less";
 </style>
