@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import cs_1105Page from '~store/cs_1105Page/index'
+import cs_1105 from '~store/cs_1105/index'
 
 Vue.use(Vuex)
 
@@ -45,6 +45,6 @@ export default () => new Vuex.Store({
     actions,
     mutations,
     modules: {
-	    cs_1105Page
+	    cs_1105
     }
 })
