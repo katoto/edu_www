@@ -20,7 +20,7 @@
         }
     }
 </script>
-<style scoped lang="less">
+<style lang="less" scoped >
     @import "../styles/lib-public.less";
 
     .footer {
