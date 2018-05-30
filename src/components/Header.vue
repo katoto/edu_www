@@ -5,8 +5,8 @@
             <div class="top">
                 <a href="https://www.coinslot.com/coinslot/html/index.html" title="Coinslot" class="logo">
                     <!--<h1>Coinslot</h1>-->
-<!--                    <?xml version="1.0" encoding="utf-8"?>
-                    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
+                    <!--                    <?xml version="1.0" encoding="utf-8"?>
+                                        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
                     <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                  width="450.457px" height="105.836px" xml:space="preserve">
                 <g>
@@ -80,21 +80,24 @@
                 <div class="login">
                     <!-- 未登录 -->
                     <div class="to-login js_isLogOut">
-                        <a href="javascript:;" class="btn-in js_signInBtn">
+                        <a href="javascript:;" v-tap="{methods: signIn }" class="btn-in js_signInBtn">
                             Sign In&nbsp;/&nbsp;Up
                         </a>
                     </div>
                     <!-- 登录 -->
                     <section class="hide js_isLogin">
                         <div class="hadlogin">
-                            <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=recharge" class="btn-rechrage">Deposit</a>
-                            <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=withdrawal" class="btn-cash">Withdraw</a>
+                            <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=recharge"
+                               class="btn-rechrage">Deposit</a>
+                            <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=withdrawal"
+                               class="btn-cash">Withdraw</a>
                         </div>
                         <div id="mycount" class="mycount">
                         <span id="js_countNum" class="countNum">
                               <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
                             <!--blinking2-->
-                            <span onclick="window.location.href='https://www.coinslot.com/coinslot/html/account.html?currTab=information'" class="js_countNum "></span> ETH<i></i>
+                            <span onclick="window.location.href='https://www.coinslot.com/coinslot/html/account.html?currTab=information'"
+                                  class="js_countNum "></span> ETH<i></i>
                         </span>
                             <div id="mycount-detailed" class="mycount-detailed ">
                                 <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
@@ -111,6 +114,7 @@
                                         <span class="amount js_countNum_{$coinTypeNum}">{$coinBalance}</span>
                                         <span class="unit">{$coinType}</span>
                                     </li>
+
                                 </script>
                                 <div class="wallet-balance">
                                     <p>Wallet Balance</p>
@@ -137,9 +141,11 @@
                                 <!--1FEK7gfZaaK2m...</a></li>-->
                                 <!--</ul>-->
                                 <!--</div>-->
-                                <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=betting" class="my-transaction">My Bets
+                                <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=betting"
+                                   class="my-transaction">My Bets
                                 </a>
-                                <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=information" class="account-center">Account Center
+                                <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=information"
+                                   class="account-center">Account Center
                                 </a>
                                 <a href="javascript:;" class="log-out js_log-out">Sign Out</a>
                             </div>
@@ -174,6 +180,7 @@
                                     {$lastDrawDom}
                                 </ul>
                             </li>
+
                         </script>
                         <div class="last-select js_last-select ">
                             <ul class="date-box js_date-box">
@@ -208,11 +215,11 @@
         </div>
         <div>
             <!--  弹窗-登录  -->
-            <div class="pop pop-login js_pop-login hide">
+            <div class="pop pop-login js_pop-login" :class="{'hide':!js_show_login}">
                 <div class="pop-body">
                     <div class="pop-ani">
                         <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">关闭</a>
+                            <a href="javascript:;" class="btn-close" v-tap="">关闭</a>
                             <h3 class="font26">Sign In </h3>
                             <!--fadeDown-->
                             <span class="error js_loginInErr"></span>
@@ -221,11 +228,13 @@
                             <form method="post">
                                 <input class="js_loginInEmail" type="text" name="email" placeholder="Email">
                                 <!--<input class="js_loginPasswd" type="password" placeholder="Password">-->
-                                <input class="js_loginPasswd" type="text" onfocus="this.type='password'" placeholder="Password">
+                                <input class="js_loginPasswd" type="text" onfocus="this.type='password'"
+                                       placeholder="Password">
                                 <div class="sure-old">
                                     <input type="checkbox" checked="checked" class="js_isAgreeAge" name="is18">
                                     <p>
-                                        I'm 18+ years old and agree with <a href="terms.html" target="_blank">Terms of use</a>
+                                        I'm 18+ years old and agree with <a href="terms.html" target="_blank">Terms of
+                                        use</a>
                                         and <a href="policy.html" target="_blank">Privacy policy</a>
                                     </p>
                                 </div>
@@ -244,7 +253,7 @@
                 </div>
             </div>
             <!--弹窗-注册-->
-            <div class="pop pop-reg hide js_pop-reg">
+            <div class="pop pop-reg hide js_pop-reg" :class="{'hide':!js_show_reg}">
                 <div class="pop-body">
                     <div class="pop-ani">
                         <div class="pop-main">
@@ -262,7 +271,8 @@
                                     <!--  $('.js_isAgreeAge').is(':checked')  -->
                                     <input type="checkbox" class="js_isAgreeAge" name="is18">
                                     <p>
-                                        I'm 18+ years old and agree with <a href="terms.html" target="_blank">Terms of use</a>
+                                        I'm 18+ years old and agree with <a href="terms.html" target="_blank">Terms of
+                                        use</a>
                                         and <a href="policy.html" target="_blank">Privacy policy</a>
                                     </p>
                                 </div>
@@ -289,7 +299,8 @@
                             <p class="email-account js_email-account">
                             </p>
                             <p class="verify-tips">
-                                Verification email has been sent, please sign in your mailbox and click the link to reset your
+                                Verification email has been sent, please sign in your mailbox and click the link to
+                                reset your
                                 password .
                             </p>
                             <form action="" method="post">
@@ -303,7 +314,8 @@
                             <div class="forgetpsw"></div>
                         </div>
                         <div class="pop-bottom">
-                            <p class="js_isLogOut">Already Have Account？ <a href="javascript:;" class="js_signUp2SignIn">Sign
+                            <p class="js_isLogOut">Already Have Account？ <a href="javascript:;"
+                                                                            class="js_signUp2SignIn">Sign
                                 In</a></p>
                         </div>
                     </div>
@@ -325,8 +337,10 @@
                                 <input type="submit" value="Next" class="no js_resetPswFirstBtn">
                             </form>
                             <form action="" method="post" class="hide form-second js_resetPswSecond">
-                                <input type="password" class="js_reset-pass" name="reset-pasw1" placeholder="New Password">
-                                <input type="password" class="js_reset-pass2" name="reset-pasw2" placeholder="Confirm Password">
+                                <input type="password" class="js_reset-pass" name="reset-pasw1"
+                                       placeholder="New Password">
+                                <input type="password" class="js_reset-pass2" name="reset-pasw2"
+                                       placeholder="Confirm Password">
                                 <!--no-->
                                 <input type="submit" value="reset password" class="js_reset-submit no">
                             </form>
@@ -341,11 +355,13 @@
                         <div class="pop-main">
                             <a href="javascript:;" class="btn-close">关闭</a>
                             <h3>Email Verification</h3>
-                            <p class="email-account js_currEmail js_email-account" style="font-size: 20px;margin-bottom: 15px">
+                            <p class="email-account js_currEmail js_email-account"
+                               style="font-size: 20px;margin-bottom: 15px">
                                 XXXXX@gmail.com
                             </p>
                             <p class="verify-tips">
-                                Your email address hasn't been verificated yet.Would you want to send the verification email now
+                                Your email address hasn't been verificated yet.Would you want to send the verification
+                                email now
                                 ?
                             </p>
                             <form action="" method="post">
@@ -401,7 +417,8 @@
                                           style="stroke-width: 4px;"/>
                                 </svg>
                             </div>
-                            <p>Due to <span class="js_pop_failure_msg">* *</span>, the order is unsuccess-<br/>ful, please try
+                            <p>Due to <span class="js_pop_failure_msg">* *</span>, the order is unsuccess-<br/>ful,
+                                please try
                                 again later</p>
                             <a href="javascript:;" class="btn-failure">Try Later</a>
                         </div>
@@ -450,7 +467,8 @@
                                           style="stroke-width: 4px;"/>
                                 </svg>
                             </div>
-                            <p>Due to <span class="js_pop_failure_msg">* *</span>, the order is unsuccess-<br/>ful, please try
+                            <p>Due to <span class="js_pop_failure_msg">* *</span>, the order is unsuccess-<br/>ful,
+                                please try
                                 again later</p>
                             <a href="javascript:;" class="btn-failure js_bet-order-failure">Try Later</a>
                         </div>
@@ -476,7 +494,8 @@
                             <!--<a href="javascript:;" data-clipboard-target="#js_newActCopy" class="btn-copy js_btn-copy">Copy-->
                             <!--to clipboard</a>-->
                             <!--  $('#js_choseFaucet').attr('data-clipboard-text','1231231232')  -->
-                            <a href="javascript:;" id="js_choseFaucet" data-clipboard-text="copy failure" class="btn-copy js_btn-copy">Copy
+                            <a href="javascript:;" id="js_choseFaucet" data-clipboard-text="copy failure"
+                               class="btn-copy js_btn-copy">Copy
                                 to clipboard</a>
 
                             <p>
@@ -498,7 +517,6 @@
                     </div>
                 </div>
             </div>
-
             <!--浮层 -->
             <!--第一次登陆-->
             <div class="tips-newAct tips-newAct2 js_firstLogin hide">
@@ -525,7 +543,8 @@
             <div class="tips-newAct tips-newAct2 hide js_tips_newAct2">
                 <div class="msg">
                     <p>
-                        Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding to you now.
+                        Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding to
+                        you now.
                     </p>
                     <a href="javascript:;" class="btn-receive js_receive_get">Get it !</a>
                     <div class="bottom">
@@ -535,7 +554,6 @@
                 </div>
             </div>
             <!--拉新活动-->
-
         </div>
     </section>
 </template>
@@ -544,12 +562,22 @@
 	export default {
 		data(){
 			return {
-				title: '我是頭部'
+				title: '我是頭部',
+				js_show_login: false,  // 控制登陆弹窗
+				js_show_reg: false,  // 控制注册弹窗
 			}
 		},
 		watch: {},
-		methods: {},
-		computed: {},
+		methods: {
+			signIn(){
+				console.log(123);
+			},
+
+		},
+		computed: {
+
+
+        },
 		mounted(){
 
 		}
