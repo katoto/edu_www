@@ -218,13 +218,13 @@
                 <div class="pop-body">
                     <div class="pop-ani">
                         <div class="pop-main">
-                            <a href="javascript:;" class="btn-close" v-tap="">关闭</a>
-                            <h3 class="font26">Sign In </h3>
+                            <a href="javascript:;" class="btn-close" v-tap="{methods: close_login }">关闭</a>
+                            <h3 class="font26">Sign In</h3>
                             <!--fadeDown-->
                             <span class="error js_loginInErr"></span>
                             <!--  登陆loading  -->
                             <div class="loading"></div>
-                            <form method="post">
+                            <form>
                                 <input class="js_loginInEmail" type="text" name="email" placeholder="Email">
                                 <!--<input class="js_loginPasswd" type="password" placeholder="Password">-->
                                 <input class="js_loginPasswd" type="text" onfocus="this.type='password'"
@@ -239,24 +239,24 @@
                                 </div>
                                 <!--no-->
                                 <input type="submit" value="Sign In" id="js_signIn"
-                                       class="no js_signSubmit">
+                                       class="no js_signSubmit" @click.prevent="">
                                 <input type="button" value="Sign In" class="no hide">
                             </form>
                             <a href="javascript:;" class="forgetpsw js_forgetPsw">Forgot your password?</a>
                         </div>
                         <div class="pop-bottom">
-                            <p>Not Registered yet ? <a href="javascript:;" class="signUp js_jumpSignUp">Sign Up</a></p>
+                            <p>Not Registered yet ? <a href="javascript:;" v-tap="{methods: signUp }" class="signUp js_jumpSignUp">Sign Up</a></p>
                             <a href="javascript:;" class="importwallet hide">Import Wallet</a>
                         </div>
                     </div>
                 </div>
             </div>
             <!--弹窗-注册-->
-            <div class="pop pop-reg hide js_pop-reg" :class="{'hide':!js_show_reg}">
+            <div class="pop pop-reg js_pop-reg" :class="{'hide':!js_show_reg}">
                 <div class="pop-body">
                     <div class="pop-ani">
                         <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">关闭</a>
+                            <a href="javascript:;" class="btn-close" v-tap="{methods: close_reg }">关闭</a>
                             <h3>Create Your Account</h3>
                             <span class="error js_loginInErr">
                             Please enter the corret email.
@@ -282,7 +282,7 @@
                             <a href="javascript:;" class="forgetpsw js_forgetPsw">Forgot your password?</a>
                         </div>
                         <div class="pop-bottom">
-                            <p>Already Have Account？ <a href="javascript:;" class="js_signUp2SignIn">Sign In</a></p>
+                            <p>Already Have Account？ <a href="javascript:;" v-tap="{methods: signUp }" class="js_signUp2SignIn">Sign In</a></p>
                         </div>
                     </div>
                 </div>
@@ -569,8 +569,22 @@
 		watch: {},
 		methods: {
 			signIn(){
-				console.log(123);
+				this.js_show_login = true ;
+//				$('.js_loginInEmail').val('');
+//				$('.js_loginPasswd').val('');
+//				$js_loginInErr.removeClass('fadeDown');
 			},
+			signUp(){
+				this.js_show_login = false ;
+				this.js_show_reg = true
+			},
+			close_login(){
+				this.js_show_login = false
+            },
+			close_reg(){
+                this.js_show_reg = false
+			},
+
 
 		},
 		computed: {
