@@ -1,7 +1,8 @@
 <template>
     <div class="footer">
         <p>Use of this Website constitutes acceptance of the Coinslot.com
-            <a target="_blank" href="https://www.coinslot.com/coinslot/html/terms.html">Terms of Use</a> and <a target="_blank" href="https://www.coinslot.com/coinslot/html/policy.html">Privacy Policy</a>.</p>
+            <a target="_blank" href="https://www.coinslot.com/coinslot/html/terms.html">Terms of Use</a> and <a
+                target="_blank" href="https://www.coinslot.com/coinslot/html/policy.html">Privacy Policy</a>.</p>
         <p>© Copyright 2018 . All Rights Reserved.</p>
     </div>
 </template>
@@ -21,6 +22,7 @@
 </script>
 <style scoped lang="less">
     @import "../styles/lib-public.less";
+
     .footer {
         position: relative;
         z-index: 5;
