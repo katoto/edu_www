@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Header></Header>
         <div class="main">
             <BreadCrumbs></BreadCrumbs>
             <div id="main-policy" class="main-policy">
@@ -381,8 +382,9 @@
 </template>
 
 <script>
-    import Footer from '~/components/Footer.vue'
+    import Header from '~/components/Header.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
+    import Footer from '~/components/Footer.vue'
 	export default {
 		data(){
 			return {
@@ -393,6 +395,7 @@
 		methods: {},
 		components:{
 			Footer,
+            Header,
             BreadCrumbs
 		},
 		computed: {},

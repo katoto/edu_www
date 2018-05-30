@@ -13,16 +13,13 @@
 </script>
 
 <style lang="less">
-    @import "../styles/lib-reset.css";
-    @import "../styles/lib-public.less";
     @import "../styles/lib-font.less";
+    @import "../styles/lib-public.less";
     #app{
         position: relative;
         min-width: 1190px;
         background: #eef1f9;
-        line-height: 20px;
-        font-family: sans-r;
-        font-size: 14px;
+        font:14px/20px sans-r;
         color: #263648;
     }
 

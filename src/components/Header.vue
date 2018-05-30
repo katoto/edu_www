@@ -3,13 +3,13 @@
         <!-- 跳转暂时是绝对定位 -->
         <div class="head">
             <div class="top">
-                <a href="https://www.coinslot.com/coinslot/html/index.html" title="Coinslot" class="logo">
-                    <!--<h1>Coinslot</h1>-->
-                    <!--                    <?xml version="1.0" encoding="utf-8"?>
-                                        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
-                    <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                 width="450.457px" height="105.836px" xml:space="preserve">
-                <g>
+                <router-link to="/"  title="Coinslot" class="logo">
+
+                <!--<h1>Coinslot</h1>-->
+                <!--                    <?xml version="1.0" encoding="utf-8"?>
+                                    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
+                <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             width="450.457px" height="105.836px" xml:space="preserve">
                     <path fill="#FFFFFF" d="M141.811,76.866c-4.825-5.165-7.237-12.231-7.237-21.193c0-5.485,1.09-10.419,3.269-14.802
                         c2.18-4.383,5.423-7.848,9.733-10.396c4.31-2.545,9.575-3.821,15.795-3.821c2.594,0,4.908,0.209,6.942,0.624
                         c2.03,0.418,4.223,1.115,6.575,2.094v10.212c-4.164-2.007-8.547-3.013-13.15-3.013c-3.429,0-6.44,0.822-9.036,2.462
@@ -48,30 +48,29 @@
                         c1.568,0,3.06-0.195,4.483-0.588v9.697c-2.842,0.637-5.316,0.955-7.421,0.955c-4.212,0-7.308-0.908-9.293-2.718
                         c-1.983-1.812-2.975-4.505-2.975-8.081V53.322h-5.583V43.258h5.583V29.3h11.312v13.958h9.404v10.064L441.054,53.323L441.054,53.323
                         z"/>
-                </g>
-                <path fill="#F4A018" d="M83.063,56.092c1.943-0.693,1.012-3.78-2.069-6.86l-24.22-24.216c-3.081-3.08-6.786-2.239-8.234,1.87
-                    L34.496,66.74c-1.448,4.109,0.728,6.282,4.835,4.83l32.73-11.577C76.169,58.54,81.12,56.785,83.063,56.092z"/>
-                <path fill="#A3A3D0" d="M41.368,5.927c-2.358-3.664-6.835-4.168-9.949-1.122L5.702,29.965c-3.114,3.047-2.375,4.16,1.642,2.475
-                    l32.92-13.813c4.017-1.686,5.375-6.062,3.018-9.726L41.368,5.927z"/>
-                <path fill="#37B168" d="M48.173,0.324c-4.2-1.159-5.707,0.89-3.349,4.554l1.605,2.494c2.358,3.664,7.843,6.424,12.19,6.134
-                    l22.142-1.477c4.347-0.29,4.468-1.476,0.268-2.635L48.173,0.324z"/>
-                <path fill="#D94654" d="M23.78,66.337c2.687,3.43,6.061,2.87,7.497-1.243l13.68-39.16c1.437-4.113-0.675-6.1-4.693-4.416
-                    L8.728,34.736c-4.018,1.684-5.107,5.868-2.42,9.298L23.78,66.337z"/>
-                <path fill="#37B168" d="M61.646,16.526c-4.346,0.301-5.382,3.068-2.301,6.149l23.982,23.979c3.081,3.08,5.852,2.045,6.157-2.301
-                    l0.596-8.485c0.305-4.346,0.766-10.942,1.024-14.659c0.258-3.716-3.087-6.51-7.434-6.209L61.646,16.526z"/>
-                <path fill="#53B76D" d="M96.785,21.72c-1.052-4.228-2.142-4.13-2.424,0.218l-1.587,24.534c-0.281,4.348,2.492,9.825,6.162,12.172
-                    l1.691,1.081c3.671,2.347,5.813,0.808,4.761-3.42L96.785,21.72z"/>
-                <path fill="#5F549A" d="M9.5,62.966"/>
-                <path fill="#A3A3D0" d="M73.551,99.357c-1.86,3.94-0.905,4.599,2.122,1.466l26.124-27.04c3.027-3.133,2.491-7.601-1.192-9.929
-                    l-1.231-0.778c-3.683-2.328-8.218-1.009-10.078,2.93L73.551,99.357z"/>
-                <path fill="#A3A3D0" d="M57.286,95.681c3.406,2.717,7.162,5.7,8.347,6.628s3.663-1.542,5.506-5.489l15.084-32.303
-                    c1.843-3.948-0.005-5.977-4.107-4.511L41.55,74.508c-4.102,1.467-4.673,4.89-1.267,7.607L57.286,95.681z"/>
-                <path fill="#A3A3D0" d="M21.259,87.563c-3.081,3.081-2.171,6.572,2.021,7.759l35.556,10.066c4.192,1.187,4.839-0.07,1.438-2.793
-                    L36.443,83.514c-3.401-2.723-8.704-2.431-11.784,0.65L21.259,87.563z"/>
-                <path fill="#A3A3D0" d="M21.88,82.022c3.082-3.079,3.404-8.405,0.717-11.833L3.172,45.406c-2.688-3.429-3.908-2.807-2.713,1.383
-                    l10.404,36.454c1.196,4.189,4.695,5.098,7.777,2.018L21.88,82.022z"/>
+                    <path fill="#F4A018" d="M83.063,56.092c1.943-0.693,1.012-3.78-2.069-6.86l-24.22-24.216c-3.081-3.08-6.786-2.239-8.234,1.87
+                        L34.496,66.74c-1.448,4.109,0.728,6.282,4.835,4.83l32.73-11.577C76.169,58.54,81.12,56.785,83.063,56.092z"/>
+                    <path fill="#A3A3D0" d="M41.368,5.927c-2.358-3.664-6.835-4.168-9.949-1.122L5.702,29.965c-3.114,3.047-2.375,4.16,1.642,2.475
+                        l32.92-13.813c4.017-1.686,5.375-6.062,3.018-9.726L41.368,5.927z"/>
+                    <path fill="#37B168" d="M48.173,0.324c-4.2-1.159-5.707,0.89-3.349,4.554l1.605,2.494c2.358,3.664,7.843,6.424,12.19,6.134
+                        l22.142-1.477c4.347-0.29,4.468-1.476,0.268-2.635L48.173,0.324z"/>
+                    <path fill="#D94654" d="M23.78,66.337c2.687,3.43,6.061,2.87,7.497-1.243l13.68-39.16c1.437-4.113-0.675-6.1-4.693-4.416
+                        L8.728,34.736c-4.018,1.684-5.107,5.868-2.42,9.298L23.78,66.337z"/>
+                    <path fill="#37B168" d="M61.646,16.526c-4.346,0.301-5.382,3.068-2.301,6.149l23.982,23.979c3.081,3.08,5.852,2.045,6.157-2.301
+                        l0.596-8.485c0.305-4.346,0.766-10.942,1.024-14.659c0.258-3.716-3.087-6.51-7.434-6.209L61.646,16.526z"/>
+                    <path fill="#53B76D" d="M96.785,21.72c-1.052-4.228-2.142-4.13-2.424,0.218l-1.587,24.534c-0.281,4.348,2.492,9.825,6.162,12.172
+                        l1.691,1.081c3.671,2.347,5.813,0.808,4.761-3.42L96.785,21.72z"/>
+                    <path fill="#5F549A" d="M9.5,62.966"/>
+                    <path fill="#A3A3D0" d="M73.551,99.357c-1.86,3.94-0.905,4.599,2.122,1.466l26.124-27.04c3.027-3.133,2.491-7.601-1.192-9.929
+                        l-1.231-0.778c-3.683-2.328-8.218-1.009-10.078,2.93L73.551,99.357z"/>
+                    <path fill="#A3A3D0" d="M57.286,95.681c3.406,2.717,7.162,5.7,8.347,6.628s3.663-1.542,5.506-5.489l15.084-32.303
+                        c1.843-3.948-0.005-5.977-4.107-4.511L41.55,74.508c-4.102,1.467-4.673,4.89-1.267,7.607L57.286,95.681z"/>
+                    <path fill="#A3A3D0" d="M21.259,87.563c-3.081,3.081-2.171,6.572,2.021,7.759l35.556,10.066c4.192,1.187,4.839-0.07,1.438-2.793
+                        L36.443,83.514c-3.401-2.723-8.704-2.431-11.784,0.65L21.259,87.563z"/>
+                    <path fill="#A3A3D0" d="M21.88,82.022c3.082-3.079,3.404-8.405,0.717-11.833L3.172,45.406c-2.688-3.429-3.908-2.807-2.713,1.383
+                        l10.404,36.454c1.196,4.189,4.695,5.098,7.777,2.018L21.88,82.022z"/>
                 </svg>
-                </a>
+                </router-link>
                 <div class="language">
                     <i></i>
                     <span>EN</span>
@@ -583,5 +582,696 @@
 		}
 	}
 </script>
-<style>
+<style scoped lang="less" >
+    @import "../styles/lib-mixins.less";
+    .head{
+        position: relative;
+        width:100%;
+        height:150px;
+        height:90px;
+        background: #5068bc;
+        background: linear-gradient(to right,#4b6584,#655aae,#545f94);
+        color: #fff;
+        .top{
+            position: relative;
+            z-index:4;
+            width:1190px;
+            height:90px;
+            margin:0 auto;
+        }
+        .logo{
+            display: block;
+            float: left;
+            width:230px;
+            height:90px;
+            svg{
+                transform-origin: 0 40px;
+                transform: scale(0.47);
+            }
+        }
+        .language{
+            float: right;
+            cursor: pointer;
+            margin-top:30px;
+            height:30px;
+            line-height:30px;
+            color: #fff;
+            i{
+                display: block;
+                width: 28px;
+                height: 28px;
+                float: left;
+                margin-right:5px;
+                border:2px solid #837bbd;
+                border-radius: 50%;
+                background-image: url(" ../assets/slice/en.png");
+            }
+            span{
+                float: left;
+            }
+        }
+        .impor-wallet{
+            display: block;
+            float: right;
+            margin:26px 47px 0 0;
+            width:198px;
+            height:34px;
+            overflow: hidden;
+            text-align: center;
+            line-height:34px;
+            border: 1px solid #907eef;
+            border-radius: 6px;
+            color: #fff;
+        }
+        .mycount{
+            position: relative;
+            float: right;
+            .transition();
+            .countNum{
+                position: relative;
+                cursor: pointer;
+                display: block;
+                padding-right:25px;
+                line-height:30px;
+                font-size:20px;
+                i{
+                    display: block;
+                    position: absolute;
+                    width:13px;
+                    height:8px;
+                    right:0;
+                    top:11px;
+                    background-image: url(" ../assets/slice/arrow-down-fff.png");
+                    transform-origin: 50%;
+                    .transition();
+                }
+                &:hover{
+                    i{
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+        .nav{
+            position: relative;
+            z-index:3;
+            width:100%;
+            height:60px;
+            line-height:60px;
+            //overflow: hidden;
+            background: #463895;
+            color: #fff;
+            .transition();
+        }
+        .nav.fix{
+            position: fixed;
+            left:0;
+            top:0;
+            z-index:10;
+            background: #3d3086 ;
+        }
+        .nav-main{
+            position: relative;
+            width:1190px;
+            margin:0 auto;
+            .clearfix();
+        }
+        .logo11to5{
+            float: left;
+            font:24px/60px sans-eb;
+            color: #ffffff;
+        }
+        .deadline{
+            position: absolute;
+            left:115px;
+            top:0;
+            width:165px;
+            height:60px;
+            line-height:18px;
+            font-size:14px;
+            overflow: hidden;
+            i{
+                position: absolute;
+                top:0;
+                left:115px;
+                line-height:60px;
+                font-size:36px;
+                font-family: sans-eb;
+                transform-origin: center;
+            }
+            .deadline-box{
+                box-sizing: border-box;
+                position: absolute;
+                left:0;
+                top:0;
+                padding:12px 0;
+                width:100%;
+                height:100%;
+                overflow: hidden;
+            }
+        }
+        //往期
+        .lastdraw{
+            float: right;
+            position: relative;
+            width:300px;
+            height:60px;
+            cursor: pointer;
+            color: #263648;
+            .transition();
+            >span,>p{
+                display: block;
+                position: absolute;
+                width:104px;
+                height:18px;
+                overflow: hidden;
+                line-height:14px;
+                text-align: left;
+                font-size:14px;
+                color: #fff;
+                text-indent: 10px;
+            }
+            >span{
+                font-size:12px;
+                top:30px;
+            }
+            >p{
+                top:13px;
+            }
+            .last-numbox{
+                float: left;
+                height:100%;
+                margin:0 0 0 115px;
+                li{
+                    float: left;
+                    width:28px;
+                    height:28px;
+                    overflow: hidden;
+                    margin-top:16px;
+                    border-radius:50%;
+                    text-align: center;
+                    line-height:28px;
+                    background: #fff;
+                    font-size:16px;
+                    font-weight:bold;
+                }
+                li+li{
+                    margin-left:2px;
+                }
+            }
+            .arrow{
+                display: block;
+                position: absolute;
+                right:10px;
+                top:26px;
+                .transition();
+                background-image: url(" ../assets/slice/arrow-down-fff.png")
+            }
+            &:hover{
+                background: #34287b;
+                .arrow{
+                    transform: rotate(180deg);
+                }
+            }
+            //新增往期
+            .last-select{
+                display: none;
+                position: absolute;
+                left:0;
+                top:60px;
+                width:100%;
+                z-index:9;
+                background: #fff;
+                font-size:14px;
+                color: #778ca3;
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+                overflow: hidden;
+                .box-shadow();
+            }
+            .date-box{
+                >li{
+                    span{
+                        float: left;
+                        width:102px;
+                        text-align: center;
+                    }
+                    height:40px;
+                    line-height:40px;
+                    overflow: hidden;
+                    border-bottom:1px solid #ced6e0;
+                    color: #263648;
+                    &:hover{
+                        background: #eef1f9;
+                        span{
+                            color: #263648;
+                        }
+                        .num-box{
+                            li{
+                                background: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+            .num-box{
+                float: left;
+                margin-left:12px;
+                margin-top:6px;
+                .clearfix();
+                li{
+                    float: left;
+                    width:28px;
+                    height:28px;
+                    overflow: hidden;
+                    border-radius:50%;
+                    background: #eef1f9;
+                    text-align: center;
+                    line-height:28px;
+                    font-weight:bold;
+                    color: #263648;
+                }
+                li+li{
+                    margin:0 0 0 2px;
+                }
+            }
+            .more{
+                display: block;
+                width:100%;
+                height:40px;
+                text-align: center;
+                line-height:40px;
+                font-size:14px;
+                color: #6a89cc;
+                &:hover{
+                    background: #eef1f9;
+                    color: #263648;
+                }
+            }
+        }
+        .login{
+            position: relative;
+            float: right;
+            margin: 30px 47px 0 0;
+            border:none;
+            .to-login,.hadlogin{
+                position: relative;
+                float: right;
+                width:198px;
+                margin-left:50px;
+                text-align: center;
+                overflow: hidden;
+                &:hover{
+                    &::after{
+                        background: #eef1f9;
+                    }
+                }
+            }
+            .hadlogin{
+                &:after{
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    width: 1px;
+                    height: 100%;
+                    overflow: hidden;
+                    background: #907eef
+                }
+            }
+            .btn-rechrage,.btn-cash,.btn-up,.btn-in{
+                display: block;
+                float: left;
+                width:50%;
+                height:30px;
+                overflow: hidden;
+                border:1px solid #907eef;
+                line-height:28px;
+                box-sizing: border-box;
+                color: #fff;
+                .transition();
+                &:hover{
+                    border-color: #eef1f9;
+                }
+            }
+            .btn-rechrage,.btn-up{
+                border-right:none;
+                border-top-left-radius: 6px;
+                border-bottom-left-radius: 6px;
+            }
+            .btn-cash{
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+                border-left:none;
+            }
+            .btn-in{
+                float: right;
+                border-radius: 6px;
+            }
+        }
+        .jump5{
+            animation:fontSize 1s forwards infinite;
+        }
+        .jackpot{
+            float: left;
+            margin-left:22px;
+            font-family:sans-eb;
+            color: #f6b543;
+            *{
+                float: left;
+            }
+            span{
+                font-size:20px;
+            }
+            i{
+                position: relative;
+                padding-left: 26px;
+                font-size:36px;
+                &::before{
+                    content: '';
+                    position: absolute;
+                    left:0;
+                    top:20px;
+                    background-image:url(" ../assets/slice/logo-btc.png")
+                }
+            }
+        }
+    }
+    .mycount-detailed{
+        display: none;
+        position: absolute;
+        z-index:10;
+        right:0;
+        top:36px;
+        width:207px;
+        border-radius:6px;
+        overflow: hidden;
+        background: #fff;
+        text-align: right;
+        -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        .wallet-balance,.wallet-add{
+            padding:0 18px;
+            p{
+                height:26px;
+                line-height:26px;
+                overflow: hidden;
+                font-size:12px;
+                color: #778ca3;
+            }
+        }
+        .wallet-balance{
+            margin:16px 0 25px 0;
+            li{
+                height:26px;
+                line-height:26px;
+                overflow: hidden;
+                font-size:16px;
+                font-weight:bold;
+                color: #263648;
+            }
+            .unit{
+                float: right;
+            }
+            .amount{
+                margin-left: 15px;
+                float: right;
+            }
+            .btn-refresh{
+                display: block;
+                float: right;
+                margin:8px 0 0 10px;
+                background-image: url(" ../assets/slice/icon-refresh.png");
+            }
+        }
+        .wallet-add{
+            margin:14px auto 26px;
+            .items-add{
+                line-height:22px;
+                .clearfix();
+                span{
+                    float: left;
+                    color: #263648;
+                }
+                a{
+                    float: right;
+                    width:120px;
+                    color: #263648;
+                    text-decoration: none;
+                    .transition();
+                    .text-overflow();
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+        .my-transaction,.account-center{
+            display: block;
+            width:153px;
+            height:28px;
+            overflow: hidden;
+            margin:10px auto 0;
+            line-height:28px;
+            text-align: center;
+            border:1px solid #ced6e0;
+            border-radius: 6px;
+        }
+        .log-out{
+            display: block;
+            height:30px;
+            overflow: hidden;
+            margin-top:30px;
+            line-height:30px;
+            text-align: center;
+            border-top:1px solid #ced6e0;
+            &:hover{
+                background: #eef1f9;
+            }
+        }
+    }
+    .account-info{
+        padding: 0 16px;
+        color: #263648;
+        .email{
+            margin-top: 25px;
+            line-height: 26px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .uid{
+            line-height: 26px;
+            font-size: 12px;
+        }
+    }
+
+    .opening{
+        position: absolute;
+        top:0;
+        left: 160px;
+        font-weight:bold;
+        font-size:16px;
+        color: #fff;
+        font-weight:bold;
+    }
+    #cicle{
+        position: absolute;
+        left:50%;
+        top:0;
+        transform: translate(-50%);
+    }
+    .jackpot-box{
+        position: fixed;
+        z-index:11;
+        top:0;
+        left:50%;
+        margin-left:-473.5px;;
+        width: 947px;
+        height: 112px;
+        .text{
+            position: relative;
+            z-index:4;
+            display: flex;
+            justify-content: center;
+            p{
+                height: 72px;
+                padding-top:25px;
+                line-height:76px;
+                font-size:22px;
+            }
+            p.jackpot-add{
+                width:104px;
+                overflow: hidden;
+            }
+            p.jackpot-money{
+                font-size:36px;
+                font-family:sans-eb;
+                line-height:72px;
+                animation: bounceIn 2s 5s infinite;
+            }
+        }
+        .bg{
+            position: absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+        }
+        .bg1{
+            z-index:1;
+            background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
+        }
+        .bg2{
+            z-index:2;
+            background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
+        }
+        .bg3{
+            z-index:3;
+            background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
+        }
+        .bg1,.bg3{
+            opacity:0;
+            animation: bounceIn 1s 1s forwards ;
+        }
+        img{
+            position: absolute;
+            top:-50px;
+        }
+    }
+    @keyframes fontSize {
+        0%{
+            transform: scale(1);
+            opacity:1;
+        }
+        80%{
+            transform: scale(1);
+            opacity: 1;
+        }
+        100%{
+            transform: scale(1.5);
+            opacity: 0;
+        }
+    }
+    @keyframes rubberBand {
+        0% {
+            transform: scaleX(1)
+        }
+        30% {
+            transform: scale3d(1.25,.75,1)
+        }
+
+        40% {
+            transform: scale3d(.75,1.25,1)
+        }
+
+        50% {
+            transform: scale3d(1.15,.85,1)
+        }
+
+        65% {
+            transform: scale3d(.95,1.05,1)
+        }
+
+        75% {
+            transform: scale3d(1.05,.95,1)
+        }
+
+        to {
+            transform: scaleX(1)
+        }
+    }
+    @keyframes bounceIn {
+        0% {
+            transform: scale3d(.6,.6,.6)
+        }
+
+        20% {
+            transform: scale3d(1.1,1.1,1.1)
+        }
+
+        40% {
+            transform: scale3d(.9,.9,.9)
+        }
+
+        60% {
+            transform: scale3d(1.03,1.03,1.03)
+        }
+
+        80% {
+            transform: scale3d(.97,.97,.97)
+        }
+
+        to {
+            transform: scale3d(.3,.3,.3)
+        }
+    }
+    @keyframes freeDown {
+        0%{
+            transform: translateY(-50px) rotate(50deg);
+            opacity:1;
+        }
+        60%{
+            opacity:1;
+        }
+        80%{
+            transform: translateY(200px) rotate(-100deg);
+            opacity:0;
+        }
+        100%{
+            transform: translateY(300px) rotate(-150deg);
+            opacity:0;
+        }
+    }
+    .fresh_move{
+        animation:fresh_move 1s;
+    }
+    @keyframes fresh_move {
+        0%{
+            transform: rotate(0);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+    .deadlineMove{
+        animation: deadlineMove 1.3s;
+    }
+    @keyframes deadlineMove {
+        0%{
+            transform: translateY(0);
+        }
+        35%{
+            opacity:0;
+            transform: translateY(60px);
+        }
+        65%{
+            opacity:0;
+            transform: translateY(-60px);
+        }
+        100%{
+            opacity:1;
+            transform: translateY(0);
+        }
+    }
+    .blinking{
+        animation:blinking 0.7s;
+    }
+    @keyframes blinking {
+        0%{
+            opacity:1;
+        }
+        25%{
+            opacity:0;
+        }
+        50%{
+            opacity:1;
+        }
+        75%{
+            opacity:0;
+        }
+        100%{
+            opacity:1;
+        }
+    }
 </style>
+
