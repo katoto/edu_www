@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
 const cs05_terms = () => import('~/pages/cs05_Page/cs05_terms')
+
+/* 首页 */
+const index = () => import('~/pages/cs05_Page/index')
 
 /* 协议 */
 const cs_protocol_policy = () => import('~/pages/cs_protocol/policy')
@@ -18,8 +20,8 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'HelloWorld',
-			component: HelloWorld
+			name: 'index',
+			component: index
 		},
 		{
 			path: '/terms',

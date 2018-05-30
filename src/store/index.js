@@ -17,6 +17,7 @@ const state = {
         data: null, // websocket 返回来的数据， 用到推送过来的数据的地方 watch一下就好了
         reconnect: 0 // socket 记录重连次数， 起到辅助作用， 比如websocket断开了连接， 重新请求接口， 避免推送丢失引发的问题
     },
+    navFix:false,
 
 }
 const mutations = {
