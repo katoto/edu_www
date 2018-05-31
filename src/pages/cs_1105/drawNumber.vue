@@ -82,7 +82,6 @@
         <Footer></Footer>
     </div>
 </template>
-
 <script>
 	import {mTypes, aTypes} from '~/store/cs_1105/index'
 	import { src, platform , tipsTime ,ethUrl} from '~common/util'
@@ -104,7 +103,6 @@
 		watch: {},
 		methods: {
 			async handleCurrentChange (val) {
-
 				if( val !== undefined ){
 					let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
 						'pageNumber': Number( val ),
@@ -115,9 +113,7 @@
 						this.PageTotal =  Number( drawData.count )  ;
 					}
 				}
-
 			},
-
             /*
              *  格式化时间  allbet time
              * */
@@ -226,11 +222,10 @@
                 this.drawNumList = this.format_drawNum( drawData.expect_history );
                 this.PageTotal =  Number( drawData.count )  ;
             }
-
 		}
 	}
 </script>
-<style lang="less" scoped>
+<style lang="less" scoped rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     .main{
         position: relative;

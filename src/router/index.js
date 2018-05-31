@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-
 /* cs_1105 */
 const cs_drawNum = () => import('~/pages/cs_1105/drawNumber')
 /* 首页 */
