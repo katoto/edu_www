@@ -13,13 +13,19 @@
                         style="width: 100%">
                     <el-table-column
                             prop="opentime"
+                            align="center"
+                            header-align="center"
                             label="Draw Time">
                     </el-table-column>
                     <el-table-column
+                            align="center"
+                            header-align="center"
                             prop="expectid"
                             label="No.">
                     </el-table-column>
                     <el-table-column
+                            align="center"
+                            header-align="center"
                             label="Draw Number">
                         <template slot-scope="scope">
                             <ul class="num-box" v-if="scope.row.opencode !== '-1'">
@@ -29,10 +35,14 @@
                         </template>
                     </el-table-column>
                     <el-table-column
+                            align="center"
+                            header-align="center"
                             prop="sumbonus"
                             label="Cumulative Bouns">
                     </el-table-column>
                     <el-table-column
+                            align="center"
+                            header-align="center"
                         label="Block">
                     <template slot-scope="scope">
                         <span v-if="scope.row.blocknum == '0'">-</span>
@@ -50,6 +60,9 @@
                     <el-table-column
                             label=""
                             width="120">
+                        <template slot-scope="scope">
+                            <a href="javascript:;" v-if="scope.row.newdownStr === '1'" data-dataexpectid="scope.row.expectid" class="icon-down js_icon-down" ></a>
+                        </template>
                     </el-table-column>
                 </el-table>
                 <div class="pagination">
@@ -91,45 +104,18 @@
 		watch: {},
 		methods: {
 			async handleCurrentChange (val) {
-//				let withDrawMsg = null;
-//				this.currPageNumber = Number(val);
-//
-//				withDrawMsg = await this.$store.dispatch(aTypes.getGoodsList, {
-//					'pageNumber': Number(val),
-//					'pageSize': this.pageSize
-//				});
-//
-//				if (withDrawMsg) {
-//					this.pageCounts = Number(withDrawMsg.pages);
-//					if (withDrawMsg.goods) {
-//						withDrawMsg.goods.forEach((val, index) => {
-//							val.index = Number(index) + 1;
-//							if (val.state !== undefined) {
-//								switch (val.state) {
-//									case '0':
-//										val.stateVal = '新商品（未上线）';
-//										break;
-//									case '1':
-//										val.stateVal = '可投';
-//										break;
-//									case '2':
-//										val.stateVal = '暂停';
-//										break;
-//									case '3':
-//										val.stateVal = '截止等待开奖';
-//										break;
-//									case '4':
-//										val.stateVal = '已派奖';
-//										break;
-//									case '5':
-//										val.stateVal = '取消';
-//										break;
-//								}
-//							}
-//						});
-//						this.goodsList = withDrawMsg.goods
-//					}
-//				}
+
+				if( val !== undefined ){
+					let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
+						'pageNumber': Number( val ),
+						'pageSize': this.pageSize
+					});
+					if( drawData ){
+						this.drawNumList = this.format_drawNum( drawData.expect_history );
+						this.PageTotal =  Number( drawData.count )  ;
+					}
+				}
+
 			},
 
             /*
@@ -189,9 +175,19 @@
 			                val.blockhash = '';
 		                }
 
-		                if( val.blocknum != '0' ){
-		                	val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
-                        }
+		                if( val.txhash === '' ){
+			                val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
+		                }else{
+			                val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
+		                }
+
+		                if (!val.expectid || !val.merkel_hash) {
+			                val.newdownStr = '-1'
+		                } else {
+			                val.newdownStr = '1'
+//			                newdownStr = '<a href="javascript:;" data-dataexpectid="' + data.data.expect_history[j].expectid + '" class="icon-down js_icon-down"></a>'
+		                }
+
 
 //		                var newLastStr = '';
 //		                if (val.blocknum === '0') {
@@ -231,11 +227,10 @@
                 this.PageTotal =  Number( drawData.count )  ;
             }
 
-
 		}
 	}
 </script>
-<style scoped lang="less">
+<style lang="less" scoped>
     @import "../../styles/lib-mixins.less";
     .main{
         position: relative;
@@ -259,7 +254,7 @@
             text-transform: capitalize;
         }
     }
-    //开奖明细弹窗
+    /*//开奖明细弹窗*/
     .pop-reward{
         .pop-main{
             padding-bottom:30px;

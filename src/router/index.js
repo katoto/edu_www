@@ -16,8 +16,6 @@ const cs_protocol_terms = () => import('~/pages/cs_protocol/terms')
 /*个人中心*/
 const account = () => import('~/pages/cs_1105/account')
 
-
-
 // 404
 const page_404 = () => import ('~/pages/404.vue')
 
