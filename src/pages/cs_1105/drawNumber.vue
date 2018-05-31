@@ -3,7 +3,8 @@
         <Header></Header>
         <div class="main">
             <BreadCrumbs></BreadCrumbs>
-            <div>
+            <div class="main-reward">
+                <h1>Draw number</h1>
                 <el-table
                         :data="drawNumList"
                         stripe
@@ -42,7 +43,7 @@
                             label=""
                             width="120">
                         <template slot-scope="scope">
-                            <a href="javascript:;" v-if="scope.row.blocknum != '0'" data-dataNum="scope.row.index" class="icon-reward js_reward_show" >123</a>
+                            <a href="javascript:;" v-if="scope.row.blocknum != '0'" data-dataNum="scope.row.index" class="icon-reward js_reward_show" ></a>
                         </template>
                     </el-table-column>
                     <!-- 缺一个下载 -->
@@ -51,7 +52,7 @@
                             width="120">
                     </el-table-column>
                 </el-table>
-                <div class="block">
+                <div class="pagination">
                     <el-pagination
                             @current-change="handleCurrentChange"
                             background
@@ -63,7 +64,6 @@
                     >
                     </el-pagination>
                 </div>
-
             </div>
         </div>
         <Footer></Footer>
@@ -82,7 +82,6 @@
 		data(){
 			return {
 				ethUrl:null,
-
 				pageNumber:1,
 				pageSize: 10,
 				PageTotal:1,
@@ -236,9 +235,212 @@
 		}
 	}
 </script>
-<style>
-    .el-pagination {
-        text-align: center;
-        margin-top: 10px;
+<style scoped lang="less">
+    @import "../../styles/lib-mixins.less";
+    .main{
+        position: relative;
+        width:1190px;
+        margin: 0 auto;
+        .clearfix();
     }
+    .main-reward{
+        position: relative;
+        padding:0 50px 1px;
+        background: #fff;
+        .rounded();
+        h1{
+            height:80px;
+            line-height:80px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border-bottom:1px solid #f2f2f2;
+            font-size:26px;
+            text-transform: capitalize;
+        }
+    }
+    //开奖明细弹窗
+    .pop-reward{
+        .pop-main{
+            padding-bottom:30px;
+        }
+        p{
+            line-height:12px;
+            font-size:12px;
+            color: #778ca3;
+        }
+        .view-header{
+            margin-top:26px;
+            overflow: hidden;
+            .fl{
+                max-width:67%;
+                overflow: hidden;
+                text-align: left;
+            }
+            .fr{
+                max-width:32%;
+                overflow: hidden;
+                text-align: right;
+            }
+        }
+        .random-block{
+            position: relative;
+            width:100%;
+            display: block;
+            line-height:33px;
+            font-size:26px;
+            font-weight:bold;
+            .text-overflow();
+            &:hover{
+                &::before{
+                    color: #263648;
+                }
+            }
+            &::before{
+                .transition();
+                content: '#';
+                color: #6a89cc;
+            }
+        }
+        .nper{
+            width:100%;
+            display: block;
+            line-height:33px;
+            .text-overflow();
+        }
+        .view-hash{
+            margin-top:32px;
+        }
+        .view-process{
+            margin-top:10px;
+        }
+        .view-hash,.view-process,.node{
+            text-align: justify;
+            word-break: break-all;
+            span{
+                display: block;
+                margin-top:6px;
+                line-height:24px;
+            }
+        }
+        .node{
+            margin-top: 20px;
+            p{
+                line-height: 16px;
+            }
+        }
+    }
+    //开奖列表table
+    table{
+        .icon-reward{
+            display: block;
+            margin:0 auto;
+            background-image: url("../../assets/slice/btn-reward.png");
+            width: 15px;
+            height: 19px;
+        }
+        .icon-down{
+            display: block;
+            margin:0 auto;
+            background-image: url("../../assets/slice/icon-down.png");
+            transition: none;
+        }
+        th{
+            width:14.285%;
+        }
+        tbody{
+            tr{
+                &:hover{
+                    .icon-reward{
+                        background-image: url("../../assets/slice/btn-reward2.png");
+                    }
+                    .icon-down{
+                        background-image: url("../../assets/slice/icon-down2.png");
+                    }
+                }
+            }
+        }
+        .num-box li{
+            font-weight:bold;
+            color: #263648;
+        }
+    }
+    .days30{
+        right:50px;
+        bottom:34px;
+    }
+    #p2{
+        display: none;
+    }
+    .pagination{
+        display: table;
+        padding: 0;
+        margin: 20px auto 30px;
+        height: 30px;
+        line-height: 30px;
+        overflow: hidden;
+        font-size: 14px;
+        color: #778ca3;
+        text-align: center;
+        li{
+            display: inline-block;
+            margin-left: 5px;
+            height: 28px;
+            line-height: 28px;
+            box-sizing: content-box;
+            outline: none;
+            border: 1px solid #d5d5d5;
+            color: #778ca3 !important;
+            a{
+                display: block;
+                padding: 0 12px;
+                color: #778ca3;
+            }
+        }
+        li.active{
+            border: none;
+            background: none;
+            color: #263648 !important;
+            a{
+                cursor: default;
+            }
+            &:hover{
+                color: #666 !important;
+                border: none;
+                background: transparent;
+                box-shadow: none;
+            }
+        }
+        li:hover{
+            color: #666 !important;
+            border: 1px solid #d5d5d5;
+            background: #f2f2f2;
+            box-shadow: none;
+        }
+        .prev{
+            position: relative;
+            padding-left:8px;
+            &::before{
+                content: '';
+                display: block;
+                position: absolute;
+                left:10px;
+                top:10px;
+                background: url("../../assets/slice/arrow-left-778ca3.png");
+            }
+        }
+        .next{
+            position: relative;
+            padding-right:8px;
+            &::before{
+                content: '';
+                display: block;
+                position: absolute;
+                top:10px;
+                right:10px;
+                background: url("../../assets/slice/arrow-right-778ca3.png");
+            }
+        }
+    }
+
 </style>
