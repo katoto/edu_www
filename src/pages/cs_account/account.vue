@@ -1,0 +1,95 @@
+<template>
+    <div class="account">
+        <Header></Header>
+        <div class="main">
+            <BreadCrumbs></BreadCrumbs>
+            <!--侧边栏-->
+            <div class="slide-bar">
+                <ul class="account_Tab">
+                    <li v-for="item in lists">
+                        <!-- <router-link to={{item.msg}}> -->
+                            {{item.msg}}
+                        <!-- </router-link> -->
+                    </li>
+                </ul>
+            </div>
+            <!-- 主体内容 -->
+            <div class="my-info">
+                <router-view></router-view>
+            </div>
+        </div>
+        <Footer></Footer>
+    </div>
+</template>
+
+<script>
+    import Header from '~components/Header.vue'
+    import Footer from '~components/Footer.vue'
+    import BreadCrumbs from '~/components/BreadCrumbs.vue'
+
+    export default {
+        data(){
+            return {
+                lists:[
+                    {msg:'General'},
+                    {msg:'My Bets'},
+                    {msg:'My Transactions'},
+                    {msg:'Deposit'},
+                    {msg:'Withdraw'},
+                ]
+            }
+        },
+        watch: {
+
+        },
+        methods: {
+
+        },
+        components: {
+            Footer,
+            Header,
+            BreadCrumbs
+        },
+        mounted(){
+        },
+        destroyed(){
+        }
+    }
+</script>
+<style scoped lang="less">
+    @import "../../styles/lib-mixins.less";
+    .main{
+        position: relative;
+        width: 1190px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .slide-bar{
+        float: left;
+        width: 170px;
+        padding:14px 0 10px 20px;
+        border-radius: 6px;
+        background: #fff;
+        li{
+            height:50px;
+            line-height:50px;
+        }
+        .on{
+            a{
+                color: #263648;
+                &::after{
+                    display: none;
+                }
+            }
+        }
+    }
+    .my-info{
+        float: right;
+        width:920px;
+        padding:24px 30px 0 40px;
+        background: #fff;
+        border-radius:6px;
+        font-size:20px;
+        color: #263648;
+    }
+</style>
