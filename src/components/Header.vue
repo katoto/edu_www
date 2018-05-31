@@ -538,7 +538,7 @@
 		}
 	}
 </script>
-<style scoped lang="less" >
+<style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
     .head{
         position: relative;

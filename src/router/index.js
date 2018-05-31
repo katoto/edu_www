@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-
 /* cs_1105 */
 const cs_drawNum = () => import('~/pages/cs_1105/drawNumber')
 /* 首页 */
@@ -20,8 +19,6 @@ const Deposit = () => import("~/pages/cs_account/Deposit")
 const MyBets = () => import("~/pages/cs_account/MyBets")
 const MyTransactions = () => import("~/pages/cs_account/MyTransactions")
 const Withdraw = () => import("~/pages/cs_account/Withdraw")
-
-
 
 // 404
 const page_404 = () => import ('~/pages/404.vue')
