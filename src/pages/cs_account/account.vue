@@ -6,10 +6,10 @@
             <!--侧边栏-->
             <div class="slide-bar">
                 <ul class="account_Tab">
-                    <li v-for="item in lists">
-                        <!-- <router-link to={{item.msg}}> -->
+                    <li v-for="item in lists" active-class="on">
+                        <router-link :to=item.link>
                             {{item.msg}}
-                        <!-- </router-link> -->
+                        </router-link>
                     </li>
                 </ul>
             </div>
@@ -31,11 +31,11 @@
         data(){
             return {
                 lists:[
-                    {msg:'General'},
-                    {msg:'My Bets'},
-                    {msg:'My Transactions'},
-                    {msg:'Deposit'},
-                    {msg:'Withdraw'},
+                    {msg:'General',link:'/account/general'},
+                    {msg:'My Bets',link:'/account/myBets'},
+                    {msg:'My Transactions',link:'/account/myTransactions'},
+                    {msg:'Deposit',link:'/account/deposit'},
+                    {msg:'Withdraw',link:'/account/withdraw'},
                 ]
             }
         },
