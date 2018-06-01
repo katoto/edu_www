@@ -6,11 +6,11 @@
             <!--侧边栏-->
             <div class="slide-bar">
                 <ul class="account_Tab">
-                    <li v-for="item in lists" active-class="on">
-                        <router-link :to=item.link>
-                            {{item.msg}}
-                        </router-link>
-                    </li>
+                    <router-link :to=item.link tag="li" v-for="item in lists">
+                        <a href="javascript:;">
+                         {{item.msg}}
+                        </a>
+                    </router-link>
                 </ul>
             </div>
             <!-- 主体内容 -->
