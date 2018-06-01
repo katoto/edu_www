@@ -47,9 +47,9 @@
 
 <script>
     export default {
-        data(){
+        data () {
             return {
-                tes:false
+                tes: false
             }
         },
         watch: {},
@@ -57,11 +57,11 @@
 
         },
         computed: {
-            navFix() {
-                return this.$store.state.cs1105.navFix
+            navFix () {
+                return this.$store.state.cs_1105.navFix
             }
         },
-        mounted(){
+        mounted () {
 
         }
     }

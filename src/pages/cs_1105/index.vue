@@ -11,24 +11,24 @@
     import HeaderNav from '~components/HeaderNav.vue'
     import Footer from '~components/Footer.vue'
 
-    import {mTypes ,aTypes } from '~/store/cs_1105/index'
+    import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
 
     export default {
-        data(){
+        data () {
             return {
-                scroll:''
+                scroll: ''
             }
         },
         watch: {
 
         },
         methods: {
-            fixNav() {
-                this.scroll = document.documentElement.scrollTop || document.body.scrollTop;
-                if(this.scroll >= 90){
-                	this.$store.commit(mTypes.setNavFix,true)
-                }else{
-	                this.$store.commit(mTypes.setNavFix,false)
+            fixNav () {
+                this.scroll = document.documentElement.scrollTop || document.body.scrollTop
+            if (this.scroll >= 90) {
+                	this.$store.commit(mTypes.setNavFix, true)
+                } else {
+	                this.$store.commit(mTypes.setNavFix, false)
                 }
             }
         },
@@ -36,13 +36,13 @@
         components: {
             Footer,
             Header,
-            HeaderNav,
+            HeaderNav
         },
-        mounted(){
-            window.addEventListener('scroll',this.fixNav)
+        mounted () {
+            window.addEventListener('scroll', this.fixNav)
         },
-        destroyed(){
-            window.removeEventListener('scroll',this.fixNav)
+        destroyed () {
+            window.removeEventListener('scroll', this.fixNav)
         }
     }
 </script>

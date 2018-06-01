@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node build/build.js",
     "prod": "cross-env NODE_ENV=preRelease node build/build.js",
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
     "dev47": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.50.47",
     "dev19": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.50.19",
     "lint-fix": "eslint --ext .js,.vue src --fix",

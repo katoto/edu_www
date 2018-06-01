@@ -3,43 +3,43 @@
  */
 
 import ajax from '~common/ajax'
-import { src, mapMutations, mapActions,platform , tipsTime} from '~common/util'
+import { src, mapMutations, mapActions, platform, tipsTime } from '~common/util'
 
-import {Message} from 'element-ui'
+import { Message } from 'element-ui'
 
 const state = {
-	navFix:false,
+    navFix: false
 }
 
 const mutationsInfo = mapMutations({
     setWithDrawList (state, data) {
         state.withdrawList = data
     },
-	setNavFix(state,data){
-		state.navFix = data
-	}
-}, 'cs1105')
+    setNavFix (state, data) {
+        state.navFix = data
+    }
+}, 'cs_1105')
 
 const actionsInfo = mapActions({
     /* Draw Number 列表接口数据 */
-    async getDrawNumList ({commit, dispatch}, pageData) {
+    async getDrawNumList ({ commit, dispatch }, pageData) {
         try {
-            let InfoData = null;
+            let InfoData = null
             if (pageData) {
                 InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&rangeno=
                 ${pageData.pageSize}&src=${src}&platform=${platform}`)
             } else {
                 InfoData = await ajax.get(`/expect/hisopencode`)
             }
-            if( InfoData.status == '100'){
-            	return InfoData.data
-            }else{
-	            Message({
-		            message: InfoData.message,
-		            type: 'error',
-		            duration: tipsTime
-	            })
-	            return false
+            if (InfoData.status === '100') {
+                return InfoData.data
+            } else {
+                Message({
+                    message: InfoData.message,
+                    type: 'error',
+                    duration: tipsTime
+                })
+                return false
             }
         } catch (e) {
             Message({
@@ -47,13 +47,12 @@ const actionsInfo = mapActions({
                 type: 'error',
                 duration: tipsTime
             })
-
         }
-    },
-}, 'cs1105')
+    }
+}, 'cs_1105')
 
 export const mTypes = mutationsInfo.mTypes
 const mutations = mutationsInfo.mutations
 export const aTypes = actionsInfo.aTypes
 const actions = actionsInfo.actions
-export default {state, mutations, actions}
+export default { state, mutations, actions }
