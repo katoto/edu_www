@@ -27,42 +27,6 @@ export default new Router({
     mode: "hash",
     routes: [
         {
-            path: "/",
-            name: "index",
-            component: index
-        },
-        {
-            path: "/account",
-            component: account,
-            children: [
-                {
-					path: "/account/general",
-                    name: "General",
-                    component: General,
-                },
-                {
-					path: "/account/deposit",
-                    name: "Deposit",
-                    component: Deposit
-                },
-                {
-                    path: "/myBets",
-                    name: "MyBets",
-                    component: MyBets
-                },
-                {
-                    path: "/myTransactions",
-                    name: "MyTransactions",
-                    component: MyTransactions
-                },
-                {
-                    path: "/withdraw",
-                    name: "Withdraw",
-                    component: Withdraw
-                }
-            ]
-        },
-        {
             path: "/terms",
             name: "terms",
             component: cs_protocol_terms
@@ -81,6 +45,42 @@ export default new Router({
             path: "/404",
             component: page_404,
             hidden: true
+        },
+        {
+            path: "/account",
+            component: account,
+            children: [
+                {
+                    path: "/deposit",
+                    name: "Deposit",
+                    component: Deposit
+                },
+                {
+                    path: "/myBets",
+                    name: "MyBets",
+                    component: MyBets
+                },
+                {
+					path: "/myTransactions",
+                    name: "MyTransactions",
+                    component: MyTransactions
+                },
+                {
+                    path: "/withdraw",
+                    name: "Withdraw",
+                    component: Withdraw
+                },
+                {
+                    path: "/*",
+                    name: "General",
+                    component: General
+                }
+            ]
+        },
+        {
+            path: "/*",
+            name: "index",
+            component: index
         }
     ]
 });

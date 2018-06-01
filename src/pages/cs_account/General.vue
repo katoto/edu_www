@@ -1,10 +1,10 @@
-<template>
+w<template>
     <div class="information">
         <a href="javascript:;" class="btn-logout js_log-out">
             Sign Out
         </a>
         <span class="small-explain ">Account</span>
-        <p class="my-account "><span class="js_currEmail">38048298</span>
+        <p class="my-account "><span class="js_currEmail">380482989@qq.com</span>
             <span class="js_unverifyBox">
                 <a href="javascript:;" class="js_toVerify">go to verified</a>
             </span>
