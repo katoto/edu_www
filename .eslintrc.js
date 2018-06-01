@@ -6,7 +6,7 @@ module.exports = {
 		node: true,
 		es6: true,
 	},
-	extends: 'eslint:recommended',
+	extends: 'standard',
 	// required to lint *.vue files
 	plugins: [
 		'html'
@@ -15,7 +15,7 @@ module.exports = {
 	//it is base on https://github.com/vuejs/eslint-config-vue
 	rules: {
 		"indent": [0, 4],//缩进风格
-		'semi': [0],
+		'semi': ['error','never'],
 		'semi-spacing': [0, {
 			'before': false,
 			'after': false
