@@ -8,7 +8,7 @@
                 <ul class="account_Tab">
                     <router-link :to=item.link tag="li" v-for="item in lists" :key="item.msg">
                         <a href="javascript:;">
-                         {{item.msg}}
+                            {{item.msg}}
                         </a>
                     </router-link>
                 </ul>
@@ -35,15 +35,18 @@
                     {msg:'My Bets',link:'/account/myBets'},
                     {msg:'My Transactions',link:'/account/myTransactions'},
                     {msg:'Deposit',link:'/account/deposit'},
-                    {msg:'Withdraw',link:'/account/withdraw'},
+                    {msg:'Withdraw',link:'/account/withdraw'}
                 ]
             }
         },
         watch: {
-
+        },
+	    computed: {
+            isLog(){
+            	return this.$store.state.isLog
+            }
         },
         methods: {
-
         },
         components: {
             Footer,
@@ -51,12 +54,13 @@
             BreadCrumbs
         },
         mounted(){
+
         },
         destroyed(){
         }
     }
 </script>
-<style scoped lang="less">
+<style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     .main{
         position: relative;

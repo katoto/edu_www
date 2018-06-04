@@ -54,7 +54,7 @@
                             width="120">
                         <template slot-scope="scope">
                             <a href="javascript:;" v-if="scope.row.blocknum != '0'" @click="showBlockMsg(scope.row)"
-                               data-dataNum="scope.row.index" class="icon-reward js_reward_show"></a>
+                               class="icon-reward js_reward_show"></a>
                         </template>
                     </el-table-column>
                     <!--todo 缺一个下载 -->

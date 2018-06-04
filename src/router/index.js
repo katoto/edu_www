@@ -78,8 +78,8 @@ export default new Router({
                 },
                 {
                     path: "/",
-                    name: "General",
-                    component: General
+	                name: "General",
+	                redirect: '/account/General'
                 }
             ]
         },

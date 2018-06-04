@@ -18,41 +18,18 @@ const mutationsInfo = mapMutations({
 	setNavFix (state, data) {
 		state.navFix = data
 	}
-}, 'cs_1105')
+}, 'cs_account')
 
 const actionsInfo = mapActions({
-	/* Draw Number 列表接口数据 */
-	async getDrawNumList ({commit, dispatch}, pageData) {
+	/* my bet 投注接口 */
+	async getOrderList ({commit, dispatch}, msg) {
 		try {
 			let InfoData = null;
-			if (pageData) {
-				InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&rangeno=${pageData.pageSize}&src=${src}&platform=${platform}`)
+			if (msg) {
+				InfoData = await ajax.get(`/order/list?pageno=${msg.pageno}&pagesize=${msg.pagesize}&day=30&lotid=1&ck=${getCK()}&platform=${platform}&src=${src}`)
 			} else {
-				InfoData = await ajax.get(`/expect/hisopencode`)
+				InfoData = await ajax.get(`/order/list?day=30&lotid=1&ck=${getCK()}&platform=${platform}&src=${src}`)
 			}
-			if (InfoData.status === '100') {
-				return InfoData.data
-			} else {
-				Message({
-					message: InfoData.message,
-					type: 'error',
-					duration: tipsTime
-				})
-				return false
-			}
-		} catch (e) {
-			Message({
-				message: e.message,
-				type: 'error',
-				duration: tipsTime
-			})
-		}
-	},
-
-	/* user info */
-	async getUserInfo ({commit, dispatch}) {
-		try {
-			let InfoData = await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`)
 			if (InfoData.status === '100') {
 				return InfoData.data
 			} else {
@@ -72,7 +49,7 @@ const actionsInfo = mapActions({
 		}
 	}
 
-}, 'cs_1105')
+}, 'cs_account')
 
 export const mTypes = mutationsInfo.mTypes
 const mutations = mutationsInfo.mutations
