@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-      <!-- 公用的弹窗 fail success-->
-      <div id="toast" class="" style=""></div>
-      <router-view/>
+    <!-- 公用的弹窗 fail success-->
+    <div id="toast" class="" style=""></div>
+    <router-view/>
   </div>
 </template>
 
 <script>
     export default {
-      name: 'App',
+        name: 'App'
     }
 </script>
 

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Glocal from './global'
+import Global from './global'
 
 Vue.use(Vuex)
-const modules = {}
+let modules = {}
 
 const csPageModules = require.context('~store/cs_page', true, /\.js$/)
 
@@ -12,10 +12,8 @@ csPageModules.keys().forEach(function (modulesPath) {
     modules[modulesName] = csPageModules(modulesPath).default
 })
 
-console.log(modules)
-
 export default () => new Vuex.Store({
-    ...Glocal,
+    ...Global,
     modules: {
         ...modules
     }
