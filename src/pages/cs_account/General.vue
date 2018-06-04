@@ -1,4 +1,4 @@
-w<template>
+<template>
     <div class="information">
         <a href="javascript:;" class="btn-logout js_log-out">
             Sign Out
