@@ -25,12 +25,12 @@
         methods: {
             fixNav () {
                 this.scroll = document.documentElement.scrollTop || document.body.scrollTop
-            if (this.scroll >= 90) {
-                	this.$store.commit(mTypes.setNavFix, true)
-                } else {
-	                this.$store.commit(mTypes.setNavFix, false)
+                if (this.scroll >= 90) {
+                        this.$store.commit(mTypes.setNavFix, true)
+                    } else {
+                        this.$store.commit(mTypes.setNavFix, false)
+                    }
                 }
-            }
         },
 
         components: {
