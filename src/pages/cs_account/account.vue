@@ -6,7 +6,7 @@
             <!--侧边栏-->
             <div class="slide-bar">
                 <ul class="account_Tab">
-                    <router-link :to=item.link tag="li" v-for="item in lists" :key="item.msg">
+                    <router-link :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
                             {{item.msg}}
                         </a>
@@ -28,7 +28,7 @@
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
 
     export default {
-        data(){
+        data () {
             return {
                 lists:[
                     {msg:'General',link:'/account/general'},
@@ -36,6 +36,7 @@
                     {msg:'My Transactions',link:'/account/myTransactions'},
                     {msg:'Deposit',link:'/account/deposit'},
                     {msg:'Withdraw',link:'/account/withdraw'}
+
                 ]
             }
         },
@@ -56,7 +57,7 @@
         mounted(){
 
         },
-        destroyed(){
+        destroyed () {
         }
     }
 </script>

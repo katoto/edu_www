@@ -10,7 +10,6 @@
 	import {src, platform, isLog, getCK, setCK } from '~common/util'
 	// todo 暂时到时候改到global
 	import {aTypes} from '~/store/cs_page/cs_1105'
-
 	export default {
 		data () {
 			return {

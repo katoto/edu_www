@@ -76,7 +76,7 @@
                 <div class="login">
                     <!-- 未登录 -->
                     <div class="to-login js_isLogOut">
-                        <a href="javascript:;" class="btn-in" @click="showpop">
+                        <a href="javascript:;" class="btn-in" @click="onLoginIn">
                             Sign In&nbsp;/&nbsp;Up
                         </a>
                     </div>
@@ -167,306 +167,10 @@
             </div>
         </div>
         <div>
-            <!--  弹窗-登录  -->
-            <div class="pop pop-login js_pop-login" :class="{hide:js_show_pop}">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close"  @click="closepop">关闭</a>
-                            <h3 class="font26">Sign In</h3>
-                            <!--fadeDown-->
-                            <span class="error js_loginInErr"></span>
-                            <!--  登陆loading  -->
-                            <div class="loading"></div>
-                            <form>
-                                <input class="js_loginInEmail" type="text" name="email" placeholder="Email" v-model="signEmail">
-                                <input class="js_loginPasswd" type="password"  placeholder="Password" v-model="signPsw">
-                                <div class="sure-old">
-                                    <input type="checkbox" checked="checked" class="js_isAgreeAge" name="is18">
-                                    <p>
-                                        I'm 18+ years old and agree with <a href="terms.html" target="_blank">Terms of
-                                        use</a>
-                                        and <a href="policy.html" target="_blank">Privacy policy</a>
-                                    </p>
-                                </div>
-                                <!--no-->
-                                <input type="submit" value="Sign In" id="js_signIn" class="no js_signSubmit" @click.prevent="">
-                                <input type="button" value="Sign In" class="no hide">
-                            </form>
-                            <a href="javascript:;" class="forgetpsw js_forgetPsw">Forgot your password?</a>
-                        </div>
-                        <div class="pop-bottom">
-                            <p>Not Registered yet ? <a href="javascript:;" class="signUp" @click="test">Sign Up</a></p>
-                            <a href="javascript:;" class="importwallet hide">Import Wallet</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--弹窗-注册-->
-            <div class="pop pop-reg js_pop-reg hide">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">关闭</a>
-                            <h3>Create Your Account</h3>
-                            <span class="error js_loginInErr">
-                            Please enter the corret email.
-                    </span>
-                            <div class="loading"></div>
-                            <form action="" method="post">
-                                <input type="text" class="js_loginInEmail" name="email" placeholder="Email">
-                                <input type="password" class="js_loginPasswd" placeholder="New Password">
-                                <input type="password" class="js_again_loginPasswd" placeholder="Confirm Password">
-                                <div class="sure-old">
-                                    <!--  $('.js_isAgreeAge').is(':checked')  -->
-                                    <input type="checkbox" class="js_isAgreeAge" name="is18">
-                                    <p>
-                                        I'm 18+ years old and agree with <a href="terms.html" target="_blank">Terms of
-                                        use</a>
-                                        and <a href="policy.html" target="_blank">Privacy policy</a>
-                                    </p>
-                                </div>
-                                <!--no-->
-                                <input type="submit" value="Sign Up" id="js_signUp" class="js_signSubmit no">
-                                <input type="button" value="Sign Up" class="no hide">
-                            </form>
-                            <a href="javascript:;" class="forgetpsw js_forgetPsw">Forgot your password?</a>
-                        </div>
-                        <div class="pop-bottom">
-                            <p>Already Have Account？ <a href="javascript:;" class="js_signUp2SignIn">Sign In</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--弹窗-邮箱验证-->
-            <div class="pop pop-verify-email hide js_pop-verify-email">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">关闭</a>
-                            <h3>Email Verification</h3>
-                            <div class="icon-email"></div>
-                            <p class="email-account js_email-account">
-                            </p>
-                            <p class="verify-tips">
-                                Verification email has been sent, please sign in your mailbox and click the link to
-                                reset your
-                                password .
-                            </p>
-                            <form action="" method="post">
-                                <input class="hide" type="text" name="captcha" placeholder="Please input the captcha">
-                                <!--  no  -->
-                                <input type="submit" value="Resent Email" id="js_resentEmail" class="">
-                                <p class="js_verifyEmail_backTime_parent" style="visibility: hidden">Left：<span
-                                        class="js_verifyEmail_backTime">60</span>seconds
-                                </p>
-                            </form>
-                            <div class="forgetpsw"></div>
-                        </div>
-                        <div class="pop-bottom">
-                            <p class="js_isLogOut">Already Have Account？
-                                <a href="javascript:;" class="js_signUp2SignIn">Sign In</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--  找回密码  -->
-            <div class="pop pop-reset-psw js_reset-psw hide">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">关闭</a>
-                            <h3>Reset Your Password</h3>
-                            <span class="error js_loginInErr">
-                          New password must be 6-15 chars and include number and letter
-                    </span>
-                            <form action="" method="post" class="form-first js_resetPswFirst">
-                                <input type="text" name="reset-email" class="js_resetPswFirstInp" placeholder="Email">
-                                <!--no-->
-                                <input type="submit" value="Next" class="no js_resetPswFirstBtn">
-                            </form>
-                            <form action="" method="post" class="hide form-second js_resetPswSecond">
-                                <input type="password" class="js_reset-pass" name="reset-pasw1"
-                                       placeholder="New Password">
-                                <input type="password" class="js_reset-pass2" name="reset-pasw2"
-                                       placeholder="Confirm Password">
-                                <!--no-->
-                                <input type="submit" value="reset password" class="js_reset-submit no">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--弹窗-  verification   -->
-            <div class="pop pop-verify-email hide js_pop-comfirmEmail-one">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">关闭</a>
-                            <h3>Email Verification</h3>
-                            <p class="email-account js_currEmail js_email-account"
-                               style="font-size: 20px;margin-bottom: 15px">
-                                XXXXX@gmail.com
-                            </p>
-                            <p class="verify-tips">
-                                Your email address hasn't been verificated yet.Would you want to send the verification
-                                email now
-                                ?
-                            </p>
-                            <form action="" method="post">
-                                <input type="submit" value="Send" id="js_first_sendEmail" class="">
-                                <p class="js_verifyEmail_backTime_parent" style="visibility: hidden">Left：<span
-                                        class="js_verifyEmail_backTime">60</span>seconds
-                                </p>
-                            </form>
-                            <div class="forgetpsw"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- 公用的模态框列表 -->
+            <pop-list></pop-list>
 
-            <!-- 成功 注册的 success 弹窗 -->
-            <div class="pop pop-reg-success hide js_pop-reg-success">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">close</a>
-                            <h3>Registration Successful</h3>
-                            <div class="icon-face on">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"/>
-                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#20bf6b"/>
-                                    <path class="mouth" d="M18 40 C28,45 33,46 46,40" stroke="#20bf6b" fill="none"
-                                          style="stroke-width: 4px;"></path>
-                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#20bf6b"
-                                          style="stroke-width: 4px;"/>
-                                </svg>
-                            </div>
-                            <p>Congratulates！<br>Now you can enjoy the game.</p>
-                            <a href="javascript:;" class="btn-success js_btn-success">Wish You Luck</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- 失败  注册的failure  hide  -->
-            <div class="pop pop-reg-failure hide">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">close</a>
-                            <h3>Submit Failure</h3>
-                            <div class="icon-face on">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"/>
-                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#fc5c65"/>
-                                    <path class="mouth" d="M18 40 C28,30 33,30 46,40" stroke="#fc5c65" fill="none"
-                                          style="stroke-width: 4px;"></path>
-                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#fc5c65"
-                                          style="stroke-width: 4px;"/>
-                                </svg>
-                            </div>
-                            <p>Due to <span class="js_pop_failure_msg">* *</span>, the order is unsuccess-<br/>ful,
-                                please try
-                                again later</p>
-                            <a href="javascript:;" class="btn-failure">Try Later</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 余额支付 下单 成功失败弹窗  -->
-            <div class="pop pop-reg-success hide js_pop-order-success">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">close</a>
-                            <h3>Submit Successful</h3>
-                            <div class="icon-face on">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"/>
-                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#20bf6b"/>
-                                    <path class="mouth" d="M18 40 C28,45 33,46 46,40" stroke="#20bf6b" fill="none"
-                                          style="stroke-width: 4px;"></path>
-                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#20bf6b"
-                                          style="stroke-width: 4px;"/>
-                                </svg>
-                            </div>
-                            <p>Your order has been filed.</p>
-                            <a href="javascript:;" class="btn-success js_btn-order-success">Good Luck</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 余额支付  注册的failure hide -->
-            <div class="pop pop-reg-failure js_pop-order-failure hide">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">close</a>
-                            <h3>Submit Failure</h3>
-                            <div class="icon-face on">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"/>
-                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#fc5c65"/>
-                                    <path class="mouth" d="M18 40 C28,30 33,30 46,40" stroke="#fc5c65" fill="none"
-                                          style="stroke-width: 4px;"></path>
-                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#fc5c65"
-                                          style="stroke-width: 4px;"/>
-                                </svg>
-                            </div>
-                            <p>Due to <span class="js_pop_failure_msg">* *</span>, the order is unsuccess-<br/>ful,
-                                please try
-                                again later</p>
-                            <a href="javascript:;" class="btn-failure js_bet-order-failure">Try Later</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--拉新活动-->
-            <!--链接邀请-->
-            <div class="pop pop-faucet hide" style="z-index: 100;">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close">关闭</a>
-                            <h3 class="font26">Faucet</h3>
-                            <p style="font-size: 13px;">
-                                Earn 0.001 ETH by inviting one friend(two chances)
-                            </p>
-                            <p style="margin: 10px 0 4px 0">
-                                Use the following link to invite your friends
-                            </p>
-                            <div id="js_newActCopy" class="newActCopy">text</div>
-                            <!--<a href="javascript:;" data-clipboard-target="#js_newActCopy" class="btn-copy js_btn-copy">Copy-->
-                            <!--to clipboard</a>-->
-                            <!--  $('#js_choseFaucet').attr('data-clipboard-text','1231231232')  -->
-                            <a href="javascript:;" id="js_choseFaucet" data-clipboard-text="copy failure"
-                               class="btn-copy js_btn-copy">Copy
-                                to clipboard</a>
-
-                            <p>
-                                Tips:
-                            </p>
-                            <p>
-                                1. Free ETH award can not be withdrawed.
-                            </p>
-                            <p>
-                                2. Everyone has two chances to get the invitation award.
-                            </p>
-                            <p>
-                                3. The number of this activity participants is limited.
-                            </p>
-                            <p>
-                                4. The final interpretation right of this event is reserved by Coinslot.com.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!--浮层 -->
             <!--第一次登陆-->
             <div class="tips-newAct tips-newAct2 js_firstLogin hide">
@@ -509,529 +213,523 @@
 </template>
 
 <script>
-	export default {
-		data(){
-			return {
-                js_show_pop:true,
-                signEmail:'',
-                signPsw:''
-			}
-		},
-		watch: {},
-		methods: {
-            showpop(){
-               this.js_show_pop = false;
-            },
-            closepop(){
-                this.js_show_pop = true;
-            },
-            test(){
-                
-            }
-		},
-		computed: {
-
-
-        },
-		mounted(){
-
-		}
-	}
+import PopList from '~components/Pop-list'
+export default {
+    components: { PopList },
+    data () {
+        return {
+        }
+    },
+    watch: {},
+    methods: {
+        onLoginIn () {
+            this.$store.commit('showLoginPop')
+        }
+    }
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../styles/lib-mixins.less";
-    .head{
-        position: relative;
-        width:100%;
-        height:150px;
-        height:90px;
-        background: #5068bc;
-        background: linear-gradient(to right,#4b6584,#655aae,#545f94);
-        color: #fff;
-        .top{
-            position: relative;
-            z-index:4;
-            width:1190px;
-            height:90px;
-            margin:0 auto;
-        }
-        .logo{
-            display: block;
-            float: left;
-            width:230px;
-            height:90px;
-            svg{
-                transform-origin: 0 40px;
-                transform: scale(0.47);
-            }
-        }
-        .language{
-            float: right;
-            cursor: pointer;
-            margin-top:30px;
-            height:30px;
-            line-height:30px;
-            color: #fff;
-            i{
-                display: block;
-                width: 28px;
-                height: 28px;
-                float: left;
-                margin-right:5px;
-                border:2px solid #837bbd;
-                border-radius: 50%;
-                background-image: url(" ../assets/slice/en.png");
-            }
-            span{
-                float: left;
-            }
-        }
-        .impor-wallet{
-            display: block;
-            float: right;
-            margin:26px 47px 0 0;
-            width:198px;
-            height:34px;
-            overflow: hidden;
-            text-align: center;
-            line-height:34px;
-            border: 1px solid #907eef;
-            border-radius: 6px;
-            color: #fff;
-        }
-        .mycount{
-            position: relative;
-            float: right;
-            .transition();
-            .countNum{
-                position: relative;
-                cursor: pointer;
-                display: block;
-                padding-right:25px;
-                line-height:30px;
-                font-size:20px;
-                i{
-                    display: block;
-                    position: absolute;
-                    width:13px;
-                    height:8px;
-                    right:0;
-                    top:11px;
-                    background-image: url(" ../assets/slice/arrow-down-fff.png");
-                    transform-origin: 50%;
-                    .transition();
-                }
-                &:hover{
-                    i{
-                        transform: rotate(180deg);
-                    }
-                }
-            }
-        }
-
-        .login{
-            position: relative;
-            float: right;
-            margin: 30px 47px 0 0;
-            border:none;
-            .to-login,.hadlogin{
-                position: relative;
-                float: right;
-                width:198px;
-                margin-left:50px;
-                text-align: center;
-                overflow: hidden;
-                &:hover{
-                    &::after{
-                        background: #eef1f9;
-                    }
-                }
-            }
-            .hadlogin{
-                &:after{
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 50%;
-                    width: 1px;
-                    height: 100%;
-                    overflow: hidden;
-                    background: #907eef
-                }
-            }
-            .btn-rechrage,.btn-cash,.btn-up,.btn-in{
-                display: block;
-                float: left;
-                width:50%;
-                height:30px;
-                overflow: hidden;
-                border:1px solid #907eef;
-                line-height:28px;
-                box-sizing: border-box;
-                color: #fff;
-                .transition();
-                &:hover{
-                    border-color: #eef1f9;
-                }
-            }
-            .btn-rechrage,.btn-up{
-                border-right:none;
-                border-top-left-radius: 6px;
-                border-bottom-left-radius: 6px;
-            }
-            .btn-cash{
-                border-top-right-radius: 6px;
-                border-bottom-right-radius: 6px;
-                border-left:none;
-            }
-            .btn-in{
-                float: right;
-                border-radius: 6px;
-            }
-        }
-        .jump5{
-            animation:fontSize 1s forwards infinite;
-        }
-        .jackpot{
-            float: left;
-            margin-left:22px;
-            font-family:sans-eb;
-            color: #f6b543;
-            *{
-                float: left;
-            }
-            span{
-                font-size:20px;
-            }
-            i{
-                position: relative;
-                padding-left: 26px;
-                font-size:36px;
-                &::before{
-                    content: '';
-                    position: absolute;
-                    left:0;
-                    top:20px;
-                    background-image:url(" ../assets/slice/logo-btc.png")
-                }
-            }
-        }
+@import "../styles/lib-mixins.less";
+.head {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  height: 90px;
+  background: #5068bc;
+  background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+  color: #fff;
+  .top {
+    position: relative;
+    z-index: 4;
+    width: 1190px;
+    height: 90px;
+    margin: 0 auto;
+  }
+  .logo {
+    display: block;
+    float: left;
+    width: 230px;
+    height: 90px;
+    svg {
+      transform-origin: 0 40px;
+      transform: scale(0.47);
     }
-    .mycount-detailed{
-        display: none;
+  }
+  .language {
+    float: right;
+    cursor: pointer;
+    margin-top: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    i {
+      display: block;
+      width: 28px;
+      height: 28px;
+      float: left;
+      margin-right: 5px;
+      border: 2px solid #837bbd;
+      border-radius: 50%;
+      background-image: url(" ../assets/slice/en.png");
+    }
+    span {
+      float: left;
+    }
+  }
+  .impor-wallet {
+    display: block;
+    float: right;
+    margin: 26px 47px 0 0;
+    width: 198px;
+    height: 34px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 34px;
+    border: 1px solid #907eef;
+    border-radius: 6px;
+    color: #fff;
+  }
+  .mycount {
+    position: relative;
+    float: right;
+    .transition();
+    .countNum {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      padding-right: 25px;
+      line-height: 30px;
+      font-size: 20px;
+      i {
+        display: block;
         position: absolute;
-        z-index:10;
-        right:0;
-        top:36px;
-        width:207px;
-        border-radius:6px;
+        width: 13px;
+        height: 8px;
+        right: 0;
+        top: 11px;
+        background-image: url(" ../assets/slice/arrow-down-fff.png");
+        transform-origin: 50%;
+        .transition();
+      }
+      &:hover {
+        i {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .login {
+    position: relative;
+    float: right;
+    margin: 30px 47px 0 0;
+    border: none;
+    .to-login,
+    .hadlogin {
+      position: relative;
+      float: right;
+      width: 198px;
+      margin-left: 50px;
+      text-align: center;
+      overflow: hidden;
+      &:hover {
+        &::after {
+          background: #eef1f9;
+        }
+      }
+    }
+    .hadlogin {
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
         overflow: hidden;
-        background: #fff;
-        text-align: right;
-        -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        .wallet-balance,.wallet-add{
-            padding:0 18px;
-            p{
-                height:26px;
-                line-height:26px;
-                overflow: hidden;
-                font-size:12px;
-                color: #778ca3;
-            }
-        }
-        .wallet-balance{
-            margin:16px 0 25px 0;
-            li{
-                height:26px;
-                line-height:26px;
-                overflow: hidden;
-                font-size:16px;
-                font-weight:bold;
-                color: #263648;
-            }
-            .unit{
-                float: right;
-            }
-            .amount{
-                margin-left: 15px;
-                float: right;
-            }
-            .btn-refresh{
-                display: block;
-                float: right;
-                margin:8px 0 0 10px;
-                background-image: url(" ../assets/slice/icon-refresh.png");
-            }
-        }
-        .wallet-add{
-            margin:14px auto 26px;
-            .items-add{
-                line-height:22px;
-                .clearfix();
-                span{
-                    float: left;
-                    color: #263648;
-                }
-                a{
-                    float: right;
-                    width:120px;
-                    color: #263648;
-                    text-decoration: none;
-                    .transition();
-                    .text-overflow();
-                    &:hover{
-                        text-decoration: underline;
-                    }
-                }
-            }
-        }
-        .my-transaction,.account-center{
-            display: block;
-            width:153px;
-            height:28px;
-            overflow: hidden;
-            margin:10px auto 0;
-            line-height:28px;
-            text-align: center;
-            border:1px solid #ced6e0;
-            border-radius: 6px;
-        }
-        .log-out{
-            display: block;
-            height:30px;
-            overflow: hidden;
-            margin-top:30px;
-            line-height:30px;
-            text-align: center;
-            border-top:1px solid #ced6e0;
-            &:hover{
-                background: #eef1f9;
-            }
-        }
+        background: #907eef;
+      }
     }
-    .account-info{
-        padding: 0 16px;
+    .btn-rechrage,
+    .btn-cash,
+    .btn-up,
+    .btn-in {
+      display: block;
+      float: left;
+      width: 50%;
+      height: 30px;
+      overflow: hidden;
+      border: 1px solid #907eef;
+      line-height: 28px;
+      box-sizing: border-box;
+      color: #fff;
+      .transition();
+      &:hover {
+        border-color: #eef1f9;
+      }
+    }
+    .btn-rechrage,
+    .btn-up {
+      border-right: none;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+    .btn-cash {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-left: none;
+    }
+    .btn-in {
+      float: right;
+      border-radius: 6px;
+    }
+  }
+  .jump5 {
+    animation: fontSize 1s forwards infinite;
+  }
+  .jackpot {
+    float: left;
+    margin-left: 22px;
+    font-family: sans-eb;
+    color: #f6b543;
+    * {
+      float: left;
+    }
+    span {
+      font-size: 20px;
+    }
+    i {
+      position: relative;
+      padding-left: 26px;
+      font-size: 36px;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 20px;
+        background-image: url(" ../assets/slice/logo-btc.png");
+      }
+    }
+  }
+}
+.mycount-detailed {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  top: 36px;
+  width: 207px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  text-align: right;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  .wallet-balance,
+  .wallet-add {
+    padding: 0 18px;
+    p {
+      height: 26px;
+      line-height: 26px;
+      overflow: hidden;
+      font-size: 12px;
+      color: #778ca3;
+    }
+  }
+  .wallet-balance {
+    margin: 16px 0 25px 0;
+    li {
+      height: 26px;
+      line-height: 26px;
+      overflow: hidden;
+      font-size: 16px;
+      font-weight: bold;
+      color: #263648;
+    }
+    .unit {
+      float: right;
+    }
+    .amount {
+      margin-left: 15px;
+      float: right;
+    }
+    .btn-refresh {
+      display: block;
+      float: right;
+      margin: 8px 0 0 10px;
+      background-image: url(" ../assets/slice/icon-refresh.png");
+    }
+  }
+  .wallet-add {
+    margin: 14px auto 26px;
+    .items-add {
+      line-height: 22px;
+      .clearfix();
+      span {
+        float: left;
         color: #263648;
-        .email{
-            margin-top: 25px;
-            line-height: 26px;
-            font-size: 16px;
-            font-weight: bold;
+      }
+      a {
+        float: right;
+        width: 120px;
+        color: #263648;
+        text-decoration: none;
+        .transition();
+        .text-overflow();
+        &:hover {
+          text-decoration: underline;
         }
-        .uid{
-            line-height: 26px;
-            font-size: 12px;
-        }
+      }
     }
+  }
+  .my-transaction,
+  .account-center {
+    display: block;
+    width: 153px;
+    height: 28px;
+    overflow: hidden;
+    margin: 10px auto 0;
+    line-height: 28px;
+    text-align: center;
+    border: 1px solid #ced6e0;
+    border-radius: 6px;
+  }
+  .log-out {
+    display: block;
+    height: 30px;
+    overflow: hidden;
+    margin-top: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-top: 1px solid #ced6e0;
+    &:hover {
+      background: #eef1f9;
+    }
+  }
+}
+.account-info {
+  padding: 0 16px;
+  color: #263648;
+  .email {
+    margin-top: 25px;
+    line-height: 26px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .uid {
+    line-height: 26px;
+    font-size: 12px;
+  }
+}
 
-    .opening{
-        position: absolute;
-        top:0;
-        left: 160px;
-        font-weight:bold;
-        font-size:16px;
-        color: #fff;
-        font-weight:bold;
+.opening {
+  position: absolute;
+  top: 0;
+  left: 160px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+}
+#cicle {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+}
+.jackpot-box {
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 50%;
+  margin-left: -473.5px;
+  width: 947px;
+  height: 112px;
+  .text {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    p {
+      height: 72px;
+      padding-top: 25px;
+      line-height: 76px;
+      font-size: 22px;
     }
-    #cicle{
-        position: absolute;
-        left:50%;
-        top:0;
-        transform: translate(-50%);
+    p.jackpot-add {
+      width: 104px;
+      overflow: hidden;
     }
-    .jackpot-box{
-        position: fixed;
-        z-index:11;
-        top:0;
-        left:50%;
-        margin-left:-473.5px;;
-        width: 947px;
-        height: 112px;
-        .text{
-            position: relative;
-            z-index:4;
-            display: flex;
-            justify-content: center;
-            p{
-                height: 72px;
-                padding-top:25px;
-                line-height:76px;
-                font-size:22px;
-            }
-            p.jackpot-add{
-                width:104px;
-                overflow: hidden;
-            }
-            p.jackpot-money{
-                font-size:36px;
-                font-family:sans-eb;
-                line-height:72px;
-                animation: bounceIn 2s 5s infinite;
-            }
-        }
-        .bg{
-            position: absolute;
-            left:0;
-            top:0;
-            width:100%;
-            height:100%;
-        }
-        .bg1{
-            z-index:1;
-            background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
-        }
-        .bg2{
-            z-index:2;
-            background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
-        }
-        .bg3{
-            z-index:3;
-            background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
-        }
-        .bg1,.bg3{
-            opacity:0;
-            animation: bounceIn 1s 1s forwards ;
-        }
-        img{
-            position: absolute;
-            top:-50px;
-        }
+    p.jackpot-money {
+      font-size: 36px;
+      font-family: sans-eb;
+      line-height: 72px;
+      animation: bounceIn 2s 5s infinite;
     }
-    @keyframes fontSize {
-        0%{
-            transform: scale(1);
-            opacity:1;
-        }
-        80%{
-            transform: scale(1);
-            opacity: 1;
-        }
-        100%{
-            transform: scale(1.5);
-            opacity: 0;
-        }
-    }
-    @keyframes rubberBand {
-        0% {
-            transform: scaleX(1)
-        }
-        30% {
-            transform: scale3d(1.25,.75,1)
-        }
+  }
+  .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .bg1 {
+    z-index: 1;
+    background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
+  }
+  .bg2 {
+    z-index: 2;
+    background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
+  }
+  .bg3 {
+    z-index: 3;
+    background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
+  }
+  .bg1,
+  .bg3 {
+    opacity: 0;
+    animation: bounceIn 1s 1s forwards;
+  }
+  img {
+    position: absolute;
+    top: -50px;
+  }
+}
+@keyframes fontSize {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes rubberBand {
+  0% {
+    transform: scaleX(1);
+  }
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
 
-        40% {
-            transform: scale3d(.75,1.25,1)
-        }
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
 
-        50% {
-            transform: scale3d(1.15,.85,1)
-        }
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
 
-        65% {
-            transform: scale3d(.95,1.05,1)
-        }
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
 
-        75% {
-            transform: scale3d(1.05,.95,1)
-        }
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
 
-        to {
-            transform: scaleX(1)
-        }
-    }
-    @keyframes bounceIn {
-        0% {
-            transform: scale3d(.6,.6,.6)
-        }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes bounceIn {
+  0% {
+    transform: scale3d(0.6, 0.6, 0.6);
+  }
 
-        20% {
-            transform: scale3d(1.1,1.1,1.1)
-        }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
 
-        40% {
-            transform: scale3d(.9,.9,.9)
-        }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
 
-        60% {
-            transform: scale3d(1.03,1.03,1.03)
-        }
+  60% {
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
 
-        80% {
-            transform: scale3d(.97,.97,.97)
-        }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
 
-        to {
-            transform: scale3d(.3,.3,.3)
-        }
-    }
-    @keyframes freeDown {
-        0%{
-            transform: translateY(-50px) rotate(50deg);
-            opacity:1;
-        }
-        60%{
-            opacity:1;
-        }
-        80%{
-            transform: translateY(200px) rotate(-100deg);
-            opacity:0;
-        }
-        100%{
-            transform: translateY(300px) rotate(-150deg);
-            opacity:0;
-        }
-    }
-    .fresh_move{
-        animation:fresh_move 1s;
-    }
-    @keyframes fresh_move {
-        0%{
-            transform: rotate(0);
-        }
-        100%{
-            transform: rotate(360deg);
-        }
-    }
-    .deadlineMove{
-        animation: deadlineMove 1.3s;
-    }
-    @keyframes deadlineMove {
-        0%{
-            transform: translateY(0);
-        }
-        35%{
-            opacity:0;
-            transform: translateY(60px);
-        }
-        65%{
-            opacity:0;
-            transform: translateY(-60px);
-        }
-        100%{
-            opacity:1;
-            transform: translateY(0);
-        }
-    }
-    .blinking{
-        animation:blinking 0.7s;
-    }
-    @keyframes blinking {
-        0%{
-            opacity:1;
-        }
-        25%{
-            opacity:0;
-        }
-        50%{
-            opacity:1;
-        }
-        75%{
-            opacity:0;
-        }
-        100%{
-            opacity:1;
-        }
-    }
+  to {
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+@keyframes freeDown {
+  0% {
+    transform: translateY(-50px) rotate(50deg);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(200px) rotate(-100deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(300px) rotate(-150deg);
+    opacity: 0;
+  }
+}
+.fresh_move {
+  animation: fresh_move 1s;
+}
+@keyframes fresh_move {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.deadlineMove {
+  animation: deadlineMove 1.3s;
+}
+@keyframes deadlineMove {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  65% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.blinking {
+  animation: blinking 0.7s;
+}
+@keyframes blinking {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 </style>
 
