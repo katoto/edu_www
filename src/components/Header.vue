@@ -69,8 +69,8 @@
                     </svg>
                 </router-link>
                 <div class="language">
-                    <i></i>
-                    <span>EN</span>
+                    <!--<i></i>-->
+                    <span>English</span>
                 </div>
                 <!-- 登录  -->
                 <div class="login">

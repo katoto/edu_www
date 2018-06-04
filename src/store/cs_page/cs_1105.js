@@ -24,10 +24,9 @@ const actionsInfo = mapActions({
     /* Draw Number 列表接口数据 */
     async getDrawNumList ({ commit, dispatch }, pageData) {
         try {
-            let InfoData = null
+            let InfoData = null;
             if (pageData) {
-                InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&rangeno=
-                ${pageData.pageSize}&src=${src}&platform=${platform}`)
+                InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&rangeno=${pageData.pageSize}&src=${src}&platform=${platform}`)
             } else {
                 InfoData = await ajax.get(`/expect/hisopencode`)
             }

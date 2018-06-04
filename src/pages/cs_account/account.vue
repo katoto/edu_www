@@ -6,7 +6,7 @@
             <!--侧边栏-->
             <div class="slide-bar">
                 <ul class="account_Tab">
-                    <router-link :to=item.link tag="li" v-for="item in lists">
+                    <router-link :to=item.link tag="li" v-for="item in lists" :key="item.msg">
                         <a href="javascript:;">
                          {{item.msg}}
                         </a>
