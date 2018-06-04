@@ -24,7 +24,7 @@
             <input type="submit" value="Sign Up" id="js_signUp" class="js_signSubmit no">
             <input type="button" value="Sign Up" class="no hide">
         </form>
-        <a href="javascript:;" class="forgetpsw js_forgetPsw">Forgot your password?</a>
+        <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">Forgot your password?</a>
     </div>
     <div class="pop-bottom">
         <p>Already Have Account？ <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">Sign In</a></p>
@@ -40,6 +40,10 @@ export default {
     methods: {
         showSignIn () {
             this.$store.commit('showLoginPop')
+            this.$store.commit('hideRegPop')
+        },
+        onReset () {
+            this.$store.commit('showResetPwd')
             this.$store.commit('hideRegPop')
         }
     },
