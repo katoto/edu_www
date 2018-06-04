@@ -52,32 +52,32 @@ export default new Router({
             component: account,
             children: [
                 {
-                    path: "/account/general",
+                    path: "general",
                     name: "General",
                     component: General
                 },
                 {
-                    path: "/account/deposit",
+                    path: "deposit",
                     name: "Deposit",
                     component: Deposit
                 },
                 {
-                    path: "/account/myBets",
+                    path: "myBets",
                     name: "MyBets",
                     component: MyBets
                 },
                 {
-                    path: "/account/myTransactions",
+                    path: "myTransactions",
                     name: "MyTransactions",
                     component: MyTransactions
                 },
                 {
-                    path: "/account/withdraw",
+                    path: "withdraw",
                     name: "Withdraw",
                     component: Withdraw
                 },
                 {
-                    path: "/account/*",
+                    path: "/",
                     name: "General",
                     component: General
                 }
