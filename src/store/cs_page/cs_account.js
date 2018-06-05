@@ -47,6 +47,33 @@ const actionsInfo = mapActions({
 				duration: tipsTime
 			})
 		}
+	},
+	/* my transactions 我的交易接口 */
+	async getAccountLog ({commit, dispatch}, msg) {
+		try {
+			let InfoData = null;
+			if (msg) {
+				InfoData = await ajax.get(`/account/log?pageno=${msg.pageno}&pagesize=${msg.pagesize}&day=30&lotid=1&ck=${getCK()}&platform=${platform}&src=${src}`)
+			} else {
+				InfoData = await ajax.get(`/account/log?day=30&lotid=1&ck=${getCK()}&platform=${platform}&src=${src}`)
+			}
+			if (InfoData.status === '100') {
+				return InfoData.data
+			} else {
+				Message({
+					message: InfoData.message,
+					type: 'error',
+					duration: tipsTime
+				})
+				return false
+			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
 	}
 
 }, 'cs_account')

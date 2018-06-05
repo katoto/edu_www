@@ -5,8 +5,11 @@ import storeFactory from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 import vueTap from 'v-tap'
-import $ from "jquery";
-import "./styles/lib-reset.css";
+import $ from "jquery"
+
+import vueClipboard from 'vue-clipboard2'
+
+import "./styles/lib-reset.css"
 
 // 全局
 // import ElementUI from 'element-ui'
@@ -34,6 +37,8 @@ Vue.component(Message.name, Message);
 // import '~/icons'
 // Vue.use(ElementUI)
 Vue.use(vueTap)
+
+Vue.use(vueClipboard)
 const store = storeFactory()
 sync(store, router)
 
