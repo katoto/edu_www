@@ -25,12 +25,14 @@
         <div class="recharge-box">
             <div class="recharge-item recharge-item1" v-if="userInfo">
                 <h3>1.Copy the Ethereum wallet address (only supports ETH)</h3>
-                <div class="js_verifyBox" v-if="userInfo.accounts && userInfo.accounts.length>0 && 0">
+                <div class="js_verifyBox" v-if="userInfo.accounts && userInfo.accounts.length>0">
                     <template v-for="item in userInfo.accounts">
-                        <span id="js_copyAddressEth" class="recharge-add">
+                        <span class="recharge-add">
                             {{ item.address }}
                         </span>
-                        <a href="javascript:;" data-clipboard-target="#js_copyAddressEth"
+                        <a href="javascript:;" v-clipboard:copy="item.address"
+                           v-clipboard:success="copySucc"
+                           v-clipboard:error="copyError"
                            class="copy js_btn-copy">Copy</a>
                     <p>or scan to get the address</p>
                     <div class="img-box">
@@ -67,12 +69,26 @@
 </template>
 
 <script>
+	import {Message} from 'element-ui'
 	export default {
 		data(){
 			return {}
 		},
 		watch: {},
-		methods: {},
+		methods: {
+			copySucc(){
+				Message({
+					message: 'Copied to clipboard',
+					type: 'success'
+				});
+            },
+			copyError(){
+				Message({
+					message: 'Failed to copy, please retry',
+					type: 'success'
+				});
+            }
+        },
 		computed: {
 			isLog(){
 				return this.$store.state.isLog

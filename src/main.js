@@ -6,6 +6,8 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import vueTap from 'v-tap'
 
+import vueClipboard from 'vue-clipboard2'
+
 import "./styles/lib-reset.css";
 
 // 全局
@@ -34,6 +36,8 @@ Vue.component(Message.name, Message);
 // import '~/icons'
 // Vue.use(ElementUI)
 Vue.use(vueTap)
+
+Vue.use(vueClipboard)
 const store = storeFactory()
 sync(store, router)
 
