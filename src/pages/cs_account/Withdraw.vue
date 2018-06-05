@@ -1,60 +1,49 @@
 <template>
     <div class="withdrawal">
         <h2>withdraw</h2>
-        <div class="tab">
-        <ul class="tab-head">
-            <li :class="{'on':tabIndex === 0}" @click="tabIndex = 0">
-                <a href="javascript:;" class="request">
-                    Request
-                </a>
-            </li>
-            <li :class="{'on':tabIndex === 1}" @click="tabIndex = 1">
-                <a href="javascript:;" class="records">
-                    Records
-                </a>
-            </li>
-            <span id="line"></span>
-        </ul>
-        <ul class="tab-cnt">
-            <li class="li-records" v-show="tabIndex === 0" name="fade">
-                <div class="item icon-name hide">
-                    <div class="fl210 ">ETH</div>
-                    <p class="bold js_withDrawal_eth"></p>
-                </div>
-                <div class="item wallet-add">
-                    <div class="fl210">Wallet Address</div>
-                    <input type="text">
-                </div>
-                <div class="item pick-up">
-                    <div class="fl210">
-                        <span class="css_withdraw_tips">Withdraw Amount</span>
-                        <span class="css_withdraw_total">at least 0.01 ETH</span>
+       <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="Request" name="Request">
+                <li class="li-records">
+                    <div class="item icon-name hide">
+                        <div class="fl210 ">ETH</div>
+                        <p class="bold js_withDrawal_eth"></p>
                     </div>
-                    <input autocomplete="off" type="text">
-                    <span class="css_withdraw_topMoney">Maximum</span>
-                    <p class="pickup-tips" style="display: none">
-                        Less than 0.1242 balance, please reset on withdraws
+                    <div class="item wallet-add">
+                        <div class="fl210">Wallet Address</div>
+                        <input type="text">
+                    </div>
+                    <div class="item pick-up">
+                        <div class="fl210">
+                            <span class="css_withdraw_tips">Withdraw Amount</span>
+                            <span class="css_withdraw_total">at least 0.01 ETH</span>
+                        </div>
+                        <input autocomplete="off" type="text">
+                        <span class="css_withdraw_topMoney">Maximum</span>
+                        <p class="pickup-tips" style="display: none">
+                            Less than 0.1242 balance, please reset on withdraws
+                        </p>
+                    </div>
+                    <div class="item account-psw">
+                        <div class="fl210">
+                            Account Password
+                        </div>
+                        <input autocomplete="new-password" type="password">
+                    </div>
+                    <p class="fee">
+                        Fee&nbsp;&nbsp;
+                        <i class="orange">0.00000</i>
+                        <span class="orange"> ETH</span>
                     </p>
-                </div>
-                <div class="item account-psw">
-                    <div class="fl210">
-                        Account Password
-                    </div>
-                    <input autocomplete="new-password" type="password">
-                </div>
-                <p class="fee">
-                    Fee&nbsp;&nbsp;
-                    <i class="orange">0.00000</i>
-                    <span class="orange"> ETH</span>
-                </p>
-                <button >Send</button>
-            </li>
-            <li class="li-request" v-show="tabIndex === 1" name="fade">
-                <Filters></Filters>
-            </li>
-        </ul>
-        </div>
-    </div>
+                    <button >Send</button>
+                </li>
+            </el-tab-pane>
+            <el-tab-pane label="Records" name="Records">
+                <li class="li-request">
+                    <Filters></Filters>
+                </li>
+            </el-tab-pane>
+        </el-tabs>
+    </div> 
 </template>
 
 <script>
@@ -62,24 +51,16 @@
     export default {
         data(){
             return {
-               tabIndex : 0,
-               _left:'',
-               _width:''
+                activeName: 'Request'
             }
         },
         watch: {
-            tabIndex(){
-                this._left = $('.tab-head>li').eq(this.tabIndex).position().left;
-                this._width = $('.tab-head>li').eq(this.tabIndex).width();
-                $('#line').animate({
-                    left: this._left,
-                    width: this._width
-                }, 200);
-                
-            }
+          
         },
         methods: {
-           
+            handleClick(tab, event) {
+                // console.log(tab, event);
+            }
         },
         computed: {},
         components: {
@@ -92,6 +73,9 @@
 </script>
 <style scoped lang="less">
 @import "../../styles/lib-mixins.less";
+li{
+    list-style: none;
+}
 .orange{
     color: #fd9644;
 }
@@ -115,33 +99,7 @@
         height:50px;
         overflow: hidden;
     }
-    .tab-head{
-        position: relative;
-        border-bottom:2px solid #f2f2f2;
-        margin-top:30px;
-        .clearfix();
-        li{
-            float: left;
-            line-height:40px;
-            margin:0 60px 0 0;
-            a{
-                .transition();
-            }
-        }
-        li.on{
-            a{
-                color: #263648;
-            }
-        }
-        #line{
-            position: absolute;
-            left:0;
-            bottom:-2px;
-            width:76px;
-            height:2px;
-            background: #263648;
-        }
-    }
+
     .li-records{
         .item{
             position: relative;
@@ -250,5 +208,10 @@
     .filter{
         margin-top:24px;
     }
+}
+
+
+.el-tabs__active-bar{
+    background: #263648 !important;
 }
 </style>
