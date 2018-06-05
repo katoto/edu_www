@@ -118,3 +118,62 @@ export function formateBalance(val = 0){
 	}
 	return newEth;
 }
+/*
+ *   金币类型
+ * */
+export function formate_coinType(type = '2001'){
+	type = type.toString();
+	switch (type) {
+		case '2001':
+			return 'ETH';
+		case '1001':
+			return 'BTC';
+		default:
+			return 'ETH'
+	}
+}
+
+/*
+ *   formate_moneyFlow  格式化 流水类型
+ *   // 明细状态 1：recharge   2：bet    3：prize    4:withdraw
+ * */
+export function formate_moneyFlow(flowtype = '1') {
+	if (isNaN(flowtype)) {
+		console.error('formate_moneyFlow error' + flowtype);
+		return false;
+	}
+	flowtype = flowtype.toString()
+	switch (flowtype) {
+		case '1':
+			return 'bet'; // 投注消费
+			break;
+		case '2':
+			return 'prize'; // 投注中奖
+		case '3':
+			return 'bet refund';// 投注退款
+			break;
+		case '4':
+			return 'withdraw'; // 提款扣除
+		case '5':
+			return 'fee';// 提款手续费
+			break;
+		case '6':
+			return 'withdrawal refund';// 提款失败退款
+		case '7':
+			return 'fee refund';// 提款失败手续退款
+		case '8':
+			return 'deposit';// 充值
+		case '9':
+			return 'deposit refund';// 充值失败扣款
+		case '10':
+			return 'Registration';// 注册送
+		case '11':
+			return 'Inviting';// 邀请送
+		case '12':
+			return 'World cup';// 世界杯
+		case '13':
+			return 'World cup';// 世界杯中奖
+		default:
+			return 'bet'
+	}
+}
