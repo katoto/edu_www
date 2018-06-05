@@ -5,7 +5,7 @@ import storeFactory from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 import vueTap from 'v-tap'
-
+import $ from "jquery";
 import "./styles/lib-reset.css";
 
 // 全局

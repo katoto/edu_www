@@ -3,12 +3,12 @@
         <h2>withdraw</h2>
         <div class="tab">
         <ul class="tab-head">
-            <li class="on">
+            <li :class="{'on':tabIndex === 0}" @click="tabIndex = 0">
                 <a href="javascript:;" class="request">
                     Request
                 </a>
             </li>
-            <li>
+            <li :class="{'on':tabIndex === 1}" @click="tabIndex = 1">
                 <a href="javascript:;" class="records">
                     Records
                 </a>
@@ -16,7 +16,7 @@
             <span id="line"></span>
         </ul>
         <ul class="tab-cnt">
-            <li class="li-records">
+            <li class="li-records" v-show="tabIndex === 0" name="fade">
                 <div class="item icon-name hide">
                     <div class="fl210 ">ETH</div>
                     <p class="bold js_withDrawal_eth"></p>
@@ -49,7 +49,7 @@
                 </p>
                 <button >Send</button>
             </li>
-            <li class="li-request">
+            <li class="li-request" v-show="tabIndex === 1" name="fade">
                 <Filters></Filters>
             </li>
         </ul>
@@ -62,11 +62,25 @@
     export default {
         data(){
             return {
+               tabIndex : 0,
+               _left:'',
+               _width:''
+            }
+        },
+        watch: {
+            tabIndex(){
+                this._left = $('.tab-head>li').eq(this.tabIndex).position().left;
+                this._width = $('.tab-head>li').eq(this.tabIndex).width();
+                $('#line').animate({
+                    left: this._left,
+                    width: this._width
+                }, 200);
                 
             }
         },
-        watch: {},
-        methods: {},
+        methods: {
+           
+        },
         computed: {},
         components: {
             Filters
@@ -232,11 +246,9 @@
         }
     }
 }
-
-
-    .li-request{
-        .filter{
-            margin-top:24px;
-        }
+.li-request{
+    .filter{
+        margin-top:24px;
     }
+}
 </style>
