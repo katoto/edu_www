@@ -19,7 +19,7 @@ import "./styles/lib-reset.css"
 
 // 全局 end
 //  按需加载  有点小问题
-import { Button ,Table , Pagination ,TableColumn ,Message } from 'element-ui'
+import { Button ,Table , Pagination ,TableColumn ,Message , Select , Option } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -31,6 +31,8 @@ Vue.component(Table.name, Table);
 Vue.component(Pagination.name, Pagination);
 Vue.component(TableColumn.name, TableColumn);
 Vue.component(Message.name, Message);
+Vue.component(Option.name, Option);
+Vue.component(Select.name, Select);
 
 //  按需加载 end
 

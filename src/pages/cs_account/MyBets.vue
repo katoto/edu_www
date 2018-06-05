@@ -1,7 +1,24 @@
 <template>
     <div class="betting">
         <h2>Bet Record</h2>
-        <Filters></Filters>
+        <section>
+            <el-select v-model="betOptionVal">
+                <el-option
+                        v-for="item in betOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
+            <el-select v-model="betTimeOptionVal">
+                <el-option
+                        v-for="item in betTimeOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
+        </section>
         <template>
             <el-table
                     :data="orderList"
@@ -82,8 +99,6 @@
 	import {mTypes, aTypes} from '~/store/cs_page/cs_account'
 	import {src, platform, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
 
-	import Filters from '~/components/Filter'
-
 	export default {
 		data(){
 			return {
@@ -92,6 +107,25 @@
 				PageTotal: 10,
 				orderList: [],
 				ethUrl: null,
+
+				betOptions: [{
+					value: '1',
+					label: 'All bets'
+				}, {
+					value: '2',
+					label: 'win bets'
+				}],
+				betOptionVal: '1',
+
+				betTimeOptions: [{
+					value: '1',
+					label: 'Last 30 days'
+				}, {
+					value: '2',
+					label: 'Last 7 days'
+				}],
+				betTimeOptionVal: '1'
+
 			}
 		},
 		watch: {},
@@ -218,7 +252,6 @@
 		},
 		computed: {},
 		components: {
-			Filters
 		},
 		async mounted(){
 			let orderMsg = await this.$store.dispatch(aTypes.getOrderList, {
