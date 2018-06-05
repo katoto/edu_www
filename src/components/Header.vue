@@ -170,7 +170,6 @@
             <!-- 公用的模态框列表 -->
             <pop-list></pop-list>
 
-
             <!--浮层 -->
             <!--第一次登陆-->
             <div class="tips-newAct tips-newAct2 js_firstLogin hide">
