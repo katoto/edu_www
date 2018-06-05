@@ -98,7 +98,7 @@
 <script>
 	import {mTypes, aTypes} from '~/store/cs_page/cs_account'
 	import {src, platform, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
-
+	import {Message} from 'element-ui'
 	export default {
 		data(){
 			return {
@@ -242,7 +242,7 @@
 					});
 					return Msg
 				} else {
-					this.$message({
+					Message({
 						message: 'format_orderList error',
 						type: 'error'
 					});
