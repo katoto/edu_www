@@ -8,18 +8,10 @@ const state = {
 		showRegSuccess: false,
 		showRegFailure: false,
 		showFaucet: false,
-		showTransfer: false,
 	}
 }
 
 const mutations = {
-	// 转账弹窗
-	showTransfer (state) {
-		state.pop.showTransfer = true
-	},
-	hideTransfer (state) {
-		state.pop.showTransfer = false
-	},
 
 	showLoginPop (state) {
 		state.pop.showLoginPop = true
