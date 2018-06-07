@@ -146,12 +146,10 @@ const actions = {
 	async reg ({commit, dispatch}, pageData) {
 		try {
 			let InfoData = null;
+			console.log(pageData);
 			if (pageData) {
 				InfoData = await ajax.get(`/user/mail/reg?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
 			}
-			console.log(InfoData);
-			console.log(InfoData);
-			console.log('=========');
 			return InfoData
 		} catch (e) {
 			Message({
@@ -177,6 +175,27 @@ const actions = {
 		}, 1000);
 
 	},
+	/* 发送邮件  reg: 注册, reset: 重置密码 */
+	async sendEmail ({commit, dispatch}, pageData) {
+		try {
+			let InfoData = null;
+			if (pageData) {
+				console.log(pageData);
+				console.log('发送邮件部分');
+				if (pageData.mailType === 'reset') {
+					InfoData = await ajax.get(`/user/mail/send?email=${pageData.email}&mail_type=${pageData.mailType}&src=${src}&platform=${platform}`)
+				}
+			}
+			return InfoData
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
+
 
 }
 

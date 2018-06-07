@@ -264,7 +264,6 @@
 				this.PageTotal = Number(orderMsg.counter)
 			}
 			this.ethUrl = ethUrl;
-			console.log(this.orderList)
 		}
 	}
 </script>

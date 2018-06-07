@@ -110,12 +110,10 @@
                         return false
                     }
 					Object.assign(regObj, {
-						email: this.login_email,
-						password: this.login_pass
+						email: this.reg_email,
+						password: this.reg_pass
 					});
 					let regMsg = await this.$store.dispatch('reg', regObj);
-					console.log(regMsg);
-					console.log('123');
 					if (regMsg && regMsg.status.toString() === '100') {
 						this.$store.commit('hideRegPop');
 						this.$store.commit('showVerifyEmail');
