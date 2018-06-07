@@ -76,7 +76,7 @@ const actionsInfo = mapActions({
 		}
 	},
 
-	/* my withdraw/records 我的提款记录  	<!-- rangeno 没有统一 -->  */
+	/* my withdraw/records 我的提款记录  	<!-- rangeno 没有统一 app无法统一 -->  */
 	async getWithdrawRecords ({commit, dispatch}, msg) {
 		try {
 			let InfoData = null;
@@ -95,6 +95,31 @@ const actionsInfo = mapActions({
 				})
 				return false
 			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
+
+	async getWithdrawApply ({commit, dispatch}, msg = {} ) {
+		try {
+			let InfoData = null;
+			Object.assign(msg,{
+				ck: getCK(),
+				src,
+				platform
+			});
+			console.log(msg);
+			if (msg) {
+				InfoData = await ajax.post(`/account/withdraw/apply`,msg)
+			} else {
+				InfoData = await ajax.get(`/account/withdraw/apply`,msg)
+			}
+			return InfoData
+
 		} catch (e) {
 			Message({
 				message: e.message,
