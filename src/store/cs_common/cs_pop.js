@@ -99,6 +99,32 @@ const actions = {
 			})
 		}
 	},
+	/* reg 注册 邮箱验证 */
+	async beforeReg ({commit, dispatch}, pageData) {
+		try {
+			let InfoData;
+			if(pageData){
+				InfoData = await ajax.get(`/user/mail/validate?email=${pageData}&src=${src}&platform=${platform}`)
+			}
+			console.log(InfoData);
+			if (InfoData.status === '100') {
+				return InfoData.data
+			} else {
+				Message({
+					message: InfoData.message,
+					type: 'error',
+					duration: tipsTime
+				});
+				return false
+			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 }
 
 const getters = {}
