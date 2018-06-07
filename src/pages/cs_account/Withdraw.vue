@@ -71,11 +71,8 @@
         }
     }
 </script>
-<style scoped lang="less">
+<style lang="less">
 @import "../../styles/lib-mixins.less";
-li{
-    list-style: none;
-}
 .orange{
     color: #fd9644;
 }
@@ -211,7 +208,21 @@ li{
 }
 
 
+.el-tabs{
+    margin-top: 30px;
+}
 .el-tabs__active-bar{
     background: #263648 !important;
+}
+.el-tabs__item.is-active,.el-tabs__item:hover{
+    color: #263648;
+}
+.el-tabs__item{
+    float: left;
+    line-height: 40px;
+    font-size: 20px;
+    color: #6a89cc;
+    padding: 0 20px;
+    height: auto; 
 }
 </style>

@@ -27,8 +27,7 @@
                         prop="txhash"
                         label="Address">
                     <template slot-scope="scope">
-                        <a target='_blank' v-if="scope.row.txhash != '-'" :href="scope.row.jumpEthUrl" class="address">{{
-                            scope.row.txhash }}</a>
+                        <a target='_blank' v-if="scope.row.txhash != '-'" :href="scope.row.jumpEthUrl" class="address">{{ scope.row.txhash }}</a>
                         <span v-else>-</span>
                     </template>
                 </el-table-column>
@@ -232,6 +231,7 @@
 				this.PageTotal = Number(orderMsg.counter)
 			}
 			this.ethUrl = ethUrl;
+			console.log(this.orderList)
 		}
 	}
 </script>
