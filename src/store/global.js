@@ -1,3 +1,6 @@
+import ajax from '~common/ajax'
+import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
+import {Message} from 'element-ui'
 
 function combimeStore (store, newStore) {
     return {
@@ -57,7 +60,20 @@ const mutations = {
     ...common.mutations
 }
 const actions = {
-    ...common.actions
+	/* user info */
+	async getUserInfo ({commit, dispatch}) {
+		try {
+			return await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`)
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
+
+	...common.actions
 }
 
 const getters = {

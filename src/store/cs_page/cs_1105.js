@@ -4,7 +4,6 @@
 
 import ajax from '~common/ajax'
 import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
-
 import {Message} from 'element-ui'
 
 const state = {
@@ -49,28 +48,6 @@ const actionsInfo = mapActions({
 		}
 	},
 
-	/* user info */
-	async getUserInfo ({commit, dispatch}) {
-		try {
-			let InfoData = await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`)
-			if (InfoData.status === '100') {
-				return InfoData.data
-			} else {
-				Message({
-					message: InfoData.message,
-					type: 'error',
-					duration: tipsTime
-				})
-				return false
-			}
-		} catch (e) {
-			Message({
-				message: e.message,
-				type: 'error',
-				duration: tipsTime
-			})
-		}
-	}
 
 }, 'cs_1105')
 

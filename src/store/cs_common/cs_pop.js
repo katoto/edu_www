@@ -1,3 +1,8 @@
+import md5 from 'md5'
+import {Message} from 'element-ui'
+import ajax from '~common/ajax'
+import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
+
 const state = {
 	pop: {
 		showLoginPop: false,
@@ -12,7 +17,6 @@ const state = {
 }
 
 const mutations = {
-
 	showLoginPop (state) {
 		state.pop.showLoginPop = true
 	},
@@ -67,9 +71,35 @@ const mutations = {
 	hideFaucet (state) {
 		state.pop.showFaucet = false
 	}
-
 }
-const actions = {}
+const actions = {
+	/* login 登陆 */
+	async userLogin ({commit, dispatch}, pageData) {
+		try {
+			let InfoData;
+			if(pageData){
+				InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${  md5(md5( pageData.password ))}&src=${src}&platform=${platform}`)
+			}
+			console.log(InfoData);
+			if (InfoData.status === '100') {
+				return InfoData.data
+			} else {
+				Message({
+					message: InfoData.message,
+					type: 'error',
+					duration: tipsTime
+				});
+				return false
+			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
+}
 
 const getters = {}
 
