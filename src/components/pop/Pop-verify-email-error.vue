@@ -13,10 +13,10 @@
                 ?
             </p>
             <form action="" method="post">
-                <input type="submit" value="Send" id="js_first_sendEmail" class="">
-                <p class="js_verifyEmail_backTime_parent" style="visibility: hidden">Left：<span
-                        class="js_verifyEmail_backTime">60</span>seconds
-                </p>
+                <input type="submit" value="Send"  :class="{'no':emailBackTime!==0}">
+                <div style="height: 30px">
+                    <p v-if="emailBackTime !== 0"><span>{{ emailBackTime }}s </span>left</p>
+                </div>
             </form>
             <div class="forgetpsw"></div>
         </div>
@@ -29,6 +29,9 @@ import Pop from './Pop'
 export default {
     components: { Pop },
     computed: {
+	    emailBackTime(){
+		    return this.$store.state.pop.emailBackTime;
+	    },
         show: {
             set: function (isShow) {
                 if (!!isShow === true) {

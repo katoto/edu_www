@@ -1,5 +1,3 @@
-
-
 <template>
   <!--弹窗-邮箱验证-->
   <Pop class="pop-verify-email" :show.sync="show">
@@ -16,10 +14,10 @@
             <form action="" method="post">
                 <input class="hide" type="text" name="captcha" placeholder="Please input the captcha">
                 <!--  no  -->
-                <input type="submit" value="Resent Email" id="js_resentEmail" class="">
-                <p class="js_verifyEmail_backTime_parent" style="visibility: hidden">Left：<span
-                        class="js_verifyEmail_backTime">60</span>seconds
-                </p>
+                <input type="submit" value="Resent Email" :class="{'no':emailBackTime!==0}">
+                <div style="height: 30px">
+                    <p v-if="emailBackTime !== 0"><span>{{ emailBackTime }}s </span>left</p>
+                </div>
             </form>
             <div class="forgetpsw"></div>
         </div>
@@ -38,11 +36,14 @@ export default {
     components: { Pop },
     methods: {
         showSignIn () {
-            this.$store.commit('showLoginPop')
+            this.$store.commit('showLoginPop');
             this.$store.commit('hideVerifyEmail')
         }
     },
     computed: {
+	    emailBackTime(){
+	    	return this.$store.state.pop.emailBackTime;
+        },
         show: {
             set: function (isShow) {
                 if (!!isShow === true) {
@@ -55,6 +56,9 @@ export default {
                 return this.$store.state.pop.showVerifyEmail
             }
         }
+    },
+    mounted(){
+
     }
 }
 </script>
