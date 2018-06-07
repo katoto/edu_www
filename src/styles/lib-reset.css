@@ -262,7 +262,7 @@ th {
   padding: 0;
 }
 
-ol,ul{list-style:none}
+ol,ul,li{list-style:none}
 i,b{
   font-style: normal;
 }

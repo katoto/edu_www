@@ -244,7 +244,6 @@
 				PageTotal: 10,
 				orderList: [],
 				ethUrl: null,
-
 				activeName: 'Request',
 
 				withdrawOptionVal: '1',
@@ -572,10 +571,22 @@
 	}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../../styles/lib-mixins.less";
-
-    li {
-        list-style: none;
+@import "../../styles/lib-mixins.less";
+.orange{
+    color: #fd9644;
+}
+ .withdrawal{
+     h2{
+        line-height: 30px;
+        font-size: 24px;
+        color: #263648;
+        text-transform: capitalize;
+     }
+    .lf130{
+        width:130px;
+        margin-right:35px;
+        float: left;
+        overflow: hidden;
     }
 
     .orange {
@@ -719,7 +730,22 @@
         margin: 20px auto 30px;
     }
 
-    .el-tabs__active-bar {
-        background: #263648 !important;
-    }
+.el-tabs{
+    margin-top: 30px;
+}
+.el-tabs__active-bar{
+    background: #263648 !important;
+}
+.el-tabs__item.is-active,.el-tabs__item:hover{
+    color: #263648;
+}
+.el-tabs__item{
+    float: left;
+    line-height: 40px;
+    font-size: 20px;
+    color: #6a89cc;
+    padding: 0 20px;
+    height: auto;
+}
+ }
 </style>
