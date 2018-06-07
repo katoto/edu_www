@@ -1,7 +1,24 @@
 <template>
     <div class="capitalDetails">
          <h2>My Transactions</h2>
-         <Filters></Filters>
+        <section>
+            <el-select v-model="tranOptionVal">
+                <el-option
+                        v-for="item in tranOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
+            <el-select v-model="tranTimeOptionVal">
+                <el-option
+                        v-for="item in tranTimeOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
+        </section>
         <template>
             <el-table
                     :data="orderList"
@@ -70,7 +87,6 @@
 	import {src, platform, tipsTime, ethUrl, formate_coinType, formateBalance , formate_moneyFlow} from '~common/util'
 	import {Message} from 'element-ui'
 
-	import Filters from '~/components/Filter'
     export default {
         data(){
             return {
@@ -79,6 +95,46 @@
 	            pageCount: 10,
 	            orderList: [],
 	            ethUrl: null,
+
+	            tranOptionVal: '1',
+	            tranOptions: [{
+		            value: '1',
+		            label: 'All bets'
+	            }, {
+		            value: '2',
+		            label: 'Deposit'
+	            }, {
+		            value: '3',
+		            label: 'Bet'
+	            }, {
+		            value: '4',
+		            label: 'Prize'
+	            }, {
+		            value: '5',
+		            label: 'Withdraw'
+	            }, {
+		            value: '6',
+		            label: 'Activities'
+	            }, {
+		            value: '7',
+		            label: 'Fee'
+	            }],
+
+	            tranTimeOptionVal: '1',
+	            tranTimeOptions: [{
+		            value: '1',
+		            label: 'All'
+	            }, {
+		            value: '2',
+		            label: 'Last 90 days'
+	            }, {
+		            value: '3',
+		            label: 'Last 30 days'
+	            }, {
+		            value: '4',
+		            label: 'Last 7 days'
+	            }],
+
             }
         },
         watch: {},
@@ -161,7 +217,7 @@
         },
         computed: {},
         components: {
-            Filters
+
         },
         async mounted(){
 	        let orderMsg = await this.$store.dispatch(aTypes.getAccountLog, {

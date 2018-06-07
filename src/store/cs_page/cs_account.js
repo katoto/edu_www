@@ -74,6 +74,34 @@ const actionsInfo = mapActions({
 				duration: tipsTime
 			})
 		}
+	},
+
+	/* my withdraw/records 我的提款记录  	<!-- rangeno 没有统一 -->  */
+	async getWithdrawRecords ({commit, dispatch}, msg) {
+		try {
+			let InfoData = null;
+			if (msg) {
+				InfoData = await ajax.get(`/account/withdraw/records?pageno=${msg.pageno}&rangeno=${msg.pagesize}&ck=${getCK()}&platform=${platform}&src=${src}`)
+			} else {
+				InfoData = await ajax.get(`/account/withdraw/records?ck=${getCK()}&platform=${platform}&src=${src}`)
+			}
+			if (InfoData.status === '100') {
+				return InfoData.data
+			} else {
+				Message({
+					message: InfoData.message,
+					type: 'error',
+					duration: tipsTime
+				})
+				return false
+			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
 	}
 
 }, 'cs_account')

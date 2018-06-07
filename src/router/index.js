@@ -79,7 +79,7 @@ export default new Router({
                 {
                     path: "/",
 	                name: "General",
-	                redirect: '/account/General'
+	                redirect: '/account/general'
                 }
             ]
         },

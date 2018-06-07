@@ -39,39 +39,285 @@
             </el-tab-pane>
             <el-tab-pane label="Records" name="Records">
                 <li class="li-request">
-                    <Filters></Filters>
+                    <section>
+                        <el-select v-model="withdrawOptionVal">
+                            <el-option
+                                    v-for="item in withdrawOptions"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                        <el-select v-model="withdrawTimeOptionVal">
+                            <el-option
+                                    v-for="item in withdrawTimeOptions"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </section>
+                    <template>
+                        <el-table
+                                :data="orderList"
+                                stripe
+                                size="small"
+                                highlight-current-row
+                                style="width: 100%">
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    type="index"
+                                    label="No.">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    prop="drawtime"
+                                    label="Transaction Time">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    label="Transaction Address">
+                                <template slot-scope="scope">
+                                    <div v-html="scope.row.to_addrHtml"></div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    prop="cointype"
+                                    label="Type">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    prop="drawmoney"
+                                    label="Amount">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    prop="drawfee"
+                                    label="Fee">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    prop="drawstatus"
+                                    label="Status">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    prop="balance"
+                                    label="Balance">
+                            </el-table-column>
+                        </el-table>
+                        <div class="pagination">
+                            <el-pagination
+                                    @current-change="handleCurrentChange"
+                                    background
+                                    :current-page.sync="pageNumber"
+                                    size="small"
+                                    :page-size="pageSize"
+                                    layout="prev, pager, next,jumper"
+                                    :total="PageTotal"
+                            >
+                            </el-pagination>
+                        </div>
+                    </template>
                 </li>
             </el-tab-pane>
         </el-tabs>
-    </div> 
+
+    </div>
 </template>
 
 <script>
-    import Filters from '~/components/Filter'
-    export default {
+	import {mTypes, aTypes} from '~/store/cs_page/cs_account'
+	import {src, platform, tipsTime, ethUrl, format_match_account, formateBalance ,formate_coinType} from '~common/util'
+	import {Message} from 'element-ui'
+	export default {
         data(){
             return {
-                activeName: 'Request'
+	            pageNumber: 1,
+	            pageSize: 6,
+	            PageTotal: 10,
+	            orderList: [],
+	            ethUrl: null,
+
+                activeName: 'Request',
+
+	            withdrawOptionVal: '1',
+	            withdrawOptions: [{
+		            value: '1',
+		            label: 'All'
+	            },{
+		            value: '2',
+		            label: 'successful'
+	            }, {
+		            value: '3',
+		            label: 'failed'
+	            }, {
+		            value: '4',
+		            label: 'waiting'
+	            }],
+
+	            withdrawTimeOptionVal: '1',
+	            withdrawTimeOptions: [ {
+		            value: '1',
+		            label: 'In 30 days'
+	            }, {
+		            value: '2',
+		            label: 'In 7 days'
+	            }],
+
             }
         },
         watch: {
-          
+
         },
         methods: {
-            handleClick(tab, event) {
-                // console.log(tab, event);
-            }
+	        handleClick(){
+
+            },
+	        async handleCurrentChange (val) {
+		        if (val !== undefined) {
+			        let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+				        pageno:  Number(val),
+				        pagesize: this.pageSize
+			        })
+			        if (orderMsg) {
+				        this.orderList = this.format_withdrawList(orderMsg.list);
+				        this.PageTotal = Number(orderMsg.counter)
+			        }
+		        }
+	        },
+            /*
+             *  格式化时间  allbet time
+             * */
+	        format_time (time, format) {
+		        if (format === undefined || format == null) {
+			        format = 'MM-dd HH:mm:ss'
+		        }
+		        if (isNaN(time)) {
+			        return false
+		        }
+		        let t = new Date(+time * 1000)
+		        let tf = function (i) {
+			        return (i < 10 ? '0' : '') + i
+		        }
+		        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+			        switch (a) {
+				        case 'yyyy':
+					        return tf(t.getFullYear())
+				        case 'MM':
+					        return tf(t.getMonth() + 1)
+				        case 'mm':
+					        return tf(t.getMinutes())
+				        case 'dd':
+					        return tf(t.getDate())
+				        case 'HH':
+					        return tf(t.getHours())
+				        case 'ss':
+					        return tf(t.getSeconds())
+			        }
+		        })
+	        },
+            /*
+             *  格式化orderList 数据
+             *  return 格式化后的数据
+             * */
+	        format_withdrawList (Msg) {
+		        if (Msg) {
+			        Msg.forEach((val, index) => {
+				        // bettime
+				        val.drawtime = this.format_time(val.drawtime, 'yyyy-MM-dd HH:mm');
+
+				        if (val.to_addr !== undefined && val.to_addr !== null) {
+					        if (val.to_addr === '') {
+						        val.to_addrHtml = "<span>-</span>"
+					        } else {
+						        val.to_addrHtml = "<a target='_blank' title='" + val.to_addr + "' href='" + ethUrl + "address/" + val.to_addr + "' class='address'>" + val.to_addr + "</a>"
+					        }
+				        }
+				        val.cointype = formate_coinType(val.cointype);
+				        val.drawmoney = formateBalance(val.drawmoney)
+				        val.drawfee = formateBalance(val.drawfee);
+
+				        if (val.drawstatus !== undefined) {
+					        switch (Number(val.drawstatus)) {
+						        case 0:
+						        case 1:
+						        case 2:
+						        case 3:
+							        val.drawstatus = 'waiting'
+							        ;
+							        break;
+						        case 4:
+							        val.drawstatus = 'successful'
+							        ;
+							        break;
+						        case -1:
+						        case -2:
+							        val.drawstatus = 'failed';
+							        break;
+					        }
+				        }
+
+				        val.balance = formateBalance(val.balance) + ' ETH'
+
+				        // win state
+				        if (val.orderstatus == '2') {
+					        // 结算 并且大于0
+					        if (Number(val.betprize) > 0) {
+						        val.betprizeVal = "<a href='javascript:;' class='win'>+ " + formateBalance(val.betprize) + "ETH</a>";
+					        } else {
+						        val.betprizeVal = "<a href='javascript:;' class='fail'>0</a>"
+					        }
+				        } else {
+					        if (Number(val.orderstatus) === 0) {
+						        val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+					        } else if (val.orderstatus == '1') {
+						        val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+					        } else if (val.orderstatus == '-1' || val.orderstatus == '-2') {
+						        val.betprizeVal = 'failure'
+					        }
+				        }
+
+
+			        });
+			        return Msg
+		        } else {
+			        Message({
+				        message: 'format_withdrawList error',
+				        type: 'error'
+			        });
+			        return false
+		        }
+	        }
         },
         computed: {},
         components: {
-            Filters
         },
-        mounted(){
-
-        }
+	    async mounted(){
+		    let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+			    pageno: 1,
+			    pagesize: this.pageSize
+		    })
+		    console.log('=====orderMsg======');
+		    console.log(orderMsg);
+		    if (orderMsg) {
+			    this.orderList = this.format_withdrawList(orderMsg.list);
+			    this.PageTotal = Number(orderMsg.counter)
+		    }
+		    this.ethUrl = ethUrl;
+	    }
     }
 </script>
-<style lang="less">
+<style scoped lang="less" rel="stylesheet/less">
 @import "../../styles/lib-mixins.less";
 .orange{
     color: #fd9644;
@@ -206,7 +452,10 @@
         margin-top:24px;
     }
 }
-
+.pagination {
+    display: table;
+    margin: 20px auto 30px;
+}
 
 .el-tabs{
     margin-top: 30px;
@@ -223,6 +472,6 @@
     font-size: 20px;
     color: #6a89cc;
     padding: 0 20px;
-    height: auto; 
+    height: auto;
 }
 </style>
