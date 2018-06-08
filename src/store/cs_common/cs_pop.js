@@ -233,9 +233,29 @@ const actions = {
 		}
 	},
 
-}
+	/* 邀请 */
+	async resetPasswordFn ({commit, dispatch}, pageData) {
+		try {
+			let InfoData = null;
+			if (pageData) {
+				if (pageData.mailType) {
+					InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				}
+			}
+			return InfoData
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 
-const getters = {}
+
+};
+
+const getters = {};
 
 export default {
 	state,
