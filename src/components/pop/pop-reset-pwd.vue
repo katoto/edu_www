@@ -3,8 +3,7 @@
     <Pop class="pop-reset-psw" :show.sync="show">
         <div class="pop-main">
             <h3>Reset Your Password</h3>
-            <span class="error js_loginInErr">New password must be 6-15 chars and include number and letter</span>
-            <form class=" form-first js_resetPswFirst">
+            <form class="form-first">
                 <input type="text" v-model="resetEmail" name="reset-email" placeholder="Email">
                 <!--no-->
                 <input type="submit" @click.stop.prevent="beforeResetPass" value="Next" :class="{'no':!resetEmail}">
@@ -23,6 +22,7 @@
 
 <script>
 	import Pop from './Pop'
+	import {Message} from 'element-ui'
 
 	export default {
 		data(){
@@ -34,14 +34,20 @@
 		methods: {
 			async beforeResetPass(){
 				let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-				let sendObj = {}
+				let sendObj = {};
 				if (this.resetEmail !== '') {
 					if (emailReg.test(this.resetEmail)) {
 						Object.assign(sendObj, {
 							email: this.resetEmail,
 							mailType: 'reset'
 						});
-						let regMsg = await this.$store.dispatch('sendEmail', this.resetEmail);
+						let regMsg = await this.$store.dispatch('sendEmail', sendObj);
+						if (regMsg && regMsg.status === '100') {
+							this.$store.commit('hideResetPwd');
+							this.$store.commit('showVerifyEmail');
+							this.$store.commit('setRegVerifyEmail', this.resetEmail);
+							this.$store.dispatch('startBackTime');
+						}
 					} else {
 						Message({
 							message: 'Please enter your email address',

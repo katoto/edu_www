@@ -16,11 +16,16 @@ const state = {
 		showTransfer: false,
 
 		emailBackTime: 60,
-		verifyTime: null
+		verifyTime: null,
+		regVerifyEmail: null,
 	}
 }
 
 const mutations = {
+	// 注册邮箱 记录
+	setRegVerifyEmail(state, email){
+		state.pop.regVerifyEmail = email;
+	},
 	// 邮箱倒计时
 	emailBackTime(state, time){
 		state.pop.emailBackTime = time
@@ -51,7 +56,7 @@ const mutations = {
 		state.pop.showVerifyEmail = true
 	},
 	hideVerifyEmail (state) {
-		state.pop.hideVerifyEmail = false
+		state.pop.showVerifyEmail = false
 	},
 	// 重置密码弹窗显示隐藏
 	showResetPwd (state) {
@@ -182,7 +187,7 @@ const actions = {
 			if (pageData) {
 				console.log(pageData);
 				console.log('发送邮件部分');
-				if (pageData.mailType === 'reset') {
+				if (pageData.mailType) {
 					InfoData = await ajax.get(`/user/mail/send?email=${pageData.email}&mail_type=${pageData.mailType}&src=${src}&platform=${platform}`)
 				}
 			}

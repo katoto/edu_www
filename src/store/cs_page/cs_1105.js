@@ -17,7 +17,7 @@ const mutationsInfo = mapMutations({
 	setNavFix (state, data) {
 		state.navFix = data
 	}
-}, 'cs_1105')
+}, 'cs_1105');
 
 const actionsInfo = mapActions({
 	/* Draw Number 列表接口数据 */
@@ -47,7 +47,6 @@ const actionsInfo = mapActions({
 			})
 		}
 	},
-
 
 }, 'cs_1105')
 

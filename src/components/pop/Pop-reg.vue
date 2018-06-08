@@ -48,6 +48,8 @@
 		components: {Pop},
 		methods: {
 			showSucc(){
+				this.$store.commit('setRegVerifyEmail', '846359246@qq.com');
+
 				console.log('success');
 				this.$store.commit('hideRegPop');
 //						验证邮箱
@@ -115,6 +117,7 @@
 					});
 					let regMsg = await this.$store.dispatch('reg', regObj);
 					if (regMsg && regMsg.status.toString() === '100') {
+                        this.$store.commit('setRegVerifyEmail', this.reg_email)
 						this.$store.commit('hideRegPop');
 						this.$store.commit('showVerifyEmail');
 						this.$store.dispatch('startBackTime');
