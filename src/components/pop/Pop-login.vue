@@ -88,16 +88,16 @@
 				}
 			},
 			onSignUp () {
-				this.$store.commit('showRegPop')
+				this.$store.commit('showRegPop');
 				this.$store.commit('hideLoginPop')
 			},
 			onReset () {
-				this.$store.commit('setResetObj',{
-					email:null,
-					sign:null,
-					showReset:false
+				this.$store.commit('setResetObj', {
+					email: null,
+					sign: null,
+					showReset: false
 				});
-				this.$store.commit('showResetPwd')
+				this.$store.commit('showResetPwd');
 				this.$store.commit('hideLoginPop')
 			}
 		},

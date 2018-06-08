@@ -6,7 +6,8 @@
             <div class="loading"></div>
             <form>
                 <input type="text" v-model="reg_email" @blur="checkEmail" name="email" placeholder="Email">
-                <input type="password" v-model="reg_pass" @blur="checkPass" placeholder="New Password(1-15 numbers and letters)">
+                <input type="password" v-model="reg_pass" @blur="checkPass"
+                       placeholder="New Password(1-15 numbers and letters)">
                 <input type="password" v-model="reg_againPass" @blur="checkagainPass"
                        placeholder="Confirm Password">
                 <div class="sure-old">
@@ -67,23 +68,23 @@
 //		                })
 //                    }
 //                }
-            },
+			},
 			checkPass(){
-				/* 检测密码 */
+                /* 检测密码 */
 				let pass_reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
-				if( !pass_reg.test( this.reg_pass ) ){
-					if( this.reg_pass !== '' ){
+				if (!pass_reg.test(this.reg_pass)) {
+					if (this.reg_pass !== '') {
 						Message({
 							message: 'Password must contain 6-15 characters with both numbers and letters',
 							type: 'error',
 							duration: tipsTime
 						})
 					}
-                }
-            },
+				}
+			},
 			async checkEmail(){
 				let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-				if( this.reg_email !== '' ){
+				if (this.reg_email !== '') {
 					if (emailReg.test(this.reg_email)) {
 						let regMsg = await this.$store.dispatch('beforeReg', this.reg_email);
 					} else {
@@ -93,8 +94,8 @@
 							duration: tipsTime
 						})
 					}
-                }
-            },
+				}
+			},
 			async submitReg(){
 				// 判断邮箱
 				let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
@@ -103,26 +104,27 @@
 					return false
 				}
 				if (emailReg.test(this.reg_email)) {
-                    if( this.reg_pass !== this.reg_againPass ){
-                        Message({
-                            message: 'Confirm password not match',
-                            type: 'error',
-                            duration: tipsTime
-                        });
-                        return false
-                    }
+					if (this.reg_pass !== this.reg_againPass) {
+						Message({
+							message: 'Confirm password not match',
+							type: 'error',
+							duration: tipsTime
+						});
+						return false
+					}
 					Object.assign(regObj, {
 						email: this.reg_email,
 						password: this.reg_pass
 					});
-					let regMsg = await this.$store.dispatch('reg', regObj);
+					let regMsg = await
+					this.$store.dispatch('reg', regObj);
 					if (regMsg && regMsg.status.toString() === '100') {
-                        this.$store.commit('setRegVerifyEmail', this.reg_email)
+						this.$store.commit('setRegVerifyEmail', this.reg_email)
 						this.$store.commit('hideRegPop');
 						this.$store.commit('showVerifyEmail');
 						this.$store.dispatch('startBackTime');
 
-					}else if( regMsg.status.toString() === '205' ){
+					} else if (regMsg.status.toString() === '205') {
 						// 已经注册
 						this.$store.commit('showLoginPop')
 						this.$store.commit('hideRegPop')
@@ -131,13 +133,13 @@
 							type: 'error',
 							duration: tipsTime
 						})
-                    }else{
+					} else {
 						Message({
 							message: regMsg.message,
 							type: 'error',
 							duration: tipsTime
 						})
-                    }
+					}
 				} else {
 					Message({
 						message: 'Please enter your email address',
@@ -151,10 +153,10 @@
 				this.$store.commit('hideRegPop')
 			},
 			onReset () {
-				this.$store.commit('setResetObj',{
-					email:null,
-					sign:null,
-					showReset:false
+				this.$store.commit('setResetObj', {
+					email: null,
+					sign: null,
+					showReset: false
 				});
 				this.$store.commit('showResetPwd')
 				this.$store.commit('hideRegPop')
@@ -174,8 +176,8 @@
 				}
 			}
 		},
-        mounted(){
-        }
+		mounted(){
+		}
 	}
 </script>
 
