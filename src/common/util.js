@@ -95,6 +95,41 @@ export function format_match_account(match) {
 	}
 }
 
+/*
+ *   format_match  玩法选择
+ * */
+export function format_match(match) {
+    if (isNaN(match)) {
+        return '';
+    }
+    match = match.toString();
+    switch (match) {
+        case '1101':
+            return 'C1'
+                ;
+            break;
+        case '1102':
+            return 'C2'
+                ;
+            break;
+        case '1103':
+            return 'C3'
+                ;
+            break;
+        case '1104':
+            return 'C4'
+                ;
+            break;
+        case '1105':
+            return 'C5'
+                ;
+            break;
+
+    }
+}
+
+
+
 export function formateBalance(val = 0){
 	let newEth = null;
 	if (isNaN(val) || isNaN(Number(val))) {
