@@ -48,6 +48,21 @@ const actionsInfo = mapActions({
 		}
 	},
 
+
+	/* 注册激活 */
+	async mailActivate ({commit, dispatch}, pageData) {
+		try {
+			return await ajax.get(`/user/mail/activate?sign=${pageData}&src=${src}&platform=${platform}`)
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+
+	},
+
 }, 'cs_1105')
 
 export const mTypes = mutationsInfo.mTypes

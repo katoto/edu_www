@@ -18,10 +18,23 @@ const state = {
 		emailBackTime: 60,
 		verifyTime: null,
 		regVerifyEmail: null,
+
+		resetObj:{  // 重置密码
+			email:null,
+			sign:null,
+			showReset:false,
+		}
+
 	}
 }
 
 const mutations = {
+	setResetObj( state , msg ){
+		state.pop.resetObj.email = msg.email;
+		state.pop.resetObj.sign = msg.sign;
+		state.pop.resetObj.showReset = msg.showReset
+	},
+
 	// 注册邮箱 记录
 	setRegVerifyEmail(state, email){
 		state.pop.regVerifyEmail = email;
@@ -201,6 +214,24 @@ const actions = {
 		}
 	},
 
+	/*  reset password  重置密码  */
+	async resetPasswordFn ({commit, dispatch}, pageData) {
+		try {
+			let InfoData = null;
+			if (pageData) {
+				if (pageData.mailType) {
+					InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				}
+			}
+			return InfoData
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 
 }
 
