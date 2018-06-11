@@ -27,12 +27,12 @@ const state = {
 		faucetMsg: null,  // 邀请的msg
 		inviterObj: null,  // 邀请接收
 
-		loginSucc: null,  // 登陆成功后的数据
+		// loginSucc: null,  // 登陆成功后的数据
 		showFirstLogin:false,  // 邀请用
-		// loginSucc: {
-		// 	login_times:'1',
-		// 	invite_status:'0'
-		// },
+		loginSucc: {
+			login_times:'1',
+			invite_status:'0'
+		},
 	}
 }
 

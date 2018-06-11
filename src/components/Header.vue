@@ -128,8 +128,10 @@
                         </div>
                     </section>
                 </div>
-                <!--主按钮 light over-->
-                <a href="javascript:;" @click="showFaucet" class="btn-faucet" v-if="isLog">Faucet</a>
+                <!--主按钮 light over  -1  未开始  1 已结束  -2  -->
+                <a href="javascript:;" @click="showFaucet" class="btn-faucet"
+                   :class="{'over':loginSucc.invite_status == '-1'||loginSucc.invite_status == '1'||loginSucc.invite_status == '-2'}"
+                   v-if="isLog">Faucet</a>
             </div>
 
             <div class="jackpot-box hide">
@@ -167,14 +169,21 @@
                     </div>
                 </div>
             </section>
-            <!--活动结束或者已邀请两次-->
-            <div id="js_newActOver" class="tips-newAct hide">
-                <div class="msg">
-                    <p class="js_newActMsg">
-                        This activity is end and more bonus will coming soon!
-                    </p>
+            <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
+            <!--  user/info 里还有问题  TODO -->
+            <section v-if="loginSucc">
+                <div class="tips-newAct"
+                     :class="{'hide':!(loginSucc.invite_status == '-1'||loginSucc.invite_status == '1'||loginSucc.invite_status == '-2')}">
+                    <div class="msg">
+                        <p v-if="loginSucc.invite_status=='-1'">
+                            Let's expect the upcoming activity!
+                        </p>
+                        <p v-else>
+                            This activity is end and more bonus will coming soon!
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </section>
             <!--成功邀请-->
             <div class="tips-newAct tips-newAct2 hide js_tips_newAct2">
                 <div class="msg">
@@ -225,9 +234,9 @@
 		methods: {
 			hideFirstLoginAll(){
 				// 关闭第一个弹窗
-				this.$store.commit('showFirstLogin',false);
-				this.$store.commit('setLoginSucc',null);
-            },
+				this.$store.commit('showFirstLogin', false);
+				this.$store.commit('setLoginSucc', null);
+			},
 			async showFaucet(){
 				let faucetMsg = await this.$store.dispatch('getFaucet');
                 /* 显示邀请 */
