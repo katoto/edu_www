@@ -116,8 +116,7 @@
 						email: this.reg_email,
 						password: this.reg_pass
 					});
-					let regMsg = await
-					this.$store.dispatch('reg', regObj);
+					let regMsg = await this.$store.dispatch('reg', regObj);
 					if (regMsg && regMsg.status.toString() === '100') {
 						this.$store.commit('setRegVerifyEmail', this.reg_email)
 						this.$store.commit('hideRegPop');

@@ -24,17 +24,22 @@ const state = {
 			sign: null,
 			showReset: false,
 		},
-		faucetMsg:null
+		faucetMsg:null,  // 邀请的msg
+		inviterObj:null,  // 邀请接收
 	}
 }
 
 const mutations = {
+	// 邀请用
+	setInviterObj(state,msg){
+		state.pop.inviterObj = msg
+	},
+
 	setResetObj(state, msg){
 		state.pop.resetObj.email = msg.email;
 		state.pop.resetObj.sign = msg.sign;
 		state.pop.resetObj.showReset = msg.showReset
 	},
-
 	// 注册邮箱 记录
 	setRegVerifyEmail(state, email){
 		state.pop.regVerifyEmail = email;
@@ -169,7 +174,11 @@ const actions = {
 			let InfoData = null;
 			console.log(pageData);
 			if (pageData) {
-				InfoData = await ajax.get(`/user/mail/reg?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				if( state.pop.inviterObj ){
+					InfoData = await ajax.get(`/user/mail/reg?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				}else{
+					InfoData = await ajax.get(`/user/mail/reg?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				}
 			}
 			return InfoData
 		} catch (e) {
