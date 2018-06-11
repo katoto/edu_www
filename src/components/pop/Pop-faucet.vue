@@ -3,18 +3,23 @@
     <!--链接邀请-->
     <Pop class="pop-faucet" :show.sync="show">
         <div class="pop-main">
-            <div class="pop-main">
+            <div class="pop-main" v-if="faucetMsg">
                 <h3 class="font26">Faucet</h3>
-                <p>
+                <p v-if="faucetMsg">
+                    Inviting friends earn {{ faucetMsg.invite_prize }} {{ faucetMsg.prize_cointype | formateCoinType }} per invitation (2 chances)
+                </p>
+                <p v-else>
                     Inviting friends earn 0.001 ETH per invitation (2 chances)
                 </p>
                 <p>
                     Use the following link to invite your friends
                 </p>
-                <div id="js_newActCopy" class="newActCopy">text</div>
-                <a href="javascript:;" id="js_choseFaucet" data-clipboard-text="copy failure"
-                   class="btn-copy js_btn-copy">Copy
-                    to clipboard</a>
+                <div v-if="faucetMsg" class="newActCopy">{{ faucetMsg.invite_url }}</div>
+                <a href="javascript:;"
+                   v-clipboard:copy="faucetMsg.desc"
+                   v-clipboard:success="copySucc"
+                   v-clipboard:error="copyError"
+                   class="btn-copy js_btn-copy">Copy to clipboard</a>
                 <p>
                     Tips:
                 </p>
@@ -37,10 +42,14 @@
 
 <script>
 	import Pop from './Pop'
+	import {Message} from 'element-ui'
 
 	export default {
 		components: {Pop},
 		computed: {
+			faucetMsg(){
+				return this.$store.state.pop.faucetMsg
+            },
 			show: {
 				set: function (isShow) {
 					if (!!isShow === true) {
@@ -53,7 +62,34 @@
 					return this.$store.state.pop.showFaucet
 				}
 			}
-		}
+		},
+        methods:{
+	        copySucc(){
+		        Message({
+			        message: 'Copied to clipboard',
+			        type: 'success'
+		        });
+	        },
+	        copyError(){
+		        Message({
+			        message: 'Failed to copy, please retry',
+			        type: 'success'
+		        });
+	        }
+        },
+		filters: {
+			formateCoinType: (type = '2001') => {
+				type = type.toString();
+				switch (type) {
+					case '2001':
+						return 'ETH';
+					case '1001':
+						return 'BTC';
+					default:
+						return 'ETH'
+				}
+			}
+		},
 	}
 </script>
 

@@ -30,7 +30,8 @@
                         <span class="recharge-add">
                             {{ item.address }}
                         </span>
-                        <a href="javascript:;" v-clipboard:copy="item.address"
+                        <a href="javascript:;"
+                           v-clipboard:copy="item.address"
                            v-clipboard:success="copySucc"
                            v-clipboard:error="copyError"
                            class="copy js_btn-copy">Copy</a>

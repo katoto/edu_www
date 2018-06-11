@@ -207,7 +207,8 @@
 	        }
         },
 		methods: {
-			showFaucet(){
+			async showFaucet(){
+				let faucetMsg = await this.$store.dispatch('getFaucet');
                 /* 显示邀请 */
 				this.$store.commit('showFaucet')
             },

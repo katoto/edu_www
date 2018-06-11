@@ -19,17 +19,17 @@ const state = {
 		verifyTime: null,
 		regVerifyEmail: null,
 
-		resetObj:{  // 重置密码
-			email:null,
-			sign:null,
-			showReset:false,
-		}
-
+		resetObj: {  // 重置密码
+			email: null,
+			sign: null,
+			showReset: false,
+		},
+		faucetMsg:null
 	}
 }
 
 const mutations = {
-	setResetObj( state , msg ){
+	setResetObj(state, msg){
 		state.pop.resetObj.email = msg.email;
 		state.pop.resetObj.sign = msg.sign;
 		state.pop.resetObj.showReset = msg.showReset
@@ -104,6 +104,9 @@ const mutations = {
 	},
 	hideFaucet (state) {
 		state.pop.showFaucet = false
+	},
+	faucetMsg (state, msg) {
+		state.pop.faucetMsg = msg
 	}
 
 }
@@ -233,14 +236,12 @@ const actions = {
 		}
 	},
 
-	/* 邀请 */
-	async resetPasswordFn ({commit, dispatch}, pageData) {
+	/* 邀请 faucet */
+	async getFaucet ({commit, dispatch}) {
 		try {
-			let InfoData = null;
-			if (pageData) {
-				if (pageData.mailType) {
-					InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
-				}
+			let InfoData = await ajax.get(`/user/invite?ck=${getCK()}&src=${src}&platform=${platform}`)
+			if (InfoData.status.toString() === '100') {
+				commit('faucetMsg', InfoData.data)
 			}
 			return InfoData
 		} catch (e) {
@@ -251,7 +252,6 @@ const actions = {
 			})
 		}
 	},
-
 
 };
 
