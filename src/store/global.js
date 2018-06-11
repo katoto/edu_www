@@ -39,7 +39,18 @@ const actions = {
 	/* user info */
 	async getUserInfo ({commit, dispatch}) {
 		try {
-			return await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`)
+			let userMsg = null;
+			userMsg = await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`);
+			if( userMsg.status =='100' && userMsg.data.accounts.length ===0 ){
+				userMsg.data.accounts.push({
+					address: "",
+					balance: "0",
+					cointype: "2001",
+					fee: "0.003",
+					freez: "0.0",
+				})
+			}
+			return userMsg
 		} catch (e) {
 			Message({
 				message: e.message,

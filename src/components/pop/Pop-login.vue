@@ -68,6 +68,7 @@
 									type: 'success',
 									duration: tipsTime
 								});
+
 								this.$store.commit('setIsLog', true);
 								this.$store.commit('setUserInfo', userMsg.data);
 								await wait(500);

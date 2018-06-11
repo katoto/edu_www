@@ -131,7 +131,7 @@
                 <!--主按钮 light over  -1  未开始  1 已结束  -2  -->
                 <a href="javascript:;" @click="showFaucet" class="btn-faucet"
                    :class="{'over':loginSucc.invite_status == '-1'||loginSucc.invite_status == '1'||loginSucc.invite_status == '-2'}"
-                   v-if="isLog">Faucet</a>
+                   v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
             </div>
 
             <div class="jackpot-box hide">
@@ -154,9 +154,9 @@
 
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
-            <section v-if="loginSucc || showFirstLogin">
+            <section v-if="(loginSucc || showFirstLogin)&&isLog">
                 <div class="tips-newAct tips-newAct2"
-                     :class="{'hide': !(  ( showFirstLogin ) || (loginSucc.login_times == '1' && loginSucc.invite_status == '0') )}">
+                     :class="{'hide': !(  ( showFirstLogin ) || (loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1') )}">
                     <div class="msg">
                         <p>
                             You have earned 0.001 free ETH already, go to bet to win more!
@@ -171,7 +171,7 @@
             </section>
             <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
             <!--  user/info 里还有问题  TODO -->
-            <section v-if="loginSucc">
+            <section v-if="loginSucc&&isLog">
                 <div class="tips-newAct"
                      :class="{'hide':!(loginSucc.invite_status == '-1'||loginSucc.invite_status == '1'||loginSucc.invite_status == '-2')}">
                     <div class="msg">
@@ -252,7 +252,7 @@
                 /* 退出登录 */
 				removeCK();
 				this.$store.commit('setIsLog', false);
-				this.$store.commit('setUserInfo', {});
+				this.$store.commit('setUserInfo', null);
 			},
 			onLoginIn () {
 				this.$store.commit('showLoginPop')
