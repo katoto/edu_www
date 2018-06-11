@@ -16,11 +16,29 @@ const state = {
 		showTransfer: false,
 
 		emailBackTime: 60,
-		verifyTime: null
+		verifyTime: null,
+		regVerifyEmail: null,
+
+		resetObj:{  // 重置密码
+			email:null,
+			sign:null,
+			showReset:false,
+		}
+
 	}
 }
 
 const mutations = {
+	setResetObj( state , msg ){
+		state.pop.resetObj.email = msg.email;
+		state.pop.resetObj.sign = msg.sign;
+		state.pop.resetObj.showReset = msg.showReset
+	},
+
+	// 注册邮箱 记录
+	setRegVerifyEmail(state, email){
+		state.pop.regVerifyEmail = email;
+	},
 	// 邮箱倒计时
 	emailBackTime(state, time){
 		state.pop.emailBackTime = time
@@ -51,7 +69,7 @@ const mutations = {
 		state.pop.showVerifyEmail = true
 	},
 	hideVerifyEmail (state) {
-		state.pop.hideVerifyEmail = false
+		state.pop.showVerifyEmail = false
 	},
 	// 重置密码弹窗显示隐藏
 	showResetPwd (state) {
@@ -182,7 +200,7 @@ const actions = {
 			if (pageData) {
 				console.log(pageData);
 				console.log('发送邮件部分');
-				if (pageData.mailType === 'reset') {
+				if (pageData.mailType) {
 					InfoData = await ajax.get(`/user/mail/send?email=${pageData.email}&mail_type=${pageData.mailType}&src=${src}&platform=${platform}`)
 				}
 			}
@@ -196,10 +214,48 @@ const actions = {
 		}
 	},
 
+	/*  reset password  重置密码  */
+	async resetPasswordFn ({commit, dispatch}, pageData) {
+		try {
+			let InfoData = null;
+			if (pageData) {
+				if (pageData.mailType) {
+					InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				}
+			}
+			return InfoData
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 
-}
+	/* 邀请 */
+	async resetPasswordFn ({commit, dispatch}, pageData) {
+		try {
+			let InfoData = null;
+			if (pageData) {
+				if (pageData.mailType) {
+					InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				}
+			}
+			return InfoData
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 
-const getters = {}
+
+};
+
+const getters = {};
 
 export default {
 	state,

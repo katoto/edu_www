@@ -14,7 +14,7 @@
                 </svg>
             </div>
             <p>Congratulates！<br>Now you can enjoy the game.</p>
-            <a href="javascript:;" class="btn-success js_btn-success">Wish You Luck</a>
+            <a href="javascript:;" @click="regisSucc" class="btn-success">Wish You Luck</a>
         </div>
   </Pop>
 </template>
@@ -36,6 +36,11 @@ export default {
             get: function () {
                 return this.$store.state.pop.showRegSuccess
             }
+        }
+    },
+    methods:{
+	    regisSucc(){
+		    this.$store.commit('hideRegSuccess')
         }
     }
 }

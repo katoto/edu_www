@@ -23,7 +23,7 @@
 					this.$store.commit('setIsLog', true);
 					this.$store.commit('setUserInfo', userMsg.data);
 				} else if( userMsg.status.toString() === '214' ){
-					// todo 登陆  214 转态
+					// todo 登陆
 					removeCK();
 					this.$store.commit('setIsLog', false);
 					this.$store.commit('setUserInfo', {});
@@ -36,7 +36,9 @@
 			} else {
 				this.$store.commit('setIsLog', false);
 			}
-			this.isReady = true
+			this.isReady = true;
+
+
 		}
 	}
 

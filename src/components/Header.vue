@@ -2,7 +2,7 @@
     <section>
         <div class="head">
             <div class="top">
-                <router-link to="/"  title="Coinslot" class="logo">
+                <router-link to="/" title="Coinslot" class="logo">
                     <!--<h1>Coinslot</h1>-->
                     <!--<?xml version="1.0" encoding="utf-8"?>
                          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
@@ -75,81 +75,54 @@
                 <!-- 登录  -->
                 <div class="login">
                     <!-- 未登录 -->
-                    <div class="to-login js_isLogOut">
+                    <div class="to-login" v-if="!isLog">
                         <a href="javascript:;" class="btn-in" @click="onLoginIn">
                             Sign In&nbsp;/&nbsp;Up
                         </a>
                     </div>
                     <!-- 登录 -->
-                    <section class="hide js_isLogin">
+                    <section v-else>
                         <div class="hadlogin">
-                            <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=recharge"
-                               class="btn-rechrage">Deposit</a>
-                            <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=withdrawal"
-                               class="btn-cash">Withdraw</a>
+                            <a href="" class="btn-rechrage">Deposit </a>
+                            <a href="" class="btn-cash">Withdraw</a>
                         </div>
-                        <div id="mycount" class="mycount">
-                        <span id="js_countNum" class="countNum">
-                              <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
-                            <!--blinking2-->
-                            <span onclick="window.location.href='https://www.coinslot.com/coinslot/html/account.html?currTab=information'"
-                                  class="js_countNum "></span> ETH<i></i>
-                        </span>
-                            <div id="mycount-detailed" class="mycount-detailed ">
-                                <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
-                                <div class="account-info">
-                                    <div class="email js_email-account">
-                                        1234**1234@test.com
+                        <div class="mycount">
+                            <span class="countNum" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
+                                  <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
+                                <!--blinking2-->
+                                 <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
+                            </span>
+                            <transition name="fade">
+                                <div id="mycount-detailed" class="mycount-detailed" :class="{'hide':!showDetail}">
+                                    <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
+                                    <div class="account-info">
+                                        <div class="email js_email-account">
+                                            {{ userInfo.email }}
+                                        </div>
+                                        <div class="uid">
+                                            UserID:<i class="js_user_uid">{{ userInfo.uid }}</i>
+                                        </div>
                                     </div>
-                                    <div class="uid">
-                                        UserID:<i class="js_user_uid">***11</i>
+                                    <div class="wallet-balance">
+                                        <p>Wallet Balance</p>
+                                        <ul class="js_account_lis">
+                                            <li v-for="account in userInfo.accounts">
+                                                <a href="javascript:;" class="btn-refresh"></a>
+                                                <span class="amount js_countNum">{{ account.balance }}</span>
+                                                <span class="unit">{{ account.cointype | formateCoinType }}</span>
+                                            </li>
+                                        </ul>
                                     </div>
+                                    <a href="" class="my-transaction">My Bets</a>
+                                    <a href="" class="account-center">Account Center</a>
+                                    <a href="javascript:;" @click="signOut" class="log-out">Sign Out</a>
                                 </div>
-                                <script type="text/tmpl" id="js_account_lisTmpl">
-                                    <li class="js_countNum_box">
-                                        <span class="amount js_countNum_{$coinTypeNum}">{$coinBalance}</span>
-                                        <span class="unit">{$coinType}</span>
-                                    </li>
-
-                                </script>
-                                <div class="wallet-balance">
-                                    <p>Wallet Balance</p>
-                                    <ul class="js_account_lis">
-                                        <!--<li class="js_countNum">ETH    0.124000</li>-->
-                                        <li class="js_countNum_box">
-                                            <a href="javascript:;" class="btn-refresh js_btn-refrest"></a>
-                                            <span class="amount js_countNum">0.0</span>
-                                            <span class="unit">ETH</span>
-                                        </li>
-                                        <li class="js_countNum_box hide">
-                                            <!--<a href="javascript:;" class="btn-refresh js_btn-refrest"></a>-->
-                                            <span class="amount js_countNum">0.0</span>
-                                            <span class="unit">BTC</span>
-                                        </li>
-                                        <!--<li>BTC    0.0002</li>-->
-                                    </ul>
-                                </div>
-                                <!--<div class="wallet-add hide">-->
-                                <!--<p>Wallet Address</p>-->
-                                <!--<ul>-->
-                                <!--<li class="items-add js_head_itemsAdd"><span>ETH</span></li>-->
-                                <!--<li class="items-add hide"><span>BTC</span> <a href="javascript:;" target="_blank">ETH-->
-                                <!--1FEK7gfZaaK2m...</a></li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=betting"
-                                   class="my-transaction">My Bets
-                                </a>
-                                <a href="https://www.coinslot.com/coinslot/html/account.html?currTab=information"
-                                   class="account-center">Account Center
-                                </a>
-                                <a href="javascript:;" class="log-out js_log-out">Sign Out</a>
-                            </div>
+                            </transition>
                         </div>
                     </section>
                 </div>
                 <!--主按钮 light over-->
-                <a href="javascript:;" id="js_btn_faucet" class="btn-faucet hide ">Faucet</a>
+                <a href="javascript:;" @click="showFaucet" class="btn-faucet" v-if="isLog">Faucet</a>
             </div>
 
             <div class="jackpot-box hide">
@@ -212,523 +185,588 @@
 </template>
 
 <script>
-import PopList from '~components/Pop-list'
-export default {
-    components: { PopList },
-    data () {
-        return {
-        }
-    },
-    watch: {},
-    methods: {
-        onLoginIn () {
-            this.$store.commit('showLoginPop')
-        }
-    }
-}
+	import PopList from '~components/Pop-list'
+	import {Message} from 'element-ui'
+	import {src, platform, removeCK ,tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
+
+	export default {
+		components: {PopList},
+		data () {
+			return {
+				showDetail:false
+
+			}
+		},
+		watch: {},
+		computed:{
+	        isLog(){
+		        return this.$store.state.isLog
+	        },
+	        userInfo(){
+		        return this.$store.state.userInfo
+	        }
+        },
+		methods: {
+			showFaucet(){
+                /* 显示邀请 */
+				this.$store.commit('showFaucet')
+            },
+			showDetailFn(){
+                this.showDetail = true
+            },
+			hideDetailFn(){
+	            this.showDetail = false
+            },
+			signOut(){
+            	/* 退出登录 */
+				removeCK();
+				this.$store.commit('setIsLog', false);
+				this.$store.commit('setUserInfo', {});
+            },
+			onLoginIn () {
+				this.$store.commit('showLoginPop')
+			}
+		},
+		filters: {
+			formateCoinType: (type = '2001') => {
+				type = type.toString();
+				switch (type) {
+					case '2001':
+						return 'ETH';
+					case '1001':
+						return 'BTC';
+					default:
+						return 'ETH'
+				}
+			}
+		},
+
+	}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-@import "../styles/lib-mixins.less";
-.head {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  height: 90px;
-  background: #5068bc;
-  background: linear-gradient(to right, #4b6584, #655aae, #545f94);
-  color: #fff;
-  .top {
-    position: relative;
-    z-index: 4;
-    width: 1190px;
-    height: 90px;
-    margin: 0 auto;
-  }
-  .logo {
-    display: block;
-    float: left;
-    width: 230px;
-    height: 90px;
-    svg {
-      transform-origin: 0 40px;
-      transform: scale(0.47);
-    }
-  }
-  .language {
-    float: right;
-    cursor: pointer;
-    margin-top: 30px;
-    height: 30px;
-    line-height: 30px;
-    color: #fff;
-    i {
-      display: block;
-      width: 28px;
-      height: 28px;
-      float: left;
-      margin-right: 5px;
-      border: 2px solid #837bbd;
-      border-radius: 50%;
-      background-image: url(" ../assets/slice/en.png");
-    }
-    span {
-      float: left;
-    }
-  }
-  .impor-wallet {
-    display: block;
-    float: right;
-    margin: 26px 47px 0 0;
-    width: 198px;
-    height: 34px;
-    overflow: hidden;
-    text-align: center;
-    line-height: 34px;
-    border: 1px solid #907eef;
-    border-radius: 6px;
-    color: #fff;
-  }
-  .mycount {
-    position: relative;
-    float: right;
-    .transition();
-    .countNum {
-      position: relative;
-      cursor: pointer;
-      display: block;
-      padding-right: 25px;
-      line-height: 30px;
-      font-size: 20px;
-      i {
-        display: block;
-        position: absolute;
-        width: 13px;
-        height: 8px;
-        right: 0;
-        top: 11px;
-        background-image: url(" ../assets/slice/arrow-down-fff.png");
-        transform-origin: 50%;
-        .transition();
-      }
-      &:hover {
-        i {
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
+    @import "../styles/lib-mixins.less";
 
-  .login {
-    position: relative;
-    float: right;
-    margin: 30px 47px 0 0;
-    border: none;
-    .to-login,
-    .hadlogin {
-      position: relative;
-      float: right;
-      width: 198px;
-      margin-left: 50px;
-      text-align: center;
-      overflow: hidden;
-      &:hover {
-        &::after {
-          background: #eef1f9;
-        }
-      }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
     }
-    .hadlogin {
-      &:after {
-        content: "";
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
+
+    .head {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        height: 90px;
+        background: #5068bc;
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+        color: #fff;
+        .top {
+            position: relative;
+            z-index: 4;
+            width: 1190px;
+            height: 90px;
+            margin: 0 auto;
+        }
+        .logo {
+            display: block;
+            float: left;
+            width: 230px;
+            height: 90px;
+            svg {
+                transform-origin: 0 40px;
+                transform: scale(0.47);
+            }
+        }
+        .language {
+            float: right;
+            cursor: pointer;
+            margin-top: 30px;
+            height: 30px;
+            line-height: 30px;
+            color: #fff;
+            i {
+                display: block;
+                width: 28px;
+                height: 28px;
+                float: left;
+                margin-right: 5px;
+                border: 2px solid #837bbd;
+                border-radius: 50%;
+                background-image: url(" ../assets/slice/en.png");
+            }
+            span {
+                float: left;
+            }
+        }
+        .impor-wallet {
+            display: block;
+            float: right;
+            margin: 26px 47px 0 0;
+            width: 198px;
+            height: 34px;
+            overflow: hidden;
+            text-align: center;
+            line-height: 34px;
+            border: 1px solid #907eef;
+            border-radius: 6px;
+            color: #fff;
+        }
+        .mycount {
+            position: relative;
+            float: right;
+            .transition();
+            .countNum {
+                position: relative;
+                cursor: pointer;
+                display: block;
+                padding-right: 25px;
+                line-height: 30px;
+                font-size: 20px;
+                i {
+                    display: block;
+                    position: absolute;
+                    width: 13px;
+                    height: 8px;
+                    right: 0;
+                    top: 11px;
+                    background-image: url(" ../assets/slice/arrow-down-fff.png");
+                    transform-origin: 50%;
+                    .transition();
+                }
+                &:hover {
+                    i {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+
+        .login {
+            position: relative;
+            float: right;
+            margin: 30px 47px 0 0;
+            border: none;
+            .to-login,
+            .hadlogin {
+                position: relative;
+                float: right;
+                width: 198px;
+                margin-left: 50px;
+                text-align: center;
+                overflow: hidden;
+                &:hover {
+                    &::after {
+                        background: #eef1f9;
+                    }
+                }
+            }
+            .hadlogin {
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    width: 1px;
+                    height: 100%;
+                    overflow: hidden;
+                    background: #907eef;
+                }
+            }
+            .btn-rechrage,
+            .btn-cash,
+            .btn-up,
+            .btn-in {
+                display: block;
+                float: left;
+                width: 50%;
+                height: 30px;
+                overflow: hidden;
+                border: 1px solid #907eef;
+                line-height: 28px;
+                box-sizing: border-box;
+                color: #fff;
+                .transition();
+                &:hover {
+                    border-color: #eef1f9;
+                }
+            }
+            .btn-rechrage,
+            .btn-up {
+                border-right: none;
+                border-top-left-radius: 6px;
+                border-bottom-left-radius: 6px;
+            }
+            .btn-cash {
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+                border-left: none;
+            }
+            .btn-in {
+                float: right;
+                border-radius: 6px;
+            }
+        }
+        .jump5 {
+            animation: fontSize 1s forwards infinite;
+        }
+        .jackpot {
+            float: left;
+            margin-left: 22px;
+            font-family: sans-eb;
+            color: #f6b543;
+            * {
+                float: left;
+            }
+            span {
+                font-size: 20px;
+            }
+            i {
+                position: relative;
+                padding-left: 26px;
+                font-size: 36px;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 20px;
+                    background-image: url(" ../assets/slice/logo-btc.png");
+                }
+            }
+        }
+    }
+
+    .mycount-detailed {
+        position: absolute;
+        z-index: 10;
+        right: 0;
+        top: 36px;
+        width: 207px;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #fff;
+        text-align: right;
+        -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        .wallet-balance,
+        .wallet-add {
+            padding: 0 18px;
+            p {
+                height: 26px;
+                line-height: 26px;
+                overflow: hidden;
+                font-size: 12px;
+                color: #778ca3;
+            }
+        }
+        .wallet-balance {
+            margin: 16px 0 25px 0;
+            li {
+                height: 26px;
+                line-height: 26px;
+                overflow: hidden;
+                font-size: 16px;
+                font-weight: bold;
+                color: #263648;
+            }
+            .unit {
+                float: right;
+            }
+            .amount {
+                margin-left: 15px;
+                float: right;
+            }
+            .btn-refresh {
+                display: block;
+                float: right;
+                margin: 8px 0 0 10px;
+                background-image: url(" ../assets/slice/icon-refresh.png");
+            }
+        }
+        .wallet-add {
+            margin: 14px auto 26px;
+            .items-add {
+                line-height: 22px;
+                .clearfix();
+                span {
+                    float: left;
+                    color: #263648;
+                }
+                a {
+                    float: right;
+                    width: 120px;
+                    color: #263648;
+                    text-decoration: none;
+                    .transition();
+                    .text-overflow();
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+        .my-transaction,
+        .account-center {
+            display: block;
+            width: 153px;
+            height: 28px;
+            overflow: hidden;
+            margin: 10px auto 0;
+            line-height: 28px;
+            text-align: center;
+            border: 1px solid #ced6e0;
+            border-radius: 6px;
+        }
+        .log-out {
+            display: block;
+            height: 30px;
+            overflow: hidden;
+            margin-top: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-top: 1px solid #ced6e0;
+            &:hover {
+                background: #eef1f9;
+            }
+        }
+    }
+
+    .account-info {
+        padding: 0 16px;
+        color: #263648;
+        .email {
+            margin-top: 25px;
+            line-height: 26px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .uid {
+            line-height: 26px;
+            font-size: 12px;
+        }
+    }
+
+    .opening {
         position: absolute;
         top: 0;
-        left: 50%;
-        width: 1px;
-        height: 100%;
-        overflow: hidden;
-        background: #907eef;
-      }
+        left: 160px;
+        font-weight: bold;
+        font-size: 16px;
+        color: #fff;
+        font-weight: bold;
     }
-    .btn-rechrage,
-    .btn-cash,
-    .btn-up,
-    .btn-in {
-      display: block;
-      float: left;
-      width: 50%;
-      height: 30px;
-      overflow: hidden;
-      border: 1px solid #907eef;
-      line-height: 28px;
-      box-sizing: border-box;
-      color: #fff;
-      .transition();
-      &:hover {
-        border-color: #eef1f9;
-      }
-    }
-    .btn-rechrage,
-    .btn-up {
-      border-right: none;
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
-    }
-    .btn-cash {
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
-      border-left: none;
-    }
-    .btn-in {
-      float: right;
-      border-radius: 6px;
-    }
-  }
-  .jump5 {
-    animation: fontSize 1s forwards infinite;
-  }
-  .jackpot {
-    float: left;
-    margin-left: 22px;
-    font-family: sans-eb;
-    color: #f6b543;
-    * {
-      float: left;
-    }
-    span {
-      font-size: 20px;
-    }
-    i {
-      position: relative;
-      padding-left: 26px;
-      font-size: 36px;
-      &::before {
-        content: "";
+
+    #cicle {
         position: absolute;
-        left: 0;
-        top: 20px;
-        background-image: url(" ../assets/slice/logo-btc.png");
-      }
+        left: 50%;
+        top: 0;
+        transform: translate(-50%);
     }
-  }
-}
-.mycount-detailed {
-  display: none;
-  position: absolute;
-  z-index: 10;
-  right: 0;
-  top: 36px;
-  width: 207px;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #fff;
-  text-align: right;
-  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  .wallet-balance,
-  .wallet-add {
-    padding: 0 18px;
-    p {
-      height: 26px;
-      line-height: 26px;
-      overflow: hidden;
-      font-size: 12px;
-      color: #778ca3;
-    }
-  }
-  .wallet-balance {
-    margin: 16px 0 25px 0;
-    li {
-      height: 26px;
-      line-height: 26px;
-      overflow: hidden;
-      font-size: 16px;
-      font-weight: bold;
-      color: #263648;
-    }
-    .unit {
-      float: right;
-    }
-    .amount {
-      margin-left: 15px;
-      float: right;
-    }
-    .btn-refresh {
-      display: block;
-      float: right;
-      margin: 8px 0 0 10px;
-      background-image: url(" ../assets/slice/icon-refresh.png");
-    }
-  }
-  .wallet-add {
-    margin: 14px auto 26px;
-    .items-add {
-      line-height: 22px;
-      .clearfix();
-      span {
-        float: left;
-        color: #263648;
-      }
-      a {
-        float: right;
-        width: 120px;
-        color: #263648;
-        text-decoration: none;
-        .transition();
-        .text-overflow();
-        &:hover {
-          text-decoration: underline;
+
+    .jackpot-box {
+        position: fixed;
+        z-index: 11;
+        top: 0;
+        left: 50%;
+        margin-left: -473.5px;
+        width: 947px;
+        height: 112px;
+        .text {
+            position: relative;
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            p {
+                height: 72px;
+                padding-top: 25px;
+                line-height: 76px;
+                font-size: 22px;
+            }
+            p.jackpot-add {
+                width: 104px;
+                overflow: hidden;
+            }
+            p.jackpot-money {
+                font-size: 36px;
+                font-family: sans-eb;
+                line-height: 72px;
+                animation: bounceIn 2s 5s infinite;
+            }
         }
-      }
+        .bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .bg1 {
+            z-index: 1;
+            background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
+        }
+        .bg2 {
+            z-index: 2;
+            background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
+        }
+        .bg3 {
+            z-index: 3;
+            background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
+        }
+        .bg1,
+        .bg3 {
+            opacity: 0;
+            animation: bounceIn 1s 1s forwards;
+        }
+        img {
+            position: absolute;
+            top: -50px;
+        }
     }
-  }
-  .my-transaction,
-  .account-center {
-    display: block;
-    width: 153px;
-    height: 28px;
-    overflow: hidden;
-    margin: 10px auto 0;
-    line-height: 28px;
-    text-align: center;
-    border: 1px solid #ced6e0;
-    border-radius: 6px;
-  }
-  .log-out {
-    display: block;
-    height: 30px;
-    overflow: hidden;
-    margin-top: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-top: 1px solid #ced6e0;
-    &:hover {
-      background: #eef1f9;
+
+    @keyframes fontSize {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        80% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
     }
-  }
-}
-.account-info {
-  padding: 0 16px;
-  color: #263648;
-  .email {
-    margin-top: 25px;
-    line-height: 26px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  .uid {
-    line-height: 26px;
-    font-size: 12px;
-  }
-}
 
-.opening {
-  position: absolute;
-  top: 0;
-  left: 160px;
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-  font-weight: bold;
-}
-#cicle {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translate(-50%);
-}
-.jackpot-box {
-  position: fixed;
-  z-index: 11;
-  top: 0;
-  left: 50%;
-  margin-left: -473.5px;
-  width: 947px;
-  height: 112px;
-  .text {
-    position: relative;
-    z-index: 4;
-    display: flex;
-    justify-content: center;
-    p {
-      height: 72px;
-      padding-top: 25px;
-      line-height: 76px;
-      font-size: 22px;
+    @keyframes rubberBand {
+        0% {
+            transform: scaleX(1);
+        }
+        30% {
+            transform: scale3d(1.25, 0.75, 1);
+        }
+
+        40% {
+            transform: scale3d(0.75, 1.25, 1);
+        }
+
+        50% {
+            transform: scale3d(1.15, 0.85, 1);
+        }
+
+        65% {
+            transform: scale3d(0.95, 1.05, 1);
+        }
+
+        75% {
+            transform: scale3d(1.05, 0.95, 1);
+        }
+
+        to {
+            transform: scaleX(1);
+        }
     }
-    p.jackpot-add {
-      width: 104px;
-      overflow: hidden;
+
+    @keyframes bounceIn {
+        0% {
+            transform: scale3d(0.6, 0.6, 0.6);
+        }
+
+        20% {
+            transform: scale3d(1.1, 1.1, 1.1);
+        }
+
+        40% {
+            transform: scale3d(0.9, 0.9, 0.9);
+        }
+
+        60% {
+            transform: scale3d(1.03, 1.03, 1.03);
+        }
+
+        80% {
+            transform: scale3d(0.97, 0.97, 0.97);
+        }
+
+        to {
+            transform: scale3d(0.3, 0.3, 0.3);
+        }
     }
-    p.jackpot-money {
-      font-size: 36px;
-      font-family: sans-eb;
-      line-height: 72px;
-      animation: bounceIn 2s 5s infinite;
+
+    @keyframes freeDown {
+        0% {
+            transform: translateY(-50px) rotate(50deg);
+            opacity: 1;
+        }
+        60% {
+            opacity: 1;
+        }
+        80% {
+            transform: translateY(200px) rotate(-100deg);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(300px) rotate(-150deg);
+            opacity: 0;
+        }
     }
-  }
-  .bg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .bg1 {
-    z-index: 1;
-    background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
-  }
-  .bg2 {
-    z-index: 2;
-    background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
-  }
-  .bg3 {
-    z-index: 3;
-    background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
-  }
-  .bg1,
-  .bg3 {
-    opacity: 0;
-    animation: bounceIn 1s 1s forwards;
-  }
-  img {
-    position: absolute;
-    top: -50px;
-  }
-}
-@keyframes fontSize {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  80% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-}
-@keyframes rubberBand {
-  0% {
-    transform: scaleX(1);
-  }
-  30% {
-    transform: scale3d(1.25, 0.75, 1);
-  }
 
-  40% {
-    transform: scale3d(0.75, 1.25, 1);
-  }
+    .fresh_move {
+        animation: fresh_move 1s;
+    }
 
-  50% {
-    transform: scale3d(1.15, 0.85, 1);
-  }
+    @keyframes fresh_move {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 
-  65% {
-    transform: scale3d(0.95, 1.05, 1);
-  }
+    .deadlineMove {
+        animation: deadlineMove 1.3s;
+    }
 
-  75% {
-    transform: scale3d(1.05, 0.95, 1);
-  }
+    @keyframes deadlineMove {
+        0% {
+            transform: translateY(0);
+        }
+        35% {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        65% {
+            opacity: 0;
+            transform: translateY(-60px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-  to {
-    transform: scaleX(1);
-  }
-}
-@keyframes bounceIn {
-  0% {
-    transform: scale3d(0.6, 0.6, 0.6);
-  }
+    .blinking {
+        animation: blinking 0.7s;
+    }
 
-  20% {
-    transform: scale3d(1.1, 1.1, 1.1);
-  }
+    @keyframes blinking {
+        0% {
+            opacity: 1;
+        }
+        25% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        75% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 
-  40% {
-    transform: scale3d(0.9, 0.9, 0.9);
-  }
-
-  60% {
-    transform: scale3d(1.03, 1.03, 1.03);
-  }
-
-  80% {
-    transform: scale3d(0.97, 0.97, 0.97);
-  }
-
-  to {
-    transform: scale3d(0.3, 0.3, 0.3);
-  }
-}
-@keyframes freeDown {
-  0% {
-    transform: translateY(-50px) rotate(50deg);
-    opacity: 1;
-  }
-  60% {
-    opacity: 1;
-  }
-  80% {
-    transform: translateY(200px) rotate(-100deg);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(300px) rotate(-150deg);
-    opacity: 0;
-  }
-}
-.fresh_move {
-  animation: fresh_move 1s;
-}
-@keyframes fresh_move {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.deadlineMove {
-  animation: deadlineMove 1.3s;
-}
-@keyframes deadlineMove {
-  0% {
-    transform: translateY(0);
-  }
-  35% {
-    opacity: 0;
-    transform: translateY(60px);
-  }
-  65% {
-    opacity: 0;
-    transform: translateY(-60px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.blinking {
-  animation: blinking 0.7s;
-}
-@keyframes blinking {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  75% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 </style>
 
