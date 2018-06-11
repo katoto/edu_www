@@ -217,7 +217,7 @@
                                             <td>
                                                 {{data.bettype}}
                                             </td>
-                                            <td v-html="data.opencode">
+                                            <td v-html="data.betcode">
                                             </td>
                                             <td>
                                                 {{data.betmoney}}
@@ -318,7 +318,7 @@
                 scroll: '',
                 activeName:'Wins',
                 DataWinnerList:[
-//                    {uid:1,expectid:2,bettype:'C1',opencode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
+//                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
                 ]
             }
         },
@@ -334,19 +334,9 @@
                         this.$store.commit(mTypes.setNavFix, false)
                     }
                 },
-            format_num(str){
-                let str1 = str.replace(/,/g,'');
-                let str2 = "<ul class='num-box'>";
-                for (var i = 0; i < str1.length; i++) {
-                    str2 += `<li class="bingo">${str1[i]}</li>`;
-                }
-                return str2;
-            },
             format_recentWins(msg){
                 msg.forEach((item,index)=>{
                     item.bettype = format_match(item.bettype)
-                    item.opencode = this.format_num(item.opencode)
-                    item.betmoney = (item.betmoney-0).toFixed(5)+'ETH'
                 })
                 return msg;
             }
@@ -361,7 +351,6 @@
             window.addEventListener('scroll', this.fixNav);
             let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
             console.log(dataRecentWinsList);
-
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
         },
         destroyed () {
