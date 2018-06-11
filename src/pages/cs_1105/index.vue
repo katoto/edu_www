@@ -150,48 +150,20 @@
             <!--  往期开奖  -->
             <div class="pre-numberBox">
                 <div class="pre-number tab js_tab">
-                    <ul class="tab-head js_tab-head">
-                        <li class="on">
-                            <a href="javascript:;">
-                                Recent Bets
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                Recent Wins
-                            </a>
-                        </li>
-                        <li class="hide">
-                            <a href="javascript:;">
-                                Data
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                How to Play
-                            </a>
-                        </li>
-                        <span id="line"></span>
-                    </ul>
-                    <ul class="tab-cnt">
-                        <li class="on">
-                            <div class="filter prenum-filter hide">
-                            </div>
+                    <el-tabs v-model="activeName">
+                        <el-tab-pane label="Recent Bets" name="Bets">
                             <div class="prenum-table">
                                 <table>
                                     <thead>
-                                    <tr>
-                                        <!-- 修改 去掉了Wallet Address和Bet Address 新增USER ID-->
-                                        <th>Transaction Time</th>
-                                        <th>User ID</th>
-                                        <!-- <th>Wallet Address</th> -->
-                                        <th>No.</th>
-                                        <th>Type</th>
-                                        <th>Bet Number</th>
-                                        <th>Bet Amount</th>
-                                        <th>Prize Amount</th>
-                                        <!-- <th>Bet Address</th> -->
-                                    </tr>
+                                        <tr>
+                                            <th>Transaction Time</th>
+                                            <th>User ID</th>
+                                            <th>No.</th>
+                                            <th>Type</th>
+                                            <th>Bet Number</th>
+                                            <th>Bet Amount</th>
+                                            <th>Prize Amount</th>
+                                        </tr>
                                     </thead>
                                     <tbody id="tabody-betlist" class="tabody-betlist newRecord">
 
@@ -199,40 +171,23 @@
                                 </table>
                             </div>
                             <p class="recode20">Last 20 records</p>
-                        </li>
-                        <li class="">
+                        </el-tab-pane>
+                        <el-tab-pane label="Recent Wins" name="Wins">
                             <div class="winner-list">
                                 <table>
                                     <thead>
-                                    <tr>
-                                        <th>User ID</th>
-                                        <th>No.</th>
-                                        <th>Type</th>
-                                        <th>Bet Number</th>
-                                        <th>Bet Amount</th>
-                                        <th>Prize Amount</th>
-                                    </tr>
-                                    </thead>
-                                    <script type="text/tmpl" id="js_tmpl_winnerList">
                                         <tr>
-                                        <td>{$recentWin_uid}</td>
-                                        <td>{$recentWin_nper}</td>
-                                        <td>{$recentWin_bettype}</td>
-                                        <td>
-                                        <ul class="num-box">{$recentWin_lis}</ul>
-                                        </td>
-                                        <td><span>{$recentWin_betNum}</span>ETH</td>
-                                        <td>
-                                        <span class="win">
-                                        <span>{$recentWin_winNum}</span> ETH
-                                        </span>
-                                        </td>
+                                            <th>User ID</th>
+                                            <th>No.</th>
+                                            <th>Type</th>
+                                            <th>Bet Number</th>
+                                            <th>Bet Amount</th>
+                                            <th>Prize Amount</th>
                                         </tr>
-
-                                    </script>
-                                    <tbody id="js_home_winnerList">
+                                    </thead>
+                                    <tbody>
                                     <!--jackpot-->
-                                    <tr class="hide">
+                                        <tr class="hide">
                                         <td>1803281404</td>
                                         <td>1803281404</td>
                                         <td>C5</td>
@@ -252,61 +207,31 @@
                                         </span>
                                         </td>
                                     </tr>
+                                        <tr v-for="data in DataWinnerList">
+                                            <td>
+                                                {{data.uid}}
+                                            </td>
+                                            <td>
+                                                {{data.expectid}}
+                                            </td>
+                                            <td>
+                                                {{data.bettype}}
+                                            </td>
+                                            <td v-html="data.betcode">
+                                            </td>
+                                            <td>
+                                                {{data.betmoney}}
+                                            </td>
+                                            <td>
+                                                {{data.betprize}}
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <p class="recode20">Last 20 records</p>
-                        </li>
-
-                        <!--js_home_Data-->
-                        <li class="hide">
-                            <div class="table_data">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th style="width:203px;"></th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="js_home_Data">
-                                    <tr>
-                                        <td>Contract Address</td>
-                                        <td>
-                                            <a href="" class="address">
-                                                0x6F6DEb5db0C4994A8283A01D6CFeEB27Fc3bBe9C
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr class="hide">
-                                        <td>Address Account</td>
-                                        <td>55055.11 ETH</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jackpot Vavue</td>
-                                        <td>300.24 ETH</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Numbers Of Bet</td>
-                                        <td>429583</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Bet Value</td>
-                                        <td>Total Bet Value</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ETH Win</td>
-                                        <td>121.48438000 ETH</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Biggest Prize Won</td>
-                                        <td>60.00000000 ETH</td>
-                                    </tr>
-                                    <tr style="height: 30px;"></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
-                        <li>
+                        </el-tab-pane>
+                        <el-tab-pane label="How to Play" name="Play">
                             <ul class="introduct">
                                 <li>
                                     <span>What is Lucky 11?</span>
@@ -399,8 +324,9 @@
                                     </p>
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
+                        </el-tab-pane>
+                    </el-tabs>
+
                 </div>
             </div>
         </div>
@@ -414,11 +340,15 @@
 	import Footer from '~components/Footer.vue'
 	import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 	import {Message} from 'element-ui'
-	import {src, platform, isLog, getCK, setCK,removeCK  } from '~common/util'
+	import {src, platform, isLog, getCK,format_match, setCK,removeCK  } from '~common/util'
 	export default {
 		data () {
 			return {
-				scroll: ''
+				scroll: '',
+                activeName:'Wins',
+                DataWinnerList:[
+//                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
+                ]
 			}
 		},
 		watch: {},
@@ -431,6 +361,12 @@
 					this.$store.commit(mTypes.setNavFix, false)
 				}
 			},
+            format_recentWins(msg){
+                msg.forEach((item,index)=>{
+                    item.bettype = format_match(item.bettype)
+                })
+                return msg;
+            },
 
             async indexRouter( query ){
 				/* 邮箱注册 找回密码  邀请等 */
@@ -476,14 +412,17 @@
 			Header,
 			HeaderNav
 		},
-		mounted () {
-			window.addEventListener('scroll', this.fixNav);
+        async mounted () {
+            window.addEventListener('scroll', this.fixNav);
 
             if( this.$store.state.route.query ){
                 this.indexRouter( this.$store.state.route.query )
             }
 
-		},
+            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
+            console.log(dataRecentWinsList);
+            this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
+        },
 		destroyed () {
 			window.removeEventListener('scroll', this.fixNav)
 		}
@@ -1063,5 +1002,52 @@
 
     .winner-list, .prenum-table {
         padding-top: 16px;
+    }
+
+    //WINNER LIST
+    .winner-list{
+        padding-bottom:63px;
+        text-align: center;
+        tr.jackpot{
+            background: #fff3e1;
+        }
+        .icon-jackpot{
+            &::after{
+                margin-left:50px;
+            }
+        }
+    }
+    .winner-list,.prenum-table{
+        padding-top:16px;
+    }
+    /*introduct*/
+    .introduct{
+        padding:13px 0 46px 0;
+        span{
+            display: block;
+            line-height:46px;
+            font-size:12px;
+            color: #778ca3;
+        }
+        li+li{
+            margin-top:20px;
+        }
+        p{
+            line-height:22px;
+        }
+        p.circle{
+            position: relative;
+            padding-left:16px;
+            &::before{
+                content: '';
+                position: absolute;
+                left:0;
+                top:8px;
+                display: block;
+                background-image: url("../../assets/slice/circle.png");
+                width: 5px;
+                height: 5px;
+            }
+        }
     }
 </style>

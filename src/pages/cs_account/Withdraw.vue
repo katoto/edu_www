@@ -575,24 +575,6 @@
 .orange{
     color: #fd9644;
 }
- .withdrawal{
-     h2{
-        line-height: 30px;
-        font-size: 24px;
-        color: #263648;
-        text-transform: capitalize;
-     }
-    .lf130{
-        width:130px;
-        margin-right:35px;
-        float: left;
-        overflow: hidden;
-    }
-
-    .orange {
-        color: #fd9644;
-    }
-
     .withdrawal {
         h2 {
             line-height: 30px;
@@ -747,5 +729,4 @@
     padding: 0 20px;
     height: auto;
 }
- }
 </style>
