@@ -334,18 +334,19 @@
                         this.$store.commit(mTypes.setNavFix, false)
                     }
                 },
-            format_num(arr){
-                var arr2= [];
-                for(let i=0;i<arr.length;i++){
-                   arr2[i]= "<li class='bingo'>"+arr[i]+"</li>"
+            format_num(str){
+                let str1 = str.replace(/,/g,'');
+                let str2 = "<ul class='num-box'>";
+                for (var i = 0; i < str1.length; i++) {
+                    str2 += `<li class="bingo">${str1[i]}</li>`;
                 }
-                return arr2.toString();
+                return str2;
             },
             format_recentWins(msg){
                 msg.forEach((item,index)=>{
                     item.bettype = format_match(item.bettype)
-                    item.opencode = '<ul class="num-box">'+this.format_num(item.opencode.split(',')).replace(/,/g,'')+'</ul>'
-
+                    item.opencode = this.format_num(item.opencode)
+                    item.betmoney = (item.betmoney-0).toFixed(5)+'ETH'
                 })
                 return msg;
             }
@@ -359,7 +360,8 @@
         async mounted () {
             window.addEventListener('scroll', this.fixNav);
             let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
-//            console.log(dataRecentWinsList);
+            console.log(dataRecentWinsList);
+
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
         },
         destroyed () {
