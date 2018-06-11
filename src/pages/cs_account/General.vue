@@ -1,6 +1,6 @@
 <template>
     <div class="information">
-        <a href="javascript:;" class="btn-logout js_log-out">
+        <a href="javascript:;" @click="signOut" class="btn-logout">
             Sign Out
         </a>
         <span class="small-explain ">Account</span>
@@ -47,12 +47,23 @@
 </template>
 
 <script>
+	import {src, platform, removeCK ,tipsTime, ethUrl} from '~common/util'
+
 	export default {
 		data(){
 			return {}
 		},
 		watch: {},
-		methods: {},
+		methods: {
+			signOut(){
+                /* 退出登录 */
+				removeCK();
+				this.$store.commit('setIsLog', false);
+				this.$store.commit('setUserInfo', {});
+
+                this.$router.push('/lucky');
+			},
+        },
 		computed: {
 			isLog(){
 				return this.$store.state.isLog

@@ -14,7 +14,7 @@
                     <!--  $('.js_isAgreeAge').is(':checked')  -->
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
-                        <el-button @click="showSucc">模拟成功</el-button>
+                        <!--<el-button @click="showSucc">模拟成功</el-button>-->
                         I'm 18+ years old and agree <!--with <a href="terms.html" target="_blank">Terms of use</a>
                     and <a href="policy.html" target="_blank">Privacy policy</a>-->
                     </p>

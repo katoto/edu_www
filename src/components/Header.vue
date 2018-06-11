@@ -87,11 +87,18 @@
                             <a href="" class="btn-cash">Withdraw</a>
                         </div>
                         <div class="mycount">
-                            <span class="countNum" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
-                                  <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
-                                <!--blinking2-->
-                                 <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
-                            </span>
+                            <div class="countNum" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
+                                <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
+                                <!---->
+                                <div v-if="loginSucc || showFirstLogin">
+                                    <span :class="{'blinking2':  ( showFirstLogin ) ||( loginSucc.login_times == '1' && loginSucc.invite_status == '0') }"
+                                          v-for="account in userInfo.accounts">{{ account.balance }}
+                                    </span> ETH<i></i>
+                                </div>
+                                <div v-else>
+                                    <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
+                                </div>
+                            </div>
                             <transition name="fade">
                                 <div id="mycount-detailed" class="mycount-detailed" :class="{'hide':!showDetail}">
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
@@ -144,19 +151,22 @@
             <pop-list></pop-list>
 
             <!--浮层 -->
-            <!--第一次登陆-->
-            <div class="tips-newAct tips-newAct2 js_firstLogin hide">
-                <div class="msg">
-                    <p>
-                        You have earned 0.001 free ETH already, go to bet to win more!
-                    </p>
-                    <a href="javascript:;" class="btn-luck js_btn-luck">Try a luck</a>
-                    <div class="bottom">
-                        Invite friends to earn more free ETH.
-                        <a href="javascript:;" class="bold js_invite">Earn now</a>
+            <!--第一次登陆 js_firstLogin    -->
+            <section v-if="loginSucc || showFirstLogin">
+                <div class="tips-newAct tips-newAct2"
+                     :class="{'hide': !(  ( showFirstLogin ) || (loginSucc.login_times == '1' && loginSucc.invite_status == '0') )}">
+                    <div class="msg">
+                        <p>
+                            You have earned 0.001 free ETH already, go to bet to win more!
+                        </p>
+                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">Try a luck</a>
+                        <div class="bottom">
+                            Invite friends to earn more free ETH.
+                            <a href="javascript:;" class="bold js_invite">Earn now</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
             <!--活动结束或者已邀请两次-->
             <div id="js_newActOver" class="tips-newAct hide">
                 <div class="msg">
@@ -180,6 +190,7 @@
                 </div>
             </div>
             <!--拉新活动-->
+
         </div>
     </section>
 </template>
@@ -187,43 +198,53 @@
 <script>
 	import PopList from '~components/Pop-list'
 	import {Message} from 'element-ui'
-	import {src, platform, removeCK ,tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
+	import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
 
 	export default {
 		components: {PopList},
 		data () {
 			return {
-				showDetail:false
-
+				showDetail: false
 			}
 		},
 		watch: {},
-		computed:{
-	        isLog(){
-		        return this.$store.state.isLog
-	        },
-	        userInfo(){
-		        return this.$store.state.userInfo
-	        }
-        },
+		computed: {
+			showFirstLogin(){
+				return this.$store.state.pop.showFirstLogin
+			},
+			loginSucc(){
+				return this.$store.state.pop.loginSucc
+			},
+			isLog(){
+				return this.$store.state.isLog
+			},
+			userInfo(){
+				return this.$store.state.userInfo
+			}
+		},
 		methods: {
+			hideFirstLoginAll(){
+				// 关闭第一个弹窗
+				this.$store.commit('showFirstLogin',false);
+				this.$store.commit('setLoginSucc',null);
+            },
 			async showFaucet(){
 				let faucetMsg = await this.$store.dispatch('getFaucet');
                 /* 显示邀请 */
 				this.$store.commit('showFaucet')
-            },
+			},
 			showDetailFn(){
-                this.showDetail = true
-            },
+				this.showDetail = true
+			},
 			hideDetailFn(){
-	            this.showDetail = false
-            },
+				this.showDetail = false
+			},
 			signOut(){
-            	/* 退出登录 */
+                /* 退出登录 */
 				removeCK();
 				this.$store.commit('setIsLog', false);
 				this.$store.commit('setUserInfo', {});
-            },
+			},
 			onLoginIn () {
 				this.$store.commit('showLoginPop')
 			}
@@ -250,7 +271,9 @@
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
         opacity: 0;
     }
 
