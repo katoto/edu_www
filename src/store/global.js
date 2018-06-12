@@ -1,70 +1,71 @@
 import ajax from '~common/ajax'
-import {src, mapMutations, getCK, mapActions, platform, tipsTime , } from '~common/util'
+import {src, mapMutations, getCK, mapActions, platform, tipsTime,} from '~common/util'
 import {Message} from 'element-ui'
+import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 
-let sockURL = null ;
+let sockURL = null;
 if (process.env.NODE_ENV === 'production') {
 	sockURL = 'wss://crazybet.choopaoo.com/wss'
 } else if (process.env.NODE_ENV === 'preRelease') {
 	sockURL = 'ws://192.168.41.76:6999'
-}else{
+} else {
 	sockURL = 'ws://10.0.1.41:4444/betblock'
 }
 
-function combimeStore (store, newStore) {
-    return {
-        state: { ...store.state, ...newStore.state },
-        mutations: { ...store.mutations, ...newStore.mutations },
-        actions: { ...store.actions, ...newStore.actions },
-        getters: { ...store.getters, ...newStore.getters }
-    }
+function combimeStore(store, newStore) {
+	return {
+		state: {...store.state, ...newStore.state},
+		mutations: {...store.mutations, ...newStore.mutations},
+		actions: {...store.actions, ...newStore.actions},
+		getters: {...store.getters, ...newStore.getters}
+	}
 }
 
 // 获取所有 cs_common 文件的 state getters mutations actions 注入到global
 const csCommon = require.context('~store/cs_common', true, /\.js$/)
-let common = { state: {}, mutations: {}, getters: {}, actions: {} }
+let common = {state: {}, mutations: {}, getters: {}, actions: {}}
 csCommon.keys().forEach(function (commonPath) {
-    const commonName = commonPath.replace(/(\.\/)|(\.js$)/g, '')
-    common = combimeStore(common, csCommon(commonPath).default)
+	const commonName = commonPath.replace(/(\.\/)|(\.js$)/g, '')
+	common = combimeStore(common, csCommon(commonPath).default)
 })
 
 const state = {
-    version: '0.0.1',
-    isLog: false,
-    userInfo: null,
+	version: '0.0.1',
+	isLog: false,
+	userInfo: null,
 	socket: {
 		reconnect: 0,
 		sock: null,
 		interval: null,
 	},
-    ...common.state
+	...common.state
 }
 
 const mutations = {
-    setUserInfo (state, msg) {
-        state.userInfo = msg
-    },
-    setIsLog (state, msg) {
-        state.isLog = msg
-    },
-	initSocket(state, {sock, interval} ){
+	setUserInfo (state, msg) {
+		state.userInfo = msg
+	},
+	setIsLog (state, msg) {
+		state.isLog = msg
+	},
+	initSocket(state, {sock, interval}){
 		state.socket.sock = sock
 		state.socket.interval = interval
 	},
 	addConnectNum (state) {
-		state.socket.reconnect ++
+		state.socket.reconnect++
 	},
-    ...common.mutations
+	...common.mutations
 }
 const actions = {
 	/* user info */
-	async getUserInfo ({state,commit, dispatch}) {
+	async getUserInfo ({state, commit, dispatch}) {
 		try {
 			let userMsg = null;
 			userMsg = await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`);
-			if( userMsg.status =='100' ){
+			if (userMsg.status == '100') {
 				// 未激活，无钱包
-				if( userMsg.data.accounts.length ===0 ){
+				if (userMsg.data.accounts.length === 0) {
 					userMsg.data.accounts.push({
 						address: "",
 						balance: "0",
@@ -81,23 +82,23 @@ const actions = {
 				// 	"taskstatus": "0"
 				// }];
 				let newTask = [];
-				userMsg.data.tasks.forEach((val , index)=>{
+				userMsg.data.tasks.forEach((val, index) => {
 					if (val.subtype == '2' && val.taskstatus == '0') {
 						newTask.push(val)
 					}
 				});
-				if( newTask.length > 0 ){
-					commit('inviteTips' , true)
+				if (newTask.length > 0) {
+					commit('inviteTips', true)
 				}
 				// 取回之前数据
 				let newInviteObj = {
-					invite_status: userMsg.data.invite_status , //
-					invite_prize_chances:userMsg.data.invite_prize_chances ,
+					invite_status: userMsg.data.invite_status, //
+					invite_prize_chances: userMsg.data.invite_prize_chances,
 					tasks: newTask
 				}
-				if( state && state.pop.loginSucc && state.pop.loginSucc.login_times ){
-					Object.assign( newInviteObj ,{
-						login_times:state.pop.loginSucc.login_times
+				if (state && state.pop.loginSucc && state.pop.loginSucc.login_times) {
+					Object.assign(newInviteObj, {
+						login_times: state.pop.loginSucc.login_times
 					})
 				}
 				commit('setLoginSucc', newInviteObj);
@@ -114,8 +115,8 @@ const actions = {
 	},
 
 	/* websocket */
-	initWebsocket({ commit,state,dispatch }){
-		return new Promise(( resolve,reject )=>{
+	initWebsocket({commit, state, dispatch}){
+		return new Promise((resolve, reject) => {
 			let sock = new WebSocket(`${sockURL}`);
 			let interval = null
 			let flag = 0
@@ -123,12 +124,11 @@ const actions = {
 			sock.onmessage = function (e) {
 				if (!~e.data.indexOf('you said')) {
 					let data = JSON.parse(e.data);
-					// console.log(data);
-					// commit('updateSocketData', data)
+					commit(mTypes.updateSocketData, data)
 				}
 			}
 			sock.onopen = function () {
-				let webSockaction = null ;
+				let webSockaction = null;
 				let currUid = null
 				clearInterval(interval);
 				if (state.userInfo && state.userInfo.uid) {
@@ -209,8 +209,8 @@ const actions = {
 			};
 			state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr));
 
-			if( state.socket.interval ){
-				clearInterval( state.socket.interval )
+			if (state.socket.interval) {
+				clearInterval(state.socket.interval)
 				state.socket.interval = setInterval(function () {
 					state.socket.sock.send(JSON.stringify({
 						action: 'ping',
@@ -223,8 +223,8 @@ const actions = {
 		}
 	},
 	sub2In ({commit, state}) {
-		let sub2InStr = null ;
-		let currUid = null ;
+		let sub2InStr = null;
+		let currUid = null;
 		try {
 			sub2InStr = {
 				action: 'unsub',
@@ -237,13 +237,13 @@ const actions = {
 					uid: state.userInfo.uid,
 					lotid: 1
 				};
-				currUid = state.userInfo.uid ;
+				currUid = state.userInfo.uid;
 				state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
-			}else{
+			} else {
 				currUid = null;
 			}
-			if( state.socket.interval ){
-				clearInterval( state.socket.interval )
+			if (state.socket.interval) {
+				clearInterval(state.socket.interval)
 				state.socket.interval = setInterval(function () {
 					state.socket.sock.send(JSON.stringify({
 						action: 'ping',
@@ -260,13 +260,13 @@ const actions = {
 }
 
 const getters = {
-    ...common.getters
+	...common.getters
 }
 
 export default {
-    state,
-    mutations,
-    actions,
-    getters
+	state,
+	mutations,
+	actions,
+	getters
 
 }

@@ -7,15 +7,38 @@ import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/
 import {Message} from 'element-ui'
 
 const state = {
-	navFix: false
+	navFix: false,
+	sockType_1001: null,
+	sockType_1002: null,
 }
 
 const mutationsInfo = mapMutations({
 	setWithDrawList (state, data) {
 		state.withdrawList = data
-    },
+	},
 	setNavFix (state, data) {
 		state.navFix = data
+	},
+	updateSocketData(state, msg){
+		if (msg && msg.data) {
+			switch (msg.msg_code.toString()) {
+				case '1001':
+					// 初始化
+					state.sockType_1001 = msg.data
+					;
+					break;
+				case '1002':
+					state.sockType_1002 = msg.data
+					;
+					break;
+				case '1003':
+					state.sockType_1003 = msg.data
+					;
+					break;
+			}
+		}
+		console.log('1111');
+
 	}
 }, 'cs_1105');
 
@@ -48,33 +71,33 @@ const actionsInfo = mapActions({
 		}
 	},
 
-    //首页 Recent Wins 列表接口数据
-    async getRecentWinsList({commit, dispatch}){
-        // order_lotid
-        try{
-            let dataRecentWinsList = null;
-            // if(order_lotid){
-            //     dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + order_lotid + '&pagesize=20');
-            // }else{
-                dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + 1 + '&pagesize=20');
-            // }
-            if(dataRecentWinsList.status === '100'){
-                return dataRecentWinsList.data.winnerlist;
-            }else{
-                Message({
-                    message: dataRecentWinsList.message,
-                    type: 'error',
-                    duration: tipsTime
-                })
-            }
-        }catch(e){
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
-    },
+	//首页 Recent Wins 列表接口数据
+	async getRecentWinsList({commit, dispatch}){
+		// order_lotid
+		try {
+			let dataRecentWinsList = null;
+			// if(order_lotid){
+			//     dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + order_lotid + '&pagesize=20');
+			// }else{
+			dataRecentWinsList = await ajax.get('/home/winnerlist?lotid=' + 1 + '&pagesize=20');
+			// }
+			if (dataRecentWinsList.status === '100') {
+				return dataRecentWinsList.data.winnerlist;
+			} else {
+				Message({
+					message: dataRecentWinsList.message,
+					type: 'error',
+					duration: tipsTime
+				})
+			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 
 	/* 注册激活 */
 	async mailActivate ({commit, dispatch}, pageData) {
