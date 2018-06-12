@@ -2,13 +2,14 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
-import { getCK, platform, tipsTime } from '~common/util'
+import { getCK, platform, tipsTime, src } from '~common/util'
 import { Message } from 'element-ui'
 
 function getCommonParams () {
     return {
         ck: getCK(),
-        platform
+        platform,
+        src
     }
 }
 
