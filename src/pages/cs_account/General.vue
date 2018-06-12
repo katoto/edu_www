@@ -63,7 +63,7 @@ export default {
             this.$router.push('/lucky')
         },
         onChange () {
-            this.$store.dispatch('showResetPwd')
+            this.$store.commit('showResetPwd')
         }
     },
     computed: {
