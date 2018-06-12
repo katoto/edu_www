@@ -2,6 +2,15 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
+import { getCK, platform, tipsTime } from '~common/util'
+import { Message } from 'element-ui'
+
+function getCommonParams () {
+    return {
+        ck: getCK(),
+        platform
+    }
+}
 
 const options = {}
 
@@ -35,17 +44,27 @@ const ajax = function (url, config = {ignore: true}) {
 }
 ajax.get = function (url, params) {
     let config = {
+        ...getCommonParams(),
         params,
         ignore: true
     }
-    return _axios.get(url, config).then((response) => {
-        if (response.status === 200) {
-            return response.data
-        } else if (config.ignore) {
-            return {data: {}}
-        }
-        throw new Error(response.message)
-    })
+    return _axios.get(url, config)
+        .then((response) => {
+            if (response.status === 200) {
+                if (response.data && response.data.status !== '100') {
+                    Message({
+                        message: response.data.message,
+                        type: 'error',
+                        duration: tipsTime
+                    })
+                    return Promise.reject(response.data)
+                }
+                return response.data
+            } else if (config.ignore) {
+                return {data: {}}
+            }
+            throw new Error(response.message)
+        })
 }
 
 export default ajax

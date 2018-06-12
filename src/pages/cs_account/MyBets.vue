@@ -109,6 +109,7 @@ import {
     tipsTime,
     ethUrl,
     format_match_account,
+    formatTime,
     formateBalance
 } from '~common/util'
 import { Message } from 'element-ui'
@@ -166,45 +167,14 @@ export default {
             }
         },
         /*
-            *  格式化时间  allbet time
-            * */
-        format_time (time, format) {
-            if (format === undefined || format == null) {
-                format = 'MM-dd HH:mm:ss'
-            }
-            if (isNaN(time)) {
-                return false
-            }
-            let t = new Date(+time * 1000)
-            let tf = function (i) {
-                return (i < 10 ? '0' : '') + i
-            }
-            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-                switch (a) {
-                case 'yyyy':
-                    return tf(t.getFullYear())
-                case 'MM':
-                    return tf(t.getMonth() + 1)
-                case 'mm':
-                    return tf(t.getMinutes())
-                case 'dd':
-                    return tf(t.getDate())
-                case 'HH':
-                    return tf(t.getHours())
-                case 'ss':
-                    return tf(t.getSeconds())
-                }
-            })
-        },
-        /*
-             *  格式化orderList 数据
-             *  return 格式化后的数据
-             * */
+        *  格式化orderList 数据
+        *  return 格式化后的数据
+        * */
         formatData (Msg) {
             if (Msg) {
                 Msg.forEach((val, index) => {
                     // bettime
-                    val.bettime = this.format_time(val.bettime, 'yyyy-MM-dd HH:mm')
+                    val.bettime = formatTime(val.bettime, 'yyyy-MM-dd HH:mm')
                     val.bettype = format_match_account(val.bettype)
 
                     if (!val.txhash || val.orderstatus != '2') {
@@ -246,14 +216,11 @@ export default {
                     // win state
                     if (val.orderstatus == '2') {
                         // 结算 并且大于0
-                        if (parseInt(val.betprize, 10) > 0) {
-                            val.betprizeVal =
-                                "<a href='javascript:;' class='win'>+ " +
-                                formateBalance(val.betprize) +
-                                'ETH</a>'
-                        } else {
-                            val.betprizeVal = "<a href='javascript:;' class='fail'>0</a>"
-                        }
+                        val.betprizeVal = (
+                            parseInt(val.betprize, 10) > 0
+                                ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize)}ETH</a>`
+                                : "<a href='javascript:;' class='fail'>0</a>"
+                        )
                     } else {
                         if (parseInt(val.orderstatus, 10) === 0) {
                             val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
