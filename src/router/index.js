@@ -5,7 +5,7 @@ Vue.use(Router)
 
 /* cs_1105 */
 /* cs_1105 首页 */
-const index = () => import ('~/pages/cs_1105/index')
+const lucky = () => import ('~/pages/cs_1105/lucky')
 /* cs_1105 开奖页 */
 const cs_drawNum = () => import ('~/pages/cs_1105/drawNumber')
 
@@ -29,9 +29,9 @@ export default new Router({
 	linkActiveClass: 'on',
 	routes: [
 		{
-			path: "/home",
-			name: "home",
-			component: index
+			path: "/lucky",
+			name: "lucky",
+			component: lucky
 		},
 		{
 			path: "/terms",
@@ -91,8 +91,8 @@ export default new Router({
 		},
 		{
 			path: "/*",
-			name: "index",
-			component: index
+			name: "lucky",
+			redirect: '/lucky'
 		}
 	]
 });

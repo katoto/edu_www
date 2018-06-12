@@ -388,6 +388,12 @@
                         let mailBack = await this.$store.dispatch(aTypes.mailActivate , query.sign );
 		                console.log(mailBack);
                         if (mailBack && mailBack.status === '100') {
+                        	if( parseFloat(mailBack.data.login_times)>0 && mailBack.data.invite_status.toString() === '0' ){
+//		                        显示第一次邀请
+                        		this.$store.commit('showFirstLogin',true);
+                            }else{
+		                        this.$store.commit('showFirstLogin',false);
+                            }
 	                        this.$store.commit('showRegSuccess');
                         }else{
 	                        Message({
@@ -396,7 +402,7 @@
 	                        })
                         }
                         // 清除参数
-//                        this.$router.push('/home')
+//                        this.$router.push('/lucky')
                     }
 	                if( query.from === 'resetPassword' ){
                         // 重置密码
@@ -409,13 +415,13 @@
 		                // 修改密码的时候，清楚ck
                         removeCk();
 	                }
-	                if( query.inviter === 'inviter' ){
-                        // todo
-
-
-
+	                if( !!query.inviter ){
+                        // 邀请
+		                this.$store.commit('setInviterObj',{
+			                inviter:query.inviter,
+			                sign:query.sign
+		                });
 	                }
-
                 }
             }
 		},

@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import {Message} from 'element-ui'
 import ajax from '~common/ajax'
-import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
+import {src, channel, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
 
 const state = {
 	pop: {
@@ -25,14 +25,30 @@ const state = {
 			sign: null,
 			showReset: false,
 		},
-		faucetMsg:null,  // 邀请的msg
-		inviterObj:null,  // 邀请接收
+		faucetMsg: null,  // 邀请的msg
+		inviterObj: null,  // 邀请接收
+
+		// loginSucc: null,  // 登陆成功后的数据
+		showFirstLogin:false,  // 邀请用（激活处）
+		loginSucc: {  //  登陆
+			login_times:'1',
+			invite_status:'-1'
+		},
 	}
 }
 
 const mutations = {
+
+	//  激活用的
+	showFirstLogin(state, data){
+		state.pop.showFirstLogin = data
+	},
+	//  登陆回来的数据
+	setLoginSucc(state, msg){
+		state.pop.loginSucc = msg
+	},
 	// 邀请用
-	setInviterObj(state,msg){
+	setInviterObj(state, msg){
 		state.pop.inviterObj = msg
 	},
 
@@ -129,10 +145,11 @@ const actions = {
 		try {
 			let InfoData;
 			if (pageData) {
-				InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${  md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
 			}
 			console.log(InfoData);
 			if (InfoData.status === '100') {
+				commit('setLoginSucc', InfoData.data);
 				return InfoData.data
 			} else {
 				Message({
@@ -182,10 +199,10 @@ const actions = {
 			let InfoData = null;
 			console.log(pageData);
 			if (pageData) {
-				if( state.pop.inviterObj ){
-					InfoData = await ajax.get(`/user/mail/reg?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
-				}else{
-					InfoData = await ajax.get(`/user/mail/reg?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				if (state.pop.inviterObj) {
+					InfoData = await ajax.get(`/user/mail/reg?sign=${state.pop.inviterObj.sign}&inviter=${state.pop.inviterObj.inviter}&channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+				} else {
+					InfoData = await ajax.get(`/user/mail/reg?channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
 				}
 			}
 			return InfoData

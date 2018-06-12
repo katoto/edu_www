@@ -1,6 +1,6 @@
 <template>
     <!--  弹窗-登录  -->
-    <Pop class="pop-limit show">
+    <Pop class="pop-limit ">
         <div class="pop-main">
             <h3>limit number list</h3>
             <p class="update">Last updated : {{time}}</p>

@@ -87,11 +87,19 @@
                             <a href="" class="btn-cash">Withdraw</a>
                         </div>
                         <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
-                            <span class="countNum">
-                                  <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
-                                <!--blinking2-->
-                                 <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
-                            </span>
+                            <div class="countNum" >
+                                <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
+                                <!---->
+                                <div v-if="loginSucc || showFirstLogin">
+                                    <span :class="{'blinking2':  ( showFirstLogin ) ||( loginSucc.login_times == '1' && loginSucc.invite_status == '0') }"
+                                          v-for="account in userInfo.accounts">{{ account.balance }}
+                                    </span> ETH<i></i>
+                                </div>
+                                <div v-else>
+                                    <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
+                                </div>
+                            </div>
+
                             <transition name="fade">
                                 <div id="mycount-detailed" class="mycount-detailed" :class="{'hide':!showDetail}">
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
@@ -125,10 +133,12 @@
                         </div>
                     </section>
                 </div>
-                <!--主按钮 light over-->
-                <a href="javascript:;" @click="showFaucet" class="btn-faucet" v-if="isLog">Faucet</a>
-            </div>
 
+                <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
+                <a href="javascript:;" @click="showFaucet" class="btn-faucet"
+                   :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
+                   v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
+            </div>
             <div class="jackpot-box hide">
                 <div class="bg bg1"></div>
                 <div class="bg bg2"></div>
@@ -146,44 +156,58 @@
         <div>
             <!-- 公用的模态框列表 -->
             <pop-list></pop-list>
-
             <!--浮层 -->
-            <!--第一次登陆-->
-            <div class="tips-newAct tips-newAct2 js_firstLogin hide">
-                <div class="msg">
-                    <p>
-                        You have earned 0.001 free ETH already, go to bet to win more!
-                    </p>
-                    <a href="javascript:;" class="btn-luck js_btn-luck">Try a luck</a>
-                    <div class="bottom">
-                        Invite friends to earn more free ETH.
-                        <a href="javascript:;" class="bold js_invite">Earn now</a>
+            <!--第一次登陆 js_firstLogin    -->
+            <section v-if="(loginSucc || showFirstLogin)&&isLog">
+                <div class="tips-newAct tips-newAct2"
+                     :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
+                    <div class="msg">
+                        <p>
+                            You have earned 0.001 free ETH already, go to bet to win more!
+                        </p>
+                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">Try a luck</a>
+                        <div class="bottom">
+                            Invite friends to earn more free ETH.
+                            <a href="javascript:;" @click="showFaucet" class="bold js_invite">Earn now</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!--活动结束或者已邀请两次-->
-            <div id="js_newActOver" class="tips-newAct hide">
-                <div class="msg">
-                    <p class="js_newActMsg">
-                        This activity is end and more bonus will coming soon!
-                    </p>
+            </section>
+            <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
+            <!--  user/info 里还有问题  TODO -->
+            <section v-if="loginSucc&&isLog">
+                <div class="tips-newAct"
+                     :class="{'hide':!(loginSucc.invite_status != '0')}">
+                    <div class="msg">
+                        <p v-if="loginSucc.invite_status==='-1'">
+                            Let's expect the upcoming activity!
+                        </p>
+                        <p v-else>
+                            This activity is end and more bonus will coming soon!
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </section>
+
             <!--成功邀请-->
-            <div class="tips-newAct tips-newAct2 hide js_tips_newAct2">
-                <div class="msg">
-                    <p>
-                        Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding to
-                        you now.
-                    </p>
-                    <a href="javascript:;" class="btn-receive js_receive_get">Get it !</a>
-                    <div class="bottom">
-                        Invite friends and get more
-                        ETH~ <a href="javascript:;" class="bold js_invite">Invite Now</a>
+            <section v-if="isLog">
+                <div class="tips-newAct tips-newAct2 hide js_tips_newAct2">
+                    <div class="msg">
+                        <p>
+                            Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding
+                            to
+                            you now.
+                        </p>
+                        <a href="javascript:;" class="btn-receive js_receive_get">Get it !</a>
+                        <div class="bottom">
+                            Invite friends and get more
+                            ETH~ <a href="javascript:;" @click="showFaucet" class="bold">Invite Now</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
             <!--拉新活动-->
+
         </div>
     </section>
 </template>
@@ -194,58 +218,71 @@
 	import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
 
 	export default {
-	    components: {PopList},
-	    data () {
-	        return {
-	            showDetail: false
+		components: {PopList},
+		data () {
+			return {
+				showDetail: false
+			}
+		},
+		watch: {},
+		computed: {
+			showFirstLogin(){
+				return this.$store.state.pop.showFirstLogin
+			},
+			loginSucc(){
+				return this.$store.state.pop.loginSucc
+			},
+			isLog(){
+				return this.$store.state.isLog
+			},
+			userInfo(){
+				return this.$store.state.userInfo
+			}
+		},
+		methods: {
+			hideFirstLoginAll(){
+				// 关闭第一个弹窗
+				this.$store.commit('showFirstLogin', false);
+				this.$store.commit('setLoginSucc', null);
+			},
+			async showFaucet(){
+				let faucetMsg = await this.$store.dispatch('getFaucet');
+                /* 显示邀请 */
+				this.$store.commit('showFaucet');
+                // 关闭第一个弹窗 ?
+				this.$store.commit('showFirstLogin', false);
+				this.$store.commit('setLoginSucc', null);
 
-	        }
-	    },
-	    watch: {},
-	    computed: {
-	        isLog () {
-		        return this.$store.state.isLog
-	        },
-	        userInfo () {
-		        return this.$store.state.userInfo
-	        }
-    },
-	    methods: {
-	        async showFaucet () {
-	            let faucetMsg = await this.$store.dispatch('getFaucet')
-            /* 显示邀请 */
-	            this.$store.commit('showFaucet')
-        },
-	        showDetailFn () {
-            this.showDetail = true
-        },
-	        hideDetailFn () {
-	            this.showDetail = false
-        },
-	        signOut () {
-            	/* 退出登录 */
-	            removeCK()
-	            this.$store.commit('setIsLog', false)
-	            this.$store.commit('setUserInfo', {})
-        },
-	        onLoginIn () {
-	            this.$store.commit('showLoginPop')
-	        }
-	    },
-	    filters: {
-	        formateCoinType: (type = '2001') => {
-	            type = type.toString()
-	            switch (type) {
-	            case '2001':
-	                return 'ETH'
-	            case '1001':
-	                return 'BTC'
-	            default:
-	                return 'ETH'
-	            }
-	        }
-	    }
-
+			},
+			showDetailFn(){
+				this.showDetail = true
+			},
+			hideDetailFn(){
+				this.showDetail = false
+			},
+			signOut(){
+                /* 退出登录 */
+				removeCK();
+				this.$store.commit('setIsLog', false);
+				this.$store.commit('setUserInfo', null);
+			},
+			onLoginIn () {
+				this.$store.commit('showLoginPop')
+			}
+		},
+		filters: {
+			formateCoinType: (type = '2001') => {
+				type = type.toString();
+				switch (type) {
+					case '2001':
+						return 'ETH';
+					case '1001':
+						return 'BTC';
+					default:
+						return 'ETH'
+				}
+			}
+		}
 	}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
@@ -254,7 +291,9 @@
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
         opacity: 0;
     }
 
