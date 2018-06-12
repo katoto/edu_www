@@ -138,7 +138,6 @@ export default {
             betTimeOptionVal: '1'
         }
     },
-    watch: {},
     methods: {
         handleStatusChange () {
             this.handleCurrentChange()
@@ -167,8 +166,8 @@ export default {
             }
         },
         /*
-             *  格式化时间  allbet time
-             * */
+            *  格式化时间  allbet time
+            * */
         format_time (time, format) {
             if (format === undefined || format == null) {
                 format = 'MM-dd HH:mm:ss'
@@ -269,8 +268,6 @@ export default {
             }
         }
     },
-    computed: {},
-    components: {},
     async mounted () {
         this.handleCurrentChange()
     }
