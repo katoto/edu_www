@@ -28,10 +28,10 @@ const state = {
 		inviterObj: null,  // 邀请接收
 
 		// loginSucc: null,  // 登陆成功后的数据
-		showFirstLogin:false,  // 邀请用
-		loginSucc: {
+		showFirstLogin:false,  // 邀请用（激活处）
+		loginSucc: {  //  登陆
 			login_times:'1',
-			invite_status:'0'
+			invite_status:'-1'
 		},
 	}
 }

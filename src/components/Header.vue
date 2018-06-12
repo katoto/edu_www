@@ -128,10 +128,12 @@
                         </div>
                     </section>
                 </div>
-                <!--主按钮 light over  -1  未开始  1 已结束  -2  -->
+
+                <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
                 <a href="javascript:;" @click="showFaucet" class="btn-faucet"
-                   :class="{'over':loginSucc.invite_status == '-1'||loginSucc.invite_status == '1'||loginSucc.invite_status == '-2'}"
+                   :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
                    v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
+
             </div>
 
             <div class="jackpot-box hide">
@@ -147,16 +149,16 @@
                     <p class="jackpot-money "> Win <i>5.55</i>ETH</p>
                 </div>
             </div>
+
         </div>
         <div>
             <!-- 公用的模态框列表 -->
             <pop-list></pop-list>
-
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
             <section v-if="(loginSucc || showFirstLogin)&&isLog">
                 <div class="tips-newAct tips-newAct2"
-                     :class="{'hide': !(  ( showFirstLogin ) || (loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1') )}">
+                     :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
                     <div class="msg">
                         <p>
                             You have earned 0.001 free ETH already, go to bet to win more!
@@ -164,18 +166,19 @@
                         <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">Try a luck</a>
                         <div class="bottom">
                             Invite friends to earn more free ETH.
-                            <a href="javascript:;" class="bold js_invite">Earn now</a>
+                            <a href="javascript:;" @click="showFaucet" class="bold js_invite">Earn now</a>
                         </div>
                     </div>
                 </div>
             </section>
+
             <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
             <!--  user/info 里还有问题  TODO -->
             <section v-if="loginSucc&&isLog">
                 <div class="tips-newAct"
-                     :class="{'hide':!(loginSucc.invite_status == '-1'||loginSucc.invite_status == '1'||loginSucc.invite_status == '-2')}">
+                     :class="{'hide':!(loginSucc.invite_status != '0')}">
                     <div class="msg">
-                        <p v-if="loginSucc.invite_status=='-1'">
+                        <p v-if="loginSucc.invite_status==='-1'">
                             Let's expect the upcoming activity!
                         </p>
                         <p v-else>
@@ -184,20 +187,24 @@
                     </div>
                 </div>
             </section>
+
             <!--成功邀请-->
-            <div class="tips-newAct tips-newAct2 hide js_tips_newAct2">
-                <div class="msg">
-                    <p>
-                        Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding to
-                        you now.
-                    </p>
-                    <a href="javascript:;" class="btn-receive js_receive_get">Get it !</a>
-                    <div class="bottom">
-                        Invite friends and get more
-                        ETH~ <a href="javascript:;" class="bold js_invite">Invite Now</a>
+            <section v-if="isLog">
+                <div class="tips-newAct tips-newAct2 hide js_tips_newAct2">
+                    <div class="msg">
+                        <p>
+                            Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding
+                            to
+                            you now.
+                        </p>
+                        <a href="javascript:;" class="btn-receive js_receive_get">Get it !</a>
+                        <div class="bottom">
+                            Invite friends and get more
+                            ETH~ <a href="javascript:;" @click="showFaucet" class="bold">Invite Now</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
             <!--拉新活动-->
 
         </div>
@@ -240,7 +247,11 @@
 			async showFaucet(){
 				let faucetMsg = await this.$store.dispatch('getFaucet');
                 /* 显示邀请 */
-				this.$store.commit('showFaucet')
+				this.$store.commit('showFaucet');
+                // 关闭第一个弹窗 ?
+				this.$store.commit('showFirstLogin', false);
+				this.$store.commit('setLoginSucc', null);
+
 			},
 			showDetailFn(){
 				this.showDetail = true
