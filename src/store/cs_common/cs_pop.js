@@ -30,14 +30,21 @@ const state = {
 		// loginSucc: null,  // 登陆成功后的数据
 		showFirstLogin:false,  // 邀请用（激活处）
 		loginSucc: {  //  登陆
-			login_times:'1',
-			invite_status:'-1'
+			login_times:'331',
+			invite_status:'0',
+			invite_prize_chances: 2,
+			tasks:[]
 		},
+		inviteTips:false,  // 控制成功邀请的弹窗
+
 	}
 }
 
 const mutations = {
-
+	//  激活用的
+	inviteTips(state, data){
+		state.pop.inviteTips = data
+	},
 	//  激活用的
 	showFirstLogin(state, data){
 		state.pop.showFirstLogin = data
@@ -130,7 +137,7 @@ const mutations = {
 		state.pop.faucetMsg = msg
 	}
 
-}
+};
 const actions = {
 	/* login 登陆 */
 	async userLogin ({commit, dispatch}, pageData) {
@@ -279,6 +286,27 @@ const actions = {
 		}
 	},
 
+	/* 邀请 faucet 领取 */
+	async getTaskDone ({commit, dispatch},taskid) {
+		try {
+			let InfoData = await ajax.get(`/task/done?tid=${taskid}&ck=${getCK()}&src=${src}&platform=${platform}`)
+			if (InfoData && InfoData.status.toString() === '100') {
+				return InfoData.data;
+			}else{
+				Message({
+					message: InfoData.message,
+					type: 'error',
+					duration: tipsTime
+				})
+			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 };
 
 const getters = {};

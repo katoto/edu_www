@@ -37,18 +37,50 @@ const mutations = {
 }
 const actions = {
 	/* user info */
-	async getUserInfo ({commit, dispatch}) {
+	async getUserInfo ({state,commit, dispatch}) {
 		try {
 			let userMsg = null;
 			userMsg = await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`);
-			if( userMsg.status =='100' && userMsg.data.accounts.length ===0 ){
-				userMsg.data.accounts.push({
-					address: "",
-					balance: "0",
-					cointype: "2001",
-					fee: "0.003",
-					freez: "0.0",
-				})
+			if( userMsg.status =='100' ){
+				// 未激活，无钱包
+				if( userMsg.data.accounts.length ===0 ){
+					userMsg.data.accounts.push({
+						address: "",
+						balance: "0",
+						cointype: "2001",
+						fee: "0.003",
+						freez: "0.0",
+					});
+				}
+				// 邀请 活动
+				// userMsg.data.tasks = [{
+				// 	"tid": 1,
+				// 	"maintype": 1,
+				// 	"subtype": 2,
+				// 	"taskstatus": "0"
+				// }];
+				let newTask = [];
+				userMsg.data.tasks.forEach((val , index)=>{
+					if (val.subtype == '2' && val.taskstatus == '0') {
+						newTask.push(val)
+					}
+				});
+				if( newTask.length > 0 ){
+					commit('inviteTips' , true)
+				}
+				// 取回之前数据
+				let newInviteObj = {
+					invite_status: userMsg.data.invite_status , //
+					invite_prize_chances:userMsg.data.invite_prize_chances ,
+					tasks: newTask
+				}
+				if( state && state.pop.loginSucc && state.pop.loginSucc.login_times ){
+					Object.assign( newInviteObj ,{
+						login_times:state.pop.loginSucc.login_times
+					})
+				}
+				commit('setLoginSucc', newInviteObj);
+
 			}
 			return userMsg
 		} catch (e) {

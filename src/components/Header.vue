@@ -1,3 +1,4 @@
+<script src="../../../../magnet_pc/dist/js/worldCup/youtubeVideo.js"></script>
 <template>
     <section>
         <div class="head">
@@ -89,9 +90,10 @@
                         <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
                             <div class="countNum" >
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
+
                                 <!---->
                                 <div v-if="loginSucc || showFirstLogin">
-                                    <span :class="{'blinking2':  ( showFirstLogin ) ||( loginSucc.login_times == '1' && loginSucc.invite_status == '0') }"
+                                    <span :class="{'blinking2': ( showFirstLogin )||( loginSucc.login_times == '1' && loginSucc.invite_status == '0')||(showInviteSuccFlag)  }"
                                           v-for="account in userInfo.accounts">{{ account.balance }}
                                     </span> ETH<i></i>
                                 </div>
@@ -135,7 +137,7 @@
                 </div>
 
                 <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
-                <a href="javascript:;" @click="showFaucet" class="btn-faucet"
+                <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
                    :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
                    v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
             </div>
@@ -174,10 +176,10 @@
                 </div>
             </section>
             <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
-            <!--  user/info 里还有问题  TODO -->
-            <section v-if="loginSucc&&isLog">
+            <!--  user/info 里还有问题  已经邀请 -->
+            <section v-if="loginSucc&&isLog&&showEndFaucet">
                 <div class="tips-newAct"
-                     :class="{'hide':!(loginSucc.invite_status != '0')}">
+                     :class="{'hide':!( loginSucc.invite_status != '0'||( loginSucc.invite_prize_chances == '0' && loginSucc.tasks.length == 0 ))}">
                     <div class="msg">
                         <p v-if="loginSucc.invite_status==='-1'">
                             Let's expect the upcoming activity!
@@ -190,16 +192,14 @@
             </section>
 
             <!--成功邀请-->
-            <section v-if="isLog">
-                <div class="tips-newAct tips-newAct2 hide js_tips_newAct2">
+            <section v-if="isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
+                <div class="tips-newAct tips-newAct2">
                     <div class="msg">
                         <p>
-                            Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding
-                            to
-                            you now.
+                            Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding to you now.
                         </p>
-                        <a href="javascript:;" class="btn-receive js_receive_get">Get it !</a>
-                        <div class="bottom">
+                        <a href="javascript:;" @click="getFaucet" class="btn-receive">Get it !</a>
+                        <div class="bottom hide">
                             Invite friends and get more
                             ETH~ <a href="javascript:;" @click="showFaucet" class="bold">Invite Now</a>
                         </div>
@@ -221,11 +221,17 @@
 		components: {PopList},
 		data () {
 			return {
-				showDetail: false
+				showDetail: false,
+                showEndFaucet:false,  // 控制 结束弹窗 tips
+				showEndFaucetTime:null,
+				showInviteSuccFlag:false,
 			}
 		},
 		watch: {},
 		computed: {
+			inviteTips(){
+				return this.$store.state.pop.inviteTips
+            },
 			showFirstLogin(){
 				return this.$store.state.pop.showFirstLogin
 			},
@@ -240,19 +246,53 @@
 			}
 		},
 		methods: {
+			async getFaucet(){
+				// 领取邀请奖励
+                if( this.loginSucc && this.loginSucc.tasks.length >0 ){
+	                this.showInviteSuccFlag = false;
+                    let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid );
+	                console.log(taskDone);
+	                if( taskDone &&  taskDone.taskstatus.toString() === '1' ){
+		                document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove';
+		                setTimeout(()=>{
+			                this.$store.commit('inviteTips' , false);
+			                // 手动加 0.001 eth
+			                let newUserInfo = null;
+			                if(this.userInfo){
+				                newUserInfo = this.userInfo ;
+				                newUserInfo.accounts[0].balance = parseFloat( newUserInfo.accounts[0].balance ) + 0.001
+			                }
+			                this.$store.commit('setUserInfo' , newUserInfo);
+			                this.showInviteSuccFlag = true;
+			                document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove';
+		                },3000);
+		                this.$store.dispatch('getUserInfo');
+                    }
+
+                }
+            },
 			hideFirstLoginAll(){
 				// 关闭第一个弹窗
 				this.$store.commit('showFirstLogin', false);
 				this.$store.commit('setLoginSucc', null);
 			},
 			async showFaucet(){
-				let faucetMsg = await this.$store.dispatch('getFaucet');
-                /* 显示邀请 */
-				this.$store.commit('showFaucet');
-                // 关闭第一个弹窗 ?
-				this.$store.commit('showFirstLogin', false);
-				this.$store.commit('setLoginSucc', null);
+				if(~document.getElementById('js_btn-faucet').className.indexOf('over')){
+                    this.showEndFaucet = true;
+                    clearTimeout(this.showEndFaucetTime);
+                    this.showEndFaucetTime = setTimeout(()=>{
+	                    this.showEndFaucet = false;
+                    },2500)
+                }else{
+					let faucetMsg = await this.$store.dispatch('getFaucet');
+                    /* 显示邀请 */
+					this.$store.commit('showFaucet');
 
+					// 关闭第一个弹窗 ?
+    				this.$store.commit('showFirstLogin', false);
+
+    //				this.$store.commit('setLoginSucc', null);
+                }
 			},
 			showDetailFn(){
 				this.showDetail = true
