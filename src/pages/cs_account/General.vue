@@ -19,6 +19,7 @@
                         <span class="coin-num bold">{{ account.balance | formateBalance }}</span>
                     </div>
                 </li>
+
                 <!--<section class="hide">-->
                 <!--<span id="js_copyEth" class="coin-add js_walletaAddress">-->
                 <!--<a href="" class="address"></a>-->
