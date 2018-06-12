@@ -88,7 +88,7 @@ import {
     platform,
     tipsTime,
     ethUrl,
-    formate_coinType,
+    formateCoinType,
     formateBalance,
     formatTime,
     formateMoneyFlow
@@ -206,7 +206,7 @@ export default {
                 if (val.inout !== undefined) {
                     val.inout = formateMoneyFlow(val.inout)
                 }
-                val.cointype = formate_coinType(val.cointype)
+                val.cointype = formateCoinType(val.cointype)
                 val.moneyVal = (
                     parseInt(val.money, 10) <= 0
                         ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money)}</a>`
