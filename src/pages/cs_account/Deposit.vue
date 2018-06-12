@@ -1,6 +1,6 @@
 <template>
     <div class="recharge">
-        <h2>DEPOSIT</h2>
+        <h2>Deposit</h2>
         <span class="small-explain hide">Wallet Balance</span>
         <ul class="coin-detail hide">
             <li>
@@ -21,7 +21,7 @@
                 <a href="javascript:;" class="btn-copy">Copy</a>
             </li>
         </ul>
-        <a href="javascript:;" class="btn-Recharge">How To Deposit?</a>
+        <a href="javascript:;" class="btn-Recharge">How to deposit?</a>
         <div class="recharge-box">
             <div class="recharge-item recharge-item1" v-if="userInfo">
                 <h3>1.Copy the Ethereum wallet address (only supports ETH)</h3>
@@ -211,6 +211,9 @@
                 top: -27px;
                 clip: rect(27px 172px 172px 27px);
             }
+        }
+        .recharge-item2 {
+            margin-bottom: 20px;
         }
         .recharge-item3 {
             p {
