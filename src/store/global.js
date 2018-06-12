@@ -1,6 +1,15 @@
 import ajax from '~common/ajax'
-import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
+import {src, mapMutations, getCK, mapActions, platform, tipsTime , } from '~common/util'
 import {Message} from 'element-ui'
+
+let sockURL = null ;
+if (process.env.NODE_ENV === 'production') {
+	sockURL = 'wss://crazybet.choopaoo.com/wss'
+} else if (process.env.NODE_ENV === 'preRelease') {
+	sockURL = 'ws://192.168.41.76:6999'
+}else{
+	sockURL = 'ws://10.0.1.41:4444/betblock'
+}
 
 function combimeStore (store, newStore) {
     return {
@@ -23,6 +32,11 @@ const state = {
     version: '0.0.1',
     isLog: false,
     userInfo: null,
+	socket: {
+		reconnect: 0,
+		sock: null,
+		interval: null,
+	},
     ...common.state
 }
 
@@ -33,6 +47,13 @@ const mutations = {
     setIsLog (state, msg) {
         state.isLog = msg
     },
+	initSocket(state, {sock, interval} ){
+		state.socket.sock = sock
+		state.socket.interval = interval
+	},
+	addConnectNum (state) {
+		state.socket.reconnect ++
+	},
     ...common.mutations
 }
 const actions = {
@@ -92,6 +113,149 @@ const actions = {
 		}
 	},
 
+	/* websocket */
+	initWebsocket({ commit,state,dispatch }){
+		return new Promise(( resolve,reject )=>{
+			let sock = new WebSocket(`${sockURL}`);
+			let interval = null
+			let flag = 0
+			let hasFinished = false;
+			sock.onmessage = function (e) {
+				if (!~e.data.indexOf('you said')) {
+					let data = JSON.parse(e.data);
+					// console.log(data);
+					// commit('updateSocketData', data)
+				}
+			}
+			sock.onopen = function () {
+				let webSockaction = null ;
+				let currUid = null
+				clearInterval(interval);
+				if (state.userInfo && state.userInfo.uid) {
+					webSockaction = {
+						action: 'sub',
+						uid: state.userInfo.uid,
+						lotid: 1
+					};
+					currUid = state.userInfo.uid
+					interval = setInterval(() => {
+						sock.send(JSON.stringify({
+							action: 'ping',
+							uid: currUid,
+						}))
+					}, 5000);
+				} else {
+					webSockaction = {
+						action: 'sub',
+						lotid: 1
+					};
+
+					interval = setInterval(() => {
+						sock.send(JSON.stringify({
+							action: 'ping',
+						}))
+					}, 5000);
+				}
+				sock.send(JSON.stringify(webSockaction));
+
+				commit('initSocket', {sock, interval})
+				flag = 1;
+				if (hasFinished) return
+				hasFinished = true
+				resolve()
+			}
+			sock.onclose = function () {
+				console.warn('websocket 重连')
+				clearInterval(interval)
+				setTimeout(() => {
+					commit('addConnectNum')
+					dispatch('initWebsocket')
+				}, 5000)
+			}
+			sock.onerror = function (e) {
+				console.error('sock error')
+				e.code = '102'
+				if (flag === 1) return
+				if (hasFinished) return
+				hasFinished = true
+				reject(e)
+			}
+			setTimeout(() => {
+				if (hasFinished) return
+				hasFinished = true
+				let error = new Error('超时')
+				error.code = '103'
+				reject(error)
+			}, 1000);
+			commit('initSocket', {sock, interval})
+
+		})
+	},
+	sub2out ({commit, state}) {
+		let sub2outStr = null;
+		console.log(state);
+		try {
+			if (state.userInfo && state.userInfo.uid) {
+				sub2outStr = {
+					action: 'unsub',
+					uid: state.userInfo.uid,
+					lotid: 1
+				};
+				state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
+			}
+			sub2outStr = {
+				action: 'sub',
+				lotid: 1
+			};
+			state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr));
+
+			if( state.socket.interval ){
+				clearInterval( state.socket.interval )
+				state.socket.interval = setInterval(function () {
+					state.socket.sock.send(JSON.stringify({
+						action: 'ping',
+					}))
+				}, 5000)
+			}
+
+		} catch (e) {
+			console.error(e.message)
+		}
+	},
+	sub2In ({commit, state}) {
+		let sub2InStr = null ;
+		let currUid = null ;
+		try {
+			sub2InStr = {
+				action: 'unsub',
+				lotid: 1
+			};
+			state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr));
+			if (state.userInfo && state.userInfo.uid) {
+				sub2InStr = {
+					action: 'sub',
+					uid: state.userInfo.uid,
+					lotid: 1
+				};
+				currUid = state.userInfo.uid ;
+				state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
+			}else{
+				currUid = null;
+			}
+			if( state.socket.interval ){
+				clearInterval( state.socket.interval )
+				state.socket.interval = setInterval(function () {
+					state.socket.sock.send(JSON.stringify({
+						action: 'ping',
+						uid: currUid,
+					}))
+				}, 5000)
+			}
+
+		} catch (e) {
+			console.error(e.message)
+		}
+	},
 	...common.actions
 }
 

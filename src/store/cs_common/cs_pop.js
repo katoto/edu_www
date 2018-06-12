@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import {Message} from 'element-ui'
 import ajax from '~common/ajax'
-import {src, channel, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
+import {src, channel, mapMutations, getCK, removeCK , mapActions, platform, tipsTime} from '~common/util'
 
 const state = {
 	pop: {
@@ -30,7 +30,7 @@ const state = {
 		// loginSucc: null,  // 登陆成功后的数据
 		showFirstLogin:false,  // 邀请用（激活处）
 		loginSucc: {  //  登陆
-			login_times:'331',
+			login_times:'331',  // 用户信息的地方没有这个字段
 			invite_status:'0',
 			invite_prize_chances: 2,
 			tasks:[]
@@ -166,6 +166,17 @@ const actions = {
 			})
 		}
 	},
+
+	/* 退出登录 */
+	loginOut({commit, dispatch}){
+		dispatch('sub2out');
+
+		removeCK();
+		commit('setIsLog', false);
+		commit('setUserInfo', {});
+
+	},
+
 	/* reg 注册 => 邮箱验证 */
 	async beforeReg ({commit, dispatch}, pageData) {
 		try {

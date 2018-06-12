@@ -330,6 +330,7 @@
                 </div>
             </div>
         </div>
+        <button @click="leaveRoute">离开页面</button>
         <Footer></Footer>
     </div>
 </template>
@@ -352,7 +353,15 @@
 			}
 		},
 		watch: {},
+		computed: {
+			socket(){
+				return this.$store.state.socket
+            }
+        },
 		methods: {
+			leaveRoute(){
+				this.$router.push('/account')
+            },
 			fixNav () {
 				this.scroll = document.documentElement.scrollTop || document.body.scrollTop
 				if (this.scroll >= 90) {
@@ -412,7 +421,6 @@
                 }
             }
 		},
-
 		components: {
 			Footer,
 			Header,
@@ -420,14 +428,25 @@
 		},
         async mounted () {
             window.addEventListener('scroll', this.fixNav);
-
             if( this.$store.state.route.query ){
                 this.indexRouter( this.$store.state.route.query )
             }
-
             let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
-            console.log(dataRecentWinsList);
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
+            console.log(333);
+	        console.log(this.socket);
+	        if( !( this.socket && this.socket.sock ) ){
+		        this.$store.dispatch('initWebsocket')
+	        }
+        },
+		beforeRouteLeave( to , from , next ){
+			// 是否需要主队断sock ？
+//			this.$store.state.socket.sock.onclose();
+
+//			this.$store.dispatch('unsubscribe')
+//			this.$store.dispatch('subscribe')
+
+			next();
         },
 		destroyed () {
 			window.removeEventListener('scroll', this.fixNav)

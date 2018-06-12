@@ -57,11 +57,9 @@
 		methods: {
 			signOut(){
                 /* 退出登录 */
-				removeCK();
-				this.$store.commit('setIsLog', false);
-				this.$store.commit('setUserInfo', {});
+                this.$store.dispatch('loginOut');
 
-                this.$router.push('/lucky');
+                this.$router.push('/lucky')
 			},
         },
 		computed: {

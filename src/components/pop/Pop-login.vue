@@ -68,9 +68,9 @@
 									type: 'success',
 									duration: tipsTime
 								});
-
 								this.$store.commit('setIsLog', true);
 								this.$store.commit('setUserInfo', userMsg.data);
+								this.$store.dispatch('sub2In');
 								await wait(500);
 								this.$store.commit('hideLoginPop')
 							} else {

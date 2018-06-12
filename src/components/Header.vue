@@ -287,10 +287,8 @@
 					let faucetMsg = await this.$store.dispatch('getFaucet');
                     /* 显示邀请 */
 					this.$store.commit('showFaucet');
-
 					// 关闭第一个弹窗 ?
     				this.$store.commit('showFirstLogin', false);
-
     //				this.$store.commit('setLoginSucc', null);
                 }
 			},
@@ -302,9 +300,7 @@
 			},
 			signOut(){
                 /* 退出登录 */
-				removeCK();
-				this.$store.commit('setIsLog', false);
-				this.$store.commit('setUserInfo', null);
+                this.$store.dispatch('loginOut');
 			},
 			onLoginIn () {
 				this.$store.commit('showLoginPop')

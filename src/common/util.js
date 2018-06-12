@@ -10,6 +10,7 @@ export const tipsTime = 3000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000  // 暂时就sign 注册用到
 
+
 export function mapActions(acts, ns) {
 	const aTypes = {}
 	const actions = {}
