@@ -112,6 +112,8 @@ export function formatTime (time, format) {
     })
 }
 
+export const format_time = formatTime
+
 /*
  *   format_match  玩法选择
  * */
