@@ -138,9 +138,7 @@
                 <a href="javascript:;" @click="showFaucet" class="btn-faucet"
                    :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
                    v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
-
             </div>
-
             <div class="jackpot-box hide">
                 <div class="bg bg1"></div>
                 <div class="bg bg2"></div>
@@ -154,7 +152,6 @@
                     <p class="jackpot-money "> Win <i>5.55</i>ETH</p>
                 </div>
             </div>
-
         </div>
         <div>
             <!-- 公用的模态框列表 -->
@@ -176,7 +173,6 @@
                     </div>
                 </div>
             </section>
-
             <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
             <!--  user/info 里还有问题  TODO -->
             <section v-if="loginSucc&&isLog">
