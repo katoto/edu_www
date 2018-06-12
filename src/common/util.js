@@ -162,7 +162,7 @@ export function formateBalance (val = 0) {
 /*
  *   金币类型
  * */
-export function formate_coinType (type = '2001') {
+export function formateCoinType (type = '2001') {
     type = type.toString()
     switch (type) {
     case '2001':
