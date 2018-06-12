@@ -2,20 +2,20 @@
     <div class="betting">
         <h2>Bet Record</h2>
         <section>
-            <el-select v-model="betOptionVal">
+            <el-select v-model="betOptionVal" @change="handleStatusChange">
                 <el-option
-                        v-for="item in betOptions"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                    v-for="item in betOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
                 </el-option>
             </el-select>
-            <el-select v-model="betTimeOptionVal">
+            <el-select v-model="betTimeOptionVal" @change="handleStatusChange">
                 <el-option
-                        v-for="item in betTimeOptions"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                    v-for="item in betTimeOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
                 </el-option>
             </el-select>
         </section>
@@ -90,7 +90,7 @@
                 <el-pagination
                         @current-change="handleCurrentChange"
                         background
-                        :current-page.sync="pageNumber"
+                        :current-page.sync="pageno"
                         size="small"
                         :page-size="pageSize"
                         layout="prev, pager, next,jumper"
@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import { mTypes, aTypes } from '~/store/cs_page/cs_account'
 import {
     src,
     platform,
@@ -116,49 +115,55 @@ import { Message } from 'element-ui'
 export default {
     data () {
         return {
-            pageNumber: 1,
+            pageno: 1,
             pageSize: 6,
             PageTotal: 10,
             orderList: [],
-            ethUrl: null,
-
-            betOptions: [
-                {
-                    value: '1',
-                    label: 'All bets'
-                },
-                {
-                    value: '2',
-                    label: 'win bets'
-                }
-            ],
+            ethUrl,
+            betOptions: [{
+                value: '1',
+                label: 'All bets'
+            }, {
+                value: '2',
+                label: 'win bets'
+            }],
             betOptionVal: '1',
-
-            betTimeOptions: [
-                {
-                    value: '1',
-                    label: 'Last 30 days'
-                },
-                {
-                    value: '2',
-                    label: 'Last 7 days'
-                }
-            ],
+            betTimeOptions: [{
+                value: '1',
+                label: 'Last 30 days'
+            }, {
+                value: '2',
+                label: 'Last 7 days'
+            }],
             betTimeOptionVal: '1'
         }
     },
     watch: {},
     methods: {
-        async handleCurrentChange (val) {
-            if (val !== undefined) {
-                let orderMsg = await this.$store.dispatch(aTypes.getOrderList, {
-                    pageno: parseInt(val, 10),
-                    pagesize: this.pageSize
-                })
-                if (orderMsg) {
-                    this.orderList = this.format_orderList(orderMsg.orders)
-                    this.PageTotal = parseInt(orderMsg.counter, 10)
-                }
+        handleStatusChange () {
+            this.handleCurrentChange()
+        },
+
+        getList (params) {
+            return this.$store.dispatch('cs_account/getOrderList', {
+                pagesize: this.pageSize,
+                ...params
+            })
+        },
+        async handleCurrentChange (pageno = this.pageno) {
+            let params = {
+                pageno,
+                crday: this.betTimeOptionVal === '1' ? 30 : 7
+            }
+            if (this.betOptionVal === '2') {
+                params.prize = 1
+            }
+
+            let data = await this.getList(params)
+
+            if (data) {
+                this.orderList = this.formatData(data.orders)
+                this.PageTotal = parseInt(data.counter, 10)
             }
         },
         /*
@@ -196,7 +201,7 @@ export default {
              *  格式化orderList 数据
              *  return 格式化后的数据
              * */
-        format_orderList (Msg) {
+        formatData (Msg) {
             if (Msg) {
                 Msg.forEach((val, index) => {
                     // bettime
@@ -261,27 +266,13 @@ export default {
                     }
                 })
                 return Msg
-            } else {
-                Message({
-                    message: 'format_orderList error',
-                    type: 'error'
-                })
-                return false
             }
         }
     },
     computed: {},
     components: {},
     async mounted () {
-        let orderMsg = await this.$store.dispatch(aTypes.getOrderList, {
-            pageno: 1,
-            pagesize: this.pageSize
-        })
-        if (orderMsg) {
-            this.orderList = this.format_orderList(orderMsg.orders)
-            this.PageTotal = Number(orderMsg.counter)
-        }
-        this.ethUrl = ethUrl
+        this.handleCurrentChange()
     }
 }
 </script>
