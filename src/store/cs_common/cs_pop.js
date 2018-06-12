@@ -5,7 +5,7 @@ import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/
 
 const state = {
 	pop: {
-		showLoginPop: false,
+        showLoginPop: false,
 		showRegPop: false,
 		showVerifyEmail: false,
 		showResetPwd: false,
@@ -18,6 +18,7 @@ const state = {
 		emailBackTime: 60,
 		verifyTime: null,
 		regVerifyEmail: null,
+        showPopLimit: false,
 
 		resetObj: {  // 重置密码
 			email: null,
@@ -112,8 +113,15 @@ const mutations = {
 	},
 	faucetMsg (state, msg) {
 		state.pop.faucetMsg = msg
-	}
+	},
 
+	//限号弹窗
+    showPopLimit(state){
+        state.showPopLimit = true;
+    },
+    hidePopLimit(state){
+        state.showPopLimit = false;
+    }
 }
 const actions = {
 	/* login 登陆 */

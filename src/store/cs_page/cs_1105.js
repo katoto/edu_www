@@ -75,6 +75,21 @@ const actionsInfo = mapActions({
             })
         }
     },
+    //首页 限号弹窗
+    async popLimit(){
+	    try {
+	        let dataLimit = null;
+	        let expectId = 1806121622;
+            dataLimit = await ajax.get('/expect/restrictpool?expect='+expectId);
+            return dataLimit;
+        }catch(e){
+            Message({
+                message: e.message,
+                type: 'error',
+                duration: tipsTime
+            })
+        }
+    },
 
 	/* 注册激活 */
 	async mailActivate ({commit, dispatch}, pageData) {

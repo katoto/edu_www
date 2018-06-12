@@ -26,7 +26,7 @@
                                 <span class="js_choose_desc">Pick 5 numbers, if all the numbers hit the draw numbers, you'll win 378 times reward</span>
                                 <a href="javascript:;" class="js_showReward"> Reward table</a>
                             </p>
-                            <a href="javascript:;" class="limit-tips js_limit-tips">Limit number list</a>
+                            <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
                         </div>
                         <span class="line js_line">Ticket1</span>
                         <!--<ul class="number-box js_isReady" data-luckyNum="1|3|4|6|8">-->
@@ -222,8 +222,7 @@
                                             <td>
                                                 {{data.betmoney}}
                                             </td>
-                                            <td>
-                                                {{data.betprize}}
+                                            <td v-html="data.betprize">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -361,9 +360,23 @@
 					this.$store.commit(mTypes.setNavFix, false)
 				}
 			},
+            showPopLimit(){
+                this.$store.commit('showPopLimit')
+            },
+            format_betCode(betcode){
+                let currLuckyNum = betcode.split(',');
+                let str = '<ul class="num-box">'
+                currLuckyNum.forEach(function(value,index){
+                  str += `<li class="bingo">${value}</li>`
+                })
+			    return str+'</ul>';
+            },
             format_recentWins(msg){
                 msg.forEach((item,index)=>{
                     item.bettype = format_match(item.bettype)
+                    item.betcode = this.format_betCode(item.betcode)
+                    item.betmoney = parseFloat(item.betmoney).toFixed(5)+'ETH'
+                    item.betprize = '<span class="win"><span>'+parseFloat(item.betprize).toFixed(5)+'</span>ETH</span>'
                 })
                 return msg;
             },
@@ -420,7 +433,6 @@
             }
 
             let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
-            console.log(dataRecentWinsList);
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
         },
 		destroyed () {

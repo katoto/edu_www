@@ -127,7 +127,38 @@ export function format_match(match) {
     }
 }
 
-
+/*
+ *  格式化时间  allbet time
+ * */
+export function format_time(time, format) {
+    if (format === undefined || format == null) {
+        format = 'HH:mm:ss'
+        // format = 'MM-dd HH:mm:ss'
+    }
+    if (isNaN(time)) {
+        return false;
+    }
+    var t = new Date(+time * 1000);
+    var tf = function (i) {
+        return (i < 10 ? '0' : '') + i
+    }
+    return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+        switch (a) {
+            case 'yyyy':
+                return tf(t.getFullYear())
+            case 'MM':
+                return tf(t.getMonth() + 1)
+            case 'mm':
+                return tf(t.getMinutes())
+            case 'dd':
+                return tf(t.getDate())
+            case 'HH':
+                return tf(t.getHours())
+            case 'ss':
+                return tf(t.getSeconds())
+        }
+    })
+}
 
 export function formateBalance(val = 0){
 	let newEth = null;
