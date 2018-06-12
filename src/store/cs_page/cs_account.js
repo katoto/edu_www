@@ -36,45 +36,13 @@ const actionsInfo = mapActions({
             ...getCommonParams(),
             ...params
         })
-            .then(data => {
-                if (data.status === '100') {
-                    return data.data
-                } else {
-                    Message({
-                        message: data.message,
-                        type: 'error',
-                        duration: tipsTime
-                    })
-                    return false
-                }
-            })
     },
     /* my transactions 我的交易接口 */
-    async getAccountLog ({commit, dispatch}, msg) {
-        try {
-            let InfoData = null
-            if (msg) {
-                InfoData = await ajax.get(`/account/log?pageno=${msg.pageno}&pagesize=${msg.pagesize}&day=30&lotid=1&ck=${getCK()}&platform=${platform}&src=${src}`)
-            } else {
-                InfoData = await ajax.get(`/account/log?day=30&lotid=1&ck=${getCK()}&platform=${platform}&src=${src}`)
-            }
-            if (InfoData.status === '100') {
-                return InfoData.data
-            } else {
-                Message({
-                    message: InfoData.message,
-                    type: 'error',
-                    duration: tipsTime
-                })
-                return false
-            }
-        } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
+    async getAccountLog ({commit, dispatch}, params) {
+        return ajax.get('/account/log', {
+            ...getCommonParams(),
+            ...params
+        })
     },
 
     /* my withdraw/records 我的提款记录  	<!-- rangeno 没有统一 app无法统一 -->  */

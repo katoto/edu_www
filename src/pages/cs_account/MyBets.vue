@@ -104,11 +104,8 @@
 
 <script>
 import {
-    src,
-    platform,
-    tipsTime,
     ethUrl,
-    format_match_account,
+    formatMatchAccount,
     formatTime,
     formateBalance
 } from '~common/util'
@@ -160,6 +157,7 @@ export default {
             }
 
             let data = await this.getList(params)
+            data = data.data
 
             if (data) {
                 this.orderList = this.formatData(data.orders)
@@ -175,12 +173,12 @@ export default {
                 Msg.forEach((val, index) => {
                     // bettime
                     val.bettime = formatTime(val.bettime, 'yyyy-MM-dd HH:mm')
-                    val.bettype = format_match_account(val.bettype)
+                    val.bettype = formatMatchAccount(val.bettype)
 
-                    if (!val.txhash || val.orderstatus != '2') {
+                    if (!val.txhash || val.orderstatus !== '2') {
                         val.txhash = '-'
                     }
-                    if (val.txhash == '-') {
+                    if (val.txhash === '-') {
                         val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
                     } else {
                         val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
@@ -214,7 +212,7 @@ export default {
                     }
 
                     // win state
-                    if (val.orderstatus == '2') {
+                    if (val.orderstatus === '2') {
                         // 结算 并且大于0
                         val.betprizeVal = (
                             parseInt(val.betprize, 10) > 0
@@ -224,9 +222,9 @@ export default {
                     } else {
                         if (parseInt(val.orderstatus, 10) === 0) {
                             val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
-                        } else if (val.orderstatus == '1') {
+                        } else if (val.orderstatus === '1') {
                             val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
-                        } else if (val.orderstatus == '-1' || val.orderstatus == '-2') {
+                        } else if (val.orderstatus === '-1' || val.orderstatus === '-2') {
                             val.betprizeVal = 'failure'
                         }
                     }
