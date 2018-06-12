@@ -86,8 +86,8 @@
                             <a href="" class="btn-rechrage">Deposit </a>
                             <a href="" class="btn-cash">Withdraw</a>
                         </div>
-                        <div class="mycount">
-                            <span class="countNum" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
+                        <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
+                            <span class="countNum">
                                   <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
                                 <!--blinking2-->
                                  <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
@@ -187,60 +187,60 @@
 <script>
 	import PopList from '~components/Pop-list'
 	import {Message} from 'element-ui'
-	import {src, platform, removeCK ,tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
+	import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
 
 	export default {
-		components: {PopList},
-		data () {
-			return {
-				showDetail:false
+	    components: {PopList},
+	    data () {
+	        return {
+	            showDetail: false
 
-			}
-		},
-		watch: {},
-		computed:{
-	        isLog(){
+	        }
+	    },
+	    watch: {},
+	    computed: {
+	        isLog () {
 		        return this.$store.state.isLog
 	        },
-	        userInfo(){
+	        userInfo () {
 		        return this.$store.state.userInfo
 	        }
+    },
+	    methods: {
+	        async showFaucet () {
+	            let faucetMsg = await this.$store.dispatch('getFaucet')
+            /* 显示邀请 */
+	            this.$store.commit('showFaucet')
         },
-		methods: {
-			async showFaucet(){
-				let faucetMsg = await this.$store.dispatch('getFaucet');
-                /* 显示邀请 */
-				this.$store.commit('showFaucet')
-            },
-			showDetailFn(){
-                this.showDetail = true
-            },
-			hideDetailFn(){
+	        showDetailFn () {
+            this.showDetail = true
+        },
+	        hideDetailFn () {
 	            this.showDetail = false
-            },
-			signOut(){
+        },
+	        signOut () {
             	/* 退出登录 */
-				removeCK();
-				this.$store.commit('setIsLog', false);
-				this.$store.commit('setUserInfo', {});
-            },
-			onLoginIn () {
-				this.$store.commit('showLoginPop')
-			}
-		},
-		filters: {
-			formateCoinType: (type = '2001') => {
-				type = type.toString();
-				switch (type) {
-					case '2001':
-						return 'ETH';
-					case '1001':
-						return 'BTC';
-					default:
-						return 'ETH'
-				}
-			}
-		},
+	            removeCK()
+	            this.$store.commit('setIsLog', false)
+	            this.$store.commit('setUserInfo', {})
+        },
+	        onLoginIn () {
+	            this.$store.commit('showLoginPop')
+	        }
+	    },
+	    filters: {
+	        formateCoinType: (type = '2001') => {
+	            type = type.toString()
+	            switch (type) {
+	            case '2001':
+	                return 'ETH'
+	            case '1001':
+	                return 'BTC'
+	            default:
+	                return 'ETH'
+	            }
+	        }
+	    }
 
 	}
 </script>
@@ -324,6 +324,7 @@
                 padding-right: 25px;
                 line-height: 30px;
                 font-size: 20px;
+                padding-bottom: 6px;
                 i {
                     display: block;
                     position: absolute;
