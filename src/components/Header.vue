@@ -86,8 +86,8 @@
                             <a href="" class="btn-rechrage">Deposit </a>
                             <a href="" class="btn-cash">Withdraw</a>
                         </div>
-                        <div class="mycount">
-                            <div class="countNum" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
+                        <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
+                            <div class="countNum" >
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
                                 <!---->
                                 <div v-if="loginSucc || showFirstLogin">
@@ -99,6 +99,7 @@
                                     <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
                                 </div>
                             </div>
+
                             <transition name="fade">
                                 <div id="mycount-detailed" class="mycount-detailed" :class="{'hide':!showDetail}">
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
@@ -120,8 +121,12 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <a href="" class="my-transaction">My Bets</a>
-                                    <a href="" class="account-center">Account Center</a>
+                                    <router-link :to="{path: '/account/myBets'}">
+                                        <a href="" class="my-transaction">My Bets</a>
+                                    </router-link>
+                                    <router-link :to="{path: '/account/general'}">
+                                        <a href="" class="account-center">Account Center</a>
+                                    </router-link>
                                     <a href="javascript:;" @click="signOut" class="log-out">Sign Out</a>
                                 </div>
                             </transition>
@@ -281,8 +286,7 @@
 						return 'ETH'
 				}
 			}
-		},
-
+		}
 	}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
@@ -367,6 +371,7 @@
                 padding-right: 25px;
                 line-height: 30px;
                 font-size: 20px;
+                padding-bottom: 6px;
                 i {
                     display: block;
                     position: absolute;
