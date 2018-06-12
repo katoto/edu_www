@@ -113,8 +113,12 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <a href="" class="my-transaction">My Bets</a>
-                                    <a href="" class="account-center">Account Center</a>
+                                    <router-link :to="{path: '/account/myBets'}">
+                                        <a href="" class="my-transaction">My Bets</a>
+                                    </router-link>
+                                    <router-link :to="{path: '/account/general'}">
+                                        <a href="" class="account-center">Account Center</a>
+                                    </router-link>
                                     <a href="javascript:;" @click="signOut" class="log-out">Sign Out</a>
                                 </div>
                             </transition>
