@@ -215,7 +215,7 @@ export default {
                     if (val.orderstatus === '2') {
                         // 结算 并且大于0
                         val.betprizeVal = (
-                            parseInt(val.betprize, 10) > 0
+                            parseFloat(val.betprize, 10) > 0
                                 ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize)}ETH</a>`
                                 : "<a href='javascript:;' class='fail'>0</a>"
                         )

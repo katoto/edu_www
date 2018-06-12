@@ -208,7 +208,7 @@ export default {
                 }
                 val.cointype = formateCoinType(val.cointype)
                 val.moneyVal = (
-                    parseInt(val.money, 10) <= 0
+                    parseFloat(val.money, 10) <= 0
                         ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money)}</a>`
                         : `"<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money)}</a>`
                 )

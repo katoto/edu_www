@@ -13,7 +13,7 @@
             </p>
             <span class="small-explain">Wallet Balance</span>
             <ul class="coin-detail" v-if="userInfo.accounts">
-                <li v-for="account in userInfo.accounts">
+                <li v-for="(account, index) in userInfo.accounts" :key="index">
                     <div class="lf130">
                         <span class="coin-name">{{ account.cointype | formateCoinType }}</span>
                         <span class="coin-num bold">{{ account.balance | formateBalance }}</span>
@@ -41,259 +41,260 @@
             <p class="psw-grade hide">
                 Security Level&nbsp;&nbsp;<span class="bold">Middle</span>
             </p>
-            <a href="javascript:;" class="btn-changepsw js_bet-changepsw">Change Password</a>
+            <a href="javascript:;" class="btn-changepsw" @click="onChange">Change Password</a>
         </div>
     </div>
 </template>
 
 <script>
-	import {src, platform, removeCK ,tipsTime, ethUrl} from '~common/util'
+import { src, platform, removeCK, tipsTime, ethUrl } from '~common/util'
 
-	export default {
-		data(){
-			return {}
-		},
-		watch: {},
-		methods: {
-			signOut(){
-                /* 退出登录 */
-				removeCK();
-				this.$store.commit('setIsLog', false);
-				this.$store.commit('setUserInfo', {});
+export default {
+    data () {
+        return {}
+    },
+    methods: {
+        signOut () {
+            /* 退出登录 */
+            removeCK()
+            this.$store.commit('setIsLog', false)
+            this.$store.commit('setUserInfo', {})
 
-                this.$router.push('/lucky');
-			},
+            this.$router.push('/lucky')
         },
-		computed: {
-			isLog(){
-				return this.$store.state.isLog
-			},
-			userInfo(){
-				return this.$store.state.userInfo
-			}
-		},
-		components: {},
-		mounted(){
-			if (!this.isLog) {
-				this.$router.push('/home')
-			}
-		},
-		filters: {
-			formateCoinType: (type = '2001') => {
-				type = type.toString();
-				switch (type) {
-					case '2001':
-						return 'ETH';
-					case '1001':
-						return 'BTC';
-					default:
-						return 'ETH'
-				}
-			},
-			formateBalance: (val = 0) => {
-				var newEth = null;
-				if (isNaN(val) || isNaN(Number(val))) {
-					console.error('formateBalance error' + val);
-					return 0;
-				}
-				val = Number(val);
-				if (val > 10000000) {
-					newEth = ( val / 100000000).toFixed(1) + '亿';
-				} else if (val > 100000) {
-					newEth = ( val / 10000).toFixed(1) + '万';
-				} else if (val > 1000) {
-					newEth = parseFloat(( val ).toFixed(0));
-				} else if (val > 100) {
-					newEth = ( val ).toFixed(3);
-				} else if (val > 10) {
-					newEth = ( val ).toFixed(4);
-				} else {
-					newEth = ( val ).toFixed(5);
-					// 如果需要去掉零 用parseFloat(  )
-				}
-				return newEth;
-            }
+        onChange () {
+            this.$store.dispatch('showResetPwd')
         }
-	}
+    },
+    computed: {
+        isLog () {
+            return this.$store.state.isLog
+        },
+        userInfo () {
+            return this.$store.state.userInfo
+        }
+    },
+    mounted () {
+        if (!this.isLog) {
+            this.$router.push('/home')
+        }
+    },
+    filters: {
+        formateCoinType: (type = '2001') => {
+            type = type.toString()
+            switch (type) {
+            case '2001':
+                return 'ETH'
+            case '1001':
+                return 'BTC'
+            default:
+                return 'ETH'
+            }
+        },
+        formateBalance: (val = 0) => {
+            var newEth = null
+            if (isNaN(val) || isNaN(Number(val))) {
+                console.error('formateBalance error' + val)
+                return 0
+            }
+            val = Number(val)
+            if (val > 10000000) {
+                newEth = (val / 100000000).toFixed(1) + '亿'
+            } else if (val > 100000) {
+                newEth = (val / 10000).toFixed(1) + '万'
+            } else if (val > 1000) {
+                newEth = parseFloat(val.toFixed(0))
+            } else if (val > 100) {
+                newEth = val.toFixed(3)
+            } else if (val > 10) {
+                newEth = val.toFixed(4)
+            } else {
+                newEth = val.toFixed(5)
+                // 如果需要去掉零 用parseFloat(  )
+            }
+            return newEth
+        }
+    }
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../../styles/lib-mixins.less";
+@import "../../styles/lib-mixins.less";
 
-    .coin-detail {
-        li {
-            height: 40px;
-            line-height: 40px;
-            overflow: hidden;
-        }
-        span {
-            float: left;
-            display: block;
-        }
-        .coin-name {
-            float: left;
-        }
-        .coin-num {
-            float: right;
-            max-width: 120px !important;
-            color: #ff7f50;
-            .text-overflow();
-        }
-        .coin-add {
-            a {
-                max-width: 640px !important;
-                margin-right: 10px;
-                color: #263648;
-                .transition();
-                .text-overflow();
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-        .btn-copy {
-            margin-left: 10px;
-            font-size: 14px;
-        }
+.coin-detail {
+  li {
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+  }
+  span {
+    float: left;
+    display: block;
+  }
+  .coin-name {
+    float: left;
+  }
+  .coin-num {
+    float: right;
+    max-width: 120px !important;
+    color: #ff7f50;
+    .text-overflow();
+  }
+  .coin-add {
+    a {
+      max-width: 640px !important;
+      margin-right: 10px;
+      color: #263648;
+      .transition();
+      .text-overflow();
+      &:hover {
+        text-decoration: underline;
+      }
     }
+  }
+  .btn-copy {
+    margin-left: 10px;
+    font-size: 14px;
+  }
+}
 
-    .information {
-        position: relative;
-        padding-bottom: 13px;
-        .btn-logout {
-            position: absolute;
-            right: 0;
-            top: 0;
-            display: block;
-            width: 100px;
-            height: 30px;
-            overflow: hidden;
-            text-align: center;
-            line-height: 30px;
-            background: #eef1f9;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #778ca3;
-            .transition();
-            &:hover {
-                color: #263648;
-            }
-        }
-        .coin-detail {
-            margin: 6px 0 31px 0;
-        }
-        .my-account {
-            margin-bottom: 26px;
-            line-height: 52px;
-            a {
-                margin-left: 10px;
-                font-size: 12px;
-            }
-            .js_verifyBox a {
-                color: #778ca3;
-            }
-        }
-        .psw-set {
-            height: 45px;
-            line-height: 45px;
-            .psw-x {
-                i {
-                    display: block;
-                    float: left;
-                    line-height: 45px;
-                }
-            }
-            .psw-grade {
-                float: left;
-                margin-right: 24px;
-                font-size: 14px;
-            }
-            .btn-changepsw {
-                display: block;
-                float: left;
-                line-height: 45px;
-                font-size: 14px;
-            }
-        }
+.information {
+  position: relative;
+  padding-bottom: 13px;
+  .btn-logout {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    width: 100px;
+    height: 30px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 30px;
+    background: #eef1f9;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #778ca3;
+    .transition();
+    &:hover {
+      color: #263648;
     }
-
-    .lf130 {
-        width: 130px;
-        margin-right: 35px;
-        float: left;
-        overflow: hidden;
+  }
+  .coin-detail {
+    margin: 6px 0 31px 0;
+  }
+  .my-account {
+    margin-bottom: 26px;
+    line-height: 52px;
+    a {
+      margin-left: 10px;
+      font-size: 12px;
     }
-
-    .fl210 {
-        position: relative;
-        float: left;
-        width: 210px;
-        height: 50px;
-        overflow: hidden;
+    .js_verifyBox a {
+      color: #778ca3;
     }
-
-    .small-explain {
+  }
+  .psw-set {
+    height: 45px;
+    line-height: 45px;
+    .psw-x {
+      i {
         display: block;
-        line-height: 21px;
-        font-size: 12px;
-        color: #778ca3;
-    }
-
-    .btn-logout {
-        position: absolute;
-        right: 0;
-        top: 0;
-        display: block;
-        width: 100px;
-        height: 30px;
-        overflow: hidden;
-        text-align: center;
-        line-height: 30px;
-        background: #eef1f9;
-        border-radius: 6px;
-        font-size: 14px;
-        color: #778ca3;
-        .transition();
-        &:hover {
-            color: #263648;
-        }
-    }
-
-    .coin-detail {
-        margin: 6px 0 31px 0;
-    }
-
-    .my-account {
-        margin-bottom: 26px;
-        line-height: 52px;
-        a {
-            margin-left: 10px;
-            font-size: 12px;
-        }
-        .js_verifyBox a {
-            color: #778ca3;
-        }
-    }
-
-    .psw-set {
-        height: 45px;
+        float: left;
         line-height: 45px;
-        .psw-x {
-            i {
-                display: block;
-                float: left;
-                line-height: 45px;
-            }
-        }
-        .psw-grade {
-            float: left;
-            margin-right: 24px;
-            font-size: 14px;
-        }
-        .btn-changepsw {
-            display: block;
-            float: left;
-            line-height: 45px;
-            font-size: 14px;
-        }
+      }
     }
+    .psw-grade {
+      float: left;
+      margin-right: 24px;
+      font-size: 14px;
+    }
+    .btn-changepsw {
+      display: block;
+      float: left;
+      line-height: 45px;
+      font-size: 14px;
+    }
+  }
+}
+
+.lf130 {
+  width: 130px;
+  margin-right: 35px;
+  float: left;
+  overflow: hidden;
+}
+
+.fl210 {
+  position: relative;
+  float: left;
+  width: 210px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.small-explain {
+  display: block;
+  line-height: 21px;
+  font-size: 12px;
+  color: #778ca3;
+}
+
+.btn-logout {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  width: 100px;
+  height: 30px;
+  overflow: hidden;
+  text-align: center;
+  line-height: 30px;
+  background: #eef1f9;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #778ca3;
+  .transition();
+  &:hover {
+    color: #263648;
+  }
+}
+
+.coin-detail {
+  margin: 6px 0 31px 0;
+}
+
+.my-account {
+  margin-bottom: 26px;
+  line-height: 52px;
+  a {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+  .js_verifyBox a {
+    color: #778ca3;
+  }
+}
+
+.psw-set {
+  height: 45px;
+  line-height: 45px;
+  .psw-x {
+    i {
+      display: block;
+      float: left;
+      line-height: 45px;
+    }
+  }
+  .psw-grade {
+    float: left;
+    margin-right: 24px;
+    font-size: 14px;
+  }
+  .btn-changepsw {
+    display: block;
+    float: left;
+    line-height: 45px;
+    font-size: 14px;
+  }
+}
 </style>

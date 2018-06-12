@@ -118,7 +118,7 @@
                             <el-pagination
                                     @current-change="handleCurrentChange"
                                     background
-                                    :current-page.sync="pageNumber"
+                                    :current-page.sync="pageno"
                                     size="small"
                                     :page-size="pageSize"
                                     layout="prev, pager, next,jumper"
@@ -219,510 +219,452 @@
 </template>
 
 <script>
-	import {mTypes, aTypes} from '~/store/cs_page/cs_account'
-	import {src, platform, tipsTime, ethUrl, formateBalance, formateCoinType} from '~common/util'
+import { mTypes, aTypes } from '~/store/cs_page/cs_account'
+import {
+    src,
+    platform,
+    tipsTime,
+    formatTime,
+    ethUrl,
+    formateBalance,
+    formateCoinType
+} from '~common/util'
 
-	import PopList from '~components/Pop-list'
-	import md5 from 'md5'
+import PopList from '~components/Pop-list'
+import md5 from 'md5'
 
-	import {Message} from 'element-ui'
-	export default {
-	    data () {
-	        return {
-	            showTransferSucc: false,
-	            showTransferError: false,
-	            transferMsg: '* *',
+import { Message } from 'element-ui'
+export default {
+    data () {
+        return {
+            showTransferSucc: false,
+            showTransferError: false,
+            transferMsg: '* *',
 
-	            withdrawAmount: '', // 提款金额
-	            withdrawAddr: '', // 提款地址
-	            withdrawPsw: '', // 提款密码
+            withdrawAmount: '', // 提款金额
+            withdrawAddr: '', // 提款地址
+            withdrawPsw: '', // 提款密码
 
-	            showTransfer: false, // 转账弹窗
+            showTransfer: false, // 转账弹窗
 
-	            pageNumber: 1,
-	            pageSize: 6,
-	            PageTotal: 10,
-	            orderList: [],
-	            ethUrl: null,
-	            activeName: 'Request',
+            pageno: 1,
+            pageSize: 6,
+            PageTotal: 10,
+            orderList: [],
+            ethUrl,
+            activeName: 'Request',
 
-	            withdrawOptionVal: '1',
-	            withdrawOptions: [{
-	                value: '1',
-	                label: 'All'
-	            }, {
-	                value: '2',
-	                label: 'successful'
-	            }, {
-	                value: '3',
-	                label: 'failed'
-	            }, {
-	                value: '4',
-	                label: 'waiting'
-	            }],
-
-	            withdrawTimeOptionVal: '1',
-	            withdrawTimeOptions: [{
-	                value: '1',
-	                label: 'In 30 days'
-	            }, {
-	                value: '2',
-	                label: 'In 7 days'
-	            }]
-
-	        }
-	    },
-	    watch: {},
-	    methods: {
-	        closeTransferError () {
-	            this.showTransferError = false
-	            this.withdrawAmount = ''
-	            this.withdrawPsw = ''
-	        },
-	        closeTransferSucc () {
-	            this.showTransferSucc = false
-	            this.withdrawAmount = ''
-	            this.withdrawPsw = ''
-	        },
-	        async upWithdraw () {
-	            // 提款申请
-	            let msg = {
-	                address: this.withdrawAddr,
-	                value: this.withdrawAmount,
-	                password: md5(md5(this.withdrawPsw)),
-	                gas: this.userInfo.accounts[0].gas,
-	                cointype: this.userInfo.accounts[0].cointype,
-	                withdrawFrom: 'coinslot_1105'
-	            }
-	            let applyMsg = await this.$store.dispatch(aTypes.getWithdrawApply, msg)
-	            if (applyMsg.status === '100') {
-	                if (applyMsg.data.drawid) {
-                    this.showTransferSucc = true
-	                } else {
-	                    Message({
-	                        message: 'Failed to withdraw, please retry',
-	                        type: 'error',
-	                        duration: tipsTime
-	                    })
+            withdrawOptionVal: '1',
+            withdrawOptions: [
+                {
+                    value: '1',
+                    label: 'All'
+                },
+                {
+                    value: '2',
+                    label: 'successful'
+                },
+                {
+                    value: '3',
+                    label: 'failed'
+                },
+                {
+                    value: '4',
+                    label: 'waiting'
                 }
-	            } else {
-	                Message({
-	                    message: applyMsg.message,
-	                    type: 'error',
-	                    duration: tipsTime
-	                })
-	                this.showTransferError = true
-	                this.transferMsg = applyMsg.message
-	            }
+            ],
 
-	            this.showTransfer = false
-	        },
-	        checkMaximum () {
-	            if (this.userInfo && this.userInfo.accounts) {
-	                if (Number(this.userInfo.accounts[0].balance) < 0.01) {
-	                    Message({
-	                        message: 'The minimum withdrawal is 0.01 ETH',
-	                        type: 'error',
-	                        duration: tipsTime
-	                    })
-	                    return false
-	                }
-	                this.withdrawAmount = this.userInfo.accounts[0].balance
-	            }
-	        },
-	        copySucc () {
-	            Message({
-	                message: 'Copied to clipboard',
-	                type: 'success'
-	            })
-	        },
-	        copyError () {
-	            Message({
-	                message: 'Failed to copy, please retry',
-	                type: 'success'
-	            })
-	        },
-	        sendDraw () {
-	            if (this.withdrawAddr === '') {
-	                Message({
-	                    message: 'Please enter the correct ETH wallet address',
-	                    type: 'error',
-	                    duration: tipsTime
-	                })
-	                return false
-	            }
-	            if (!~this.withdrawAddr.indexOf('0x')) {
-	                Message({
-	                    message: 'Please enter the correct ETH wallet address',
-	                    type: 'error',
-	                    duration: tipsTime
-	                })
-	                this.withdrawAddr = ''
-	                return false
-	            } else if (this.withdrawAddr.length !== 42) {
-	                Message({
-	                    message: 'Please enter the correct length wallet address',
-	                    type: 'error',
-	                    duration: tipsTime
-	                })
-	                this.withdrawAddr = ''
-	                return false
-	            }
-	            if (isNaN(Number(this.withdrawAmount))) {
-	                Message({
-	                    message: 'Please enter the correct amount',
-	                    type: 'error',
-	                    duration: tipsTime
-	                })
-	                this.withdrawAmount = ''
-	                return false
-	            }
-	            if (this.withdrawAmount === '' || this.withdrawAmount.toString() === '0' || Number(this.withdrawAmount) < 0.01) {
-	                Message({
-	                    message: 'The minimum withdrawal is 0.01 ETH',
-	                    type: 'error',
-	                    duration: tipsTime
-	                })
-	                return false
-	            }
-
-	            if (this.withdrawPsw === '') {
-	                Message({
-	                    message: 'Please input wallet password',
-	                    type: 'error',
-	                    duration: tipsTime
-	                })
-	                return false
-	            }
-
-	            if (this.userInfo && this.userInfo.accounts) {
-	                if (Number(this.withdrawAmount) > Number(this.userInfo.accounts[0].balance)) {
-	                    if (Number(this.withdrawAmount) >= 0.01) {
-	                        Message({
-	                            message: 'The maximum withdrawal is ' + this.userInfo.accounts[0].balance + ' ETH',
-	                            type: 'error',
-	                            duration: tipsTime
-	                        })
-	                        this.withdrawAmount = this.userInfo.accounts[0].balance
-	                    } else {
-	                        Message({
-	                            message: 'The minimum withdrawal is 0.01 ETH',
-	                            type: 'error',
-	                            duration: tipsTime
-	                        })
-	                        this.withdrawAmount = ''
-	                    }
-	                    return false
-	                }
-	            }
-
-	            //  显示弹窗
-	            this.showTransfer = true
-	        },
-	        async handleClick (tab, msg) {
-	            if (tab.label === 'Records') {
-	                let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
-	                    pageno: 1,
-	                    pagesize: this.pageSize
-	                })
-	                if (orderMsg) {
-	                    this.orderList = this.format_withdrawList(orderMsg.list)
-	                    this.PageTotal = Number(orderMsg.counter)
-	                }
+            withdrawTimeOptionVal: '1',
+            withdrawTimeOptions: [
+                {
+                    value: '1',
+                    label: 'In 30 days'
+                },
+                {
+                    value: '2',
+                    label: 'In 7 days'
+                }
+            ]
+        }
+    },
+    watch: {},
+    methods: {
+        closeTransferError () {
+            this.showTransferError = false
+            this.withdrawAmount = ''
+            this.withdrawPsw = ''
+        },
+        closeTransferSucc () {
+            this.showTransferSucc = false
+            this.withdrawAmount = ''
+            this.withdrawPsw = ''
+        },
+        async upWithdraw () {
+            // 提款申请
+            let msg = {
+                address: this.withdrawAddr,
+                value: this.withdrawAmount,
+                password: md5(md5(this.withdrawPsw)),
+                gas: this.userInfo.accounts[0].gas,
+                cointype: this.userInfo.accounts[0].cointype,
+                withdrawFrom: 'coinslot_1105'
             }
-	        },
-	        async handleCurrentChange (val) {
-	            if (val !== undefined) {
-	                let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
-	                    pageno: Number(val),
-	                    pagesize: this.pageSize
-	                })
-	                if (orderMsg) {
-	                    this.orderList = this.format_withdrawList(orderMsg.list)
-	                    this.PageTotal = Number(orderMsg.counter)
-	                }
-	            }
-	        },
+            let applyMsg = await this.$store.dispatch(aTypes.getWithdrawApply, msg)
+            if (applyMsg.status === '100') {
+                if (applyMsg.data.drawid) {
+                    this.showTransferSucc = true
+                } else {
+                    this.error('Failed to withdraw, please retry')
+                }
+            } else {
+                this.error(applyMsg.message)
+                this.showTransferError = true
+                this.transferMsg = applyMsg.message
+            }
+
+            this.showTransfer = false
+        },
+        checkMaximum () {
+            if (this.userInfo && this.userInfo.accounts) {
+                if (Number(this.userInfo.accounts[0].balance) < 0.01) {
+                    this.error('The minimum withdrawal is 0.01 ETH')
+                    return false
+                }
+                this.withdrawAmount = this.userInfo.accounts[0].balance
+            }
+        },
+        copySucc () {
+            this.success('Copied to clipboard')
+        },
+        copyError () {
+            this.success('Failed to copy, please retry')
+        },
+        sendDraw () {
+            if (this.withdrawAddr === '') {
+                this.error('Please enter the correct ETH wallet address')
+                return false
+            }
+            if (!~this.withdrawAddr.indexOf('0x')) {
+                this.error('Please enter the correct ETH wallet address')
+                this.withdrawAddr = ''
+                return false
+            } else if (this.withdrawAddr.length !== 42) {
+                this.error('Please enter the correct length wallet address')
+                this.withdrawAddr = ''
+                return false
+            }
+            if (isNaN(Number(this.withdrawAmount))) {
+                this.error('Please enter the correct amount')
+                this.withdrawAmount = ''
+                return false
+            }
+            if (this.withdrawAmount === '' || this.withdrawAmount.toString() === '0' || Number(this.withdrawAmount) < 0.01) {
+                this.error('The minimum withdrawal is 0.01 ETH')
+                return false
+            }
+
+            if (this.withdrawPsw === '') {
+                this.error('Please input wallet password')
+                return false
+            }
+
+            if (this.userInfo && this.userInfo.accounts) {
+                if (Number(this.withdrawAmount) > Number(this.userInfo.accounts[0].balance)) {
+                    if (Number(this.withdrawAmount) >= 0.01) {
+                        this.error(`The maximum withdrawal is ${this.userInfo.accounts[0].balance} ETH`)
+                        this.withdrawAmount = this.userInfo.accounts[0].balance
+                    } else {
+                        this.error('The minimum withdrawal is 0.01 ETH')
+                        this.withdrawAmount = ''
+                    }
+                    return false
+                }
+            }
+
+            //  显示弹窗
+            this.showTransfer = true
+        },
+        async handleClick (tab, msg) {
+            if (tab.label === 'Records') {
+                let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+                    pageno: 1,
+                    pagesize: this.pageSize
+                })
+                if (orderMsg) {
+                    this.orderList = this.formatWithdrawList(orderMsg.list)
+                    this.PageTotal = Number(orderMsg.counter)
+                }
+            }
+        },
+        async handleCurrentChange (val) {
+            if (val !== undefined) {
+                let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+                    pageno: Number(val),
+                    pagesize: this.pageSize
+                })
+                if (orderMsg) {
+                    this.orderList = this.formatWithdrawList(orderMsg.list)
+                    this.PageTotal = Number(orderMsg.counter)
+                }
+            }
+        },
         /*
-             *  格式化时间  allbet time
-             * */
-	        format_time (time, format) {
-	            if (format === undefined || format == null) {
-	                format = 'MM-dd HH:mm:ss'
-	            }
-	            if (isNaN(time)) {
-	                return false
-	            }
-	            let t = new Date(+time * 1000)
-	            let tf = function (i) {
-	                return (i < 10 ? '0' : '') + i
-	            }
-	            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-	                switch (a) {
-	                case 'yyyy':
-	                    return tf(t.getFullYear())
-	                case 'MM':
-	                    return tf(t.getMonth() + 1)
-	                case 'mm':
-	                    return tf(t.getMinutes())
-	                case 'dd':
-	                    return tf(t.getDate())
-	                case 'HH':
-	                    return tf(t.getHours())
-	                case 'ss':
-	                    return tf(t.getSeconds())
-	                }
-	            })
-	        },
-        /*
-             *  格式化orderList 数据
-             *  return 格式化后的数据
-             * */
-	        format_withdrawList (Msg) {
-	            if (Msg) {
-	                Msg.forEach((val, index) => {
-	                    // bettime
-	                    val.drawtime = this.format_time(val.drawtime, 'yyyy-MM-dd HH:mm')
+        *  格式化orderList 数据
+        *  return 格式化后的数据
+        * */
+        formatWithdrawList (Msg) {
+            if (Msg) {
+                Msg.forEach((val, index) => {
+                    // bettime
+                    val.drawtime = formatTime(val.drawtime, 'yyyy-MM-dd HH:mm')
 
-	                    if (val.to_addr !== undefined && val.to_addr !== null) {
-	                        if (val.to_addr === '') {
-	                            val.to_addrHtml = '<span>-</span>'
-	                        } else {
-	                            val.to_addrHtml = "<a target='_blank' title='" + val.to_addr + "' href='" + ethUrl + 'address/' + val.to_addr + "' class='address'>" + val.to_addr + '</a>'
-	                        }
-	                    }
-	                    val.cointype = formateCoinType(val.cointype)
-	                    val.drawmoney = formateBalance(val.drawmoney)
-	                    val.drawfee = formateBalance(val.drawfee)
-
-	                    if (val.drawstatus !== undefined) {
-	                        switch (Number(val.drawstatus)) {
-	                        case 0:
-	                        case 1:
-	                        case 2:
-	                        case 3:
-	                            val.drawstatus = 'waiting'
-	
-	                            break
-                        case 4:
-	                            val.drawstatus = 'successful'
-	
-	                            break
-                        case -1:
-	                        case -2:
-	                            val.drawstatus = 'failed'
-	                            break
-                        }
-	                    }
-
-	                    val.balance = formateBalance(val.balance) + ' ETH'
-
-	                    // win state
-	                    if (val.orderstatus == '2') {
-	                        // 结算 并且大于0
-	                        if (Number(val.betprize) > 0) {
-	                            val.betprizeVal = "<a href='javascript:;' class='win'>+ " + formateBalance(val.betprize) + 'ETH</a>'
+                    if (val.to_addr !== undefined && val.to_addr !== null) {
+                        if (val.to_addr === '') {
+                            val.to_addrHtml = '<span>-</span>'
                         } else {
-	                            val.betprizeVal = "<a href='javascript:;' class='fail'>0</a>"
-	                        }
-	                    } else {
-	                        if (Number(val.orderstatus) === 0) {
-	                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
-	                        } else if (val.orderstatus == '1') {
-	                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
-	                        } else if (val.orderstatus == '-1' || val.orderstatus == '-2') {
-	                            val.betprizeVal = 'failure'
-	                        }
-	                    }
-	                })
-	                return Msg
-	            } else {
-	                Message({
-	                    message: 'format_withdrawList error',
-	                    type: 'error'
-	                })
-	                return false
-	            }
-	        }
-	    },
-	    computed: {
-	        userInfo () {
-	            return this.$store.state.userInfo
-	        }
-	    },
-	    components: {
-	        PopList
-	    },
-	    async mounted () {
-	        let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
-	            pageno: 1,
-	            pagesize: this.pageSize
-	        })
-	        if (orderMsg) {
-	            this.orderList = this.format_withdrawList(orderMsg.list)
-	            this.PageTotal = Number(orderMsg.counter)
-	        }
-	        this.ethUrl = ethUrl
+                            val.to_addrHtml = `<a target="_blank" title="${val.to_addr}" href="${ethUrl + 'address/' + val.to_addr}" class="address">${val.to_addr}</a>`
+                        }
+                    }
+                    val.cointype = formateCoinType(val.cointype)
+                    val.drawmoney = formateBalance(val.drawmoney)
+                    val.drawfee = formateBalance(val.drawfee)
+
+                    if (val.drawstatus !== undefined) {
+                        switch (Number(val.drawstatus)) {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            val.drawstatus = 'waiting'
+                            break
+                        case 4:
+                            val.drawstatus = 'successful'
+                            break
+                        case -1:
+                        case -2:
+                            val.drawstatus = 'failed'
+                            break
+                        }
+                    }
+
+                    val.balance = formateBalance(val.balance) + ' ETH'
+
+                    // win state
+                    if (val.orderstatus === '2') {
+                        // 结算 并且大于0
+                        if (Number(val.betprize) > 0) {
+                            val.betprizeVal = "<a href='javascript:;' class='win'>+ " + formateBalance(val.betprize) + 'ETH</a>'
+                        } else {
+                            val.betprizeVal = "<a href='javascript:;' class='fail'>0</a>"
+                        }
+                    } else {
+                        if (Number(val.orderstatus) === 0) {
+                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+                        } else if (val.orderstatus === '1') {
+                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+                        } else if (val.orderstatus === '-1' || val.orderstatus === '-2') {
+                            val.betprizeVal = 'failure'
+                        }
+                    }
+                })
+                return Msg
+            } else {
+                this.error('formatWithdrawList error')
+                return false
+            }
+        },
+        error (message) {
+            Message({
+                message: message,
+                type: 'error',
+                duration: tipsTime
+            })
+        },
+        success (message) {
+            Message({
+                message: message,
+                type: 'success'
+            })
+        }
+    },
+    computed: {
+        userInfo () {
+            return this.$store.state.userInfo
+        }
+    },
+    components: {
+        PopList
+    },
+    async mounted () {
+        let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+            pageno: 1,
+            pagesize: this.pageSize
+        })
+        if (orderMsg) {
+            this.orderList = this.formatWithdrawList(orderMsg.list)
+            this.PageTotal = Number(orderMsg.counter)
+        }
     }
-	}
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 @import "../../styles/lib-mixins.less";
-.orange{
-    color: #fd9644;
+.orange {
+  color: #fd9644;
 }
-    .withdrawal {
-        h2 {
-            line-height: 30px;
-            font-size: 24px;
-            color: #263648;
-            text-transform: capitalize;
-        }
-        .lf130 {
-            width: 130px;
-            margin-right: 35px;
-            float: left;
-            overflow: hidden;
-        }
-        .fl210 {
-            position: relative;
-            float: left;
-            width: 210px;
-            height: 50px;
-            overflow: hidden;
-        }
-
-        .li-records {
-            .item {
-                position: relative;
-                height: 50px;
-                line-height: 50px;
-                overflow: hidden;
-                margin-bottom: 20px;
-                font-size: 16px;
-                .clearfix();
-            }
-            .wallet-add {
-                margin-top: 40px;
-            }
-            > li {
-                display: none;
-            }
-            > li.on {
-                display: block;
-            }
-            .icon-name {
-                height: 34px;
-                line-height: 34px;
-                margin-top: 17px;
-                p {
-                    float: left;
-                    font-size: 20px;
-                    color: #ff7f50;
-                    font-weight: bold;
-                }
-            }
-            input {
-                height: 48px;
-                line-height: 48px;
-                border: 1px solid #ced6e0;
-                outline: none;
-                text-indent: 5px;
-                width: 455px;
-                font-size: 16px;
-            }
-            .account-psw {
-                input {
-                    width: 275px;
-                }
-            }
-            .pick-up {
-                .css_withdraw_tips {
-                    display: block;
-                    height: 16px;
-                    line-height: 16px;
-                    position: absolute;
-                    left: 0;
-                    top: 12px;
-                }
-                .css_withdraw_total {
-                    position: absolute;
-                    top: 33px;
-                    left: 0;
-                    line-height: 12px;
-                    font-size: 12px;
-                }
-                .css_withdraw_topMoney {
-                    position: absolute;
-                    right: 268px;
-                    cursor: pointer;
-                    color: #6a89cc;
-                }
-            }
-            .pickup-tips {
-                position: absolute;
-                top: 8px;
-                left: 677px;
-                height: 36px;
-                overflow: hidden;
-                line-height: 18px;
-                font-size: 14px;
-                color: #fc5c65;
-                text-transform: capitalize;
-            }
-            .fee {
-                margin: 0 0 0 210px;
-                width: 280px;
-                line-height: 32px;
-                text-align: center;
-                font-size: 14px;
-            }
-            button {
-                display: block;
-                width: 280px;
-                height: 50px;
-                line-height: 50px;
-                overflow: hidden;
-                margin: 0 0 30px 210px;
-                background: #fd9644;
-                border-radius: 6px;
-                font-size: 20px;
-                color: #fff;
-                font-weight: bold;
-                .transition();
-                &:hover {
-                    background: #f27d1f;
-                }
-            }
-        }
-    }
-
-    .li-request {
-        .filter {
-            margin-top: 24px;
-        }
-    }
-
-    .pagination {
-        display: table;
-        margin: 20px auto 30px;
-    }
-
-.el-tabs{
-    margin-top: 30px;
-}
-.el-tabs__active-bar{
-    background: #263648 !important;
-}
-.el-tabs__item.is-active,.el-tabs__item:hover{
+.withdrawal {
+  h2 {
+    line-height: 30px;
+    font-size: 24px;
     color: #263648;
-}
-.el-tabs__item{
+    text-transform: capitalize;
+  }
+  .lf130 {
+    width: 130px;
+    margin-right: 35px;
     float: left;
-    line-height: 40px;
-    font-size: 20px;
-    color: #6a89cc;
-    padding: 0 20px;
-    height: auto;
+    overflow: hidden;
+  }
+  .fl210 {
+    position: relative;
+    float: left;
+    width: 210px;
+    height: 50px;
+    overflow: hidden;
+  }
+
+  .li-records {
+    .item {
+      position: relative;
+      height: 50px;
+      line-height: 50px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      font-size: 16px;
+      .clearfix();
+    }
+    .wallet-add {
+      margin-top: 40px;
+    }
+    > li {
+      display: none;
+    }
+    > li.on {
+      display: block;
+    }
+    .icon-name {
+      height: 34px;
+      line-height: 34px;
+      margin-top: 17px;
+      p {
+        float: left;
+        font-size: 20px;
+        color: #ff7f50;
+        font-weight: bold;
+      }
+    }
+    input {
+      height: 48px;
+      line-height: 48px;
+      border: 1px solid #ced6e0;
+      outline: none;
+      text-indent: 5px;
+      width: 455px;
+      font-size: 16px;
+    }
+    .account-psw {
+      input {
+        width: 275px;
+      }
+    }
+    .pick-up {
+      .css_withdraw_tips {
+        display: block;
+        height: 16px;
+        line-height: 16px;
+        position: absolute;
+        left: 0;
+        top: 12px;
+      }
+      .css_withdraw_total {
+        position: absolute;
+        top: 33px;
+        left: 0;
+        line-height: 12px;
+        font-size: 12px;
+      }
+      .css_withdraw_topMoney {
+        position: absolute;
+        right: 268px;
+        cursor: pointer;
+        color: #6a89cc;
+      }
+    }
+    .pickup-tips {
+      position: absolute;
+      top: 8px;
+      left: 677px;
+      height: 36px;
+      overflow: hidden;
+      line-height: 18px;
+      font-size: 14px;
+      color: #fc5c65;
+      text-transform: capitalize;
+    }
+    .fee {
+      margin: 0 0 0 210px;
+      width: 280px;
+      line-height: 32px;
+      text-align: center;
+      font-size: 14px;
+    }
+    button {
+      display: block;
+      width: 280px;
+      height: 50px;
+      line-height: 50px;
+      overflow: hidden;
+      margin: 0 0 30px 210px;
+      background: #fd9644;
+      border-radius: 6px;
+      font-size: 20px;
+      color: #fff;
+      font-weight: bold;
+      .transition();
+      &:hover {
+        background: #f27d1f;
+      }
+    }
+  }
+}
+
+.li-request {
+  .filter {
+    margin-top: 24px;
+  }
+}
+
+.pagination {
+  display: table;
+  margin: 20px auto 30px;
+}
+
+.el-tabs {
+  margin-top: 30px;
+}
+.el-tabs__active-bar {
+  background: #263648 !important;
+}
+.el-tabs__item.is-active,
+.el-tabs__item:hover {
+  color: #263648;
+}
+.el-tabs__item {
+  float: left;
+  line-height: 40px;
+  font-size: 20px;
+  color: #6a89cc;
+  padding: 0 20px;
+  height: auto;
 }
 </style>
