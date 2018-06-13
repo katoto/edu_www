@@ -9,7 +9,8 @@ if (process.env.NODE_ENV === 'production') {
 } else if (process.env.NODE_ENV === 'preRelease') {
 	sockURL = 'ws://192.168.41.76:6999'
 } else {
-	sockURL = 'ws://10.0.1.41:4444/betblock'
+	sockURL = 'ws://10.0.1.167:8099/betblock'
+	// sockURL = 'ws://10.0.1.41:4444/betblock'
 }
 
 function combimeStore (store, newStore) {
@@ -60,9 +61,13 @@ const actions = {
 	/* user info */
 	async getUserInfo ({state, commit, dispatch}) {
 		try {
-			let userMsg = null
-			userMsg = await ajax.get(`/user/info?ck=${getCK()}&platform=${platform}&src=${src}`)
+			let userMsg = await ajax.get(`/user/info`);
+			console.log(userMsg);
+
 			if (userMsg.status == '100') {
+				if(userMsg.data.uid){
+					commit(mTypes.setUid,userMsg.data.uid)
+				}
 				// 未激活，无钱包
 				if (userMsg.data.accounts.length === 0) {
 					userMsg.data.accounts.push({
@@ -121,8 +126,45 @@ const actions = {
 			let hasFinished = false
 			sock.onmessage = function (e) {
 				if (!~e.data.indexOf('you said')) {
-					let data = JSON.parse(e.data)
-					commit(mTypes.updateSocketData, data)
+					let msg = JSON.parse(e.data);
+					// 总的分发
+					if (msg && msg.data) {
+						switch (msg.msg_code.toString()) {
+							case '1001':
+								// 初始化
+								//  初始化倒计时
+								if( msg.data.timer !== undefined  && msg.data.timer !== null ){
+									dispatch( aTypes.formate_countDown,msg.data.timer )
+								}
+								// 当前期号
+								if( msg.data.expectid !== undefined  && msg.data.expectid !== null ){
+									dispatch( aTypes.formate_expectid,msg.data.expectid )
+								}
+								// recent bet
+								if (msg.data.top) {
+									dispatch( aTypes.formate_recentBet ,msg.data.top )
+								}
+								// 初始化上一期结果
+								dispatch( aTypes.formate_Result ,msg.data )
+								break;
+							case '1002':
+								//  初始化倒计时
+								if( msg.data.timer !== undefined  && msg.data.timer !== null ){
+									dispatch( aTypes.formate_countDown,msg.data.timer )
+								}
+								// 当前期号
+								if( msg.data.expectid !== undefined  && msg.data.expectid !== null ){
+									dispatch( aTypes.formate_expectid,msg.data.expectid )
+								}
+
+								// 初始化上一期结果
+								dispatch( aTypes.formate_Result ,msg.data )
+								break;
+							case '1003':
+								break;
+						}
+					}
+
 				}
 			}
 			sock.onopen = function () {

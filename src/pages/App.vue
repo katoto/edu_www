@@ -22,22 +22,12 @@
 				if (userMsg && userMsg.status.toString() === '100') {
 					this.$store.commit('setIsLog', true);
 					this.$store.commit('setUserInfo', userMsg.data);
-				} else if( userMsg.status.toString() === '214' ){
-					// todo 登陆
-					removeCK();
-					this.$store.commit('setIsLog', false);
-					this.$store.commit('setUserInfo', {});
-				} else {
-					removeCK();
-					this.$store.commit('setIsLog', false);
-					this.$store.commit('setUserInfo', {});
 				}
 
 			} else {
 				this.$store.commit('setIsLog', false);
 			}
 			this.isReady = true;
-
 
 		}
 	}

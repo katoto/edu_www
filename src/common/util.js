@@ -221,7 +221,10 @@ export function commonErrorHandler (data) {
     let status = data.status
     switch (status) {
         case '214':
-            window.location.hash = '#/' // 会话过期自动跳回首页，不停留在其他页面
+	        removeCK();
+	        this.$store.commit('setIsLog', false);
+	        this.$store.commit('setUserInfo', {});
+	        this.$store.commit('showLoginPop')
             break
         default:
             Message({

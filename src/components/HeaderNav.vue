@@ -11,20 +11,18 @@
             </p>
             <div class="lastdraw js_lastdraw clearfix">
                 <p class="js_lastDraw-new">Lastest draw</p>
-                <span id="js_lastDrawNumber">NO. </span>
-                <i class="opening hide js_opening">Waiting</i>
+                <span id="js_lastDrawNumber">NO. {{ last_expectid }}</span>
                 <i class="arrow"></i>
                 <ul id="js_lastDraw" class="last-numbox js_lastDraw">
-                    <!--<li class="flipInY">2</li>-->
+                    <li v-for="item in liveOpenCode" class="flipInY">{{ item }}</li>
                 </ul>
                 <script type="text/tmpl" id="js_tmpl_lastDraw">
                     <li>
-                    <span>{$expectId}</span>
-                    <ul class="num-box">
-                    {$lastDrawDom}
-                    </ul>
+                        <span>{$expectId}</span>
+                        <ul class="num-box">
+                        {$lastDrawDom}
+                        </ul>
                     </li>
-
                 </script>
                 <div class="last-select js_last-select ">
                     <ul class="date-box js_date-box">
@@ -34,11 +32,11 @@
             </div>
             <!--changeDead-->
             <div class="deadline">
-                <div class="deadline-box">
+                <div class="deadline-box" :class="{'deadlineMove': expect_move }">
                     <p>Time left</p>
                     <!--blinking-->
-                    <span id="js_currExpectid" class=""></span>
-                    <i id="countTime"></i>
+                    <span id="js_currExpectid" :class="{'blinking':expect_blinking}">No.{{ currExpectId }}</span>
+                    <i :class="{'jump5': parseFloat( timeLeft )<= 10 }">{{ timeLeft }}’</i>
                 </div>
             </div>
         </div>
@@ -57,16 +55,35 @@
 
         },
         computed: {
+	        liveOpenCode () {
+		        return this.$store.state.cs_1105.liveOpenCode
+	        },
             navFix () {
                 return this.$store.state.cs_1105.navFix
-            }
+            },
+	        timeLeft(){
+		        return this.$store.state.cs_1105.timeLeft
+	        },
+	        expect_blinking(){
+		        return this.$store.state.cs_1105.expect_blinking
+	        },
+	        expect_move(){
+		        return this.$store.state.cs_1105.expect_move
+            },
+	        currExpectId(){
+		        return this.$store.state.cs_1105.currExpectId
+            },
+	        last_expectid(){
+		        return this.$store.state.cs_1105.last_expectid
+	        }
+
         },
         mounted () {
 
         }
     }
 </script>
-<style scoped lang="less">
+<style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
     .nav{
         position: relative;
