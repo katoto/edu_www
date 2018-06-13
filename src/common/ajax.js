@@ -2,8 +2,7 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
-import { getCK, platform, tipsTime, src } from '~common/util'
-import { Message } from 'element-ui'
+import { getCK, platform, src, commonErrorHandler } from '~common/util'
 
 function getCommonParams () {
     let ck = getCK() || ''
@@ -57,11 +56,7 @@ ajax.get = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    Message({
-                        message: response.data.message,
-                        type: 'error',
-                        duration: tipsTime
-                    })
+                    commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data

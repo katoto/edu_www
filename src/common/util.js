@@ -3,6 +3,7 @@
  */
 
 import Cookies from 'js-cookie'
+import { Message } from 'element-ui'
 
 export const src = 'pc'
 export const tipsTime = 3000
@@ -213,5 +214,21 @@ export function formateMoneyFlow (flowtype = '1') {
         return 'World cup'// 世界杯中奖
     default:
         return 'bet'
+    }
+}
+
+export function commonErrorHandler (data) {
+    let status = data.status
+    switch (status) {
+        case '214':
+            window.location.hash = '#/' // 会话过期自动跳回首页，不停留在其他页面
+            break
+        default:
+            Message({
+                message: data.message,
+                type: 'error',
+                duration: tipsTime
+            })
+            break
     }
 }
