@@ -386,25 +386,31 @@ export default {
         },
         async handleClick (tab, msg) {
             if (tab.label === 'Records') {
-                let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+                let data = await this.$store.dispatch(aTypes.getWithdrawRecords, {
                     pageno: 1,
                     pagesize: this.pageSize
                 })
-                if (orderMsg) {
-                    this.orderList = this.formatWithdrawList(orderMsg.list)
-                    this.PageTotal = Number(orderMsg.counter)
+
+                data = data.data
+
+                if (data) {
+                    this.orderList = this.formatWithdrawList(data.list)
+                    this.PageTotal = Number(data.counter)
                 }
             }
         },
         async handleCurrentChange (val) {
             if (val !== undefined) {
-                let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+                let data = await this.$store.dispatch(aTypes.getWithdrawRecords, {
                     pageno: Number(val),
                     pagesize: this.pageSize
                 })
-                if (orderMsg) {
-                    this.orderList = this.formatWithdrawList(orderMsg.list)
-                    this.PageTotal = Number(orderMsg.counter)
+
+                data = data.data
+
+                if (data) {
+                    this.orderList = this.formatWithdrawList(data.list)
+                    this.PageTotal = Number(data.counter)
                 }
             }
         },
@@ -496,13 +502,16 @@ export default {
         PopList
     },
     async mounted () {
-        let orderMsg = await this.$store.dispatch(aTypes.getWithdrawRecords, {
+        let data = await this.$store.dispatch(aTypes.getWithdrawRecords, {
             pageno: 1,
             pagesize: this.pageSize
         })
-        if (orderMsg) {
-            this.orderList = this.formatWithdrawList(orderMsg.list)
-            this.PageTotal = Number(orderMsg.counter)
+
+        data = data.data
+
+        if (data) {
+            this.orderList = this.formatWithdrawList(data.list)
+            this.PageTotal = Number(data.counter)
         }
     }
 }
