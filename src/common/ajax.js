@@ -6,13 +6,13 @@ import { getCK, platform, tipsTime, src } from '~common/util'
 import { Message } from 'element-ui'
 
 function getCommonParams () {
-    let ck = getCK()
+    let ck = getCK() || ''
     let params = {
         platform,
         src,
         lotid: 1
     }
-    return ck ? { ...params, ck } : params
+    return { ...params, ck }
 }
 
 const options = {}

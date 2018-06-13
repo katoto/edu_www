@@ -150,7 +150,7 @@ export default {
         async handleCurrentChange (pageno = this.pageno) {
             let params = {
                 pageno,
-                crday: this.betTimeOptionVal === '1' ? 30 : 7
+                day: this.betTimeOptionVal === '1' ? 30 : 7
             }
             if (this.betOptionVal === '2') {
                 params.prize = 1

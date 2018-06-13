@@ -39,7 +39,7 @@
             <el-tab-pane label="Records" name="Records">
                 <li class="li-request">
                     <section>
-                        <el-select v-model="withdrawOptionVal">
+                        <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
                             <el-option
                                     v-for="item in withdrawOptions"
                                     :key="item.value"
@@ -47,7 +47,7 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-                        <el-select v-model="withdrawTimeOptionVal">
+                        <el-select v-model="withdrawTimeOptionVal" @change="handleStatusChange">
                             <el-option
                                     v-for="item in withdrawTimeOptions"
                                     :key="item.value"
@@ -261,15 +261,15 @@ export default {
                     label: 'All'
                 },
                 {
-                    value: '2',
+                    value: '4',
                     label: 'successful'
                 },
                 {
-                    value: '3',
+                    value: '-2',
                     label: 'failed'
                 },
                 {
-                    value: '4',
+                    value: '3',
                     label: 'waiting'
                 }
             ],
@@ -289,6 +289,9 @@ export default {
     },
     watch: {},
     methods: {
+        handleStatusChange () {
+            this.handleCurrentChange()
+        },
         closeTransferError () {
             this.showTransferError = false
             this.withdrawAmount = ''
@@ -301,7 +304,7 @@ export default {
         },
         async upWithdraw () {
             // 提款申请
-            let msg = {
+            let params = {
                 address: this.withdrawAddr,
                 value: this.withdrawAmount,
                 password: md5(md5(this.withdrawPsw)),
@@ -309,19 +312,20 @@ export default {
                 cointype: this.userInfo.accounts[0].cointype,
                 withdrawFrom: 'coinslot_1105'
             }
-            let applyMsg = await this.$store.dispatch(aTypes.getWithdrawApply, msg)
-            if (applyMsg.status === '100') {
-                if (applyMsg.data.drawid) {
-                    this.showTransferSucc = true
-                } else {
-                    this.error('Failed to withdraw, please retry')
-                }
-            } else {
-                this.error(applyMsg.message)
-                this.showTransferError = true
-                this.transferMsg = applyMsg.message
-            }
-
+            this.$store.dispatch('cs_account/getWithdrawApply', params)
+                .then(data => {
+                    data = data.data
+                    if (data.drawid) {
+                        this.showTransferSucc = true
+                    } else {
+                        this.error('Failed to withdraw, please retry')
+                    }
+                })
+                .catch(data => {
+                    this.error(data.message)
+                    this.showTransferError = true
+                    this.transferMsg = data.message
+                })
             this.showTransfer = false
         },
         checkMaximum () {
@@ -386,32 +390,26 @@ export default {
         },
         async handleClick (tab, msg) {
             if (tab.label === 'Records') {
-                let data = await this.$store.dispatch(aTypes.getWithdrawRecords, {
-                    pageno: 1,
-                    pagesize: this.pageSize
-                })
-
-                data = data.data
-
-                if (data) {
-                    this.orderList = this.formatWithdrawList(data.list)
-                    this.PageTotal = Number(data.counter)
-                }
+                this.handleCurrentChange()
             }
         },
-        async handleCurrentChange (val) {
-            if (val !== undefined) {
-                let data = await this.$store.dispatch(aTypes.getWithdrawRecords, {
-                    pageno: Number(val),
-                    pagesize: this.pageSize
-                })
+        async handleCurrentChange (val = this.pageno) {
+            let params = {}
+            if (this.withdrawOptionVal !== '1') {
+                params.withdraw = this.withdrawOptionVal
+            }
+            let data = await this.$store.dispatch('cs_account/getWithdrawRecords', {
+                pageno: val,
+                pagesize: this.pageSize,
+                day: this.withdrawTimeOptionVal === '1' ? 30 : 7,
+                ...params
+            })
 
-                data = data.data
+            data = data.data
 
-                if (data) {
-                    this.orderList = this.formatWithdrawList(data.list)
-                    this.PageTotal = Number(data.counter)
-                }
+            if (data) {
+                this.orderList = this.formatWithdrawList(data.list)
+                this.PageTotal = Number(data.counter)
             }
         },
         /*
@@ -502,17 +500,7 @@ export default {
         PopList
     },
     async mounted () {
-        let data = await this.$store.dispatch(aTypes.getWithdrawRecords, {
-            pageno: 1,
-            pagesize: this.pageSize
-        })
-
-        data = data.data
-
-        if (data) {
-            this.orderList = this.formatWithdrawList(data.list)
-            this.PageTotal = Number(data.counter)
-        }
+        this.handleCurrentChange()
     }
 }
 </script>

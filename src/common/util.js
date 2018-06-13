@@ -7,9 +7,9 @@ import Cookies from 'js-cookie'
 export const src = 'pc'
 export const tipsTime = 3000
 export const ethUrl = 'https://etherscan.io/'
-export const channel = 2000  // 暂时就sign 注册用到
+export const channel = 2000 // 暂时就sign 注册用到
 
-export function mapActions(acts, ns) {
+export function mapActions (acts, ns) {
 	const aTypes = {}
 	const actions = {}
 	Object.keys(acts).forEach((key) => {
@@ -17,7 +17,6 @@ export function mapActions(acts, ns) {
 		actions[aTypes[key]] = acts[key]
 	})
 	return {actions, aTypes}
-
 }
 
 export const platform = 'pc'

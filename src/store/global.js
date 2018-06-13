@@ -1,5 +1,5 @@
 import ajax from '~common/ajax'
-import {src, getCK, platform, tipsTime } from '~common/util'
+import { src, getCK, platform, tipsTime, removeCK } from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 
@@ -250,7 +250,13 @@ const actions = {
 		} catch (e) {
 			console.error(e.message)
 		}
-	},
+    },
+    loginOut ({commit, state}) {
+        localStorage.setItem('block_ck', '')
+        localStorage.setItem('block_uid', '0')
+        removeCK('block_ck')
+        window.location.reload()
+    },
 	...common.actions
 }
 
