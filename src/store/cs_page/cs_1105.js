@@ -203,7 +203,11 @@ const actionsInfo = mapActions({
 				duration: tipsTime
 			})
 		}
-	},
+    },
+    
+    getHistoryDraw ({commit, dispatch}, params = {}) {
+        return ajax.get('/expect/hisopencode', params)
+    },
 
     //首页 Recent Wins 列表接口数据
     async getRecentWinsList({commit, dispatch}){
