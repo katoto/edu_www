@@ -174,6 +174,16 @@ const actions = {
             })
         }
     },
+
+	/* 退出登录 */
+	loginOut({commit, dispatch}){
+		dispatch('sub2out');
+		removeCK();
+		commit('setIsLog', false);
+		commit('setUserInfo', {});
+
+	},
+
     /* reg 注册 => 邮箱验证 */
     async beforeReg ({commit, dispatch}, pageData) {
         try {

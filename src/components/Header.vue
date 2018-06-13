@@ -1,4 +1,3 @@
-<script src="../../../../magnet_pc/dist/js/worldCup/youtubeVideo.js"></script>
 <template>
     <div>
         <Banner></Banner>
