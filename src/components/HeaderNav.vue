@@ -9,25 +9,26 @@
                 <span>JACKPOT&nbsp;&nbsp;</span>
                 <i id="js_jackpotM">0</i>
             </p>
-            <div class="lastdraw js_lastdraw clearfix">
+            <div class="lastdraw js_lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
                 <p class="js_lastDraw-new">Lastest draw</p>
                 <span id="js_lastDrawNumber">NO. {{ last_expectid }}</span>
                 <i class="arrow"></i>
                 <ul id="js_lastDraw" class="last-numbox js_lastDraw">
-                    <li v-for="item in liveOpenCode" class="flipInY">{{ item }}</li>
+                    <li v-for="(item, index) in liveOpenCode" class="flipInY" :key="index">{{ item }}</li>
                 </ul>
-                <script type="text/tmpl" id="js_tmpl_lastDraw">
-                    <li>
-                        <span>{$expectId}</span>
-                        <ul class="num-box">
-                        {$lastDrawDom}
-                        </ul>
-                    </li>
-                </script>
-                <div class="last-select js_last-select ">
+                <div class="last-select js_last-select" v-if="isShowHistoryCode">
                     <ul class="date-box js_date-box">
+                        <li v-for="(item, index) in historyCode.filter((item, index) => index < 7)" :key="index">
+                            <span>{{ item.expectid }}</span>
+                            <ul class="num-box">
+                                <li v-for="(num, numIndex) in item.opencode.split(',')" :key="numIndex">{{ num }}</li>
+                            </ul>
+                        </li>
                     </ul>
-                    <a href="./reward.html" class="more" target="_blank">More >></a>
+                    <router-link :to="{path: '/drawNumber'}">
+                        <a href="javascript:;" class="more" target="_blank">More >></a>
+                    </router-link>
+                    
                 </div>
             </div>
             <!--changeDead-->
@@ -47,17 +48,24 @@
     export default {
         data () {
             return {
-                tes: false
+                tes: false,
+                historyCode: [],
+                isShowHistoryCode: false
             }
         },
         watch: {},
         methods: {
-
+            getHistoryDraw () {
+                this.$store.dispatch('cs_1105/getHistoryDraw')
+                .then(data => {
+                    this.historyCode = data.data.expect_history || []
+                })
+            }
         },
         computed: {
-	        liveOpenCode () {
-		        return this.$store.state.cs_1105.liveOpenCode
-	        },
+            liveOpenCode () {
+                return this.$store.state.cs_1105.liveOpenCode
+            },
             navFix () {
                 return this.$store.state.cs_1105.navFix
             },
@@ -79,7 +87,7 @@
 
         },
         mounted () {
-
+            this.getHistoryDraw()
         }
     }
 </script>
@@ -210,7 +218,6 @@
         }
         //新增往期
         .last-select{
-            display: none;
             position: absolute;
             left:0;
             top:60px;
