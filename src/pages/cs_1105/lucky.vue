@@ -172,12 +172,12 @@
                                             <td>{{ item.expectid }}</td>
                                             <td>{{ item.bettype | format_match }}</td>
                                             <td>
-                                                <ul class="num-box">
-                                                    <li>1</li></ul>
+                                                <ul class="num-box" v-html="item.openCodeVal">
+                                                </ul>
                                             </td>
-                                            <td>{{ item.betmoney }}{{ item.cointype | formateCoinType }}</td>
-                                            <td class="js_resultDom">
-                                                <a></a>-
+                                            <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}</td>
+                                            <td class="js_resultDom" v-html="item.newTbody">
+
                                             </td>
                                         </tr>
                                     </tbody>

@@ -61,8 +61,7 @@ const actionsInfo = mapActions({
 		let newNumLis = '' ;
 		console.log(newData);
 		if( newData && newData.length > 0 ){
-			for( let i,len = newData.length;i<len;i++ ){
-				console.log(i);
+			for( let i=0,len = newData.length;i<len;i++ ){
 				// 过滤掉 未登录和别人的failure
 				if (newData[i].status === '-1') {
 					if (newData[i].uid.toString() !== state.uid || state.uid === '0') {
@@ -71,6 +70,7 @@ const actionsInfo = mapActions({
 				}
 				if (newData[i].betcode) {
 					currLuckyNum = newData[i].betcode.split(',');
+					newNumLis = '';
 					for (let j = 0, lenJ = currLuckyNum.length; j < lenJ; j++) {
 						if (newData[i].opencode !== null && newData[i].opencode !== '' && newData[i].opencode !== undefined) {
 							newLuckyResult = newData[i].opencode.split(',');
@@ -83,9 +83,29 @@ const actionsInfo = mapActions({
 							newNumLis += '<li>' + currLuckyNum[j] + '</li>'
 						}
 					}
+					newData[i].openCodeVal = newNumLis;
 				}
-				console.log(newNumLis);
-				console.log('===========');
+
+//                -2|取消退款  -1|下单失败  0|下单 1|成功  2|结算    new
+				let newTbody = '';
+				if (newData[i].orderstatus == '2') {
+					// 结算 并且大于0
+					if (newData[i].betprize > 0) {
+						newTbody += '<td class="win-amount js_resultDom"><a class="win">+' + Number( newData[i].betprize).toFixed(5) + digitalUnit + '</a></td>'
+					} else {
+						newTbody += '<td class="js_resultDom"><a></a>-</td>'
+					}
+				} else {
+					if (newData[i].orderstatus == '0') {
+						newTbody += '<td class="js_resultDom bold">wait </td>'
+					} else if (newData[i].orderstatus == '1') {
+						newTbody += '<td class="js_resultDom bold">wait</td>'
+					} else if (newData[i].orderstatus == '-1' || newData[i].orderstatus == '-2') {
+						newTbody += '<td class="js_resultDom bold"><a></a>failure</td>'
+					}
+				}
+				newData[i].newTbody = newTbody;
+
 			}
 		}
 		commit(mTypes.setRecentBet , newData);
