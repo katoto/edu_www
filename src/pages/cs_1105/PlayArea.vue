@@ -40,7 +40,7 @@
             <span>Bet</span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
-                <input type="text" name="bet1" v-model="areaMsg.pickMoney" value="0.0001" placeholder="0.0001">
+                <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney" value="0.0001" placeholder="0.0001">
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
@@ -78,13 +78,40 @@
 		props: ['areaMsg',  'data','allplayArea'],
 		watch: {},
 		methods: {
+			checkBetMoney(){
+				console.log( this.areaMsg.pickMoney )
+				if (isNaN( this.areaMsg.pickMoney )) {
+					Message({
+						message: 'Please enter the correct number',
+						type: 'error'
+					})
+					return false
+				}
+
+				if (Number(this.areaMsg.pickMoney) > 0.1 ) {
+					this.areaMsg.pickMoney = 0.1
+					Message({
+						message: 'Bet amount is between 0.0001 and 0.1 ETH',
+						type: 'error'
+					});
+					return false
+				}
+				if (Number(this.areaMsg.pickMoney) < 0.0001 ) {
+					this.areaMsg.pickMoney = 0.0001
+					Message({
+						message: 'Bet amount is between 0.0001 and 0.1 ETH',
+						type: 'error'
+					});
+					return false
+				}
+
+            },
 			delTicket( $event ){
 				// 删除  ？？  TODO  有问题
 				console.log('del')
 				console.log( this.allplayArea )
 				console.log( $event )
                 if( $event.target.tagName === 'A' ){
-
 //	                this.allplayArea.splice( closeFlag  , 1  );
 //	                this.$emit('update:allplayArea', this.allplayArea );
                 }
@@ -110,18 +137,28 @@
 				// 减钱  （下限）
 				let currpickMoney = this.areaMsg.pickMoney;
 				if( currpickMoney <= 0.0001 ){
+					this.areaMsg.pickMoney = 0.0001
 					Message({
 						message: 'The minimum bet is 0.0001 ETH',
 						type: 'error'
 					})
                 }else{
-					this.$emit('update:data', {
-						...this.areaMsg,
-						pickMoney: parseFloat ( (parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5) )
-					});
+					if( parseFloat ( (parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5) ) < 0.0001 ){
+						this.$emit('update:data', {
+							...this.areaMsg,
+							pickMoney: 0.0001
+						});
+						Message({
+							message: 'The minimum bet is 0.0001 ETH',
+							type: 'error'
+						})
+                    }else{
+						this.$emit('update:data', {
+							...this.areaMsg,
+							pickMoney: parseFloat ( (parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5) )
+						});
+                    }
                 }
-
-
 			},
 			clearNumber(){
 				//  清空当前选号

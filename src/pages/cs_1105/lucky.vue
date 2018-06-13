@@ -77,7 +77,7 @@
                     <a href="javascript:;" @click="addTicket" class="addmore">Add Ticket</a>
                 </div>
                 <div class="btn-play-now">
-                    <a href="javascript:;" @click="testPlay">
+                    <a href="javascript:;" @click="playNow">
                         Play Now
                     </a>
                     <span>Total Pay</span>
@@ -331,7 +331,7 @@
 		},
 		watch: {
 			playArea(){
-				/* 总金额 */
+                /* 总金额 */
 				if (this.playArea) {
 					let sum = 0;
 					this.playArea.forEach((val, index) => {
@@ -339,7 +339,7 @@
 							sum += parseFloat(( parseFloat(val.pickMoney)).toFixed(5))
 						}
 					});
-					this.totalPay = parseFloat( sum.toFixed(5) )
+					this.totalPay = parseFloat(sum.toFixed(5))
 				}
 			}
 		},
@@ -350,8 +350,57 @@
 			recentBet () {
 				return this.$store.state.cs_1105.recentBet
 			},
+			isLog(){
+				return this.$store.state.isLog
+			}
 		},
 		methods: {
+			playNow(){
+				// 投注下单
+				// 出现loading
+//                document.getElementById('js_loading').className = '';
+				// 未登录 的情况
+				if (!isLog) {
+					this.$store.commit('showLoginPop');
+					return false
+				}
+
+				// 选号是否完成？
+				if (this.playArea) {
+					let noComplete = [];
+//	                createTime: 0,
+//		                pickType: '1', //玩法类型1,2,3,4,5,5J
+//		                pickNum: [],
+//		                pickMoney: 0.0001,
+//		                pickJackPot: []  // 奖池用
+					this.playArea.forEach((val, index) => {
+						if (parseFloat(val.pickType) !== val.pickNum.length) {
+							noComplete.push('Ticket'+ (index + 1));
+						}
+					});
+                    if( noComplete.length === 0 ){
+
+                    }else{
+	                    Message({
+		                    message: 'Please pick correct numbers in '+noComplete.join('&&'),
+		                    type: 'error'
+	                    })
+                        // 震动 报错  error-shake
+
+                    }
+                    // 动画 socket
+					console.log(noComplete);
+					console.log('=====noComplete==');
+
+				}
+
+
+				// 未激活 ？  这个也有问题  在弄个弹窗吧
+//				this.$store.commit('emailBackTime', 0)
+//				this.$store.commit('showVerifyEmail')
+
+
+			},
 			addTicket(){
                 /* 添加 */
 				if (this.playArea && this.playArea.length < 5) {
