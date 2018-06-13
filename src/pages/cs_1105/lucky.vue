@@ -386,7 +386,7 @@
 		                    type: 'error'
 	                    })
                         // 震动 报错  error-shake
-
+//	                    js_playArea-li
                     }
                     // 动画 socket
 					console.log(noComplete);
