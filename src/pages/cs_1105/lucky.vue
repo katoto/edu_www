@@ -345,7 +345,7 @@
 		data () {
 			return {
 				scroll: '',
-                activeName:'Wins',
+                activeName:'Bets',
                 DataWinnerList:[
 //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
                 ]
@@ -355,7 +355,7 @@
 		computed: {
 			socket(){
 				return this.$store.state.socket
-            }
+            },
         },
 		methods: {
 			leaveRoute(){

@@ -19,6 +19,8 @@
 			if (isLog()) {
 				this.$store.commit('setIsLog', true);
 				let userMsg = await this.$store.dispatch('getUserInfo');
+				console.log(userMsg);
+				console.log(userMsg);
 				if (userMsg && userMsg.status.toString() === '100') {
 					this.$store.commit('setIsLog', true);
 					this.$store.commit('setUserInfo', userMsg.data);

@@ -8,8 +8,21 @@ import {Message} from 'element-ui'
 
 const state = {
 	navFix: false,
-	sockType_1001: null,
-	sockType_1002: null,
+
+	timeInterval:null,
+	timeLeft:null,
+	expect_blinking:false,  // 期号闪烁
+	expect_move:false,  // 期号上下移动
+
+	currExpectId:0,  // 期号
+	last_expectid:0,  // 上一期期号
+
+	openCodeArr:null, // 开奖号码
+	liveOpenCode:[], // 开奖 数组 动画数据
+	time_drawFlip:null,  // 开奖动画 interval变量
+
+	recentBet:[],  // 最近投注
+
 }
 
 const mutationsInfo = mapMutations({
@@ -19,36 +32,89 @@ const mutationsInfo = mapMutations({
 	setNavFix (state, data) {
 		state.navFix = data
 	},
-	updateSocketData(state, msg){
-		if (msg && msg.data) {
-			switch (msg.msg_code.toString()) {
-				case '1001':
-					// 初始化
-					state.sockType_1001 = msg.data
-					;
-					break;
-				case '1002':
-					state.sockType_1002 = msg.data
-					;
-					break;
-				case '1003':
-					state.sockType_1003 = msg.data
-					;
-					break;
-			}
-		}
-		console.log('1111');
+	/* socket 倒计时 */
+	timeLeft(state, time){
+		state.timeLeft = time
+	},
+	timeInterval(state, interval){
+		state.timeInterval = interval
+	},
 
-	}
 }, 'cs_1105');
 
 const actionsInfo = mapActions({
+	/* recent Bet */
+	formate_recentBet( {state,commit, dispatch},top ){
+		state.recentBet = top
+		console.log(top);
+		console.log('===top==');
+	},
+	// 当前 期号处理
+	formate_expectid( {state,commit, dispatch},expectid ){
+		if (expectid) {
+			state.currExpectId = expectid
+		}
+	},
+	//  初始化上一期的结果
+	formate_Result( {state,commit, dispatch},msg ){
+		if (msg.last_expectid) {
+			state.last_expectid = msg.last_expectid
+		}
+		// msg.expectid !== expectId  ??
+		if( msg.expectid !== state.currExpectId || 1){
+			if( !msg.opencode || msg.opencode === '' ){
+				msg.opencode = '-,-,-,-,-';
+			}
+			if (msg.opencode) {
+				state.liveOpenCode = [];
+				state.openCodeArr = msg.opencode.split(',');
+				clearInterval(state.time_drawFlip);
+				// 动画
+				let liveLen = state.openCodeArr.length;
+				let i = 0;
+				state.time_drawFlip = setInterval(function () {
+					if (i < liveLen) {
+						state.liveOpenCode.push( state.openCodeArr[i] );
+					} else {
+						clearInterval(state.time_drawFlip)
+					}
+					i ++ ;
+				}, 250);
+			}
+		}
+
+	},
+
+	/* 初始化倒计时 */
+	formate_countDown( {state,commit, dispatch},timer ){
+		if (timer !== undefined && timer !== null) {
+			clearInterval(state.timeInterval);
+			// 倒计时
+			state.timeLeft = parseFloat(timer);
+			state.timeInterval = setInterval(function () {
+				state.timeLeft = parseFloat(state.timeLeft) - 1;
+				if (state.timeLeft == 0) {
+					state.expect_blinking = false;
+					state.expect_move = true
+					setTimeout(function () {
+						state.expect_blinking = true
+						state.expect_move = false
+					}, 1300);
+				}
+				if( state.timeLeft < 0 ){
+					// 临时
+					state.timeLeft = 60;
+				}
+			}, 1000);
+		}
+	},
+
 	/* Draw Number 列表接口数据 */
 	async getDrawNumList ({commit, dispatch}, pageData) {
 		try {
 			let InfoData = null;
 			if (pageData) {
-				InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&rangeno=${pageData.pageSize}&src=${src}&platform=${platform}`)
+				InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&rangeno=${pageData.pageSize}`)
 			} else {
 				InfoData = await ajax.get(`/expect/hisopencode`)
 			}
@@ -70,7 +136,6 @@ const actionsInfo = mapActions({
 			})
 		}
 	},
-
 
     //首页 Recent Wins 列表接口数据
     async getRecentWinsList({commit, dispatch}){
@@ -118,7 +183,7 @@ const actionsInfo = mapActions({
 	/* 注册激活 */
 	async mailActivate ({commit, dispatch}, pageData) {
 		try {
-			return await ajax.get(`/user/mail/activate?sign=${pageData}&src=${src}&platform=${platform}`)
+			return await ajax.get(`/user/mail/activate?sign=${pageData}`)
 		} catch (e) {
 			Message({
 				message: e.message,
