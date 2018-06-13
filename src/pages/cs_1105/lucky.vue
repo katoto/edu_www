@@ -1,13 +1,14 @@
 <template>
     <div class="">
         <!--v-for="item in aa" :data.sync="item"-->
-        <Header ></Header>
+        <Header></Header>
         <HeaderNav></HeaderNav>
         <div class="main">
             <!--玩法区-->
             <div class="play-area" id="play-area">
                 <ul class="play-area-items">
-                    <PlayArea v-for="(item,index) in playArea" :areaMsg.sync="item" :currIndex.sync="index"></PlayArea>
+                    <PlayArea v-for="(item,index) in playArea" :key="index" :allplayArea.sync="playArea" :areaMsg="item"
+                              :data.sync="playArea[index]"></PlayArea>
                 </ul>
                 <!-- Lucky 11 show  647 356 奖级表 -->
                 <div class="pop pop-rewardTable js_pop_rewardTable hide">
@@ -73,14 +74,14 @@
                     <span class="fee-count hide">
                         Fee&nbsp&nbsp<i><span class="js_gasNumber">0</span>ETH</i>
                     </span>
-                    <a href="javascript:;" class="addmore">Add Ticket</a>
+                    <a href="javascript:;" @click="addTicket" class="addmore">Add Ticket</a>
                 </div>
                 <div class="btn-play-now">
                     <a href="javascript:;" @click="testPlay">
                         Play Now
                     </a>
                     <span>Total Pay</span>
-                    <p id="total-pay" class="total-pay "></p>
+                    <p class="total-pay ">{{ totalPay }} ETH</p>
                 </div>
                 <div id="stars1" class="stars"></div>
                 <div id="stars2" class="stars"></div>
@@ -93,31 +94,33 @@
                             <div class="prenum-table">
                                 <table>
                                     <thead>
-                                        <tr>
-                                            <th>Transaction Time</th>
-                                            <th>User ID</th>
-                                            <th>No.</th>
-                                            <th>Type</th>
-                                            <th>Bet Number</th>
-                                            <th>Bet Amount</th>
-                                            <th>Prize Amount</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Transaction Time</th>
+                                        <th>User ID</th>
+                                        <th>No.</th>
+                                        <th>Type</th>
+                                        <th>Bet Number</th>
+                                        <th>Bet Amount</th>
+                                        <th>Prize Amount</th>
+                                    </tr>
                                     </thead>
-                                    <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
-                                        <tr v-for="item in recentBet" :data-oid="item.oid">
-                                            <td>{{ item.create_time | formatTime("HH:mm:ss")  }}</td>
-                                            <td>{{ item.uid }}</td>
-                                            <td>{{ item.expectid }}</td>
-                                            <td>{{ item.bettype | format_match }}</td>
-                                            <td>
-                                                <ul class="num-box" v-html="item.openCodeVal">
-                                                </ul>
-                                            </td>
-                                            <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}</td>
-                                            <td class="js_resultDom" v-html="item.newTbody">
+                                    <tbody v-if="recentBet.length>0" id="tabody-betlist"
+                                           class="tabody-betlist newRecord">
+                                    <tr v-for="item in recentBet" :data-oid="item.oid">
+                                        <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
+                                        <td>{{ item.uid }}</td>
+                                        <td>{{ item.expectid }}</td>
+                                        <td>{{ item.bettype | format_match }}</td>
+                                        <td>
+                                            <ul class="num-box" v-html="item.openCodeVal">
+                                            </ul>
+                                        </td>
+                                        <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
+                                        </td>
+                                        <td class="js_resultDom" v-html="item.newTbody">
 
-                                            </td>
-                                        </tr>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -127,18 +130,18 @@
                             <div class="winner-list">
                                 <table>
                                     <thead>
-                                        <tr>
-                                            <th>User ID</th>
-                                            <th>No.</th>
-                                            <th>Type</th>
-                                            <th>Bet Number</th>
-                                            <th>Bet Amount</th>
-                                            <th>Prize Amount</th>
-                                        </tr>
+                                    <tr>
+                                        <th>User ID</th>
+                                        <th>No.</th>
+                                        <th>Type</th>
+                                        <th>Bet Number</th>
+                                        <th>Bet Amount</th>
+                                        <th>Prize Amount</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                     <!--jackpot-->
-                                        <tr class="hide">
+                                    <tr class="hide">
                                         <td>1803281404</td>
                                         <td>1803281404</td>
                                         <td>C5</td>
@@ -158,24 +161,24 @@
                                         </span>
                                         </td>
                                     </tr>
-                                        <tr v-for="data in DataWinnerList">
-                                            <td>
-                                                {{data.uid}}
-                                            </td>
-                                            <td>
-                                                {{data.expectid}}
-                                            </td>
-                                            <td>
-                                                {{data.bettype}}
-                                            </td>
-                                            <td v-html="data.betcode">
-                                            </td>
-                                            <td>
-                                                {{data.betmoney}}
-                                            </td>
-                                            <td v-html="data.betprize">
-                                            </td>
-                                        </tr>
+                                    <tr v-for="data in DataWinnerList">
+                                        <td>
+                                            {{data.uid}}
+                                        </td>
+                                        <td>
+                                            {{data.expectid}}
+                                        </td>
+                                        <td>
+                                            {{data.bettype}}
+                                        </td>
+                                        <td v-html="data.betcode">
+                                        </td>
+                                        <td>
+                                            {{data.betmoney}}
+                                        </td>
+                                        <td v-html="data.betprize">
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -292,41 +295,54 @@
 	import Footer from '~components/Footer.vue'
 	import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 	import {Message} from 'element-ui'
-	import { src, platform, isLog, getCK, format_match, setCK, removeCK } from '~common/util'
+	import {src, platform, isLog, getCK, format_match, setCK, removeCK} from '~common/util'
 
-    export default {
+	export default {
 		data () {
 			return {
 				scroll: '',
-                activeName: 'Bets',
-                DataWinnerList: [
+				activeName: 'Bets',
+				DataWinnerList: [
 //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
-                ],
-
-				playArea:[{
-					pickType:'1', //玩法类型1,2,3,4,5,5J
-					pickNum:[3],
-					pickMoney:0.0001,
-					pickJackPot:[]  // 奖池用
-				},{
-					pickType:'2', //玩法类型
-					pickNum:[3,6],
-					pickMoney:0.0001,
-					pickJackPot:[]
-				},{
-					pickType:'5J', //玩法类型
-					pickNum:[3,6],
-					pickMoney:0.0001,
-					pickJackPot:[]
-				},{
-					pickType:'4', //玩法类型
-					pickNum:[3,6],
-					pickMoney:0.0001,
-					pickJackPot:[]
+				],
+				totalPay: 0.0001,
+				baseAreaMsg: {
+					createTime: 0,
+					pickType: '1', //玩法类型1,2,3,4,5,5J
+					pickNum: [],
+					pickMoney: 0.0001,
+					pickJackPot: []  // 奖池用
+				},
+				playArea: [{
+					createTime: 0,
+					pickType: '1', //玩法类型1,2,3,4,5,5J
+					pickNum: [],
+					pickMoney: 0.0001,
+					pickJackPot: []  // 奖池用
 				}],  // 玩法区 数组
+//			{
+//				pickType:'5J', //玩法类型
+//					pickNum:[3,6],
+//				pickMoney:0.0001,
+//				pickJackPot:[2,3,4,5,6]
+//			}
+
 			}
 		},
-		watch: {},
+		watch: {
+			playArea(){
+				/* 总金额 */
+				if (this.playArea) {
+					let sum = 0;
+					this.playArea.forEach((val, index) => {
+						if (val.pickMoney) {
+							sum += parseFloat(( parseFloat(val.pickMoney)).toFixed(5))
+						}
+					});
+					this.totalPay = parseFloat( sum.toFixed(5) )
+				}
+			}
+		},
 		computed: {
 			socket () {
 				return this.$store.state.socket
@@ -334,15 +350,27 @@
 			recentBet () {
 				return this.$store.state.cs_1105.recentBet
 			},
-        },
+		},
 		methods: {
+			addTicket(){
+                /* 添加 */
+				if (this.playArea && this.playArea.length < 5) {
+					this.baseAreaMsg.createTime = new Date().getTime();
+					this.playArea.push(this.baseAreaMsg);
+				} else {
+					Message({
+						message: 'No more than 5 tickets',
+						type: 'error'
+					})
+				}
+
+			},
 			testPlay(){
-				console.log(this.playArea);
 				console.log(this.playArea);
 			},
 			leaveRoute () {
 				this.$router.push('/account')
-            },
+			},
 			fixNav () {
 				// this.scroll = document.documentElement.scrollTop || document.body.scrollTop
 				if (this.scroll >= 90) {
@@ -355,67 +383,68 @@
 //            showPopLimit () {
 //                this.$store.commit('showPopLimit')
 //            },
-            format_betCode (betcode) {
-                let currLuckyNum = betcode.split(',');
-                let str = '<ul class="num-box">'
-                currLuckyNum.forEach(function (value, index) {
-                  str += `<li class="bingo">${value}</li>`
-                })
-			    return str + '</ul>';
-            },
-            format_recentWins (msg) {
-                msg.forEach((item, index) => {
-                    item.bettype = format_match(item.bettype)
-                    item.betcode = this.format_betCode(item.betcode)
-                    item.betmoney = parseFloat(item.betmoney).toFixed(5) + 'ETH'
-                    item.betprize = '<span class="win"><span>' + parseFloat(item.betprize).toFixed(5) + '</span>ETH</span>'
-                })
-                return msg;
-            },
 
-            async indexRouter (query) {
-				/* 邮箱注册 找回密码  邀请等 */
-                if (query.sign) {
-                	if (query.from === 'reg') {
-                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign);
-		                console.log(mailBack);
-                        if (mailBack && mailBack.status === '100') {
-                        	if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
+			format_betCode (betcode) {
+				let currLuckyNum = betcode.split(',');
+				let str = '<ul class="num-box">'
+				currLuckyNum.forEach(function (value, index) {
+					str += `<li class="bingo">${value}</li>`
+				})
+				return str + '</ul>';
+			},
+			format_recentWins (msg) {
+				msg.forEach((item, index) => {
+					item.bettype = format_match(item.bettype)
+					item.betcode = this.format_betCode(item.betcode)
+					item.betmoney = parseFloat(item.betmoney).toFixed(5) + 'ETH'
+					item.betprize = '<span class="win"><span>' + parseFloat(item.betprize).toFixed(5) + '</span>ETH</span>'
+				})
+				return msg;
+			},
+
+			async indexRouter (query) {
+                /* 邮箱注册 找回密码  邀请等 */
+				if (query.sign) {
+					if (query.from === 'reg') {
+						let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign);
+						console.log(mailBack);
+						if (mailBack && mailBack.status === '100') {
+							if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
 //		                        显示第一次邀请
-                        		this.$store.commit('showFirstLogin', true);
-                            } else {
-		                        this.$store.commit('showFirstLogin', false);
-                            }
-	                        this.$store.commit('showRegSuccess');
-                        } else {
-	                        Message({
-		                        message: mailBack.message,
-		                        type: 'error'
-	                        })
-                        }
-                        // 清除参数
+								this.$store.commit('showFirstLogin', true);
+							} else {
+								this.$store.commit('showFirstLogin', false);
+							}
+							this.$store.commit('showRegSuccess');
+						} else {
+							Message({
+								message: mailBack.message,
+								type: 'error'
+							})
+						}
+						// 清除参数
 //                        this.$router.push('/lucky')
-                    }
-	                if (query.from === 'resetPassword') {
-                        // 重置密码
-		                this.$store.commit('setResetObj', {
-			                email: query.email,
-			                sign: query.sign,
-			                showReset: true
-		                });
-		                this.$store.commit('showResetPwd');
-		                // 修改密码的时候，清楚ck
-                        removeCk();
-	                }
-	                if (query.inviter) {
-                        // 邀请
-		                this.$store.commit('setInviterObj', {
-			                inviter: query.inviter,
-			                sign: query.sign
-		                });
-	                }
-                }
-            }
+					}
+					if (query.from === 'resetPassword') {
+						// 重置密码
+						this.$store.commit('setResetObj', {
+							email: query.email,
+							sign: query.sign,
+							showReset: true
+						});
+						this.$store.commit('showResetPwd');
+						// 修改密码的时候，清楚ck
+						removeCk();
+					}
+					if (query.inviter) {
+						// 邀请
+						this.$store.commit('setInviterObj', {
+							inviter: query.inviter,
+							sign: query.sign
+						});
+					}
+				}
+			}
 		},
 		components: {
 			Footer,
@@ -423,106 +452,106 @@
 			HeaderNav,
 			PlayArea
 		},
-	    filters: {
-		    formateCoinType: (type = '2001') => {
-			    type = type.toString()
-			    switch (type) {
-				    case '2001':
-					    return 'ETH'
-				    case '1001':
-					    return 'BTC'
-				    default:
-					    return 'ETH'
-			    }
-		    },
-		    format_match: (match)=> {
-			    if (isNaN(match)) {
-				    return ''
-			    }
-			    match = match.toString()
-			    switch (match) {
-				    case '1101':
-					    return 'C1'
-				    case '1102':
-					    return 'C2'
-				    case '1103':
-					    return 'C3'
-				    case '1104':
-					    return 'C4'
-				    case '1105':
-					    return 'C5'
-			    }
-		    },
-		    formatTime :(time, format) => {
-			    if (format === undefined || format == null) {
-				    format = 'MM-dd HH:mm:ss'
-			    }
-			    if (isNaN(time)) {
-				    return false
-			    }
-			    let t = new Date(+time * 1000)
-			    let tf = function (i) {
-				    return (i < 10 ? '0' : '') + i
-			    }
-			    return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-				    switch (a) {
-					    case 'yyyy':
-						    return tf(t.getFullYear())
-					    case 'MM':
-						    return tf(t.getMonth() + 1)
-					    case 'mm':
-						    return tf(t.getMinutes())
-					    case 'dd':
-						    return tf(t.getDate())
-					    case 'HH':
-						    return tf(t.getHours())
-					    case 'ss':
-						    return tf(t.getSeconds())
-				    }
-			    })
-		    },
-		    formateBalance: (val = 0) => {
-			    var newEth = null
-			    if (isNaN(val) || isNaN(Number(val))) {
-				    console.error('formateBalance error' + val)
-				    return 0
-			    }
-			    val = Number(val)
-			    if (val > 10000000) {
-				    newEth = (val / 100000000).toFixed(1) + '亿'
-			    } else if (val > 100000) {
-				    newEth = (val / 10000).toFixed(1) + '万'
-			    } else if (val > 1000) {
-				    newEth = parseFloat(val.toFixed(0))
-			    } else if (val > 100) {
-				    newEth = val.toFixed(3)
-			    } else if (val > 10) {
-				    newEth = val.toFixed(4)
-			    } else {
-				    newEth = val.toFixed(5)
-				    // 如果需要去掉零 用parseFloat(  )
-			    }
-			    return newEth
-		    }
-	    },
-        async mounted () {
-            window.addEventListener('scroll', this.fixNav);
-            if (this.$store.state.route.query) {
-                this.indexRouter(this.$store.state.route.query)
-            }
-            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
-            this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
-	        if (!(this.socket && this.socket.sock)) {
-		        this.$store.dispatch('initWebsocket')
-	        }
-        },
+		filters: {
+			formateCoinType: (type = '2001') => {
+				type = type.toString()
+				switch (type) {
+					case '2001':
+						return 'ETH'
+					case '1001':
+						return 'BTC'
+					default:
+						return 'ETH'
+				}
+			},
+			format_match: (match) => {
+				if (isNaN(match)) {
+					return ''
+				}
+				match = match.toString()
+				switch (match) {
+					case '1101':
+						return 'C1'
+					case '1102':
+						return 'C2'
+					case '1103':
+						return 'C3'
+					case '1104':
+						return 'C4'
+					case '1105':
+						return 'C5'
+				}
+			},
+			formatTime: (time, format) => {
+				if (format === undefined || format == null) {
+					format = 'MM-dd HH:mm:ss'
+				}
+				if (isNaN(time)) {
+					return false
+				}
+				let t = new Date(+time * 1000)
+				let tf = function (i) {
+					return (i < 10 ? '0' : '') + i
+				}
+				return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+					switch (a) {
+						case 'yyyy':
+							return tf(t.getFullYear())
+						case 'MM':
+							return tf(t.getMonth() + 1)
+						case 'mm':
+							return tf(t.getMinutes())
+						case 'dd':
+							return tf(t.getDate())
+						case 'HH':
+							return tf(t.getHours())
+						case 'ss':
+							return tf(t.getSeconds())
+					}
+				})
+			},
+			formateBalance: (val = 0) => {
+				var newEth = null
+				if (isNaN(val) || isNaN(Number(val))) {
+					console.error('formateBalance error' + val)
+					return 0
+				}
+				val = Number(val)
+				if (val > 10000000) {
+					newEth = (val / 100000000).toFixed(1) + '亿'
+				} else if (val > 100000) {
+					newEth = (val / 10000).toFixed(1) + '万'
+				} else if (val > 1000) {
+					newEth = parseFloat(val.toFixed(0))
+				} else if (val > 100) {
+					newEth = val.toFixed(3)
+				} else if (val > 10) {
+					newEth = val.toFixed(4)
+				} else {
+					newEth = val.toFixed(5)
+					// 如果需要去掉零 用parseFloat(  )
+				}
+				return newEth
+			}
+		},
+		async mounted () {
+			window.addEventListener('scroll', this.fixNav);
+			if (this.$store.state.route.query) {
+				this.indexRouter(this.$store.state.route.query)
+			}
+			let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
+			this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
+			if (!(this.socket && this.socket.sock)) {
+				this.$store.dispatch('initWebsocket')
+			}
+		},
 		beforeRouteLeave (to, from, next) {
 			// 是否需要主队断sock ？
-            // this.$store.state.socket.sock.onclose();
-            // this.$store.dispatch('unsubscribe')
-            // this.$store.dispatch('subscribe')
+			// this.$store.state.socket.sock.onclose();
+			// this.$store.dispatch('unsubscribe')
+			// this.$store.dispatch('subscribe')
 			next();
-        },
+		},
 		destroyed () {
 			window.removeEventListener('scroll', this.fixNav)
 		}
@@ -1106,44 +1135,46 @@
     }
 
     //WINNER LIST
-    .winner-list{
-        padding-bottom:63px;
+    .winner-list {
+        padding-bottom: 63px;
         text-align: center;
-        tr.jackpot{
+        tr.jackpot {
             background: #fff3e1;
         }
-        .icon-jackpot{
-            &::after{
-                margin-left:50px;
+        .icon-jackpot {
+            &::after {
+                margin-left: 50px;
             }
         }
     }
-    .winner-list,.prenum-table{
-        padding-top:16px;
+
+    .winner-list, .prenum-table {
+        padding-top: 16px;
     }
+
     /*introduct*/
-    .introduct{
-        padding:13px 0 46px 0;
-        span{
+    .introduct {
+        padding: 13px 0 46px 0;
+        span {
             display: block;
-            line-height:46px;
-            font-size:12px;
+            line-height: 46px;
+            font-size: 12px;
             color: #778ca3;
         }
-        li+li{
-            margin-top:20px;
+        li + li {
+            margin-top: 20px;
         }
-        p{
-            line-height:22px;
+        p {
+            line-height: 22px;
         }
-        p.circle{
+        p.circle {
             position: relative;
-            padding-left:16px;
-            &::before{
+            padding-left: 16px;
+            &::before {
                 content: '';
                 position: absolute;
-                left:0;
-                top:8px;
+                left: 0;
+                top: 8px;
                 display: block;
                 background-image: url("../../assets/slice/circle.png");
                 width: 5px;

@@ -25,8 +25,6 @@ const state = {
 
 	uid:null,  //过滤 首页数据用
 
-
-
 	syxw_bettype_odds:{  // 玩法赔率 todo 更新
 		1101: "1.8",
 		1102: "4.5",

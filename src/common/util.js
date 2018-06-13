@@ -217,6 +217,35 @@ export function formateMoneyFlow (flowtype = '1') {
     }
 }
 
+/*
+ *  11个数中 随机 选出 len 个
+ *  @params  len
+ *  shuffle()  洗牌算法
+ * */
+export function randomNumber(len) {
+	var shuffleArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+	len = Number(len);
+	if (isNaN(len)) {
+		console.log('error in len ');
+		return false;
+	}
+	if (!len) {
+		len = 5;
+	}
+	return shuffle(shuffleArr).slice(0, len);
+	function shuffle(arr) {
+		var len = arr.length;
+		for (var i = 0; i < len - 1; i++) {
+			var idx = Math.floor(Math.random() * (len - i));
+			var temp = arr[idx];
+			arr[idx] = arr[len - i - 1];
+			arr[len - i - 1] = temp;
+		}
+		return arr;
+	}
+}
+
+
 export function commonErrorHandler (data) {
     let status = data.status
     switch (status) {
