@@ -1,75 +1,13 @@
 <template>
     <div class="">
-        <Header></Header>
+        <!--v-for="item in aa" :data.sync="item"-->
+        <Header ></Header>
         <HeaderNav></HeaderNav>
         <div class="main">
             <!--玩法区-->
             <div class="play-area" id="play-area">
                 <ul class="play-area-items">
-                    <li class="js_playArea-li">
-                        <div class="play-area-top">
-                            <div id="play-type-choose" class="play-type-choose">
-                                <span>Pick 5</span>
-                                <ul>
-                                    <li>Pick 1</li>
-                                    <li>Pick 2</li>
-                                    <li>Pick 3</li>
-                                    <li>Pick 4</li>
-                                    <li>Pick 5</li>
-                                    <li class="es hide">
-                                        <p>Pick 5</p>
-                                        <p>(JACKPOT)</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <p class="play-tips">
-                                <span class="js_choose_desc">Pick 5 numbers, if all the numbers hit the draw numbers, you'll win 378 times reward</span>
-                                <a href="javascript:;" class="js_showReward"> Reward table</a>
-                            </p>
-                            <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
-                        </div>
-                        <span class="line js_line">Ticket1</span>
-                        <!--<ul class="number-box js_isReady" data-luckyNum="1|3|4|6|8">-->
-                        <ul class="number-box js_number-box-11">
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                            <li>5</li>
-                            <li>6</li>
-                            <li>7</li>
-                            <li>8</li>
-                            <li>9</li>
-                            <li>10</li>
-                            <li>11</li>
-                        </ul>
-                        <a href="javascript:;" class="btn-random-pick">Quick Pick</a>
-                        <a href="javascript:;" class="btn-delete"></a>
-                        <a href="javascript:;" class="btn-close hide"></a>
-                        <div class="beting">
-                            <span>Bet</span>
-                            <div class="btn-beting">
-                                <input type="text" name="bet1" class="js_betMoney" value="0.0001" placeholder="0.0001">
-                                <a href="javascript:;" class="btn-beting-add js_beting-add">add</a>
-                                <a href="javascript:;" class="btn-beting-low js_beting-low">low</a>
-                            </div>
-                            <span>ETH</span>
-                            <div class="winning">
-                                Return&nbsp<i class="winMoney">0.0378&nbspETH</i>
-                            </div>
-                        </div>
-                        <div class="order-box hide js_choose_jackPot">
-                            <p>Picking Order</p>
-                            <ul class="num-box js_num-box-5">
-                                <!--flipInY on-->
-                                <li>-</li>
-                                <li>-</li>
-                                <li>-</li>
-                                <li>-</li>
-                                <li>-</li>
-                            </ul>
-                        </div>
-                    </li>
+                    <PlayArea v-for="(item,index) in playArea" :areaMsg.sync="item" :currIndex.sync="index"></PlayArea>
                 </ul>
                 <!-- Lucky 11 show  647 356 奖级表 -->
                 <div class="pop pop-rewardTable js_pop_rewardTable hide">
@@ -138,7 +76,7 @@
                     <a href="javascript:;" class="addmore">Add Ticket</a>
                 </div>
                 <div class="btn-play-now">
-                    <a href="javascript:;">
+                    <a href="javascript:;" @click="testPlay">
                         Play Now
                     </a>
                     <span>Total Pay</span>
@@ -349,7 +287,8 @@
 
 <script>
 	import Header from '~components/Header.vue'
-	import HeaderNav from '~components/HeaderNav.vue'
+	import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
+	import PlayArea from '~pages/cs_1105/PlayArea.vue'
 	import Footer from '~components/Footer.vue'
 	import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 	import {Message} from 'element-ui'
@@ -362,19 +301,45 @@
                 activeName: 'Bets',
                 DataWinnerList: [
 //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
-                ]
+                ],
+
+				playArea:[{
+					pickType:'1', //玩法类型1,2,3,4,5,5J
+					pickNum:[3],
+					pickMoney:0.0001,
+					pickJackPot:[]  // 奖池用
+				},{
+					pickType:'2', //玩法类型
+					pickNum:[3,6],
+					pickMoney:0.0001,
+					pickJackPot:[]
+				},{
+					pickType:'5J', //玩法类型
+					pickNum:[3,6],
+					pickMoney:0.0001,
+					pickJackPot:[]
+				},{
+					pickType:'4', //玩法类型
+					pickNum:[3,6],
+					pickMoney:0.0001,
+					pickJackPot:[]
+				}],  // 玩法区 数组
 			}
 		},
 		watch: {},
 		computed: {
 			socket () {
 				return this.$store.state.socket
-            },
+			},
 			recentBet () {
 				return this.$store.state.cs_1105.recentBet
 			},
         },
 		methods: {
+			testPlay(){
+				console.log(this.playArea);
+				console.log(this.playArea);
+			},
 			leaveRoute () {
 				this.$router.push('/account')
             },
@@ -386,9 +351,10 @@
 					this.$store.commit(mTypes.setNavFix, false)
 				}
 			},
-            showPopLimit () {
-                this.$store.commit('showPopLimit')
-            },
+//             隐藏
+//            showPopLimit () {
+//                this.$store.commit('showPopLimit')
+//            },
             format_betCode (betcode) {
                 let currLuckyNum = betcode.split(',');
                 let str = '<ul class="num-box">'
@@ -454,7 +420,8 @@
 		components: {
 			Footer,
 			Header,
-			HeaderNav
+			HeaderNav,
+			PlayArea
 		},
 	    filters: {
 		    formateCoinType: (type = '2001') => {
@@ -545,8 +512,6 @@
             }
             let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
-            console.log(333);
-	        console.log(this.socket);
 	        if (!(this.socket && this.socket.sock)) {
 		        this.$store.dispatch('initWebsocket')
 	        }

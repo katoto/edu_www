@@ -23,12 +23,21 @@ const state = {
 
 	recentBet:[],  // 最近投注
 
-	uid:null,  //过滤数据用
+	uid:null,  //过滤 首页数据用
+
+
+
+	syxw_bettype_odds:{  // 玩法赔率 todo 更新
+		1101: "1.8",
+		1102: "4.5",
+		1103: "13.5",
+		1104: "54",
+		1105: "378"
+	}
 
 }
 
 const mutationsInfo = mapMutations({
-
 	currExpectId( state,data ){
 		state.currExpectId = data
 	},
@@ -59,7 +68,6 @@ const actionsInfo = mapActions({
 		let currLuckyNum = null ;
 		let newLuckyResult = null;
 		let newNumLis = '' ;
-		console.log(newData);
 		if( newData && newData.length > 0 ){
 			for( let i=0,len = newData.length;i<len;i++ ){
 				// 过滤掉 未登录和别人的failure
@@ -109,7 +117,6 @@ const actionsInfo = mapActions({
 			}
 		}
 		commit(mTypes.setRecentBet , newData);
-		console.log('===top==');
 	},
 	// 当前 期号处理
 	formate_expectid( {state,commit, dispatch},expectid ){

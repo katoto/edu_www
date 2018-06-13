@@ -84,7 +84,7 @@
     }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../styles/lib-mixins.less";
+    @import "../../styles/lib-mixins.less";
     .nav{
         position: relative;
         z-index:3;
@@ -200,7 +200,7 @@
             width: 13px;
             height: 8px;
             .transition();
-            background-image: url(" ../assets/slice/arrow-down-fff.png");
+            background-image: url("../../assets/slice/arrow-down-fff.png");
         }
         &:hover{
             background: #34287b;
