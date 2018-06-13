@@ -35,28 +35,8 @@ const actionsInfo = mapActions({
         return ajax.get('/account/withdraw/records', params)
     },
 
-    async getWithdrawApply ({commit, dispatch}, msg = {}) {
-        try {
-            let InfoData = null
-            Object.assign(msg, {
-                ck: getCK(),
-                src,
-                platform
-            })
-            console.log(msg)
-            if (msg) {
-                InfoData = await ajax.post(`/account/withdraw/apply`, msg)
-            } else {
-                InfoData = await ajax.get(`/account/withdraw/apply`, msg)
-            }
-            return InfoData
-        } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
+    getWithdrawApply ({commit, dispatch}, params) {
+        return ajax.post('/account/withdraw/apply', params)
     }
 
 }, 'cs_account')
