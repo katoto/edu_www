@@ -1,6 +1,7 @@
 <script src="../../../../magnet_pc/dist/js/worldCup/youtubeVideo.js"></script>
 <template>
-    <section>
+    <div>
+        <Banner></Banner>
         <div class="head">
             <div class="top">
                 <router-link to="/" title="Coinslot" class="logo">
@@ -154,10 +155,6 @@
                     <p class="jackpot-money "> Win <i>5.55</i>ETH</p>
                 </div>
             </div>
-        </div>
-        <div>
-            <!-- 公用的模态框列表 -->
-            <pop-list></pop-list>
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
             <section v-if="(loginSucc || showFirstLogin)&&isLog">
@@ -207,18 +204,20 @@
                 </div>
             </section>
             <!--拉新活动-->
-
         </div>
-    </section>
+        <!-- 公用的模态框列表 -->
+        <pop-list></pop-list>
+    </div>
 </template>
 
 <script>
-	import PopList from '~components/Pop-list'
+    import PopList from '~components/Pop-list'
+    import Banner from '~components/banner'
 	import {Message} from 'element-ui'
 	import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
 
 	export default {
-		components: {PopList},
+		components: {PopList,Banner},
 		data () {
 			return {
 				showDetail: false,

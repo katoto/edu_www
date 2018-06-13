@@ -71,33 +71,49 @@ const actionsInfo = mapActions({
 		}
 	},
 
-	//首页 Recent Wins 列表接口数据
-	async getRecentWinsList({commit, dispatch}){
-		// order_lotid
-		try {
-			let dataRecentWinsList = null;
-			// if(order_lotid){
-			//     dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + order_lotid + '&pagesize=20');
-			// }else{
-			dataRecentWinsList = await ajax.get('/home/winnerlist?lotid=' + 1 + '&pagesize=20');
-			// }
-			if (dataRecentWinsList.status === '100') {
-				return dataRecentWinsList.data.winnerlist;
-			} else {
-				Message({
-					message: dataRecentWinsList.message,
-					type: 'error',
-					duration: tipsTime
-				})
-			}
-		} catch (e) {
-			Message({
-				message: e.message,
-				type: 'error',
-				duration: tipsTime
-			})
-		}
-	},
+
+    //首页 Recent Wins 列表接口数据
+    async getRecentWinsList({commit, dispatch}){
+        // order_lotid
+        try{
+            let dataRecentWinsList = null;
+            // if(order_lotid){
+            //     dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + order_lotid + '&pagesize=20');
+            // }else{
+                dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + 1 + '&pagesize=20');
+            // }
+            if(dataRecentWinsList.status === '100'){
+                return dataRecentWinsList.data.winnerlist;
+            }else{
+                Message({
+                    message: dataRecentWinsList.message,
+                    type: 'error',
+                    duration: tipsTime
+                })
+            }
+        }catch(e){
+            Message({
+                message: e.message,
+                type: 'error',
+                duration: tipsTime
+            })
+        }
+    },
+    //首页 限号弹窗
+    async popLimit(){
+	    try {
+	        let dataLimit = null;
+	        let expectId = 1806121622;
+            dataLimit = await ajax.get('/expect/restrictpool?expect='+expectId);
+            return dataLimit;
+        }catch(e){
+            Message({
+                message: e.message,
+                type: 'error',
+                duration: tipsTime
+            })
+        }
+    },
 
 	/* 注册激活 */
 	async mailActivate ({commit, dispatch}, pageData) {

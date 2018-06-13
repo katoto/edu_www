@@ -13,7 +13,7 @@
             </p>
             <span class="small-explain">Wallet Balance</span>
             <ul class="coin-detail" v-if="userInfo.accounts">
-                <li v-for="account in userInfo.accounts">
+                <li v-for="(account, index) in userInfo.accounts" :key="index">
                     <div class="lf130">
                         <span class="coin-name">{{ account.cointype | formateCoinType }}</span>
                         <span class="coin-num bold">{{ account.balance | formateBalance }}</span>
@@ -41,13 +41,13 @@
             <p class="psw-grade hide">
                 Security Level&nbsp;&nbsp;<span class="bold">Middle</span>
             </p>
-            <a href="javascript:;" class="btn-changepsw js_bet-changepsw">Change Password</a>
+            <a href="javascript:;" class="btn-changepsw" @click="onChange">Change Password</a>
         </div>
     </div>
 </template>
 
 <script>
-	import {src, platform, removeCK ,tipsTime, ethUrl} from '~common/util'
+	import {src, platform, removeCK, tipsTime, ethUrl} from '~common/util'
 
 	export default {
 		data(){
@@ -57,61 +57,63 @@
 		methods: {
 			signOut(){
                 /* 退出登录 */
-                this.$store.dispatch('loginOut');
+				this.$store.dispatch('loginOut');
 
-                this.$router.push('/lucky')
+				this.$router.push('/lucky')
 			},
-        },
+			onChange () {
+				this.$store.commit('showResetPwd')
+			}
+		},
 		computed: {
-			isLog(){
+			isLog () {
 				return this.$store.state.isLog
 			},
-			userInfo(){
+			userInfo () {
 				return this.$store.state.userInfo
 			}
 		},
-		components: {},
-		mounted(){
+		mounted () {
 			if (!this.isLog) {
 				this.$router.push('/home')
 			}
 		},
 		filters: {
 			formateCoinType: (type = '2001') => {
-				type = type.toString();
+				type = type.toString()
 				switch (type) {
 					case '2001':
-						return 'ETH';
+						return 'ETH'
 					case '1001':
-						return 'BTC';
+						return 'BTC'
 					default:
 						return 'ETH'
 				}
 			},
 			formateBalance: (val = 0) => {
-				var newEth = null;
+				var newEth = null
 				if (isNaN(val) || isNaN(Number(val))) {
-					console.error('formateBalance error' + val);
-					return 0;
+					console.error('formateBalance error' + val)
+					return 0
 				}
-				val = Number(val);
+				val = Number(val)
 				if (val > 10000000) {
-					newEth = ( val / 100000000).toFixed(1) + '亿';
+					newEth = (val / 100000000).toFixed(1) + '亿'
 				} else if (val > 100000) {
-					newEth = ( val / 10000).toFixed(1) + '万';
+					newEth = (val / 10000).toFixed(1) + '万'
 				} else if (val > 1000) {
-					newEth = parseFloat(( val ).toFixed(0));
+					newEth = parseFloat(val.toFixed(0))
 				} else if (val > 100) {
-					newEth = ( val ).toFixed(3);
+					newEth = val.toFixed(3)
 				} else if (val > 10) {
-					newEth = ( val ).toFixed(4);
+					newEth = val.toFixed(4)
 				} else {
-					newEth = ( val ).toFixed(5);
+					newEth = val.toFixed(5)
 					// 如果需要去掉零 用parseFloat(  )
 				}
-				return newEth;
-            }
-        }
+				return newEth
+			}
+		}
 	}
 </script>
 <style scoped lang="less" rel="stylesheet/less">

@@ -8,6 +8,7 @@
         <pop-reg-success></pop-reg-success>
         <pop-reg-failure></pop-reg-failure>
         <pop-faucet></pop-faucet>
+        <pop-limit></pop-limit>
     </div>
 </template>
 
@@ -19,7 +20,8 @@
 	import PopVerifyEmailError from './pop/Pop-verify-email-error'
 	import PopRegSuccess from './pop/Pop-reg-success'
 	import PopRegFailure from './pop/Pop-reg-failure'
-	import PopFaucet from './pop/Pop-faucet'
+    import PopFaucet from './pop/Pop-faucet'
+    import PopLimit from './pop/Pop-limit'
 	export default {
 		components: {
 			PopLogin,
@@ -29,7 +31,8 @@
 			PopVerifyEmailError,
 			PopRegSuccess,
 			PopRegFailure,
-			PopFaucet
+			PopFaucet,
+            PopLimit
 		}
 	}
 </script>
