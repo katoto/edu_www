@@ -1,5 +1,5 @@
 <template>
-    <div class="" v-model="scroll">
+    <div class="">
         <Header></Header>
         <HeaderNav></HeaderNav>
         <div class="main">
@@ -340,71 +340,71 @@
 	import Footer from '~components/Footer.vue'
 	import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 	import {Message} from 'element-ui'
-	import {src, platform, isLog, getCK,format_match, setCK,removeCK  } from '~common/util'
+	import { src, platform, isLog, getCK, format_match, setCK, removeCK } from '~common/util'
 	export default {
 		data () {
 			return {
 				scroll: '',
-                activeName:'Wins',
-                DataWinnerList:[
+                activeName: 'Wins',
+                DataWinnerList: [
 //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
                 ]
 			}
 		},
 		watch: {},
 		computed: {
-			socket(){
+			socket () {
 				return this.$store.state.socket
             }
         },
 		methods: {
-			leaveRoute(){
+			leaveRoute () {
 				this.$router.push('/account')
             },
 			fixNav () {
-				this.scroll = document.documentElement.scrollTop || document.body.scrollTop
+				// this.scroll = document.documentElement.scrollTop || document.body.scrollTop
 				if (this.scroll >= 90) {
 					this.$store.commit(mTypes.setNavFix, true)
 				} else {
 					this.$store.commit(mTypes.setNavFix, false)
 				}
 			},
-            showPopLimit(){
+            showPopLimit () {
                 this.$store.commit('showPopLimit')
             },
-            format_betCode(betcode){
+            format_betCode (betcode) {
                 let currLuckyNum = betcode.split(',');
                 let str = '<ul class="num-box">'
-                currLuckyNum.forEach(function(value,index){
+                currLuckyNum.forEach(function (value, index) {
                   str += `<li class="bingo">${value}</li>`
                 })
-			    return str+'</ul>';
+			    return str + '</ul>';
             },
-            format_recentWins(msg){
-                msg.forEach((item,index)=>{
+            format_recentWins (msg) {
+                msg.forEach((item, index) => {
                     item.bettype = format_match(item.bettype)
                     item.betcode = this.format_betCode(item.betcode)
-                    item.betmoney = parseFloat(item.betmoney).toFixed(5)+'ETH'
-                    item.betprize = '<span class="win"><span>'+parseFloat(item.betprize).toFixed(5)+'</span>ETH</span>'
+                    item.betmoney = parseFloat(item.betmoney).toFixed(5) + 'ETH'
+                    item.betprize = '<span class="win"><span>' + parseFloat(item.betprize).toFixed(5) + '</span>ETH</span>'
                 })
                 return msg;
             },
 
-            async indexRouter( query ){
+            async indexRouter (query) {
 				/* 邮箱注册 找回密码  邀请等 */
-                if( query.sign ){
-                	if( query.from === 'reg' ){
-                        let mailBack = await this.$store.dispatch(aTypes.mailActivate , query.sign );
+                if (query.sign) {
+                	if (query.from === 'reg') {
+                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign);
 		                console.log(mailBack);
                         if (mailBack && mailBack.status === '100') {
-                        	if( parseFloat(mailBack.data.login_times)>0 && mailBack.data.invite_status.toString() === '0' ){
+                        	if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
 //		                        显示第一次邀请
-                        		this.$store.commit('showFirstLogin',true);
-                            }else{
-		                        this.$store.commit('showFirstLogin',false);
+                        		this.$store.commit('showFirstLogin', true);
+                            } else {
+		                        this.$store.commit('showFirstLogin', false);
                             }
 	                        this.$store.commit('showRegSuccess');
-                        }else{
+                        } else {
 	                        Message({
 		                        message: mailBack.message,
 		                        type: 'error'
@@ -413,22 +413,22 @@
                         // 清除参数
 //                        this.$router.push('/lucky')
                     }
-	                if( query.from === 'resetPassword' ){
+	                if (query.from === 'resetPassword') {
                         // 重置密码
-		                this.$store.commit('setResetObj',{
-			                email:query.email,
-			                sign:query.sign,
-			                showReset:true
+		                this.$store.commit('setResetObj', {
+			                email: query.email,
+			                sign: query.sign,
+			                showReset: true
 		                });
 		                this.$store.commit('showResetPwd');
 		                // 修改密码的时候，清楚ck
                         removeCk();
 	                }
-	                if( !!query.inviter ){
+	                if (query.inviter) {
                         // 邀请
-		                this.$store.commit('setInviterObj',{
-			                inviter:query.inviter,
-			                sign:query.sign
+		                this.$store.commit('setInviterObj', {
+			                inviter: query.inviter,
+			                sign: query.sign
 		                });
 	                }
                 }
@@ -441,24 +441,22 @@
 		},
         async mounted () {
             window.addEventListener('scroll', this.fixNav);
-            if( this.$store.state.route.query ){
-                this.indexRouter( this.$store.state.route.query )
+            if (this.$store.state.route.query) {
+                this.indexRouter(this.$store.state.route.query)
             }
             let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList);
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList);
             console.log(333);
 	        console.log(this.socket);
-	        if( !( this.socket && this.socket.sock ) ){
+	        if (!(this.socket && this.socket.sock)) {
 		        this.$store.dispatch('initWebsocket')
 	        }
         },
-		beforeRouteLeave( to , from , next ){
+		beforeRouteLeave (to, from, next) {
 			// 是否需要主队断sock ？
-//			this.$store.state.socket.sock.onclose();
-
-//			this.$store.dispatch('unsubscribe')
-//			this.$store.dispatch('subscribe')
-
+            // this.$store.state.socket.sock.onclose();
+            // this.$store.dispatch('unsubscribe')
+            // this.$store.dispatch('subscribe')
 			next();
         },
 		destroyed () {

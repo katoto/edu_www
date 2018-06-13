@@ -16,7 +16,7 @@ module.exports = {
 	rules: {
         "no-tabs": 0,
 		"indent": [0, 'tab'],
-		'semi': ['error','never'],
+		'semi': 0,
 		'semi-spacing': [0, {
 			'before': false,
 			'after': false
