@@ -7,15 +7,6 @@ import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/
 
 import {Message} from 'element-ui'
 
-function getCommonParams () {
-    return {
-        ck: getCK(),
-        lotid: 1,
-        platform,
-        src
-    }
-}
-
 const state = {
     navFix: false
 }
@@ -30,47 +21,18 @@ const mutationsInfo = mapMutations({
 }, 'cs_account')
 
 const actionsInfo = mapActions({
-    /* my bet 投注接口 */
-    async getOrderList ({commit, dispatch}, params) {
-        return ajax.get('/order/list', {
-            ...getCommonParams(),
-            ...params
-        })
+    // my bet 投注接口
+    getOrderList ({commit, dispatch}, params) {
+        return ajax.get('/order/list', params)
     },
-    /* my transactions 我的交易接口 */
-    async getAccountLog ({commit, dispatch}, params) {
-        return ajax.get('/account/log', {
-            ...getCommonParams(),
-            ...params
-        })
+    // my transactions 我的交易接口
+    getAccountLog ({commit, dispatch}, params) {
+        return ajax.get('/account/log', params)
     },
 
-    /* my withdraw/records 我的提款记录  	<!-- rangeno 没有统一 app无法统一 -->  */
-    async getWithdrawRecords ({commit, dispatch}, msg) {
-        try {
-            let InfoData = null
-            if (msg) {
-                InfoData = await ajax.get(`/account/withdraw/records?pageno=${msg.pageno}&rangeno=${msg.pagesize}&ck=${getCK()}&platform=${platform}&src=${src}`)
-            } else {
-                InfoData = await ajax.get(`/account/withdraw/records?ck=${getCK()}&platform=${platform}&src=${src}`)
-            }
-            if (InfoData.status === '100') {
-                return InfoData.data
-            } else {
-                Message({
-                    message: InfoData.message,
-                    type: 'error',
-                    duration: tipsTime
-                })
-                return false
-            }
-        } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
+    // my withdraw/records 我的提款记录
+    getWithdrawRecords ({commit, dispatch}, params) {
+        return ajax.get('/account/withdraw/records', params)
     },
 
     async getWithdrawApply ({commit, dispatch}, msg = {}) {
