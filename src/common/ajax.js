@@ -9,7 +9,8 @@ function getCommonParams () {
     return {
         ck: getCK(),
         platform,
-        src
+        src,
+        lotid: 1
     }
 }
 
