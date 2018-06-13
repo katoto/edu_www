@@ -63,11 +63,11 @@ const actions = {
 		try {
 			let userMsg = await ajax.get(`/user/info`);
 			console.log(userMsg);
-			console.log('333');
-			console.log('333');
-			console.log('333');
 
 			if (userMsg.status == '100') {
+				if(userMsg.data.uid){
+					commit(mTypes.setUid,userMsg.data.uid)
+				}
 				// 未激活，无钱包
 				if (userMsg.data.accounts.length === 0) {
 					userMsg.data.accounts.push({
@@ -105,7 +105,6 @@ const actions = {
 						login_times: state.pop.loginSucc.login_times
 					})
 				}
-
 				commit('setLoginSucc', newInviteObj)
 			}
 			return userMsg

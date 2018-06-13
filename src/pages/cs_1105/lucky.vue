@@ -165,8 +165,21 @@
                                             <th>Prize Amount</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tabody-betlist" class="tabody-betlist newRecord">
-
+                                    <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
+                                        <tr v-for="item in recentBet" :data-oid="item.oid">
+                                            <td>{{ item.create_time | formatTime("HH:mm:ss")  }}</td>
+                                            <td>{{ item.uid }}</td>
+                                            <td>{{ item.expectid }}</td>
+                                            <td>{{ item.bettype | format_match }}</td>
+                                            <td>
+                                                <ul class="num-box">
+                                                    <li>1</li></ul>
+                                            </td>
+                                            <td>{{ item.betmoney }}{{ item.cointype | formateCoinType }}</td>
+                                            <td class="js_resultDom">
+                                                <a></a>-
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -341,7 +354,8 @@
 	import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 	import {Message} from 'element-ui'
 	import { src, platform, isLog, getCK, format_match, setCK, removeCK } from '~common/util'
-	export default {
+
+    export default {
 		data () {
 			return {
 				scroll: '',
@@ -356,6 +370,9 @@
 			socket () {
 				return this.$store.state.socket
             },
+			recentBet () {
+				return this.$store.state.cs_1105.recentBet
+			},
         },
 		methods: {
 			leaveRoute () {
@@ -439,6 +456,88 @@
 			Header,
 			HeaderNav
 		},
+	    filters: {
+		    formateCoinType: (type = '2001') => {
+			    type = type.toString()
+			    switch (type) {
+				    case '2001':
+					    return 'ETH'
+				    case '1001':
+					    return 'BTC'
+				    default:
+					    return 'ETH'
+			    }
+		    },
+		    format_match: (match)=> {
+			    if (isNaN(match)) {
+				    return ''
+			    }
+			    match = match.toString()
+			    switch (match) {
+				    case '1101':
+					    return 'C1'
+				    case '1102':
+					    return 'C2'
+				    case '1103':
+					    return 'C3'
+				    case '1104':
+					    return 'C4'
+				    case '1105':
+					    return 'C5'
+			    }
+		    },
+		    formatTime :(time, format) => {
+			    if (format === undefined || format == null) {
+				    format = 'MM-dd HH:mm:ss'
+			    }
+			    if (isNaN(time)) {
+				    return false
+			    }
+			    let t = new Date(+time * 1000)
+			    let tf = function (i) {
+				    return (i < 10 ? '0' : '') + i
+			    }
+			    return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+				    switch (a) {
+					    case 'yyyy':
+						    return tf(t.getFullYear())
+					    case 'MM':
+						    return tf(t.getMonth() + 1)
+					    case 'mm':
+						    return tf(t.getMinutes())
+					    case 'dd':
+						    return tf(t.getDate())
+					    case 'HH':
+						    return tf(t.getHours())
+					    case 'ss':
+						    return tf(t.getSeconds())
+				    }
+			    })
+		    },
+		    formateBalance: (val = 0) => {
+			    var newEth = null
+			    if (isNaN(val) || isNaN(Number(val))) {
+				    console.error('formateBalance error' + val)
+				    return 0
+			    }
+			    val = Number(val)
+			    if (val > 10000000) {
+				    newEth = (val / 100000000).toFixed(1) + '亿'
+			    } else if (val > 100000) {
+				    newEth = (val / 10000).toFixed(1) + '万'
+			    } else if (val > 1000) {
+				    newEth = parseFloat(val.toFixed(0))
+			    } else if (val > 100) {
+				    newEth = val.toFixed(3)
+			    } else if (val > 10) {
+				    newEth = val.toFixed(4)
+			    } else {
+				    newEth = val.toFixed(5)
+				    // 如果需要去掉零 用parseFloat(  )
+			    }
+			    return newEth
+		    }
+	    },
         async mounted () {
             window.addEventListener('scroll', this.fixNav);
             if (this.$store.state.route.query) {
@@ -462,6 +561,7 @@
 		destroyed () {
 			window.removeEventListener('scroll', this.fixNav)
 		}
+
 	}
 </script>
 <style lang="less" rel="stylesheet/less">

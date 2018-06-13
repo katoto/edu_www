@@ -23,6 +23,7 @@ const state = {
 
 	recentBet:[],  // 最近投注
 
+	uid:null,  //过滤数据用
 
 }
 
@@ -47,13 +48,47 @@ const mutationsInfo = mapMutations({
 	timeInterval(state, interval){
 		state.timeInterval = interval
 	},
-
+	setUid(state,uid){
+		state.uid = uid
+	}
 }, 'cs_1105');
 
 const actionsInfo = mapActions({
 	/* recent Bet */
-	formate_recentBet( {state,commit, dispatch},top ){
-		commit(mTypes.setRecentBet , top);
+	formate_recentBet( {state,commit, dispatch},newData ){
+		let currLuckyNum = null ;
+		let newLuckyResult = null;
+		let newNumLis = '' ;
+		console.log(newData);
+		if( newData && newData.length > 0 ){
+			for( let i,len = newData.length;i<len;i++ ){
+				console.log(i);
+				// 过滤掉 未登录和别人的failure
+				if (newData[i].status === '-1') {
+					if (newData[i].uid.toString() !== state.uid || state.uid === '0') {
+						continue;
+					}
+				}
+				if (newData[i].betcode) {
+					currLuckyNum = newData[i].betcode.split(',');
+					for (let j = 0, lenJ = currLuckyNum.length; j < lenJ; j++) {
+						if (newData[i].opencode !== null && newData[i].opencode !== '' && newData[i].opencode !== undefined) {
+							newLuckyResult = newData[i].opencode.split(',');
+							if (newLuckyResult.indexOf(currLuckyNum[j]) > -1) {
+								newNumLis += '<li class="bingo">' + currLuckyNum[j] + '</li>'
+							} else {
+								newNumLis += '<li>' + currLuckyNum[j] + '</li>'
+							}
+						} else {
+							newNumLis += '<li>' + currLuckyNum[j] + '</li>'
+						}
+					}
+				}
+				console.log(newNumLis);
+				console.log('===========');
+			}
+		}
+		commit(mTypes.setRecentBet , newData);
 		console.log('===top==');
 	},
 	// 当前 期号处理
