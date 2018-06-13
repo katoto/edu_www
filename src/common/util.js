@@ -3,13 +3,14 @@
  */
 
 import Cookies from 'js-cookie'
+import { Message } from 'element-ui'
 
 export const src = 'pc'
 export const tipsTime = 3000
 export const ethUrl = 'https://etherscan.io/'
-export const channel = 2000  // 暂时就sign 注册用到
+export const channel = 2000 // 暂时就sign 注册用到
 
-export function mapActions(acts, ns) {
+export function mapActions (acts, ns) {
 	const aTypes = {}
 	const actions = {}
 	Object.keys(acts).forEach((key) => {
@@ -17,7 +18,6 @@ export function mapActions(acts, ns) {
 		actions[aTypes[key]] = acts[key]
 	})
 	return {actions, aTypes}
-
 }
 
 export const platform = 'pc'
@@ -214,5 +214,24 @@ export function formateMoneyFlow (flowtype = '1') {
         return 'World cup'// 世界杯中奖
     default:
         return 'bet'
+    }
+}
+
+export function commonErrorHandler (data) {
+    let status = data.status
+    switch (status) {
+        case '214':
+	        removeCK();
+	        this.$store.commit('setIsLog', false);
+	        this.$store.commit('setUserInfo', {});
+	        this.$store.commit('showLoginPop')
+            break
+        default:
+            Message({
+                message: data.message,
+                type: 'error',
+                duration: tipsTime
+            })
+            break
     }
 }

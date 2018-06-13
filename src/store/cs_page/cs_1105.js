@@ -23,9 +23,17 @@ const state = {
 
 	recentBet:[],  // 最近投注
 
+
 }
 
 const mutationsInfo = mapMutations({
+
+	currExpectId( state,data ){
+		state.currExpectId = data
+	},
+	setRecentBet( state ,data ){
+		state.recentBet = data
+	},
 	setWithDrawList (state, data) {
 		state.withdrawList = data
 	},
@@ -45,14 +53,13 @@ const mutationsInfo = mapMutations({
 const actionsInfo = mapActions({
 	/* recent Bet */
 	formate_recentBet( {state,commit, dispatch},top ){
-		state.recentBet = top
-		console.log(top);
+		commit(mTypes.setRecentBet , top);
 		console.log('===top==');
 	},
 	// 当前 期号处理
 	formate_expectid( {state,commit, dispatch},expectid ){
 		if (expectid) {
-			state.currExpectId = expectid
+			commit(mTypes.currExpectId , expectid);
 		}
 	},
 	//  初始化上一期的结果
@@ -82,7 +89,6 @@ const actionsInfo = mapActions({
 				}, 250);
 			}
 		}
-
 	},
 
 	/* 初始化倒计时 */
@@ -95,9 +101,9 @@ const actionsInfo = mapActions({
 				state.timeLeft = parseFloat(state.timeLeft) - 1;
 				if (state.timeLeft == 0) {
 					state.expect_blinking = false;
-					state.expect_move = true
+					state.expect_move = true;
 					setTimeout(function () {
-						state.expect_blinking = true
+						state.expect_blinking = true;
 						state.expect_move = false
 					}, 1300);
 				}

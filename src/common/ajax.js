@@ -2,17 +2,16 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
-import { getCK, platform, tipsTime, src } from '~common/util'
-import { Message } from 'element-ui'
+import { getCK, platform, src, commonErrorHandler } from '~common/util'
 
 function getCommonParams () {
-    let ck = getCK()
+    let ck = getCK() || ''
     let params = {
         platform,
         src,
         lotid: 1
     }
-    return ck ? { ...params, ck } : params
+    return { ...params, ck }
 }
 
 const options = {}
@@ -31,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     // options.baseURL = 'https://www.coinslot.com/api'
     options.baseURL = 'http://10.0.1.167:8095' // 8095
-    options.baseURL = 'http://10.0.1.41:3333' // 8095
+    // options.baseURL = 'http://10.0.1.41:3333' // 8095
 }
 
 const _axios = axios.create(options)
@@ -58,11 +57,7 @@ ajax.get = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    Message({
-                        message: response.data.message,
-                        type: 'error',
-                        duration: tipsTime
-                    })
+                    commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data

@@ -170,7 +170,7 @@ export default {
         async handleCurrentChange (pageno = this.pageno) {
             let params = {
                 pageno,
-                crday: {
+                day: {
                     '1': '',
                     '2': 90,
                     '3': 30,
