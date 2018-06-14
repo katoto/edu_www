@@ -25,7 +25,7 @@
         <div class="recharge-box">
             <div class="recharge-item recharge-item1" v-if="userInfo">
                 <h3>1.Copy the Ethereum wallet address (only supports ETH)</h3>
-                <div class="js_verifyBox" v-if="userInfo.accounts && userInfo.accounts.length>0">
+                <div class="js_verifyBox" v-if="userInfo && userInfo.status ==='1'">
                     <template v-for="item in userInfo.accounts">
                         <span class="recharge-add">
                             {{ item.address }}
