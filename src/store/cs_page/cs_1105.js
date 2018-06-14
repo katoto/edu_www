@@ -31,8 +31,11 @@ const state = {
         1103: '13.5',
         1104: '54',
         1105: '378'
-    }
+    },
+    popLoadSpeed: 800, // 动态速率
+    popTimeInterval: null,
 
+    allbetPipeArr: [] // 用于控制allbet
 }
 
 const mutationsInfo = mapMutations({
@@ -57,10 +60,145 @@ const mutationsInfo = mapMutations({
     },
     setUid (state, uid) {
         state.uid = uid
+    },
+    setAllbetPipeArr (state, pipe) {
+        state.allbetPipeArr = pipe
     }
 }, 'cs_1105')
 
 const actionsInfo = mapActions({
+    /* recent Bet  实时更新 recent bet */
+    formate_pushBetData ({state, commit, dispatch}, orders) {
+        if (orders) {
+            if (Array.isArray(orders)) {
+                if (state.allbetPipeArr.length > 30) {
+                    // 太多去除
+                    commit(mTypes.setAllbetPipeArr, state.allbetPipeArr.slice(0, 20))
+                } else {
+                    commit(mTypes.setAllbetPipeArr, state.allbetPipeArr.concat(orders))
+                }
+            } else {
+                console.warn('formate_pushBetData error not arr')
+            }
+        }
+    },
+
+    /* 动态数据一条条处理 */
+    recentBetAdd ({state, commit, dispatch}) {
+        if (!state.popTimeInterval) {
+            state.popTimeInterval = setInterval(function () {
+                console.log(1111);
+                let currMsg = null;
+                let findIndex = null;
+                let findBetMsg = null;
+                //  操作数组的写法
+                if( state.allbetPipeArr.length > 0 ){
+                    currMsg = state.allbetPipeArr.pop()
+                    console.log(currMsg);
+                    console.log('========currMsg===')
+                    // return false跳出循环，return true继续循环
+                    if( state.recentBet.length > 0 ){
+                        state.recentBet.every(( val , index )=>{
+                            console.log(val);
+                            if( val ){
+                                // 是开奖 更新状态
+                                if( val.oid === currMsg.oid ){
+                                    findIndex = index;
+                                    return false
+                                }
+                            }
+                            return true
+                        })
+                        if( findIndex !== null ){
+                            findBetMsg = state.recentBet.splice( findIndex , 1 );
+                            if( findBetMsg ){
+                                /* 更新开奖转态 在放入第一个 */
+                            }
+                        }else{
+                            /* 最新插入数据  是否删掉最后一条？ */
+
+                        }
+                    }
+                }
+
+                // var currMsg = null,
+                //     $currDom = null,
+                //     currTdNow = '',
+                //     currTdLisNow,
+                //     currLuckyNum = []
+                // if (allbetPipeArr.length > 0) {
+                //     currMsg = allbetPipeArr.pop()
+                //     if (currMsg && currMsg.oid) {
+                //         $currDom = $('#tabody-betlist tr[data-Oid="' + currMsg.oid + '"]')
+                //         if ($currDom.length > 0) {
+                //             if (currMsg.opencode !== null && currMsg.opencode !== '' && currMsg.opencode !== undefined) {
+                //                 // 是开奖 更新状态，不是投注
+                //                 betBlockList($currDom, currMsg.opencode, currMsg.betprize, currMsg.orderstatus)
+                //                 return false
+                //             } else {
+                //                 // 是投注广播
+                //                 //  status  // todo
+                //                 if (currMsg.orderstatus.toString() === '1' || currMsg.orderstatus.toString() === '2') {
+                //                     $currDom.attr('data-currStatus', currMsg.orderstatus.toString())
+                //                     return false
+                //                 } else {
+                //                     $currDom.remove()
+                //                 }
+                //             }
+                //         }
+                //
+                //         // 加入数据
+                //         currTdNow += '<tr class="newRecord" data-currStatus="' + currMsg.orderstatus + '" data-Oid="' + currMsg.oid + '"><td>' + format_time(currMsg.create_time) + '</td><td>' + currMsg.uid + '</td>' +
+                //             '<td>' + currMsg.expectid + '</td>' +
+                //             '<td>' + format_match(currMsg.bettype) + '</td>' +
+                //             '<td><ul class="num-box">'
+                //         currTdLisNow = ''
+                //
+                //         if (currMsg.betcode) {
+                //             currLuckyNum = currMsg.betcode.split(',')
+                //             for (var j = 0, lenJ = currLuckyNum.length; j < lenJ; j++) {
+                //                 if (currMsg.opencode !== null && currMsg.opencode !== '' && currMsg.opencode !== undefined) {
+                //                     var newLuckyResult = currMsg.opencode.split(',')
+                //                     if (newLuckyResult.indexOf(currLuckyNum[j]) > -1) {
+                //                         currTdLisNow += '<li class="bingo">' + currLuckyNum[j] + '</li>'
+                //                     } else {
+                //                         currTdLisNow += '<li>' + currLuckyNum[j] + '</li>'
+                //                     }
+                //                 } else {
+                //                     currTdLisNow += '<li>' + currLuckyNum[j] + '</li>'
+                //                 }
+                //             }
+                //         }
+                //         currTdNow += currTdLisNow + '</ul></td>' +
+                //             '<td>' + Number(currMsg.betmoney).toFixed(5) + 'ETH</td>'
+                //
+                //         //   -2|取消退款  -1|下单失败  0|下单 1|成功  2|结算    new
+                //         // 	0 交易中 , 1待开奖,2、待结算  3未中奖 4 中奖,  old
+                //         if (currMsg.orderstatus == '2') {
+                //             // 结算 并且大于0
+                //             if (currMsg.betprize > 0) {
+                //                 currTdNow += '<td class="win-amount js_resultDom"><a class="win">+' + currMsg.betprize + digitalUnit + '</a></td>'
+                //             } else {
+                //                 currTdNow += '<td class="js_resultDom"><a></a>-</td>'
+                //             }
+                //         } else {
+                //             if (currMsg.orderstatus == '0') {
+                //                 currTdNow += '<td class="js_resultDom bold">wait </td>'
+                //             } else if (currMsg.orderstatus == '1') {
+                //                 currTdNow += '<td class="js_resultDom bold">wait</td>'
+                //             } else if (currMsg.orderstatus == '-1' || currMsg.orderstatus == '-2') {
+                //                 currTdNow += '<td class="js_resultDom bold"><a></a>failure</td>'
+                //             }
+                //         }
+                //         $('#tabody-betlist').prepend(currTdNow)
+                //     }
+                // }
+
+
+            }, state.popLoadSpeed)
+        }
+    },
+
     /* recent Bet */
     formate_recentBet ({state, commit, dispatch}, newData) {
         let currLuckyNum = null
@@ -69,7 +207,7 @@ const actionsInfo = mapActions({
         if (newData && newData.length > 0) {
             for (let i = 0, len = newData.length; i < len; i++) {
                 // 过滤掉 未登录和别人的failure
-                if (newData[i].status === '-1') {
+                if (newData[i].orderstatus === '-1') {
                     if (newData[i].uid.toString() !== state.uid || state.uid === '0') {
                         continue
                     }
@@ -92,7 +230,7 @@ const actionsInfo = mapActions({
                     newData[i].openCodeVal = newNumLis
                 }
 
-                //                -2|取消退款  -1|下单失败  0|下单 1|成功  2|结算    new
+                //     -2|取消退款  -1|下单失败  0|下单 1|成功  2|结算    new
                 let newTbody = ''
                 if (newData[i].orderstatus.toString() === '2') {
                     // 结算 并且大于0

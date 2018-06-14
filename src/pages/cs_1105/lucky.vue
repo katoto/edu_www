@@ -76,7 +76,7 @@
                     </span>
                     <a href="javascript:;" @click="addTicket" class="addmore">Add Ticket</a>
                 </div>
-                <div class="btn-play-now">
+                <div id="js_startBetBtn" class="btn-play-now">
                     <a href="javascript:;" @click="playNow">
                         Play Now
                     </a>
@@ -448,6 +448,11 @@
             },
 
             async playNow () {
+                // 区块链阻塞
+                let js_startBetBtn = document.getElementById('js_startBetBtn')
+                if (~js_startBetBtn.className.indexOf('unable')) {
+                    return false
+                }
                 // 投注下单
                 // 出现loading
                 //                document.getElementById('js_loading').className = '';
@@ -710,6 +715,8 @@
             if (!(this.socket && this.socket.sock)) {
                 this.$store.dispatch('initWebsocket')
             }
+            /* 开启动态数据定时器 */
+            // this.$store.dispatch(aTypes.recentBetAdd)
         },
         beforeRouteLeave (to, from, next) {
             // 是否需要主队断sock ？

@@ -1,5 +1,5 @@
 import ajax from '~common/ajax'
-import { src, getCK, platform, tipsTime, removeCK } from '~common/util'
+import {src, getCK, platform, tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 
@@ -157,11 +157,49 @@ const actions = {
                             if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
+                            // 初始化上一期结果
+                            dispatch(aTypes.formate_Result, msg.data)
 
+                            /*
+                                 *  处理 区块链阻塞
+                                 * */
+                            let js_startBetBtn = document.getElementById('js_startBetBtn')
+                            // msg.data.block_status = '0' 报错错误
+                            if (msg.data.block_status.toString() === '1') {
+                                //  健康
+                                if (~js_startBetBtn.className.indexOf('unable')) {
+                                    js_startBetBtn.className = 'btn-play-now'
+                                }
+                            } else if (msg.data.block_status.toString() === '0') {
+                                // 不健康  添加unable
+                                Message({
+                                    message: 'The network is blocking, please retry later',
+                                    type: 'error',
+                                    duration: tipsTime
+                                })
+                                js_startBetBtn.className = 'btn-play-now unable'
+                            }
+
+                            break
+                        case '1003':
+                            // 开奖结果消息  更新 my Bet  todo
+                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
+                                dispatch(aTypes.formate_expectid, msg.data.expectid)
+                            }
+                            // recent bet
+                            if (msg.data.top) {
+                                dispatch(aTypes.formate_recentBet, msg.data.top)
+                            }
                             // 初始化上一期结果
                             dispatch(aTypes.formate_Result, msg.data)
                             break
-                        case '1003':
+
+                        case '1004':
+                            /* 投注推送  和 更新 my bet  */
+                            console.log(msg.data)
+                            console.log('=== 104 ====')
+                            if (msg.data && msg.data.orders) { dispatch(aTypes.formate_pushBetData, msg.data.orders) }
+
                             break
                         }
                     }
