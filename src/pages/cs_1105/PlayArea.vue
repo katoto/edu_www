@@ -119,7 +119,6 @@
 			js_beting_add(){
 				// 加钱  （上限）
 				let currpickMoney = this.areaMsg.pickMoney;
-
 				if( currpickMoney >= 0.1 ){
 					Message({
 						message: 'Bet amount is between 0.0001 and 0.1 ETH',
