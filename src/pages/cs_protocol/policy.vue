@@ -385,24 +385,24 @@
     import Header from '~/components/Header.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Footer from '~/components/Footer.vue'
-	export default {
-		data(){
-			return {
-				title: ''
-			}
-		},
-		watch: {},
-		methods: {},
-		components:{
-			Footer,
+export default {
+    data () {
+            return {
+                title: ''
+            }
+    },
+    watch: {},
+    methods: {},
+    components: {
+            Footer,
             Header,
             BreadCrumbs
-		},
-		computed: {},
-		mounted(){
+    },
+    computed: {},
+    mounted () {
 
-		}
-	}
+    }
+}
 </script>
 <style scoped lang="less">
     .main{

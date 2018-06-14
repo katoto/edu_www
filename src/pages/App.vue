@@ -5,33 +5,30 @@
 </template>
 
 <script>
-	import {src, platform, isLog, getCK, setCK,removeCK  } from '~common/util'
+	import {src, platform, isLog, getCK, setCK, removeCK } from '~common/util'
 	// todo 暂时到时候改到global
 	export default {
-		data () {
-			return {
-				isReady: false,
-			}
-		},
-		async mounted(){
-//			临时写死一个ck 进去
-            /* isLog ? */
-			if (isLog()) {
-				this.$store.commit('setIsLog', true);
-				let userMsg = await this.$store.dispatch('getUserInfo');
-				if (userMsg && userMsg.status.toString() === '100') {
-					this.$store.commit('setIsLog', true);
-					this.$store.commit('setUserInfo', userMsg.data);
-				}
-
-			} else {
-				this.$store.commit('setIsLog', false);
-			}
-			this.isReady = true;
-
-		}
+	    data () {
+	        return {
+	            isReady: false
+	        }
+	    },
+	    async mounted () {
+        //			临时写死一个ck 进去
+        /* isLog ? */
+	        if (isLog()) {
+	            this.$store.commit('setIsLog', true)
+	            let userMsg = await this.$store.dispatch('getUserInfo')
+	            if (userMsg && userMsg.status.toString() === '100') {
+	                this.$store.commit('setIsLog', true)
+	                this.$store.commit('setUserInfo', userMsg.data)
+	            }
+	        } else {
+	            this.$store.commit('setIsLog', false)
+	        }
+	        this.isReady = true
 	}
-
+	}
 </script>
 
 <style lang="less">

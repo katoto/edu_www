@@ -72,43 +72,43 @@
 <script>
 	import {Message} from 'element-ui'
 	export default {
-		data(){
-			return {}
-		},
-		watch: {},
-		methods: {
-			copySucc(){
-				Message({
-					message: 'Copied to clipboard',
-					type: 'success'
-				});
-            },
-			copyError(){
-				Message({
-					message: 'Failed to copy, please retry',
-					type: 'success'
-				});
-            }
+	    data () {
+	        return {}
+	    },
+	    watch: {},
+	    methods: {
+	        copySucc () {
+	            Message({
+	                message: 'Copied to clipboard',
+	                type: 'success'
+	            })
         },
-		computed: {
-			isLog(){
-				return this.$store.state.isLog
-			},
-			userInfo(){
-				return this.$store.state.userInfo
-			}
-		},
-		components: {},
-		mounted(){
-			if (!this.isLog) {
-				this.$router.push('/home')
-			}
-		},
-		filters: {
-			formateCoinType: (type = '2001') => {
-                return 'a'+type
-			},
+	        copyError () {
+	            Message({
+	                message: 'Failed to copy, please retry',
+	                type: 'success'
+	            })
         }
+    },
+	    computed: {
+	        isLog () {
+	            return this.$store.state.isLog
+	        },
+	        userInfo () {
+	            return this.$store.state.userInfo
+	        }
+	    },
+	    components: {},
+	    mounted () {
+	        if (!this.isLog) {
+	            this.$router.push('/home')
+	        }
+	    },
+	    filters: {
+	        formateCoinType: (type = '2001') => {
+            return 'a' + type
+	        }
+    }
 	}
 </script>
 <style scoped lang="less" rel="stylesheet/less">

@@ -45,51 +45,51 @@
 	import {Message} from 'element-ui'
 
 	export default {
-		components: {Pop},
-		computed: {
-			faucetMsg(){
-				return this.$store.state.pop.faucetMsg
-            },
-			show: {
-				set: function (isShow) {
-					if (!!isShow === true) {
-						this.$store.commit('showFaucet')
-					} else {
-						this.$store.commit('hideFaucet')
-					}
-				},
-				get: function () {
-					return this.$store.state.pop.showFaucet
-				}
-			}
-		},
-        methods:{
-	        copySucc(){
+	    components: {Pop},
+	    computed: {
+	        faucetMsg () {
+	            return this.$store.state.pop.faucetMsg
+        },
+	        show: {
+	            set: function (isShow) {
+	                if (!!isShow === true) {
+	                    this.$store.commit('showFaucet')
+	                } else {
+	                    this.$store.commit('hideFaucet')
+	                }
+	            },
+	            get: function () {
+	                return this.$store.state.pop.showFaucet
+	            }
+	        }
+	    },
+    methods: {
+	        copySucc () {
 		        Message({
 			        message: 'Copied to clipboard',
 			        type: 'success'
-		        });
-	        },
-	        copyError(){
+		        })
+        },
+	        copyError () {
 		        Message({
 			        message: 'Failed to copy, please retry',
 			        type: 'success'
-		        });
+		        })
+        }
+    },
+	    filters: {
+	        formateCoinType: (type = '2001') => {
+	            type = type.toString()
+	            switch (type) {
+	            case '2001':
+	                return 'ETH'
+	            case '1001':
+	                return 'BTC'
+	            default:
+	                return 'ETH'
+	            }
 	        }
-        },
-		filters: {
-			formateCoinType: (type = '2001') => {
-				type = type.toString();
-				switch (type) {
-					case '2001':
-						return 'ETH';
-					case '1001':
-						return 'BTC';
-					default:
-						return 'ETH'
-				}
-			}
-		},
+	    }
 	}
 </script>
 

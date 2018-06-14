@@ -38,145 +38,144 @@
 	import {tipsTime, setCK, removeCK, wait} from '~common/util'
 
 	export default {
-		data(){
-			return {
-				log_checked: false,
-				reg_email: '',
-				reg_pass: '',
-				reg_againPass: ''
-			}
-		},
-		components: {Pop},
-		methods: {
-			showSucc(){
-				this.$store.commit('setRegVerifyEmail', '846359246@qq.com');
+	    data () {
+	        return {
+	            log_checked: false,
+	            reg_email: '',
+	            reg_pass: '',
+	            reg_againPass: ''
+	        }
+	    },
+	    components: {Pop},
+	    methods: {
+	        showSucc () {
+	            this.$store.commit('setRegVerifyEmail', '846359246@qq.com')
 
-				console.log('success');
-				this.$store.commit('hideRegPop');
-//						验证邮箱
-				this.$store.commit('showVerifyEmail')
-				// 执行倒计时 todo
-				this.$store.dispatch('startBackTime')
-			},
-			checkagainPass(){
-//                if( this.reg_pass !== '' && this.reg_againPass !== '' ){
-//                	if( this.reg_pass !== this.reg_againPass ){
-//		                Message({
-//			                message: 'Confirm password not match',
-//			                type: 'error',
-//			                duration: tipsTime
-//		                })
-//                    }
-//                }
-			},
-			checkPass(){
-                /* 检测密码 */
-				let pass_reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
-				if (!pass_reg.test(this.reg_pass)) {
-					if (this.reg_pass !== '') {
-						Message({
-							message: 'Password must contain 6-15 characters with both numbers and letters',
-							type: 'error',
-							duration: tipsTime
-						})
-					}
-				}
-			},
-			async checkEmail(){
-				let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-				if (this.reg_email !== '') {
-					if (emailReg.test(this.reg_email)) {
-						let regMsg = await this.$store.dispatch('beforeReg', this.reg_email);
-					} else {
-						Message({
-							message: 'Please enter your email address',
-							type: 'error',
-							duration: tipsTime
-						})
-					}
-				}
-			},
-			async submitReg(){
-				// 判断邮箱
-				let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-				let regObj = {};
-				if (!(this.log_checked) || this.reg_email === '' || this.reg_pass === '' || this.reg_againPass === '') {
-					return false
-				}
-				if (emailReg.test(this.reg_email)) {
-					if (this.reg_pass !== this.reg_againPass) {
-						Message({
-							message: 'Confirm password not match',
-							type: 'error',
-							duration: tipsTime
-						});
-						return false
-					}
-					Object.assign(regObj, {
-						email: this.reg_email,
-						password: this.reg_pass
-					});
-					let regMsg = await this.$store.dispatch('reg', regObj);
-					if (regMsg && regMsg.status.toString() === '100') {
-						this.$store.commit('setRegVerifyEmail', this.reg_email)
-						this.$store.commit('hideRegPop');
-						this.$store.commit('showVerifyEmail');
-						this.$store.dispatch('startBackTime');
-
-					} else if (regMsg.status.toString() === '205') {
-						// 已经注册
-						this.$store.commit('showLoginPop')
-						this.$store.commit('hideRegPop')
-						Message({
-							message: regMsg.message,
-							type: 'error',
-							duration: tipsTime
-						})
-					} else {
-						Message({
-							message: regMsg.message,
-							type: 'error',
-							duration: tipsTime
-						})
-					}
-				} else {
-					Message({
-						message: 'Please enter your email address',
-						type: 'error',
-						duration: tipsTime
-					})
-				}
-			},
-			showSignIn () {
-				this.$store.commit('showLoginPop')
-				this.$store.commit('hideRegPop')
-			},
-			onReset () {
-				this.$store.commit('setResetObj', {
-					email: null,
-					sign: null,
-					showReset: false
-				});
-				this.$store.commit('showResetPwd')
-				this.$store.commit('hideRegPop')
-			}
-		},
-		computed: {
-			show: {
-				set: function (isShow) {
-					if (!!isShow === true) {
-						this.$store.commit('showRegPop')
-					} else {
-						this.$store.commit('hideRegPop')
-					}
-				},
-				get: function () {
-					return this.$store.state.pop.showRegPop
-				}
-			}
-		},
-		mounted(){
-		}
+	            console.log('success')
+	            this.$store.commit('hideRegPop')
+            //						验证邮箱
+	            this.$store.commit('showVerifyEmail')
+	            // 执行倒计时 todo
+	            this.$store.dispatch('startBackTime')
+	        },
+	        checkagainPass () {
+            //                if( this.reg_pass !== '' && this.reg_againPass !== '' ){
+            //                	if( this.reg_pass !== this.reg_againPass ){
+            //		                Message({
+            //			                message: 'Confirm password not match',
+            //			                type: 'error',
+            //			                duration: tipsTime
+            //		                })
+            //                    }
+            //                }
+	        },
+	        checkPass () {
+            /* 检测密码 */
+	            let pass_reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
+	            if (!pass_reg.test(this.reg_pass)) {
+	                if (this.reg_pass !== '') {
+	                    Message({
+	                        message: 'Password must contain 6-15 characters with both numbers and letters',
+	                        type: 'error',
+	                        duration: tipsTime
+	                    })
+	                }
+	            }
+	        },
+	        async checkEmail () {
+	            let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
+	            if (this.reg_email !== '') {
+	                if (emailReg.test(this.reg_email)) {
+	                    let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
+	                } else {
+	                    Message({
+	                        message: 'Please enter your email address',
+	                        type: 'error',
+	                        duration: tipsTime
+	                    })
+	                }
+	            }
+	        },
+	        async submitReg () {
+	            // 判断邮箱
+	            let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
+	            let regObj = {}
+	            if (!(this.log_checked) || this.reg_email === '' || this.reg_pass === '' || this.reg_againPass === '') {
+	                return false
+	            }
+	            if (emailReg.test(this.reg_email)) {
+	                if (this.reg_pass !== this.reg_againPass) {
+	                    Message({
+	                        message: 'Confirm password not match',
+	                        type: 'error',
+	                        duration: tipsTime
+	                    })
+	                    return false
+	                }
+	                Object.assign(regObj, {
+	                    email: this.reg_email,
+	                    password: this.reg_pass
+	                })
+	                let regMsg = await this.$store.dispatch('reg', regObj)
+	                if (regMsg && regMsg.status.toString() === '100') {
+	                    this.$store.commit('setRegVerifyEmail', this.reg_email)
+	                    this.$store.commit('hideRegPop')
+	                    this.$store.commit('showVerifyEmail')
+	                    this.$store.dispatch('startBackTime')
+	                } else if (regMsg.status.toString() === '205') {
+	                    // 已经注册
+	                    this.$store.commit('showLoginPop')
+	                    this.$store.commit('hideRegPop')
+	                    Message({
+	                        message: regMsg.message,
+	                        type: 'error',
+	                        duration: tipsTime
+	                    })
+	                } else {
+	                    Message({
+	                        message: regMsg.message,
+	                        type: 'error',
+	                        duration: tipsTime
+	                    })
+	                }
+	            } else {
+	                Message({
+	                    message: 'Please enter your email address',
+	                    type: 'error',
+	                    duration: tipsTime
+	                })
+	            }
+	        },
+	        showSignIn () {
+	            this.$store.commit('showLoginPop')
+	            this.$store.commit('hideRegPop')
+	        },
+	        onReset () {
+	            this.$store.commit('setResetObj', {
+	                email: null,
+	                sign: null,
+	                showReset: false
+	            })
+	            this.$store.commit('showResetPwd')
+	            this.$store.commit('hideRegPop')
+	        }
+	    },
+	    computed: {
+	        show: {
+	            set: function (isShow) {
+	                if (!!isShow === true) {
+	                    this.$store.commit('showRegPop')
+	                } else {
+	                    this.$store.commit('hideRegPop')
+	                }
+	            },
+	            get: function () {
+	                return this.$store.state.pop.showRegPop
+	            }
+	        }
+	    },
+	    mounted () {
+	    }
 	}
 </script>
 

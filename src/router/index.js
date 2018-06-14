@@ -25,96 +25,96 @@ const Withdraw = () => import('~/pages/cs_account/Withdraw')
 const page_404 = () => import('~/pages/404.vue')
 
 export default new Router({
-	mode: 'hash',
-	linkActiveClass: 'on',
-	routes: [
-		{
-			path: '/lucky',
-			name: 'lucky',
-			component: lucky
-		},
-		{
-			path: '/terms',
-			name: 'terms',
-			component: cs_protocol_terms
-		},
-		{
-			path: '/policy',
-			name: 'policy',
-			component: cs_protocol_policy
-		},
-		{
-			path: '/drawNumber',
-			name: 'Draw Number',
-			component: cs_drawNum
-		},
-		{
-			path: '/404',
-			component: page_404,
-			hidden: true
-		},
-		{
-			path: '/account',
-			component: account,
-			children: [
-				{
-					path: 'general',
-					name: 'General',
-					component: General
-				},
-				{
-					path: 'deposit',
-					name: 'Deposit',
-					component: Deposit
-				},
-				{
-					path: 'myBets',
-					name: 'MyBets',
-					component: MyBets
-				},
-				{
-					path: 'myTransactions',
-					name: 'MyTransactions',
-					component: MyTransactions
-				},
-				{
-					path: 'withdraw',
-					name: 'Withdraw',
-					component: Withdraw
-				},
-				{
-					path: '/',
-					name: 'General',
-					redirect: '/account/general'
-				}
-			]
-		},
-		{
-			path: '/*',
-			name: 'lucky',
-			redirect: '/lucky'
-		}
-	]
-});
+    mode: 'hash',
+    linkActiveClass: 'on',
+    routes: [
+        {
+            path: '/lucky',
+            name: 'lucky',
+            component: lucky
+        },
+        {
+            path: '/terms',
+            name: 'terms',
+            component: cs_protocol_terms
+        },
+        {
+            path: '/policy',
+            name: 'policy',
+            component: cs_protocol_policy
+        },
+        {
+            path: '/drawNumber',
+            name: 'Draw Number',
+            component: cs_drawNum
+        },
+        {
+            path: '/404',
+            component: page_404,
+            hidden: true
+        },
+        {
+            path: '/account',
+            component: account,
+            children: [
+                {
+                    path: 'general',
+                    name: 'General',
+                    component: General
+                },
+                {
+                    path: 'deposit',
+                    name: 'Deposit',
+                    component: Deposit
+                },
+                {
+                    path: 'myBets',
+                    name: 'MyBets',
+                    component: MyBets
+                },
+                {
+                    path: 'myTransactions',
+                    name: 'MyTransactions',
+                    component: MyTransactions
+                },
+                {
+                    path: 'withdraw',
+                    name: 'Withdraw',
+                    component: Withdraw
+                },
+                {
+                    path: '/',
+                    name: 'General',
+                    redirect: '/account/general'
+                }
+            ]
+        },
+        {
+            path: '/*',
+            name: 'lucky',
+            redirect: '/lucky'
+        }
+    ]
+})
 
 if (location.search) {
-	let queryObj = {};
-	location.search.replace('?', '').split('&').forEach(item => {
-		if (~item.indexOf('=')) {
-			item = item.split('=')
-			queryObj[item[0]] = item[1]
-		}
-	});
-	if (queryObj.sign) {
-		if (queryObj.inviter) {
-			history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
-		}
-		if (queryObj.from) {
-			if (queryObj.from === 'resetPassword') {
-				history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
-			} else {
-				history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}`)
-			}
-		}
-	}
+    let queryObj = {}
+    location.search.replace('?', '').split('&').forEach(item => {
+        if (~item.indexOf('=')) {
+            item = item.split('=')
+            queryObj[item[0]] = item[1]
+        }
+    })
+    if (queryObj.sign) {
+        if (queryObj.inviter) {
+            history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
+        }
+        if (queryObj.from) {
+            if (queryObj.from === 'resetPassword') {
+                history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
+            } else {
+                history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}`)
+            }
+        }
+    }
 }
