@@ -31,8 +31,9 @@ const state = {
         1103: '13.5',
         1104: '54',
         1105: '378'
-    }
+    },
 
+    mybets: [] // mybets数据
 }
 
 const mutationsInfo = mapMutations({
@@ -57,6 +58,9 @@ const mutationsInfo = mapMutations({
     },
     setUid (state, uid) {
         state.uid = uid
+    },
+    updateMyBets (state, mybets) {
+        state.mybets = mybets
     }
 }, 'cs_1105')
 
@@ -278,6 +282,9 @@ const actionsInfo = mapActions({
                 duration: tipsTime
             })
         }
+    },
+    getMyBets ({commit, dispatch}, params) {
+        return ajax.get('/order/list', params)
     }
 
 }, 'cs_1105')
