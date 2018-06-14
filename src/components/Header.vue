@@ -69,6 +69,7 @@
                             l10.404,36.454c1.196,4.189,4.695,5.098,7.777,2.018L21.88,82.022z"/>
                     </svg>
                 </router-link>
+                <a href="worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
                     <!--<i></i>-->
                     <span>English</span>
@@ -141,6 +142,7 @@
                    :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
                    v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
             </div>
+
             <div class="jackpot-box hide">
                 <div class="bg bg1"></div>
                 <div class="bg bg2"></div>
@@ -424,7 +426,7 @@
         .login {
             position: relative;
             float: right;
-            margin: 30px 47px 0 0;
+            margin: 30px 20px 0 0;
             border: none;
             .to-login,
             .hadlogin {
@@ -847,5 +849,14 @@
         }
     }
 
+
+    .enter-brands{
+        display: block;
+        float: left;
+        margin:20px 0 0 33px;
+        background-image: url("../assets/slice/enter-brands.png");
+        width: 146px;
+        height: 50px;
+    }
 </style>
 

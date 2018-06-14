@@ -14,7 +14,7 @@
                     </div>
                     <div class="item pick-up">
                         <div class="fl210">
-                            <span class="css_withdraw_tips">Withdraw Amount</span>
+                            <span class="css_withdraw_tips">Withdrawal Amount</span>
                             <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.01 "
                                   class="css_withdraw_total">0.01 ~ <span>{{ this.userInfo.accounts[0].balance }}</span> ETH</span>
                             <span v-else class="css_withdraw_total">at least 0.01 ETH</span>
@@ -33,7 +33,7 @@
                         <i class="orange">0.00000</i>
                         <span class="orange"> ETH</span>
                     </p>
-                    <button @click="sendDraw">Send</button>
+                    <button @click="sendDraw">Withdraw</button>
                 </li>
             </el-tab-pane>
             <el-tab-pane label="Records" name="Records">
@@ -649,17 +649,10 @@ export default {
 .el-tabs {
   margin-top: 30px;
 }
-.el-tabs__active-bar {
-  background: #263648 !important;
-}
-.el-tabs__item.is-active,
-.el-tabs__item:hover {
-  color: #263648;
-}
-.el-tabs__item {
+.el-tabs__item{
   float: left;
   line-height: 40px;
-  font-size: 20px;
+  font-size: 120px;
   color: #6a89cc;
   padding: 0 20px;
   height: auto;
