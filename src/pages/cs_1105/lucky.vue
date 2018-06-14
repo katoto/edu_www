@@ -368,6 +368,7 @@
 				// 选号是否完成？
 				if (this.playArea) {
 					let noComplete = [];
+					let noCompleteIndex = [];
 //	                createTime: 0,
 //		                pickType: '1', //玩法类型1,2,3,4,5,5J
 //		                pickNum: [],
@@ -376,17 +377,33 @@
 					this.playArea.forEach((val, index) => {
 						if (parseFloat(val.pickType) !== val.pickNum.length) {
 							noComplete.push('Ticket'+ (index + 1));
+							noCompleteIndex.push( index )
 						}
 					});
                     if( noComplete.length === 0 ){
+
+	                    //  修改玩法
+//	                    playStyleBet = '110' + $betAreaItemLis.eq(i).attr('data-choosetype');
+//	                    // 拼接转账下单  号码 + 玩法 + 金额
+//	                    transferOrderStr += $currNumberBox.attr('data-luckyNum').replace(/\|/g, ',') + "#" + playStyleBet + "@" + currDigit + '$';
+//	                    //  余额支付
+//	                    currChoseLen++;
+
 
                     }else{
 	                    Message({
 		                    message: 'Please pick correct numbers in '+noComplete.join('&&'),
 		                    type: 'error'
 	                    })
-                        // 震动 报错  error-shake
+                        // 震动 报错
 //	                    js_playArea-li
+	                    noCompleteIndex.forEach(( val ,index )=>{
+		                    if( document.querySelectorAll('.play-area-items .js_playArea-li')[ val ] ){
+			                    document.querySelectorAll('.play-area-items .js_playArea-li')[ val ].className = 'js_playArea-li'
+			                    document.querySelectorAll('.play-area-items .js_playArea-li')[ val ].className = 'js_playArea-li error-shake'
+		                    }
+                        })
+
                     }
                     // 动画 socket
 					console.log(noComplete);
