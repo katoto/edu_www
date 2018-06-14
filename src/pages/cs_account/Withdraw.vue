@@ -38,7 +38,7 @@
             </el-tab-pane>
             <el-tab-pane label="Records" name="Records">
                 <li class="li-request">
-                    <section>
+                    <section class="select-records">
                         <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
                             <el-option
                                     v-for="item in withdrawOptions"
@@ -123,6 +123,9 @@
                                     :page-size="pageSize"
                                     layout="prev, pager, next,jumper"
                                     :total="PageTotal"
+                                    next-text = 'Next >'
+                                    prev-text = '< Front'
+
                             >
                             </el-pagination>
                         </div>
@@ -635,12 +638,10 @@ export default {
   }
 }
 
-.li-request {
-  .filter {
-    margin-top: 24px;
-  }
-}
 
+.select-records{
+    margin-top:24px;
+}
 .pagination {
   display: table;
   margin: 20px auto 30px;
