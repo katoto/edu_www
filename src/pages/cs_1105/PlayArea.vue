@@ -57,8 +57,9 @@
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
                 <li v-for="(baseItem,index) in baseJackPot" class="flipInY on"
-                    v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}</li>
-                <li v-else >-</li>
+                    v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}
+                </li>
+                <li v-else>-</li>
             </ul>
         </div>
     </li>
@@ -69,7 +70,7 @@
     import {Message} from 'element-ui'
 
     export default {
-        data () {
+        data() {
             return {
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 baseJackPot: [1, 2, 3, 4, 5],
@@ -80,10 +81,10 @@
         watch: {},
         methods: {
             //   隐藏
-            showPopLimit () {
+            showPopLimit() {
                 this.$store.commit('showPopLimit')
             },
-            checkBetMoney () {
+            checkBetMoney() {
                 console.log(this.areaMsg.pickMoney)
                 if (isNaN(this.areaMsg.pickMoney)) {
                     Message({
@@ -110,14 +111,14 @@
                     return false
                 }
             },
-            delTicket ($event) {
+            delTicket($event) {
                 // 删除
                 if ($event.target.tagName === 'A') {
                     this.allplayArea.splice(parseFloat($event.target.getAttribute('data-delIndex')), 1)
                     this.$emit('update:allplayArea', this.allplayArea)
                 }
             },
-            js_beting_add () {
+            js_beting_add() {
                 // 加钱  （上限）
                 let currpickMoney = this.areaMsg.pickMoney
                 if (currpickMoney >= 0.1) {
@@ -132,7 +133,7 @@
                     })
                 }
             },
-            js_beting_low () {
+            js_beting_low() {
                 // 减钱  （下限）
                 let currpickMoney = this.areaMsg.pickMoney
                 if (currpickMoney <= 0.0001) {
@@ -159,7 +160,7 @@
                     }
                 }
             },
-            clearNumber () {
+            clearNumber() {
                 //  清空当前选号
                 this.$emit('update:data', {
                     ...this.areaMsg,
@@ -167,7 +168,7 @@
                     pickJackPot: []
                 })
             },
-            lineNumClick ($event) {
+            lineNumClick($event) {
                 /* 选号 */
                 let currpickNum = []
 
@@ -210,7 +211,7 @@
                     })
                 }
             },
-            randomPickFn () {
+            randomPickFn() {
                 //  随机选号
                 let randomNum = randomNumber(parseFloat(this.areaMsg.pickType))
                 this.$emit('update:data', {
@@ -219,7 +220,7 @@
                     pickJackPot: randomNum
                 })
             },
-            chosePickType ($event) {
+            chosePickType($event) {
                 if ($event.target.tagName === 'LI') {
                     this.$emit('update:data', {
                         ...this.areaMsg,
@@ -253,22 +254,22 @@
             }
         },
         computed: {
-            syxw_bettype_odds () {
+            syxw_bettype_odds() {
                 return this.$store.state.cs_1105.syxw_bettype_odds
             }
         },
-        mounted () {
+        mounted() {
         },
         filters: {
             formateCoinType: (type = '2001') => {
                 type = type.toString()
                 switch (type) {
-                case '2001':
-                    return 'ETH'
-                case '1001':
-                    return 'BTC'
-                default:
-                    return 'ETH'
+                    case '2001':
+                        return 'ETH'
+                    case '1001':
+                        return 'BTC'
+                    default:
+                        return 'ETH'
                 }
             },
             format_match: (match) => {
@@ -277,16 +278,16 @@
                 }
                 match = match.toString()
                 switch (match) {
-                case '1101':
-                    return 'C1'
-                case '1102':
-                    return 'C2'
-                case '1103':
-                    return 'C3'
-                case '1104':
-                    return 'C4'
-                case '1105':
-                    return 'C5'
+                    case '1101':
+                        return 'C1'
+                    case '1102':
+                        return 'C2'
+                    case '1103':
+                        return 'C3'
+                    case '1104':
+                        return 'C4'
+                    case '1105':
+                        return 'C5'
                 }
             },
             formateBalance: (val = 0) => {
