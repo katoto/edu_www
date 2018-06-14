@@ -19,7 +19,7 @@ const options = {}
 // todo
 if (process.env.NODE_ENV === 'production') {
     if (window.location.protocol === 'http:') {
-        options.baseURL = window.location.protocol + '//www.coinslot.com/api'
+        options.baseURL = window.location.protocol + '//10.0.1.167:8095'
     } else {
         options.baseURL = window.location.protocol + '//www.coinslot.com/api'
     }

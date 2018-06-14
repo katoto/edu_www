@@ -11,8 +11,9 @@
                     <li data-index="4">Pick 4</li>
                     <li data-index="5">Pick 5</li>
                     <li data-index="5J" class="es">
-                        <p>Pick 5</p>
-                        <p>(JACKPOT)</p>
+                        (JACKPOT)
+                        <!--<p>Pick 5</p>-->
+                        <!--<p></p>-->
                     </li>
                 </ul>
             </div>
@@ -55,11 +56,9 @@
             <p>Picking Order</p>
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
-                <li>-</li>
-                <li>-</li>
-                <li>-</li>
-                <li>-</li>
-                <li>-</li>
+                <li v-for="(baseItem,index) in baseJackPot" class="flipInY on"
+                    v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}</li>
+                <li v-else >-</li>
             </ul>
         </div>
     </li>
@@ -73,10 +72,11 @@
         data () {
             return {
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                baseJackPot: [1, 2, 3, 4, 5],
                 limitUnit: 0.0001
             }
         },
-        props: ['areaMsg', 'data', 'allplayArea','currIndex'],
+        props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
         watch: {},
         methods: {
             //   隐藏
@@ -112,12 +112,9 @@
             },
             delTicket ($event) {
                 // 删除
-                console.log('del')
-                console.log(this.allplayArea)
-                console.log($event)
                 if ($event.target.tagName === 'A') {
-                    this.allplayArea.splice( parseFloat( $event.target.getAttribute('data-delIndex') )  , 1  );
-                    this.$emit('update:allplayArea', this.allplayArea );
+                    this.allplayArea.splice(parseFloat($event.target.getAttribute('data-delIndex')), 1)
+                    this.$emit('update:allplayArea', this.allplayArea)
                 }
             },
             js_beting_add () {
@@ -166,12 +163,14 @@
                 //  清空当前选号
                 this.$emit('update:data', {
                     ...this.areaMsg,
-                    pickNum: []
+                    pickNum: [],
+                    pickJackPot: []
                 })
             },
             lineNumClick ($event) {
                 /* 选号 */
                 let currpickNum = []
+
                 if (this.areaMsg && this.areaMsg.pickNum) {
                     currpickNum = JSON.parse(JSON.stringify(this.areaMsg.pickNum))
                 }
@@ -206,15 +205,18 @@
 
                     this.$emit('update:data', {
                         ...this.areaMsg,
-                        pickNum: currpickNum
+                        pickNum: currpickNum,
+                        pickJackPot: currpickNum
                     })
                 }
             },
             randomPickFn () {
                 //  随机选号
+                let randomNum = randomNumber(parseFloat(this.areaMsg.pickType))
                 this.$emit('update:data', {
                     ...this.areaMsg,
-                    pickNum: randomNumber(parseFloat(this.areaMsg.pickType))
+                    pickNum: randomNum,
+                    pickJackPot: randomNum
                 })
             },
             chosePickType ($event) {

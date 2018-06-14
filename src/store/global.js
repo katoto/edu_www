@@ -6,6 +6,7 @@ import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 let sockURL = null
 if (process.env.NODE_ENV === 'production') {
     sockURL = 'wss://crazybet.choopaoo.com/wss'
+    sockURL = 'ws://10.0.1.167:8099/betblock'
 } else if (process.env.NODE_ENV === 'preRelease') {
     sockURL = 'ws://192.168.41.76:6999'
 } else {
