@@ -18,7 +18,7 @@
                 </ul>
                 <div class="last-select js_last-select" v-if="isShowHistoryCode">
                     <ul class="date-box js_date-box">
-                        <li v-for="(item, index) in historyCode.filter((item, index) => index < 7)" :key="index">
+                        <li v-for="(item, index) in historyCode.filter((item, index) => index < 8 && index > 0)" :key="index">
                             <span>{{ item.expectid }}</span>
                             <ul class="num-box">
                                 <li v-for="(num, numIndex) in item.opencode.split(',')" :key="numIndex">{{ num }}</li>
@@ -69,19 +69,19 @@
             navFix () {
                 return this.$store.state.cs_1105.navFix
             },
-	        timeLeft(){
+	        timeLeft () {
 		        return this.$store.state.cs_1105.timeLeft
 	        },
-	        expect_blinking(){
+	        expect_blinking () {
 		        return this.$store.state.cs_1105.expect_blinking
 	        },
-	        expect_move(){
+	        expect_move () {
 		        return this.$store.state.cs_1105.expect_move
             },
-	        currExpectId(){
+	        currExpectId () {
 		        return this.$store.state.cs_1105.currExpectId
             },
-	        last_expectid(){
+	        last_expectid () {
 		        return this.$store.state.cs_1105.last_expectid
 	        }
 

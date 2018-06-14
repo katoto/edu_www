@@ -283,6 +283,53 @@
 
                 </div>
             </div>
+
+            <!-- orderSucc -->
+            <div class="pop pop-reg-success js_pop-order-success" :class="{'hide':!showOrderSucc}">
+                <div class="pop-body">
+                    <div class="pop-ani">
+                        <div class="pop-main">
+                            <a href="javascript:;" @click="showOrderSucc=false" class="btn-close">close</a>
+                            <h3>Submit Successful</h3>
+                            <div class="icon-face on">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
+                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
+                                    <path class="mouth" d="M18 40 C28,45 33,46 46,40" stroke="#20bf6b" fill="none" style="stroke-width: 4px;"></path>
+                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#20bf6b" style="stroke-width: 4px;"></path>
+                                </svg>
+                            </div>
+                            <p>Your order has been filed.</p>
+                            <a href="javascript:;" @click="showOrderSucc=false" class="btn-success js_btn-order-success">Good Luck</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- pop-reg-failure -->
+            <div class="pop pop-reg-failure" :class="{'hide':!showOrderFail}">
+                <div class="pop-body">
+                    <div class="pop-ani">
+                        <div class="pop-main">
+                            <a href="javascript:;" @click="showOrderFail=false" class="btn-close">close</a>
+                            <h3>submission failed</h3>
+                            <div class="icon-face on">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
+                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
+                                    <path class="mouth" d="M18 40 C28,30 33,30 46,40" stroke="#fc5c65" fill="none" style="stroke-width: 4px;"></path>
+                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#fc5c65" style="stroke-width: 4px;"></path>
+                                </svg>
+                            </div>
+                            <p>Due to {{ failureMsg }}, the order is unsuccess-<br>ful, please try
+                                later</p>
+                            <a href="javascript:;" @click="showOrderFail=false" class="btn-failure">Try Later</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
         <button @click="leaveRoute">离开页面</button>
         <Footer></Footer>
@@ -301,6 +348,9 @@
 	export default {
 		data () {
 			return {
+				showOrderSucc:false,
+				showOrderFail:false,
+                failureMsg:'* *',
 				scroll: '',
 				activeName: 'Bets',
 				DataWinnerList: [
@@ -411,12 +461,44 @@
 					});
                     if( noComplete.length === 0 ){
                         let sendBetStr = (this.currExpectId+ '|' + beginBetStr).slice(0, -1);
-	                    console.log(12);
 	                    let orderMsg = await this.$store.dispatch(aTypes.placeOrder , sendBetStr);
-	                    console.log(orderMsg);
-	                    console.log('====32=====');
+	                    let errorResArr = [];
+	                    if (orderMsg && orderMsg.status.toString() === '100') {
 
-//	                    1806141038|   5,11,8#1103@0.0001$   9#1101@0.0001   $  11#1101@0.0001
+		                    if ( orderMsg.data.restricts.length === 0) {
+			                    // 全部成功订单
+			                    setTimeout( ()=> {
+				                    this.playArea.forEach((val, index) => {
+					                    val.pickNum = [];
+				                    });
+			                    }, 1000);
+			                    this.showOrderSucc = true;
+
+		                    } else if ( orderMsg.data.restricts.length > 0) {
+			                    // 部分成功订单
+			                    orderMsg.data.restricts.forEach(function (val, index) {
+				                    errorResArr.push(val.betcode)
+			                    });
+			                    this.failureMsg = 'Order limit#' + errorResArr.join('#');
+			                    this.showOrderFail = true;
+
+			                    setTimeout( ()=> {
+				                    this.playArea.forEach((val, index) => {
+					                    val.pickNum = [];
+				                    });
+			                    }, 1000);
+
+		                    } else {
+			                    //  全部失败订单
+			                    orderMsg.data.restricts.forEach(function (val, index) {
+				                    errorResArr.push(val.betcode)
+			                    });
+
+			                    this.failureMsg = 'Order limit#' + errorResArr.join('#');
+			                    this.showOrderFail = true;
+
+		                    }
+                        }
 
                     }else{
 	                    Message({
@@ -434,16 +516,12 @@
 
                     }
                     // 动画 socket
-					console.log(noComplete);
-					console.log('=====noComplete==');
 
 				}
-
 
 				// 未激活 ？  这个也有问题  在弄个弹窗吧
 //				this.$store.commit('emailBackTime', 0)
 //				this.$store.commit('showVerifyEmail')
-
 
 			},
 			addTicket(){
