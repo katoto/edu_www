@@ -29,8 +29,9 @@ if (process.env.NODE_ENV === 'production') {
     // options.baseURL = 'http://crazybet.choopaoo.com:8090'
 } else {
     // options.baseURL = 'https://www.coinslot.com/api'
-    options.baseURL = 'http://10.0.1.167:8095' // 8095
-    // options.baseURL = 'http://10.0.1.41:3333' // 8095
+    // options.baseURL = 'http://10.0.1.167:8095' // 8095
+    options.baseURL = 'http://10.0.1.41:3333' // 8095
+    // options.baseURL = 'http://10.0.0.130:8000' // 8095
 }
 
 const _axios = axios.create(options)

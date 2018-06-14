@@ -9,6 +9,7 @@
                 <ul class="play-area-items">
                     <PlayArea v-for="(item,index) in playArea" :key="index" :allplayArea.sync="playArea" :areaMsg="item"
                               :data.sync="playArea[index]"></PlayArea>
+
                 </ul>
                 <!-- Lucky 11 show  647 356 奖级表 -->
                 <div class="pop pop-rewardTable js_pop_rewardTable hide">
@@ -445,10 +446,7 @@
 					this.$store.commit(mTypes.setNavFix, false)
 				}
 			},
-//             隐藏
-//            showPopLimit () {
-//                this.$store.commit('showPopLimit')
-//            },
+
 
 			format_betCode (betcode) {
 				let currLuckyNum = betcode.split(',');

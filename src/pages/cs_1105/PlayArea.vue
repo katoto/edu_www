@@ -22,8 +22,8 @@
                 <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">Pick {{ areaMsg.pickType }} numbers, if all the numbers hit the draw numbers, you'll win {{ syxw_bettype_odds['110'+( areaMsg.pickType )]  }} times reward</span>
                 <a href="javascript:;" class="js_showReward"> Reward table</a>
             </p>
-            <!--<a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>-->
-            <a href="javascript:;" class="limit-tips js_limit-tips">Limit number list</a>
+            <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
+            <!--<a href="javascript:;" class="limit-tips js_limit-tips">Limit number list</a>-->
         </div>
         <span class="line js_line">Ticket {{ areaMsg.pickType }}</span>
         <!--<ul class="number-box js_isReady" data-luckyNum="1|3|4|6|8">-->
@@ -78,6 +78,10 @@
 		props: ['areaMsg',  'data','allplayArea'],
 		watch: {},
 		methods: {
+			//             隐藏
+            showPopLimit () {
+                this.$store.commit('showPopLimit')
+            },
 			checkBetMoney(){
 				console.log( this.areaMsg.pickMoney )
 				if (isNaN( this.areaMsg.pickMoney )) {

@@ -1,6 +1,6 @@
 <template>
     <!--  弹窗-登录  -->
-    <Pop class="pop-limit ">
+    <Pop class="pop-limit" :show.sync="show">
         <div class="pop-main">
             <h3>limit number list</h3>
             <p class="update">Last updated : {{time}}</p>
@@ -16,102 +16,23 @@
                 </div>
                 <div class="limit-table-c">
                     <ul class="js_limit_total_ul">
-                        <li class="limit-item">
+                        <li v-for="value in dateLimit" class="limit-item">
                             <div class="fl limit-nper">
                                 <div>
-                                    <span>1812180256</span>
+                                    <span>{{value.expectid}}</span>
                                 </div>
                             </div>
                             <div class="fr">
                                 <ul>
-                                    <li class="limit-item2 clearfix">
+                                    <li v-for="value2 in value.restrict" class="limit-item2 clearfix">
                                         <div class="limit-match">
-                                            C1
+                                            {{value2.bettype | format_match}}
                                         </div>
                                         <div class="limit-number">
-                                            <ul class="num-boxc1">
-                                                <li>1</li>
-                                                <li>2</li>
-                                                <li>3</li>
-                                                <li>4</li>
-                                                <li>5</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="limit-item2 clearfix">
-                                        <div class="limit-match">
-                                            C2
-                                        </div>
-                                        <div class="limit-number">
-                                            <ul class="num-boxc2">
-                                                <li>2,5</li>
-                                                <li>2,6</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="limit-item2 clearfix">
-                                        <div class="limit-match">
-                                            C3
-                                        </div>
-                                        <div class="limit-number">
-                                            <ul class="num-boxc3">
-                                                <li>2,5,6</li>
-                                                <li>2,5,6</li>
-                                                <li>2,5,7</li>
-                                                <li>2,5,8</li>
-                                                <li>2,5,9</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="limit-item">
-                            <div class="fl limit-nper">
-                                <div>
-                                    <span>1812180257</span>
-                                </div>
-                            </div>
-                            <div class="fr">
-                                <ul>
-                                    <li class="limit-item2 clearfix">
-                                        <div class="limit-match">
-                                            C4
-                                        </div>
-                                        <div class="limit-number">
-                                            <ul class="num-boxc4">
-                                                <li>2,5,6,7</li>
-                                                <li>2,5,6,8</li>
-                                                <li>2,5,6,9</li>
-                                                <li>2,5,6,10</li>
-                                                <li>2,5,6,11</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="limit-item">
-                            <div class="fl limit-nper">
-                                <div>
-                                    <span>1812180258</span>
-                                </div>
-                            </div>
-                            <div class="fr">
-                                <ul>
-                                    <li class="limit-item2 clearfix">
-                                        <div class="limit-match">
-                                            C5
-                                        </div>
-                                        <div class="limit-number">
-                                            <!--num-box-->
-                                            <ul class=" num-boxc5">
-                                                <li>1,2,5,6,7</li>
-                                                <li>2,5,6,7,8</li>
-                                                <li>2,5,6,7,11</li>
-                                                <li>1,2,5,6,7</li>
-                                                <li>2,5,6,7,8</li>
-                                                <li>2,5,6,7,11</li>
+                                            <ul :class="value2.bettype | format_class">
+                                                <li v-for="value3 in value2.betcode">
+                                                    {{value3}}
+                                                </li>
                                             </ul>
                                         </div>
                                     </li>
@@ -121,7 +42,6 @@
                     </ul>
                 </div>
             </div>
-
         </div>
     </Pop>
 </template>
@@ -136,7 +56,23 @@
         data(){
             return {
                 time:'',
-                noLimit:false
+                noLimit:false,
+                numx:'num-boxc2',
+                dateLimit:[
+                    {
+                        "expectid": "test",
+                        "restrict": [
+                            {
+                                "bettype": "1101",
+                                "betcode": [
+                                    "1",
+                                    "2",
+                                    "3"
+                                ]
+                            },
+                        ]
+                    }
+                ]
             }
         },
         components: {Pop},
@@ -144,17 +80,82 @@
 
         },
         computed: {
-
+            show: {
+                set: function (isShow) {
+                    if (!!isShow === true) {
+                        this.$store.commit('showPopLimit')
+                    } else {
+                        this.$store.commit('hidePopLimit')
+                    }
+                },
+                get: function () {
+                    return this.$store.state.pop.showPopLimit
+                }
+            }
+        },
+        filters:{
+            format_match(value) {
+                if (isNaN(value)) {
+                    return ''
+                }
+                value = value.toString()
+                switch (value) {
+                    case '1101':
+                        return 'C1'
+                    break;
+                    case '1102':
+                        return 'C2'
+                        break;
+                    case '1103':
+                        return 'C3'
+                        break;
+                    case '1104':
+                        return 'C4'
+                        break;
+                    case '1105':
+                        return 'C5'
+                        break;
+                }
+            },
+            format_class(value){
+                if (isNaN(value)) {
+                    return ''
+                }
+                value = value.toString()
+                switch (value) {
+                    case '1101':
+                        return 'num-boxc1'
+                        break;
+                    case '1102':
+                        return 'num-boxc2'
+                        break;
+                    case '1103':
+                        return 'num-boxc3'
+                        break;
+                    case '1104':
+                        return 'num-boxc4'
+                        break;
+                    case '1105':
+                        return 'num-boxc5'
+                        break;
+                }
+            }
         },
         async mounted(){
             let dataLimit = await this.$store.dispatch(aTypes.popLimit);
             if(dataLimit.status === '100'){
                 this.time = format_time(parseInt(dataLimit.data.uptime), 'yyyy/MM/dd HH:mm:ss');
                 if(dataLimit.data.restrictpools.length == 0){
-//                    this.noLimit = true
+                    this.noLimit = true
                 }else{
-
+                    this.dateLimit = dataLimit.data.restrictpools;
+                    this.noLimit = false
                 }
+            }else{
+                Message({
+                    message: 'limit error',
+                    type: 'error'
+                })
             }
         }
     }
