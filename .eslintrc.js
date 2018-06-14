@@ -14,11 +14,8 @@ module.exports = {
 	// add your custom rules here
 	//it is base on https://github.com/vuejs/eslint-config-vue
 	rules: {
-        "vue/no-parsing-error": 0,
-        "camelcase": 0,
-        "no-tabs": 0,
-		"indent": [0, 'tab'],
-		'semi': 0,
+		"indent": ["error", 4],
+		'semi': ['error','never'],
 		'semi-spacing': [0, {
 			'before': false,
 			'after': false
