@@ -35,7 +35,9 @@ const state = {
     popLoadSpeed: 800, // 动态速率
     popTimeInterval: null,
 
-    allbetPipeArr: [] // 用于控制allbet
+    allbetPipeArr: [] ,// 用于控制allbet
+
+    mybets: [] // mybets数据
 }
 
 const mutationsInfo = mapMutations({
@@ -63,6 +65,9 @@ const mutationsInfo = mapMutations({
     },
     setAllbetPipeArr (state, pipe) {
         state.allbetPipeArr = pipe
+    },
+    updateMyBets (state, mybets) {
+        state.mybets = mybets
     }
 }, 'cs_1105')
 
@@ -416,6 +421,9 @@ const actionsInfo = mapActions({
                 duration: tipsTime
             })
         }
+    },
+    getMyBets ({commit, dispatch}, params) {
+        return ajax.get('/order/list', params)
     }
 
 }, 'cs_1105')
