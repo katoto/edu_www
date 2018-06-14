@@ -332,8 +332,9 @@
                     </div>
                 </div>
             </div>
-
-
+            <a href="/coinslot/html/worldCup.html" target="_blank" class="icon-enterWorld">
+                <img src="@assets/img/worldCup/enterIcon-worldCup.png" />
+            </a>
         </div>
         <button @click="leaveRoute">离开页面</button>
         <Footer></Footer>
@@ -731,6 +732,14 @@
         position: relative;
         width: 100%;
         overflow: hidden;
+    }
+    .icon-enterWorld{
+        position: fixed;
+        width:108px;
+        height:135px;
+        top:45%;
+        right:0;
+        z-index:10;
     }
 
     //玩法区
