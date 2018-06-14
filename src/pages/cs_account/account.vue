@@ -30,12 +30,12 @@
     export default {
         data () {
             return {
-                lists:[
-                    {msg:'General',link:'/account/general'},
-                    {msg:'My Bets',link:'/account/myBets'},
-                    {msg:'My Transactions',link:'/account/myTransactions'},
-                    {msg:'Deposit',link:'/account/deposit'},
-                    {msg:'Withdraw',link:'/account/withdraw'}
+                lists: [
+                    {msg: 'General', link: '/account/general'},
+                    {msg: 'My Bets', link: '/account/myBets'},
+                    {msg: 'My Transactions', link: '/account/myTransactions'},
+                    {msg: 'Deposit', link: '/account/deposit'},
+                    {msg: 'Withdraw', link: '/account/withdraw'}
 
                 ]
             }
@@ -43,7 +43,7 @@
         watch: {
         },
 	    computed: {
-            isLog(){
+            isLog () {
             	return this.$store.state.isLog
             }
         },
@@ -54,7 +54,7 @@
             Header,
             BreadCrumbs
         },
-        mounted(){
+        mounted () {
 
         },
         destroyed () {

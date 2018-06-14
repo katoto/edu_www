@@ -33,60 +33,59 @@
 	import {Message} from 'element-ui'
 
 	export default {
-		data(){
-			return{
-            }
-        },
-		components: {Pop},
-		methods: {
-			async againVerify(){
-				let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-				let sendObj = {};
-				console.log( this.regVerifyEmail );
-				if (this.regVerifyEmail !== '') {
-					if (emailReg.test(this.regVerifyEmail)) {
-						Object.assign(sendObj, {
-							email: this.regVerifyEmail,
-							mailType: 'reg'
-						});
-						let regMsg = await this.$store.dispatch('sendEmail', sendObj);
-					} else {
-						Message({
-							message: 'Please enter your email address',
-							type: 'error',
-							duration: tipsTime
-						})
-					}
-				}
-
-			},
-			showSignIn () {
-				this.$store.commit('showLoginPop');
-				this.$store.commit('hideVerifyEmail')
-			}
-		},
-		computed: {
-			regVerifyEmail(){
-				return this.$store.state.pop.regVerifyEmail;
-			},
-			emailBackTime(){
-				return this.$store.state.pop.emailBackTime;
-			},
-			show: {
-				set: function (isShow) {
-					if (!!isShow === true) {
-						this.$store.commit('showVerifyEmail')
-					} else {
-						this.$store.commit('hideVerifyEmail')
-					}
-				},
-				get: function () {
-					return this.$store.state.pop.showVerifyEmail
-				}
-			}
-		},
-		mounted(){
-		}
+	    data () {
+	        return {
+        }
+    },
+	    components: {Pop},
+	    methods: {
+	        async againVerify () {
+	            let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
+	            let sendObj = {}
+	            console.log(this.regVerifyEmail)
+            if (this.regVerifyEmail !== '') {
+	                if (emailReg.test(this.regVerifyEmail)) {
+	                    Object.assign(sendObj, {
+	                        email: this.regVerifyEmail,
+	                        mailType: 'reg'
+	                    })
+	                    let regMsg = await this.$store.dispatch('sendEmail', sendObj)
+	                } else {
+	                    Message({
+	                        message: 'Please enter your email address',
+	                        type: 'error',
+	                        duration: tipsTime
+	                    })
+	                }
+	            }
+	        },
+	        showSignIn () {
+	            this.$store.commit('showLoginPop')
+	            this.$store.commit('hideVerifyEmail')
+	        }
+	    },
+	    computed: {
+	        regVerifyEmail () {
+	            return this.$store.state.pop.regVerifyEmail
+	        },
+	        emailBackTime () {
+	            return this.$store.state.pop.emailBackTime
+	        },
+	        show: {
+	            set: function (isShow) {
+	                if (!!isShow === true) {
+	                    this.$store.commit('showVerifyEmail')
+	                } else {
+	                    this.$store.commit('hideVerifyEmail')
+	                }
+	            },
+	            get: function () {
+	                return this.$store.state.pop.showVerifyEmail
+	            }
+	        }
+	    },
+	    mounted () {
+	    }
 	}
 </script>
 

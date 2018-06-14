@@ -49,27 +49,27 @@
 <script>
     import Pop from './Pop'
     import {Message} from 'element-ui'
-    import {tipsTime, setCK, removeCK, wait,format_time} from '~common/util'
+    import {tipsTime, setCK, removeCK, wait, format_time} from '~common/util'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 
     export default {
-        data(){
+        data () {
             return {
-                time:'',
-                noLimit:false,
-                numx:'num-boxc2',
-                dateLimit:[
+                time: '',
+                noLimit: false,
+                numx: 'num-boxc2',
+                dateLimit: [
                     {
-                        "expectid": "test",
-                        "restrict": [
+                        'expectid': 'test',
+                        'restrict': [
                             {
-                                "bettype": "1101",
-                                "betcode": [
-                                    "1",
-                                    "2",
-                                    "3"
+                                'bettype': '1101',
+                                'betcode': [
+                                    '1',
+                                    '2',
+                                    '3'
                                 ]
-                            },
+                            }
                         ]
                     }
                 ]
@@ -93,65 +93,65 @@
                 }
             }
         },
-        filters:{
-            format_match(value) {
+        filters: {
+            format_match (value) {
                 if (isNaN(value)) {
                     return ''
                 }
                 value = value.toString()
                 switch (value) {
-                    case '1101':
-                        return 'C1'
-                    break;
-                    case '1102':
-                        return 'C2'
-                        break;
-                    case '1103':
-                        return 'C3'
-                        break;
-                    case '1104':
-                        return 'C4'
-                        break;
-                    case '1105':
-                        return 'C5'
-                        break;
+                case '1101':
+                    return 'C1'
+                    break
+                case '1102':
+                    return 'C2'
+                    break
+                case '1103':
+                    return 'C3'
+                    break
+                case '1104':
+                    return 'C4'
+                    break
+                case '1105':
+                    return 'C5'
+                    break
                 }
             },
-            format_class(value){
+            format_class (value) {
                 if (isNaN(value)) {
                     return ''
                 }
                 value = value.toString()
                 switch (value) {
-                    case '1101':
-                        return 'num-boxc1'
-                        break;
-                    case '1102':
-                        return 'num-boxc2'
-                        break;
-                    case '1103':
-                        return 'num-boxc3'
-                        break;
-                    case '1104':
-                        return 'num-boxc4'
-                        break;
-                    case '1105':
-                        return 'num-boxc5'
-                        break;
+                case '1101':
+                    return 'num-boxc1'
+                    break
+                case '1102':
+                    return 'num-boxc2'
+                    break
+                case '1103':
+                    return 'num-boxc3'
+                    break
+                case '1104':
+                    return 'num-boxc4'
+                    break
+                case '1105':
+                    return 'num-boxc5'
+                    break
                 }
             }
         },
-        async mounted(){
-            let dataLimit = await this.$store.dispatch(aTypes.popLimit);
-            if(dataLimit.status === '100'){
-                this.time = format_time(parseInt(dataLimit.data.uptime), 'yyyy/MM/dd HH:mm:ss');
-                if(dataLimit.data.restrictpools.length == 0){
+        async mounted () {
+            let dataLimit = await this.$store.dispatch(aTypes.popLimit)
+            if (dataLimit.status === '100') {
+                this.time = format_time(parseInt(dataLimit.data.uptime), 'yyyy/MM/dd HH:mm:ss')
+                if (dataLimit.data.restrictpools.length == 0) {
                     this.noLimit = true
-                }else{
-                    this.dateLimit = dataLimit.data.restrictpools;
+                } else {
+                    this.dateLimit = dataLimit.data.restrictpools
                     this.noLimit = false
                 }
-            }else{
+            } else {
                 Message({
                     message: 'limit error',
                     type: 'error'

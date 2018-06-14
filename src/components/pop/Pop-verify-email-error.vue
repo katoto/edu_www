@@ -29,8 +29,8 @@ import Pop from './Pop'
 export default {
     components: { Pop },
     computed: {
-	    emailBackTime(){
-		    return this.$store.state.pop.emailBackTime;
+	    emailBackTime () {
+		    return this.$store.state.pop.emailBackTime
 	    },
         show: {
             set: function (isShow) {

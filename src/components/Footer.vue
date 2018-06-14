@@ -38,17 +38,17 @@
 
 <script>
     export default {
-        data(){
+        data () {
             return {}
         },
         watch: {},
         methods: {
-            scroll(){
-                window.scrollTo(0,0)
+            scroll () {
+                window.scrollTo(0, 0)
             }
         },
         computed: {},
-        mounted(){
+        mounted () {
 
         }
     }

@@ -57,9 +57,9 @@
         methods: {
             getHistoryDraw () {
                 this.$store.dispatch('cs_1105/getHistoryDraw')
-                .then(data => {
-                    this.historyCode = data.data.expect_history || []
-                })
+                    .then(data => {
+                        this.historyCode = data.data.expect_history || []
+                    })
             }
         },
         computed: {

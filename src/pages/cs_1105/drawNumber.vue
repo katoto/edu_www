@@ -143,152 +143,152 @@
 	import BreadCrumbs from '~/components/BreadCrumbs.vue'
 
 	export default {
-		data () {
-			return {
-				ethUrl: null,
-				pageNumber: 1,
-				pageSize: 10,
-				PageTotal: 1,
-				drawNumList: [],
-                showPop_reward:false, // 开奖弹窗
-                popRewardMsg:{
-	                blocknum:0,
-	                expectid:0,
-	                merkel_hash:'',
-	                txhash:'',
-	                blockhash:'',
-	                jumpEthUrl:''
-                },
-			}
-		},
-		watch: {},
-		methods: {
-			closePop_reward(){
-                this.showPop_reward = false;
-            },
-			showBlockMsg(msg){
-				this.popRewardMsg = msg;
-				this.showPop_reward = true;
-			},
-			async handleCurrentChange (val) {
-				if (val !== undefined) {
-					let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
-						pageNumber: Number(val),
-						pageSize: this.pageSize
-					})
-					if (drawData) {
-						this.drawNumList = this.format_drawNum(drawData.expect_history)
-						this.PageTotal = Number(drawData.count)
-					}
-				}
-			},
-            /*
+	    data () {
+	        return {
+	            ethUrl: null,
+	            pageNumber: 1,
+	            pageSize: 10,
+	            PageTotal: 1,
+	            drawNumList: [],
+            showPop_reward: false, // 开奖弹窗
+            popRewardMsg: {
+	                blocknum: 0,
+	                expectid: 0,
+	                merkel_hash: '',
+	                txhash: '',
+	                blockhash: '',
+	                jumpEthUrl: ''
+            }
+	        }
+	    },
+	    watch: {},
+	    methods: {
+	        closePop_reward () {
+            this.showPop_reward = false
+        },
+	        showBlockMsg (msg) {
+	            this.popRewardMsg = msg
+	            this.showPop_reward = true
+	        },
+	        async handleCurrentChange (val) {
+	            if (val !== undefined) {
+	                let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
+	                    pageNumber: Number(val),
+	                    pageSize: this.pageSize
+	                })
+	                if (drawData) {
+	                    this.drawNumList = this.format_drawNum(drawData.expect_history)
+	                    this.PageTotal = Number(drawData.count)
+	                }
+	            }
+	        },
+        /*
              *  格式化时间  allbet time
              * */
-			format_time (time, format) {
-				if (format === undefined || format == null) {
-					format = 'HH:mm:ss'
-					// format = 'MM-dd HH:mm:ss'
-				}
-				if (isNaN(time)) {
-					return false
-				}
-				let t = new Date(+time * 1000)
-				let tf = function (i) {
-					return (i < 10 ? '0' : '') + i
-				}
-				return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-					switch (a) {
-						case 'yyyy':
-							return tf(t.getFullYear())
-						case 'MM':
-							return tf(t.getMonth() + 1)
-						case 'mm':
-							return tf(t.getMinutes())
-						case 'dd':
-							return tf(t.getDate())
-						case 'HH':
-							return tf(t.getHours())
-						case 'ss':
-							return tf(t.getSeconds())
-					}
-				})
-			},
-            /*
+	        format_time (time, format) {
+	            if (format === undefined || format == null) {
+	                format = 'HH:mm:ss'
+	                // format = 'MM-dd HH:mm:ss'
+	            }
+	            if (isNaN(time)) {
+	                return false
+	            }
+	            let t = new Date(+time * 1000)
+	            let tf = function (i) {
+	                return (i < 10 ? '0' : '') + i
+	            }
+	            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+	                switch (a) {
+	                case 'yyyy':
+	                    return tf(t.getFullYear())
+	                case 'MM':
+	                    return tf(t.getMonth() + 1)
+	                case 'mm':
+	                    return tf(t.getMinutes())
+	                case 'dd':
+	                    return tf(t.getDate())
+	                case 'HH':
+	                    return tf(t.getHours())
+	                case 'ss':
+	                    return tf(t.getSeconds())
+	                }
+	            })
+	        },
+        /*
              *  格式化drawNum 数据
              *  return 格式化后的数据
              * */
-			format_drawNum (Msg) {
-				if (Msg) {
-					Msg.forEach((val, index) => {
-						val.index = index
-						// opentime
-						val.opentime = this.format_time(val.opentime, 'MM-dd HH:mm:ss')
+	        format_drawNum (Msg) {
+	            if (Msg) {
+	                Msg.forEach((val, index) => {
+	                    val.index = index
+	                    // opentime
+	                    val.opentime = this.format_time(val.opentime, 'MM-dd HH:mm:ss')
 
-						if (val.expect_status == '4' || val.expect_status == '5') {
-							if (val.opencode === null) {
-								val.opencode = '0,0,0,0,0'
-							}
-							val.opencode = val.opencode.split(',')
-						} else {
-							// waiting 转态
-							val.opencode = '-1'
-						}
+	                    if (val.expect_status == '4' || val.expect_status == '5') {
+	                        if (val.opencode === null) {
+	                            val.opencode = '0,0,0,0,0'
+	                        }
+	                        val.opencode = val.opencode.split(',')
+	                    } else {
+	                        // waiting 转态
+	                        val.opencode = '-1'
+	                    }
 
-						if (!val.blockhash) {
-							val.blockhash = ''
-						}
+	                    if (!val.blockhash) {
+	                        val.blockhash = ''
+	                    }
 
-						if (val.txhash === '') {
-							val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
-						} else {
-							val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
-						}
+	                    if (val.txhash === '') {
+	                        val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
+	                    } else {
+	                        val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
+	                    }
 
-						if (!val.expectid || !val.merkel_hash) {
-							val.newdownStr = '-1'
-						} else {
-							val.newdownStr = '1'
-							//			                newdownStr = '<a href="javascript:;" data-dataexpectid="' + data.data.expect_history[j].expectid + '" class="icon-down js_icon-down"></a>'
-						}
+	                    if (!val.expectid || !val.merkel_hash) {
+	                        val.newdownStr = '-1'
+	                    } else {
+	                        val.newdownStr = '1'
+	                        //			                newdownStr = '<a href="javascript:;" data-dataexpectid="' + data.data.expect_history[j].expectid + '" class="icon-down js_icon-down"></a>'
+	                    }
 
-						//		                var newLastStr = '';
-						//		                if (val.blocknum === '0') {
-						//			                newLastStr = ''
-						//			                val.blockidStr = '<span> - </span>'
-						//		                } else {
-						//			                val.blockidStr = '<a href="' + ethUrl + 'block/' + data.data.expect_history[j].blocknum + '" target="_blank" class="address"># ' + data.data.expect_history[j].blocknum + '</a>'
-						//			                newLastStr = '<a href="javascript:;" data-dataNum="' + j + '" class="icon-reward js_reward_show"></a>'
-						//		                }
+	                    //		                var newLastStr = '';
+	                    //		                if (val.blocknum === '0') {
+	                    //			                newLastStr = ''
+	                    //			                val.blockidStr = '<span> - </span>'
+	                    //		                } else {
+	                    //			                val.blockidStr = '<a href="' + ethUrl + 'block/' + data.data.expect_history[j].blocknum + '" target="_blank" class="address"># ' + data.data.expect_history[j].blocknum + '</a>'
+	                    //			                newLastStr = '<a href="javascript:;" data-dataNum="' + j + '" class="icon-reward js_reward_show"></a>'
+	                    //		                }
 
-						if (val.sumbonus === '0') {
-							val.sumbonus = '-'
-						}
-					})
-					return Msg
-				} else {
-					return false
-				}
-			}
-		},
-		components: {
-			Header,
-			Footer,
-			BreadCrumbs
-		},
-		computed: {},
-		async mounted () {
-			let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
-				pageNumber: 1,
-				pageSize: this.pageSize
-			})
-			console.log('===========')
-			console.log(drawData)
-			if (drawData) {
-				this.drawNumList = this.format_drawNum(drawData.expect_history)
-				this.PageTotal = Number(drawData.count)
-			}
-		}
+	                    if (val.sumbonus === '0') {
+	                        val.sumbonus = '-'
+	                    }
+	                })
+	                return Msg
+	            } else {
+	                return false
+	            }
+	        }
+	    },
+	    components: {
+	        Header,
+	        Footer,
+	        BreadCrumbs
+	    },
+	    computed: {},
+	    async mounted () {
+	        let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
+	            pageNumber: 1,
+	            pageSize: this.pageSize
+	        })
+	        console.log('===========')
+	        console.log(drawData)
+	        if (drawData) {
+	            this.drawNumList = this.format_drawNum(drawData.expect_history)
+	            this.PageTotal = Number(drawData.count)
+	        }
+	    }
 	}
 </script>
 <style lang="less" scoped rel="stylesheet/less">

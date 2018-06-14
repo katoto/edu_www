@@ -38,8 +38,8 @@ export default {
             }
         }
     },
-    methods:{
-	    regisSucc(){
+    methods: {
+	    regisSucc () {
 		    this.$store.commit('hideRegSuccess')
         }
     }

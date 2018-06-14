@@ -9,19 +9,19 @@
 
 <script>
     export default {
-        data(){
+        data () {
             return {
-                banner:true
+                banner: true
             }
         },
         watch: {},
         methods: {
-            closeBanner(){
-               this.banner = false
+            closeBanner () {
+                this.banner = false
             }
         },
         computed: {},
-        mounted(){
+        mounted () {
 
         }
     }

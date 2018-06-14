@@ -210,7 +210,7 @@ export default {
                 val.moneyVal = (
                     parseFloat(val.money, 10) <= 0
                         ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money)}</a>`
-                        : `"<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money)}</a>`
+                        : `<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money)}</a>`
                 )
                 if (val.balance) {
                     val.balance = formateBalance(val.balance) + 'ETH'

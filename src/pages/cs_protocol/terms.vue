@@ -210,20 +210,20 @@
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Footer from '~/components/Footer.vue'
     export default {
-        data(){
+        data () {
             return {
                 title: ''
             }
         },
         watch: {},
         methods: {},
-        components:{
+        components: {
 	        Header,
             BreadCrumbs,
-            Footer,
+            Footer
         },
         computed: {},
-        mounted(){
+        mounted () {
         }
     }
 </script>

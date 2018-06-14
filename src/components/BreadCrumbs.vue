@@ -11,18 +11,18 @@
 <script>
     import store from '../store'
     export default {
-        data(){
+        data () {
             return {
             }
         },
         watch: {},
         methods: {},
         computed: {
-            mysite(){
-               return this.$store.state.route.name
+            mysite () {
+                return this.$store.state.route.name
             }
         },
-        mounted(){
+        mounted () {
 
         }
     }

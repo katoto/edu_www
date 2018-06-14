@@ -6,15 +6,15 @@
 
 <script>
 	export default {
-		data(){
-			return {}
-		},
-		watch: {},
-		methods: {},
-		computed: {},
-		mounted(){
+	    data () {
+	        return {}
+	    },
+	    watch: {},
+	    methods: {},
+	    computed: {},
+	    mounted () {
 
-		}
+	    }
 	}
 </script>
 <style scoped lang="less">

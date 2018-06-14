@@ -11,13 +11,13 @@ export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
 
 export function mapActions (acts, ns) {
-	const aTypes = {}
-	const actions = {}
-	Object.keys(acts).forEach((key) => {
-		aTypes[key] = [ns, key].join('/')
-		actions[aTypes[key]] = acts[key]
-	})
-	return {actions, aTypes}
+    const aTypes = {}
+    const actions = {}
+    Object.keys(acts).forEach((key) => {
+        aTypes[key] = [ns, key].join('/')
+        actions[aTypes[key]] = acts[key]
+    })
+    return {actions, aTypes}
 }
 
 export const platform = 'pc'
@@ -222,45 +222,44 @@ export function formateMoneyFlow (flowtype = '1') {
  *  @params  len
  *  shuffle()  洗牌算法
  * */
-export function randomNumber(len) {
-	var shuffleArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-	len = Number(len);
-	if (isNaN(len)) {
-		console.log('error in len ');
-		return false;
-	}
-	if (!len) {
-		len = 5;
-	}
-	return shuffle(shuffleArr).slice(0, len);
-	function shuffle(arr) {
-		var len = arr.length;
-		for (var i = 0; i < len - 1; i++) {
-			var idx = Math.floor(Math.random() * (len - i));
-			var temp = arr[idx];
-			arr[idx] = arr[len - i - 1];
-			arr[len - i - 1] = temp;
-		}
-		return arr;
-	}
+export function randomNumber (len) {
+    var shuffleArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    len = Number(len)
+    if (isNaN(len)) {
+        console.log('error in len ')
+        return false
+    }
+    if (!len) {
+        len = 5
+    }
+    return shuffle(shuffleArr).slice(0, len)
+    function shuffle (arr) {
+        var len = arr.length
+        for (var i = 0; i < len - 1; i++) {
+            var idx = Math.floor(Math.random() * (len - i))
+            var temp = arr[idx]
+            arr[idx] = arr[len - i - 1]
+            arr[len - i - 1] = temp
+        }
+        return arr
+    }
 }
-
 
 export function commonErrorHandler (data) {
     let status = data.status
     switch (status) {
-        case '214':
-	        removeCK();
-	        this.$store.commit('setIsLog', false);
-	        this.$store.commit('setUserInfo', {});
+    case '214':
+	        removeCK()
+	        this.$store.commit('setIsLog', false)
+	        this.$store.commit('setUserInfo', {})
 	        this.$store.commit('showLoginPop')
-            break
-        default:
-            Message({
-                message: data.message,
-                type: 'error',
-                duration: tipsTime
-            })
-            break
+        break
+    default:
+        Message({
+            message: data.message,
+            type: 'error',
+            duration: tipsTime
+        })
+        break
     }
 }
