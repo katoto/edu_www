@@ -9,37 +9,37 @@ import {Message} from 'element-ui'
 const state = {
 	navFix: false,
 
-	timeInterval:null,
-	timeLeft:null,
-	expect_blinking:false,  // 期号闪烁
-	expect_move:false,  // 期号上下移动
+	timeInterval: null,
+	timeLeft: null,
+	expect_blinking: false, // 期号闪烁
+	expect_move: false, // 期号上下移动
 
-	currExpectId:0,  // 期号
-	last_expectid:0,  // 上一期期号
+	currExpectId: 0, // 期号
+	last_expectid: 0, // 上一期期号
 
-	openCodeArr:null, // 开奖号码
-	liveOpenCode:[], // 开奖 数组 动画数据
-	time_drawFlip:null,  // 开奖动画 interval变量
+	openCodeArr: null, // 开奖号码
+	liveOpenCode: [], // 开奖 数组 动画数据
+	time_drawFlip: null, // 开奖动画 interval变量
 
-	recentBet:[],  // 最近投注
+	recentBet: [], // 最近投注
 
-	uid:null,  //过滤 首页数据用
+	uid: null, // 过滤 首页数据用
 
-	syxw_bettype_odds:{  // 玩法赔率 todo 更新
-		1101: "1.8",
-		1102: "4.5",
-		1103: "13.5",
-		1104: "54",
-		1105: "378"
+	syxw_bettype_odds: { // 玩法赔率 todo 更新
+		1101: '1.8',
+		1102: '4.5',
+		1103: '13.5',
+		1104: '54',
+		1105: '378'
 	}
 
 }
 
 const mutationsInfo = mapMutations({
-	currExpectId( state,data ){
+	currExpectId (state, data) {
 		state.currExpectId = data
 	},
-	setRecentBet( state ,data ){
+	setRecentBet (state, data) {
 		state.recentBet = data
 	},
 	setWithDrawList (state, data) {
@@ -49,25 +49,25 @@ const mutationsInfo = mapMutations({
 		state.navFix = data
 	},
 	/* socket 倒计时 */
-	timeLeft(state, time){
+	timeLeft (state, time) {
 		state.timeLeft = time
 	},
-	timeInterval(state, interval){
+	timeInterval (state, interval) {
 		state.timeInterval = interval
 	},
-	setUid(state,uid){
+	setUid (state, uid) {
 		state.uid = uid
 	}
 }, 'cs_1105');
 
 const actionsInfo = mapActions({
 	/* recent Bet */
-	formate_recentBet( {state,commit, dispatch},newData ){
-		let currLuckyNum = null ;
+	formate_recentBet ({state, commit, dispatch}, newData) {
+		let currLuckyNum = null;
 		let newLuckyResult = null;
-		let newNumLis = '' ;
-		if( newData && newData.length > 0 ){
-			for( let i=0,len = newData.length;i<len;i++ ){
+		let newNumLis = '';
+		if (newData && newData.length > 0) {
+			for (let i = 0, len = newData.length; i < len; i++) {
 				// 过滤掉 未登录和别人的failure
 				if (newData[i].status === '-1') {
 					if (newData[i].uid.toString() !== state.uid || state.uid === '0') {
@@ -94,42 +94,41 @@ const actionsInfo = mapActions({
 
 //                -2|取消退款  -1|下单失败  0|下单 1|成功  2|结算    new
 				let newTbody = '';
-				if (newData[i].orderstatus == '2') {
+				if (newData[i].orderstatus.toString() === '2') {
 					// 结算 并且大于0
 					if (newData[i].betprize > 0) {
-						newTbody += '<td class="win-amount js_resultDom"><a class="win">+' + Number( newData[i].betprize).toFixed(5) + digitalUnit + '</a></td>'
+						newTbody += '<td class="win-amount js_resultDom"><a class="win">+' + Number(newData[i].betprize).toFixed(5) + 'ETH</a></td>'
 					} else {
 						newTbody += '<td class="js_resultDom"><a></a>-</td>'
 					}
 				} else {
-					if (newData[i].orderstatus == '0') {
+					if (newData[i].orderstatus.toString() === '0') {
 						newTbody += '<td class="js_resultDom bold">wait </td>'
-					} else if (newData[i].orderstatus == '1') {
+					} else if (newData[i].orderstatus.toString() === '1') {
 						newTbody += '<td class="js_resultDom bold">wait</td>'
-					} else if (newData[i].orderstatus == '-1' || newData[i].orderstatus == '-2') {
+					} else if (newData[i].orderstatus.toString() === '-1' || newData[i].orderstatus.toString() === '-2') {
 						newTbody += '<td class="js_resultDom bold"><a></a>failure</td>'
 					}
 				}
 				newData[i].newTbody = newTbody;
-
 			}
 		}
-		commit(mTypes.setRecentBet , newData);
+		commit(mTypes.setRecentBet, newData);
 	},
 	// 当前 期号处理
-	formate_expectid( {state,commit, dispatch},expectid ){
+	formate_expectid ({state, commit, dispatch}, expectid) {
 		if (expectid) {
-			commit(mTypes.currExpectId , expectid);
+			commit(mTypes.currExpectId, expectid);
 		}
 	},
 	//  初始化上一期的结果
-	formate_Result( {state,commit, dispatch},msg ){
+	formate_Result ({state, commit, dispatch}, msg) {
 		if (msg.last_expectid) {
 			state.last_expectid = msg.last_expectid
 		}
 		// msg.expectid !== expectId  ??
-		if( msg.expectid !== state.currExpectId || 1){
-			if( !msg.opencode || msg.opencode === '' ){
+		if (msg.expectid !== state.currExpectId || 1) {
+			if (!msg.opencode || msg.opencode === '') {
 				msg.opencode = '-,-,-,-,-';
 			}
 			if (msg.opencode) {
@@ -141,18 +140,18 @@ const actionsInfo = mapActions({
 				let i = 0;
 				state.time_drawFlip = setInterval(function () {
 					if (i < liveLen) {
-						state.liveOpenCode.push( state.openCodeArr[i] );
+						state.liveOpenCode.push(state.openCodeArr[i]);
 					} else {
 						clearInterval(state.time_drawFlip)
 					}
-					i ++ ;
+					i++;
 				}, 250);
 			}
 		}
 	},
 
 	/* 初始化倒计时 */
-	formate_countDown( {state,commit, dispatch},timer ){
+	formate_countDown ({state, commit, dispatch}, timer) {
 		if (timer !== undefined && timer !== null) {
 			clearInterval(state.timeInterval);
 			// 倒计时
@@ -167,7 +166,7 @@ const actionsInfo = mapActions({
 						state.expect_move = false
 					}, 1300);
 				}
-				if( state.timeLeft < 0 ){
+				if (state.timeLeft < 0) {
 					// 临时
 					state.timeLeft = 60;
 				}
@@ -201,54 +200,54 @@ const actionsInfo = mapActions({
 				duration: tipsTime
 			})
 		}
-    },
-    
-    getHistoryDraw ({commit, dispatch}, params = {}) {
-        return ajax.get('/expect/hisopencode', params)
-    },
+	},
 
-    //首页 Recent Wins 列表接口数据
-    async getRecentWinsList({commit, dispatch}){
-        // order_lotid
-        try{
-            let dataRecentWinsList = null;
-            // if(order_lotid){
-            //     dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + order_lotid + '&pagesize=20');
-            // }else{
-                dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + 1 + '&pagesize=20');
-            // }
-            if(dataRecentWinsList.status === '100'){
-                return dataRecentWinsList.data.winnerlist;
-            }else{
-                Message({
-                    message: dataRecentWinsList.message,
-                    type: 'error',
-                    duration: tipsTime
-                })
-            }
-        }catch(e){
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
-    },
-    //首页 限号弹窗
-    async popLimit(){
-	    try {
-	        let dataLimit = null;
-	        let expectId = 1806121622;
-            dataLimit = await ajax.get('/expect/restrictpool?expect='+expectId);
-            return dataLimit;
-        }catch(e){
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
-    },
+	getHistoryDraw ({commit, dispatch}, params = {}) {
+		return ajax.get('/expect/hisopencode', params)
+	},
+
+	// 首页 Recent Wins 列表接口数据
+	async getRecentWinsList ({commit, dispatch}) {
+		// order_lotid
+		try {
+			let dataRecentWinsList = null;
+			// if(order_lotid){
+			//     dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + order_lotid + '&pagesize=20');
+			// }else{
+			dataRecentWinsList = await ajax.get('/home/winnerlist?lotid=' + 1 + '&pagesize=20');
+			// }
+			if (dataRecentWinsList.status === '100') {
+				return dataRecentWinsList.data.winnerlist;
+			} else {
+				Message({
+					message: dataRecentWinsList.message,
+					type: 'error',
+					duration: tipsTime
+				})
+			}
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
+	// 首页 限号弹窗
+	async popLimit () {
+		try {
+			let dataLimit = null;
+			let expectId = 1806121622;
+			dataLimit = await ajax.get('/expect/restrictpool?expect=' + expectId);
+			return dataLimit;
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	},
 
 	/* 注册激活 */
 	async mailActivate ({commit, dispatch}, pageData) {
@@ -261,8 +260,25 @@ const actionsInfo = mapActions({
 				duration: tipsTime
 			})
 		}
-
 	},
+	/* 投注下单  2001  */
+	async placeOrder ({commit, dispatch}, transferOrderStr) {
+		try {
+			let InfoData = await ajax.post(`/place/order`, {
+				codestr: transferOrderStr,
+				cointype: 2001
+			})
+			console.log(InfoData);
+			console.log('=======InfoData==');
+			return InfoData
+		} catch (e) {
+			Message({
+				message: e.message,
+				type: 'error',
+				duration: tipsTime
+			})
+		}
+	}
 
 }, 'cs_1105')
 

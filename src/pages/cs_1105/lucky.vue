@@ -353,10 +353,37 @@
 			},
 			isLog(){
 				return this.$store.state.isLog
-			}
+			},
+			currExpectId(){
+				return this.$store.state.cs_1105.currExpectId
+            }
 		},
 		methods: {
-			playNow(){
+			playType( val ){
+				//玩法类型1,2,3,4,5,5J
+                val = val.toString();
+                switch ( val ){
+                    case '1':
+                    	return '1101'
+                    case '2':
+	                    return '1102'
+                    case '3':
+	                    return '1103'
+                    	;break;
+                    case '4':
+	                    return '1104'
+                    	;break;
+                    case '5':
+	                    return '1105'
+                    	;break;
+                    case '5J':
+	                    return '1106'
+                    	;break;
+                }
+
+            },
+
+			async playNow(){
 				// 投注下单
 				// 出现loading
 //                document.getElementById('js_loading').className = '';
@@ -365,7 +392,6 @@
 					this.$store.commit('showLoginPop');
 					return false
 				}
-
 				// 选号是否完成？
 				if (this.playArea) {
 					let noComplete = [];
@@ -375,21 +401,22 @@
 //		                pickNum: [],
 //		                pickMoney: 0.0001,
 //		                pickJackPot: []  // 奖池用
+                    let beginBetStr = '';
 					this.playArea.forEach((val, index) => {
 						if (parseFloat(val.pickType) !== val.pickNum.length) {
 							noComplete.push('Ticket'+ (index + 1));
-							noCompleteIndex.push( index )
+							noCompleteIndex.push( index );
 						}
+						beginBetStr += val.pickNum.join(',') + '#' + this.playType ( val.pickType ) + '@' + val.pickMoney +'$'
 					});
                     if( noComplete.length === 0 ){
+                        let sendBetStr = (this.currExpectId+ '|' + beginBetStr).slice(0, -1);
+	                    console.log(12);
+	                    let orderMsg = await this.$store.dispatch(aTypes.placeOrder , sendBetStr);
+	                    console.log(orderMsg);
+	                    console.log('====32=====');
 
-	                    //  修改玩法
-//	                    playStyleBet = '110' + $betAreaItemLis.eq(i).attr('data-choosetype');
-//	                    // 拼接转账下单  号码 + 玩法 + 金额
-//	                    transferOrderStr += $currNumberBox.attr('data-luckyNum').replace(/\|/g, ',') + "#" + playStyleBet + "@" + currDigit + '$';
-//	                    //  余额支付
-//	                    currChoseLen++;
-
+//	                    1806141038|   5,11,8#1103@0.0001$   9#1101@0.0001   $  11#1101@0.0001
 
                     }else{
 	                    Message({

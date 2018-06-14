@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import {Message} from 'element-ui'
 import ajax from '~common/ajax'
-import {src, channel, mapMutations, getCK, removeCK , mapActions, platform, tipsTime} from '~common/util'
+import {src, channel, mapMutations, getCK, removeCK, mapActions, platform, tipsTime} from '~common/util'
 
 const state = {
     pop: {
@@ -29,33 +29,33 @@ const state = {
         inviterObj: null, // 邀请接收
 
 		// loginSucc: null,  // 登陆成功后的数据
-		showFirstLogin:false,  // 邀请用（激活处）
-		loginSucc: {  //  登陆
-			login_times:'331',  // 用户信息的地方没有这个字段
-			invite_status:'0',
+		showFirstLogin: false, // 邀请用（激活处）
+		loginSucc: { //  登陆
+			login_times: '331', // 用户信息的地方没有这个字段
+			invite_status: '0',
 			invite_prize_chances: 2,
-			tasks:[]
+			tasks: []
 		},
-		inviteTips:false,  // 控制成功邀请的弹窗
+		inviteTips: false // 控制成功邀请的弹窗
 
 	}
 }
 
 const mutations = {
 	//  激活用的
-	inviteTips(state, data){
+	inviteTips (state, data) {
 		state.pop.inviteTips = data
 	},
 	//  激活用的
-	showFirstLogin(state, data){
+	showFirstLogin (state, data) {
 		state.pop.showFirstLogin = data
 	},
 	//  登陆回来的数据
-	setLoginSucc(state, msg){
+	setLoginSucc (state, msg) {
 		state.pop.loginSucc = msg
 	},
 	// 邀请用
-	setInviterObj(state, msg){
+	setInviterObj (state, msg) {
 		state.pop.inviterObj = msg
 	},
 
@@ -175,12 +175,11 @@ const actions = {
     },
 
 	/* 退出登录 */
-	loginOut({commit, dispatch}){
+	loginOut ({commit, dispatch}) {
 		dispatch('sub2out');
 		removeCK();
 		commit('setIsLog', false);
 		commit('setUserInfo', {});
-
 	},
 
     /* reg 注册 => 邮箱验证 */
@@ -303,12 +302,12 @@ const actions = {
     },
 
 	/* 邀请 faucet 领取 */
-	async getTaskDone ({commit, dispatch},taskid) {
+	async getTaskDone ({commit, dispatch}, taskid) {
 		try {
 			let InfoData = await ajax.get(`/task/done?tid=${taskid}&ck=${getCK()}&src=${src}&platform=${platform}`)
 			if (InfoData && InfoData.status.toString() === '100') {
 				return InfoData.data;
-			}else{
+			} else {
 				Message({
 					message: InfoData.message,
 					type: 'error',
@@ -323,6 +322,9 @@ const actions = {
 			})
 		}
 	},
+
+
+
 };
 
 const getters = {}
