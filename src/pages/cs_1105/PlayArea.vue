@@ -47,9 +47,13 @@
             </div>
             <span>ETH</span>
             <div class="winning">
-                Return&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] *
+                    Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] *
                 parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
+                <div class="winjackport" v-if="true">
+                    (including C5: {{2.52}}ETH; jackpot {{3.03}}ETH)
+                </div>
             </div>
+
         </div>
         <div class="order-box js_choose_jackPot" :class="{'hide': areaMsg.pickType !== '5J'}">
             <p>Picking Order</p>
@@ -315,5 +319,8 @@
         }
     }
 </script>
-<style>
+<style scoped>
+    .winjackport{
+        display: inline-block;
+    }
 </style>
