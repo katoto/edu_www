@@ -265,11 +265,11 @@ export default {
                     label: 'successful'
                 },
                 {
-                    value: '-2',
+                    value: '-1',
                     label: 'failed'
                 },
                 {
-                    value: '3',
+                    value: '0',
                     label: 'waiting'
                 }
             ],
@@ -396,7 +396,7 @@ export default {
         async handleCurrentChange (val = this.pageno) {
             let params = {}
             if (this.withdrawOptionVal !== '1') {
-                params.withdraw = this.withdrawOptionVal
+                params.drawstatus = this.withdrawOptionVal
             }
             let data = await this.$store.dispatch('cs_account/getWithdrawRecords', {
                 pageno: val,

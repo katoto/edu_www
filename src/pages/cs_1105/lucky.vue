@@ -342,6 +342,9 @@
                 </div>
             </div>
         </div>
+        <a href="/coinslot/html/worldCup.html" target="_blank" class="icon-enterWorld">
+            <img src="@assets/img/worldCup/enterIcon-worldCup.png" />
+        </a>
         <button @click="leaveRoute">离开页面</button>
         <Footer></Footer>
     </div>
@@ -372,7 +375,7 @@
             },
 			recentBet () {
 				return this.$store.state.cs_1105.recentBet
-			},
+			}
         },
 		methods: {
 			leaveRoute () {
@@ -468,7 +471,7 @@
 					    return 'ETH'
 			    }
 		    },
-		    format_match: (match)=> {
+		    format_match: (match) => {
 			    if (isNaN(match)) {
 				    return ''
 			    }
@@ -486,7 +489,7 @@
 					    return 'C5'
 			    }
 		    },
-		    formatTime :(time, format) => {
+		    formatTime: (time, format) => {
 			    if (format === undefined || format == null) {
 				    format = 'MM-dd HH:mm:ss'
 			    }
@@ -571,6 +574,15 @@
         position: relative;
         width: 100%;
         overflow: hidden;
+    }
+
+    .icon-enterWorld{
+        position: fixed;
+        width:108px;
+        height:135px;
+        top:45%;
+        right:0;
+        z-index:10;
     }
 
     //玩法区
