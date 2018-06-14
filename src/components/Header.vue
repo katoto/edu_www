@@ -84,8 +84,12 @@
                     <!-- 登录 -->
                     <section v-else>
                         <div class="hadlogin">
-                            <a href="" class="btn-rechrage">Deposit </a>
-                            <a href="" class="btn-cash">Withdraw</a>
+                            <router-link :to="{path: '/account/deposit'}">
+                                <a href="javascript:;" class="btn-rechrage">Deposit </a>
+                            </router-link>
+                            <router-link :to="{path: '/account/withdraw'}">
+                                <a href="javascript:;" class="btn-cash">Withdraw</a>
+                            </router-link>
                         </div>
                         <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
                             <div class="countNum" >
@@ -210,642 +214,655 @@
 </template>
 
 <script>
-    import PopList from '~components/Pop-list'
-    import Banner from '~components/banner'
-	import {Message} from 'element-ui'
-	import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
+import PopList from '~components/Pop-list'
+import Banner from '~components/banner'
+import { Message } from 'element-ui'
+import {
+    src,
+    platform,
+    removeCK,
+    tipsTime,
+    ethUrl,
+    format_match_account,
+    formateBalance
+} from '~common/util'
 
-	export default {
-		components: {PopList,Banner},
-		data () {
-			return {
-				showDetail: false,
-                showEndFaucet:false,  // 控制 结束弹窗 tips
-				showEndFaucetTime:null,
-				showInviteSuccFlag:false,
-			}
-		},
-		watch: {},
-		computed: {
-			inviteTips(){
-				return this.$store.state.pop.inviteTips
-            },
-			showFirstLogin(){
-				return this.$store.state.pop.showFirstLogin
-			},
-			loginSucc(){
-				return this.$store.state.pop.loginSucc
-			},
-			isLog(){
-				return this.$store.state.isLog
-			},
-			userInfo(){
-				return this.$store.state.userInfo
-			}
-		},
-		methods: {
-			async getFaucet(){
-				// 领取邀请奖励
-                if( this.loginSucc && this.loginSucc.tasks.length >0 ){
-	                this.showInviteSuccFlag = false;
-                    let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid );
-	                console.log(taskDone);
-	                if( taskDone &&  taskDone.taskstatus.toString() === '1' ){
-		                document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove';
-		                setTimeout(()=>{
-			                this.$store.commit('inviteTips' , false);
-			                // 手动加 0.001 eth
-			                let newUserInfo = null;
-			                if(this.userInfo){
-				                newUserInfo = this.userInfo ;
-				                newUserInfo.accounts[0].balance = parseFloat( newUserInfo.accounts[0].balance ) + 0.001
-			                }
-			                this.$store.commit('setUserInfo' , newUserInfo);
-			                this.showInviteSuccFlag = true;
-			                document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove';
-		                },3000);
-		                this.$store.dispatch('getUserInfo');
-                    }
-
+export default {
+    components: { PopList, Banner },
+    data () {
+        return {
+            showDetail: false,
+            showEndFaucet: false, // 控制 结束弹窗 tips
+            showEndFaucetTime: null,
+            showInviteSuccFlag: false
+        }
+    },
+    watch: {},
+    computed: {
+        inviteTips () {
+            return this.$store.state.pop.inviteTips
+        },
+        showFirstLogin () {
+            return this.$store.state.pop.showFirstLogin
+        },
+        loginSucc () {
+            return this.$store.state.pop.loginSucc
+        },
+        isLog () {
+            return this.$store.state.isLog
+        },
+        userInfo () {
+            return this.$store.state.userInfo
+        }
+    },
+    methods: {
+        async getFaucet () {
+            // 领取邀请奖励
+            if (this.loginSucc && this.loginSucc.tasks.length > 0) {
+                this.showInviteSuccFlag = false
+                let taskDone = await this.$store.dispatch(
+                    'getTaskDone',
+                    this.loginSucc.tasks[0].tid
+                )
+                console.log(taskDone)
+                if (taskDone && taskDone.taskstatus.toString() === '1') {
+                    document.querySelector('.js_addMoneyMove').className =
+            'add0001 js_addMoneyMove'
+                    setTimeout(() => {
+                        this.$store.commit('inviteTips', false)
+                        // 手动加 0.001 eth
+                        let newUserInfo = null
+                        if (this.userInfo) {
+                            newUserInfo = this.userInfo
+                            newUserInfo.accounts[0].balance =
+                parseFloat(newUserInfo.accounts[0].balance) + 0.001
+                        }
+                        this.$store.commit('setUserInfo', newUserInfo)
+                        this.showInviteSuccFlag = true
+                        document.querySelector('.js_addMoneyMove').className =
+              'hide js_addMoneyMove'
+                    }, 3000)
+                    this.$store.dispatch('getUserInfo')
                 }
-            },
-			hideFirstLoginAll(){
-				// 关闭第一个弹窗
-				this.$store.commit('showFirstLogin', false);
-				this.$store.commit('setLoginSucc', null);
-			},
-			async showFaucet(){
-				if(~document.getElementById('js_btn-faucet').className.indexOf('over')){
-                    this.showEndFaucet = true;
-                    clearTimeout(this.showEndFaucetTime);
-                    this.showEndFaucetTime = setTimeout(()=>{
-	                    this.showEndFaucet = false;
-                    },2500)
-                }else{
-					let faucetMsg = await this.$store.dispatch('getFaucet');
-                    /* 显示邀请 */
-					this.$store.commit('showFaucet');
-					// 关闭第一个弹窗 ?
-    				this.$store.commit('showFirstLogin', false);
-    //				this.$store.commit('setLoginSucc', null);
-                }
-			},
-			showDetailFn(){
-				this.showDetail = true
-			},
-			hideDetailFn(){
-				this.showDetail = false
-			},
-			signOut(){
-                /* 退出登录 */
-                this.$store.dispatch('loginOut');
-			},
-			onLoginIn () {
-				this.$store.commit('showLoginPop')
-			}
-		},
-		filters: {
-			formateCoinType: (type = '2001') => {
-				type = type.toString();
-				switch (type) {
-					case '2001':
-						return 'ETH';
-					case '1001':
-						return 'BTC';
-					default:
-						return 'ETH'
-				}
-			}
-		}
-	}
+            }
+        },
+        hideFirstLoginAll () {
+            // 关闭第一个弹窗
+            this.$store.commit('showFirstLogin', false)
+            this.$store.commit('setLoginSucc', null)
+        },
+        async showFaucet () {
+            if (~document.getElementById('js_btn-faucet').className.indexOf('over')) {
+                this.showEndFaucet = true
+                clearTimeout(this.showEndFaucetTime)
+                this.showEndFaucetTime = setTimeout(() => {
+                    this.showEndFaucet = false
+                }, 2500)
+            } else {
+                let faucetMsg = await this.$store.dispatch('getFaucet')
+                /* 显示邀请 */
+                this.$store.commit('showFaucet')
+                // 关闭第一个弹窗 ?
+                this.$store.commit('showFirstLogin', false)
+                // this.$store.commit('setLoginSucc', null);
+            }
+        },
+        showDetailFn () {
+            this.showDetail = true
+        },
+        hideDetailFn () {
+            this.showDetail = false
+        },
+        signOut () {
+            /* 退出登录 */
+            this.$store.dispatch('loginOut')
+        },
+        onLoginIn () {
+            this.$store.commit('showLoginPop')
+        }
+    },
+    filters: {
+        formateCoinType: (type = '2001') => {
+            type = type.toString()
+            switch (type) {
+            case '2001':
+                return 'ETH'
+            case '1001':
+                return 'BTC'
+            default:
+                return 'ETH'
+            }
+        }
+    }
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../styles/lib-mixins.less";
+@import "../styles/lib-mixins.less";
 
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+ {
+  opacity: 0;
+}
+
+.head {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  height: 90px;
+  background: #5068bc;
+  background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+  color: #fff;
+  .top {
+    position: relative;
+    z-index: 4;
+    width: 1190px;
+    height: 90px;
+    margin: 0 auto;
+  }
+  .logo {
+    display: block;
+    float: left;
+    width: 230px;
+    height: 90px;
+    svg {
+      transform-origin: 0 40px;
+      transform: scale(0.47);
     }
-
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-    {
-        opacity: 0;
+  }
+  .language {
+    float: right;
+    cursor: pointer;
+    margin-top: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    i {
+      display: block;
+      width: 28px;
+      height: 28px;
+      float: left;
+      margin-right: 5px;
+      border: 2px solid #837bbd;
+      border-radius: 50%;
+      background-image: url(" ../assets/slice/en.png");
     }
-
-    .head {
-        position: relative;
-        width: 100%;
-        height: 150px;
-        height: 90px;
-        background: #5068bc;
-        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
-        color: #fff;
-        .top {
-            position: relative;
-            z-index: 4;
-            width: 1190px;
-            height: 90px;
-            margin: 0 auto;
-        }
-        .logo {
-            display: block;
-            float: left;
-            width: 230px;
-            height: 90px;
-            svg {
-                transform-origin: 0 40px;
-                transform: scale(0.47);
-            }
-        }
-        .language {
-            float: right;
-            cursor: pointer;
-            margin-top: 30px;
-            height: 30px;
-            line-height: 30px;
-            color: #fff;
-            i {
-                display: block;
-                width: 28px;
-                height: 28px;
-                float: left;
-                margin-right: 5px;
-                border: 2px solid #837bbd;
-                border-radius: 50%;
-                background-image: url(" ../assets/slice/en.png");
-            }
-            span {
-                float: left;
-            }
-        }
-        .impor-wallet {
-            display: block;
-            float: right;
-            margin: 26px 47px 0 0;
-            width: 198px;
-            height: 34px;
-            overflow: hidden;
-            text-align: center;
-            line-height: 34px;
-            border: 1px solid #907eef;
-            border-radius: 6px;
-            color: #fff;
-        }
-        .mycount {
-            position: relative;
-            float: right;
-            .transition();
-            .countNum {
-                position: relative;
-                cursor: pointer;
-                display: block;
-                padding-right: 25px;
-                line-height: 30px;
-                font-size: 20px;
-                padding-bottom: 6px;
-                i {
-                    display: block;
-                    position: absolute;
-                    width: 13px;
-                    height: 8px;
-                    right: 0;
-                    top: 11px;
-                    background-image: url(" ../assets/slice/arrow-down-fff.png");
-                    transform-origin: 50%;
-                    .transition();
-                }
-                &:hover {
-                    i {
-                        transform: rotate(180deg);
-                    }
-                }
-            }
-        }
-
-        .login {
-            position: relative;
-            float: right;
-            margin: 30px 47px 0 0;
-            border: none;
-            .to-login,
-            .hadlogin {
-                position: relative;
-                float: right;
-                width: 198px;
-                margin-left: 50px;
-                text-align: center;
-                overflow: hidden;
-                &:hover {
-                    &::after {
-                        background: #eef1f9;
-                    }
-                }
-            }
-            .hadlogin {
-                &:after {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 50%;
-                    width: 1px;
-                    height: 100%;
-                    overflow: hidden;
-                    background: #907eef;
-                }
-            }
-            .btn-rechrage,
-            .btn-cash,
-            .btn-up,
-            .btn-in {
-                display: block;
-                float: left;
-                width: 50%;
-                height: 30px;
-                overflow: hidden;
-                border: 1px solid #907eef;
-                line-height: 28px;
-                box-sizing: border-box;
-                color: #fff;
-                .transition();
-                &:hover {
-                    border-color: #eef1f9;
-                }
-            }
-            .btn-rechrage,
-            .btn-up {
-                border-right: none;
-                border-top-left-radius: 6px;
-                border-bottom-left-radius: 6px;
-            }
-            .btn-cash {
-                border-top-right-radius: 6px;
-                border-bottom-right-radius: 6px;
-                border-left: none;
-            }
-            .btn-in {
-                float: right;
-                border-radius: 6px;
-            }
-        }
-        .jump5 {
-            animation: fontSize 1s forwards infinite;
-        }
-        .jackpot {
-            float: left;
-            margin-left: 22px;
-            font-family: sans-eb;
-            color: #f6b543;
-            * {
-                float: left;
-            }
-            span {
-                font-size: 20px;
-            }
-            i {
-                position: relative;
-                padding-left: 26px;
-                font-size: 36px;
-                &::before {
-                    content: "";
-                    position: absolute;
-                    left: 0;
-                    top: 20px;
-                    background-image: url(" ../assets/slice/logo-btc.png");
-                }
-            }
-        }
+    span {
+      float: left;
     }
-
-    .mycount-detailed {
+  }
+  .impor-wallet {
+    display: block;
+    float: right;
+    margin: 26px 47px 0 0;
+    width: 198px;
+    height: 34px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 34px;
+    border: 1px solid #907eef;
+    border-radius: 6px;
+    color: #fff;
+  }
+  .mycount {
+    position: relative;
+    float: right;
+    .transition();
+    .countNum {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      padding-right: 25px;
+      line-height: 30px;
+      font-size: 20px;
+      padding-bottom: 6px;
+      i {
+        display: block;
         position: absolute;
-        z-index: 10;
+        width: 13px;
+        height: 8px;
         right: 0;
-        top: 36px;
-        width: 207px;
-        border-radius: 6px;
+        top: 11px;
+        background-image: url(" ../assets/slice/arrow-down-fff.png");
+        transform-origin: 50%;
+        .transition();
+      }
+      &:hover {
+        i {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .login {
+    position: relative;
+    float: right;
+    margin: 30px 47px 0 0;
+    border: none;
+    .to-login,
+    .hadlogin {
+      position: relative;
+      float: right;
+      width: 198px;
+      margin-left: 50px;
+      text-align: center;
+      overflow: hidden;
+      &:hover {
+        &::after {
+          background: #eef1f9;
+        }
+      }
+    }
+    .hadlogin {
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
         overflow: hidden;
-        background: #fff;
-        text-align: right;
-        -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        .wallet-balance,
-        .wallet-add {
-            padding: 0 18px;
-            p {
-                height: 26px;
-                line-height: 26px;
-                overflow: hidden;
-                font-size: 12px;
-                color: #778ca3;
-            }
-        }
-        .wallet-balance {
-            margin: 16px 0 25px 0;
-            li {
-                height: 26px;
-                line-height: 26px;
-                overflow: hidden;
-                font-size: 16px;
-                font-weight: bold;
-                color: #263648;
-            }
-            .unit {
-                float: right;
-            }
-            .amount {
-                margin-left: 15px;
-                float: right;
-            }
-            .btn-refresh {
-                display: block;
-                float: right;
-                margin: 8px 0 0 10px;
-                background-image: url(" ../assets/slice/icon-refresh.png");
-            }
-        }
-        .wallet-add {
-            margin: 14px auto 26px;
-            .items-add {
-                line-height: 22px;
-                .clearfix();
-                span {
-                    float: left;
-                    color: #263648;
-                }
-                a {
-                    float: right;
-                    width: 120px;
-                    color: #263648;
-                    text-decoration: none;
-                    .transition();
-                    .text-overflow();
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
-        }
-        .my-transaction,
-        .account-center {
-            display: block;
-            width: 153px;
-            height: 28px;
-            overflow: hidden;
-            margin: 10px auto 0;
-            line-height: 28px;
-            text-align: center;
-            border: 1px solid #ced6e0;
-            border-radius: 6px;
-        }
-        .log-out {
-            display: block;
-            height: 30px;
-            overflow: hidden;
-            margin-top: 30px;
-            line-height: 30px;
-            text-align: center;
-            border-top: 1px solid #ced6e0;
-            &:hover {
-                background: #eef1f9;
-            }
-        }
+        background: #907eef;
+      }
     }
+    .btn-rechrage,
+    .btn-cash,
+    .btn-up,
+    .btn-in {
+      display: block;
+      float: left;
+      width: 50%;
+      height: 30px;
+      overflow: hidden;
+      border: 1px solid #907eef;
+      line-height: 28px;
+      box-sizing: border-box;
+      color: #fff;
+      .transition();
+      &:hover {
+        border-color: #eef1f9;
+      }
+    }
+    .btn-rechrage,
+    .btn-up {
+      border-right: none;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+    .btn-cash {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-left: none;
+    }
+    .btn-in {
+      float: right;
+      border-radius: 6px;
+    }
+  }
+  .jump5 {
+    animation: fontSize 1s forwards infinite;
+  }
+  .jackpot {
+    float: left;
+    margin-left: 22px;
+    font-family: sans-eb;
+    color: #f6b543;
+    * {
+      float: left;
+    }
+    span {
+      font-size: 20px;
+    }
+    i {
+      position: relative;
+      padding-left: 26px;
+      font-size: 36px;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 20px;
+        background-image: url(" ../assets/slice/logo-btc.png");
+      }
+    }
+  }
+}
 
-    .account-info {
-        padding: 0 16px;
+.mycount-detailed {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  top: 36px;
+  width: 207px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  text-align: right;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  .wallet-balance,
+  .wallet-add {
+    padding: 0 18px;
+    p {
+      height: 26px;
+      line-height: 26px;
+      overflow: hidden;
+      font-size: 12px;
+      color: #778ca3;
+    }
+  }
+  .wallet-balance {
+    margin: 16px 0 25px 0;
+    li {
+      height: 26px;
+      line-height: 26px;
+      overflow: hidden;
+      font-size: 16px;
+      font-weight: bold;
+      color: #263648;
+    }
+    .unit {
+      float: right;
+    }
+    .amount {
+      margin-left: 15px;
+      float: right;
+    }
+    .btn-refresh {
+      display: block;
+      float: right;
+      margin: 8px 0 0 10px;
+      background-image: url(" ../assets/slice/icon-refresh.png");
+    }
+  }
+  .wallet-add {
+    margin: 14px auto 26px;
+    .items-add {
+      line-height: 22px;
+      .clearfix();
+      span {
+        float: left;
         color: #263648;
-        .email {
-            margin-top: 25px;
-            line-height: 26px;
-            font-size: 16px;
-            font-weight: bold;
+      }
+      a {
+        float: right;
+        width: 120px;
+        color: #263648;
+        text-decoration: none;
+        .transition();
+        .text-overflow();
+        &:hover {
+          text-decoration: underline;
         }
-        .uid {
-            line-height: 26px;
-            font-size: 12px;
-        }
+      }
     }
-
-    .opening {
-        position: absolute;
-        top: 0;
-        left: 160px;
-        font-weight: bold;
-        font-size: 16px;
-        color: #fff;
-        font-weight: bold;
+  }
+  .my-transaction,
+  .account-center {
+    display: block;
+    width: 153px;
+    height: 28px;
+    overflow: hidden;
+    margin: 10px auto 0;
+    line-height: 28px;
+    text-align: center;
+    border: 1px solid #ced6e0;
+    border-radius: 6px;
+  }
+  .log-out {
+    display: block;
+    height: 30px;
+    overflow: hidden;
+    margin-top: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-top: 1px solid #ced6e0;
+    &:hover {
+      background: #eef1f9;
     }
+  }
+}
 
-    #cicle {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translate(-50%);
+.account-info {
+  padding: 0 16px;
+  color: #263648;
+  .email {
+    margin-top: 25px;
+    line-height: 26px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .uid {
+    line-height: 26px;
+    font-size: 12px;
+  }
+}
+
+.opening {
+  position: absolute;
+  top: 0;
+  left: 160px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+}
+
+#cicle {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+}
+
+.jackpot-box {
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 50%;
+  margin-left: -473.5px;
+  width: 947px;
+  height: 112px;
+  .text {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    p {
+      height: 72px;
+      padding-top: 25px;
+      line-height: 76px;
+      font-size: 22px;
     }
-
-    .jackpot-box {
-        position: fixed;
-        z-index: 11;
-        top: 0;
-        left: 50%;
-        margin-left: -473.5px;
-        width: 947px;
-        height: 112px;
-        .text {
-            position: relative;
-            z-index: 4;
-            display: flex;
-            justify-content: center;
-            p {
-                height: 72px;
-                padding-top: 25px;
-                line-height: 76px;
-                font-size: 22px;
-            }
-            p.jackpot-add {
-                width: 104px;
-                overflow: hidden;
-            }
-            p.jackpot-money {
-                font-size: 36px;
-                font-family: sans-eb;
-                line-height: 72px;
-                animation: bounceIn 2s 5s infinite;
-            }
-        }
-        .bg {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .bg1 {
-            z-index: 1;
-            background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
-        }
-        .bg2 {
-            z-index: 2;
-            background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
-        }
-        .bg3 {
-            z-index: 3;
-            background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
-        }
-        .bg1,
-        .bg3 {
-            opacity: 0;
-            animation: bounceIn 1s 1s forwards;
-        }
-        img {
-            position: absolute;
-            top: -50px;
-        }
+    p.jackpot-add {
+      width: 104px;
+      overflow: hidden;
     }
-
-    @keyframes fontSize {
-        0% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        80% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(1.5);
-            opacity: 0;
-        }
+    p.jackpot-money {
+      font-size: 36px;
+      font-family: sans-eb;
+      line-height: 72px;
+      animation: bounceIn 2s 5s infinite;
     }
+  }
+  .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .bg1 {
+    z-index: 1;
+    background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
+  }
+  .bg2 {
+    z-index: 2;
+    background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
+  }
+  .bg3 {
+    z-index: 3;
+    background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
+  }
+  .bg1,
+  .bg3 {
+    opacity: 0;
+    animation: bounceIn 1s 1s forwards;
+  }
+  img {
+    position: absolute;
+    top: -50px;
+  }
+}
 
-    @keyframes rubberBand {
-        0% {
-            transform: scaleX(1);
-        }
-        30% {
-            transform: scale3d(1.25, 0.75, 1);
-        }
+@keyframes fontSize {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
 
-        40% {
-            transform: scale3d(0.75, 1.25, 1);
-        }
+@keyframes rubberBand {
+  0% {
+    transform: scaleX(1);
+  }
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
 
-        50% {
-            transform: scale3d(1.15, 0.85, 1);
-        }
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
 
-        65% {
-            transform: scale3d(0.95, 1.05, 1);
-        }
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
 
-        75% {
-            transform: scale3d(1.05, 0.95, 1);
-        }
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
 
-        to {
-            transform: scaleX(1);
-        }
-    }
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
 
-    @keyframes bounceIn {
-        0% {
-            transform: scale3d(0.6, 0.6, 0.6);
-        }
+  to {
+    transform: scaleX(1);
+  }
+}
 
-        20% {
-            transform: scale3d(1.1, 1.1, 1.1);
-        }
+@keyframes bounceIn {
+  0% {
+    transform: scale3d(0.6, 0.6, 0.6);
+  }
 
-        40% {
-            transform: scale3d(0.9, 0.9, 0.9);
-        }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
 
-        60% {
-            transform: scale3d(1.03, 1.03, 1.03);
-        }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
 
-        80% {
-            transform: scale3d(0.97, 0.97, 0.97);
-        }
+  60% {
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
 
-        to {
-            transform: scale3d(0.3, 0.3, 0.3);
-        }
-    }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
 
-    @keyframes freeDown {
-        0% {
-            transform: translateY(-50px) rotate(50deg);
-            opacity: 1;
-        }
-        60% {
-            opacity: 1;
-        }
-        80% {
-            transform: translateY(200px) rotate(-100deg);
-            opacity: 0;
-        }
-        100% {
-            transform: translateY(300px) rotate(-150deg);
-            opacity: 0;
-        }
-    }
+  to {
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
 
-    .fresh_move {
-        animation: fresh_move 1s;
-    }
+@keyframes freeDown {
+  0% {
+    transform: translateY(-50px) rotate(50deg);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(200px) rotate(-100deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(300px) rotate(-150deg);
+    opacity: 0;
+  }
+}
 
-    @keyframes fresh_move {
-        0% {
-            transform: rotate(0);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
+.fresh_move {
+  animation: fresh_move 1s;
+}
 
-    .deadlineMove {
-        animation: deadlineMove 1.3s;
-    }
+@keyframes fresh_move {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-    @keyframes deadlineMove {
-        0% {
-            transform: translateY(0);
-        }
-        35% {
-            opacity: 0;
-            transform: translateY(60px);
-        }
-        65% {
-            opacity: 0;
-            transform: translateY(-60px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+.deadlineMove {
+  animation: deadlineMove 1.3s;
+}
 
-    .blinking {
-        animation: blinking 0.7s;
-    }
+@keyframes deadlineMove {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  65% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    @keyframes blinking {
-        0% {
-            opacity: 1;
-        }
-        25% {
-            opacity: 0;
-        }
-        50% {
-            opacity: 1;
-        }
-        75% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
+.blinking {
+  animation: blinking 0.7s;
+}
 
+@keyframes blinking {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 </style>
 
