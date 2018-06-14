@@ -137,12 +137,11 @@ const mutations = {
     faucetMsg (state, msg) {
         state.pop.faucetMsg = msg
     },
-	// 限号弹窗
 	showPopLimit (state) {
-		state.showPopLimit = true
+		state.pop.showPopLimit = true
 	},
 	hidePopLimit (state) {
-		state.showPopLimit = false
+		state.pop.showPopLimit = false
 	}
 
 }
