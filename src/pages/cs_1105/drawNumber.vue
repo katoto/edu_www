@@ -405,6 +405,8 @@
             display: block;
             margin: 0 auto;
             background-image: url("../../assets/slice/icon-down.png");
+            width: 14px;
+            height: 13px;
             transition: none;
         }
         th {

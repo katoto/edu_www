@@ -35,7 +35,7 @@
         </ul>
         <a href="javascript:;" @click="randomPickFn" class="btn-random-pick">Quick Pick</a>
         <a href="javascript:;" class="btn-delete" @click="clearNumber"></a>
-        <a href="javascript:;" :data-time="areaMsg.createTime" @click="delTicket" class="btn-close"></a>
+        <a href="javascript:;" :data-delIndex="currIndex" @click="delTicket" class="btn-close"></a>
         <div class="beting">
             <span>Bet</span>
             <div class="btn-beting">
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-    import {randomNumber, src, platform, isLog, getCK, format_match, setCK, removeCK} from '~common/util'
+    import {randomNumber, src, platform, isLog, getCK, setCK, removeCK} from '~common/util'
     import {Message} from 'element-ui'
 
     export default {
@@ -76,10 +76,10 @@
                 limitUnit: 0.0001
             }
         },
-        props: ['areaMsg', 'data', 'allplayArea'],
+        props: ['areaMsg', 'data', 'allplayArea','currIndex'],
         watch: {},
         methods: {
-            //             隐藏
+            //   隐藏
             showPopLimit () {
                 this.$store.commit('showPopLimit')
             },
@@ -111,13 +111,13 @@
                 }
             },
             delTicket ($event) {
-                // 删除  ？？  TODO  有问题
+                // 删除
                 console.log('del')
                 console.log(this.allplayArea)
                 console.log($event)
                 if ($event.target.tagName === 'A') {
-                //	                this.allplayArea.splice( closeFlag  , 1  );
-                //	                this.$emit('update:allplayArea', this.allplayArea );
+                    this.allplayArea.splice( parseFloat( $event.target.getAttribute('data-delIndex') )  , 1  );
+                    this.$emit('update:allplayArea', this.allplayArea );
                 }
             },
             js_beting_add () {
@@ -226,7 +226,6 @@
                     })
                 }
             },
-
             formateBalance: (val = 0) => {
                 var newEth = null
                 if (isNaN(val) || isNaN(Number(val))) {
@@ -257,7 +256,6 @@
             }
         },
         mounted () {
-
         },
         filters: {
             formateCoinType: (type = '2001') => {

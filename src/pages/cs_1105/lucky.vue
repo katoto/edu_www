@@ -7,7 +7,7 @@
             <!--玩法区-->
             <div class="play-area" id="play-area">
                 <ul class="play-area-items">
-                    <PlayArea v-for="(item,index) in playArea" :key="index" :allplayArea.sync="playArea" :areaMsg="item"
+                    <PlayArea v-for="(item,index) in playArea" :key="index" :currIndex.sync="index" :allplayArea.sync="playArea" :areaMsg="item"
                               :data.sync="playArea[index]"></PlayArea>
 
                 </ul>
@@ -350,7 +350,7 @@
     import {src, platform, isLog, getCK, format_match, setCK, removeCK} from '~common/util'
 
     export default {
-        data () {
+        data() {
             return {
                 showOrderSucc: false,
                 showOrderFail: false,
@@ -358,7 +358,7 @@
                 scroll: '',
                 activeName: 'Bets',
                 DataWinnerList: [
-                //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
+                    //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
                 ],
                 totalPay: 0.0001,
                 baseAreaMsg: {
@@ -375,17 +375,17 @@
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用
                 }] // 玩法区 数组
-            //			{
-            //				pickType:'5J', //玩法类型
-            //					pickNum:[3,6],
-            //				pickMoney:0.0001,
-            //				pickJackPot:[2,3,4,5,6]
-            //			}
+                //			{
+                //				pickType:'5J', //玩法类型
+                //					pickNum:[3,6],
+                //				pickMoney:0.0001,
+                //				pickJackPot:[2,3,4,5,6]
+                //			}
 
             }
         },
         watch: {
-            playArea () {
+            playArea() {
                 /* 总金额 */
                 if (this.playArea) {
                     let sum = 0
@@ -399,51 +399,51 @@
             }
         },
         computed: {
-            socket () {
+            socket() {
                 return this.$store.state.socket
             },
-            recentBet () {
+            recentBet() {
                 return this.$store.state.cs_1105.recentBet
             },
-            isLog () {
+            isLog() {
                 return this.$store.state.isLog
             },
-            currExpectId () {
+            currExpectId() {
                 return this.$store.state.cs_1105.currExpectId
             }
         },
         methods: {
-            playType (val) {
+            playType(val) {
                 // 玩法类型1,2,3,4,5,5J
                 val = val.toString()
                 switch (val) {
-                case '1':
-                    return '1101'
-                case '2':
-                    return '1102'
-                case '3':
-                    return '1103'
-    
-                    break
-                case '4':
-                    return '1104'
-    
-                    break
-                case '5':
-                    return '1105'
-    
-                    break
-                case '5J':
-                    return '1106'
-    
-                    break
+                    case '1':
+                        return '1101'
+                    case '2':
+                        return '1102'
+                    case '3':
+                        return '1103'
+
+                        break
+                    case '4':
+                        return '1104'
+
+                        break
+                    case '5':
+                        return '1105'
+
+                        break
+                    case '5J':
+                        return '1106'
+
+                        break
                 }
             },
 
-            async playNow () {
+            async playNow() {
                 // 投注下单
                 // 出现loading
-            //                document.getElementById('js_loading').className = '';
+                //                document.getElementById('js_loading').className = '';
                 // 未登录 的情况
                 if (!isLog) {
                     this.$store.commit('showLoginPop')
@@ -478,7 +478,8 @@
                                         val.pickNum = []
                                     })
                                 }, 1000)
-                                this.showOrderSucc = true
+                                this.showOrderSucc = true;
+
                             } else if (orderMsg.data.restricts.length > 0) {
                                 // 部分成功订单
                                 orderMsg.data.restricts.forEach(function (val, index) {
@@ -486,7 +487,6 @@
                                 })
                                 this.failureMsg = 'Order limit#' + errorResArr.join('#')
                                 this.showOrderFail = true
-
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
                                         val.pickNum = []
@@ -520,10 +520,10 @@
                 }
 
                 // 未激活 ？  这个也有问题  在弄个弹窗吧
-            //				this.$store.commit('emailBackTime', 0)
-            //				this.$store.commit('showVerifyEmail')
+                //				this.$store.commit('emailBackTime', 0)
+                //				this.$store.commit('showVerifyEmail')
             },
-            addTicket () {
+            addTicket() {
                 /* 添加 */
                 if (this.playArea && this.playArea.length < 5) {
                     this.baseAreaMsg.createTime = new Date().getTime()
@@ -535,13 +535,13 @@
                     })
                 }
             },
-            testPlay () {
+            testPlay() {
                 console.log(this.playArea)
             },
-            leaveRoute () {
+            leaveRoute() {
                 this.$router.push('/account')
             },
-            fixNav () {
+            fixNav() {
                 // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
                 if (this.scroll >= 90) {
                     this.$store.commit(mTypes.setNavFix, true)
@@ -550,7 +550,7 @@
                 }
             },
 
-            format_betCode (betcode) {
+            format_betCode(betcode) {
                 let currLuckyNum = betcode.split(',')
                 let str = '<ul class="num-box">'
                 currLuckyNum.forEach(function (value, index) {
@@ -558,7 +558,7 @@
                 })
                 return str + '</ul>'
             },
-            format_recentWins (msg) {
+            format_recentWins(msg) {
                 msg.forEach((item, index) => {
                     item.bettype = format_match(item.bettype)
                     item.betcode = this.format_betCode(item.betcode)
@@ -568,7 +568,7 @@
                 return msg
             },
 
-            async indexRouter (query) {
+            async indexRouter(query) {
                 /* 邮箱注册 找回密码  邀请等 */
                 if (query.sign) {
                     if (query.from === 'reg') {
@@ -576,7 +576,7 @@
                         console.log(mailBack)
                         if (mailBack && mailBack.status === '100') {
                             if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
-                            //		                        显示第一次邀请
+                                //		                        显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
                             } else {
                                 this.$store.commit('showFirstLogin', false)
@@ -589,7 +589,7 @@
                             })
                         }
                         // 清除参数
-                    //                        this.$router.push('/lucky')
+                        //                        this.$router.push('/lucky')
                     }
                     if (query.from === 'resetPassword') {
                         // 重置密码
@@ -622,12 +622,12 @@
             formateCoinType: (type = '2001') => {
                 type = type.toString()
                 switch (type) {
-                case '2001':
-                    return 'ETH'
-                case '1001':
-                    return 'BTC'
-                default:
-                    return 'ETH'
+                    case '2001':
+                        return 'ETH'
+                    case '1001':
+                        return 'BTC'
+                    default:
+                        return 'ETH'
                 }
             },
             format_match: (match) => {
@@ -636,16 +636,16 @@
                 }
                 match = match.toString()
                 switch (match) {
-                case '1101':
-                    return 'C1'
-                case '1102':
-                    return 'C2'
-                case '1103':
-                    return 'C3'
-                case '1104':
-                    return 'C4'
-                case '1105':
-                    return 'C5'
+                    case '1101':
+                        return 'C1'
+                    case '1102':
+                        return 'C2'
+                    case '1103':
+                        return 'C3'
+                    case '1104':
+                        return 'C4'
+                    case '1105':
+                        return 'C5'
                 }
             },
             formatTime: (time, format) => {
@@ -661,18 +661,18 @@
                 }
                 return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
                     switch (a) {
-                    case 'yyyy':
-                        return tf(t.getFullYear())
-                    case 'MM':
-                        return tf(t.getMonth() + 1)
-                    case 'mm':
-                        return tf(t.getMinutes())
-                    case 'dd':
-                        return tf(t.getDate())
-                    case 'HH':
-                        return tf(t.getHours())
-                    case 'ss':
-                        return tf(t.getSeconds())
+                        case 'yyyy':
+                            return tf(t.getFullYear())
+                        case 'MM':
+                            return tf(t.getMonth() + 1)
+                        case 'mm':
+                            return tf(t.getMinutes())
+                        case 'dd':
+                            return tf(t.getDate())
+                        case 'HH':
+                            return tf(t.getHours())
+                        case 'ss':
+                            return tf(t.getSeconds())
                     }
                 })
             },
@@ -700,7 +700,7 @@
                 return newEth
             }
         },
-        async mounted () {
+        async mounted() {
             window.addEventListener('scroll', this.fixNav)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
@@ -711,14 +711,14 @@
                 this.$store.dispatch('initWebsocket')
             }
         },
-        beforeRouteLeave (to, from, next) {
+        beforeRouteLeave(to, from, next) {
             // 是否需要主队断sock ？
             // this.$store.state.socket.sock.onclose();
             // this.$store.dispatch('unsubscribe')
             // this.$store.dispatch('subscribe')
             next()
-    },
-        destroyed () {
+        },
+        destroyed() {
             window.removeEventListener('scroll', this.fixNav)
         }
 
