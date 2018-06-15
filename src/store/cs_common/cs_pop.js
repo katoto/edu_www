@@ -5,6 +5,7 @@ import {src, channel, mapMutations, getCK, removeCK, mapActions, platform, tipsT
 
 const state = {
     pop: {
+        showFreeplay: false,
         showLoginPop: false,
         showRegPop: false,
         showVerifyEmail: false,
@@ -42,6 +43,12 @@ const state = {
 }
 
 const mutations = {
+    showFreeplay (state) {
+        state.pop.showFreeplay = true
+    },
+    hideFreeplay (state) {
+        state.pop.showFreeplay = false
+    },
     //  激活用的
     inviteTips (state, data) {
         state.pop.inviteTips = data
@@ -122,10 +129,10 @@ const mutations = {
         state.pop.showRegSuccess = false
     },
     // 注册失败弹窗显示隐藏
-    showRegFailure  (state) {
+    showRegFailure (state) {
         state.pop.showRegFailure = true
     },
-    hideRegFailure  (state) {
+    hideRegFailure (state) {
         state.pop.showRegFailure = false
     },
     showFaucet (state) {
