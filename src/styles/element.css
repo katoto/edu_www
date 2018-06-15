@@ -329,7 +329,7 @@
     font-size: 14px;
     color: #778ca3;
 }
-.el-pager .number,.el-pagination__jump .el-input__inner{
+.el-pager .number,.el-pagination__jump .el-input__inner,.el-pagination .more{
     box-sizing: border-box;
     display: inline-block;
     min-width: 28px;
@@ -359,7 +359,7 @@
     color: #778ca3;
     background: transparent;
 }
-.el-pager .number:hover,.el-pagination button:hover{
+.el-pager .number:hover,.el-pagination button:hover,.el-pagination .more:hover{
     color: #666 !important;
     border: 1px solid #d5d5d5;
     background: #f2f2f2;
@@ -369,7 +369,10 @@
     background: none;
     color: #263648 !important;
 }
-
+.el-pagination .more::after{
+    display: inline-block;
+    content: '...';
+}
 
 @-webkit-keyframes v-modal-in {
     0% {

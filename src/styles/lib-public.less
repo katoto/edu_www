@@ -1576,3 +1576,57 @@ tr.newRecord{
         font-size: 14px;
     }
 }
+
+//免费试玩
+.pop-freeplay{
+    .contain{
+        position: relative;
+        width:487px;
+        margin:194px auto 0;
+    }
+    .close{
+        position: absolute;
+        right:0;
+        top:0;
+        display: block;
+        width:34px;
+        height:34px;
+        overflow: hidden;
+        border:1px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        font-size:0;
+        text-indent:-999px;
+        &::after{
+            content: '';
+            position: absolute;
+            left:10px;
+            top:10px;
+            background-image: url(../assets/slice/newAct/btn-close.png);
+            .transition();
+        }
+        &:hover{
+            &::after{
+                transform: rotate(90deg);
+            }
+        }
+    }
+    img{
+        display: block;
+        margin:0 auto;
+    }
+    .btn-sign{
+        position: relative;
+        display: block;
+        width: 289px;
+        height: 57px;
+        overflow: hidden;
+        border-radius: 28px;
+        background-color: #fae31d;
+        color: #371478;
+        margin:23px auto 0;
+        font:26px/57px sans-eb;
+        &:hover {
+            background: #fac31d;
+        }
+    }
+}
