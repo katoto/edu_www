@@ -107,7 +107,7 @@ export default {
         formateBalance,
         formatResult (bet) {
             if (bet.opencode && bet.opencode !== '') {
-                return parseFloat(bet.betprize) === 0 ? '-' : `${formateBalance(bet.betmoney)}${formateCoinType(bet.cointype)}`
+                return parseFloat(bet.betprize) === 0 ? '-' : `${formateBalance(bet.betprize)}${formateCoinType(bet.cointype)}`
             }
             return 'wait'
         },
