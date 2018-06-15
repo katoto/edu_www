@@ -10,8 +10,7 @@ import lanaguage from './plugins/language'
 
 import vueClipboard from 'vue-clipboard2'
 
-import '@/styles/lib-reset.css'
-import '@/styles/element.css'
+
 
 // 全局
 // import ElementUI from 'element-ui'
@@ -25,7 +24,9 @@ import { Button, Table, Pagination, TableColumn, Message, Select, Option, Tabs, 
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
-import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/index.css'
+import '@/styles/lib-reset.css'
+import '@/styles/element.css'
 // 设置语言
 locale.use(lang)
 
