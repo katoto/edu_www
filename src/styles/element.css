@@ -351,7 +351,7 @@
     margin-left: 5px;
     height: 28px;
     line-height: 28px;
-    box-sizing: content-box;
+    box-sizing: border-box;
     outline: none;
     padding: 0 12px;
     border: 1px solid #d5d5d5;
