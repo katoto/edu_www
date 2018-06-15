@@ -99,7 +99,7 @@ export default {
 @import "../../styles/lib-mixins.less";
 .nav {
   position: relative;
-  z-index: 3;
+  z-index: 7;
   width: 100%;
   height: 60px;
   line-height: 60px;
