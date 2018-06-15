@@ -1,7 +1,7 @@
 <template>
     <div class="capitalDetails">
          <h2>My Transactions</h2>
-        <section>
+        <section class="cs-select">
             <el-select v-model="tranOptionVal" @change="handleStatusChange">
                 <el-option
                     v-for="item in tranOptions"

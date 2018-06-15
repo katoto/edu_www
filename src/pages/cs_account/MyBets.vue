@@ -1,7 +1,7 @@
 <template>
     <div class="betting">
         <h2>Bet Record</h2>
-        <section>
+        <section class="cs-select">
             <el-select v-model="betOptionVal" @change="handleStatusChange">
                 <el-option
                     v-for="item in betOptions"

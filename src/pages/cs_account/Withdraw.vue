@@ -38,7 +38,7 @@
             </el-tab-pane>
             <el-tab-pane label="Records" name="Records">
                 <li class="li-request">
-                    <section class="select-records">
+                    <section class="cs-select">
                         <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
                             <el-option
                                     v-for="item in withdrawOptions"
@@ -639,9 +639,6 @@ export default {
 }
 
 
-.select-records{
-    margin-top:24px;
-}
 .pagination {
   display: table;
   margin: 20px auto 30px;
