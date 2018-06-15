@@ -16,7 +16,7 @@
 
             <div class="hadlogin js_isLogin js_hadlogin" :class="{ hide: !mybetShow }">
                 <ul class="alert-mybets-items js_msg" id="js_mybetsItems">
-                    <li v-for="(bet, index) in myBetList" :key="index">
+                    <li v-for="(bet, index) in myBetList" :key="index" v-if="myBetList.length > 0">
                         <div class="top">
                             <span class="date fl">
                                 NO.{{bet.expectid}}
@@ -69,7 +69,7 @@
                     </li>
                     -->
                 </ul>
-                <div class="nomsg js_nomsg" style="display: none">
+                <div class="nomsg js_nomsg" v-if="myBetList.length === 0">
                     <p>You don't have any</p>
                     <p>records in 24 hours. Have</p>
                     <p>a try ,and wish you luck~</p>
@@ -118,7 +118,28 @@ export default {
             this.$store.dispatch('cs_1105/updateMyBets')
         }
     },
+    watch: {
+        lastExpectid: function (val, oldVal) {
+            if (this.thisExpectId === val) {
+                this.getMyBets()
+            }
+        },
+        isLogin: function (val, oldVal) {
+            if (val) {
+                this.getMyBets()
+            }
+        }
+    },
     computed: {
+        thisExpectId () {
+            if (this.$store.state.cs_1105.mybets && this.$store.state.cs_1105.mybets[0]) {
+                return this.$store.state.cs_1105.mybets[0].expectid
+            }
+            return null
+        },
+        lastExpectid () {
+            return this.$store.state.cs_1105.last_expectid
+        },
         isLogin () {
             return !!this.$store.state.isLog
         },

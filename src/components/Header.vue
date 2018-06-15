@@ -85,8 +85,12 @@
                     <!-- 登录 -->
                     <section v-else>
                         <div class="hadlogin">
-                            <a href="" class="btn-rechrage">Deposit </a>
-                            <a href="" class="btn-cash">Withdraw</a>
+                        <router-link :to="{path: '/account/deposit'}">
+                            <a href="javascript:;" class="btn-rechrage">Deposit </a>
+                        </router-link>
+                        <router-link :to="{path: '/account/withdraw'}">
+                            <a href="javascript:;" class="btn-cash">Withdraw</a>
+                        </router-link>
                         </div>
                         <div class="mycount" @mouseover="slideDown = true" @mouseout="slideDown = false">
                             <div class="countNum">

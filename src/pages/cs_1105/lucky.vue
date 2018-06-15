@@ -1517,6 +1517,8 @@
             margin-left:-32.5px;
             display: block;
             background-image: url("../../assets/slice/nomsg.png");
+            width: 65px;
+            height: 54px;
         }
         p{
             text-align: center;
