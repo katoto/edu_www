@@ -9,7 +9,6 @@
         <pop-reg-failure></pop-reg-failure>
         <pop-faucet></pop-faucet>
         <pop-limit></pop-limit>
-        <pop-freeplay></pop-freeplay>
     </div>
 </template>
 
@@ -23,11 +22,9 @@
     import PopRegFailure from './pop/Pop-reg-failure'
     import PopFaucet from './pop/Pop-faucet'
     import PopLimit from './pop/Pop-limit'
-    import PopFreeplay from './pop/Pop-freeplay'
 
     export default {
         components: {
-            PopFreeplay,
             PopLogin,
             PopReg,
             PopVerifyEmail,

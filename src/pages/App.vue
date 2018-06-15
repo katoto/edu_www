@@ -1,14 +1,17 @@
 <template>
     <div id="app">
         <router-view v-if="isReady"/>
-
         <!-- ip -->
         <PopIpLimit></PopIpLimit>
+
+        <PopFreeplay></PopFreeplay>
+
     </div>
 </template>
 
 <script>
     import PopIpLimit from '~components/Pop-ipLimit.vue'
+    import PopFreeplay from '~components/Pop-freeplay.vue'
     import {src, platform, isLog, getCK, setCK, removeCK} from '~common/util'
     // todo 暂时到时候改到global
     export default {
@@ -18,7 +21,8 @@
             }
         },
         components: {
-            PopIpLimit
+            PopIpLimit,
+            PopFreeplay
         },
         async mounted () {
             /* isLog ? */
@@ -37,7 +41,7 @@
             this.$store.dispatch('homeInfo')
 
             /* 样式需要处理  或者换一种方式写 */
-            // this.$store.commit('showFreeplay')
+            this.$store.commit('showFreeplay')
         }
     }
 </script>

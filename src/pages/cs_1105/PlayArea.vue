@@ -98,7 +98,6 @@
                     })
                     return false
                 }
-
                 if (Number(this.areaMsg.pickMoney) > 0.1) {
                     this.areaMsg.pickMoney = 0.1
                     Message({
