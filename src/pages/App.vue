@@ -17,7 +17,7 @@
                 isReady: false
             }
         },
-        components:{
+        components: {
             PopIpLimit
         },
         async mounted () {
@@ -32,12 +32,12 @@
             } else {
                 this.$store.commit('setIsLog', false)
             }
-            this.isReady = true;
+            this.isReady = true
 
             this.$store.dispatch('homeInfo')
 
             /* 样式需要处理  或者换一种方式写 */
-            this.$store.commit('showFreeplay')
+            // this.$store.commit('showFreeplay')
         }
     }
 </script>

@@ -79,7 +79,7 @@
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 baseJackPot: [1, 2, 3, 4, 5],
                 limitUnit: 0.0001,
-                slideDown:false
+                slideDown: false
             }
         },
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
@@ -94,7 +94,7 @@
                 if (isNaN(this.areaMsg.pickMoney)) {
                     Message({
                         message: 'Please enter the correct number',
-                        type: 'error',
+                        type: 'error'
                     })
                     return false
                 }

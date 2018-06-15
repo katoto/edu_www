@@ -59,25 +59,35 @@
                 noLimit: false,
                 numx: 'num-boxc2',
                 dateLimit: [
-                    {
-                        'expectid': 'test',
-                        'restrict': [
-                            {
-                                'bettype': '1101',
-                                'betcode': [
-                                    '1',
-                                    '2',
-                                    '3'
-                                ]
-                            }
-                        ]
-                    }
                 ]
             }
         },
         components: {Pop},
         methods: {
-
+            async updataMsg () {
+                let dataLimit = await this.$store.dispatch(aTypes.popLimit)
+                if (dataLimit && dataLimit.status === '100') {
+                    this.time = format_time(parseInt(dataLimit.data.uptime), 'yyyy/MM/dd HH:mm:ss')
+                    if (dataLimit.data.restrictpools.length === 0) {
+                        this.noLimit = true
+                    } else {
+                        this.dateLimit = dataLimit.data.restrictpools
+                        this.noLimit = false
+                    }
+                } else {
+                    Message({
+                        message: 'limit error',
+                        type: 'error'
+                    })
+                }
+            }
+        },
+        watch: {
+            show (val) {
+                if (val) {
+                    this.updataMsg()
+                }
+            }
         },
         computed: {
             show: {
@@ -102,19 +112,14 @@
                 switch (value) {
                 case '1101':
                     return 'C1'
-                    break
                 case '1102':
                     return 'C2'
-                    break
                 case '1103':
                     return 'C3'
-                    break
                 case '1104':
                     return 'C4'
-                    break
                 case '1105':
                     return 'C5'
-                    break
                 }
             },
             format_class (value) {
@@ -141,22 +146,8 @@
                 }
             }
         },
-        async mounted () {
-            let dataLimit = await this.$store.dispatch(aTypes.popLimit)
-            if (dataLimit.status === '100') {
-                this.time = format_time(parseInt(dataLimit.data.uptime), 'yyyy/MM/dd HH:mm:ss')
-                if (dataLimit.data.restrictpools.length == 0) {
-                    this.noLimit = true
-                } else {
-                    this.dateLimit = dataLimit.data.restrictpools
-                    this.noLimit = false
-                }
-            } else {
-                Message({
-                    message: 'limit error',
-                    type: 'error'
-                })
-            }
+        mounted () {
+            // this.updataMsg()
         }
     }
 </script>

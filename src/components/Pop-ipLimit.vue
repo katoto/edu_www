@@ -22,11 +22,11 @@
 <script>
     export default {
         computed: {
-            ip_status() {
+            ip_status () {
                 return this.$store.state.ip_status
             }
         },
-        name: "Pop-ipLimit"
+        name: 'Pop-ipLimit'
     }
 </script>
 

@@ -149,7 +149,7 @@ const mutations = {
     },
     hidePopLimit (state) {
         state.pop.showPopLimit = false
-    },
+    }
 }
 const actions = {
     /* login 登陆 */

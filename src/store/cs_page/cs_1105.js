@@ -154,8 +154,8 @@ const actionsInfo = mapActions({
                         continue
                     }
                 }
-                if( newData[i].uid === state.uid ){
-                    newData[i].boldUid = true ;
+                if (newData[i].uid === state.uid) {
+                    newData[i].boldUid = true
                 }
                 if (newData[i].betcode) {
                     currLuckyNum = newData[i].betcode.split(',')
@@ -314,8 +314,11 @@ const actionsInfo = mapActions({
     async popLimit () {
         try {
             let dataLimit = null
-            let expectId = 1806121622
-            dataLimit = await ajax.get('/expect/restrictpool?expect=' + expectId)
+            if (state.currExpectId) {
+                dataLimit = await ajax.get('/expect/restrictpool?expect=' + state.currExpectId)
+            } else {
+                console.warn('expectId error')
+            }
             return dataLimit
         } catch (e) {
             Message({

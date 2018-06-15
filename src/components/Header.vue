@@ -228,7 +228,7 @@
                 showEndFaucet: false, // 控制 结束弹窗 tips
                 showEndFaucetTime: null,
                 showInviteSuccFlag: false,
-                slideDown:false
+                slideDown: false
             }
         },
         watch: {},
