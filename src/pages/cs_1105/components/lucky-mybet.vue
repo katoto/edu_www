@@ -32,7 +32,7 @@
                         </ul>
                         <div class="bottom">
                             <span class="count fl bold">{{formateBalance(bet.betmoney)}}{{formateCoinType(bet.cointype)}}</span>
-                            <a href="javascript:;" class="add fr" :title="bet.txhash">{{bet.txhash}}</a>
+                            <a class="add fr" :title="bet.txhash" target="blank" :href="`https://etherscan.io/tx/${bet.txhash}`">{{bet.txhash}}</a>
                         </div>
                     </li>
                     <!-- 
@@ -107,7 +107,7 @@ export default {
         formateBalance,
         formatResult (bet) {
             if (bet.opencode && bet.opencode !== '') {
-                return parseFloat(bet.betprize) === 0 ? '-' : `${formateBalance(bet.betmoney)}${formateCoinType(bet.cointype)}`
+                return parseFloat(bet.betprize) === 0 ? '-' : `${formateBalance(bet.betprize)}${formateCoinType(bet.cointype)}`
             }
             return 'wait'
         },
