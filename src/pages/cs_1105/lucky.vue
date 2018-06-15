@@ -1288,7 +1288,7 @@
 //alert-mybets
 .alert-mybets{
     position: absolute;
-    z-index:5;
+    z-index:10;
     right:0;
     top:40px;
     width:200px;

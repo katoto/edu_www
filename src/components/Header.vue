@@ -339,7 +339,7 @@
         color: #fff;
         .top {
             position: relative;
-            z-index: 4;
+            z-index: 9;
             width: 1190px;
             height: 90px;
             margin: 0 auto;
