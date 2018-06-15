@@ -86,10 +86,8 @@
                 </a>
             </p>
             <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
-            <!--<a href="javascript:;" class="limit-tips js_limit-tips">Limit number list</a>-->
         </div>
         <span class="line js_line">Ticket {{ areaMsg.pickType }}</span>
-        <!--<ul class="number-box js_isReady" data-luckyNum="1|3|4|6|8">-->
         <ul class="number-box" v-if="areaMsg" @click="lineNumClick">
             <li v-for="(number,index) in playList" :data-flag="(index+1)" class="on"
                 v-if="areaMsg.pickNum && areaMsg.pickNum.indexOf( number ) > -1">{{ number }}
