@@ -130,19 +130,14 @@
                 switch (value) {
                 case '1101':
                     return 'num-boxc1'
-                    break
                 case '1102':
                     return 'num-boxc2'
-                    break
                 case '1103':
                     return 'num-boxc3'
-                    break
                 case '1104':
                     return 'num-boxc4'
-                    break
                 case '1105':
                     return 'num-boxc5'
-                    break
                 }
             }
         },
