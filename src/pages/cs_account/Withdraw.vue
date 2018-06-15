@@ -155,8 +155,7 @@
                             <div class="trans-msg">
                                 <span class="fl">Total</span>
                                 <span class="fr">ETH</span>
-                                <p class="fr">{{ Number( withdrawAmount) + Number(
-                                    userInfo.accounts[0].fee )}}</p>
+                                <p class="fr">{{ formateBalance(Number( withdrawAmount) + Number(userInfo.accounts[0].fee)) }}</p>
                             </div>
                         </div>
                         <p class="trans-add1">Transfer to</p>
@@ -292,6 +291,7 @@ export default {
     },
     watch: {},
     methods: {
+        formateBalance,
         handleStatusChange () {
             this.handleCurrentChange()
         },

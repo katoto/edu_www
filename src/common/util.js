@@ -175,6 +175,23 @@ export function formateCoinType (type = '2001') {
     }
 }
 
+export function formateEmail (email) {
+    var regEmail = /(\w+(?:[-+.]\w+)*)(@\w+([-.]\w+)*\.\w+([-.]\w+)*)/
+    var regArr = null
+    email = email.toString()
+    if (regEmail.test(email)) {
+        regArr = regEmail.exec(email)
+        if (regArr[1] && regArr[1].length > 10) {
+            return regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
+        } else {
+            return email
+        }
+    } else {
+        console.error('email error at formate_email')
+        return false
+    }
+}
+
 /*
  *   formate_moneyFlow  格式化 流水类型
  *   // 明细状态 1：recharge   2：bet    3：prize    4:withdraw
