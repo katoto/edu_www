@@ -30,7 +30,7 @@
                     </div>
                     <p class="fee">
                         Fee&nbsp;&nbsp;
-                        <i class="orange">0.00000</i>
+                        <i class="orange">0.003</i>
                         <span class="orange"> ETH</span>
                     </p>
                     <button @click="sendDraw">Withdraw</button>
