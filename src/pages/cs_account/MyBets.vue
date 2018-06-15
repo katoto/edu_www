@@ -116,7 +116,7 @@ export default {
     data () {
         return {
             pageno: 1,
-            pageSize: 6,
+            pageSize: 8,
             PageTotal: 10,
             orderList: [],
             ethUrl,

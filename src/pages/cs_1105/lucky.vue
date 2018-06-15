@@ -107,9 +107,9 @@
                                     </thead>
                                     <tbody v-if="recentBet.length>0" id="tabody-betlist"
                                            class="tabody-betlist newRecord">
-                                    <tr v-for="item in recentBet" :data-oid="item.oid">
+                                    <tr v-for="item in recentBet" :data-oid="item.oid" :class="{'newRecord':item.addNewRecord}">
                                         <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
-                                        <td>{{ item.uid }}</td>
+                                        <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
                                         <td>{{ item.expectid }}</td>
                                         <td>{{ item.bettype | format_match }}</td>
                                         <td>

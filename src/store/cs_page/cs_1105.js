@@ -104,6 +104,9 @@ const actionsInfo = mapActions({
                 //  操作数组的写法
                 if (state.allbetPipeArr.length > 0) {
                     currMsg = state.allbetPipeArr.pop()
+                    Object.assign(currMsg, {
+                        addNewRecord: true
+                    })
                     // return false跳出循环，return true继续循环
                     if (state.recentBet.length > 0) {
                         state.recentBet.every((val, index) => {
@@ -150,6 +153,9 @@ const actionsInfo = mapActions({
                     if (newData[i].uid.toString() !== state.uid || state.uid === '0') {
                         continue
                     }
+                }
+                if( newData[i].uid === state.uid ){
+                    newData[i].boldUid = true ;
                 }
                 if (newData[i].betcode) {
                     currLuckyNum = newData[i].betcode.split(',')

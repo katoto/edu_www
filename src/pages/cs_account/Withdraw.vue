@@ -251,7 +251,7 @@ export default {
             showTransfer: false, // 转账弹窗
 
             pageno: 1,
-            pageSize: 6,
+            pageSize: 8,
             PageTotal: 10,
             orderList: [],
             ethUrl,
