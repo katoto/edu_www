@@ -85,8 +85,12 @@
                     <!-- 登录 -->
                     <section v-else>
                         <div class="hadlogin">
-                            <a href="" class="btn-rechrage">Deposit </a>
-                            <a href="" class="btn-cash">Withdraw</a>
+                        <router-link :to="{path: '/account/deposit'}">
+                            <a href="javascript:;" class="btn-rechrage">Deposit </a>
+                        </router-link>
+                        <router-link :to="{path: '/account/withdraw'}">
+                            <a href="javascript:;" class="btn-cash">Withdraw</a>
+                        </router-link>
                         </div>
                         <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
                             <div class="countNum">
@@ -105,7 +109,7 @@
                             </div>
 
                             <transition name="fade">
-                                <div id="mycount-detailed" class="mycount-detailed" :class="{'hide':!showDetail}">
+                                <div id="mycount-detailed" class="mycount-detailed slide" :class="{'slide-show':showDetail}">
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
                                     <div class="account-info">
                                         <div class="email js_email-account">

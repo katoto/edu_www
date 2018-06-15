@@ -21,6 +21,18 @@
   background: url("../assets/img/loading.gif") no-repeat center;
 }
 
+.slide {
+    overflow: hidden;
+    max-height: 0px;
+    opacity: 0.5;
+    transition-property: all;
+    transition-duration: .3s;
+    &.slide-show {
+        opacity: 1;
+        max-height: 1000px;
+    }
+}
+
 
 a{
     color: #6a89cc;

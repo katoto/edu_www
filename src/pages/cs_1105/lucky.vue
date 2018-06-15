@@ -360,7 +360,7 @@
                 scroll: '',
                 activeName: 'Bets',
                 DataWinnerList: [
-                    //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
+                    // {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
                 ],
                 totalPay: 0.0001,
                 baseAreaMsg: {
@@ -371,11 +371,6 @@
                 },
                 playArea: [{
                     pickType: '1', // 玩法类型1,2,3,4,5,5J
-                    pickNum: [],
-                    pickMoney: 0.0001,
-                    pickJackPot: [] // 奖池用
-                }, {
-                    pickType: '5J', // 玩法类型1,2,3,4,5,5J
                     pickNum: [],
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用

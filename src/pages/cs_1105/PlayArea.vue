@@ -1,10 +1,10 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose">
+            <div id="play-type-choose" class="play-type-choose" @mouseover="showPickList = true" @mouseout="showPickList = false">
                 <span v-if="areaMsg.pickType === '5J'">Pick 5(JACKPOT)</span>
                 <span v-else>Pick {{ areaMsg.pickType}}</span>
-                <ul class="show" @click="chosePickType( $event )">
+                <ul class="show slide" @click="chosePickType( $event )" :class="{ 'slide-show': showPickList }">
                     <li data-index="1">Pick 1</li>
                     <li data-index="2">Pick 2</li>
                     <li data-index="3">Pick 3</li>
@@ -76,6 +76,7 @@
     export default {
         data () {
             return {
+                showPickList: false,
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 baseJackPot: [1, 2, 3, 4, 5],
                 limitUnit: 0.0001
