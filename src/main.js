@@ -11,7 +11,7 @@ import lanaguage from './plugins/language'
 import vueClipboard from 'vue-clipboard2'
 
 import './styles/lib-reset.css'
-import './styles/element.css'
+// import './styles/element.css'
 
 // 全局
 // import ElementUI from 'element-ui'

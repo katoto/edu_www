@@ -37,7 +37,7 @@ const state = {
             invite_prize_chances: 2,
             tasks: []
         },
-        inviteTips: false // 控制成功邀请的弹窗
+        inviteTips: false // 控制成功邀请的弹窗,
 
     }
 }
@@ -149,8 +149,7 @@ const mutations = {
     },
     hidePopLimit (state) {
         state.pop.showPopLimit = false
-    }
-
+    },
 }
 const actions = {
     /* login 登陆 */

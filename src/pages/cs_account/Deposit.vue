@@ -58,8 +58,8 @@
                 <a href="javascript:;" class="reco-soft js_reco-soft hide">Recommended software</a>
             </div>
             <div class="recharge-item recharge-item3">
-                <h3>3. Confirm your balance<br>Usually,it takes about 5 minutes for transaction block to confirm your
-                    deposit.Don't forget to refresh and check your balance.</h3>
+                <h3>3. Confirm your balance<br>Usually, it takes about 5 minutes for transaction block to confirm your
+                    deposit. Don't forget to refresh and check your balance.</h3>
                 <img class="transfer" src="../../assets/img/transfer.png" alt="transfer" width="340" height="40">
                 <p class="hide">After the deposit is successful, your balance will be updated, and the order details can
                     be found in the details of the fund,<br>or entered in:<a href=" https://etherscan.io"

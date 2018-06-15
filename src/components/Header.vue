@@ -92,7 +92,7 @@
                             <a href="javascript:;" class="btn-cash">Withdraw</a>
                         </router-link>
                         </div>
-                        <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
+                        <div class="mycount" @mouseover="slideDown = true" @mouseout="slideDown = false">
                             <div class="countNum">
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
 
@@ -107,9 +107,7 @@
                                     <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
                                 </div>
                             </div>
-
-                            <transition name="fade">
-                                <div id="mycount-detailed" class="mycount-detailed slide" :class="{'slide-show':showDetail}">
+                            <div id="mycount-detailed" class="mycount-detailed slide" :class="{ 'slide-show': slideDown }">
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
                                     <div class="account-info">
                                         <div class="email js_email-account">
@@ -137,7 +135,6 @@
                                     </router-link>
                                     <a href="javascript:;" @click="signOut" class="log-out">Sign Out</a>
                                 </div>
-                            </transition>
                         </div>
                     </section>
                 </div>
@@ -230,7 +227,8 @@
                 showDetail: false,
                 showEndFaucet: false, // 控制 结束弹窗 tips
                 showEndFaucetTime: null,
-                showInviteSuccFlag: false
+                showInviteSuccFlag: false,
+                slideDown:false
             }
         },
         watch: {},
@@ -328,14 +326,6 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
-
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
-    }
-
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        opacity: 0;
-    }
 
     .head {
         position: relative;

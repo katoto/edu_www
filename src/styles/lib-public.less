@@ -23,12 +23,9 @@
 
 .slide {
     overflow: hidden;
-    max-height: 0px;
-    opacity: 0.5;
-    transition-property: all;
-    transition-duration: .3s;
+    max-height: 0;
+    transition: all .2s;
     &.slide-show {
-        opacity: 1;
         max-height: 1000px;
     }
 }
@@ -1539,4 +1536,49 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
 .cs-select{
     overflow: hidden;
     margin:20px 0 10px 0;
+}
+
+
+tr.newRecord{
+    animation: newRecord .5s both ;
+}
+@keyframes newRecord {
+    0%{
+        opacity:0;
+        transform: translateY(-100%);
+    }
+    50%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+
+//ip
+.pop-ip {
+    z-index: 1000;
+    .pop-body {
+        width: 850px;
+        height: 310px;
+    }
+    img {
+        margin: 12px auto 10px;
+    }
+    h5 {
+        line-height: 48px;
+        font-size: 36px;
+        font-weight: 700;
+    }
+    p {
+        line-height: 26px;
+        font-size: 22px;
+    }
+    span {
+        display: block;
+        margin-top: 27px;
+        line-height: 88px;
+        font-size: 14px;
+    }
 }
