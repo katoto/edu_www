@@ -75,6 +75,8 @@
                         :page-size="pageSize"
                         layout="prev, pager, next, jumper"
                         :page-count="pageCount"
+                        next-text = 'Next >'
+                        prev-text = '< Front'
                 >
                 </el-pagination>
             </div>
@@ -225,17 +227,11 @@ export default {
 }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-@import "../../styles/lib-mixins.less";
 h2 {
   line-height: 30px;
   font-size: 24px;
   color: #263648;
   text-transform: capitalize;
-}
-.capitalDetails {
-  .filter {
-    margin-top: 15px;
-  }
 }
 .pagination {
   display: table;
