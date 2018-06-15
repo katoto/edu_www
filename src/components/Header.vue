@@ -111,7 +111,7 @@
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
                                     <div class="account-info">
                                         <div class="email js_email-account">
-                                            {{ userInfo.email }}
+                                            {{ formateEmail(userInfo.email) }}
                                         </div>
                                         <div class="uid">
                                             UserID:<i class="js_user_uid">{{ userInfo.uid }}</i>
@@ -122,7 +122,7 @@
                                         <ul class="js_account_lis">
                                             <li v-for="account in userInfo.accounts">
                                                 <a href="javascript:;" class="btn-refresh"></a>
-                                                <span class="amount js_countNum">{{ account.balance }}</span>
+                                                <span class="amount js_countNum">{{ formateBalance(account.balance) }}</span>
                                                 <span class="unit">{{ account.cointype | formateCoinType }}</span>
                                             </li>
                                         </ul>
@@ -218,7 +218,7 @@
     import PopList from '~components/Pop-list'
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
-    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
+    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateEmail} from '~common/util'
 
     export default {
         components: {PopList, Banner},
@@ -250,6 +250,8 @@
             }
         },
         methods: {
+            formateEmail,
+            formateBalance,
             async getFaucet () {
                 // 领取邀请奖励
                 if (this.loginSucc && this.loginSucc.tasks.length > 0) {
