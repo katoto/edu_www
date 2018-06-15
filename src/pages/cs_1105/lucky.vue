@@ -480,6 +480,7 @@
                         let orderMsg = await this.$store.dispatch(aTypes.placeOrder, sendBetStr)
                         let errorResArr = []
                         if (orderMsg && orderMsg.status.toString() === '100') {
+                            this.$store.dispatch('cs_1105/updateMyBets')
                             if (orderMsg.data.restricts.length === 0) {
                                 // 全部成功订单
                                 setTimeout(() => {
