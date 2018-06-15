@@ -14,12 +14,12 @@
 <script>
 export default {
     computed: {
-        showFree(){
+        showFree () {
             return this.$store.state.pop.showFreeplay
         }
     },
     methods: {
-        hideFreeplay(){
+        hideFreeplay () {
             this.$store.commit('hideFreeplay')
         },
         signUp () {

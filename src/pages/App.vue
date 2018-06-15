@@ -39,7 +39,6 @@
             this.isReady = true
 
             this.$store.dispatch('homeInfo')
-
         }
     }
 </script>

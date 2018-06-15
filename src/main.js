@@ -10,8 +10,6 @@ import lanaguage from './plugins/language'
 
 import vueClipboard from 'vue-clipboard2'
 
-
-
 // 全局
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
