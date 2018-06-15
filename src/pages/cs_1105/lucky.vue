@@ -11,66 +11,7 @@
                               :allplayArea.sync="playArea" :areaMsg="item"
                               :data.sync="playArea[index]"></PlayArea>
                 </ul>
-                <!-- Lucky 11 show  647 356 奖级表 todo -->
-                <div class="pop pop-rewardTable hide js_pop_rewardTable">
-                    <div class="pop-main">
-                        <h3>LUCKY 11</h3>
-                        <div class="pay-items">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <td width="90px">Type</td>
-                                    <td>Conditions</td>
-                                    <td width="90px">Reward ratio</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="hide">
-                                    <td>
-                                        C5<br>
-                                        <i>( jackpot )</i>
-                                    </td>
-                                    <td>
-                                        Pick 5 number according to the order number order exactly<br>
-                                        jackpot = 5 × (pool amount × wagering amount)
-                                    </td>
-                                    <td><i class="bold">jackpot</i></td>
-                                </tr>
-                                <tr>
-                                    <td>C5</td>
-                                    <td>Pick 5 numbers and hit 5/5 draw numbers</td>
 
-                                    <td><i class="bold">378</i></td>
-                                </tr>
-                                <tr>
-                                    <td>C4</td>
-                                    <td>Pick 4 numbers and hit 4/5 draw numbers</td>
-
-                                    <td><i class="bold">54</i></td>
-                                </tr>
-                                <tr>
-                                    <td>C3</td>
-                                    <td>Pick 3 numbers and hit 3/5 draw numbers</td>
-
-                                    <td><i class="bold">13.5</i></td>
-                                </tr>
-                                <tr>
-                                    <td>C2</td>
-                                    <td>Pick 2 numbers and hit 2/5 draw numbers</td>
-
-                                    <td><i class="bold">4.5</i></td>
-                                </tr>
-                                <tr>
-                                    <td>C1</td>
-                                    <td>Pick 1 number and hit 1/5 draw numbers</td>
-
-                                    <td><i class="bold">1.8</i></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <div class="btn-area">
                     <span class="fee-count hide">
                         Fee&nbsp&nbsp<i><span class="js_gasNumber">0</span>ETH</i>
@@ -406,23 +347,6 @@
             }
         },
         methods: {
-            rewardTable () {
-                //  3.0  hover 的
-                // $(".js_showReward").off('mouseenter').off('mouseleave').hover(function (e) {
-                //     $('.js_pop_rewardTable').css('top', 40 + Number($(e.target).parents('.js_playArea-li').index()) * 220).stop().slideDown(300)
-                // }, function () {
-                //     $('.js_pop_rewardTable').stop().slideUp(300)
-                // });
-                //
-                // $('.js_pop_rewardTable').off('mouseenter').off('mouseleave').hover(function () {
-                //     $('.js_showReward').addClass('on')
-                //     $(this).stop().slideDown(300)
-                // }, function () {
-                //     $('.js_showReward').removeClass('on')
-                //     $(this).stop().slideUp(300)
-                // });
-            },
-
             playType (val) {
                 // 玩法类型1,2,3,4,5,5J
                 val = val.toString()
@@ -750,6 +674,7 @@
     //玩法区
     .play-area {
         position: relative;
+        z-index:5;
         padding-bottom: 40px;
         color: #778ca3;
         background: #5068bc;
@@ -834,7 +759,7 @@
         }
         .play-area-items {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             width: 1190px;
             padding-top: 40px;
             margin: 0 auto;
@@ -1188,14 +1113,14 @@
     //奖级表
     .pop-rewardTable {
         position: absolute;
+        z-index:10;
         left: 50%;
         top: 40px;
         margin-left: -335px;
         width: 671px;
         height: 385px;
-        overflow: visible;
         background: rgba(0, 0, 0, 0);
-        border-top: 40px solid transparent;
+        /*border-top: 40px solid transparent;*/
         text-transform: none;
         h3 {
             margin: 15px 0;

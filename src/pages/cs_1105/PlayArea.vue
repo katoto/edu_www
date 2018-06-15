@@ -1,7 +1,7 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true" @mouseout="slideDown = false">
+            <div id="play-type-choose" class="play-type-choose" @mouseenter="slideDown = true" @mouseout="slideDown = false">
                 <span v-if="areaMsg.pickType === '5J'">Pick 5(JACKPOT)</span>
                 <span v-else>Pick {{ areaMsg.pickType}}</span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
@@ -21,7 +21,69 @@
                 <span v-if="areaMsg.pickType === '5J'" class="js_choose_desc">Pick 5 numbers,奖池奖池奖池 if all the numbers hit the draw numbers, you'll win 378 times reward</span>
                 <span v-if="areaMsg.pickType === '1'" class="js_choose_desc">Pick 1 number, if it hits the draw number, you'll win 1.8 times reward</span>
                 <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">Pick {{ areaMsg.pickType }} numbers, if all the numbers hit the draw numbers, you'll win {{ syxw_bettype_odds['110'+( areaMsg.pickType )]  }} times reward</span>
-                <a href="javascript:;" class="js_showReward"> Reward table</a>
+                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false">
+                    Reward table
+                    <!-- Lucky 11 show  647 356 奖级表 todo -->
+                    <div class="pop pop-rewardTable" :class="{rewardTable:rewardTable}">
+                        <div class="pop-main">
+                            <h3>LUCKY 11</h3>
+                            <div class="pay-items">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <td width="90px">Type</td>
+                                        <td>Conditions</td>
+                                        <td width="90px">Reward ratio</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            C5<br>
+                                            <i>( jackpot )</i>
+                                        </td>
+                                        <td>
+                                            Pick 5 number according to the order number order exactly<br>
+                                            jackpot = 5 × (pool amount × wagering amount)
+                                        </td>
+                                        <td><i class="bold">jackpot</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>C5</td>
+                                        <td>Pick 5 numbers and hit 5/5 draw numbers</td>
+
+                                        <td><i class="bold">378</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>C4</td>
+                                        <td>Pick 4 numbers and hit 4/5 draw numbers</td>
+
+                                        <td><i class="bold">54</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>C3</td>
+                                        <td>Pick 3 numbers and hit 3/5 draw numbers</td>
+
+                                        <td><i class="bold">13.5</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>C2</td>
+                                        <td>Pick 2 numbers and hit 2/5 draw numbers</td>
+
+                                        <td><i class="bold">4.5</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>C1</td>
+                                        <td>Pick 1 number and hit 1/5 draw numbers</td>
+
+                                        <td><i class="bold">1.8</i></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </p>
             <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
             <!--<a href="javascript:;" class="limit-tips js_limit-tips">Limit number list</a>-->
@@ -66,6 +128,7 @@
                 <li v-else>-</li>
             </ul>
         </div>
+
     </li>
 </template>
 
@@ -79,7 +142,8 @@
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 baseJackPot: [1, 2, 3, 4, 5],
                 limitUnit: 0.0001,
-                slideDown:false
+                slideDown:false,
+                rewardTable:false
             }
         },
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
@@ -257,7 +321,24 @@
                     // 如果需要去掉零 用parseFloat(  )
                 }
                 return newEth
-            }
+            },
+            showReward () {
+                //  3.0  hover 的
+                // $(".js_showReward").off('mouseenter').off('mouseleave').hover(function (e) {
+                //     $('.js_pop_rewardTable').css('top', 40 + Number($(e.target).parents('.js_playArea-li').index()) * 220).stop().slideDown(300)
+                // }, function () {
+                //     $('.js_pop_rewardTable').stop().slideUp(300)
+                // });
+                //
+                // $('.js_pop_rewardTable').off('mouseenter').off('mouseleave').hover(function () {
+                //     $('.js_showReward').addClass('on')
+                //     $(this).stop().slideDown(300)
+                // }, function () {
+                //     $('.js_showReward').removeClass('on')
+                //     $(this).stop().slideUp(300)
+                // });
+                console.log('showReward');
+            },
         },
         computed: {
             syxw_bettype_odds () {
@@ -323,7 +404,13 @@
     }
 </script>
 <style scoped>
-    .winjackport{
-        display: inline-block;
-    }
+.pop-rewardTable{
+    max-height:0;
+    overflow: hidden;
+    transition: all .2s;
+}
+.pop-rewardTable.rewardTable{
+    max-height:1000px;
+    overflow: visible;
+}
 </style>
