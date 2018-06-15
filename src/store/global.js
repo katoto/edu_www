@@ -10,8 +10,9 @@ if (process.env.NODE_ENV === 'production') {
 } else if (process.env.NODE_ENV === 'preRelease') {
     sockURL = 'ws://192.168.41.76:6999'
 } else {
-    sockURL = 'ws://10.0.1.167:8099/betblock'
+    // sockURL = 'ws://10.0.1.167:8099/betblock'
     // sockURL = 'ws://10.0.1.41:4444/betblock'
+    sockURL = 'ws://10.0.0.130:8080/betblock'
 }
 
 function combimeStore (store, newStore) {

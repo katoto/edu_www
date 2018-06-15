@@ -30,7 +30,8 @@
                     </div>
                     <p class="fee">
                         Fee&nbsp;&nbsp;
-                        <i class="orange">0.003</i>
+                        <i class="orange" v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].fee }}</i>
+                        <i class="orange" v-else>0.003</i>
                         <span class="orange"> ETH</span>
                     </p>
                     <button @click="sendDraw">Withdraw</button>
