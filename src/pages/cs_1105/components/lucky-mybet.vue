@@ -16,35 +16,23 @@
 
             <div class="hadlogin js_isLogin js_hadlogin" :class="{ hide: !mybetShow }">
                 <ul class="alert-mybets-items js_msg" id="js_mybetsItems">
-                    <li >
+                    <li v-for="(bet, index) in myBetList" :key="index">
                         <div class="top">
                             <span class="date fl">
-                                NO.20338
+                                NO.{{bet.expectid}}
                             </span>
                             <span class="type fr bold">
-                                transaction
+                                {{formatResult(bet)}}
                             </span>
                         </div>
                         <ul class="number-box">
-                            <li class="on">
-                                1
-                            </li>
-                            <li>
-                                3
-                            </li>
-                            <li>
-                                4
-                            </li>
-                            <li>
-                                5
-                            </li>
-                            <li>
-                                6
+                            <li v-for="(num, numIndex) in bet.betcode.split(',')" :key="numIndex" :class="{ bingo: isBingo(num, bet.opencode) }">
+                                {{num}}
                             </li>
                         </ul>
                         <div class="bottom">
-                            <span class="count fl">0.123 ETH</span>
-                            <a href="javascript:;" class="add fr">012x2371f...</a>
+                            <span class="count fl bold">{{formateBalance(bet.betmoney)}}{{formateCoinType(bet.cointype)}}</span>
+                            <a href="javascript:;" class="add fr" :title="bet.txhash">{{bet.txhash}}</a>
                         </div>
                     </li>
                     <!-- 
@@ -101,11 +89,12 @@
                 </div>
             </div>
         </div>
-        <span class="msg-count js_msg-count" v-if="count !== 0">{{ `+${count}`  }}</span>
+        <span class="msg-count js_msg-count" v-if="counter !== 0">{{ `+${counter}`  }}</span>
     </div>
 </template>
 
 <script>
+import { formateCoinType, formateBalance } from '~common/util'
 export default {
     data () {
         return {
@@ -114,21 +103,30 @@ export default {
         }
     },
     methods: {
+        formateCoinType,
+        formateBalance,
+        formatResult (bet) {
+            if (bet.opencode && bet.opencode !== '') {
+                return parseFloat(bet.betprize) === 0 ? '-' : `${formateBalance(bet.betmoney)}${formateCoinType(bet.cointype)}`
+            }
+            return 'wait'
+        },
+        isBingo (num, opencode) {
+            return opencode.split(',').indexOf(num) > -1
+        },
         getMyBets () {
-            this.$store.dispatch('cs_1105/getMyBets', {
-                pageno: 1,
-                pagesize: 4,
-                day: 1
-            })
-                .then(data => {
-                    let result = data.data
-                    this.$store.commit('cs_1105/updateMyBets', result.orders)
-                })
+            this.$store.dispatch('cs_1105/updateMyBets')
         }
     },
     computed: {
         isLogin () {
             return !!this.$store.state.isLog
+        },
+        myBetList () {
+            return this.$store.state.cs_1105.mybets
+        },
+        counter () {
+            return this.$store.state.cs_1105.mybetCount
         }
     },
     mounted () {

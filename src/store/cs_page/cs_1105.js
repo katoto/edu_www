@@ -37,7 +37,8 @@ const state = {
 
     allbetPipeArr: [], // 用于控制allbet
 
-    mybets: [] // mybets数据
+    mybets: [], // mybets数据
+    mybetCount: 0
 }
 
 const mutationsInfo = mapMutations({
@@ -47,36 +48,39 @@ const mutationsInfo = mapMutations({
     currExpectId(state, data) {
         state.currExpectId = data
     },
-    setRecentBet(state, data) {
+    setRecentBet (state, data) {
         state.recentBet = data
     },
-    setWithDrawList(state, data) {
+    setWithDrawList (state, data) {
         state.withdrawList = data
     },
-    setNavFix(state, data) {
+    setNavFix (state, data) {
         state.navFix = data
     },
     /* socket 倒计时 */
-    timeLeft(state, time) {
+    timeLeft (state, time) {
         state.timeLeft = time
     },
-    timeInterval(state, interval) {
+    timeInterval (state, interval) {
         state.timeInterval = interval
     },
-    setUid(state, uid) {
+    setUid (state, uid) {
         state.uid = uid
     },
-    setAllbetPipeArr(state, pipe) {
+    setAllbetPipeArr (state, pipe) {
         state.allbetPipeArr = pipe
     },
-    updateMyBets(state, mybets) {
+    updateMyBets (state, mybets) {
         state.mybets = mybets
+    },
+    updateMyBetsCount (state, mybetCount) {
+        state.mybetCount = mybetCount
     }
 }, 'cs_1105')
 
 const actionsInfo = mapActions({
     /* recent Bet  实时更新 recent bet */
-    formate_pushBetData({state, commit, dispatch}, orders) {
+    formate_pushBetData ({state, commit, dispatch}, orders) {
         if (orders) {
             if (Array.isArray(orders)) {
                 if (state.allbetPipeArr.length > 30) {
@@ -91,7 +95,7 @@ const actionsInfo = mapActions({
     },
 
     /* 动态数据一条条处理 */
-    recentBetAdd({state, commit, dispatch}) {
+    recentBetAdd ({state, commit, dispatch}) {
         if (!state.popTimeInterval) {
             state.popTimeInterval = setInterval(function () {
                 let currMsg = null
@@ -135,7 +139,7 @@ const actionsInfo = mapActions({
     },
 
     /* recent Bet */
-    formate_recentBet({state, commit, dispatch}, newData) {
+    formate_recentBet ({state, commit, dispatch}, newData) {
         let currLuckyNum = null
         let newLuckyResult = null
         let newNumLis = ''
@@ -189,13 +193,13 @@ const actionsInfo = mapActions({
         commit(mTypes.setRecentBet, newData)
     },
     // 当前 期号处理
-    formate_expectid({state, commit, dispatch}, expectid) {
+    formate_expectid ({state, commit, dispatch}, expectid) {
         if (expectid) {
             commit(mTypes.currExpectId, expectid)
         }
     },
     //  初始化上一期的结果
-    formate_Result({state, commit, dispatch}, msg) {
+    formate_Result ({state, commit, dispatch}, msg) {
         if (msg.last_expectid) {
             state.last_expectid = msg.last_expectid
         }
@@ -224,7 +228,7 @@ const actionsInfo = mapActions({
     },
 
     /* 初始化倒计时 */
-    formate_countDown({state, commit, dispatch}, timer) {
+    formate_countDown ({state, commit, dispatch}, timer) {
         if (timer !== undefined && timer !== null) {
             clearInterval(state.timeInterval)
             // 倒计时
@@ -248,7 +252,7 @@ const actionsInfo = mapActions({
     },
 
     /* Draw Number 列表接口数据 */
-    async getDrawNumList({commit, dispatch}, pageData) {
+    async getDrawNumList ({commit, dispatch}, pageData) {
         try {
             let InfoData = null
             if (pageData) {
@@ -275,12 +279,12 @@ const actionsInfo = mapActions({
         }
     },
 
-    getHistoryDraw({commit, dispatch}, params = {}) {
+    getHistoryDraw ({commit, dispatch}, params = {}) {
         return ajax.get('/expect/hisopencode', params)
     },
 
     // 首页 Recent Wins 列表接口数据
-    async getRecentWinsList({commit, dispatch}) {
+    async getRecentWinsList ({commit, dispatch}) {
         // order_lotid
         try {
             let dataRecentWinsList = null
@@ -307,7 +311,7 @@ const actionsInfo = mapActions({
         }
     },
     // 首页 限号弹窗
-    async popLimit() {
+    async popLimit () {
         try {
             let dataLimit = null
             let expectId = 1806121622
@@ -323,7 +327,7 @@ const actionsInfo = mapActions({
     },
 
     /* 注册激活 */
-    async mailActivate({commit, dispatch}, pageData) {
+    async mailActivate ({commit, dispatch}, pageData) {
         try {
             return await ajax.get(`/user/mail/activate?sign=${pageData}`)
         } catch (e) {
@@ -335,7 +339,7 @@ const actionsInfo = mapActions({
         }
     },
     /* 投注下单  2001  */
-    async placeOrder({commit, dispatch}, transferOrderStr) {
+    async placeOrder ({commit, dispatch}, transferOrderStr) {
         try {
             let InfoData = await ajax.post(`/place/order`, {
                 codestr: transferOrderStr,
@@ -352,8 +356,16 @@ const actionsInfo = mapActions({
             })
         }
     },
-    getMyBets({commit, dispatch}, params) {
-        return ajax.get('/order/list', params)
+    updateMyBets ({commit, dispatch}) {
+        return ajax.get('/order/list', {
+            pageno: 1,
+            pagesize: 4,
+            day: 1
+        }).then(data => {
+            commit('cs_1105/updateMyBets', data.data.orders || [])
+            commit('cs_1105/updateMyBetsCount', data.data.counter || 0)
+            return data
+        })
     }
 
 }, 'cs_1105')
