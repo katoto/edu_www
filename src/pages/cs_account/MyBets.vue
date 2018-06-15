@@ -31,7 +31,7 @@
                         align="center"
                         width="150"
                         header-align="center"
-                        label="Order Time">
+                        label="Time">
                 </el-table-column>
                 <el-table-column
                         align="center"
@@ -59,7 +59,7 @@
                         align="center"
                         header-align="center"
                         prop="expectid"
-                        label="Nper">
+                        label="No.">
                 </el-table-column>
                 <el-table-column
                         align="center"
@@ -74,12 +74,12 @@
                         align="center"
                         header-align="center"
                         prop="betmoney"
-                        label="Bet Amount">
+                        label="Bet">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
-                        label="Win Amount">
+                        label="Win">
                     <template slot-scope="scope">
                         <div v-html="scope.row.betprizeVal"></div>
                     </template>
@@ -95,6 +95,8 @@
                         :page-size="pageSize"
                         layout="prev, pager, next,jumper"
                         :total="PageTotal"
+                        next-text = 'Next >'
+                        prev-text = '< Front'
                 >
                 </el-pagination>
             </div>
