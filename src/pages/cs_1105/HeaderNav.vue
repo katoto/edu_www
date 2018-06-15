@@ -10,7 +10,7 @@
                 <i id="js_jackpotM">0</i>
             </p>
             <div class="lastdraw js_lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
-                <p class="js_lastDraw-new">Lastest draw</p>
+                <p class="js_lastDraw-new">Draw History</p>
                 <span id="js_lastDrawNumber">NO. {{ last_expectid }}</span>
                 <i class="arrow"></i>
                 <ul id="js_lastDraw" class="last-numbox js_lastDraw">
@@ -28,13 +28,13 @@
                     <router-link :to="{path: '/drawNumber'}">
                         <a href="javascript:;" class="more" target="_blank">More >></a>
                     </router-link>
-                    
+
                 </div>
             </div>
             <!--changeDead-->
             <div class="deadline">
                 <div class="deadline-box" :class="{'deadlineMove': expect_move }">
-                    <p>Time left</p>
+                    <p>Time Left</p>
                     <!--blinking-->
                     <span id="js_currExpectid" :class="{'blinking':expect_blinking}">No.{{ currExpectId }}</span>
                     <i :class="{'jump5': parseFloat( timeLeft )<= 10 }">{{ timeLeft }}’</i>
