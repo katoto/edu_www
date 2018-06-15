@@ -35,45 +35,45 @@ const state = {
     popLoadSpeed: 800, // 动态速率
     popTimeInterval: null,
 
-    allbetPipeArr: [] ,// 用于控制allbet
+    allbetPipeArr: [], // 用于控制allbet
 
     mybets: [] // mybets数据
 }
 
 const mutationsInfo = mapMutations({
-    currExpectId (state, data) {
+    currExpectId(state, data) {
         state.currExpectId = data
     },
-    setRecentBet (state, data) {
+    setRecentBet(state, data) {
         state.recentBet = data
     },
-    setWithDrawList (state, data) {
+    setWithDrawList(state, data) {
         state.withdrawList = data
     },
-    setNavFix (state, data) {
+    setNavFix(state, data) {
         state.navFix = data
     },
     /* socket 倒计时 */
-    timeLeft (state, time) {
+    timeLeft(state, time) {
         state.timeLeft = time
     },
-    timeInterval (state, interval) {
+    timeInterval(state, interval) {
         state.timeInterval = interval
     },
-    setUid (state, uid) {
+    setUid(state, uid) {
         state.uid = uid
     },
-    setAllbetPipeArr (state, pipe) {
+    setAllbetPipeArr(state, pipe) {
         state.allbetPipeArr = pipe
     },
-    updateMyBets (state, mybets) {
+    updateMyBets(state, mybets) {
         state.mybets = mybets
     }
 }, 'cs_1105')
 
 const actionsInfo = mapActions({
     /* recent Bet  实时更新 recent bet */
-    formate_pushBetData ({state, commit, dispatch}, orders) {
+    formate_pushBetData({state, commit, dispatch}, orders) {
         if (orders) {
             if (Array.isArray(orders)) {
                 if (state.allbetPipeArr.length > 30) {
@@ -89,123 +89,51 @@ const actionsInfo = mapActions({
     },
 
     /* 动态数据一条条处理 */
-    recentBetAdd ({state, commit, dispatch}) {
+    recentBetAdd({state, commit, dispatch}) {
         if (!state.popTimeInterval) {
             state.popTimeInterval = setInterval(function () {
-                console.log(1111);
-                let currMsg = null;
-                let findIndex = null;
-                let findBetMsg = null;
+                let currMsg = null
+                let findIndex = null
+                let findBetMsg = null
                 //  操作数组的写法
-                if( state.allbetPipeArr.length > 0 ){
+                if (state.allbetPipeArr.length > 0) {
                     currMsg = state.allbetPipeArr.pop()
-                    console.log(currMsg);
-                    console.log('========currMsg===')
                     // return false跳出循环，return true继续循环
-                    if( state.recentBet.length > 0 ){
-                        state.recentBet.every(( val , index )=>{
-                            console.log(val);
-                            if( val ){
+                    if (state.recentBet.length > 0) {
+                        state.recentBet.every((val, index) => {
+                            if (val) {
                                 // 是开奖 更新状态
-                                if( val.oid === currMsg.oid ){
-                                    findIndex = index;
+                                if (val.oid === currMsg.oid) {
+                                    findIndex = index
                                     return false
                                 }
                             }
                             return true
                         })
-                        if( findIndex !== null ){
-                            findBetMsg = state.recentBet.splice( findIndex , 1 );
-                            if( findBetMsg ){
+                        if (findIndex !== null) {
+                            findBetMsg = state.recentBet.splice(findIndex, 1)
+                            if (findBetMsg) {
                                 /* 更新开奖转态 在放入第一个 */
+                                Object.assign(findBetMsg, currMsg)
+                                state.recentBet.unshift(findBetMsg)
+                                dispatch(aTypes.formate_recentBet, state.recentBet)
                             }
-                        }else{
-                            /* 最新插入数据  是否删掉最后一条？ */
-
+                        } else {
+                            /* 最新插入数据  是否删掉最后一条？？ */
+                            if (state.recentBet.length >= 21) {
+                                state.recentBet.splice(21, state.recentBet.length)
+                            }
+                            state.recentBet.unshift(currMsg)
+                            dispatch(aTypes.formate_recentBet, state.recentBet)
                         }
                     }
                 }
-
-                // var currMsg = null,
-                //     $currDom = null,
-                //     currTdNow = '',
-                //     currTdLisNow,
-                //     currLuckyNum = []
-                // if (allbetPipeArr.length > 0) {
-                //     currMsg = allbetPipeArr.pop()
-                //     if (currMsg && currMsg.oid) {
-                //         $currDom = $('#tabody-betlist tr[data-Oid="' + currMsg.oid + '"]')
-                //         if ($currDom.length > 0) {
-                //             if (currMsg.opencode !== null && currMsg.opencode !== '' && currMsg.opencode !== undefined) {
-                //                 // 是开奖 更新状态，不是投注
-                //                 betBlockList($currDom, currMsg.opencode, currMsg.betprize, currMsg.orderstatus)
-                //                 return false
-                //             } else {
-                //                 // 是投注广播
-                //                 //  status  // todo
-                //                 if (currMsg.orderstatus.toString() === '1' || currMsg.orderstatus.toString() === '2') {
-                //                     $currDom.attr('data-currStatus', currMsg.orderstatus.toString())
-                //                     return false
-                //                 } else {
-                //                     $currDom.remove()
-                //                 }
-                //             }
-                //         }
-                //
-                //         // 加入数据
-                //         currTdNow += '<tr class="newRecord" data-currStatus="' + currMsg.orderstatus + '" data-Oid="' + currMsg.oid + '"><td>' + format_time(currMsg.create_time) + '</td><td>' + currMsg.uid + '</td>' +
-                //             '<td>' + currMsg.expectid + '</td>' +
-                //             '<td>' + format_match(currMsg.bettype) + '</td>' +
-                //             '<td><ul class="num-box">'
-                //         currTdLisNow = ''
-                //
-                //         if (currMsg.betcode) {
-                //             currLuckyNum = currMsg.betcode.split(',')
-                //             for (var j = 0, lenJ = currLuckyNum.length; j < lenJ; j++) {
-                //                 if (currMsg.opencode !== null && currMsg.opencode !== '' && currMsg.opencode !== undefined) {
-                //                     var newLuckyResult = currMsg.opencode.split(',')
-                //                     if (newLuckyResult.indexOf(currLuckyNum[j]) > -1) {
-                //                         currTdLisNow += '<li class="bingo">' + currLuckyNum[j] + '</li>'
-                //                     } else {
-                //                         currTdLisNow += '<li>' + currLuckyNum[j] + '</li>'
-                //                     }
-                //                 } else {
-                //                     currTdLisNow += '<li>' + currLuckyNum[j] + '</li>'
-                //                 }
-                //             }
-                //         }
-                //         currTdNow += currTdLisNow + '</ul></td>' +
-                //             '<td>' + Number(currMsg.betmoney).toFixed(5) + 'ETH</td>'
-                //
-                //         //   -2|取消退款  -1|下单失败  0|下单 1|成功  2|结算    new
-                //         // 	0 交易中 , 1待开奖,2、待结算  3未中奖 4 中奖,  old
-                //         if (currMsg.orderstatus == '2') {
-                //             // 结算 并且大于0
-                //             if (currMsg.betprize > 0) {
-                //                 currTdNow += '<td class="win-amount js_resultDom"><a class="win">+' + currMsg.betprize + digitalUnit + '</a></td>'
-                //             } else {
-                //                 currTdNow += '<td class="js_resultDom"><a></a>-</td>'
-                //             }
-                //         } else {
-                //             if (currMsg.orderstatus == '0') {
-                //                 currTdNow += '<td class="js_resultDom bold">wait </td>'
-                //             } else if (currMsg.orderstatus == '1') {
-                //                 currTdNow += '<td class="js_resultDom bold">wait</td>'
-                //             } else if (currMsg.orderstatus == '-1' || currMsg.orderstatus == '-2') {
-                //                 currTdNow += '<td class="js_resultDom bold"><a></a>failure</td>'
-                //             }
-                //         }
-                //         $('#tabody-betlist').prepend(currTdNow)
-                //     }
-                // }
-
-
             }, state.popLoadSpeed)
         }
     },
 
     /* recent Bet */
-    formate_recentBet ({state, commit, dispatch}, newData) {
+    formate_recentBet({state, commit, dispatch}, newData) {
         let currLuckyNum = null
         let newLuckyResult = null
         let newNumLis = ''
@@ -259,13 +187,13 @@ const actionsInfo = mapActions({
         commit(mTypes.setRecentBet, newData)
     },
     // 当前 期号处理
-    formate_expectid ({state, commit, dispatch}, expectid) {
+    formate_expectid({state, commit, dispatch}, expectid) {
         if (expectid) {
             commit(mTypes.currExpectId, expectid)
         }
     },
     //  初始化上一期的结果
-    formate_Result ({state, commit, dispatch}, msg) {
+    formate_Result({state, commit, dispatch}, msg) {
         if (msg.last_expectid) {
             state.last_expectid = msg.last_expectid
         }
@@ -294,7 +222,7 @@ const actionsInfo = mapActions({
     },
 
     /* 初始化倒计时 */
-    formate_countDown ({state, commit, dispatch}, timer) {
+    formate_countDown({state, commit, dispatch}, timer) {
         if (timer !== undefined && timer !== null) {
             clearInterval(state.timeInterval)
             // 倒计时
@@ -318,7 +246,7 @@ const actionsInfo = mapActions({
     },
 
     /* Draw Number 列表接口数据 */
-    async getDrawNumList ({commit, dispatch}, pageData) {
+    async getDrawNumList({commit, dispatch}, pageData) {
         try {
             let InfoData = null
             if (pageData) {
@@ -345,12 +273,12 @@ const actionsInfo = mapActions({
         }
     },
 
-    getHistoryDraw ({commit, dispatch}, params = {}) {
+    getHistoryDraw({commit, dispatch}, params = {}) {
         return ajax.get('/expect/hisopencode', params)
     },
 
     // 首页 Recent Wins 列表接口数据
-    async getRecentWinsList ({commit, dispatch}) {
+    async getRecentWinsList({commit, dispatch}) {
         // order_lotid
         try {
             let dataRecentWinsList = null
@@ -377,7 +305,7 @@ const actionsInfo = mapActions({
         }
     },
     // 首页 限号弹窗
-    async popLimit () {
+    async popLimit() {
         try {
             let dataLimit = null
             let expectId = 1806121622
@@ -393,7 +321,7 @@ const actionsInfo = mapActions({
     },
 
     /* 注册激活 */
-    async mailActivate ({commit, dispatch}, pageData) {
+    async mailActivate({commit, dispatch}, pageData) {
         try {
             return await ajax.get(`/user/mail/activate?sign=${pageData}`)
         } catch (e) {
@@ -405,7 +333,7 @@ const actionsInfo = mapActions({
         }
     },
     /* 投注下单  2001  */
-    async placeOrder ({commit, dispatch}, transferOrderStr) {
+    async placeOrder({commit, dispatch}, transferOrderStr) {
         try {
             let InfoData = await ajax.post(`/place/order`, {
                 codestr: transferOrderStr,
@@ -422,7 +350,7 @@ const actionsInfo = mapActions({
             })
         }
     },
-    getMyBets ({commit, dispatch}, params) {
+    getMyBets({commit, dispatch}, params) {
         return ajax.get('/order/list', params)
     }
 

@@ -249,10 +249,12 @@ export function commonErrorHandler (data) {
     let status = data.status
     switch (status) {
     case '214':
-	        removeCK()
-	        this.$store.commit('setIsLog', false)
-	        this.$store.commit('setUserInfo', {})
-	        this.$store.commit('showLoginPop')
+        removeCK()
+        if (this && this.$store) {
+            this.$store.commit('setIsLog', false)
+            this.$store.commit('setUserInfo', {})
+            this.$store.commit('showLoginPop')
+        }
         break
     default:
         Message({

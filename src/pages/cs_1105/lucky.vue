@@ -719,7 +719,7 @@
                 this.$store.dispatch('initWebsocket')
             }
             /* 开启动态数据定时器 */
-            // this.$store.dispatch(aTypes.recentBetAdd)
+            this.$store.dispatch(aTypes.recentBetAdd)
         },
         beforeRouteLeave (to, from, next) {
             // 是否需要主队断sock ？
