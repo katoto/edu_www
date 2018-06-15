@@ -2,8 +2,7 @@
     <!--拉新活动-->
     <!--链接邀请-->
     <Pop class="pop-faucet" :show.sync="show">
-        <div class="pop-main">
-            <div class="pop-main" v-if="faucetMsg">
+        <div class="pop-main" v-if="faucetMsg">
                 <h3 class="font26">Faucet</h3>
                 <p v-if="faucetMsg">
                     Inviting friends earn {{ faucetMsg.invite_prize }} {{ faucetMsg.prize_cointype | formateCoinType }} per invitation (2 chances)
@@ -11,15 +10,15 @@
                 <p v-else>
                     Inviting friends earn 0.001 ETH per invitation (2 chances)
                 </p>
-                <p>
-                    Use the following link to invite your friends
+                <p style="margin: 10px 0 4px 0">
+                    Inviting address
                 </p>
                 <div v-if="faucetMsg" class="newActCopy">{{ faucetMsg.invite_url }}</div>
                 <a href="javascript:;"
                    v-clipboard:copy="faucetMsg.desc"
                    v-clipboard:success="copySucc"
                    v-clipboard:error="copyError"
-                   class="btn-copy js_btn-copy">Copy to clipboard</a>
+                   class="btn-copy js_btn-copy">Copy to Clipboard</a>
                 <p>
                     Tips:
                 </p>
@@ -36,7 +35,6 @@
                     4. The right of final interpretation of this activity reserved to Coinslot.com.
                 </p>
             </div>
-        </div>
     </Pop>
 </template>
 

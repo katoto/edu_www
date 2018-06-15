@@ -9321,29 +9321,24 @@
 }
 
 .el-message {
-    min-width: 380px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ebeef5;
     position: fixed;
+    top: 15px;
     left: 50%;
-    top: 20px;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    background-color: #edf2fc;
-    -webkit-transition: opacity .3s,-webkit-transform .4s;
-    transition: opacity .3s,-webkit-transform .4s;
-    transition: opacity .3s,transform .4s;
-    transition: opacity .3s,transform .4s,-webkit-transform .4s;
-    padding: 15px 15px 15px 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center
+    z-index: 1000;
+    transform: translate(-50%, 0);
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 30px;
+    max-width: 370px;
+    max-height: 60px;
+    overflow: hidden;
+    line-height: 20px;
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+
 }
 
 .el-message.is-center {
@@ -9383,8 +9378,7 @@
 }
 
 .el-message--error {
-    background-color: #fef0f0;
-    border-color: #fde2e2
+    background: #ef7e7e;
 }
 
 .el-message--error .el-message__content {
