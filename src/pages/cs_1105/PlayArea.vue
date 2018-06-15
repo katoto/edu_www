@@ -1,10 +1,10 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose" @mouseover="showPickList = true" @mouseout="showPickList = false">
+            <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true" @mouseout="slideDown = false">
                 <span v-if="areaMsg.pickType === '5J'">Pick 5(JACKPOT)</span>
                 <span v-else>Pick {{ areaMsg.pickType}}</span>
-                <ul class="show slide" @click="chosePickType( $event )" :class="{ 'slide-show': showPickList }">
+                <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
                     <li data-index="1">Pick 1</li>
                     <li data-index="2">Pick 2</li>
                     <li data-index="3">Pick 3</li>
@@ -76,10 +76,10 @@
     export default {
         data () {
             return {
-                showPickList: false,
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 baseJackPot: [1, 2, 3, 4, 5],
-                limitUnit: 0.0001
+                limitUnit: 0.0001,
+                slideDown:false
             }
         },
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
@@ -94,7 +94,7 @@
                 if (isNaN(this.areaMsg.pickMoney)) {
                     Message({
                         message: 'Please enter the correct number',
-                        type: 'error'
+                        type: 'error',
                     })
                     return false
                 }

@@ -9,14 +9,14 @@
                 <span>JACKPOT&nbsp;&nbsp;</span>
                 <i id="js_jackpotM">0</i>
             </p>
-            <div class="lastdraw js_lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
-                <p class="js_lastDraw-new">Draw History</p>
-                <span id="js_lastDrawNumber">NO. {{ last_expectid }}</span>
+            <div class="lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
+                <p>Draw History</p>
+                <span id="js_lastDrawNumber">NO.{{ last_expectid }}</span>
                 <i class="arrow"></i>
                 <ul id="js_lastDraw" class="last-numbox js_lastDraw">
                     <li v-for="(item, index) in liveOpenCode" class="flipInY" :key="index">{{ item }}</li>
                 </ul>
-                <div class="last-select js_last-select slide" :class="{ 'slide-show': isShowHistoryCode }">
+                <div class="last-select slide" :class="{ 'slide-show': isShowHistoryCode }">
                     <ul class="date-box js_date-box">
                         <li v-for="(item, index) in historyCode.filter((item, index) => index < 8 && index > 0)" :key="index">
                             <span>{{ item.expectid }}</span>
