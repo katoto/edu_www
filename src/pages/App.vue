@@ -3,7 +3,7 @@
         <router-view v-if="isReady"/>
         <!-- ip -->
         <PopIpLimit></PopIpLimit>
-
+        <!-- 全局free -->
         <PopFreeplay></PopFreeplay>
 
     </div>
@@ -40,8 +40,6 @@
 
             this.$store.dispatch('homeInfo')
 
-            /* 样式需要处理  或者换一种方式写 */
-            this.$store.commit('showFreeplay')
         }
     }
 </script>
