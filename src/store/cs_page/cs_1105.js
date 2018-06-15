@@ -42,7 +42,10 @@ const state = {
 }
 
 const mutationsInfo = mapMutations({
-    currExpectId (state, data) {
+    syxw_bettype_odds(state,data){
+        state.syxw_bettype_odds = data
+    },
+    currExpectId(state, data) {
         state.currExpectId = data
     },
     setRecentBet (state, data) {
@@ -81,7 +84,6 @@ const actionsInfo = mapActions({
         if (orders) {
             if (Array.isArray(orders)) {
                 if (state.allbetPipeArr.length > 30) {
-                    // 太多去除
                     commit(mTypes.setAllbetPipeArr, state.allbetPipeArr.slice(0, 20))
                 } else {
                     commit(mTypes.setAllbetPipeArr, state.allbetPipeArr.concat(orders))

@@ -39,10 +39,14 @@ const state = {
         sock: null,
         interval: null
     },
+    ip_status: 0, // 1 禁止 0 正常
     ...common.state
 }
 
 const mutations = {
+    setIp_status (state, data) {
+        state.ip_status = data
+    },
     setUserInfo (state, msg) {
         state.userInfo = msg
     },
@@ -59,13 +63,47 @@ const mutations = {
     ...common.mutations
 }
 const actions = {
+    /* home info */
+    async homeInfo ({state, commit, dispatch}) {
+        try {
+            let homeMsg = await ajax.get(`/home/info`)
+            if (homeMsg.ip_status !== undefined || homeMsg.ip_status !== null) {
+                commit('setIp_status', homeMsg.ip_status)
+            }
+            if (homeMsg.status.toString() === '100') {
+                if (homeMsg.data.syxw_bettype_odds) {
+                    commit(mTypes.syxw_bettype_odds, homeMsg.data.syxw_bettype_odds)
+                }
+            }
+            // todo
+            if (homeMsg.data.invite_tips.toString() === '0') {
+                commit('hideFreeplay')
+            } else {
+                if (commit.isLog) {
+                    commit('hideFreeplay')
+                } else {
+                    commit('showFreeplay')
+                }
+            }
+
+            // "invite_tips": "0"
+            return homeMsg
+        } catch (e) {
+            Message({
+                message: e.message,
+                type: 'error',
+                duration: tipsTime
+            })
+        }
+    },
+
     /* user info */
     async getUserInfo ({state, commit, dispatch}) {
         try {
             let userMsg = await ajax.get(`/user/info`)
             console.log(userMsg)
 
-            if (userMsg.status == '100') {
+            if (userMsg.status.toString() === '100') {
                 if (userMsg.data.uid) {
                     commit(mTypes.setUid, userMsg.data.uid)
                 }
@@ -161,8 +199,8 @@ const actions = {
                             dispatch(aTypes.formate_Result, msg.data)
 
                             /*
-                             *  处理 区块链阻塞
-                             * */
+                                 *  处理 区块链阻塞
+                                 * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
@@ -196,13 +234,18 @@ const actions = {
                             break
 
                         case '1004':
-                            /* 投注推送  和 更新 my bet  */
+                            /* 投注推送  和 更新 my bet todo  */
                             console.log(msg.data)
                             console.log('=== 104 ====')
                             if (msg.data && msg.data.orders) {
                                 dispatch(aTypes.formate_pushBetData, msg.data.orders)
                             }
+                            break
 
+                        case '1007':
+                            // 更新用户信息，代表结算
+
+                            ;
                             break
                         }
                     }
