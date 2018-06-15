@@ -35,7 +35,7 @@ const state = {
     popLoadSpeed: 800, // 动态速率
     popTimeInterval: null,
 
-    allbetPipeArr: [] ,// 用于控制allbet
+    allbetPipeArr: [], // 用于控制allbet
 
     mybets: [] // mybets数据
 }
@@ -92,34 +92,34 @@ const actionsInfo = mapActions({
     recentBetAdd ({state, commit, dispatch}) {
         if (!state.popTimeInterval) {
             state.popTimeInterval = setInterval(function () {
-                console.log(1111);
-                let currMsg = null;
-                let findIndex = null;
-                let findBetMsg = null;
+                console.log(1111)
+                let currMsg = null
+                let findIndex = null
+                let findBetMsg = null
                 //  操作数组的写法
-                if( state.allbetPipeArr.length > 0 ){
+                if (state.allbetPipeArr.length > 0) {
                     currMsg = state.allbetPipeArr.pop()
-                    console.log(currMsg);
+                    console.log(currMsg)
                     console.log('========currMsg===')
                     // return false跳出循环，return true继续循环
-                    if( state.recentBet.length > 0 ){
-                        state.recentBet.every(( val , index )=>{
-                            console.log(val);
-                            if( val ){
+                    if (state.recentBet.length > 0) {
+                        state.recentBet.every((val, index) => {
+                            console.log(val)
+                            if (val) {
                                 // 是开奖 更新状态
-                                if( val.oid === currMsg.oid ){
-                                    findIndex = index;
+                                if (val.oid === currMsg.oid) {
+                                    findIndex = index
                                     return false
                                 }
                             }
                             return true
                         })
-                        if( findIndex !== null ){
-                            findBetMsg = state.recentBet.splice( findIndex , 1 );
-                            if( findBetMsg ){
+                        if (findIndex !== null) {
+                            findBetMsg = state.recentBet.splice(findIndex, 1)
+                            if (findBetMsg) {
                                 /* 更新开奖转态 在放入第一个 */
                             }
-                        }else{
+                        } else {
                             /* 最新插入数据  是否删掉最后一条？ */
 
                         }
@@ -198,8 +198,6 @@ const actionsInfo = mapActions({
                 //         $('#tabody-betlist').prepend(currTdNow)
                 //     }
                 // }
-
-
             }, state.popLoadSpeed)
         }
     },
