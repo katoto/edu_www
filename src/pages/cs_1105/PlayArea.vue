@@ -1,7 +1,7 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose" @mouseenter="slideDown = true" @mouseout="slideDown = false">
+            <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true" @mouseout="slideDown = false">
                 <span v-if="areaMsg.pickType === '5J'">Pick 5(JACKPOT)</span>
                 <span v-else>Pick {{ areaMsg.pickType}}</span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
