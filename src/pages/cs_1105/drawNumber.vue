@@ -6,27 +6,27 @@
             <div class="main-reward">
                 <h1>Draw number</h1>
                 <el-table
-                        :data="drawNumList"
-                        stripe
-                        size="small"
-                        highlight-current-row
-                        style="width: 100%">
+                    :data="drawNumList"
+                    stripe
+                    size="small"
+                    highlight-current-row
+                    style="width: 100%">
                     <el-table-column
-                            prop="opentime"
-                            align="center"
-                            header-align="center"
-                            label="Draw Time">
+                        prop="opentime"
+                        align="center"
+                        header-align="center"
+                        label="Draw Time">
                     </el-table-column>
                     <el-table-column
-                            align="center"
-                            header-align="center"
-                            prop="expectid"
-                            label="No.">
+                        align="center"
+                        header-align="center"
+                        prop="expectid"
+                        label="No.">
                     </el-table-column>
                     <el-table-column
-                            align="center"
-                            header-align="center"
-                            label="Draw Number">
+                        align="center"
+                        header-align="center"
+                        label="Draw Number">
                         <template slot-scope="scope">
                             <ul class="num-box" v-if="scope.row.opencode !== '-1'">
                                 <li v-for="item in scope.row.opencode">{{ item }}</li>
@@ -35,47 +35,47 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            align="center"
-                            header-align="center"
-                            prop="sumbonus"
-                            label="Cumulative Bouns">
+                        align="center"
+                        header-align="center"
+                        prop="sumbonus"
+                        label="Cumulative Bouns">
                     </el-table-column>
                     <el-table-column
-                            align="center"
-                            header-align="center"
-                            label="Block">
+                        align="center"
+                        header-align="center"
+                        label="Block">
                         <template slot-scope="scope">
                             <span v-if="scope.row.blocknum == '0'">-</span>
                             <a target="_blank" v-else :href="scope.row.jumpEthUrl"># {{ scope.row.blocknum }}</a>
                         </template>
                     </el-table-column>
                     <el-table-column
-                            label=""
-                            width="120">
+                        label=""
+                        width="120">
                         <template slot-scope="scope">
                             <a href="javascript:;" v-if="scope.row.blocknum != '0'" @click="showBlockMsg(scope.row)"
                                class="icon-reward js_reward_show"></a>
                         </template>
                     </el-table-column>
-                    <!--todo 缺一个下载 -->
                     <el-table-column
-                            label=""
-                            width="120">
+                        label=""
+                        width="120">
                         <template slot-scope="scope">
                             <a href="javascript:;" v-if="scope.row.newdownStr === '1'"
-                               data-dataexpectid="scope.row.expectid" class="icon-down js_icon-down"></a>
+                               :data-dataexpectid="scope.row.expectid" @click="downLoadfile( scope.row.expectid )"
+                               class="icon-down js_icon-down"></a>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div class="pagination">
                     <el-pagination
-                            @current-change="handleCurrentChange"
-                            background
-                            :current-page.sync="pageNumber"
-                            size="small"
-                            :page-size="pageSize"
-                            layout="prev, pager, next,jumper"
-                            :total="PageTotal"
+                        @current-change="handleCurrentChange"
+                        background
+                        :current-page.sync="pageNumber"
+                        size="small"
+                        :page-size="pageSize"
+                        layout="prev, pager, next,jumper"
+                        :total="PageTotal"
                     >
                     </el-pagination>
                 </div>
@@ -111,9 +111,11 @@
                                 </div>
                                 <div class="node">
                                     <p>Note:<br/>
-                                        All order information of the current period will eventually generate a hash value
+                                        All order information of the current period will eventually generate a hash
+                                        value
                                         through the Merkel tree algorithm. This
-                                        hash value will be uploaded to the Ethereum chain. The hash value is verified by the
+                                        hash value will be uploaded to the Ethereum chain. The hash value is verified by
+                                        the
                                         open class so that the bet cannot be
                                         tampered with.
                                     </p>
@@ -122,7 +124,8 @@
                             <div v-else class="js_show_calcul_hide">
                                 <div class="node">
                                     <p>Note:<br/>
-                                        If there is no bet on this draw, the result will use the hash of the last block .
+                                        If there is no bet on this draw, the result will use the hash of the last block
+                                        .
                                     </p>
                                 </div>
                             </div>
@@ -135,161 +138,153 @@
     </div>
 </template>
 <script>
-	import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-	import {src, platform, tipsTime, ethUrl} from '~common/util'
+    import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
+    import {src, platform, tipsTime, ethUrl} from '~common/util'
 
-	import Header from '~/components/Header.vue'
-	import Footer from '~/components/Footer.vue'
-	import BreadCrumbs from '~/components/BreadCrumbs.vue'
+    import Header from '~/components/Header.vue'
+    import Footer from '~/components/Footer.vue'
+    import BreadCrumbs from '~/components/BreadCrumbs.vue'
 
-	export default {
-	    data () {
-	        return {
-	            ethUrl: null,
-	            pageNumber: 1,
-	            pageSize: 10,
-	            PageTotal: 1,
-	            drawNumList: [],
-            showPop_reward: false, // 开奖弹窗
-            popRewardMsg: {
-	                blocknum: 0,
-	                expectid: 0,
-	                merkel_hash: '',
-	                txhash: '',
-	                blockhash: '',
-	                jumpEthUrl: ''
+    export default {
+        data () {
+            return {
+                ethUrl: null,
+                pageNumber: 1,
+                pageSize: 10,
+                PageTotal: 1,
+                drawNumList: [],
+                showPop_reward: false, // 开奖弹窗
+                popRewardMsg: {
+                    blocknum: 0,
+                    expectid: 0,
+                    merkel_hash: '',
+                    txhash: '',
+                    blockhash: '',
+                    jumpEthUrl: ''
+                }
             }
-	        }
-	    },
-	    watch: {},
-	    methods: {
-	        closePop_reward () {
-            this.showPop_reward = false
         },
-	        showBlockMsg (msg) {
-	            this.popRewardMsg = msg
-	            this.showPop_reward = true
-	        },
-	        async handleCurrentChange (val) {
-	            if (val !== undefined) {
-	                let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
-	                    pageNumber: Number(val),
-	                    pageSize: this.pageSize
-	                })
-	                if (drawData) {
-	                    this.drawNumList = this.format_drawNum(drawData.expect_history)
-	                    this.PageTotal = Number(drawData.count)
-	                }
-	            }
-	        },
-        /*
-             *  格式化时间  allbet time
-             * */
-	        format_time (time, format) {
-	            if (format === undefined || format == null) {
-	                format = 'HH:mm:ss'
-	                // format = 'MM-dd HH:mm:ss'
-	            }
-	            if (isNaN(time)) {
-	                return false
-	            }
-	            let t = new Date(+time * 1000)
-	            let tf = function (i) {
-	                return (i < 10 ? '0' : '') + i
-	            }
-	            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-	                switch (a) {
-	                case 'yyyy':
-	                    return tf(t.getFullYear())
-	                case 'MM':
-	                    return tf(t.getMonth() + 1)
-	                case 'mm':
-	                    return tf(t.getMinutes())
-	                case 'dd':
-	                    return tf(t.getDate())
-	                case 'HH':
-	                    return tf(t.getHours())
-	                case 'ss':
-	                    return tf(t.getSeconds())
-	                }
-	            })
-	        },
-        /*
-             *  格式化drawNum 数据
-             *  return 格式化后的数据
-             * */
-	        format_drawNum (Msg) {
-	            if (Msg) {
-	                Msg.forEach((val, index) => {
-	                    val.index = index
-	                    // opentime
-	                    val.opentime = this.format_time(val.opentime, 'MM-dd HH:mm:ss')
+        watch: {},
+        methods: {
+            downLoadfile (expectid) {
+                window.location.href = 'https://www.coinslot.com/download/expects/1_' + expectid + '.txt'
+            },
+            closePop_reward () {
+                this.showPop_reward = false
+            },
+            showBlockMsg (msg) {
+                this.popRewardMsg = msg
+                this.showPop_reward = true
+            },
+            async handleCurrentChange (val) {
+                if (val !== undefined) {
+                    let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
+                        pageNumber: Number(val),
+                        pageSize: this.pageSize
+                    })
+                    if (drawData) {
+                        this.drawNumList = this.format_drawNum(drawData.expect_history)
+                        this.PageTotal = Number(drawData.count)
+                    }
+                }
+            },
+            /*
+                 *  格式化时间  allbet time
+                 * */
+            format_time (time, format) {
+                if (format === undefined || format == null) {
+                    format = 'HH:mm:ss'
+                    // format = 'MM-dd HH:mm:ss'
+                }
+                if (isNaN(time)) {
+                    return false
+                }
+                let t = new Date(+time * 1000)
+                let tf = function (i) {
+                    return (i < 10 ? '0' : '') + i
+                }
+                return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+                    switch (a) {
+                    case 'yyyy':
+                        return tf(t.getFullYear())
+                    case 'MM':
+                        return tf(t.getMonth() + 1)
+                    case 'mm':
+                        return tf(t.getMinutes())
+                    case 'dd':
+                        return tf(t.getDate())
+                    case 'HH':
+                        return tf(t.getHours())
+                    case 'ss':
+                        return tf(t.getSeconds())
+                    }
+                })
+            },
+            /*
+                 *  格式化drawNum 数据
+                 *  return 格式化后的数据
+                 * */
+            format_drawNum (Msg) {
+                if (Msg) {
+                    Msg.forEach((val, index) => {
+                        val.index = index
+                        // opentime
+                        val.opentime = this.format_time(val.opentime, 'MM-dd HH:mm:ss')
 
-	                    if (val.expect_status == '4' || val.expect_status == '5') {
-	                        if (val.opencode === null) {
-	                            val.opencode = '0,0,0,0,0'
-	                        }
-	                        val.opencode = val.opencode.split(',')
-	                    } else {
-	                        // waiting 转态
-	                        val.opencode = '-1'
-	                    }
+                        if (val.expect_status == '4' || val.expect_status == '5') {
+                            if (val.opencode === null) {
+                                val.opencode = '0,0,0,0,0'
+                            }
+                            val.opencode = val.opencode.split(',')
+                        } else {
+                            // waiting 转态
+                            val.opencode = '-1'
+                        }
 
-	                    if (!val.blockhash) {
-	                        val.blockhash = ''
-	                    }
+                        if (!val.blockhash) {
+                            val.blockhash = ''
+                        }
 
-	                    if (val.txhash === '') {
-	                        val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
-	                    } else {
-	                        val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
-	                    }
+                        if (val.txhash === '') {
+                            val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
+                        } else {
+                            val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
+                        }
 
-	                    if (!val.expectid || !val.merkel_hash) {
-	                        val.newdownStr = '-1'
-	                    } else {
-	                        val.newdownStr = '1'
-	                        //			                newdownStr = '<a href="javascript:;" data-dataexpectid="' + data.data.expect_history[j].expectid + '" class="icon-down js_icon-down"></a>'
-	                    }
-
-	                    //		                var newLastStr = '';
-	                    //		                if (val.blocknum === '0') {
-	                    //			                newLastStr = ''
-	                    //			                val.blockidStr = '<span> - </span>'
-	                    //		                } else {
-	                    //			                val.blockidStr = '<a href="' + ethUrl + 'block/' + data.data.expect_history[j].blocknum + '" target="_blank" class="address"># ' + data.data.expect_history[j].blocknum + '</a>'
-	                    //			                newLastStr = '<a href="javascript:;" data-dataNum="' + j + '" class="icon-reward js_reward_show"></a>'
-	                    //		                }
-
-	                    if (val.sumbonus === '0') {
-	                        val.sumbonus = '-'
-	                    }
-	                })
-	                return Msg
-	            } else {
-	                return false
-	            }
-	        }
-	    },
-	    components: {
-	        Header,
-	        Footer,
-	        BreadCrumbs
-	    },
-	    computed: {},
-	    async mounted () {
-	        let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
-	            pageNumber: 1,
-	            pageSize: this.pageSize
-	        })
-	        console.log('===========')
-	        console.log(drawData)
-	        if (drawData) {
-	            this.drawNumList = this.format_drawNum(drawData.expect_history)
-	            this.PageTotal = Number(drawData.count)
-	        }
-	    }
-	}
+                        if (!val.expectid || !val.merkel_hash) {
+                            val.newdownStr = '-1'
+                        } else {
+                            val.newdownStr = '1'
+                        }
+                        if (val.sumbonus === '0') {
+                            val.sumbonus = '-'
+                        }
+                    })
+                    return Msg
+                } else {
+                    return false
+                }
+            }
+        },
+        components: {
+            Header,
+            Footer,
+            BreadCrumbs
+        },
+        computed: {},
+        async mounted () {
+            let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
+                pageNumber: 1,
+                pageSize: this.pageSize
+            })
+            console.log('===========')
+            console.log(drawData)
+            if (drawData) {
+                this.drawNumList = this.format_drawNum(drawData.expect_history)
+                this.PageTotal = Number(drawData.count)
+            }
+        }
+    }
 </script>
 <style lang="less" scoped rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
@@ -405,6 +400,8 @@
             display: block;
             margin: 0 auto;
             background-image: url("../../assets/slice/icon-down.png");
+            width: 14px;
+            height: 13px;
             transition: none;
         }
         th {

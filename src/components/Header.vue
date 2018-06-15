@@ -89,13 +89,14 @@
                             <a href="" class="btn-cash">Withdraw</a>
                         </div>
                         <div class="mycount" @mouseenter="showDetailFn" @mouseleave="hideDetailFn">
-                            <div class="countNum" >
+                            <div class="countNum">
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
 
                                 <!---->
                                 <div v-if="loginSucc || showFirstLogin">
-                                    <span :class="{'blinking2': ( showFirstLogin )||( loginSucc.login_times == '1' && loginSucc.invite_status == '0')||(showInviteSuccFlag)  }"
-                                          v-for="account in userInfo.accounts">{{ account.balance }}
+                                    <span
+                                        :class="{'blinking2': ( showFirstLogin )||( loginSucc.login_times == '1' && loginSucc.invite_status == '0')||(showInviteSuccFlag)  }"
+                                        v-for="account in userInfo.accounts">{{ account.balance }}
                                     </span> ETH<i></i>
                                 </div>
                                 <div v-else>
@@ -194,7 +195,8 @@
                 <div class="tips-newAct tips-newAct2">
                     <div class="msg">
                         <p>
-                            Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding to you now.
+                            Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding
+                            to you now.
                         </p>
                         <a href="javascript:;" @click="getFaucet" class="btn-receive">Get it !</a>
                         <div class="bottom hide">
@@ -214,112 +216,111 @@
 <script>
     import PopList from '~components/Pop-list'
     import Banner from '~components/banner'
-	import {Message} from 'element-ui'
-	import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
+    import {Message} from 'element-ui'
+    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance} from '~common/util'
 
-	export default {
-		components: {PopList,Banner},
-		data () {
-			return {
-				showDetail: false,
-                showEndFaucet:false,  // 控制 结束弹窗 tips
-				showEndFaucetTime:null,
-				showInviteSuccFlag:false,
-			}
-		},
-		watch: {},
-		computed: {
-			inviteTips(){
-				return this.$store.state.pop.inviteTips
+    export default {
+        components: {PopList, Banner},
+        data () {
+            return {
+                showDetail: false,
+                showEndFaucet: false, // 控制 结束弹窗 tips
+                showEndFaucetTime: null,
+                showInviteSuccFlag: false
+            }
+        },
+        watch: {},
+        computed: {
+            inviteTips () {
+                return this.$store.state.pop.inviteTips
             },
-			showFirstLogin(){
-				return this.$store.state.pop.showFirstLogin
-			},
-			loginSucc(){
-				return this.$store.state.pop.loginSucc
-			},
-			isLog(){
-				return this.$store.state.isLog
-			},
-			userInfo(){
-				return this.$store.state.userInfo
-			}
-		},
-		methods: {
-			async getFaucet(){
-				// 领取邀请奖励
-                if( this.loginSucc && this.loginSucc.tasks.length >0 ){
-	                this.showInviteSuccFlag = false;
-                    let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid );
-	                console.log(taskDone);
-	                if( taskDone &&  taskDone.taskstatus.toString() === '1' ){
-		                document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove';
-		                setTimeout(()=>{
-			                this.$store.commit('inviteTips' , false);
-			                // 手动加 0.001 eth
-			                let newUserInfo = null;
-			                if(this.userInfo){
-				                newUserInfo = this.userInfo ;
-				                newUserInfo.accounts[0].balance = parseFloat( newUserInfo.accounts[0].balance ) + 0.001
-			                }
-			                this.$store.commit('setUserInfo' , newUserInfo);
-			                this.showInviteSuccFlag = true;
-			                document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove';
-		                },3000);
-		                this.$store.dispatch('getUserInfo');
+            showFirstLogin () {
+                return this.$store.state.pop.showFirstLogin
+            },
+            loginSucc () {
+                return this.$store.state.pop.loginSucc
+            },
+            isLog () {
+                return this.$store.state.isLog
+            },
+            userInfo () {
+                return this.$store.state.userInfo
+            }
+        },
+        methods: {
+            async getFaucet () {
+                // 领取邀请奖励
+                if (this.loginSucc && this.loginSucc.tasks.length > 0) {
+                    this.showInviteSuccFlag = false
+                    let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid)
+                    console.log(taskDone)
+                    if (taskDone && taskDone.taskstatus.toString() === '1') {
+                        document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove'
+                        setTimeout(() => {
+                            this.$store.commit('inviteTips', false)
+                            // 手动加 0.001 eth
+                            let newUserInfo = null
+                            if (this.userInfo) {
+                                newUserInfo = this.userInfo
+                                newUserInfo.accounts[0].balance = parseFloat(newUserInfo.accounts[0].balance) + 0.001
+                            }
+                            this.$store.commit('setUserInfo', newUserInfo)
+                            this.showInviteSuccFlag = true
+                            document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove'
+                        }, 3000)
+                        this.$store.dispatch('getUserInfo')
                     }
-
                 }
             },
-			hideFirstLoginAll(){
-				// 关闭第一个弹窗
-				this.$store.commit('showFirstLogin', false);
-				this.$store.commit('setLoginSucc', null);
-			},
-			async showFaucet(){
-				if(~document.getElementById('js_btn-faucet').className.indexOf('over')){
-                    this.showEndFaucet = true;
-                    clearTimeout(this.showEndFaucetTime);
-                    this.showEndFaucetTime = setTimeout(()=>{
-	                    this.showEndFaucet = false;
-                    },2500)
-                }else{
-					let faucetMsg = await this.$store.dispatch('getFaucet');
+            hideFirstLoginAll () {
+                // 关闭第一个弹窗
+                this.$store.commit('showFirstLogin', false)
+                this.$store.commit('setLoginSucc', null)
+            },
+            async showFaucet () {
+                if (~document.getElementById('js_btn-faucet').className.indexOf('over')) {
+                    this.showEndFaucet = true
+                    clearTimeout(this.showEndFaucetTime)
+                    this.showEndFaucetTime = setTimeout(() => {
+                        this.showEndFaucet = false
+                    }, 2500)
+                } else {
+                    let faucetMsg = await this.$store.dispatch('getFaucet')
                     /* 显示邀请 */
-					this.$store.commit('showFaucet');
-					// 关闭第一个弹窗 ?
-    				this.$store.commit('showFirstLogin', false);
-    //				this.$store.commit('setLoginSucc', null);
+                    this.$store.commit('showFaucet')
+                    // 关闭第一个弹窗 ?
+                    this.$store.commit('showFirstLogin', false)
+                    //				this.$store.commit('setLoginSucc', null);
                 }
-			},
-			showDetailFn(){
-				this.showDetail = true
-			},
-			hideDetailFn(){
-				this.showDetail = false
-			},
-			signOut(){
+            },
+            showDetailFn () {
+                this.showDetail = true
+            },
+            hideDetailFn () {
+                this.showDetail = false
+            },
+            signOut () {
                 /* 退出登录 */
-                this.$store.dispatch('loginOut');
-			},
-			onLoginIn () {
-				this.$store.commit('showLoginPop')
-			}
-		},
-		filters: {
-			formateCoinType: (type = '2001') => {
-				type = type.toString();
-				switch (type) {
-					case '2001':
-						return 'ETH';
-					case '1001':
-						return 'BTC';
-					default:
-						return 'ETH'
-				}
-			}
-		}
-	}
+                this.$store.dispatch('loginOut')
+            },
+            onLoginIn () {
+                this.$store.commit('showLoginPop')
+            }
+        },
+        filters: {
+            formateCoinType: (type = '2001') => {
+                type = type.toString()
+                switch (type) {
+                case '2001':
+                    return 'ETH'
+                case '1001':
+                    return 'BTC'
+                default:
+                    return 'ETH'
+                }
+            }
+        }
+    }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
@@ -328,8 +329,7 @@
         transition: opacity .5s;
     }
 
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-    {
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
         opacity: 0;
     }
 
@@ -849,11 +849,10 @@
         }
     }
 
-
-    .enter-brands{
+    .enter-brands {
         display: block;
         float: left;
-        margin:20px 0 0 33px;
+        margin: 20px 0 0 33px;
         background-image: url("../assets/slice/enter-brands.png");
         width: 146px;
         height: 50px;

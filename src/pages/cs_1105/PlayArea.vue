@@ -11,8 +11,9 @@
                     <li data-index="4">Pick 4</li>
                     <li data-index="5">Pick 5</li>
                     <li data-index="5J" class="es">
-                        <p>Pick 5</p>
-                        <p>(JACKPOT)</p>
+                        (JACKPOT)
+                        <!--<p>Pick 5</p>-->
+                        <!--<p></p>-->
                     </li>
                 </ul>
             </div>
@@ -35,7 +36,7 @@
         </ul>
         <a href="javascript:;" @click="randomPickFn" class="btn-random-pick">Quick Pick</a>
         <a href="javascript:;" class="btn-delete" @click="clearNumber"></a>
-        <a href="javascript:;" :data-time="areaMsg.createTime" @click="delTicket" class="btn-close"></a>
+        <a href="javascript:;" :data-delIndex="currIndex" @click="delTicket" class="btn-close"></a>
         <div class="beting">
             <span>Bet</span>
             <div class="btn-beting">
@@ -49,7 +50,7 @@
             <div class="winning">
                     Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] *
                 parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
-                <div class="winjackport" v-if="true">
+                <div class="winjackport" v-if="areaMsg.pickType === '5J'">
                     (including C5: {{2.52}}ETH; jackpot {{3.03}}ETH)
                 </div>
             </div>
@@ -59,31 +60,31 @@
             <p>Picking Order</p>
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
-                <li>-</li>
-                <li>-</li>
-                <li>-</li>
-                <li>-</li>
-                <li>-</li>
+                <li v-for="(baseItem,index) in baseJackPot" class="flipInY on"
+                    v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}
+                </li>
+                <li v-else>-</li>
             </ul>
         </div>
     </li>
 </template>
 
 <script>
-    import {randomNumber, src, platform, isLog, getCK, format_match, setCK, removeCK} from '~common/util'
+    import {randomNumber, src, platform, isLog, getCK, setCK, removeCK} from '~common/util'
     import {Message} from 'element-ui'
 
     export default {
         data () {
             return {
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                baseJackPot: [1, 2, 3, 4, 5],
                 limitUnit: 0.0001
             }
         },
-        props: ['areaMsg', 'data', 'allplayArea'],
+        props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
         watch: {},
         methods: {
-            //             隐藏
+            //   隐藏
             showPopLimit () {
                 this.$store.commit('showPopLimit')
             },
@@ -115,13 +116,10 @@
                 }
             },
             delTicket ($event) {
-                // 删除  ？？  TODO  有问题
-                console.log('del')
-                console.log(this.allplayArea)
-                console.log($event)
+                // 删除
                 if ($event.target.tagName === 'A') {
-                //	                this.allplayArea.splice( closeFlag  , 1  );
-                //	                this.$emit('update:allplayArea', this.allplayArea );
+                    this.allplayArea.splice(parseFloat($event.target.getAttribute('data-delIndex')), 1)
+                    this.$emit('update:allplayArea', this.allplayArea)
                 }
             },
             js_beting_add () {
@@ -170,12 +168,14 @@
                 //  清空当前选号
                 this.$emit('update:data', {
                     ...this.areaMsg,
-                    pickNum: []
+                    pickNum: [],
+                    pickJackPot: []
                 })
             },
             lineNumClick ($event) {
                 /* 选号 */
                 let currpickNum = []
+
                 if (this.areaMsg && this.areaMsg.pickNum) {
                     currpickNum = JSON.parse(JSON.stringify(this.areaMsg.pickNum))
                 }
@@ -210,15 +210,18 @@
 
                     this.$emit('update:data', {
                         ...this.areaMsg,
-                        pickNum: currpickNum
+                        pickNum: currpickNum,
+                        pickJackPot: currpickNum
                     })
                 }
             },
             randomPickFn () {
                 //  随机选号
+                let randomNum = randomNumber(parseFloat(this.areaMsg.pickType))
                 this.$emit('update:data', {
                     ...this.areaMsg,
-                    pickNum: randomNumber(parseFloat(this.areaMsg.pickType))
+                    pickNum: randomNum,
+                    pickJackPot: randomNum
                 })
             },
             chosePickType ($event) {
@@ -226,11 +229,11 @@
                     this.$emit('update:data', {
                         ...this.areaMsg,
                         pickNum: [],
+                        pickJackPot: [],
                         pickType: $event.target.getAttribute('data-index')
                     })
                 }
             },
-
             formateBalance: (val = 0) => {
                 var newEth = null
                 if (isNaN(val) || isNaN(Number(val))) {
@@ -261,7 +264,6 @@
             }
         },
         mounted () {
-
         },
         filters: {
             formateCoinType: (type = '2001') => {

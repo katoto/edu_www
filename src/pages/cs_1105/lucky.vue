@@ -1,18 +1,18 @@
 <template>
     <div class="">
-        <!--v-for="item in aa" :data.sync="item"-->
         <Header></Header>
         <HeaderNav></HeaderNav>
         <div class="main">
+            <Lucky-mybet></Lucky-mybet>
             <!--玩法区-->
             <div class="play-area" id="play-area">
                 <ul class="play-area-items">
-                    <PlayArea v-for="(item,index) in playArea" :key="index" :allplayArea.sync="playArea" :areaMsg="item"
+                    <PlayArea v-for="(item,index) in playArea" :key="index" :currIndex.sync="index"
+                              :allplayArea.sync="playArea" :areaMsg="item"
                               :data.sync="playArea[index]"></PlayArea>
-
                 </ul>
-                <!-- Lucky 11 show  647 356 奖级表 -->
-                <div class="pop pop-rewardTable js_pop_rewardTable hide">
+                <!-- Lucky 11 show  647 356 奖级表 todo -->
+                <div class="pop pop-rewardTable hide js_pop_rewardTable">
                     <div class="pop-main">
                         <h3>LUCKY 11</h3>
                         <div class="pay-items">
@@ -77,7 +77,7 @@
                     </span>
                     <a href="javascript:;" @click="addTicket" class="addmore">Add Ticket</a>
                 </div>
-                <div class="btn-play-now">
+                <div id="js_startBetBtn" class="btn-play-now">
                     <a href="javascript:;" @click="playNow">
                         Play Now
                     </a>
@@ -333,7 +333,7 @@
                 </div>
             </div>
             <a href="/coinslot/html/worldCup.html" target="_blank" class="icon-enterWorld">
-                <img src="@assets/img/worldCup/enterIcon-worldCup.png" />
+                <img src="@assets/img/worldCup/enterIcon-worldCup.png"/>
             </a>
         </div>
         <button @click="leaveRoute">离开页面</button>
@@ -349,6 +349,7 @@
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
     import {src, platform, isLog, getCK, format_match, setCK, removeCK} from '~common/util'
+    import LuckyMybet from './components/lucky-mybet'
 
     export default {
         data () {
@@ -359,29 +360,26 @@
                 scroll: '',
                 activeName: 'Bets',
                 DataWinnerList: [
-                //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
+                    //                    {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
                 ],
                 totalPay: 0.0001,
                 baseAreaMsg: {
-                    createTime: 0,
                     pickType: '1', // 玩法类型1,2,3,4,5,5J
                     pickNum: [],
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用
                 },
                 playArea: [{
-                    createTime: 0,
                     pickType: '1', // 玩法类型1,2,3,4,5,5J
                     pickNum: [],
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用
+                }, {
+                    pickType: '5J', // 玩法类型1,2,3,4,5,5J
+                    pickNum: [],
+                    pickMoney: 0.0001,
+                    pickJackPot: [] // 奖池用
                 }] // 玩法区 数组
-            //			{
-            //				pickType:'5J', //玩法类型
-            //					pickNum:[3,6],
-            //				pickMoney:0.0001,
-            //				pickJackPot:[2,3,4,5,6]
-            //			}
 
             }
         },
@@ -414,6 +412,23 @@
             }
         },
         methods: {
+            rewardTable () {
+                //  3.0  hover 的
+                // $(".js_showReward").off('mouseenter').off('mouseleave').hover(function (e) {
+                //     $('.js_pop_rewardTable').css('top', 40 + Number($(e.target).parents('.js_playArea-li').index()) * 220).stop().slideDown(300)
+                // }, function () {
+                //     $('.js_pop_rewardTable').stop().slideUp(300)
+                // });
+                //
+                // $('.js_pop_rewardTable').off('mouseenter').off('mouseleave').hover(function () {
+                //     $('.js_showReward').addClass('on')
+                //     $(this).stop().slideDown(300)
+                // }, function () {
+                //     $('.js_showReward').removeClass('on')
+                //     $(this).stop().slideUp(300)
+                // });
+            },
+
             playType (val) {
                 // 玩法类型1,2,3,4,5,5J
                 val = val.toString()
@@ -424,27 +439,25 @@
                     return '1102'
                 case '3':
                     return '1103'
-    
-                    break
                 case '4':
                     return '1104'
-    
-                    break
                 case '5':
                     return '1105'
-    
-                    break
                 case '5J':
-                    return '1106'
-    
-                    break
+                    /* 奖池下单 */
+                    return '11051'
                 }
             },
 
             async playNow () {
+                // 区块链阻塞
+                let js_startBetBtn = document.getElementById('js_startBetBtn')
+                if (~js_startBetBtn.className.indexOf('unable')) {
+                    return false
+                }
                 // 投注下单
                 // 出现loading
-            //                document.getElementById('js_loading').className = '';
+                //                document.getElementById('js_loading').className = '';
                 // 未登录 的情况
                 if (!isLog) {
                     this.$store.commit('showLoginPop')
@@ -454,11 +467,6 @@
                 if (this.playArea) {
                     let noComplete = []
                     let noCompleteIndex = []
-                    //	                createTime: 0,
-                    //		                pickType: '1', //玩法类型1,2,3,4,5,5J
-                    //		                pickNum: [],
-                    //		                pickMoney: 0.0001,
-                    //		                pickJackPot: []  // 奖池用
                     let beginBetStr = ''
                     this.playArea.forEach((val, index) => {
                         if (parseFloat(val.pickType) !== val.pickNum.length) {
@@ -487,7 +495,6 @@
                                 })
                                 this.failureMsg = 'Order limit#' + errorResArr.join('#')
                                 this.showOrderFail = true
-
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
                                         val.pickNum = []
@@ -521,13 +528,12 @@
                 }
 
                 // 未激活 ？  这个也有问题  在弄个弹窗吧
-            //				this.$store.commit('emailBackTime', 0)
-            //				this.$store.commit('showVerifyEmail')
+                //				this.$store.commit('emailBackTime', 0)
+                //				this.$store.commit('showVerifyEmail')
             },
             addTicket () {
                 /* 添加 */
                 if (this.playArea && this.playArea.length < 5) {
-                    this.baseAreaMsg.createTime = new Date().getTime()
                     this.playArea.push(this.baseAreaMsg)
                 } else {
                     Message({
@@ -577,7 +583,7 @@
                         console.log(mailBack)
                         if (mailBack && mailBack.status === '100') {
                             if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
-                            //		                        显示第一次邀请
+                                //		                        显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
                             } else {
                                 this.$store.commit('showFirstLogin', false)
@@ -590,7 +596,7 @@
                             })
                         }
                         // 清除参数
-                    //                        this.$router.push('/lucky')
+                        //                        this.$router.push('/lucky')
                     }
                     if (query.from === 'resetPassword') {
                         // 重置密码
@@ -617,7 +623,8 @@
             Footer,
             Header,
             HeaderNav,
-            PlayArea
+            PlayArea,
+            LuckyMybet
         },
         filters: {
             formateCoinType: (type = '2001') => {
@@ -711,6 +718,8 @@
             if (!(this.socket && this.socket.sock)) {
                 this.$store.dispatch('initWebsocket')
             }
+            /* 开启动态数据定时器 */
+            // this.$store.dispatch(aTypes.recentBetAdd)
         },
         beforeRouteLeave (to, from, next) {
             // 是否需要主队断sock ？
@@ -718,7 +727,7 @@
             // this.$store.dispatch('unsubscribe')
             // this.$store.dispatch('subscribe')
             next()
-    },
+        },
         destroyed () {
             window.removeEventListener('scroll', this.fixNav)
         }
@@ -733,13 +742,14 @@
         width: 100%;
         overflow: hidden;
     }
-    .icon-enterWorld{
+
+    .icon-enterWorld {
         position: fixed;
-        width:108px;
-        height:135px;
-        top:45%;
-        right:0;
-        z-index:10;
+        width: 108px;
+        height: 135px;
+        top: 45%;
+        right: 0;
+        z-index: 10;
     }
 
     //玩法区
@@ -1357,4 +1367,232 @@
             }
         }
     }
+
+//alert-mybets
+.alert-mybets{
+    position: absolute;
+    z-index:5;
+    right:0;
+    top:40px;
+    width:200px;
+    color: #778ca3;
+    .transition();
+    .alert-mybets-head{
+        position: relative;
+        background: #31455c;
+        line-height: 30px;
+        text-align: center;
+        color: #a5b1c2;
+        .transition(0.2s);
+        .border-radius(6px,0,0,0);
+        .alert-mybets-close{
+            cursor: pointer;
+            position: absolute;
+            left:0;
+            top:0;
+            display: block;
+            width:28px;
+            height:30px;
+            overflow: hidden;
+            &::after{
+                content: '';
+                display: block;
+                background-image: url(../../assets/slice/arrow-right2-778ca3.png);
+                margin:8px auto 0;
+                width: 8px;
+                height: 13px;
+            }
+        }
+    }
+    .alert-mybets-body{
+        background: #263648;
+        transform: translateX(0);
+        .top{
+            height:30px;
+            line-height:30px;
+            .clearfix();
+            .date{
+                width:100px;
+                font-size:12px;
+                .text-overflow();
+            }
+            .type{
+                color: #eef1f9;
+                font-weight:bold;
+            }
+        }
+        .bottom{
+            margin-top:5px;
+            height:30px;
+            line-height:30px;
+            .clearfix();
+            .add{
+                width:68px;
+                color: #778ca3;
+                .transition();
+                text-decoration: underline;
+                .text-overflow();
+                &:hover{
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
+        }
+
+    }
+    .alert-mybets-items{
+        padding:0 8px;
+        >li+li{
+            border-top:1px solid #31455c;
+        }
+    }
+    .number-box{
+        .clearfix();
+        li{
+            float: left;
+            width:24px;
+            height:24px;
+            overflow: hidden;
+            text-align: center;
+            line-height:24px;
+            margin-right:5px;
+            background: #31455c;
+            border-radius:50%;
+            color: #a5b1c2;
+        }
+        li.bingo{
+            color: #12DF73;
+            font-weight:bold;
+        }
+    }
+    .btn-more-records{
+        display: block;
+        width:100%;
+        height:29px;
+        line-height:29px;
+        text-align: center;
+        font-size:12px;
+        color: #778ca3;
+        border-top: 1px solid #31455c;
+        .transition();
+        &:hover{
+            color: #fff;
+        }
+    }
+    &.close{
+        transform: translateX(136px);
+        .alert-mybets-head{
+            padding:5px 0;
+            text-align: left;
+            line-height:18px;
+            text-indent: 10px;
+            cursor: pointer;
+            .border-radius(6px,0,0,6px);
+        }
+        .alert-mybets-close{
+            display: none;
+        }
+        .alert-mybets-body{
+            display: none;
+        }
+        .msg-count{
+            font-size:12px;
+            display: block;
+        }
+    }
+    .msg-count{
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        left:-12px;
+        top:-12px;
+        width:24px;
+        height:24px;
+        overflow: hidden;
+        border-radius:50%;
+        background: #6a89cc;
+        color: #fff;
+        text-align: center;
+        line-height:28px;
+    }
+    .nomsg{
+        padding:114px 0 40px 0;
+        &::before{
+            content: '';
+            position: absolute;
+            left:50%;
+            top:43px;
+            margin-left:-32.5px;
+            display: block;
+            background-image: url("../../assets/slice/nomsg.png");
+        }
+        p{
+            text-align: center;
+            line-height:16px;
+            font-size:12px;
+        }
+    }
+    .nologin{
+        padding-top:30px;
+        textarea{
+            display: block;
+            width:150px;
+            height:78px;
+            padding:5px;
+            box-sizing: content-box;
+            overflow: hidden;
+            background: transparent;
+            outline:none;
+            border:1px solid #31455c;
+            margin:0 auto 20px;
+            font-size:12px;
+            color: #778ca3;
+            &::-webkit-input-placeholder{
+                color: #778ca3;
+            }
+        }
+        .search{
+            display: block;
+            width:120px;
+            height:30px;
+            overflow: hidden;
+            text-align: center;
+            line-height:30px;
+            margin:0 auto 30px;
+            background: #31455c;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #778ca3;
+            .transition();
+            &:hover{
+                color: #fff !important;
+            }
+        }
+        .search.on{
+            color: #a5b1c2;
+            &:hover{
+                color: #fff !important;
+            }
+        }
+    }
+    .tologin{
+        padding:10px 0;
+        border-top:1px solid #31455c;
+        text-align: center;
+        line-height:12px;
+        a{
+            display: inline-block;
+            font-size:12px;
+            color: #778ca3;
+            padding:0 8px;
+            .transition();
+            &:hover{
+                color: #fff;
+            }
+        }
+        a+a{
+            border-left:1px solid #778ca3;
+        }
+    }
+}
 </style>
