@@ -5,6 +5,8 @@ import {src, channel, mapMutations, getCK, removeCK, mapActions, platform, tipsT
 
 const state = {
     pop: {
+        showNoVerify:false,
+
         showFreeplay: false,
         showLoginPop: false,
         showRegPop: false,
@@ -19,6 +21,7 @@ const state = {
         emailBackTime: 60,
         verifyTime: null,
         regVerifyEmail: null,
+        mailType:'reg',
         showPopLimit: false,
 
         resetObj: { // 重置密码
@@ -43,6 +46,16 @@ const state = {
 }
 
 const mutations = {
+    setMailType(state,data){
+        state.pop.mailType = data
+    },
+    showNoVerify (state) {
+        state.pop.showNoVerify = true
+    },
+    hideNoVerify (state) {
+        state.pop.showNoVerify = false
+    },
+
     showFreeplay (state) {
         state.pop.showFreeplay = true
     },
@@ -258,7 +271,7 @@ const actions = {
                 console.log(pageData)
                 console.log('发送邮件部分')
                 if (pageData.mailType) {
-                    InfoData = await ajax.get(`/user/mail/send?email=${pageData.email}&mail_type=${pageData.mailType}&src=${src}&platform=${platform}`)
+                    InfoData = await ajax.get(`/user/mail/send?email=${pageData.email}&mail_type=${pageData.mailType}`)
                 }
             }
             return InfoData

@@ -48,7 +48,8 @@
                                     </thead>
                                     <tbody v-if="recentBet.length>0" id="tabody-betlist"
                                            class="tabody-betlist newRecord">
-                                    <tr v-for="item in recentBet" :data-oid="item.oid" :class="{'newRecord':item.addNewRecord}">
+                                    <tr v-for="item in recentBet" :data-oid="item.oid"
+                                        :class="{'newRecord':item.addNewRecord}">
                                         <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
                                         <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
                                         <td>{{ item.expectid }}</td>
@@ -342,6 +343,9 @@
             isLog () {
                 return this.$store.state.isLog
             },
+            userInfo () {
+                return this.$store.state.userInfo
+            },
             currExpectId () {
                 return this.$store.state.cs_1105.currExpectId
             }
@@ -381,6 +385,12 @@
                     this.$store.commit('showLoginPop')
                     return false
                 }
+                /* 未激活的 */
+                if (this.userInfo && this.userInfo.status === '0') {
+                    this.$store.commit('showNoVerify')
+                    return false
+                }
+
                 // 选号是否完成？
                 if (this.playArea) {
                     let noComplete = []
@@ -674,7 +684,7 @@
     //玩法区
     .play-area {
         position: relative;
-        z-index:5;
+        z-index: 5;
         padding-bottom: 40px;
         color: #778ca3;
         background: #5068bc;
@@ -1113,7 +1123,7 @@
     //奖级表
     .pop-rewardTable {
         position: absolute;
-        z-index:10;
+        z-index: 10;
         left: 50%;
         top: 40px;
         margin-left: -335px;
@@ -1285,269 +1295,270 @@
         }
     }
 
-//alert-mybets
-.alert-mybets{
-    position: absolute;
-    z-index:10;
-    right:0;
-    top:40px;
-    width:200px;
-    color: #778ca3;
-    .transition();
-    .alert-mybets-head{
-        position: relative;
-        background: #31455c;
-        line-height: 30px;
-        text-align: center;
-        color: #a5b1c2;
-        .transition(0.2s);
-        .border-radius(6px,0,0,0);
-        .alert-mybets-close{
-            cursor: pointer;
-            position: absolute;
-            left:0;
-            top:0;
-            display: block;
-            width:28px;
-            height:30px;
-            overflow: hidden;
-            &::after{
-                content: '';
+    //alert-mybets
+    .alert-mybets {
+        position: absolute;
+        z-index: 10;
+        right: 0;
+        top: 40px;
+        width: 200px;
+        color: #778ca3;
+        .transition();
+        .alert-mybets-head {
+            position: relative;
+            background: #31455c;
+            line-height: 30px;
+            text-align: center;
+            color: #a5b1c2;
+            .transition(0.2s);
+            .border-radius(6px, 0, 0, 0);
+            .alert-mybets-close {
+                cursor: pointer;
+                position: absolute;
+                left: 0;
+                top: 0;
                 display: block;
-                background-image: url(../../assets/slice/arrow-right2-778ca3.png);
-                margin:8px auto 0;
-                width: 8px;
-                height: 13px;
-            }
-        }
-    }
-    .alert-mybets-body{
-        background: #263648;
-        transform: translateX(0);
-        .top{
-            height:30px;
-            line-height:30px;
-            .clearfix();
-            .date{
-                width:100px;
-                font-size:12px;
-                .text-overflow();
-            }
-            .type{
-                color: #eef1f9;
-                font-weight:bold;
-            }
-        }
-        .bottom{
-            margin-top:5px;
-            height:30px;
-            line-height:30px;
-            .clearfix();
-            .add{
-                width:68px;
-                color: #778ca3;
-                .transition();
-                text-decoration: underline;
-                .text-overflow();
-                &:hover{
-                    color: #fff;
-                    text-decoration: none;
+                width: 28px;
+                height: 30px;
+                overflow: hidden;
+                &::after {
+                    content: '';
+                    display: block;
+                    background-image: url(../../assets/slice/arrow-right2-778ca3.png);
+                    margin: 8px auto 0;
+                    width: 8px;
+                    height: 13px;
                 }
             }
         }
+        .alert-mybets-body {
+            background: #263648;
+            transform: translateX(0);
+            .top {
+                height: 30px;
+                line-height: 30px;
+                .clearfix();
+                .date {
+                    width: 100px;
+                    font-size: 12px;
+                    .text-overflow();
+                }
+                .type {
+                    color: #eef1f9;
+                    font-weight: bold;
+                }
+            }
+            .bottom {
+                margin-top: 5px;
+                height: 30px;
+                line-height: 30px;
+                .clearfix();
+                .add {
+                    width: 68px;
+                    color: #778ca3;
+                    .transition();
+                    text-decoration: underline;
+                    .text-overflow();
+                    &:hover {
+                        color: #fff;
+                        text-decoration: none;
+                    }
+                }
+            }
 
-    }
-    .alert-mybets-items{
-        padding:0 8px;
-        >li+li{
-            border-top:1px solid #31455c;
         }
-    }
-    .number-box{
-        .clearfix();
-        li{
-            float: left;
-            width:24px;
-            height:24px;
-            overflow: hidden;
-            text-align: center;
-            line-height:24px;
-            margin-right:5px;
-            background: #31455c;
-            border-radius:50%;
-            color: #a5b1c2;
-        }
-        li.bingo{
-            color: #12DF73;
-            font-weight:bold;
-        }
-    }
-    .btn-more-records{
-        display: block;
-        width:100%;
-        height:29px;
-        line-height:29px;
-        text-align: center;
-        font-size:12px;
-        color: #778ca3;
-        border-top: 1px solid #31455c;
-        .transition();
-        &:hover{
-            color: #fff;
-        }
-    }
-    &.close{
-        transform: translateX(136px);
-        .alert-mybets-head{
-            padding:5px 0;
-            text-align: left;
-            line-height:18px;
-            text-indent: 10px;
-            cursor: pointer;
-            .border-radius(6px,0,0,6px);
-        }
-        .alert-mybets-close{
-            display: none;
-        }
-        .alert-mybets-body{
-            display: none;
-        }
-        .msg-count{
-            font-size:12px;
-            display: block;
-        }
-    }
-    .msg-count{
-        display: none;
-        cursor: pointer;
-        position: absolute;
-        left:-12px;
-        top:-12px;
-        width:24px;
-        height:24px;
-        overflow: hidden;
-        border-radius:50%;
-        background: #6a89cc;
-        color: #fff;
-        text-align: center;
-        line-height:28px;
-    }
-    .nomsg{
-        padding:114px 0 40px 0;
-        &::before{
-            content: '';
-            position: absolute;
-            left:50%;
-            top:43px;
-            margin-left:-32.5px;
-            display: block;
-            background-image: url("../../assets/slice/nomsg.png");
-            width: 65px;
-            height: 54px;
-        }
-        p{
-            text-align: center;
-            line-height:16px;
-            font-size:12px;
-        }
-    }
-    .nologin{
-        padding-top:30px;
-        textarea{
-            display: block;
-            width:150px;
-            height:78px;
-            padding:5px;
-            box-sizing: content-box;
-            overflow: hidden;
-            background: transparent;
-            outline:none;
-            border:1px solid #31455c;
-            margin:0 auto 20px;
-            font-size:12px;
-            color: #778ca3;
-            &::-webkit-input-placeholder{
-                color: #778ca3;
+        .alert-mybets-items {
+            padding: 0 8px;
+            > li + li {
+                border-top: 1px solid #31455c;
             }
         }
-        .search{
+        .number-box {
+            .clearfix();
+            li {
+                float: left;
+                width: 24px;
+                height: 24px;
+                overflow: hidden;
+                text-align: center;
+                line-height: 24px;
+                margin-right: 5px;
+                background: #31455c;
+                border-radius: 50%;
+                color: #a5b1c2;
+            }
+            li.bingo {
+                color: #12DF73;
+                font-weight: bold;
+            }
+        }
+        .btn-more-records {
             display: block;
-            width:120px;
-            height:30px;
-            overflow: hidden;
+            width: 100%;
+            height: 29px;
+            line-height: 29px;
             text-align: center;
-            line-height:30px;
-            margin:0 auto 30px;
-            background: #31455c;
-            border-radius: 6px;
             font-size: 12px;
             color: #778ca3;
+            border-top: 1px solid #31455c;
             .transition();
-            &:hover{
-                color: #fff !important;
-            }
-        }
-        .search.on{
-            color: #a5b1c2;
-            &:hover{
-                color: #fff !important;
-            }
-        }
-    }
-    .tologin{
-        padding:10px 0;
-        border-top:1px solid #31455c;
-        text-align: center;
-        line-height:12px;
-        a{
-            display: inline-block;
-            font-size:12px;
-            color: #778ca3;
-            padding:0 8px;
-            .transition();
-            &:hover{
+            &:hover {
                 color: #fff;
             }
         }
-        a+a{
-            border-left:1px solid #778ca3;
+        &.close {
+            transform: translateX(136px);
+            .alert-mybets-head {
+                padding: 5px 0;
+                text-align: left;
+                line-height: 18px;
+                text-indent: 10px;
+                cursor: pointer;
+                .border-radius(6px, 0, 0, 6px);
+            }
+            .alert-mybets-close {
+                display: none;
+            }
+            .alert-mybets-body {
+                display: none;
+            }
+            .msg-count {
+                font-size: 12px;
+                display: block;
+            }
+        }
+        .msg-count {
+            display: none;
+            cursor: pointer;
+            position: absolute;
+            left: -12px;
+            top: -12px;
+            width: 24px;
+            height: 24px;
+            overflow: hidden;
+            border-radius: 50%;
+            background: #6a89cc;
+            color: #fff;
+            text-align: center;
+            line-height: 28px;
+        }
+        .nomsg {
+            padding: 114px 0 40px 0;
+            &::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 43px;
+                margin-left: -32.5px;
+                display: block;
+                background-image: url("../../assets/slice/nomsg.png");
+                width: 65px;
+                height: 54px;
+            }
+            p {
+                text-align: center;
+                line-height: 16px;
+                font-size: 12px;
+            }
+        }
+        .nologin {
+            padding-top: 30px;
+            textarea {
+                display: block;
+                width: 150px;
+                height: 78px;
+                padding: 5px;
+                box-sizing: content-box;
+                overflow: hidden;
+                background: transparent;
+                outline: none;
+                border: 1px solid #31455c;
+                margin: 0 auto 20px;
+                font-size: 12px;
+                color: #778ca3;
+                &::-webkit-input-placeholder {
+                    color: #778ca3;
+                }
+            }
+            .search {
+                display: block;
+                width: 120px;
+                height: 30px;
+                overflow: hidden;
+                text-align: center;
+                line-height: 30px;
+                margin: 0 auto 30px;
+                background: #31455c;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #778ca3;
+                .transition();
+                &:hover {
+                    color: #fff !important;
+                }
+            }
+            .search.on {
+                color: #a5b1c2;
+                &:hover {
+                    color: #fff !important;
+                }
+            }
+        }
+        .tologin {
+            padding: 10px 0;
+            border-top: 1px solid #31455c;
+            text-align: center;
+            line-height: 12px;
+            a {
+                display: inline-block;
+                font-size: 12px;
+                color: #778ca3;
+                padding: 0 8px;
+                .transition();
+                &:hover {
+                    color: #fff;
+                }
+            }
+            a + a {
+                border-left: 1px solid #778ca3;
+            }
         }
     }
-}
 
-    .flipInY{
-        animation: flipInY 0.75s both ;
+    .flipInY {
+        animation: flipInY 0.75s both;
     }
+
     @keyframes flipInY {
-        from,20%,40%,60%,80%,to {
-            animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)
+        from, 20%, 40%, 60%, 80%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1)
         }
 
         0% {
             opacity: 0;
-            transform: scale3d(0.3,0.3,0.3)
+            transform: scale3d(0.3, 0.3, 0.3)
         }
 
         20% {
-            transform: scale3d(1.1,1.1,1.1)
+            transform: scale3d(1.1, 1.1, 1.1)
         }
 
         40% {
-            transform: scale3d(0.9,0.9,0.9)
+            transform: scale3d(0.9, 0.9, 0.9)
         }
 
         60% {
             opacity: 1;
-            transform: scale3d(1.03,1.03,1.03)
+            transform: scale3d(1.03, 1.03, 1.03)
         }
 
         80% {
-            transform: scale3d(0.97,0.97,0.97)
+            transform: scale3d(0.97, 0.97, 0.97)
         }
 
         to {
             opacity: 1;
-            transform: scale3d(1,1,1)
+            transform: scale3d(1, 1, 1)
         }
     }
 

@@ -25,7 +25,6 @@ export default {
     },
     methods: {
         onClose () {
-            console.log('pop close')
             this.$emit('update:show', false)
             this.$emit('onClose')
         },

@@ -100,11 +100,11 @@
                                 <div v-if="loginSucc || showFirstLogin">
                                     <span
                                         :class="{'blinking2': ( showFirstLogin )||( loginSucc.login_times == '1' && loginSucc.invite_status == '0')||(showInviteSuccFlag)  }"
-                                        v-for="account in userInfo.accounts">{{ account.balance }}
+                                        v-for="account in userInfo.accounts">{{ formateBalance( account.balance )}}
                                     </span> ETH<i></i>
                                 </div>
                                 <div v-else>
-                                    <span v-for="account in userInfo.accounts">{{ account.balance }}</span> ETH<i></i>
+                                    <span v-for="account in userInfo.accounts">{{ formateBalance( account.balance ) }}</span> ETH<i></i>
                                 </div>
                             </div>
                             <div id="mycount-detailed" class="mycount-detailed slide" :class="{ 'slide-show': slideDown }">

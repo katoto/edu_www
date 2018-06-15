@@ -7,7 +7,7 @@
         <template v-if="userInfo">
             <p class="my-account "><span class="js_currEmail">{{ userInfo.email }}</span>
                 <span class="js_unverifyBox">
-                <a href="javascript:;" v-if="userInfo.status==='0'">go to verified</a>
+                <a href="javascript:;" v-if="userInfo.status==='0'" @click="goVerify" >go to verified</a>
                 <a href="javascript:;" v-else style="cursor: default">Verified</a>
             </span>
             </p>
@@ -55,6 +55,10 @@ export default {
     },
     watch: {},
     methods: {
+        goVerify(){
+            /* 应该是一个新的 验证邮箱的界面 */
+            this.$store.commit('showNoVerify')
+        },
         signOut () {
             /* 退出登录 */
             this.$store.dispatch('loginOut')

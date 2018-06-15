@@ -62,6 +62,7 @@
 	                        this.$store.commit('hideResetPwd')
 	                        this.$store.commit('showVerifyEmail')
 	                        this.$store.commit('setRegVerifyEmail', this.resetEmail)
+	                        this.$store.commit('setMailType', 'reset')
 	                        this.$store.dispatch('startBackTime')
 	                    }
 	                } else {
