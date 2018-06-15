@@ -32,7 +32,7 @@ const state = {
         1104: '54',
         1105: '378'
     },
-    popLoadSpeed: 1800, // 动态速率
+    popLoadSpeed: 800, // 动态速率
     popTimeInterval: null,
 
     allbetPipeArr: [], // 用于控制allbet
