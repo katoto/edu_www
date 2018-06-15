@@ -101,7 +101,6 @@ const actions = {
     async getUserInfo ({state, commit, dispatch}) {
         try {
             let userMsg = await ajax.get(`/user/info`)
-            console.log(userMsg)
 
             if (userMsg.status.toString() === '100') {
                 if (userMsg.data.uid) {

@@ -42,10 +42,10 @@ const state = {
 }
 
 const mutationsInfo = mapMutations({
-    syxw_bettype_odds(state,data){
+    syxw_bettype_odds (state, data) {
         state.syxw_bettype_odds = data
     },
-    currExpectId(state, data) {
+    currExpectId (state, data) {
         state.currExpectId = data
     },
     setRecentBet (state, data) {
@@ -285,14 +285,8 @@ const actionsInfo = mapActions({
 
     // 首页 Recent Wins 列表接口数据
     async getRecentWinsList ({commit, dispatch}) {
-        // order_lotid
         try {
-            let dataRecentWinsList = null
-            // if(order_lotid){
-            //     dataRecentWinsList = await ajax.get( '/home/winnerlist?lotid=' + order_lotid + '&pagesize=20');
-            // }else{
-            dataRecentWinsList = await ajax.get('/home/winnerlist?lotid=' + 1 + '&pagesize=20')
-            // }
+            let dataRecentWinsList = await ajax.get('/home/winnerlist?lotid=' + 1 + '&pagesize=20')
             if (dataRecentWinsList.status === '100') {
                 return dataRecentWinsList.data.winnerlist
             } else {
