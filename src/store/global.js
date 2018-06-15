@@ -161,25 +161,26 @@ const actions = {
                             dispatch(aTypes.formate_Result, msg.data)
 
                             /*
-                                 *  处理 区块链阻塞
-                                 * */
-                            let js_startBetBtn = document.getElementById('js_startBetBtn')
+                             *  处理 区块链阻塞
+                             * */
+                            let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
-                            if (msg.data.block_status.toString() === '1') {
-                                //  健康
-                                if (~js_startBetBtn.className.indexOf('unable')) {
-                                    js_startBetBtn.className = 'btn-play-now'
+                            if (jsStartBetBtn) {
+                                if (msg.data.block_status.toString() === '1') {
+                                    //  健康
+                                    if (~jsStartBetBtn.className.indexOf('unable')) {
+                                        jsStartBetBtn.className = 'btn-play-now'
+                                    }
+                                } else if (msg.data.block_status.toString() === '0') {
+                                    // 不健康  添加unable
+                                    Message({
+                                        message: 'The network is blocking, please retry later',
+                                        type: 'error',
+                                        duration: tipsTime
+                                    })
+                                    jsStartBetBtn.className = 'btn-play-now unable'
                                 }
-                            } else if (msg.data.block_status.toString() === '0') {
-                                // 不健康  添加unable
-                                Message({
-                                    message: 'The network is blocking, please retry later',
-                                    type: 'error',
-                                    duration: tipsTime
-                                })
-                                js_startBetBtn.className = 'btn-play-now unable'
                             }
-
                             break
                         case '1003':
                             // 开奖结果消息  更新 my Bet  todo
@@ -198,7 +199,9 @@ const actions = {
                             /* 投注推送  和 更新 my bet  */
                             console.log(msg.data)
                             console.log('=== 104 ====')
-                            if (msg.data && msg.data.orders) { dispatch(aTypes.formate_pushBetData, msg.data.orders) }
+                            if (msg.data && msg.data.orders) {
+                                dispatch(aTypes.formate_pushBetData, msg.data.orders)
+                            }
 
                             break
                         }
