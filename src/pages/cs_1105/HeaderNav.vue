@@ -14,8 +14,7 @@
                 </ul>
                 <div class="last-select slide" :class="{ 'slide-show': isShowHistoryCode }">
                     <ul class="date-box js_date-box">
-                        <li v-for="(item, index) in historyCode.filter((item, index) => index < 8 && index > 0)"
-                            :key="index">
+                        <li v-for="(item, index) in historyCodeFilter(historyCode)" :key="index">
                             <span>{{ item.expectid }}</span>
                             <ul class="num-box">
                                 <li v-for="(num, numIndex) in item.opencode.split(',')" :key="numIndex">{{ num }}</li>
@@ -46,7 +45,7 @@
 </template>
 
 <script>
-
+import {formateBalance} from '~common/util'
 export default {
     data () {
         return {
@@ -62,88 +61,59 @@ export default {
         }
     },
     methods: {
+        historyCodeFilter (historyCode) {
+            let isLastCode = false
+            let lastIndex = 0
+            let arr = []
+            historyCode.map((item, index) => {
+                if (item.expectid === this.last_expectid) {
+                    isLastCode = true
+                    lastIndex = index
+                }
+                if (isLastCode && index > lastIndex && arr.length < 7) {
+                    arr.push(item)
+                }
+            })
+            return isLastCode ? arr : historyCode.slice(0, 7)
+        },
         getHistoryDraw () {
             this.$store.dispatch('cs_1105/updateHistoryDraw')
         }
     },
     computed: {
+        poolAmount () {
+            return this.$store.state.cs_1105.poolAmount
+        },
         liveOpenCode () {
             return this.$store.state.cs_1105.liveOpenCode
         },
         navFix () {
             return this.$store.state.cs_1105.navFix
         },
-        watch: {
-            isShowHistoryCode: function (val) {
-                if (val) {
-                    this.getHistoryDraw()
-                }
-            }
+        timeLeft () {
+            return this.$store.state.cs_1105.timeLeft
         },
-        methods: {
-            getHistoryDraw () {
-                this.$store.dispatch('cs_1105/getHistoryDraw').then(data => {
-                    this.historyCode = data.data.expect_history || []
-                })
-            }
+        expect_blinking () {
+            return this.$store.state.cs_1105.expect_blinking
         },
-        computed: {
-            poolAmount () {
-                return this.$store.state.cs_1105.poolAmount
-            },
-            liveOpenCode () {
-                return this.$store.state.cs_1105.liveOpenCode
-            },
-            navFix () {
-                return this.$store.state.cs_1105.navFix
-            },
-            timeLeft () {
-                return this.$store.state.cs_1105.timeLeft
-            },
-            expect_blinking () {
-                return this.$store.state.cs_1105.expect_blinking
-            },
-            expect_move () {
-                return this.$store.state.cs_1105.expect_move
-            },
-            currExpectId () {
-                return this.$store.state.cs_1105.currExpectId
-            },
-            last_expectid () {
-                return this.$store.state.cs_1105.last_expectid
-            },
-            historyCode () {
-                return this.$store.state.cs_1105.historyCode
-            }
+        expect_move () {
+            return this.$store.state.cs_1105.expect_move
         },
-        mounted () {
-            this.getHistoryDraw()
+        currExpectId () {
+            return this.$store.state.cs_1105.currExpectId
         },
-        filters: {
-            formateBalance: (val = 0) => {
-                var newEth = null
-                if (isNaN(val) || isNaN(Number(val))) {
-                    console.error('formateBalance error' + val)
-                    return 0
-                }
-                val = Number(val)
-                if (val > 10000000) {
-                    newEth = (val / 100000000).toFixed(1) + '亿'
-                } else if (val > 100000) {
-                    newEth = (val / 10000).toFixed(1) + '万'
-                } else if (val > 1000) {
-                    newEth = parseFloat(val.toFixed(0))
-                } else if (val > 100) {
-                    newEth = val.toFixed(3)
-                } else if (val > 10) {
-                    newEth = val.toFixed(4)
-                } else {
-                    newEth = val.toFixed(5)
-                    // 如果需要去掉零 用parseFloat(  )
-                }
-                return newEth
-            }
+        last_expectid () {
+            return this.$store.state.cs_1105.last_expectid
+        },
+        historyCode () {
+            return this.$store.state.cs_1105.historyCode
         }
+    },
+    mounted () {
+        this.getHistoryDraw()
+    },
+    filters: {
+        formateBalance
     }
 }
 </script>
