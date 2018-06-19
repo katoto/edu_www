@@ -76,6 +76,8 @@
                         :page-size="pageSize"
                         layout="prev, pager, next,jumper"
                         :total="PageTotal"
+                        next-text = 'Next >'
+                        prev-text = '< Front'
                     >
                     </el-pagination>
                 </div>
@@ -286,7 +288,7 @@
         }
     }
 </script>
-<style lang="less" scoped rel="stylesheet/less">
+<style lang="less"  rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
 
     .main {
@@ -501,6 +503,15 @@
                 top: 10px;
                 right: 10px;
                 background: url("../../assets/slice/arrow-right-778ca3.png");
+            }
+        }
+    }
+
+
+    .main-reward{
+        .icon-jackpot{
+            &::after{
+                right: -20px !important;
             }
         }
     }
