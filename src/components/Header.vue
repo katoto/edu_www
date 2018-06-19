@@ -101,17 +101,19 @@
                                 <div v-if="loginSucc || showFirstLogin">
                                     <span
                                         :class="{'blinking2': ( showFirstLogin )||( loginSucc.login_times == '1' && loginSucc.invite_status == '0')||(showInviteSuccFlag)  }"
-                                        v-for="account in userInfo.accounts">{{ formateBalance( account.balance )}}
+                                        v-for="(account, index) in userInfo.accounts"
+                                        :key="index">
+                                        {{ formateBalance( account.balance )}}
                                     </span> ETH<i></i>
                                 </div>
                                 <div v-else>
-                                    <span v-for="account in userInfo.accounts">{{ formateBalance( account.balance ) }}</span> ETH<i></i>
+                                    <span v-for="(account, index) in userInfo.accounts" :key="index">{{ formateBalance( account.balance ) }}</span> ETH<i></i>
                                 </div>
                             </div>
                             <div id="mycount-detailed" class="mycount-detailed slide" :class="{ 'slide-show': slideDown }">
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
                                     <div class="account-info">
-                                        <div class="email js_email-account">
+                                        <div class="email js_email-account" :title="userInfo.email">
                                             {{ formateEmail(userInfo.email) }}
                                         </div>
                                         <div class="uid">
@@ -121,7 +123,7 @@
                                     <div class="wallet-balance">
                                         <p>Wallet Balance</p>
                                         <ul class="js_account_lis">
-                                            <li v-for="account in userInfo.accounts">
+                                            <li v-for="(account, index) in userInfo.accounts" :key="index">
                                                 <a href="javascript:;" class="btn-refresh"></a>
                                                 <span class="amount js_countNum">{{ formateBalance(account.balance) }}</span>
                                                 <span class="unit">{{ account.cointype | formateCoinType }}</span>
@@ -152,15 +154,14 @@
             </div>
 
             <!--jackpot-->
-            <div class="jackpot" v-if="jackPotMsg">
+            <div class="jackpot" :class="{hide: jackPotMsg === null}">
                 <div class="jackpot-box" >
-
                     <p>Congratulations to&nbsp;</p>
-                    <p class="jackpot-add">{{ jackPotMsg.txhash }}</p>
+                    <p class="jackpot-add">{{ (jackPotMsg && jackPotMsg.txhash) || '' }}</p>
                     <p>&nbsp;hit&nbsp;</p>
-                    <p class="jackpot-issue">{{ jackPotMsg.expectid }}</p>
+                    <p class="jackpot-issue">{{ (jackPotMsg && jackPotMsg.expectid) || '' }}</p>
                     <p>,&nbsp;</p>
-                    <p class="jackpot-money "> Win <i>{{ jackPotMsg.prize }}</i>ETH</p>
+                    <p class="jackpot-money "> Win <i>{{ (jackPotMsg && jackPotMsg.prize) || '' }}</i>ETH</p>
                 </div>
                 <canvas id="canvas" ref="canvas"></canvas>
             </div>
@@ -225,8 +226,9 @@
     import PopList from '~components/Pop-list'
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
-    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateEmail} from '~common/util'
-//    import loop from '~/common/canvas'
+
+    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance,formateCoinType, formateEmail} from '~common/util'
+    import startCanvas from '~/common/canvas'
 
     export default {
         components: {PopList, Banner},
@@ -263,8 +265,8 @@
         methods: {
             formateEmail,
             formateBalance,
-            showUserMsg(){
-                this.slideDown = true;
+            showUserMsg () {
+                this.slideDown = true
                 this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
@@ -309,7 +311,7 @@
                     this.$store.commit('showFaucet')
                     // 关闭第一个弹窗 ?
                     this.$store.commit('showFirstLogin', false)
-                    //				this.$store.commit('setLoginSucc', null);
+                    // this.$store.commit('setLoginSucc', null);
                 }
             },
             showDetailFn () {
@@ -327,24 +329,12 @@
             }
         },
         filters: {
-            formateCoinType: (type = '2001') => {
-                type = type.toString()
-                switch (type) {
-                case '2001':
-                    return 'ETH'
-                case '1001':
-                    return 'BTC'
-                default:
-                    return 'ETH'
-                }
-            }
+            formateCoinType
         },
-        mounted(){
-
+        mounted () {
+            startCanvas(this.$refs.canvas)()
         }
     }
-
-
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
@@ -610,6 +600,8 @@
             line-height: 26px;
             font-size: 16px;
             font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .uid {
             line-height: 26px;

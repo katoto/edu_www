@@ -454,6 +454,13 @@
                                 document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li error-shake'
                             }
                         })
+                        setTimeout(() => {
+                            noCompleteIndex.forEach((val, index) => {
+                                if (document.querySelectorAll('.play-area-items .js_playArea-li')[val]) {
+                                    document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li'
+                                }
+                            })
+                        }, 1000)
                     }
                     // 动画 socket
                 }
@@ -491,12 +498,14 @@
                 return str + '</ul>'
             },
             format_recentWins (msg) {
-                msg.forEach((item, index) => {
-                    item.bettype = format_match(item.bettype)
-                    item.betcode = this.format_betCode(item.betcode)
-                    item.betmoney = parseFloat(item.betmoney).toFixed(5) + 'ETH'
-                    item.betprize = '<span class="win"><span>' + parseFloat(item.betprize).toFixed(5) + '</span>ETH</span>'
-                })
+                if (msg) {
+                    msg.forEach((item, index) => {
+                        item.bettype = format_match(item.bettype)
+                        item.betcode = this.format_betCode(item.betcode)
+                        item.betmoney = parseFloat(item.betmoney).toFixed(5) + 'ETH'
+                        item.betprize = '<span class="win"><span>' + parseFloat(item.betprize).toFixed(5) + '</span>ETH</span>'
+                    })
+                }
                 return msg
             },
 

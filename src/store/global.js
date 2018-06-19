@@ -95,6 +95,13 @@ const actions = {
                 if (userMsg.data.uid) {
                     commit(mTypes.setUid, userMsg.data.uid)
                 }
+                if(userMsg.status !== undefined && userMsg.status.toString() === '-1'){
+                    Message({
+                        message: '邮箱无法验证todo',
+                        type: 'error',
+                        duration: tipsTime
+                    })
+                }
                 // 未激活，无钱包
                 if (userMsg.data.accounts.length === 0) {
                     userMsg.data.accounts.push({

@@ -81,6 +81,8 @@ export function formatMatchAccount (match) {
         return 'Lucky 11/C4'
     case '1105':
         return 'Lucky 11/C5'
+    case '11051':
+        return 'Super 5'
     }
 }
 

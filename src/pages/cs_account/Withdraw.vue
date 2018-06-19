@@ -339,7 +339,7 @@ export default {
                     this.error('The minimum withdrawal is 0.01 ETH')
                     return false
                 }
-                this.withdrawAmount = this.userInfo.accounts[0].balance
+                this.withdrawAmount = parseFloat(this.userInfo.accounts[0].balance) - parseFloat(this.userInfo.accounts[0].fee)
             }
         },
         copySucc () {
