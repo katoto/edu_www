@@ -1560,4 +1560,45 @@
     }
 
 
+
+    .double-shake{
+        animation: double-shake 2s forwards;
+    }
+    .error-shake{
+        animation: error-shake 0.5s forwards;
+    }
+    @keyframes double-shake {
+        0%{
+            visibility: visible;
+            opacity: 1;
+        }
+        20%{
+            opacity: 0;
+        }
+        40%{
+            opacity: 1;
+        }
+        60%{
+            opacity: 0;
+        }
+        80%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+    @keyframes error-shake {
+        0%,100% {
+            transform: translateZ(0)
+        }
+
+        20%,40%,60%,80% {
+            transform: translate3d(-10px,0,0)
+        }
+
+        30%,50%,70% {
+            transform: translate3d(10px,0,0)
+        }
+    }
 </style>
