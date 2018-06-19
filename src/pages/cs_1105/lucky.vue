@@ -452,6 +452,13 @@
                                 document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li error-shake'
                             }
                         })
+                        setTimeout(()=>{
+                            noCompleteIndex.forEach((val, index) => {
+                                if (document.querySelectorAll('.play-area-items .js_playArea-li')[val]) {
+                                    document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li'
+                                }
+                            })
+                        },1000)
                     }
                     // 动画 socket
                 }
