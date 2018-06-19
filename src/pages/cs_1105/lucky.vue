@@ -47,8 +47,7 @@
                                     </tr>
                                     </thead>
                                     <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
-                                        <tr v-for="item in recentBet" :data-oid="item.oid"
-                                            :class="{'newRecord':item.addNewRecord}">
+                                        <tr v-for="item in recentBet" :data-oid="item.oid" :class="{'newRecord':item.addNewRecord}">
                                             <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
                                             <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
                                             <td>{{ item.expectid }}</td>
@@ -104,9 +103,9 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    <tr v-for="data in DataWinnerList">
+                                    <tr v-for="(data, index) in DataWinnerList" :key="index">
                                         <!--icon-jackpot-->
-                                        <td class="">
+                                        <td>
                                             {{data.uid}}
                                         </td>
                                         <td>
@@ -278,7 +277,6 @@
                 <img src="@assets/img/worldCup/enterIcon-worldCup.png"/>
             </a>
         </div>
-        <button @click="leaveRoute">离开页面</button>
         <Footer></Footer>
     </div>
 </template>
@@ -290,7 +288,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
-    import {src, platform, isLog, getCK, format_match, setCK, removeCK} from '~common/util'
+    import {src, platform, getCK, format_match, setCK, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -382,7 +380,7 @@
                 // 出现loading
                 //                document.getElementById('js_loading').className = '';
                 // 未登录 的情况
-                if (!isLog) {
+                if (!this.isLog) {
                     this.$store.commit('showLoginPop')
                     return false
                 }
@@ -446,7 +444,7 @@
                             type: 'error'
                         })
                         // 震动 报错
-                        //	                    js_playArea-li
+                        // js_playArea-li
                         noCompleteIndex.forEach((val, index) => {
                             if (document.querySelectorAll('.play-area-items .js_playArea-li')[val]) {
                                 document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li'
@@ -458,8 +456,8 @@
                 }
 
                 // 未激活 ？  这个也有问题  在弄个弹窗吧
-                //				this.$store.commit('emailBackTime', 0)
-                //				this.$store.commit('showVerifyEmail')
+                // this.$store.commit('emailBackTime', 0)
+                // this.$store.commit('showVerifyEmail')
             },
             addTicket () {
                 /* 添加 */
@@ -474,9 +472,6 @@
             },
             testPlay () {
                 console.log(this.playArea)
-            },
-            leaveRoute () {
-                this.$router.push('/account')
             },
             fixNav () {
                 // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
@@ -513,7 +508,7 @@
                         console.log(mailBack)
                         if (mailBack && mailBack.status === '100') {
                             if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
-                                //		                        显示第一次邀请
+                                // 显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
                             } else {
                                 this.$store.commit('showFirstLogin', false)
@@ -537,7 +532,7 @@
                         })
                         this.$store.commit('showResetPwd')
                         // 修改密码的时候，清楚ck
-                        removeCk()
+                        removeCK()
                     }
                     if (query.inviter) {
                         // 邀请

@@ -187,8 +187,8 @@ const actions = {
                             dispatch(aTypes.formate_Result, msg.data)
 
                             /*
-                                 *  处理 区块链阻塞
-                                 * */
+                             *  处理 区块链阻塞
+                             * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {

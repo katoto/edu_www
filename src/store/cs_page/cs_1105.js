@@ -38,10 +38,20 @@ const state = {
     allbetPipeArr: [], // 用于控制allbet
 
     mybets: [], // mybets数据
-    mybetCount: 0
+    mybetCount: 0,
+
+    poolAmount: 20, // 奖池
+    poolRatio: null //  奖池比例
+
 }
 
 const mutationsInfo = mapMutations({
+    setPoolAmount (state, data) {
+        state.poolAmount = data
+    },
+    poolRatio (state, data) {
+        state.poolRatio = data
+    },
     syxw_bettype_odds (state, data) {
         state.syxw_bettype_odds = data
     },
@@ -182,15 +192,15 @@ const actionsInfo = mapActions({
                     if (newData[i].betprize > 0) {
                         newTbody += '<td class="win-amount js_resultDom"><a class="win">+' + Number(newData[i].betprize).toFixed(5) + 'ETH</a></td>'
                     } else {
-                        newTbody += '<td class="js_resultDom"><a></a>-</td>'
+                        newTbody += '<p>-</p>'
                     }
                 } else {
                     if (newData[i].orderstatus.toString() === '0') {
-                        newTbody += '<td class="js_resultDom bold">wait </td>'
+                        newTbody += '<p class="bold">wait</p>'
                     } else if (newData[i].orderstatus.toString() === '1') {
-                        newTbody += '<td class="js_resultDom bold">wait</td>'
+                        newTbody += '<p class="bold">wait</p>'
                     } else if (newData[i].orderstatus.toString() === '-1' || newData[i].orderstatus.toString() === '-2') {
-                        newTbody += '<td class="js_resultDom bold"><a></a>failure</td>'
+                        newTbody += '<p class="bold">failure</p>'
                     }
                 }
                 newData[i].newTbody = newTbody
@@ -206,6 +216,15 @@ const actionsInfo = mapActions({
     },
     //  初始化上一期的结果
     formate_Result ({state, commit, dispatch}, msg) {
+        /* 奖池 */
+        if (msg.pool_amount) {
+            commit(mTypes.setPoolAmount, msg.pool_amount)
+        }
+        /* 比例 */
+        if (msg.pool_ratio) {
+            commit(mTypes.poolRatio, msg.pool_ratio)
+        }
+
         if (msg.last_expectid) {
             state.last_expectid = msg.last_expectid
         }
