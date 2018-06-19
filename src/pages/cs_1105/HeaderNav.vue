@@ -46,13 +46,32 @@
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                tes: false,
-                historyCode: [],
-                isShowHistoryCode: false
+
+export default {
+    data () {
+        return {
+            tes: false,
+            isShowHistoryCode: false
+        }
+    },
+    watch: {
+        isShowHistoryCode: function (val) {
+            if (val) {
+                this.getHistoryDraw()
             }
+        }
+    },
+    methods: {
+        getHistoryDraw () {
+            this.$store.dispatch('cs_1105/updateHistoryDraw')
+        }
+    },
+    computed: {
+        liveOpenCode () {
+            return this.$store.state.cs_1105.liveOpenCode
+        },
+        navFix () {
+            return this.$store.state.cs_1105.navFix
         },
         watch: {
             isShowHistoryCode: function (val) {
@@ -92,6 +111,9 @@
             },
             last_expectid () {
                 return this.$store.state.cs_1105.last_expectid
+            },
+            historyCode () {
+                return this.$store.state.cs_1105.historyCode
             }
         },
         mounted () {
@@ -123,6 +145,7 @@
             }
         }
     }
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
