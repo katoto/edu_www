@@ -289,7 +289,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
-    import {src, platform, isLog, getCK, format_match, setCK, removeCK} from '~common/util'
+    import {src, platform, getCK, format_match, setCK, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -381,7 +381,7 @@
                 // 出现loading
                 //                document.getElementById('js_loading').className = '';
                 // 未登录 的情况
-                if (!isLog) {
+                if (!this.isLog) {
                     this.$store.commit('showLoginPop')
                     return false
                 }
