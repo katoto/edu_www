@@ -552,12 +552,10 @@
                     }
                 }
             },
-            getRecentWinsList(){
-                return this.$store.dispatch('aTypes.getRecentWinsList')
-            },
-            handleRecentWin(tab) {
+            async handleRecentWin(tab) {
                 if(tab.label === 'Recent Wins'){
-
+                    let dataRecentWinsList =await this.$store.dispatch(aTypes.getRecentWinsList)
+                    this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
                 }
             }
 
@@ -639,13 +637,8 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-
-
-//            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
-            let dataRecentWinsList = await this.getRecentWinsList()
+            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
-
-
             if (!(this.socket && this.socket.sock)) {
                 this.$store.dispatch('initWebsocket')
             }
