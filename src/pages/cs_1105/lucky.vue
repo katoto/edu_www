@@ -725,6 +725,7 @@
                 display: block;
                 height: 35px;
                 line-height: 35px;
+                background: #eef1f9;
             }
             span.jack {
                 box-sizing: border-box;
