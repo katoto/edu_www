@@ -188,7 +188,7 @@ const actionsInfo = mapActions({
                     if (newData[i].orderstatus.toString() === '0') {
                         newTbody += '<td class="js_resultDom bold">wait </td>'
                     } else if (newData[i].orderstatus.toString() === '1') {
-                        newTbody += '<td class="js_resultDom bold">wait</td>'
+                        newTbody += '<p class="js_resultDom bold">wait</p>'
                     } else if (newData[i].orderstatus.toString() === '-1' || newData[i].orderstatus.toString() === '-2') {
                         newTbody += '<td class="js_resultDom bold"><a></a>failure</td>'
                     }

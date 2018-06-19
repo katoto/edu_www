@@ -61,7 +61,6 @@
                                         <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
                                         </td>
                                         <td class="js_resultDom" v-html="item.newTbody">
-
                                         </td>
                                     </tr>
                                     </tbody>
@@ -277,7 +276,6 @@
                 <img src="@assets/img/worldCup/enterIcon-worldCup.png"/>
             </a>
         </div>
-        <button @click="leaveRoute">离开页面</button>
         <Footer></Footer>
     </div>
 </template>
@@ -473,9 +471,6 @@
             },
             testPlay () {
                 console.log(this.playArea)
-            },
-            leaveRoute () {
-                this.$router.push('/account')
             },
             fixNav () {
                 // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
