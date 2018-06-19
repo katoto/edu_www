@@ -102,7 +102,7 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    <tr v-for="(data, index) in DataWinnerList" :key="index">
+                                    <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.bettype === '11051'}">
                                         <!--icon-jackpot-->
                                         <td>
                                             {{data.uid}}
@@ -110,7 +110,7 @@
                                         <td>
                                             {{data.expectid}}
                                         </td>
-                                        <td>
+                                        <td :class="{'icon-jackpot':data.bettype === '11051'}">
                                             {{data.bettype}}
                                         </td>
                                         <td v-html="data.betcode">
@@ -313,7 +313,9 @@
                     pickNum: [],
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用
-                }] // 玩法区 数组
+                }], // 玩法区 数组,
+                jackpot:false,
+                'icon-jackpot':false
 
             }
         },
