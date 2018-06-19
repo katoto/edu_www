@@ -296,4 +296,21 @@ export default {
     }
   }
 }
+.jump5 {
+    animation: fontSize 1s forwards infinite;
+}
+@keyframes fontSize {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    80% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
 </style>

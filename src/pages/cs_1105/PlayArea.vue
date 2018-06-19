@@ -118,6 +118,7 @@
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
                     (including C5: {{ syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}ETH;
                     jackpot {{  areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio )  }}ETH)
+
                 </i>
             </div>
         </div>
