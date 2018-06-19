@@ -113,7 +113,7 @@
                             <div id="mycount-detailed" class="mycount-detailed slide" :class="{ 'slide-show': slideDown }">
                                     <!-- 修改 新增account-info,其中email超过10为隐藏方式如下 -->
                                     <div class="account-info">
-                                        <div class="email js_email-account">
+                                        <div class="email js_email-account" :title="userInfo.email">
                                             {{ formateEmail(userInfo.email) }}
                                         </div>
                                         <div class="uid">
@@ -609,6 +609,8 @@
             line-height: 26px;
             font-size: 16px;
             font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .uid {
             line-height: 26px;
