@@ -213,6 +213,11 @@
                 </div>
             </section>
             <!--拉新活动-->
+
+            <!-- 奖池奖 -->
+            <div v-if="jackPotMsg">
+                中奖信息：{{ jackPotMsg.prize }} {{ jackPotMsg.txhash }} {{ jackPotMsg.expectid }}
+            </div>
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
@@ -238,6 +243,9 @@
         },
         watch: {},
         computed: {
+            jackPotMsg () {
+                return this.$store.state.cs_1105.jackPotMsg
+            },
             inviteTips () {
                 return this.$store.state.pop.inviteTips
             },
