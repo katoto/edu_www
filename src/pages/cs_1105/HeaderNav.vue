@@ -14,7 +14,7 @@
                 </ul>
                 <div class="last-select slide" :class="{ 'slide-show': isShowHistoryCode }">
                     <ul class="date-box js_date-box">
-                        <li v-for="(item, index) in historyCode.filter((item, index) => index < 8 && index > 0)" :key="index">
+                        <li v-for="(item, index) in historyCodeFilter(historyCode)" :key="index">
                             <span>{{ item.expectid }}</span>
                             <ul class="num-box">
                                 <li v-for="(num, numIndex) in item.opencode.split(',')" :key="numIndex">{{ num }}</li>
@@ -60,6 +60,21 @@ export default {
         }
     },
     methods: {
+        historyCodeFilter (historyCode) {
+            let isLastCode = false
+            let lastIndex = 0
+            let arr = []
+            historyCode.map((item, index) => {
+                if (item.expectid === this.last_expectid) {
+                    isLastCode = true
+                    lastIndex = index
+                }
+                if (isLastCode && index > lastIndex && arr.length < 7) {
+                    arr.push(item)
+                }
+            })
+            return isLastCode ? arr : historyCode.slice(0, 7)
+        },
         getHistoryDraw () {
             this.$store.dispatch('cs_1105/updateHistoryDraw')
         }
