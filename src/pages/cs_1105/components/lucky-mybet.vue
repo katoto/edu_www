@@ -151,7 +151,9 @@ export default {
         }
     },
     mounted () {
-        this.getMyBets()
+        if (this.isLogin) {
+            this.getMyBets()
+        }
     }
 }
 </script>
