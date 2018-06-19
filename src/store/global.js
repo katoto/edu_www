@@ -1,19 +1,7 @@
-import ajax from '~common/ajax'
+import ajax, {sockURL} from '~common/ajax'
 import {src, getCK, platform, tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-
-let sockURL = null;
-if (process.env.NODE_ENV === 'production') {
-    sockURL = 'wss://crazybet.choopaoo.com/wss'
-    sockURL = 'ws://10.0.1.167:8099/betblock'
-} else if (process.env.NODE_ENV === 'preRelease') {
-    sockURL = 'ws://192.168.41.76:6999'
-} else {
-    sockURL = 'ws://192.168.30.13:7999/betblock'
-    // sockURL = 'ws://10.0.1.41:4444/betblock'
-    // sockURL = 'ws://10.0.0.130:8080/betblock'
-}
 
 function combimeStore (store, newStore) {
     return {
@@ -219,7 +207,7 @@ const actions = {
                                     jsStartBetBtn.className = 'btn-play-now unable'
                                 }
                             }
-                            break;
+                            break
                         case '1003':
                             // 开奖结果消息  更新 my Bet  todo
                             if (msg.data.expectid !== undefined && msg.data.expectid !== null) {

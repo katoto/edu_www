@@ -16,23 +16,31 @@ function getCommonParams () {
 
 const options = {}
 
+let websocketUrl = ''
+const isHttp = window.location.protocol === 'http:'
+
 // todo
-if (process.env.NODE_ENV === 'production') {
-    if (window.location.protocol === 'http:') {
-        options.baseURL = window.location.protocol + '//10.0.1.167:8095'
-    } else {
-        options.baseURL = window.location.protocol + '//www.coinslot.com/api'
-    }
+if (process && process.env && process.env.NODE_ENV === 'production') {
+    // 线上
+    options.baseURL = window.location.protocol + '//www.coinslot.com/api'
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://www.coinslot.com/betblock`
 } else if (process.env.NODE_ENV === 'preRelease') {
     // 线下167
-    options.baseURL = 'http://10.0.1.41:6899'
-    // options.baseURL = 'http://crazybet.choopaoo.com:8090'
+    options.baseURL = 'http://10.0.1.41:3333'
+    // options.baseURL = 'http://10.0.1.167:8095' // 8095
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.167:8099/betblock`
 } else {
     options.baseURL = 'http://10.0.1.167:8095' // 8095
-    options.baseURL = 'http://192.168.30.13:8000' // 8095
     // options.baseURL = 'http://10.0.1.41:3333' // 8095
     // options.baseURL = 'http://10.0.0.130:8000' // 8095
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8080/betblock'`
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.167:8099/betblock`
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`
 }
+
+export const sockURL = websocketUrl
 
 const _axios = axios.create(options)
 
