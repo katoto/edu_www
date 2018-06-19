@@ -219,6 +219,10 @@ const actions = {
                             }
                             // 初始化上一期结果
                             dispatch(aTypes.formate_Result, msg.data)
+
+                            // mybet 弹窗
+                            dispatch('cs_1105/updateMyBets')
+                            dispatch('cs_1105/updateHistoryDraw')
                             break
 
                         case '1004':

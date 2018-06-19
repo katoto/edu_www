@@ -19,6 +19,7 @@ const state = {
 
     openCodeArr: null, // 开奖号码
     liveOpenCode: [], // 开奖 数组 动画数据
+    historyCode: [], // 历史开奖记录
     time_drawFlip: null, // 开奖动画 interval变量
 
     recentBet: [], // 最近投注
@@ -85,6 +86,9 @@ const mutationsInfo = mapMutations({
     },
     updateMyBetsCount (state, mybetCount) {
         state.mybetCount = mybetCount
+    },
+    updateHistoryDraw (state, historyCode) {
+        state.historyCode = historyCode
     }
 }, 'cs_1105')
 
@@ -306,6 +310,13 @@ const actionsInfo = mapActions({
 
     getHistoryDraw ({commit, dispatch}, params = {}) {
         return ajax.get('/expect/hisopencode', params)
+    },
+
+    updateHistoryDraw ({commit}, params = {}) {
+        return ajax.get('/expect/hisopencode', params).then(data => {
+            commit('cs_1105/updateHistoryDraw', data.data.expect_history || [])
+            return data
+        })
     },
 
     // 首页 Recent Wins 列表接口数据
