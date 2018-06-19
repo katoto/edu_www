@@ -187,8 +187,8 @@ const actions = {
                             dispatch(aTypes.formate_Result, msg.data)
 
                             /*
-                                 *  处理 区块链阻塞
-                                 * */
+                             *  处理 区块链阻塞
+                             * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
@@ -199,12 +199,12 @@ const actions = {
                                     }
                                 } else if (msg.data.block_status.toString() === '0') {
                                     // 不健康  添加unable
-                                    Message({
-                                        message: 'The network is blocking, please retry later',
-                                        type: 'error',
-                                        duration: tipsTime
-                                    })
-                                    jsStartBetBtn.className = 'btn-play-now unable'
+                                    // Message({
+                                    //     message: 'The network is blocking, please retry later',
+                                    //     type: 'error',
+                                    //     duration: tipsTime
+                                    // })
+                                    // jsStartBetBtn.className = 'btn-play-now unable'
                                 }
                             }
                             break

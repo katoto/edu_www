@@ -1,8 +1,9 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true" @mouseout="slideDown = false">
-                <span v-if="areaMsg.pickType === '5J'">Pick 5(JACKPOT)</span>
+            <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true"
+                 @mouseout="slideDown = false">
+                <span v-if="areaMsg.pickType === '5J'">(JACKPOT)</span>
                 <span v-else>Pick {{ areaMsg.pickType}}</span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
                     <li data-index="1">Pick 1</li>
@@ -107,14 +108,19 @@
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
             <span>ETH</span>
-            <div class="winning">
-                    Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] *
-                parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
-                <div class="winjackport" v-if="areaMsg.pickType === '5J'">
-                    (including C5: {{2.52}}ETH; jackpot {{3.03}}ETH)
-                </div>
+            <div class="winning" v-if="areaMsg.pickType !== '5J'">
+                Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] *
+                parseFloat( areaMsg.pickMoney ) }}&nbspETH</i>
             </div>
+            <div class="winning" v-else>
+                <!-- 奖池 -->
+                Winning&nbsp<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) }}&nbspETH</i>
+                <i class="winjackport" v-if="areaMsg.pickType === '5J'">
+                    (including C5: {{ syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}ETH;
+                    jackpot {{  areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio )  }}ETH)
 
+                </i>
+            </div>
         </div>
         <div class="order-box js_choose_jackPot" :class="{'hide': areaMsg.pickType !== '5J'}">
             <p>Picking Order</p>
@@ -340,11 +346,43 @@
         computed: {
             syxw_bettype_odds () {
                 return this.$store.state.cs_1105.syxw_bettype_odds
+            },
+            poolAmount () {
+                return this.$store.state.cs_1105.poolAmount
+            },
+            poolRatio () {
+                return this.$store.state.cs_1105.poolRatio
             }
         },
         mounted () {
         },
         filters: {
+            formateJackPot: (money, poolAmount, poolRatio) => {
+                money = parseFloat(money)
+                if (!poolAmount) {
+                    console.error('poolAmount error at formateJackPot')
+                    return 0
+                }
+                if (!poolRatio) {
+                    console.error('poolRatio error at formateJackPot')
+                    return 0
+                }
+                if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
+                    if (money < parseFloat(poolRatio[0].value)) {
+                        return (money * parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5)
+                    }
+                    if (money < parseFloat(poolRatio[1].value)) {
+                        console.log((money * parseFloat(poolRatio[0].ratio) * poolAmount).toFixed(5))
+                        return (money * parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5)
+                    }
+                    if (money < parseFloat(poolRatio[2].value)) {
+                        return (money * parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5)
+                    }
+                    if (money < parseFloat(poolRatio[3].value)) {
+                        return (money * parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5)
+                    }
+                }
+            },
             formateCoinType: (type = '2001') => {
                 type = type.toString()
                 switch (type) {
@@ -401,13 +439,14 @@
     }
 </script>
 <style scoped>
-.pop-rewardTable{
-    max-height:0;
-    overflow: hidden;
-    transition: all .2s;
-}
-.pop-rewardTable.rewardTable{
-    max-height:1000px;
-    overflow: visible;
-}
+    .pop-rewardTable {
+        max-height: 0;
+        overflow: hidden;
+        transition: all .2s;
+    }
+
+    .pop-rewardTable.rewardTable {
+        max-height: 1000px;
+        overflow: visible;
+    }
 </style>

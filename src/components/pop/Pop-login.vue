@@ -24,8 +24,14 @@
             <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">Forgot your password?</a>
         </div>
         <div class="pop-bottom">
-            <p>Not Registered yet ? <a href="javascript:;" class="signUp" @click="onSignUp">Sign Up</a></p>
+            <p>
+                <!--Not Registered yet ? -->
+                <a href="javascript:;" class="signUp" @click="onSignUp">Sign Up</a>
+            </p>
             <a href="javascript:;" class="importwallet hide">Import Wallet</a>
+            <div class="act-sign left">
+                for free 0.001ETH
+            </div>
         </div>
     </Pop>
 </template>
@@ -120,6 +126,11 @@
 </script>
 
 <style lang="less" scoped>
+    .act-sign{
+        position: absolute;
+        top:20px;
+        left:255px;
+    }
 </style>
 
 
