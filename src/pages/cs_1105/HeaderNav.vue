@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import formateBalance from '~common/util'
+import {formateBalance} from '~common/util'
 export default {
     data () {
         return {
