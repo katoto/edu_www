@@ -110,9 +110,9 @@
             <div class="winning">
                     Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] *
                 parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
-                <div class="winjackport" v-if="areaMsg.pickType === '5J'">
+                <i class="winjackport" v-if="areaMsg.pickType === '5J'">
                     (including C5: {{2.52}}ETH; jackpot {{3.03}}ETH)
-                </div>
+                </i>
             </div>
 
         </div>

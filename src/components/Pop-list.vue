@@ -10,6 +10,7 @@
         <pop-faucet></pop-faucet>
         <pop-limit></pop-limit>
         <pop-noVerify></pop-noVerify>
+        <Next></Next>
     </div>
 </template>
 
@@ -24,6 +25,7 @@
     import PopFaucet from './pop/Pop-faucet'
     import PopLimit from './pop/Pop-limit'
     import PopNoVerify from './pop/Pop-noVerify'
+    import Next from './pop/Next'
 
     export default {
         components: {
@@ -36,8 +38,8 @@
             PopRegFailure,
             PopFaucet,
             PopLimit,
-            PopNoVerify
+            PopNoVerify,
+            Next
         }
     }
 </script>
-

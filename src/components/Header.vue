@@ -143,6 +143,11 @@
                 <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
                    :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
                    v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
+
+                <!--拉新活动提示-->
+                <div class="act-sign right" v-if="!isLog">
+                    for free 0.001ETH
+                </div>
             </div>
 
             <div class="jackpot-box hide">
@@ -484,9 +489,6 @@
                 border-radius: 6px;
             }
         }
-        .jump5 {
-            animation: fontSize 1s forwards infinite;
-        }
         .jackpot {
             float: left;
             margin-left: 22px;
@@ -700,20 +702,6 @@
         }
     }
 
-    @keyframes fontSize {
-        0% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        80% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(1.5);
-            opacity: 0;
-        }
-    }
 
     @keyframes rubberBand {
         0% {
@@ -852,6 +840,24 @@
         background-image: url("../assets/slice/enter-brands.png");
         width: 146px;
         height: 50px;
+    }
+
+
+    .act-sign{
+        top:35px;
+        right:178px;
+        animation: actMove 5s 2s infinite;
+    }
+    @keyframes actMove {
+        0%,12%,16%,20%,100%{
+            transform: translateX(0);
+        }
+        10%{
+            transform: translateX(5px);
+        }
+        14%,18%{
+            transform: translateX(10px);
+        }
     }
 </style>
 
