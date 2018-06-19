@@ -48,8 +48,7 @@
                                     </thead>
                                     <tbody v-if="recentBet.length>0" id="tabody-betlist"
                                            class="tabody-betlist newRecord">
-                                    <tr v-for="item in recentBet" :data-oid="item.oid"
-                                        :class="{'newRecord':item.addNewRecord}">
+                                    <tr v-for="(item, index) in recentBet" :data-oid="item.oid" :class="{'newRecord':item.addNewRecord}" :key="index">
                                         <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
                                         <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
                                         <td>{{ item.expectid }}</td>
@@ -103,7 +102,7 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    <tr v-for="data in DataWinnerList">
+                                    <tr v-for="(data, index) in DataWinnerList" :key="index">
                                         <td>
                                             {{data.uid}}
                                         </td>
@@ -443,7 +442,7 @@
                             type: 'error'
                         })
                         // 震动 报错
-                        //	                    js_playArea-li
+                        // js_playArea-li
                         noCompleteIndex.forEach((val, index) => {
                             if (document.querySelectorAll('.play-area-items .js_playArea-li')[val]) {
                                 document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li'
@@ -455,8 +454,8 @@
                 }
 
                 // 未激活 ？  这个也有问题  在弄个弹窗吧
-                //				this.$store.commit('emailBackTime', 0)
-                //				this.$store.commit('showVerifyEmail')
+                // this.$store.commit('emailBackTime', 0)
+                // this.$store.commit('showVerifyEmail')
             },
             addTicket () {
                 /* 添加 */
@@ -507,7 +506,7 @@
                         console.log(mailBack)
                         if (mailBack && mailBack.status === '100') {
                             if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
-                                //		                        显示第一次邀请
+                                // 显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
                             } else {
                                 this.$store.commit('showFirstLogin', false)
@@ -531,7 +530,7 @@
                         })
                         this.$store.commit('showResetPwd')
                         // 修改密码的时候，清楚ck
-                        removeCk()
+                        removeCK()
                     }
                     if (query.inviter) {
                         // 邀请
