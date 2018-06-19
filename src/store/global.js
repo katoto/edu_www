@@ -224,7 +224,6 @@ const actions = {
                             dispatch('cs_1105/updateMyBets')
                             dispatch('cs_1105/updateHistoryDraw')
                             break
-
                         case '1004':
                             /* 投注推送  和 更新 my bet todo  */
                             console.log(msg.data)
@@ -233,7 +232,13 @@ const actions = {
                                 dispatch(aTypes.formate_pushBetData, msg.data.orders)
                             }
                             break
-
+                        case '1005':
+                            // 奖池中奖
+                            if (msg.data) {
+                                dispatch(aTypes.fomateJackPot, msg.data)
+                            }
+                            ;
+                            break
                         case '1007':
                             // 更新用户信息，代表结算
 

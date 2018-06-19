@@ -11,7 +11,6 @@
                               :allplayArea.sync="playArea" :areaMsg="item"
                               :data.sync="playArea[index]"></PlayArea>
                 </ul>
-
                 <div class="btn-area">
                     <span class="fee-count hide">
                         Fee&nbsp&nbsp<i><span class="js_gasNumber">0</span>ETH</i>
@@ -412,7 +411,8 @@
                                 // 全部成功订单
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
-                                        val.pickNum = []
+                                        val.pickNum = [],
+                                        val.pickJackPot = []
                                     })
                                 }, 1000)
                                 this.showOrderSucc = true
@@ -425,7 +425,8 @@
                                 this.showOrderFail = true
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
-                                        val.pickNum = []
+                                        val.pickNum = [],
+                                        val.pickJackPot = []
                                     })
                                 }, 1000)
                             } else {
@@ -579,6 +580,8 @@
                     return 'C4'
                 case '1105':
                     return 'C5'
+                case '11051':
+                    return 'Jackpot'
                 }
             },
             formatTime: (time, format) => {
@@ -1560,4 +1563,45 @@
     }
 
 
+
+    .double-shake{
+        animation: double-shake 2s forwards;
+    }
+    .error-shake{
+        animation: error-shake 0.5s forwards;
+    }
+    @keyframes double-shake {
+        0%{
+            visibility: visible;
+            opacity: 1;
+        }
+        20%{
+            opacity: 0;
+        }
+        40%{
+            opacity: 1;
+        }
+        60%{
+            opacity: 0;
+        }
+        80%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+    @keyframes error-shake {
+        0%,100% {
+            transform: translateZ(0)
+        }
+
+        20%,40%,60%,80% {
+            transform: translate3d(-10px,0,0)
+        }
+
+        30%,50%,70% {
+            transform: translate3d(10px,0,0)
+        }
+    }
 </style>

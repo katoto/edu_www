@@ -88,7 +88,7 @@
             </p>
             <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
         </div>
-        <span class="line js_line">Ticket {{ areaMsg.pickType }}</span>
+        <span class="line js_line" >Ticket {{ currIndex + 1 }}</span>
         <ul class="number-box" v-if="areaMsg" @click="lineNumClick">
             <li v-for="(number,index) in playList" :data-flag="(index+1)" class="on"
                 v-if="areaMsg.pickNum && areaMsg.pickNum.indexOf( number ) > -1">{{ number }}
@@ -109,16 +109,14 @@
             </div>
             <span>ETH</span>
             <div class="winning" v-if="areaMsg.pickType !== '5J'">
-                Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] *
-                parseFloat( areaMsg.pickMoney ) }}&nbspETH</i>
+                Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
             </div>
             <div class="winning" v-else>
                 <!-- 奖池 -->
-                Winning&nbsp<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) }}&nbspETH</i>
+                Winning&nbsp<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
                     (including C5: {{ syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}ETH;
                     jackpot {{  areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio )  }}ETH)
-
                 </i>
             </div>
         </div>
@@ -369,17 +367,16 @@
                 }
                 if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
                     if (money < parseFloat(poolRatio[0].value)) {
-                        return (money * parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5)
+                        return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
                     }
                     if (money < parseFloat(poolRatio[1].value)) {
-                        console.log((money * parseFloat(poolRatio[0].ratio) * poolAmount).toFixed(5))
-                        return (money * parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5)
+                        return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
                     }
                     if (money < parseFloat(poolRatio[2].value)) {
-                        return (money * parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5)
+                        return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
                     }
-                    if (money < parseFloat(poolRatio[3].value)) {
-                        return (money * parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5)
+                    if (money <= parseFloat(poolRatio[3].value)) {
+                        return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
                     }
                 }
             },

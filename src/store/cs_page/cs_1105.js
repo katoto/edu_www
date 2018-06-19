@@ -42,13 +42,16 @@ const state = {
     mybetCount: 0,
 
     poolAmount: 20, // 奖池
-    poolRatio: null //  奖池比例
-
+    poolRatio: null, //  奖池比例
+    jackPotMsg: null // 奖池信息 中奖池
 }
 
 const mutationsInfo = mapMutations({
+    setjackPotMsg (state, data) {
+        state.jackPotMsg = data
+    },
     setPoolAmount (state, data) {
-        state.poolAmount = data
+        state.poolAmount = parseFloat(data)
     },
     poolRatio (state, data) {
         state.poolRatio = data
@@ -93,6 +96,17 @@ const mutationsInfo = mapMutations({
 }, 'cs_1105')
 
 const actionsInfo = mapActions({
+    /* 奖池奖 */
+    fomateJackPot ({state, commit, dispatch}, data) {
+        if (data && data.txhash) {
+            data.txhash = data.txhash.slice(0, 7)
+        }
+        commit(mTypes.setjackPotMsg, data);
+        setTimeout(()=>{
+            commit(mTypes.setjackPotMsg, null);
+        },4000)
+    },
+
     /* recent Bet  实时更新 recent bet */
     formate_pushBetData ({state, commit, dispatch}, orders) {
         if (orders) {

@@ -92,7 +92,8 @@
                             <a href="javascript:;" class="btn-cash">Withdraw</a>
                         </router-link>
                         </div>
-                        <div class="mycount" @mouseover="slideDown = true" @mouseout="slideDown = false">
+                        <!--slideDown = true-->
+                        <div class="mycount" @mouseover="showUserMsg" @mouseout="slideDown = false">
                             <div class="countNum">
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
 
@@ -151,14 +152,15 @@
             </div>
 
             <!--jackpot-->
-            <div class="jackpot ">
-                <div class="jackpot-box">
+            <div class="jackpot" v-if="jackPotMsg">
+                <div class="jackpot-box" >
+
                     <p>Congratulations to&nbsp;</p>
-                    <p class="jackpot-add">1234567</p>
+                    <p class="jackpot-add">{{ jackPotMsg.txhash }}</p>
                     <p>&nbsp;hit&nbsp;</p>
-                    <p class="jackpot-issue">1806131043</p>
+                    <p class="jackpot-issue">{{ jackPotMsg.expectid }}</p>
                     <p>,&nbsp;</p>
-                    <p class="jackpot-money "> Win <i>5.55</i>ETH</p>
+                    <p class="jackpot-money "> Win <i>{{ jackPotMsg.prize }}</i>ETH</p>
                 </div>
                 <canvas id="canvas" ref="canvas"></canvas>
             </div>
@@ -212,6 +214,7 @@
                 </div>
             </section>
             <!--拉新活动-->
+
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
@@ -238,6 +241,9 @@
         },
         watch: {},
         computed: {
+            jackPotMsg () {
+                return this.$store.state.cs_1105.jackPotMsg
+            },
             inviteTips () {
                 return this.$store.state.pop.inviteTips
             },
@@ -257,6 +263,10 @@
         methods: {
             formateEmail,
             formateBalance,
+            showUserMsg(){
+                this.slideDown = true;
+                this.$store.dispatch('getUserInfo')
+            },
             async getFaucet () {
                 // 领取邀请奖励
                 if (this.loginSucc && this.loginSucc.tasks.length > 0) {

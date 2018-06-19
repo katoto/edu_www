@@ -331,6 +331,7 @@ export default {
                     this.transferMsg = data.message
                 })
             this.showTransfer = false
+            this.$store.dispatch('getUserInfo')
         },
         checkMaximum () {
             if (this.userInfo && this.userInfo.accounts) {
