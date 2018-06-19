@@ -49,7 +49,6 @@ export default {
     data () {
         return {
             tes: false,
-            historyCode: [],
             isShowHistoryCode: false
         }
     },
@@ -62,9 +61,7 @@ export default {
     },
     methods: {
         getHistoryDraw () {
-            this.$store.dispatch('cs_1105/getHistoryDraw').then(data => {
-                this.historyCode = data.data.expect_history || []
-            })
+            this.$store.dispatch('cs_1105/updateHistoryDraw')
         }
     },
     computed: {
@@ -88,6 +85,9 @@ export default {
         },
         last_expectid () {
             return this.$store.state.cs_1105.last_expectid
+        },
+        historyCode () {
+            return this.$store.state.cs_1105.historyCode
         }
     },
     mounted () {
