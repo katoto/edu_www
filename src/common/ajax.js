@@ -31,13 +31,14 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.167:8099/betblock`
 } else {
-    options.baseURL = 'http://10.0.1.167:8095' // 8095
+    options.baseURL = 'http://192.168.30.13:8000' // 8095
+    // options.baseURL = 'http://10.0.1.167:8095' // 8095
     // options.baseURL = 'http://10.0.1.41:3333' // 8095
     // options.baseURL = 'http://10.0.0.130:8000' // 8095
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8080/betblock'`
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.167:8099/betblock`
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`
-    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`
 }
 
 export const sockURL = websocketUrl
