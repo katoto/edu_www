@@ -46,24 +46,24 @@
                                         <th>Prize Amount</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="recentBet.length>0" id="tabody-betlist"
-                                           class="tabody-betlist newRecord">
-                                    <tr v-for="item in recentBet" :data-oid="item.oid"
-                                        :class="{'newRecord':item.addNewRecord}">
-                                        <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
-                                        <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
-                                        <td>{{ item.expectid }}</td>
-                                        <td>{{ item.bettype | format_match }}</td>
-                                        <td>
-                                            <ul class="num-box" v-html="item.openCodeVal">
-                                            </ul>
-                                        </td>
-                                        <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
-                                        </td>
-                                        <td class="js_resultDom" v-html="item.newTbody">
+                                    <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
+                                        <tr v-for="item in recentBet" :data-oid="item.oid"
+                                            :class="{'newRecord':item.addNewRecord}">
+                                            <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
+                                            <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
+                                            <td>{{ item.expectid }}</td>
+                                            <td>{{ item.bettype | format_match }}</td>
+                                            <!--icon-jackpot-->
+                                            <td class="">
+                                                <ul class="num-box" v-html="item.openCodeVal">
+                                                </ul>
+                                            </td>
+                                            <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
+                                            </td>
+                                            <td class="js_resultDom" v-html="item.newTbody">
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -105,7 +105,8 @@
                                         </td>
                                     </tr>
                                     <tr v-for="data in DataWinnerList">
-                                        <td>
+                                        <!--icon-jackpot-->
+                                        <td class="">
                                             {{data.uid}}
                                         </td>
                                         <td>
@@ -1256,7 +1257,7 @@
         }
         .icon-jackpot {
             &::after {
-                margin-left: 50px;
+                right: 10px;
             }
         }
     }
@@ -1562,5 +1563,6 @@
             transform: scale3d(1, 1, 1)
         }
     }
+
 
 </style>

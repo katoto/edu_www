@@ -5,10 +5,6 @@
             <h2 class="logo11to5">
                 Lucky11
             </h2>
-            <p class="jackpot hide">
-                <span>JACKPOT&nbsp;&nbsp;</span>
-                <i id="js_jackpotM">0</i>
-            </p>
             <div class="lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
                 <p>Draw History</p>
                 <span id="js_lastDrawNumber">NO.{{ last_expectid }}</span>
@@ -40,6 +36,10 @@
                     <i :class="{'jump5': parseFloat( timeLeft )<= 10 }">{{ timeLeft }}’</i>
                 </div>
             </div>
+            <p class="jackpot2 ">
+                <span>JACKPOT&nbsp;&nbsp;</span>
+                <i id="js_jackpotM">0</i>
+            </p>
         </div>
     </div>
 </template>
@@ -311,6 +311,32 @@ export default {
     100% {
         transform: scale(1.5);
         opacity: 0;
+    }
+}
+.jackpot2{
+    float: left;
+    margin-left:200px;
+    font-family:sans-eb;
+    color: #f6b543;
+    *{
+        float: left;
+    }
+    span{
+        font-size:20px;
+    }
+    i{
+        position: relative;
+        padding-left: 26px;
+        font-size:36px;
+        &::before{
+            content: '';
+            position: absolute;
+            left:0;
+            top:20px;
+            background-image:url("../../assets/slice/logo-btc.png");
+            width: 20px;
+            height: 20px;
+        }
     }
 }
 </style>

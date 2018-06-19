@@ -150,18 +150,17 @@
                 </div>
             </div>
 
-            <div class="jackpot-box hide">
-                <div class="bg bg1"></div>
-                <div class="bg bg2"></div>
-                <div class="bg bg3"></div>
-                <div class="text">
+            <!--jackpot-->
+            <div class="jackpot hide">
+                <div class="jackpot-box">
                     <p>Congratulations to&nbsp;</p>
-                    <p class="jackpot-add">012x2371f012x2371f</p>
+                    <p class="jackpot-add">1234567</p>
                     <p>&nbsp;hit&nbsp;</p>
-                    <p class="jackpot-issue">1804161521</p>
+                    <p class="jackpot-issue">1806131043</p>
                     <p>,&nbsp;</p>
                     <p class="jackpot-money "> Win <i>5.55</i>ETH</p>
                 </div>
+                <canvas id="canvas"></canvas>
             </div>
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
@@ -330,6 +329,8 @@
             }
         }
     }
+
+
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
@@ -489,30 +490,7 @@
                 border-radius: 6px;
             }
         }
-        .jackpot {
-            float: left;
-            margin-left: 22px;
-            font-family: sans-eb;
-            color: #f6b543;
-            * {
-                float: left;
-            }
-            span {
-                font-size: 20px;
-            }
-            i {
-                position: relative;
-                padding-left: 26px;
-                font-size: 36px;
-                &::before {
-                    content: "";
-                    position: absolute;
-                    left: 0;
-                    top: 20px;
-                    background-image: url(" ../assets/slice/logo-btc.png");
-                }
-            }
-        }
+
     }
 
     .mycount-detailed {
@@ -642,65 +620,6 @@
         transform: translate(-50%);
     }
 
-    .jackpot-box {
-        position: fixed;
-        z-index: 11;
-        top: 0;
-        left: 50%;
-        margin-left: -473.5px;
-        width: 947px;
-        height: 112px;
-        .text {
-            position: relative;
-            z-index: 4;
-            display: flex;
-            justify-content: center;
-            p {
-                height: 72px;
-                padding-top: 25px;
-                line-height: 76px;
-                font-size: 22px;
-            }
-            p.jackpot-add {
-                width: 104px;
-                overflow: hidden;
-            }
-            p.jackpot-money {
-                font-size: 36px;
-                font-family: sans-eb;
-                line-height: 72px;
-                animation: bounceIn 2s 5s infinite;
-            }
-        }
-        .bg {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .bg1 {
-            z-index: 1;
-            background: url(" ../assets/slice/jackpot-bg1.png") top center no-repeat;
-        }
-        .bg2 {
-            z-index: 2;
-            background: url(" ../assets/slice/jackpot-bg2.png") top center no-repeat;
-        }
-        .bg3 {
-            z-index: 3;
-            background: url(" ../assets/slice/jackpot-bg3.png") top center no-repeat;
-        }
-        .bg1,
-        .bg3 {
-            opacity: 0;
-            animation: bounceIn 1s 1s forwards;
-        }
-        img {
-            position: absolute;
-            top: -50px;
-        }
-    }
 
 
     @keyframes rubberBand {
@@ -733,28 +652,30 @@
     }
 
     @keyframes bounceIn {
+        0%, 60%, 75%, 90%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
         0% {
-            transform: scale3d(0.6, 0.6, 0.6);
-        }
-
-        20% {
-            transform: scale3d(1.1, 1.1, 1.1);
-        }
-
-        40% {
-            transform: scale3d(0.9, 0.9, 0.9);
+            opacity: 0;
+            transform: translate3d(0, -3000px, 0);
         }
 
         60% {
-            transform: scale3d(1.03, 1.03, 1.03);
+            opacity: 1;
+            transform: translate3d(0, 25px, 0);
         }
 
-        80% {
-            transform: scale3d(0.97, 0.97, 0.97);
+        75% {
+            transform: translate3d(0, -10px, 0);
+        }
+
+        90% {
+            transform: translate3d(0, 5px, 0);
         }
 
         to {
-            transform: scale3d(0.3, 0.3, 0.3);
+            transform: none;
         }
     }
 
@@ -857,6 +778,76 @@
         }
         14%,18%{
             transform: translateX(10px);
+        }
+    }
+
+
+    .jackpot{
+        position: fixed;
+        left:0;
+        top:0;
+        z-index:10;
+        width:100%;
+        height:150px;
+        //overflow: hidden;
+        animation: slideDownIn 1s;
+        .jackpot-box{
+            position: relative;
+            z-index:2;
+            width: 947px;
+            height: 112px;
+            margin:0 auto;
+            background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
+            display: flex;
+            justify-content: center;
+            p{
+                height: 72px;
+                padding-top:25px;
+                line-height:76px;
+                font-size:22px;
+            }
+            p.jackpot-add{
+                overflow: hidden;
+            }
+            p.jackpot-money{
+                font-size:36px;
+                font-family:sans-eb;
+                line-height:72px;
+            }
+        }
+        canvas{
+            position: absolute;
+            z-index:1;
+            top:0;
+            left:0;
+        }
+    }
+
+    @keyframes slideDownIn {
+        0%, 60%, 75%, 90%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        0% {
+            opacity: 0;
+            transform: translate3d(0, -3000px, 0);
+        }
+
+        60% {
+            opacity: 1;
+            transform: translate3d(0, 25px, 0);
+        }
+
+        75% {
+            transform: translate3d(0, -10px, 0);
+        }
+
+        90% {
+            transform: translate3d(0, 5px, 0);
+        }
+
+        to {
+            transform: none;
         }
     }
 </style>
