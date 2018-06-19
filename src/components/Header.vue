@@ -154,7 +154,6 @@
             <!--jackpot-->
             <div class="jackpot" v-if="jackPotMsg">
                 <div class="jackpot-box" >
-
                     <p>Congratulations to&nbsp;</p>
                     <p class="jackpot-add">{{ jackPotMsg.txhash }}</p>
                     <p>&nbsp;hit&nbsp;</p>
@@ -225,7 +224,7 @@
     import PopList from '~components/Pop-list'
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
-    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateEmail} from '~common/util'
+    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance,formateCoinType, formateEmail} from '~common/util'
 //    import loop from '~/common/canvas'
 
     export default {
@@ -327,17 +326,7 @@
             }
         },
         filters: {
-            formateCoinType: (type = '2001') => {
-                type = type.toString()
-                switch (type) {
-                case '2001':
-                    return 'ETH'
-                case '1001':
-                    return 'BTC'
-                default:
-                    return 'ETH'
-                }
-            }
+            formateCoinType
         },
         mounted(){
 

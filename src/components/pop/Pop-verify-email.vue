@@ -19,7 +19,7 @@
             </form>
             <div class="forgetpsw"></div>
         </div>
-        <div class="pop-bottom" style="visibility: hidden">
+        <div class="pop-bottom" :class="{'hideVisibily':isLog}">
             <p class="js_isLogOut">Already Have Account？
                 <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">Sign In</a>
             </p>
@@ -72,6 +72,9 @@
             emailBackTime() {
                 return this.$store.state.pop.emailBackTime
             },
+            isLog(){
+                return this.$store.state.isLog
+            },
             show: {
                 set: function (isShow) {
                     if (!!isShow === true) {
@@ -94,6 +97,9 @@
     .pop-verify-email .icon-email {
         width: 64px;
         height: 48px;
+    }
+    .hideVisibily{
+        visibility: hidden
     }
 </style>
 
