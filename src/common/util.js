@@ -134,6 +134,8 @@ export function format_match (match) {
         return 'C4'
     case '1105':
         return 'C5'
+    default:
+        return 'jackpot'
     }
 }
 

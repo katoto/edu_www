@@ -30,7 +30,7 @@
             <!--  往期开奖  -->
             <div class="pre-numberBox">
                 <div class="pre-number tab js_tab">
-                    <el-tabs v-model="activeName">
+                    <el-tabs v-model="activeName" @tab-click="handleRecentWin">
                         <el-tab-pane label="Recent Bets" name="Bets">
                             <div class="prenum-table">
                                 <table>
@@ -102,15 +102,15 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.bettype === '11051'}">
+                                    <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.bettype === 'jackpot'}">
                                         <!--icon-jackpot-->
-                                        <td>
+                                        <td :class="{'icon-jackpot':data.bettype == 'jackpot'}">
                                             {{data.uid}}
                                         </td>
                                         <td>
                                             {{data.expectid}}
                                         </td>
-                                        <td :class="{'icon-jackpot':data.bettype === '11051'}">
+                                        <td>
                                             {{data.bettype}}
                                         </td>
                                         <td v-html="data.betcode">
@@ -473,9 +473,6 @@
                     })
                 }
             },
-            testPlay () {
-                console.log(this.playArea)
-            },
             fixNav () {
                 // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
                 if (this.scroll >= 90) {
@@ -545,7 +542,16 @@
                         })
                     }
                 }
+            },
+            getRecentWinsList(){
+                return this.$store.dispatch('aTypes.getRecentWinsList')
+            },
+            handleRecentWin(tab) {
+                if(tab.label === 'Recent Wins'){
+
+                }
             }
+
         },
         components: {
             Footer,
@@ -566,26 +572,7 @@
                     return 'ETH'
                 }
             },
-            format_match: (match) => {
-                if (isNaN(match)) {
-                    return ''
-                }
-                match = match.toString()
-                switch (match) {
-                case '1101':
-                    return 'C1'
-                case '1102':
-                    return 'C2'
-                case '1103':
-                    return 'C3'
-                case '1104':
-                    return 'C4'
-                case '1105':
-                    return 'C5'
-                case '11051':
-                    return 'Jackpot'
-                }
-            },
+            format_match,
             formatTime: (time, format) => {
                 if (format === undefined || format == null) {
                     format = 'MM-dd HH:mm:ss'
@@ -643,8 +630,13 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
+
+
+//            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
+            let dataRecentWinsList = await this.getRecentWinsList()
             this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
+
+
             if (!(this.socket && this.socket.sock)) {
                 this.$store.dispatch('initWebsocket')
             }
@@ -1257,7 +1249,8 @@
         }
         .icon-jackpot {
             &::after {
-                right: 10px;
+                top:15px;
+                right: 0;
             }
         }
     }
