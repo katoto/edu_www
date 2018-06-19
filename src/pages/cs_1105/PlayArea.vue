@@ -88,7 +88,7 @@
             </p>
             <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
         </div>
-        <span class="line js_line">Ticket {{ areaMsg.pickType }}</span>
+        <span class="line js_line" >Ticket {{ currIndex + 1 }}</span>
         <ul class="number-box" v-if="areaMsg" @click="lineNumClick">
             <li v-for="(number,index) in playList" :data-flag="(index+1)" class="on"
                 v-if="areaMsg.pickNum && areaMsg.pickNum.indexOf( number ) > -1">{{ number }}

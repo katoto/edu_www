@@ -45,24 +45,23 @@
                                         <th>Prize Amount</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="recentBet.length>0" id="tabody-betlist"
-                                           class="tabody-betlist newRecord">
-                                    <tr v-for="item in recentBet" :data-oid="item.oid"
-                                        :class="{'newRecord':item.addNewRecord}">
-                                        <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
-                                        <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
-                                        <td>{{ item.expectid }}</td>
-                                        <td>{{ item.bettype | format_match }}</td>
-                                        <td>
-                                            <ul class="num-box" v-html="item.openCodeVal">
-                                            </ul>
-                                        </td>
-                                        <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
-                                        </td>
-                                        <td class="js_resultDom" v-html="item.newTbody">
+                                    <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
+                                        <tr v-for="item in recentBet" :data-oid="item.oid" :class="{'newRecord':item.addNewRecord}">
+                                            <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
+                                            <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
+                                            <td>{{ item.expectid }}</td>
+                                            <td>{{ item.bettype | format_match }}</td>
+                                            <!--icon-jackpot-->
+                                            <td class="">
+                                                <ul class="num-box" v-html="item.openCodeVal">
+                                                </ul>
+                                            </td>
+                                            <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
+                                            </td>
+                                            <td class="js_resultDom" v-html="item.newTbody">
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -103,7 +102,8 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    <tr v-for="data in DataWinnerList">
+                                    <tr v-for="(data, index) in DataWinnerList" :key="index">
+                                        <!--icon-jackpot-->
                                         <td>
                                             {{data.uid}}
                                         </td>
@@ -276,7 +276,6 @@
                 <img src="@assets/img/worldCup/enterIcon-worldCup.png"/>
             </a>
         </div>
-        <button @click="leaveRoute">离开页面</button>
         <Footer></Footer>
     </div>
 </template>
@@ -446,7 +445,7 @@
                             type: 'error'
                         })
                         // 震动 报错
-                        //	                    js_playArea-li
+                        // js_playArea-li
                         noCompleteIndex.forEach((val, index) => {
                             if (document.querySelectorAll('.play-area-items .js_playArea-li')[val]) {
                                 document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li'
@@ -458,8 +457,8 @@
                 }
 
                 // 未激活 ？  这个也有问题  在弄个弹窗吧
-                //				this.$store.commit('emailBackTime', 0)
-                //				this.$store.commit('showVerifyEmail')
+                // this.$store.commit('emailBackTime', 0)
+                // this.$store.commit('showVerifyEmail')
             },
             addTicket () {
                 /* 添加 */
@@ -474,9 +473,6 @@
             },
             testPlay () {
                 console.log(this.playArea)
-            },
-            leaveRoute () {
-                this.$router.push('/account')
             },
             fixNav () {
                 // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
@@ -513,7 +509,7 @@
                         console.log(mailBack)
                         if (mailBack && mailBack.status === '100') {
                             if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
-                                //		                        显示第一次邀请
+                                // 显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
                             } else {
                                 this.$store.commit('showFirstLogin', false)
@@ -537,7 +533,7 @@
                         })
                         this.$store.commit('showResetPwd')
                         // 修改密码的时候，清楚ck
-                        removeCk()
+                        removeCK()
                     }
                     if (query.inviter) {
                         // 邀请
@@ -1259,7 +1255,7 @@
         }
         .icon-jackpot {
             &::after {
-                margin-left: 50px;
+                right: 10px;
             }
         }
     }
@@ -1565,5 +1561,6 @@
             transform: scale3d(1, 1, 1)
         }
     }
+
 
 </style>

@@ -12422,3 +12422,10 @@
     -ms-flex-negative: 0;
     flex-shrink: 0
 }
+.el-table__empty-block{
+    text-align: center;
+    line-height:40px;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 14px;
+    color: #778ca3;
+}

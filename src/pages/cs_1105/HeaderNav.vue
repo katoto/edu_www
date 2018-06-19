@@ -5,10 +5,6 @@
             <h2 class="logo11to5">
                 Lucky11
             </h2>
-            <p class="jackpot hide">
-                <span>JACKPOT&nbsp;&nbsp;</span>
-                <i id="js_jackpotM">0</i>
-            </p>
             <div class="lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
                 <p>Draw History</p>
                 <span id="js_lastDrawNumber">NO.{{ last_expectid }}</span>
@@ -41,9 +37,10 @@
                     <i :class="{'jump5': parseFloat( timeLeft )<= 10 }">{{ timeLeft }}’</i>
                 </div>
             </div>
-        </div>
-        <div>
-            奖池{{ poolAmount }}
+            <p class="jackpot2 ">
+                <span>JACKPOT&nbsp;&nbsp;</span>
+                <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount | formateBalance }}</i>
+            </p>
         </div>
     </div>
 </template>
@@ -99,6 +96,31 @@
         },
         mounted () {
             this.getHistoryDraw()
+        },
+        filters: {
+            formateBalance: (val = 0) => {
+                var newEth = null
+                if (isNaN(val) || isNaN(Number(val))) {
+                    console.error('formateBalance error' + val)
+                    return 0
+                }
+                val = Number(val)
+                if (val > 10000000) {
+                    newEth = (val / 100000000).toFixed(1) + '亿'
+                } else if (val > 100000) {
+                    newEth = (val / 10000).toFixed(1) + '万'
+                } else if (val > 1000) {
+                    newEth = parseFloat(val.toFixed(0))
+                } else if (val > 100) {
+                    newEth = val.toFixed(3)
+                } else if (val > 10) {
+                    newEth = val.toFixed(4)
+                } else {
+                    newEth = val.toFixed(5)
+                    // 如果需要去掉零 用parseFloat(  )
+                }
+                return newEth
+            }
         }
     }
 </script>
@@ -328,4 +350,30 @@
             opacity: 0;
         }
     }
+.jackpot2{
+    float: left;
+    margin-left:200px;
+    font-family:sans-eb;
+    color: #f6b543;
+    *{
+        float: left;
+    }
+    span{
+        font-size:20px;
+    }
+    i{
+        position: relative;
+        padding-left: 26px;
+        font-size:36px;
+        &::before{
+            content: '';
+            position: absolute;
+            left:0;
+            top:20px;
+            background-image:url("../../assets/slice/logo-btc.png");
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
 </style>
