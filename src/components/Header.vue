@@ -92,7 +92,8 @@
                             <a href="javascript:;" class="btn-cash">Withdraw</a>
                         </router-link>
                         </div>
-                        <div class="mycount" @mouseover="slideDown = true" @mouseout="slideDown = false">
+                        <!--slideDown = true-->
+                        <div class="mycount" @mouseover="showUserMsg" @mouseout="slideDown = false">
                             <div class="countNum">
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
 
@@ -265,6 +266,10 @@
         methods: {
             formateEmail,
             formateBalance,
+            showUserMsg(){
+                this.slideDown = true;
+                this.$store.dispatch('getUserInfo')
+            },
             async getFaucet () {
                 // 领取邀请奖励
                 if (this.loginSucc && this.loginSucc.tasks.length > 0) {
