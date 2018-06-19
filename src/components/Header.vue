@@ -151,7 +151,7 @@
             </div>
 
             <!--jackpot-->
-            <div class="jackpot hide">
+            <div class="jackpot ">
                 <div class="jackpot-box">
                     <p>Congratulations to&nbsp;</p>
                     <p class="jackpot-add">1234567</p>
@@ -160,7 +160,7 @@
                     <p>,&nbsp;</p>
                     <p class="jackpot-money "> Win <i>5.55</i>ETH</p>
                 </div>
-                <canvas id="canvas"></canvas>
+                <canvas id="canvas" ref="canvas"></canvas>
             </div>
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
@@ -223,6 +223,7 @@
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
     import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateEmail} from '~common/util'
+//    import loop from '~/common/canvas'
 
     export default {
         components: {PopList, Banner},
@@ -327,6 +328,9 @@
                     return 'ETH'
                 }
             }
+        },
+        mounted(){
+
         }
     }
 

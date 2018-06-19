@@ -207,7 +207,7 @@ function createParticles(x, y) {
 }
 
 // main demo loop
-export function loop() {
+function loop() {
     // this function will run endlessly with requestAnimationFrame
     requestAnimFrame(loop);
 
@@ -288,4 +288,4 @@ export function loop() {
 // });
 
 // once the window loads, we are ready for some fireworks!
-window.onload = loop;
+// window.onload = loop;
