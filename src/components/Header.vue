@@ -101,11 +101,13 @@
                                 <div v-if="loginSucc || showFirstLogin">
                                     <span
                                         :class="{'blinking2': ( showFirstLogin )||( loginSucc.login_times == '1' && loginSucc.invite_status == '0')||(showInviteSuccFlag)  }"
-                                        v-for="account in userInfo.accounts">{{ formateBalance( account.balance )}}
+                                        v-for="(account, index) in userInfo.accounts"
+                                        :key="index">
+                                        {{ formateBalance( account.balance )}}
                                     </span> ETH<i></i>
                                 </div>
                                 <div v-else>
-                                    <span v-for="account in userInfo.accounts">{{ formateBalance( account.balance ) }}</span> ETH<i></i>
+                                    <span v-for="(account, index) in userInfo.accounts" :key="index">{{ formateBalance( account.balance ) }}</span> ETH<i></i>
                                 </div>
                             </div>
                             <div id="mycount-detailed" class="mycount-detailed slide" :class="{ 'slide-show': slideDown }">
@@ -121,7 +123,7 @@
                                     <div class="wallet-balance">
                                         <p>Wallet Balance</p>
                                         <ul class="js_account_lis">
-                                            <li v-for="account in userInfo.accounts">
+                                            <li v-for="(account, index) in userInfo.accounts" :key="index">
                                                 <a href="javascript:;" class="btn-refresh"></a>
                                                 <span class="amount js_countNum">{{ formateBalance(account.balance) }}</span>
                                                 <span class="unit">{{ account.cointype | formateCoinType }}</span>
@@ -152,15 +154,14 @@
             </div>
 
             <!--jackpot-->
-            <div class="jackpot" v-if="jackPotMsg">
+            <div class="jackpot" :class="{hide: jackPotMsg === null}">
                 <div class="jackpot-box" >
-
                     <p>Congratulations to&nbsp;</p>
-                    <p class="jackpot-add">{{ jackPotMsg.txhash }}</p>
+                    <p class="jackpot-add">{{ (jackPotMsg && jackPotMsg.txhash) || '' }}</p>
                     <p>&nbsp;hit&nbsp;</p>
-                    <p class="jackpot-issue">{{ jackPotMsg.expectid }}</p>
+                    <p class="jackpot-issue">{{ (jackPotMsg && jackPotMsg.expectid) || '' }}</p>
                     <p>,&nbsp;</p>
-                    <p class="jackpot-money "> Win <i>{{ jackPotMsg.prize }}</i>ETH</p>
+                    <p class="jackpot-money "> Win <i>{{ (jackPotMsg && jackPotMsg.prize) || '' }}</i>ETH</p>
                 </div>
                 <canvas id="canvas" ref="canvas"></canvas>
             </div>
@@ -226,7 +227,7 @@
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
     import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateEmail} from '~common/util'
-//    import loop from '~/common/canvas'
+    import startCanvas from '~/common/canvas'
 
     export default {
         components: {PopList, Banner},
@@ -263,8 +264,8 @@
         methods: {
             formateEmail,
             formateBalance,
-            showUserMsg(){
-                this.slideDown = true;
+            showUserMsg () {
+                this.slideDown = true
                 this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
@@ -309,7 +310,7 @@
                     this.$store.commit('showFaucet')
                     // 关闭第一个弹窗 ?
                     this.$store.commit('showFirstLogin', false)
-                    //				this.$store.commit('setLoginSucc', null);
+                    // this.$store.commit('setLoginSucc', null);
                 }
             },
             showDetailFn () {
@@ -339,12 +340,10 @@
                 }
             }
         },
-        mounted(){
-
+        mounted () {
+            startCanvas(this.$refs.canvas)()
         }
     }
-
-
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
