@@ -255,6 +255,7 @@ qweqeqeqeq123@www.bccto.me<template>
         watch: {},
         computed: {
             jackPotMsg () {
+                console.log(this.$store.state.cs_1105.jackPotMsg)
                 return this.$store.state.cs_1105.jackPotMsg
             },
             inviteTips () {
