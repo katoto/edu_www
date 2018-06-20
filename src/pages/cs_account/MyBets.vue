@@ -261,9 +261,7 @@ export default {
   display: table;
   margin: 20px auto 30px;
 }
-    .betting{
-        .icon-jackpot{
-            right: -14px;
-        }
-    }
+table .icon-jackpot::after, table.dataTable .icon-jackpot::after{
+    right: -14px !important;
+}
 </style>
