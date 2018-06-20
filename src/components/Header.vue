@@ -164,7 +164,7 @@ qweqeqeqeq123@www.bccto.me<template>
             <div class="jackpot" :class="{hide: jackPotMsg === null}">
                 <div class="jackpot-box" >
                     <p>Congratulations to&nbsp;</p>
-                    <p class="jackpot-add">{{ (jackPotMsg && jackPotMsg.txhash) || '' }}</p>
+                    <p class="jackpot-add">{{ (jackPotMsg && jackPotMsg.uid) || '' }}</p>
                     <p>&nbsp;hit&nbsp;</p>
                     <p class="jackpot-issue">{{ (jackPotMsg && jackPotMsg.expectid) || '' }}</p>
                     <p>,&nbsp;</p>
