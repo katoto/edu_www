@@ -1,5 +1,5 @@
 import ajax, {sockURL} from '~common/ajax'
-import {src, getCK, platform, tipsTime, removeCK} from '~common/util'
+import { tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 

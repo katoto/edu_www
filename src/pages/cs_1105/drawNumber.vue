@@ -140,8 +140,8 @@
     </div>
 </template>
 <script>
-    import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-    import {src, platform, tipsTime, ethUrl} from '~common/util'
+    import {aTypes} from '~/store/cs_page/cs_1105'
+    import { ethUrl} from '~common/util'
 
     import Header from '~/components/Header.vue'
     import Footer from '~/components/Footer.vue'
@@ -233,7 +233,7 @@
                         // opentime
                         val.opentime = this.format_time(val.opentime, 'MM-dd HH:mm:ss')
 
-                        if (val.expect_status == '4' || val.expect_status == '5') {
+                        if (val.expect_status.toString() === '4' || val.expect_status.toString() === '5') {
                             if (val.opencode === null) {
                                 val.opencode = '0,0,0,0,0'
                             }
