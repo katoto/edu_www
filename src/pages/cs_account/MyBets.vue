@@ -65,7 +65,7 @@
                 <el-table-column
                         align="center"
                         header-align="center"
-                        width="160"
+                        width="170"
                         label="Number">
                     <template slot-scope="scope">
                         <div v-html="scope.row.betcodeVal"></div>
@@ -265,4 +265,9 @@ export default {
   display: table;
   margin: 20px auto 30px;
 }
+    .betting{
+        .icon-jackpot{
+            right: -14px;
+        }
+    }
 </style>
