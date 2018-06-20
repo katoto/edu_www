@@ -281,6 +281,17 @@
         </div>
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
+        <!-- 世界杯弹窗 -->
+        <div class="pop pop-world" :class="{'hide':!showPopWorld}">
+            <div class="contain">
+                <a href="javascript:;" @click="showPopWorld=false" class="close">close</a>
+                <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
+                <a href="./coinslot/html/worldCup.html" class="btn-join js_jump2WorldCup">
+                    Join Now
+                </a>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -297,6 +308,8 @@
     export default {
         data () {
             return {
+                showPopWorld: false,
+
                 showOrderSucc: false,
                 showOrderFail: false,
                 failureMsg: '* *',
@@ -635,6 +648,12 @@
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
 
+            // 首页世界杯弹窗
+            if (localStorage.getItem('js_showWorldCup') !== new Date().getDate().toString()) {
+                this.showPopWorld = true
+                localStorage.setItem('js_showWorldCup', new Date().getDate())
+            }
+
             // 首页 冒泡效果
             bgStarBox()
             function bgStarBox () {
@@ -671,6 +690,12 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
+    .close::after{
+        width: 32px;
+        height: 32px;
+        // todo
+        background-repeat: no-repeat;
+    }
     //index
     .main {
         position: relative;

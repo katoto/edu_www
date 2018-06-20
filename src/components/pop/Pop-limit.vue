@@ -120,6 +120,8 @@
                     return 'C4'
                 case '1105':
                     return 'C5'
+                case '11051':
+                    return 'Super 5'
                 }
             },
             format_class (value) {
@@ -137,6 +139,8 @@
                 case '1104':
                     return 'num-boxc4'
                 case '1105':
+                    return 'num-boxc5'
+                case '11051':
                     return 'num-boxc5'
                 }
             }
