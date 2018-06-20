@@ -71,7 +71,6 @@
                 </router-link>
                 <a href="worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
-                    <!--<i></i>-->
                     <span>English</span>
                 </div>
                 <!-- 登录  -->
@@ -96,7 +95,6 @@
                         <div class="mycount" @mouseover="showUserMsg" @mouseout="slideDown = false">
                             <div class="countNum">
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
-
                                 <!---->
                                 <div v-if="loginSucc || showFirstLogin">
                                     <span
