@@ -11,7 +11,7 @@
                     <li data-index="4">Pick 4</li>
                     <li data-index="5">Pick 5</li>
                     <li data-index="5J" class="es">
-                        (JACKPOT)
+                        Super 5
                         <!--<p>Pick 5</p>-->
                         <!--<p></p>-->
                     </li>
@@ -39,8 +39,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            C5<br>
-                                            <i>( jackpot )</i>
+                                            Super 5
                                         </td>
                                         <td>
                                             Pick 5 number according to the order number order exactly<br>

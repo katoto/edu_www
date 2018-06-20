@@ -41,7 +41,7 @@ const state = {
     mybets: [], // mybets数据
     mybetCount: 0,
 
-    poolAmount: 20, // 奖池
+    poolAmount: 1, // 奖池
     poolRatio: null, //  奖池比例
     jackPotMsg: null // 奖池信息 中奖池
 }
