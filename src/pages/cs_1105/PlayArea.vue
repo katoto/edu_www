@@ -441,7 +441,7 @@
     }
 
     .pop-rewardTable.rewardTable {
-        max-height: 1000px;
+        max-height: 400px;
         overflow: visible;
     }
 </style>

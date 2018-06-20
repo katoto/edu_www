@@ -24,8 +24,11 @@
                     <span>Total Pay</span>
                     <p class="total-pay ">{{ totalPay }} ETH</p>
                 </div>
-                <div id="stars1" class="stars"></div>
-                <div id="stars2" class="stars"></div>
+                <!--背景泡泡-->
+                <div class="star-box">
+                    <div id="stars1" class="stars"></div>
+                    <div id="stars2" class="stars"></div>
+                </div>
             </div>
             <!--  往期开奖  -->
             <div class="pre-numberBox">
@@ -670,7 +673,7 @@
             }
             function bgstar (id, num, color) {
                 var _width = window.innerWidth,
-                    _height = document.getElementById('play-area').clientHeight * 5,
+                    _height = document.getElementById('play-area').clientHeight*5,
                     count = num,
                     str = '',
                     str1 = ''
@@ -717,7 +720,7 @@
     //玩法区
     .play-area {
         position: relative;
-        z-index: 5;
+        z-index: 6;
         padding-bottom: 40px;
         color: #778ca3;
         background: #5068bc;
@@ -1287,12 +1290,6 @@
         tr.jackpot {
             background: #fff3e1;
         }
-        .icon-jackpot {
-            &::after {
-                top:15px;
-                right: 0;
-            }
-        }
     }
 
     .winner-list, .prenum-table {
@@ -1642,6 +1639,15 @@
             transform: translate3d(10px,0,0)
         }
     }
+    .star-box{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        overflow: hidden;
+        z-index:-1;
+    }
     .stars {
         position: absolute;
         left: 0;
@@ -1649,7 +1655,7 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        z-index: 1;
+        z-index: 6;
     }
     #stars1 {
         animation: animStar 100s linear infinite;
