@@ -786,10 +786,14 @@
             }
         }
         .limit-tips {
+            display: block;
             margin-right: 100px;
             float: right;
             font-size: 12px;
             text-transform: capitalize;
+            /*safri bug*/
+            width:110px;
+            text-align: right;
         }
         .play-area-items {
             position: relative;
@@ -1078,6 +1082,8 @@
                 position: absolute;
                 right: 18px;
                 line-height: 17px;
+                text-align: right;
+                width:100px;
             }
             span {
                 top: 18px;
@@ -1255,6 +1261,9 @@
             bottom: 30px;
             font-size: 12px;
             color: #778ca3;
+            /*safriy bug*/
+            width:100px;
+            right:32px;
         }
     }
 

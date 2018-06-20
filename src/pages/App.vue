@@ -52,6 +52,5 @@
         font: 14px/20px sans-r;
         color: #263648;
         overflow: hidden;
-        font-family: sans-r;
     }
 </style>
