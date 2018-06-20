@@ -21,7 +21,7 @@
                             <span class="date fl">
                                 NO.{{bet.expectid}}
                             </span>
-                            <span class="type fr bold">
+                            <span class="type fr bold" :class="{'green':(bet.opencode && bet.opencode !== '')}">
                                 {{formatResult(bet)}}
                             </span>
                         </div>

@@ -33,7 +33,7 @@ const state = {
         inviterObj: null, // 邀请接收
 
         // loginSucc: null,  // 登陆成功后的数据
-        showFirstLogin: false, // 邀请用（激活处）
+        showFirstLogin: true, // 邀请用（激活处）
         loginSucc: { //  登陆
             login_times: '331', // 用户信息的地方没有这个字段
             invite_status: '0',

@@ -1524,6 +1524,9 @@
                 border-left: 1px solid #778ca3;
             }
         }
+        .green{
+            color: #12DF73 !important;
+        }
     }
 
     .flipInY {
