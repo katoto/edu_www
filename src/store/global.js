@@ -232,6 +232,10 @@ const actions = {
                             // mybet 弹窗
                             dispatch('cs_1105/updateMyBets')
                             dispatch('cs_1105/updateHistoryDraw')
+
+                            // 更新用户信息
+                            dispatch('getUserInfo')
+
                             break
                         case '1004':
                             /* 投注推送  和 更新 my bet todo  */

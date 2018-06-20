@@ -141,7 +141,7 @@ export default {
     },
     methods: {
         isJackPot ({columnIndex, row}) {
-            if (columnIndex === 4 && row.bettypeNum === '11051' && parseFloat(row.betprize) > 0) {
+            if (columnIndex === 4 && row.win_jackpot === '1') {
                 return 'icon-jackpot'
             }
             return ''

@@ -105,9 +105,9 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.bettype === 'jackpot'}">
+                                    <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.win_jackpot === '1'}">
                                         <!--icon-jackpot-->
-                                        <td :class="{'icon-jackpot':data.bettype == 'jackpot'}">
+                                        <td :class="{'icon-jackpot':data.win_jackpot == '1'}">
                                             {{data.uid}}
                                         </td>
                                         <td>
@@ -673,7 +673,7 @@
             }
             function bgstar (id, num, color) {
                 var _width = window.innerWidth,
-                    _height = document.getElementById('play-area').clientHeight*5,
+                    _height = document.getElementById('play-area').clientHeight * 5,
                     count = num,
                     str = '',
                     str1 = ''

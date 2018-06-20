@@ -265,7 +265,7 @@ qweqeqeqeq123@www.bccto.me<template>
             formateBalance,
             showUserMsg () {
                 this.slideDown = true
-            // this.$store.dispatch('getUserInfo')
+                this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
                 // 领取邀请奖励
