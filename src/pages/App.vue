@@ -5,7 +5,6 @@
         <PopIpLimit></PopIpLimit>
         <!-- 全局free -->
         <PopFreeplay></PopFreeplay>
-
     </div>
 </template>
 
@@ -31,7 +30,6 @@
                 let userMsg = await this.$store.dispatch('getUserInfo')
                 if (userMsg && userMsg.status.toString() === '100') {
                     this.$store.commit('setIsLog', true)
-                    this.$store.commit('setUserInfo', userMsg.data)
                 }
             } else {
                 this.$store.commit('setIsLog', false)
@@ -54,6 +52,5 @@
         font: 14px/20px sans-r;
         color: #263648;
         overflow: hidden;
-        font-family: sans-r;
     }
 </style>

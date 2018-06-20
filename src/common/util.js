@@ -137,7 +137,7 @@ export function format_match (match) {
     case '1105':
         return 'C5'
     default:
-        return 'jackpot'
+        return 'Super 5'
     }
 }
 

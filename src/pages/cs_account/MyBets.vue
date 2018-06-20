@@ -141,7 +141,7 @@ export default {
     },
     methods: {
         isJackPot ({columnIndex, row}) {
-            if (columnIndex === 4 && row.bettypeNum === '11051' && parseFloat(row.betprize) > 0) {
+            if (columnIndex === 4 && row.win_jackpot === '1') {
                 return 'icon-jackpot'
             }
             return ''
@@ -189,11 +189,7 @@ export default {
                     if (!val.txhash || val.orderstatus !== '2') {
                         val.txhash = '-'
                     }
-                    if (val.txhash === '-') {
-                        val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
-                    } else {
-                        val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
-                    }
+                    val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
                     //    number 处理
                     let luckyNumArr = []
                     let betNumStr
@@ -265,9 +261,7 @@ export default {
   display: table;
   margin: 20px auto 30px;
 }
-    .betting{
-        .icon-jackpot{
-            right: -14px;
-        }
-    }
+table .icon-jackpot::after, table.dataTable .icon-jackpot::after{
+    right: -14px !important;
+}
 </style>

@@ -35,7 +35,7 @@ const state = {
         // loginSucc: null,  // 登陆成功后的数据
         showFirstLogin: false, // 邀请用（激活处）
         loginSucc: { //  登陆
-            login_times: '331', // 用户信息的地方没有这个字段
+            login_times: '0', // 用户信息的地方没有这个字段
             invite_status: '0',
             invite_prize_chances: 2,
             tasks: []
@@ -206,7 +206,7 @@ const actions = {
         try {
             let InfoData
             if (pageData) {
-                InfoData = await ajax.get(`/user/mail/validate?email=${pageData}&src=${src}&platform=${platform}`)
+                InfoData = await ajax.get(`/user/mail/validate?email=${pageData}`)
             }
             console.log(InfoData)
             if (InfoData.status === '100') {

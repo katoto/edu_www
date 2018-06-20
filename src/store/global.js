@@ -1,5 +1,5 @@
 import ajax, {sockURL} from '~common/ajax'
-import {src, getCK, platform, tipsTime, removeCK} from '~common/util'
+import { tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 
@@ -112,6 +112,8 @@ const actions = {
                         freez: '0.0'
                     })
                 }
+
+                commit('setUserInfo', userMsg.data)
                 // 邀请 活动
                 // userMsg.data.tasks = [{
                 // 	"tid": 1,
@@ -121,7 +123,7 @@ const actions = {
                 // }];
                 let newTask = []
                 userMsg.data.tasks.forEach((val, index) => {
-                    if (val.subtype == '2' && val.taskstatus == '0') {
+                    if (val.subtype.toString() === '2' && val.taskstatus.toString() === '0') {
                         newTask.push(val)
                     }
                 })
@@ -230,6 +232,10 @@ const actions = {
                             // mybet 弹窗
                             dispatch('cs_1105/updateMyBets')
                             dispatch('cs_1105/updateHistoryDraw')
+
+                            // 更新用户信息
+                            dispatch('getUserInfo')
+
                             break
                         case '1004':
                             /* 投注推送  和 更新 my bet todo  */

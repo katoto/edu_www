@@ -319,6 +319,7 @@ export default {
             }
             this.$store.dispatch('cs_account/getWithdrawApply', params)
                 .then(data => {
+                    this.$store.dispatch('getUserInfo')
                     data = data.data
                     if (data.drawid) {
                         this.showTransferSucc = true
@@ -332,7 +333,6 @@ export default {
                     this.transferMsg = data.message
                 })
             this.showTransfer = false
-            this.$store.dispatch('getUserInfo')
         },
         checkMaximum () {
             if (this.userInfo && this.userInfo.accounts) {

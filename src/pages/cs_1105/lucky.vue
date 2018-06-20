@@ -24,8 +24,11 @@
                     <span>Total Pay</span>
                     <p class="total-pay ">{{ totalPay }} ETH</p>
                 </div>
-                <div id="stars1" class="stars"></div>
-                <div id="stars2" class="stars"></div>
+                <!--背景泡泡-->
+                <div class="star-box">
+                    <div id="stars1" class="stars"></div>
+                    <div id="stars2" class="stars"></div>
+                </div>
             </div>
             <!--  往期开奖  -->
             <div class="pre-numberBox">
@@ -102,9 +105,9 @@
                                         </span>
                                         </td>
                                     </tr>
-                                    <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.bettype === 'jackpot'}">
+                                    <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.win_jackpot === '1'}">
                                         <!--icon-jackpot-->
-                                        <td :class="{'icon-jackpot':data.bettype == 'jackpot'}">
+                                        <td :class="{'icon-jackpot':data.win_jackpot == '1'}">
                                             {{data.uid}}
                                         </td>
                                         <td>
@@ -277,7 +280,7 @@
             </a>
         </div>
         <Footer></Footer>
-        <div style="z-index: 100" class="loading"></div>
+        <div style="z-index: 100" id="jsLoading" class="loading"></div>
     </div>
 </template>
 
@@ -315,8 +318,8 @@
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用
                 }], // 玩法区 数组,
-                jackpot:false,
-                'icon-jackpot':false
+                jackpot: false,
+                'icon-jackpot': false
 
             }
         },
@@ -378,9 +381,7 @@
                 if (~js_startBetBtn.className.indexOf('unable')) {
                     return false
                 }
-                // 投注下单
-                // 出现loading
-                //                document.getElementById('js_loading').className = '';
+
                 // 未登录 的情况
                 if (!this.isLog) {
                     this.$store.commit('showLoginPop')
@@ -392,7 +393,22 @@
                     return false
                 }
 
-                // 选号是否完成？
+                // 判断 余额是否足
+                if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
+                    Message({
+                        message: 'Your balance is insufficient, please top up',
+                        type: 'error'
+                    })
+                    setTimeout(() => {
+                        this.$router.push('/account/deposit')
+                    }, 3000)
+                    return false
+                }
+
+                // 出现loading
+                document.getElementById('jsLoading').style.display = 'block'
+
+                // 选号是否完成
                 if (this.playArea) {
                     let noComplete = []
                     let noCompleteIndex = []
@@ -410,11 +426,12 @@
                         let errorResArr = []
                         if (orderMsg && orderMsg.status.toString() === '100') {
                             this.$store.dispatch('cs_1105/updateMyBets')
+                            this.$store.dispatch('getUserInfo')
                             if (orderMsg.data.restricts.length === 0) {
                                 // 全部成功订单
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
-                                        val.pickNum = [],
+                                        val.pickNum = []
                                         val.pickJackPot = []
                                     })
                                 }, 1000)
@@ -428,7 +445,7 @@
                                 this.showOrderFail = true
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
-                                        val.pickNum = [],
+                                        val.pickNum = []
                                         val.pickJackPot = []
                                     })
                                 }, 1000)
@@ -442,6 +459,7 @@
                                 this.showOrderFail = true
                             }
                         }
+                        document.getElementById('jsLoading').style.display = 'none'
                     } else {
                         Message({
                             message: 'Please pick correct numbers in ' + noComplete.join('&&'),
@@ -455,13 +473,14 @@
                                 document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li error-shake'
                             }
                         })
+                        document.getElementById('jsLoading').style.display = 'none'
                         setTimeout(() => {
                             noCompleteIndex.forEach((val, index) => {
                                 if (document.querySelectorAll('.play-area-items .js_playArea-li')[val]) {
                                     document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li'
                                 }
                             })
-                        }, 1000)
+                        }, 800)
                     }
                     // 动画 socket
                 }
@@ -553,9 +572,9 @@
                     }
                 }
             },
-            async handleRecentWin(tab) {
-                if(tab.label === 'Recent Wins'){
-                    let dataRecentWinsList =await this.$store.dispatch(aTypes.getRecentWinsList)
+            async handleRecentWin (tab) {
+                if (tab.label === 'Recent Wins') {
+                    let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
                     this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
                 }
             }
@@ -638,34 +657,33 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-//            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
-//            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
+            //            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
+            //            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
             if (!(this.socket && this.socket.sock)) {
                 this.$store.dispatch('initWebsocket')
             }
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
 
-
-            //首页 冒泡效果
-            bgStarBox();
-            function bgStarBox() {
-                bgstar('stars1', 30, '#7063c9');
-                bgstar('stars2', 10, '#fff');
+            // 首页 冒泡效果
+            bgStarBox()
+            function bgStarBox () {
+                bgstar('stars1', 30, '#7063c9')
+                bgstar('stars2', 10, '#fff')
             }
-            function bgstar(id, num, color) {
+            function bgstar (id, num, color) {
                 var _width = window.innerWidth,
                     _height = document.getElementById('play-area').clientHeight * 5,
                     count = num,
                     str = '',
                     str1 = ''
                 for (var i = 0; i < count; i++) {
-                    str += parseInt(Math.random() * _width) + 'px ';
-                    str += parseInt(Math.random() * _height) + 'px ';
-                    str += color + ',';
+                    str += parseInt(Math.random() * _width) + 'px '
+                    str += parseInt(Math.random() * _height) + 'px '
+                    str += color + ','
                 }
                 str1 = str.slice(0, -1)
-                document.getElementById(id).style.boxShadow=str1
+                document.getElementById(id).style.boxShadow = str1
             }
         },
         beforeRouteLeave (to, from, next) {
@@ -702,7 +720,7 @@
     //玩法区
     .play-area {
         position: relative;
-        z-index: 5;
+        z-index: 6;
         padding-bottom: 40px;
         color: #778ca3;
         background: #5068bc;
@@ -781,10 +799,14 @@
             }
         }
         .limit-tips {
+            display: block;
             margin-right: 100px;
             float: right;
             font-size: 12px;
             text-transform: capitalize;
+            /*safri bug*/
+            width:110px;
+            text-align: right;
         }
         .play-area-items {
             position: relative;
@@ -1073,6 +1095,8 @@
                 position: absolute;
                 right: 18px;
                 line-height: 17px;
+                text-align: right;
+                width:100px;
             }
             span {
                 top: 18px;
@@ -1250,6 +1274,9 @@
             bottom: 30px;
             font-size: 12px;
             color: #778ca3;
+            /*safriy bug*/
+            width:100px;
+            right:32px;
         }
     }
 
@@ -1271,12 +1298,6 @@
         text-align: center;
         tr.jackpot {
             background: #fff3e1;
-        }
-        .icon-jackpot {
-            &::after {
-                top:15px;
-                right: 0;
-            }
         }
     }
 
@@ -1543,6 +1564,9 @@
                 border-left: 1px solid #778ca3;
             }
         }
+        .green{
+            color: #12DF73 !important;
+        }
     }
 
     .flipInY {
@@ -1624,6 +1648,15 @@
             transform: translate3d(10px,0,0)
         }
     }
+    .star-box{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        overflow: hidden;
+        z-index:-1;
+    }
     .stars {
         position: absolute;
         left: 0;
@@ -1631,7 +1664,7 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        z-index: 1;
+        z-index: 6;
     }
     #stars1 {
         animation: animStar 100s linear infinite;

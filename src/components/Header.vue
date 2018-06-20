@@ -1,4 +1,4 @@
-<template>
+qweqeqeqeq123@www.bccto.me<template>
     <div>
         <Banner></Banner>
         <div class="head">
@@ -72,7 +72,6 @@
                 <a href="worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
                     <!--<i></i>-->
-                    <span class="hide">English</span>
                     <el-select v-model="languageVal" @change="handleLanguageChange" class="">
                         <el-option
                             v-for="item in languageOptions"
@@ -104,7 +103,6 @@
                         <div class="mycount" @mouseover="showUserMsg" @mouseout="slideDown = false">
                             <div class="countNum">
                                 <p class="add0001 hide js_addMoneyMove">+0.001 ETH</p>
-
                                 <!---->
                                 <div v-if="loginSucc || showFirstLogin">
                                     <span
@@ -152,8 +150,8 @@
 
                 <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
                 <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
-                   :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
-                   v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
+                   :class="{'over':loginSucc && ( loginSucc.invite_status !== '0' )}"
+                   v-if="isLog && userInfo && userInfo.status.toString() ==='1'">Faucet</a>
 
                 <!--拉新活动提示-->
                 <div class="act-sign right" v-if="!isLog">
@@ -235,7 +233,7 @@
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
 
-    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateCoinType, formateEmail} from '~common/util'
+    import { format_match_account, formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
 
     export default {
