@@ -277,6 +277,7 @@
             </a>
         </div>
         <Footer></Footer>
+        <div style="z-index: 100" class="loading"></div>
     </div>
 </template>
 
@@ -637,8 +638,8 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
-            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
+//            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
+//            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
             if (!(this.socket && this.socket.sock)) {
                 this.$store.dispatch('initWebsocket')
             }
