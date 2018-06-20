@@ -294,6 +294,7 @@ export default {
     methods: {
         formateBalance,
         handleStatusChange () {
+            this.pageno = 1
             this.handleCurrentChange()
         },
         closeTransferError () {

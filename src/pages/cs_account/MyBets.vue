@@ -25,6 +25,7 @@
                     stripe
                     size="small"
                     highlight-current-row
+                    :cell-class-name="isJackPot"
                     style="width: 100%">
                 <el-table-column
                         prop="bettime"
@@ -139,7 +140,14 @@ export default {
         }
     },
     methods: {
+        isJackPot ({columnIndex, row}) {
+            if (columnIndex === 4 && row.bettypeNum === '11051' && parseFloat(row.betprize) > 0) {
+                return 'icon-jackpot'
+            }
+            return ''
+        },
         handleStatusChange () {
+            this.pageno = 1
             this.handleCurrentChange()
         },
 
@@ -175,6 +183,7 @@ export default {
                 Msg.forEach((val, index) => {
                     // bettime
                     val.bettime = formatTime(val.bettime, 'yyyy-MM-dd HH:mm')
+                    val.bettypeNum = val.bettype
                     val.bettype = formatMatchAccount(val.bettype)
 
                     if (!val.txhash || val.orderstatus !== '2') {
