@@ -32,10 +32,10 @@
                         </ul>
                         <div class="bottom">
                             <span class="count fl bold">{{formateBalance(bet.betmoney)}}{{formateCoinType(bet.cointype)}}</span>
-                            <a class="add fr" :title="bet.txhash" target="blank" :href="`https://etherscan.io/tx/${bet.txhash}`">{{bet.txhash}}</a>
+                            <a class="add fr" :title="bet.txhash" target="blank" :href="`https://etherscan.io/block/${bet.blocknum}`">{{bet.txhash}}</a>
                         </div>
                     </li>
-                    <!-- 
+                    <!--
                     <li>
                         <div class="top">
                             <span class="date fl">

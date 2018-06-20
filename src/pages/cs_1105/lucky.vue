@@ -277,7 +277,7 @@
             </a>
         </div>
         <Footer></Footer>
-        <div style="z-index: 100" class="loading"></div>
+        <div style="z-index: 100" id="jsLoading" class="loading"></div>
     </div>
 </template>
 
@@ -315,8 +315,8 @@
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用
                 }], // 玩法区 数组,
-                jackpot:false,
-                'icon-jackpot':false
+                jackpot: false,
+                'icon-jackpot': false
 
             }
         },
@@ -378,9 +378,6 @@
                 if (~js_startBetBtn.className.indexOf('unable')) {
                     return false
                 }
-                // 投注下单
-                // 出现loading
-                //    document.getElementById('js_loading').className = '';
 
                 // 未登录 的情况
                 if (!this.isLog) {
@@ -392,6 +389,8 @@
                     this.$store.commit('showNoVerify')
                     return false
                 }
+                // 出现loading
+                document.getElementById('jsLoading').style.display = 'block'
 
                 // 选号是否完成？
                 if (this.playArea) {
@@ -411,11 +410,12 @@
                         let errorResArr = []
                         if (orderMsg && orderMsg.status.toString() === '100') {
                             this.$store.dispatch('cs_1105/updateMyBets')
+                            this.$store.dispatch('getUserInfo')
                             if (orderMsg.data.restricts.length === 0) {
                                 // 全部成功订单
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
-                                        val.pickNum = [],
+                                        val.pickNum = []
                                         val.pickJackPot = []
                                     })
                                 }, 1000)
@@ -429,7 +429,7 @@
                                 this.showOrderFail = true
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
-                                        val.pickNum = [],
+                                        val.pickNum = []
                                         val.pickJackPot = []
                                     })
                                 }, 1000)
@@ -443,6 +443,7 @@
                                 this.showOrderFail = true
                             }
                         }
+                        document.getElementById('jsLoading').style.display = 'none'
                     } else {
                         Message({
                             message: 'Please pick correct numbers in ' + noComplete.join('&&'),
@@ -456,13 +457,14 @@
                                 document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li error-shake'
                             }
                         })
+                        document.getElementById('jsLoading').style.display = 'none'
                         setTimeout(() => {
                             noCompleteIndex.forEach((val, index) => {
                                 if (document.querySelectorAll('.play-area-items .js_playArea-li')[val]) {
                                     document.querySelectorAll('.play-area-items .js_playArea-li')[val].className = 'js_playArea-li'
                                 }
                             })
-                        }, 1000)
+                        }, 800)
                     }
                     // 动画 socket
                 }
@@ -554,9 +556,9 @@
                     }
                 }
             },
-            async handleRecentWin(tab) {
-                if(tab.label === 'Recent Wins'){
-                    let dataRecentWinsList =await this.$store.dispatch(aTypes.getRecentWinsList)
+            async handleRecentWin (tab) {
+                if (tab.label === 'Recent Wins') {
+                    let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
                     this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
                 }
             }
@@ -639,8 +641,8 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-//            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
-//            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
+            //            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
+            //            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
             if (!(this.socket && this.socket.sock)) {
                 this.$store.dispatch('initWebsocket')
             }

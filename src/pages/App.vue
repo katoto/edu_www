@@ -31,7 +31,6 @@
                 let userMsg = await this.$store.dispatch('getUserInfo')
                 if (userMsg && userMsg.status.toString() === '100') {
                     this.$store.commit('setIsLog', true)
-                    this.$store.commit('setUserInfo', userMsg.data)
                 }
             } else {
                 this.$store.commit('setIsLog', false)

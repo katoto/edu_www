@@ -112,6 +112,8 @@ const actions = {
                         freez: '0.0'
                     })
                 }
+
+                commit('setUserInfo', userMsg.data)
                 // 邀请 活动
                 // userMsg.data.tasks = [{
                 // 	"tid": 1,

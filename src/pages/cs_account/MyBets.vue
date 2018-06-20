@@ -180,11 +180,7 @@ export default {
                     if (!val.txhash || val.orderstatus !== '2') {
                         val.txhash = '-'
                     }
-                    if (val.txhash === '-') {
-                        val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
-                    } else {
-                        val.jumpEthUrl = ethUrl + 'tx/' + val.txhash
-                    }
+                    val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
                     //    number 处理
                     let luckyNumArr = []
                     let betNumStr
