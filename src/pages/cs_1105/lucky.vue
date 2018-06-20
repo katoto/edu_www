@@ -379,7 +379,8 @@
                 }
                 // 投注下单
                 // 出现loading
-                //                document.getElementById('js_loading').className = '';
+                //    document.getElementById('js_loading').className = '';
+
                 // 未登录 的情况
                 if (!this.isLog) {
                     this.$store.commit('showLoginPop')
