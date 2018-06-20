@@ -71,7 +71,15 @@ qweqeqeqeq123@www.bccto.me<template>
                 </router-link>
                 <a href="worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
-                    <span>English</span>
+                    <!--<i></i>-->
+                    <el-select v-model="languageVal" @change="handleLanguageChange" class="">
+                        <el-option
+                            v-for="item in languageOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
                 <!-- 登录  -->
                 <div class="login">
@@ -226,7 +234,7 @@ qweqeqeqeq123@www.bccto.me<template>
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
 
-    import { format_match_account, formateBalance, formateCoinType, formateEmail} from '~common/util'
+    import { format_match_account, formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
 
     export default {
@@ -237,7 +245,18 @@ qweqeqeqeq123@www.bccto.me<template>
                 showEndFaucet: false, // 控制 结束弹窗 tips
                 showEndFaucetTime: null,
                 showInviteSuccFlag: false,
-                slideDown: false
+                slideDown: false,
+                languageVal: 'en',
+                languageOptions: [{
+                    value: 'en',
+                    label: 'English'
+                }, {
+                    value: 'zhCn',
+                    label: '中文简体'
+                }, {
+                    value: 'zhTw',
+                    label: '中文繁体'
+                }]
             }
         },
         watch: {},
@@ -264,6 +283,9 @@ qweqeqeqeq123@www.bccto.me<template>
         methods: {
             formateEmail,
             formateBalance,
+            handleLanguageChange (val) {
+                this.$store.commit('setLanguage', val)
+            },
             showUserMsg () {
                 this.slideDown = true
                 this.$store.dispatch('getUserInfo')
