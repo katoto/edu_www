@@ -72,7 +72,15 @@
                 <a href="worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
                     <!--<i></i>-->
-                    <span>English</span>
+                    <span class="hide">English</span>
+                    <el-select v-model="languageVal" @change="handleLanguageChange" class="">
+                        <el-option
+                            v-for="item in languageOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
                 <!-- 登录  -->
                 <div class="login">
@@ -238,7 +246,18 @@
                 showEndFaucet: false, // 控制 结束弹窗 tips
                 showEndFaucetTime: null,
                 showInviteSuccFlag: false,
-                slideDown: false
+                slideDown: false,
+                languageVal: 'en',
+                languageOptions: [{
+                    value: 'en',
+                    label: 'English'
+                }, {
+                    value: 'zhCn',
+                    label: '中文简体'
+                }, {
+                    value: 'zhTw',
+                    label: '中文繁体'
+                }]
             }
         },
         watch: {},
@@ -265,6 +284,9 @@
         methods: {
             formateEmail,
             formateBalance,
+            handleLanguageChange (val) {
+                this.$store.commit('setLanguage', val)
+            },
             showUserMsg () {
                 this.slideDown = true
                 this.$store.dispatch('getUserInfo')

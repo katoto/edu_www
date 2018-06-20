@@ -10,7 +10,8 @@
     "dev47": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.50.47",
     "dev19": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.50.19",
     "lint-fix": "eslint --ext .js,.vue src --fix",
-    "clean": "rimraf dist/*"
+    "clean": "rimraf dist/*",
+    "i18n": "node ./i18n.js"
   },
   "dependencies": {
     "axios": "^0.18.0",

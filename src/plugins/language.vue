@@ -1,7 +1,7 @@
 <script>
 // 以插件形式引入国际化组件
-import zhCn from '../lanaguage/zh-cn'
-import zhTw from '../lanaguage/zh-tw'
+import zhCn from '../language/zh-cn'
+import zhTw from '../language/zh-tw'
 const MyPlugin = {}
 const languagePackage = {
     zhCn,
