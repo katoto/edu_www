@@ -291,7 +291,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
-    import {src, platform, getCK, format_match, setCK, removeCK} from '~common/util'
+    import {src, platform, getCK, formateCoinType, format_match, formateBalance, setCK, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -522,8 +522,8 @@
                     msg.forEach((item, index) => {
                         item.bettype = format_match(item.bettype)
                         item.betcode = this.format_betCode(item.betcode)
-                        item.betmoney = parseFloat(item.betmoney).toFixed(5) + 'ETH'
-                        item.betprize = '<span class="win"><span>' + parseFloat(item.betprize).toFixed(5) + '</span>ETH</span>'
+                        item.betmoney = formateBalance(parseFloat(item.betmoney)) + 'ETH'
+                        item.betprize = '<span class="win"><span>' + formateBalance(parseFloat(item.betprize)) + '</span>ETH</span>'
                     })
                 }
                 return msg
@@ -588,18 +588,9 @@
             LuckyMybet
         },
         filters: {
-            formateCoinType: (type = '2001') => {
-                type = type.toString()
-                switch (type) {
-                case '2001':
-                    return 'ETH'
-                case '1001':
-                    return 'BTC'
-                default:
-                    return 'ETH'
-                }
-            },
+            formateCoinType,
             format_match,
+            formateBalance,
             formatTime: (time, format) => {
                 if (format === undefined || format == null) {
                     format = 'MM-dd HH:mm:ss'
@@ -628,29 +619,7 @@
                     }
                 })
             },
-            formateBalance: (val = 0) => {
-                var newEth = null
-                if (isNaN(val) || isNaN(Number(val))) {
-                    console.error('formateBalance error' + val)
-                    return 0
-                }
-                val = Number(val)
-                if (val > 10000000) {
-                    newEth = (val / 100000000).toFixed(1) + '亿'
-                } else if (val > 100000) {
-                    newEth = (val / 10000).toFixed(1) + '万'
-                } else if (val > 1000) {
-                    newEth = parseFloat(val.toFixed(0))
-                } else if (val > 100) {
-                    newEth = val.toFixed(3)
-                } else if (val > 10) {
-                    newEth = val.toFixed(4)
-                } else {
-                    newEth = val.toFixed(5)
-                    // 如果需要去掉零 用parseFloat(  )
-                }
-                return newEth
-            }
+            formateBalance
         },
         async mounted () {
             window.addEventListener('scroll', this.fixNav)
