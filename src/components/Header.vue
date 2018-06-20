@@ -227,7 +227,7 @@
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
 
-    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance,formateCoinType, formateEmail} from '~common/util'
+    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateCoinType, formateEmail} from '~common/util'
     import startCanvas from '~/common/canvas'
 
     export default {

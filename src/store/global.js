@@ -95,9 +95,9 @@ const actions = {
                 if (userMsg.data.uid) {
                     commit(mTypes.setUid, userMsg.data.uid)
                 }
-                if(userMsg.status !== undefined && userMsg.status.toString() === '-1'){
+                if (userMsg.status !== undefined && userMsg.status.toString() === '-1') {
                     Message({
-                        message: '邮箱无法验证todo',
+                        message: 'Failed to activate, because of wrong email format',
                         type: 'error',
                         duration: tipsTime
                     })

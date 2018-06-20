@@ -5,7 +5,7 @@ import {src, channel, mapMutations, getCK, removeCK, mapActions, platform, tipsT
 
 const state = {
     pop: {
-        showNoVerify:false,
+        showNoVerify: false,
 
         showFreeplay: false,
         showLoginPop: false,
@@ -21,7 +21,7 @@ const state = {
         emailBackTime: 60,
         verifyTime: null,
         regVerifyEmail: null,
-        mailType:'reg',
+        mailType: 'reg',
         showPopLimit: false,
 
         resetObj: { // 重置密码
@@ -46,7 +46,7 @@ const state = {
 }
 
 const mutations = {
-    setMailType(state,data){
+    setMailType (state, data) {
         state.pop.mailType = data
     },
     showNoVerify (state) {
