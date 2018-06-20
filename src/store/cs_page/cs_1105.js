@@ -182,7 +182,7 @@ const actionsInfo = mapActions({
                         continue
                     }
                 }
-                if (newData[i].uid === state.uid) {
+                if (newData[i].uid.toString() === state.uid) {
                     newData[i].boldUid = true
                 }
                 if (newData[i].betcode) {
