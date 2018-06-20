@@ -161,6 +161,7 @@ export default {
     watch: {},
     methods: {
         handleStatusChange () {
+            this.pageno = 1
             this.handleCurrentChange()
         },
         getList (params) {
