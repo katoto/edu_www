@@ -55,7 +55,7 @@ export default {
     },
     watch: {},
     methods: {
-        goVerify(){
+        goVerify () {
             /* 应该是一个新的 验证邮箱的界面 */
             this.$store.commit('showNoVerify')
         },

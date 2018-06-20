@@ -37,10 +37,10 @@
                             email: this.beginVerify,
                             mailType: 'reg'
                         })
-                        let regMsg = await this.$store.dispatch('sendEmail', sendObj);
-                        console.log(regMsg);
-                        console.log(regMsg);
-                        if( regMsg.status.toString() === '100' ){
+                        let regMsg = await this.$store.dispatch('sendEmail', sendObj)
+                        console.log(regMsg)
+                        console.log(regMsg)
+                        if (regMsg.status.toString() === '100') {
                             /* 调整确认页 */
                             this.$store.commit('hideNoVerify')
                             this.$store.commit('showVerifyEmail')

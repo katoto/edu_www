@@ -101,10 +101,10 @@ const actionsInfo = mapActions({
         if (data && data.txhash) {
             data.txhash = data.txhash.slice(0, 7)
         }
-        commit(mTypes.setjackPotMsg, data);
-        setTimeout(()=>{
-            commit(mTypes.setjackPotMsg, null);
-        },4000)
+        commit(mTypes.setjackPotMsg, data)
+        setTimeout(() => {
+            commit(mTypes.setjackPotMsg, null)
+        }, 4000)
     },
 
     /* recent Bet  实时更新 recent bet */

@@ -32,12 +32,12 @@
     import {Message} from 'element-ui'
 
     export default {
-        data() {
+        data () {
             return {}
         },
         components: {Pop},
         methods: {
-            async againVerify() {
+            async againVerify () {
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
                 let sendObj = {}
                 console.log(this.regVerifyEmail)
@@ -51,7 +51,6 @@
                         if (regMsg && regMsg.status.toString() === '100') {
                             this.$store.dispatch('startBackTime')
                         }
-
                     } else {
                         Message({
                             message: 'Please enter your email address',
@@ -60,19 +59,19 @@
                     }
                 }
             },
-            showSignIn() {
+            showSignIn () {
                 this.$store.commit('showLoginPop')
                 this.$store.commit('hideVerifyEmail')
             }
         },
         computed: {
-            regVerifyEmail() {
+            regVerifyEmail () {
                 return this.$store.state.pop.regVerifyEmail
             },
-            emailBackTime() {
+            emailBackTime () {
                 return this.$store.state.pop.emailBackTime
             },
-            isLog(){
+            isLog () {
                 return this.$store.state.isLog
             },
             show: {
@@ -88,7 +87,7 @@
                 }
             }
         },
-        mounted() {
+        mounted () {
         }
     }
 </script>
