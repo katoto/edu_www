@@ -392,10 +392,23 @@
                     this.$store.commit('showNoVerify')
                     return false
                 }
+
+                // 判断 余额是否足
+                if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
+                    Message({
+                        message: 'Your balance is insufficient, please top up',
+                        type: 'error'
+                    })
+                    setTimeout(() => {
+                        this.$router.push('/account/deposit')
+                    }, 3000)
+                    return false
+                }
+
                 // 出现loading
                 document.getElementById('jsLoading').style.display = 'block'
 
-                // 选号是否完成？
+                // 选号是否完成
                 if (this.playArea) {
                     let noComplete = []
                     let noCompleteIndex = []
