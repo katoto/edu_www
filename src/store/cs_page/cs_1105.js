@@ -3,7 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import {src, mapMutations, getCK, mapActions, platform, tipsTime} from '~common/util'
+import { mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
 import {Message} from 'element-ui'
 
 const state = {
@@ -98,13 +98,19 @@ const mutationsInfo = mapMutations({
 const actionsInfo = mapActions({
     /* 奖池奖 */
     fomateJackPot ({state, commit, dispatch}, data) {
-        if (data && data.txhash) {
-            data.txhash = data.txhash.slice(0, 7)
+        if (data) {
+            if (data.txhash) {
+                data.txhash = data.txhash.slice(0, 7)
+            }
+            if (data.prize) {
+                data.prize = formateBalance(data.prize)
+            }
         }
+
         commit(mTypes.setjackPotMsg, data)
         setTimeout(() => {
             commit(mTypes.setjackPotMsg, null)
-        }, 4500)
+        }, 5000)
     },
 
     /* recent Bet  实时更新 recent bet */
@@ -278,7 +284,7 @@ const actionsInfo = mapActions({
             state.timeLeft = parseFloat(timer)
             state.timeInterval = setInterval(function () {
                 state.timeLeft = parseFloat(state.timeLeft) - 1
-                if (state.timeLeft == 0) {
+                if (state.timeLeft === 0) {
                     state.expect_blinking = false
                     state.expect_move = true
                     setTimeout(function () {

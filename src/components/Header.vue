@@ -225,7 +225,7 @@
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
 
-    import {src, platform, removeCK, tipsTime, ethUrl, format_match_account, formateBalance, formateCoinType, formateEmail} from '~common/util'
+    import { format_match_account, formateBalance, formateCoinType, formateEmail} from '~common/util'
     import startCanvas from '~/common/canvas'
 
     export default {
@@ -264,8 +264,8 @@
             formateEmail,
             formateBalance,
             showUserMsg () {
-                this.slideDown = true;
-                // this.$store.dispatch('getUserInfo')
+                this.slideDown = true
+            // this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
                 // 领取邀请奖励

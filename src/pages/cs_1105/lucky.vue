@@ -652,26 +652,25 @@
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
 
-
-            //首页 冒泡效果
-            bgStarBox();
-            function bgStarBox() {
-                bgstar('stars1', 30, '#7063c9');
-                bgstar('stars2', 10, '#fff');
+            // 首页 冒泡效果
+            bgStarBox()
+            function bgStarBox () {
+                bgstar('stars1', 30, '#7063c9')
+                bgstar('stars2', 10, '#fff')
             }
-            function bgstar(id, num, color) {
+            function bgstar (id, num, color) {
                 var _width = window.innerWidth,
                     _height = document.getElementById('play-area').clientHeight*5,
                     count = num,
                     str = '',
                     str1 = ''
                 for (var i = 0; i < count; i++) {
-                    str += parseInt(Math.random() * _width) + 'px ';
-                    str += parseInt(Math.random() * _height) + 'px ';
-                    str += color + ',';
+                    str += parseInt(Math.random() * _width) + 'px '
+                    str += parseInt(Math.random() * _height) + 'px '
+                    str += color + ','
                 }
                 str1 = str.slice(0, -1)
-                document.getElementById(id).style.boxShadow=str1
+                document.getElementById(id).style.boxShadow = str1
             }
         },
         beforeRouteLeave (to, from, next) {

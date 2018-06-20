@@ -3,7 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import { src, mapMutations, mapActions, platform, tipsTime } from '~common/util'
+import { mapMutations, mapActions } from '~common/util'
 
 import {Message} from 'element-ui'
 
