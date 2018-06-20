@@ -648,6 +648,28 @@
             }
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
+
+
+            //首页 冒泡效果
+            bgStarBox();
+            function bgStarBox() {
+                bgstar('stars1', 30, '#7063c9');
+                bgstar('stars2', 10, '#fff');
+            }
+            function bgstar(id, num, color) {
+                var _width = window.innerWidth,
+                    _height = document.getElementById('play-area').clientHeight * 5,
+                    count = num,
+                    str = '',
+                    str1 = ''
+                for (var i = 0; i < count; i++) {
+                    str += parseInt(Math.random() * _width) + 'px ';
+                    str += parseInt(Math.random() * _height) + 'px ';
+                    str += color + ',';
+                }
+                str1 = str.slice(0, -1)
+                document.getElementById(id).style.boxShadow=str1
+            }
         },
         beforeRouteLeave (to, from, next) {
             // 是否需要主队断sock ？
@@ -1170,7 +1192,7 @@
         position: relative;
         width: 100%;
         background: #eef1f9;
-        z-index: 4;
+        z-index: 5;
     }
 
     .pre-number {
@@ -1606,6 +1628,33 @@
 
         30%,50%,70% {
             transform: translate3d(10px,0,0)
+        }
+    }
+    .stars {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    #stars1 {
+        animation: animStar 100s linear infinite;
+    }
+
+    #stars2 {
+        animation: animStar 60s linear infinite;
+        opacity: 0.3;
+    }
+
+    @keyframes animStar {
+        from {
+            transform: translateY(100px);
+        }
+
+        to {
+            transform: translateY(-2000px);
         }
     }
 </style>
