@@ -234,9 +234,9 @@ const actions = {
             console.log(pageData)
             if (pageData) {
                 if (state.pop.inviterObj) {
-                    InfoData = await ajax.get(`/user/mail/reg?sign=${state.pop.inviterObj.sign}&inviter=${state.pop.inviterObj.inviter}&channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+                    InfoData = await ajax.get(`/user/mail/reg?sign=${state.pop.inviterObj.sign}&inviter=${state.pop.inviterObj.inviter}&channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
                 } else {
-                    InfoData = await ajax.get(`/user/mail/reg?channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+                    InfoData = await ajax.get(`/user/mail/reg?channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
                 }
             }
             return InfoData

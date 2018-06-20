@@ -150,8 +150,9 @@ qweqeqeqeq123@www.bccto.me<template>
 
                 <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
                 <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
-                   :class="{'over':loginSucc && ( loginSucc.invite_status !== '0' )}"
-                   v-if="isLog && userInfo && userInfo.status.toString() ==='1'"><lang>Faucet</lang></a>
+                   v-if="isLog && userInfo && userInfo.status.toString() ==='1'"
+                   :class="{'over':(loginSucc && ( loginSucc.invite_status !== '0' )) || (userInfo.invite_prize_chances === '0' && userInfo.tasks.length === 0 )}"
+                    ><lang>Faucet</lang></a>
 
                 <!--拉新活动提示-->
                 <div class="act-sign right" v-if="!isLog">
@@ -292,17 +293,10 @@ qweqeqeqeq123@www.bccto.me<template>
                         document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove'
                         setTimeout(() => {
                             this.$store.commit('inviteTips', false)
-                            // 手动加 0.001 eth
-                            let newUserInfo = null
-                            if (this.userInfo) {
-                                newUserInfo = this.userInfo
-                                newUserInfo.accounts[0].balance = parseFloat(newUserInfo.accounts[0].balance) + 0.001
-                            }
-                            this.$store.commit('setUserInfo', newUserInfo)
                             this.showInviteSuccFlag = true
+                            this.$store.dispatch('getUserInfo')
                             document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove'
                         }, 3000)
-                        this.$store.dispatch('getUserInfo')
                     }
                 }
             },
@@ -317,7 +311,7 @@ qweqeqeqeq123@www.bccto.me<template>
                     clearTimeout(this.showEndFaucetTime)
                     this.showEndFaucetTime = setTimeout(() => {
                         this.showEndFaucet = false
-                    }, 2500)
+                    }, 2000)
                 } else {
                     let faucetMsg = await this.$store.dispatch('getFaucet')
                     /* 显示邀请 */
