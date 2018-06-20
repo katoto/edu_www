@@ -2,6 +2,7 @@ import ajax, {sockURL} from '~common/ajax'
 import { tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
+import {getCK} from '../common/util'
 
 function combimeStore (store, newStore) {
     return {
@@ -89,59 +90,61 @@ const actions = {
     /* user info */
     async getUserInfo ({state, commit, dispatch}) {
         try {
-            let userMsg = await ajax.get(`/user/info`)
-
-            if (userMsg.status.toString() === '100') {
-                if (userMsg.data.uid) {
-                    commit(mTypes.setUid, userMsg.data.uid)
-                }
-                if (userMsg.status !== undefined && userMsg.status.toString() === '-1') {
-                    Message({
-                        message: 'Failed to activate, because of wrong email format',
-                        type: 'error',
-                        duration: tipsTime
-                    })
-                }
-                // 未激活，无钱包
-                if (userMsg.data.accounts.length === 0) {
-                    userMsg.data.accounts.push({
-                        address: '',
-                        balance: '0',
-                        cointype: '2001',
-                        fee: '0.003',
-                        freez: '0.0'
-                    })
-                }
-
-                commit('setUserInfo', userMsg.data)
-                // 邀请 活动
-                // userMsg.data.tasks = [{
-                // 	"tid": 1,
-                // 	"maintype": 1,
-                // 	"subtype": 2,
-                // 	"taskstatus": "0"
-                // }];
-                let newTask = []
-                userMsg.data.tasks.forEach((val, index) => {
-                    if (val.subtype.toString() === '2' && val.taskstatus.toString() === '0') {
-                        newTask.push(val)
+            let userMsg = null
+            if (!(getCK() === '0' || !getCK())) {
+                userMsg = await ajax.get(`/user/info`)
+                if (userMsg.status.toString() === '100') {
+                    if (userMsg.data.uid) {
+                        commit(mTypes.setUid, userMsg.data.uid)
                     }
-                })
-                if (newTask.length > 0) {
-                    commit('inviteTips', true)
-                }
-                // 取回之前数据
-                let newInviteObj = {
-                    invite_status: userMsg.data.invite_status, //
-                    invite_prize_chances: userMsg.data.invite_prize_chances,
-                    tasks: newTask
-                }
-                if (state && state.pop.loginSucc && state.pop.loginSucc.login_times) {
-                    Object.assign(newInviteObj, {
-                        login_times: state.pop.loginSucc.login_times
+                    if (userMsg.status !== undefined && userMsg.status.toString() === '-1') {
+                        Message({
+                            message: 'Failed to activate, because of wrong email format',
+                            type: 'error',
+                            duration: tipsTime
+                        })
+                    }
+                    // 未激活，无钱包
+                    if (userMsg.data.accounts.length === 0) {
+                        userMsg.data.accounts.push({
+                            address: '',
+                            balance: '0',
+                            cointype: '2001',
+                            fee: '0.003',
+                            freez: '0.0'
+                        })
+                    }
+
+                    commit('setUserInfo', userMsg.data)
+                    // 邀请 活动
+                    // userMsg.data.tasks = [{
+                    // 	"tid": 1,
+                    // 	"maintype": 1,
+                    // 	"subtype": 2,
+                    // 	"taskstatus": "0"
+                    // }];
+                    let newTask = []
+                    userMsg.data.tasks.forEach((val, index) => {
+                        if (val.subtype.toString() === '2' && val.taskstatus.toString() === '0') {
+                            newTask.push(val)
+                        }
                     })
+                    if (newTask.length > 0) {
+                        commit('inviteTips', true)
+                    }
+                    // 取回之前数据
+                    let newInviteObj = {
+                        invite_status: userMsg.data.invite_status, //
+                        invite_prize_chances: userMsg.data.invite_prize_chances,
+                        tasks: newTask
+                    }
+                    if (state && state.pop.loginSucc && state.pop.loginSucc.login_times) {
+                        Object.assign(newInviteObj, {
+                            login_times: state.pop.loginSucc.login_times
+                        })
+                    }
+                    commit('setLoginSucc', newInviteObj)
                 }
-                commit('setLoginSucc', newInviteObj)
             }
             return userMsg
         } catch (e) {
