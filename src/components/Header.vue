@@ -142,8 +142,8 @@
 
                 <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
                 <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
-                   :class="{'over':loginSucc && ( loginSucc.invite_status != '0' )}"
-                   v-if="isLog && userInfo && userInfo.status =='1'">Faucet</a>
+                   :class="{'over':loginSucc && ( loginSucc.invite_status !== '0' )}"
+                   v-if="isLog && userInfo && userInfo.status.toString() ==='1'">Faucet</a>
 
                 <!--拉新活动提示-->
                 <div class="act-sign right" v-if="!isLog">
@@ -264,8 +264,8 @@
             formateEmail,
             formateBalance,
             showUserMsg () {
-                this.slideDown = true
-                this.$store.dispatch('getUserInfo')
+                this.slideDown = true;
+                // this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
                 // 领取邀请奖励

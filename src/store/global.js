@@ -123,7 +123,7 @@ const actions = {
                 // }];
                 let newTask = []
                 userMsg.data.tasks.forEach((val, index) => {
-                    if (val.subtype == '2' && val.taskstatus == '0') {
+                    if (val.subtype.toString() === '2' && val.taskstatus.toString() === '0') {
                         newTask.push(val)
                     }
                 })

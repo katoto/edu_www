@@ -104,7 +104,7 @@ const actionsInfo = mapActions({
         commit(mTypes.setjackPotMsg, data)
         setTimeout(() => {
             commit(mTypes.setjackPotMsg, null)
-        }, 4000)
+        }, 4500)
     },
 
     /* recent Bet  实时更新 recent bet */
