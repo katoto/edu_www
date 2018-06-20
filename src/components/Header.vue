@@ -163,7 +163,7 @@ qweqeqeqeq123@www.bccto.me<template>
             <!--jackpot-->
             <div class="jackpot" :class="{hide: jackPotMsg === null}">
                 <div class="jackpot-box" >
-                    <p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.txhash) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>
+                    <p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.uid) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>
                     <p class="jackpot-money">{{ _('Win {0}ETH', (jackPotMsg && jackPotMsg.prize) || '') }}</p>
                 </div>
                 <canvas id="canvas" ref="canvas"></canvas>
