@@ -64,7 +64,8 @@
             </div>
         </div>
         <div class="order-box js_choose_jackPot" :class="{'hide': areaMsg.pickType !== '5J'}">
-            <p>Picking&nbsp;Order</p>
+
+            <p>Picking&ensp;Order</p>
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
                 <li v-for="(baseItem,index) in baseJackPot" class="flipInY on"

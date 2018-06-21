@@ -2,7 +2,7 @@
     <!--  弹窗-登录  -->
     <Pop class="pop-limit" :show.sync="show">
         <div class="pop-main">
-            <h3>limit number list</h3>
+            <h3>Limit Number List</h3>
             <p class="update">Last updated : {{time}}</p>
             <div class="pop-limit1" v-if="noLimit">
                 <div class="icon-limit"></div>

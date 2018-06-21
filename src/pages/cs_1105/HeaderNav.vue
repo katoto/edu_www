@@ -161,7 +161,7 @@ export default {
         position: absolute;
         left: 115px;
         top: 0;
-        width: 165px;
+        width: 170px;
         height: 60px;
         line-height: 18px;
         font-size: 14px;
