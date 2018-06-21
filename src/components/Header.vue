@@ -162,21 +162,23 @@
 
 
             <!-- jackpot -->
-            <div class="jackpot" :class="{hide: jackPotMsg === null}">
-                <div class="jackpot-box" >
-                    <p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.uid) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>
-                    <p class="jackpot-money">{{ _('Win {0}ETH', (jackPotMsg && jackPotMsg.prize) || '') }}</p>
-                </div>
-                <canvas id="canvas" ref="canvas"></canvas>
-            </div>
+            <!--<div class="jackpot" :class="{hide: jackPotMsg === null}">-->
+                <!--<div class="jackpot-box" >-->
+                    <!--<p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.uid) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>-->
+                    <!--<p class="jackpot-money">{{ _('Win {0}ETH', (jackPotMsg && jackPotMsg.prize) || '') }}</p>-->
+                <!--</div>-->
+                <!--<canvas id="canvas" ref="canvas"></canvas>-->
+            <!--</div>-->
 
-            <div class="jackpot">
+            <div class="jackpot" :class="{hide:jackPotMsg===null}">
                 <div class="jackpot-box" >
-                    <ul v-if="currPrizeMsg">
-                        <li v-for="item in currPrizeMsg.prize_list" v-if="item">
-                            <p>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</p>
-                            <p class="jackpot-money">{{ _('Win {0}ETH', formateBalance (  item.prize ) || '') }}</p>
-                        </li>
+                    <ul v-if="jackPotMsg">
+                        <el-carousel :interval="5000" arrow="always">
+                            <el-carousel-item v-for="item in jackPotMsg"  v-if="item">
+                                <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
+                                <span class="jackpot-money">{{ _('Win {0}ETH', formateBalance (  item.prize ) || '') }}</span>
+                            </el-carousel-item>
+                        </el-carousel>
                     </ul>
                 </div>
                 <canvas id="canvas" ref="canvas"></canvas>
@@ -249,7 +251,6 @@
         components: {PopList, Banner},
         data () {
             return {
-                currPrizeMsg: null, // 中奖消息接口
 
                 showDetail: false,
                 showEndFaucet: false, // 控制 结束弹窗 tips
@@ -356,13 +357,20 @@
             formateCoinType
         },
         async mounted () {
-            startCanvas(this.$refs.canvas)();
+            startCanvas(this.$refs.canvas)()
             // 获取首次中奖信息
             let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
             console.log(prizeMsg)
 
             if (prizeMsg && prizeMsg.data) {
-                this.currPrizeMsg = prizeMsg.data;
+                if (prizeMsg.data.prize_list) {
+                    this.$store.commit(mTypes.setjackPotMsg, prizeMsg.data.prize_list)
+                }
+                if (prizeMsg.data.num) {
+                    setTimeout(() => {
+                        this.$store.commit(mTypes.setjackPotMsg, null)
+                    }, 5000 * parseFloat(prizeMsg.data.num))
+                }
             }
         }
     }

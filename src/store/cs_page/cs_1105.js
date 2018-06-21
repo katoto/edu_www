@@ -103,8 +103,8 @@ const actionsInfo = mapActions({
                 data.prize = formateBalance(data.prize)
             }
         }
-
-        commit(mTypes.setjackPotMsg, data)
+        let basePotArr = []
+        commit(mTypes.setjackPotMsg, basePotArr.push(data))
         setTimeout(() => {
             commit(mTypes.setjackPotMsg, null)
         }, 5000)

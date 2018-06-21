@@ -52,7 +52,7 @@ export default {
     data () {
         return {
             tes: false,
-            isShowHistoryCode: false,
+            isShowHistoryCode: false
 
         }
     },
@@ -115,8 +115,6 @@ export default {
     },
     async mounted () {
         this.getHistoryDraw()
-
-
     },
     filters: {
         formateBalance
