@@ -202,10 +202,7 @@
                         if (this.areaMsg && this.areaMsg.pickType) {
                             if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
                                 if (parseFloat(this.areaMsg.pickType) === 1) {
-                                    Message({
-                                        message: 'You have already chosen ' + parseFloat(this.areaMsg.pickType) + ' number',
-                                        type: 'error'
-                                    })
+                                    currpickNum = [parseFloat(dataFlag)]
                                 } else {
                                     Message({
                                         message: 'You have already chosen ' + parseFloat(this.areaMsg.pickType) + ' numbers',
