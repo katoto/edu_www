@@ -281,6 +281,18 @@
         </div>
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
+
+        <!-- 世界杯弹窗 -->
+        <div class="pop pop-world" :class="{'hide':!showPopWorld}">
+            <div class="contain">
+                <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
+                <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
+                <a href="./coinslot/html/worldCup.html" class="btn-join js_jump2WorldCup">
+                    Join Now
+                </a>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -291,12 +303,14 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
-    import {src, platform, getCK, format_match, setCK, removeCK} from '~common/util'
+    import {src, platform, getCKstartCanvas, formateCoinType, format_match, formateBalance, setCK, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
         data () {
             return {
+                showPopWorld: false,
+
                 showOrderSucc: false,
                 showOrderFail: false,
                 failureMsg: '* *',
@@ -338,6 +352,7 @@
             }
         },
         computed: {
+
             socket () {
                 return this.$store.state.socket
             },
@@ -355,6 +370,7 @@
             }
         },
         methods: {
+            formateBalance,
             playType (val) {
                 // 玩法类型1,2,3,4,5,5J
                 val = val.toString()
@@ -522,8 +538,8 @@
                     msg.forEach((item, index) => {
                         item.bettype = format_match(item.bettype)
                         item.betcode = this.format_betCode(item.betcode)
-                        item.betmoney = parseFloat(item.betmoney).toFixed(5) + 'ETH'
-                        item.betprize = '<span class="win"><span>' + parseFloat(item.betprize).toFixed(5) + '</span>ETH</span>'
+                        item.betmoney = formateBalance(parseFloat(item.betmoney)) + 'ETH'
+                        item.betprize = '<span class="win"><span>' + formateBalance(parseFloat(item.betprize)) + '</span>ETH</span>'
                     })
                 }
                 return msg
@@ -536,12 +552,13 @@
                         let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
                         console.log(mailBack)
                         if (mailBack && mailBack.status === '100') {
-                            if (parseFloat(mailBack.data.login_times) > 0 && mailBack.data.invite_status.toString() === '0') {
+                            if (parseFloat(mailBack.data.login_times) >= 0 && mailBack.data.invite_status.toString() === '0') {
                                 // 显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
                             } else {
                                 this.$store.commit('showFirstLogin', false)
                             }
+                            this.$store.dispatch('getUserInfo')
                             this.$store.commit('showRegSuccess')
                         } else {
                             Message({
@@ -550,7 +567,7 @@
                             })
                         }
                         // 清除参数
-                        //                        this.$router.push('/lucky')
+                        this.$router.push('/lucky')
                     }
                     if (query.from === 'resetPassword') {
                         // 重置密码
@@ -588,18 +605,9 @@
             LuckyMybet
         },
         filters: {
-            formateCoinType: (type = '2001') => {
-                type = type.toString()
-                switch (type) {
-                case '2001':
-                    return 'ETH'
-                case '1001':
-                    return 'BTC'
-                default:
-                    return 'ETH'
-                }
-            },
+            formateCoinType,
             format_match,
+            formateBalance,
             formatTime: (time, format) => {
                 if (format === undefined || format == null) {
                     format = 'MM-dd HH:mm:ss'
@@ -627,29 +635,6 @@
                         return tf(t.getSeconds())
                     }
                 })
-            },
-            formateBalance: (val = 0) => {
-                var newEth = null
-                if (isNaN(val) || isNaN(Number(val))) {
-                    console.error('formateBalance error' + val)
-                    return 0
-                }
-                val = Number(val)
-                if (val > 10000000) {
-                    newEth = (val / 100000000).toFixed(1) + '亿'
-                } else if (val > 100000) {
-                    newEth = (val / 10000).toFixed(1) + '万'
-                } else if (val > 1000) {
-                    newEth = parseFloat(val.toFixed(0))
-                } else if (val > 100) {
-                    newEth = val.toFixed(3)
-                } else if (val > 10) {
-                    newEth = val.toFixed(4)
-                } else {
-                    newEth = val.toFixed(5)
-                    // 如果需要去掉零 用parseFloat(  )
-                }
-                return newEth
             }
         },
         async mounted () {
@@ -664,6 +649,12 @@
             }
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
+
+            // 首页世界杯弹窗
+            if (localStorage.getItem('js_showWorldCup') !== new Date().getDate().toString()) {
+                this.showPopWorld = true
+                localStorage.setItem('js_showWorldCup', new Date().getDate())
+            }
 
             // 首页 冒泡效果
             bgStarBox()
@@ -701,6 +692,11 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
+    .worldCupClose::after{
+        width: 12px;
+        height: 12px;
+        background-repeat: no-repeat;
+    }
     //index
     .main {
         position: relative;

@@ -1,7 +1,7 @@
 <script>
 // 以插件形式引入国际化组件
-import zhCn from '../lanaguage/zh-cn'
-import zhTw from '../lanaguage/zh-tw'
+import zhCn from '../language/zh-cn'
+import zhTw from '../language/zh-tw'
 const MyPlugin = {}
 const languagePackage = {
     zhCn,
@@ -44,10 +44,11 @@ MyPlugin.install = function (Vue, store) {
     // 注册全局lang翻译组件
     Vue.component('lang', {
         render: function (h) {
+            console.log(h, this)
             return (
-                <div>
+                <em>
                     { window._(this.$slots.default[0].text) }
-                </div>
+                </em>
             )
         }
     })

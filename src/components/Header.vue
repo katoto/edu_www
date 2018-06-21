@@ -1,4 +1,4 @@
-qweqeqeqeq123@www.bccto.me<template>
+<template>
     <div>
         <Banner></Banner>
         <div class="head">
@@ -69,26 +69,34 @@ qweqeqeqeq123@www.bccto.me<template>
                             l10.404,36.454c1.196,4.189,4.695,5.098,7.777,2.018L21.88,82.022z"/>
                     </svg>
                 </router-link>
-                <a href="worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
+                <a href="./coinslot/html/worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
-                    <span>English</span>
+                    <!--<i></i>-->
+                    <el-select v-model="languageVal" @change="handleLanguageChange" class="">
+                        <el-option
+                            v-for="item in languageOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
                 <!-- 登录  -->
                 <div class="login">
                     <!-- 未登录 -->
                     <div class="to-login" v-if="!isLog">
                         <a href="javascript:;" class="btn-in" @click="onLoginIn">
-                            Sign In&nbsp;/&nbsp;Up
+                            <lang>Sign In / Up</lang>
                         </a>
                     </div>
                     <!-- 登录 -->
                     <section v-else>
                         <div class="hadlogin">
                         <router-link :to="{path: '/account/deposit'}">
-                            <a href="javascript:;" class="btn-rechrage">Deposit </a>
+                            <a href="javascript:;" class="btn-rechrage"><lang>Deposit</lang></a>
                         </router-link>
                         <router-link :to="{path: '/account/withdraw'}">
-                            <a href="javascript:;" class="btn-cash">Withdraw</a>
+                            <a href="javascript:;" class="btn-cash"><lang>Withdraw</lang></a>
                         </router-link>
                         </div>
                         <!--slideDown = true-->
@@ -115,11 +123,11 @@ qweqeqeqeq123@www.bccto.me<template>
                                             {{ formateEmail(userInfo.email) }}
                                         </div>
                                         <div class="uid">
-                                            UserID:<i class="js_user_uid">{{ userInfo.uid }}</i>
+                                            <lang>UserID</lang>:<i class="js_user_uid">{{ userInfo.uid }}</i>
                                         </div>
                                     </div>
                                     <div class="wallet-balance">
-                                        <p>Wallet Balance</p>
+                                        <p><lang>Wallet Balance</lang></p>
                                         <ul class="js_account_lis">
                                             <li v-for="(account, index) in userInfo.accounts" :key="index">
                                                 <a href="javascript:;" class="btn-refresh"></a>
@@ -129,12 +137,12 @@ qweqeqeqeq123@www.bccto.me<template>
                                         </ul>
                                     </div>
                                     <router-link :to="{path: '/account/myBets'}">
-                                        <a href="" class="my-transaction">My Bets</a>
+                                        <a href="" class="my-transaction"><lang>My Bets</lang></a>
                                     </router-link>
                                     <router-link :to="{path: '/account/general'}">
-                                        <a href="" class="account-center">Account Center</a>
+                                        <a href="" class="account-center"><lang>Account Center</lang></a>
                                     </router-link>
-                                    <a href="javascript:;" @click="signOut" class="log-out">Sign Out</a>
+                                    <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
                                 </div>
                         </div>
                     </section>
@@ -142,8 +150,9 @@ qweqeqeqeq123@www.bccto.me<template>
 
                 <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
                 <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
-                   :class="{'over':loginSucc && ( loginSucc.invite_status !== '0' )}"
-                   v-if="isLog && userInfo && userInfo.status.toString() ==='1'">Faucet</a>
+                   v-if="isLog && userInfo && userInfo.status.toString() ==='1'"
+                   :class="{'over':(loginSucc && ( loginSucc.invite_status !== '0' )) || (userInfo.invite_prize_chances === '0' && userInfo.tasks.length === 0 )}"
+                    ><lang>Faucet</lang></a>
 
                 <!--拉新活动提示-->
                 <div class="act-sign right" v-if="!isLog">
@@ -151,18 +160,6 @@ qweqeqeqeq123@www.bccto.me<template>
                 </div>
             </div>
 
-            <!--jackpot-->
-            <div class="jackpot" :class="{hide: jackPotMsg === null}">
-                <div class="jackpot-box" >
-                    <p>Congratulations to&nbsp;</p>
-                    <p class="jackpot-add">{{ (jackPotMsg && jackPotMsg.txhash) || '' }}</p>
-                    <p>&nbsp;hit&nbsp;</p>
-                    <p class="jackpot-issue">{{ (jackPotMsg && jackPotMsg.expectid) || '' }}</p>
-                    <p>,&nbsp;</p>
-                    <p class="jackpot-money "> Win <i>{{ (jackPotMsg && jackPotMsg.prize) || '' }}</i>ETH</p>
-                </div>
-                <canvas id="canvas" ref="canvas"></canvas>
-            </div>
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
             <section v-if="(loginSucc || showFirstLogin)&&isLog">
@@ -170,12 +167,12 @@ qweqeqeqeq123@www.bccto.me<template>
                      :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
                     <div class="msg">
                         <p>
-                            You have earned 0.001 free ETH already, go to bet to win more!
+                            <lang>You have earned 0.001 free ETH already, go to bet to win more!</lang>
                         </p>
-                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">Try a luck</a>
+                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll"><lang>Try a luck</lang></a>
                         <div class="bottom">
-                            Invite friends to earn more free ETH.
-                            <a href="javascript:;" @click="showFaucet" class="bold js_invite">Earn now</a>
+                            <lang>Invite friends to earn more free ETH.</lang>
+                            <a href="javascript:;" @click="showFaucet" class="bold js_invite"><lang>Earn now</lang></a>
                         </div>
                     </div>
                 </div>
@@ -187,10 +184,10 @@ qweqeqeqeq123@www.bccto.me<template>
                      :class="{'hide':!( loginSucc.invite_status != '0'||( loginSucc.invite_prize_chances == '0' && loginSucc.tasks.length == 0 ))}">
                     <div class="msg">
                         <p v-if="loginSucc.invite_status==='-1'">
-                            Let's expect the upcoming activity!
+                            <lang>Let's expect the upcoming activity!</lang>
                         </p>
                         <p v-else>
-                            This activity is end and more bonus will coming soon!
+                            <lang>This activity is end and more bonus will coming soon!</lang>
                         </p>
                     </div>
                 </div>
@@ -200,14 +197,11 @@ qweqeqeqeq123@www.bccto.me<template>
             <section v-if="isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
                 <div class="tips-newAct tips-newAct2">
                     <div class="msg">
-                        <p>
-                            Congrats! You have invited a friend sucessfully, <i class="bold">0.001 ETH</i> is awarding
-                            to you now.
-                        </p>
-                        <a href="javascript:;" @click="getFaucet" class="btn-receive">Get it !</a>
+                        <p v-lang="'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.'"></p>
+                        <a href="javascript:;" @click="getFaucet" class="btn-receive"><lang>Get it !</lang></a>
                         <div class="bottom hide">
-                            Invite friends and get more
-                            ETH~ <a href="javascript:;" @click="showFaucet" class="bold">Invite Now</a>
+                            <lang>Invite friends and get more ETH~</lang>
+                            <a href="javascript:;" @click="showFaucet" class="bold"><lang>Invite Now</lang></a>
                         </div>
                     </div>
                 </div>
@@ -225,8 +219,7 @@ qweqeqeqeq123@www.bccto.me<template>
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
 
-    import { format_match_account, formateBalance, formateCoinType, formateEmail} from '~common/util'
-    import startCanvas from '~/common/canvas'
+    import { format_match_account, formateBalance, formateCoinType, formateEmail } from '~common/util'
 
     export default {
         components: {PopList, Banner},
@@ -236,14 +229,22 @@ qweqeqeqeq123@www.bccto.me<template>
                 showEndFaucet: false, // 控制 结束弹窗 tips
                 showEndFaucetTime: null,
                 showInviteSuccFlag: false,
-                slideDown: false
+                slideDown: false,
+                languageVal: 'en',
+                languageOptions: [{
+                    value: 'en',
+                    label: 'English'
+                }, {
+                    value: 'zhCn',
+                    label: '中文简体'
+                }, {
+                    value: 'zhTw',
+                    label: '中文繁体'
+                }]
             }
         },
         watch: {},
         computed: {
-            jackPotMsg () {
-                return this.$store.state.cs_1105.jackPotMsg
-            },
             inviteTips () {
                 return this.$store.state.pop.inviteTips
             },
@@ -263,6 +264,9 @@ qweqeqeqeq123@www.bccto.me<template>
         methods: {
             formateEmail,
             formateBalance,
+            handleLanguageChange (val) {
+                this.$store.commit('setLanguage', val)
+            },
             showUserMsg () {
                 this.slideDown = true
                 this.$store.dispatch('getUserInfo')
@@ -277,17 +281,10 @@ qweqeqeqeq123@www.bccto.me<template>
                         document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove'
                         setTimeout(() => {
                             this.$store.commit('inviteTips', false)
-                            // 手动加 0.001 eth
-                            let newUserInfo = null
-                            if (this.userInfo) {
-                                newUserInfo = this.userInfo
-                                newUserInfo.accounts[0].balance = parseFloat(newUserInfo.accounts[0].balance) + 0.001
-                            }
-                            this.$store.commit('setUserInfo', newUserInfo)
                             this.showInviteSuccFlag = true
+                            this.$store.dispatch('getUserInfo')
                             document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove'
                         }, 3000)
-                        this.$store.dispatch('getUserInfo')
                     }
                 }
             },
@@ -302,7 +299,7 @@ qweqeqeqeq123@www.bccto.me<template>
                     clearTimeout(this.showEndFaucetTime)
                     this.showEndFaucetTime = setTimeout(() => {
                         this.showEndFaucet = false
-                    }, 2500)
+                    }, 2000)
                 } else {
                     let faucetMsg = await this.$store.dispatch('getFaucet')
                     /* 显示邀请 */
@@ -330,7 +327,6 @@ qweqeqeqeq123@www.bccto.me<template>
             formateCoinType
         },
         mounted () {
-            startCanvas(this.$refs.canvas)()
         }
     }
 </script>
@@ -340,7 +336,7 @@ qweqeqeqeq123@www.bccto.me<template>
     .head {
         position: relative;
         width: 100%;
-        height: 150px;
+        /*height: 150px;*/
         height: 90px;
         background: #5068bc;
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
@@ -782,48 +778,6 @@ qweqeqeqeq123@www.bccto.me<template>
         }
         14%,18%{
             transform: translateX(10px);
-        }
-    }
-
-
-    .jackpot{
-        position: fixed;
-        left:0;
-        top:0;
-        z-index:10;
-        width:100%;
-        height:150px;
-        //overflow: hidden;
-        animation: slideDownIn 1s;
-        .jackpot-box{
-            position: relative;
-            z-index:2;
-            width: 947px;
-            height: 112px;
-            margin:0 auto;
-            background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
-            display: flex;
-            justify-content: center;
-            p{
-                height: 72px;
-                padding-top:25px;
-                line-height:76px;
-                font-size:22px;
-            }
-            p.jackpot-add{
-                overflow: hidden;
-            }
-            p.jackpot-money{
-                font-size:36px;
-                font-family:sans-eb;
-                line-height:72px;
-            }
-        }
-        canvas{
-            position: absolute;
-            z-index:1;
-            top:0;
-            left:0;
         }
     }
 

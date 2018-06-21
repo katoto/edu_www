@@ -41,6 +41,7 @@ export default {
     methods: {
 	    regisSucc () {
 		    this.$store.commit('hideRegSuccess')
+            this.$store.dispatch('getUserInfo')
         }
     }
 }

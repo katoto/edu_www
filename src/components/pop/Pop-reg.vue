@@ -49,7 +49,7 @@
         components: {Pop},
         methods: {
             showSucc () {
-                this.$store.commit('setRegVerifyEmail', '846359246@qq.com')
+                // this.$store.commit('setRegVerifyEmail', '846359246@qq.com')
 
                 console.log('success')
                 this.$store.commit('hideRegPop')
