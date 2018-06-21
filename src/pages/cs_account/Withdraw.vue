@@ -29,10 +29,10 @@
                         <input v-model="withdrawPsw" autocomplete="new-password" type="password">
                     </div>
                     <p class="fee">
-                        Fee&nbsp;&nbsp;
+                        Fee&ensp;&ensp;
                         <i class="orange" v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].fee }}</i>
                         <i class="orange" v-else>0.003</i>
-                        <span class="orange"> ETH</span>
+                        <span class="orange">ETH</span>
                     </p>
                     <button @click="sendDraw">Withdraw</button>
                 </li>

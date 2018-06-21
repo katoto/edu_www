@@ -287,7 +287,7 @@
             <div class="contain">
                 <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
                 <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
-                <a href="./coinslot/html/worldCup.html" class="btn-join js_jump2WorldCup">
+                <a href="https://www.coinslot.com/coinslot/html/worldCup.html" class="btn-join js_jump2WorldCup">
                     Join Now
                 </a>
             </div>
@@ -923,7 +923,7 @@
                 float: left;
                 margin: 0 0 0 288px;
                 //738 跟上方11个num区域同宽，需要对齐居中
-                width: 738px;
+                /*width: 738px;*/
                 height: 38px;
                 line-height: 38px;
                 > * {
