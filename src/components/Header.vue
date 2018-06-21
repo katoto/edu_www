@@ -169,17 +169,15 @@
                 <!--</div>-->
                 <!--<canvas id="canvas" ref="canvas"></canvas>-->
             <!--</div>-->
-
-            <div class="jackpot" :class="{hide:jackPotMsg===null}">
-                <div class="jackpot-box" >
-                    <ul v-if="jackPotMsg">
-                        <el-carousel :interval="5000" arrow="always">
-                            <el-carousel-item v-for="item in jackPotMsg"  v-if="item">
-                                <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
-                                <span class="jackpot-money">{{ _('Win {0}ETH', formateBalance (  item.prize ) || '') }}</span>
-                            </el-carousel-item>
-                        </el-carousel>
-                    </ul>
+            <!--:class="{hide:jackPotMsg===null}"-->
+            <div class="jackpot" >
+                <div class="jackpot-box" v-if="jackPotMsg">
+                    <el-carousel :interval="5000" arrow="never" height="72px">
+                        <el-carousel-item v-for="item in jackPotMsg"  v-if="item">
+                            <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
+                            <span class="jackpot-money">{{ _('Win {0}ETH', formateBalance (  item.prize ) || '') }}</span>
+                        </el-carousel-item>
+                    </el-carousel>
                 </div>
                 <canvas id="canvas" ref="canvas"></canvas>
             </div>
@@ -843,25 +841,15 @@
             height: 112px;
             margin:0 auto;
             background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
-            ul{
+            line-height:76px;
+            font-size:22px;
+            .el-carousel{
                 padding-top:25px;
-                width:100%;
-                height: 72px;
-                overflow: hidden;
             }
-            li{
-                display: flex;
-                justify-content: center;
+            .el-carousel__item{
+                text-align: center;
             }
-            p{
-                height: 72px;
-                line-height:76px;
-                font-size:22px;
-            }
-            p.jackpot-add{
-                overflow: hidden;
-            }
-            p.jackpot-money{
+            .jackpot-money{
                 font-size:36px;
                 font-family:sans-eb;
                 line-height:72px;
