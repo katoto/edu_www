@@ -25,62 +25,7 @@
                     Reward table
                     <!-- Lucky 11 show  647 356 奖级表 todo -->
                     <div class="pop pop-rewardTable" :class="{rewardTable:rewardTable}">
-                        <div class="pop-main">
-                            <h3>LUCKY 11</h3>
-                            <div class="pay-items">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td width="90px">Type</td>
-                                        <td>Conditions</td>
-                                        <td width="90px">Reward ratio</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            Super 5
-                                        </td>
-                                        <td>
-                                            Pick 5 number according to the order number order exactly<br>
-                                            jackpot = 5 × (pool amount × wagering amount)
-                                        </td>
-                                        <td><i class="bold">jackpot</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>C5</td>
-                                        <td>Pick 5 numbers and hit 5/5 draw numbers</td>
-
-                                        <td><i class="bold">378</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>C4</td>
-                                        <td>Pick 4 numbers and hit 4/5 draw numbers</td>
-
-                                        <td><i class="bold">54</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>C3</td>
-                                        <td>Pick 3 numbers and hit 3/5 draw numbers</td>
-
-                                        <td><i class="bold">13.5</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>C2</td>
-                                        <td>Pick 2 numbers and hit 2/5 draw numbers</td>
-
-                                        <td><i class="bold">4.5</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>C1</td>
-                                        <td>Pick 1 number and hit 1/5 draw numbers</td>
-
-                                        <td><i class="bold">1.8</i></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <img src="../../assets/img/pop-rewardTable.png" alt="">
                     </div>
                 </a>
             </p>
@@ -441,7 +386,7 @@
     }
 
     .pop-rewardTable.rewardTable {
-        max-height: 400px;
+        max-height: 460px;
         overflow: visible;
     }
 </style>

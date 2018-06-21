@@ -1165,41 +1165,10 @@
         z-index: 10;
         left: 50%;
         top: 40px;
-        margin-left: -335px;
-        width: 671px;
-        height: 385px;
-        background: rgba(0, 0, 0, 0);
-        /*border-top: 40px solid transparent;*/
-        text-transform: none;
-        h3 {
-            margin: 15px 0;
-        }
-        .pop-main {
-            padding: 20px;
-            .rounded();
-            -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-        .pay-items {
-            margin-top: 10px;
-        }
-        thead tr {
-            margin-top: 10px;
-            height: 35px;
-            line-height: 35px;
-            border-bottom: 2px solid #f2f2f2;
-            font-size: 12px;
-            color: #778ca3;
-        }
-        tbody tr {
-            height: 40px;
-            padding: 10px 0;
-            line-height: 20px;
-            border-bottom: 2px solid #ededed;
-        }
-        tbody tr:first-child {
-            height: 60px;
-        }
+        margin-left: -354.5px;
+        width: 709px;
+        height: 460px;
+        background: rgba(0,0,0,0);
     }
 
     //往期开奖
