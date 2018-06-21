@@ -100,7 +100,6 @@
                 this.$store.commit('showPopLimit')
             },
             checkBetMoney () {
-                console.log(this.areaMsg.pickMoney)
                 if (isNaN(this.areaMsg.pickMoney)) {
                     Message({
                         message: 'Please enter the correct number',
