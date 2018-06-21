@@ -44,7 +44,6 @@ MyPlugin.install = function (Vue, store) {
     // 注册全局lang翻译组件
     Vue.component('lang', {
         render: function (h) {
-            console.log(h, this)
             return (
                 <em>
                     { window._(this.$slots.default[0].text) }
