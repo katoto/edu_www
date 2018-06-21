@@ -160,6 +160,29 @@
                 </div>
             </div>
 
+
+            <!-- jackpot -->
+            <div class="jackpot" :class="{hide: jackPotMsg === null}">
+                <div class="jackpot-box" >
+                    <p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.uid) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>
+                    <p class="jackpot-money">{{ _('Win {0}ETH', (jackPotMsg && jackPotMsg.prize) || '') }}</p>
+                </div>
+                <canvas id="canvas" ref="canvas"></canvas>
+            </div>
+
+            <div class="jackpot">
+                <div class="jackpot-box" >
+                    <ul v-if="currPrizeMsg">
+                        <li v-for="item in currPrizeMsg.prize_list" v-if="item">
+                            <p>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</p>
+                            <p class="jackpot-money">{{ _('Win {0}ETH', formateBalance (  item.prize ) || '') }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <canvas id="canvas" ref="canvas"></canvas>
+            </div>
+
+
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
             <section v-if="(loginSucc || showFirstLogin)&&isLog">
@@ -218,13 +241,16 @@
     import PopList from '~components/Pop-list'
     import Banner from '~components/banner'
     import {Message} from 'element-ui'
-
+    import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import { format_match_account, formateBalance, formateCoinType, formateEmail } from '~common/util'
+    import startCanvas from '~/common/canvas'
 
     export default {
         components: {PopList, Banner},
         data () {
             return {
+                currPrizeMsg: null, // 中奖消息接口
+
                 showDetail: false,
                 showEndFaucet: false, // 控制 结束弹窗 tips
                 showEndFaucetTime: null,
@@ -245,6 +271,9 @@
         },
         watch: {},
         computed: {
+            jackPotMsg () {
+                return this.$store.state.cs_1105.jackPotMsg
+            },
             inviteTips () {
                 return this.$store.state.pop.inviteTips
             },
@@ -326,7 +355,15 @@
         filters: {
             formateCoinType
         },
-        mounted () {
+        async mounted () {
+            startCanvas(this.$refs.canvas)();
+            // 获取首次中奖信息
+            let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
+            console.log(prizeMsg)
+
+            if (prizeMsg && prizeMsg.data) {
+                this.currPrizeMsg = prizeMsg.data;
+            }
         }
     }
 </script>
@@ -336,7 +373,7 @@
     .head {
         position: relative;
         width: 100%;
-        /*height: 150px;*/
+        height: 150px;
         height: 90px;
         background: #5068bc;
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
@@ -778,6 +815,48 @@
         }
         14%,18%{
             transform: translateX(10px);
+        }
+    }
+
+
+    .jackpot{
+        position: fixed;
+        left:0;
+        top:0;
+        z-index:10;
+        width:100%;
+        height:150px;
+        //overflow: hidden;
+        animation: slideDownIn 1s;
+        .jackpot-box{
+            position: relative;
+            z-index:2;
+            width: 947px;
+            height: 112px;
+            margin:0 auto;
+            background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
+            display: flex;
+            justify-content: center;
+            p{
+                height: 72px;
+                padding-top:25px;
+                line-height:76px;
+                font-size:22px;
+            }
+            p.jackpot-add{
+                overflow: hidden;
+            }
+            p.jackpot-money{
+                font-size:36px;
+                font-family:sans-eb;
+                line-height:72px;
+            }
+        }
+        canvas{
+            position: absolute;
+            z-index:1;
+            top:0;
+            left:0;
         }
     }
 
