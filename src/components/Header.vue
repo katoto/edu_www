@@ -835,11 +835,18 @@
             height: 112px;
             margin:0 auto;
             background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
-            display: flex;
-            justify-content: center;
+            ul{
+                padding-top:25px;
+                width:100%;
+                height: 72px;
+                overflow: hidden;
+            }
+            li{
+                display: flex;
+                justify-content: center;
+            }
             p{
                 height: 72px;
-                padding-top:25px;
                 line-height:76px;
                 font-size:22px;
             }
