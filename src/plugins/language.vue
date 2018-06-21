@@ -45,9 +45,9 @@ MyPlugin.install = function (Vue, store) {
     Vue.component('lang', {
         render: function (h) {
             return (
-                <div>
+                <span>
                     { window._(this.$slots.default[0].text) }
-                </div>
+                </span>
             )
         }
     })
