@@ -161,8 +161,7 @@ export function formateBalance (val = 0) {
     } else if (val > 10) {
         newEth = (val).toFixed(4)
     } else {
-        newEth = (val).toFixed(5)
-        // 如果需要去掉零 用parseFloat(  )
+        newEth = Math.floor(val * 100000) / 100000
     }
     return newEth
 }
@@ -188,10 +187,12 @@ export function formateEmail (email) {
     if (regEmail.test(email)) {
         regArr = regEmail.exec(email)
         if (regArr[1] && regArr[1].length > 10) {
-            return regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
-        } else {
-            return email
+            email = regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
         }
+        if (email.indexOf('@') > -1) {
+            email = email.split('@')[0]
+        }
+        return email
     } else {
         console.error('email error at formate_email')
         return false

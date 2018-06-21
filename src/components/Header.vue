@@ -811,7 +811,7 @@
 
     .act-sign{
         top:35px;
-        right:178px;
+        right:270px;
         animation: actMove 5s 2s infinite;
     }
     @keyframes actMove {
