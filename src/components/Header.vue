@@ -170,7 +170,7 @@
                 <!--<canvas id="canvas" ref="canvas"></canvas>-->
             <!--</div>-->
             <!--:class="{hide:jackPotMsg===null}"-->
-            <div class="jackpot" v-show="jackPotMsg">
+            <div class="jackpot" v-show="jackPotMsg && false">
                 <div class="jackpot-box">
                     <el-carousel :interval="5000" arrow="never" height="72px">
                         <el-carousel-item v-for="item in jackPotMsg"  v-if="item">
