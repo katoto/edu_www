@@ -104,7 +104,8 @@ const actionsInfo = mapActions({
             }
         }
         let basePotArr = []
-        commit(mTypes.setjackPotMsg, basePotArr.push(data))
+        basePotArr.push(data)
+        commit(mTypes.setjackPotMsg, basePotArr)
         setTimeout(() => {
             commit(mTypes.setjackPotMsg, null)
         }, 5000)

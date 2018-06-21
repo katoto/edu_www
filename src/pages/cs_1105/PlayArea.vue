@@ -2,7 +2,7 @@
     <li class="js_playArea-li">
         <div class="play-area-top">
             <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true" @mouseout="slideDown = false">
-                <span v-if="areaMsg.pickType === '5J'">(JACKPOT)</span>
+                <span v-if="areaMsg.pickType === '5J'">Super&ensp;5</span>
                 <span v-else>Pick {{ areaMsg.pickType}}</span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
                     <li data-index="1">Pick 1</li>
@@ -11,7 +11,7 @@
                     <li data-index="4">Pick 4</li>
                     <li data-index="5">Pick 5</li>
                     <li data-index="5J" class="es">
-                        Super 5
+                        Super&ensp;5
                         <!--<p>Pick 5</p>-->
                         <!--<p></p>-->
                     </li>

@@ -44,7 +44,7 @@ module.exports = {
   },
 
   preRelease: {
-    assetsPublicPath: '/coinslotVue/'
+    assetsPublicPath: '/'
   },
 
   build: {
@@ -54,7 +54,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/coinslotVue/',
+    assetsPublicPath: '/',
 
     /**
      * Source Maps

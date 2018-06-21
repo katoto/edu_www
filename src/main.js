@@ -38,8 +38,8 @@ Vue.component(Select.name, Select)
 Vue.component(Tabs.name, Tabs)
 Vue.component(TabPane.name, TabPane)
 
-Vue.component(Carousel.name,Carousel)
-Vue.component(CarouselItem.name,CarouselItem)
+Vue.component(Carousel.name, Carousel)
+Vue.component(CarouselItem.name, CarouselItem)
 
 //  按需加载 end
 
