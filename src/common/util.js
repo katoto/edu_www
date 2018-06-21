@@ -161,8 +161,7 @@ export function formateBalance (val = 0) {
     } else if (val > 10) {
         newEth = (val).toFixed(4)
     } else {
-        newEth = (val).toFixed(5)
-        // 如果需要去掉零 用parseFloat(  )
+        newEth = Math.floor(val * 100000) / 100000
     }
     return newEth
 }
