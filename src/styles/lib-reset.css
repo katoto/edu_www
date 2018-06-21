@@ -44,6 +44,9 @@ a {
   background: transparent;
   text-decoration: none;
 }
+em{
+    font-style: normal;
+}
 ::-ms-clear, ::-ms-reveal{display: none;}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
