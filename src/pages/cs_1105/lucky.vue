@@ -281,10 +281,11 @@
         </div>
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
+
         <!-- 世界杯弹窗 -->
         <div class="pop pop-world" :class="{'hide':!showPopWorld}">
             <div class="contain">
-                <a href="javascript:;" @click="showPopWorld=false" class="close">close</a>
+                <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
                 <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
                 <a href="./coinslot/html/worldCup.html" class="btn-join js_jump2WorldCup">
                     Join Now
@@ -302,7 +303,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
-    import {src, platform, getCK, formateCoinType, format_match, formateBalance, setCK, removeCK} from '~common/util'
+    import {src, platform, getCKstartCanvas, formateCoinType, format_match, formateBalance, setCK, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -351,6 +352,7 @@
             }
         },
         computed: {
+
             socket () {
                 return this.$store.state.socket
             },
@@ -368,6 +370,7 @@
             }
         },
         methods: {
+            formateBalance,
             playType (val) {
                 // 玩法类型1,2,3,4,5,5J
                 val = val.toString()
@@ -632,8 +635,7 @@
                         return tf(t.getSeconds())
                     }
                 })
-            },
-            formateBalance
+            }
         },
         async mounted () {
             window.addEventListener('scroll', this.fixNav)
@@ -690,10 +692,9 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
-    .close::after{
-        width: 32px;
-        height: 32px;
-        // todo
+    .worldCupClose::after{
+        width: 12px;
+        height: 12px;
         background-repeat: no-repeat;
     }
     //index

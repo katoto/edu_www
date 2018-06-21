@@ -99,9 +99,6 @@ const actionsInfo = mapActions({
     /* 奖池奖 */
     fomateJackPot ({state, commit, dispatch}, data) {
         if (data) {
-            if (data.txhash) {
-                data.txhash = data.txhash.slice(0, 7)
-            }
             if (data.prize) {
                 data.prize = formateBalance(data.prize)
             }
@@ -419,8 +416,20 @@ const actionsInfo = mapActions({
             commit('cs_1105/updateMyBetsCount', data.data.counter || 0)
             return data
         })
-    }
+    },
 
+    /* 首次奖池播报 */
+    async prizeMessage ({commit, dispatch}, pageData) {
+        try {
+            return await ajax.get(`/home/prize_message`)
+        } catch (e) {
+            Message({
+                message: e.message,
+                type: 'error',
+                duration: tipsTime
+            })
+        }
+    }
 }, 'cs_1105')
 
 export const mTypes = mutationsInfo.mTypes

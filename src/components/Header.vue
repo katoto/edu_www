@@ -1,4 +1,4 @@
-qweqeqeqeq123@www.bccto.me<template>
+<template>
     <div>
         <Banner></Banner>
         <div class="head">
@@ -69,7 +69,7 @@ qweqeqeqeq123@www.bccto.me<template>
                             l10.404,36.454c1.196,4.189,4.695,5.098,7.777,2.018L21.88,82.022z"/>
                     </svg>
                 </router-link>
-                <a href="worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
+                <a href="./coinslot/html/worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
                     <!--<i></i>-->
                     <el-select v-model="languageVal" @change="handleLanguageChange" class="">
@@ -160,14 +160,6 @@ qweqeqeqeq123@www.bccto.me<template>
                 </div>
             </div>
 
-            <!--jackpot-->
-            <div class="jackpot" :class="{hide: jackPotMsg === null}">
-                <div class="jackpot-box" >
-                    <p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.uid) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>
-                    <p class="jackpot-money">{{ _('Win {0}ETH', (jackPotMsg && jackPotMsg.prize) || '') }}</p>
-                </div>
-                <canvas id="canvas" ref="canvas"></canvas>
-            </div>
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
             <section v-if="(loginSucc || showFirstLogin)&&isLog">
@@ -228,7 +220,6 @@ qweqeqeqeq123@www.bccto.me<template>
     import {Message} from 'element-ui'
 
     import { format_match_account, formateBalance, formateCoinType, formateEmail } from '~common/util'
-    import startCanvas from '~/common/canvas'
 
     export default {
         components: {PopList, Banner},
@@ -254,10 +245,6 @@ qweqeqeqeq123@www.bccto.me<template>
         },
         watch: {},
         computed: {
-            jackPotMsg () {
-                console.log(this.$store.state.cs_1105.jackPotMsg)
-                return this.$store.state.cs_1105.jackPotMsg
-            },
             inviteTips () {
                 return this.$store.state.pop.inviteTips
             },
@@ -340,7 +327,6 @@ qweqeqeqeq123@www.bccto.me<template>
             formateCoinType
         },
         mounted () {
-            startCanvas(this.$refs.canvas)()
         }
     }
 </script>
@@ -350,7 +336,7 @@ qweqeqeqeq123@www.bccto.me<template>
     .head {
         position: relative;
         width: 100%;
-        height: 150px;
+        /*height: 150px;*/
         height: 90px;
         background: #5068bc;
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
@@ -792,48 +778,6 @@ qweqeqeqeq123@www.bccto.me<template>
         }
         14%,18%{
             transform: translateX(10px);
-        }
-    }
-
-
-    .jackpot{
-        position: fixed;
-        left:0;
-        top:0;
-        z-index:10;
-        width:100%;
-        height:150px;
-        //overflow: hidden;
-        animation: slideDownIn 1s;
-        .jackpot-box{
-            position: relative;
-            z-index:2;
-            width: 947px;
-            height: 112px;
-            margin:0 auto;
-            background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
-            display: flex;
-            justify-content: center;
-            p{
-                height: 72px;
-                padding-top:25px;
-                line-height:76px;
-                font-size:22px;
-            }
-            p.jackpot-add{
-                overflow: hidden;
-            }
-            p.jackpot-money{
-                font-size:36px;
-                font-family:sans-eb;
-                line-height:72px;
-            }
-        }
-        canvas{
-            position: absolute;
-            z-index:1;
-            top:0;
-            left:0;
         }
     }
 
