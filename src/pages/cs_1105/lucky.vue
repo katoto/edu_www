@@ -282,6 +282,12 @@
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
+        <!--中奖啦 open-->
+        <div class="fix-winning open">
+            <a href="javascript:;" class="close-winning"></a>
+            <span class="msg1">Congratulations!</span>
+            <p class="msg2">You&ensp;Win&ensp;+&ensp;{{0.00318}}</p>
+        </div>
         <!-- 世界杯弹窗 -->
         <div class="pop pop-world" :class="{'hide':!showPopWorld}">
             <div class="contain">
@@ -1647,6 +1653,42 @@
 
         to {
             transform: translateY(-2000px);
+        }
+    }
+
+    /*open*/
+    .fix-winning{
+        position: fixed;
+        bottom:0;
+        right:0;
+        padding:18px 10px 8px;
+        min-width:193px;
+        z-index:10;
+        text-align: center;
+        background: #20bf6b;
+        color: #ffffff;
+        font-weight:bold;
+        transform: translate(100%,100%);
+        .transition();
+        .msg1{
+            line-height:23px;
+            font-size:16px;
+        }
+        .msg2{
+            line-height:24px;
+            font-size:18px;
+        }
+        .close-winning{
+            display: block;
+            position: absolute;
+            top: 0;
+            right:0;
+            width:16px;
+            height:16px;
+            background: url("../../assets/slice/close-winning.png");
+        }
+        &.open{
+            transform: translate(0,0);
         }
     }
 </style>
