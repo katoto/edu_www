@@ -46,15 +46,17 @@ export const isWeiX = (function () {
     return ~ua.indexOf('micromessenger')
 })()
 
-const CK = 'coinslot_ck'
+const CK = 'block_ck'
 export function getCK () {
     return Cookies.get(CK)
 }
 export function setCK (ck) {
+    localStorage.setItem(CK, ck)
     return Cookies.set(CK, ck)
 }
 
 export function removeCK () {
+    localStorage.setItem(CK, null)
     return Cookies.remove(CK)
 }
 

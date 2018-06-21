@@ -115,7 +115,9 @@ export default {
             return opencode.split(',').indexOf(num) > -1
         },
         getMyBets () {
-            this.$store.dispatch('cs_1105/updateMyBets')
+            if (this.isLogin) {
+                this.$store.dispatch('cs_1105/updateMyBets')
+            }
         }
     },
     watch: {
