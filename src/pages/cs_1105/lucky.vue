@@ -332,18 +332,16 @@
                     pickMoney: 0.0001,
                     pickJackPot: [] // 奖池用
                 },
-                playArea: [{
-                    pickType: '1', // 玩法类型1,2,3,4,5,5J
-                    pickNum: [],
-                    pickMoney: 0.0001,
-                    pickJackPot: [] // 奖池用
-                }], // 玩法区 数组,
+                playArea: [], // 玩法区 数组,
                 jackpot: false,
                 'icon-jackpot': false
 
             }
         },
         watch: {
+            isLog (val) {
+                this.updateBaseAreaMsg()
+            },
             playArea () {
                 /* 总金额 */
                 if (this.playArea) {
@@ -358,7 +356,6 @@
             }
         },
         computed: {
-
             socket () {
                 return this.$store.state.socket
             },
@@ -600,6 +597,20 @@
                     let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
                     this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
                 }
+            },
+            updateBaseAreaMsg () {
+                if (this.isLog) {
+                    let blance = parseFloat(this.userInfo.accounts[0].balance)
+                    if (blance <= 0.005) {
+                        this.baseAreaMsg.pickMoney = 0.0001
+                    } else if (blance < 0.05 && blance >= 0.005) {
+                        this.baseAreaMsg.pickMoney = 0.001
+                    } else if (blance >= 0.05) {
+                        this.baseAreaMsg.pickMoney = 0.01
+                    }
+                } else {
+                    this.baseAreaMsg.pickMoney = 0.0001
+                }
             }
 
         },
@@ -644,6 +655,8 @@
             }
         },
         async mounted () {
+            this.updateBaseAreaMsg()
+            this.addTicket()
             window.addEventListener('scroll', this.fixNav)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)

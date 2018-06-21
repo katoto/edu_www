@@ -64,6 +64,7 @@
             </div>
         </div>
         <div class="order-box js_choose_jackPot" :class="{'hide': areaMsg.pickType !== '5J'}">
+
             <p>Picking&ensp;Order</p>
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
@@ -99,7 +100,6 @@
                 this.$store.commit('showPopLimit')
             },
             checkBetMoney () {
-                console.log(this.areaMsg.pickMoney)
                 if (isNaN(this.areaMsg.pickMoney)) {
                     Message({
                         message: 'Please enter the correct number',
@@ -201,10 +201,7 @@
                         if (this.areaMsg && this.areaMsg.pickType) {
                             if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
                                 if (parseFloat(this.areaMsg.pickType) === 1) {
-                                    Message({
-                                        message: 'You have already chosen ' + parseFloat(this.areaMsg.pickType) + ' number',
-                                        type: 'error'
-                                    })
+                                    currpickNum = [parseFloat(dataFlag)]
                                 } else {
                                     Message({
                                         message: 'You have already chosen ' + parseFloat(this.areaMsg.pickType) + ' numbers',

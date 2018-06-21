@@ -1,6 +1,6 @@
 <template>
     <div class="banner"  v-if="banner">
-        <a href="https://www.coinslot.com/coinslot/html/worldCup.html" class="banner-main">
+        <a href="./coinslot/html/worldCup.html" class="banner-main">
             <img src="../assets/img/banner.jpg" alt="">
         </a>
         <a href="javascript:;" class="banner-close" @click="closeBanner"></a>

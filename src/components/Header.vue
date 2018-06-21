@@ -170,8 +170,8 @@
                 <!--<canvas id="canvas" ref="canvas"></canvas>-->
             <!--</div>-->
             <!--:class="{hide:jackPotMsg===null}"-->
-            <div class="jackpot" >
-                <div class="jackpot-box" v-if="jackPotMsg">
+            <div class="jackpot" v-show="jackPotMsg">
+                <div class="jackpot-box">
                     <el-carousel :interval="5000" arrow="never" height="72px">
                         <el-carousel-item v-for="item in jackPotMsg"  v-if="item">
                             <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
@@ -355,19 +355,21 @@
             formateCoinType
         },
         async mounted () {
-            startCanvas(this.$refs.canvas)()
             // 获取首次中奖信息
-            let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
-            console.log(prizeMsg)
-
-            if (prizeMsg && prizeMsg.data) {
-                if (prizeMsg.data.prize_list) {
-                    this.$store.commit(mTypes.setjackPotMsg, prizeMsg.data.prize_list)
+            if (~window.location.href.indexOf('/lucky')) {
+                if (this.$refs.canvas) {
+                    startCanvas(this.$refs.canvas)()
                 }
-                if (prizeMsg.data.num) {
-                    setTimeout(() => {
-                        this.$store.commit(mTypes.setjackPotMsg, null)
-                    }, 5000 * parseFloat(prizeMsg.data.num))
+                let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
+                if (prizeMsg && prizeMsg.data) {
+                    if (prizeMsg.data.prize_list) {
+                        this.$store.commit(mTypes.setjackPotMsg, prizeMsg.data.prize_list)
+                    }
+                    if (prizeMsg.data.num) {
+                        setTimeout(() => {
+                            this.$store.commit(mTypes.setjackPotMsg, null)
+                        }, 5000 * parseFloat(prizeMsg.data.num))
+                    }
                 }
             }
         }
@@ -809,7 +811,7 @@
 
     .act-sign{
         top:35px;
-        right:178px;
+        right:270px;
         animation: actMove 5s 2s infinite;
     }
     @keyframes actMove {
