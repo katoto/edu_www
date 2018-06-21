@@ -1276,7 +1276,7 @@
             color: #778ca3;
             /*safriy bug*/
             width:100px;
-            right:32px;
+            right:52px;
         }
     }
 
