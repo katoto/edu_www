@@ -84,14 +84,12 @@ export default new Router({
                 },
                 {
                     path: '/',
-                    name: 'General',
                     redirect: '/account/general'
                 }
             ]
         },
         {
             path: '/*',
-            name: 'lucky',
             redirect: '/lucky'
         }
     ]

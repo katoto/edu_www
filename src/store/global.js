@@ -257,7 +257,6 @@ const actions = {
                             break
                         case '1007':
                             // 更新用户信息，代表结算
-
                             ;
                             break
                         }
