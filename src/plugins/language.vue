@@ -45,9 +45,7 @@ MyPlugin.install = function (Vue, store) {
     Vue.component('lang', {
         render: function (h) {
             return (
-                <em>
-                    { window._(this.$slots.default[0].text) }
-                </em>
+                <em domPropsInnerHTML={window._(this.$slots.default[0].text)}></em>
             )
         }
     })
@@ -55,16 +53,16 @@ MyPlugin.install = function (Vue, store) {
     // 2. 添加全局翻译指令
     Vue.directive('lang', {
         bind: function (el, binding) {
-            el.innerText = window._(binding.value || '')
+            el.innerHTML = window._(binding.value || '')
         },
         inserted: function (el, binding) {
-            el.innerText = window._(binding.value || '')
+            el.innerHTML = window._(binding.value || '')
         },
         update: function (el, binding) {
-            el.innerText = window._(binding.value || '')
+            el.innerHTML = window._(binding.value || '')
         },
         componentUpdated: function (el, binding) {
-            el.innerText = window._(binding.value || '')
+            el.innerHTML = window._(binding.value || '')
         }
     })
 }
