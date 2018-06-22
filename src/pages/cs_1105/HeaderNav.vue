@@ -38,7 +38,7 @@
             </div>
             <p class="jackpot2 ">
                 <span>JACKPOT&nbsp;&nbsp;</span>
-                <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount | formateJackpot }}</i>
+                <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount }}</i>
             </p>
         </div>
 
