@@ -49,7 +49,7 @@
 <script>
     import Pop from './Pop'
     import {Message} from 'element-ui'
-    import {tipsTime, setCK, removeCK, wait, format_time} from '~common/util'
+    import {tipsTime, setCK, removeCK, wait, formatTime} from '~common/util'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 
     export default {
@@ -67,7 +67,7 @@
             async updataMsg () {
                 let dataLimit = await this.$store.dispatch(aTypes.popLimit)
                 if (dataLimit && dataLimit.status === '100') {
-                    this.time = format_time(parseInt(dataLimit.data.uptime), 'yyyy/MM/dd HH:mm:ss')
+                    this.time = formatTime(parseInt(dataLimit.data.uptime), 'yyyy/MM/dd HH:mm:ss')
                     if (dataLimit.data.restrictpools.length === 0) {
                         this.noLimit = true
                     } else {

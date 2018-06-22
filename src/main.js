@@ -4,8 +4,6 @@ import App from './pages/App.vue'
 import storeFactory from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
-import vueTap from 'v-tap'
-import $ from 'jquery'
 import lanaguage from './plugins/language'
 
 import vueClipboard from 'vue-clipboard2'
@@ -20,13 +18,14 @@ import vueClipboard from 'vue-clipboard2'
 //  按需加载  有点小问题
 import {Carousel, CarouselItem, Button, Table, Pagination, TableColumn, Message, Select, Option, Tabs, TabPane, Notification} from 'element-ui'
 
-import lang from 'element-ui/lib/locale/lang/en'
-import locale from 'element-ui/lib/locale'
+// import lang from 'element-ui/lib/locale/lang/en'
+// import locale from 'element-ui/lib/locale'
 // import 'element-ui/lib/theme-chalk/index.css'
+
 import '@/styles/lib-reset.css'
 import '@/styles/element.css'
 // 设置语言
-locale.use(lang)
+// locale.use(lang)
 
 Vue.component(Button.name, Button)
 Vue.component(Table.name, Table)
@@ -46,9 +45,13 @@ Vue.component(Notification.name, Notification)
 
 // import '~/icons'
 // Vue.use(ElementUI)
-Vue.use(vueTap)
+
+// import $ from 'jquery'
+// import vueTap from 'v-tap'
+// Vue.use(vueTap)
 
 Vue.use(vueClipboard)
+
 const store = storeFactory()
 sync(store, router)
 

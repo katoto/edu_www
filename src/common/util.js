@@ -117,12 +117,12 @@ export function formatTime (time, format) {
     })
 }
 
-export const format_time = formatTime
+// export const format_time = formatTime
 
 /*
  *   format_match  玩法选择
  * */
-export function format_match (match) {
+export function formatMatch (match) {
     if (isNaN(match)) {
         return ''
     }

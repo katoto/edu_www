@@ -53,7 +53,7 @@
                                             <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
                                             <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
                                             <td>{{ item.expectid }}</td>
-                                            <td>{{ item.bettype | format_match }}</td>
+                                            <td>{{ item.bettype | formatMatch }}</td>
                                             <!--icon-jackpot-->
                                             <td :class="{'icon-jackpot' : item.win_jackpot === 1 }" >
                                                 <ul class="num-box" v-html="item.openCodeVal">
@@ -309,7 +309,7 @@
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
     import { Message } from 'element-ui'
-    import {src, platform, getCKstartCanvas, formateCoinType, format_match, formateBalance, setCK, removeCK} from '~common/util'
+    import {src, platform, getCKstartCanvas, formateCoinType, formatMatch, formateBalance, setCK, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -539,7 +539,7 @@
             format_recentWins (msg) {
                 if (msg) {
                     msg.forEach((item, index) => {
-                        item.bettype = format_match(item.bettype)
+                        item.bettype = formatMatch(item.bettype)
                         item.betcode = this.format_betCode(item.betcode)
                         item.betmoney = formateBalance(parseFloat(item.betmoney)) + 'ETH'
                         item.betprize = '<span class="win"><span>' + formateBalance(parseFloat(item.betprize)) + '</span>ETH</span>'
@@ -622,7 +622,7 @@
         },
         filters: {
             formateCoinType,
-            format_match,
+            formatMatch,
             formateBalance,
             formatTime: (time, format) => {
                 if (format === undefined || format == null) {
