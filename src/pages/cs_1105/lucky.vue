@@ -282,12 +282,6 @@
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-
-        <el-button
-            plain
-            @click="open12">
-            使用 HTML 片段
-        </el-button>
         <!--中奖啦 open-->
         <!--<div class="fix-winning open">-->
             <!--<a href="javascript:;" class="close-winning"></a>-->
@@ -313,8 +307,8 @@
     import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
     import PlayArea from '~pages/cs_1105/PlayArea.vue'
     import Footer from '~components/Footer.vue'
-    import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-    import {Message,Notification } from 'element-ui'
+    import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
+    import { Message } from 'element-ui'
     import {src, platform, getCKstartCanvas, formateCoinType, format_match, formateBalance, setCK, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
@@ -617,15 +611,6 @@
                 } else {
                     this.baseAreaMsg.pickMoney = 0.0001
                 }
-            },
-            open12() {
-                Notification({
-                    title: 'Congratulations!',
-                    dangerouslyUseHTMLString: true,
-                    message: 'You&ensp;Win&ensp;+&ensp;{{0.00318}}</p>',
-                    position: 'bottom-right',
-                    duration:5000,
-                });
             }
         },
         components: {
