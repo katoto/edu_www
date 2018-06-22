@@ -182,7 +182,6 @@
                 <canvas id="canvas" ref="canvas"></canvas>
             </div>
 
-
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
             <section v-if="(loginSucc || showFirstLogin)&&isLog">
@@ -220,7 +219,9 @@
             <section v-if="isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
                 <div class="tips-newAct tips-newAct2">
                     <div class="msg">
-                        <p v-lang="'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.'"></p>
+                        <p>
+                            Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.
+                        </p>
                         <a href="javascript:;" @click="getFaucet" class="btn-receive"><lang>Get it !</lang></a>
                         <div class="bottom hide">
                             <lang>Invite friends and get more ETH~</lang>
