@@ -347,7 +347,7 @@ export default {
             opacity: 0;
         }
     }
-.jackpot2{
+    .jackpot2{
     float: left;
     margin-left:200px;
     font-family:sans-eb;
@@ -373,4 +373,48 @@ export default {
         }
     }
 }
+
+    .deadlineMove {
+        animation: deadlineMove 1.3s;
+    }
+
+    @keyframes deadlineMove {
+        0% {
+            transform: translateY(0);
+        }
+        35% {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        65% {
+            opacity: 0;
+            transform: translateY(-60px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .blinking {
+        animation: blinking 0.7s;
+    }
+
+    @keyframes blinking {
+        0% {
+            opacity: 1;
+        }
+        25% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        75% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 </style>

@@ -49,7 +49,7 @@
                                     </tr>
                                     </thead>
                                     <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
-                                        <tr v-for="item in recentBet" :data-oid="item.oid" :class="{'newRecord':item.addNewRecord , }">
+                                        <tr v-for="(item, index) in recentBet" :data-oid="item.oid" :class="{ 'newRecord':item.addNewRecord }" :key="index">
                                             <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
                                             <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
                                             <td>{{ item.expectid }}</td>
