@@ -23,6 +23,7 @@ csCommon.keys().forEach(function (commonPath) {
 const state = {
     version: '0.0.1',
     isLog: false,
+    showEmailErr: false,
     userInfo: null,
     socket: {
         reconnect: 0,
@@ -34,6 +35,9 @@ const state = {
 }
 
 const mutations = {
+    showEmailErr (state, data) {
+        state.showEmailErr = true
+    },
     setIp_status (state, data) {
         state.ip_status = data
     },
@@ -97,12 +101,8 @@ const actions = {
                     if (userMsg.data.uid) {
                         commit(mTypes.setUid, userMsg.data.uid)
                     }
-                    if (userMsg.status !== undefined && userMsg.status.toString() === '-1') {
-                        Message({
-                            message: 'Failed to activate, because of wrong email format',
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                    if (userMsg.data.status !== undefined && userMsg.data.status.toString() === '-1') {
+                        commit('showEmailErr', true)
                     }
                     // 未激活，无钱包
                     if (userMsg.data.accounts.length === 0) {

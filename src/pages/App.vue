@@ -5,6 +5,12 @@
         <PopIpLimit></PopIpLimit>
         <!-- 全局free -->
         <PopFreeplay></PopFreeplay>
+
+        <!-- 全局该邮件无法激活 -->
+        <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
+            <p class="el-message__content">Failed to activate, because of wrong email format</p>
+        </div>
+
     </div>
 </template>
 
@@ -23,6 +29,14 @@
             PopIpLimit,
             PopFreeplay
         },
+        computed: {
+            showEmailErr () {
+                return this.$store.state.showEmailErr
+            },
+            isLog () {
+                return this.$store.state.isLog
+            }
+        },
         async mounted () {
             /* isLog ? */
             if (isLog()) {
@@ -35,7 +49,6 @@
                 this.$store.commit('setIsLog', false)
             }
             this.isReady = true
-
             this.$store.dispatch('homeInfo')
         }
     }

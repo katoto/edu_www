@@ -161,10 +161,36 @@ export function formateBalance (val = 0) {
     } else if (val > 10) {
         newEth = (val).toFixed(4)
     } else {
-        newEth = Math.floor(val * 100000) / 100000
+        newEth = (val).toFixed(5)
+        // newEth = Math.floor(val * 100000) / 100000
     }
     return newEth
 }
+
+export function formateJackpot (val = 0) {
+    let newEth = null
+    if (isNaN(val) || isNaN(Number(val))) {
+        console.error('formateBalance error' + val)
+        return 0
+    }
+    val = Number(val)
+    if (val > 10000000) {
+        newEth = (val / 100000000).toFixed(1) + '亿'
+    } else if (val > 100000) {
+        // newEth = (val / 10000).toFixed(1) + '万'
+        newEth = (val).toFixed(1)
+    } else if (val > 100) {
+        newEth = (val).toFixed(2)
+    } else if (val > 10) {
+        newEth = (val).toFixed(3)
+    } else if (val > 1) {
+        newEth = (val).toFixed(4)
+    } else {
+        newEth = (val).toFixed(5)
+    }
+    return newEth
+}
+
 /*
  *   金币类型
  * */

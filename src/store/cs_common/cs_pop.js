@@ -208,7 +208,6 @@ const actions = {
             if (pageData) {
                 InfoData = await ajax.get(`/user/mail/validate?email=${pageData}`)
             }
-            console.log(InfoData)
             if (InfoData.status === '100') {
                 return InfoData.data
             } else {
@@ -231,7 +230,6 @@ const actions = {
     async reg ({commit, dispatch}, pageData) {
         try {
             let InfoData = null
-            console.log(pageData)
             if (pageData) {
                 if (state.pop.inviterObj) {
                     InfoData = await ajax.get(`/user/mail/reg?sign=${state.pop.inviterObj.sign}&inviter=${state.pop.inviterObj.inviter}&channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
