@@ -10,6 +10,10 @@
                        placeholder="New Password(1-15 numbers and letters)">
                 <input type="password" v-model="reg_againPass" @blur="checkagainPass"
                        placeholder="Confirm Password">
+                <div class="verCode">
+                    <input type="text" placeholder="Verification Code" class="msg-ver">
+                    <img  width="137" height="50" alt="" class="img-ver">
+                </div>
                 <div class="sure-old">
                     <!--  $('.js_isAgreeAge').is(':checked')  -->
                     <input type="checkbox" v-model="log_checked" name="is18">
@@ -190,6 +194,25 @@
 </script>
 
 <style lang="less" scoped>
+    .verCode{
+        position: relative;
+        width:334px;
+        margin:0 auto;
+        overflow: hidden;
+        .msg-ver{
+            width:178px !important;
+            float: left;
+        }
+        .img-ver{
+            position: absolute;
+            right:0;
+            bottom:0;
+            width:137px;
+            height:50px;
+            cursor: pointer;
+        }
+    }
+
 </style>
 
 

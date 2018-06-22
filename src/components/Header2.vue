@@ -69,6 +69,7 @@
                             l10.404,36.454c1.196,4.189,4.695,5.098,7.777,2.018L21.88,82.022z"/>
                     </svg>
                 </router-link>
+                <a href="./coinslot/html/worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
                 <div class="language">
                     <!--<i></i>-->
                     <el-select v-model="languageVal" @change="handleLanguageChange" class="">
@@ -798,6 +799,15 @@
         100% {
             opacity: 1;
         }
+    }
+
+    .enter-brands {
+        display: block;
+        float: left;
+        margin: 20px 0 0 33px;
+        background-image: url("../assets/slice/enter-brands.png");
+        width: 146px;
+        height: 50px;
     }
 
 
