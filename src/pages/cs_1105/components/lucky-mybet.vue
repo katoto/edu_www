@@ -154,7 +154,7 @@ export default {
             if (val && oldVal && val.length > 0 && oldVal.length > 0) {
                 oldVal.map(oldListItem => {
                     val.map(thisListItem => {
-                        if (oldListItem.bettime === thisListItem.bettime && oldListItem.expectid === thisListItem.expectid && oldListItem.opencode === '' && thisListItem.opencode !== '' && parseFloat(thisListItem.betprize) > 0) {
+                        if (oldListItem.oid === thisListItem.oid && oldListItem.opencode === '' && thisListItem.opencode !== '' && parseFloat(thisListItem.betprize) > 0) {
                             list.push(thisListItem)
                         }
                     })

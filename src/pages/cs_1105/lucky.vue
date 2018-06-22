@@ -600,7 +600,7 @@
             },
             updateBaseAreaMsg () {
                 if (this.isLog) {
-                    let blance = parseFloat(this.userInfo.accounts[0].balance)
+                    let blance = this.userInfo && parseFloat(this.userInfo.accounts[0].balance)
                     if (blance <= 0.005) {
                         this.baseAreaMsg.pickMoney = 0.0001
                     } else if (blance < 0.05 && blance >= 0.005) {
