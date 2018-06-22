@@ -36,7 +36,7 @@ const state = {
 
 const mutations = {
     showEmailErr (state, data) {
-        state.showEmailErr = true
+        state.showEmailErr = data
     },
     setIp_status (state, data) {
         state.ip_status = data
@@ -103,6 +103,10 @@ const actions = {
                     }
                     if (userMsg.data.status !== undefined && userMsg.data.status.toString() === '-1') {
                         commit('showEmailErr', true)
+                    } else {
+                        if (state.showEmailErr) {
+                            commit('showEmailErr', false)
+                        }
                     }
                     // 未激活，无钱包
                     if (userMsg.data.accounts.length === 0) {
