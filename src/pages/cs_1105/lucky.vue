@@ -624,7 +624,7 @@
                     dangerouslyUseHTMLString: true,
                     message: 'You&ensp;Win&ensp;+&ensp;{{0.00318}}</p>',
                     position: 'bottom-right',
-                    duration:5000,
+                    duration:5000000,
                 });
             }
         },

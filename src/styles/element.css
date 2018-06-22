@@ -5050,7 +5050,7 @@
 }
 
 .el-notification.right {
-    right: 16px
+    right: 0;
 }
 
 .el-notification.left {
