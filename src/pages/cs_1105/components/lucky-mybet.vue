@@ -16,7 +16,7 @@
 
             <div class="hadlogin js_isLogin js_hadlogin" :class="{ hide: !mybetShow }">
                 <ul class="alert-mybets-items js_msg" id="js_mybetsItems">
-                    <li v-for="(bet, index) in myBetList" :key="index" v-if="myBetList.length > 0">
+                    <li v-for="(bet, index) in myBetList.slice(0, 4)" :key="index" v-if="myBetList.length > 0">
                         <div class="top">
                             <span class="date fl">
                                 NO.{{bet.expectid}}
@@ -95,6 +95,7 @@
 
 <script>
 import { formateCoinType, formateBalance } from '~common/util'
+import { Notification } from 'element-ui'
 export default {
     data () {
         return {
@@ -118,10 +119,27 @@ export default {
             if (this.isLogin) {
                 this.$store.dispatch('cs_1105/updateMyBets')
             }
+        },
+        entryTipList (list) {
+            list.map((listItem, index) => {
+                setTimeout(() => {
+                    this.showWinBetTip(listItem.betprize, listItem.cointype)
+                }, 500 * index)
+            })
+        },
+        showWinBetTip (betprize, cointype) {
+            Notification({
+                title: 'Congratulations!',
+                dangerouslyUseHTMLString: true,
+                message: `You Win + ${formateBalance(betprize)} ${formateCoinType(cointype)}`,
+                position: 'bottom-right',
+                duration: 5000
+            })
         }
     },
     watch: {
         lastExpectid: function (val, oldVal) {
+            // 如果上一期投注和我的最近一期投注期号一样，更新我的投注列表
             if (this.thisExpectId === val) {
                 this.getMyBets()
             }
@@ -129,6 +147,22 @@ export default {
         isLogin: function (val, oldVal) {
             if (val) {
                 this.getMyBets()
+            }
+        },
+        myBetList: function (val, oldVal) {
+            var list = []
+            if (val && oldVal && val.length > 0 && oldVal.length > 0) {
+                oldVal.map(oldListItem => {
+                    val.map(thisListItem => {
+                        if (oldListItem.bettime === thisListItem.bettime && oldListItem.expectid === thisListItem.expectid && oldListItem.opencode === '' && thisListItem.opencode !== '' && parseFloat(thisListItem.betprize) > 0) {
+                            list.push(thisListItem)
+                        }
+                    })
+                })
+            }
+
+            if (list.length > 0) {
+                this.entryTipList(list)
             }
         }
     },

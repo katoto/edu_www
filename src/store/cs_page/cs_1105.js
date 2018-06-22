@@ -410,7 +410,7 @@ const actionsInfo = mapActions({
     updateMyBets ({commit, dispatch}) {
         return ajax.get('/order/list', {
             pageno: 1,
-            pagesize: 4,
+            pagesize: 10,
             day: 1
         }).then(data => {
             commit('cs_1105/updateMyBets', data.data.orders || [])
