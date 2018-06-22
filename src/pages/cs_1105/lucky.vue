@@ -475,7 +475,7 @@
                                     })
                                 }, 1000)
                             } else {
-                                //  全部失败订单
+                                //  全部失败订单  todo
                                 orderMsg.data.restricts.forEach(function (val, index) {
                                     errorResArr.push(val.betcode)
                                 })

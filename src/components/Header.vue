@@ -172,8 +172,8 @@
             <!--:class="{hide:jackPotMsg===null}"-->
             <div class="jackpot" v-show="jackPotMsg">
                 <div class="jackpot-box">
-                    <el-carousel :interval="5000" arrow="never" height="72px">
-                        <el-carousel-item v-for="item in jackPotMsg"  v-if="item">
+                    <el-carousel :interval="4000" arrow="never" height="72px">
+                        <el-carousel-item v-for="(item,index) in jackPotMsg" :key="index"  v-if="item">
                             <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
                             <span class="jackpot-money">{{ _('Win {0}ETH', formateBalance (  item.prize ) || '') }}</span>
                         </el-carousel-item>
