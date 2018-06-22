@@ -758,6 +758,7 @@
             border-bottom-right-radius: 6px;
             text-indent: 20px;
             border: 1px solid #ced6e0;
+            font-weight:bold;
             &:hover {
                 border-color: #778ca3;
             }
@@ -802,14 +803,21 @@
             }
         }
         .play-tips {
+            position: relative;
             float: left;
             margin-left: 170px;
             font-size: 12px;
             a {
+                position: relative;
                 margin-left: 10px;
                 &.on {
                     color: #263648;
                 }
+            }
+            .position-msg{
+                position: absolute;
+                left: 0;
+                top: 22px;
             }
         }
         .limit-tips {
