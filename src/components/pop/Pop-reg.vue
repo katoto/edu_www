@@ -38,7 +38,7 @@
 <script>
     import Pop from './Pop'
     import { Message } from 'element-ui'
-    import { tipsTime, setCK, removeCK, wait } from '~common/util'
+    import { tipsTime, setCK } from '~common/util'
     import { baseURL } from '~common/ajax'
 
     export default {
@@ -98,7 +98,8 @@
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
                 if (this.reg_email !== '') {
                     if (emailReg.test(this.reg_email)) {
-                        let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
+                        // let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
+                        this.$store.dispatch('beforeReg', this.reg_email)
                     } else {
                         Message({
                             message: 'Please enter your email address',

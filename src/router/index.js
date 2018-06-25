@@ -25,7 +25,7 @@ const Withdraw = () => import('~/pages/cs_account/Withdraw')
 const page_404 = () => import('~/pages/404.vue')
 
 export default new Router({
-    mode: 'hash',
+    mode: 'history',
     linkActiveClass: 'on',
     routes: [
         {

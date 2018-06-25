@@ -7,13 +7,13 @@
             </h2>
             <div class="lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
                 <p>Draw History</p>
-                <span id="js_lastDrawNumber">NO.{{ last_expectid }}</span>
+                <span >NO.{{ last_expectid }}</span>
                 <i class="arrow"></i>
-                <ul id="js_lastDraw" class="last-numbox js_lastDraw">
+                <ul id="js_lastDraw" class="last-numbox">
                     <li v-for="(item, index) in liveOpenCode" class="flipInY" :key="index">{{ item }}</li>
                 </ul>
                 <div class="last-select slide" :class="{ 'slide-show': isShowHistoryCode }">
-                    <ul class="date-box js_date-box">
+                    <ul class="date-box ">
                         <li v-for="(item, index) in historyCodeFilter(historyCode)" :key="index">
                             <span>{{ item.expectid }}</span>
                             <ul class="num-box">
@@ -24,15 +24,14 @@
                     <router-link :to="{path: '/drawNumber'}">
                         <a href="javascript:;" class="more" target="_blank">More >></a>
                     </router-link>
-
                 </div>
             </div>
             <!--changeDead-->
             <div class="deadline">
                 <div class="deadline-box" :class="{'deadlineMove': expect_move }">
                     <p>Time Left</p>
-                    <!--blinking-->
-                    <span id="js_currExpectid" :class="{'blinking':expect_blinking}">No.{{ currExpectId }}</span>
+                    <!--blinking  id="js_currExpectid"  -->
+                    <span :class="{'blinking':expect_blinking}">No.{{ currExpectId }}</span>
                     <i :class="{'jump5': parseFloat( timeLeft )<= 10 }">{{ timeLeft }}’</i>
                 </div>
             </div>

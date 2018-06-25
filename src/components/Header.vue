@@ -316,7 +316,7 @@
                     } else {
                         this.$store.commit('inviteTips', false)
                     }
-                }else{
+                } else {
                     this.$store.commit('inviteTips', false)
                 }
             },

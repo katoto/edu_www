@@ -49,8 +49,8 @@
 <script>
     import Pop from './Pop'
     import {Message} from 'element-ui'
-    import {tipsTime, setCK, removeCK, wait, formatTime} from '~common/util'
-    import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
+    import {formatTime} from '~common/util'
+    import {aTypes} from '~/store/cs_page/cs_1105'
 
     export default {
         data () {
@@ -58,8 +58,7 @@
                 time: '',
                 noLimit: false,
                 numx: 'num-boxc2',
-                dateLimit: [
-                ]
+                dateLimit: []
             }
         },
         components: {Pop},

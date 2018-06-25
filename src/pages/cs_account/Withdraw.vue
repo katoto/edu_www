@@ -6,17 +6,17 @@
                 <li class="li-records">
                     <div class="item icon-name hide">
                         <div class="fl210 ">ETH</div>
-                        <p class="bold js_withDrawal_eth"></p>
+                        <p class="bold"></p>
                     </div>
                     <div class="item wallet-add">
                         <div class="fl210">Wallet Address</div>
-                        <input v-model="withdrawAddr" type="text">
+                        <input v-model="withdrawAddr" name="wallet" type="text">
                     </div>
                     <div class="item pick-up">
                         <div class="fl210">
                             <span class="css_withdraw_tips">Withdrawal Amount</span>
                             <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.05 "
-                                  class="css_withdraw_total">0.05 ~ <span>{{ this.userInfo.accounts[0].balance }}</span> ETH</span>
+                                  class="css_withdraw_total">0.05 ~ <span>{{ formateBalance( this.userInfo.accounts[0].balance ) }}</span> ETH</span>
                             <span v-else class="css_withdraw_total">at least 0.05 ETH</span>
                         </div>
                         <input v-model="withdrawAmount" autocomplete="off" type="text">
@@ -160,7 +160,7 @@
                             </div>
                         </div>
                         <p class="trans-add1">Transfer to</p>
-                        <p class="trans-add2" id="js_copy_transferAddr2">{{ withdrawAddr }}</p>
+                        <p class="trans-add2" >{{ withdrawAddr }}</p>
                         <a href="javascript:;" v-clipboard:copy="withdrawAddr"
                            v-clipboard:success="copySucc"
                            v-clipboard:error="copyError"
@@ -210,7 +210,7 @@
                                       style="stroke-width: 4px;"></path>
                             </svg>
                         </div>
-                        <p>Due to <span class="js_pop_failure_msg">{{ transferMsg }}</span>, the order is unsuccessful, please
+                        <p>Due to <span >{{ transferMsg }}</span>, the order is unsuccessful, please
                             try
                             again later</p>
                         <a href="javascript:;" @click="closeTransferError" class="btn-failure">Try Later</a>
