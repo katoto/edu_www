@@ -197,8 +197,8 @@ const actions = {
 
     /* 退出登录 */
     loginOut ({state, commit, dispatch}) {
-        removeCK()
         commit('setIsLog', false)
+        removeCK()
         commit('setUserInfo', {})
         if (!~state.route.path.indexOf('lucky')) {
             router.push('/lucky')
@@ -255,10 +255,7 @@ const actions = {
     startBackTime ({state, commit, dispatch}, pageData) {
         // 新增一个  再次发生邮件的倒计时
         clearInterval(state.pop.verifyTime)
-        commit('emailBackTime', 10)
-        // $('#js_first_sendEmail').addClass('no');
-        // $('.js_verifyEmail_backTime_parent').removeClass('hide').show().css('visibility', 'visible')
-        // $('.js_verifyEmail_backTime').html(verifyTimeNow);
+        commit('emailBackTime', 60)
         state.pop.verifyTime = setInterval(function () {
             commit('emailBackTime', state.pop.emailBackTime - 1)
             if (state.pop.emailBackTime === 0) {

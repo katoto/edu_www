@@ -316,6 +316,8 @@
                     } else {
                         this.$store.commit('inviteTips', false)
                     }
+                }else{
+                    this.$store.commit('inviteTips', false)
                 }
             },
             hideFirstLoginAll () {

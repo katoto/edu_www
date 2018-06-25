@@ -179,6 +179,8 @@ const actions = {
                             if (msg.data.timer !== undefined && msg.data.timer !== null) {
                                 dispatch(aTypes.formate_countDown, msg.data.timer)
                             }
+                            // 初始化上一期结果
+                            dispatch(aTypes.formate_Result, msg.data)
                             // 当前期号
                             if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
@@ -187,21 +189,18 @@ const actions = {
                             if (msg.data.top) {
                                 dispatch(aTypes.formate_recentBet, msg.data.top)
                             }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
                             break
                         case '1002':
                             //  初始化倒计时
                             if (msg.data.timer !== undefined && msg.data.timer !== null) {
                                 dispatch(aTypes.formate_countDown, msg.data.timer)
                             }
+                            // 初始化上一期结果
+                            dispatch(aTypes.formate_Result, msg.data)
                             // 当前期号
                             if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
-
                             /*
                              *  处理 区块链阻塞
                              * */
@@ -237,7 +236,9 @@ const actions = {
                             dispatch(aTypes.formate_Result, msg.data)
 
                             // mybet 弹窗
-                            dispatch('cs_1105/updateMyBets')
+                            if (state.isLog) {
+                                dispatch('cs_1105/updateMyBets')
+                            }
                             dispatch('cs_1105/updateHistoryDraw')
 
                             // 更新用户信息
