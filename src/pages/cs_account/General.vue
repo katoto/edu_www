@@ -8,7 +8,7 @@
             <p class="my-account "><span class="js_currEmail">{{ userInfo.email }}</span>
                 <span class="js_unverifyBox">
                 <a href="javascript:;" v-if="userInfo.status==='0'" @click="goVerify" >go to verified</a>
-                <a href="javascript:;" v-else style="cursor: default">Verified</a>
+                <a href="javascript:;" v-if="userInfo.status==='1'" style="cursor: default">Verified</a>
             </span>
             </p>
             <span class="small-explain">Wallet Balance</span>

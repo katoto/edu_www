@@ -47,7 +47,7 @@
                 <div v-else class="js_unverifyBox">
                     <!-- todo 验证 -->
                     <p>Account has not been verified，and the block chain account has not been generated.
-                        <a href="javascript:;" class="js_toVerify">go to verified</a></p>
+                        <a href="javascript:;" @click="goVerify" >go to verified</a></p>
                 </div>
             </div>
             <div class="recharge-item recharge-item2">
@@ -77,12 +77,16 @@
 	    },
 	    watch: {},
 	    methods: {
+            goVerify () {
+                /* 应该是一个新的 验证邮箱的界面 */
+                this.$store.commit('showNoVerify')
+            },
 	        copySucc () {
 	            Message({
 	                message: 'Copied to clipboard',
 	                type: 'success'
 	            })
-        },
+            },
 	        copyError () {
 	            Message({
 	                message: 'Failed to copy, please retry',

@@ -251,7 +251,7 @@ const actionsInfo = mapActions({
             state.last_expectid = msg.last_expectid
         }
         // msg.expectid !== expectId  ??
-        if (msg.expectid !== state.currExpectId || 1) {
+        if (msg.expectid !== state.currExpectId) {
             if (!msg.opencode || msg.opencode === '') {
                 msg.opencode = '-,-,-,-,-'
             }

@@ -1,6 +1,9 @@
 import md5 from 'md5'
 import {Message} from 'element-ui'
 import ajax from '~common/ajax'
+
+import router from '@/router'
+
 import {src, channel, mapMutations, getCK, removeCK, mapActions, platform, tipsTime} from '~common/util'
 
 const state = {
@@ -193,11 +196,14 @@ const actions = {
     },
 
     /* 退出登录 */
-    loginOut ({commit, dispatch}) {
-        dispatch('sub2out')
-        removeCK()
+    loginOut ({state, commit, dispatch}) {
         commit('setIsLog', false)
+        removeCK()
         commit('setUserInfo', {})
+        if (!~state.route.path.indexOf('lucky')) {
+            router.push('/lucky')
+        }
+        dispatch('sub2out')
     },
 
     /* reg 注册 => 邮箱验证 */
@@ -244,10 +250,7 @@ const actions = {
     startBackTime ({state, commit, dispatch}, pageData) {
         // 新增一个  再次发生邮件的倒计时
         clearInterval(state.pop.verifyTime)
-        commit('emailBackTime', 10)
-        // $('#js_first_sendEmail').addClass('no');
-        // $('.js_verifyEmail_backTime_parent').removeClass('hide').show().css('visibility', 'visible')
-        // $('.js_verifyEmail_backTime').html(verifyTimeNow);
+        commit('emailBackTime', 60)
         state.pop.verifyTime = setInterval(function () {
             commit('emailBackTime', state.pop.emailBackTime - 1)
             if (state.pop.emailBackTime === 0) {

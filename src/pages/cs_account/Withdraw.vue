@@ -15,9 +15,9 @@
                     <div class="item pick-up">
                         <div class="fl210">
                             <span class="css_withdraw_tips">Withdrawal Amount</span>
-                            <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.01 "
-                                  class="css_withdraw_total">0.01 ~ <span>{{ this.userInfo.accounts[0].balance }}</span> ETH</span>
-                            <span v-else class="css_withdraw_total">at least 0.01 ETH</span>
+                            <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.05 "
+                                  class="css_withdraw_total">0.05 ~ <span>{{ this.userInfo.accounts[0].balance }}</span> ETH</span>
+                            <span v-else class="css_withdraw_total">at least 0.05 ETH</span>
                         </div>
                         <input v-model="withdrawAmount" autocomplete="off" type="text">
                         <span @click="checkMaximum" class="css_withdraw_topMoney">Maximum</span>
@@ -336,8 +336,8 @@ export default {
         },
         checkMaximum () {
             if (this.userInfo && this.userInfo.accounts) {
-                if (Number(this.userInfo.accounts[0].balance) < 0.01) {
-                    this.error('The minimum withdrawal is 0.01 ETH')
+                if (Number(this.userInfo.accounts[0].balance) < 0.05) {
+                    this.error('The minimum withdrawal is 0.05 ETH')
                     return false
                 }
                 this.withdrawAmount = parseFloat(this.userInfo.accounts[0].balance) - parseFloat(this.userInfo.accounts[0].fee)
@@ -368,8 +368,8 @@ export default {
                 this.withdrawAmount = ''
                 return false
             }
-            if (this.withdrawAmount === '' || this.withdrawAmount.toString() === '0' || Number(this.withdrawAmount) < 0.01) {
-                this.error('The minimum withdrawal is 0.01 ETH')
+            if (this.withdrawAmount === '' || this.withdrawAmount.toString() === '0' || Number(this.withdrawAmount) < 0.05) {
+                this.error('The minimum withdrawal is 0.05 ETH')
                 return false
             }
 
@@ -380,11 +380,11 @@ export default {
 
             if (this.userInfo && this.userInfo.accounts) {
                 if (Number(this.withdrawAmount) > Number(this.userInfo.accounts[0].balance)) {
-                    if (Number(this.withdrawAmount) >= 0.01) {
+                    if (Number(this.withdrawAmount) >= 0.05) {
                         this.error(`The maximum withdrawal is ${this.userInfo.accounts[0].balance} ETH`)
                         this.withdrawAmount = this.userInfo.accounts[0].balance
                     } else {
-                        this.error('The minimum withdrawal is 0.01 ETH')
+                        this.error('The minimum withdrawal is 0.05 ETH')
                         this.withdrawAmount = ''
                     }
                     return false
