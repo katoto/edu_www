@@ -682,12 +682,12 @@
                 bgstar('stars2', 10, '#fff')
             }
             function bgstar (id, num, color) {
-                let _width = window.innerWidth,
+                var _width = window.innerWidth,
                     _height = document.getElementById('play-area').clientHeight * 5,
                     count = num,
                     str = '',
                     str1 = ''
-                for (let i = 0; i < count; i++) {
+                for (var i = 0; i < count; i++) {
                     str += parseInt(Math.random() * _width) + 'px '
                     str += parseInt(Math.random() * _height) + 'px '
                     str += color + ','

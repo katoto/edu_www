@@ -3,7 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import { mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
+import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
 import {Message} from 'element-ui'
 
 const state = {

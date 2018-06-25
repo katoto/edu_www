@@ -86,16 +86,12 @@
 
 <script>
 import {
-    src,
-    platform,
-    tipsTime,
     ethUrl,
     formateCoinType,
     formateBalance,
     formatTime,
     formateMoneyFlow
 } from '~common/util'
-import { Message } from 'element-ui'
 
 export default {
     data () {

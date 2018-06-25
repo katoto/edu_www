@@ -3,9 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import { mapMutations, mapActions, tipsTime} from '~common/util'
-
-import {Message} from 'element-ui'
+import {mapMutations, mapActions} from '~common/util'
 
 const state = {
     navFix: false

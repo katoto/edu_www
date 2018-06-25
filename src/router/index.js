@@ -7,11 +7,11 @@ Vue.use(Router)
 /* cs_1105 首页 */
 const lucky = () => import('~/pages/cs_1105/lucky')
 /* cs_1105 开奖页 */
-const cs_drawNum = () => import('~/pages/cs_1105/drawNumber')
+const csDrawNum = () => import('~/pages/cs_1105/drawNumber')
 
 /* 协议 */
-const cs_protocol_policy = () => import('~/pages/cs_protocol/policy')
-const cs_protocol_terms = () => import('~/pages/cs_protocol/terms')
+const csProtocolPolicy = () => import('~/pages/cs_protocol/policy')
+const csProtocolTerms = () => import('~/pages/cs_protocol/terms')
 
 /* 个人中心 */
 const account = () => import('~/pages/cs_account/account')
@@ -22,7 +22,7 @@ const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
 // 404
-const page_404 = () => import('~/pages/404.vue')
+const page404 = () => import('~/pages/404.vue')
 
 export default new Router({
     mode: 'hash',
@@ -36,21 +36,21 @@ export default new Router({
         {
             path: '/terms',
             name: 'terms',
-            component: cs_protocol_terms
+            component: csProtocolTerms
         },
         {
             path: '/policy',
             name: 'policy',
-            component: cs_protocol_policy
+            component: csProtocolPolicy
         },
         {
             path: '/drawNumber',
             name: 'Draw Number',
-            component: cs_drawNum
+            component: csDrawNum
         },
         {
             path: '/404',
-            component: page_404,
+            component: page404,
             hidden: true
         },
         {

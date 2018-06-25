@@ -82,7 +82,7 @@
 </template>
 
 <script>
-    import {randomNumber, src, platform, isLog, getCK, setCK, removeCK} from '~common/util'
+    import {randomNumber} from '~common/util'
     import {Message} from 'element-ui'
 
     export default {

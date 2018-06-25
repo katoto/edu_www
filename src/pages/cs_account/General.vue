@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import { src, platform, removeCK, tipsTime, ethUrl } from '~common/util'
-
 export default {
     data () {
         return {}

@@ -40,15 +40,13 @@
                 ]
             }
         },
-        watch: {
-        },
-	    computed: {
+        watch: {},
+        computed: {
             isLog () {
-            	return this.$store.state.isLog
+                return this.$store.state.isLog
             }
         },
-        methods: {
-        },
+        methods: {},
         components: {
             Footer,
             Header,
@@ -63,38 +61,41 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
-    .main{
+
+    .main {
         position: relative;
         width: 1190px;
         margin: 0 auto;
         overflow: hidden;
     }
-    .slide-bar{
+
+    .slide-bar {
         float: left;
         width: 170px;
-        padding:14px 0 10px 20px;
+        padding: 14px 0 10px 20px;
         border-radius: 6px;
         background: #fff;
-        li{
-            height:50px;
-            line-height:50px;
+        li {
+            height: 50px;
+            line-height: 50px;
         }
-        .on{
-            a{
+        .on {
+            a {
                 color: #263648;
-                &::after{
+                &::after {
                     display: none;
                 }
             }
         }
     }
-    .my-info{
+
+    .my-info {
         float: right;
-        width:920px;
-        padding:24px 30px 0 40px;
+        width: 920px;
+        padding: 24px 30px 0 40px;
         background: #fff;
-        border-radius:6px;
-        font-size:20px;
+        border-radius: 6px;
+        font-size: 20px;
         color: #263648;
     }
 </style>

@@ -222,10 +222,7 @@
 </template>
 
 <script>
-import { mTypes, aTypes } from '~/store/cs_page/cs_account'
 import {
-    src,
-    platform,
     tipsTime,
     formatTime,
     ethUrl,

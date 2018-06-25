@@ -1,5 +1,5 @@
 import ajax, {sockURL} from '~common/ajax'
-import { tipsTime, removeCK} from '~common/util'
+import {tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 import {getCK} from '../common/util'
@@ -122,10 +122,10 @@ const actions = {
                     commit('setUserInfo', userMsg.data)
                     // 邀请 活动
                     // userMsg.data.tasks = [{
-                    // 	"tid": 1,
-                    // 	"maintype": 1,
-                    // 	"subtype": 2,
-                    // 	"taskstatus": "0"
+                    //     "tid": 1,
+                    //     "maintype": 1,
+                    //     "subtype": 2,
+                    //     "taskstatus": "0"
                     // }];
                     let newTask = []
                     userMsg.data.tasks.forEach((val, index) => {
@@ -202,8 +202,8 @@ const actions = {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
                             /*
-                             *  处理 区块链阻塞
-                             * */
+                                     *  处理 区块链阻塞
+                                     * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
