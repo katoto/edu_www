@@ -396,8 +396,6 @@ const actionsInfo = mapActions({
                 codestr: transferOrderStr,
                 cointype: 2001
             })
-            console.log(InfoData)
-            console.log('=======InfoData==')
             return InfoData
         } catch (e) {
             Message({
