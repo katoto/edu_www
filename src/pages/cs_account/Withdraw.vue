@@ -16,7 +16,7 @@
                         <div class="fl210">
                             <span class="css_withdraw_tips">Withdrawal Amount</span>
                             <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.05 "
-                                  class="css_withdraw_total">0.05 ~ <span>{{ formateBalance( this.userInfo.accounts[0].balance ) }}</span> ETH</span>
+                                  class="css_withdraw_total">0.05 ~ <span>{{ formateBalance( parseFloat(this.userInfo.accounts[0].balance)-parseFloat(this.userInfo.accounts[0].fee) ) }}</span> ETH</span>
                             <span v-else class="css_withdraw_total">at least 0.05 ETH</span>
                         </div>
                         <input v-model="withdrawAmount" autocomplete="off" type="text">
@@ -340,7 +340,7 @@ export default {
                     this.error('The minimum withdrawal is 0.05 ETH')
                     return false
                 }
-                this.withdrawAmount = parseFloat(this.userInfo.accounts[0].balance) - parseFloat(this.userInfo.accounts[0].fee)
+                this.withdrawAmount = formateBalance(parseFloat(this.userInfo.accounts[0].balance) - parseFloat(this.userInfo.accounts[0].fee))
             }
         },
         copySucc () {

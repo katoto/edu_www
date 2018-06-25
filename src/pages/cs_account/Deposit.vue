@@ -35,19 +35,19 @@
                            v-clipboard:success="copySucc"
                            v-clipboard:error="copyError"
                            class="copy js_btn-copy">Copy</a>
-                    <p>or scan to get the address</p>
-                    <div class="img-box">
-                        <div class="img-box2">
-                        <img id="js_address_code_eth" alt=""
-                            :src="'http://mobile.qq.com/qrcode?url='+ item.address ">
+                        <p>or scan to get the address</p>
+                        <div class="img-box">
+                            <div class="img-box2">
+                                <img id="js_address_code_eth" alt=""
+                                     :src="'http://mobile.qq.com/qrcode?url='+ item.address ">
+                            </div>
                         </div>
-                    </div>
                     </template>
                 </div>
                 <div v-else class="js_unverifyBox">
                     <!-- todo 验证 -->
                     <p>Account has not been verified，and the block chain account has not been generated.
-                        <a href="javascript:;" @click="goVerify" >go to verified</a></p>
+                        <a href="javascript:;" @click="goVerify">go to verified</a></p>
                 </div>
             </div>
             <div class="recharge-item recharge-item2">
@@ -70,50 +70,51 @@
 </template>
 
 <script>
-	import {Message} from 'element-ui'
-	export default {
-	    data () {
-	        return {}
-	    },
-	    watch: {},
-	    methods: {
-        goVerify () {
-            /* 应该是一个新的 验证邮箱的界面 */
-            this.$store.commit('showNoVerify')
+    import {Message} from 'element-ui'
+
+    export default {
+        data () {
+            return {}
         },
-	        copySucc () {
-	            Message({
-	                message: 'Copied to clipboard',
-	                type: 'success'
-	            })
+        watch: {},
+        methods: {
+            goVerify () {
+                /* 应该是一个新的 验证邮箱的界面 */
+                this.$store.commit('showNoVerify')
+            },
+            copySucc () {
+                Message({
+                    message: 'Copied to clipboard',
+                    type: 'success'
+                })
+            },
+            copyError () {
+                Message({
+                    message: 'Failed to copy, please retry',
+                    type: 'success'
+                })
+            }
         },
-	        copyError () {
-	            Message({
-	                message: 'Failed to copy, please retry',
-	                type: 'success'
-	            })
+        computed: {
+            isLog () {
+                return this.$store.state.isLog
+            },
+            userInfo () {
+                return this.$store.state.userInfo
+            }
+        },
+        components: {},
+        mounted () {
+            if (!this.isLog) {
+                this.$router.push('/home')
+            }
+        },
+        filters: {
+            formateCoinType: (type = '2001') => {
+                return 'a' + type
+            }
         }
-    },
-	    computed: {
-	        isLog () {
-	            return this.$store.state.isLog
-	        },
-	        userInfo () {
-	            return this.$store.state.userInfo
-	        }
-	    },
-	    components: {},
-	    mounted () {
-	        if (!this.isLog) {
-	            this.$router.push('/home')
-	        }
-	    },
-	    filters: {
-	        formateCoinType: (type = '2001') => {
-            return 'a' + type
-	        }
     }
-	}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
