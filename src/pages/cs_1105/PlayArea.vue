@@ -201,13 +201,18 @@
                             console.warn('lineNumClick error')
                         }
                     } else {
-                        if (this.areaMsg && this.areaMsg.pickType) {
-                            if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
+                        if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
+                            if (parseFloat(this.areaMsg.pickType) === 1) {
                                 currpickNum.pop()
                                 currpickNum.push(parseFloat(dataFlag))
                             } else {
-                                currpickNum.push(parseFloat(dataFlag))
+                                Message({
+                                    message: 'You have already chosen ' + parseFloat(this.areaMsg.pickType) + ' number',
+                                    type: 'error'
+                                })
                             }
+                        } else {
+                            currpickNum.push(parseFloat(dataFlag))
                         }
                     }
 
