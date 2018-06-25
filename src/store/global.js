@@ -362,9 +362,6 @@ const actions = {
         localStorage.setItem('block_ck', '')
         localStorage.setItem('block_uid', '0')
         removeCK('block_ck')
-        // todo
-        // window.location.reload()
-        // state.$router.push('/lucky')
     },
     sub2In ({commit, state}) {
         let sub2InStr = null
@@ -398,11 +395,6 @@ const actions = {
         } catch (e) {
             console.error(e.message)
         }
-    },
-    loginOut ({commit, state}) {
-        // localStorage.setItem('block_ck', '')
-        // localStorage.setItem('block_uid', '0')
-        // removeCK('block_ck')
     },
     ...common.actions
 }

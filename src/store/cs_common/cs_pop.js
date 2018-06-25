@@ -1,6 +1,9 @@
 import md5 from 'md5'
 import {Message} from 'element-ui'
 import ajax from '~common/ajax'
+
+import router from '@/router'
+
 import {src, channel, mapMutations, getCK, removeCK, mapActions, platform, tipsTime} from '~common/util'
 
 const state = {
@@ -193,11 +196,14 @@ const actions = {
     },
 
     /* 退出登录 */
-    loginOut ({commit, dispatch}) {
-        dispatch('sub2out')
+    loginOut ({state, commit, dispatch}) {
         removeCK()
         commit('setIsLog', false)
         commit('setUserInfo', {})
+        if (!~state.route.path.indexOf('lucky')) {
+            router.push('/lucky')
+        }
+        dispatch('sub2out')
     },
 
     /* reg 注册 => 邮箱验证 */
