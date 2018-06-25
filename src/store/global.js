@@ -235,15 +235,15 @@ const actions = {
                             // 初始化上一期结果
                             dispatch(aTypes.formate_Result, msg.data)
 
-                            // mybet 弹窗
-                            if (state.isLog) {
-                                dispatch('cs_1105/updateMyBets')
+                            if (~state.route.path.indexOf('lucky')) {
+                                // mybet 弹窗
+                                if (state.isLog) {
+                                    dispatch('cs_1105/updateMyBets')
+                                }
+                                dispatch('cs_1105/updateHistoryDraw')
+                                // 更新用户信息
+                                dispatch('getUserInfo')
                             }
-                            dispatch('cs_1105/updateHistoryDraw')
-
-                            // 更新用户信息
-                            dispatch('getUserInfo')
-
                             break
                         case '1004':
                             /* 投注推送  和 更新 my bet todo  */
