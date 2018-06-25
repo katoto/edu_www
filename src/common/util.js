@@ -3,7 +3,8 @@
  */
 
 import Cookies from 'js-cookie'
-import { Message } from 'element-ui'
+import {Message} from 'element-ui'
+import router from '@/router/index'
 
 export const src = 'pc'
 export const tipsTime = 3000
@@ -47,9 +48,11 @@ export const isWeiX = (function () {
 })()
 
 const CK = 'block_ck'
+
 export function getCK () {
     return Cookies.get(CK)
 }
+
 export function setCK (ck) {
     localStorage.setItem(CK, ck)
     return Cookies.set(CK, ck)
@@ -283,6 +286,7 @@ export function randomNumber (len) {
         len = 5
     }
     return shuffle(shuffleArr).slice(0, len)
+
     function shuffle (arr) {
         var len = arr.length
         for (var i = 0; i < len - 1; i++) {
@@ -300,11 +304,6 @@ export function commonErrorHandler (data) {
     switch (status) {
     case '214':
         removeCK()
-        if (this && this.$store) {
-            this.$store.commit('setIsLog', false)
-            this.$store.commit('setUserInfo', {})
-            this.$store.commit('showLoginPop')
-        }
         break
     default:
         Message({

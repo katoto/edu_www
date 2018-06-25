@@ -80,7 +80,7 @@
                 if (this.resetPsw === '' || this.resetPsw2 === '') {
                     return false
                 }
-                if (this.reg_pass !== this.reg_againPass) {
+                if (this.resetPsw !== this.resetPsw2) {
                     Message({
                         message: 'Confirm password not match',
                         type: 'error',
@@ -99,7 +99,7 @@
                 Object.assign(regObj, {
                     email: this.resetObj.email,
                     sign: this.resetObj.sign,
-                    password: this.reg_pass
+                    password: this.resetPsw
                 })
                 let resetMsg = await this.$store.dispatch('resetPasswordFn', regObj)
                 if (resetMsg && resetMsg.status.toString() === '100') {
@@ -112,12 +112,6 @@
                         this.$store.commit('hideResetPwd')
                         this.$store.commit('showLoginPop')
                     }, tipsTime)
-                } else {
-                    Message({
-                        message: resetMsg.message,
-                        type: 'error',
-                        duration: tipsTime
-                    })
                 }
             }
 

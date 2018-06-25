@@ -126,6 +126,11 @@
                     })
                     return false
                 }
+                // 临时字符串处理
+                let pointArr = this.areaMsg.pickMoney.split('.')
+                if (pointArr && pointArr[1] && pointArr[1].length >= 4) {
+                    this.areaMsg.pickMoney = parseFloat(this.areaMsg.pickMoney).toFixed(4)
+                }
             },
             delTicket ($event) {
                 // 删除

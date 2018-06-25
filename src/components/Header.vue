@@ -348,6 +348,7 @@
             },
             signOut () {
                 /* 退出登录 */
+                this.slideDown = false
                 this.$store.dispatch('loginOut')
             },
             onLoginIn () {

@@ -152,11 +152,12 @@ const actions = {
             }
             return userMsg
         } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+            if (e && e.status && e.status === '214') {
+                removeCK()
+                commit('setIsLog', false)
+                commit('setUserInfo', {})
+                commit('showLoginPop')
+            }
         }
     },
 
