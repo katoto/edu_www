@@ -232,24 +232,19 @@ const actions = {
         }
     },
     /* reg 注册 */
-    async reg ({commit, dispatch}, pageData) {
-        try {
-            let InfoData = null
-            if (pageData) {
-                if (state.pop.inviterObj) {
-                    InfoData = await ajax.get(`/user/mail/reg?sign=${state.pop.inviterObj.sign}&inviter=${state.pop.inviterObj.inviter}&channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
-                } else {
-                    InfoData = await ajax.get(`/user/mail/reg?channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
-                }
-            }
-            return InfoData
-        } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+    async reg ({commit, dispatch}, params) {
+        let data = {
+            ...params,
+            channel,
+            password: md5(md5(params.password))
         }
+
+        if (state.pop.inviterObj) {
+            data.inviter = state.pop.inviterObj.inviter
+            data.sign = state.pop.inviterObj.sign
+        }
+
+        return ajax.get('/user/mail/reg', data)
     },
     /*  倒计时 */
     startBackTime ({state, commit, dispatch}, pageData) {

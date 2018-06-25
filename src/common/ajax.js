@@ -50,6 +50,8 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
 
 export const sockURL = websocketUrl
 
+export const baseURL = options.baseURL
+
 const _axios = axios.create(options)
 
 const ajax = function (url, config = {ignore: true}) {
