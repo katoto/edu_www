@@ -172,7 +172,6 @@ const actions = {
             if (pageData) {
                 InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
             }
-            console.log(InfoData)
             if (InfoData.status === '100') {
                 commit('setLoginSucc', InfoData.data)
                 return InfoData.data
@@ -208,7 +207,6 @@ const actions = {
             if (pageData) {
                 InfoData = await ajax.get(`/user/mail/validate?email=${pageData}`)
             }
-            console.log(InfoData)
             if (InfoData.status === '100') {
                 return InfoData.data
             } else {
@@ -231,7 +229,6 @@ const actions = {
     async reg ({commit, dispatch}, pageData) {
         try {
             let InfoData = null
-            console.log(pageData)
             if (pageData) {
                 if (state.pop.inviterObj) {
                     InfoData = await ajax.get(`/user/mail/reg?sign=${state.pop.inviterObj.sign}&inviter=${state.pop.inviterObj.inviter}&channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
@@ -268,8 +265,6 @@ const actions = {
         try {
             let InfoData = null
             if (pageData) {
-                console.log(pageData)
-                console.log('发送邮件部分')
                 if (pageData.mailType) {
                     InfoData = await ajax.get(`/user/mail/send?email=${pageData.email}&mail_type=${pageData.mailType}`)
                 }

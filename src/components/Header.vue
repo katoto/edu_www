@@ -70,7 +70,7 @@
                     </svg>
                 </router-link>
                 <a href="./coinslot/html/worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
-                <div class="language">
+                <div class="language hide">
                     <!--<i></i>-->
                     <el-select v-model="languageVal" @change="handleLanguageChange" class="">
                         <el-option
@@ -305,7 +305,6 @@
                 if (this.loginSucc && this.loginSucc.tasks.length > 0) {
                     this.showInviteSuccFlag = false
                     let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid)
-                    console.log(taskDone)
                     if (taskDone && taskDone.taskstatus.toString() === '1') {
                         document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove'
                         setTimeout(() => {
@@ -314,8 +313,9 @@
                             this.$store.dispatch('getUserInfo')
                             document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove'
                         }, 3000)
+                    } else {
+                        this.$store.commit('inviteTips', false)
                     }
-
                 }
             },
             hideFirstLoginAll () {
@@ -813,7 +813,8 @@
 
     .act-sign{
         top:35px;
-        right:270px;
+        /*right:270px;*/
+        right:140px;
         animation: actMove 5s 2s infinite;
     }
     @keyframes actMove {

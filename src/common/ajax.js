@@ -31,7 +31,7 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     // options.baseURL = 'http://10.0.0.130:8000'// 建清web
     // options.baseURL = 'http://10.0.1.41:3333'// 线下测试web
 
-    websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws// 张旭ws
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.167:8099/betblock`// 成哥ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8080/betblock'`// 建清ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`// 线下测试环境ws
@@ -42,7 +42,7 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     // options.baseURL = 'http://10.0.0.130:8000'// 建清web
     // options.baseURL = 'http://10.0.1.41:3333'// 线下测试web
 
-    websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws// 张旭ws
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.167:8099/betblock`// 成哥ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8080/betblock'`// 建清ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`// 线下测试环境ws

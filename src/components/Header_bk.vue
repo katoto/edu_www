@@ -242,7 +242,6 @@
                             document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove'
                         }, 3000)
                     }
-
                 }
             },
             hideFirstLoginAll () {

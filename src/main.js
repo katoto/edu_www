@@ -18,14 +18,13 @@ import vueClipboard from 'vue-clipboard2'
 //  按需加载  有点小问题
 import {Carousel, CarouselItem, Button, Table, Pagination, TableColumn, Message, Select, Option, Tabs, TabPane, Notification} from 'element-ui'
 
-// import lang from 'element-ui/lib/locale/lang/en'
-// import locale from 'element-ui/lib/locale'
-// import 'element-ui/lib/theme-chalk/index.css'
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
 
 import '@/styles/lib-reset.css'
 import '@/styles/element.css'
 // 设置语言
-// locale.use(lang)
+locale.use(lang)
 
 Vue.component(Button.name, Button)
 Vue.component(Table.name, Table)

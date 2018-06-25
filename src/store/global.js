@@ -23,6 +23,7 @@ csCommon.keys().forEach(function (commonPath) {
 const state = {
     version: '0.0.1',
     isLog: false,
+    showEmailErr: false,
     userInfo: null,
     socket: {
         reconnect: 0,
@@ -34,6 +35,9 @@ const state = {
 }
 
 const mutations = {
+    showEmailErr (state, data) {
+        state.showEmailErr = data
+    },
     setIp_status (state, data) {
         state.ip_status = data
     },
@@ -97,12 +101,12 @@ const actions = {
                     if (userMsg.data.uid) {
                         commit(mTypes.setUid, userMsg.data.uid)
                     }
-                    if (userMsg.status !== undefined && userMsg.status.toString() === '-1') {
-                        Message({
-                            message: 'Failed to activate, because of wrong email format',
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                    if (userMsg.data.status !== undefined && userMsg.data.status.toString() === '-1') {
+                        commit('showEmailErr', true)
+                    } else {
+                        if (state.showEmailErr) {
+                            commit('showEmailErr', false)
+                        }
                     }
                     // 未激活，无钱包
                     if (userMsg.data.accounts.length === 0) {
@@ -355,6 +359,12 @@ const actions = {
         } catch (e) {
             console.error(e.message)
         }
+        localStorage.setItem('block_ck', '')
+        localStorage.setItem('block_uid', '0')
+        removeCK('block_ck')
+        // todo
+        // window.location.reload()
+        // state.$router.push('/lucky')
     },
     sub2In ({commit, state}) {
         let sub2InStr = null
@@ -390,10 +400,9 @@ const actions = {
         }
     },
     loginOut ({commit, state}) {
-        localStorage.setItem('block_ck', '')
-        localStorage.setItem('block_uid', '0')
-        removeCK('block_ck')
-        window.location.reload()
+        // localStorage.setItem('block_ck', '')
+        // localStorage.setItem('block_uid', '0')
+        // removeCK('block_ck')
     },
     ...common.actions
 }
