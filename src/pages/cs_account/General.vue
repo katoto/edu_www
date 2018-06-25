@@ -64,6 +64,11 @@ export default {
             this.$router.push('/lucky')
         },
         onChange () {
+            this.$store.commit('setResetObj', {
+                email: null,
+                sign: null,
+                showReset: false
+            })
             this.$store.commit('showResetPwd')
         }
     },

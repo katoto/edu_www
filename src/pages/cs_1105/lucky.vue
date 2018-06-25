@@ -583,6 +583,8 @@
                         this.$store.commit('showResetPwd')
                         // 修改密码的时候，清楚ck
                         removeCK()
+                        this.$store.commit('setIsLog', false)
+                        this.$store.commit('setUserInfo', {})
                     }
                     if (query.inviter) {
                         // 邀请
