@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// 勿删
+import language from '../plugins/language'
+
 Vue.use(Router)
 
 /* cs_1105 */
@@ -35,17 +38,17 @@ export default new Router({
         },
         {
             path: '/terms',
-            name: 'terms',
+            name: _('terms'),
             component: csProtocolTerms
         },
         {
             path: '/policy',
-            name: 'policy',
+            name: _('policy'),
             component: csProtocolPolicy
         },
         {
             path: '/drawNumber',
-            name: 'Draw Number',
+            name: _('Draw Number'),
             component: csDrawNum
         },
         {
@@ -59,27 +62,27 @@ export default new Router({
             children: [
                 {
                     path: 'general',
-                    name: 'General',
+                    name: _('General'),
                     component: General
                 },
                 {
                     path: 'deposit',
-                    name: 'Deposit',
+                    name: _('Deposit'),
                     component: Deposit
                 },
                 {
                     path: 'myBets',
-                    name: 'MyBets',
+                    name: _('MyBets'),
                     component: MyBets
                 },
                 {
                     path: 'myTransactions',
-                    name: 'MyTransactions',
+                    name: _('MyTransactions'),
                     component: MyTransactions
                 },
                 {
                     path: 'withdraw',
-                    name: 'Withdraw',
+                    name: _('Withdraw'),
                     component: Withdraw
                 },
                 {

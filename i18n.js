@@ -129,17 +129,20 @@ function findFirstParams (str) {
 }
 
 function matchLangFunction (str) {
-    let reg = /_\(([^\)]*?)\)/gi
+    let reg = /_\('([^']*?)'/gi
+    let reg1 = /_\("([^"]*?)"/gi
     let arr = []
-    result = reg.exec(str)
+    let result = reg.exec(str)
+    let result1 = reg1.exec(str)
     while (result !== null) {
-        tmp = result[1]
-        if (tmp.indexOf('{0}') > -1) {
-            arr.push(findFirstParams(tmp))
-        } else {
-            arr.push(tmp)
-        }
+        let tmp = result[1]
+        arr.push(tmp)
         result = reg.exec(str)
+    }
+    while (result1 !== null) {
+        let tmp = result1[1]
+        arr.push(tmp)
+        result1 = reg1.exec(str)
     }
     return arr
 }

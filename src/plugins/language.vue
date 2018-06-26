@@ -8,9 +8,7 @@ const languagePackage = {
     zhTw
 }
 
-function stringFormatter (string) {
-
-}
+window._ = string => string
 
 MyPlugin.install = function (Vue, store) {
     // 注册全局翻译函数
