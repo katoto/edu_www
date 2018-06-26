@@ -247,9 +247,7 @@ const actionsInfo = mapActions({
             commit(mTypes.poolRatio, msg.pool_ratio)
         }
 
-        if (msg.last_expectid) {
-            state.last_expectid = msg.last_expectid
-        }
+
         // msg.expectid !== expectId  ??
         if (msg.expectid !== state.currExpectId) {
             if (!msg.opencode || msg.opencode === '') {
@@ -270,6 +268,9 @@ const actionsInfo = mapActions({
                     }
                     i++
                 }, 250)
+            }
+            if (msg.last_expectid) {
+                state.last_expectid = msg.last_expectid
             }
         }
     },
