@@ -49,127 +49,127 @@ const state = {
 }
 
 const mutations = {
-    setMailType(state, data) {
+    setMailType (state, data) {
         state.pop.mailType = data
     },
-    showNoVerify(state) {
+    showNoVerify (state) {
         state.pop.showNoVerify = true
     },
-    hideNoVerify(state) {
+    hideNoVerify (state) {
         state.pop.showNoVerify = false
     },
 
-    showFreeplay(state) {
+    showFreeplay (state) {
         state.pop.showFreeplay = true
     },
-    hideFreeplay(state) {
+    hideFreeplay (state) {
         state.pop.showFreeplay = false
     },
     //  激活用的
-    inviteTips(state, data) {
+    inviteTips (state, data) {
         state.pop.inviteTips = data
     },
     //  激活用的
-    showFirstLogin(state, data) {
+    showFirstLogin (state, data) {
         state.pop.showFirstLogin = data
     },
     //  登陆回来的数据
-    setLoginSucc(state, msg) {
+    setLoginSucc (state, msg) {
         state.pop.loginSucc = msg
     },
     // 邀请用
-    setInviterObj(state, msg) {
+    setInviterObj (state, msg) {
         state.pop.inviterObj = msg
     },
 
-    setResetObj(state, msg) {
+    setResetObj (state, msg) {
         state.pop.resetObj.email = msg.email
         state.pop.resetObj.sign = msg.sign
         state.pop.resetObj.showReset = msg.showReset
     },
     // 注册邮箱 记录
-    setRegVerifyEmail(state, email) {
+    setRegVerifyEmail (state, email) {
         state.pop.regVerifyEmail = email
     },
     // 邮箱倒计时
-    emailBackTime(state, time) {
+    emailBackTime (state, time) {
         state.pop.emailBackTime = time
     },
     // 转账弹窗
-    showTransfer(state) {
+    showTransfer (state) {
         state.pop.showTransfer = true
     },
-    hideTransfer(state) {
+    hideTransfer (state) {
         state.pop.showTransfer = false
     },
 
-    showLoginPop(state) {
+    showLoginPop (state) {
         state.pop.showLoginPop = true
     },
-    hideLoginPop(state) {
+    hideLoginPop (state) {
         state.pop.showLoginPop = false
     },
     // 注册弹窗显示隐藏
-    showRegPop(state) {
+    showRegPop (state) {
         state.pop.showRegPop = true
     },
-    hideRegPop(state) {
+    hideRegPop (state) {
         state.pop.showRegPop = false
     },
     // 验证弹窗显示隐藏
-    showVerifyEmail(state) {
+    showVerifyEmail (state) {
         state.pop.showVerifyEmail = true
     },
-    hideVerifyEmail(state) {
+    hideVerifyEmail (state) {
         state.pop.showVerifyEmail = false
     },
     // 重置密码弹窗显示隐藏
-    showResetPwd(state) {
+    showResetPwd (state) {
         state.pop.showResetPwd = true
     },
-    hideResetPwd(state) {
+    hideResetPwd (state) {
         state.pop.showResetPwd = false
     },
     // 邮箱验证错误弹窗显示隐藏
-    showVerifyEmailError(state) {
+    showVerifyEmailError (state) {
         state.pop.showVerifyEmailError = true
     },
-    hideVerifyEmailError(state) {
+    hideVerifyEmailError (state) {
         state.pop.showVerifyEmailError = false
     },
     // 注册成功弹窗显示隐藏
-    showRegSuccess(state) {
+    showRegSuccess (state) {
         state.pop.showRegSuccess = true
     },
-    hideRegSuccess(state) {
+    hideRegSuccess (state) {
         state.pop.showRegSuccess = false
     },
     // 注册失败弹窗显示隐藏
-    showRegFailure(state) {
+    showRegFailure (state) {
         state.pop.showRegFailure = true
     },
-    hideRegFailure(state) {
+    hideRegFailure (state) {
         state.pop.showRegFailure = false
     },
-    showFaucet(state) {
+    showFaucet (state) {
         state.pop.showFaucet = true
     },
-    hideFaucet(state) {
+    hideFaucet (state) {
         state.pop.showFaucet = false
     },
-    faucetMsg(state, msg) {
+    faucetMsg (state, msg) {
         state.pop.faucetMsg = msg
     },
-    showPopLimit(state) {
+    showPopLimit (state) {
         state.pop.showPopLimit = true
     },
-    hidePopLimit(state) {
+    hidePopLimit (state) {
         state.pop.showPopLimit = false
     }
 }
 const actions = {
     /* login 登陆 */
-    async userLogin({commit, dispatch}, pageData) {
+    async userLogin ({commit, dispatch}, pageData) {
         try {
             let InfoData
             if (pageData) {
@@ -196,7 +196,7 @@ const actions = {
     },
 
     /* 退出登录 */
-    loginOut({state, commit, dispatch}) {
+    loginOut ({state, commit, dispatch}) {
         commit('setIsLog', false)
         removeCK()
         commit('setUserInfo', {})
@@ -207,7 +207,7 @@ const actions = {
     },
 
     /* reg 注册 => 邮箱验证 */
-    async beforeReg({commit, dispatch}, pageData) {
+    async beforeReg ({commit, dispatch}, pageData) {
         try {
             let InfoData
             if (pageData) {
@@ -232,7 +232,7 @@ const actions = {
         }
     },
     /* reg 注册 */
-    async reg({commit, dispatch}, params) {
+    async reg ({commit, dispatch}, params) {
         let data = {
             ...params,
             channel,
@@ -247,7 +247,7 @@ const actions = {
         return ajax.get('/user/mail/reg', data)
     },
     /*  倒计时 */
-    startBackTime({state, commit, dispatch}, pageData) {
+    startBackTime ({state, commit, dispatch}, pageData) {
         // 新增一个  再次发生邮件的倒计时
         clearInterval(state.pop.verifyTime)
         commit('emailBackTime', 60)
@@ -259,7 +259,7 @@ const actions = {
         }, 1000)
     },
     /* 发送邮件  reg: 注册, reset: 重置密码 */
-    async sendEmail({commit, dispatch}, pageData) {
+    async sendEmail ({commit, dispatch}, pageData) {
         try {
             let InfoData = null
             if (pageData) {
@@ -278,7 +278,7 @@ const actions = {
     },
 
     /*  reset password  重置密码  */
-    async resetPasswordFn({state, commit, dispatch}, pageData) {
+    async resetPasswordFn ({state, commit, dispatch}, pageData) {
         try {
             let InfoData = null
             if (pageData) {
@@ -299,7 +299,7 @@ const actions = {
     },
 
     /* 邀请 faucet */
-    async getFaucet({commit, dispatch}) {
+    async getFaucet ({commit, dispatch}) {
         try {
             let InfoData = await ajax.get(`/user/invite?ck=${getCK()}&src=${src}&platform=${platform}`)
             if (InfoData.status.toString() === '100') {
@@ -316,7 +316,7 @@ const actions = {
     },
 
     /* 邀请 faucet 领取 */
-    async getTaskDone({commit, dispatch}, taskid) {
+    async getTaskDone ({commit, dispatch}, taskid) {
         try {
             let InfoData = await ajax.get(`/task/done?tid=${taskid}&ck=${getCK()}&src=${src}&platform=${platform}`)
             if (InfoData && InfoData.status.toString() === '100') {

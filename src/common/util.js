@@ -4,7 +4,6 @@
 
 import Cookies from 'js-cookie'
 import {Message} from 'element-ui'
-import router from '@/router/index'
 
 export const src = 'pc'
 export const tipsTime = 3000
