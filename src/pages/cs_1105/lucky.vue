@@ -294,7 +294,7 @@
             <div class="contain">
                 <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
                 <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
-                <a href="https://www.coinslot.com/coinslot/html/worldCup.html" class="btn-join">
+                <a target="_blank" href="https://www.coinslot.com/coinslot/html/worldCup.html" class="btn-join">
                     Join Now
                 </a>
             </div>
