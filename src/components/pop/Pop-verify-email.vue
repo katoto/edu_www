@@ -6,8 +6,7 @@
             <div class="icon-email"></div>
             <p class="email-account">{{ regVerifyEmail }}</p>
             <p class="verify-tips">
-                Verification email has been sent, please sign in your mailbox and click the link to
-                reset your password .
+                Verification email has been sent, please sign in your mailbox and click the link to reset your password .
             </p>
             <form>
                 <!--  no  -->

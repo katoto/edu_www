@@ -248,8 +248,6 @@ const actions = {
                             break
                         case '1004':
                             /* 投注推送  和 更新 my bet todo  */
-                            console.log(msg.data)
-                            console.log('=== 104 ====')
                             if (msg.data && msg.data.orders) {
                                 dispatch(aTypes.formate_pushBetData, msg.data.orders)
                             }
