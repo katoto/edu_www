@@ -12,7 +12,8 @@
     "lint-fix": "eslint --ext .js,.vue src --fix",
     "clean": "rimraf dist/*",
     "i18n": "node ./i18n.js",
-    "deploy167": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/"
+    "deploy167": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/",
+    "deploytest": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/test"
   },
   "dependencies": {
     "axios": "^0.18.0",
