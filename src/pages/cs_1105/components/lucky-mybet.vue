@@ -7,7 +7,7 @@
                 <p style="padding-left: 6px">Bets</p>
             </section>
             <section class="js_alert-mybets-head js_chose-mybets-head-close" :class="{ hide: !mybetShow }">
-                My Bets
+                <lang>My Bets</lang>
             </section>
             <i id="alert-mybets-close" class="alert-mybets-close js_alert-mybets-close" @click="mybetShow = false"></i>
         </div>
@@ -70,12 +70,12 @@
                     -->
                 </ul>
                 <div class="nomsg js_nomsg" v-if="myBetList.length === 0">
-                    <p>You don't have any</p>
-                    <p>records in 24 hours. Have</p>
-                    <p>a try ,and wish you luck~</p>
+                    <lang>You don't have any records in 24 hours. Have a try ,and wish you luck~</lang>
                 </div>
                 <router-link :to="{path: '/account/myBets'}">
-                    <a href="javascript:;" class="btn-more-records" target="_blank">More Records >></a>
+                    <a href="javascript:;" class="btn-more-records" target="_blank">
+                        <lang>More Records >></lang>
+                    </a>
                 </router-link>
             </div>
 

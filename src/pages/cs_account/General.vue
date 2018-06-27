@@ -41,7 +41,7 @@
             <p class="psw-grade hide">
                 Security Level&nbsp;&nbsp;<span class="bold">Middle</span>
             </p>
-            <a href="javascript:;" class="btn-changepsw" @click="onChange">Change Password</a>
+            <a href="javascript:;" class="btn-changepsw" @click="onChange">Change&ensp;Password</a>
         </div>
     </div>
 </template>
