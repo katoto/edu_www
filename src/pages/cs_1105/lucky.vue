@@ -13,7 +13,7 @@
                 </ul>
                 <div class="btn-area">
                     <span class="fee-count hide">
-                        Fee&nbsp&nbsp<i><span class="js_gasNumber">0</span>ETH</i>
+                        <lang>Fee</lang>&nbsp;&nbsp;<i><span class="js_gasNumber">0</span>ETH</i>
                     </span>
                     <a href="javascript:;" @click="addTicket" class="addmore">
                         <lang>Add Ticket</lang>
@@ -726,11 +726,11 @@
                 bgstar('stars2', 10, '#fff')
             }
             function bgstar (id, num, color) {
-                var _width = window.innerWidth,
-                    _height = document.getElementById('play-area').clientHeight * 5,
-                    count = num,
-                    str = '',
-                    str1 = ''
+                let _width = window.innerWidth
+                let _height = document.getElementById('play-area').clientHeight * 5
+                let count = num
+                let str = ''
+                let str1 = ''
                 for (var i = 0; i < count; i++) {
                     str += parseInt(Math.random() * _width) + 'px '
                     str += parseInt(Math.random() * _height) + 'px '
@@ -1319,9 +1319,6 @@
     .prenum-table {
         overflow: hidden;
         padding-bottom: 63px;
-        th {
-            //width:12.5%;
-        }
     }
 
     .winner-list, .prenum-table {
