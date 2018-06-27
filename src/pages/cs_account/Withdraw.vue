@@ -404,7 +404,7 @@ export default {
             let data = await this.$store.dispatch('cs_account/getWithdrawRecords', {
                 pageno: val,
                 pagesize: this.pageSize,
-                day: this.withdrawTimeOptionVal === '1' ? 30 : 7,
+                crday: this.withdrawTimeOptionVal === '1' ? 30 : 7,
                 ...params
             })
 
