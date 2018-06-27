@@ -50,7 +50,7 @@
             }
             this.isReady = true
             this.$store.dispatch('homeInfo');
-            // document.getElementById('coinslotLoading').style.display = 'none'
+            document.getElementById('coinslotLoading').style.display = 'none'
         }
     }
 </script>
