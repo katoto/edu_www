@@ -1,6 +1,6 @@
 <template>
     <div class="bg-lucky">
-        <Banner></Banner>
+        <!--<Banner></Banner>-->
         <div class="head">
             <div class="top">
                 <router-link to="/" title="Coinslot" class="logo">
@@ -305,6 +305,8 @@
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
+    @import "../styles/lib-media.less";
+
     .bg-lucky{
         background: #5068bc;
         background: -webkit-gradient(linear, left top, right top, from(#4b6584), color-stop(#655aae), to(#545f94));
@@ -319,7 +321,7 @@
         .top {
             position: relative;
             z-index: 9;
-            width: 1190px;
+            width:1190px;
             height: 100%;
             margin: 0 auto;
         }
@@ -679,25 +681,20 @@
     /*2180514 newAct 拉新活动*/
     .btn-faucet{
         display: block;
-        position: absolute;
-        top:30px;
-        left:50%;
-        margin-left:-50px;
-        width:20px;
-        height:27px;
+        float: right;
+        margin:22.5px 40px 0 0;
+        width:18px;
+        height:25px;
         overflow: hidden;
         background: url("../assets/slice/icon-water.png") no-repeat center;
         &:hover{
-            color: #fff;
-            border-color: #fff;
+            background: url("../assets/slice/icon-water-hover.png") no-repeat center;
         }
         &.over{
-            color: #907eef;
-            border-color:#907eef;
-            cursor: default;
+            background: url("../assets/slice/icon-water-gray.png") no-repeat center;
         }
         &.light{
-            background: #907eef;
+            background: url("../assets/slice/icon-water-hign.png") no-repeat center;
         }
     }
 
@@ -937,5 +934,20 @@
             transform: none;
         }
     }
+
+    /*开始适配*/
+    @media (max-width: @screen-phone) {
+
+    }
+    @media (max-width: @screen-tablet) {
+
+    }
+    @media (max-width: @screen-desktop) {
+
+    }
+    @media (max-width: @screen-lg-desktop) {
+
+    }
+
 </style>
 

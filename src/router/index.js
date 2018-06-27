@@ -21,6 +21,9 @@ const MyBets = () => import('~/pages/cs_account/MyBets')
 const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
+/*老虎机*/
+const tiger = () => import('~/pages/cs_tiger/tiger')
+
 // 404
 const page_404 = () => import('~/pages/404.vue')
 
@@ -32,6 +35,11 @@ export default new Router({
             path: '/lucky',
             name: 'lucky',
             component: lucky
+        },
+        {
+            path: '/tiger',
+            name: 'tiger',
+            component: tiger
         },
         {
             path: '/terms',

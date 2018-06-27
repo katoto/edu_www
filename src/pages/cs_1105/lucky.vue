@@ -303,8 +303,7 @@
 </template>
 
 <script>
-//    import Header from '~components/Header.vue'
-    import Header from '~components/Header_bk.vue'
+    import Header from '~components/Header.vue'
     import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
     import PlayArea from '~pages/cs_1105/PlayArea.vue'
     import Footer from '~components/Footer.vue'
