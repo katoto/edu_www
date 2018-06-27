@@ -343,17 +343,20 @@
             isLog (val) {
                 this.updateBaseAreaMsg()
             },
-            playArea () {
-                /* 总金额 */
-                if (this.playArea) {
-                    let sum = 0
-                    this.playArea.forEach((val, index) => {
-                        if (val.pickMoney) {
-                            sum += parseFloat((parseFloat(val.pickMoney)).toFixed(5))
-                        }
-                    })
-                    this.totalPay = parseFloat(sum.toFixed(5))
-                }
+            playArea: {
+                handler () {
+                    /* 总金额 */
+                    if (this.playArea) {
+                        let sum = 0
+                        this.playArea.forEach((val, index) => {
+                            if (val.pickMoney) {
+                                sum += parseFloat((parseFloat(val.pickMoney)).toFixed(5))
+                            }
+                        })
+                        this.totalPay = parseFloat(sum.toFixed(5))
+                    }
+                },
+                deep: true
             }
         },
         computed: {
@@ -512,7 +515,9 @@
             addTicket () {
                 /* 添加 */
                 if (this.playArea && this.playArea.length < 5) {
-                    this.playArea.push(this.baseAreaMsg)
+                    this.playArea.push({
+                        ...this.baseAreaMsg
+                    })
                 } else {
                     Message({
                         message: 'No more than 5 tickets',
@@ -804,6 +809,7 @@
             }
         }
         .play-tips {
+            height:35px;
             position: relative;
             float: left;
             margin-left: 170px;
