@@ -2,7 +2,7 @@
     <div class="tiger-pc">
         <div class="tiger-main">
             <div class="tiger ">
-                <img class="bg-tiger" src="../../assets/img/tiger/bg-tiger.jpg" alt="">
+                <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                 <div class="tiger-wrap">
                     <!--<Header></Header>-->
                     <div class="header "></div>
