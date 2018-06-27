@@ -866,6 +866,7 @@
                 text-indent: 92px;
                 font-size: 14px;
                 color: #778ca3;
+                clear: both;
             }
             .number-box {
                 overflow: hidden;
