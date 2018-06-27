@@ -1,7 +1,7 @@
 <template>
     <div class="tiger-pc">
         <Header></Header>
-        <div class="tiger-main hide">
+        <div class="tiger-main ">
             <div class="tiger">
                 <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                 <div class="tiger-wrap">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <!--中奖播报-->
-                    <div class="msg-win ">
+                    <div class="msg-win">
                         <ul>
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
