@@ -49,6 +49,11 @@
                 this.$store.commit('setIsLog', false)
             }
             this.isReady = true
+
+            /* 老虎机和首页 */
+            if (!(this.socket && this.socket.sock)) {
+                this.$store.dispatch('initWebsocket')
+            }
             this.$store.dispatch('homeInfo')
         }
     }

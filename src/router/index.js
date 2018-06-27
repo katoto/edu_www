@@ -21,7 +21,7 @@ const MyBets = () => import('~/pages/cs_account/MyBets')
 const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
-/*老虎机*/
+/* 老虎机 */
 const tiger = () => import('~/pages/cs_tiger/tiger')
 
 // 404
