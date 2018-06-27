@@ -70,6 +70,6 @@
         color: #263648;
         overflow: hidden;
         /*for tiger*/
-        min-height:600px;
+        min-height:1600px;
     }
 </style>
