@@ -49,7 +49,12 @@
                 this.$store.commit('setIsLog', false)
             }
             this.isReady = true
-            this.$store.dispatch('homeInfo');
+
+            /* 老虎机和首页 */
+            if (!(this.socket && this.socket.sock)) {
+                this.$store.dispatch('initWebsocket')
+            }
+            this.$store.dispatch('homeInfo')
             document.getElementById('coinslotLoading').style.display = 'none'
         }
     }
@@ -58,13 +63,13 @@
 <style lang="less">
     @import "../styles/lib-font.less";
     @import "../styles/lib-public.less";
-
     #app {
         position: relative;
-        min-width: 1190px;
         background: #eef1f9;
         font: 14px/20px sans-r;
         color: #263648;
         overflow: hidden;
+        /*for tiger*/
+        min-height:600px;
     }
 </style>

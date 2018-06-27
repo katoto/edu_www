@@ -663,11 +663,9 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            //            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
-            //            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
-            if (!(this.socket && this.socket.sock)) {
-                this.$store.dispatch('initWebsocket')
-            }
+            // if (!(this.socket && this.socket.sock)) {
+            //     this.$store.dispatch('initWebsocket')
+            // }
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
 

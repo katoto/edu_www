@@ -2,6 +2,7 @@ import ajax, {sockURL} from '~common/ajax'
 import {tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
+import {mutationTypes, actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
 
 function combimeStore (store, newStore) {
@@ -31,10 +32,14 @@ const state = {
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
+    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 eth
     ...common.state
 }
 
 const mutations = {
+    setCurrCoinType (state, data) {
+        state.currCoinType = data
+    },
     showEmailErr (state, data) {
         state.showEmailErr = data
     },
@@ -192,6 +197,22 @@ const actions = {
                             }
                             break
                         case '1002':
+                            /* 老虎机  eth 未来 btc */
+                            let tigerData = {
+                                tigerJackPot: '3.123',
+                                hitWin: 1,
+                                lastWin: 0.0018,
+                                cointype: 2001,
+                                recentWin: [
+                                    {
+                                        username: '846359246@qq.com',
+                                        winMoney: '0.0321',
+                                        winTime: 1530080092206
+                                    }
+                                ]
+                            }
+
+                            dispatch(actionTypes.formateTiger, tigerData)
                             //  初始化倒计时
                             if (msg.data.timer !== undefined && msg.data.timer !== null) {
                                 dispatch(aTypes.formate_countDown, msg.data.timer)
@@ -203,8 +224,8 @@ const actions = {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
                             /*
-                                     *  处理 区块链阻塞
-                                     * */
+                             *  处理 区块链阻塞
+                             * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
@@ -396,6 +417,35 @@ const actions = {
             console.error(e.message)
         }
     },
+    subInTiger () {
+        /* 进入老虎机页面 订阅 */
+        console.log('subInTiger')
+        try {
+            let subTigerStr = {
+                action: 'sub',
+                cointype: 2001,
+                type: 'tiger'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
+        } catch (e) {
+            console.error(e.message + 'subInTiger error')
+        }
+    },
+    subOutTiger () {
+        /* 离开老虎机页面 解订阅 */
+        console.log('subOutTiger')
+        try {
+            let unsubTigerStr = {
+                action: 'unsub',
+                cointype: 2001,
+                type: 'tiger'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
+        } catch (e) {
+            console.error(e.message + 'subOutTiger error')
+        }
+    },
+
     ...common.actions
 }
 
