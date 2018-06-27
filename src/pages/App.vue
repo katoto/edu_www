@@ -63,5 +63,7 @@
         font: 14px/20px sans-r;
         color: #263648;
         overflow: hidden;
+        /*for tiger*/
+        height:600px;
     }
 </style>

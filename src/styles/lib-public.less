@@ -1,4 +1,5 @@
 @import "lib-mixins";
+@import "lib-media";
 .wrap{
     position: relative;
     min-width:1190px;
@@ -1156,9 +1157,6 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
 
 
 
-
-
-
 //浮层
 .tips-newAct{
     position: absolute;
@@ -1657,4 +1655,20 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
         }
     }
 
+}
+
+
+
+@media (max-width: @screen-tablet) {
+    /*pop*/
+    .pop {
+        .pop-body {
+            left: 0;
+            top: 50%;
+            width: 100%;
+            overflow: hidden;
+            transform: translate(0, -50%);
+            border-radius: 0;
+        }
+    }
 }

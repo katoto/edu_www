@@ -1,8 +1,22 @@
 <template>
-    <div class="bg-lucky">
+    <div class="head-box">
         <!--<Banner></Banner>-->
         <div class="head">
             <div class="top">
+                <!--展开 on-->
+                <div class="m-choose-play">
+                    <div class="btn">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="msg">
+                        Select Game
+                    </div>
+                    <ul>
+                        <li>Lukcy 11</li>
+                        <li class="on">luckyCoin</li>
+                        <li>Slot</li>
+                    </ul>
+                </div>
                 <router-link to="/" title="Coinslot" class="logo">
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
@@ -171,7 +185,6 @@
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import { formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
-
     export default {
         components: {PopList, Banner},
         data () {
@@ -305,12 +318,6 @@
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
-
-    .bg-lucky{
-        background: #5068bc;
-        background: -webkit-gradient(linear, left top, right top, from(#4b6584), color-stop(#655aae), to(#545f94));
-        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
-    }
     .head {
         position: relative;
         width: 100%;
@@ -320,7 +327,8 @@
         .top {
             position: relative;
             z-index: 9;
-            width:1190px;
+            width:100%;
+            max-width:1190px;
             height: 100%;
             margin: 0 auto;
         }
@@ -330,6 +338,10 @@
             width: 137px;
             height: 32px;
             margin:19px 27px 0 0;
+            img{
+                display: block;
+                height:100%;
+            }
         }
         .choose-play{
             float: left;
@@ -358,8 +370,8 @@
                 }
                 span{
                     display: block;
-                    margin-top:3px;
-                    line-height:17px;
+                    margin-top:4px;
+                    line-height:16px;
                     text-align: center;
                     font-size:12px;
                     color: #6a89cc;
@@ -851,8 +863,8 @@
 
 
     .act-sign{
-        top:35px;
-        right:270px;
+        top: 25px;
+        right: 160px;
         animation: actMove 5s 2s infinite;
     }
     @keyframes actMove {
@@ -934,18 +946,154 @@
         }
     }
 
+
+    /*移动端选择玩法*/
+    .m-choose-play{
+        display: none;
+        position: relative;
+        float: left;
+        width:104/2px;
+        height:100%;
+        .btn{
+            position: relative;
+            width:20px;
+            height:20px;
+            margin:25px auto;
+            cursor: pointer;
+            span{
+                position: absolute;
+                left:0;
+                display: block;
+                width:100%;
+                height:2px;
+                background: #fff;
+                border-radius: 2px;
+                top:7px;
+                .transition();
+                transform-origin: left center;
+            }
+            span:first-child{
+                top:0;
+            }
+            span:last-child{
+                top:15px;
+            }
+        }
+        .msg{
+            display: none;
+            float: right;
+            line-height:70px;
+            font-size:14px;
+            color: #444c55;
+            .transition();
+        }
+        ul{
+            display: none;
+            position: absolute;
+            top:70px;
+            left:0;
+            box-sizing: border-box;
+            padding:0 25px 18px 0;
+            width:100%;
+            line-height:40px;
+            font-size:20px;
+            color: #6a89cc;
+            font-weight:bold;
+            text-align: right;
+            background: #000;
+            cursor: pointer;
+            .transition();
+            li.on{
+                color: #fff;
+            }
+        }
+        &.on{
+            position: absolute;
+            left:0;
+            top:0;
+            background: #000;
+            box-sizing: border-box;
+            width:324/2px;
+            padding-right:25px;
+            .btn{
+                float: left;
+                margin:25px 0 25px 13px;
+                span{
+                    opacity:0;
+                }
+                span:first-child{
+                    opacity:1;
+                    transform: rotateZ(40deg) scaleX(1.2);
+                }
+                span:last-child{
+                    opacity:1;
+                    transform: rotateZ(-40deg) scaleX(1.2);
+                }
+            }
+            .msg{
+                display: block;
+            }
+            ul{
+                display: block;
+            }
+        }
+    }
     /*开始适配*/
     @media (max-width: @screen-phone) {
 
+
     }
     @media (max-width: @screen-tablet) {
+        .head{
+            height:50px;
+            .logo{
+                width:auto;
+                height:22px;
+                margin:14px 0 0 0;
+            }
+            .login{
+                margin:0;
+                border-right:1px solid #371f44;
+                .to-login{
+                    height:50px;
+                    line-height:50px;
+                    border:none;
+                    padding:0 15px;
+                }
+            }
+            .language{
+                margin: 13px 0 0 0;
+            }
+        }
+        .m-choose-play{
+            .btn{
+                margin: 15px auto;
+            }
+        }
+        .act-sign{
+            display: none;
+        }
+
+
+
 
     }
     @media (max-width: @screen-desktop) {
-
+        .head{
+            .hadlogin{
+                display: none;
+            }
+        }
     }
     @media (max-width: @screen-lg-desktop) {
-
+        .head{
+            .choose-play{
+                display: none;
+            }
+            .m-choose-play{
+                display: block;
+            }
+        }
     }
 
 </style>

@@ -1,11 +1,10 @@
 <template>
     <div class="tiger-pc">
-        <div class="tiger-main">
+        <Header></Header>
+        <div class="tiger-main hide">
             <div class="tiger ">
                 <img class="bg-tiger" src="../../assets/img/tiger/bg-tiger.jpg" alt="">
                 <div class="tiger-wrap">
-                    <!--<Header></Header>-->
-                    <div class="header "></div>
                     <!--低奖池-->
                     <div class="jackpot-low">
                         <div class="jackpot-all">
@@ -330,11 +329,8 @@
         -webkit-user-select: none;
     }
     /*以移动端为主来写*/
-    .header{
-        width:100%;
-        height:50px;
-        background: #000;
-        opacity:0.3;
+    .bg-lucky{
+
     }
     .tiger{
         position: relative;
@@ -808,13 +804,14 @@
     }
     @media (min-width: @screen-phone) {
         .tiger-pc{
-            position: relative;
+            position: absolute;
             top:0;
             left:50%;
-            margin-left:-960px;
-            width:1920px;
+            transform: translateX(-50%);
+            width:100%;
             height:586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
+            background-size: 1920px 586px;
         }
         .tiger-main{
             width:826px;
