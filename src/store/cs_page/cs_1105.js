@@ -3,7 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import { mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
+import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
 import {Message} from 'element-ui'
 
 const state = {
@@ -247,11 +247,9 @@ const actionsInfo = mapActions({
             commit(mTypes.poolRatio, msg.pool_ratio)
         }
 
-        if (msg.last_expectid) {
-            state.last_expectid = msg.last_expectid
-        }
+
         // msg.expectid !== expectId  ??
-        if (msg.expectid !== state.currExpectId || 1) {
+        if (msg.expectid !== state.currExpectId) {
             if (!msg.opencode || msg.opencode === '') {
                 msg.opencode = '-,-,-,-,-'
             }
@@ -270,6 +268,9 @@ const actionsInfo = mapActions({
                     }
                     i++
                 }, 250)
+            }
+            if (msg.last_expectid) {
+                state.last_expectid = msg.last_expectid
             }
         }
     },
@@ -396,8 +397,6 @@ const actionsInfo = mapActions({
                 codestr: transferOrderStr,
                 cointype: 2001
             })
-            console.log(InfoData)
-            console.log('=======InfoData==')
             return InfoData
         } catch (e) {
             Message({

@@ -17,7 +17,7 @@
 <script>
     import PopIpLimit from '~components/Pop-ipLimit.vue'
     import PopFreeplay from '~components/Pop-freeplay.vue'
-    import {src, platform, isLog, getCK, setCK, removeCK} from '~common/util'
+    import {isLog} from '~common/util'
     // todo 暂时到时候改到global
     export default {
         data () {

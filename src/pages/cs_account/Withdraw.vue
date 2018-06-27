@@ -6,18 +6,18 @@
                 <li class="li-records">
                     <div class="item icon-name hide">
                         <div class="fl210 ">ETH</div>
-                        <p class="bold js_withDrawal_eth"></p>
+                        <p class="bold"></p>
                     </div>
                     <div class="item wallet-add">
                         <div class="fl210">Wallet Address</div>
-                        <input v-model="withdrawAddr" type="text">
+                        <input v-model="withdrawAddr" name="wallet" type="text">
                     </div>
                     <div class="item pick-up">
                         <div class="fl210">
                             <span class="css_withdraw_tips">Withdrawal Amount</span>
-                            <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.01 "
-                                  class="css_withdraw_total">0.01 ~ <span>{{ this.userInfo.accounts[0].balance }}</span> ETH</span>
-                            <span v-else class="css_withdraw_total">at least 0.01 ETH</span>
+                            <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.05 "
+                                  class="css_withdraw_total">0.05 ~ <span>{{ formateBalance( parseFloat(this.userInfo.accounts[0].balance)-parseFloat(this.userInfo.accounts[0].fee) ) }}</span> ETH</span>
+                            <span v-else class="css_withdraw_total">at least 0.05 ETH</span>
                         </div>
                         <input v-model="withdrawAmount" autocomplete="off" type="text">
                         <span @click="checkMaximum" class="css_withdraw_topMoney">Maximum</span>
@@ -160,7 +160,7 @@
                             </div>
                         </div>
                         <p class="trans-add1">Transfer to</p>
-                        <p class="trans-add2" id="js_copy_transferAddr2">{{ withdrawAddr }}</p>
+                        <p class="trans-add2" >{{ withdrawAddr }}</p>
                         <a href="javascript:;" v-clipboard:copy="withdrawAddr"
                            v-clipboard:success="copySucc"
                            v-clipboard:error="copyError"
@@ -210,7 +210,7 @@
                                       style="stroke-width: 4px;"></path>
                             </svg>
                         </div>
-                        <p>Due to <span class="js_pop_failure_msg">{{ transferMsg }}</span>, the order is unsuccessful, please
+                        <p>Due to <span >{{ transferMsg }}</span>, the order is unsuccessful, please
                             try
                             again later</p>
                         <a href="javascript:;" @click="closeTransferError" class="btn-failure">Try Later</a>
@@ -222,10 +222,7 @@
 </template>
 
 <script>
-import { mTypes, aTypes } from '~/store/cs_page/cs_account'
 import {
-    src,
-    platform,
     tipsTime,
     formatTime,
     ethUrl,
@@ -336,11 +333,11 @@ export default {
         },
         checkMaximum () {
             if (this.userInfo && this.userInfo.accounts) {
-                if (Number(this.userInfo.accounts[0].balance) < 0.01) {
-                    this.error('The minimum withdrawal is 0.01 ETH')
+                if (Number(this.userInfo.accounts[0].balance) < 0.05) {
+                    this.error('The minimum withdrawal is 0.05 ETH')
                     return false
                 }
-                this.withdrawAmount = parseFloat(this.userInfo.accounts[0].balance) - parseFloat(this.userInfo.accounts[0].fee)
+                this.withdrawAmount = formateBalance(parseFloat(this.userInfo.accounts[0].balance) - parseFloat(this.userInfo.accounts[0].fee))
             }
         },
         copySucc () {
@@ -368,8 +365,8 @@ export default {
                 this.withdrawAmount = ''
                 return false
             }
-            if (this.withdrawAmount === '' || this.withdrawAmount.toString() === '0' || Number(this.withdrawAmount) < 0.01) {
-                this.error('The minimum withdrawal is 0.01 ETH')
+            if (this.withdrawAmount === '' || this.withdrawAmount.toString() === '0' || Number(this.withdrawAmount) < 0.05) {
+                this.error('The minimum withdrawal is 0.05 ETH')
                 return false
             }
 
@@ -380,11 +377,11 @@ export default {
 
             if (this.userInfo && this.userInfo.accounts) {
                 if (Number(this.withdrawAmount) > Number(this.userInfo.accounts[0].balance)) {
-                    if (Number(this.withdrawAmount) >= 0.01) {
+                    if (Number(this.withdrawAmount) >= 0.05) {
                         this.error(`The maximum withdrawal is ${this.userInfo.accounts[0].balance} ETH`)
                         this.withdrawAmount = this.userInfo.accounts[0].balance
                     } else {
-                        this.error('The minimum withdrawal is 0.01 ETH')
+                        this.error('The minimum withdrawal is 0.05 ETH')
                         this.withdrawAmount = ''
                     }
                     return false

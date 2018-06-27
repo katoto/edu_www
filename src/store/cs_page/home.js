@@ -2,11 +2,7 @@
  * Created by xiezg on 2018/5/29
  */
 
-import ajax from '~common/ajax'
 import { mapMutations, mapActions, tipsTime } from '~common/util'
-
-import { Message } from 'element-ui'
-
 const state = {}
 
 const mutationsInfo = mapMutations({

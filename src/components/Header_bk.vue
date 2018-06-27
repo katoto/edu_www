@@ -168,9 +168,8 @@
 <script>
     import PopList from '~components/Pop-list'
     import Banner from '~components/banner'
-    import {Message} from 'element-ui'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-    import { format_match_account, formateBalance, formateCoinType, formateEmail } from '~common/util'
+    import { formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
 
     export default {

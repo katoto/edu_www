@@ -11,8 +11,8 @@
                 <input type="password" v-model="reg_againPass" @blur="checkagainPass"
                        placeholder="Confirm Password">
                 <div class="verCode">
-                    <input type="text" placeholder="Verification Code" class="msg-ver">
-                    <img  width="137" height="50" alt="" class="img-ver">
+                    <input type="text" placeholder="Verification Code" class="msg-ver" v-model="verifyCode">
+                    <img  width="137" height="50" alt="" class="img-ver" @click="reloadVerifyImg" :src="verifyImgPath">
                 </div>
                 <div class="sure-old">
                     <!--  $('.js_isAgreeAge').is(':checked')  -->
@@ -25,21 +25,21 @@
                 </div>
                 <!--no-->
                 <input type="submit" @click.stop.prevent="submitReg" value="Sign Up"
-                       :class="{'no':!(log_checked) || reg_email === '' || reg_pass === '' || reg_againPass === '' }">
+                       :class="{'no':!(log_checked) || reg_email === '' || reg_pass === '' || reg_againPass === '' || verifyCode === ''}">
             </form>
             <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">Forgot your password?</a>
         </div>
         <div class="pop-bottom">
             <p>Already Have Account？ <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">Sign In</a></p>
-
         </div>
     </Pop>
 </template>
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
-    import {tipsTime, setCK, removeCK, wait} from '~common/util'
+    import { Message } from 'element-ui'
+    import { tipsTime, setCK } from '~common/util'
+    import { baseURL } from '~common/ajax'
 
     export default {
         data () {
@@ -47,36 +47,44 @@
                 log_checked: false,
                 reg_email: '',
                 reg_pass: '',
-                reg_againPass: ''
+                reg_againPass: '',
+                verifyImgPath: '',
+                verifyCode: ''
             }
         },
         components: {Pop},
         methods: {
+            clearStatus () {
+                this.reg_email = ''
+                this.reg_pass = ''
+                this.reg_againPass = ''
+                this.verifyCode = ''
+            },
+            reloadVerifyImg () {
+                this.verifyImgPath = baseURL + '/alert/verifycode/img?random=' + new Date().getTime()
+            },
             showSucc () {
                 // this.$store.commit('setRegVerifyEmail', '846359246@qq.com')
-
-                console.log('success')
                 this.$store.commit('hideRegPop')
-                //						验证邮箱
                 this.$store.commit('showVerifyEmail')
                 // 执行倒计时 todo
                 this.$store.dispatch('startBackTime')
             },
             checkagainPass () {
-                //                if( this.reg_pass !== '' && this.reg_againPass !== '' ){
-                //                	if( this.reg_pass !== this.reg_againPass ){
-                //		                Message({
-                //			                message: 'Confirm password not match',
-                //			                type: 'error',
-                //			                duration: tipsTime
-                //		                })
-                //                    }
-                //                }
+                // if (this.reg_pass !== '' && this.reg_againPass !== '') {
+                //     if (this.reg_pass !== this.reg_againPass) {
+                //         Message({
+                //             message: 'Confirm password not match',
+                //             type: 'error',
+                //             duration: tipsTime
+                //         })
+                //     }
+                // }
             },
             checkPass () {
                 /* 检测密码 */
-                let pass_reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
-                if (!pass_reg.test(this.reg_pass)) {
+                let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
+                if (!passReg.test(this.reg_pass)) {
                     if (this.reg_pass !== '') {
                         Message({
                             message: 'Password must contain 6-15 characters with both numbers and letters',
@@ -90,7 +98,8 @@
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
                 if (this.reg_email !== '') {
                     if (emailReg.test(this.reg_email)) {
-                        let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
+                        // let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
+                        this.$store.dispatch('beforeReg', this.reg_email)
                     } else {
                         Message({
                             message: 'Please enter your email address',
@@ -118,40 +127,33 @@
                     }
                     Object.assign(regObj, {
                         email: this.reg_email,
-                        password: this.reg_pass
+                        password: this.reg_pass,
+                        verify_code: this.verifyCode
                     })
-                    let regMsg = await this.$store.dispatch('reg', regObj)
-                    if (regMsg && regMsg.status.toString() === '100') {
-                        this.$store.commit('setRegVerifyEmail', this.reg_email)
-                        this.$store.commit('hideRegPop')
-                        this.$store.commit('showVerifyEmail')
-                        this.$store.dispatch('startBackTime')
-                        // 直接登录  new
-                        if (regMsg.data.ck) {
-                            setCK(regMsg.data.ck)
-                            let userMsg = await this.$store.dispatch('getUserInfo')
-                            if (userMsg && userMsg.status.toString() === '100') {
-                                this.$store.commit('setIsLog', true)
-                                this.$store.commit('setUserInfo', userMsg.data)
-                                this.$store.dispatch('sub2In')
+                    this.$store.dispatch('reg', regObj)
+                        .then(async data => {
+                            this.$store.commit('setRegVerifyEmail', this.reg_email)
+                            this.$store.commit('hideRegPop')
+                            this.$store.commit('showVerifyEmail')
+                            this.$store.dispatch('startBackTime')
+                            // 直接登录  new
+                            if (data.data.ck) {
+                                setCK(data.data.ck)
+                                let userMsg = await this.$store.dispatch('getUserInfo')
+                                if (userMsg && userMsg.status.toString() === '100') {
+                                    this.$store.commit('setIsLog', true)
+                                    this.$store.commit('setUserInfo', userMsg.data)
+                                    this.$store.dispatch('sub2In')
+                                }
                             }
-                        }
-                    } else if (regMsg.status.toString() === '205') {
-                        // 已经注册
-                        this.$store.commit('showLoginPop')
-                        this.$store.commit('hideRegPop')
-                        Message({
-                            message: regMsg.message,
-                            type: 'error',
-                            duration: tipsTime
                         })
-                    } else {
-                        Message({
-                            message: regMsg.message,
-                            type: 'error',
-                            duration: tipsTime
+                        .catch(data => {
+                            if (data.status.toString() === '218') {
+                                this.$store.commit('showLoginPop')
+                                this.$store.commit('hideRegPop')
+                            }
+                            this.reloadVerifyImg()
                         })
-                    }
                 } else {
                     Message({
                         message: 'Please enter your email address',
@@ -184,11 +186,11 @@
                     }
                 },
                 get: function () {
+                    this.reloadVerifyImg()
+                    this.clearStatus()
                     return this.$store.state.pop.showRegPop
                 }
             }
-        },
-        mounted () {
         }
     }
 </script>

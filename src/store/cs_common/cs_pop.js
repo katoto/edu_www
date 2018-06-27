@@ -1,7 +1,10 @@
 import md5 from 'md5'
 import {Message} from 'element-ui'
 import ajax from '~common/ajax'
-import {src, channel, mapMutations, getCK, removeCK, mapActions, platform, tipsTime} from '~common/util'
+
+import router from '@/router'
+
+import {src, channel, getCK, removeCK, platform, tipsTime} from '~common/util'
 
 const state = {
     pop: {
@@ -193,11 +196,14 @@ const actions = {
     },
 
     /* 退出登录 */
-    loginOut ({commit, dispatch}) {
-        dispatch('sub2out')
-        removeCK()
+    loginOut ({state, commit, dispatch}) {
         commit('setIsLog', false)
+        removeCK()
         commit('setUserInfo', {})
+        if (!~state.route.path.indexOf('lucky')) {
+            router.push('/lucky')
+        }
+        dispatch('sub2out')
     },
 
     /* reg 注册 => 邮箱验证 */
@@ -226,33 +232,25 @@ const actions = {
         }
     },
     /* reg 注册 */
-    async reg ({commit, dispatch}, pageData) {
-        try {
-            let InfoData = null
-            if (pageData) {
-                if (state.pop.inviterObj) {
-                    InfoData = await ajax.get(`/user/mail/reg?sign=${state.pop.inviterObj.sign}&inviter=${state.pop.inviterObj.inviter}&channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
-                } else {
-                    InfoData = await ajax.get(`/user/mail/reg?channel=${channel}&email=${pageData.email}&password=${md5(md5(pageData.password))}`)
-                }
-            }
-            return InfoData
-        } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+    async reg ({commit, dispatch}, params) {
+        let data = {
+            ...params,
+            channel,
+            password: md5(md5(params.password))
         }
+
+        if (state.pop.inviterObj) {
+            data.inviter = state.pop.inviterObj.inviter
+            data.sign = state.pop.inviterObj.sign
+        }
+
+        return ajax.get('/user/mail/reg', data)
     },
     /*  倒计时 */
     startBackTime ({state, commit, dispatch}, pageData) {
         // 新增一个  再次发生邮件的倒计时
         clearInterval(state.pop.verifyTime)
-        commit('emailBackTime', 10)
-        // $('#js_first_sendEmail').addClass('no');
-        // $('.js_verifyEmail_backTime_parent').removeClass('hide').show().css('visibility', 'visible')
-        // $('.js_verifyEmail_backTime').html(verifyTimeNow);
+        commit('emailBackTime', 60)
         state.pop.verifyTime = setInterval(function () {
             commit('emailBackTime', state.pop.emailBackTime - 1)
             if (state.pop.emailBackTime === 0) {
@@ -280,21 +278,23 @@ const actions = {
     },
 
     /*  reset password  重置密码  */
-    async resetPasswordFn ({commit, dispatch}, pageData) {
+    async resetPasswordFn ({state, commit, dispatch}, pageData) {
         try {
             let InfoData = null
             if (pageData) {
-                if (pageData.mailType) {
-                    InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
-                }
+                InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}`)
+                // if (state.mailType) {
+                //     InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}`)
+                // }
             }
             return InfoData
         } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+            if (e && e.status && e.status === '208') {
+                setTimeout(() => {
+                    router.push('/lucky')
+                    commit('hideResetPwd')
+                }, tipsTime)
+            }
         }
     },
 

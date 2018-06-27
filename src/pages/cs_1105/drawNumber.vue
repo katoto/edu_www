@@ -141,7 +141,7 @@
 </template>
 <script>
     import {aTypes} from '~/store/cs_page/cs_1105'
-    import { ethUrl} from '~common/util'
+    import {ethUrl} from '~common/util'
 
     import Header from '~/components/Header.vue'
     import Footer from '~/components/Footer.vue'
@@ -279,8 +279,6 @@
                 pageNumber: 1,
                 pageSize: this.pageSize
             })
-            console.log('===========')
-            console.log(drawData)
             if (drawData) {
                 this.drawNumList = this.format_drawNum(drawData.expect_history)
                 this.PageTotal = Number(drawData.count)

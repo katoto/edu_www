@@ -20,7 +20,7 @@
             <p class="play-tips" v-if="areaMsg">
                 <span v-if="areaMsg.pickType === '5J'" class="js_choose_desc">
                     Win extra prize pool reward if your picked 5 and its sequence match the draw result.
-                    <i class="position-msg"> If only numbers match, you will get Pick 5 reward.</i>
+                    <i class="position-msg"> If only numbers match, you will get Pick 5&ensp;reward.</i>
                 </span>
                 <span v-if="areaMsg.pickType === '1'" class="js_choose_desc">Pick 1 number, if it hits the draw number, you'll win 1.8 times reward</span>
                 <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">Pick {{ areaMsg.pickType }} numbers, if all the numbers hit the draw numbers, you'll win {{ syxw_bettype_odds['110'+( areaMsg.pickType )]  }} times reward</span>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-    import {randomNumber, src, platform, isLog, getCK, setCK, removeCK} from '~common/util'
+    import {randomNumber} from '~common/util'
     import {Message} from 'element-ui'
 
     export default {
@@ -125,6 +125,11 @@
                         type: 'error'
                     })
                     return false
+                }
+                // 临时字符串处理
+                let pointArr = this.areaMsg.pickMoney.split('.')
+                if (pointArr && pointArr[1] && pointArr[1].length >= 4) {
+                    this.areaMsg.pickMoney = parseFloat(this.areaMsg.pickMoney).toFixed(4)
                 }
             },
             delTicket ($event) {
@@ -201,13 +206,18 @@
                             console.warn('lineNumClick error')
                         }
                     } else {
-                        if (this.areaMsg && this.areaMsg.pickType) {
-                            if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
+                        if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
+                            if (parseFloat(this.areaMsg.pickType) === 1) {
                                 currpickNum.pop()
                                 currpickNum.push(parseFloat(dataFlag))
                             } else {
-                                currpickNum.push(parseFloat(dataFlag))
+                                Message({
+                                    message: 'You have already chosen ' + parseFloat(this.areaMsg.pickType) + ' number',
+                                    type: 'error'
+                                })
                             }
+                        } else {
+                            currpickNum.push(parseFloat(dataFlag))
                         }
                     }
 

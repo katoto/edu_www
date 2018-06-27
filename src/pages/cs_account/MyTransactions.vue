@@ -86,16 +86,12 @@
 
 <script>
 import {
-    src,
-    platform,
-    tipsTime,
     ethUrl,
     formateCoinType,
     formateBalance,
     formatTime,
     formateMoneyFlow
 } from '~common/util'
-import { Message } from 'element-ui'
 
 export default {
     data () {
@@ -184,9 +180,9 @@ export default {
                     '2': '8',
                     '3': '1',
                     '4': '2',
-                    '5': '4',
+                    '5': [4, 6].join('|'),
                     '6': [10, 11, 12, 13].join('|'),
-                    '7': '5'
+                    '7': [7, 5].join('|')
                 }[this.tranOptionVal] || ''
             }
 

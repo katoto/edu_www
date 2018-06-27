@@ -16,8 +16,6 @@
 </template>
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
-    import {tipsTime, setCK, removeCK, wait} from '~common/util'
     export default {
         data () {
             return {

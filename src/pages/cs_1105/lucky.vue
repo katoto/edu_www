@@ -17,6 +17,7 @@
                     </span>
                     <a href="javascript:;" @click="addTicket" class="addmore">Add Ticket</a>
                 </div>
+                <!--js_startBetBtn 用的-->
                 <div id="js_startBetBtn" class="btn-play-now">
                     <a href="javascript:;" @click="playNow">
                         Play Now
@@ -32,7 +33,7 @@
             </div>
             <!--  往期开奖  -->
             <div class="pre-numberBox">
-                <div class="pre-number tab js_tab">
+                <div class="pre-number tab ">
                     <el-tabs v-model="activeName" @tab-click="handleRecentWin">
                         <el-tab-pane label="Recent Bets" name="Bets">
                             <div class="prenum-table">
@@ -61,7 +62,7 @@
                                             </td>
                                             <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
                                             </td>
-                                            <td class="js_resultDom" v-html="item.newTbody">
+                                            <td v-html="item.newTbody">
 
                                             </td>
                                         </tr>
@@ -228,7 +229,7 @@
             </div>
 
             <!-- orderSucc -->
-            <div class="pop pop-reg-success js_pop-order-success" :class="{'hide':!showOrderSucc}">
+            <div class="pop pop-reg-success " :class="{'hide':!showOrderSucc}">
                 <div class="pop-body">
                     <div class="pop-ani">
                         <div class="pop-main">
@@ -246,7 +247,7 @@
                             </div>
                             <p>Your order has been filed.</p>
                             <a href="javascript:;" @click="showOrderSucc=false"
-                               class="btn-success js_btn-order-success">Good Luck</a>
+                               class="btn-success ">Good Luck</a>
                         </div>
                     </div>
                 </div>
@@ -293,7 +294,7 @@
             <div class="contain">
                 <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
                 <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
-                <a href="https://www.coinslot.com/coinslot/html/worldCup.html" class="btn-join js_jump2WorldCup">
+                <a target="_blank" href="https://www.coinslot.com/coinslot/html/worldCup.html" class="btn-join">
                     Join Now
                 </a>
             </div>
@@ -309,7 +310,7 @@
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
     import { Message } from 'element-ui'
-    import {src, platform, getCKstartCanvas, formateCoinType, formatMatch, formateBalance, setCK, removeCK} from '~common/util'
+    import {formateCoinType, formatMatch, formateBalance, removeCK} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -396,8 +397,8 @@
 
             async playNow () {
                 // 区块链阻塞
-                let js_startBetBtn = document.getElementById('js_startBetBtn')
-                if (~js_startBetBtn.className.indexOf('unable')) {
+                let jsStartBetBtn = document.getElementById('js_startBetBtn')
+                if (~jsStartBetBtn.className.indexOf('unable')) {
                     return false
                 }
 
@@ -582,6 +583,8 @@
                         this.$store.commit('showResetPwd')
                         // 修改密码的时候，清楚ck
                         removeCK()
+                        this.$store.commit('setIsLog', false)
+                        this.$store.commit('setUserInfo', {})
                     }
                     if (query.inviter) {
                         // 邀请
