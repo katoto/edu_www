@@ -20,7 +20,7 @@
             <p class="play-tips" v-if="areaMsg">
                 <span v-if="areaMsg.pickType === '5J'" class="js_choose_desc">
                     Win extra prize pool reward if your picked 5 and its sequence match the draw result.
-                    <i class="position-msg"> If only numbers match, you will get Pick 5 reward.</i>
+                    <i class="position-msg"> If only numbers match, you will get Pick 5&ensp;reward.</i>
                 </span>
                 <span v-if="areaMsg.pickType === '1'" class="js_choose_desc">Pick 1 number, if it hits the draw number, you'll win 1.8 times reward</span>
                 <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">Pick {{ areaMsg.pickType }} numbers, if all the numbers hit the draw numbers, you'll win {{ syxw_bettype_odds['110'+( areaMsg.pickType )]  }} times reward</span>
