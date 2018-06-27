@@ -23,6 +23,7 @@
             background: #2A1D39;
             color: #fff;
             text-align: center;
+            font-weight: bold;
         }
         .cs-loading div{
             position: absolute;
@@ -35,7 +36,7 @@
 <body>
 <div id="app">
 </div>
-<div class="cs-loading">
+<div id="coinslotLoading" class="cs-loading">
     <div>
         <img src="./static/loading.gif" alt="">
         <p>Coinslot</p>
@@ -57,9 +58,9 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118873303-1"></script>
 <script>
 	window.dataLayer = window.dataLayer || []
-function gtag () {
-	    dataLayer.push(arguments)
-}
+    function gtag () {
+            dataLayer.push(arguments)
+    }
 	gtag('js', new Date())
 gtag('config', 'UA-118873303-1')
 </script>

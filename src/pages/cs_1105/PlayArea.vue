@@ -48,8 +48,8 @@
             <span>Bet</span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
-                <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney" value="0.0001"
-                       placeholder="0.0001">
+                <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney" value="0.0005"
+                       placeholder="0.0005">
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
@@ -113,15 +113,15 @@
                 if (Number(this.areaMsg.pickMoney) > 0.1) {
                     this.areaMsg.pickMoney = 0.1
                     Message({
-                        message: 'Bet amount is between 0.0001 and 0.1 ETH',
+                        message: 'Bet amount is between 0.0005 and 0.1 ETH',
                         type: 'error'
                     })
                     return false
                 }
-                if (Number(this.areaMsg.pickMoney) < 0.0001) {
-                    this.areaMsg.pickMoney = 0.0001
+                if (Number(this.areaMsg.pickMoney) < 0.0005) {
+                    this.areaMsg.pickMoney = 0.0005
                     Message({
-                        message: 'Bet amount is between 0.0001 and 0.1 ETH',
+                        message: 'Bet amount is between 0.0005 and 0.1 ETH',
                         type: 'error'
                     })
                     return false
@@ -144,7 +144,7 @@
                 let currpickMoney = this.areaMsg.pickMoney
                 if (currpickMoney >= 0.1) {
                     Message({
-                        message: 'Bet amount is between 0.0001 and 0.1 ETH',
+                        message: 'Bet amount is between 0.0005 and 0.1 ETH',
                         type: 'error'
                     })
                 } else {
@@ -157,20 +157,20 @@
             js_beting_low () {
                 // 减钱  （下限）
                 let currpickMoney = this.areaMsg.pickMoney
-                if (currpickMoney <= 0.0001) {
-                    this.areaMsg.pickMoney = 0.0001
+                if (currpickMoney <= 0.0005) {
+                    this.areaMsg.pickMoney = 0.0005
                     Message({
-                        message: 'The minimum bet is 0.0001 ETH',
+                        message: 'The minimum bet is 0.0005 ETH',
                         type: 'error'
                     })
                 } else {
-                    if (parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5)) < 0.0001) {
+                    if (parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5)) < 0.0005) {
                         this.$emit('update:data', {
                             ...this.areaMsg,
-                            pickMoney: 0.0001
+                            pickMoney: 0.0005
                         })
                         Message({
-                            message: 'The minimum bet is 0.0001 ETH',
+                            message: 'The minimum bet is 0.0005 ETH',
                             type: 'error'
                         })
                     } else {

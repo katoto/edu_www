@@ -150,7 +150,7 @@
 
                 <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
                 <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
-                   v-if="isLog && userInfo && userInfo.status.toString() ==='1'"
+                   v-if="0 && isLog && userInfo && userInfo.status.toString() ==='1'"
                    :class="{'over':(loginSucc && ( loginSucc.invite_status !== '0' )) || (userInfo.invite_prize_chances === '0' && userInfo.tasks.length === 0 )}"
                     ><lang>Faucet</lang></a>
 
@@ -160,16 +160,6 @@
                 </div>
             </div>
 
-
-            <!-- jackpot -->
-            <!--<div class="jackpot" :class="{hide: jackPotMsg === null}">-->
-                <!--<div class="jackpot-box" >-->
-                    <!--<p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.uid) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>-->
-                    <!--<p class="jackpot-money">{{ _('Win {0}ETH', (jackPotMsg && jackPotMsg.prize) || '') }}</p>-->
-                <!--</div>-->
-                <!--<canvas id="canvas" ref="canvas"></canvas>-->
-            <!--</div>-->
-            <!--:class="{hide:jackPotMsg===null}"-->
             <div class="jackpot" v-show="jackPotMsg">
                 <div class="jackpot-box">
                     <el-carousel :interval="5000" arrow="never" height="72px">
@@ -184,7 +174,7 @@
 
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
-            <section v-if="(loginSucc || showFirstLogin)&&isLog">
+            <section v-if="0 && (loginSucc || showFirstLogin)&&isLog">
                 <div class="tips-newAct tips-newAct2"
                      :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
                     <div class="msg">
@@ -201,7 +191,7 @@
             </section>
             <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
             <!--  user/info 里还有问题  已经邀请 -->
-            <section v-if="loginSucc&&isLog&&showEndFaucet">
+            <section v-if="0 && loginSucc&&isLog&&showEndFaucet">
                 <div class="tips-newAct"
                      :class="{'hide':!( loginSucc.invite_status != '0'||( loginSucc.invite_prize_chances == '0' && loginSucc.tasks.length == 0 ))}">
                     <div class="msg">
@@ -216,7 +206,7 @@
             </section>
 
             <!--成功邀请-->
-            <section v-if="isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
+            <section v-if="0 && isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
                 <div class="tips-newAct tips-newAct2">
                     <div class="msg">
                         <p>
