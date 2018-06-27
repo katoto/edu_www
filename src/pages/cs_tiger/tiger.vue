@@ -2,7 +2,7 @@
     <div class="tiger-pc">
         <Header></Header>
         <div class="tiger-main hide">
-            <div class="tiger ">
+            <div class="tiger">
                 <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                 <div class="tiger-wrap">
                     <!--低奖池-->
