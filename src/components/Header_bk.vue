@@ -374,12 +374,12 @@
                     line-height:16px;
                     text-align: center;
                     font-size:12px;
-                    color: #6a89cc;
+                    color: #fff;
                 }
             }
             ul{
-                display: none;
                 position: absolute;
+                z-index:2;
                 left:50%;
                 margin-left:-31.5px;
                 top:35px;
@@ -463,7 +463,7 @@
                 line-height:28px;
                 padding:0 12px;
                 border-radius: 6px;
-                border:1px solid #6a89cc;
+                border:1px solid rgba(255,255,255,0.3);
                 color: #fff;
                 &:hover {
                     color: #6a89cc;
@@ -1039,9 +1039,28 @@
         }
     }
     /*开始适配*/
-    @media (max-width: @screen-phone) {
-
-
+    @media (max-width: @screen-lg-desktop) {
+        .head{
+            .choose-play{
+                display: none;
+            }
+            .m-choose-play{
+                display: block;
+            }
+            .language{
+                margin: 21px 30px 0 0;
+            }
+            .act-sign{
+                right:190px;
+            }
+        }
+    }
+    @media (max-width: @screen-desktop) {
+        .head{
+            .hadlogin{
+                display: none;
+            }
+        }
     }
     @media (max-width: @screen-tablet) {
         .head{
@@ -1062,7 +1081,7 @@
                 }
             }
             .language{
-                margin: 13px 0 0 0;
+                margin: 13px 15px 0;
             }
         }
         .m-choose-play{
@@ -1078,23 +1097,10 @@
 
 
     }
-    @media (max-width: @screen-desktop) {
-        .head{
-            .hadlogin{
-                display: none;
-            }
-        }
-    }
-    @media (max-width: @screen-lg-desktop) {
-        .head{
-            .choose-play{
-                display: none;
-            }
-            .m-choose-play{
-                display: block;
-            }
-        }
-    }
+    @media (max-width: @screen-phone) { }
+
+
+
 
 </style>
 
