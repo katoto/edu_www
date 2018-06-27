@@ -49,7 +49,8 @@
                 this.$store.commit('setIsLog', false)
             }
             this.isReady = true
-            this.$store.dispatch('homeInfo')
+            this.$store.dispatch('homeInfo');
+            // document.getElementById('coinslotLoading').style.display = 'none'
         }
     }
 </script>
