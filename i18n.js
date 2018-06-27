@@ -35,7 +35,7 @@ function getDirFile (filepath) {
 
 function isRightFile (filepath) {
     for (let ignoreIndex = 0; ignoreIndex < ignoreFile.length; ignoreIndex++) {
-        if (filepath === path.resolve(__dirname, ignoreFile[0])) {
+        if (filepath === path.resolve(__dirname, ignoreFile[ignoreIndex])) {
             return false
         }
     }
