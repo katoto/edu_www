@@ -146,11 +146,10 @@
                         <div class="bar">
                             <div class="top">
                                 <div class="bar-process">
-
-                                    <i></i>
+                                    <i :style="{'width':barProcess+'%'}" ></i>
                                 </div>
                                 <div class="bar-msg">
-                                    48%
+                                    {{ barProcess }}%
                                 </div>
                             </div>
                             <p class="msg">
@@ -249,8 +248,8 @@
                 }],
                 dft_bet: 0.001, // 默认投注项
                 dft_line: 9, // 默认9线
-                showSingleBet: false // 投注项选择
-
+                showSingleBet: false, // 投注项选择
+                barProcess: 10
             }
         },
         watch: {},
@@ -264,8 +263,8 @@
             },
             betSelFn (currVal) {
                 if (currVal) {
-                    console.log(currVal)
                     this.dft_bet = currVal.bet
+                    this.barProcess = Math.floor(parseFloat(currVal.lucky) / 100)
                     this.showSingleBet = false
                 }
             }
@@ -316,6 +315,13 @@
                 /* 默认投注项 */
                 if (slotsHome.dft_bet !== undefined) {
                     this.dft_bet = slotsHome.dft_bet
+                    if (this.lucky_values.length > 0) {
+                        this.lucky_values.forEach((val, index) => {
+                            if (val.bet === this.dft_bet.toString()) {
+                                this.barProcess = val.lucky
+                            }
+                        })
+                    }
                 }
                 if (slotsHome.dft_line !== undefined) {
                     this.dft_line = slotsHome.dft_line
