@@ -342,6 +342,7 @@
             Header
         },
         async mounted () {
+            this.$error('123123321')
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
             setInterval(() => {

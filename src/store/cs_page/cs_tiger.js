@@ -67,7 +67,6 @@ const actionsInfo = mapActions({
             // let InfoData = await ajax.get(`http://10.0.0.130:7780/server/index.php?g=Web&c=Mock&o=mock&projectID=2&uri=/slots/home`)
             if (InfoData && InfoData.data) {
                 let data = InfoData.data
-
                 data.prizes_pool = 123
                 data.last_prizes = 435
                 data.free_times = '0'
@@ -81,11 +80,7 @@ const actionsInfo = mapActions({
             }
             return InfoData.data
         } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+            this.$error(e.message)
         }
     },
 
@@ -98,11 +93,7 @@ const actionsInfo = mapActions({
             })
             return InfoData
         } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+            this.$error(e.message)
         }
     }
 
