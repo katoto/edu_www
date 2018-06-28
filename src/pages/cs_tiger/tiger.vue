@@ -11,8 +11,8 @@
                             <p>
                                 JACKPOT
                             </p>
-                            <i v-if="initTigerMsg">
-                                {{ initTigerMsg.tigerJackPot }}
+                            <i v-if="prizes_pool">
+                                {{ prizes_pool }}
                             </i>
                             <span>
                                 ETH
@@ -154,21 +154,21 @@
                         </div>
                     </div>
                     <!--上次赢取-->
-                    <div class="lastwin " v-if="initTigerMsg">
-                        Last time win {{ initTigerMsg.lastWin }} ETH
+                    <div class="lastwin " v-if="last_prizes">
+                        Last time win {{ last_prizes }} ETH
                     </div>
                     <!--主按钮-->
                     <a href="javascript:;" class="btn-main">
                         <img src="@/assets/img/tiger/btn-bg.png" alt="">
+                        <!--免费-->
+                        <div class="btn btn-free" :class="{'hide':!free_times}">
+                            <p>FREE</p>
+                            <div>{{ free_times }} Times</div>
+                        </div>
                         <!-- 开始按钮btn-spin-->
-                        <div class="btn btn-spin ">
+                        <div class="btn btn-spin" :class="{'hide':free_times}">
                             <p>SPIN</p>
                             <div>Auto(double click)</div>
-                        </div>
-                        <!--免费-->
-                        <div class="btn btn-free hide">
-                            <p>FREE</p>
-                            <div>3 Times</div>
                         </div>
                         <!--自动-->
                         <div class="btn btn-auto hide">
@@ -193,8 +193,8 @@
                         </div>
                     </div>
                     <!-- height -->
-                    <ul class="recent-main" v-if="initTigerMsg">
-                        <li v-for="item in initTigerMsg.recentList" :class="{'newRecord':item.addNewRecord}">
+                    <ul class="recent-main" v-if="recentList">
+                        <li v-for="item in recentList" :class="{'newRecord':item.addNewRecord}">
                             <div class="user">
                                 {{formateEmail( item.username , true )  }}
                             </div>
@@ -214,7 +214,10 @@
                         <div class="msg2">https://www.coinslot.com/tiger</div>
                     </div>
                     <div class="fr">
-                        <img src="@/assets/img/tiger/code.jpg" alt="">
+                        <!--  二维码  -->
+                        <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
+                        <img
+                             :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/tiger'">
                     </div>
                 </div>
             </div>
@@ -229,7 +232,8 @@
     export default {
         data () {
             return {
-                title: ''
+                title: '',
+                free_times: null // 初始化免费次数
             }
         },
         watch: {},
@@ -239,6 +243,15 @@
             formateEmail
         },
         computed: {
+            last_prizes () {
+                return this.$store.state.cs_tiger.last_prizes
+            },
+            prizes_pool () {
+                return this.$store.state.cs_tiger.prizes_pool
+            },
+            recentList () {
+                return this.$store.state.cs_tiger.recentList
+            },
             initTigerMsg () {
                 return this.$store.state.cs_tiger.initTigerMsg
             }
@@ -246,9 +259,9 @@
         components: {
             Header
         },
-        mounted () {
+        async mounted () {
+            /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
-
             setInterval(() => {
                 let currMsg = {
                     username: '846359246@qq.com',
@@ -261,6 +274,14 @@
                 console.log(1222111)
                 this.$store.dispatch(aTypes.addRecentList, currMsg)
             }, 15000)
+
+            /* 首页请求 */
+            let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
+            if (slotsHome) {
+                if (slotsHome.free_times !== undefined) {
+                    this.free_times = parseFloat(slotsHome.free_times)
+                }
+            }
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
