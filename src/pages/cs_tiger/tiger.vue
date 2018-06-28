@@ -1,8 +1,8 @@
 <template>
     <div class="tiger-pc">
         <Header></Header>
-        <div class="tiger-main ">
-            <div class="tiger">
+        <div class="tiger-main">
+            <div class="tiger ">
                 <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                 <div class="tiger-wrap">
                     <!--低奖池-->
@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                     <!--进行中 run 开奖 opening -->
-                    <div class="slot ">
+                    <div class="slot run">
                         <!--复位reset -->
                         <div class="slot-box">
                             <ul class="slot-item1">
@@ -226,6 +226,61 @@
                 </div>
             </div>
         </div>
+
+
+        <!--pop   show-->
+        <!--小奖-->
+        <div class="pop reward-small">
+            <div class="msg">
+                <p>0.0025</p>
+                <i>ETH</i>
+            </div>
+        </div>
+        <!--大奖-->
+        <div class="pop reward-big">
+            <div class="bg1">
+                <div class="bg2">
+                    <div class="msg">
+                        <p>
+                            0.1498
+                        </p>
+                        <i>
+                            ETH
+                        </i>
+                    </div>
+                    <ul>
+                        <li>
+                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <span>x2</span>&ensp;
+                            <span>20</span>&ensp;
+                            <span>Times</span>
+                        </li>
+                        <li>
+                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <span>x2</span>&ensp;
+                            <span>20</span>&ensp;
+                            <span>Times</span>
+                        </li>
+
+                    </ul>
+                    <ul>
+                        <li>
+                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <span>x2</span>&ensp;
+                            <span>20</span>&ensp;
+                            <span>Times</span>
+                        </li>
+                        <li>
+                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <span>x2</span>&ensp;
+                            <span>20</span>&ensp;
+                            <span>Times</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -346,8 +401,23 @@
         -webkit-user-select: none;
     }
 
+
+    .head-box{
+        position: fixed;
+        left:0;
+        top:0;
+        width:100%;
+        z-index:9;
+    }
     /*以移动端为主来写*/
-    .bg-lucky {
+
+    .placeholder{
+        display: block;
+        width:100%;
+        opacity:0;
+        height:0;
+    }
+    .bg-lucky{
 
     }
 
@@ -364,8 +434,10 @@
         position: absolute;
         left: 0;
         top: 0;
+        box-sizing: border-box;
         width: 100%;
         height: 100%;
+        padding-top:70px;
     }
 
     .jackpot-low {
@@ -738,11 +810,121 @@
         }
     }
 
+    /*pop*/
+    .pop{
+        width:0;
+        height:0;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+        transition: all 0.2s;
+        background: transparent;
+    }
+    .reward-small{
+       /* width:percentage(348/750);*/
+       /* padding-bottom:percentage((348/750)*(163/348));*/
+        background: url("../../assets/img/tiger/reward-small.png") no-repeat center;
+        background-size: contain;
+        color: #ffe400;
+        .msg{
+            display: flex;
+            justify-content: center;
+            margin-top:26px;
+        }
+        p{
+            font-size:30px;
+            line-height:50px;
+            margin-right:2px;
+        }
+        i{
+            font-size:18px;
+            line-height:58px;
+        }
+        &.show{
+            width:348/2px;
+            height:163/2px;
+        }
+    }
+    .reward-big{
+        &:before{
+            position: relative;
+            z-index:2;
+            content: '';
+            display: block;
+            background: url("../../assets/img/tiger/reward-big.png") no-repeat center;
+            background-size: cover;
+            width:443/2px;
+            height:251/2px;
+            overflow: hidden;
+            margin:0 auto;
+        }
+        .bg1{
+            box-sizing: border-box;
+            position: relative;
+            z-index:1;
+            top:-10px;
+            width:595/2px;
+            border:5px solid #3d276a;
+        }
+        .bg2{
+            box-sizing: border-box;
+            width:100%;
+            height:100%;
+            background: #3d276a;
+            border:5px solid #ff9000;
+            padding-bottom:3px;
+            box-shadow: inset 0 0 20px #9924a7;
+        }
+        .msg{
+            display: flex;
+            justify-content: center;
+            margin-top:7px;
+            height:135/2px;
+            color: #ffe400;
+            font-family: imp;
+            overflow: hidden;
+            p{
+                line-height:135/2px;
+                font-size:50px;
+            }
+            i{
+                line-height:90px;
+                font-size:24px;
+            }
+        }
+        ul{
+            display: flex;
+            justify-content: center;
+            height:22px;
+            line-height:22px;
+            overflow: hidden;
+            font-size:12px;
+            color: #fff;
+            li{
+                display: flex;
+                justify-content: center;
+            }
+            li+li{
+                margin-left:5px;
+            }
+            img{
+                display: block;
+                width:22px;
+                height:22px;
+            }
+        }
+        &.show{
+            width:595/2px;
+            height:auto;
+        }
+    }
+
     /*pc content*/
     .tiger-pc-msg {
         width: 365px;
         height: 100%;
-        padding: 0 18px;
+        padding: 70px 18px 0;
         background: rgba(29, 21, 7, 0.8);
         color: #79695c;
         h3 {
@@ -777,6 +959,8 @@
     }
 
     .recent-main {
+        height:320px;
+        overflow: hidden;
         li {
             padding: 0 10px;
             line-height: 40px;
@@ -835,39 +1019,34 @@
         .tiger-pc-msg {
             display: none;
         }
-
         .msg-win {
             display: block;
         }
     }
-
+    @media (max-width: @screen-tablet) {
+        .tiger-wrap{
+            padding-top:50px;
+        }
+    }
     @media (min-width: @screen-phone) {
-        .tiger-pc {
-            position: absolute;
-            top: 0;
-            left: 50%;
+
+        .tiger-pc{
+            position: relative;
+            top:0;
+            left:50%;
             transform: translateX(-50%);
             width: 100%;
             height: 586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
             background-size: 1920px 586px;
         }
-
         .tiger-main {
-            width: 826px;
             height: 100%;
             margin: 0 auto;
             overflow: hidden;
             display: flex;
             justify-content: center;
         }
-
-        div, a, img, p, span, i {
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: text;
-        }
-
         .tiger {
             width: 375px;
             overflow: hidden;

@@ -63,13 +63,12 @@
 <style lang="less">
     @import "../styles/lib-font.less";
     @import "../styles/lib-public.less";
+    @import "../styles/lib-media.less";
     #app {
         position: relative;
         background: #eef1f9;
         font: 14px/20px sans-r;
         color: #263648;
         overflow: hidden;
-        /*for tiger*/
-        min-height:1600px;
     }
 </style>

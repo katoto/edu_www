@@ -1,6 +1,6 @@
 <template>
     <div class="head-box">
-        <!--<Banner></Banner>-->
+        <Banner></Banner>
         <div class="head">
             <div class="top">
                 <!--展开 on-->
@@ -12,9 +12,9 @@
                         Select Game
                     </div>
                     <ul>
-                        <li>Lukcy 11</li>
-                        <li class="on">luckyCoin</li>
-                        <li>Slot</li>
+                        <li><a href="javascript:;">Lukcy 11</a></li>
+                        <li class="on"><a href="javascript:;">luckyCoin</a></li>
+                        <li><a href="javascript:;">Slot</a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="language ">
                     <div class="language-choose">
-                        <img src="../assets/slice/cn.png" width="27" height="15" alt="">
+                        <img src="../assets/slice/cn.png" alt="">
                         <span>En</span>
                     </div>
                     <ul>
@@ -51,7 +51,7 @@
                         <div class="choose-coin ">
                             <span class="coin">0.124000 BTC</span>
                             <ul>
-                                <li>0.000000<i>BTC</i></li>
+                                <li class="on">0.000000<i>BTC</i></li>
                                 <li>0.00001<i>HTC</i></li>
                             </ul>
                         </div>
@@ -318,6 +318,9 @@
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
+    .banner{
+        display: none;
+    }
     .head {
         position: relative;
         width: 100%;
@@ -364,6 +367,7 @@
             float: right;
             margin:21px 0 0 0;
             position: relative;
+            cursor: pointer;
             .language-choose{
                 img{
                     display: block;
@@ -378,6 +382,7 @@
                 }
             }
             ul{
+                display: none;
                 position: absolute;
                 z-index:2;
                 left:50%;
@@ -476,7 +481,7 @@
                 text-align: center;
                 overflow: hidden;
                 border-radius: 6px;
-                border:1px solid #6a89cc;
+                border:1px solid rgba(255,255,255,0.3);
             }
             .btn-rechrage,.btn-cash{
                 display: block;
@@ -674,6 +679,16 @@
                     background: #eef1f9;
                 }
             }
+            li.on{
+                font-weight:bold;
+                color: #fd9644;
+                &:before{
+                    content: '';
+                    display: block;
+                    background: url(../assets/slice/icon-hook.png) no-repeat center;
+                    background-size: cover;
+                }
+            }
         }
         &:hover{
             background: #fff;
@@ -692,6 +707,8 @@
     /*2180514 newAct 拉新活动*/
     .btn-faucet{
         display: block;
+        display: none;
+        /*等待*/
         float: right;
         margin:22.5px 40px 0 0;
         width:18px;
@@ -997,14 +1014,14 @@
             width:100%;
             line-height:40px;
             font-size:20px;
-            color: #6a89cc;
             font-weight:bold;
             text-align: right;
             background: #000;
-            cursor: pointer;
             .transition();
-            li.on{
-                color: #fff;
+            li.on,li:hover{
+              a{
+                  color: #fff;
+              }
             }
         }
         &.on{
@@ -1061,6 +1078,11 @@
                 display: none;
             }
         }
+        .m-choose-play{
+            ul{
+
+            }
+        }
     }
     @media (max-width: @screen-tablet) {
         .head{
@@ -1072,28 +1094,131 @@
             }
             .login{
                 margin:0;
-                border-right:1px solid #371f44;
+                height:100%;
                 .to-login{
                     height:50px;
                     line-height:50px;
                     border:none;
+                    border-right:1px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 0;
                     padding:0 15px;
                 }
             }
+            .mycount{
+                cursor: pointer;
+                box-sizing: border-box;
+                width:50px;
+                height:50px;
+                padding:17px 10px 0;
+                border-left:1px solid rgba(51,26,64,0.3);
+                border-right:1px solid rgba(51,26,64,0.3);
+                &::before{
+                    content: '';
+                    display: block;
+                    background: url("../assets/slice/icon-user.png");
+                    background-size: cover;
+                    width:19px;
+                    height:19px;
+                    filter: grayscale(1);
+                    margin:0 auto;
+                }
+                .countNum{
+                    display: none;
+                }
+                &:hover{
+                    &::before{
+                        filter: grayscale(0);
+                    }
+                }
+            }
             .language{
-                margin: 13px 15px 0;
+                margin: 16px 14px 0;
+                img{
+                    width:22px;
+                }
+                .language-choose{
+                    span{
+                        line-height:16px;
+                        margin:0;
+                        font-size:8px;
+                        opacity:0.6;
+                    }
+                }
+                ul{
+                    top:26px;
+                    margin-left: -25px;
+                    img{
+                        padding:16px 15px;
+                    }
+                }
             }
         }
         .m-choose-play{
             .btn{
-                margin: 15px auto;
+                margin: 15px 0 15px 13px;
+            }
+            .msg{
+                line-height:50px;
+            }
+            &.on{
+                .btn{
+                    margin: 15px 0 15px 13px;
+                }
+                ul{
+                    top:50px;
+                }
             }
         }
         .act-sign{
             display: none;
         }
-
-
+        .choose-coin{
+            top:0;
+            margin-right: 0;
+            height:50px;
+            .coin{
+                padding:17px 15px 0;
+                font-size:0;
+                text-indent:-999999px;
+                &:before{
+                    margin-right: 0;
+                    width:17px;
+                    height:19px;
+                    background-size: cover;
+                    filter: grayscale(1);
+                }
+                &:after{
+                    content: '';
+                    display: none;
+                }
+            }
+            &:hover{
+                background: transparent;
+                .coin{
+                    &:before{
+                        filter: grayscale(0);
+                    }
+                }
+            }
+            ul{
+                top:44px;
+                width:167px;
+                z-index:3;
+                right:0;
+                left:auto;
+                border-radius: 6px;
+                li:first-child{
+                    border-top:none;
+                }
+            }
+        }
+        .mycount-detailed{
+            top:44px;
+        }
+        .choose-coin,.mycount{
+            box-sizing: border-box;
+            width:50px;
+        }
 
 
     }
