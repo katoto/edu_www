@@ -332,7 +332,7 @@
 .el-pager .number,.el-pagination__jump .el-input__inner,.el-pagination .more{
     box-sizing: border-box;
     display: inline-block;
-    min-width: 28px;
+    width:36px;
     height: 28px;
     padding: 0 10px;
     margin-left: 5px;
@@ -344,6 +344,11 @@
     font-size: 14px;
     text-indent: 0;
     cursor: pointer;
+    box-shadow: none;
+}
+.el-pager .number{
+    width:auto;
+    min-width:28px;
 }
 .el-pagination button{
     display: inline-block;
@@ -1815,6 +1820,8 @@
 
 .el-select .el-input__inner{
     width:120px;
+    color: transparent;
+    text-shadow: 0 0 0 #6a89cc;
 }
 /*.el-table {*/
 /*position: relative;*/

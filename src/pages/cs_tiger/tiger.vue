@@ -11,8 +11,8 @@
                             <p>
                                 JACKPOT
                             </p>
-                            <i>
-                                3.56885
+                            <i v-if="initTigerMsg">
+                                {{ initTigerMsg.tigerJackPot }}
                             </i>
                             <span>
                                 ETH
@@ -23,8 +23,8 @@
                             <p>
                                 Hit to Win
                             </p>
-                            <i>
-                                1.890
+                            <i v-if="initTigerMsg">
+                                {{ initTigerMsg.hitWin }}
                             </i>
                             <span>
                                 ETH
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <!--中奖播报-->
-                    <div class="msg-win ">
+                    <div class="msg-win">
                         <ul>
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
@@ -154,12 +154,12 @@
                         </div>
                     </div>
                     <!--上次赢取-->
-                    <div class="lastwin ">
-                        Last time win 0.0018 ETH
+                    <div class="lastwin " v-if="initTigerMsg">
+                        Last time win {{ initTigerMsg.lastWin }} ETH
                     </div>
                     <!--主按钮-->
                     <a href="javascript:;" class="btn-main">
-                        <img src="../../assets/img/tiger/btn-bg.png" alt="">
+                        <img src="@/assets/img/tiger/btn-bg.png" alt="">
                         <!-- 开始按钮btn-spin-->
                         <div class="btn btn-spin ">
                             <p>SPIN</p>
@@ -192,95 +192,20 @@
                             Time
                         </div>
                     </div>
-                    <ul class="recent-main">
-                        <li>
+                    <!-- height -->
+                    <ul class="recent-main" v-if="initTigerMsg">
+                        <li v-for="item in initTigerMsg.recentList" :class="{'newRecord':item.addNewRecord}">
                             <div class="user">
-                                Pi***@gmail.com
+                                {{formateEmail( item.username , true )  }}
                             </div>
                             <div class="win">
-                                0.0321 ETH
+                                {{ formateBalance ( item.winMoney ) }}
                             </div>
                             <div class="time">
-                                16:55
+                                {{ formatTime ( item.winTime , 'HH:mm' )  }}
                             </div>
                         </li>
-                        <li>
-                            <div class="user">
-                                Pi***@gmail.com
-                            </div>
-                            <div class="win">
-                                0.0321 ETH
-                            </div>
-                            <div class="time">
-                                16:55
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user">
-                                Pi***@gmail.com
-                            </div>
-                            <div class="win">
-                                0.0321 ETH
-                            </div>
-                            <div class="time">
-                                16:55
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user">
-                                Pi***@gmail.com
-                            </div>
-                            <div class="win">
-                                0.0321 ETH
-                            </div>
-                            <div class="time">
-                                16:55
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user">
-                                Pi***@gmail.com
-                            </div>
-                            <div class="win">
-                                0.0321 ETH
-                            </div>
-                            <div class="time">
-                                16:55
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user">
-                                Pi***@gmail.com
-                            </div>
-                            <div class="win">
-                                0.0321 ETH
-                            </div>
-                            <div class="time">
-                                16:55
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user">
-                                Pi***@gmail.com
-                            </div>
-                            <div class="win">
-                                0.0321 ETH
-                            </div>
-                            <div class="time">
-                                16:55
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user">
-                                Pi***@gmail.com
-                            </div>
-                            <div class="win">
-                                0.0321 ETH
-                            </div>
-                            <div class="time">
-                                16:55
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="contact">
@@ -289,7 +214,7 @@
                         <div class="msg2">https://www.coinslot.com/tiger</div>
                     </div>
                     <div class="fr">
-                        <img src="../../assets/img/tiger/code.jpg" alt="">
+                        <img src="@/assets/img/tiger/code.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -354,7 +279,8 @@
 
 <script>
     import Header from '~components/Header_bk.vue'
-
+    import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
+    import {formateEmail, formatTime, formateBalance} from '~common/util'
     export default {
         data () {
             return {
@@ -362,19 +288,39 @@
             }
         },
         watch: {},
-        methods: {},
-        computed: {},
+        methods: {
+            formatTime,
+            formateBalance,
+            formateEmail
+        },
+        computed: {
+            initTigerMsg () {
+                return this.$store.state.cs_tiger.initTigerMsg
+            }
+        },
         components: {
             Header
         },
-        beforeMount () {
-            this.$store.dispatch('subInTiger')
-        },
         mounted () {
+            this.$store.dispatch('subInTiger')
 
+            setInterval(() => {
+                let currMsg = {
+                    username: '846359246@qq.com',
+                    winMoney: '0.0321',
+                    winTime: 1530080092206
+                }
+                Object.assign(currMsg, {
+                    addNewRecord: true
+                })
+                console.log(1222111)
+                this.$store.dispatch(aTypes.addRecentList, currMsg)
+            }, 15000)
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
+        },
+        filters: {
         }
     }
 </script>

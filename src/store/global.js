@@ -176,6 +176,7 @@ const actions = {
             sock.onmessage = function (e) {
                 if (!~e.data.indexOf('you said')) {
                     let msg = JSON.parse(e.data)
+
                     // 总的分发
                     if (msg && msg.data) {
                         switch (msg.msg_code.toString()) {
@@ -208,6 +209,23 @@ const actions = {
                                         username: '846359246@qq.com',
                                         winMoney: '0.0321',
                                         winTime: 1530080092206
+                                    }
+                                ],
+                                recentList: [
+                                    {
+                                        username: '8462222222222359246@qq.com',
+                                        winMoney: '0.0321',
+                                        winTime: 1530380092206
+                                    },
+                                    {
+                                        username: '846359246@qq.com',
+                                        winMoney: '0.033',
+                                        winTime: 15300800306
+                                    },
+                                    {
+                                        username: '846359246@qq.com',
+                                        winMoney: '0.034',
+                                        winTime: 1530080032206
                                     }
                                 ]
                             }

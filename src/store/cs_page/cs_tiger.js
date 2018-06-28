@@ -7,13 +7,15 @@ import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
 import {Message} from 'element-ui'
 
 const state = {
-    navFix: false,
-    aa: 123
+    initTigerMsg: null // pc recently
 }
 
 const mutationsInfo = mapMutations({
     setjackPotMsg (state, data) {
         state.jackPotMsg = data
+    },
+    setInitTigerMsg (state, data) {
+        state.initTigerMsg = data
     }
 
 }, 'cs_tiger')
@@ -22,9 +24,22 @@ const actionsInfo = mapActions({
     /* 老虎机 */
     formateTiger ({state, commit, dispatch}, data) {
         if (data) {
-            console.log(data)
+            commit(mTypes.setInitTigerMsg, data)
         }
     },
+
+    /* 添加中奖播报 */
+    addRecentList ({state, commit, dispatch}, data) {
+        if (data && state.initTigerMsg) {
+            // 对象
+            state.initTigerMsg.recentList.unshift(data)
+        }
+        let currTigerMsg = {
+            ...state.initTigerMsg
+        }
+        commit(mTypes.setInitTigerMsg, currTigerMsg)
+    },
+
     /* 投注下单  2001  */
     async placeOrder ({commit, dispatch}, transferOrderStr) {
         try {
