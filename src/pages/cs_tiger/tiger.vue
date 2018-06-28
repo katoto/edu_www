@@ -98,7 +98,7 @@
                             <div style="cursor: pointer" @click="showBetSel">
                                 <div class="top">
                                     <div class="single-amount">
-                                        0.00001
+                                        {{ dft_bet }}
                                     </div>
                                     <div class="single-unit">
                                         ETH
@@ -110,10 +110,10 @@
                             </div>
                             <!-- 投注项选择 -->
                             <div :class="{'hide': !showSingleBet }">
-                                <ul v-if="Object.keys(lucky_values).length > 0">
-                                    <li v-for="(val,key) in lucky_values" @click="">
+                                <ul v-if="lucky_values.length > 0">
+                                    <li v-for="item in lucky_values" @click="betSelFn(item)">
                                         <div class="single-amount">
-                                            {{ key }}
+                                            {{ item.bet }}
                                         </div>
                                         <div class="single-unit">
                                             ETH
@@ -133,7 +133,7 @@
                         <div class="all">
                             <div class="top">
                                 <div class="all-amount">
-                                    0.0009
+                                    {{ formateBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
                                 </div>
                                 <div class="all-unit">
                                     ETH
@@ -201,13 +201,13 @@
                     <ul class="recent-main" v-if="recentList">
                         <li v-for="item in recentList" :class="{'newRecord':item.addNewRecord}">
                             <div class="user">
-                                {{formateEmail( item.username , true )  }}
+                                {{formateEmail( item.username , true ) }}
                             </div>
                             <div class="win">
                                 {{ formateBalance ( item.winMoney ) }}
                             </div>
                             <div class="time">
-                                {{ formatTime ( item.winTime , 'HH:mm' )  }}
+                                {{ formatTime ( item.winTime , 'HH:mm' ) }}
                             </div>
                         </li>
 
@@ -222,7 +222,7 @@
                         <!--  二维码  -->
                         <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
                         <img
-                             :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/tiger'">
+                            :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/tiger'">
                     </div>
                 </div>
             </div>
@@ -239,10 +239,16 @@
         data () {
             return {
                 free_times: null, // 初始化免费次数
-                lucky_values: { // 默认投注选项
-                    100: '0',
-                    1000: '0'
-                },
+                // 默认投注选项
+                lucky_values: [{
+                    bet: '0.0001',
+                    lucky: '0'
+                }, {
+                    bet: '0.001',
+                    lucky: '0'
+                }],
+                dft_bet: 0.001, // 默认投注项
+                dft_line: 9, // 默认9线
                 showSingleBet: false // 投注项选择
 
             }
@@ -255,6 +261,13 @@
             showBetSel () {
                 /* 控制投注项 */
                 this.showSingleBet = !this.showSingleBet
+            },
+            betSelFn (currVal) {
+                if (currVal) {
+                    console.log(currVal)
+                    this.dft_bet = currVal.bet
+                    this.showSingleBet = false
+                }
             }
         },
         computed: {
@@ -296,13 +309,23 @@
                 if (slotsHome.free_times !== undefined) {
                     this.free_times = parseFloat(slotsHome.free_times)
                 }
+                /* 投注列表配置 */
+                if (slotsHome.lucky_values) {
+                    this.lucky_values = slotsHome.lucky_values
+                }
+                /* 默认投注项 */
+                if (slotsHome.dft_bet !== undefined) {
+                    this.dft_bet = slotsHome.dft_bet
+                }
+                if (slotsHome.dft_line !== undefined) {
+                    this.dft_line = slotsHome.dft_line
+                }
             }
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
         },
-        filters: {
-        }
+        filters: {}
     }
 </script>
 <style scoped="" lang="less" rel="stylesheet/less">
@@ -318,7 +341,7 @@
     }
 
     /*以移动端为主来写*/
-    .bg-lucky{
+    .bg-lucky {
 
     }
 
@@ -813,13 +836,13 @@
     }
 
     @media (min-width: @screen-phone) {
-        .tiger-pc{
+        .tiger-pc {
             position: absolute;
-            top:0;
-            left:50%;
+            top: 0;
+            left: 50%;
             transform: translateX(-50%);
-            width:100%;
-            height:586px;
+            width: 100%;
+            height: 586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
             background-size: 1920px 586px;
         }

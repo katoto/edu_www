@@ -10,7 +10,7 @@ const state = {
 
     recentList: [], // 最近中奖列表
     prizes_pool: null, // 奖池数
-    last_prizes: null, // 上次中奖
+    last_prizes: null // 上次中奖
 
 }
 
