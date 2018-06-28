@@ -208,7 +208,7 @@ export function formateCoinType (type = '2001') {
     }
 }
 
-export function formateEmail (email,isFull) {
+export function formateEmail (email, isFull) {
     var regEmail = /(\w+(?:[-+.]\w+)*)(@\w+([-.]\w+)*\.\w+([-.]\w+)*)/
     var regArr = null
     email = email.toString()
@@ -217,7 +217,7 @@ export function formateEmail (email,isFull) {
         if (regArr[1] && regArr[1].length > 10) {
             email = regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
         }
-        if(!isFull){
+        if (!isFull) {
             if (email.indexOf('@') > -1) {
                 email = email.split('@')[0]
             }

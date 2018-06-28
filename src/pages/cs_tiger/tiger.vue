@@ -94,36 +94,41 @@
                     <!--底部操作-->
                     <div class="operating ">
                         <!-- 展开 on-->
-                        <div class="single ">
-                            <div class="top">
-                                <div class="single-amount">
-                                    0.00001
+                        <div class="single">
+                            <div style="cursor: pointer" @click="showBetSel">
+                                <div class="top">
+                                    <div class="single-amount">
+                                        0.00001
+                                    </div>
+                                    <div class="single-unit">
+                                        ETH
+                                    </div>
                                 </div>
-                                <div class="single-unit">
-                                    ETH
-                                </div>
+                                <p class="msg">
+                                    Single Bet
+                                </p>
                             </div>
-                            <p class="msg">
-                                Single Bet
-                            </p>
-                            <ul>
-                                <li>
-                                    <div class="single-amount">
-                                        0.001
-                                    </div>
-                                    <div class="single-unit">
-                                        ETH
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="single-amount">
-                                        0.0001
-                                    </div>
-                                    <div class="single-unit">
-                                        ETH
-                                    </div>
-                                </li>
-                            </ul>
+                            <!-- 投注项选择 -->
+                            <div :class="{'hide': !showSingleBet }">
+                                <ul v-if="Object.keys(lucky_values).length > 0">
+                                    <li v-for="(val,key) in lucky_values" @click="">
+                                        <div class="single-amount">
+                                            {{ key }}
+                                        </div>
+                                        <div class="single-unit">
+                                            ETH
+                                        </div>
+                                    </li>
+                                    <!--<li>-->
+                                    <!--<div class="single-amount">-->
+                                    <!--0.0001-->
+                                    <!--</div>-->
+                                    <!--<div class="single-unit">-->
+                                    <!--ETH-->
+                                    <!--</div>-->
+                                    <!--</li>-->
+                                </ul>
+                            </div>
                         </div>
                         <div class="all">
                             <div class="top">
@@ -229,18 +234,28 @@
     import Header from '~components/Header_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import {formateEmail, formatTime, formateBalance} from '~common/util'
+
     export default {
         data () {
             return {
-                title: '',
-                free_times: null // 初始化免费次数
+                free_times: null, // 初始化免费次数
+                lucky_values: { // 默认投注选项
+                    100: '0',
+                    1000: '0'
+                },
+                showSingleBet: false // 投注项选择
+
             }
         },
         watch: {},
         methods: {
             formatTime,
             formateBalance,
-            formateEmail
+            formateEmail,
+            showBetSel () {
+                /* 控制投注项 */
+                this.showSingleBet = !this.showSingleBet
+            }
         },
         computed: {
             last_prizes () {
@@ -583,7 +598,7 @@
                 font-size: 10px;
             }
             ul {
-                display: none;
+                /*display: none;*/
                 position: absolute;
                 left: -2px;
                 top: -54px;
@@ -595,6 +610,7 @@
                 color: #ffe400;
                 background: #2f250f;
                 li {
+                    cursor: pointer;
                     display: flex;
                     justify-content: center;
                     height: 25px;
