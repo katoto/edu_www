@@ -230,7 +230,7 @@
             </div>
         </div>
         <!--大奖-->
-        <div class="pop reward-big show">
+        <div class="pop reward-big ">
             <div class="bg1">
                 <div class="bg2">
                     <div class="msg">
