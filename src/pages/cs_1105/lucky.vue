@@ -187,7 +187,7 @@
                                     <p>After closing the bet, all the betting information will be calculated through the
                                         Merkle Tree to get the Merkle number.
                                         And the Merkle number will be uploaded to the Ethereum, then get the hash value
-                                        of this transaction’s block.
+                                        of this transaction's block.
                                         The last 25 digits of the value will be divided into 5 groups. Each group has 5
                                         numbers, and it will be converted into a decimal number.
                                         The first group numbers will be processed through (x mod11 + 1) calculation.

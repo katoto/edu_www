@@ -129,7 +129,8 @@
     .act-sign{
         position: absolute;
         top:20px;
-        left:255px;
+        left:50%;
+        margin-left:40px;
     }
 </style>
 
