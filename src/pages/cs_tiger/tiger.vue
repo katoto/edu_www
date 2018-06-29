@@ -47,7 +47,7 @@
                     <div class="slot">
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
-                                <!--  class="yes"  -->
+                                <!-- class="yes" -->
                                 <ul class="slot-item1" v-if="axes[0]">
                                     <li v-for="item in axes[0]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
