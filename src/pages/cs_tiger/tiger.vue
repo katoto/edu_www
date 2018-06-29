@@ -22,10 +22,16 @@
                             <!--bug: ipone5 not fint win-->
                             <p>
                                 Hit to Win
+                                <span v-if="prizes_pool && prizes_pool_ratio">
+                                <!-- hit WIn -->
+                                <template v-if="prizes_pool_ratio[dft_bet] >= 0">
+                                    {{ parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] }}
+                                </template>
+                                <template v-else>
+                                    {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
+                                </template>
+                                </span>
                             </p>
-                            <i v-if="initTigerMsg">
-                                {{ initTigerMsg.hitWin }}
-                            </i>
                             <span>
                                 ETH
                             </span>
@@ -37,57 +43,31 @@
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
                     </div>
-                    <!--进行中 run 开奖 opening -->
-                    <div class="slot ">
-                        <div id="js_slot-box" class="slot-box">
-                            <ul class="slot-item1">
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/_A.png" alt="" id="hei">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                            </ul>
-                            <ul class="slot-item2">
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                            </ul>
-                            <ul class="slot-item3">
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                            </ul>
+                    <!--进行中 run 开奖 opening - yes  -->
+                    <div class="slot">
+                        <div ref="js_slotBox" id="js_slot-box" class="slot-box">
+                            <template v-if="axes">
+                                <!-- class="yes" -->
+                                <ul class="slot-item1" v-if="axes[0]">
+                                    <li v-for="item in axes[0]" >
+                                        <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
+                                    </li>
+                                    <li v-if="hideInitLi">
+                                        <img id="hei" src="../../../static/staticImg/_A.png" alt="">
+                                    </li>
+                                </ul>
+                                <ul class="slot-item2" v-if="axes[1]">
+                                    <li v-for="item in axes[1]" >
+                                        <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
+                                    </li>
+                                </ul>
+                                <ul class="slot-item3" v-if="axes[2]">
+                                    <li v-for="item in axes[2]" >
+                                        <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
+                                    </li>
+                                </ul>
+                            </template>
+
                         </div>
                     </div>
                     <!--底部操作-->
@@ -164,17 +144,17 @@
                     <a href="javascript:;" class="btn-main">
                         <img src="@/assets/img/tiger/btn-bg.png" alt="">
                         <!--免费-->
-                        <div class="btn btn-free" :class="{'hide':!free_times}">
+                        <div class="btn btn-free" @click="startPlay"  :class="{'hide':!free_times}">
                             <p>FREE</p>
                             <div>{{ free_times }} Times</div>
                         </div>
                         <!-- 开始按钮btn-spin-->
-                        <div class="btn btn-spin" :class="{'hide':free_times}">
+                        <div @dblclick="autoPlay" @click="startPlay" class="btn btn-spin" :class="{'hide':free_times}">
                             <p>SPIN</p>
                             <div>Auto(double click)</div>
                         </div>
                         <!--自动-->
-                        <div class="btn btn-auto hide">
+                        <div @dblclick="stopAutoPlay" class="btn btn-auto hide">
                             <p>AUTO</p>
                             <div>Double Click to Stop</div>
                         </div>
@@ -202,10 +182,10 @@
                                 {{formateEmail( item.username , true ) }}
                             </div>
                             <div class="win">
-                                {{ formateBalance ( item.winMoney ) }}
+                                {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
                             </div>
                             <div class="time">
-                                {{ formatTime ( item.winTime , 'HH:mm' ) }}
+                                {{ formatTime ( item.bettime , 'HH:mm' ) }}
                             </div>
                         </li>
 
@@ -225,7 +205,6 @@
                 </div>
             </div>
         </div>
-
 
         <!--pop   show-->
         <!--小奖-->
@@ -249,13 +228,13 @@
                     </div>
                     <ul>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
@@ -264,13 +243,13 @@
                     </ul>
                     <ul>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
@@ -391,7 +370,7 @@
 <script>
     import Header from '~components/Header_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
-    import {formateEmail, formatTime, formateBalance} from '~common/util'
+    import {formateEmail, formatTime, formateBalance, formateCoinType} from '~common/util'
     export default {
         data () {
             return {
@@ -407,7 +386,10 @@
                 dft_bet: 0.001, // 默认投注项
                 dft_line: 9, // 默认9线
                 showSingleBet: false, // 投注项选择
-                barProcess: 10
+                barProcess: 10,
+                prizes_pool_ratio: null, // hitWinRatio
+                axes: null, // axes
+                hideInitLi: true
             }
         },
         watch: {},
@@ -415,6 +397,16 @@
             formatTime,
             formateBalance,
             formateEmail,
+            formateCoinType,
+            autoPlay () {
+                console.log('autoPlay11')
+            },
+            startPlay () {
+                console.log('startPlay')
+            },
+            stopAutoPlay () {
+                console.log('stop')
+            },
             showBetSel () {
                 /* 控制投注项 */
                 this.showSingleBet = !this.showSingleBet
@@ -447,18 +439,7 @@
         async mounted () {
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
-            setInterval(() => {
-                let currMsg = {
-                    username: '846359246@qq.com',
-                    winMoney: '0.0321',
-                    winTime: 1530080092206
-                }
-                Object.assign(currMsg, {
-                    addNewRecord: true
-                })
-                //                console.log(1222111)
-                this.$store.dispatch(aTypes.addRecentList, currMsg)
-            }, 15000)
+
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
@@ -483,9 +464,22 @@
                 if (slotsHome.dft_line !== undefined) {
                     this.dft_line = slotsHome.dft_line
                 }
+                if (slotsHome.prizes_pool_ratio) {
+                    this.prizes_pool_ratio = slotsHome.prizes_pool_ratio
+                }
+                if (slotsHome.axes) {
+                    this.axes = slotsHome.axes
+                }
             }
-            //            4*15=75
-            document.getElementById('js_slot-box').style.height = document.getElementById('hei').height * 3 + 72 + 'px'
+        },
+        updated () {
+            //  4*15=75
+            if (document.getElementById('hei')) {
+                this.$refs.js_slotBox.style.height = document.getElementById('hei').height * 3 + 72 + 'px'
+                this.hideInitLi = false
+            } else {
+                this.$refs.js_slotBox.style.height = 70 * 3 + 72 + 'px'
+            }
         },
         beforeDestroy () {
 

@@ -48,11 +48,13 @@
                     <!-- 登录 -->
                     <section v-else>
                         <!--选择币种,暂时不做-->
-                        <div class="choose-coin ">
-                            <span class="coin">0.124000 BTC</span>
+                        <div class="choose-coin" v-if="userInfo && userInfo.accounts">
+                            <span class="coin" v-if="currBalance">{{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}</span>
                             <ul>
-                                <li class="on">0.000000<i>BTC</i></li>
-                                <li>0.00001<i>HTC</i></li>
+                                <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
+                                    @click="changeAccounts( item )"
+                                >{{ formateBalance( item.balance ) }}<i>{{ item.cointype | formateCoinType }}</i></li>
+                                <!--<li>0.00001<i>HTC</i></li>-->
                             </ul>
                         </div>
                         <div class="hadlogin" >
@@ -205,7 +207,8 @@
                 }, {
                     value: 'zhTw',
                     label: '中文繁体'
-                }]
+                }],
+                currBalance: null // 当前钱包
             }
         },
         watch: {},
@@ -226,12 +229,20 @@
                 return this.$store.state.isLog
             },
             userInfo () {
+                if (this.$store.state.userInfo && this.$store.state.userInfo.accounts) {
+                    this.currBalance = this.$store.state.userInfo.accounts[0]
+                }
                 return this.$store.state.userInfo
             }
         },
         methods: {
             formateEmail,
             formateBalance,
+            changeAccounts (item) {
+                if (item) {
+                    this.currBalance = item
+                }
+            },
             handleLanguageChange (val) {
                 this.$store.commit('setLanguage', val)
             },

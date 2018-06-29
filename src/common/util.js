@@ -227,7 +227,7 @@ export function formateEmail (email, isFull) {
         } else {
             /* tiger 要求显示更短 */
             if (regArr[1] && regArr[1].length > 6) {
-                email = regArr[1].slice(0, 3) + '**' + regArr[1].slice(-3) + regArr[2]
+                email = regArr[1].slice(0, 2) + '**' + regArr[1].slice(-3) + regArr[2]
             }
         }
         return email
