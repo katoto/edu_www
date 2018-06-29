@@ -170,12 +170,12 @@
                             <div>{{ free_times }} Times</div>
                         </div>
                         <!-- 开始按钮btn-spin-->
-                        <div class="btn btn-spin" :class="{'hide':free_times}">
+                        <div @dblclick="autoPlay" class="btn btn-spin" :class="{'hide':free_times}">
                             <p>SPIN</p>
                             <div>Auto(double click)</div>
                         </div>
                         <!--自动-->
-                        <div class="btn btn-auto hide">
+                        <div @dblclick="stopAutoPlay" class="btn btn-auto hide">
                             <p>AUTO</p>
                             <div>Double Click to Stop</div>
                         </div>
@@ -303,7 +303,7 @@
                 dft_bet: 0.001, // 默认投注项
                 dft_line: 9, // 默认9线
                 showSingleBet: false, // 投注项选择
-                barProcess: 10,
+                barProcess: 10
 
             }
         },
@@ -313,6 +313,12 @@
             formateBalance,
             formateEmail,
             formateCoinType,
+            autoPlay () {
+                console.log(1111)
+            },
+            stopAutoPlay () {
+                console.log(113311)
+            },
             showBetSel () {
                 /* 控制投注项 */
                 this.showSingleBet = !this.showSingleBet
