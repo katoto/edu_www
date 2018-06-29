@@ -274,30 +274,18 @@ const actions = {
                             break
                         case '2001':
                             // 老虎机初始化
-                            /* 老虎机  eth 未来 btc */
-                            // let tigerData = {
-                            //     prizes_pool: '3.123',
-                            //     hitWin: 1,
-                            //     last_prizes: 0.0018,
-                            //     cointype: 2001,
-                            //     recentWin: [
-                            //         {
-                            //             username: '846359246@qq.com',
-                            //             winMoney: '0.0321',
-                            //             winTime: 1530080092206
-                            //         }
-                            //     ],
-                            //     recentList: [
-                            //         {
-                            //             username: '8462222222222359246@qq.com',
-                            //             winMoney: '0.0321',
-                            //             winTime: 1530380092206
-                            //         },
-                            //     ]
-                            // }
                             if (msg.data) {
                                 console.log(msg.data)
                                 dispatch(actionTypes.formateTiger, msg.data)
+                            }
+                            break
+                        case '2002':
+                            // 老虎机初始化
+                            if (msg.data) {
+                                Object.assign(msg.data, {
+                                    addNewRecord: true
+                                })
+                                dispatch(actionTypes.addRecentList, msg.data)
                             }
                             break
                         }

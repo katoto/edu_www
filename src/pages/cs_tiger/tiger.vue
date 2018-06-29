@@ -23,8 +23,9 @@
                             <p>
                                 Hit to Win
                             </p>
-                            <i v-if="initTigerMsg">
-                                {{ initTigerMsg.hitWin }}
+                            <i v-if="prizes_pool">
+                                <!-- hit WIn todo -->
+                                {{ parseFloat(prizes_pool) * dft_bet }}
                             </i>
                             <span>
                                 ETH
@@ -302,7 +303,8 @@
                 dft_bet: 0.001, // 默认投注项
                 dft_line: 9, // 默认9线
                 showSingleBet: false, // 投注项选择
-                barProcess: 10
+                barProcess: 10,
+
             }
         },
         watch: {},
@@ -343,17 +345,7 @@
         async mounted () {
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
-            setInterval(() => {
-                let currMsg = {
-                    username: '846359246@qq.com',
-                    prize: '0.0321',
-                    bettime: 1530080092
-                }
-                Object.assign(currMsg, {
-                    addNewRecord: true
-                })
-                this.$store.dispatch(aTypes.addRecentList, currMsg)
-            }, 15000)
+
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
