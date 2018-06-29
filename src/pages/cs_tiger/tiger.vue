@@ -48,20 +48,20 @@
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
                                 <!-- class="yes" -->
-                                <ul class="slot-item1" v-if="axes[0]">
+                                <ul class="slot-item1" :style="{ 'transform':slotItem1Tran}" v-if="axes[0]">
                                     <li v-for="item in axes[0]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
-                                    <li v-if="hideInitLi">
-                                        <img id="hei" src="../../../static/staticImg/_A.png" alt="">
+                                    <li v-if="hideInitLi" id="hei">
+                                        <img src="../../../static/staticImg/_A.png" alt="">
                                     </li>
                                 </ul>
-                                <ul class="slot-item2" v-if="axes[1]">
+                                <ul class="slot-item2" :style="{ 'transform':slotItem2Tran}" v-if="axes[1]">
                                     <li v-for="item in axes[1]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
                                 </ul>
-                                <ul class="slot-item3" v-if="axes[2]">
+                                <ul class="slot-item3" :style="{ 'transform':slotItem3Tran}" v-if="axes[2]">
                                     <li v-for="item in axes[2]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
@@ -363,7 +363,6 @@
             </ul>
         </div>
 
-
     </div>
 </template>
 
@@ -389,15 +388,34 @@
                 barProcess: 10,
                 prizes_pool_ratio: null, // hitWinRatio
                 axes: null, // axes
-                hideInitLi: true
+                dft_idx: null, // dft_idx
+                hideInitLi: true,
+                computeHeight: 0,
+                slotItem1Tran: 'translateY(30px)',
+                slotItem2Tran: 'translateY(30px)',
+                slotItem3Tran: 'translateY(30px)'
             }
         },
-        watch: {},
+        watch: {
+            computeHeight (hei) {
+                if (hei && this.dft_idx) {
+                    this.setLacal()
+                }
+            }
+        },
         methods: {
             formatTime,
             formateBalance,
             formateEmail,
             formateCoinType,
+            setLacal () {
+                this.dft_idx.forEach((val, index) => {
+                    val = parseFloat(val) + 30
+                    console.log(this.computeHeight)
+                    console.log((val - 3) * this.computeHeight)
+                    this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
+                })
+            },
             autoPlay () {
                 console.log('autoPlay11')
             },
@@ -469,16 +487,24 @@
                 }
                 if (slotsHome.axes) {
                     this.axes = slotsHome.axes
+                    this.axes.forEach((val, index) => {
+                        this.axes[index] = val.concat(val)
+                    })
+                }
+                if (slotsHome.dft_idx) {
+                    this.dft_idx = slotsHome.dft_idx
                 }
             }
         },
         updated () {
             //  4*15=75
-            if (document.getElementById('hei')) {
-                this.$refs.js_slotBox.style.height = document.getElementById('hei').height * 3 + 72 + 'px'
+            if (document.getElementById('hei') && !this.computeHeight) {
+                this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 72 + 'px'
+                this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
                 this.hideInitLi = false
             } else {
-                this.$refs.js_slotBox.style.height = 70 * 3 + 72 + 'px'
+                // this.$refs.js_slotBox.style.height = 70 * 3 + 72 + 'px'
+                // this.computeHeight = 70
             }
         },
         beforeDestroy () {
@@ -703,7 +729,7 @@
     }
 
     .slot-item1 {
-        animation: as 2s infinite;
+        /*transform: translateY(10px);*/
     }
 
     .btn-main {
@@ -1361,11 +1387,6 @@
             right: 0;
         }
     }
-    @keyframes as {
-        /*0%,100%{transform: translateY(0)}*/
-        /*50%{transform: translateY(-300px)}*/
-    }
-
     @keyframes bingo {
         0%{
             background: url("../../assets/img/tiger/line.png") no-repeat center;
