@@ -11,8 +11,8 @@
                             <p>
                                 JACKPOT
                             </p>
-                            <i v-if="initTigerMsg">
-                                {{ initTigerMsg.tigerJackPot }}
+                            <i v-if="prizes_pool">
+                                {{ prizes_pool }}
                             </i>
                             <span>
                                 ETH
@@ -38,9 +38,8 @@
                         </ul>
                     </div>
                     <!--进行中 run 开奖 opening -->
-                    <div class="slot run">
-                        <!--复位reset -->
-                        <div class="slot-box">
+                    <div class="slot ">
+                        <div id="js_slot-box" class="slot-box">
                             <ul class="slot-item1">
                                 <li class="yes">
                                     <img src="../../assets/img/tiger/logo-team.png" alt="" id="hei">
@@ -94,41 +93,46 @@
                     <!--底部操作-->
                     <div class="operating ">
                         <!-- 展开 on-->
-                        <div class="single ">
-                            <div class="top">
-                                <div class="single-amount">
-                                    0.00001
+                        <div class="single">
+                            <div style="cursor: pointer" @click="showBetSel">
+                                <div class="top">
+                                    <div class="single-amount">
+                                        {{ dft_bet }}
+                                    </div>
+                                    <div class="single-unit">
+                                        ETH
+                                    </div>
                                 </div>
-                                <div class="single-unit">
-                                    ETH
-                                </div>
+                                <p class="msg">
+                                    Single Bet
+                                </p>
                             </div>
-                            <p class="msg">
-                                Single Bet
-                            </p>
-                            <ul>
-                                <li>
-                                    <div class="single-amount">
-                                        0.001
-                                    </div>
-                                    <div class="single-unit">
-                                        ETH
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="single-amount">
-                                        0.0001
-                                    </div>
-                                    <div class="single-unit">
-                                        ETH
-                                    </div>
-                                </li>
-                            </ul>
+                            <!-- 投注项选择 -->
+                            <div :class="{'hide': !showSingleBet }">
+                                <ul v-if="lucky_values.length > 0">
+                                    <li v-for="item in lucky_values" @click="betSelFn(item)">
+                                        <div class="single-amount">
+                                            {{ item.bet }}
+                                        </div>
+                                        <div class="single-unit">
+                                            ETH
+                                        </div>
+                                    </li>
+                                    <!--<li>-->
+                                    <!--<div class="single-amount">-->
+                                    <!--0.0001-->
+                                    <!--</div>-->
+                                    <!--<div class="single-unit">-->
+                                    <!--ETH-->
+                                    <!--</div>-->
+                                    <!--</li>-->
+                                </ul>
+                            </div>
                         </div>
                         <div class="all">
                             <div class="top">
                                 <div class="all-amount">
-                                    0.0009
+                                    {{ formateBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
                                 </div>
                                 <div class="all-unit">
                                     ETH
@@ -141,11 +145,10 @@
                         <div class="bar">
                             <div class="top">
                                 <div class="bar-process">
-
-                                    <i></i>
+                                    <i :style="{'width':barProcess+'%'}" ></i>
                                 </div>
                                 <div class="bar-msg">
-                                    48%
+                                    {{ barProcess }}%
                                 </div>
                             </div>
                             <p class="msg">
@@ -154,21 +157,21 @@
                         </div>
                     </div>
                     <!--上次赢取-->
-                    <div class="lastwin " v-if="initTigerMsg">
-                        Last time win {{ initTigerMsg.lastWin }} ETH
+                    <div class="lastwin " v-if="last_prizes">
+                        Last time win {{ last_prizes }} ETH
                     </div>
                     <!--主按钮-->
                     <a href="javascript:;" class="btn-main">
                         <img src="@/assets/img/tiger/btn-bg.png" alt="">
+                        <!--免费-->
+                        <div class="btn btn-free" :class="{'hide':!free_times}">
+                            <p>FREE</p>
+                            <div>{{ free_times }} Times</div>
+                        </div>
                         <!-- 开始按钮btn-spin-->
-                        <div class="btn btn-spin ">
+                        <div class="btn btn-spin" :class="{'hide':free_times}">
                             <p>SPIN</p>
                             <div>Auto(double click)</div>
-                        </div>
-                        <!--免费-->
-                        <div class="btn btn-free hide">
-                            <p>FREE</p>
-                            <div>3 Times</div>
                         </div>
                         <!--自动-->
                         <div class="btn btn-auto hide">
@@ -193,16 +196,16 @@
                         </div>
                     </div>
                     <!-- height -->
-                    <ul class="recent-main" v-if="initTigerMsg">
-                        <li v-for="item in initTigerMsg.recentList" :class="{'newRecord':item.addNewRecord}">
+                    <ul class="recent-main" v-if="recentList">
+                        <li v-for="item in recentList" :class="{'newRecord':item.addNewRecord}">
                             <div class="user">
-                                {{formateEmail( item.username , true )  }}
+                                {{formateEmail( item.username , true ) }}
                             </div>
                             <div class="win">
                                 {{ formateBalance ( item.winMoney ) }}
                             </div>
                             <div class="time">
-                                {{ formatTime ( item.winTime , 'HH:mm' )  }}
+                                {{ formatTime ( item.winTime , 'HH:mm' ) }}
                             </div>
                         </li>
 
@@ -214,7 +217,10 @@
                         <div class="msg2">https://www.coinslot.com/tiger</div>
                     </div>
                     <div class="fr">
-                        <img src="@/assets/img/tiger/code.jpg" alt="">
+                        <!--  二维码  -->
+                        <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
+                        <img
+                            :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/tiger'">
                     </div>
                 </div>
             </div>
@@ -284,16 +290,48 @@
     export default {
         data () {
             return {
-                title: ''
+                free_times: null, // 初始化免费次数
+                // 默认投注选项
+                lucky_values: [{
+                    bet: '0.0001',
+                    lucky: '0'
+                }, {
+                    bet: '0.001',
+                    lucky: '0'
+                }],
+                dft_bet: 0.001, // 默认投注项
+                dft_line: 9, // 默认9线
+                showSingleBet: false, // 投注项选择
+                barProcess: 10
             }
         },
         watch: {},
         methods: {
             formatTime,
             formateBalance,
-            formateEmail
+            formateEmail,
+            showBetSel () {
+                /* 控制投注项 */
+                this.showSingleBet = !this.showSingleBet
+            },
+            betSelFn (currVal) {
+                if (currVal) {
+                    this.dft_bet = currVal.bet
+                    this.barProcess = Math.floor(parseFloat(currVal.lucky) / 100)
+                    this.showSingleBet = false
+                }
+            }
         },
         computed: {
+            last_prizes () {
+                return this.$store.state.cs_tiger.last_prizes
+            },
+            prizes_pool () {
+                return this.$store.state.cs_tiger.prizes_pool
+            },
+            recentList () {
+                return this.$store.state.cs_tiger.recentList
+            },
             initTigerMsg () {
                 return this.$store.state.cs_tiger.initTigerMsg
             }
@@ -301,9 +339,9 @@
         components: {
             Header
         },
-        mounted () {
+        async mounted () {
+            /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
-
             setInterval(() => {
                 let currMsg = {
                     username: '846359246@qq.com',
@@ -313,15 +351,41 @@
                 Object.assign(currMsg, {
                     addNewRecord: true
                 })
-                console.log(1222111)
+//                console.log(1222111)
                 this.$store.dispatch(aTypes.addRecentList, currMsg)
             }, 15000)
+            /* 首页请求 */
+            let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
+            if (slotsHome) {
+                if (slotsHome.free_times !== undefined) {
+                    this.free_times = parseFloat(slotsHome.free_times)
+                }
+                /* 投注列表配置 */
+                if (slotsHome.lucky_values) {
+                    this.lucky_values = slotsHome.lucky_values
+                }
+                /* 默认投注项 */
+                if (slotsHome.dft_bet !== undefined) {
+                    this.dft_bet = slotsHome.dft_bet
+                    if (this.lucky_values.length > 0) {
+                        this.lucky_values.forEach((val, index) => {
+                            if (val.bet === this.dft_bet.toString()) {
+                                this.barProcess = val.lucky
+                            }
+                        })
+                    }
+                }
+                if (slotsHome.dft_line !== undefined) {
+                    this.dft_line = slotsHome.dft_line
+                }
+            }
+//            4*15=75
+            document.getElementById('js_slot-box').style.height = document.getElementById("hei").height*3+72+'px'
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
         },
-        filters: {
-        }
+        filters: {}
     }
 </script>
 <style scoped="" lang="less" rel="stylesheet/less">
@@ -345,6 +409,7 @@
         z-index:9;
     }
     /*以移动端为主来写*/
+
     .placeholder{
         display: block;
         width:100%;
@@ -402,7 +467,7 @@
                 font-size: 23px;
             }
             span {
-                line-height: 42px;
+                line-height: 40px;
                 font-size: 15px;
             }
         }
@@ -472,14 +537,6 @@
         background-size: contain;
     }
 
-    .slot.reset {
-        .slot-box {
-            ul {
-
-            }
-        }
-    }
-
     .slot.opening {
         .slot-box {
             overflow: visible;
@@ -503,22 +560,26 @@
     .slot-box {
         position: relative;
         margin: 0 auto;
-        top: percentage(264/1173);
+        top: percentage(260/1173);
         width: percentage(610/750);
         /*高度需要动态设置*/
-        height: 290px;
+        height: 0;
         overflow: hidden;
         display: flex;
         justify-content: center;
         /*~防止less解析/，这里是单独设置水平和垂直的半径*/
-        border-radius: ~"123px/60px";
+        border-top-left-radius: ~"123px 60px";
+        border-top-right-radius: ~"123px 60px";
+        border-bottom-left-radius: ~"57px 60px";
+        border-bottom-right-radius: ~"57px 60px";
         ul {
             width: 33%;
             li {
                 width: 95%;
                 box-sizing: border-box;
-                margin: 15px auto;
+                margin: 15px auto 0;
                 transition: all 0.2s ease-in;
+                border:4px solid transparent;
                 img {
                     display: block;
                     margin: 0 auto;
@@ -530,11 +591,7 @@
     }
 
     .slot-item1 {
-
-    }
-
-    .slot-item2 {
-
+        animation: as 2s infinite;
     }
 
     .btn-main {
@@ -633,10 +690,10 @@
                 font-size: 10px;
             }
             ul {
-                display: none;
+                /*display: none;*/
                 position: absolute;
                 left: -2px;
-                top: -54px;
+                top: -52px;
                 width: 100%;
                 border: 2px solid #bc9357;
                 border-top-left-radius: 6px;
@@ -645,6 +702,7 @@
                 color: #ffe400;
                 background: #2f250f;
                 li {
+                    cursor: pointer;
                     display: flex;
                     justify-content: center;
                     height: 25px;
@@ -914,7 +972,8 @@
     }
 
     .contact {
-        padding-top: 45px;
+        padding-top: 5px;
+        overflow: hidden;
         .fl {
             float: left;
             width: 250px;
@@ -962,13 +1021,14 @@
         }
     }
     @media (min-width: @screen-phone) {
+
         .tiger-pc{
             position: relative;
             top:0;
             left:50%;
             transform: translateX(-50%);
-            width:100%;
-            height:586px;
+            width: 100%;
+            height: 586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
             background-size: 1920px 586px;
         }
@@ -995,7 +1055,10 @@
             right: 0;
         }
     }
-
+    @keyframes as {
+        /*0%,100%{transform: translateY(0)}*/
+        /*50%{transform: translateY(-300px)}*/
+    }
     //background: url("../../assets/img/tiger/bg-slot.png") no-repeat center;
 
 </style>

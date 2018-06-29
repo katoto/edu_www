@@ -200,9 +200,9 @@ const actions = {
                         case '1002':
                             /* 老虎机  eth 未来 btc */
                             let tigerData = {
-                                tigerJackPot: '3.123',
+                                prizes_pool: '3.123',
                                 hitWin: 1,
-                                lastWin: 0.0018,
+                                last_prizes: 0.0018,
                                 cointype: 2001,
                                 recentWin: [
                                     {
@@ -442,7 +442,7 @@ const actions = {
             let subTigerStr = {
                 action: 'sub',
                 cointype: 2001,
-                type: 'tiger'
+                type: 'slots'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
         } catch (e) {
@@ -456,7 +456,7 @@ const actions = {
             let unsubTigerStr = {
                 action: 'unsub',
                 cointype: 2001,
-                type: 'tiger'
+                type: 'slots'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
         } catch (e) {
