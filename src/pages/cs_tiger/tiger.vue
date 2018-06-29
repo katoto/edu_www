@@ -351,7 +351,7 @@
                 Object.assign(currMsg, {
                     addNewRecord: true
                 })
-//                console.log(1222111)
+                //                console.log(1222111)
                 this.$store.dispatch(aTypes.addRecentList, currMsg)
             }, 15000)
             /* 首页请求 */
@@ -379,8 +379,8 @@
                     this.dft_line = slotsHome.dft_line
                 }
             }
-//            4*15=75
-            document.getElementById('js_slot-box').style.height = document.getElementById("hei").height*3+72+'px'
+            //            4*15=75
+            document.getElementById('js_slot-box').style.height = document.getElementById('hei').height * 3 + 72 + 'px'
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
