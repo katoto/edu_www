@@ -43,57 +43,31 @@
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
                     </div>
-                    <!--进行中 run 开奖 opening -->
+                    <!--进行中 run 开奖 opening - yes  -->
                     <div class="slot">
-                        <div id="js_slot-box" class="slot-box">
-                            <ul class="slot-item1">
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/_A.png" alt="" id="hei">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                            </ul>
-                            <ul class="slot-item2">
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                            </ul>
-                            <ul class="slot-item3">
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/_A.png" alt="">
-                                </li>
-                            </ul>
+                        <div ref="js_slotBox" id="js_slot-box" class="slot-box">
+                            <template v-if="axes">
+                                <!--  class="yes"  -->
+                                <ul class="slot-item1" v-if="axes[0]">
+                                    <li v-for="item in axes[0]" >
+                                        <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
+                                    </li>
+                                    <li v-if="hideInitLi">
+                                        <img id="hei" src="../../../static/staticImg/_A.png" alt="">
+                                    </li>
+                                </ul>
+                                <ul class="slot-item2" v-if="axes[1]">
+                                    <li v-for="item in axes[1]" >
+                                        <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
+                                    </li>
+                                </ul>
+                                <ul class="slot-item3" v-if="axes[2]">
+                                    <li v-for="item in axes[2]" >
+                                        <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
+                                    </li>
+                                </ul>
+                            </template>
+
                         </div>
                     </div>
                     <!--底部操作-->
@@ -254,13 +228,13 @@
                     </div>
                     <ul>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
@@ -269,13 +243,13 @@
                     </ul>
                     <ul>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
                         <li>
-                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
+                            <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
@@ -401,6 +375,7 @@
                 barProcess: 10,
                 prizes_pool_ratio: null, // hitWinRatio
                 axes: null, // axes
+                hideInitLi: true
             }
         },
         watch: {},
@@ -478,12 +453,19 @@
                 if (slotsHome.prizes_pool_ratio) {
                     this.prizes_pool_ratio = slotsHome.prizes_pool_ratio
                 }
-                if(slotsHome.axes){
+                if (slotsHome.axes) {
                     this.axes = slotsHome.axes
                 }
             }
-            //            4*15=75
-            document.getElementById('js_slot-box').style.height = document.getElementById('hei').height * 3 + 72 + 'px'
+        },
+        updated () {
+            //  4*15=75
+            if (document.getElementById('hei')) {
+                this.$refs.js_slotBox.style.height = document.getElementById('hei').height * 3 + 72 + 'px'
+                this.hideInitLi = false
+            } else {
+                this.$refs.js_slotBox.style.height = 70 * 3 + 72 + 'px'
+            }
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
