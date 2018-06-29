@@ -662,15 +662,14 @@
             }
         },
         async mounted () {
+            /* 订阅lucky11 sock */
+            this.$store.dispatch('subInLucky')
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            // if (!(this.socket && this.socket.sock)) {
-            //     this.$store.dispatch('initWebsocket')
-            // }
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
 
@@ -701,12 +700,8 @@
                 document.getElementById(id).style.boxShadow = str1
             }
         },
-        beforeRouteLeave (to, from, next) {
-            // 是否需要主队断sock ？
-            // this.$store.state.socket.sock.onclose();
-            // this.$store.dispatch('unsubscribe')
-            // this.$store.dispatch('subscribe')
-            next()
+        beforeDestroy () {
+            this.$store.dispatch('subOutLucky')
         },
         destroyed () {
             window.removeEventListener('scroll', this.fixNav)

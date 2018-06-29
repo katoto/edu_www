@@ -218,8 +218,16 @@ export function formateEmail (email, isFull) {
             email = regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
         }
         if (!isFull) {
+            if (regArr[1] && regArr[1].length > 10) {
+                email = regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
+            }
             if (email.indexOf('@') > -1) {
                 email = email.split('@')[0]
+            }
+        } else {
+            /* tiger 要求显示更短 */
+            if (regArr[1] && regArr[1].length > 6) {
+                email = regArr[1].slice(0, 3) + '**' + regArr[1].slice(-3) + regArr[2]
             }
         }
         return email
