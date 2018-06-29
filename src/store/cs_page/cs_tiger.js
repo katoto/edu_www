@@ -87,6 +87,7 @@ const actionsInfo = mapActions({
                 single_bet: orderObj.single_bet,
                 cointype: orderObj.cointype
             })
+
             return InfoData
         } catch (e) {
             this.$error(e.message)
