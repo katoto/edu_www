@@ -123,7 +123,14 @@ const actions = {
                             freez: '0.0'
                         })
                     }
-
+                    // test
+                    // userMsg.data.accounts.push({
+                    //     address: '',
+                    //     balance: '12111',
+                    //     cointype: '1001',
+                    //     fee: '0.003',
+                    //     freez: '0.0'
+                    // })
                     commit('setUserInfo', userMsg.data)
                     // 邀请 活动
                     // userMsg.data.tasks = [{
