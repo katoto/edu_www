@@ -202,10 +202,10 @@
                                 {{formateEmail( item.username , true ) }}
                             </div>
                             <div class="win">
-                                {{ formateBalance ( item.winMoney ) }}
+                                {{ formateBalance ( item.prize ) }}
                             </div>
                             <div class="time">
-                                {{ formatTime ( item.winTime , 'HH:mm' ) }}
+                                {{ formatTime ( item.bettime , 'HH:mm' ) }}
                             </div>
                         </li>
 
@@ -345,13 +345,12 @@
             setInterval(() => {
                 let currMsg = {
                     username: '846359246@qq.com',
-                    winMoney: '0.0321',
-                    winTime: 1530080092206
+                    prize: '0.0321',
+                    bettime: 1530080092
                 }
                 Object.assign(currMsg, {
                     addNewRecord: true
                 })
-                //                console.log(1222111)
                 this.$store.dispatch(aTypes.addRecentList, currMsg)
             }, 15000)
             /* 首页请求 */
