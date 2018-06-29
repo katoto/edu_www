@@ -685,11 +685,12 @@
 
     .slot.opening {
         .slot-box {
-            overflow: visible;
+            /*overflow: visible;*/
+            border-radius: 0;
         }
         ul {
-            height: 100%;
-            overflow: hidden;
+            /*height: 100%;*/
+            /*overflow: hidden;*/
         }
         li.yes {
             border: 4px solid #fff287;
