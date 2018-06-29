@@ -34,8 +34,8 @@ const actionsInfo = mapActions({
     /* 老虎机 socket 推送 */
     formateTiger ({state, commit, dispatch}, data) {
         if (data) {
-            console.log(data)
-            console.log('==== formateTiger =====')
+            // console.log(data)
+            // console.log('==== formateTiger =====')
             if (data.prizes_pool !== undefined) {
                 commit(mTypes.prizes_pool, data.prizes_pool)
             }

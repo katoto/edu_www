@@ -38,9 +38,8 @@
                         </ul>
                     </div>
                     <!--进行中 run 开奖 opening -->
-                    <div class="slot run">
-                        <!--复位reset -->
-                        <div class="slot-box">
+                    <div class="slot ">
+                        <div id="js_slot-box" class="slot-box">
                             <ul class="slot-item1">
                                 <li class="yes">
                                     <img src="../../assets/img/tiger/logo-team.png" alt="" id="hei">
@@ -237,7 +236,7 @@
             </div>
         </div>
         <!--大奖-->
-        <div class="pop reward-big">
+        <div class="pop reward-big ">
             <div class="bg1">
                 <div class="bg2">
                     <div class="msg">
@@ -288,7 +287,6 @@
     import Header from '~components/Header_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import {formateEmail, formatTime, formateBalance} from '~common/util'
-
     export default {
         data () {
             return {
@@ -353,10 +351,9 @@
                 Object.assign(currMsg, {
                     addNewRecord: true
                 })
-                console.log(1222111)
+//                console.log(1222111)
                 this.$store.dispatch(aTypes.addRecentList, currMsg)
             }, 15000)
-
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
@@ -382,6 +379,8 @@
                     this.dft_line = slotsHome.dft_line
                 }
             }
+//            4*15=75
+            document.getElementById('js_slot-box').style.height = document.getElementById("hei").height*3+72+'px'
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
@@ -468,7 +467,7 @@
                 font-size: 23px;
             }
             span {
-                line-height: 42px;
+                line-height: 40px;
                 font-size: 15px;
             }
         }
@@ -538,14 +537,6 @@
         background-size: contain;
     }
 
-    .slot.reset {
-        .slot-box {
-            ul {
-
-            }
-        }
-    }
-
     .slot.opening {
         .slot-box {
             overflow: visible;
@@ -569,22 +560,26 @@
     .slot-box {
         position: relative;
         margin: 0 auto;
-        top: percentage(264/1173);
+        top: percentage(260/1173);
         width: percentage(610/750);
         /*高度需要动态设置*/
-        height: 290px;
+        height: 0;
         overflow: hidden;
         display: flex;
         justify-content: center;
         /*~防止less解析/，这里是单独设置水平和垂直的半径*/
-        border-radius: ~"123px/60px";
+        border-top-left-radius: ~"123px 60px";
+        border-top-right-radius: ~"123px 60px";
+        border-bottom-left-radius: ~"57px 60px";
+        border-bottom-right-radius: ~"57px 60px";
         ul {
             width: 33%;
             li {
                 width: 95%;
                 box-sizing: border-box;
-                margin: 15px auto;
+                margin: 15px auto 0;
                 transition: all 0.2s ease-in;
+                border:4px solid transparent;
                 img {
                     display: block;
                     margin: 0 auto;
@@ -596,11 +591,7 @@
     }
 
     .slot-item1 {
-
-    }
-
-    .slot-item2 {
-
+        animation: as 2s infinite;
     }
 
     .btn-main {
@@ -702,7 +693,7 @@
                 /*display: none;*/
                 position: absolute;
                 left: -2px;
-                top: -54px;
+                top: -52px;
                 width: 100%;
                 border: 2px solid #bc9357;
                 border-top-left-radius: 6px;
@@ -981,7 +972,8 @@
     }
 
     .contact {
-        padding-top: 45px;
+        padding-top: 5px;
+        overflow: hidden;
         .fl {
             float: left;
             width: 250px;
@@ -1063,7 +1055,10 @@
             right: 0;
         }
     }
-
+    @keyframes as {
+        /*0%,100%{transform: translateY(0)}*/
+        /*50%{transform: translateY(-300px)}*/
+    }
     //background: url("../../assets/img/tiger/bg-slot.png") no-repeat center;
 
 </style>
