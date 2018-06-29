@@ -260,18 +260,18 @@
             </div>
         </div>
         <!--help-->
-        <div class="pop help hide">
+        <div class="pop help ">
             <a href="javascript:;" class="tiger-close"></a>
             <div class="title">
-                Instructions
+              <p>Instructions</p>
             </div>
             <ul class="tab-t">
                 <li class="on"><a href="javascript:;">Winning Table</a></li>
-                <li><a href="javascript:;">Lucky Prize</a></li>
+                <li ><a href="javascript:;">Lucky Prize</a></li>
                 <li><a href="javascript:;">Winning Line</a></li>
             </ul>
             <ul class="tab-c">
-                <li class="">
+                <li class="on">
                     <div class="line-divi">
                         <div>Multiple</div>
                     </div>
@@ -302,7 +302,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="on">
+                <li class="">
                     <div class="line-divi">
                         <div>Jaackpot</div>
                     </div>
@@ -327,10 +327,12 @@
                     </div>
                     <div class="lucky-value">
                         <div class="lucky-48">
-
+                            <img src="@/assets/img/tiger/lucky-48.png" alt="">
+                            <p>Not Full</p>
                         </div>
                         <div class="lucky-100">
-
+                            <img src="@/assets/img/tiger/lucky-100.png" alt="">
+                            <p>Full</p>
                         </div>
                     </div>
                     <div class="msg">
@@ -345,7 +347,19 @@
                         </p>
                     </div>
                 </li>
-                <li>3</li>
+                <li class="">
+                    <div class="line-divi">
+                        <div>
+                            <p>
+                                Bonus settlements from
+                            </p>
+                            <p>
+                                left to right on the winning line
+                            </p>
+                        </div>
+                    </div>
+                    <img src="@/assets/img/tiger/win-line.png" alt="win-line" class="win-line">
+                </li>
             </ul>
         </div>
 
@@ -494,6 +508,7 @@
             }
         },
         beforeDestroy () {
+
             this.$store.dispatch('subOutTiger')
         },
         filters: {}
@@ -1021,9 +1036,10 @@
         }
     }
     .help{
+        top:60px;
+        transform: translate(-50%, 0);
         box-sizing: border-box;
-        padding:0 15px 12px;
-        border:2px solid #96825c;
+
         border-radius: 8px;
         background: #2f2a3d;
         .tiger-close{
@@ -1039,8 +1055,8 @@
         .title{
             position: relative;
             width:percentage(469/674);
-            height:32px;
-            line-height:32px;
+            height:0;
+            padding-bottom:percentage((469/674)*(64/469));
             margin:0 auto;
             text-align: center;
             font-size:18px;
@@ -1048,6 +1064,12 @@
             font-family: sans-eb;
             background: url("../../assets/img/tiger/bg-helpTitle.png") no-repeat center;
             background-size: cover;
+            p{
+                position: absolute;
+                left:50%;
+                top:50%;
+                transform: translate(-50%,-50%);
+            }
         }
         .tab-t{
             border:1px solid #443a5b;
@@ -1083,7 +1105,8 @@
             }
             .line-divi{
                 position: relative;
-                margin:25px auto 20px;
+                /*margin:25px auto 20px;*/
+                margin:15px auto 10px;
                 line-height:14px;
                 font-size:11px;
                 color: #7f6bad;
@@ -1092,7 +1115,7 @@
                     display: block;
                     position: absolute;
                     left:0;
-                    top:50%;
+                    bottom:7px;
                     width:100%;
                     height:1px;
                     background: #7f6bad;
@@ -1108,7 +1131,7 @@
                         content: '';
                         display: block;
                         position: absolute;
-                        top:4px;
+                        bottom: 4px;
                         background: url(../../assets/img/tiger/start.png) no-repeat center;
                         background-size: cover;
                         width:7px;
@@ -1164,17 +1187,47 @@
             }
             .msg{
                 margin-top:6px;
-                padding:0 22px;
+                /*padding:0 22px;*/
+                padding:0 19px;
                 line-height:15px;
                 text-align: left;
                 font-size:12px;
                 color: #fff;
+            }
+            .lucky-value{
+                display: flex;
+                justify-content: space-between;
+                width:percentage(406/597);
+                margin:0 auto;
+                img{
+                    display: block;
+                    width:100%;
+                }
+                p{
+                    width:52px;
+                    font-size:12px;
+                    line-height:30px;
+                    color: #fff;
+                }
+            }
+            .lucky-48{
+                width:171/2px;
+            }
+            .lucky-100{
+                width:158/2px;
+            }
+            .win-line{
+                display: block;
+                width:percentage(539/674);
+                margin:0 auto;
             }
         }
         &.show{
             max-width:674/2px;
             width:percentage(674/750);
             height:auto;
+            padding:0 15px 12px;
+            border:2px solid #96825c;
         }
     }
 
