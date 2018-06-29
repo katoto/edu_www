@@ -43,7 +43,7 @@
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
                     </div>
-                    <!--进行中 run 开奖 opening - yes  -->
+                    <!--进行中 run 开奖 opening - yes  中奖bingo- -->
                     <div class="slot" :class="{'run':slotRun}">
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
@@ -507,7 +507,7 @@
         updated () {
             //  4*15=75
             if (document.getElementById('hei') && !this.computeHeight) {
-                this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 72 + 'px'
+                this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 68 + 'px'
                 this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
                 this.hideInitLi = false
             } else {
@@ -654,6 +654,19 @@
         height: 100%;
         overflow: hidden;
         z-index: 2;
+
+        &.bingo{
+            &::before{
+                content: '';
+                display: block;
+                position: absolute;
+                left:0;
+                top:0;
+                width:100%;
+                height:100%;
+                animation: bingo 0.2s alternate infinite;
+            }
+        }
         .bg-slot {
             position: absolute;
             left: 0;
@@ -1383,6 +1396,16 @@
         }
     }
 
+    @keyframes bingo {
+        0%,25%,100%{
+            background: url("../../assets/img/tiger/line.png") no-repeat center;
+            background-size: cover;
+        }
+        50%,75%{
+            background: url("../../assets/img/tiger/line2.png") no-repeat center;
+            background-size: cover;
+        }
+    }
     //background: url("../../assets/img/tiger/bg-slot.png") no-repeat center;
 
 </style>
