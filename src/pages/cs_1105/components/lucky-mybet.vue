@@ -194,4 +194,9 @@ export default {
 }
 </script>
 
+<style lang="less" scoped>
+.my-bets-title {
+    text-align: center;
+}
+</style>
 

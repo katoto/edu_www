@@ -260,7 +260,6 @@
                 showEndFaucetTime: null,
                 showInviteSuccFlag: false,
                 slideDown: false,
-                languageVal: 'en',
                 languageOptions: [{
                     value: 'en',
                     label: 'English'
@@ -292,6 +291,14 @@
             },
             userInfo () {
                 return this.$store.state.userInfo
+            },
+            languageVal: {
+                set (val) {
+                    this.$store.commit('changeLanguage', val)
+                },
+                get () {
+                    return this.$store.state.language
+                }
             }
         },
         methods: {

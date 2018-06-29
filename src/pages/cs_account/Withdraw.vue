@@ -4,7 +4,7 @@
             <lang>withdraw</lang>
         </h2>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="Request" name="Request">
+            <el-tab-pane :label="_('Request')" name="Request">
                 <li class="li-records">
                     <div class="item icon-name hide">
                         <div class="fl210 ">ETH</div>
@@ -49,7 +49,7 @@
                     </button>
                 </li>
             </el-tab-pane>
-            <el-tab-pane label="Records" name="Records">
+            <el-tab-pane :label="_('Records')" name="Records">
                 <li class="li-request">
                     <section class="cs-select">
                         <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
@@ -124,7 +124,7 @@
                                     align="center"
                                     header-align="center"
                                     prop="balance"
-                                    label="_('Balance')">
+                                    :label="_('Balance')">
                             </el-table-column>
                         </el-table>
                         <div class="pagination">
@@ -214,8 +214,7 @@
                                       style="stroke-width: 4px;"></path>
                             </svg>
                         </div>
-                        <p>
-                            <lang>The transfer is successful. Details<br>can be obtained for details.</lang>
+                        <p v-lang="'The transfer is successful. Details<br>can be obtained for details.'">
                         </p>
                         <a href="javascript:;" @click="closeTransferSucc" class="btn-success">
                             <lang>OK</lang>

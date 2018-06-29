@@ -17,18 +17,18 @@
                         prop="opentime"
                         align="center"
                         header-align="center"
-                        label="Draw Time">
+                        :label="_('Draw Time')">
                     </el-table-column>
                     <el-table-column
                         align="center"
                         header-align="center"
                         prop="expectid"
-                        label="No.">
+                        :label="_('No.')">
                     </el-table-column>
                     <el-table-column
                         align="center"
                         header-align="center"
-                        label="Draw Number">
+                        :label="_('Draw Number')">
                         <template slot-scope="scope">
                             <ul class="num-box" v-if="scope.row.opencode !== '-1'">
                                 <li v-for="(item, index) in scope.row.opencode" :key="index">{{ item }}</li>
@@ -42,12 +42,12 @@
                         align="center"
                         header-align="center"
                         prop="sumbonus"
-                        label="Cumulative Bouns">
+                        :label="_('Cumulative Bouns')">
                     </el-table-column>
                     <el-table-column
                         align="center"
                         header-align="center"
-                        label="Block">
+                        :label="_('Block')">
                         <template slot-scope="scope">
                             <span v-if="scope.row.blocknum == '0'">-</span>
                             <a target="_blank" v-else :href="scope.row.jumpEthUrl"># {{ scope.row.blocknum }}</a>
@@ -80,8 +80,8 @@
                         :page-size="pageSize"
                         layout="prev, pager, next,jumper"
                         :total="PageTotal"
-                        next-text = 'Next >'
-                        prev-text = '< Front'
+                        :next-text="_('Next >')"
+                        :prev-text="_('< Front')"
                     >
                     </el-pagination>
                 </div>

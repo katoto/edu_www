@@ -8,7 +8,7 @@
                 <ul class="account_Tab">
                     <router-link :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
-                            {{item.msg}}
+                            {{_(item.msg)}}
                         </a>
                     </router-link>
                 </ul>

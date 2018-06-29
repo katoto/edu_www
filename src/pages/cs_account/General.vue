@@ -51,8 +51,7 @@
             <p class="psw-grade hide">
                 Security Level&nbsp;&nbsp;<span class="bold">Middle</span>
             </p>
-            <a href="javascript:;" class="btn-changepsw" @click="onChange">
-                <lang>Change&ensp;Password</lang>
+            <a href="javascript:;" class="btn-changepsw" @click="onChange" v-lang="'Change&ensp;Password'">
             </a>
         </div>
     </div>

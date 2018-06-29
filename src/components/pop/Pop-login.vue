@@ -10,8 +10,8 @@
             <!--  登陆loading  -->
             <div class="loading"></div>
             <form method="post">
-                <input v-model="login_email" type="text" name="email" placeholder="Email">
-                <input v-model="login_pass" type="text" onfocus="this.type='password'" placeholder="Password">
+                <input v-model="login_email" type="text" name="email" :placeholder="_('Email')">
+                <input v-model="login_pass" type="text" onfocus="this.type='password'" :placeholder="_('Password')">
                 <div class="sure-old">
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
@@ -21,7 +21,7 @@
                     </p>
                 </div>
                 <!--no-->
-                <input type="submit" value="Sign In" @click.stop.prevent="submitLogin"
+                <input type="submit" :value="_('Sign In')" @click.stop.prevent="submitLogin"
                        :class="{'no':!(log_checked) || login_email === '' || login_pass === '' }">
             </form>
             <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">
@@ -79,7 +79,7 @@
 	                        let userMsg = await this.$store.dispatch('getUserInfo')
 	                        if (userMsg && userMsg.status.toString() === '100') {
 	                            Message({
-	                                message: 'Sign in successfully',
+	                                message: _('Sign in successfully'),
 	                                type: 'success',
 	                                duration: tipsTime
 	                            })
