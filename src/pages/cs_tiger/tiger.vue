@@ -42,50 +42,50 @@
                         <div id="js_slot-box" class="slot-box">
                             <ul class="slot-item1">
                                 <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="" id="hei">
+                                    <img src="../../assets/img/tiger/_A.png" alt="" id="hei">
                                 </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                <li>
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                <li>
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                <li>
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                <li>
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                <li>
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
                             </ul>
                             <ul class="slot-item2">
+                                <li>
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
+                                </li>
                                 <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
                                 <li>
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
                                 <li>
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
                                 <li>
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
-                                </li>
-                                <li>
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
                             </ul>
                             <ul class="slot-item3">
                                 <li>
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
-                                </li>
-                                <li class="yes">
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
                                 <li>
-                                    <img src="../../assets/img/tiger/logo-team.png" alt="">
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
+                                </li>
+                                <li class="yes">
+                                    <img src="../../assets/img/tiger/_A.png" alt="">
                                 </li>
                             </ul>
                         </div>
@@ -249,13 +249,13 @@
                     </div>
                     <ul>
                         <li>
-                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
                         <li>
-                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
@@ -264,13 +264,13 @@
                     </ul>
                     <ul>
                         <li>
-                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
                         <li>
-                            <img src="@/assets/img/tiger/logo-team.png" alt="">&ensp;
+                            <img src="@/assets/img/tiger/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
                             <span>20</span>&ensp;
                             <span>Times</span>
@@ -280,6 +280,97 @@
                 </div>
             </div>
         </div>
+        <!--help-->
+        <div class="pop help hide">
+            <a href="javascript:;" class="tiger-close"></a>
+            <div class="title">
+                Instructions
+            </div>
+            <ul class="tab-t">
+                <li class="on"><a href="javascript:;">Winning Table</a></li>
+                <li><a href="javascript:;">Lucky Prize</a></li>
+                <li><a href="javascript:;">Winning Line</a></li>
+            </ul>
+            <ul class="tab-c">
+                <li class="">
+                    <div class="line-divi">
+                        <div>Multiple</div>
+                    </div>
+                    <div class="winningamount">
+                        <p>Winning Amount =</p>
+                        <p>pattern multiple × single line amount</p>
+                    </div>
+                    <img class="details" src="@/assets/img/tiger/details.png" alt="details">
+                    <div class="line-divi">
+                        <div>Special</div>
+                    </div>
+                    <ul class="special">
+                        <li>
+                            <div class="icon">
+                                <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
+                            </div>
+                            <p>WILD，In addition to whistle, it can be</p>
+                            <p>compared with any other</p>
+                        </li>
+                        <li>
+                            <div class="icon">
+                                <img src="@/assets/img/tiger/icon-free.png" alt="icon-free">
+                            </div>
+                            <p>Rewards free,</p>
+                            <p>number of occurrences anywhere</p>
+                            <p>3 free = 1 time&nbsp;&nbsp;&nbsp;&nbsp;4 free = 3 time</p>
+                            <p>5 free = 10 time</p>
+                        </li>
+                    </ul>
+                </li>
+                <li class="on">
+                    <div class="line-divi">
+                        <div>Jaackpot</div>
+                    </div>
+                    <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
+                    <div class="msg">
+                        <p>
+                            <span class="bold">Prize pool</span>: 2% of the player's guessed coin is rolled into the prize pool.
+                        </p>
+                        <p>
+                            <span>9-line betting, transfer out of 9</span>
+                            &nbsp;<img width="16" height="16" src="@/assets/img/tiger/icon-England.png" alt="England">&nbsp;
+                            <span>that is winning.</span>
+                        </p>
+                    </div>
+                    <div class="msg">
+                        <p>· Each bet 0.0001ETH, only get a fixed payment</p>
+                        <p>· Bet ETH per line 0.001, winning 5%</p>
+                        <p>· Each line is betting 0.01ETH, winning 50% of &nbsp;&nbsp;the prize pool</p>
+                    </div>
+                    <div class="line-divi">
+                        <div>Lucky value</div>
+                    </div>
+                    <div class="lucky-value">
+                        <div class="lucky-48">
+
+                        </div>
+                        <div class="lucky-100">
+
+                        </div>
+                    </div>
+                    <div class="msg">
+                        <p>
+                           <span class="bold"> Lucky value</span>: Unlucky bets accumulate lucky value by line number
+                        </p>
+                        <p>
+                            (1 line accumulates 1 lucky value, use n-line betting to accumulate n lucky value)
+                        </p>
+                        <p>
+                            You can get a double reward if your lucky value is 100 or more.
+                        </p>
+                    </div>
+                </li>
+                <li>3</li>
+            </ul>
+        </div>
+
+
     </div>
 </template>
 
@@ -800,7 +891,6 @@
             font-family: Arial;
         }
     }
-
     /*pop*/
     .pop{
         width:0;
@@ -907,6 +997,163 @@
         }
         &.show{
             width:595/2px;
+            height:auto;
+        }
+    }
+    .help{
+        box-sizing: border-box;
+        padding:0 15px 12px;
+        border:2px solid #96825c;
+        border-radius: 8px;
+        background: #2f2a3d;
+        .tiger-close{
+            position: absolute;
+            top:0;
+            right:0;
+            background: url("../../assets/img/tiger/btn-close.png") no-repeat center;
+            background-size: 12px;
+            width:12px;
+            height:12px;
+            padding:12px 16px;
+        }
+        .title{
+            position: relative;
+            width:percentage(469/674);
+            height:32px;
+            line-height:32px;
+            margin:0 auto;
+            text-align: center;
+            font-size:18px;
+            color: #fff;
+            font-family: sans-eb;
+            background: url("../../assets/img/tiger/bg-helpTitle.png") no-repeat center;
+            background-size: cover;
+        }
+        .tab-t{
+            border:1px solid #443a5b;
+            border-radius: 3px;
+            overflow: hidden;
+            margin:15px auto 0;
+            font-size:12px;
+            li{
+                width:33.333%;
+                box-sizing: border-box;
+                float: left;
+            }
+            a{
+                display: block;
+                width:100%;
+                height:100%;
+                color: #fff;
+            }
+            li+li{
+                border-left:1px solid #443a5b;
+            }
+            li.on{
+                font-weight:bold;
+                background: #443a5b;
+            }
+        }
+        .tab-c{
+            >li{
+                display: none;
+            }
+            >li.on{
+                display: block;
+            }
+            .line-divi{
+                position: relative;
+                margin:25px auto 20px;
+                line-height:14px;
+                font-size:11px;
+                color: #7f6bad;
+                &::before{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left:0;
+                    top:50%;
+                    width:100%;
+                    height:1px;
+                    background: #7f6bad;
+                    z-index:-1;
+                }
+                div{
+                    position: relative;
+                    display: table;
+                    padding:0 20px;
+                    margin:0 auto;
+                    background: #2f2a3d;
+                    &::before,&::after{
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        top:4px;
+                        background: url(../../assets/img/tiger/start.png) no-repeat center;
+                        background-size: cover;
+                        width:7px;
+                        height:7px;
+                        overflow: hidden;
+                    }
+                    &::before{
+                        left:-1px;
+                    }
+                    &::after{
+                        right:-1px;
+                    }
+                }
+            }
+            .winningamount{
+                line-height:20px;
+                font-size:16px;
+                color: #fff;
+            }
+            .details{
+                display: block;
+                width: percentage(550/597);
+                margin:14px auto 0;
+            }
+            .special{
+                li{
+                    overflow: hidden;
+                    line-height:15px;
+                    font-size:12px;
+                    color: #fff;
+                }
+                li+li{
+                    margin-top:30px;
+                }
+                .icon{
+                    float: left;
+                    width:116/2px;
+                }
+                img{
+                    display: block;
+                    margin:0 auto;
+                    width:24px;
+                }
+                p{
+                    margin-left:116/2px;
+                    text-align: left;
+                }
+            }
+            .smallAward{
+                display: block;
+                margin:0 auto 0;
+                width:percentage(375/674);
+            }
+            .msg{
+                margin-top:6px;
+                padding:0 22px;
+                line-height:15px;
+                text-align: left;
+                font-size:12px;
+                color: #fff;
+            }
+        }
+        &.show{
+            max-width:674/2px;
+            width:percentage(674/750);
             height:auto;
         }
     }
