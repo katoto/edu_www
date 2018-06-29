@@ -205,39 +205,6 @@ const actions = {
                             }
                             break
                         case '1002':
-                            /* 老虎机  eth 未来 btc */
-                            let tigerData = {
-                                prizes_pool: '3.123',
-                                hitWin: 1,
-                                last_prizes: 0.0018,
-                                cointype: 2001,
-                                recentWin: [
-                                    {
-                                        username: '846359246@qq.com',
-                                        winMoney: '0.0321',
-                                        winTime: 1530080092206
-                                    }
-                                ],
-                                recentList: [
-                                    {
-                                        username: '8462222222222359246@qq.com',
-                                        winMoney: '0.0321',
-                                        winTime: 1530380092206
-                                    },
-                                    {
-                                        username: '846359246@qq.com',
-                                        winMoney: '0.033',
-                                        winTime: 15300800306
-                                    },
-                                    {
-                                        username: '846359246@qq.com',
-                                        winMoney: '0.034',
-                                        winTime: 1530080032206
-                                    }
-                                ]
-                            }
-
-                            dispatch(actionTypes.formateTiger, tigerData)
                             //  初始化倒计时
                             if (msg.data.timer !== undefined && msg.data.timer !== null) {
                                 dispatch(aTypes.formate_countDown, msg.data.timer)
@@ -305,9 +272,33 @@ const actions = {
                             }
                             ;
                             break
-                        case '1007':
-                            // 更新用户信息，代表结算
-                            ;
+                        case '2001':
+                            // 老虎机初始化
+                            /* 老虎机  eth 未来 btc */
+                            // let tigerData = {
+                            //     prizes_pool: '3.123',
+                            //     hitWin: 1,
+                            //     last_prizes: 0.0018,
+                            //     cointype: 2001,
+                            //     recentWin: [
+                            //         {
+                            //             username: '846359246@qq.com',
+                            //             winMoney: '0.0321',
+                            //             winTime: 1530080092206
+                            //         }
+                            //     ],
+                            //     recentList: [
+                            //         {
+                            //             username: '8462222222222359246@qq.com',
+                            //             winMoney: '0.0321',
+                            //             winTime: 1530380092206
+                            //         },
+                            //     ]
+                            // }
+                            if (msg.data) {
+                                console.log(msg.data)
+                                dispatch(actionTypes.formateTiger, msg.data)
+                            }
                             break
                         }
                     }
@@ -444,7 +435,6 @@ const actions = {
     },
     subInTiger () {
         /* 进入老虎机页面 订阅 */
-        console.log('subInTiger')
         try {
             let subTigerStr = {
                 action: 'sub',
@@ -458,7 +448,6 @@ const actions = {
     },
     subOutTiger () {
         /* 离开老虎机页面 解订阅 */
-        console.log('subOutTiger')
         try {
             let unsubTigerStr = {
                 action: 'unsub',
@@ -470,7 +459,32 @@ const actions = {
             console.error(e.message + 'subOutTiger error')
         }
     },
-
+    subInLucky () {
+        /* 进入lucky11页面 订阅 */
+        try {
+            let subLuckyStr = {
+                action: 'sub',
+                cointype: 2001,
+                type: 'lottery'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
+        } catch (e) {
+            console.error(e.message + 'subInLucky error')
+        }
+    },
+    subOutLucky () {
+        /* 离开lucky页面 解订阅 */
+        try {
+            let unsubLuckyStr = {
+                action: 'unsub',
+                cointype: 2001,
+                type: 'lottery'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
+        } catch (e) {
+            console.error(e.message + 'subOutLucky error')
+        }
+    },
     ...common.actions
 }
 

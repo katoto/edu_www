@@ -7,7 +7,6 @@ import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
 import {Message} from 'element-ui'
 
 const state = {
-
     recentList: [], // 最近中奖列表
     prizes_pool: null, // 奖池数
     last_prizes: null // 上次中奖
@@ -42,8 +41,9 @@ const actionsInfo = mapActions({
             if (data.last_prizes !== undefined) {
                 commit(mTypes.last_prizes, data.last_prizes)
             }
-            if (data.recentList !== undefined) {
-                commit(mTypes.recentList, data.recentList)
+            /* 中奖top 10 */
+            if (data.top !== undefined) {
+                commit(mTypes.recentList, data.top)
             }
         }
     },
