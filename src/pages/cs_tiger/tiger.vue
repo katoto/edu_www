@@ -43,8 +43,8 @@
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
                     </div>
-                    <!--进行中 run 开奖 opening - yes  -->
-                    <div class="slot">
+                    <!--进行中 run 开奖 opening - yes  中奖bingo-->
+                    <div class="slot bingo">
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
                                 <!-- class="yes" -->
@@ -621,6 +621,18 @@
         height: 100%;
         overflow: hidden;
         z-index: 2;
+        &.bingo{
+            &::before{
+                content: '';
+                display: block;
+                position: absolute;
+                left:0;
+                top:0;
+                width:100%;
+                height:100%;
+                animation: bingo 1s both infinite;
+            }
+        }
         .bg-slot {
             position: absolute;
             left: 0;
@@ -1352,6 +1364,17 @@
     @keyframes as {
         /*0%,100%{transform: translateY(0)}*/
         /*50%{transform: translateY(-300px)}*/
+    }
+
+    @keyframes bingo {
+        0%{
+            background: url("../../assets/img/tiger/line.png") no-repeat center;
+            background-size: cover;
+        }
+        100%{
+            background: url("../../assets/img/tiger/line2.png") no-repeat center;
+            background-size: cover;
+        }
     }
     //background: url("../../assets/img/tiger/bg-slot.png") no-repeat center;
 
