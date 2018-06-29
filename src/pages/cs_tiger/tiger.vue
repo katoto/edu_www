@@ -475,10 +475,6 @@
                 /* 投注列表配置 */
                 if (slotsHome.lucky_values) {
                     this.lucky_values = slotsHome.lucky_values
-                    this.lucky_values.forEach((val, index) => {
-                        console.log(val)
-                        val.lucky = 3
-                    })
                 }
                 /* 默认投注项 */
                 if (slotsHome.dft_bet !== undefined) {
