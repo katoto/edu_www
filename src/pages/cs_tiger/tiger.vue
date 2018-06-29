@@ -44,7 +44,7 @@
                         </ul>
                     </div>
                     <!--进行中 run 开奖 opening - yes  中奖bingo-->
-                    <div class="slot ">
+                    <div class="slot opening">
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
                                 <!-- class="yes" -->
@@ -677,11 +677,12 @@
 
     .slot.opening {
         .slot-box {
-            overflow: visible;
+            /*overflow: visible;*/
+            border-radius: 0;
         }
         ul {
-            height: 100%;
-            overflow: hidden;
+            /*height: 100%;*/
+            /*overflow: hidden;*/
         }
         li.yes {
             border: 4px solid #fff287;
