@@ -202,7 +202,7 @@
                                 {{formateEmail( item.username , true ) }}
                             </div>
                             <div class="win">
-                                {{ formateBalance ( item.prize ) }}
+                                {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
                             </div>
                             <div class="time">
                                 {{ formatTime ( item.bettime , 'HH:mm' ) }}
@@ -286,7 +286,7 @@
 <script>
     import Header from '~components/Header_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
-    import {formateEmail, formatTime, formateBalance} from '~common/util'
+    import {formateEmail, formatTime, formateBalance, formateCoinType} from '~common/util'
     export default {
         data () {
             return {
@@ -310,6 +310,7 @@
             formatTime,
             formateBalance,
             formateEmail,
+            formateCoinType,
             showBetSel () {
                 /* 控制投注项 */
                 this.showSingleBet = !this.showSingleBet
