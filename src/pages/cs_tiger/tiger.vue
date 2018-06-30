@@ -208,7 +208,7 @@
         <!--pop   show-->
         <!-- 小奖 -->
         <div class="pop reward-small " :class="{'show':rewardSmall}">
-            <div class="msg" :class="{'winDouble':playBack && playBack.isdouble==='1'}">
+            <div class="msg" :class="{'double':playBack && playBack.isdouble==='1'}">
                 <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
                 <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
                 <i>{{ formateCoinType( currCoinType ) }}</i>
@@ -216,7 +216,7 @@
         </div>
         <!--大奖 winDouble -->
         <div v-show="playBack" class="pop reward-big" :class="{'show':rewardBig}">
-            <div class="bg1" :class="{'winDouble':playBack && playBack.isdouble==='1'}">
+            <div class="bg1" :class="{'double':playBack && playBack.isdouble==='1'}">
                 <div class="bg2">
                     <div class="msg">
                         <p v-if="playBack && playBack.isdouble==='1'">
@@ -376,8 +376,8 @@
         data () {
             return {
                 btnDisable: false, // 按钮不可用
-                rewardBig: false,
-                rewardSmall: false,
+                rewardBig: false, // 大奖
+                rewardSmall: false, // 小奖
                 free_times: null, // 初始化免费次数
                 // 默认投注选项
                 lucky_values: [{
@@ -451,6 +451,15 @@
             autoPlay () {
                 console.log('autoPlay11')
             },
+            endInit () {
+                /* 结束初始化 */
+                this.btnDisable = false
+                this.slotRun = false // 高亮
+            },
+            stateInit () {
+                this.slotRun = true // 高亮
+                this.btnDisable = true
+            },
             formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
                 /* 获得口哨  坐标 */
                 // line9: ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10],
@@ -487,7 +496,6 @@
                 })
                 baseLine9.push(10)
                 this.baseMove.line9 = baseLine9
-                console.log(this.baseMove)
             },
             async startPlay () {
                 if (this.btnDisable) {
@@ -498,8 +506,7 @@
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
-                this.slotRun = true // 高亮
-                this.btnDisable = true
+                this.stateInit()
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 console.log(playBack)
                 if (playBack) {
@@ -518,8 +525,6 @@
                         this.showResults(playBack.results)
                     }
                 }
-                console.log(this.playBack)
-                console.log('=======')
             },
             async showResults (res) {
                 /* 结果展示 */
@@ -535,14 +540,16 @@
                             })
                         }
                     })
+                    console.log('start')
+                    /* 预留 转动的时间 */
+                    await wait(500)
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
-                        console.log('start')
-                        /* 转动的时间 */
-                        await wait(500)
                         this.controlAnimate()
                         clearInterval(this.animateInterval)
                         this.animateInterval = setInterval(this.controlAnimate, this.allLinePopTime)
+                    } else {
+                        this.endInit()
                     }
                 }
             },
@@ -552,8 +559,6 @@
                 if (this.winRes.length > 0) {
                     let nowMove = null
                     popWinRes = this.winRes.shift()
-                    console.log(popWinRes)
-                    console.log(popWinRes.line)
                     if (popWinRes.line === 'line9') {
                         /* 口哨 */
                         this.setRewardIcon = 'whisWard'
@@ -563,7 +568,6 @@
                         /* 奖池奖 */
                         this.setRewardIcon = 'jackPotWard'
                     } else {
-                        console.log(123)
                         /* 0- 8 线 */
                         this.setRewardIcon = 'lineWard'
                         nowMove = this.baseMove[popWinRes.line]
@@ -584,11 +588,17 @@
                             // 隐藏奖池图标
                             this.rewardBig = false
                             this.rewardSmall = false
+                            this.endInit()
                         }, 3000)
+                    } else if (this.setRewardIcon === 'jackPotWard') {
+                        this.rewardBig = true
+                        //  todo 特殊烟花
+                        setTimeout(() => {
+                            this.rewardBig = true
+                            this.endInit()
+                        }, 5000)
                     }
-                    this.btnDisable = false
-                    this.slotRun = false // 高亮
-                // 更新freeTime
+                    // 是否应该在结束时更新数据
                 }
             },
             nowLineMove (nowMove = [-1, -2, -1, 10], endIdx = [3, 3, 3]) {
@@ -660,7 +670,6 @@
             },
             showBetSel () {
                 /* 控制投注项 */
-                console.log(1131);
                 this.showSingleBet = !this.showSingleBet
             },
             betSelFn (currVal) {
@@ -728,7 +737,6 @@
                 // this.formateWindow()
                 // this.rewardBig = true
             }, 2000)
-
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
 
@@ -743,7 +751,6 @@
             //  4*15=75
             // && !this.computeHeight
             if (document.getElementById('hei')) {
-                console.log(111)
                 this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 68 + 'px'
                 this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
                 this.hideInitLi = false
