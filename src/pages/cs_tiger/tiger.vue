@@ -12,7 +12,7 @@
                                 JACKPOT
                             </p>
                             <i v-if="prizes_pool">
-                                {{ prizes_pool }}
+                                {{ formateBalance( prizes_pool ) }}
                             </i>
                             <span>
                                 ETH
@@ -25,7 +25,7 @@
                                 <span v-if="prizes_pool && prizes_pool_ratio">
                                 <!-- hit WIn -->
                                 <template v-if="prizes_pool_ratio[dft_bet] >= 0">
-                                    {{ parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] }}
+                                    {{formateBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
                                 </template>
                                 <template v-else>
                                     {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
@@ -44,11 +44,11 @@
                         </ul>
                     </div>
                     <!--进行中 run 开奖 opening - yes  中奖bingo- -->
-                    <div class="slot" :class="{'run':slotRun}">
+                    <div class="slot opening" :class="{'run':slotRun}">
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
                                 <!-- class="yes" -->
-                                <ul class="slot-item1" :style="{ 'transform':slotItem1Tran}" v-if="axes[0]">
+                                <ul class="slot-item1" id="slotItem1" :style="{ 'transform':slotItem1Tran}" v-if="axes[0]">
                                     <li v-for="item in axes[0]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
@@ -56,18 +56,17 @@
                                         <img src="../../../static/staticImg/_A.png" alt="">
                                     </li>
                                 </ul>
-                                <ul class="slot-item2" :style="{ 'transform':slotItem2Tran}" v-if="axes[1]">
+                                <ul class="slot-item2" id="slotItem2" :style="{ 'transform':slotItem2Tran}" v-if="axes[1]">
                                     <li v-for="item in axes[1]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
                                 </ul>
-                                <ul class="slot-item3" :style="{ 'transform':slotItem3Tran}" v-if="axes[2]">
+                                <ul class="slot-item3" id="slotItem3" :style="{ 'transform':slotItem3Tran}" v-if="axes[2]">
                                     <li v-for="item in axes[2]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
                                 </ul>
                             </template>
-
                         </div>
                     </div>
                     <!--底部操作-->
@@ -207,26 +206,31 @@
         </div>
 
         <!--pop   show-->
-        <!--小奖-->
-        <div class="pop reward-small">
-            <div class="msg">
-                <p>0.0025</p>
-                <i>ETH</i>
+        <!-- 小奖 -->
+        <div class="pop reward-small " :class="{'show':rewardSmall}">
+            <div class="msg" :class="{'winDouble':playBack && playBack.isdouble==='1'}">
+                <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
+                <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
+                <i>{{ formateCoinType( currCoinType ) }}</i>
             </div>
         </div>
-        <!--大奖-->
-        <div class="pop reward-big ">
-            <div class="bg1">
+        <!--大奖 winDouble -->
+        <div v-show="playBack" class="pop reward-big" :class="{'show':rewardBig}">
+            <div class="bg1" :class="{'winDouble':playBack && playBack.isdouble==='1'}">
                 <div class="bg2">
                     <div class="msg">
-                        <p>
-                            0.1498
+                        <p v-if="playBack && playBack.isdouble==='1'">
+                            {{ formateBalance( playBack.line_prizes / 2 ) }}
+                        </p>
+                        <p v-if="playBack && playBack.isdouble==='0'">
+                            {{ formateBalance( playBack.line_prizes ) }}
                         </p>
                         <i>
-                            ETH
+                            {{ formateCoinType( currCoinType ) }}
                         </i>
                     </div>
-                    <ul>
+                    // todo 奖池倍数 暂时隐藏
+                    <ul class="hide">
                         <li>
                             <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
@@ -239,9 +243,8 @@
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
-
                     </ul>
-                    <ul>
+                    <ul class="hide">
                         <li>
                             <img src="../../../static/staticImg/_A.png" alt="">&ensp;
                             <span>x2</span>&ensp;
@@ -254,7 +257,6 @@
                             <span>20</span>&ensp;
                             <span>Times</span>
                         </li>
-
                     </ul>
                 </div>
             </div>
@@ -369,10 +371,12 @@
 <script>
     import Header from '~components/Header_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
-    import {formateEmail, formatTime, formateBalance, formateCoinType} from '~common/util'
+    import {formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
     export default {
         data () {
             return {
+                rewardBig: false,
+                rewardSmall: false,
                 free_times: null, // 初始化免费次数
                 // 默认投注选项
                 lucky_values: [{
@@ -389,13 +393,36 @@
                 barProcess: 20,
                 prizes_pool_ratio: null, // hitWinRatio
                 axes: null, // axes
-                dft_idx: null, // dft_idx
+                dft_idx: null, // dft_idx 改变后的位置
                 hideInitLi: true,
                 computeHeight: 0,
                 slotItem1Tran: 'translateY(30px)',
                 slotItem2Tran: 'translateY(30px)',
                 slotItem3Tran: 'translateY(30px)',
-                slotRun: false
+                slotRun: false,
+                animateInterval: null, // 动画时间
+                lineLightTime: 240, // 结果展示时间
+                allLinePopTime: 3500, // 展示动画间隔
+                winRes: [],
+                baseMove: {
+                    /*
+                    *  10 停止
+                    *  line9  是口哨  'one0', 'one-2', 'two0', 'three-1',
+                    *  30 奖池
+                    * */
+                    line0: [-1, -1, -1, 10],
+                    line1: [-2, -2, -2, 10],
+                    line2: [0, 0, 0, 10],
+                    line3: [-2, -1, 0, 10],
+                    line4: [0, -1, -2, 10],
+                    line5: [-1, -2, -1, 10],
+                    line6: [-1, 0, -1, 10],
+                    line7: [-2, -1, -2, 10],
+                    line8: [0, -1, 0, 10],
+                    line9: [],
+                    line10: [30, 30, 30, 10]
+                },
+                playBack: null // 下单接口返回的所有值
             }
         },
         watch: {
@@ -421,14 +448,186 @@
             autoPlay () {
                 console.log('autoPlay11')
             },
-            startPlay () {
+            formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
+                /* 获得口哨  坐标 */
+                // line9: ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10],
+                let nowWhis = null
+                let baseLine9 = []
+                let baseLineFn = (nowWhis, localVal) => {
+                    nowWhis.forEach((valS, index) => {
+                        if (valS === 'S') {
+                            switch (index) {
+                            case 0:
+                                baseLine9.push('one' + localVal)
+                                break
+                            case 1:
+                                baseLine9.push('two' + localVal)
+                                break
+                            case 2:
+                                baseLine9.push('three' + localVal)
+                                break
+                            }
+                        }
+                    })
+                }
+                windowStr.forEach((val, index) => {
+                    if (~val.indexOf('S')) {
+                        nowWhis = val.split('|')
+                        if (index === 0) {
+                            baseLineFn(nowWhis, '-2')
+                        } else if (index === 1) {
+                            baseLineFn(nowWhis, '-1')
+                        } else if (index === 2) {
+                            baseLineFn(nowWhis, '0')
+                        }
+                    }
+                })
+                baseLine9.push(10)
+                this.baseMove.line9 = baseLine9
+                console.log(this.baseMove)
+            },
+            async startPlay () {
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
                 this.slotRun = true // 高亮
-                this.$store.dispatch(aTypes.startPlay, orderMsg)
+                let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
+                console.log(playBack)
+                if (playBack) {
+                    this.playBack = playBack
+                    if (playBack.idx) {
+                        // 结果位置
+                        this.dft_idx = playBack.idx
+                        this.setLacal()
+                    }
+                    if (playBack.window) {
+                        /*  处理口哨 的数组格式 */
+                        this.formateWindow(playBack.window)
+                    }
+                    if (playBack.results) {
+                        this.showResults(playBack.results)
+                    }
+                }
+                console.log(this.playBack)
+                console.log('=======')
+            },
+            async showResults (res) {
+                /* 结果展示 */
+                let totalRadio = 0
+                this.winRes = []
+                if (res && Array.isArray(res)) {
+                    res.forEach((val, index) => {
+                        if (val.toString() !== '0') {
+                            totalRadio += parseFloat(val)
+                            this.winRes.push({
+                                line: 'line' + index,
+                                value: val
+                            })
+                        }
+                    })
+                    console.log(totalRadio)
+                    console.log(totalRadio)
+                    if (this.winRes.length > 0) {
+                        /* 具体执行的动画 0 - 8 线 */
+                        console.log('start')
+                        /* 转动的时间 */
+                        await wait(1000)
+                        this.controlAnimate()
+                        clearInterval(this.animateInterval)
+                        this.animateInterval = setInterval(this.controlAnimate, this.allLinePopTime)
+                    }
+                }
+            },
+            controlAnimate () {
+                let popWinRes = null
+                if (this.winRes.length > 0) {
+                    let nowMove = null
+                    popWinRes = this.winRes.shift()
+                    console.log(popWinRes.line)
+                    if (popWinRes.line === 'line9') {
+                        /* 口哨 */
+                        nowMove = this.baseMove[popWinRes.line]
+                        this.nowWhistMove(nowMove, this.dft_idx)
+                    } else if (popWinRes.line === 'line10') {
+                        /* 奖池奖 */
+
+                    } else {
+                        /* 0- 8 线 */
+                        nowMove = this.baseMove[popWinRes.line]
+                        this.nowLineMove(nowMove, this.dft_idx)
+                    }
+                } else {
+                    console.log('end')
+                    clearInterval(this.animateInterval)
+                }
+            },
+            nowLineMove (nowMove = [-1, -2, -1, 10], endIdx = [3, 3, 3]) {
+                /* 执行的动画 */
+                console.log(endIdx)
+                console.log(this.dft_idx)
+                for (let i = 0;i < 4;i++) {
+                    setTimeout(() => {
+                        let lineLocal = null
+                        let querySel = null
+                        if (nowMove[i] !== 10) {
+                            lineLocal = parseFloat(endIdx[i]) + 30 + parseFloat(nowMove[i]) - 1
+                            querySel = '#slotItem' + (i + 1) + ' li'
+                            if (document.querySelectorAll(querySel)[lineLocal]) {
+                                document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                            }
+                        } else {
+                            /* 所有初始化 */
+                            this.initAllLine()
+                        }
+                    }, (this.lineLightTime * (i + 1)))
+                }
+            },
+            nowWhistMove (whistMove = ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10]) {
+                /* 口哨  通过replace 进行处理 */
+                if (whistMove && whistMove.length > 0) {
+                    for (let i = 0;i < whistMove.length;i++) {
+                        setTimeout(() => {
+                            let lineLocal = null
+                            let querySel = null
+                            if (whistMove[i] !== 10) {
+                                if (~whistMove[i].indexOf('one')) {
+                                    lineLocal = parseFloat(this.dft_idx[0]) + 30 + parseFloat(whistMove[i].replace('one', '')) - 1
+                                    querySel = '#slotItem1 li'
+                                    if (document.querySelectorAll(querySel)[lineLocal]) {
+                                        document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                                    }
+                                }
+                                if (~whistMove[i].indexOf('two')) {
+                                    lineLocal = parseFloat(this.dft_idx[1]) + 30 + parseFloat(whistMove[i].replace('two', '')) - 1
+                                    querySel = '#slotItem2 li'
+                                    if (document.querySelectorAll(querySel)[lineLocal]) {
+                                        document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                                    }
+                                }
+                                if (~whistMove[i].indexOf('three')) {
+                                    lineLocal = parseFloat(this.dft_idx[2]) + 30 + parseFloat(whistMove[i].replace('three', '')) - 1
+                                    querySel = '#slotItem3 li'
+                                    if (document.querySelectorAll(querySel)[lineLocal]) {
+                                        document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                                    }
+                                }
+                            } else {
+                                /* 所有初始化 */
+                                this.initAllLine()
+                            }
+                        }, (this.lineLightTime * (i + 1)))
+                    }
+                }
+            },
+            initAllLine () {
+                /* 初始化 yes */
+                setTimeout(() => {
+                    document.querySelectorAll('#js_slot-box li').forEach((val) => {
+                        val.className = ''
+                    })
+                }, 650)
             },
             stopAutoPlay () {
                 console.log('stop')
@@ -446,6 +645,9 @@
             }
         },
         computed: {
+            currCoinType () {
+                return this.$store.state.currCoinType
+            },
             last_prizes () {
                 return this.$store.state.cs_tiger.last_prizes
             },
@@ -454,15 +656,17 @@
             },
             recentList () {
                 return this.$store.state.cs_tiger.recentList
-            },
-            initTigerMsg () {
-                return this.$store.state.cs_tiger.initTigerMsg
             }
         },
         components: {
             Header
         },
         async mounted () {
+            setTimeout(() => {
+                // this.formateWindow()
+                // this.rewardBig = true
+            }, 2000)
+
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
 
@@ -501,6 +705,7 @@
                 }
                 if (slotsHome.dft_idx) {
                     this.dft_idx = slotsHome.dft_idx
+                    this.dft_idx = [3, 3, 3]
                 }
             }
         },

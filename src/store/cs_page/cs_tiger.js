@@ -59,13 +59,8 @@ const actionsInfo = mapActions({
     async slotsHome ({commit, dispatch}) {
         try {
             let InfoData = await ajax.get(`/slots/home`)
-            // let InfoData = await ajax.get(`http://10.0.0.130:7780/server/index.php?g=Web&c=Mock&o=mock&projectID=2&uri=/slots/home`)
             if (InfoData && InfoData.data) {
                 let data = InfoData.data
-                data.prizes_pool = 123
-                data.last_prizes = 435
-                data.free_times = '0'
-
                 if (data.prizes_pool !== undefined) {
                     commit(mTypes.prizes_pool, data.prizes_pool)
                 }
@@ -87,8 +82,7 @@ const actionsInfo = mapActions({
                 single_bet: orderObj.single_bet,
                 cointype: orderObj.cointype
             })
-
-            return InfoData
+            return InfoData.data
         } catch (e) {
             this.$error(e.message)
         }
