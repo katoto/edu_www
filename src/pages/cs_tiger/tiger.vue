@@ -143,12 +143,12 @@
                     <a href="javascript:;" class="btn-main">
                         <img src="@/assets/img/tiger/btn-bg.png" alt="">
                         <!--免费-->
-                        <div class="btn btn-free" @click="startPlay"  :class="{'hide':!free_times}">
+                        <div class="btn btn-free" @click="startPlay"  :class="{'hide':!free_times,'disable':btnDisable}">
                             <p>FREE</p>
                             <div>{{ free_times }} Times</div>
                         </div>
                         <!-- 开始按钮btn-spin-->
-                        <div @dblclick="autoPlay" @click="startPlay" class="btn btn-spin" :class="{'hide':free_times}">
+                        <div @dblclick="autoPlay" @click="startPlay" class="btn btn-spin" :class="{'hide':free_times,'disable':btnDisable}">
                             <p>SPIN</p>
                             <div>Auto(double click)</div>
                         </div>
@@ -262,7 +262,7 @@
             </div>
         </div>
         <!--help-->
-        <div class="pop help ">
+        <div class="pop help">
             <a href="javascript:;" class="tiger-close"></a>
             <div class="title">
               <p>Instructions</p>
@@ -375,6 +375,7 @@
     export default {
         data () {
             return {
+                btnDisable: false, // 按钮不可用
                 rewardBig: false,
                 rewardSmall: false,
                 free_times: null, // 初始化免费次数
@@ -402,7 +403,7 @@
                 slotRun: false,
                 animateInterval: null, // 动画时间
                 lineLightTime: 240, // 结果展示时间
-                allLinePopTime: 3500, // 展示动画间隔
+                allLinePopTime: 2300, // 展示动画间隔
                 winRes: [],
                 baseMove: {
                     /*
@@ -422,7 +423,9 @@
                     line9: [],
                     line10: [30, 30, 30, 10]
                 },
-                playBack: null // 下单接口返回的所有值
+                playBack: null, // 下单接口返回的所有值
+                totalRadio: 0,
+                setRewardIcon: 'lineWard'
             }
         },
         watch: {
@@ -487,16 +490,21 @@
                 console.log(this.baseMove)
             },
             async startPlay () {
+                if (this.btnDisable) {
+                    return false
+                }
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
                 this.slotRun = true // 高亮
+                this.btnDisable = true
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 console.log(playBack)
                 if (playBack) {
                     this.playBack = playBack
+                    this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果位置
                         this.dft_idx = playBack.idx
@@ -515,25 +523,23 @@
             },
             async showResults (res) {
                 /* 结果展示 */
-                let totalRadio = 0
+                this.totalRadio = 0
                 this.winRes = []
                 if (res && Array.isArray(res)) {
                     res.forEach((val, index) => {
                         if (val.toString() !== '0') {
-                            totalRadio += parseFloat(val)
+                            this.totalRadio += parseFloat(val)
                             this.winRes.push({
                                 line: 'line' + index,
                                 value: val
                             })
                         }
                     })
-                    console.log(totalRadio)
-                    console.log(totalRadio)
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
                         console.log('start')
                         /* 转动的时间 */
-                        await wait(1000)
+                        await wait(500)
                         this.controlAnimate()
                         clearInterval(this.animateInterval)
                         this.animateInterval = setInterval(this.controlAnimate, this.allLinePopTime)
@@ -542,31 +548,51 @@
             },
             controlAnimate () {
                 let popWinRes = null
+                console.log(this.winRes)
                 if (this.winRes.length > 0) {
                     let nowMove = null
                     popWinRes = this.winRes.shift()
+                    console.log(popWinRes)
                     console.log(popWinRes.line)
                     if (popWinRes.line === 'line9') {
                         /* 口哨 */
+                        this.setRewardIcon = 'whisWard'
                         nowMove = this.baseMove[popWinRes.line]
                         this.nowWhistMove(nowMove, this.dft_idx)
                     } else if (popWinRes.line === 'line10') {
                         /* 奖池奖 */
-
+                        this.setRewardIcon = 'jackPotWard'
                     } else {
+                        console.log(123)
                         /* 0- 8 线 */
+                        this.setRewardIcon = 'lineWard'
                         nowMove = this.baseMove[popWinRes.line]
                         this.nowLineMove(nowMove, this.dft_idx)
                     }
                 } else {
                     console.log('end')
                     clearInterval(this.animateInterval)
+                    if (this.setRewardIcon === 'lineWard') {
+                        /* 显示大奖还是小奖 */
+                        if (this.totalRadio >= 25) {
+                            // 大奖
+                            this.rewardBig = true
+                        } else {
+                            this.rewardSmall = true
+                        }
+                        setTimeout(() => {
+                            // 隐藏奖池图标
+                            this.rewardBig = false
+                            this.rewardSmall = false
+                        }, 3000)
+                    }
+                    this.btnDisable = false
+                    this.slotRun = false // 高亮
+                // 更新freeTime
                 }
             },
             nowLineMove (nowMove = [-1, -2, -1, 10], endIdx = [3, 3, 3]) {
                 /* 执行的动画 */
-                console.log(endIdx)
-                console.log(this.dft_idx)
                 for (let i = 0;i < 4;i++) {
                     setTimeout(() => {
                         let lineLocal = null
@@ -634,6 +660,7 @@
             },
             showBetSel () {
                 /* 控制投注项 */
+                console.log(1131);
                 this.showSingleBet = !this.showSingleBet
             },
             betSelFn (currVal) {
@@ -642,37 +669,8 @@
                     this.barProcess = (parseFloat(currVal.lucky) * (90 / 100)).toFixed(1)
                     this.showSingleBet = false
                 }
-            }
-        },
-        computed: {
-            currCoinType () {
-                return this.$store.state.currCoinType
             },
-            last_prizes () {
-                return this.$store.state.cs_tiger.last_prizes
-            },
-            prizes_pool () {
-                return this.$store.state.cs_tiger.prizes_pool
-            },
-            recentList () {
-                return this.$store.state.cs_tiger.recentList
-            }
-        },
-        components: {
-            Header
-        },
-        async mounted () {
-            setTimeout(() => {
-                // this.formateWindow()
-                // this.rewardBig = true
-            }, 2000)
-
-            /* 订阅老虎机 */
-            this.$store.dispatch('subInTiger')
-
-            /* 首页请求 */
-            let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
-            if (slotsHome) {
+            initPage (slotsHome) {
                 if (slotsHome.free_times !== undefined) {
                     this.free_times = parseFloat(slotsHome.free_times)
                 }
@@ -705,13 +703,47 @@
                 }
                 if (slotsHome.dft_idx) {
                     this.dft_idx = slotsHome.dft_idx
-                    this.dft_idx = [3, 3, 3]
                 }
+            }
+        },
+        computed: {
+            currCoinType () {
+                return this.$store.state.currCoinType
+            },
+            last_prizes () {
+                return this.$store.state.cs_tiger.last_prizes
+            },
+            prizes_pool () {
+                return this.$store.state.cs_tiger.prizes_pool
+            },
+            recentList () {
+                return this.$store.state.cs_tiger.recentList
+            }
+        },
+        components: {
+            Header
+        },
+        async mounted () {
+            setTimeout(() => {
+                // this.formateWindow()
+                // this.rewardBig = true
+            }, 2000)
+
+            /* 订阅老虎机 */
+            this.$store.dispatch('subInTiger')
+
+            /* 首页请求 */
+            let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
+            if (slotsHome) {
+                /* 基础结构数据 */
+                this.initPage(slotsHome)
             }
         },
         updated () {
             //  4*15=75
-            if (document.getElementById('hei') && !this.computeHeight) {
+            // && !this.computeHeight
+            if (document.getElementById('hei')) {
+                console.log(111)
                 this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 68 + 'px'
                 this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
                 this.hideInitLi = false
