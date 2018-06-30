@@ -41,7 +41,7 @@
                 <el-table-column
                         align="center"
                         header-align="center"
-                        prop="inout"
+                        prop="biz_desc"
                         label="Note">
                 </el-table-column>
                 <el-table-column

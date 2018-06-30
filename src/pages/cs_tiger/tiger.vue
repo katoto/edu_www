@@ -207,24 +207,34 @@
 
         <!--pop   show-->
         <!-- 小奖 -->
-        <div class="pop reward-small " :class="{'show':rewardSmall}">
-            <div class="msg" :class="{'double':playBack && playBack.isdouble==='1'}">
+        <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
+            <div class="msg" >
                 <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
                 <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
                 <i>{{ formateCoinType( currCoinType ) }}</i>
             </div>
         </div>
         <!--大奖 winDouble -->
-        <div v-show="playBack" class="pop reward-big" :class="{'show':rewardBig}">
-            <div class="bg1" :class="{'double':playBack && playBack.isdouble==='1'}">
+        <div v-show="playBack" class="pop reward-big" :class="{'show':rewardBig,'double':playBack && playBack.isdouble==='1'}">
+            <div class="bg1" >
                 <div class="bg2">
-                    <div class="msg">
-                        <p v-if="playBack && playBack.isdouble==='1'">
-                            {{ formateBalance( playBack.line_prizes / 2 ) }}
-                        </p>
-                        <p v-if="playBack && playBack.isdouble==='0'">
-                            {{ formateBalance( playBack.line_prizes ) }}
-                        </p>
+                    <div class="msg" v-if="playBack">
+                        <template v-if="jackPot">
+                            <p v-if=" playBack.isdouble==='1'">
+                                {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
+                            </p>
+                            <p v-if=" playBack.isdouble==='0'">
+                                {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
+                            </p>
+                        </template>
+                        <template v-else>
+                            <p v-if=" playBack.isdouble==='1'">
+                                {{ formateBalance( parseFloat(playBack.line_prizes) / 2 ) }}
+                            </p>
+                            <p v-if=" playBack.isdouble==='0'">
+                                {{ formateBalance( parseFloat(playBack.line_prizes) ) }}
+                            </p>
+                        </template>
                         <i>
                             {{ formateCoinType( currCoinType ) }}
                         </i>
@@ -425,7 +435,8 @@
                 },
                 playBack: null, // 下单接口返回的所有值
                 totalRadio: 0,
-                setRewardIcon: 'lineWard'
+                setRewardIcon: 'lineWard',
+                jackPot: false
             }
         },
         watch: {
@@ -531,15 +542,22 @@
                 this.totalRadio = 0
                 this.winRes = []
                 if (res && Array.isArray(res)) {
-                    res.forEach((val, index) => {
-                        if (val.toString() !== '0') {
-                            this.totalRadio += parseFloat(val)
-                            this.winRes.push({
-                                line: 'line' + index,
-                                value: val
-                            })
-                        }
-                    })
+                    if (res[10] === '1') {
+                        this.winRes.push({
+                            line: 'line10',
+                            value: '1'
+                        })
+                    } else {
+                        res.forEach((val, index) => {
+                            if (val.toString() !== '0') {
+                                this.totalRadio += parseFloat(val)
+                                this.winRes.push({
+                                    line: 'line' + index,
+                                    value: val
+                                })
+                            }
+                        })
+                    }
                     console.log('start')
                     /* 预留 转动的时间 */
                     await wait(500)
@@ -592,9 +610,10 @@
                         }, 3000)
                     } else if (this.setRewardIcon === 'jackPotWard') {
                         this.rewardBig = true
+                        this.jackPot = true
                         //  todo 特殊烟花
                         setTimeout(() => {
-                            this.rewardBig = true
+                            this.rewardBig = false
                             this.endInit()
                         }, 5000)
                     }
