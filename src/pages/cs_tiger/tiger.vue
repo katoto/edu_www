@@ -5,6 +5,10 @@
             <div class="tiger ">
                 <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                 <div class="tiger-wrap">
+                    <!--规则icon-->
+                    <a href="javascript:;" class="btn-rule" @click="isShowHelp = true">
+
+                    </a>
                     <!--低奖池-->
                     <div class="jackpot-low">
                         <div class="jackpot-all">
@@ -205,13 +209,14 @@
             </div>
         </div>
 
-        <!--pop   show-->
+        <!--pop   show  show double-->
         <!-- 小奖 -->
         <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
             <div class="msg" >
                 <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
                 <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
                 <i>{{ formateCoinType( currCoinType ) }}</i>
+
             </div>
         </div>
         <!--大奖 winDouble -->
@@ -272,8 +277,9 @@
             </div>
         </div>
         <!--help-->
-        <div class="pop help">
-            <a href="javascript:;" class="tiger-close"></a>
+
+        <div class="pop help" :class="{show:isShowHelp}">
+            <a href="javascript:;" class="tiger-close" @click="isShowHelp=false"></a>
             <div class="title">
               <p>Instructions</p>
             </div>
@@ -410,6 +416,7 @@
                 slotItem1Tran: 'translateY(30px)',
                 slotItem2Tran: 'translateY(30px)',
                 slotItem3Tran: 'translateY(30px)',
+                isShowHelp: false,
                 slotRun: false,
                 animateInterval: null, // 动画时间
                 lineLightTime: 240, // 结果展示时间
@@ -437,6 +444,7 @@
                 totalRadio: 0,
                 setRewardIcon: 'lineWard',
                 jackPot: false
+
             }
         },
         watch: {
@@ -835,6 +843,18 @@
         padding-top:70px;
     }
 
+    .btn-rule{
+        display: block;
+        position: absolute;
+        z-index:3;
+        right:10px;
+        top:77px;
+        width:28px;
+        height:28px;
+        overflow: hidden;
+        border-radius: 3px;
+        background:rgba(0,0,0,0.6);
+    }
     .jackpot-low {
         position: relative;
         z-index: 4;
@@ -1227,6 +1247,7 @@
         background: url("../../assets/img/tiger/reward-small.png") no-repeat center;
         background-size: contain;
         color: #ffe400;
+        font-family: imp;
         .msg{
             display: flex;
             justify-content: center;
@@ -1244,6 +1265,20 @@
         &.show{
             width:348/2px;
             height:163/2px;
+        }
+        &.double{
+            overflow: visible;
+            &::before{
+                content: '';
+                position: absolute;
+                right:-20px;
+                top:-3px;
+                display: block;
+                width:98/2px;
+                height:98/2px;
+                background: url("../../assets/img/tiger/double.png") no-repeat center;
+                background-size: cover;
+            }
         }
     }
     .reward-big{
@@ -1317,6 +1352,21 @@
         &.show{
             width:595/2px;
             height:auto;
+        }
+        &.double{
+            overflow: visible;
+            &::after{
+                content: '';
+                position: absolute;
+                right:-36px;
+                top:90px;
+                display: block;
+                width:156/2px;
+                height:156/2px;
+                background: url("../../assets/img/tiger/double.png") no-repeat center;
+                background-size: cover;
+                z-index:3;
+            }
         }
     }
     .help{

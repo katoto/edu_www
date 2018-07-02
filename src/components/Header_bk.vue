@@ -512,7 +512,7 @@
             .btn-cash {
                 border-top-right-radius: 6px;
                 border-bottom-right-radius: 6px;
-                border-left:1px solid #6a89cc;
+                border-left:1px solid rgba(255, 255, 255, 0.3);
             }
         }
 
