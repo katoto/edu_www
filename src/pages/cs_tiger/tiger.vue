@@ -547,7 +547,6 @@
                     if (playBack.idx) {
                         // 结果 位置
                         this.dft_idx = playBack.idx
-
                         this.setLacal()
                     }
                     if (playBack.window) {
