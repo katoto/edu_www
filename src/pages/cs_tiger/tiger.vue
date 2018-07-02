@@ -143,15 +143,15 @@
                         Last time win {{ last_prizes }} ETH
                     </div>
                     <!--主按钮-->
-                    <a href="javascript:;" class="btn-main">
+                    <a href="javascript:;" class="btn-main" :class="{disable:btnDisable}">
                         <img src="@/assets/img/tiger/btn-bg.png" alt="">
                         <!--免费-->
-                        <div class="btn btn-free" @click="startPlay"  :class="{'hide':!free_times,'disable':btnDisable}">
+                        <div class="btn btn-free" @click="startPlay"  :class="{'hide':!free_times}">
                             <p>FREE</p>
                             <div>{{ free_times }} Times</div>
                         </div>
                         <!-- 开始按钮btn-spin-->
-                        <div @dblclick="autoPlay" @click="startPlay" class="btn btn-spin" :class="{'hide':free_times,'disable':btnDisable}">
+                        <div @dblclick="autoPlay" @click="startPlay" class="btn btn-spin" :class="{'hide':free_times}">
                             <p>SPIN</p>
                             <div>Auto(double click)</div>
                         </div>
@@ -219,7 +219,7 @@
             </div>
         </div>
         <!--大奖 winDouble -->
-        <div v-show="playBack" class="pop reward-big" :class="{'show':rewardBig,'double':playBack && playBack.isdouble==='1'}">
+        <div v-show="playBack" class="pop reward-big " :class="{'show':rewardBig,'double':playBack && playBack.isdouble==='1'}">
             <div class="bg1" >
                 <div class="bg2">
                     <div class="msg" v-if="playBack">
@@ -283,12 +283,12 @@
               <p>Instructions</p>
             </div>
             <ul class="tab-t">
-                <li class="on"><a href="javascript:;">Winning Table</a></li>
-                <li ><a href="javascript:;">Lucky Prize</a></li>
-                <li><a href="javascript:;">Winning Line</a></li>
+                <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;">Winning Table</a></li>
+                <li :class="{on:tab_t===2}" @click="tab_t=2"><a href="javascript:;">Lucky Prize</a></li>
+                <li :class="{on:tab_t===3}" @click="tab_t=3"><a href="javascript:;">Winning Line</a></li>
             </ul>
             <ul class="tab-c">
-                <li class="on">
+                <li :class="{on:tab_t===1}">
                     <div class="line-divi">
                         <div>Multiple</div>
                     </div>
@@ -319,7 +319,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="">
+                <li :class="{on:tab_t===2}">
                     <div class="line-divi">
                         <div>Jaackpot</div>
                     </div>
@@ -364,7 +364,7 @@
                         </p>
                     </div>
                 </li>
-                <li class="">
+                <li :class="{on:tab_t===3}">
                     <div class="line-divi">
                         <div>
                             <p>
@@ -389,6 +389,7 @@
     export default {
         data () {
             return {
+                tab_t:1,
                 btnDisable: false, // 按钮不可用
                 rewardBig: false, // 大奖
                 rewardSmall: false, // 小奖
@@ -1087,10 +1088,13 @@
             background: url("../../assets/img/tiger/btn-auto.png") no-repeat center;
             background-size: cover;
         }
-        &:active {
-            .btn {
+        &:not(.disable)&:active {
+            .btn{
                 animation: btn .5s;
             }
+        }
+        &.disable{
+            filter: grayscale(1);
         }
     }
 
@@ -1249,8 +1253,6 @@
     }
     /*pop*/
     .pop{
-        width:0;
-        height:0;
         left:50%;
         top:50%;
         transform: translate(-50%,-50%);
@@ -1259,6 +1261,8 @@
         background: transparent;
     }
     .reward-small{
+        width:348/2px;
+        height:0;
        /* width:percentage(348/750);*/
        /* padding-bottom:percentage((348/750)*(163/348));*/
         background: url("../../assets/img/tiger/reward-small.png") no-repeat center;
@@ -1283,7 +1287,7 @@
             width:348/2px;
             height:163/2px;
         }
-        &.double{
+        &.double&.show{
             overflow: visible;
             &::before{
                 content: '';
@@ -1299,6 +1303,8 @@
         }
     }
     .reward-big{
+        width:595/2px;
+        height:0;
         &:before{
             position: relative;
             z-index:2;
@@ -1370,7 +1376,7 @@
             width:595/2px;
             height:auto;
         }
-        &.double{
+        &.double&.show{
             overflow: visible;
             &::after{
                 content: '';
@@ -1387,10 +1393,12 @@
         }
     }
     .help{
+        max-width: 337px;
+        width: 89.86666667%;
+        height: 0;
         top:60px;
         transform: translate(-50%, 0);
         box-sizing: border-box;
-
         border-radius: 8px;
         background: #2f2a3d;
         .tiger-close{
