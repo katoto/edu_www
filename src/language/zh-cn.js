@@ -211,5 +211,13 @@ module.exports = {
     'The maximum withdrawal is {0} ETH': '您当前最大可提款金额为 {0} ETH',
     'Request': '申请',
     'Records': '记录',
-    'My<br>Bets': '我的<br>投注'
+    'My<br>Bets': '我的<br>投注',
+    'Email': '邮箱',
+    'Sign in successfully': '登录成功',
+    'New Password(1-15 numbers and letters)': '密码（1-15个字符）',
+    'Confirm Password': '确认密码',
+    'Verification Code': '验证码',
+    'Draw Time': '开奖时间',
+    'Cumulative Bouns': '累计中奖',
+    'Block': '区块'
 }
