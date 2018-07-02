@@ -330,7 +330,7 @@ const actions = {
                 resolve()
             }
             sock.onclose = function () {
-                console.warn('websocket 重连')
+                console.warn('websocket reconnect')
                 clearInterval(interval)
                 setTimeout(() => {
                     commit('addConnectNum')
@@ -348,7 +348,7 @@ const actions = {
             setTimeout(() => {
                 if (hasFinished) return
                 hasFinished = true
-                let error = new Error('超时')
+                let error = new Error('websocket timeout')
                 error.code = '103'
                 reject(error)
             }, 1000)

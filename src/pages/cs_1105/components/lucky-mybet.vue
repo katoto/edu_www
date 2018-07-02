@@ -3,8 +3,7 @@
     <div id="js_alert-mybets" class="alert-mybets" :class="{ close: !mybetShow, hide: !isLogin}">
         <div class="alert-mybets-head  js_chose-mybets-head">
             <section class="js_alert-mybets-head js_chose-mybets-head-open" :class="{ hide: mybetShow }" @click="mybetShow = true">
-                <p style="padding-left: 10px">My</p>
-                <p style="padding-left: 6px">Bets</p>
+                <p v-lang="'My<br>Bets'" class="my-bets-title"></p>
             </section>
             <section class="js_alert-mybets-head js_chose-mybets-head-close" :class="{ hide: !mybetShow }">
                 <lang>My Bets</lang>
@@ -197,6 +196,8 @@ export default {
 <style lang="less" scoped>
 .my-bets-title {
     text-align: center;
+    text-indent: 0;
+    width: 64px;
 }
 </style>
 

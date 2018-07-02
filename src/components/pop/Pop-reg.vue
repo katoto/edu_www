@@ -7,13 +7,13 @@
             </h3>
             <div class="loading"></div>
             <form>
-                <input type="text" v-model="reg_email" @blur="checkEmail" name="email" placeholder="Email">
+                <input type="text" v-model="reg_email" @blur="checkEmail" name="email" :placeholder="_('Email')">
                 <input type="password" v-model="reg_pass" @blur="checkPass"
-                       placeholder="New Password(1-15 numbers and letters)">
+                       :placeholder="_('New Password(1-15 numbers and letters)')">
                 <input type="password" v-model="reg_againPass" @blur="checkagainPass"
-                       placeholder="Confirm Password">
+                       :placeholder="_('Confirm Password')">
                 <div class="verCode">
-                    <input type="text" placeholder="Verification Code" class="msg-ver" v-model="verifyCode">
+                    <input type="text" :placeholder="_('Verification Code')" class="msg-ver" v-model="verifyCode">
                     <img  width="137" height="50" alt="" class="img-ver" @click="reloadVerifyImg" :src="verifyImgPath">
                 </div>
                 <div class="sure-old">
