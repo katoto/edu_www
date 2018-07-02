@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require("webpack");
-
+const vConsolePlugin = require('vconsole-webpack-plugin');
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
 }
@@ -30,6 +30,9 @@ const getPublicPath = () => {
             return config.dev.assetsPublicPath
     }
 }
+
+const isDebug = process.env.NODE_ENV
+console.log(isDebug);
 
 module.exports = {
 	context: path.resolve(__dirname, '../'),
@@ -128,6 +131,7 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			jQuery: "jquery",
 			$: "jquery"
-		})
+		}),
+        new vConsolePlugin({enable:!isDebug})
 	]
 }
