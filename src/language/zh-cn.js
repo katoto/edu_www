@@ -210,5 +210,6 @@ module.exports = {
     'Please input wallet password': '请输入钱包密码',
     'The maximum withdrawal is {0} ETH': '您当前最大可提款金额为 {0} ETH',
     'Request': '申请',
-    'Records': '记录'
+    'Records': '记录',
+    'My<br>Bets': '我的<br>投注'
 }
