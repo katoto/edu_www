@@ -586,7 +586,6 @@
                     console.log('start')
                     /* 预留 转动的时间 */
                     await wait(500);
-
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
@@ -810,7 +809,7 @@
             //  4*15=75
             // && !this.computeHeight
             if (document.getElementById('hei')) {
-                this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 68 + 'px'
+                this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 62 + 'px'
                 this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
                 this.hideInitLi = false
             } else {
@@ -1030,13 +1029,16 @@
         display: flex;
         justify-content: center;
         /*~防止less解析/，这里是单独设置水平和垂直的半径*/
-        border-top-left-radius: ~"123px 60px";
-        border-top-right-radius: ~"123px 60px";
-        border-bottom-left-radius: ~"57px 60px";
-        border-bottom-right-radius: ~"57px 60px";
+        /*border-top-left-radius: ~"123px 60px";*/
+        /*border-top-right-radius: ~"123px 60px";*/
+        /*border-bottom-left-radius: ~"57px 60px";*/
+        /*border-bottom-right-radius: ~"57px 60px";*/
+        border-radius: ~"110px/60px";
+        background: rgba(0,0,0,0.5);
         ul {
             position: relative;
             width: 33%;
+            transition: all 0.5s ease-in-out;
             li {
                 width: 95%;
                 box-sizing: border-box;
@@ -1055,6 +1057,7 @@
 
     .slot-item1 {
         /*transform: translateY(10px);*/
+
     }
 
     .btn-main {
