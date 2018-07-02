@@ -389,7 +389,7 @@
     export default {
         data () {
             return {
-                tab_t:1,
+                tab_t: 1,
                 btnDisable: false, // 按钮不可用
                 rewardBig: false, // 大奖
                 rewardSmall: false, // 小奖
@@ -472,6 +472,9 @@
             },
             endInit () {
                 /* 结束初始化 */
+                // 预留是否手动减的空间
+                // this.$store.dispatch('getUserInfo')
+
                 this.slotOpening = false // 开奖结束
                 this.btnDisable = false
                 // this.slotRun = false // 高亮
@@ -521,22 +524,30 @@
                 if (this.btnDisable) {
                     return false
                 }
+                /* 是否登录 */
+                if (!this.isLog) {
+                    this.$store.commit('showLoginPop')
+                    return false
+                }
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
+
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
+                //  todo 临时直接更新
+                this.$store.dispatch('getUserInfo')
+
                 this.stateInit()
                 this.slotRun = true
-
-                console.log(playBack)
                 if (playBack) {
                     this.playBack = playBack
                     this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果 位置
                         this.dft_idx = playBack.idx
+
                         this.setLacal()
                     }
                     if (playBack.window) {
@@ -547,7 +558,7 @@
                         this.showResults(playBack.results)
                     }
                     if (playBack.lucky_values) {
-                        this.formateLuckyVal( playBack.lucky_values )
+                        this.formateLuckyVal(playBack.lucky_values)
                     }
                 }
             },
@@ -772,6 +783,9 @@
             },
             recentList () {
                 return this.$store.state.cs_tiger.recentList
+            },
+            isLog () {
+                return this.$store.state.isLog
             }
         },
         components: {
