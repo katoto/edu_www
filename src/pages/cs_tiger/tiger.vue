@@ -5,6 +5,10 @@
             <div class="tiger ">
                 <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                 <div class="tiger-wrap">
+                    <!--规则icon-->
+                    <a href="javascript:;" class="btn-rule" @click="isShowHelp = true">
+
+                    </a>
                     <!--低奖池-->
                     <div class="jackpot-low">
                         <div class="jackpot-all">
@@ -206,9 +210,9 @@
             </div>
         </div>
 
-        <!--pop   show-->
+        <!--pop   show double-->
         <!--小奖-->
-        <div class="pop reward-small">
+        <div class="pop reward-small  ">
             <div class="msg">
                 <p>0.0025</p>
                 <i>ETH</i>
@@ -260,8 +264,8 @@
             </div>
         </div>
         <!--help-->
-        <div class="pop help ">
-            <a href="javascript:;" class="tiger-close"></a>
+        <div class="pop help" :class="{show:isShowHelp}">
+            <a href="javascript:;" class="tiger-close" @click="isShowHelp=false"></a>
             <div class="title">
               <p>Instructions</p>
             </div>
@@ -393,7 +397,8 @@
                 computeHeight: 0,
                 slotItem1Tran: 'translateY(30px)',
                 slotItem2Tran: 'translateY(30px)',
-                slotItem3Tran: 'translateY(30px)'
+                slotItem3Tran: 'translateY(30px)',
+                isShowHelp:false
             }
         },
         watch: {
@@ -565,6 +570,18 @@
         padding-top:70px;
     }
 
+    .btn-rule{
+        display: block;
+        position: absolute;
+        z-index:3;
+        right:10px;
+        top:77px;
+        width:28px;
+        height:28px;
+        overflow: hidden;
+        border-radius: 3px;
+        background:rgba(0,0,0,0.6);
+    }
     .jackpot-low {
         position: relative;
         z-index: 4;
@@ -956,6 +973,7 @@
         background: url("../../assets/img/tiger/reward-small.png") no-repeat center;
         background-size: contain;
         color: #ffe400;
+        font-family: imp;
         .msg{
             display: flex;
             justify-content: center;
@@ -973,6 +991,20 @@
         &.show{
             width:348/2px;
             height:163/2px;
+        }
+        &.double{
+            overflow: visible;
+            &::before{
+                content: '';
+                position: absolute;
+                right:-20px;
+                top:-3px;
+                display: block;
+                width:98/2px;
+                height:98/2px;
+                background: url("../../assets/img/tiger/double.png") no-repeat center;
+                background-size: cover;
+            }
         }
     }
     .reward-big{
@@ -1046,6 +1078,21 @@
         &.show{
             width:595/2px;
             height:auto;
+        }
+        &.double{
+            overflow: visible;
+            &::after{
+                content: '';
+                position: absolute;
+                right:-36px;
+                top:90px;
+                display: block;
+                width:156/2px;
+                height:156/2px;
+                background: url("../../assets/img/tiger/double.png") no-repeat center;
+                background-size: cover;
+                z-index:3;
+            }
         }
     }
     .help{
