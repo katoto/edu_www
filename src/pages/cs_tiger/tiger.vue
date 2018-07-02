@@ -147,19 +147,19 @@
                     <a href="javascript:;" class="btn-main" :class="{disable:btnDisable}">
                         <img src="@/assets/img/tiger/btn-bg.png" alt="">
                         <!--免费-->
-                        <div class="btn btn-free" @click="startPlay"  :class="{'hide':!free_times}">
+                        <div class="btn btn-free" @click="startPlay"  :class="{'hide':!parseFloat(free_times) || isAutoPlay}">
                             <p>FREE</p>
                             <div>{{ free_times }} Times</div>
                         </div>
-                        <!-- 开始按钮btn-spin-->
-                        <div @dblclick="autoPlay" @click="startPlay" class="btn btn-spin" :class="{'hide':free_times}">
+                        <!-- 开始按钮btn-spin  @dblclick="autoPlay" @click="startPlay" -->
+                        <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"   class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
                             <p>SPIN</p>
                             <div>Auto(double click)</div>
                         </div>
                         <!--自动-->
-                        <div @dblclick="stopAutoPlay" class="btn btn-auto hide">
+                        <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
                             <p>AUTO</p>
-                            <div>Double Click to Stop</div>
+                            <div>Click to Stop</div>
                         </div>
                     </a>
                 </div>
@@ -391,7 +391,7 @@
         data () {
             return {
                 tab_t: 1,
-                tranitionTiming:false,// 运动是否需要过程
+                tranitionTiming: false, // 运动是否需要过程
                 btnDisable: false, // 按钮不可用
                 rewardBig: false, // 大奖
                 rewardSmall: false, // 小奖
@@ -445,8 +445,11 @@
                 totalRadio: 0,
                 setRewardIcon: 'lineWard',
                 jackPot: false,
-                slotOpening: false // opening 类
-
+                slotOpening: false, // opening 类
+                tabTime: 0,
+                auto_run: 10,
+                currRun: 0,
+                isAutoPlay: false // 按钮双击样式
             }
         },
         watch: {
@@ -469,18 +472,45 @@
                     this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
                 })
             },
-            fakeSetLacal(){
-                this.dft_idx.forEach((val,index)=>{
-                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY('+(-this.computeHeight)*30+'px)'
+            fakeSetLacal () {
+                this.dft_idx.forEach((val, index) => {
+                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY(' + (-this.computeHeight) * 30 + 'px)'
                 })
             },
-            resetLacal(){
-                this.dft_idx.forEach((val,index)=>{
+            resetLacal () {
+                this.dft_idx.forEach((val, index) => {
                     this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0)'
                 })
             },
+            touStart () {
+                this.tabTime = new Date().getTime()
+            },
+            touEnd () {
+                this.tabTime = (new Date().getTime() - this.tabTime)
+                if (this.tabTime > 400) {
+                    /* 长按 */
+                    this.autoPlay()
+                } else {
+                    /* 点击 */
+                    this.startPlay()
+                }
+                console.log(this.tabTime)
+            },
             autoPlay () {
-                console.log('autoPlay11')
+                console.log('autoPlay')
+                // if (this.btnDisable) {
+                //     return false
+                // }
+                this.currRun = this.auto_run
+                this.isAutoPlay = true
+            },
+            stopAutoPlay () {
+                console.log('stop AutoPlay')
+                // if (this.btnDisable) {
+                //     return false
+                // }
+                this.currRun = this.auto_run
+                this.isAutoPlay = false
             },
             endInit () {
                 /* 结束初始化 */
@@ -558,21 +588,21 @@
                     this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果 位置
-                        console.log('上一次位置：'+this.dft_idx)
+                        console.log('上一次位置：' + this.dft_idx)
                         this.dft_idx = playBack.idx
 
-                        var arr1 = playBack.idx[0]-this.dft_idx[0];
-                        console.log('相差'+arr1);
-                        console.log('最终位置：'+this.dft_idx)
-                        this.resetLacal();
-                        this.tranitionTiming = true;
-                        this.fakeSetLacal();
-                        this.tranitionTiming = false;
-                        this.resetLacal();
-                        this.tranitionTiming = true;
-                        setTimeout(()=>{
+                        var arr1 = playBack.idx[0] - this.dft_idx[0]
+                        console.log('相差' + arr1)
+                        console.log('最终位置：' + this.dft_idx)
+                        this.resetLacal()
+                        this.tranitionTiming = true
+                        this.fakeSetLacal()
+                        this.tranitionTiming = false
+                        this.resetLacal()
+                        this.tranitionTiming = true
+                        setTimeout(() => {
                             this.setLacal()
-                        },500)
+                        }, 500)
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
@@ -610,7 +640,7 @@
                     console.log('start')
                     /* 预留 转动的时间 */
 
-                    await wait(1000);
+                    await wait(1000)
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
@@ -619,6 +649,7 @@
                         clearInterval(this.animateInterval)
                         this.animateInterval = setInterval(this.controlAnimate, this.allLinePopTime)
                     } else {
+                        /* 没中 */
                         this.endInit()
                     }
                 }
@@ -655,20 +686,18 @@
                         } else {
                             this.rewardSmall = true
                         }
-                        setTimeout(() => {
-                            // 隐藏奖池图标
-                            this.rewardBig = false
-                            this.rewardSmall = false
-                            this.endInit()
-                        }, 3000)
+                        await wait(2500)
+                        // 隐藏奖池图标
+                        this.rewardBig = false
+                        this.rewardSmall = false
+                        this.endInit()
                     } else if (this.setRewardIcon === 'jackPotWard') {
                         this.rewardBig = true
                         this.jackPot = true
                         //  todo 特殊烟花
-                        setTimeout(() => {
-                            this.rewardBig = false
-                            this.endInit()
-                        }, 5000)
+                        await wait(5000)
+                        this.rewardBig = false
+                        this.endInit()
                     } else if (this.setRewardIcon === 'whisWard') {
                         await wait(100)
                         this.endInit()
@@ -739,9 +768,7 @@
                     val.className = ''
                 })
             },
-            stopAutoPlay () {
-                console.log('stop')
-            },
+
             showBetSel () {
                 /* 控制投注项 */
                 this.showSingleBet = !this.showSingleBet
@@ -757,7 +784,9 @@
                 if (slotsHome.free_times !== undefined) {
                     this.free_times = parseFloat(slotsHome.free_times)
                 }
-
+                if (slotsHome.auto_run !== undefined) {
+                    this.auto_run = slotsHome.auto_run
+                }
                 /* 默认投注项 */
                 if (slotsHome.dft_bet !== undefined) {
                     this.dft_bet = slotsHome.dft_bet
@@ -793,7 +822,7 @@
                         }
                     })
                 }
-            },
+            }
         },
         computed: {
             currCoinType () {
