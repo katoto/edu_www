@@ -25,5 +25,8 @@ module.exports = {
 		"no-console":0,
 		"no-unused-vars":1,
 		"no-mixed-spaces-and-tabs":0
-	}
+    },
+    globals: {
+        "_": true
+    }
 }

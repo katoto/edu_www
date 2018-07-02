@@ -2,11 +2,13 @@
     <!--弹窗-邮箱验证  文案有问题！ -->
     <Pop class="pop-verify-email" :show.sync="show">
         <div class="pop-main">
-            <h3>Email Verification</h3>
+            <h3>
+                <lang>Email Verification</lang>
+            </h3>
             <div class="icon-email"></div>
             <p class="email-account">{{ regVerifyEmail }}</p>
             <p class="verify-tips">
-                Verification email has been sent, please sign in your mailbox and click the link to reset your password .
+                <lang>Verification email has been sent, please sign in your mailbox and click the link to reset your password .</lang>
             </p>
             <form>
                 <!--  no  -->
@@ -19,8 +21,11 @@
             <div class="forgetpsw"></div>
         </div>
         <div class="pop-bottom" :class="{'hideVisibily':isLog}">
-            <p class="js_isLogOut">Already Have Account？
-                <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">Sign In</a>
+            <p class="js_isLogOut">
+                <lang>Already Have Account？</lang>
+                <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">
+                    <lang>Sign In</lang>
+                </a>
             </p>
         </div>
     </Pop>
@@ -52,7 +57,7 @@
                         }
                     } else {
                         Message({
-                            message: 'Please enter your email address',
+                            message: _('Please enter your email address'),
                             type: 'error'
                         })
                     }

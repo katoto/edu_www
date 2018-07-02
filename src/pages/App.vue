@@ -8,7 +8,9 @@
 
         <!-- 全局该邮件无法激活 -->
         <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
-            <p class="el-message__content">Failed to activate, because of wrong email format</p>
+            <p class="el-message__content">
+                <lang>Failed to activate, because of wrong email format</lang>
+            </p>
         </div>
 
     </div>

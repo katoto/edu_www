@@ -1,9 +1,11 @@
 <template>
     <!--面包屑-->
     <div class="b-nav">
-        <router-link to="/">Home</router-link>
+        <router-link to="/">
+            <lang>Home</lang>
+        </router-link>
         <a href="javascript:;" class="now">
-            {{mysite}}
+            {{_(mysite)}}
         </a>
     </div>
 </template>

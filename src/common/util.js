@@ -323,3 +323,15 @@ export function commonErrorHandler (data) {
         break
     }
 }
+
+export function getURLParams () {
+    let string = window.location.search
+    let obj = {}
+    string.slice(1).split('&').map(item => {
+        if (item !== '') {
+            let arr = item.split('=')
+            obj[arr[0]] = arr[1]
+        }
+    })
+    return obj
+}

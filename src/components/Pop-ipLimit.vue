@@ -4,15 +4,17 @@
         <div class="pop-body">
             <div class="pop-ani">
                 <img src="@assets/img/iplogo.png" alt="" width="174" height="64">
-                <h5>Access Error</h5>
+                <h5>
+                    <lang>Access Error</lang>
+                </h5>
                 <p>
-                    You are not in our service area for more info
+                    <lang>You are not in our service area for more info</lang>
                 </p>
                 <p>
-                    please contact us support@coinslot.com
+                    <lang>please contact us support@coinslot.com</lang>
                 </p>
                 <span>
-                    Telegram: @CoinslotOffice
+                    <lang>Telegram: @CoinslotOffice</lang>
                 </span>
             </div>
         </div>
