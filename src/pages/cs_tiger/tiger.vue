@@ -7,6 +7,7 @@
                 <div class="tiger-wrap">
                     <!--规则icon-->
                     <a href="javascript:;" class="btn-rule" @click="isShowHelp = true">
+                        ?
                     </a>
                     <!--低奖池-->
                     <div class="jackpot-low">
@@ -51,7 +52,7 @@
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
                                 <!-- class="yes" -->
-                                <ul class="slot-item1" id="slotItem1" :style="{ 'transform':slotItem1Tran}" v-if="axes[0]">
+                                <ul class="slot-item1" id="slotItem1" :style="{ 'transform':slotItem1Tran}" v-if="axes[0]" :class="{tranitionTiming:tranitionTiming}">
                                     <li v-for="item in axes[0]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
@@ -59,12 +60,12 @@
                                         <img src="../../../static/staticImg/_A.png" alt="">
                                     </li>
                                 </ul>
-                                <ul class="slot-item2" id="slotItem2" :style="{ 'transform':slotItem2Tran}" v-if="axes[1]">
+                                <ul class="slot-item2" id="slotItem2" :style="{ 'transform':slotItem2Tran}" v-if="axes[1]"  :class="{tranitionTiming:tranitionTiming}">
                                     <li v-for="item in axes[1]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
                                 </ul>
-                                <ul class="slot-item3" id="slotItem3" :style="{ 'transform':slotItem3Tran}" v-if="axes[2]">
+                                <ul class="slot-item3" id="slotItem3" :style="{ 'transform':slotItem3Tran}" v-if="axes[2]"  :class="{tranitionTiming:tranitionTiming}">
                                     <li v-for="item in axes[2]" >
                                         <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                     </li>
@@ -390,6 +391,7 @@
         data () {
             return {
                 tab_t: 1,
+                tranitionTiming:false,// 运动是否需要过程
                 btnDisable: false, // 按钮不可用
                 rewardBig: false, // 大奖
                 rewardSmall: false, // 小奖
@@ -412,9 +414,9 @@
                 dft_idx: null, // dft_idx 改变后的位置
                 hideInitLi: true,
                 computeHeight: 0,
-                slotItem1Tran: 'translateY(30px)',
-                slotItem2Tran: 'translateY(30px)',
-                slotItem3Tran: 'translateY(30px)',
+                slotItem1Tran: 'translateY(0px)',
+                slotItem2Tran: 'translateY(0px)',
+                slotItem3Tran: 'translateY(0px)',
                 isShowHelp: false,
                 slotRun: false,
                 animateInterval: null, // 动画时间
@@ -465,6 +467,16 @@
                     // console.log(this.computeHeight)
                     // console.log((val - 3) * this.computeHeight)
                     this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
+                })
+            },
+            fakeSetLacal(){
+                this.dft_idx.forEach((val,index)=>{
+                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY('+(-this.computeHeight)*30+'px)'
+                })
+            },
+            resetLacal(){
+                this.dft_idx.forEach((val,index)=>{
+                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0)'
                 })
             },
             autoPlay () {
@@ -546,8 +558,21 @@
                     this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果 位置
+                        console.log('上一次位置：'+this.dft_idx)
                         this.dft_idx = playBack.idx
-                        this.setLacal()
+                        var arr1 = playBack.idx[0]-this.dft_idx[0];
+                        console.log('相差'+arr1);
+                        console.log('最终位置：'+this.dft_idx)
+                        this.resetLacal();
+                        this.tranitionTiming = true;
+                        this.fakeSetLacal();
+                        this.tranitionTiming = false;
+                        this.resetLacal();
+                        this.tranitionTiming = true;
+                        var _this = this;
+                        setTimeout(function(){
+                            _this.setLacal()
+                        },500)
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
@@ -584,7 +609,7 @@
                     }
                     console.log('start')
                     /* 预留 转动的时间 */
-                    await wait(500);
+                    await wait(1000);
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
@@ -882,6 +907,11 @@
         width:28px;
         height:28px;
         overflow: hidden;
+        line-height:28px;
+        text-align: center;
+        font-size:21px;
+        color: #fff;
+        font-weight:bold;
         border-radius: 3px;
         background:rgba(0,0,0,0.6);
     }
@@ -1033,11 +1063,10 @@
         /*border-bottom-left-radius: ~"57px 60px";*/
         /*border-bottom-right-radius: ~"57px 60px";*/
         border-radius: ~"110px/60px";
-        background: rgba(0,0,0,0.5);
+        /*background: rgba(0,0,0,0.5);*/
         ul {
             position: relative;
             width: 33%;
-            transition: all 0.5s ease-in-out;
             li {
                 width: 95%;
                 box-sizing: border-box;
@@ -1051,6 +1080,9 @@
                     width: 82.75%;
                 }
             }
+        }
+        ul.tranitionTiming{
+            transition: all 0.5s ease;
         }
     }
 

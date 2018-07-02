@@ -369,7 +369,7 @@
                 display: table-cell;
                 vertical-align: middle;
                 &.on,&:hover{
-                    background: #262743;
+                    background: rgba(0,0,0,0.3);
                 }
             }
         }
