@@ -131,10 +131,10 @@
                                     <div class="bar-process">
                                         <i :style="{'width':barProcess+'%'}" ></i>
                                     </div>
-                                    <div class="bar-msg " >
+                                    <div class="bar-msg" v-if="hideBarLycky">
                                         {{ ( barProcess * (10/9) ).toFixed(1) }}%
                                     </div>
-                                    <div class="bar-lycky hide"></div>
+                                    <div class="bar-lycky" v-else></div>
                                 </div>
                                 <p class="msg">
                                     Lucky Bar
@@ -148,21 +148,22 @@
                         <!--主按钮-->
                         <a href="javascript:;" class="btn-main" :class="{disable:btnDisable}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
-                            <!--免费-->
-                            <div class="btn btn-free" @click="startPlay"  :class="{'hide':!parseFloat(free_times) || isAutoPlay}">
-                                <p>FREE</p>
-                                <div>{{ free_times }} Times</div>
-                            </div>
-                            <!-- 开始按钮btn-spin  @dblclick="autoPlay" @click="startPlay" -->
-                            <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"   class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
-                                <p>SPIN</p>
-                                <div>Auto(double click)</div>
-                            </div>
                             <!--自动-->
                             <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
                                 <p>AUTO</p>
                                 <div>Click to Stop</div>
                             </div>
+                            <!--免费-->
+                            <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
+                                <p>FREE</p>
+                                <div>{{ free_times }} Times</div>
+                            </div>
+                            <!-- 开始按钮btn-spin  @dblclick="autoPlay" @click="startPlay" -->
+                            <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
+                                <p>SPIN</p>
+                                <div>Auto(double click)</div>
+                            </div>
+
                         </a>
                     </div>
                 </div>
@@ -393,6 +394,7 @@
     export default {
         data () {
             return {
+                hideBarLycky: true,
                 tab_t: 1,
                 tranitionTiming: false, // 运动是否需要过程
                 btnDisable: false, // 按钮不可用
@@ -513,7 +515,7 @@
                 // this.$store.dispatch('getUserInfo')
                 this.slotOpening = false // 开奖结束
                 this.btnDisable = false
-                await wait(400)
+                await wait(450)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
                         this.startPlay()
@@ -525,8 +527,7 @@
                 }
             },
             stateInit () {
-                // this.slotRun = true // 高亮
-                this.btnDisable = true
+                this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
             },
             formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
                 /* 获得口哨  坐标 */
@@ -592,7 +593,7 @@
                     if (playBack.idx) {
                         // 结果 位置
                         this.dft_idx = playBack.idx
-                        var arr1 = playBack.idx[0] - this.dft_idx[0]
+                        let arr1 = playBack.idx[0] - this.dft_idx[0]
                         this.resetLacal()
                         this.tranitionTiming = true
                         this.fakeSetLacal()
@@ -768,6 +769,9 @@
             },
             showBetSel () {
                 /* 控制投注项 */
+                if (this.isAutoPlay) {
+                    return false
+                }
                 this.showSingleBet = !this.showSingleBet
             },
             betSelFn (currVal) {
@@ -778,12 +782,17 @@
                 }
             },
             initPage (slotsHome) {
+                if (slotsHome.prizes_pool !== undefined) {
+                    this.$store.commit(mTypes.prizes_pool, slotsHome.prizes_pool)
+                }
+                if (slotsHome.last_prizes !== undefined) {
+                    this.$store.commit(mTypes.last_prizes, slotsHome.last_prizes)
+                }
                 if (slotsHome.free_times !== undefined) {
                     this.free_times = parseFloat(slotsHome.free_times)
                 }
                 if (slotsHome.auto_run !== undefined) {
                     this.auto_run = slotsHome.auto_run
-                    this.auto_run = 10
                 }
                 /* 默认投注项 */
                 if (slotsHome.dft_bet !== undefined) {
@@ -817,6 +826,11 @@
                     this.lucky_values.forEach((val, index) => {
                         if (val.bet === this.dft_bet.toString()) {
                             this.barProcess = ((90 / 100) * parseFloat(val.lucky)).toFixed(1)
+                            if (parseFloat(val.lucky) >= 100) {
+                                this.hideBarLycky = false
+                            }else{
+                                this.hideBarLycky = true
+                            }
                         }
                     })
                 }
@@ -860,6 +874,8 @@
         updated () {
             //  4*15=75
             // && !this.computeHeight
+            console.log('updated')
+            // console.log(window.getComputedStyle(document.getElementById('hei')).height)
             if (document.getElementById('hei')) {
                 this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 62 + 'px'
                 this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
@@ -871,6 +887,7 @@
         },
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
+            this.stopAutoPlay()
         },
         filters: {}
     }
