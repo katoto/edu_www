@@ -584,7 +584,7 @@
                     }
                     console.log('start')
                     /* 预留 转动的时间 */
-                    await wait(500)
+                    await wait(500);
 
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
@@ -1034,6 +1034,7 @@
         border-bottom-left-radius: ~"57px 60px";
         border-bottom-right-radius: ~"57px 60px";
         ul {
+            position: relative;
             width: 33%;
             li {
                 width: 95%;
