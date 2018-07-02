@@ -208,5 +208,7 @@ module.exports = {
     'Please enter the correct length wallet address': '錢包長度有誤，請重新輸入',
     'Please enter the correct amount': '請輸入正確的金額',
     'Please input wallet password': '請輸入錢包密碼',
-    'The maximum withdrawal is {0} ETH': '您當前最大可提款金額為 {0} ETH'
+    'The maximum withdrawal is {0} ETH': '您當前最大可提款金額為 {0} ETH',
+    'Request': '申請',
+    'Records': '記錄'
 }
