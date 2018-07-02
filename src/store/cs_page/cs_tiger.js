@@ -79,19 +79,20 @@ const actionsInfo = mapActions({
         }
     },
 
-    /* 投注下单  2001  */
-    async placeOrder ({commit, dispatch}, transferOrderStr) {
+    /* 老虎机 投注下单  */
+    async startPlay ({commit, dispatch}, orderObj) {
         try {
-            let InfoData = await ajax.post(`/place/order`, {
-                codestr: transferOrderStr,
-                cointype: 2001
+            let InfoData = await ajax.post(`/slots/bingo`, {
+                line: orderObj.dft_line,
+                single_bet: orderObj.single_bet,
+                cointype: orderObj.cointype
             })
+
             return InfoData
         } catch (e) {
             this.$error(e.message)
         }
     }
-
 
     /*   */
 

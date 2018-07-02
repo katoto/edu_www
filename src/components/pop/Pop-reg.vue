@@ -102,7 +102,7 @@
                         this.$store.dispatch('beforeReg', this.reg_email)
                     } else {
                         Message({
-                            message: 'Please enter your email address',
+                            message: 'Please enter your right email address',
                             type: 'error',
                             duration: tipsTime
                         })

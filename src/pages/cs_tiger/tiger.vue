@@ -47,8 +47,8 @@
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
                     </div>
-                    <!--进行中 run 开奖 opening - yes  中奖bingo-->
-                    <div class="slot opening">
+                    <!--进行中 run 开奖 opening - yes  中奖bingo- -->
+                    <div class="slot" :class="{'run':slotRun}">
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
                                 <!-- class="yes" -->
@@ -132,7 +132,7 @@
                                     <i :style="{'width':barProcess+'%'}" ></i>
                                 </div>
                                 <div class="bar-msg">
-                                    {{ barProcess }}%
+                                    {{ ( barProcess * (10/9) ).toFixed(1) }}%
                                 </div>
                             </div>
                             <p class="msg">
@@ -387,9 +387,10 @@
                     lucky: '0'
                 }],
                 dft_bet: 0.001, // 默认投注项
+                isfree: 0, // 是否免费
                 dft_line: 9, // 默认9线
                 showSingleBet: false, // 投注项选择
-                barProcess: 10,
+                barProcess: 20,
                 prizes_pool_ratio: null, // hitWinRatio
                 axes: null, // axes
                 dft_idx: null, // dft_idx
@@ -398,7 +399,8 @@
                 slotItem1Tran: 'translateY(30px)',
                 slotItem2Tran: 'translateY(30px)',
                 slotItem3Tran: 'translateY(30px)',
-                isShowHelp:false
+                isShowHelp:false,
+                slotRun: false
             }
         },
         watch: {
@@ -416,8 +418,8 @@
             setLacal () {
                 this.dft_idx.forEach((val, index) => {
                     val = parseFloat(val) + 30
-                    console.log(this.computeHeight)
-                    console.log((val - 3) * this.computeHeight)
+                    // console.log(this.computeHeight)
+                    // console.log((val - 3) * this.computeHeight)
                     this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
                 })
             },
@@ -425,7 +427,13 @@
                 console.log('autoPlay11')
             },
             startPlay () {
-                console.log('startPlay')
+                let orderMsg = {
+                    dft_line: this.dft_line,
+                    single_bet: this.dft_bet,
+                    cointype: 2001
+                }
+                this.slotRun = true // 高亮
+                this.$store.dispatch(aTypes.startPlay, orderMsg)
             },
             stopAutoPlay () {
                 console.log('stop')
@@ -437,7 +445,7 @@
             betSelFn (currVal) {
                 if (currVal) {
                     this.dft_bet = currVal.bet
-                    this.barProcess = Math.floor(parseFloat(currVal.lucky) / 100)
+                    this.barProcess = (parseFloat(currVal.lucky) * (90 / 100)).toFixed(1)
                     this.showSingleBet = false
                 }
             }
@@ -479,7 +487,7 @@
                     if (this.lucky_values.length > 0) {
                         this.lucky_values.forEach((val, index) => {
                             if (val.bet === this.dft_bet.toString()) {
-                                this.barProcess = val.lucky
+                                this.barProcess = ((90 / 100) * parseFloat(val.lucky)).toFixed(1)
                             }
                         })
                     }
@@ -513,7 +521,6 @@
             }
         },
         beforeDestroy () {
-
             this.$store.dispatch('subOutTiger')
         },
         filters: {}
@@ -664,6 +671,7 @@
         height: 100%;
         overflow: hidden;
         z-index: 2;
+
         &.bingo{
             &::before{
                 content: '';
@@ -1435,6 +1443,7 @@
             right: 0;
         }
     }
+
     @keyframes bingo {
         0%,25%,100%{
             background: url("../../assets/img/tiger/line.png") no-repeat center;
