@@ -7,7 +7,6 @@
                 <div class="tiger-wrap">
                     <!--规则icon-->
                     <a href="javascript:;" class="btn-rule" @click="isShowHelp = true">
-
                     </a>
                     <!--低奖池-->
                     <div class="jackpot-low">
@@ -47,8 +46,8 @@
                             <li>Congratulate** on winning 0.01ETH</li>
                         </ul>
                     </div>
-                    <!--进行中 run 开奖 opening - yes  中奖bingo- -->
-                    <div class="slot opening" :class="{'run':slotRun}">
+                    <!--进行中 run 开奖 opening - yes  中奖bingo- opening  -->
+                    <div class="slot" :class="{'run':slotRun,'opening':slotOpening}">
                         <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                             <template v-if="axes">
                                 <!-- class="yes" -->
@@ -443,7 +442,8 @@
                 playBack: null, // 下单接口返回的所有值
                 totalRadio: 0,
                 setRewardIcon: 'lineWard',
-                jackPot: false
+                jackPot: false,
+                slotOpening: false // opening 类
 
             }
         },
@@ -472,11 +472,12 @@
             },
             endInit () {
                 /* 结束初始化 */
+                this.slotOpening = false // 开奖结束
                 this.btnDisable = false
-                this.slotRun = false // 高亮
+                // this.slotRun = false // 高亮
             },
             stateInit () {
-                this.slotRun = true // 高亮
+                // this.slotRun = true // 高亮
                 this.btnDisable = true
             },
             formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
@@ -526,6 +527,7 @@
                     cointype: 2001
                 }
                 this.stateInit()
+                this.slotRun = true
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 console.log(playBack)
                 if (playBack) {
@@ -569,6 +571,9 @@
                     console.log('start')
                     /* 预留 转动的时间 */
                     await wait(500)
+
+                    this.slotRun = false // 动画结束
+                    this.slotOpening = true
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
                         this.controlAnimate()
@@ -579,7 +584,7 @@
                     }
                 }
             },
-            controlAnimate () {
+            async controlAnimate () {
                 let popWinRes = null
                 console.log(this.winRes)
                 if (this.winRes.length > 0) {
@@ -591,6 +596,7 @@
                         nowMove = this.baseMove[popWinRes.line]
                         this.nowWhistMove(nowMove, this.dft_idx)
                     } else if (popWinRes.line === 'line10') {
+                        this.slotOpening = false
                         /* 奖池奖 */
                         this.setRewardIcon = 'jackPotWard'
                     } else {
@@ -624,6 +630,9 @@
                             this.rewardBig = false
                             this.endInit()
                         }, 5000)
+                    } else if (this.setRewardIcon === 'whisWard') {
+                        await wait(100)
+                        this.endInit()
                     }
                     // 是否应该在结束时更新数据
                 }
