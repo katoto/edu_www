@@ -525,9 +525,10 @@
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
+                let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 this.stateInit()
                 this.slotRun = true
-                let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
+
                 console.log(playBack)
                 if (playBack) {
                     this.playBack = playBack
@@ -543,6 +544,9 @@
                     }
                     if (playBack.results) {
                         this.showResults(playBack.results)
+                    }
+                    if (playBack.lucky_values) {
+                        this.formateLuckyVal( playBack.lucky_values )
                     }
                 }
             },
