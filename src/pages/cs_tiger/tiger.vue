@@ -547,6 +547,9 @@
                     if (playBack.idx) {
                         // 结果 位置
                         this.dft_idx = playBack.idx
+
+                        this.dft_idx = [0, 0, 0]
+
                         this.setLacal()
                     }
                     if (playBack.window) {
@@ -584,7 +587,7 @@
                     }
                     console.log('start')
                     /* 预留 转动的时间 */
-                    await wait(500);
+                    await wait(500)
 
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
@@ -768,7 +771,7 @@
                         }
                     })
                 }
-            }
+            },
         },
         computed: {
             currCoinType () {
@@ -792,9 +795,9 @@
         },
         async mounted () {
             setTimeout(() => {
-                // this.formateWindow()
+                // this.test()
                 // this.rewardBig = true
-            }, 2000)
+            }, 4000)
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
 
