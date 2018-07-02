@@ -8,9 +8,7 @@ const languagePackage = {
     zhTw
 }
 
-function stringFormatter (string) {
-
-}
+window._ = string => string
 
 MyPlugin.install = function (Vue, store) {
     // 注册全局翻译函数
@@ -44,6 +42,9 @@ MyPlugin.install = function (Vue, store) {
     // 注册全局lang翻译组件
     Vue.component('lang', {
         render: function (h) {
+            if (this.$slots.default.length > 1) {
+                console.error(`该lang标签暂不支持包含html, 请使用v-lang指令：${this.$slots.default}`)
+            }
             return (
                 <em domPropsInnerHTML={window._(this.$slots.default[0].text)}></em>
             )

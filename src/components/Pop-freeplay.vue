@@ -5,7 +5,7 @@
           <a href="javascript:;" @click="hideFreeplay" class="close">close</a>
           <img src="@assets/img/img-pop.png" alt="" width="361" height="336">
           <a href="javascript:;" @click="signUp" class="btn-sign">
-              Sign Up
+              <lang>Sign Up</lang>
           </a>
       </div>
   </div>

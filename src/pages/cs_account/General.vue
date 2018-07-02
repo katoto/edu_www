@@ -1,17 +1,25 @@
 <template>
     <div class="information">
         <a href="javascript:;" @click="signOut" class="btn-logout">
-            Sign Out
+            <lang>Sign Out</lang>
         </a>
-        <span class="small-explain ">Account</span>
+        <span class="small-explain">
+            <lang>Account</lang>
+        </span>
         <template v-if="userInfo">
             <p class="my-account "><span class="js_currEmail">{{ userInfo.email }}</span>
                 <span class="js_unverifyBox">
-                <a href="javascript:;" v-if="userInfo.status==='0'" @click="goVerify" >go to verified</a>
-                <a href="javascript:;" v-if="userInfo.status==='1'" style="cursor: default">Verified</a>
+                <a href="javascript:;" v-if="userInfo.status==='0'" @click="goVerify" >
+                    <lang>go to verified</lang>
+                </a>
+                <a href="javascript:;" v-if="userInfo.status==='1'" style="cursor: default">
+                    <lang>Verified</lang>
+                </a>
             </span>
             </p>
-            <span class="small-explain">Wallet Balance</span>
+            <span class="small-explain">
+                <lang>Wallet Balance</lang>
+            </span>
             <ul class="coin-detail" v-if="userInfo.accounts">
                 <li v-for="(account, index) in userInfo.accounts" :key="index">
                     <div class="lf130">
@@ -29,7 +37,9 @@
             </ul>
         </template>
 
-        <span class="small-explain">Password</span>
+        <span class="small-explain">
+            <lang>Password</lang>
+        </span>
         <div class="psw-set">
             <div class="lf130 psw-x">
                 <i>*</i>
@@ -41,7 +51,8 @@
             <p class="psw-grade hide">
                 Security Level&nbsp;&nbsp;<span class="bold">Middle</span>
             </p>
-            <a href="javascript:;" class="btn-changepsw" @click="onChange">Change&ensp;Password</a>
+            <a href="javascript:;" class="btn-changepsw" @click="onChange" v-lang="'Change&ensp;Password'">
+            </a>
         </div>
     </div>
 </template>

@@ -13,7 +13,8 @@
     "clean": "rimraf dist/*",
     "i18n": "node ./i18n.js",
     "deploy167": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/",
-    "deploytest": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/test"
+    "deploytest": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/test",
+    "deploy-lang": "scp -r dist/* root@10.0.1.167:/var/www/coinslot-lang"
   },
   "dependencies": {
     "axios": "^0.18.0",

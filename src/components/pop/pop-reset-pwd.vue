@@ -2,7 +2,9 @@
     <!--找回密码-->
     <Pop class="pop-reset-psw" :show.sync="show">
         <div class="pop-main">
-            <h3>Reset Your Password</h3>
+            <h3>
+                <lang>Reset Your Password</lang>
+            </h3>
             <form class="form-first" v-if="!resetObj.showReset">
                 <input type="text" v-model="resetEmail" name="reset-email" placeholder="Email">
                 <!--no-->
@@ -41,7 +43,7 @@
                 if (!passReg.test(this.resetPsw)) {
                     if (this.resetPsw !== '') {
                         Message({
-                            message: 'Password must contain 6-15 characters with both numbers and letters',
+                            message: _('Password must contain 6-15 characters with both numbers and letters'),
                             type: 'error',
                             duration: tipsTime
                         })
@@ -67,7 +69,7 @@
                         }
                     } else {
                         Message({
-                            message: 'Please enter your email address',
+                            message: _('Please enter your email address'),
                             type: 'error',
                             duration: tipsTime
                         })
@@ -82,7 +84,7 @@
                 }
                 if (this.resetPsw !== this.resetPsw2) {
                     Message({
-                        message: 'Confirm password not match',
+                        message: _('Confirm password not match'),
                         type: 'error',
                         duration: tipsTime
                     })
@@ -90,7 +92,7 @@
                 }
                 if (!this.resetObj.email || !this.resetObj.sign) {
                     Message({
-                        message: 'reset password error',
+                        message: _('reset password error'),
                         type: 'error',
                         duration: tipsTime
                     })
@@ -104,7 +106,7 @@
                 let resetMsg = await this.$store.dispatch('resetPasswordFn', regObj)
                 if (resetMsg && resetMsg.status.toString() === '100') {
                     Message({
-                        message: 'Reset successfully，sign in now',
+                        message: _('Reset successfully，sign in now'),
                         type: 'success',
                         duration: tipsTime
                     })

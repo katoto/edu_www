@@ -3,10 +3,12 @@
     <div id="nav" class="nav" :class="{fix:navFix}">
         <div class="nav-main">
             <h2 class="logo11to5">
-                Lucky11
+                <lang>Lucky11</lang>
             </h2>
             <div class="lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
-                <p>Draw History</p>
+                <p>
+                    <lang>Draw History</lang>
+                </p>
                 <span >NO.{{ last_expectid }}</span>
                 <i class="arrow"></i>
                 <ul id="js_lastDraw" class="last-numbox">
@@ -22,21 +24,27 @@
                         </li>
                     </ul>
                     <router-link :to="{path: '/drawNumber'}">
-                        <a href="javascript:;" class="more" target="_blank">More >></a>
+                        <a href="javascript:;" class="more" target="_blank">
+                            <lang>More >></lang>
+                        </a>
                     </router-link>
                 </div>
             </div>
             <!--changeDead-->
             <div class="deadline">
                 <div class="deadline-box" :class="{'deadlineMove': expect_move }">
-                    <p>Time Left</p>
+                    <p>
+                        <lang>Time Left</lang>
+                    </p>
                     <!--blinking  id="js_currExpectid"  -->
                     <span :class="{'blinking':expect_blinking}">No.{{ currExpectId }}</span>
                     <i :class="{'jump5': parseFloat( timeLeft )<= 10 }">{{ timeLeft }}’</i>
                 </div>
             </div>
             <p class="jackpot2 ">
-                <span>JACKPOT&nbsp;&nbsp;</span>
+                <span>
+                    <lang>JACKPOT</lang>&nbsp;&nbsp;
+                </span>
                 <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount }}</i>
             </p>
         </div>
