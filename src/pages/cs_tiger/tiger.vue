@@ -490,36 +490,38 @@
                 if (this.tabTime > 400) {
                     /* 长按 */
                     this.autoPlay()
+                    this.currRun = this.currRun - 1
                 } else {
                     /* 点击 */
-                    this.startPlay()
                 }
-                console.log(this.tabTime)
+                this.startPlay()
             },
             autoPlay () {
                 console.log('autoPlay')
-                // if (this.btnDisable) {
-                //     return false
-                // }
                 this.currRun = this.auto_run
                 this.isAutoPlay = true
             },
             stopAutoPlay () {
                 console.log('stop AutoPlay')
-                // if (this.btnDisable) {
-                //     return false
-                // }
                 this.currRun = this.auto_run
                 this.isAutoPlay = false
             },
-            endInit () {
+            async endInit () {
                 /* 结束初始化 */
-                // 预留是否手动减的空间
+                // 预留是否手动减值的空间
                 // this.$store.dispatch('getUserInfo')
-
                 this.slotOpening = false // 开奖结束
                 this.btnDisable = false
-                // this.slotRun = false // 高亮
+                await wait(400)
+                if (this.isAutoPlay) {
+                    if (this.currRun > 0) {
+                        this.startPlay()
+                        console.log(this.currRun)
+                        this.currRun = this.currRun - 1
+                    } else {
+                        this.stopAutoPlay()
+                    }
+                }
             },
             stateInit () {
                 // this.slotRun = true // 高亮
@@ -696,6 +698,8 @@
                         this.jackPot = true
                         //  todo 特殊烟花
                         await wait(5000)
+
+                        this.currRun = 0
                         this.rewardBig = false
                         this.endInit()
                     } else if (this.setRewardIcon === 'whisWard') {
@@ -786,6 +790,7 @@
                 }
                 if (slotsHome.auto_run !== undefined) {
                     this.auto_run = slotsHome.auto_run
+                    this.auto_run = 10
                 }
                 /* 默认投注项 */
                 if (slotsHome.dft_bet !== undefined) {
