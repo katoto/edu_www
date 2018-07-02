@@ -1266,7 +1266,7 @@
             width:348/2px;
             height:163/2px;
         }
-        &.double{
+        &.double&.show{
             overflow: visible;
             &::before{
                 content: '';
@@ -1353,7 +1353,7 @@
             width:595/2px;
             height:auto;
         }
-        &.double{
+        &.double&.show{
             overflow: visible;
             &::after{
                 content: '';
