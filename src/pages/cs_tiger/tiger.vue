@@ -379,7 +379,6 @@
                 </li>
             </ul>
         </div>
-
     </div>
 </template>
 
@@ -535,7 +534,7 @@
                     this.playBack = playBack
                     this.initPage(playBack)
                     if (playBack.idx) {
-                        // 结果位置
+                        // 结果 位置
                         this.dft_idx = playBack.idx
                         this.setLacal()
                     }
@@ -595,7 +594,7 @@
                         /* 口哨 */
                         this.setRewardIcon = 'whisWard'
                         nowMove = this.baseMove[popWinRes.line]
-                        this.nowWhistMove(nowMove, this.dft_idx)
+                        this.nowWhistMove(nowMove)
                     } else if (popWinRes.line === 'line10') {
                         this.slotOpening = false
                         /* 奖池奖 */
@@ -694,13 +693,12 @@
                     }
                 }
             },
-            initAllLine () {
+            async initAllLine () {
                 /* 初始化 yes */
-                setTimeout(() => {
-                    document.querySelectorAll('#js_slot-box li').forEach((val) => {
-                        val.className = ''
-                    })
-                }, 650)
+                await wait(650)
+                document.querySelectorAll('#js_slot-box li').forEach((val) => {
+                    val.className = ''
+                })
             },
             stopAutoPlay () {
                 console.log('stop')
@@ -720,21 +718,16 @@
                 if (slotsHome.free_times !== undefined) {
                     this.free_times = parseFloat(slotsHome.free_times)
                 }
-                /* 投注列表配置 */
-                if (slotsHome.lucky_values) {
-                    this.lucky_values = slotsHome.lucky_values
-                }
+
                 /* 默认投注项 */
                 if (slotsHome.dft_bet !== undefined) {
                     this.dft_bet = slotsHome.dft_bet
-                    if (this.lucky_values.length > 0) {
-                        this.lucky_values.forEach((val, index) => {
-                            if (val.bet === this.dft_bet.toString()) {
-                                this.barProcess = ((90 / 100) * parseFloat(val.lucky)).toFixed(1)
-                            }
-                        })
-                    }
                 }
+                /* 投注列表配置 */
+                if (slotsHome.lucky_values) {
+                    this.formateLuckyVal(slotsHome.lucky_values)
+                }
+
                 if (slotsHome.dft_line !== undefined) {
                     this.dft_line = slotsHome.dft_line
                 }
@@ -749,6 +742,17 @@
                 }
                 if (slotsHome.dft_idx) {
                     this.dft_idx = slotsHome.dft_idx
+                }
+            },
+            formateLuckyVal (luckyValues) {
+                /* 初始化 绿色 进度条 */
+                this.lucky_values = luckyValues
+                if (this.lucky_values.length > 0) {
+                    this.lucky_values.forEach((val, index) => {
+                        if (val.bet === this.dft_bet.toString()) {
+                            this.barProcess = ((90 / 100) * parseFloat(val.lucky)).toFixed(1)
+                        }
+                    })
                 }
             }
         },
