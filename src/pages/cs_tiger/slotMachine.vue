@@ -46,6 +46,7 @@
                         <div class="msg-win">
                             <ul>
                                 <li>Congratulate** on winning 0.01ETH</li>
+                                <li>Congratulate** on winning 0.01ETH</li>
                             </ul>
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
