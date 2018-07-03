@@ -1,17 +1,17 @@
 <template>
-    <div>
+    <div >
         <div class="tiger-pc ">
             <Header></Header>
-            <div class="tiger-main">
+            <div class="tiger-main ">
                 <div class="tiger ">
                     <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
-                    <div class="tiger-wrap">
+                    <div class="tiger-wrap ">
                         <!--规则icon-->
-                        <a href="javascript:;" class="btn-rule" @click="isShowHelp = true">
+                        <a href="javascript:;" class="btn-rule " @click="isShowHelp = true">
                             ?
                         </a>
                         <!--低奖池-->
-                        <div class="jackpot-low">
+                        <div class="jackpot-low ">
                             <div class="jackpot-all">
                                 <p>
                                     JACKPOT
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <!--中奖播报-->
-                        <div class="msg-win">
+                        <div class="msg-win ">
                             <ul>
                                 <li>Congratulate** on winning 0.01ETH</li>
                             </ul>
@@ -146,7 +146,7 @@
                             Last time win {{ last_prizes }} ETH
                         </div>
                         <!--主按钮-->
-                        <a href="javascript:;" class="btn-main" :class="{disable:btnDisable}">
+                        <a href="javascript:;" class="btn-main " :class="{disable:btnDisable}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
                             <template v-if="hideBarLycky">
                                 <!--自动-->
@@ -366,7 +366,7 @@
                              :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
                     </div>
                 </div>
-                <div class="tiger-pc-msg">
+                <div class="tiger-pc-msg ">
                     <h3>Recently </h3>
                     <div class="recent-win">
                         <div class="recent-top">
@@ -409,7 +409,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <Footer></Footer>
@@ -942,14 +941,11 @@
     @import "../../styles/lib-media.less";
     @import "../../styles/tiger.less";
     @import "../../styles/lib-font.less";
-
     div, a, img, p, span, i {
         -webkit-tap-highlight-color: transparent;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
     }
-
-
     .head-box{
         position: fixed;
         left:0;
@@ -965,20 +961,19 @@
         opacity:0;
         height:0;
     }
-    .bg-lucky{
-
-    }
-
     .tiger {
         position: relative;
         -webkit-overflow-scrolling: touch;
+        overflow: hidden;
         .bg-tiger {
             display: block;
             width: 100%;
+            height:100%;
         }
     }
 
     .tiger-wrap {
+        overflow: hidden;
         position: absolute;
         left: 0;
         top: 0;
@@ -1142,11 +1137,11 @@
         transform: rotate(0);
         /*高度需要动态设置*/
         height: 0;
-        overflow: hidden;
         display: flex;
         justify-content: center;
         /*~防止less解析/，这里是单独设置水平和垂直的半径*/
         border-radius: ~"110px/60px";
+        overflow: hidden;
         ul {
             position: relative;
             width: 33%;
@@ -1925,7 +1920,6 @@
         }
     }
     @media (min-width: @screen-phone) {
-
         .tiger-pc{
             position: relative;
             top:0;
@@ -1948,6 +1942,11 @@
             overflow: hidden;
             border-left: 25px solid #080603;
             border-right: 25px solid #080603;
+        }
+    }
+    @media (max-width: @screen-phone) {
+        .footer{
+            display: none;
         }
     }
 

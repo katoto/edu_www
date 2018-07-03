@@ -30,6 +30,7 @@
     .banner{
         position: relative;
         height:90px;
+        overflow: hidden;
         .banner-main{
             display: block;
             position: absolute;
