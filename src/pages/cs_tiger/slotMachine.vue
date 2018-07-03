@@ -389,20 +389,25 @@
                 </ul>
             </div>
             <!--充值-->
-            <div class="pop pop-recharge ">
-                <a href="javascript:;" class="recharge-close"></a>
+            <div class="pop pop-recharge " :class="{'show':showRecharge}">
+                <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                 <div class="title">
                     <p>Copy the Ethereum wallet</p>
                     <p>address (only supports ETH)</p>
                 </div>
-                <div class="copy">
-                    <a href="javascript:;" rel="nofollow">CPOY</a>
-                    <p>0xbcE34a77889D15E2dC9332EB4E5b23ee01615C94</p>
+                <div class="copy" v-if="userInfo && userInfo.accounts">
+                    <a href="javascript:;" rel="nofollow"
+                       v-clipboard:copy="userInfo.accounts[0].address"
+                       v-clipboard:success="copySucc"
+                       v-clipboard:error="copyError"
+                    >COPY</a>
+                    <p v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].address }}</p>
                 </div>
                 <div class="msg">
                     or scan to get the address
                 </div>
-                <img src="@/assets/img/tiger/code-recharge.jpg" alt="recharge">
+                <img v-if="userInfo && userInfo.accounts"
+                    :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
             </div>
         </div>
         <Footer></Footer>
@@ -413,10 +418,11 @@
     import Header from '~components/Header_bk.vue'
     import Footer from '~components/Footer_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
-    import {formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
+    import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
     export default {
         data () {
             return {
+                showRecharge: false, // 显示充值弹窗
                 hideBarLycky: true,
                 tab_t: 1,
                 tranitionTiming: false, // 运动是否需要过程
@@ -477,19 +483,20 @@
                 tabTime: 0,
                 auto_run: 10,
                 currRun: 0,
-                isAutoPlay: false // 按钮双击样式
+                isAutoPlay: false, // 按钮双击样式
+                currBalance: 0
             }
         },
         watch: {
             computeHeight (hei) {
-                console.log(hei);
-                console.log(hei);
                 if (hei && this.dft_idx) {
                     this.setLacal()
                 }
             }
         },
         methods: {
+            copySucc,
+            copyError,
             formatTime,
             formateBalance,
             formateEmail,
@@ -515,7 +522,6 @@
             },
             touEnd () {
                 this.tabTime = (new Date().getTime() - this.tabTime)
-                console.log(this.tabTime)
                 if (this.tabTime > 500) {
                     /* 长按 */
                     this.autoPlay()
@@ -602,6 +608,15 @@
                     this.$store.commit('showLoginPop')
                     return false
                 }
+                /* 余额是否充足 */
+                if (this.userInfo && this.userInfo.accounts[0]) {
+                    if (parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) {
+                        /* 显示余额不足 */
+                        this.showRecharge = true
+                        return false
+                    }
+                }
+
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
@@ -885,6 +900,9 @@
             },
             isLog () {
                 return this.$store.state.isLog
+            },
+            userInfo () {
+                return this.$store.state.userInfo
             }
         },
         components: {
