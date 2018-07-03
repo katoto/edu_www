@@ -910,6 +910,7 @@
             Header, Footer
         },
         async mounted () {
+
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {

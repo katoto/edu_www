@@ -38,11 +38,14 @@
             text-align: center;
             font-weight: bold;
         }
-        .cs-loading div{
+        .cs-loading>div{
             position: absolute;
             left:50%;
             top:50%;
             transform: translate(-50%,-50%);
+        }
+        .loading{
+
         }
     </style>
 </head>
@@ -51,7 +54,7 @@
 </div>
 <div id="coinslotLoading" class="cs-loading">
     <div>
-        <img src="./static/loading.gif" alt="">
+        <div class="loading"></div>
         <p>Coinslot</p>
     </div>
 </div>
