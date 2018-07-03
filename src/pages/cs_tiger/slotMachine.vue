@@ -390,7 +390,7 @@
             </div>
             <!--充值-->
             <div class="pop pop-recharge " :class="{'show':showRecharge}">
-                <a href="javascript:;" class="recharge-close"></a>
+                <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                 <div class="title">
                     <p>Copy the Ethereum wallet</p>
                     <p>address (only supports ETH)</p>
@@ -406,7 +406,8 @@
                 <div class="msg">
                     or scan to get the address
                 </div>
-                <img src="@/assets/img/tiger/code-recharge.jpg" alt="recharge">
+                <img v-if="userInfo && userInfo.accounts"
+                    :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
             </div>
         </div>
         <Footer></Footer>
@@ -611,7 +612,8 @@
                 if (this.userInfo && this.userInfo.accounts[0]) {
                     if (parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) {
                         /* 显示余额不足 */
-
+                        this.showRecharge = true
+                        return false
                     }
                 }
 
