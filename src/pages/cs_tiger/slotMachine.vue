@@ -389,7 +389,8 @@
                 </ul>
             </div>
             <!--充值-->
-            <div class="pop pop-recharge " :class="{'show':showRecharge}">
+            <div class="pop pop-recharge" :class="{'show':showRecharge}">
+                {{ showRecharge }}
                 <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                 <div class="title">
                     <p>Copy the Ethereum wallet</p>
