@@ -324,3 +324,16 @@ export function commonErrorHandler (data) {
         break
     }
 }
+
+export function copySucc(){
+    Message({
+        message: 'Copied to clipboard',
+        type: 'success'
+    })
+}
+export function copyError () {
+    Message({
+        message: 'Failed to copy, please retry',
+        type: 'success'
+    })
+}

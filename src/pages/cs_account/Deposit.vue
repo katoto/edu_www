@@ -70,7 +70,7 @@
 </template>
 
 <script>
-    import {Message} from 'element-ui'
+    import {copySucc, copyError} from '~common/util'
 
     export default {
         data () {
@@ -82,18 +82,8 @@
                 /* 应该是一个新的 验证邮箱的界面 */
                 this.$store.commit('showNoVerify')
             },
-            copySucc () {
-                Message({
-                    message: 'Copied to clipboard',
-                    type: 'success'
-                })
-            },
-            copyError () {
-                Message({
-                    message: 'Failed to copy, please retry',
-                    type: 'success'
-                })
-            }
+            copySucc,
+            copyError
         },
         computed: {
             isLog () {
