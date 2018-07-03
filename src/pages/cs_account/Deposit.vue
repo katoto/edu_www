@@ -1,7 +1,11 @@
 <template>
     <div class="recharge">
-        <h2>Deposit</h2>
-        <span class="small-explain hide">Wallet Balance</span>
+        <h2>
+            <lang>Deposit</lang>
+        </h2>
+        <span class="small-explain hide">
+            <lang>Wallet Balance</lang>
+        </span>
         <ul class="coin-detail hide">
             <li>
                 <div class="lf130">
@@ -10,7 +14,9 @@
                 </div>
                 <span class="coin-add js_walletaAddress_noJump" id="js_copyWallBalance"></span>
                 <a href="javascript:;" data-clipboard-target="#js_copyWallBalance"
-                   class="btn-copy js_btn-copy">Copy</a>
+                   class="btn-copy js_btn-copy">
+                   <lang>Copy</lang>
+                </a>
             </li>
             <li class="hide">
                 <div class="lf130">
@@ -18,15 +24,21 @@
                     <span class="coin-num bold">0.00000</span>
                 </div>
                 <span class="coin-add"></span>
-                <a href="javascript:;" class="btn-copy">Copy</a>
+                <a href="javascript:;" class="btn-copy">
+                    <lang>Copy</lang>
+                </a>
             </li>
         </ul>
-        <a href="javascript:;" class="btn-Recharge">How to deposit?</a>
+        <a href="javascript:;" class="btn-Recharge">
+            <lang>How to deposit?</lang>
+        </a>
         <div class="recharge-box">
             <div class="recharge-item recharge-item1" v-if="userInfo">
-                <h3>1.Copy the Ethereum wallet address (only supports ETH)</h3>
+                <h3>
+                    <lang>1.Copy the Ethereum wallet address (only supports ETH)</lang>
+                </h3>
                 <div class="js_verifyBox" v-if="userInfo && userInfo.status ==='1'">
-                    <template v-for="item in userInfo.accounts">
+                    <div v-for="(item, index) in userInfo.accounts" :key="index">
                         <span class="recharge-add">
                             {{ item.address }}
                         </span>
@@ -34,36 +46,51 @@
                            v-clipboard:copy="item.address"
                            v-clipboard:success="copySucc"
                            v-clipboard:error="copyError"
-                           class="copy js_btn-copy">Copy</a>
-                        <p>or scan to get the address</p>
+                           class="copy js_btn-copy">
+                           <lang>Copy</lang>
+                        </a>
+                        <p>
+                            <lang>or scan to get the address</lang>
+                        </p>
                         <div class="img-box">
                             <div class="img-box2">
                                 <img id="js_address_code_eth" alt=""
                                      :src="'http://mobile.qq.com/qrcode?url='+ item.address ">
                             </div>
                         </div>
-                    </template>
+                    </div>
                 </div>
                 <div v-else class="js_unverifyBox">
                     <!-- todo 验证 -->
-                    <p>Account has not been verified，and the block chain account has not been generated.
-                        <a href="javascript:;" @click="goVerify">go to verified</a></p>
+                    <p>
+                        <lang>Account has not been verified，and the block chain account has not been generated.</lang>
+                        <a href="javascript:;" @click="goVerify">
+                            <lang>go to verified</lang>
+                        </a>
+                    </p>
                 </div>
             </div>
             <div class="recharge-item recharge-item2">
-                <h3>2. Transfer to the wallet address<br>In order to transfer successfully, you can use an Ethereum
-                    wallet or exchange platforms, and always make sure your account is secure. Coinslot doesn't have any
-                    partnership with any of these applications or platforms. Other users recommend: Mist, MyEtherWallet,
-                    MetaMask, imToken, huobi.com and so forth.</h3>
-                <a href="javascript:;" class="reco-soft js_reco-soft hide">Recommended software</a>
+                <h3>
+                    <lang>2. Transfer to the wallet address</lang>
+                </h3><br>
+                <h3>
+                    <lang>In order to transfer successfully, you can use an Ethereum wallet or exchange platforms, and always make sure your account is secure. Coinslot doesn't have any partnership with any of these applications or platforms. Other users recommend: Mist, MyEtherWallet, MetaMask, imToken, huobi.com and so forth.</lang>
+                </h3>
+                <a href="javascript:;" class="reco-soft js_reco-soft hide">
+                    <lang>Recommended software</lang>
+                </a>
             </div>
             <div class="recharge-item recharge-item3">
-                <h3>3. Confirm your balance<br>Usually, it takes about 5 minutes for transaction block to confirm your
-                    deposit. Don't forget to refresh and check your balance.</h3>
+                <h3>
+                    <lang>3. Confirm your balance</lang>
+                </h3><br>
+                <h3>
+                    <lang>Usually, it takes about 5 minutes for transaction block to confirm your deposit. Don't forget to refresh and check your balance.</lang>
+                </h3>
                 <img class="transfer" src="../../assets/img/transfer.png" alt="transfer" width="340" height="40">
                 <p class="hide">After the deposit is successful, your balance will be updated, and the order details can
-                    be found in the details of the fund,<br>or entered in:<a href=" https://etherscan.io"
-                                                                             target="_blank"></a></p>
+                    be found in the details of the fund,<br>or entered in:<a href=" https://etherscan.io" target="_blank"></a></p>
             </div>
         </div>
     </div>
@@ -84,13 +111,13 @@
             },
             copySucc () {
                 Message({
-                    message: 'Copied to clipboard',
+                    message: _('Copied to clipboard'),
                     type: 'success'
                 })
             },
             copyError () {
                 Message({
-                    message: 'Failed to copy, please retry',
+                    message: _('Failed to copy, please retry'),
                     type: 'success'
                 })
             }

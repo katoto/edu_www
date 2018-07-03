@@ -2,6 +2,7 @@ import ajax, {sockURL} from '~common/ajax'
 import {tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
+import {mutationTypes, actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
 
 function combimeStore (store, newStore) {
@@ -31,10 +32,14 @@ const state = {
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
+    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 eth
     ...common.state
 }
 
 const mutations = {
+    setCurrCoinType (state, data) {
+        state.currCoinType = data
+    },
     showEmailErr (state, data) {
         state.showEmailErr = data
     },
@@ -118,7 +123,14 @@ const actions = {
                             freez: '0.0'
                         })
                     }
-
+                    // test
+                    // userMsg.data.accounts.push({
+                    //     address: '',
+                    //     balance: '12111',
+                    //     cointype: '1001',
+                    //     fee: '0.003',
+                    //     freez: '0.0'
+                    // })
                     commit('setUserInfo', userMsg.data)
                     // 邀请 活动
                     // userMsg.data.tasks = [{
@@ -171,6 +183,7 @@ const actions = {
             sock.onmessage = function (e) {
                 if (!~e.data.indexOf('you said')) {
                     let msg = JSON.parse(e.data)
+
                     // 总的分发
                     if (msg && msg.data) {
                         switch (msg.msg_code.toString()) {
@@ -203,8 +216,8 @@ const actions = {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
                             /*
-                                     *  处理 区块链阻塞
-                                     * */
+                             *  处理 区块链阻塞
+                             * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
@@ -259,9 +272,21 @@ const actions = {
                             }
                             ;
                             break
-                        case '1007':
-                            // 更新用户信息，代表结算
-                            ;
+                        case '2001':
+                            // 老虎机初始化
+                            if (msg.data) {
+                                console.log(msg.data)
+                                dispatch(actionTypes.formateTiger, msg.data)
+                            }
+                            break
+                        case '2002':
+                            // 老虎机初始化
+                            if (msg.data) {
+                                Object.assign(msg.data, {
+                                    addNewRecord: true
+                                })
+                                dispatch(actionTypes.addRecentList, msg.data)
+                            }
                             break
                         }
                     }
@@ -305,7 +330,7 @@ const actions = {
                 resolve()
             }
             sock.onclose = function () {
-                console.warn('websocket 重连')
+                console.warn('websocket reconnect')
                 clearInterval(interval)
                 setTimeout(() => {
                     commit('addConnectNum')
@@ -323,7 +348,7 @@ const actions = {
             setTimeout(() => {
                 if (hasFinished) return
                 hasFinished = true
-                let error = new Error('超时')
+                let error = new Error('websocket timeout')
                 error.code = '103'
                 reject(error)
             }, 1000)
@@ -394,6 +419,58 @@ const actions = {
             }
         } catch (e) {
             console.error(e.message)
+        }
+    },
+    subInTiger () {
+        /* 进入老虎机页面 订阅 */
+        try {
+            let subTigerStr = {
+                action: 'sub',
+                cointype: 2001,
+                type: 'slots'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
+        } catch (e) {
+            console.error(e.message + 'subInTiger error')
+        }
+    },
+    subOutTiger () {
+        /* 离开老虎机页面 解订阅 */
+        try {
+            let unsubTigerStr = {
+                action: 'unsub',
+                cointype: 2001,
+                type: 'slots'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
+        } catch (e) {
+            console.error(e.message + 'subOutTiger error')
+        }
+    },
+    subInLucky () {
+        /* 进入lucky11页面 订阅 */
+        try {
+            let subLuckyStr = {
+                action: 'sub',
+                cointype: 2001,
+                type: 'lottery'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
+        } catch (e) {
+            console.error(e.message + 'subInLucky error')
+        }
+    },
+    subOutLucky () {
+        /* 离开lucky页面 解订阅 */
+        try {
+            let unsubLuckyStr = {
+                action: 'unsub',
+                cointype: 2001,
+                type: 'lottery'
+            }
+            state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
+        } catch (e) {
+            console.error(e.message + 'subOutLucky error')
         }
     },
     ...common.actions

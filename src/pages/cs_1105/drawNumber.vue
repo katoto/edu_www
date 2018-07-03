@@ -4,7 +4,9 @@
         <div class="main">
             <BreadCrumbs></BreadCrumbs>
             <div class="main-reward">
-                <h1>Draw number</h1>
+                <h1>
+                    <lang>Draw number</lang>
+                </h1>
                 <el-table
                     :data="drawNumList"
                     stripe
@@ -15,35 +17,37 @@
                         prop="opentime"
                         align="center"
                         header-align="center"
-                        label="Draw Time">
+                        :label="_('Draw Time')">
                     </el-table-column>
                     <el-table-column
                         align="center"
                         header-align="center"
                         prop="expectid"
-                        label="No.">
+                        :label="_('No.')">
                     </el-table-column>
                     <el-table-column
                         align="center"
                         header-align="center"
-                        label="Draw Number">
+                        :label="_('Draw Number')">
                         <template slot-scope="scope">
                             <ul class="num-box" v-if="scope.row.opencode !== '-1'">
-                                <li v-for="item in scope.row.opencode">{{ item }}</li>
+                                <li v-for="(item, index) in scope.row.opencode" :key="index">{{ item }}</li>
                             </ul>
-                            <span v-else class="js_lastDrawWait">waiting</span>
+                            <span v-else class="js_lastDrawWait">
+                                <lang>waiting</lang>
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column
                         align="center"
                         header-align="center"
                         prop="sumbonus"
-                        label="Cumulative Bouns">
+                        :label="_('Cumulative Bouns')">
                     </el-table-column>
                     <el-table-column
                         align="center"
                         header-align="center"
-                        label="Block">
+                        :label="_('Block')">
                         <template slot-scope="scope">
                             <span v-if="scope.row.blocknum == '0'">-</span>
                             <a target="_blank" v-else :href="scope.row.jumpEthUrl"># {{ scope.row.blocknum }}</a>
@@ -76,8 +80,8 @@
                         :page-size="pageSize"
                         layout="prev, pager, next,jumper"
                         :total="PageTotal"
-                        next-text = 'Next >'
-                        prev-text = '< Front'
+                        :next-text="_('Next >')"
+                        :prev-text="_('< Front')"
                     >
                     </el-pagination>
                 </div>
@@ -89,10 +93,14 @@
                     <div class="pop-ani">
                         <div class="pop-main">
                             <a href="javascript:;" class="btn-close" @click="closePop_reward">关闭</a>
-                            <h3>Draw Details</h3>
+                            <h3>
+                                <lang>Draw Details</lang>
+                            </h3>
                             <div class="view-header">
                                 <div class="fl">
-                                    <p>Number on the block</p>
+                                    <p>
+                                        <lang>Number on the block</lang>
+                                    </p>
                                     <span class="random-block ">
                                         <a class="js_random_block" target="_blank" :href="popRewardMsg.jumpEthUrl">{{ popRewardMsg.blocknum }}</a>
                                     </span>
@@ -103,31 +111,30 @@
                                 </div>
                             </div>
                             <div class="view-hash">
-                                <p>Hash on the block</p>
+                                <p>
+                                    <lang>Hash on the block</lang>
+                                </p>
                                 <span class="js_randomHash"> {{ popRewardMsg.blockhash }} </span>
                             </div>
                             <div v-if="popRewardMsg.merkel_hash!==''" class="js_show_calcul_show">
                                 <div class="view-process">
-                                    <p>Calculating Process</p>
+                                    <p>
+                                        <lang>Calculating Process</lang>
+                                    </p>
                                     <span class="js_calAddr">{{ popRewardMsg.merkel_hash }}</span>
                                 </div>
                                 <div class="node">
-                                    <p>Note:<br/>
-                                        All order information of the current period will eventually generate a hash
-                                        value
-                                        through the Merkel tree algorithm. This
-                                        hash value will be uploaded to the Ethereum chain. The hash value is verified by
-                                        the
-                                        open class so that the bet cannot be
-                                        tampered with.
+                                    <p>
+                                        <lang>Note:</lang><br/>
+                                        <lang>All order information of the current period will eventually generate a hash value through the Merkel tree algorithm. This hash value will be uploaded to the Ethereum chain. The hash value is verified by the open class so that the bet cannot be tampered with.</lang>
                                     </p>
                                 </div>
                             </div>
                             <div v-else class="js_show_calcul_hide">
                                 <div class="node">
-                                    <p>Note:<br/>
-                                        If there is no bet on this draw, the result will use the hash of the last block
-                                        .
+                                    <p>
+                                        <lang>Note:</lang><br/>
+                                        <lang>If there is no bet on this draw, the result will use the hash of the last block.</lang>
                                     </p>
                                 </div>
                             </div>

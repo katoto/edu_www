@@ -1,6 +1,8 @@
 <template>
     <div class="betting">
-        <h2>Bet Record</h2>
+        <h2>
+            <lang>Bet Record</lang>
+        </h2>
         <section class="cs-select">
             <el-select v-model="betOptionVal" @change="handleStatusChange">
                 <el-option
@@ -32,19 +34,19 @@
                         align="center"
                         width="150"
                         header-align="center"
-                        label="Time">
+                        :label="_('Time')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
                         prop="bettype"
-                        label="Type">
+                        :label="_('Type')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
                         prop="txhash"
-                        label="Address">
+                        :label="_('Address')">
                     <template slot-scope="scope">
                         <a target='_blank'
                            v-if="scope.row.txhash != '-'"
@@ -60,13 +62,13 @@
                         align="center"
                         header-align="center"
                         prop="expectid"
-                        label="No.">
+                        :label="_('No.')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
                         width="170"
-                        label="Number">
+                        :label="_('Number')">
                     <template slot-scope="scope">
                         <div v-html="scope.row.betcodeVal"></div>
                     </template>
@@ -75,12 +77,12 @@
                         align="center"
                         header-align="center"
                         prop="betmoney"
-                        label="Bet">
+                        :label="_('Bet')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
-                        label="Win">
+                        :label="_('Win')">
                     <template slot-scope="scope">
                         <div v-html="scope.row.betprizeVal"></div>
                     </template>
@@ -96,8 +98,8 @@
                         :page-size="pageSize"
                         layout="prev, pager, next,jumper"
                         :total="PageTotal"
-                        next-text = 'Next >'
-                        prev-text = '< Front'
+                        :next-text="_('Next >')"
+                        :prev-text="_('< Front')"
                 >
                 </el-pagination>
             </div>
@@ -123,18 +125,18 @@ export default {
             ethUrl,
             betOptions: [{
                 value: '1',
-                label: 'All bets'
+                label: _('All bets')
             }, {
                 value: '2',
-                label: 'win bets'
+                label: _('win bets')
             }],
             betOptionVal: '1',
             betTimeOptions: [{
                 value: '1',
-                label: 'Last 30 days'
+                label: _('Last 30 days')
             }, {
                 value: '2',
-                label: 'Last 7 days'
+                label: _('Last 7 days')
             }],
             betTimeOptionVal: '1'
         }
@@ -228,11 +230,11 @@ export default {
                         )
                     } else {
                         if (parseInt(val.orderstatus, 10) === 0) {
-                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting')}</a>`
                         } else if (val.orderstatus === '1') {
-                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting')}</a>`
                         } else if (val.orderstatus === '-1' || val.orderstatus === '-2') {
-                            val.betprizeVal = 'failure'
+                            val.betprizeVal = _('failure')
                         }
                     }
                 })

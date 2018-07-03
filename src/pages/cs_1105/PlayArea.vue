@@ -2,50 +2,71 @@
     <li class="js_playArea-li">
         <div class="play-area-top">
             <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true" @mouseout="slideDown = false">
-                <span v-if="areaMsg.pickType === '5J'">Super&ensp;5</span>
-                <span v-else>Pick {{ areaMsg.pickType}}</span>
+                <span v-if="areaMsg.pickType === '5J'" v-lang="'Super&ensp;5'"></span>
+                <span v-else><lang>Pick</lang> {{ areaMsg.pickType}}</span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
-                    <li data-index="1">Pick 1</li>
-                    <li data-index="2">Pick 2</li>
-                    <li data-index="3">Pick 3</li>
-                    <li data-index="4">Pick 4</li>
-                    <li data-index="5">Pick 5</li>
-                    <li data-index="5J" class="es">
-                        Super&ensp;5
+                    <li data-index="1">
+                        <lang>Pick 1</lang>
+                    </li>
+                    <li data-index="2">
+                        <lang>Pick 2</lang>
+                    </li>
+                    <li data-index="3">
+                        <lang>Pick 3</lang>
+                    </li>
+                    <li data-index="4">
+                        <lang>Pick 4</lang>
+                    </li>
+                    <li data-index="5">
+                        <lang>Pick 5</lang>
+                    </li>
+                    <li data-index="5J" class="es" v-lang="'Super&ensp;5'">
                         <!--<p>Pick 5</p>-->
-                        <!--<p></p>-->
                     </li>
                 </ul>
             </div>
             <p class="play-tips" v-if="areaMsg">
                 <span v-if="areaMsg.pickType === '5J'" class="js_choose_desc">
-                    Win extra prize pool reward if your picked 5 and its sequence match the draw result.
-                    <i class="position-msg"> If only numbers match, you will get Pick 5&ensp;reward.</i>
+                    <lang>Win extra prize pool reward if your picked 5 and its sequence match the draw result.</lang>
+                    <i class="position-msg">
+                        <lang>If only numbers match, you will get Pick 5 reward.</lang>
+                    </i>
                 </span>
-                <span v-if="areaMsg.pickType === '1'" class="js_choose_desc">Pick 1 number, if it hits the draw number, you'll win 1.8 times reward</span>
-                <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">Pick {{ areaMsg.pickType }} numbers, if all the numbers hit the draw numbers, you'll win {{ syxw_bettype_odds['110'+( areaMsg.pickType )]  }} times reward</span>
+                <span v-if="areaMsg.pickType === '1'" class="js_choose_desc">
+                    <lang>Pick 1 number, if it hits the draw number, you'll win 1.8 times reward</lang>
+                </span>
+                <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">
+                    {{ _("Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward", areaMsg.pickType, syxw_bettype_odds['110'+( areaMsg.pickType )]) }}
+                </span>
                 <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false">
-                    Reward table
+                    <lang>Reward table</lang>
                     <!-- Lucky 11 show  647 356 奖级表 todo -->
                     <div class="pop pop-rewardTable" :class="{rewardTable:rewardTable}">
                         <img src="../../assets/img/pop-rewardTable.png" alt="">
                     </div>
                 </a>
             </p>
-            <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">Limit number list</a>
+            <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">
+                <lang>Limit number list</lang>
+            </a>
         </div>
-        <span class="line js_line" >Ticket {{ currIndex + 1 }}</span>
+        <span class="line js_line" ><lang>Ticket</lang> {{ currIndex + 1 }}</span>
         <ul class="number-box" v-if="areaMsg" @click="lineNumClick">
-            <li v-for="(number,index) in playList" :data-flag="(index+1)" class="on"
-                v-if="areaMsg.pickNum && areaMsg.pickNum.indexOf( number ) > -1">{{ number }}
+            <li v-for="(number,index) in playList"
+                :data-flag="(index+1)" class="on"
+                :key="index"
+                v-if="areaMsg.pickNum && areaMsg.pickNum.indexOf( number ) > -1">
+                {{ number }}
             </li>
             <li :data-flag="(index+1)" v-else>{{ number }}</li>
         </ul>
-        <a href="javascript:;" @click="randomPickFn" class="btn-random-pick">Quick Pick</a>
+        <a href="javascript:;" @click="randomPickFn" class="btn-random-pick">
+            <lang>Quick Pick</lang>
+        </a>
         <a href="javascript:;" class="btn-delete" @click="clearNumber"></a>
         <a href="javascript:;" :data-delIndex="currIndex" @click="delTicket" class="btn-close"></a>
         <div class="beting">
-            <span>Bet</span>
+            <span><lang>Bet</lang></span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
                 <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney" value="0.0005"
@@ -55,23 +76,25 @@
             </div>
             <span>ETH</span>
             <div class="winning" v-if="areaMsg.pickType !== '5J'">
-                Winning&nbsp<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;ETH</i>
             </div>
             <div class="winning" v-else>
                 <!-- 奖池 -->
-                Winning&nbsp<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbspETH</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;ETH</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
-                    (including C5: {{ syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}ETH;
-                    jackpot {{  areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio )  }}ETH)
+                    {{ _('including C5: {0}ETH; jackpot {1} ETH', formateBalanceFun(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)), formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio)) }}
                 </i>
             </div>
         </div>
         <div class="order-box js_choose_jackPot" :class="{'hide': areaMsg.pickType !== '5J'}">
-
-            <p>Picking&ensp;Order</p>
+            <p>
+                <lang>Picking&ensp;Order</lang>
+            </p>
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
-                <li v-for="(baseItem,index) in baseJackPot" class="flipInY on"
+                <li v-for="(baseItem, index) in baseJackPot"
+                    class="flipInY on"
+                    :key="index"
                     v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}
                 </li>
                 <li v-else>-</li>
@@ -82,7 +105,7 @@
 </template>
 
 <script>
-    import {randomNumber} from '~common/util'
+    import {randomNumber, formateBalance} from '~common/util'
     import {Message} from 'element-ui'
 
     export default {
@@ -98,6 +121,7 @@
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
         watch: {},
         methods: {
+            formateBalanceFun: formateBalance,
             //   隐藏
             showPopLimit () {
                 this.$store.commit('showPopLimit')
@@ -247,29 +271,6 @@
                     })
                 }
             },
-            formateBalance: (val = 0) => {
-                var newEth = null
-                if (isNaN(val) || isNaN(Number(val))) {
-                    console.error('formateBalance error' + val)
-                    return 0
-                }
-                val = Number(val)
-                if (val > 10000000) {
-                    newEth = (val / 100000000).toFixed(1) + '亿'
-                } else if (val > 100000) {
-                    newEth = (val / 10000).toFixed(1) + '万'
-                } else if (val > 1000) {
-                    newEth = parseFloat(val.toFixed(0))
-                } else if (val > 100) {
-                    newEth = val.toFixed(3)
-                } else if (val > 10) {
-                    newEth = val.toFixed(4)
-                } else {
-                    newEth = val.toFixed(5)
-                    // 如果需要去掉零 用parseFloat(  )
-                }
-                return newEth
-            },
             showReward () {
                 //  3.0  hover 的
                 // $(".js_showReward").off('mouseenter').off('mouseleave').hover(function (e) {
@@ -286,23 +287,8 @@
                 //     $(this).stop().slideUp(300)
                 // });
                 console.log('showReward')
-            }
-        },
-        computed: {
-            syxw_bettype_odds () {
-                return this.$store.state.cs_1105.syxw_bettype_odds
             },
-            poolAmount () {
-                return this.$store.state.cs_1105.poolAmount
-            },
-            poolRatio () {
-                return this.$store.state.cs_1105.poolRatio
-            }
-        },
-        mounted () {
-        },
-        filters: {
-            formateJackPot: (money, poolAmount, poolRatio) => {
+            formateJackPot (money, poolAmount, poolRatio) {
                 money = parseFloat(money)
                 if (!poolAmount) {
                     console.error('poolAmount error at formateJackPot')
@@ -326,8 +312,23 @@
                         return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
                     }
                 }
+            }
+        },
+        computed: {
+            syxw_bettype_odds () {
+                return this.$store.state.cs_1105.syxw_bettype_odds
             },
-            formateCoinType: (type = '2001') => {
+            poolAmount () {
+                return this.$store.state.cs_1105.poolAmount
+            },
+            poolRatio () {
+                return this.$store.state.cs_1105.poolRatio
+            }
+        },
+        mounted () {
+        },
+        filters: {
+            formateCoinType (type = '2001') {
                 type = type.toString()
                 switch (type) {
                 case '2001':
@@ -338,7 +339,7 @@
                     return 'ETH'
                 }
             },
-            format_match: (match) => {
+            format_match (match) {
                 if (isNaN(match)) {
                     return ''
                 }
@@ -356,29 +357,7 @@
                     return 'C5'
                 }
             },
-            formateBalance: (val = 0) => {
-                var newEth = null
-                if (isNaN(val) || isNaN(Number(val))) {
-                    console.error('formateBalance error' + val)
-                    return 0
-                }
-                val = Number(val)
-                if (val > 10000000) {
-                    newEth = (val / 100000000).toFixed(1) + '亿'
-                } else if (val > 100000) {
-                    newEth = (val / 10000).toFixed(1) + '万'
-                } else if (val > 1000) {
-                    newEth = parseFloat(val.toFixed(0))
-                } else if (val > 100) {
-                    newEth = val.toFixed(3)
-                } else if (val > 10) {
-                    newEth = val.toFixed(4)
-                } else {
-                    newEth = val.toFixed(5)
-                    // 如果需要去掉零 用parseFloat(  )
-                }
-                return newEth
-            }
+            formateBalance
         }
     }
 </script>

@@ -208,7 +208,7 @@ export function formateCoinType (type = '2001') {
     }
 }
 
-export function formateEmail (email) {
+export function formateEmail (email, isFull) {
     var regEmail = /(\w+(?:[-+.]\w+)*)(@\w+([-.]\w+)*\.\w+([-.]\w+)*)/
     var regArr = null
     email = email.toString()
@@ -217,8 +217,18 @@ export function formateEmail (email) {
         if (regArr[1] && regArr[1].length > 10) {
             email = regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
         }
-        if (email.indexOf('@') > -1) {
-            email = email.split('@')[0]
+        if (!isFull) {
+            if (regArr[1] && regArr[1].length > 10) {
+                email = regArr[1].slice(0, 4) + '**' + regArr[1].slice(-4) + regArr[2]
+            }
+            if (email.indexOf('@') > -1) {
+                email = email.split('@')[0]
+            }
+        } else {
+            /* tiger 要求显示更短 */
+            if (regArr[1] && regArr[1].length > 6) {
+                email = regArr[1].slice(0, 2) + '**' + regArr[1].slice(-3) + regArr[2]
+            }
         }
         return email
     } else {
@@ -312,4 +322,16 @@ export function commonErrorHandler (data) {
         })
         break
     }
+}
+
+export function getURLParams () {
+    let string = window.location.search
+    let obj = {}
+    string.slice(1).split('&').map(item => {
+        if (item !== '') {
+            let arr = item.split('=')
+            obj[arr[0]] = arr[1]
+        }
+    })
+    return obj
 }

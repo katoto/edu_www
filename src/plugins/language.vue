@@ -2,18 +2,21 @@
 // 以插件形式引入国际化组件
 import zhCn from '../language/zh-cn'
 import zhTw from '../language/zh-tw'
+
+import {tipsTime} from '~common/util'
+import {Message} from 'element-ui'
+
 const MyPlugin = {}
 const languagePackage = {
     zhCn,
     zhTw
 }
 
-function stringFormatter (string) {
-
-}
+window._ = string => string
 
 MyPlugin.install = function (Vue, store) {
     // 注册全局翻译函数
+
     window._ = function () {
         let string = arguments[0] || ''
         let thisString = (languagePackage[store.state.language] && languagePackage[store.state.language][string]) || string
@@ -41,9 +44,27 @@ MyPlugin.install = function (Vue, store) {
         return store.state.language === 'en'
     }
 
+    store.$error = Vue.prototype.$error = function (msg) {
+        Message({
+            message: msg,
+            type: 'error',
+            duration: tipsTime
+        })
+    }
+
+    store.$success = Vue.prototype.$success = function (msg) {
+        Message({
+            message: msg,
+            type: 'success',
+            duration: tipsTime
+        })
+    }
     // 注册全局lang翻译组件
     Vue.component('lang', {
         render: function (h) {
+            if (this.$slots.default.length > 1) {
+                console.error(`该lang标签暂不支持包含html, 请使用v-lang指令：${this.$slots.default}`)
+            }
             return (
                 <em domPropsInnerHTML={window._(this.$slots.default[0].text)}></em>
             )

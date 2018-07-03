@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// 勿删
+import language from '../plugins/language'
+
 Vue.use(Router)
 
 /* cs_1105 */
@@ -21,6 +24,9 @@ const MyBets = () => import('~/pages/cs_account/MyBets')
 const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
+/* 老虎机 */
+const tiger = () => import('~/pages/cs_tiger/tiger')
+
 // 404
 const page404 = () => import('~/pages/404.vue')
 
@@ -34,18 +40,23 @@ export default new Router({
             component: lucky
         },
         {
+            path: '/tiger',
+            name: 'tiger',
+            component: tiger
+        },
+        {
             path: '/terms',
-            name: 'terms',
+            name: _('terms'),
             component: csProtocolTerms
         },
         {
             path: '/policy',
-            name: 'policy',
+            name: _('policy'),
             component: csProtocolPolicy
         },
         {
             path: '/drawNumber',
-            name: 'Draw Number',
+            name: _('Draw Number'),
             component: csDrawNum
         },
         {
@@ -59,27 +70,27 @@ export default new Router({
             children: [
                 {
                     path: 'general',
-                    name: 'General',
+                    name: _('General'),
                     component: General
                 },
                 {
                     path: 'deposit',
-                    name: 'Deposit',
+                    name: _('Deposit'),
                     component: Deposit
                 },
                 {
                     path: 'myBets',
-                    name: 'MyBets',
+                    name: _('MyBets'),
                     component: MyBets
                 },
                 {
                     path: 'myTransactions',
-                    name: 'MyTransactions',
+                    name: _('MyTransactions'),
                     component: MyTransactions
                 },
                 {
                     path: 'withdraw',
-                    name: 'Withdraw',
+                    name: _('Withdraw'),
                     component: Withdraw
                 },
                 {

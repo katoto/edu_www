@@ -13,16 +13,20 @@
                 </ul>
                 <div class="btn-area">
                     <span class="fee-count hide">
-                        Fee&nbsp&nbsp<i><span class="js_gasNumber">0</span>ETH</i>
+                        <lang>Fee</lang>&nbsp;&nbsp;<i><span class="js_gasNumber">0</span>ETH</i>
                     </span>
-                    <a href="javascript:;" @click="addTicket" class="addmore">Add Ticket</a>
+                    <a href="javascript:;" @click="addTicket" class="addmore">
+                        <lang>Add Ticket</lang>
+                    </a>
                 </div>
                 <!--js_startBetBtn 用的-->
                 <div id="js_startBetBtn" class="btn-play-now">
                     <a href="javascript:;" @click="playNow">
-                        Play Now
+                        <lang>Play Now</lang>
                     </a>
-                    <span>Total Pay</span>
+                    <span>
+                        <lang>Total Pay</lang>
+                    </span>
                     <p class="total-pay ">{{ totalPay }} ETH</p>
                 </div>
                 <!--背景泡泡-->
@@ -35,18 +39,32 @@
             <div class="pre-numberBox">
                 <div class="pre-number tab ">
                     <el-tabs v-model="activeName" @tab-click="handleRecentWin">
-                        <el-tab-pane label="Recent Bets" name="Bets">
+                        <el-tab-pane :label="_('Recent Bets')" name="Bets">
                             <div class="prenum-table">
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th>Transaction Time</th>
-                                        <th>User ID</th>
-                                        <th>No.</th>
-                                        <th>Type</th>
-                                        <th>Bet Number</th>
-                                        <th>Bet Amount</th>
-                                        <th>Prize Amount</th>
+                                        <th>
+                                            <lang>Transaction Time</lang>
+                                        </th>
+                                        <th>
+                                            <lang>User ID</lang>
+                                        </th>
+                                        <th>
+                                            <lang>No.</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Type</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Number</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Amount</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Prize Amount</lang>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
@@ -69,19 +87,33 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <p class="recode20">Last 20 records</p>
+                            <p class="recode20">
+                                <lang>Last 20 records</lang>
+                            </p>
                         </el-tab-pane>
-                        <el-tab-pane label="Recent Wins" name="Wins">
+                        <el-tab-pane :label="_('Recent Wins')" name="Wins">
                             <div class="winner-list">
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th>User ID</th>
-                                        <th>No.</th>
-                                        <th>Type</th>
-                                        <th>Bet Number</th>
-                                        <th>Bet Amount</th>
-                                        <th>Prize Amount</th>
+                                        <th>
+                                            <lang>User ID</lang>
+                                        </th>
+                                        <th>
+                                            <lang>No.</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Type</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Number</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Amount</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Prize Amount</lang>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,9 +160,11 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <p class="recode20">Last 20 records</p>
+                            <p class="recode20">
+                                <lang>Last 20 records</lang>
+                            </p>
                         </el-tab-pane>
-                        <el-tab-pane label="How to Play" name="Play">
+                        <el-tab-pane :label="_('How to Play')" name="Play">
                             <ul class="introduct">
                                 <li>
                                     <span>What is Lucky 11?</span>
@@ -234,7 +268,9 @@
                     <div class="pop-ani">
                         <div class="pop-main">
                             <a href="javascript:;" @click="showOrderSucc=false" class="btn-close">close</a>
-                            <h3>Submit Successful</h3>
+                            <h3>
+                                <lang>Submit Successful</lang>
+                            </h3>
                             <div class="icon-face on">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                                     <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
@@ -245,9 +281,12 @@
                                           style="stroke-width: 4px;"></path>
                                 </svg>
                             </div>
-                            <p>Your order has been filed.</p>
-                            <a href="javascript:;" @click="showOrderSucc=false"
-                               class="btn-success ">Good Luck</a>
+                            <p>
+                                <lang>Your order has been filed.</lang>
+                            </p>
+                            <a href="javascript:;" @click="showOrderSucc=false" class="btn-success ">
+                                <lang>Good Luck</lang>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -258,7 +297,9 @@
                     <div class="pop-ani">
                         <div class="pop-main">
                             <a href="javascript:;" @click="showOrderFail=false" class="btn-close">close</a>
-                            <h3>submission failed</h3>
+                            <h3>
+                                <lang>submission failed</lang>
+                            </h3>
                             <div class="icon-face on">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                                     <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
@@ -269,9 +310,10 @@
                                           style="stroke-width: 4px;"></path>
                                 </svg>
                             </div>
-                            <p>Due to {{ failureMsg }}, the order is unsuccess-<br>ful, please try
-                                later</p>
-                            <a href="javascript:;" @click="showOrderFail=false" class="btn-failure">Try Later</a>
+                            <p>{{_('Due to {0}, the order is unsuccessful, please try later', failureMsg)}}</p>
+                            <a href="javascript:;" @click="showOrderFail=false" class="btn-failure">
+                                <lang>Try Later</lang>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -419,7 +461,7 @@
                 // 判断 余额是否足
                 if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
                     Message({
-                        message: 'Your balance is insufficient, please top up',
+                        message: _('Your balance is insufficient, please top up'),
                         type: 'error'
                     })
                     setTimeout(() => {
@@ -438,7 +480,7 @@
                     let beginBetStr = ''
                     this.playArea.forEach((val, index) => {
                         if (parseFloat(val.pickType) !== val.pickNum.length) {
-                            noComplete.push('Ticket' + (index + 1))
+                            noComplete.push(_('Ticket') + (index + 1))
                             noCompleteIndex.push(index)
                         }
                         beginBetStr += val.pickNum.join(',') + '#' + this.playType(val.pickType) + '@' + val.pickMoney + '$'
@@ -485,7 +527,7 @@
                         document.getElementById('jsLoading').style.display = 'none'
                     } else {
                         Message({
-                            message: 'Please pick correct numbers in ' + noComplete.join('&&'),
+                            message: _('Please pick correct numbers in {0}', noComplete.join(' && ')),
                             type: 'error'
                         })
                         // 震动 报错
@@ -520,7 +562,7 @@
                     })
                 } else {
                     Message({
-                        message: 'No more than 5 tickets',
+                        message: _('No more than 5 tickets'),
                         type: 'error'
                     })
                 }
@@ -601,7 +643,7 @@
                 }
             },
             async handleRecentWin (tab) {
-                if (tab.label === 'Recent Wins') {
+                if (tab.name === 'Wins') {
                     let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
                     this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
                 }
@@ -662,16 +704,13 @@
             }
         },
         async mounted () {
+            /* 订阅lucky11 sock */
+            this.$store.dispatch('subInLucky')
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
-            }
-            //            let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
-            //            this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
-            if (!(this.socket && this.socket.sock)) {
-                this.$store.dispatch('initWebsocket')
             }
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
@@ -689,11 +728,11 @@
                 bgstar('stars2', 10, '#fff')
             }
             function bgstar (id, num, color) {
-                var _width = window.innerWidth,
-                    _height = document.getElementById('play-area').clientHeight * 5,
-                    count = num,
-                    str = '',
-                    str1 = ''
+                let _width = window.innerWidth
+                let _height = document.getElementById('play-area').clientHeight * 5
+                let count = num
+                let str = ''
+                let str1 = ''
                 for (var i = 0; i < count; i++) {
                     str += parseInt(Math.random() * _width) + 'px '
                     str += parseInt(Math.random() * _height) + 'px '
@@ -703,12 +742,8 @@
                 document.getElementById(id).style.boxShadow = str1
             }
         },
-        beforeRouteLeave (to, from, next) {
-            // 是否需要主队断sock ？
-            // this.$store.state.socket.sock.onclose();
-            // this.$store.dispatch('unsubscribe')
-            // this.$store.dispatch('subscribe')
-            next()
+        beforeDestroy () {
+            this.$store.dispatch('subOutLucky')
         },
         destroyed () {
             window.removeEventListener('scroll', this.fixNav)
@@ -1284,9 +1319,6 @@
     .prenum-table {
         overflow: hidden;
         padding-bottom: 63px;
-        th {
-            //width:12.5%;
-        }
     }
 
     .winner-list, .prenum-table {
@@ -1485,7 +1517,8 @@
             line-height: 28px;
         }
         .nomsg {
-            padding: 114px 0 40px 0;
+            padding: 114px 15px 40px;
+            text-align: center;
             &::before {
                 content: '';
                 position: absolute;

@@ -3,25 +3,27 @@
         <div class="main">
             <div class="fl reserved">
                 <div class="title">
-                    ©Coinslot 2018.  All Rights Reserved
+                    <lang>©Coinslot 2018.  All Rights Reserved</lang>
                 </div>
                 <p>
-                    Lucky 11 is a decentralized lottery product based on distributed ledger technology. Players can pick 1-5 numbers from 1 to 11 and submit it to the Ethereum. One draw per minute, let's start to win the prize!
+                    <lang>Lucky 11 is a decentralized lottery product based on distributed ledger technology. Players can pick 1-5 numbers from 1 to 11 and submit it to the Ethereum. One draw per minute, let's start to win the prize!</lang>
                 </p>
             </div>
             <div class="fl contact">
                 <div class="title">
-                    Contact Us
+                    <lang>Contact Us</lang>
                 </div>
                 <p>
-                    General  issues: <a href="mailto:lucky11@coinslot.com">lucky11@coinslot.com</a>
+                    <lang>General  issues:</lang> 
+                    <a href="mailto:lucky11@coinslot.com">lucky11@coinslot.com</a>
                 </p>
                 <p>
-                    Technical support service: <a href="mailto:support@coinslot.com">support@coinslot.com</a>
+                    <lang>Technical support service:</lang> 
+                    <a href="mailto:support@coinslot.com">support@coinslot.com</a>
                 </p>
                 <p>
-
-                    telegram: <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
+                    <lang>telegram:</lang> 
+                    <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
                 </p>
             </div>
             <div class="fr about hide">

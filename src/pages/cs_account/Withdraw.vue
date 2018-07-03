@@ -1,43 +1,55 @@
 <template>
     <div class="withdrawal">
-        <h2>withdraw</h2>
+        <h2>
+            <lang>withdraw</lang>
+        </h2>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="Request" name="Request">
+            <el-tab-pane :label="_('Request')" name="Request">
                 <li class="li-records">
                     <div class="item icon-name hide">
                         <div class="fl210 ">ETH</div>
                         <p class="bold"></p>
                     </div>
                     <div class="item wallet-add">
-                        <div class="fl210">Wallet Address</div>
+                        <div class="fl210">
+                            <lang>Wallet Address</lang>
+                        </div>
                         <input v-model="withdrawAddr" name="wallet" type="text">
                     </div>
                     <div class="item pick-up">
                         <div class="fl210">
-                            <span class="css_withdraw_tips">Withdrawal Amount</span>
+                            <span class="css_withdraw_tips">
+                                <lang>Withdrawal Amount</lang>
+                            </span>
                             <span v-if="userInfo && userInfo.accounts && Number( userInfo.accounts[0].balance)> 0.05 "
                                   class="css_withdraw_total">0.05 ~ <span>{{ formateBalance( parseFloat(this.userInfo.accounts[0].balance)-parseFloat(this.userInfo.accounts[0].fee) ) }}</span> ETH</span>
-                            <span v-else class="css_withdraw_total">at least 0.05 ETH</span>
+                            <span v-else class="css_withdraw_total">
+                                <lang>at least 0.05 ETH</lang>
+                            </span>
                         </div>
                         <input v-model="withdrawAmount" autocomplete="off" type="text">
-                        <span @click="checkMaximum" class="css_withdraw_topMoney">Maximum</span>
+                        <span @click="checkMaximum" class="css_withdraw_topMoney">
+                            <lang>Maximum</lang>
+                        </span>
                     </div>
                     <div class="item account-psw">
                         <div class="fl210">
-                            Account Password
+                            <lang>Account Password</lang>
                         </div>
                         <input v-model="withdrawPsw" autocomplete="new-password" type="password">
                     </div>
                     <p class="fee">
-                        Fee&ensp;&ensp;
+                        <lang>Fee</lang>&ensp;&ensp;
                         <i class="orange" v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].fee }}</i>
                         <i class="orange" v-else>0.003</i>
                         <span class="orange">ETH</span>
                     </p>
-                    <button @click="sendDraw">Withdraw</button>
+                    <button @click="sendDraw">
+                        <lang>Withdraw</lang>
+                    </button>
                 </li>
             </el-tab-pane>
-            <el-tab-pane label="Records" name="Records">
+            <el-tab-pane :label="_('Records')" name="Records">
                 <li class="li-request">
                     <section class="cs-select">
                         <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
@@ -68,18 +80,18 @@
                                     align="center"
                                     header-align="center"
                                     type="index"
-                                    label="No.">
+                                    :label="_('No.')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
                                     header-align="center"
                                     prop="drawtime"
-                                    label="Transaction Time">
+                                    :label="_('Transaction Time')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
                                     header-align="center"
-                                    label="Transaction Address">
+                                    :label="_('Transaction Address')">
                                 <template slot-scope="scope">
                                     <div v-html="scope.row.to_addrHtml"></div>
                                 </template>
@@ -88,31 +100,31 @@
                                     align="center"
                                     header-align="center"
                                     prop="cointype"
-                                    label="Type">
+                                    :label="_('Type')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
                                     header-align="center"
                                     prop="drawmoney"
-                                    label="Amount">
+                                    :label="_('Amount')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
                                     header-align="center"
                                     prop="drawfee"
-                                    label="Fee">
+                                    :label="_('Fee')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
                                     header-align="center"
                                     prop="drawstatus"
-                                    label="Status">
+                                    :label="_('Status')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
                                     header-align="center"
                                     prop="balance"
-                                    label="Balance">
+                                    :label="_('Balance')">
                             </el-table-column>
                         </el-table>
                         <div class="pagination">
@@ -124,9 +136,8 @@
                                     :page-size="pageSize"
                                     layout="prev, pager, next,jumper"
                                     :total="PageTotal"
-                                    next-text = 'Next >'
-                                    prev-text = '< Front'
-
+                                    :next-text="_('Next >')"
+                                    :prev-text="_('< Front')"
                             >
                             </el-pagination>
                         </div>
@@ -141,31 +152,45 @@
                 <div class="pop-ani">
                     <div class="pop-main">
                         <a href="javascript:;" class="btn-close" @click="showTransfer=false">close</a>
-                        <h3>Withdraw comfirm</h3>
+                        <h3>
+                            <lang>Withdraw comfirm</lang>
+                        </h3>
                         <div class="trans-items">
                             <div class="trans-msg top-top">
-                                <span class="fl">Amount</span>
+                                <span class="fl">
+                                    <lang>Amount</lang>
+                                </span>
                                 <span class="fr">ETH</span>
                                 <p class="fr">{{ withdrawAmount }}</p>
                             </div>
                             <div class="trans-msg">
-                                <span class="fl">Fee</span>
+                                <span class="fl">
+                                    <lang>Fee</lang>
+                                </span>
                                 <span class="fr">ETH</span>
                                 <p v-if="userInfo && userInfo.accounts" class="fr">{{ userInfo.accounts[0].fee }}</p>
                             </div>
                             <div class="trans-msg">
-                                <span class="fl">Total</span>
+                                <span class="fl">
+                                    <lang>Total</lang>
+                                </span>
                                 <span class="fr">ETH</span>
                                 <p class="fr">{{ formateBalance(Number( withdrawAmount) + Number(userInfo.accounts[0].fee)) }}</p>
                             </div>
                         </div>
-                        <p class="trans-add1">Transfer to</p>
+                        <p class="trans-add1">
+                            <lang>Transfer to</lang>
+                        </p>
                         <p class="trans-add2" >{{ withdrawAddr }}</p>
                         <a href="javascript:;" v-clipboard:copy="withdrawAddr"
                            v-clipboard:success="copySucc"
                            v-clipboard:error="copyError"
-                           class="trans-copy ">Copy</a>
-                        <a href="javascript:;" @click="upWithdraw" class="pop-btn">Confirm</a>
+                           class="trans-copy ">
+                           <lang>Copy</lang>
+                        </a>
+                        <a href="javascript:;" @click="upWithdraw" class="pop-btn">
+                            <lang>Confirm</lang>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -176,7 +201,9 @@
                 <div class="pop-ani">
                     <div class="pop-main">
                         <a href="javascript:;" class="btn-close" @click="showTransferSucc=false">close</a>
-                        <h3>Transfer Successful</h3>
+                        <h3>
+                            <lang>Transfer Successful</lang>
+                        </h3>
                         <div class="icon-face on">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                                 <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
@@ -187,8 +214,11 @@
                                       style="stroke-width: 4px;"></path>
                             </svg>
                         </div>
-                        <p>The transfer is successful. Details<br>can be obtained for details.</p>
-                        <a href="javascript:;" @click="closeTransferSucc" class="btn-success">OK</a>
+                        <p v-lang="'The transfer is successful. Details<br>can be obtained for details.'">
+                        </p>
+                        <a href="javascript:;" @click="closeTransferSucc" class="btn-success">
+                            <lang>OK</lang>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -210,10 +240,10 @@
                                       style="stroke-width: 4px;"></path>
                             </svg>
                         </div>
-                        <p>Due to <span >{{ transferMsg }}</span>, the order is unsuccessful, please
-                            try
-                            again later</p>
-                        <a href="javascript:;" @click="closeTransferError" class="btn-failure">Try Later</a>
+                        <p>{{ _('Due to {0}, the order is unsuccessful, please try again later', transferMsg) }}</p>
+                        <a href="javascript:;" @click="closeTransferError" class="btn-failure">
+                            <lang>Try Later</lang>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -258,19 +288,19 @@ export default {
             withdrawOptions: [
                 {
                     value: '1',
-                    label: 'All'
+                    label: _('All')
                 },
                 {
                     value: '4',
-                    label: 'successful'
+                    label: _('successful')
                 },
                 {
                     value: '-1',
-                    label: 'failed'
+                    label: _('failed')
                 },
                 {
                     value: '0',
-                    label: 'waiting'
+                    label: _('waiting')
                 }
             ],
 
@@ -278,11 +308,11 @@ export default {
             withdrawTimeOptions: [
                 {
                     value: '1',
-                    label: 'In 30 days'
+                    label: _('In 30 days')
                 },
                 {
                     value: '2',
-                    label: 'In 7 days'
+                    label: _('In 7 days')
                 }
             ]
         }
@@ -321,7 +351,7 @@ export default {
                     if (data.drawid) {
                         this.showTransferSucc = true
                     } else {
-                        this.error('Failed to withdraw, please retry')
+                        this.error(_('Failed to withdraw, please retry'))
                     }
                 })
                 .catch(data => {
@@ -334,54 +364,54 @@ export default {
         checkMaximum () {
             if (this.userInfo && this.userInfo.accounts) {
                 if (Number(this.userInfo.accounts[0].balance) < 0.05) {
-                    this.error('The minimum withdrawal is 0.05 ETH')
+                    this.error(_('The minimum withdrawal is 0.05 ETH'))
                     return false
                 }
                 this.withdrawAmount = formateBalance(parseFloat(this.userInfo.accounts[0].balance) - parseFloat(this.userInfo.accounts[0].fee))
             }
         },
         copySucc () {
-            this.success('Copied to clipboard')
+            this.success(_('Copied to clipboard'))
         },
         copyError () {
-            this.success('Failed to copy, please retry')
+            this.success(_('Failed to copy, please retry'))
         },
         sendDraw () {
             if (this.withdrawAddr === '') {
-                this.error('Please enter the correct ETH wallet address')
+                this.error(_('Please enter the correct ETH wallet address'))
                 return false
             }
             if (!~this.withdrawAddr.indexOf('0x')) {
-                this.error('Please enter the correct ETH wallet address')
+                this.error(_('Please enter the correct ETH wallet address'))
                 this.withdrawAddr = ''
                 return false
             } else if (this.withdrawAddr.length !== 42) {
-                this.error('Please enter the correct length wallet address')
+                this.error(_('Please enter the correct length wallet address'))
                 this.withdrawAddr = ''
                 return false
             }
             if (isNaN(Number(this.withdrawAmount))) {
-                this.error('Please enter the correct amount')
+                this.error(_('Please enter the correct amount'))
                 this.withdrawAmount = ''
                 return false
             }
             if (this.withdrawAmount === '' || this.withdrawAmount.toString() === '0' || Number(this.withdrawAmount) < 0.05) {
-                this.error('The minimum withdrawal is 0.05 ETH')
+                this.error(_('The minimum withdrawal is 0.05 ETH'))
                 return false
             }
 
             if (this.withdrawPsw === '') {
-                this.error('Please input wallet password')
+                this.error(_('Please input wallet password'))
                 return false
             }
 
             if (this.userInfo && this.userInfo.accounts) {
                 if (Number(this.withdrawAmount) > Number(this.userInfo.accounts[0].balance)) {
                     if (Number(this.withdrawAmount) >= 0.05) {
-                        this.error(`The maximum withdrawal is ${this.userInfo.accounts[0].balance} ETH`)
+                        this.error(_('The maximum withdrawal is {0} ETH', this.userInfo.accounts[0].balance))
                         this.withdrawAmount = this.userInfo.accounts[0].balance
                     } else {
-                        this.error('The minimum withdrawal is 0.05 ETH')
+                        this.error(_('The minimum withdrawal is 0.05 ETH'))
                         this.withdrawAmount = ''
                     }
                     return false
@@ -404,7 +434,7 @@ export default {
             let data = await this.$store.dispatch('cs_account/getWithdrawRecords', {
                 pageno: val,
                 pagesize: this.pageSize,
-                day: this.withdrawTimeOptionVal === '1' ? 30 : 7,
+                crday: this.withdrawTimeOptionVal === '1' ? 30 : 7,
                 ...params
             })
 
@@ -442,14 +472,14 @@ export default {
                         case 1:
                         case 2:
                         case 3:
-                            val.drawstatus = 'waiting'
+                            val.drawstatus = _('waiting')
                             break
                         case 4:
-                            val.drawstatus = 'successful'
+                            val.drawstatus = _('successful')
                             break
                         case -1:
                         case -2:
-                            val.drawstatus = 'failed'
+                            val.drawstatus = _('failed')
                             break
                         }
                     }
@@ -466,18 +496,15 @@ export default {
                         }
                     } else {
                         if (Number(val.orderstatus) === 0) {
-                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting')}</a>`
                         } else if (val.orderstatus === '1') {
-                            val.betprizeVal = "<a href='javascript:;' class='waiting'>waiting</a>"
+                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting')}</a>`
                         } else if (val.orderstatus === '-1' || val.orderstatus === '-2') {
-                            val.betprizeVal = 'failure'
+                            val.betprizeVal = _('failure')
                         }
                     }
                 })
                 return Msg
-            } else {
-                this.error('formatWithdrawList error')
-                return false
             }
         },
         error (message) {

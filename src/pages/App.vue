@@ -8,7 +8,9 @@
 
         <!-- 全局该邮件无法激活 -->
         <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
-            <p class="el-message__content">Failed to activate, because of wrong email format</p>
+            <p class="el-message__content">
+                <lang>Failed to activate, because of wrong email format</lang>
+            </p>
         </div>
 
     </div>
@@ -49,7 +51,12 @@
                 this.$store.commit('setIsLog', false)
             }
             this.isReady = true
-            this.$store.dispatch('homeInfo');
+
+            /* 老虎机和首页 */
+            if (!(this.socket && this.socket.sock)) {
+                this.$store.dispatch('initWebsocket')
+            }
+            this.$store.dispatch('homeInfo')
             document.getElementById('coinslotLoading').style.display = 'none'
         }
     }
@@ -58,10 +65,9 @@
 <style lang="less">
     @import "../styles/lib-font.less";
     @import "../styles/lib-public.less";
-
+    @import "../styles/lib-media.less";
     #app {
         position: relative;
-        min-width: 1190px;
         background: #eef1f9;
         font: 14px/20px sans-r;
         color: #263648;

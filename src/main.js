@@ -16,7 +16,7 @@ import vueClipboard from 'vue-clipboard2'
 
 // 全局 end
 //  按需加载  有点小问题
-import {Carousel, CarouselItem, Button, Table, Pagination, TableColumn, Message, Select, Option, Tabs, TabPane, Notification} from 'element-ui'
+import {Carousel, CarouselItem, Button, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
@@ -30,7 +30,6 @@ Vue.component(Button.name, Button)
 Vue.component(Table.name, Table)
 Vue.component(Pagination.name, Pagination)
 Vue.component(TableColumn.name, TableColumn)
-Vue.component(Message.name, Message)
 Vue.component(Option.name, Option)
 Vue.component(Select.name, Select)
 Vue.component(Tabs.name, Tabs)
@@ -38,7 +37,6 @@ Vue.component(TabPane.name, TabPane)
 
 Vue.component(Carousel.name, Carousel)
 Vue.component(CarouselItem.name, CarouselItem)
-Vue.component(Notification.name, Notification)
 
 //  按需加载 end
 
