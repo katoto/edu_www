@@ -874,10 +874,10 @@
         updated () {
             //  4*15=75
             // && !this.computeHeight
-            console.log('updated')
             // console.log(window.getComputedStyle(document.getElementById('hei')).height)
             if (document.getElementById('hei')) {
-                this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 62 + 'px'
+                // this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 62 + 'px'
+                this.$refs.js_slotBox.style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 62 + 'px'
                 this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
                 this.hideInitLi = false
             } else {
