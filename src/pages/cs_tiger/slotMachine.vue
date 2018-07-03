@@ -807,6 +807,11 @@
                 if (currVal) {
                     this.dft_bet = currVal.bet
                     this.barProcess = (parseFloat(currVal.lucky) * (90 / 100)).toFixed(1)
+                    if (parseFloat(currVal.lucky) >= 100) {
+                        this.hideBarLycky = false
+                    } else {
+                        this.hideBarLycky = true
+                    }
                     this.showSingleBet = false
                 }
             },
