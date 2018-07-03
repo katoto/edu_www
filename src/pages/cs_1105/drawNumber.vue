@@ -106,7 +106,9 @@
                                     </span>
                                 </div>
                                 <div class="fr">
-                                    <p>No.</p>
+                                    <p>
+                                        <lang>No.</lang>
+                                    </p>
                                     <span class="nper js_nper">{{ popRewardMsg.expectid }}</span>
                                 </div>
                             </div>

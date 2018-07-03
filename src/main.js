@@ -25,6 +25,12 @@ import '@/styles/lib-reset.css'
 import '@/styles/element.css'
 // 设置语言
 locale.use(lang)
+// 特定國際化
+locale.i18n((key, value) => {
+    return {
+        'el.pagination.goto': _('go to')
+    }[key]
+})
 
 Vue.component(Button.name, Button)
 Vue.component(Table.name, Table)

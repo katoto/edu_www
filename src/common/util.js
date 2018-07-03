@@ -76,17 +76,17 @@ export function formatMatchAccount (match) {
     match = match.toString()
     switch (match) {
     case '1101':
-        return 'Lucky 11/C1'
+        return _('Lucky 11/C1')
     case '1102':
-        return 'Lucky 11/C2'
+        return _('Lucky 11/C2')
     case '1103':
-        return 'Lucky 11/C3'
+        return _('Lucky 11/C3')
     case '1104':
-        return 'Lucky 11/C4'
+        return _('Lucky 11/C4')
     case '1105':
-        return 'Lucky 11/C5'
+        return _('Lucky 11/C5')
     case '11051':
-        return 'Super 5'
+        return _('Super 5')
     }
 }
 
@@ -131,17 +131,17 @@ export function formatMatch (match) {
     match = match.toString()
     switch (match) {
     case '1101':
-        return 'C1'
+        return _('C1')
     case '1102':
-        return 'C2'
+        return _('C2')
     case '1103':
-        return 'C3'
+        return _('C3')
     case '1104':
-        return 'C4'
+        return _('C4')
     case '1105':
-        return 'C5'
+        return _('C5')
     default:
-        return 'Super 5'
+        return _('Super 5')
     }
 }
 
@@ -249,33 +249,33 @@ export function formateMoneyFlow (flowtype = '1') {
     flowtype = flowtype.toString()
     switch (flowtype) {
     case '1':
-        return 'bet' // 投注消费
+        return _('Bet') // 投注消费
     case '2':
-        return 'prize' // 投注中奖
+        return _('Prize') // 投注中奖
     case '3':
-        return 'bet refund'// 投注退款
+        return _('Bet refund')// 投注退款
     case '4':
-        return 'withdraw' // 提款扣除
+        return _('withdraw') // 提款扣除
     case '5':
-        return 'fee'// 提款手续费
+        return _('fee')// 提款手续费
     case '6':
-        return 'withdrawal refund'// 提款失败退款
+        return _('withdrawal refund')// 提款失败退款
     case '7':
-        return 'fee refund'// 提款失败手续退款
+        return _('fee refund')// 提款失败手续退款
     case '8':
-        return 'deposit'// 充值
+        return _('deposit')// 充值
     case '9':
-        return 'deposit refund'// 充值失败扣款
+        return _('deposit refund')// 充值失败扣款
     case '10':
-        return 'Registration'// 注册送
+        return _('Registration')// 注册送
     case '11':
-        return 'Inviting'// 邀请送
+        return _('Inviting')// 邀请送
     case '12':
-        return 'World cup'// 世界杯
+        return _('World cup')// 世界杯
     case '13':
-        return 'World cup'// 世界杯中奖
+        return _('World cup')// 世界杯中奖
     default:
-        return 'bet'
+        return _('Bet')
     }
 }
 

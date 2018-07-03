@@ -13,7 +13,7 @@
     "clean": "rimraf dist/*",
     "i18n": "node ./i18n.js",
     "deploy167": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/",
-    "deploytest": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/test",
+    "deploy-offline": "scp -r dist/* root@10.0.1.167:/var/www/coinslot-offline",
     "deploy-lang": "scp -r dist/* root@10.0.1.167:/var/www/coinslot-lang"
   },
   "dependencies": {

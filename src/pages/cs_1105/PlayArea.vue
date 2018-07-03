@@ -87,9 +87,7 @@
             </div>
         </div>
         <div class="order-box js_choose_jackPot" :class="{'hide': areaMsg.pickType !== '5J'}">
-            <p>
-                <lang>Picking&ensp;Order</lang>
-            </p>
+            <p v-lang="'Picking&ensp;Order'"></p>
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
                 <li v-for="(baseItem, index) in baseJackPot"
@@ -107,6 +105,32 @@
 <script>
     import {randomNumber, formateBalance} from '~common/util'
     import {Message} from 'element-ui'
+
+    function formateJackPot (money, poolAmount, poolRatio) {
+        money = parseFloat(money)
+        if (!poolAmount) {
+            console.error('poolAmount error at formateJackPot')
+            return 0
+        }
+        if (!poolRatio) {
+            console.error('poolRatio error at formateJackPot')
+            return 0
+        }
+        if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
+            if (money < parseFloat(poolRatio[0].value)) {
+                return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
+            }
+            if (money < parseFloat(poolRatio[1].value)) {
+                return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
+            }
+            if (money < parseFloat(poolRatio[2].value)) {
+                return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
+            }
+            if (money <= parseFloat(poolRatio[3].value)) {
+                return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
+            }
+        }
+    }
 
     export default {
         data () {
@@ -288,31 +312,8 @@
                 // });
                 console.log('showReward')
             },
-            formateJackPot (money, poolAmount, poolRatio) {
-                money = parseFloat(money)
-                if (!poolAmount) {
-                    console.error('poolAmount error at formateJackPot')
-                    return 0
-                }
-                if (!poolRatio) {
-                    console.error('poolRatio error at formateJackPot')
-                    return 0
-                }
-                if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
-                    if (money < parseFloat(poolRatio[0].value)) {
-                        return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
-                    }
-                    if (money < parseFloat(poolRatio[1].value)) {
-                        return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
-                    }
-                    if (money < parseFloat(poolRatio[2].value)) {
-                        return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
-                    }
-                    if (money <= parseFloat(poolRatio[3].value)) {
-                        return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
-                    }
-                }
-            }
+            formateJackPot
+
         },
         computed: {
             syxw_bettype_odds () {
@@ -357,7 +358,8 @@
                     return 'C5'
                 }
             },
-            formateBalance
+            formateBalance,
+            formateJackPot
         }
     }
 </script>
