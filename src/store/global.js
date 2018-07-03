@@ -429,8 +429,13 @@ const actions = {
                 cointype: 2001,
                 type: 'slots'
             }
+            console.log(subTigerStr)
+            console.log(JSON.stringify(subTigerStr));
+            console.log(state.socket);
+            console.log(state.socket.sock);
             state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
         } catch (e) {
+            console.log(1123)
             console.error(e.message + 'subInTiger error')
         }
     },

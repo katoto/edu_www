@@ -51,22 +51,22 @@
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
                         <div class="slot run" :class="{'run':slotRun,'opening':slotOpening}">
                             <div ref="js_slotBox" id="js_slot-box" class="slot-box">
-                                <template v-if="axes">
+                                <template>
                                     <!-- class="yes" -->
-                                    <ul class="slot-item1" id="slotItem1" :style="{ 'transform':slotItem1Tran}" v-if="axes[0]" :class="{tranitionTiming:tranitionTiming}">
-                                        <li v-for="item in axes[0]" >
+                                    <ul class="slot-item1" id="slotItem1" :style="{ 'transform':slotItem1Tran}" v-if="axes && axes[0]" :class="{tranitionTiming:tranitionTiming}">
+                                        <li v-if="axes" v-for="item in axes[0]" >
                                             <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                         </li>
-                                        <li v-if="hideInitLi" id="hei">
-                                            <img src="../../../static/staticImg/_A.png" alt="">
+                                        <li id="hei">
+                                            <img v-if="hideInitLi" id="heiImg" src="../../../static/staticImg/_A.png" alt="">
                                         </li>
                                     </ul>
-                                    <ul class="slot-item2" id="slotItem2" :style="{ 'transform':slotItem2Tran}" v-if="axes[1]"  :class="{tranitionTiming:tranitionTiming}">
+                                    <ul class="slot-item2" id="slotItem2" :style="{ 'transform':slotItem2Tran}" v-if="axes && axes[1]"  :class="{tranitionTiming:tranitionTiming}">
                                         <li v-for="item in axes[1]" >
                                             <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                         </li>
                                     </ul>
-                                    <ul class="slot-item3" id="slotItem3" :style="{ 'transform':slotItem3Tran}" v-if="axes[2]"  :class="{tranitionTiming:tranitionTiming}">
+                                    <ul class="slot-item3" id="slotItem3" :style="{ 'transform':slotItem3Tran}" v-if="axes && axes[2]"  :class="{tranitionTiming:tranitionTiming}">
                                         <li v-for="item in axes[2]" >
                                             <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                         </li>
@@ -482,6 +482,8 @@
         },
         watch: {
             computeHeight (hei) {
+                console.log(hei);
+                console.log(hei);
                 if (hei && this.dft_idx) {
                     this.setLacal()
                 }
@@ -513,7 +515,7 @@
             },
             touEnd () {
                 this.tabTime = (new Date().getTime() - this.tabTime)
-                console.log(this.tabTime);
+                console.log(this.tabTime)
                 if (this.tabTime > 500) {
                     /* 长按 */
                     this.autoPlay()
@@ -884,33 +886,23 @@
             Header, Footer
         },
         async mounted () {
-            setTimeout(() => {
-                // this.test()
-                // this.rewardBig = true
-            }, 4000)
-            /* 订阅老虎机 */
-            this.$store.dispatch('subInTiger')
-
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
                 /* 基础结构数据 */
                 this.initPage(slotsHome)
             }
+            /* 订阅老虎机 */
+            this.$store.dispatch('subInTiger')
         },
         updated () {
             //  4*15=60
-            // && !this.computeHeight
-            // console.log(window.getComputedStyle(document.getElementById('hei')).height)
-            if (document.getElementById('hei')) {
-                // this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 62 + 'px'
-                this.$refs.js_slotBox.style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 60 + 'px'
-
-                this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
-                this.hideInitLi = false
-            } else {
-                // this.$refs.js_slotBox.style.height = 70 * 3 + 72 + 'px'
-                // this.computeHeight = 70
+            if (document.getElementById('heiImg')) {
+                document.getElementById('heiImg').onload = () => {
+                    document.getElementById('js_slot-box').style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 60 + 'px'
+                    this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
+                    this.hideInitLi = false
+                }
             }
         },
         beforeDestroy () {
