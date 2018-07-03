@@ -173,6 +173,198 @@
                             </template>
                         </a>
                     </div>
+                    <!--pop show  show double-->
+                    <!-- 小奖 -->
+                    <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
+                        <div class="msg" >
+                            <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
+                            <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
+                            <i>{{ formateCoinType( currCoinType ) }}</i>
+
+                        </div>
+                    </div>
+                    <!--大奖 winDouble -->
+                    <div v-show="playBack" class="pop reward-big " :class="{'show':rewardBig,'double':playBack && playBack.isdouble==='1'}">
+                        <div class="bg1" >
+                            <div class="bg2">
+                                <div class="msg" v-if="playBack">
+                                    <template v-if="jackPot">
+                                        <p v-if=" playBack.isdouble==='1'">
+                                            {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
+                                        </p>
+                                        <p v-if=" playBack.isdouble==='0'">
+                                            {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
+                                        </p>
+                                    </template>
+                                    <template v-else>
+                                        <p v-if=" playBack.isdouble==='1'">
+                                            {{ formateBalance( parseFloat(playBack.line_prizes) / 2 ) }}
+                                        </p>
+                                        <p v-if=" playBack.isdouble==='0'">
+                                            {{ formateBalance( parseFloat(playBack.line_prizes) ) }}
+                                        </p>
+                                    </template>
+                                    <i>
+                                        {{ formateCoinType( currCoinType ) }}
+                                    </i>
+                                </div>
+                                // todo 奖池倍数 暂时隐藏
+                                <ul class="hide">
+                                    <li>
+                                        <img src="../../../static/staticImg/_A.png" alt="">&ensp;
+                                        <span>x2</span>&ensp;
+                                        <span>20</span>&ensp;
+                                        <span>Times</span>
+                                    </li>
+                                    <li>
+                                        <img src="../../../static/staticImg/_A.png" alt="">&ensp;
+                                        <span>x2</span>&ensp;
+                                        <span>20</span>&ensp;
+                                        <span>Times</span>
+                                    </li>
+                                </ul>
+                                <ul class="hide">
+                                    <li>
+                                        <img src="../../../static/staticImg/_A.png" alt="">&ensp;
+                                        <span>x2</span>&ensp;
+                                        <span>20</span>&ensp;
+                                        <span>Times</span>
+                                    </li>
+                                    <li>
+                                        <img src="../../../static/staticImg/_A.png" alt="">&ensp;
+                                        <span>x2</span>&ensp;
+                                        <span>20</span>&ensp;
+                                        <span>Times</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--help-->
+                    <div class="pop help" :class="{show:isShowHelp}">
+                        <a href="javascript:;" class="tiger-close" @click="isShowHelp=false"></a>
+                        <div class="title">
+                            <p>Instructions</p>
+                        </div>
+                        <ul class="tab-t">
+                            <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;">Winning Table</a></li>
+                            <li :class="{on:tab_t===2}" @click="tab_t=2"><a href="javascript:;">Lucky Prize</a></li>
+                            <li :class="{on:tab_t===3}" @click="tab_t=3"><a href="javascript:;">Winning Line</a></li>
+                        </ul>
+                        <ul class="tab-c">
+                            <li :class="{on:tab_t===1}">
+                                <div class="line-divi">
+                                    <div>Multiple</div>
+                                </div>
+                                <div class="winningamount">
+                                    <p>Winning Amount =</p>
+                                    <p>pattern multiple × single line amount</p>
+                                </div>
+                                <img class="details" src="@/assets/img/tiger/details.png" alt="details">
+                                <div class="line-divi">
+                                    <div>Special</div>
+                                </div>
+                                <ul class="special">
+                                    <li>
+                                        <div class="icon">
+                                            <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
+                                        </div>
+                                        <p>WILD，In addition to whistle, it can be</p>
+                                        <p>compared with any other</p>
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <img src="@/assets/img/tiger/icon-free.png" alt="icon-free">
+                                        </div>
+                                        <p>Rewards free,</p>
+                                        <p>number of occurrences anywhere</p>
+                                        <p>3 free = 1 time&nbsp;&nbsp;&nbsp;&nbsp;4 free = 3 time</p>
+                                        <p>5 free = 10 time</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li :class="{on:tab_t===2}">
+                                <div class="line-divi">
+                                    <div>Jaackpot</div>
+                                </div>
+                                <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
+                                <div class="msg">
+                                    <p>
+                                        <span class="bold">Prize pool</span>: 2% of the player's guessed coin is rolled into the prize pool.
+                                    </p>
+                                    <p>
+                                        <span>9-line betting, transfer out of 9</span>
+                                        &nbsp;<img width="16" height="16" src="@/assets/img/tiger/icon-England.png" alt="England">&nbsp;
+                                        <span>that is winning.</span>
+                                    </p>
+                                </div>
+                                <div class="msg">
+                                    <p>· Each bet 0.0001ETH, only get a fixed payment</p>
+                                    <p>· Bet ETH per line 0.001, winning 5%</p>
+                                    <p>· Each line is betting 0.01ETH, winning 50% of &nbsp;&nbsp;the prize pool</p>
+                                </div>
+                                <div class="line-divi">
+                                    <div>Lucky value</div>
+                                </div>
+                                <div class="lucky-value">
+                                    <div class="lucky-48">
+                                        <img src="@/assets/img/tiger/lucky-48.png" alt="">
+                                        <p>Not Full</p>
+                                    </div>
+                                    <div class="lucky-100">
+                                        <img src="@/assets/img/tiger/lucky-100.png" alt="">
+                                        <p>Full</p>
+                                    </div>
+                                </div>
+                                <div class="msg">
+                                    <p>
+                                        <span class="bold"> Lucky value</span>: Unlucky bets accumulate lucky value by line number
+                                    </p>
+                                    <p>
+                                        (1 line accumulates 1 lucky value, use n-line betting to accumulate n lucky value)
+                                    </p>
+                                    <p>
+                                        You can get a double reward if your lucky value is 100 or more.
+                                    </p>
+                                </div>
+                            </li>
+                            <li :class="{on:tab_t===3}">
+                                <div class="line-divi">
+                                    <div>
+                                        <p>
+                                            Bonus settlements from
+                                        </p>
+                                        <p>
+                                            left to right on the winning line
+                                        </p>
+                                    </div>
+                                </div>
+                                <img src="@/assets/img/tiger/win-line.png" alt="win-line" class="win-line">
+                            </li>
+                        </ul>
+                    </div>
+                    <!--充值-->
+                    <div class="pop pop-recharge" :class="{'show':showRecharge}">
+                        {{ showRecharge }}
+                        <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
+                        <div class="title">
+                            <p>Copy the Ethereum wallet</p>
+                            <p>address (only supports ETH)</p>
+                        </div>
+                        <div class="copy" v-if="userInfo && userInfo.accounts">
+                            <a href="javascript:;" rel="nofollow"
+                               v-clipboard:copy="userInfo.accounts[0].address"
+                               v-clipboard:success="copySucc"
+                               v-clipboard:error="copyError"
+                            >COPY</a>
+                            <p v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].address }}</p>
+                        </div>
+                        <div class="msg">
+                            or scan to get the address
+                        </div>
+                        <img v-if="userInfo && userInfo.accounts"
+                             :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
+                    </div>
                 </div>
                 <div class="tiger-pc-msg">
                     <h3>Recently </h3>
@@ -217,198 +409,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--pop show  show double-->
-            <!-- 小奖 -->
-            <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
-                <div class="msg" >
-                    <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
-                    <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
-                    <i>{{ formateCoinType( currCoinType ) }}</i>
 
-                </div>
-            </div>
-            <!--大奖 winDouble -->
-            <div v-show="playBack" class="pop reward-big " :class="{'show':rewardBig,'double':playBack && playBack.isdouble==='1'}">
-                <div class="bg1" >
-                    <div class="bg2">
-                        <div class="msg" v-if="playBack">
-                            <template v-if="jackPot">
-                                <p v-if=" playBack.isdouble==='1'">
-                                    {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
-                                </p>
-                                <p v-if=" playBack.isdouble==='0'">
-                                    {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
-                                </p>
-                            </template>
-                            <template v-else>
-                                <p v-if=" playBack.isdouble==='1'">
-                                    {{ formateBalance( parseFloat(playBack.line_prizes) / 2 ) }}
-                                </p>
-                                <p v-if=" playBack.isdouble==='0'">
-                                    {{ formateBalance( parseFloat(playBack.line_prizes) ) }}
-                                </p>
-                            </template>
-                            <i>
-                                {{ formateCoinType( currCoinType ) }}
-                            </i>
-                        </div>
-                        // todo 奖池倍数 暂时隐藏
-                        <ul class="hide">
-                            <li>
-                                <img src="../../../static/staticImg/_A.png" alt="">&ensp;
-                                <span>x2</span>&ensp;
-                                <span>20</span>&ensp;
-                                <span>Times</span>
-                            </li>
-                            <li>
-                                <img src="../../../static/staticImg/_A.png" alt="">&ensp;
-                                <span>x2</span>&ensp;
-                                <span>20</span>&ensp;
-                                <span>Times</span>
-                            </li>
-                        </ul>
-                        <ul class="hide">
-                            <li>
-                                <img src="../../../static/staticImg/_A.png" alt="">&ensp;
-                                <span>x2</span>&ensp;
-                                <span>20</span>&ensp;
-                                <span>Times</span>
-                            </li>
-                            <li>
-                                <img src="../../../static/staticImg/_A.png" alt="">&ensp;
-                                <span>x2</span>&ensp;
-                                <span>20</span>&ensp;
-                                <span>Times</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!--help-->
-            <div class="pop help" :class="{show:isShowHelp}">
-                <a href="javascript:;" class="tiger-close" @click="isShowHelp=false"></a>
-                <div class="title">
-                  <p>Instructions</p>
-                </div>
-                <ul class="tab-t">
-                    <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;">Winning Table</a></li>
-                    <li :class="{on:tab_t===2}" @click="tab_t=2"><a href="javascript:;">Lucky Prize</a></li>
-                    <li :class="{on:tab_t===3}" @click="tab_t=3"><a href="javascript:;">Winning Line</a></li>
-                </ul>
-                <ul class="tab-c">
-                    <li :class="{on:tab_t===1}">
-                        <div class="line-divi">
-                            <div>Multiple</div>
-                        </div>
-                        <div class="winningamount">
-                            <p>Winning Amount =</p>
-                            <p>pattern multiple × single line amount</p>
-                        </div>
-                        <img class="details" src="@/assets/img/tiger/details.png" alt="details">
-                        <div class="line-divi">
-                            <div>Special</div>
-                        </div>
-                        <ul class="special">
-                            <li>
-                                <div class="icon">
-                                    <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
-                                </div>
-                                <p>WILD，In addition to whistle, it can be</p>
-                                <p>compared with any other</p>
-                            </li>
-                            <li>
-                                <div class="icon">
-                                    <img src="@/assets/img/tiger/icon-free.png" alt="icon-free">
-                                </div>
-                                <p>Rewards free,</p>
-                                <p>number of occurrences anywhere</p>
-                                <p>3 free = 1 time&nbsp;&nbsp;&nbsp;&nbsp;4 free = 3 time</p>
-                                <p>5 free = 10 time</p>
-                            </li>
-                        </ul>
-                    </li>
-                    <li :class="{on:tab_t===2}">
-                        <div class="line-divi">
-                            <div>Jaackpot</div>
-                        </div>
-                        <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
-                        <div class="msg">
-                            <p>
-                                <span class="bold">Prize pool</span>: 2% of the player's guessed coin is rolled into the prize pool.
-                            </p>
-                            <p>
-                                <span>9-line betting, transfer out of 9</span>
-                                &nbsp;<img width="16" height="16" src="@/assets/img/tiger/icon-England.png" alt="England">&nbsp;
-                                <span>that is winning.</span>
-                            </p>
-                        </div>
-                        <div class="msg">
-                            <p>· Each bet 0.0001ETH, only get a fixed payment</p>
-                            <p>· Bet ETH per line 0.001, winning 5%</p>
-                            <p>· Each line is betting 0.01ETH, winning 50% of &nbsp;&nbsp;the prize pool</p>
-                        </div>
-                        <div class="line-divi">
-                            <div>Lucky value</div>
-                        </div>
-                        <div class="lucky-value">
-                            <div class="lucky-48">
-                                <img src="@/assets/img/tiger/lucky-48.png" alt="">
-                                <p>Not Full</p>
-                            </div>
-                            <div class="lucky-100">
-                                <img src="@/assets/img/tiger/lucky-100.png" alt="">
-                                <p>Full</p>
-                            </div>
-                        </div>
-                        <div class="msg">
-                            <p>
-                               <span class="bold"> Lucky value</span>: Unlucky bets accumulate lucky value by line number
-                            </p>
-                            <p>
-                                (1 line accumulates 1 lucky value, use n-line betting to accumulate n lucky value)
-                            </p>
-                            <p>
-                                You can get a double reward if your lucky value is 100 or more.
-                            </p>
-                        </div>
-                    </li>
-                    <li :class="{on:tab_t===3}">
-                        <div class="line-divi">
-                            <div>
-                                <p>
-                                    Bonus settlements from
-                                </p>
-                                <p>
-                                    left to right on the winning line
-                                </p>
-                            </div>
-                        </div>
-                        <img src="@/assets/img/tiger/win-line.png" alt="win-line" class="win-line">
-                    </li>
-                </ul>
-            </div>
-            <!--充值-->
-            <div class="pop pop-recharge" :class="{'show':showRecharge}">
-                {{ showRecharge }}
-                <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
-                <div class="title">
-                    <p>Copy the Ethereum wallet</p>
-                    <p>address (only supports ETH)</p>
-                </div>
-                <div class="copy" v-if="userInfo && userInfo.accounts">
-                    <a href="javascript:;" rel="nofollow"
-                       v-clipboard:copy="userInfo.accounts[0].address"
-                       v-clipboard:success="copySucc"
-                       v-clipboard:error="copyError"
-                    >COPY</a>
-                    <p v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].address }}</p>
-                </div>
-                <div class="msg">
-                    or scan to get the address
-                </div>
-                <img v-if="userInfo && userInfo.accounts"
-                    :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
             </div>
         </div>
         <Footer></Footer>
@@ -1116,7 +1117,7 @@
     .slot.opening {
         .slot-box {
             /*overflow: visible;*/
-            /*border-radius: 0;*/
+            border-radius: 0;
         }
         li.yes {
             border: 4px solid #fff287;
@@ -1406,6 +1407,7 @@
     }
     /*pop*/
     .pop{
+        position: absolute;
         left:50%;
         top:50%;
         transform: translate(-50%,-50%);
