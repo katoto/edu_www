@@ -335,3 +335,30 @@ export function getURLParams () {
     })
     return obj
 }
+
+function isThisLang (source, lang) {
+    if (typeof source === 'string') {
+        return source.toLowerCase() === lang
+    }
+    return false
+}
+
+function isZhTw (source) {
+    return isThisLang(navigator.language, 'zh-hk')
+}
+
+function isZhcn () {
+    return isThisLang(navigator.language, 'zh-cn')
+}
+
+export function getDefaultLanguage () {
+    if (isZhTw()) {
+        return 'zhTw'
+    }
+
+    if (isZhcn()) {
+        return 'zhCn'
+    }
+
+    return 'en'
+}

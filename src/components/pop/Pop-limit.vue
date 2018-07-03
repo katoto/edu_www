@@ -16,7 +16,9 @@
             </div>
             <div class="pop-limit2" v-else>
                 <div class="limit-table-h">
-                    <div class="limit-table-h1">No.</div>
+                    <div class="limit-table-h1">
+                        <lang>No.</lang>
+                    </div>
                     <div class="limit-table-h2">
                         <lang>match</lang>
                     </div>

@@ -506,7 +506,7 @@
                                 orderMsg.data.restricts.forEach(function (val, index) {
                                     errorResArr.push(val.betcode)
                                 })
-                                this.failureMsg = 'Order limit#' + errorResArr.join('#')
+                                this.failureMsg = _('Order limit#') + errorResArr.join('#')
                                 this.showOrderFail = true
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
@@ -520,7 +520,7 @@
                                     errorResArr.push(val.betcode)
                                 })
 
-                                this.failureMsg = 'Order limit#' + errorResArr.join('#')
+                                this.failureMsg = _('Order limit#') + errorResArr.join('#')
                                 this.showOrderFail = true
                             }
                         }
@@ -1230,6 +1230,20 @@
         }
     }
 
+    .pop-reward-ct {
+        &:before {
+            position: absolute;
+            content: " ";
+            height: 30px;
+            display: block;
+            background: transparent;
+            top: 15px;
+            left: 50%;
+            width: 709px;
+            margin-left: -354.5px;
+        }
+    }
+
     //奖级表
     .pop-rewardTable {
         position: absolute;
@@ -1238,8 +1252,8 @@
         top: 40px;
         margin-left: -354.5px;
         width: 709px;
-        height: 460px;
-        background: rgba(0,0,0,0);
+        height: 480px;
+        background: #FFF;
     }
 
     //往期开奖

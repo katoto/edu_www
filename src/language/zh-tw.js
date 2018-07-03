@@ -240,5 +240,21 @@ module.exports = {
     'C3': '選3',
     'C4': '選4',
     'C5': '選5',
-    'go to': '前往'
+    'go to': '前往',
+    'Order limit#': '訂單限號',
+    'Match': '玩法',
+    'Win Terms': '中獎條件',
+    'Win Ratio': '中獎賠率',
+    'Pick 1 number and hit 1/5 draw numbers': '選1个號碼，猜中開獎號碼任意1個數字',
+    'Pick 2 numbers and hit 2/5 draw numbers': '選2个號碼，猜中開獎號碼任意2個數字',
+    'Pick 3 numbers and hit 3/5 draw numbers': '選3个號碼，猜中開獎號碼任意3個數字',
+    'Pick 4 numbers and hit 4/5 draw numbers': '選4个號碼，猜中開獎號碼任意4個數字',
+    'Pick 5 numbers and hit 5/5 draw numbers': '選5个號碼，猜中開獎號碼任意5個數字',
+    'Super5': '超級選 5',
+    'Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result': '選擇5個號碼，如果號碼及順序與開獎的號碼和順序一致，則中獎',
+    '0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool': '0.0001≤x＜0.001 均分當前獎池的0.5%',
+    '0.001≤x＜0.01 get distribution from 5% of the current prize pool': '0.001≤x＜0.01 均分當前獎池的5%',
+    '0.01≤x＜0.05 get distribution from 25% of the current prize pool': '0.01≤x＜0.05 均分當前獎池的25%',
+    '0.05≤x＜0.1 get distribution from 50% of the current prize pool': '0.05≤x＜0.1 均分當前獎池的50%',
+    'jackpot': '獎池'
 }

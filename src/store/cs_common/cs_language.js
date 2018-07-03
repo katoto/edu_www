@@ -1,9 +1,9 @@
-import { getURLParams } from '~/common/util'
+import { getURLParams, getDefaultLanguage } from '~/common/util'
 
 let params = getURLParams()
 let language = params.language
 const state = {
-    language: language || 'en'
+    language: language || getDefaultLanguage() || 'en'
 }
 
 const mutations = {

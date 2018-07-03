@@ -38,11 +38,116 @@
                 <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">
                     {{ _("Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward", areaMsg.pickType, syxw_bettype_odds['110'+( areaMsg.pickType )]) }}
                 </span>
-                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false">
+                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false" class="pop-reward-ct">
                     <lang>Reward table</lang>
                     <!-- Lucky 11 show  647 356 奖级表 todo -->
-                    <div class="pop pop-rewardTable" :class="{rewardTable:rewardTable}">
-                        <img src="../../assets/img/pop-rewardTable.png" alt="">
+                    <div class="pop pop-rewardTable" :class="{hide: !rewardTable}">
+                        <!-- <img src="../../assets/img/pop-rewardTable.png" alt=""> -->
+                        <h3>LUCKY 11</h3>
+                        <div class="pay-items">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <td width="90px">
+                                        <lang>Match</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Win Terms</lang>
+                                    </td>
+                                    <td width="90px">
+                                        <lang>Win Ratio</lang>
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="hide">
+                                    <td>
+                                        C5<br>
+                                        <i>( jackpot )</i>
+                                    </td>
+                                    <td>
+                                        Pick 5 number according to the order number order exactly<br>
+                                        jackpot = 5 × (pool amount × wagering amount)
+                                    </td>
+                                    <td><i class="bold">jackpot</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>C1</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 1 number and hit 1/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">1.8</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>C2</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 2 numbers and hit 2/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">4.5</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>C3</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 3 numbers and hit 3/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">13.5</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>C4</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 4 numbers and hit 4/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">54</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>C5</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 5 numbers and hit 5/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">378</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>Super5</lang>
+                                    </td>
+                                    <td>
+                                        <div class="reward-tip-box">
+                                            <p class="reward-pick-five-title">
+                                                <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <i class="bold">
+                                            <lang>jackpot</lang>
+                                        </i>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </a>
             </p>
@@ -365,13 +470,20 @@
 </script>
 <style scoped>
     .pop-rewardTable {
-        max-height: 0;
         overflow: hidden;
         transition: all .2s;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2)
     }
-
-    .pop-rewardTable.rewardTable {
-        max-height: 460px;
-        overflow: visible;
+    .reward-table-tip {
+        font-size: 12px;
+        color: #778ca3;
+        line-height: 15px;
+    }
+    .reward-pick-five-title {
+        line-height: 15px;
+        margin-bottom: 10px;
+    }
+    .reward-tip-box {
+        padding: 15px 0 20px;
     }
 </style>
