@@ -296,7 +296,7 @@
             formateEmail,
             formateBalance,
             handleLanguageChange (val) {
-                this.$store.commit('setLanguage', val)
+                this.$store.commit('changeLanguage', val)
             },
             showUserMsg () {
                 this.slideDown = true

@@ -1,9 +1,9 @@
-import { getURLParams, getDefaultLanguage } from '~/common/util'
+import { getURLParams, defaultLanguage } from '~/common/util'
 
 let params = getURLParams()
-let language = params.language
+
 const state = {
-    language: language || getDefaultLanguage() || 'en'
+    language: defaultLanguage
 }
 
 const mutations = {
@@ -22,6 +22,9 @@ const mutations = {
                     : `&${key}=${params[key]}`
             )
         }).join('')
+        setTimeout(() => {
+            window.location.reload()
+        }, 300)
     }
 }
 const actions = {

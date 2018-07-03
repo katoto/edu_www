@@ -12,7 +12,7 @@
             </p>
             <form>
                 <!--  no  -->
-                <input type="submit" @click.stop.prevent="againVerify" value="Resent Email"
+                <input type="submit" @click.stop.prevent="againVerify" :value="_('Resent Email')"
                        :class="{'no':emailBackTime!==0}">
                 <div style="height: 30px">
                     <p v-if="emailBackTime !== 0"><span>{{ emailBackTime }}s </span>left</p>

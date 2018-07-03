@@ -113,7 +113,7 @@ module.exports = {
     'Bet Amount': '投注金額',
     'Prize Amount': '獎金金額',
     'Last 20 records': '最近20條記錄',
-    'Your balance is insufficient, please top up': 'Your balance is insufficient, please top up',
+    'Your balance is insufficient, please top up': '你的餘額不足請充值',
     'Ticket': '票單',
     'Please pick correct numbers in {0}': '請選擇正確的數字 {0}',
     'No more than 5 tickets': '最多只能出5張票',
@@ -256,5 +256,10 @@ module.exports = {
     '0.001≤x＜0.01 get distribution from 5% of the current prize pool': '0.001≤x＜0.01 均分當前獎池的5%',
     '0.01≤x＜0.05 get distribution from 25% of the current prize pool': '0.01≤x＜0.05 均分當前獎池的25%',
     '0.05≤x＜0.1 get distribution from 50% of the current prize pool': '0.05≤x＜0.1 均分當前獎池的50%',
-    'jackpot': '獎池'
+    'jackpot': '獎池',
+    'Resent Email': '重新發送郵件',
+    'Please enter the correct number': '請輸入正確的投注金額',
+    'Bet amount is between 0.0005 and 0.1 ETH': '投注額度在0.0005到0.1ETH之間',
+    'The minimum bet is 0.0005 ETH': '投注額度不能小於 0.0005 ETH',
+    'You have already chosen {0} number': '你已選擇了 {0} 个号码'
 }

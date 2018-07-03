@@ -2,7 +2,7 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
-import { getCK, platform, src, commonErrorHandler } from '~common/util'
+import { getCK, platform, src, commonErrorHandler, defaultLanguage } from '~common/util'
 
 function getCommonParams () {
     let ck = getCK() || ''
@@ -14,7 +14,15 @@ function getCommonParams () {
     return { ...params, ck }
 }
 
-const options = {}
+const options = {
+    headers: {
+        'Language': {
+            'en': 'en',
+            'zhCn': 'zh-cn',
+            'zhTw': 'zh-ft'
+        }[defaultLanguage]
+    }
+}
 
 let websocketUrl = ''
 const isHttp = window.location.protocol === 'http:'

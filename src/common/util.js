@@ -351,7 +351,7 @@ function isZhcn () {
     return isThisLang(navigator.language, 'zh-cn')
 }
 
-export function getDefaultLanguage () {
+function getDefaultLanguage () {
     if (isZhTw()) {
         return 'zhTw'
     }
@@ -362,3 +362,5 @@ export function getDefaultLanguage () {
 
     return 'en'
 }
+
+export const defaultLanguage = getURLParams().language || getDefaultLanguage() || 'en'

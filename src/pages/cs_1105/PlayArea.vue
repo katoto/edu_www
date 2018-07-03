@@ -258,7 +258,7 @@
             checkBetMoney () {
                 if (isNaN(this.areaMsg.pickMoney)) {
                     Message({
-                        message: 'Please enter the correct number',
+                        message: _('Please enter the correct number'),
                         type: 'error'
                     })
                     return false
@@ -266,7 +266,7 @@
                 if (Number(this.areaMsg.pickMoney) > 0.1) {
                     this.areaMsg.pickMoney = 0.1
                     Message({
-                        message: 'Bet amount is between 0.0005 and 0.1 ETH',
+                        message: _('Bet amount is between 0.0005 and 0.1 ETH'),
                         type: 'error'
                     })
                     return false
@@ -274,7 +274,7 @@
                 if (Number(this.areaMsg.pickMoney) < 0.0005) {
                     this.areaMsg.pickMoney = 0.0005
                     Message({
-                        message: 'Bet amount is between 0.0005 and 0.1 ETH',
+                        message: _('Bet amount is between 0.0005 and 0.1 ETH'),
                         type: 'error'
                     })
                     return false
@@ -313,7 +313,7 @@
                 if (currpickMoney <= 0.0005) {
                     this.areaMsg.pickMoney = 0.0005
                     Message({
-                        message: 'The minimum bet is 0.0005 ETH',
+                        message: _('The minimum bet is 0.0005 ETH'),
                         type: 'error'
                     })
                 } else {
@@ -323,7 +323,7 @@
                             pickMoney: 0.0005
                         })
                         Message({
-                            message: 'The minimum bet is 0.0005 ETH',
+                            message: _('The minimum bet is 0.0005 ETH'),
                             type: 'error'
                         })
                     } else {
@@ -365,7 +365,7 @@
                                 currpickNum.push(parseFloat(dataFlag))
                             } else {
                                 Message({
-                                    message: 'You have already chosen ' + parseFloat(this.areaMsg.pickType) + ' number',
+                                    message: _('You have already chosen {0} number', parseFloat(this.areaMsg.pickType)),
                                     type: 'error'
                                 })
                             }

@@ -247,7 +247,6 @@ const actionsInfo = mapActions({
             commit(mTypes.poolRatio, msg.pool_ratio)
         }
 
-
         // msg.expectid !== expectId  ??
         if (msg.expectid !== state.currExpectId) {
             if (!msg.opencode || msg.opencode === '') {
@@ -304,7 +303,7 @@ const actionsInfo = mapActions({
         try {
             let InfoData = null
             if (pageData) {
-                InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&rangeno=${pageData.pageSize}`)
+                InfoData = await ajax.get(`/expect/hisopencode?pageno=${pageData.pageNumber}&pagesize=${pageData.pageSize}`)
             } else {
                 InfoData = await ajax.get(`/expect/hisopencode`)
             }
