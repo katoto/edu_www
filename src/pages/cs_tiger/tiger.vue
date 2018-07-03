@@ -148,22 +148,29 @@
                         <!--主按钮-->
                         <a href="javascript:;" class="btn-main" :class="{disable:btnDisable}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
-                            <!--自动-->
-                            <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
-                                <p>AUTO</p>
-                                <div>Click to Stop</div>
-                            </div>
-                            <!--免费-->
-                            <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
-                                <p>FREE</p>
-                                <div>{{ free_times }} Times</div>
-                            </div>
-                            <!-- 开始按钮btn-spin  @dblclick="autoPlay" @click="startPlay" -->
-                            <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
-                                <p>SPIN</p>
-                                <div>Auto(double click)</div>
-                            </div>
-
+                            <template v-if="hideBarLycky">
+                                <!--自动-->
+                                <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
+                                    <p>AUTO</p>
+                                    <div>Click to Stop</div>
+                                </div>
+                                <!--免费-->
+                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
+                                    <p>FREE</p>
+                                    <div>{{ free_times }} Times</div>
+                                </div>
+                                <!-- 开始按钮btn-spin  @dblclick="autoPlay" @click="startPlay" -->
+                                <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
+                                    <p>SPIN</p>
+                                    <div>Auto(double click)</div>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <!-- double -->
+                                <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
+                                    <p>Double Up</p>
+                                </div>
+                            </template>
                         </a>
                     </div>
                 </div>
@@ -490,14 +497,16 @@
             },
             touEnd () {
                 this.tabTime = (new Date().getTime() - this.tabTime)
-                if (this.tabTime > 400) {
+                console.log(this.tabTime);
+                if (this.tabTime > 500) {
                     /* 长按 */
                     this.autoPlay()
+                    this.startPlay()
                     this.currRun = this.currRun - 1
-                } else {
+                } else if (this.tabTime > 70 && this.tabTime <= 500) {
                     /* 点击 */
+                    this.startPlay()
                 }
-                this.startPlay()
             },
             autoPlay () {
                 console.log('autoPlay')
@@ -614,6 +623,8 @@
                     if (playBack.lucky_values) {
                         this.formateLuckyVal(playBack.lucky_values)
                     }
+                } else {
+                    this.endInit()
                 }
             },
             async showResults (res) {
@@ -828,7 +839,7 @@
                             this.barProcess = ((90 / 100) * parseFloat(val.lucky)).toFixed(1)
                             if (parseFloat(val.lucky) >= 100) {
                                 this.hideBarLycky = false
-                            }else{
+                            } else {
                                 this.hideBarLycky = true
                             }
                         }
