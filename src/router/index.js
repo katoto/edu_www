@@ -22,7 +22,7 @@ const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
 /* 老虎机 */
-const tiger = () => import('~/pages/cs_tiger/slotMachine')
+const slotMachine = () => import('~/pages/cs_tiger/slotMachine')
 
 // 404
 const page404 = () => import('~/pages/404.vue')
@@ -37,9 +37,9 @@ export default new Router({
             component: lucky11
         },
         {
-            path: '/tiger',
-            name: 'tiger',
-            component: tiger
+            path: '/slotMachine',
+            name: 'slotMachine',
+            component: slotMachine
         },
         {
             path: '/terms',
