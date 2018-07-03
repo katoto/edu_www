@@ -531,7 +531,7 @@
                     this.autoPlay()
                     this.startPlay()
                     this.currRun = this.currRun - 1
-                } else if (this.tabTime > 70 && this.tabTime <= 500) {
+                } else if (this.tabTime > 50 && this.tabTime <= 500) {
                     /* 点击 */
                     this.startPlay()
                 }
@@ -620,17 +620,15 @@
                         return false
                     }
                 }
-
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
-
+                console.log(1)
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 //  todo 临时直接更新
                 this.$store.dispatch('getUserInfo')
-
                 this.stateInit()
                 this.slotRun = true
                 if (playBack) {
@@ -686,8 +684,8 @@
                         })
                     }
                     /* 预留 转动的时间 */
-
                     await wait(1000)
+                    console.log(2)
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
@@ -810,10 +808,14 @@
             },
             async initAllLine () {
                 /* 初始化 yes */
-                await wait(650)
-                document.querySelectorAll('#js_slot-box li').forEach((val) => {
-                    val.className = ''
-                })
+                try {
+                    await wait(650)
+                    Array.from(document.querySelectorAll('#js_slot-box li')).forEach((val) => {
+                        val.className = ''
+                    })
+                } catch (e) {
+                    console.log(e)
+                }
             },
             showBetSel () {
                 /* 控制投注项 */
@@ -913,9 +915,7 @@
             Header, Footer
         },
         async mounted () {
-
-
-            //滚动新闻
+            // 滚动新闻
             // function startNews () {
             //     $('#js_scrollNew').removeClass('no');
             //     var _js_news = $('#js_news');
@@ -946,7 +946,6 @@
             //     }
             //     var scroll = setInterval(fn,speed);
             // }
-
 
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
