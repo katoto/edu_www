@@ -67,8 +67,7 @@
                                 <lang>Withdraw</lang>
                             </router-link>
                         </div>
-                        <!--@click="showUserMsg" -->
-                        <div class="mycount "  :class="{isShowMycount:isShowMycount}"  @click="isShowMycount=!isShowMycount">
+                        <div class="mycount"  :class="{isShowMycount:isShowMycount}"  @click="isShowMycount=!isShowMycount">
                             <div class="countNum">
                                 {{ formateEmail(userInfo.email) }}<i></i>
                             </div>
@@ -332,6 +331,7 @@
             formateCoinType
         },
         async mounted () {
+            this.showUserMsg()
             // 获取首次中奖信息
             if (~window.location.href.indexOf('/lucky')) {
                 if (this.$refs.canvas) {
