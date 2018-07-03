@@ -426,16 +426,12 @@ const actions = {
         try {
             let subTigerStr = {
                 action: 'sub',
+                lotid: 1,
                 cointype: 2001,
                 type: 'slots'
             }
-            console.log(subTigerStr)
-            console.log(JSON.stringify(subTigerStr));
-            console.log(state.socket);
-            console.log(state.socket.sock);
             state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
         } catch (e) {
-            console.log(1123)
             console.error(e.message + 'subInTiger error')
         }
     },
@@ -444,6 +440,7 @@ const actions = {
         try {
             let unsubTigerStr = {
                 action: 'unsub',
+                lotid: 1,
                 cointype: 2001,
                 type: 'slots'
             }
@@ -458,6 +455,7 @@ const actions = {
             let subLuckyStr = {
                 action: 'sub',
                 cointype: 2001,
+                lotid: 1,
                 type: 'lottery'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
@@ -470,6 +468,7 @@ const actions = {
         try {
             let unsubLuckyStr = {
                 action: 'unsub',
+                lotid: 1,
                 cointype: 2001,
                 type: 'lottery'
             }
