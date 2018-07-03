@@ -1109,7 +1109,7 @@
             width:100%;
             height:100%;
             overflow: hidden;
-            transition: all 0.2;
+            transition: all 0.2s;
         }
         li{
             width:100%;
