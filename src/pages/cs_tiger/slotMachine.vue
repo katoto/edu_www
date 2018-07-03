@@ -520,7 +520,8 @@
                     this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0)'
                 })
             },
-            touStart () {
+            touStart (evt) {
+                evt.preventDefault()
                 this.tabTime = new Date().getTime()
             },
             touEnd () {
@@ -536,12 +537,10 @@
                 }
             },
             autoPlay () {
-                console.log('autoPlay')
                 this.currRun = this.auto_run
                 this.isAutoPlay = true
             },
             stopAutoPlay () {
-                console.log('stop AutoPlay')
                 this.currRun = this.auto_run
                 this.isAutoPlay = false
             },
@@ -555,7 +554,6 @@
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
                         this.startPlay()
-                        console.log(this.currRun)
                         this.currRun = this.currRun - 1
                     } else {
                         this.stopAutoPlay()
@@ -624,7 +622,6 @@
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
-                console.log(1)
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 //  todo 临时直接更新
                 this.$store.dispatch('getUserInfo')
@@ -684,7 +681,6 @@
                     }
                     /* 预留 转动的时间 */
                     await wait(1000)
-                    console.log(2)
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
