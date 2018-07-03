@@ -49,7 +49,7 @@
                             </ul>
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
-                        <div class="slot" :class="{'run':slotRun,'opening':slotOpening}">
+                        <div class="slot " :class="{'run':slotRun,'opening':slotOpening}">
                             <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                                 <template>
                                     <!-- class="yes" -->
@@ -168,7 +168,7 @@
                             <template v-else>
                                 <!-- double -->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
-                                    <p>Double Up</p>
+                                    Double Up
                                 </div>
                             </template>
                         </a>
@@ -1097,11 +1097,7 @@
     .slot.opening {
         .slot-box {
             /*overflow: visible;*/
-            border-radius: 0;
-        }
-        ul {
-            /*height: 100%;*/
-            /*overflow: hidden;*/
+            /*border-radius: 0;*/
         }
         li.yes {
             border: 4px solid #fff287;
@@ -1123,18 +1119,14 @@
         margin: 0 auto;
         top: percentage(260/1173);
         width: percentage(610/750);
+        transform: rotate(0);
         /*高度需要动态设置*/
         height: 0;
         overflow: hidden;
         display: flex;
         justify-content: center;
         /*~防止less解析/，这里是单独设置水平和垂直的半径*/
-        /*border-top-left-radius: ~"123px 60px";*/
-        /*border-top-right-radius: ~"123px 60px";*/
-        /*border-bottom-left-radius: ~"57px 60px";*/
-        /*border-bottom-right-radius: ~"57px 60px";*/
         border-radius: ~"110px/60px";
-        /*background: rgba(0,0,0,0.5);*/
         ul {
             position: relative;
             width: 33%;
@@ -1152,13 +1144,12 @@
                 }
             }
         }
+        #slotItem1{
+            /*top:-100px !important;*/
+        }
         ul.tranitionTiming{
             transition: all 0.5s linear;
         }
-    }
-
-    .slot-item1 {
-        /*transform: translateY(-50px) !important;*/
     }
 
     .btn-main {
@@ -1196,7 +1187,7 @@
             }
         }
         .btn-double{
-            line-height: 58px;
+            line-height: 52px;
             font-size: 24px;
             font-weight:bold;
         }
@@ -1351,7 +1342,6 @@
                 background: #2f250f;
                 border-radius: 3px;
                 overflow: hidden;
-                margin-top: 3px;
                 i {
                     display: block;
                     box-sizing: border-box;
