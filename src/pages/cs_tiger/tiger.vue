@@ -49,7 +49,7 @@
                             </ul>
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
-                        <div class="slot " :class="{'run':slotRun,'opening':slotOpening}">
+                        <div class="slot" :class="{'run':slotRun,'opening':slotOpening}">
                             <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                                 <template v-if="axes">
                                     <!-- class="yes" -->
@@ -1227,6 +1227,7 @@
                 position: absolute;
                 left: -2px;
                 top: -52px;
+                top: -80px;
                 width: 100%;
                 border: 2px solid #bc9357;
                 border-top-left-radius: 6px;
@@ -1353,8 +1354,9 @@
         background: transparent;
     }
     .reward-small{
+        display: none;
         width:348/2px;
-        height:0;
+        height:163/2px;
        /* width:percentage(348/750);*/
        /* padding-bottom:percentage((348/750)*(163/348));*/
         background: url("../../assets/img/tiger/reward-small.png") no-repeat center;
@@ -1376,8 +1378,7 @@
             line-height:58px;
         }
         &.show{
-            width:348/2px;
-            height:163/2px;
+            display: block;
         }
         &.double&.show{
             overflow: visible;
@@ -1395,8 +1396,9 @@
         }
     }
     .reward-big{
+        display: none;
         width:595/2px;
-        height:0;
+        height:auto;
         &:before{
             position: relative;
             z-index:2;
@@ -1465,8 +1467,7 @@
             }
         }
         &.show{
-            width:595/2px;
-            height:auto;
+            display: block;
         }
         &.double&.show{
             overflow: visible;
@@ -1487,7 +1488,8 @@
     .help{
         max-width: 337px;
         width: 89.86666667%;
-        height: 0;
+        height:auto;
+        display: none;
         top:60px;
         transform: translate(-50%, 0);
         box-sizing: border-box;
@@ -1674,9 +1676,7 @@
             }
         }
         &.show{
-            max-width:674/2px;
-            width:percentage(674/750);
-            height:auto;
+            display: block;
             padding:0 15px 12px;
             border:2px solid #96825c;
         }

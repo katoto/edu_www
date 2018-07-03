@@ -4,7 +4,7 @@
         <div class="head">
             <div class="top">
                 <!--展开 on-->
-                <div class="m-choose-play">
+                <div class="m-choose-play" :class="{isShowChoose:isShowChoose}" @click="isShowChoose=!isShowChoose">
                     <div class="btn">
                         <span></span><span></span><span></span>
                     </div>
@@ -25,7 +25,7 @@
                     <a href="javascript:;" target="_blank">LuckyCoin</a>
                     <a href="javascript:;" target="_blank">Mobile APP</a>
                 </div>
-                <div class="language ">
+                <div class="language " :class="{isLanguage:isShowLanguage}" @click="isShowLanguage=!isShowLanguage">
                     <div class="language-choose">
                         <img src="../assets/slice/cn.png" alt="">
                         <span>En</span>
@@ -33,9 +33,11 @@
                     <ul>
                         <li>
                             <img src="../assets/slice/cn.png" width="27" height="15" alt="">
+                            <span>中文(简)</span>
                         </li>
                         <li>
                             <img src="../assets/slice/cn.png" width="27" height="15" alt="">
+                            <span>中文(繁)</span>
                         </li>
                     </ul>
                 </div>
@@ -48,7 +50,7 @@
                     <!-- 登录 -->
                     <section v-else>
                         <!--选择币种,暂时不做-->
-                        <div class="choose-coin" v-if="userInfo && userInfo.accounts">
+                        <div class="choose-coin" v-if="userInfo && userInfo.accounts" :class="{isChooseCoin:isChooseCoin}" @click="isChooseCoin=!isChooseCoin">
                             <span class="coin" v-if="currBalance">{{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}</span>
                             <ul>
                                 <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
@@ -65,12 +67,12 @@
                                 <lang>Withdraw</lang>
                             </router-link>
                         </div>
-                        <!--slideDown = true-->
-                        <div class="mycount " @mouseover="showUserMsg" @mouseout="slideDown = false">
+                        <!--@click="showUserMsg" -->
+                        <div class="mycount "  :class="{isShowMycount:isShowMycount}"  @click="isShowMycount=!isShowMycount">
                             <div class="countNum">
                                 {{ formateEmail(userInfo.email) }}<i></i>
                             </div>
-                            <div id="mycount-detailed" class="mycount-detailed slide" :class="{ 'slide-show': slideDown }">
+                            <div id="mycount-detailed" class="mycount-detailed ">
                                     <div class="account-info">
                                         <div class="email js_email-account" :title="userInfo.email">
                                             {{ userInfo.email }}
@@ -208,7 +210,12 @@
                     value: 'zhTw',
                     label: '中文繁体'
                 }],
-                currBalance: null // 当前钱包
+                currBalance: null, // 当前钱包,
+                isShowLanguage:false,
+                isShowMycount:false,
+                isChooseCoin:false,
+                isShowChoose:false
+
             }
         },
         watch: {},
@@ -247,7 +254,6 @@
                 this.$store.commit('setLanguage', val)
             },
             showUserMsg () {
-                this.slideDown = true
                 this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
@@ -374,14 +380,18 @@
             }
         }
         .language {
+            box-sizing: border-box;
             position: relative;
+            width:70px;
+            height:70px;
             float: right;
-            margin:21px 0 0 0;
+            padding-top:21px;
             position: relative;
             cursor: pointer;
             .language-choose{
                 img{
                     display: block;
+                    margin:0 auto;
                 }
                 span{
                     display: block;
@@ -395,14 +405,20 @@
             ul{
                 display: none;
                 position: absolute;
+                width:70px;
                 z-index:2;
-                left:50%;
-                margin-left:-31.5px;
-                top:35px;
+                left:0;
+                top:57px;
                 border-radius: 6px;
                 overflow: hidden;
                 cursor: pointer;
+                font-size:12px;
+                color: #263648;
                 li{
+                    box-sizing: border-box;
+                    padding-top:20px;
+                    width:70px;
+                    height:70px;
                     background: #fff;
                     &:hover{
                         background: #eef1f9;
@@ -412,10 +428,19 @@
                     border-top:1px solid #778ca3;
                 }
                img{
-                   padding:20px 18px;
+                   display: block;
+                   margin:0 auto;
                }
+                span{
+                    display: block;
+                    height:20px;
+                    line-height:20px;
+                    text-align: center;
+                    .text-overflow();
+                }
             }
-            &:hover{
+            &.isLanguage{
+                background: rgba(0,0,0,0.3);
                 ul{
                     display: block;
                 }
@@ -457,14 +482,16 @@
                     transform-origin: 50%;
                     .transition();
                 }
-                &:hover {
-                    i {
-                        transform: rotate(180deg);
-                    }
+            }
+            &.isShowMycount{
+                i {
+                    transform: rotate(180deg);
+                }
+                .mycount-detailed{
+                    display: block;
                 }
             }
         }
-
         .login {
             position: relative;
             float: right;
@@ -519,6 +546,7 @@
     }
 
     .mycount-detailed {
+        display: none;
         position: absolute;
         z-index: 10;
         right: 0;
@@ -701,7 +729,7 @@
                 }
             }
         }
-        &:hover{
+        &.isChooseCoin{
             background: #fff;
             .coin{
                 &::after{
@@ -1035,7 +1063,7 @@
               }
             }
         }
-        &.on{
+        &.isShowChoose{
             position: absolute;
             left:0;
             top:0;
@@ -1075,9 +1103,6 @@
             .m-choose-play{
                 display: block;
             }
-            .language{
-                margin: 21px 30px 0 0;
-            }
             .act-sign{
                 right:190px;
             }
@@ -1087,11 +1112,6 @@
         .head{
             .hadlogin{
                 display: none;
-            }
-        }
-        .m-choose-play{
-            ul{
-
             }
         }
     }
@@ -1136,19 +1156,22 @@
                 .countNum{
                     display: none;
                 }
-                &:hover{
+                &:hover,&.isShowMycount{
                     &::before{
                         filter: grayscale(0);
                     }
                 }
             }
             .language{
-                margin: 16px 14px 0;
+                width:50px;
+                height:50px;
+                padding-top: 15px;
                 img{
                     width:22px;
                 }
                 .language-choose{
                     span{
+                        height:16px;
                         line-height:16px;
                         margin:0;
                         font-size:8px;
@@ -1156,10 +1179,15 @@
                     }
                 }
                 ul{
-                    top:26px;
-                    margin-left: -25px;
+                    top:50px;
+                    width:50px;
+                    li{
+                        width:50px;
+                        height:50px;
+                        padding-top:15px;
+                    }
                     img{
-                        padding:16px 15px;
+                        width:22px;
                     }
                 }
             }
@@ -1171,7 +1199,7 @@
             .msg{
                 line-height:50px;
             }
-            &.on{
+            &.isShowChoose{
                 .btn{
                     margin: 15px 0 15px 13px;
                 }
@@ -1203,7 +1231,7 @@
                     display: none;
                 }
             }
-            &:hover{
+            &:hover,&.isChooseCoin{
                 background: transparent;
                 .coin{
                     &:before{
