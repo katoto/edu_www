@@ -521,7 +521,8 @@
                     this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0)'
                 })
             },
-            touStart () {
+            touStart (evt) {
+                console.log(evt);
                 this.tabTime = new Date().getTime()
             },
             touEnd () {
