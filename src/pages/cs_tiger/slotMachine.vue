@@ -422,7 +422,7 @@
     export default {
         data () {
             return {
-                showRecharge: true, // 显示充值弹窗
+                showRecharge: false, // 显示充值弹窗
                 hideBarLycky: true,
                 tab_t: 1,
                 tranitionTiming: false, // 运动是否需要过程
