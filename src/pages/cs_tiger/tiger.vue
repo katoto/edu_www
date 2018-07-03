@@ -49,7 +49,7 @@
                             </ul>
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
-                        <div class="slot" :class="{'run':slotRun,'opening':slotOpening}">
+                        <div class="slot run" :class="{'run':slotRun,'opening':slotOpening}">
                             <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                                 <template v-if="axes">
                                     <!-- class="yes" -->
@@ -77,8 +77,8 @@
                         <!--底部操作-->
                         <div class="operating ">
                             <!-- 展开 on-->
-                            <div class="single">
-                                <div style="cursor: pointer" @click="showBetSel">
+                            <div class="single"  @click="showBetSel">
+                                <div style="cursor: pointer">
                                     <div class="top">
                                         <div class="single-amount">
                                             {{ dft_bet }}
@@ -87,7 +87,7 @@
                                             ETH
                                         </div>
                                     </div>
-                                    <p class="msg">
+                                    <p class="msg hide">
                                         Single Bet
                                     </p>
                                 </div>
@@ -218,7 +218,7 @@
                     </div>
                 </div>
             </div>
-            <!--pop   show  show double-->
+            <!--pop show  show double-->
             <!-- 小奖 -->
             <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
                 <div class="msg" >
@@ -387,6 +387,22 @@
                         <img src="@/assets/img/tiger/win-line.png" alt="win-line" class="win-line">
                     </li>
                 </ul>
+            </div>
+            <!--充值-->
+            <div class="pop pop-recharge ">
+                <a href="javascript:;" class="recharge-close"></a>
+                <div class="title">
+                    <p>Copy the Ethereum wallet</p>
+                    <p>address (only supports ETH)</p>
+                </div>
+                <div class="copy">
+                    <a href="javascript:;" rel="nofollow">CPOY</a>
+                    <p>0xbcE34a77889D15E2dC9332EB4E5b23ee01615C94</p>
+                </div>
+                <div class="msg">
+                    or scan to get the address
+                </div>
+                <img src="@/assets/img/tiger/code-recharge.jpg" alt="recharge">
             </div>
         </div>
         <Footer></Footer>
@@ -883,12 +899,13 @@
             }
         },
         updated () {
-            //  4*15=75
+            //  4*15=60
             // && !this.computeHeight
             // console.log(window.getComputedStyle(document.getElementById('hei')).height)
             if (document.getElementById('hei')) {
                 // this.$refs.js_slotBox.style.height = document.getElementById('hei').offsetHeight * 3 + 62 + 'px'
-                this.$refs.js_slotBox.style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 62 + 'px'
+                this.$refs.js_slotBox.style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 60 + 'px'
+
                 this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
                 this.hideInitLi = false
             } else {
@@ -1235,14 +1252,18 @@
         text-align: center;
         > div {
             position: relative;
-            width: percentage(173/610);
+            //width: percentage(173/610);
+            width:195/2px;
+            height:90/2px;
             border-radius: 6px;
             padding: 0 5px;
             box-sizing: border-box;
         }
         .single {
-            background: #2f250f;
-            border: 2px solid #bc9357;
+            /*background: #2f250f;*/
+            /*border: 2px solid #bc9357;*/
+            background: url("../../assets/img/tiger/bg-single.png") no-repeat center;
+            background-size: cover;
             .single-amount {
                 font-size: 15px;
             }
@@ -1253,16 +1274,17 @@
             ul {
                 /*display: none;*/
                 position: absolute;
-                left: -2px;
+                left: 0;
                 top: -52px;
-                top: -80px;
+                top: -78px;
                 width: 100%;
-                border: 2px solid #bc9357;
+                border: 2px solid #f3ca83;
                 border-top-left-radius: 6px;
                 border-top-right-radius: 6px;
                 border-bottom: none;
                 color: #ffe400;
                 background: #2f250f;
+                box-sizing: border-box;
                 li {
                     cursor: pointer;
                     display: flex;
@@ -1514,15 +1536,17 @@
         }
     }
     .help{
+        display: none;
         max-width: 337px;
         width: 89.86666667%;
         height:auto;
-        display: none;
         top:60px;
         transform: translate(-50%, 0);
         box-sizing: border-box;
         border-radius: 8px;
         background: #2f2a3d;
+        padding:0 15px 12px;
+        border:2px solid #96825c;
         .tiger-close{
             position: absolute;
             top:0;
@@ -1705,8 +1729,77 @@
         }
         &.show{
             display: block;
-            padding:0 15px 12px;
-            border:2px solid #96825c;
+
+        }
+    }
+    .pop-recharge{
+        display: none;
+        max-width: 674/2px;
+        width: percentage(674/750);
+        height:auto;
+        border:2px solid #96825c;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-sizing: border-box;
+        border-radius: 8px;
+        background: #2f2a3d;
+        .recharge-close{
+            position: absolute;
+            top:0;
+            right:0;
+            background: url("../../assets/img/tiger/btn-close.png") no-repeat center;
+            background-size: 12px;
+            width:12px;
+            height:12px;
+            padding:12px 16px;
+        }
+        .title{
+            margin-top:29px;
+            line-height:16px;
+            font-size:13px;
+            color: #fff;
+        }
+        .copy{
+            width:percentage(580/674);
+            margin:7px auto 0;
+            text-align: center;
+            vertical-align: middle;
+            p{
+                box-sizing: border-box;
+                margin-right:152/2px;
+                padding:10px;
+                word-wrap: break-word;
+                background: #211d2d;
+                height:52px;
+                line-height:16px;
+                overflow: hidden;
+                font-size:13px;
+                color: #f3ca83;
+            }
+            a{
+                float: right;
+                display: block;
+                width:152/2px;
+                height:52px;
+                line-height:52px;
+                font-size:18px;
+                color: #2f2a3d;
+                font-weight:bold;
+                background: #f3ca83;
+            }
+        }
+        .msg{
+            margin-top: 21px;
+            font-size:13px;
+            color: #fff;
+            line-height:62/2px;
+        }
+        img{
+            display: block;
+            margin:0 auto 20px;
+        }
+        &.show{
+            display: block;
         }
     }
 

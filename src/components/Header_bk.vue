@@ -940,7 +940,7 @@
 
     .act-sign{
         top: 25px;
-        right: 160px;
+        right: 210px;
         animation: actMove 5s 2s infinite;
     }
     @keyframes actMove {
