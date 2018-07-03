@@ -155,7 +155,7 @@
                     ><lang>Faucet</lang></a>
 
                 <!--拉新活动提示-->
-                <div class="act-sign right" v-if="!isLog">
+                <div class="act-sign right hide" v-if="!isLog">
                     for free 0.001ETH
                 </div>
             </div>

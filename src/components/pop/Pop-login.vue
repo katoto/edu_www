@@ -29,7 +29,7 @@
                 <a href="javascript:;" class="signUp" @click="onSignUp">Sign Up</a>
             </p>
             <a href="javascript:;" class="importwallet hide">Import Wallet</a>
-            <div class="act-sign left">
+            <div class="act-sign left hide">
                 for free 0.001ETH
             </div>
         </div>
