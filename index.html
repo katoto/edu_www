@@ -13,6 +13,19 @@
     <meta name="robots" content="index,follow">
     <link href="./static/icon.ico" rel="shortcut icon" />
     <style>
+        html,body,#app{
+            height:100%;
+            overflow: hidden;
+            background: #000;
+        }
+        #app{
+            display: flex;
+            flex-direction: column;
+        }
+        #app>div{
+            flex: 1;
+            overflow-y: auto;
+        }
         .cs-loading{
             position: fixed;
             z-index:999;
