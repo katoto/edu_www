@@ -3,8 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
-import {Message} from 'element-ui'
+import {mapMutations, mapActions, formateBalance, wait} from '~common/util'
 
 const state = {
     recentList: [], // 最近中奖列表
@@ -47,9 +46,13 @@ const actionsInfo = mapActions({
     },
 
     /* 添加中奖播报 动态插入 */
-    addRecentList ({state, commit, dispatch}, data) {
+    async addRecentList ({state, commit, dispatch}, data) {
         if (data && state.recentList) {
             // 对象
+            await wait(4000)
+            if (state.recentList.length > 12) {
+                commit(mTypes.recentList, state.recentList.slice(0, 12))
+            }
             state.recentList.unshift(data)
         }
         commit(mTypes.recentList, state.recentList)
