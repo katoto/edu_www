@@ -49,7 +49,8 @@ export const isWeiX = (function () {
 const CK = 'block_ck'
 
 export function getCK () {
-    return Cookies.get(CK)
+    // return Cookies.get(CK)
+    return localStorage.getItem(CK)
 }
 
 export function setCK (ck) {
