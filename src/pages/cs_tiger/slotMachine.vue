@@ -724,6 +724,7 @@
                         } else {
                             this.rewardSmall = true
                         }
+                        this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
                         await wait(2500)
                         // 隐藏奖池图标
                         this.rewardBig = false
@@ -732,6 +733,8 @@
                     } else if (this.setRewardIcon === 'jackPotWard') {
                         this.rewardBig = true
                         this.jackPot = true
+                        this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
+
                         //  todo 特殊烟花
                         await wait(5000)
 
@@ -815,6 +818,11 @@
             showBetSel () {
                 /* 控制投注项 */
                 if (this.isAutoPlay) {
+                    return false
+                }
+                /* 有免费次数的时候 不给切换 */
+                if (parseFloat(this.free_times)) {
+                    console.log('免费不给切换')
                     return false
                 }
                 this.showSingleBet = !this.showSingleBet
