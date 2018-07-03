@@ -910,38 +910,6 @@
             Header, Footer
         },
         async mounted () {
-            // 滚动新闻
-            // function startNews () {
-            //     $('#js_scrollNew').removeClass('no');
-            //     var _js_news = $('#js_news');
-            //     var _width = 0;
-            //     var speed = 2;
-            //     var windowWidth = $(window).width() - 66;
-            //     var i = -windowWidth;
-            //     $('#js_news li').each(function(){
-            //         _width += $(this).outerWidth(true);
-            //     });
-            //
-            //     $('#js_news').width(_width + 20);
-            //     _width -= 175;
-            //     var stopWidth = (('-' + (parseInt(_width) - 10)).toString() + 'px');
-            //     function fn () {
-            //         if (i < _width) {
-            //             _js_news.animate({
-            //                 left: -i + 'px'
-            //             }, 1, 'swing', function () {
-            //                 if ($(this).css('left') === stopWidth) {
-            //                     $('.js_btn-arrow').click();
-            //                 }
-            //             })
-            //         } else {
-            //             clearInterval(scroll);
-            //         }
-            //         i += 1;
-            //     }
-            //     var scroll = setInterval(fn,speed);
-            // }
-
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {

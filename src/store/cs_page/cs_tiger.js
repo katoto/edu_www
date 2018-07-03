@@ -3,7 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import {mapMutations, mapActions, formateBalance, wait} from '~common/util'
+import {mapMutations, mapActions, wait} from '~common/util'
 
 const state = {
     recentList: [], // 最近中奖列表
@@ -92,7 +92,6 @@ const actionsInfo = mapActions({
     }
 
     /*   */
-
 }, 'cs_tiger')
 
 export const mTypes = mutationsInfo.mTypes
