@@ -1091,23 +1091,31 @@
     }
 
     .msg-win {
-        /*   position: absolute;
-           left:50%;
-           top:0;
-           margin-left:-482/4px;*/
         display: none;
         position: relative;
         z-index: 3;
         margin: 0 auto;
-        width: 482/2px;
+        width: 100%;
         height: 42/2px;
         overflow: hidden;
         background: url("../../assets/img/tiger/bg-msg-win.png") no-repeat center;
-        background-size: cover;
+        background-size: 482/2px 42/2px;
         line-height: 21px;
         text-align: center;
         font-size: 10px;
         color: #ffffff;
+        ul{
+            position: absolute;
+            width:100%;
+            height:100%;
+            overflow: hidden;
+            transition: all 0.2;
+        }
+        li{
+            width:100%;
+            height:100%;
+            overflow: hidden;
+        }
     }
 
     .slot {
