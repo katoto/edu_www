@@ -49,7 +49,7 @@
                             </ul>
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
-                        <div class="slot run" :class="{'run':slotRun,'opening':slotOpening}">
+                        <div class="slot" :class="{'run':slotRun,'opening':slotOpening}">
                             <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                                 <template v-if="axes">
                                     <!-- class="yes" -->
@@ -132,7 +132,7 @@
                                         <i :style="{'width':barProcess+'%'}" ></i>
                                     </div>
                                     <div class="bar-msg" v-if="hideBarLycky">
-                                        {{ ( barProcess * (10/9) ).toFixed(1) }}%
+                                        {{ ( barProcess * (100/96) ).toFixed(1) }}%
                                     </div>
                                     <div class="bar-lycky" v-else></div>
                                 </div>
@@ -805,7 +805,7 @@
                 if (currVal) {
                     this.dft_bet = currVal.bet
                     this.barProcess = (parseFloat(currVal.lucky) * (90 / 100)).toFixed(1)
-                    this.showSingleBet = false
+                    this.showSingleBet = true
                 }
             },
             initPage (slotsHome) {
@@ -852,7 +852,7 @@
                 if (this.lucky_values.length > 0) {
                     this.lucky_values.forEach((val, index) => {
                         if (val.bet === this.dft_bet.toString()) {
-                            this.barProcess = ((90 / 100) * parseFloat(val.lucky)).toFixed(1)
+                            this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(1)
                             if (parseFloat(val.lucky) >= 100) {
                                 this.hideBarLycky = false
                             } else {
@@ -1199,7 +1199,7 @@
             }
         }
         .btn-double{
-            line-height: 55px;
+            line-height: 58px;
             font-size: 24px;
             font-weight:bold;
         }
@@ -1221,7 +1221,11 @@
             }
         }
         &.disable{
-            filter: grayscale(1);
+            .btn{
+                p,div{
+                    opacity:0.3;
+                }
+            }
         }
     }
 
@@ -1275,8 +1279,7 @@
                 /*display: none;*/
                 position: absolute;
                 left: 0;
-                top: -52px;
-                top: -78px;
+                top: -99px;
                 width: 100%;
                 border: 2px solid #f3ca83;
                 border-top-left-radius: 6px;
@@ -1289,17 +1292,19 @@
                     cursor: pointer;
                     display: flex;
                     justify-content: center;
-                    height: 25px;
-                    line-height: 25px;
-                    background: url("../../assets/img/tiger/bg-green.jpg") repeat-x;
-                    background-size: cover;
+                    height: 30px;
+                    line-height: 30px;
+                    background: #40861c;
                     border-top-left-radius: 6px;
                     border-top-right-radius: 6px;
-                    border-top: 2px solid #2f250f;
+                    border-top:4px solid #2f250f;
                     margin: 0 2px;
                     font-weight: bold;
                     .single-unit {
-                        line-height: 28px;
+                        line-height: 33px;
+                    }
+                    &:hover{
+                        background: #27570e;
                     }
                 }
             }
@@ -1344,21 +1349,20 @@
             .bar-process {
                 position: relative;
                 width: percentage(104/175);
+                height:12px;
+                border:2px solid #f3ca83;
+                background: #2f250f;
+                border-radius: 3px;
                 overflow: hidden;
                 margin-top: 3px;
-                background: url("../../assets/img/tiger/bg-bar.png") no-repeat top center;
-                background-size: contain;
                 i {
-                    position: absolute;
+                    display: block;
                     box-sizing: border-box;
-                    left: 5%;
-                    top: 19%;
-                    width: 90%;
-                    height: 40%;
+                    height:10px;
                     overflow: hidden;
-                    background: url("../../assets/img/tiger/bg-green.jpg") repeat-x;
-                    background-size: cover;
+                    background: #40861c;
                     border-radius: 2px;
+                    margin:1px;
                 }
             }
             .bar-msg {
@@ -1936,15 +1940,6 @@
             overflow: hidden;
             border-left: 25px solid #080603;
             border-right: 25px solid #080603;
-        }
-
-        .operating .bar .bar-process i {
-            top: 14%;
-            height: 38%;
-        }
-
-        .operating .single .msg::after {
-            right: 0;
         }
     }
 
