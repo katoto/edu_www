@@ -12,9 +12,9 @@
                         Select Game
                     </div>
                     <ul>
-                        <li><a href="javascript:;">Lukcy 11</a></li>
-                        <li class="on"><a href="javascript:;">luckyCoin</a></li>
-                        <li><a href="javascript:;">Slot</a></li>
+                        <li @click="jump2Page('lucky11')" :class="{'on':currTab==='lucky11'}"><a href="javascript:;">Lukcy 11</a></li>
+                        <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
+                        <li @click="jump2Page('slot')" :class="{'on':currTab==='slot'}"><a href="javascript:;">Slot</a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
@@ -211,11 +211,11 @@
                     label: '中文繁体'
                 }],
                 currBalance: null, // 当前钱包,
-                isShowLanguage:false,
-                isShowMycount:false,
-                isChooseCoin:false,
-                isShowChoose:false
-
+                isShowLanguage: false,
+                isShowMycount: false,
+                isChooseCoin: false,
+                isShowChoose: false,
+                currTab: 'slot'
             }
         },
         watch: {},
@@ -245,6 +245,26 @@
         methods: {
             formateEmail,
             formateBalance,
+            jump2Page (item = 'slot') {
+                this.currTab = item
+                switch (item) {
+                case 'slot':
+                    if (!~window.location.href.indexOf('tiger')) {
+                        this.$router.push('/tiger')
+                    }
+                    ;break
+                case 'lucky11':
+                    if (!~window.location.href.indexOf('lucky11')) {
+                        this.$router.push('/lucky11')
+                    }
+                    ;break
+                case 'luckycoin':
+                    if (!~window.location.href.indexOf('luckycoin')) {
+                        this.$router.push('/luckycoin')
+                    }
+                    ;break
+                }
+            },
             changeAccounts (item) {
                 if (item) {
                     this.currBalance = item
