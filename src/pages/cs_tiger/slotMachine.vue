@@ -581,16 +581,14 @@
                 /* 结束初始化 */
                 // 预留是否手动减值的空间
                 // this.$store.dispatch('getUserInfo')
-                this.slotOpening = false // 开奖结束
-                this.btnDisable = false
-
                 this.axes.forEach((val, index) => {
                     this.tranitionTiming = false
                     this.resetLacal()
                     let currAxes = val.slice(-3)
                     this.axes[index].splice(0, 3, ...currAxes)
                 })
-
+                this.slotOpening = false // 开奖结束
+                this.btnDisable = false
                 await wait(2000)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
