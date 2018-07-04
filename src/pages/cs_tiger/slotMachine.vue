@@ -1183,7 +1183,7 @@
     .slot.run {
         background: url("../../assets/img/tiger/bg-slot-run.png") no-repeat top center;
         background-size: contain;
-
+        opacity:1;
     }
 
     .slot.opening {
