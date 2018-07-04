@@ -21,9 +21,9 @@
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
                 <div class="choose-play">
-                    <a href="javascript:;" target="_blank" class="on">Lukcy11</a>
-                    <a href="javascript:;" target="_blank">LuckyCoin</a>
-                    <a href="javascript:;" target="_blank">Mobile APP</a>
+                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')"  class="on">Lukcy11</a>
+                    <a href="javascript:;" class="hide" target="_blank">LuckyCoin</a>
+                    <a href="javascript:;" @click="jump2Page('mobile')" target="_blank">Mobile APP</a>
                 </div>
                 <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">
@@ -299,6 +299,9 @@
                         this.$router.push('/luckycoin')
                     }
                     ;break
+                case 'mobile':
+                    console.log('app downLoad')
+                    break
                 }
             },
             changeAccounts (item) {
