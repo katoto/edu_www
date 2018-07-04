@@ -581,16 +581,14 @@
                 /* 结束初始化 */
                 // 预留是否手动减值的空间
                 // this.$store.dispatch('getUserInfo')
-                this.slotOpening = false // 开奖结束
-                this.btnDisable = false
-
                 this.axes.forEach((val, index) => {
                     this.tranitionTiming = false
                     this.resetLacal()
                     let currAxes = val.slice(-3)
                     this.axes[index].splice(0, 3, ...currAxes)
                 })
-
+                this.slotOpening = false // 开奖结束
+                this.btnDisable = false
                 await wait(2000)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
@@ -733,7 +731,7 @@
                         })
                     }
                     /* 预留 转动的时间 */
-                    await wait(2700)
+                    await wait(3000)
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
