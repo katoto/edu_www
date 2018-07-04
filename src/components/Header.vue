@@ -263,7 +263,11 @@
                 }]
             }
         },
-        watch: {},
+        watch: {
+            slideDown () {
+                this.$store.dispatch('getUserInfo')
+            }
+        },
         computed: {
             jackPotMsg () {
                 return this.$store.state.cs_1105.jackPotMsg
@@ -300,7 +304,6 @@
             },
             showUserMsg () {
                 this.slideDown = true
-                this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
                 // 领取邀请奖励

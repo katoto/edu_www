@@ -160,7 +160,7 @@ module.exports = {
     'Account': '账户',
     'Verified': '已验证',
     'Password': '密码',
-    'Change&ensp;Password': '更改&ensp;密码',
+    'Change&ensp;Password': '更改密码',
     'Bet Record': '投注记录',
     'Time': '时间',
     'Address': '地址',
@@ -261,5 +261,6 @@ module.exports = {
     'Please enter the correct number': '请输入正确的投注金额',
     'Bet amount is between 0.0005 and 0.1 ETH': '投注额度在0.0005到0.1ETH之间',
     'The minimum bet is 0.0005 ETH': '投注额度不能小于 0.0005 ETH',
-    'You have already chosen {0} number': '你已选择了 {0} 个号码'
+    'You have already chosen {0} number': '您已经选择了 {0} 个号码',
+    'Next': '下一步'
 }

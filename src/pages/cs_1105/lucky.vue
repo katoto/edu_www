@@ -1230,7 +1230,7 @@
         }
     }
 
-    .pop-reward-ct {
+    .pop-reward-ct:hover {
         &:before {
             position: absolute;
             content: " ";

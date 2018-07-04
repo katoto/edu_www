@@ -27,7 +27,7 @@
                     </p>
                 </div>
                 <!--no-->
-                <input type="submit" @click.stop.prevent="submitReg" value="Sign Up"
+                <input type="submit" @click.stop.prevent="submitReg" :value="_('Sign Up')"
                        :class="{'no':!(log_checked) || reg_email === '' || reg_pass === '' || reg_againPass === '' || verifyCode === ''}">
             </form>
             <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">

@@ -8,7 +8,7 @@
             <form class="form-first" v-if="!resetObj.showReset">
                 <input type="text" v-model="resetEmail" name="reset-email" placeholder="Email">
                 <!--no-->
-                <input type="submit" @click.stop.prevent="beforeResetPass" value="Next" :class="{'no':!resetEmail}">
+                <input type="submit" @click.stop.prevent="beforeResetPass" :value="_('Next')" :class="{'no':!resetEmail}">
             </form>
             <form class="form-second" v-else>
                 <input type="password" @blur="checkPass" v-model="resetPsw"
