@@ -247,7 +247,6 @@ const actionsInfo = mapActions({
             commit(mTypes.poolRatio, msg.pool_ratio)
         }
 
-
         // msg.expectid !== expectId  ??
         if (msg.expectid !== state.currExpectId) {
             if (!msg.opencode || msg.opencode === '') {

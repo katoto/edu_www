@@ -174,7 +174,7 @@
                                 </div>
                             </template>
                             <template v-else>
-                                <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
+                                <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd()" class="btn btn-double" >
                                     Double Up
                                 </div>
                             </template>
@@ -551,7 +551,7 @@
                 evt.preventDefault()
                 this.tabTime = new Date().getTime()
             },
-            touEnd () {
+            touEnd (evt) {
                 this.tabTime = (new Date().getTime() - this.tabTime)
                 if (this.tabTime > 500) {
                     /* 长按 */

@@ -2,7 +2,7 @@ import ajax, {sockURL} from '~common/ajax'
 import {tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-import {mutationTypes, actionTypes} from '~/store/cs_page/cs_tiger'
+import {actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
 
 function combimeStore (store, newStore) {

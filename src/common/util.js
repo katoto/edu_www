@@ -325,7 +325,7 @@ export function commonErrorHandler (data) {
     }
 }
 
-export function copySucc(){
+export function copySucc () {
     Message({
         message: 'Copied to clipboard',
         type: 'success'
