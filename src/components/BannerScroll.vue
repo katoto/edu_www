@@ -15,7 +15,8 @@
         methods: {
             hitListBroadcast () {
                 let BroadcastSlide, slideBoxs, clonedNode, slideHeight, hitListIndex
-                if (this.$el && this.$el.children[0] && this.$el.children[0].children[0] && this.$el.children[0].children[0].children) {
+                if (this.$el && this.$el.children[0] && this.$el.children[0].children[0] &&
+                this.$el.children[0].children[0].children && this.$el.children[0].children[0].children[0]) {
                     let $elChild0 = this.$el.children[0]
                     BroadcastSlide = $elChild0.children[0]
                     slideBoxs = $elChild0.children[0].children
@@ -28,6 +29,9 @@
                         hitListIndex++
                         if (this.currLen !== $elChild0.children[0].children.length) {
                             hitListIndex = 0
+                            BroadcastSlide.style.transition = 'all 0s'
+                            BroadcastSlide.style.webkitTransition = 'all 0s'
+                            BroadcastSlide.style.transform = 'translateY(0px)'
                             this.currLen = $elChild0.children[0].children.length
                         }
                         if (hitListIndex > slideBoxs.length - 1) {

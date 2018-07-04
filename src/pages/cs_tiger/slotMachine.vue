@@ -42,13 +42,8 @@
                                 <!--</span>-->
                             </div>
                         </div>
-                        <!--中奖播报  transform: translateY(-3341.41px);  -->
+                        <!--中奖播报  -->
                         <div class="msg-win">
-                            <!--<ul  class="clearfix" v-if="recentList" >-->
-                                <!--<li class="msgLis" v-for="item in recentList" v-if="item.addNewRecord" :class="{'newRecord':item.addNewRecord}" >-->
-                                     <!--Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}-->
-                                <!--</li>-->
-                            <!--</ul>-->
                             <!-- 滚动  components-->
                             <banner-scroll v-if="recentList" class="notice">
                                 <div class="text-scroller" style="height: 100%">
@@ -59,7 +54,6 @@
                                     </ul>
                                 </div>
                             </banner-scroll>
-
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
                         <div class="slot " :class="{'run':slotRun,'opening':slotOpening}">
@@ -169,18 +163,17 @@
                                     <div>Click to Stop</div>
                                 </div>
                                 <!--免费-->
-                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
+                                <div class="btn btn-free" @touchstart.prevent="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
                                     <p>FREE</p>
                                     <div>{{ free_times }} Times</div>
                                 </div>
-                                <!-- 开始按钮btn-spin  @dblclick="autoPlay" @click="startPlay" -->
+                                <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
                                     <p>SPIN</p>
                                     <div>Auto(double click)</div>
                                 </div>
                             </template>
                             <template v-else>
-                                <!-- double -->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
                                     Double Up
                                 </div>
@@ -433,16 +426,14 @@
     import Header from '~components/Header_bk.vue'
     import Footer from '~components/Footer_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
-
-    import BannerScroll from '~components/banner-scroll.vue'
-
+    import BannerScroll from '~components/BannerScroll.vue'
     import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
     export default {
         data () {
             return {
                 showRecharge: false, // 显示充值弹窗
                 hideBarLycky: true,
-                tab_t: 1,
+                tab_t: 1, // 规则
                 tranitionTiming: false, // 运动是否需要过程
                 btnDisable: false, // 按钮不可用
                 rewardBig: false, // 大奖
@@ -506,11 +497,11 @@
             }
         },
         watch: {
-            computeHeight (hei) {
-                if (hei && this.dft_idx) {
-                    // this.setLacal()
-                }
-            }
+            // computeHeight (hei) {
+            //     if (hei && this.dft_idx) {
+            //         // this.setLacal()
+            //     }
+            // }
         },
         methods: {
             copySucc,
@@ -564,15 +555,15 @@
                 this.tabTime = (new Date().getTime() - this.tabTime)
                 if (this.tabTime > 500) {
                     /* 长按 */
-                    /* 是否登录 */
                     if (!this.isLog) {
+                        /* 是否登录 */
                         this.$store.commit('showLoginPop')
                         return false
                     }
                     this.startPlay()
                     this.autoPlay()
                     this.currRun = this.currRun - 1
-                } else if (this.tabTime > 50 && this.tabTime <= 500) {
+                } else if (this.tabTime > 40 && this.tabTime <= 500) {
                     /* 点击 */
                     this.startPlay()
                 }
@@ -587,8 +578,6 @@
             },
             async endInit () {
                 /* 结束初始化 */
-                // 预留是否手动减值的空间
-                // this.$store.dispatch('getUserInfo')
                 this.axes.forEach((val, index) => {
                     this.tranitionTiming = false
                     this.resetLacal()
@@ -690,10 +679,9 @@
                         this.dft_idx = playBack.idx
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
-                        setTimeout(() => {
-                            this.tranitionTiming = true
-                            this.setLacal()
-                        }, 600)
+                        await wait(600)
+                        this.tranitionTiming = true
+                        this.setLacal()
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
@@ -928,11 +916,11 @@
                     this.dft_idx = slotsHome.dft_idx
                 }
             },
-            formateLuckyVal (luckyValues) {
+            formateLuckyVal (luckyValues = []) {
                 /* 初始化 绿色 进度条 */
                 this.lucky_values = luckyValues
                 if (this.lucky_values.length > 0) {
-                    this.lucky_values.forEach((val, index) => {
+                    this.lucky_values.forEach((val) => {
                         if (val.bet === this.dft_bet.toString()) {
                             this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(1)
                             if (parseFloat(val.lucky) >= 100) {
@@ -969,16 +957,13 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
-            /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
                 /* 基础结构数据 */
                 this.initPage(slotsHome)
                 if (slotsHome.lucky_values) {
                     /* 投注列表配置 */
-                    if (slotsHome.lucky_values) {
-                        this.formateLuckyVal(slotsHome.lucky_values)
-                    }
+                    this.formateLuckyVal(slotsHome.lucky_values)
                 }
             }
             /* 订阅老虎机 */
@@ -986,7 +971,6 @@
             this.initLacal(true)
         },
         updated () {
-            //  4*15=60
             if (document.getElementById('heiImg')) {
                 document.getElementById('heiImg').onload = () => {
                     document.getElementById('js_slot-box').style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 60 + 'px'
@@ -998,8 +982,7 @@
         beforeDestroy () {
             this.$store.dispatch('subOutTiger')
             this.stopAutoPlay()
-        },
-        filters: {}
+        }
     }
 </script>
 <style scoped="" lang="less" rel="stylesheet/less">

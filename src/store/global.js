@@ -392,7 +392,7 @@ const actions = {
         localStorage.setItem('block_uid', '0')
         removeCK('block_ck')
     },
-    sub2In ({commit, state}) {
+    sub2In ({commit, state, dispatch}) {
         let sub2InStr = null
         let currUid = null
         try {
@@ -425,7 +425,7 @@ const actions = {
             console.error(e.message)
         }
     },
-    subInTiger () {
+    subInTiger ({commit, state, dispatch}) {
         /* 进入老虎机页面 订阅 */
         try {
             let subTigerStr = {
@@ -437,6 +437,9 @@ const actions = {
             state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
         } catch (e) {
             console.error(e.message + 'subInTiger error')
+            setTimeout(() => {
+                dispatch('subInTiger')
+            }, 100)
         }
     },
     subOutTiger () {
