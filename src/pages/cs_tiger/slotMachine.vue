@@ -488,7 +488,7 @@
                 auto_run: 10,
                 currRun: 0,
                 isAutoPlay: false, // 按钮双击样式
-                currBalance: 0,
+                currBalance: 0
             }
         },
         watch: {
@@ -539,7 +539,6 @@
                         }
                         this.axes[index] = this.axes[index].concat(dft)
                     }
-
                 })
             },
             setLacal () {
@@ -590,6 +589,9 @@
                 })
                 this.slotOpening = false // 开奖结束
                 this.btnDisable = false
+                if (this.playBack.lucky_values) {
+                    this.formateLuckyVal(this.playBack.lucky_values)
+                }
                 await wait(2000)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
@@ -667,10 +669,8 @@
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
-
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 //  todo 临时直接更新
-
                 this.$store.dispatch('getUserInfo')
                 this.stateInit()
                 this.slotRun = true
@@ -679,7 +679,6 @@
                     this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果 位置
-                        // this.resetLacal()
                         this.dft_idx = playBack.idx
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
@@ -688,16 +687,12 @@
                             this.setLacal()
                         }, 600)
                     }
-
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
                         this.formateWindow(playBack.window)
                     }
                     if (playBack.results) {
                         this.showResults(playBack.results)
-                    }
-                    if (playBack.lucky_values) {
-                        this.formateLuckyVal(playBack.lucky_values)
                     }
                 } else {
                     this.endInit()
@@ -908,11 +903,6 @@
                 if (slotsHome.dft_bet !== undefined) {
                     this.dft_bet = slotsHome.dft_bet
                 }
-                /* 投注列表配置 */
-                if (slotsHome.lucky_values) {
-                    this.formateLuckyVal(slotsHome.lucky_values)
-                }
-
                 if (slotsHome.dft_line !== undefined) {
                     this.dft_line = slotsHome.dft_line
                 }
@@ -975,6 +965,12 @@
             if (slotsHome) {
                 /* 基础结构数据 */
                 this.initPage(slotsHome)
+                if (slotsHome.lucky_values) {
+                    /* 投注列表配置 */
+                    if (slotsHome.lucky_values) {
+                        this.formateLuckyVal(slotsHome.lucky_values)
+                    }
+                }
             }
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
