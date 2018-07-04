@@ -257,8 +257,8 @@
                 this.currTab = item
                 switch (item) {
                 case 'slot':
-                    if (!~window.location.href.indexOf('tiger')) {
-                        this.$router.push('/tiger')
+                    if (!~window.location.href.indexOf('slotMachine')) {
+                        this.$router.push('/slotMachine')
                     }
                     ;break
                 case 'lucky11':

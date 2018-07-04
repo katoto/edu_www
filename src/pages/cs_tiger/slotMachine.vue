@@ -37,9 +37,9 @@
                                     </template>
                                     </span>
                                 </p>
-                                <span>
-                                    ETH
-                                </span>
+                                <!--<span>-->
+                                    <!--ETH-->
+                                <!--</span>-->
                             </div>
                         </div>
                         <!--中奖播报-->
@@ -1090,6 +1090,7 @@
             span {
                 line-height: 21px;
                 font-size: 10px;
+                color: #ffe400;
             }
         }
     }
