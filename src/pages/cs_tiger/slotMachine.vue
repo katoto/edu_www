@@ -42,11 +42,11 @@
                                 </span>
                             </div>
                         </div>
-                        <!--中奖播报-->
+                        <!--中奖播报  transform: translateY(-3341.41px);  -->
                         <div class="msg-win">
-                            <ul id="msgWin" class="clearfix" v-if="recentList">
-                                <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" >
-                                    &nbsp; Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }} &nbsp;
+                            <ul  class="clearfix" v-if="recentList"  >
+                                <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" style="transform: translateY(-0px)" >
+                                     Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
                                 </li>
                             </ul>
                         </div>
@@ -930,7 +930,6 @@
             Header, Footer
         },
         async mounted () {
-
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
@@ -967,6 +966,11 @@
         -webkit-touch-callout: none;
         -webkit-user-select: none;
     }
+
+    .msgLis{
+        transition: all 2s;
+    }
+
     .head-box{
         position: fixed;
         left:0;

@@ -14,7 +14,7 @@
                     <ul>
                         <li @click="jump2Page('lucky11')" :class="{'on':currTab==='lucky11'}"><a href="javascript:;">Lukcy 11</a></li>
                         <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
-                        <li @click="jump2Page('slot')" :class="{'on':currTab==='slot'}"><a href="javascript:;">Slot</a></li>
+                        <li @click="jump2Page('slotMachine')" :class="{'on':currTab==='slotMachine'}"><a href="javascript:;">Slot</a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
@@ -213,7 +213,7 @@
                 isShowMycount: false,
                 isChooseCoin: false,
                 isShowChoose: false,
-                currTab: 'slot'
+                currTab: 'slotMachine'
             }
         },
         watch: {
@@ -281,12 +281,12 @@
                     break
                 }
             },
-            jump2Page (item = 'slot') {
+            jump2Page (item = 'slotMachine') {
                 this.currTab = item
                 switch (item) {
-                case 'slot':
-                    if (!~window.location.href.indexOf('tiger')) {
-                        this.$router.push('/tiger')
+                case 'slotMachine':
+                    if (!~window.location.href.indexOf('slotMachine')) {
+                        this.$router.push('/slotMachine')
                     }
                     ;break
                 case 'lucky11':
