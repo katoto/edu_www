@@ -259,7 +259,7 @@
                     label: '中文简体'
                 }, {
                     value: 'zhTw',
-                    label: '中文繁体'
+                    label: '中文繁體'
                 }]
             }
         },

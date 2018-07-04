@@ -37,7 +37,7 @@ module.exports = {
     'MyTransactions': '資金流水',
 
     '©Coinslot 2018.  All Rights Reserved': '©Coinslot 2018.  版權所有',
-    "Lucky 11 is a decentralized lottery product based on distributed ledger technology. Players can pick 1-5 numbers from 1 to 11 and submit it to the Ethereum. One draw per minute, let's start to win the prize!": '幸運11是一款基於分布式賬本技術的高頻彩票，玩家可以從1到11的號碼中選擇1-5個數字，並將其提交到以太坊。遊戲開獎周期為一分鐘 ，讓我們趕緊加入並贏取獎勵吧!',
+    "Lucky 11 is a decentralized lottery product based on distributed ledger technology. Players can pick 1-5 numbers from 1 to 11 and submit it to the Ethereum. One draw per minute, let's start to win the prize!": 'Lucky 11是一款基於分布式賬本技術的高頻彩票，玩家可以從1到11的號碼中選擇1-5個數字，並將其提交到以太坊。遊戲開獎周期為一分鐘 ，讓我們趕緊加入並贏取獎勵吧!',
     'Contact Us': '聯繫我們',
     'General  issues:': '常規問題:',
     'Technical support service:': '技術支持:',
@@ -277,7 +277,7 @@ module.exports = {
     'wait': '待開獎',
     'No Data': '沒有數據',
 
-    'What is Lucky 11?': '什麽是幸運11？',
+    'What is Lucky 11?': '什麽是Lucky 11？',
     'Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain.': 'Lucky 11是一款基於分布式賬本技術的去中心化的彩票產品。鑒於以太坊區塊鏈的性質，所有抽獎結果都是加密安全的且隨機可查。',
     'Blockchain-based data are featured with its unchangeableness and recognized by the whole network, which means it can completely avoid black box operations. Thus, issues like information asymmetry or non-transparency could be addressed to give players a game platform with maximum fairness they have never enjoyed before.': '區塊鏈上資料具有全網共識，不可篡改的特點，使得Lucky11區別於傳統遊戲平臺，安全杜絕了傳統遊戲中存在的暗箱操作，以及用戶間不對等揮著遊戲規則與信息不透明等問題，從而為玩家提供壹個最為公平的遊戲平臺。',
     'Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the Ethereum blockchain.': '玩家可以從1到11選擇1到5個數字並將其提交至以太坊區塊鏈。',
