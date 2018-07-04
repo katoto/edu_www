@@ -229,7 +229,7 @@ const actions = {
                                 } else if (msg.data.block_status.toString() === '0') {
                                     // 不健康  添加unable
                                     Message({
-                                        message: 'The network is blocking, please retry later',
+                                        message: _('The network is blocking, please retry later'),
                                         type: 'error',
                                         duration: tipsTime
                                     })

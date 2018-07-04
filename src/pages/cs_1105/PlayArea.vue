@@ -297,7 +297,7 @@
                 let currpickMoney = this.areaMsg.pickMoney
                 if (currpickMoney >= 0.1) {
                     Message({
-                        message: 'Bet amount is between 0.0005 and 0.1 ETH',
+                        message: _('Bet amount is between 0.0005 and 0.1 ETH'),
                         type: 'error'
                     })
                 } else {

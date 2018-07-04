@@ -98,7 +98,7 @@
 	                }
 	            } else {
 	                Message({
-	                    message: 'Please enter your email address',
+	                    message: _('Please enter your email address'),
 	                    type: 'error',
 	                    duration: tipsTime
 	                })

@@ -9,7 +9,7 @@
             <form>
                 <input type="text" v-model="reg_email" @blur="checkEmail" name="email" :placeholder="_('Email')">
                 <input type="password" v-model="reg_pass" @blur="checkPass"
-                       :placeholder="_('New Password(1-15 numbers and letters)')">
+                       :placeholder="_('New Password(6-15 numbers and letters)')">
                 <input type="password" v-model="reg_againPass" @blur="checkagainPass"
                        :placeholder="_('Confirm Password')">
                 <div class="verCode">
@@ -93,7 +93,7 @@
             },
             checkPass () {
                 /* 检测密码 */
-                let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
+                let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
                 if (!passReg.test(this.reg_pass)) {
                     if (this.reg_pass !== '') {
                         Message({
@@ -102,7 +102,9 @@
                             duration: tipsTime
                         })
                     }
+                    return false
                 }
+                return true
             },
             async checkEmail () {
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
@@ -123,7 +125,7 @@
                 // 判断邮箱
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
                 let regObj = {}
-                if (!(this.log_checked) || this.reg_email === '' || this.reg_pass === '' || this.reg_againPass === '') {
+                if (!(this.log_checked) || this.reg_email === '' || this.reg_pass === '' || this.reg_againPass === '' || !this.checkPass()) {
                     return false
                 }
                 if (emailReg.test(this.reg_email)) {

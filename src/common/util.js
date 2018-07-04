@@ -336,7 +336,8 @@ export function getURLParams () {
     return obj
 }
 
-function isThisLang (source, lang) {
+function isThisLang (lang) {
+    let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
     if (typeof source === 'string') {
         return source.toLowerCase() === lang
     }
@@ -344,15 +345,19 @@ function isThisLang (source, lang) {
 }
 
 function isZhTw (source) {
-    return isThisLang(navigator.language, 'zh-hk')
+    return isThisLang('zh-tw')
 }
 
 function isZhcn () {
-    return isThisLang(navigator.language, 'zh-cn')
+    return isThisLang('zh-cn') || isThisLang('zh')
+}
+
+function isZhHk () {
+    return isThisLang('zh-hk')
 }
 
 function getDefaultLanguage () {
-    if (isZhTw()) {
+    if (isZhTw() || isZhHk()) {
         return 'zhTw'
     }
 

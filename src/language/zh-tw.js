@@ -214,7 +214,7 @@ module.exports = {
     'My<br>Bets': '我的<br>投注',
     'Email': '郵箱',
     'Sign in successfully': '登錄成功',
-    'New Password(1-15 numbers and letters)': '密碼（1-15個字符）',
+    'New Password(6-15 numbers and letters)': '密碼（6-15個字符和數字）',
     'Confirm Password': '確認密碼',
     'Verification Code': '驗證碼',
     'Draw Time': '開獎時間',
@@ -262,5 +262,7 @@ module.exports = {
     'Bet amount is between 0.0005 and 0.1 ETH': '投注額度在0.0005到0.1ETH之間',
     'The minimum bet is 0.0005 ETH': '投注額度不能小於 0.0005 ETH',
     'You have already chosen {0} number': '您已经選擇了 {0} 个号码',
-    'Next': '下一步'
+    'Next': '下一步',
+    'reset password': '重置密碼',
+    'The network is blocking, please retry later': '網絡阻塞，請稍後嘗試'
 }
