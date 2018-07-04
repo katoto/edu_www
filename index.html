@@ -26,7 +26,7 @@
             flex: 1;
             overflow-y: auto;
         }
-        .cs-loading{
+        #coinslotLoading{
             position: fixed;
             z-index:999;
             left:0;
@@ -38,26 +38,59 @@
             text-align: center;
             font-weight: bold;
         }
-        .cs-loading>div{
+        #coinslotLoading>div{
             position: absolute;
             left:50%;
             top:50%;
             transform: translate(-50%,-50%);
         }
-        .loading{
-
+        #cs{
+            width: 100px;
+            height: 100px;
+        }
+        .animation {
+            background: url("./static/loading.png") no-repeat;
+            background-size: 3400px 100px;
+            animation: keyframes-loading 1.36s steps(33,end) infinite;
+        }
+        @keyframes keyframes-loading {
+            0% {
+                background-position: 0px 0px;
+            }
+            100% {
+                background-position: -3300px 0px;
+            }
         }
     </style>
+    <script>
+        function preloadImage(names, cb, prefix){
+            window.gkaCache = window.gkaCache || [];
+            var n = 0,img,imgs = {};
+            names.forEach(function(name) {
+                img = new Image();
+                window.gkaCache.push(img);
+                img.onload = (function(name, img) {
+                    return function() {
+                        imgs[name] = img;
+                        (++n === names.length) && cb && cb(imgs);
+                    }
+                })(name, img);
+                img.src = (prefix || '') + name;
+            });
+        }
+        preloadImage(["loading.png"], function() {document.getElementById('cs').className += " animation"}, "static/")
+    </script>
 </head>
 <body>
-<div id="app">
+<div id="app" class="">
 </div>
-<div id="coinslotLoading" class="cs-loading">
+<div id="coinslotLoading">
     <div>
-        <div class="loading"></div>
+        <div id="cs" class="animation"></div>
         <p>Coinslot</p>
     </div>
 </div>
+
 </body>
 <!-- 结构化数据 -->
 <script type="application/ld+json">
