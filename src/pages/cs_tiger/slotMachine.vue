@@ -2,7 +2,7 @@
     <div >
         <div class="tiger-pc ">
             <Header></Header>
-            <div class="tiger-main ">
+            <div class="tiger-main" @click="initPop">
                 <div class="tiger ">
                     <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                     <div class="tiger-wrap ">
@@ -51,7 +51,7 @@
                             </ul>
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
-                        <div @click="initPop" class="slot " :class="{'run':slotRun,'opening':slotOpening}">
+                        <div class="slot " :class="{'run':slotRun,'opening':slotOpening}">
                             <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                                 <template>
                                     <!-- class="yes" -->
@@ -508,10 +508,23 @@
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())
             },
+            initLacal(){
+                this.axes.forEach((val,index)=>{
+                    let dft = val.splice(this.dft_idx[index], 3);
+                    let val2 = [];
+                    for (let i = 0; i < 3; i++) {
+                        val2 = val2.concat(val)
+                    }
+                    val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
+                    this.axes[index] = val2;
+                })
+            },
             setLacal () {
                 this.dft_idx.forEach((val, index) => {
-                    val = parseFloat(val) + 30
-                    this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
+//                    val = parseFloat(val) + 30
+//                    this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
+                     this['slotItem' + (index + 1) + 'Tran'] = 'translateY(-4800px)'
+
                 })
             },
             fakeSetLacal () {
@@ -637,16 +650,19 @@
                     if (playBack.idx) {
                         // 结果 位置
                         this.dft_idx = playBack.idx
-                        let arr1 = playBack.idx[0] - this.dft_idx[0]
-                        this.resetLacal()
-                        this.tranitionTiming = true
-                        this.fakeSetLacal()
-                        this.tranitionTiming = false
-                        this.resetLacal()
-                        this.tranitionTiming = true
-                        setTimeout(() => {
-                            this.setLacal()
-                        }, 500)
+//                        let arr1 = playBack.idx[0] - this.dft_idx[0]
+//                        this.resetLacal()
+//                        this.tranitionTiming = true
+//                        this.fakeSetLacal()
+//                        this.tranitionTiming = false
+//                        this.resetLacal()
+//                        this.tranitionTiming = true
+//                        setTimeout(() => {
+//                            this.setLacal()
+//                        }, 500)
+                        this.resetLacal();
+                        this.tranitionTiming = true;
+                        this.setLacal()
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
@@ -881,9 +897,9 @@
                 }
                 if (slotsHome.axes) {
                     this.axes = slotsHome.axes
-                    this.axes.forEach((val, index) => {
-                        this.axes[index] = val.concat(val)
-                    })
+//                    this.axes.forEach((val, index) => {
+//                        this.axes[index] = val.concat(val)
+//                    })
                 }
                 if (slotsHome.dft_idx) {
                     this.dft_idx = slotsHome.dft_idx
@@ -939,6 +955,8 @@
             }
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
+
+            this.initLacal()
         },
         updated () {
             //  4*15=60
