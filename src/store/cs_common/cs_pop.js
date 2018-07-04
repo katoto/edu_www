@@ -200,7 +200,8 @@ const actions = {
         commit('setIsLog', false)
         removeCK()
         commit('setUserInfo', {})
-        if (!~state.route.path.indexOf('lucky')) {
+        // || ~state.route.path.indexOf('drawNumber')
+        if (~state.route.path.indexOf('account')) {
             router.push('/lucky')
         }
         dispatch('sub2out')
