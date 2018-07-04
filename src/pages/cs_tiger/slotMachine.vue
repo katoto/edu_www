@@ -695,7 +695,7 @@
                         //                            this.setLacal()
                         //                        }, 500)
                         // this.resetLacal()
-                        this.tranitionTiming = true
+//                        this.tranitionTiming = true
                         this.setLacal()
                     }
                     if (playBack.window) {
@@ -1248,7 +1248,18 @@
             /*top:-100px !important;*/
         }
         ul.tranitionTiming{
-            transition: all 0.5s linear;
+            transition-property: all;
+            transition-duration: 0.5s;
+            transition-timing-function: ease-in-out;
+        }
+        .slot-item1{
+            transition-delay: 0s;
+        }
+        .slot-item2{
+            transition-delay: 0.2s;
+        }
+        .slot-item3{
+            transition-delay: 0.4s;
         }
     }
 
