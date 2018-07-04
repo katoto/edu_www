@@ -109,7 +109,7 @@ export default {
             if (bet.opencode && bet.opencode !== '') {
                 return parseFloat(bet.betprize) === 0 ? '-' : `${formateBalance(bet.betprize)}${formateCoinType(bet.cointype)}`
             }
-            return 'wait'
+            return _('wait')
         },
         isBingo (num, opencode) {
             return opencode.split(',').indexOf(num) > -1
@@ -128,9 +128,9 @@ export default {
         },
         showWinBetTip (betprize, cointype) {
             Notification({
-                title: 'Congratulations!',
+                title: _('Congratulations!'),
                 dangerouslyUseHTMLString: true,
-                message: `You Win + ${formateBalance(betprize)} ${formateCoinType(cointype)}`,
+                message: _('You Win + {0} {1}', formateBalance(betprize), formateCoinType(cointype)),
                 position: 'bottom-right',
                 duration: 5000
             })

@@ -80,13 +80,13 @@
                                     align="center"
                                     header-align="center"
                                     type="index"
-                                    :label="_('No.')">
+                                    :label="_('No. ')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
                                     header-align="center"
                                     prop="drawtime"
-                                    :label="_('Transaction Time')">
+                                    :label="_('Transaction Time ')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
@@ -100,7 +100,7 @@
                                     align="center"
                                     header-align="center"
                                     prop="cointype"
-                                    :label="_('Type')">
+                                    :label="_('Type ')">
                             </el-table-column>
                             <el-table-column
                                     align="center"
@@ -229,7 +229,9 @@
                 <div class="pop-ani">
                     <div class="pop-main">
                         <a href="javascript:;" class="btn-close" @click="showTransferError=false">close</a>
-                        <h3>Transfer Failure</h3>
+                        <h3>
+                            <lang>Transfer Failure</lang>
+                        </h3>
                         <div class="icon-face on">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                                 <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
@@ -240,7 +242,7 @@
                                       style="stroke-width: 4px;"></path>
                             </svg>
                         </div>
-                        <p>{{ _('Due to {0}, the order is unsuccessful, please try again later', transferMsg) }}</p>
+                        <p>{{ transferMsg || _('Transfer Failure') }}</p>
                         <a href="javascript:;" @click="closeTransferError" class="btn-failure">
                             <lang>Try Later</lang>
                         </a>
@@ -300,7 +302,7 @@ export default {
                 },
                 {
                     value: '0',
-                    label: _('waiting')
+                    label: _('waiting ')
                 }
             ],
 
@@ -355,7 +357,6 @@ export default {
                     }
                 })
                 .catch(data => {
-                    this.error(data.message)
                     this.showTransferError = true
                     this.transferMsg = data.message
                 })
@@ -472,7 +473,7 @@ export default {
                         case 1:
                         case 2:
                         case 3:
-                            val.drawstatus = _('waiting')
+                            val.drawstatus = _('waiting ')
                             break
                         case 4:
                             val.drawstatus = _('successful')
@@ -496,9 +497,9 @@ export default {
                         }
                     } else {
                         if (Number(val.orderstatus) === 0) {
-                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting')}</a>`
+                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting ')}</a>`
                         } else if (val.orderstatus === '1') {
-                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting')}</a>`
+                            val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting ')}</a>`
                         } else if (val.orderstatus === '-1' || val.orderstatus === '-2') {
                             val.betprizeVal = _('failure')
                         }

@@ -32,7 +32,7 @@
                         type="index"
                         align="center"
                         header-align="center"
-                        :label="_('No.')">
+                        :label="_('No. ')">
                 </el-table-column>
                 <el-table-column
                         align="center"

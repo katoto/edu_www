@@ -8,14 +8,14 @@
             <div class="icon-email"></div>
             <p class="email-account">{{ regVerifyEmail }}</p>
             <p class="verify-tips">
-                <lang>Verification email has been sent, please sign in your mailbox and click the link to reset your password .</lang>
+                <lang>Verification email has been sent, please sign in your mailbox and click the link to verify your email.</lang>
             </p>
             <form>
                 <!--  no  -->
                 <input type="submit" @click.stop.prevent="againVerify" :value="_('Resent Email')"
                        :class="{'no':emailBackTime!==0}">
                 <div style="height: 30px">
-                    <p v-if="emailBackTime !== 0"><span>{{ emailBackTime }}s </span>left</p>
+                    <p v-if="emailBackTime !== 0"><span>{{ _('{0}s left', emailBackTime) }} </span></p>
                 </div>
             </form>
             <div class="forgetpsw"></div>

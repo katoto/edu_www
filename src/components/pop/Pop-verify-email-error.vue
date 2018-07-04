@@ -13,7 +13,7 @@
                 <lang>Your email address hasn't been verificated yet.Would you want to send the verification email now ?</lang>
             </p>
             <form action="" method="post">
-                <input type="submit" value="Send" :class="{'no':emailBackTime!==0}">
+                <input type="submit" :value="_('Send')" :class="{'no':emailBackTime!==0}">
                 <div style="height: 30px">
                     <p v-if="emailBackTime !== 0"><span>{{ emailBackTime }}s </span>left</p>
                 </div>

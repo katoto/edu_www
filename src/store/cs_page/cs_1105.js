@@ -218,11 +218,11 @@ const actionsInfo = mapActions({
                     }
                 } else {
                     if (newData[i].orderstatus.toString() === '0') {
-                        newTbody += '<p class="bold">wait</p>'
+                        newTbody += `<p class="bold">${_('wait')}</p>`
                     } else if (newData[i].orderstatus.toString() === '1') {
-                        newTbody += '<p class="bold">wait</p>'
+                        newTbody += `<p class="bold">${_('wait')}</p>`
                     } else if (newData[i].orderstatus.toString() === '-1' || newData[i].orderstatus.toString() === '-2') {
-                        newTbody += '<p class="bold">failure</p>'
+                        newTbody += `<p class="bold">${_('failure')}</p>`
                     }
                 }
                 newData[i].newTbody = newTbody

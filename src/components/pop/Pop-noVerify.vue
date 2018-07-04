@@ -11,7 +11,7 @@
             </p>
             <form>
                 <!--  no  -->
-                <input type="submit" @click.stop.prevent="againVerify" value="Send">
+                <input type="submit" @click.stop.prevent="againVerify" :value="_('Send')">
                 <p class="js_verifyEmail_backTime_parent" style="visibility: hidden">
                     Left：<span class="js_verifyEmail_backTime">60</span>seconds
                 </p>

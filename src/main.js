@@ -28,6 +28,7 @@ locale.use(lang)
 // 特定國際化
 locale.i18n((key, value) => {
     return {
+        'el.table.emptyText': _('No Data'),
         'el.pagination.goto': _('go to')
     }[key]
 })

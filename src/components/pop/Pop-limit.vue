@@ -38,7 +38,7 @@
                                 <ul>
                                     <li v-for="(value2, itemIndex) in value.restrict" class="limit-item2 clearfix" :key="itemIndex">
                                         <div class="limit-match">
-                                            {{value2.bettype | format_match}}
+                                            {{formatMatch(value2.bettype)}}
                                         </div>
                                         <div class="limit-number">
                                             <ul :class="value2.bettype | format_class">
@@ -61,7 +61,7 @@
 <script>
     import Pop from './Pop'
     import {Message} from 'element-ui'
-    import {formatTime} from '~common/util'
+    import {formatTime, formatMatch} from '~common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
 
     export default {
@@ -75,6 +75,7 @@
         },
         components: {Pop},
         methods: {
+            formatMatch,
             async updataMsg () {
                 let dataLimit = await this.$store.dispatch(aTypes.popLimit)
                 if (dataLimit && dataLimit.status === '100') {
@@ -115,26 +116,6 @@
             }
         },
         filters: {
-            format_match (value) {
-                if (isNaN(value)) {
-                    return ''
-                }
-                value = value.toString()
-                switch (value) {
-                case '1101':
-                    return 'C1'
-                case '1102':
-                    return 'C2'
-                case '1103':
-                    return 'C3'
-                case '1104':
-                    return 'C4'
-                case '1105':
-                    return 'C5'
-                case '11051':
-                    return 'Super 5'
-                }
-            },
             format_class (value) {
                 if (isNaN(value)) {
                     return ''

@@ -69,7 +69,7 @@ const ajax = function (url, config = {ignore: true}) {
         throw new Error(response.message)
     })
 }
-ajax.get = function (url, params) {
+ajax.get = function (url, params, noMessage = false) {
     let config = {
         params: {
             ...getCommonParams(),
@@ -81,7 +81,7 @@ ajax.get = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    commonErrorHandler(response.data)
+                    !noMessage && commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data
@@ -92,7 +92,7 @@ ajax.get = function (url, params) {
         })
 }
 
-ajax.post = function (url, params) {
+ajax.post = function (url, params, noMessage = false) {
     let data = {
         ...getCommonParams(),
         ...params
@@ -101,7 +101,7 @@ ajax.post = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    commonErrorHandler(response.data)
+                    !noMessage && commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data
