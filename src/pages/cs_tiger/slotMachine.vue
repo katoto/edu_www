@@ -595,7 +595,7 @@
                 // this.$store.dispatch('getUserInfo')
                 this.slotOpening = false // 开奖结束
                 this.btnDisable = false
-                await wait(450)
+                await wait(2000)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
                         this.startPlay()
@@ -684,7 +684,7 @@
                         setTimeout(() => {
                             this.tranitionTiming = true
                             this.setLacal()
-                        }, 40)
+                        }, 400)
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
@@ -729,7 +729,7 @@
                         })
                     }
                     /* 预留 转动的时间 */
-                    await wait(1000)
+                    await wait(2700)
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
@@ -1239,18 +1239,19 @@
         }
         ul.tranitionTiming{
             transition-property: all;
-            transition-duration: 0.5s;
+            transition-duration: 2s;
             transition-timing-function: ease-in-out;
+            transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
         }
-        /*.slot-item1{*/
-            /*transition-delay: 0s;*/
-        /*}*/
-        /*.slot-item2{*/
-            /*transition-delay: 0.2s;*/
-        /*}*/
-        /*.slot-item3{*/
-            /*transition-delay: 0.4s;*/
-        /*}*/
+        .slot-item1{
+            transition-delay: 0s;
+        }
+        .slot-item2{
+            transition-delay: 0.2s;
+        }
+        .slot-item3{
+            transition-delay: 0.4s;
+        }
     }
 
     .btn-main {
