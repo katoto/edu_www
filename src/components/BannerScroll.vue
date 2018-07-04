@@ -27,13 +27,6 @@
                     this.currLen = slideBoxs.length
                     setInterval(() => {
                         hitListIndex++
-                        if (this.currLen !== $elChild0.children[0].children.length) {
-                            hitListIndex = 0
-                            BroadcastSlide.style.transition = 'all 0s'
-                            BroadcastSlide.style.webkitTransition = 'all 0s'
-                            BroadcastSlide.style.transform = 'translateY(0px)'
-                            this.currLen = $elChild0.children[0].children.length
-                        }
                         if (hitListIndex > slideBoxs.length - 1) {
                             hitListIndex = 0
                             BroadcastSlide.style.transition = 'all 0s'
@@ -43,9 +36,16 @@
                             BroadcastSlide.style.transition = 'all 1.2s'
                             BroadcastSlide.style.webkitTransition = 'all 1.2s'
                         }
+                        if (this.currLen !== $elChild0.children[0].children.length) {
+                            hitListIndex = 0
+                            BroadcastSlide.style.transition = 'all 0s'
+                            BroadcastSlide.style.webkitTransition = 'all 0s'
+                            BroadcastSlide.style.transform = 'translateY(0px)'
+                            this.currLen = $elChild0.children[0].children.length
+                        }
                         BroadcastSlide.style.transform = 'translateY(-' + hitListIndex * slideHeight + 'px)'
                         BroadcastSlide.style.webkitTransform = 'translateY(-' + hitListIndex * slideHeight + 'px)'
-                    }, 3000)
+                    }, 3500)
                 } else {
                     return false
                 }

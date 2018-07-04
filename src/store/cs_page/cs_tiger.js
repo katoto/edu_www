@@ -49,7 +49,7 @@ const actionsInfo = mapActions({
     async addRecentList ({state, commit, dispatch}, data) {
         if (data && state.recentList) {
             // 对象
-            await wait(4800)
+            await wait(5000)
             if (state.recentList.length > 12) {
                 commit(mTypes.recentList, state.recentList.slice(0, 12))
             }
