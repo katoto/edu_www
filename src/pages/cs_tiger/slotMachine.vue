@@ -487,7 +487,7 @@
                 auto_run: 10,
                 currRun: 0,
                 isAutoPlay: false, // 按钮双击样式
-                currBalance: 0
+                currBalance: 0,
             }
         },
         watch: {
@@ -533,27 +533,12 @@
                     } else {
                         /* 需要删掉最后三个 */
                         dft = val.slice(parseFloat(this.dft_idx[index]) + 30, parseFloat(this.dft_idx[index]) + 33)
-                        console.log(dft);
                         if (this.axes[index].length > 63) {
-                            this.axes[index].splice(0, 3)
-                            let spliceVal = this.axes[index].splice(-3)
-                            this.axes[index] = spliceVal.concat(this.axes[index])
+                            this.axes[index].splice(-3)
                         }
                         this.axes[index] = this.axes[index].concat(dft)
                     }
 
-                // let val2 = []
-                // for (let i = 0; i < 3; i++) {
-                //     val2 = val2.concat(val)
-                // }
-                /* 打乱 */
-                // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
-                // if (head) {
-                //     this.axes[index] = dft.concat(this.axes[index])
-                // } else {
-                //     this.axes[index] = this.axes[index].concat(dft)
-                // }
-                // this.axes[index] = val2
                 })
             },
             setLacal () {
@@ -598,6 +583,14 @@
                 // this.$store.dispatch('getUserInfo')
                 this.slotOpening = false // 开奖结束
                 this.btnDisable = false
+
+                this.axes.forEach((val, index) => {
+                    this.tranitionTiming = false
+                    this.resetLacal()
+                    let currAxes = val.slice(-3)
+                    this.axes[index].splice(0, 3, ...currAxes)
+                })
+
                 await wait(2000)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
@@ -657,6 +650,11 @@
                     this.$store.commit('showLoginPop')
                     return false
                 }
+                /* 是否激活 */
+                if (this.userInfo && this.userInfo.status !== '1') {
+                    this.$store.commit('showNoVerify')
+                    return false
+                }
                 /* 余额是否充足 */
                 if (this.userInfo && this.userInfo.accounts[0]) {
                     if (parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) {
@@ -670,8 +668,10 @@
                     single_bet: this.dft_bet,
                     cointype: 2001
                 }
+
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 //  todo 临时直接更新
+
                 this.$store.dispatch('getUserInfo')
                 this.stateInit()
                 this.slotRun = true
@@ -680,7 +680,7 @@
                     this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果 位置
-                        this.resetLacal()
+                        // this.resetLacal()
                         this.dft_idx = playBack.idx
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
@@ -689,6 +689,7 @@
                             this.setLacal()
                         }, 600)
                     }
+
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
                         this.formateWindow(playBack.window)

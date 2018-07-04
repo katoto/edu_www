@@ -411,11 +411,10 @@
                     return false
                 }
                 /* 未激活的 */
-                if (this.userInfo && this.userInfo.status === '0') {
+                if (this.userInfo && this.userInfo.status !== '1') {
                     this.$store.commit('showNoVerify')
                     return false
                 }
-
                 // 判断 余额是否足
                 if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
                     Message({
