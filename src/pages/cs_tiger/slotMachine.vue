@@ -558,14 +558,11 @@
                     val = parseFloat(val) + 30
                     this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
                 })
-                // [60, 60, 60].forEach((val, index) => {
-                //     this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
-                // })
-                // this['slotItem' + (index + 1) + 'Tran'] = 'translateY(-4800px)'
             },
             resetLacal () {
+                this.tranitionTiming = false
                 this.dft_idx.forEach((val, index) => {
-                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0)'
+                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0px)'
                 })
             },
             touStart (evt) {
@@ -684,19 +681,10 @@
                         this.dft_idx = playBack.idx
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
-                        //                        let arr1 = playBack.idx[0] - this.dft_idx[0]
-                        //                        this.resetLacal()
-                        //                        this.tranitionTiming = true
-                        //                        this.fakeSetLacal()
-                        //                        this.tranitionTiming = false
-                        //                        this.resetLacal()
-                        //                        this.tranitionTiming = true
-                        //                        setTimeout(() => {
-                        //                            this.setLacal()
-                        //                        }, 500)
-                        // this.resetLacal()
-//                        this.tranitionTiming = true
-                        this.setLacal()
+                        setTimeout(() => {
+                            this.tranitionTiming = true
+                            this.setLacal()
+                        }, 40)
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
@@ -1254,15 +1242,15 @@
             transition-duration: 0.5s;
             transition-timing-function: ease-in-out;
         }
-        .slot-item1{
-            transition-delay: 0s;
-        }
-        .slot-item2{
-            transition-delay: 0.2s;
-        }
-        .slot-item3{
-            transition-delay: 0.4s;
-        }
+        /*.slot-item1{*/
+            /*transition-delay: 0s;*/
+        /*}*/
+        /*.slot-item2{*/
+            /*transition-delay: 0.2s;*/
+        /*}*/
+        /*.slot-item3{*/
+            /*transition-delay: 0.4s;*/
+        /*}*/
     }
 
     .btn-main {
