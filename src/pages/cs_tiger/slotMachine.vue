@@ -1124,7 +1124,7 @@
         position: relative;
         z-index: 3;
         margin: 0 auto;
-        width: 100%;
+        /*width: 100%;*/
         height: 42/2px;
         overflow: hidden;
         background: url("../../assets/img/tiger/bg-msg-win.png") no-repeat center;
@@ -1976,10 +1976,8 @@
         .fr {
             float: right;
             img {
-                display: block;
-                margin-top: 4px;
-                width: 75px;
-                height: 71px;
+                width: 90px;
+                height: 90px;
             }
         }
         .msg1 {
