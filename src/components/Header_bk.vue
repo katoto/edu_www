@@ -4,7 +4,7 @@
         <div class="head">
             <div class="top">
                 <!--展开 on-->
-                <div class="m-choose-play" :class="{isShowChoose:isShowChoose}" @click="isShowChoose=!isShowChoose">
+                <div class="m-choose-play" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
                     <div class="btn">
                         <span></span><span></span><span></span>
                     </div>
@@ -25,7 +25,7 @@
                     <a href="javascript:;" target="_blank">LuckyCoin</a>
                     <a href="javascript:;" target="_blank">Mobile APP</a>
                 </div>
-                <div class="language " :class="{isLanguage:isShowLanguage}" @click="isShowLanguage=!isShowLanguage">
+                <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">
                         <img src="../assets/slice/lan-en.jpg" alt="">
                         <span>En</span>
@@ -50,7 +50,7 @@
                     <!-- 登录 -->
                     <section v-else>
                         <!--选择币种,暂时不做-->
-                        <div class="choose-coin" v-if="userInfo && userInfo.accounts" :class="{isChooseCoin:isChooseCoin}" @click="isChooseCoin=!isChooseCoin">
+                        <div class="choose-coin" v-if="userInfo && userInfo.accounts" :class="{isChooseCoin:isChooseCoin}" @click="headControlPop('chooseCoin')">
                             <span class="coin" v-if="currBalance">{{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}</span>
                             <ul>
                                 <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
@@ -67,7 +67,7 @@
                                 <lang>Withdraw</lang>
                             </router-link>
                         </div>
-                        <div class="mycount"  :class="{isShowMycount:isShowMycount}"  @click="isShowMycount=!isShowMycount">
+                        <div class="mycount"  :class="{isShowMycount:isShowMycount}"  @click="headControlPop('showMycount')">
                             <div class="countNum">
                                 {{ formateEmail(userInfo.email) }}<i></i>
                             </div>
@@ -253,6 +253,38 @@
         methods: {
             formateEmail,
             formateBalance,
+            headControlPop (tab = 'showChoose') {
+                this.isShowLanguage = false
+                this.isShowMycount = false
+                this.isChooseCoin = false
+                this.isShowChoose = false
+                switch (tab) {
+                case 'showChoose':
+                    this.isShowLanguage = false
+                    this.isShowMycount = false
+                    this.isChooseCoin = false
+                    this.isShowChoose = !this.isShowChoose
+                    break
+                case 'chooseCoin':
+                    this.isShowLanguage = false
+                    this.isShowMycount = false
+                    this.isShowChoose = false
+                    this.isChooseCoin = !this.isChooseCoin
+                    break
+                case 'showMycount':
+                    this.isChooseCoin = false
+                    this.isShowChoose = false
+                    this.isShowLanguage = false
+                    this.isShowMycount = !this.isShowMycount
+                    break
+                case 'showLanguage':
+                    this.isShowMycount = false
+                    this.isChooseCoin = false
+                    this.isShowChoose = false
+                    this.isShowLanguage = !this.isShowLanguage
+                    break
+                }
+            },
             jump2Page (item = 'slot') {
                 this.currTab = item
                 switch (item) {
