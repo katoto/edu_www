@@ -681,11 +681,10 @@
                         this.dft_idx = playBack.idx
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
-
-                        this.tranitionTiming = true
-                        setTimeout(()=>{
+                        setTimeout(() => {
+                            this.tranitionTiming = true
                             this.setLacal()
-                        },400)
+                        }, 40)
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
@@ -1241,15 +1240,15 @@
             transition-duration: 0.5s;
             transition-timing-function: ease-in-out;
         }
-        .slot-item1{
-            transition-delay: 0s;
-        }
-        .slot-item2{
-            transition-delay: 0.2s;
-        }
-        .slot-item3{
-            transition-delay: 0.4s;
-        }
+        /*.slot-item1{*/
+            /*transition-delay: 0s;*/
+        /*}*/
+        /*.slot-item2{*/
+            /*transition-delay: 0.2s;*/
+        /*}*/
+        /*.slot-item3{*/
+            /*transition-delay: 0.4s;*/
+        /*}*/
     }
 
     .btn-main {
