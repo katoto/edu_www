@@ -535,8 +535,8 @@
                         dft = val.slice(parseFloat(this.dft_idx[index]) + 30, parseFloat(this.dft_idx[index]) + 33)
                         if (this.axes[index].length > 63) {
                             this.axes[index].splice(0, 3)
-                            this.axes[index] = dft.concat(this.axes[index])
-                            this.axes[index].splice(-3)
+                            let spliceVal = this.axes[index].splice(-3)
+                            this.axes[index] = spliceVal.concat(this.axes[index])
                         }
                         this.axes[index] = this.axes[index].concat(dft)
                     }
