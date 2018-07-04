@@ -59,7 +59,7 @@
                                         <li v-if="axes" v-for="item in axes[0]" >
                                             <img :src="`../../../static/staticImg/_${item}.png`" :alt="item" />
                                         </li>
-                                        <li id="hei">
+                                        <li id="hei" v-if="hideInitLi">
                                             <img v-if="hideInitLi" id="heiImg" src="../../../static/staticImg/_A.png" alt="">
                                         </li>
                                     </ul>
@@ -533,6 +533,7 @@
                     } else {
                         /* 需要删掉最后三个 */
                         dft = val.slice(parseFloat(this.dft_idx[index]) + 30, parseFloat(this.dft_idx[index]) + 33)
+                        console.log(dft);
                         if (this.axes[index].length > 63) {
                             this.axes[index].splice(0, 3)
                             let spliceVal = this.axes[index].splice(-3)
