@@ -733,7 +733,7 @@
                         })
                     }
                     /* 预留 转动的时间 */
-                    await wait(2700)
+                    await wait(3000)
                     this.slotRun = false // 动画结束
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
