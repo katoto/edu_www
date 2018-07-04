@@ -493,7 +493,7 @@
         watch: {
             computeHeight (hei) {
                 if (hei && this.dft_idx) {
-                    this.setLacal()
+                    // this.setLacal()
                 }
             }
         },
@@ -508,29 +508,60 @@
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())
             },
-            initLacal(){
-                this.axes.forEach((val,index)=>{
-                    let dft = val.splice(this.dft_idx[index], 3);
-                    let val2 = [];
-                    for (let i = 0; i < 3; i++) {
-                        val2 = val2.concat(val)
+            initLacal (head = false) {
+                /* new  结果的走  */
+                // this.axes.forEach((val, index) => {
+                //     let dft = val.splice(this.dft_idx[index], 3)
+                //     // let val2 = []
+                //     // for (let i = 0; i < 3; i++) {
+                //     //     val2 = val2.concat(val)
+                //     // }
+                //     /* 打乱 */
+                //     // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
+                //     if (head) {
+                //         this.axes[index] = dft.concat(this.axes[index])
+                //     } else {
+                //         this.axes[index] = this.axes[index].concat(dft)
+                //     }
+                //     // this.axes[index] = val2
+                // })
+                this.axes.forEach((val, index) => {
+                    let dft = null
+                    if (head) {
+                        dft = val.slice(parseFloat(this.dft_idx[index]) + 27, parseFloat(this.dft_idx[index]) + 30)
+                        this.axes[index] = dft.concat(this.axes[index])
+                    } else {
+                        /* 需要删掉最后三个 */
+                        dft = val.slice(parseFloat(this.dft_idx[index]) + 30, parseFloat(this.dft_idx[index]) + 33)
+                        if (this.axes[index].length > 63) {
+                            this.axes[index].splice(-3)
+                        }
+                        this.axes[index] = this.axes[index].concat(dft)
                     }
-                    val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
-                    this.axes[index] = val2;
+
+                // let val2 = []
+                // for (let i = 0; i < 3; i++) {
+                //     val2 = val2.concat(val)
+                // }
+                /* 打乱 */
+                // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
+                // if (head) {
+                //     this.axes[index] = dft.concat(this.axes[index])
+                // } else {
+                //     this.axes[index] = this.axes[index].concat(dft)
+                // }
+                // this.axes[index] = val2
                 })
             },
             setLacal () {
                 this.dft_idx.forEach((val, index) => {
-//                    val = parseFloat(val) + 30
-//                    this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
-                     this['slotItem' + (index + 1) + 'Tran'] = 'translateY(-4800px)'
-
+                    val = parseFloat(val) + 30
+                    this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
                 })
-            },
-            fakeSetLacal () {
-                this.dft_idx.forEach((val, index) => {
-                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY(' + (-this.computeHeight) * 30 + 'px)'
-                })
+                // [60, 60, 60].forEach((val, index) => {
+                //     this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
+                // })
+                // this['slotItem' + (index + 1) + 'Tran'] = 'translateY(-4800px)'
             },
             resetLacal () {
                 this.dft_idx.forEach((val, index) => {
@@ -649,19 +680,22 @@
                     this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果 位置
+                        this.resetLacal()
                         this.dft_idx = playBack.idx
-//                        let arr1 = playBack.idx[0] - this.dft_idx[0]
-//                        this.resetLacal()
-//                        this.tranitionTiming = true
-//                        this.fakeSetLacal()
-//                        this.tranitionTiming = false
-//                        this.resetLacal()
-//                        this.tranitionTiming = true
-//                        setTimeout(() => {
-//                            this.setLacal()
-//                        }, 500)
-                        this.resetLacal();
-                        this.tranitionTiming = true;
+                        this.initLacal()
+                        this.dft_idx = [36, 36, 36]
+                        //                        let arr1 = playBack.idx[0] - this.dft_idx[0]
+                        //                        this.resetLacal()
+                        //                        this.tranitionTiming = true
+                        //                        this.fakeSetLacal()
+                        //                        this.tranitionTiming = false
+                        //                        this.resetLacal()
+                        //                        this.tranitionTiming = true
+                        //                        setTimeout(() => {
+                        //                            this.setLacal()
+                        //                        }, 500)
+                        // this.resetLacal()
+                        this.tranitionTiming = true
                         this.setLacal()
                     }
                     if (playBack.window) {
@@ -743,7 +777,6 @@
                     }
                 } else {
                     clearInterval(this.animateInterval)
-                    console.log(this.setRewardIcon)
                     if (this.setRewardIcon === 'lineWard') {
                         /* 显示大奖还是小奖 */
                         if (this.totalRadio >= 25) {
@@ -897,9 +930,9 @@
                 }
                 if (slotsHome.axes) {
                     this.axes = slotsHome.axes
-//                    this.axes.forEach((val, index) => {
-//                        this.axes[index] = val.concat(val)
-//                    })
+                    this.axes.forEach((val, index) => {
+                        this.axes[index] = val.concat(val)
+                    })
                 }
                 if (slotsHome.dft_idx) {
                     this.dft_idx = slotsHome.dft_idx
@@ -954,8 +987,7 @@
             }
             /* 订阅老虎机 */
             this.$store.dispatch('subInTiger')
-
-            this.initLacal()
+            this.initLacal(true)
         },
         updated () {
             //  4*15=60
