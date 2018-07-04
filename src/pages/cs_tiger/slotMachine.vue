@@ -672,10 +672,17 @@
                         res.forEach((val, index) => {
                             if (val.toString() !== '0') {
                                 this.totalRadio += parseFloat(val)
-                                this.winRes.push({
-                                    line: 'line' + index,
-                                    value: val
-                                })
+                                if (index === 9) {
+                                    this.winRes.unshift({
+                                        line: 'line' + index,
+                                        value: val
+                                    })
+                                } else {
+                                    this.winRes.push({
+                                        line: 'line' + index,
+                                        value: val
+                                    })
+                                }
                             }
                         })
                     }
@@ -716,6 +723,7 @@
                     }
                 } else {
                     clearInterval(this.animateInterval)
+                    console.log(this.setRewardIcon)
                     if (this.setRewardIcon === 'lineWard') {
                         /* 显示大奖还是小奖 */
                         if (this.totalRadio >= 25) {
