@@ -51,7 +51,7 @@
                             </ul>
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
-                        <div class="slot " :class="{'run':slotRun,'opening':slotOpening}">
+                        <div @click="initPop" class="slot " :class="{'run':slotRun,'opening':slotOpening}">
                             <div ref="js_slotBox" id="js_slot-box" class="slot-box">
                                 <template>
                                     <!-- class="yes" -->
@@ -504,6 +504,10 @@
             formateBalance,
             formateEmail,
             formateCoinType,
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
+            },
             setLacal () {
                 this.dft_idx.forEach((val, index) => {
                     val = parseFloat(val) + 30

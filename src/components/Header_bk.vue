@@ -192,7 +192,6 @@
         components: {PopList, Banner},
         data () {
             return {
-
                 showDetail: false,
                 showEndFaucet: false, // 控制 结束弹窗 tips
                 showEndFaucetTime: null,
@@ -217,8 +216,18 @@
                 currTab: 'slot'
             }
         },
-        watch: {},
+        watch: {
+            initHeadState () {
+                this.isShowLanguage = false
+                this.isShowMycount = false
+                this.isChooseCoin = false
+                this.isShowChoose = false
+            }
+        },
         computed: {
+            initHeadState () {
+                return this.$store.state.initHeadState
+            },
             jackPotMsg () {
                 return this.$store.state.cs_1105.jackPotMsg
             },

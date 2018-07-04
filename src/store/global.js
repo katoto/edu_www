@@ -24,6 +24,7 @@ csCommon.keys().forEach(function (commonPath) {
 const state = {
     version: '0.0.1',
     isLog: false,
+    initHeadState: null, // 初始化头部转态
     showEmailErr: false,
     userInfo: null,
     socket: {
@@ -37,6 +38,9 @@ const state = {
 }
 
 const mutations = {
+    initHeadState (state, data) {
+        state.initHeadState = data
+    },
     setCurrCoinType (state, data) {
         state.currCoinType = data
     },
