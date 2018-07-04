@@ -686,7 +686,7 @@
                         setTimeout(() => {
                             this.tranitionTiming = true
                             this.setLacal()
-                        }, 400)
+                        }, 600)
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
