@@ -1166,6 +1166,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
+        transition: all 0.2s;
         z-index: 2;
         .bg-slot {
             position: absolute;
@@ -1192,6 +1193,7 @@
     .slot.run {
         background: url("../../assets/img/tiger/bg-slot-run.png") no-repeat top center;
         background-size: contain;
+
     }
 
     .slot.opening {
