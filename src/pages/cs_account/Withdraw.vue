@@ -423,7 +423,7 @@ export default {
             this.showTransfer = true
         },
         async handleClick (tab, msg) {
-            if (tab.label === 'Records') {
+            if (tab.label === _('Records')) {
                 this.handleCurrentChange()
             }
         },

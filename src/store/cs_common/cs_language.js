@@ -22,9 +22,6 @@ const mutations = {
                     : `&${key}=${params[key]}`
             )
         }).join('')
-        setTimeout(() => {
-            window.location.reload()
-        }, 300)
     }
 }
 const actions = {
