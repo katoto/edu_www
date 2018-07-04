@@ -44,8 +44,8 @@
                         </div>
                         <!--中奖播报  transform: translateY(-3341.41px);  -->
                         <div class="msg-win">
-                            <ul  class="clearfix" v-if="recentList"  >
-                                <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" style="transform: translateY(-0px)" >
+                            <ul  class="clearfix" v-if="recentList" >
+                                <li class="msgLis" v-for="item in recentList" v-if="item.addNewRecord" :class="{'newRecord':item.addNewRecord}" >
                                      Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
                                 </li>
                             </ul>
