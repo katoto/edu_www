@@ -69,7 +69,9 @@
     #app {
         position: relative;
         background: #eef1f9;
-        font: 14px/20px sans-r;
+        font-size: 14px;
+        line-height: 20px;
+        font-family: "Microsoft Yahei", sans-r;
         color: #263648;
         overflow: hidden;
     }
