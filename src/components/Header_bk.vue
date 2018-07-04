@@ -254,10 +254,6 @@
             formateEmail,
             formateBalance,
             headControlPop (tab = 'showChoose') {
-                this.isShowLanguage = false
-                this.isShowMycount = false
-                this.isChooseCoin = false
-                this.isShowChoose = false
                 switch (tab) {
                 case 'showChoose':
                     this.isShowLanguage = false
