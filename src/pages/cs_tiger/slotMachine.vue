@@ -76,6 +76,7 @@
                                 </template>
                             </div>
                         </div>
+                        <div class="bg-slot"></div>
                         <!--底部操作-->
                         <div class="operating ">
                             <!-- 展开 on-->
@@ -1179,13 +1180,21 @@
             background-size: cover;
         }
     }
-
-    .slot.run {
+    .bg-slot{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        transition: all 0.2s;
         background: url("../../assets/img/tiger/bg-slot-run.png") no-repeat top center;
         background-size: contain;
+        opacity:0;
+    }
+    .slot.run+.bg-slot{
         opacity:1;
     }
-
     .slot.opening {
         .slot-box {
             /*overflow: visible;*/
