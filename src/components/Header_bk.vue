@@ -27,16 +27,16 @@
                 </div>
                 <div class="language " :class="{isLanguage:isShowLanguage}" @click="isShowLanguage=!isShowLanguage">
                     <div class="language-choose">
-                        <img src="../assets/slice/cn.png" alt="">
+                        <img src="../assets/slice/lan-en.jpg" alt="">
                         <span>En</span>
                     </div>
                     <ul>
                         <li>
-                            <img src="../assets/slice/cn.png" width="27" height="15" alt="">
+                            <img src="../assets/slice/lan-cn.jpg" width="27" height="15" alt="">
                             <span>中文(简)</span>
                         </li>
                         <li>
-                            <img src="../assets/slice/cn.png" width="27" height="15" alt="">
+                            <img src="../assets/slice/lan-cn.jpg" width="27" height="15" alt="">
                             <span>中文(繁)</span>
                         </li>
                     </ul>

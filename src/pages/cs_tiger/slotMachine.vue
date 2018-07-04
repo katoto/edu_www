@@ -80,7 +80,7 @@
                         <div class="operating ">
                             <!-- 展开 on-->
                             <div class="single"  @click="showBetSel">
-                                <div style="cursor: pointer">
+                                <div>
                                     <div class="top">
                                         <div class="single-amount">
                                             {{ dft_bet }}
@@ -930,6 +930,7 @@
             Header, Footer
         },
         async mounted () {
+
             /* 首页请求 */
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
@@ -1027,6 +1028,7 @@
         background: url("../../assets/img/tiger/bg-jackpot.png") no-repeat center;
         background-size: contain;
         width: percentage(477/750);
+        width: 477/2px;
         height: 117/2px;
         overflow: hidden;
         font-family: imp;
@@ -1299,6 +1301,7 @@
             /*border: 2px solid #bc9357;*/
             background: url("../../assets/img/tiger/bg-single.png") no-repeat center;
             background-size: cover;
+            cursor: pointer;
             .single-amount {
                 font-size: 15px;
             }
@@ -1932,6 +1935,24 @@
             top: 2px;
         }
     }
+    @keyframes bingo {
+        0%,25%,100%{
+            background: url("../../assets/img/tiger/line.png") no-repeat center;
+            background-size: cover;
+        }
+        50%,75%{
+            background: url("../../assets/img/tiger/line2.png") no-repeat center;
+            background-size: cover;
+        }
+    }
+    @keyframes heartbeat {
+        0%,80%,100%{
+            transform: scale(1);
+        }
+        40%{
+            transform: scale(1.2);
+        }
+    }
 
     /*适配*/
     @media (max-width: @screen-desktop) {
@@ -1978,24 +1999,7 @@
         }
     }
 
-    @keyframes bingo {
-        0%,25%,100%{
-            background: url("../../assets/img/tiger/line.png") no-repeat center;
-            background-size: cover;
-        }
-        50%,75%{
-            background: url("../../assets/img/tiger/line2.png") no-repeat center;
-            background-size: cover;
-        }
-    }
-    @keyframes heartbeat {
-        0%,80%,100%{
-            transform: scale(1);
-        }
-        40%{
-            transform: scale(1.2);
-        }
-    }
+
     //background: url("../../assets/img/tiger/bg-slot.png") no-repeat center;
     .footer{
         border-top:0 !important;
