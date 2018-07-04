@@ -44,11 +44,22 @@
                         </div>
                         <!--中奖播报  transform: translateY(-3341.41px);  -->
                         <div class="msg-win">
-                            <ul  class="clearfix" v-if="recentList" >
-                                <li class="msgLis" v-for="item in recentList" v-if="item.addNewRecord" :class="{'newRecord':item.addNewRecord}" >
-                                     Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
-                                </li>
-                            </ul>
+                            <!--<ul  class="clearfix" v-if="recentList" >-->
+                                <!--<li class="msgLis" v-for="item in recentList" v-if="item.addNewRecord" :class="{'newRecord':item.addNewRecord}" >-->
+                                     <!--Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!-- 滚动  components-->
+                            <banner-scroll v-if="recentList" class="notice">
+                                <div class="text-scroller" style="height: 100%">
+                                    <ul class="scroller-in">
+                                        <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" >
+                                        Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </banner-scroll>
+
                         </div>
                         <!--进行中 run 开奖 opening - yes  中奖opening  -->
                         <div class="slot " :class="{'run':slotRun,'opening':slotOpening}">
@@ -422,6 +433,9 @@
     import Header from '~components/Header_bk.vue'
     import Footer from '~components/Footer_bk.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
+
+    import BannerScroll from '~components/banner-scroll.vue'
+
     import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
     export default {
         data () {
@@ -512,19 +526,8 @@
             initLacal (head = false) {
                 /* new  结果的走  */
                 // this.axes.forEach((val, index) => {
-                //     let dft = val.splice(this.dft_idx[index], 3)
-                //     // let val2 = []
-                //     // for (let i = 0; i < 3; i++) {
-                //     //     val2 = val2.concat(val)
-                //     // }
                 //     /* 打乱 */
                 //     // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
-                //     if (head) {
-                //         this.axes[index] = dft.concat(this.axes[index])
-                //     } else {
-                //         this.axes[index] = this.axes[index].concat(dft)
-                //     }
-                //     // this.axes[index] = val2
                 // })
                 this.axes.forEach((val, index) => {
                     let dft = null
@@ -561,8 +564,13 @@
                 this.tabTime = (new Date().getTime() - this.tabTime)
                 if (this.tabTime > 500) {
                     /* 长按 */
-                    this.autoPlay()
+                    /* 是否登录 */
+                    if (!this.isLog) {
+                        this.$store.commit('showLoginPop')
+                        return false
+                    }
                     this.startPlay()
+                    this.autoPlay()
                     this.currRun = this.currRun - 1
                 } else if (this.tabTime > 50 && this.tabTime <= 500) {
                     /* 点击 */
@@ -958,7 +966,7 @@
             }
         },
         components: {
-            Header, Footer
+            Header, Footer, BannerScroll
         },
         async mounted () {
             /* 首页请求 */
@@ -1005,10 +1013,9 @@
         -webkit-user-select: none;
     }
 
-    .msgLis{
-        transition: all 2s;
+    .notice{
+        height: 100%;
     }
-
     .head-box{
         position: fixed;
         left:0;
@@ -1137,7 +1144,7 @@
             position: absolute;
             width:100%;
             height:100%;
-            overflow: hidden;
+            /*overflow: hidden;*/
             transition: all 0.2s;
         }
         li{
