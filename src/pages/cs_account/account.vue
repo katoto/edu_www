@@ -8,7 +8,7 @@
                 <ul class="account_Tab">
                     <router-link :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
-                            {{item.msg}}
+                            {{_(item.msg)}}
                         </a>
                     </router-link>
                 </ul>
@@ -31,12 +31,11 @@
         data () {
             return {
                 lists: [
-                    {msg: 'General', link: '/account/general'},
-                    {msg: 'My Bets', link: '/account/myBets'},
-                    {msg: 'My Transactions', link: '/account/myTransactions'},
-                    {msg: 'Deposit', link: '/account/deposit'},
-                    {msg: 'Withdraw', link: '/account/withdraw'}
-
+                    {msg: _('General'), link: '/account/general'},
+                    {msg: _('My Bets'), link: '/account/myBets'},
+                    {msg: _('My Transactions'), link: '/account/myTransactions'},
+                    {msg: _('Deposit'), link: '/account/deposit'},
+                    {msg: _('Withdraw'), link: '/account/withdraw'}
                 ]
             }
         },

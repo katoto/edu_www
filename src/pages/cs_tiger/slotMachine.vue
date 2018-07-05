@@ -868,7 +868,6 @@
                     return false
                 }
                 /* 有免费次数的时候 不给切换 */
-                console.log(this.free_times)
                 if (parseFloat(this.free_times)) {
                     console.log('免费不给切换')
                     return false

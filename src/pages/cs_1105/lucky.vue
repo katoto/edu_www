@@ -13,16 +13,20 @@
                 </ul>
                 <div class="btn-area">
                     <span class="fee-count hide">
-                        Fee&nbsp&nbsp<i><span class="js_gasNumber">0</span>ETH</i>
+                        <lang>Fee</lang>&nbsp;&nbsp;<i><span class="js_gasNumber">0</span>ETH</i>
                     </span>
-                    <a href="javascript:;" @click="addTicket" class="addmore">Add Ticket</a>
+                    <a href="javascript:;" @click="addTicket" class="addmore">
+                        <lang>Add Ticket</lang>
+                    </a>
                 </div>
                 <!--js_startBetBtn 用的-->
                 <div id="js_startBetBtn" class="btn-play-now">
                     <a href="javascript:;" @click="playNow">
-                        Play Now
+                        <lang>Play Now</lang>
                     </a>
-                    <span>Total Pay</span>
+                    <span>
+                        <lang>Total Pay</lang>
+                    </span>
                     <p class="total-pay ">{{ totalPay }} ETH</p>
                 </div>
                 <!--背景泡泡-->
@@ -35,18 +39,32 @@
             <div class="pre-numberBox">
                 <div class="pre-number tab ">
                     <el-tabs v-model="activeName" @tab-click="handleRecentWin">
-                        <el-tab-pane label="Recent Bets" name="Bets">
+                        <el-tab-pane :label="_('Recent Bets')" name="Bets">
                             <div class="prenum-table">
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th>Transaction Time</th>
-                                        <th>User ID</th>
-                                        <th>No.</th>
-                                        <th>Type</th>
-                                        <th>Bet Number</th>
-                                        <th>Bet Amount</th>
-                                        <th>Prize Amount</th>
+                                        <th>
+                                            <lang>Transaction Time</lang>
+                                        </th>
+                                        <th>
+                                            <lang>User ID</lang>
+                                        </th>
+                                        <th>
+                                            <lang>No.</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Type</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Number</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Amount</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Prize Amount</lang>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
@@ -69,19 +87,33 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <p class="recode20">Last 20 records</p>
+                            <p class="recode20">
+                                <lang>Last 20 records</lang>
+                            </p>
                         </el-tab-pane>
-                        <el-tab-pane label="Recent Wins" name="Wins">
+                        <el-tab-pane :label="_('Recent Wins')" name="Wins">
                             <div class="winner-list">
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th>User ID</th>
-                                        <th>No.</th>
-                                        <th>Type</th>
-                                        <th>Bet Number</th>
-                                        <th>Bet Amount</th>
-                                        <th>Prize Amount</th>
+                                        <th>
+                                            <lang>User ID</lang>
+                                        </th>
+                                        <th>
+                                            <lang>No.</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Type</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Number</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Bet Amount</lang>
+                                        </th>
+                                        <th>
+                                            <lang>Prize Amount</lang>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,98 +160,86 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <p class="recode20">Last 20 records</p>
+                            <p class="recode20">
+                                <lang>Last 20 records</lang>
+                            </p>
                         </el-tab-pane>
-                        <el-tab-pane label="How to Play" name="Play">
+                        <el-tab-pane :label="_('How to Play')" name="Play">
                             <ul class="introduct">
                                 <li>
-                                    <span>What is Lucky 11?</span>
+                                    <span>
+                                        <lang>What is Lucky 11?</lang>
+                                    </span>
                                     <p class="circle">
-                                        Lucky 11 is a decentralized lottery product based on distributed ledger
-                                        technology. Each draw is provably random and cryptographically secure thanks to
-                                        the nature of the Ethereum blockchain.
-                                    </p>
-                                    <p class="circle">Blockchain-based data are featured with its unchangeableness and
-                                        recognized by the whole network ,
-
-                                        which means it can completely avoid black box operations.
-                                        Thus, issues like information asymmetry or non-transparency could be addressed
-                                        to give players a game platform with maximum fairness they have never enjoyed
-                                        before.</p>
-                                    <p class="circle">
-                                        Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the
-                                        Ethereum blockchain.
+                                        <lang>Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain.</lang>
                                     </p>
                                     <p class="circle">
-                                        One draw per minute. The result is determined by the last hash value uploaded in
-                                        the minute.
+                                        <lang>Blockchain-based data are featured with its unchangeableness and recognized by the whole network, which means it can completely avoid black box operations. Thus, issues like information asymmetry or non-transparency could be addressed to give players a game platform with maximum fairness they have never enjoyed before.</lang>
                                     </p>
                                     <p class="circle">
-                                        If the chosen numbers match the draw result, the player wins the reward (virtual
-                                        currency) stipulated in smart contract.
+                                        <lang>Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the Ethereum blockchain.</lang>
+                                    </p>
+                                    <p class="circle">
+                                        <lang>One draw per minute. The result is determined by the last hash value uploaded in the minute.</lang>
+                                    </p>
+                                    <p class="circle">
+                                        <lang>If the chosen numbers match the draw result, the player wins the reward (virtual currency) stipulated in smart contract.</lang>
                                     </p>
                                 </li>
                                 <li>
-                                    <span>How to play the game?</span>
-                                    <p>Players will pick 1-5 numbers from 1 to 11. Players win the reward when the
-                                        chosen numbers are in line with that of the draw result:</p>
-                                    <p class="circle">Pick 1 number, players have 5/11 of the win probability with 1.8
-                                        times return.</p>
-                                    <p class="circle">Pick 2 numbers, players have 1/5.5 of the win probability with 4.5
-                                        times return.</p>
-                                    <p class="circle">Pick 3 numbers, players have 1/16.5 of the win probability with
-                                        13.5 times return.</p>
-                                    <p class="circle">Pick 4 numbers, players have 1/66 of the win probability with 54
-                                        times return.</p>
-                                    <p class="circle">Pick 5 numbers, players have 1/462 of the win probability with 378
-                                        times return.</p>
-                                    <p class="circle hide"> On the basis of the traditional choose five, users can
-                                        choose
-                                        additional
-                                        "jackpot" game: choose five number and order, if the order of the selected five
-                                        number
-                                        consistent with the current of the lottery five number order, get jackpot
-                                        reward,
-                                        reward:<br/> award pool's formula = 50 * (jackpot amount bet amount)</p>
+                                    <span>
+                                        <lang>How to play the game?</lang>
+                                    </span>
+                                    <p>
+                                        <lang>Players will pick 1-5 numbers from 1 to 11. Players win the reward when the chosen numbers are in line with that of the draw result:</lang>
+                                    </p>
+                                    <p class="circle">
+                                        <lang>Pick 1 number, players have 5/11 of the win probability with 1.8 times return.</lang>
+                                    </p>
+                                    <p class="circle">
+                                        <lang>Pick 2 numbers, players have 1/5.5 of the win probability with 4.5 times return.</lang>
+                                    </p>
+                                    <p class="circle">
+                                        <lang>Pick 3 numbers, players have 1/16.5 of the win probability with 13.5 times return.</lang>
+                                    </p>
+                                    <p class="circle">
+                                        <lang>Pick 4 numbers, players have 1/66 of the win probability with 54 times return.</lang>
+                                    </p>
+                                    <p class="circle">
+                                        <lang>Pick 5 numbers, players have 1/462 of the win probability with 378 times return.</lang>
+                                    </p>
+                                    <p class="circle hide">
+                                        <lang>On the basis of the traditional choose five, users can choose additional "jackpot" game: choose five number and order, if the order of the selected five number consistent with the current of the lottery five number order, get jackpot reward, reward:</lang><br/>
+                                        <lang>award pool's formula = 50 * (jackpot amount bet amount)</lang>
+                                    </p>
                                 </li>
                                 <li>
-                                    <span>How to win the game?</span>
-                                    <p>After closing the bet, all the betting information will be calculated through the
-                                        Merkle Tree to get the Merkle number.
-                                        And the Merkle number will be uploaded to the Ethereum, then get the hash value
-                                        of this transaction's block.
-                                        The last 25 digits of the value will be divided into 5 groups. Each group has 5
-                                        numbers, and it will be converted into a decimal number.
-                                        The first group numbers will be processed through (x mod11 + 1) calculation.
-                                        Then retrieving its current value as the first lottery number.
-                                        The second group numbers will be processed through (x mod10+1) calculation, and
-                                        by using same method,
-                                        the second lottery number can be drew, and the rest can be done in the same
-                                        manner. Finally, the five numbers calculated through this method will be draw
-                                        result.</p>
+                                    <span>
+                                        <lang>How to win the game?</lang>
+                                    </span>
+                                    <p>
+                                        <lang>After closing the bet, all the betting information will be calculated through the Merkle Tree to get the Merkle number. And the Merkle number will be uploaded to the Ethereum, then get the hash value of this transaction's block. The last 25 digits of the value will be divided into 5 groups. Each group has 5 numbers, and it will be converted into a decimal number. The first group numbers will be processed through (x mod11 + 1) calculation. Then retrieving its current value as the first lottery number. The second group numbers will be processed through (x mod10+1) calculation, and by using same method, the second lottery number can be drew, and the rest can be done in the same manner. Finally, the five numbers calculated through this method will be draw result.</lang>
+                                    </p>
                                 </li>
                                 <li>
-                                    <span>How to ensure fairness?</span>
+                                    <span>
+                                        <lang>How to ensure fairness?</lang>
+                                    </span>
                                     <p class="circle">
-                                        Unchangeable betting information<br>
-                                        The draw result is based on hash value which was calculated from Merkle number.
-                                        Since Merkle number has already uploaded to the Ethereum chain, the information
-                                        cannot be modified.
+                                        <lang>Unchangeable betting information</lang><br>
+                                        <lang>The draw result is based on hash value which was calculated from Merkle number. Since Merkle number has already uploaded to the Ethereum chain, the information cannot be modified.</lang>
                                     </p>
                                     <p class="circle">
-                                        Fair draw<br>
-                                        The draw numbers are selected from hash value, due to its unpredictability and
-                                        unchangeableness, the fair draw can be assured.
+                                        <lang>Fair draw</lang><br>
+                                        <lang>The draw numbers are selected from hash value, due to its unpredictability and unchangeableness, the fair draw can be assured.</lang>
                                     </p>
                                     <p class="circle">
-                                        Fair reward<br>
-                                        Both draw and reward distribution are based on Ethereum chain. Thus, there is no
-                                        chance for the platform to interfere. All information and process is transparent
-                                        and fair.
+                                        <lang>Fair reward</lang><br>
+                                        <lang>Both draw and reward distribution are based on Ethereum chain. Thus, there is no chance for the platform to interfere. All information and process is transparent and fair.</lang>
                                     </p>
-                                    <p class="circle">No robot<br>
-                                        Since all process is transparent and unchangeable, the platform cannot use any
-                                        robot to do black box operations. The game is utterly fair.
+                                    <p class="circle">
+                                        <lang>No robot</lang><br>
+                                        <lang>Since all process is transparent and unchangeable, the platform cannot use any robot to do black box operations. The game is utterly fair.</lang>
                                     </p>
                                 </li>
                             </ul>
@@ -234,7 +254,9 @@
                     <div class="pop-ani">
                         <div class="pop-main">
                             <a href="javascript:;" @click="showOrderSucc=false" class="btn-close">close</a>
-                            <h3>Submit Successful</h3>
+                            <h3>
+                                <lang>Submit Successful</lang>
+                            </h3>
                             <div class="icon-face on">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                                     <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
@@ -245,9 +267,12 @@
                                           style="stroke-width: 4px;"></path>
                                 </svg>
                             </div>
-                            <p>Your order has been filed.</p>
-                            <a href="javascript:;" @click="showOrderSucc=false"
-                               class="btn-success ">Good Luck</a>
+                            <p>
+                                <lang>Your order has been filed.</lang>
+                            </p>
+                            <a href="javascript:;" @click="showOrderSucc=false" class="btn-success ">
+                                <lang>Good Luck</lang>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -258,7 +283,9 @@
                     <div class="pop-ani">
                         <div class="pop-main">
                             <a href="javascript:;" @click="showOrderFail=false" class="btn-close">close</a>
-                            <h3>submission failed</h3>
+                            <h3>
+                                <lang>submission failed</lang>
+                            </h3>
                             <div class="icon-face on">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                                     <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
@@ -269,9 +296,10 @@
                                           style="stroke-width: 4px;"></path>
                                 </svg>
                             </div>
-                            <p>Due to {{ failureMsg }}, the order is unsuccess-<br>ful, please try
-                                later</p>
-                            <a href="javascript:;" @click="showOrderFail=false" class="btn-failure">Try Later</a>
+                            <p>{{_('Due to {0}, the order is unsuccessful, please try later', failureMsg)}}</p>
+                            <a href="javascript:;" @click="showOrderFail=false" class="btn-failure">
+                                <lang>Try Later</lang>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -290,7 +318,7 @@
             <!--<p class="msg2">You&ensp;Win&ensp;+&ensp;{{0.00318}}</p>-->
         <!--</div>-->
         <!-- 世界杯弹窗 -->
-        <div class="pop pop-world" :class="{'hide':!showPopWorld}">
+        <div class="pop pop-world hide" :class="{'hide':!showPopWorld}">
             <div class="contain">
                 <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
                 <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
@@ -418,7 +446,7 @@
                 // 判断 余额是否足
                 if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
                     Message({
-                        message: 'Your balance is insufficient, please top up',
+                        message: _('Your balance is insufficient, please top up'),
                         type: 'error'
                     })
                     setTimeout(() => {
@@ -437,7 +465,7 @@
                     let beginBetStr = ''
                     this.playArea.forEach((val, index) => {
                         if (parseFloat(val.pickType) !== val.pickNum.length) {
-                            noComplete.push('Ticket' + (index + 1))
+                            noComplete.push(_('Ticket') + (index + 1))
                             noCompleteIndex.push(index)
                         }
                         beginBetStr += val.pickNum.join(',') + '#' + this.playType(val.pickType) + '@' + val.pickMoney + '$'
@@ -463,7 +491,7 @@
                                 orderMsg.data.restricts.forEach(function (val, index) {
                                     errorResArr.push(val.betcode)
                                 })
-                                this.failureMsg = 'Order limit#' + errorResArr.join('#')
+                                this.failureMsg = _('Order limit#') + errorResArr.join('#')
                                 this.showOrderFail = true
                                 setTimeout(() => {
                                     this.playArea.forEach((val, index) => {
@@ -477,14 +505,14 @@
                                     errorResArr.push(val.betcode)
                                 })
 
-                                this.failureMsg = 'Order limit#' + errorResArr.join('#')
+                                this.failureMsg = _('Order limit#') + errorResArr.join('#')
                                 this.showOrderFail = true
                             }
                         }
                         document.getElementById('jsLoading').style.display = 'none'
                     } else {
                         Message({
-                            message: 'Please pick correct numbers in ' + noComplete.join('&&'),
+                            message: _('Please pick correct numbers in {0}', noComplete.join(' && ')),
                             type: 'error'
                         })
                         // 震动 报错
@@ -519,7 +547,7 @@
                     })
                 } else {
                     Message({
-                        message: 'No more than 5 tickets',
+                        message: _('No more than 5 tickets'),
                         type: 'error'
                     })
                 }
@@ -600,7 +628,7 @@
                 }
             },
             async handleRecentWin (tab) {
-                if (tab.label === 'Recent Wins') {
+                if (tab.name === 'Wins') {
                     let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
                     this.DataWinnerList = this.format_recentWins(dataRecentWinsList)
                 }
@@ -661,8 +689,7 @@
             }
         },
         async mounted () {
-            /* 订阅lucky11 sock */
-            this.$store.dispatch('subInLucky')
+
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav)
@@ -678,6 +705,9 @@
                 localStorage.setItem('js_showWorldCup', new Date().getDate())
             }
 
+            /* 订阅lucky11 sock */
+            this.$store.dispatch('subInLucky')
+
             // 首页 冒泡效果
             bgStarBox()
             function bgStarBox () {
@@ -685,11 +715,11 @@
                 bgstar('stars2', 10, '#fff')
             }
             function bgstar (id, num, color) {
-                var _width = window.innerWidth,
-                    _height = document.getElementById('play-area').clientHeight * 5,
-                    count = num,
-                    str = '',
-                    str1 = ''
+                let _width = window.innerWidth
+                let _height = document.getElementById('play-area').clientHeight * 5
+                let count = num
+                let str = ''
+                let str1 = ''
                 for (var i = 0; i < count; i++) {
                     str += parseInt(Math.random() * _width) + 'px '
                     str += parseInt(Math.random() * _height) + 'px '
@@ -803,6 +833,7 @@
             }
         }
         .play-tips {
+            width: 500px;
             height:35px;
             position: relative;
             float: left;
@@ -1187,6 +1218,20 @@
         }
     }
 
+    .pop-reward-ct:hover {
+        &:before {
+            position: absolute;
+            content: " ";
+            height: 30px;
+            display: block;
+            background: transparent;
+            top: 15px;
+            left: 50%;
+            width: 709px;
+            margin-left: -354.5px;
+        }
+    }
+
     //奖级表
     .pop-rewardTable {
         position: absolute;
@@ -1195,8 +1240,8 @@
         top: 40px;
         margin-left: -354.5px;
         width: 709px;
-        height: 460px;
-        background: rgba(0,0,0,0);
+        height: 480px;
+        background: #FFF;
     }
 
     //往期开奖
@@ -1276,9 +1321,6 @@
     .prenum-table {
         overflow: hidden;
         padding-bottom: 63px;
-        th {
-            //width:12.5%;
-        }
     }
 
     .winner-list, .prenum-table {
@@ -1477,7 +1519,8 @@
             line-height: 28px;
         }
         .nomsg {
-            padding: 114px 0 40px 0;
+            padding: 114px 15px 40px;
+            text-align: center;
             &::before {
                 content: '';
                 position: absolute;

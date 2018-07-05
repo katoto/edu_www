@@ -2,16 +2,18 @@
     <!--  弹窗-注册  -->
     <Pop class="pop-reg" :show.sync="show">
         <div class="pop-main">
-            <h3>Create Your Account</h3>
+            <h3>
+                <lang>Create Your Account</lang>
+            </h3>
             <div class="loading"></div>
             <form>
-                <input type="text" v-model="reg_email" @blur="checkEmail" name="email" placeholder="Email">
+                <input type="text" v-model="reg_email" @blur="checkEmail" name="email" :placeholder="_('Email')">
                 <input type="password" v-model="reg_pass" @blur="checkPass"
-                       placeholder="New Password(1-15 numbers and letters)">
+                       :placeholder="_('New Password(6-15 numbers and letters)')">
                 <input type="password" v-model="reg_againPass" @blur="checkagainPass"
-                       placeholder="Confirm Password">
+                       :placeholder="_('Confirm Password')">
                 <div class="verCode">
-                    <input type="text" placeholder="Verification Code" class="msg-ver" v-model="verifyCode">
+                    <input type="text" :placeholder="_('Verification Code')" class="msg-ver" v-model="verifyCode">
                     <img  width="137" height="50" alt="" class="img-ver" @click="reloadVerifyImg" :src="verifyImgPath">
                 </div>
                 <div class="sure-old">
@@ -19,18 +21,26 @@
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
                         <!--<el-button @click="showSucc">模拟成功</el-button>-->
-                        I'm 18+ years old and agree <!--with <a href="terms.html" target="_blank">Terms of use</a>
+                        <lang>I'm 18+ years old and agree</lang>
+                        <!--with <a href="terms.html" target="_blank">Terms of use</a>
                     and <a href="policy.html" target="_blank">Privacy policy</a>-->
                     </p>
                 </div>
                 <!--no-->
-                <input type="submit" @click.stop.prevent="submitReg" value="Sign Up"
+                <input type="submit" @click.stop.prevent="submitReg" :value="_('Sign Up')"
                        :class="{'no':!(log_checked) || reg_email === '' || reg_pass === '' || reg_againPass === '' || verifyCode === ''}">
             </form>
-            <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">Forgot your password?</a>
+            <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">
+                <lang>Forgot your password?</lang>
+            </a>
         </div>
         <div class="pop-bottom">
-            <p>Already Have Account？ <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">Sign In</a></p>
+            <p>
+                <lang>Already Have Account？</lang> 
+                <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">
+                    <lang>Sign In</lang>
+                </a>
+            </p>
         </div>
     </Pop>
 </template>
@@ -83,16 +93,18 @@
             },
             checkPass () {
                 /* 检测密码 */
-                let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
+                let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
                 if (!passReg.test(this.reg_pass)) {
                     if (this.reg_pass !== '') {
                         Message({
-                            message: 'Password must contain 6-15 characters with both numbers and letters',
+                            message: _('Password must contain 6-15 characters with both numbers and letters'),
                             type: 'error',
                             duration: tipsTime
                         })
                     }
+                    return false
                 }
+                return true
             },
             async checkEmail () {
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
@@ -102,7 +114,7 @@
                         this.$store.dispatch('beforeReg', this.reg_email)
                     } else {
                         Message({
-                            message: 'Please enter your right email address',
+                            message: _('Please enter your email address'),
                             type: 'error',
                             duration: tipsTime
                         })
@@ -113,13 +125,13 @@
                 // 判断邮箱
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
                 let regObj = {}
-                if (!(this.log_checked) || this.reg_email === '' || this.reg_pass === '' || this.reg_againPass === '') {
+                if (!(this.log_checked) || this.reg_email === '' || this.reg_pass === '' || this.reg_againPass === '' || !this.checkPass()) {
                     return false
                 }
                 if (emailReg.test(this.reg_email)) {
                     if (this.reg_pass !== this.reg_againPass) {
                         Message({
-                            message: 'Confirm password not match',
+                            message: _('Confirm password not match'),
                             type: 'error',
                             duration: tipsTime
                         })
@@ -156,7 +168,7 @@
                         })
                 } else {
                     Message({
-                        message: 'Please enter your email address',
+                        message: _('Please enter your email address'),
                         type: 'error',
                         duration: tipsTime
                     })

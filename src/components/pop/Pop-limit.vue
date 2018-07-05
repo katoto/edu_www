@@ -2,21 +2,33 @@
     <!--  弹窗-登录  -->
     <Pop class="pop-limit" :show.sync="show">
         <div class="pop-main">
-            <h3>Limit Number List</h3>
-            <p class="update">Last updated : {{time}}</p>
+            <h3>
+                <lang>Limit Number List</lang>
+            </h3>
+            <p class="update">
+                <lang>Last updated</lang> : {{time}}
+            </p>
             <div class="pop-limit1" v-if="noLimit">
                 <div class="icon-limit"></div>
-                <p>No limit number yet</p>
+                <p>
+                    <lang>No limit number yet</lang>
+                </p>
             </div>
             <div class="pop-limit2" v-else>
                 <div class="limit-table-h">
-                    <div class="limit-table-h1">No.</div>
-                    <div class="limit-table-h2">match</div>
-                    <div class="limit-table-h3">limit number</div>
+                    <div class="limit-table-h1">
+                        <lang>No.</lang>
+                    </div>
+                    <div class="limit-table-h2">
+                        <lang>match</lang>
+                    </div>
+                    <div class="limit-table-h3">
+                        <lang>limit number</lang>
+                    </div>
                 </div>
                 <div class="limit-table-c">
                     <ul class="js_limit_total_ul">
-                        <li v-for="value in dateLimit" class="limit-item">
+                        <li v-for="(value, index) in dateLimit" class="limit-item" :key="index">
                             <div class="fl limit-nper">
                                 <div>
                                     <span>{{value.expectid}}</span>
@@ -24,13 +36,13 @@
                             </div>
                             <div class="fr">
                                 <ul>
-                                    <li v-for="value2 in value.restrict" class="limit-item2 clearfix">
+                                    <li v-for="(value2, itemIndex) in value.restrict" class="limit-item2 clearfix" :key="itemIndex">
                                         <div class="limit-match">
-                                            {{value2.bettype | format_match}}
+                                            {{formatMatch(value2.bettype)}}
                                         </div>
                                         <div class="limit-number">
                                             <ul :class="value2.bettype | format_class">
-                                                <li v-for="value3 in value2.betcode">
+                                                <li v-for="(value3, betcodeIndex) in value2.betcode" :key="betcodeIndex">
                                                     {{value3}}
                                                 </li>
                                             </ul>
@@ -49,7 +61,7 @@
 <script>
     import Pop from './Pop'
     import {Message} from 'element-ui'
-    import {formatTime} from '~common/util'
+    import {formatTime, formatMatch} from '~common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
 
     export default {
@@ -63,6 +75,7 @@
         },
         components: {Pop},
         methods: {
+            formatMatch,
             async updataMsg () {
                 let dataLimit = await this.$store.dispatch(aTypes.popLimit)
                 if (dataLimit && dataLimit.status === '100') {
@@ -75,7 +88,7 @@
                     }
                 } else {
                     Message({
-                        message: 'limit error',
+                        message: _('limit error'),
                         type: 'error'
                     })
                 }
@@ -103,26 +116,6 @@
             }
         },
         filters: {
-            format_match (value) {
-                if (isNaN(value)) {
-                    return ''
-                }
-                value = value.toString()
-                switch (value) {
-                case '1101':
-                    return 'C1'
-                case '1102':
-                    return 'C2'
-                case '1103':
-                    return 'C3'
-                case '1104':
-                    return 'C4'
-                case '1105':
-                    return 'C5'
-                case '11051':
-                    return 'Super 5'
-                }
-            },
             format_class (value) {
                 if (isNaN(value)) {
                     return ''
@@ -143,9 +136,6 @@
                     return 'num-boxc5'
                 }
             }
-        },
-        mounted () {
-            // this.updataMsg()
         }
     }
 </script>

@@ -2,7 +2,7 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
-import { getCK, platform, src, commonErrorHandler } from '~common/util'
+import { getCK, platform, src, commonErrorHandler, defaultLanguage } from '~common/util'
 
 function getCommonParams () {
     let ck = getCK() || ''
@@ -14,7 +14,15 @@ function getCommonParams () {
     return { ...params, ck }
 }
 
-const options = {}
+const options = {
+    headers: {
+        'Language': {
+            'en': 'en',
+            'zhCn': 'zh-cn',
+            'zhTw': 'zh-ft'
+        }[defaultLanguage]
+    }
+}
 
 let websocketUrl = ''
 const isHttp = window.location.protocol === 'http:'
@@ -24,14 +32,14 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     websocketUrl = `${isHttp ? 'ws' : 'wss'}://www.coinslot.com/betblock`
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
     // 线下167
-    options.baseURL = 'http://192.168.30.13:8000'// 张旭web
+    // options.baseURL = 'http://192.168.30.13:8000'// 张旭web
     // options.baseURL = 'http://10.0.1.167:8095'// 成哥web
     // options.baseURL = 'http://10.0.0.130:8000'// 建清web
-    // options.baseURL = 'http://10.0.1.41:3333'// 线下测试web
-    websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws
+    options.baseURL = 'http://10.0.1.41:3333'// 线下测试web
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.167:8099/betblock`// 成哥ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8080/betblock'`// 建清ws
-    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`// 线下测试环境ws
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`// 线下测试环境ws
 } else {
     // 开发环境
     options.baseURL = 'http://192.168.30.13:8000'// 张旭web
@@ -61,7 +69,7 @@ const ajax = function (url, config = {ignore: true}) {
         throw new Error(response.message)
     })
 }
-ajax.get = function (url, params) {
+ajax.get = function (url, params, noMessage = false) {
     let config = {
         params: {
             ...getCommonParams(),
@@ -73,7 +81,7 @@ ajax.get = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    commonErrorHandler(response.data)
+                    !noMessage && commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data
@@ -84,7 +92,7 @@ ajax.get = function (url, params) {
         })
 }
 
-ajax.post = function (url, params) {
+ajax.post = function (url, params, noMessage = false) {
     let data = {
         ...getCommonParams(),
         ...params
@@ -93,7 +101,7 @@ ajax.post = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    commonErrorHandler(response.data)
+                    !noMessage && commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data

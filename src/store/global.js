@@ -168,6 +168,9 @@ const actions = {
             }
             return userMsg
         } catch (e) {
+            console.log(e.status)
+            console.log(e)
+            console.log('=========')
             if (e && e.status && e.status === '214') {
                 removeCK()
                 commit('setIsLog', false)
@@ -233,7 +236,7 @@ const actions = {
                                 } else if (msg.data.block_status.toString() === '0') {
                                     // 不健康  添加unable
                                     Message({
-                                        message: 'The network is blocking, please retry later',
+                                        message: _('The network is blocking, please retry later'),
                                         type: 'error',
                                         duration: tipsTime
                                     })
@@ -334,7 +337,7 @@ const actions = {
                 resolve()
             }
             sock.onclose = function () {
-                console.warn('websocket 重连')
+                console.warn('websocket reconnect')
                 clearInterval(interval)
                 setTimeout(() => {
                     commit('addConnectNum')
@@ -352,7 +355,7 @@ const actions = {
             setTimeout(() => {
                 if (hasFinished) return
                 hasFinished = true
-                let error = new Error('超时')
+                let error = new Error('websocket timeout')
                 error.code = '103'
                 reject(error)
             }, 1000)
@@ -456,7 +459,7 @@ const actions = {
             console.error(e.message + 'subOutTiger error')
         }
     },
-    subInLucky () {
+    subInLucky ({commit, state, dispatch}) {
         /* 进入lucky11页面 订阅 */
         try {
             let subLuckyStr = {
@@ -467,6 +470,9 @@ const actions = {
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
         } catch (e) {
+            setTimeout(() => {
+                dispatch('subInLucky')
+            }, 100)
             console.error(e.message + 'subInLucky error')
         }
     },
