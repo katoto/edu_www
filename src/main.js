@@ -6,8 +6,6 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import lanaguage from './plugins/language'
 
-import vueClipboard from 'vue-clipboard2'
-
 // 全局
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
@@ -53,8 +51,6 @@ Vue.component(CarouselItem.name, CarouselItem)
 // import $ from 'jquery'
 // import vueTap from 'v-tap'
 // Vue.use(vueTap)
-
-Vue.use(vueClipboard)
 
 const store = storeFactory()
 sync(store, router)

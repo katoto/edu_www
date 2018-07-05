@@ -140,7 +140,7 @@
                                         <i :style="{'width':barProcess+'%'}" ></i>
                                     </div>
                                     <div class="bar-msg" v-if="hideBarLycky">
-                                        {{ ( barProcess * (100/96) ).toFixed(0) }}%
+                                        {{ beforeBarProcess }}%
                                     </div>
                                     <div class="bar-lycky" v-else></div>
                                 </div>
@@ -149,7 +149,7 @@
                                 </p>
                             </div>
                         </div>
-                        <!--上次赢取-->
+                        <!--  上次赢取  -->
                         <div class="lastwin " v-if="last_prizes">
                             Last time win {{ formateBalance (last_prizes) }} ETH
                         </div>
@@ -427,6 +427,11 @@
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import BannerScroll from '~components/BannerScroll.vue'
     import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
+
+    import Vue from 'vue'
+    import vueClipboard from 'vue-clipboard2'
+    Vue.use(vueClipboard)
+
     export default {
         data () {
             return {
@@ -451,6 +456,7 @@
                 dft_line: 9, // 默认9线
                 showSingleBet: false, // 投注项选择
                 barProcess: 20,
+                beforeBarProcess: 0,
                 prizes_pool_ratio: null, // hitWinRatio
                 axes: null, // axes
                 dft_idx: null, // dft_idx 改变后的位置
@@ -587,7 +593,7 @@
                     this.axes[index].splice(0, 3, ...currAxes)
                 })
                 this.slotOpening = false // 开奖结束
-                if (this.playBack.lucky_values) {
+                if (this.playBack && this.playBack.lucky_values) {
                     this.formateLuckyVal(this.playBack.lucky_values)
                 }
                 await wait(300)
@@ -877,7 +883,8 @@
             betSelFn (currVal) {
                 if (currVal) {
                     this.dft_bet = currVal.bet
-                    this.barProcess = (parseFloat(currVal.lucky) * (90 / 100)).toFixed(1)
+                    this.barProcess = (parseFloat(currVal.lucky) * (96 / 100)).toFixed(0)
+                    this.beforeBarProcess = parseFloat(currVal.lucky)
                     if (parseFloat(currVal.lucky) >= 100) {
                         this.hideBarLycky = false
                     } else {
@@ -926,6 +933,7 @@
                     this.lucky_values.forEach((val) => {
                         if (val.bet === this.dft_bet.toString()) {
                             this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(0)
+                            this.beforeBarProcess = parseFloat(val.lucky)
                             if (parseFloat(val.lucky) >= 100) {
                                 this.hideBarLycky = false
                             } else {
