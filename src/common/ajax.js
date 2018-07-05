@@ -28,8 +28,8 @@ let websocketUrl = ''
 const isHttp = window.location.protocol === 'http:'
 if (process && process.env && process.env.NODE_ENV === 'production') {
     // 线上
-    options.baseURL = window.location.protocol + '//www.coinslot.com/api'
-    websocketUrl = `${isHttp ? 'ws' : 'wss'}://www.coinslot.com/betblock`
+    options.baseURL = window.location.protocol + '//api.coinslot.com'
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://ws.coinslot.com/betblock`
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
     // 线下167
     // options.baseURL = 'http://192.168.30.13:8000'// 张旭web
