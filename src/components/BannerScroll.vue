@@ -6,6 +6,7 @@
 </template>
 
 <script>
+    import {isMobile} from '~common/util'
     export default {
         data () {
             return {
@@ -53,7 +54,10 @@
         },
         mounted () {
             setTimeout(() => {
-                this.hitListBroadcast()
+                console.log(isMobile)
+                if (isMobile) {
+                    this.hitListBroadcast()
+                }
             }, 800)
         }
     }

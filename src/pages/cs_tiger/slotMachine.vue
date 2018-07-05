@@ -151,21 +151,21 @@
                         </div>
                         <!--上次赢取-->
                         <div class="lastwin " v-if="last_prizes">
-                            Last time win {{ last_prizes }} ETH
+                            Last time win {{ formateBalance (last_prizes) }} ETH
                         </div>
                         <!--主按钮-->
-                        <a href="javascript:;" class="btn-main " :class="{disable:btnDisable}">
+                        <a href="javascript:;" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
                             <template v-if="hideBarLycky">
+                                <!--免费-->
+                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
+                                    <p>FREE</p>
+                                    <div>{{ free_times }} Times</div>
+                                </div>
                                 <!--自动-->
                                 <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
                                     <p>AUTO</p>
                                     <div>Click to Stop</div>
-                                </div>
-                                <!--免费-->
-                                <div class="btn btn-free" @touchstart.prevent="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
-                                    <p>FREE</p>
-                                    <div>{{ free_times }} Times</div>
                                 </div>
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
@@ -174,7 +174,7 @@
                                 </div>
                             </template>
                             <template v-else>
-                                <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd()" class="btn btn-double" >
+                                <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
                                     Double Up
                                 </div>
                             </template>
@@ -215,7 +215,7 @@
                                         {{ formateCoinType( currCoinType ) }}
                                     </i>
                                 </div>
-                                // todo 奖池倍数 暂时隐藏
+                                 <!--todo 奖池倍数 暂时隐藏-->
                                 <ul class="hide">
                                     <li>
                                         <img src="../../../static/staticImg/_A.png" alt="">&ensp;
@@ -552,6 +552,9 @@
                 this.tabTime = new Date().getTime()
             },
             touEnd (evt) {
+                if (this.btnDisable) {
+                    return false
+                }
                 this.tabTime = (new Date().getTime() - this.tabTime)
                 if (this.tabTime > 500) {
                     /* 长按 */
@@ -585,11 +588,12 @@
                     this.axes[index].splice(0, 3, ...currAxes)
                 })
                 this.slotOpening = false // 开奖结束
-                this.btnDisable = false
                 if (this.playBack.lucky_values) {
                     this.formateLuckyVal(this.playBack.lucky_values)
                 }
-                await wait(2000)
+                await wait(300)
+                this.btnDisable = false
+                await wait(1700)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
                         this.startPlay()
@@ -669,7 +673,8 @@
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 //  todo 临时直接更新
                 this.$store.dispatch('getUserInfo')
-                this.stateInit()
+                // this.stateInit()
+                this.btnDisable = true
                 this.slotRun = true
                 if (playBack) {
                     this.playBack = playBack
