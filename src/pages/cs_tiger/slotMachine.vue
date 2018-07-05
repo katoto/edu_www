@@ -1943,9 +1943,6 @@
     .recent-main {
         height:320px;
         overflow: hidden;
-        .newRecord{
-
-        }
         li {
             padding: 0 10px;
             line-height: 40px;
@@ -1954,7 +1951,7 @@
         li:nth-child(2n) {
             background: #352b17;
         }
-        .newRecord{
+        li:first-child.newRecord{
             animation: newRecord .5s both ;
         }
         .user {
@@ -2075,9 +2072,6 @@
             display: none;
         }
     }
-
-
-    //background: url("../../assets/img/tiger/bg-slot.png") no-repeat center;
     .footer{
         border-top:0 !important;
     }
