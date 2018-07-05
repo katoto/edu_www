@@ -140,7 +140,7 @@
                                         <i :style="{'width':barProcess+'%'}" ></i>
                                     </div>
                                     <div class="bar-msg" v-if="hideBarLycky">
-                                        {{ ( barProcess * (100/96) ).toFixed(1) }}%
+                                        {{ ( barProcess * (100/96) ).toFixed(0) }}%
                                     </div>
                                     <div class="bar-lycky" v-else></div>
                                 </div>
@@ -925,7 +925,7 @@
                 if (this.lucky_values.length > 0) {
                     this.lucky_values.forEach((val) => {
                         if (val.bet === this.dft_bet.toString()) {
-                            this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(1)
+                            this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(0)
                             if (parseFloat(val.lucky) >= 100) {
                                 this.hideBarLycky = false
                             } else {
