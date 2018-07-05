@@ -1213,6 +1213,7 @@
         top: percentage(260/1173);
         width: percentage(610/750);
         transform: rotate(0);
+        transform: translate3d(0,0,0);
         /*高度需要动态设置*/
         height: 0;
         display: flex;

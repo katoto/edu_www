@@ -50,8 +50,8 @@ const actionsInfo = mapActions({
         if (data && state.recentList) {
             // 对象
             await wait(5000)
-            if (state.recentList.length > 12) {
-                commit(mTypes.recentList, state.recentList.slice(0, 12))
+            if (state.recentList.length > 7) {
+                commit(mTypes.recentList, state.recentList.slice(0, 7))
             }
             state.recentList.unshift(data)
         }
