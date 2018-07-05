@@ -46,7 +46,7 @@
                         <div class="msg-win">
                             <!-- 滚动  components-->
                             <banner-scroll v-if="recentList" class="notice">
-                                <div class="text-scroller" style="height: 100%">
+                                <div class="text-scroller">
                                     <ul class="scroller-in">
                                         <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" >
                                         Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
@@ -406,13 +406,12 @@
                     <div class="contact">
                         <div class="fl">
                             <div class="msg1">Recommend using mobile phone to Interviews the game</div>
-                            <div class="msg2">https://www.coinslot.com/tiger</div>
+                            <div class="msg2">2018.coinslot.com/#/slotMachine</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img
-                                :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/tiger'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/#/slotMachine'">
                         </div>
                     </div>
                 </div>
@@ -1123,11 +1122,13 @@
         text-align: center;
         font-size: 10px;
         color: #ffffff;
+        .text-scroller{
+            height:100%;
+        }
         ul{
             position: absolute;
             width:100%;
-            height:100%;
-            /*overflow: hidden;*/
+            overflow: hidden;
             transition: all 0.2s;
         }
         li{
@@ -1937,6 +1938,9 @@
     .recent-main {
         height:320px;
         overflow: hidden;
+        .newRecord{
+
+        }
         li {
             padding: 0 10px;
             line-height: 40px;
@@ -1944,6 +1948,9 @@
         }
         li:nth-child(2n) {
             background: #352b17;
+        }
+        .newRecord{
+            animation: newRecord .5s both ;
         }
         .user {
             color: #fff;
@@ -2006,7 +2013,19 @@
             transform: scale(1.2);
         }
     }
-
+    @keyframes newRecord {
+        0%{
+            opacity:0;
+            transform: translateY(-100%);
+        }
+        50%{
+            opacity:0;
+        }
+        100%{
+            opacity:1;
+            transform: translateY(0);
+        }
+    }
     /*适配*/
     @media (max-width: @screen-desktop) {
         .tiger-pc-msg {
