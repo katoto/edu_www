@@ -522,6 +522,7 @@
         .mycount {
             position: relative;
             float: right;
+            transform: translate3d(0,0,0);
             .transition();
             .countNum {
                 position: relative;
@@ -589,7 +590,7 @@
                 padding:0 12px;
                 color: #fff;
                 &:hover {
-                    color: #6a89cc;
+                    background: rgba(255,255,255,0.2);
                 }
             }
             .btn-rechrage{
@@ -724,8 +725,6 @@
         float: left;
         margin-right:13px;
         cursor: pointer;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
         .transition();
         .coin{
             position: relative;
@@ -751,6 +750,7 @@
                 background: url("../assets/slice/arrow-down-fff.png");
                 width:13px;
                 height:8px;
+                transition: all 0.2s;
             }
         }
         ul{
@@ -784,16 +784,20 @@
                 &:before{
                     content: '';
                     display: block;
+                    position: absolute;
+                    top:12px;
+                    left:15px;
+                    width:16px;
+                    height:11px;
                     background: url(../assets/slice/icon-hook.png) no-repeat center;
                     background-size: cover;
                 }
             }
         }
         &.isChooseCoin{
-            background: #fff;
             .coin{
                 &::after{
-                    background: url("../assets/slice/arrow-down-778ca3.png");
+                    transform: rotate(180deg);
                 }
             }
             ul{
@@ -1210,15 +1214,17 @@
                     background-size: cover;
                     width:19px;
                     height:19px;
-                    filter: grayscale(1);
                     margin:0 auto;
+                    opacity:0.8;
+                    transition: all 0.2s;
                 }
                 .countNum{
                     display: none;
                 }
                 &:hover,&.isShowMycount{
+                    background: rgba(0,0,0,0.3);
                     &::before{
-                        filter: grayscale(0);
+                        opacity:1;
                     }
                 }
             }
@@ -1285,7 +1291,6 @@
                     width:17px;
                     height:19px;
                     background-size: cover;
-                    filter: grayscale(1);
                 }
                 &:after{
                     content: '';
@@ -1293,7 +1298,7 @@
                 }
             }
             &:hover,&.isChooseCoin{
-                background: transparent;
+                background: rgba(0,0,0,0.3);
                 .coin{
                     &:before{
                         filter: grayscale(0);
