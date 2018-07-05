@@ -1241,9 +1241,10 @@
                 ul{
                     top:50px;
                     width:50px;
+                    font-size:8px;
                     li{
                         width:50px;
-                        height:50px;
+                        height:63px;
                         padding-top:15px;
                     }
                     img{
