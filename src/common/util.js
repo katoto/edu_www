@@ -47,6 +47,7 @@ export const isWeiX = (function () {
 })()
 
 const CK = 'block_ck'
+export const isMobile = /applewebkit.*mobile.*/.test(window.navigator.userAgent.toLowerCase())
 
 export function getCK () {
     // return Cookies.get(CK)
@@ -337,3 +338,4 @@ export function copyError () {
         type: 'success'
     })
 }
+
