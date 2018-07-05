@@ -2,15 +2,18 @@
     <!--弹窗-邮箱验证-->
     <Pop class="pop-verify-email" :show.sync="show">
         <div class="pop-main">
-            <h3>Email Verification</h3>
+            <h3>
+                <lang>Email Verification</lang>
+            </h3>
             <p class="email-account">{{ beginVerify }}</p>
             <p class="verify-tips">
-                Your email has not been verified yet. Click the button below if you want to verify it now .
+                <lang>Your email has not been verified yet. Click the button below if you want to verify it now .</lang>
             </p>
             <form>
                 <!--  no  -->
-                <input type="submit" @click.stop.prevent="againVerify" value="Send">
-                <p class="js_verifyEmail_backTime_parent" style="visibility: hidden">Left：<span class="js_verifyEmail_backTime">60</span>seconds
+                <input type="submit" @click.stop.prevent="againVerify" :value="_('Send')">
+                <p class="js_verifyEmail_backTime_parent" style="visibility: hidden">
+                    Left：<span class="js_verifyEmail_backTime">60</span>seconds
                 </p>
             </form>
             <div class="forgetpsw"></div>
@@ -49,7 +52,7 @@
                         }
                     } else {
                         Message({
-                            message: 'Please enter your email address',
+                            message: _('Please enter your email address'),
                             type: 'error'
                         })
                     }

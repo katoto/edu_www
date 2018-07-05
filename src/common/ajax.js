@@ -2,7 +2,7 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
-import { getCK, platform, src, commonErrorHandler } from '~common/util'
+import { getCK, platform, src, commonErrorHandler, defaultLanguage } from '~common/util'
 
 function getCommonParams () {
     let ck = getCK() || ''
@@ -14,7 +14,15 @@ function getCommonParams () {
     return { ...params, ck }
 }
 
-const options = {}
+const options = {
+    headers: {
+        'Language': {
+            'en': 'en',
+            'zhCn': 'zh-cn',
+            'zhTw': 'zh-ft'
+        }[defaultLanguage]
+    }
+}
 
 let websocketUrl = ''
 const isHttp = window.location.protocol === 'http:'
@@ -61,7 +69,7 @@ const ajax = function (url, config = {ignore: true}) {
         throw new Error(response.message)
     })
 }
-ajax.get = function (url, params) {
+ajax.get = function (url, params, noMessage = false) {
     let config = {
         params: {
             ...getCommonParams(),
@@ -73,7 +81,7 @@ ajax.get = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    commonErrorHandler(response.data)
+                    !noMessage && commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data
@@ -84,7 +92,7 @@ ajax.get = function (url, params) {
         })
 }
 
-ajax.post = function (url, params) {
+ajax.post = function (url, params, noMessage = false) {
     let data = {
         ...getCommonParams(),
         ...params
@@ -93,7 +101,7 @@ ajax.post = function (url, params) {
         .then((response) => {
             if (response.status === 200) {
                 if (response.data && response.data.status !== '100') {
-                    commonErrorHandler(response.data)
+                    !noMessage && commonErrorHandler(response.data)
                     return Promise.reject(response.data)
                 }
                 return response.data

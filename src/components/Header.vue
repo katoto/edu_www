@@ -70,8 +70,7 @@
                     </svg>
                 </router-link>
                 <a href="./coinslot/html/worldCup.html" title="worldCup" class="enter-brands" target="_blank"></a>
-                <div class="language hide">
-                    <!--<i></i>-->
+                <div class="language">
                     <el-select v-model="languageVal" @change="handleLanguageChange" class="">
                         <el-option
                             v-for="item in languageOptions"
@@ -152,11 +151,13 @@
                 <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
                    v-if="0 && isLog && userInfo && userInfo.status.toString() ==='1'"
                    :class="{'over':(loginSucc && ( loginSucc.invite_status !== '0' )) || (userInfo.invite_prize_chances === '0' && userInfo.tasks.length === 0 )}"
-                    ><lang>Faucet</lang></a>
+                    ><lang>Faucet</lang>
+                </a>
 
                 <!--拉新活动提示-->
-                <div class="act-sign right" v-if="!isLog">
-                    for free 0.001ETH
+
+                <div class="act-sign right hide" v-if="!isLog">
+                    <lang>for free 0.001ETH</lang>
                 </div>
             </div>
 
@@ -181,10 +182,14 @@
                         <p>
                             <lang>You have earned 0.001 free ETH already, go to bet to win more!</lang>
                         </p>
-                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll"><lang>Try a luck</lang></a>
+                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
+                            <lang>Try a luck</lang>
+                        </a>
                         <div class="bottom">
                             <lang>Invite friends to earn more free ETH.</lang>
-                            <a href="javascript:;" @click="showFaucet" class="bold js_invite"><lang>Earn now</lang></a>
+                            <a href="javascript:;" @click="showFaucet" class="bold js_invite">
+                                <lang>Earn now</lang>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -209,10 +214,11 @@
             <section v-if="0 && isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
                 <div class="tips-newAct tips-newAct2">
                     <div class="msg">
-                        <p>
-                            Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.
+                        <p v-html="_('Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.')">
                         </p>
-                        <a href="javascript:;" @click="getFaucet" class="btn-receive"><lang>Get it !</lang></a>
+                        <a href="javascript:;" @click="getFaucet" class="btn-receive">
+                            <lang>Get it !</lang>
+                        </a>
                         <div class="bottom hide">
                             <lang>Invite friends and get more ETH~</lang>
                             <a href="javascript:;" @click="showFaucet" class="bold"><lang>Invite Now</lang></a>
@@ -245,7 +251,6 @@
                 showEndFaucetTime: null,
                 showInviteSuccFlag: false,
                 slideDown: false,
-                languageVal: 'en',
                 languageOptions: [{
                     value: 'en',
                     label: 'English'
@@ -254,11 +259,15 @@
                     label: '中文简体'
                 }, {
                     value: 'zhTw',
-                    label: '中文繁体'
+                    label: '中文繁體'
                 }]
             }
         },
-        watch: {},
+        watch: {
+            slideDown () {
+                this.$store.dispatch('getUserInfo')
+            }
+        },
         computed: {
             jackPotMsg () {
                 return this.$store.state.cs_1105.jackPotMsg
@@ -277,17 +286,24 @@
             },
             userInfo () {
                 return this.$store.state.userInfo
+            },
+            languageVal: {
+                set (val) {
+                    this.$store.commit('changeLanguage', val)
+                },
+                get () {
+                    return this.$store.state.language
+                }
             }
         },
         methods: {
             formateEmail,
             formateBalance,
             handleLanguageChange (val) {
-                this.$store.commit('setLanguage', val)
+                this.$store.commit('changeLanguage', val)
             },
             showUserMsg () {
                 this.slideDown = true
-                this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
                 // 领取邀请奖励
@@ -806,7 +822,7 @@
     .act-sign{
         top:35px;
         /*right:270px;*/
-        right:140px;
+        right:268px;
         animation: actMove 5s 2s infinite;
     }
     @keyframes actMove {

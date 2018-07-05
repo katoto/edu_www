@@ -2,18 +2,20 @@
     <!--找回密码-->
     <Pop class="pop-reset-psw" :show.sync="show">
         <div class="pop-main">
-            <h3>Reset Your Password</h3>
+            <h3>
+                <lang>Reset Your Password</lang>
+            </h3>
             <form class="form-first" v-if="!resetObj.showReset">
-                <input type="text" v-model="resetEmail" name="reset-email" placeholder="Email">
+                <input type="text" v-model="resetEmail" name="reset-email" :placeholder="_('Email')">
                 <!--no-->
-                <input type="submit" @click.stop.prevent="beforeResetPass" value="Next" :class="{'no':!resetEmail}">
+                <input type="submit" @click.stop.prevent="beforeResetPass" :value="_('Next')" :class="{'no':!resetEmail}">
             </form>
             <form class="form-second" v-else>
                 <input type="password" @blur="checkPass" v-model="resetPsw"
-                       placeholder="New Password(1-15 numbers and letters)">
-                <input type="password" v-model="resetPsw2" placeholder="Confirm Password">
+                       :placeholder="_('New Password(6-15 numbers and letters)')">
+                <input type="password" v-model="resetPsw2" :placeholder="_('Confirm Password')">
                 <!--no-->
-                <input type="submit" @click.stop.prevent="resetPassFn" value="reset password"
+                <input type="submit" @click.stop.prevent="resetPassFn" :value="_('reset password')"
                        :class="{'no':resetPsw === '' || resetPsw2 === ''}">
             </form>
         </div>
@@ -37,16 +39,18 @@
         methods: {
             checkPass () {
                 /* 检测密码 */
-                let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
+                let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
                 if (!passReg.test(this.resetPsw)) {
                     if (this.resetPsw !== '') {
                         Message({
-                            message: 'Password must contain 6-15 characters with both numbers and letters',
+                            message: _('Password must contain 6-15 characters with both numbers and letters'),
                             type: 'error',
                             duration: tipsTime
                         })
                     }
+                    return false
                 }
+                return true
             },
             async beforeResetPass () {
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
@@ -67,7 +71,7 @@
                         }
                     } else {
                         Message({
-                            message: 'Please enter your email address',
+                            message: _('Please enter your email address'),
                             type: 'error',
                             duration: tipsTime
                         })
@@ -77,12 +81,12 @@
             async resetPassFn () {
                 // 判断 密码
                 let regObj = {}
-                if (this.resetPsw === '' || this.resetPsw2 === '') {
+                if (this.resetPsw === '' || this.resetPsw2 === '' || !this.checkPass()) {
                     return false
                 }
                 if (this.resetPsw !== this.resetPsw2) {
                     Message({
-                        message: 'Confirm password not match',
+                        message: _('Confirm password not match'),
                         type: 'error',
                         duration: tipsTime
                     })
@@ -90,7 +94,7 @@
                 }
                 if (!this.resetObj.email || !this.resetObj.sign) {
                     Message({
-                        message: 'reset password error',
+                        message: _('reset password error'),
                         type: 'error',
                         duration: tipsTime
                     })
@@ -104,7 +108,7 @@
                 let resetMsg = await this.$store.dispatch('resetPasswordFn', regObj)
                 if (resetMsg && resetMsg.status.toString() === '100') {
                     Message({
-                        message: 'Reset successfully，sign in now',
+                        message: _('Reset successfully，sign in now'),
                         type: 'success',
                         duration: tipsTime
                     })

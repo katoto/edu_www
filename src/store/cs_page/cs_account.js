@@ -34,7 +34,7 @@ const actionsInfo = mapActions({
     },
 
     getWithdrawApply ({commit, dispatch}, params) {
-        return ajax.post('/account/withdraw/apply', params)
+        return ajax.post('/account/withdraw/apply', params, true)
     }
 
 }, 'cs_account')

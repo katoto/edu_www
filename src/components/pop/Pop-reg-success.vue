@@ -2,7 +2,9 @@
     <!--  成功注册的success弹窗  -->
     <Pop class="pop-reg-success" :show.sync="show">
         <div class="pop-main">
-            <h3>Registration Successful</h3>
+            <h3>
+                <lang>Registration Successful</lang>
+            </h3>
             <div class="icon-face on">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"/>
@@ -13,8 +15,14 @@
                           style="stroke-width: 4px;"/>
                 </svg>
             </div>
-            <p>Congratulates！<br>Now you can enjoy the game.</p>
-            <a href="javascript:;" @click="regisSucc" class="btn-success">Wish You Luck</a>
+            <p>
+                <lang>Congratulates</lang>
+                <br>
+                <lang>Now you can enjoy the game.</lang>
+            </p>
+            <a href="javascript:;" @click="regisSucc" class="btn-success">
+                <lang>Wish You Luck</lang>
+            </a>
         </div>
     </Pop>
 </template>

@@ -7,6 +7,8 @@ module.exports = {
     noTranslateFile: 'noTranslate.json',
     distDir: 'language-dist',
     ignoreFile: [
-        'src/plugins/language.vue'
+        'src/plugins/language.vue',
+        'src/pages/cs_protocol/policy.vue',
+        'src/pages/cs_protocol/terms.vue'
     ]
 }

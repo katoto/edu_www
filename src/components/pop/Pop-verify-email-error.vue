@@ -2,18 +2,18 @@
     <!--  弹窗-邮箱未验证  -->
     <Pop class="pop-verify-email-error" :show.sync="show">
         <div class="pop-main">
-            <h3>Email Verification</h3>
+            <h3>
+                <lang>Email Verification</lang>
+            </h3>
             <p class="email-account js_currEmail js_email-account"
                style="font-size: 20px;margin-bottom: 15px">
                 XXXXX@gmail.com
             </p>
             <p class="verify-tips">
-                Your email address hasn't been verificated yet.Would you want to send the verification
-                email now
-                ?
+                <lang>Your email address hasn't been verificated yet.Would you want to send the verification email now ?</lang>
             </p>
             <form action="" method="post">
-                <input type="submit" value="Send" :class="{'no':emailBackTime!==0}">
+                <input type="submit" :value="_('Send')" :class="{'no':emailBackTime!==0}">
                 <div style="height: 30px">
                     <p v-if="emailBackTime !== 0"><span>{{ emailBackTime }}s </span>left</p>
                 </div>

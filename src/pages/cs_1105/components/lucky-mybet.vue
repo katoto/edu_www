@@ -3,11 +3,10 @@
     <div id="js_alert-mybets" class="alert-mybets" :class="{ close: !mybetShow, hide: !isLogin}">
         <div class="alert-mybets-head  js_chose-mybets-head">
             <section class="js_alert-mybets-head js_chose-mybets-head-open" :class="{ hide: mybetShow }" @click="mybetShow = true">
-                <p style="padding-left: 10px">My</p>
-                <p style="padding-left: 6px">Bets</p>
+                <p v-lang="'My<br>Bets'" class="my-bets-title"></p>
             </section>
             <section class="js_alert-mybets-head js_chose-mybets-head-close" :class="{ hide: !mybetShow }">
-                My Bets
+                <lang>My Bets</lang>
             </section>
             <i id="alert-mybets-close" class="alert-mybets-close js_alert-mybets-close" @click="mybetShow = false"></i>
         </div>
@@ -70,12 +69,12 @@
                     -->
                 </ul>
                 <div class="nomsg js_nomsg" v-if="myBetList.length === 0">
-                    <p>You don't have any</p>
-                    <p>records in 24 hours. Have</p>
-                    <p>a try ,and wish you luck~</p>
+                    <lang>You don't have any records in 24 hours. Have a try ,and wish you luck~</lang>
                 </div>
                 <router-link :to="{path: '/account/myBets'}">
-                    <a href="javascript:;" class="btn-more-records" target="_blank">More Records >></a>
+                    <a href="javascript:;" class="btn-more-records" target="_blank">
+                        <lang>More Records >></lang>
+                    </a>
                 </router-link>
             </div>
 
@@ -110,7 +109,7 @@ export default {
             if (bet.opencode && bet.opencode !== '') {
                 return parseFloat(bet.betprize) === 0 ? '-' : `${formateBalance(bet.betprize)}${formateCoinType(bet.cointype)}`
             }
-            return 'wait'
+            return _('wait')
         },
         isBingo (num, opencode) {
             return opencode.split(',').indexOf(num) > -1
@@ -129,9 +128,9 @@ export default {
         },
         showWinBetTip (betprize, cointype) {
             Notification({
-                title: 'Congratulations!',
+                title: _('Congratulations!'),
                 dangerouslyUseHTMLString: true,
-                message: `You Win + ${formateBalance(betprize)} ${formateCoinType(cointype)}`,
+                message: _('You Win + {0} {1}', formateBalance(betprize), formateCoinType(cointype)),
                 position: 'bottom-right',
                 duration: 5000
             })
@@ -194,4 +193,11 @@ export default {
 }
 </script>
 
+<style lang="less" scoped>
+.my-bets-title {
+    text-align: center;
+    text-indent: 0;
+    width: 64px;
+}
+</style>
 

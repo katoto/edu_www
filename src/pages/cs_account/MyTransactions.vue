@@ -1,6 +1,8 @@
 <template>
     <div class="capitalDetails">
-         <h2>My Transactions</h2>
+        <h2>
+            <lang>My Transactions</lang>
+        </h2>
         <section class="cs-select">
             <el-select v-model="tranOptionVal" @change="handleStatusChange">
                 <el-option
@@ -30,30 +32,30 @@
                         type="index"
                         align="center"
                         header-align="center"
-                        label="No.">
+                        :label="_('No. ')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
                         prop="crtime"
-                        label="Transaction Time">
+                        :label="_('Transaction Time')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
-                        prop="biz_desc"
-                        label="Note">
+                        prop="inout"
+                        :label="_('Note')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
                         prop="cointype"
-                        label="Coin">
+                        :label="_('Coin')">
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
-                        label="Amount">
+                        :label="_('Amount')">
                     <template slot-scope="scope">
                         <div v-html="scope.row.moneyVal"></div>
                     </template>
@@ -62,7 +64,7 @@
                         align="center"
                         header-align="center"
                         prop="balance"
-                        label="Balance">
+                        :label="_('Balance')">
                 </el-table-column>
 
             </el-table>
@@ -75,8 +77,8 @@
                         :page-size="pageSize"
                         layout="prev, pager, next, jumper"
                         :page-count="pageCount"
-                        next-text = 'Next >'
-                        prev-text = '< Front'
+                        :next-text="_('Next >')"
+                        :prev-text="_('< Front')"
                 >
                 </el-pagination>
             </div>
@@ -105,31 +107,31 @@ export default {
             tranOptions: [
                 {
                     value: '1',
-                    label: 'All bets'
+                    label: _('All bets')
                 },
                 {
                     value: '2',
-                    label: 'Deposit'
+                    label: _('Deposit')
                 },
                 {
                     value: '3',
-                    label: 'Bet'
+                    label: _('Bet')
                 },
                 {
                     value: '4',
-                    label: 'Prize'
+                    label: _('Prize')
                 },
                 {
                     value: '5',
-                    label: 'Withdraw'
+                    label: _('Withdraw')
                 },
                 {
                     value: '6',
-                    label: 'Activities'
+                    label: _('Activities')
                 },
                 {
                     value: '7',
-                    label: 'Fee'
+                    label: _('Fee')
                 }
             ],
 
@@ -137,19 +139,19 @@ export default {
             tranTimeOptions: [
                 {
                     value: '1',
-                    label: 'All'
+                    label: _('All')
                 },
                 {
                     value: '2',
-                    label: 'Last 90 days'
+                    label: _('Last 90 days')
                 },
                 {
                     value: '3',
-                    label: 'Last 30 days'
+                    label: _('Last 30 days')
                 },
                 {
                     value: '4',
-                    label: 'Last 7 days'
+                    label: _('Last 7 days')
                 }
             ]
         }
