@@ -170,7 +170,7 @@
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
                                     <p>SPIN</p>
-                                    <div>Auto(double click)</div>
+                                    <div>Auto(long press)</div>
                                 </div>
                             </template>
                             <template v-else>
