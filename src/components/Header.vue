@@ -20,9 +20,9 @@
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
                 <div class="choose-play">
-                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')" :class="{'on':currTab === 'lucky11'}" >Lukcy11</a>
+                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')" :class="{'on':currTab === 'lucky11'}" >Lukcy 11</a>
                     <a href="javascript:;" @click="jump2Page('SlotMachine')" :class="{'on':currTab === 'SlotMachine'}" target="_blank">SlotMachine</a>
-                    <a href="javascript:;" class="hide"  target="_blank">Mobile APP</a>
+                    <a href="javascript:;" class="hide"  target="_blank">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
                 <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
@@ -109,7 +109,7 @@
                 <!--拉新活动提示-->
 
                 <div class="act-sign right hide" v-if="!isLog">
-                    <lang>for free 0.001ETH</lang>
+                    <lang>Free 0.001ETH</lang>
                 </div>
             </div>
 

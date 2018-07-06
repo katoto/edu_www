@@ -22,7 +22,7 @@
                     <a href="mailto:support@coinslot.com">support@coinslot.com</a>
                 </p>
                 <p>
-                    <lang>telegram:</lang>
+                    <lang>Telegram:</lang>
                     <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
                 </p>
             </div>

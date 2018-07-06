@@ -35,6 +35,7 @@
                                     <template v-else>
                                         {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
                                     </template>
+                                        {{ formateCoinType( currCoinType ) }}
                                     </span>
                                 </p>
                                 <!--<span>-->
@@ -96,7 +97,7 @@
                                         </div>
                                     </div>
                                     <p class="msg hide">
-                                        Single Bet
+                                        Single Line
                                     </p>
                                 </div>
                                 <!-- 投注项选择 -->
@@ -131,7 +132,7 @@
                                     </div>
                                 </div>
                                 <p class="msg">
-                                    Current Bet
+                                    Total Bet
                                 </p>
                             </div>
                             <div class="bar">
@@ -374,7 +375,7 @@
                     </div>
                 </div>
                 <div class="tiger-pc-msg ">
-                    <h3>Recently </h3>
+                    <h3>Recent </h3>
                     <div class="recent-win">
                         <div class="recent-top">
                             <div class="user">
@@ -405,8 +406,8 @@
                     </div>
                     <div class="contact">
                         <div class="fl">
-                            <div class="msg1">Recommend using mobile phone to Interviews the game</div>
-                            <div class="msg2">2018.coinslot.com/#/slotMachine</div>
+                            <div class="msg1">Download APP for better experience</div>
+                            <div class="msg2">www.coinslot.com/#/slotMachine</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
