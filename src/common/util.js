@@ -272,6 +272,10 @@ export function formateMoneyFlow (flowtype = '1') {
         return _('World cup')// 世界杯
     case '13':
         return _('World cup')// 世界杯中奖
+    case '14':
+        return _('Slots Bet')// 老虎机投注
+    case '15':
+        return _('Slots Prize')// 老虎机中奖
     default:
         return _('Bet')
     }

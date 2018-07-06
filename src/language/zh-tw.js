@@ -230,6 +230,8 @@ module.exports = {
     'Registration': '註冊送',
     'Inviting': '邀請送',
     'World cup': '世界杯',
+    'Slots Bet': '老虎機投注',
+    'Slots Prize': '老虎機中獎',
     'Lucky 11/C1': '幸運 11/選1',
     'Lucky 11/C2': '幸運 11/選2',
     'Lucky 11/C3': '幸運 11/選3',
