@@ -158,15 +158,15 @@
                         <a href="javascript:;" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
                             <template v-if="hideBarLycky">
-                                <!--免费-->
-                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
-                                    <p>FREE</p>
-                                    <div>{{ free_times }} Times</div>
-                                </div>
                                 <!--自动-->
                                 <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
                                     <p>AUTO</p>
                                     <div>Click to Stop</div>
+                                </div>
+                                <!--免费-->
+                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd('isFree')" @mousedown="touStart" @mouseup="touEnd('isFree')"  :class="{'hide':!parseFloat(free_times)}">
+                                    <p>FREE</p>
+                                    <div>{{ free_times }} Times</div>
                                 </div>
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
@@ -557,9 +557,16 @@
                 evt.preventDefault()
                 this.tabTime = new Date().getTime()
             },
-            touEnd (evt) {
+            touEnd (evt, isFree = false) {
                 if (this.btnDisable) {
                     return false
+                }
+                if (isFree && isFree === 'isFree') {
+                    /* 认为是免费的停止 */
+                    if (this.isAutoPlay) {
+                        this.stopAutoPlay()
+                        return false
+                    }
                 }
                 this.tabTime = (new Date().getTime() - this.tabTime)
                 if (this.tabTime > 500) {
@@ -594,8 +601,13 @@
                     this.axes[index].splice(0, 3, ...currAxes)
                 })
                 this.slotOpening = false // 开奖结束
-                if (this.playBack && this.playBack.lucky_values) {
-                    this.formateLuckyVal(this.playBack.lucky_values)
+                if (this.playBack) {
+                    if (this.playBack.lucky_values) {
+                        this.formateLuckyVal(this.playBack.lucky_values)
+                    }
+                    if (this.playBack.free_times !== undefined) {
+                        this.free_times = parseFloat(this.playBack.free_times)
+                    }
                 }
                 await wait(300)
                 this.btnDisable = false
@@ -894,15 +906,17 @@
                     this.showSingleBet = true
                 }
             },
-            initPage (slotsHome) {
+            initPage (slotsHome, inPage = false) {
                 if (slotsHome.prizes_pool !== undefined) {
                     this.$store.commit(mTypes.prizes_pool, slotsHome.prizes_pool)
                 }
                 if (slotsHome.last_prizes !== undefined) {
                     this.$store.commit(mTypes.last_prizes, slotsHome.last_prizes)
                 }
-                if (slotsHome.free_times !== undefined) {
-                    this.free_times = parseFloat(slotsHome.free_times)
+                if (inPage) {
+                    if (slotsHome.free_times !== undefined) {
+                        this.free_times = parseFloat(slotsHome.free_times)
+                    }
                 }
                 if (slotsHome.auto_run !== undefined) {
                     this.auto_run = slotsHome.auto_run
@@ -972,7 +986,7 @@
             let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
             if (slotsHome) {
                 /* 基础结构数据 */
-                this.initPage(slotsHome)
+                this.initPage(slotsHome, true)
                 if (slotsHome.lucky_values) {
                     /* 投注列表配置 */
                     this.formateLuckyVal(slotsHome.lucky_values)
