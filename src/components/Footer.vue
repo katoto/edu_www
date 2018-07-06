@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
-        <div class="main">
-            <div class="fl reserved">
+        <div class=" container">
+            <div class="reserved col-md-6">
                 <div class="title">
                     <lang>©Coinslot 2018.  All Rights Reserved</lang>
                 </div>
@@ -9,20 +9,20 @@
                     <lang>Lucky 11 is a decentralized lottery product based on distributed ledger technology. Players can pick 1-5 numbers from 1 to 11 and submit it to the Ethereum. One draw per minute, let's start to win the prize!</lang>
                 </p>
             </div>
-            <div class="fl contact">
+            <div class="contact col-md-6">
                 <div class="title">
                     <lang>Contact Us</lang>
                 </div>
                 <p>
-                    <lang>General  issues:</lang> 
+                    <lang>General  issues:</lang>
                     <a href="mailto:lucky11@coinslot.com">lucky11@coinslot.com</a>
                 </p>
                 <p>
-                    <lang>Technical support service:</lang> 
+                    <lang>Technical support service:</lang>
                     <a href="mailto:support@coinslot.com">support@coinslot.com</a>
                 </p>
                 <p>
-                    <lang>telegram:</lang> 
+                    <lang>telegram:</lang>
                     <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
                 </p>
             </div>
@@ -57,6 +57,7 @@
 </script>
 <style lang="less" scoped >
     @import "../styles/lib-public.less";
+    @import "../styles/lib-media.less";
 
     //footer
     .footer{
@@ -68,7 +69,7 @@
         padding:16px 0 62px 0;
         color: #778ca3;
         .main{
-            width:1190px;
+            max-width:1190px;
             margin:0 auto;
             overflow: hidden;
         }
@@ -81,16 +82,18 @@
             font-size:14px;
         }
         a{
-            color: #6a89cc;
+            &:link,&:visited{
+                color: #6a89cc;
+            }
             &:hover{
                 color: #333;
             }
         }
         .reserved{
-            width:492px;
+            padding-right:103px;
         }
         .contact{
-            margin-left:95px;
+            /*margin-left:95px;*/
             a{
                 font-weight:bold;
             }
@@ -99,6 +102,21 @@
             width:194px;
             a{
                 display: block;
+            }
+        }
+        @media (max-width: @screen-desktop) {
+            padding: 0 20px 25px;
+            .title{
+                padding-top:14px;
+                line-height:30px;
+                font-size:14px;
+            }
+            p{
+                line-height:15px;
+                font-size:12px;
+            }
+            .reserved{
+                padding-right:0;
             }
         }
     }
