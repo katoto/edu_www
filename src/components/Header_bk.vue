@@ -14,7 +14,7 @@
                     <ul>
                         <li @click="jump2Page('lucky11')" :class="{'on':currTab==='lucky11'}"><a href="javascript:;">Lukcy 11</a></li>
                         <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
-                        <li @click="jump2Page('slotMachine')" :class="{'on':currTab==='slotMachine'}"><a href="javascript:;">Slot</a></li>
+                        <li @click="jump2Page('SlotMachine')" :class="{'on':currTab==='SlotMachine'}"><a href="javascript:;">SlotMachine</a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
@@ -22,8 +22,8 @@
                 </router-link>
                 <div class="choose-play">
                     <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')"  class="on">Lukcy11</a>
-                    <a href="javascript:;" class="hide" target="_blank">LuckyCoin</a>
-                    <a href="javascript:;" @click="jump2Page('mobile')" target="_blank">Mobile APP</a>
+                    <a href="javascript:;" @click="jump2Page('SlotMachine')"  target="_blank">SlotMachine</a>
+                    <a href="javascript:;" class="hide"  target="_blank">Mobile APP</a>
                 </div>
                 <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">
@@ -213,7 +213,7 @@
                 isShowMycount: false,
                 isChooseCoin: false,
                 isShowChoose: false,
-                currTab: 'slotMachine'
+                currTab: 'SlotMachine'
             }
         },
         watch: {
@@ -281,12 +281,12 @@
                     break
                 }
             },
-            jump2Page (item = 'slotMachine') {
+            jump2Page (item = 'SlotMachine') {
                 this.currTab = item
                 switch (item) {
-                case 'slotMachine':
-                    if (!~window.location.href.indexOf('slotMachine')) {
-                        this.$router.push('/slotMachine')
+                case 'SlotMachine':
+                    if (!~window.location.href.indexOf('SlotMachine')) {
+                        this.$router.push('/SlotMachine')
                     }
                     ;break
                 case 'lucky11':
