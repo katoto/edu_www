@@ -1,6 +1,5 @@
 <template>
     <div class="head-box">
-        <Banner></Banner>
         <div class="head">
             <div class="top">
                 <!--展开 on-->
@@ -189,12 +188,11 @@
 
 <script>
     import PopList from '~components/Pop-list'
-    import Banner from '~components/banner'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import { formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
     export default {
-        components: {PopList, Banner},
+        components: {PopList},
         data () {
             return {
                 showDetail: false,
@@ -219,8 +217,7 @@
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
-                isShowChoose: false,
-                currTab: 'SlotMachine'
+                isShowChoose: false
             }
         },
         watch: {
@@ -232,6 +229,9 @@
             }
         },
         computed: {
+            currTab () {
+                return this.$store.state.currTab
+            },
             initHeadState () {
                 return this.$store.state.initHeadState
             },
@@ -300,7 +300,7 @@
                 }
             },
             jump2Page (item = 'lucky11') {
-                this.currTab = item
+                this.$store.commit('setCurrTab', item)
                 switch (item) {
                 case 'SlotMachine':
                     if (!~window.location.href.indexOf('SlotMachine')) {

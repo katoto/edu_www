@@ -1,5 +1,6 @@
 <template>
     <div class="">
+        <Banner></Banner>
         <Header></Header>
         <HeaderNav></HeaderNav>
         <div class="main">
@@ -328,6 +329,7 @@
 <script>
     import Header from '~components/Header.vue'
     import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
+    import Banner from '~components/banner'
     import PlayArea from '~pages/cs_1105/PlayArea.vue'
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
@@ -647,7 +649,8 @@
             Header,
             HeaderNav,
             PlayArea,
-            LuckyMybet
+            LuckyMybet,
+            Banner
         },
         filters: {
             formateCoinType,

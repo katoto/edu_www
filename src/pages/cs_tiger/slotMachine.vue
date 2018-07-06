@@ -2082,4 +2082,7 @@
     .footer{
         border-top:0 !important;
     }
+    .head-box{
+        background: transparent;
+    }
 </style>
