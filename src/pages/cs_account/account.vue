@@ -101,4 +101,7 @@
         font-size: 20px;
         color: #263648;
     }
+    .head-box{
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+    }
 </style>

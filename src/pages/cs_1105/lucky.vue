@@ -1722,4 +1722,7 @@
             transform: translate(0,0);
         }
     }
+    .head-box{
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+    }
 </style>
