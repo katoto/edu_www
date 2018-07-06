@@ -406,7 +406,7 @@
                     </div>
                     <div class="contact">
                         <div class="fl">
-                            <div class="msg1">Download APP for better experience</div>
+                            <div class="msg1">Scan to experience mobile webview</div>
                             <div class="msg2">www.coinslot.com/#/slotMachine</div>
                         </div>
                         <div class="fr">
@@ -558,9 +558,8 @@
                 this.tabTime = new Date().getTime()
             },
             touEnd (isFree = false) {
-                if (this.btnDisable) {
-                    return false
-                }
+                console.log(isFree)
+                console.log('==========')
                 console.log(isFree)
                 if (isFree && isFree === 'isFree') {
                     /* 认为是免费的停止 */
@@ -568,6 +567,9 @@
                         this.stopAutoPlay()
                         return false
                     }
+                }
+                if (this.btnDisable) {
+                    return false
                 }
                 this.tabTime = (new Date().getTime() - this.tabTime)
                 if (this.tabTime > 500) {
@@ -595,6 +597,7 @@
             },
             async endInit () {
                 /* 结束初始化 */
+                this.$store.dispatch('getUserInfo')
                 this.axes.forEach((val, index) => {
                     this.tranitionTiming = false
                     this.resetLacal()
@@ -690,12 +693,11 @@
                     cointype: 2001
                 }
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
-                //  todo 临时直接更新
-                this.$store.dispatch('getUserInfo')
                 // this.stateInit()
                 this.btnDisable = true
                 this.slotRun = true
                 if (playBack) {
+                    this.reduceMoney()
                     this.playBack = playBack
                     this.initPage(playBack)
                     if (playBack.idx) {
@@ -957,6 +959,14 @@
                             }
                         }
                     })
+                }
+            },
+            reduceMoney () {
+                if (this.userInfo && this.userInfo.accounts) {
+                    if (this.currCoinType.toString() === '2001') {
+                        this.userInfo.accounts[0].balance = parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line))
+                        this.$store.commit('setUserInfo', this.userInfo)
+                    }
                 }
             }
         },

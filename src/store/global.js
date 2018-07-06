@@ -34,7 +34,7 @@ const state = {
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
-    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 eth
+    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 btc
     ...common.state
 }
 
