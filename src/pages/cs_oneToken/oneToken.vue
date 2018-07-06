@@ -8,22 +8,23 @@
 <script>
     import Header from '~components/Header_bk.vue'
     import Footer from '~components/Footer_bk.vue'
-	export default {
-	    data () {
-	        return {
-	            title: ''
-	        }
-	    },
-	    watch: {},
-	    methods: {},
-	    computed: {},
-	    mounted () {
 
-	    },
-        components:{
-            Header, Footer,
+    export default {
+        data () {
+            return {
+                title: ''
+            }
+        },
+        watch: {},
+        methods: {},
+        computed: {},
+        mounted () {
+
+        },
+        components: {
+            Header, Footer
         }
-	}
+    }
 </script>
 <style>
 </style>

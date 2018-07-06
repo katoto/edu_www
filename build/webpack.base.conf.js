@@ -134,8 +134,5 @@ module.exports = {
 		// 	$: "jquery"
 		// }),
         new vConsolePlugin({enable:!isDebug})
-	],
-    externals: {
-	    'vue':'Vue'
-    }
+	]
 }

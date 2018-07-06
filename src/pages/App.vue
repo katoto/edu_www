@@ -20,7 +20,6 @@
     import PopIpLimit from '~components/Pop-ipLimit.vue'
     import PopFreeplay from '~components/Pop-freeplay.vue'
     import {isLog} from '~common/util'
-    // todo 暂时到时候改到global
     export default {
         data () {
             return {
@@ -40,7 +39,6 @@
             }
         },
         async mounted () {
-            /* isLog ? */
             if (isLog()) {
                 this.$store.commit('setIsLog', true)
                 let userMsg = await this.$store.dispatch('getUserInfo')
@@ -79,5 +77,4 @@
         color: #263648;
         overflow: hidden;
     }
-
 </style>

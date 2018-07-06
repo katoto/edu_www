@@ -121,7 +121,6 @@
                 return this.$store.state.userInfo
             }
         },
-        components: {},
         mounted () {
             if (!this.isLog) {
                 this.$router.push('/home')

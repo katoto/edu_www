@@ -14,7 +14,7 @@ import lanaguage from './plugins/language'
 
 // 全局 end
 //  按需加载  有点小问题
-import {Carousel, CarouselItem, Button, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
+import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
@@ -31,7 +31,6 @@ locale.i18n((key, value) => {
     }[key]
 })
 
-Vue.component(Button.name, Button)
 Vue.component(Table.name, Table)
 Vue.component(Pagination.name, Pagination)
 Vue.component(TableColumn.name, TableColumn)

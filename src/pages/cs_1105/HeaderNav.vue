@@ -53,8 +53,6 @@
 </template>
 
 <script>
-import {formateBalance, formateJackpot} from '~common/util'
-
 export default {
     data () {
         return {
@@ -71,7 +69,6 @@ export default {
         }
     },
     methods: {
-        formateBalance,
         historyCodeFilter (historyCode) {
             let isLastCode = false
             let lastIndex = 0
@@ -122,10 +119,6 @@ export default {
     },
     async mounted () {
         this.getHistoryDraw()
-    },
-    filters: {
-        formateBalance,
-        formateJackpot
     }
 }
 </script>
@@ -138,7 +131,6 @@ export default {
         width: 100%;
         height: 60px;
         line-height: 60px;
-        //overflow: hidden;
         background: #463895;
         color: #fff;
         .transition();

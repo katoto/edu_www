@@ -311,12 +311,6 @@
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-        <!--中奖啦 open-->
-        <!--<div class="fix-winning open">-->
-            <!--<a href="javascript:;" class="close-winning"></a>-->
-            <!--<span class="msg1">Congratulations!</span>-->
-            <!--<p class="msg2">You&ensp;Win&ensp;+&ensp;{{0.00318}}</p>-->
-        <!--</div>-->
         <!-- 世界杯弹窗 -->
         <div class="pop pop-world hide" :class="{'hide':!showPopWorld}">
             <div class="contain">
@@ -338,7 +332,7 @@
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
     import { Message } from 'element-ui'
-    import {formateCoinType, formatMatch, formateBalance, removeCK} from '~common/util'
+    import {formateCoinType, formatMatch, formateBalance, removeCK, formatTime} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -659,37 +653,9 @@
             formateCoinType,
             formatMatch,
             formateBalance,
-            formatTime: (time, format) => {
-                if (format === undefined || format == null) {
-                    format = 'MM-dd HH:mm:ss'
-                }
-                if (isNaN(time)) {
-                    return false
-                }
-                let t = new Date(+time * 1000)
-                let tf = function (i) {
-                    return (i < 10 ? '0' : '') + i
-                }
-                return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-                    switch (a) {
-                    case 'yyyy':
-                        return tf(t.getFullYear())
-                    case 'MM':
-                        return tf(t.getMonth() + 1)
-                    case 'mm':
-                        return tf(t.getMinutes())
-                    case 'dd':
-                        return tf(t.getDate())
-                    case 'HH':
-                        return tf(t.getHours())
-                    case 'ss':
-                        return tf(t.getSeconds())
-                    }
-                })
-            }
+            formatTime
         },
         async mounted () {
-
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav)

@@ -27,8 +27,8 @@ const Withdraw = () => import('~/pages/cs_account/Withdraw')
 /* 老虎机 */
 const slotMachine = () => import('~/pages/cs_tiger/slotMachine')
 
-/*一元夺币*/
-const oneToken =()=>import('~/pages/cs_oneToken/oneToken')
+/* 一元夺币 */
+const oneToken = () => import('~/pages/cs_oneToken/oneToken')
 
 // 404
 const page404 = () => import('~/pages/404.vue')
