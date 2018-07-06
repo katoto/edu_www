@@ -999,7 +999,6 @@
 <style scoped="" lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
-    @import "../../styles/tiger.less";
     @import "../../styles/lib-font.less";
     div, a, img, p, span, i {
         -webkit-tap-highlight-color: transparent;
