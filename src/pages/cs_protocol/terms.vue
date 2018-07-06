@@ -307,7 +307,7 @@
 </template>
 
 <script>
-    import Header from '~/components/Header.vue'
+    import Header from '~/components/Header.bar.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Footer from '~/components/Footer.vue'
 
