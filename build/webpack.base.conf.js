@@ -5,6 +5,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require("webpack");
 const vConsolePlugin = require('vconsole-webpack-plugin');
+
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
 }
@@ -133,5 +134,8 @@ module.exports = {
 		// 	$: "jquery"
 		// }),
         new vConsolePlugin({enable:!isDebug})
-	]
+	],
+    externals: {
+	    'vue':'Vue'
+    }
 }

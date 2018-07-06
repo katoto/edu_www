@@ -2,7 +2,6 @@
  *  相关的工具函数
  */
 
-import Cookies from 'js-cookie'
 import {Message} from 'element-ui'
 
 export const src = 'pc'
@@ -50,18 +49,15 @@ const CK = 'block_ck'
 export const isMobile = /applewebkit.*mobile.*/.test(window.navigator.userAgent.toLowerCase())
 
 export function getCK () {
-    // return Cookies.get(CK)
     return localStorage.getItem(CK)
 }
 
 export function setCK (ck) {
-    localStorage.setItem(CK, ck)
-    return Cookies.set(CK, ck)
+    return localStorage.setItem(CK, ck)
 }
 
 export function removeCK () {
-    localStorage.setItem(CK, null)
-    return Cookies.remove(CK)
+    return localStorage.setItem(CK, null)
 }
 
 export function isLog () {
