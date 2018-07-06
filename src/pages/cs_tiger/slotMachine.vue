@@ -557,10 +557,11 @@
                 evt.preventDefault()
                 this.tabTime = new Date().getTime()
             },
-            touEnd (evt, isFree = false) {
+            touEnd (isFree = false) {
                 if (this.btnDisable) {
                     return false
                 }
+                console.log(isFree)
                 if (isFree && isFree === 'isFree') {
                     /* 认为是免费的停止 */
                     if (this.isAutoPlay) {
