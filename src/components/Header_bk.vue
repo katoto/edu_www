@@ -21,10 +21,11 @@
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
                 <div class="choose-play">
-                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')"  class="on">Lukcy11</a>
-                    <a href="javascript:;" @click="jump2Page('SlotMachine')"  target="_blank">SlotMachine</a>
+                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')" :class="{'on':currTab === 'lucky11'}" >Lukcy11</a>
+                    <a href="javascript:;" @click="jump2Page('SlotMachine')" :class="{'on':currTab === 'SlotMachine'}" target="_blank">SlotMachine</a>
                     <a href="javascript:;" class="hide"  target="_blank">Mobile APP</a>
                 </div>
+                <!-- 修改切换语言 -->
                 <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">
                         <img src="../assets/slice/lan-en.jpg" alt="">
@@ -94,26 +95,20 @@
                     </section>
                 </div>
 
-                <!--拉新活动 主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
-                <a href="javascript:;" @click="showFaucet" class="btn-faucet" v-if="isLog && userInfo && userInfo.status.toString() ==='1'" :class="{'over':(loginSucc && ( loginSucc.invite_status !== '0' )) || (userInfo.invite_prize_chances === '0' && userInfo.tasks.length === 0 )}">
+                <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
+                <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
+                   v-if="0 && isLog && userInfo && userInfo.status.toString() ==='1'"
+                   :class="{'over':(loginSucc && ( loginSucc.invite_status !== '0' )) || (userInfo.invite_prize_chances === '0' && userInfo.tasks.length === 0 )}"
+                    ><lang>Faucet</lang>
                 </a>
 
                 <!--拉新活动提示-->
-                <div class="act-sign right" v-if="!isLog">
-                    for free 0.001ETH
+
+                <div class="act-sign right hide" v-if="!isLog">
+                    <lang>for free 0.001ETH</lang>
                 </div>
             </div>
 
-
-            <!-- jackpot -->
-            <!--<div class="jackpot" :class="{hide: jackPotMsg === null}">-->
-                <!--<div class="jackpot-box" >-->
-                    <!--<p>{{ _('Congratulations to {0} hit {1},', (jackPotMsg && jackPotMsg.uid) || '', (jackPotMsg && jackPotMsg.expectid) || '') }}</p>-->
-                    <!--<p class="jackpot-money">{{ _('Win {0}ETH', (jackPotMsg && jackPotMsg.prize) || '') }}</p>-->
-                <!--</div>-->
-                <!--<canvas id="canvas" ref="canvas"></canvas>-->
-            <!--</div>-->
-            <!--:class="{hide:jackPotMsg===null}"-->
             <div class="jackpot" v-show="jackPotMsg">
                 <div class="jackpot-box">
                     <el-carousel :interval="5000" arrow="never" height="72px">
@@ -128,24 +123,28 @@
 
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
-            <section v-if="(loginSucc || showFirstLogin)&&isLog">
+            <section v-if="0 && (loginSucc || showFirstLogin)&&isLog">
                 <div class="tips-newAct tips-newAct2"
                      :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
                     <div class="msg">
                         <p>
                             <lang>You have earned 0.001 free ETH already, go to bet to win more!</lang>
                         </p>
-                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll"><lang>Try a luck</lang></a>
+                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
+                            <lang>Try a luck</lang>
+                        </a>
                         <div class="bottom">
                             <lang>Invite friends to earn more free ETH.</lang>
-                            <a href="javascript:;" @click="showFaucet" class="bold js_invite"><lang>Earn now</lang></a>
+                            <a href="javascript:;" @click="showFaucet" class="bold js_invite">
+                                <lang>Earn now</lang>
+                            </a>
                         </div>
                     </div>
                 </div>
             </section>
             <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
             <!--  user/info 里还有问题  已经邀请 -->
-            <section v-if="loginSucc&&isLog&&showEndFaucet">
+            <section v-if="0 && loginSucc&&isLog&&showEndFaucet">
                 <div class="tips-newAct"
                      :class="{'hide':!( loginSucc.invite_status != '0'||( loginSucc.invite_prize_chances == '0' && loginSucc.tasks.length == 0 ))}">
                     <div class="msg">
@@ -160,13 +159,14 @@
             </section>
 
             <!--成功邀请-->
-            <section v-if="isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
+            <section v-if="0 && isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
                 <div class="tips-newAct tips-newAct2">
                     <div class="msg">
-                        <p>
-                            Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.
+                        <p v-html="_('Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.')">
                         </p>
-                        <a href="javascript:;" @click="getFaucet" class="btn-receive"><lang>Get it !</lang></a>
+                        <a href="javascript:;" @click="getFaucet" class="btn-receive">
+                            <lang>Get it !</lang>
+                        </a>
                         <div class="bottom hide">
                             <lang>Invite friends and get more ETH~</lang>
                             <a href="javascript:;" @click="showFaucet" class="bold"><lang>Invite Now</lang></a>
@@ -206,7 +206,7 @@
                     label: '中文简体'
                 }, {
                     value: 'zhTw',
-                    label: '中文繁体'
+                    label: '中文繁體'
                 }],
                 currBalance: null, // 当前钱包,
                 isShowLanguage: false,
@@ -281,7 +281,7 @@
                     break
                 }
             },
-            jump2Page (item = 'SlotMachine') {
+            jump2Page (item = 'lucky11') {
                 this.currTab = item
                 switch (item) {
                 case 'SlotMachine':
@@ -292,11 +292,6 @@
                 case 'lucky11':
                     if (!~window.location.href.indexOf('lucky11')) {
                         this.$router.push('/lucky11')
-                    }
-                    ;break
-                case 'luckycoin':
-                    if (!~window.location.href.indexOf('luckycoin')) {
-                        this.$router.push('/luckycoin')
                     }
                     ;break
                 case 'mobile':
