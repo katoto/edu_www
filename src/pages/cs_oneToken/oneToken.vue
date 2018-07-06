@@ -1,9 +1,13 @@
 <template>
     <div id="app">
+        <Header></Header>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
+    import Header from '~components/Header_bk.vue'
+    import Footer from '~components/Footer_bk.vue'
 	export default {
 	    data () {
 	        return {
@@ -15,7 +19,10 @@
 	    computed: {},
 	    mounted () {
 
-	    }
+	    },
+        components:{
+            Header, Footer,
+        }
 	}
 </script>
 <style>

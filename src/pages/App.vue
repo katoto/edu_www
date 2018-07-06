@@ -59,7 +59,7 @@
             this.$store.dispatch('homeInfo')
             setTimeout(function () {
                 document.getElementById('coinslotLoading').style.display = 'none'
-            }, 3000)
+            }, 0)
         }
     }
 </script>
