@@ -435,7 +435,7 @@
                 display: table-cell;
                 vertical-align: middle;
                 &.on,&:hover{
-                    background: rgba(0,0,0,0.3);
+                    background: rgba(0,0,0,0.5);
                 }
             }
         }
@@ -500,7 +500,7 @@
                 }
             }
             &.isLanguage{
-                background: rgba(0,0,0,0.3);
+                background: rgba(0,0,0,0.5);
                 ul{
                     display: block;
                 }
@@ -523,6 +523,7 @@
             position: relative;
             float: right;
             transform: translate3d(0,0,0);
+            padding:20px 0;
             .transition();
             .countNum {
                 position: relative;
@@ -531,7 +532,6 @@
                 padding-right: 25px;
                 line-height: 30px;
                 font-size: 20px;
-                padding-bottom: 6px;
                 i {
                     display: block;
                     position: absolute;
@@ -552,16 +552,18 @@
                     display: block;
                 }
             }
+
         }
         .login {
             position: relative;
             float: right;
-            margin: 20px 20px 0 0;
+            margin: 0 20px 0 0;
             text-align: center;
             .to-login{
                 display: block;
                 float: left;
                 position: relative;
+                margin-top:20px;
                 overflow: hidden;
                 height:28px;
                 line-height:28px;
@@ -570,13 +572,13 @@
                 border:1px solid rgba(255,255,255,0.3);
                 color: #fff;
                 &:hover {
-                    color: #6a89cc;
+                   background: rgba(255,255,255,0.2);
                 }
             }
             .hadlogin {
                 position: relative;
                 float: left;
-                margin-right:20px;
+                margin:20px 20px 0 0;
                 text-align: center;
                 overflow: hidden;
                 border-radius: 6px;
@@ -594,12 +596,12 @@
                 }
             }
             .btn-rechrage{
-                border-top-left-radius: 6px;
-                border-bottom-left-radius: 6px;
+                /*border-top-left-radius: 6px;*/
+                /*border-bottom-left-radius: 6px;*/
             }
             .btn-cash {
-                border-top-right-radius: 6px;
-                border-bottom-right-radius: 6px;
+                /*border-top-right-radius: 6px;*/
+                /*border-bottom-right-radius: 6px;*/
                 border-left:1px solid rgba(255, 255, 255, 0.3);
             }
         }
@@ -611,7 +613,7 @@
         position: absolute;
         z-index: 10;
         right: 0;
-        top: 36px;
+        top: 56px;
         width: 207px;
         border-radius: 6px;
         overflow: hidden;
@@ -679,7 +681,7 @@
         .my-transaction,
         .account-center {
             display: block;
-            width: 153px;
+            width: 175px;
             height: 28px;
             overflow: hidden;
             margin: 10px auto 0;
@@ -721,7 +723,7 @@
 
     .choose-coin{
         position: relative;
-        top:-7px;
+        top:0;
         float: left;
         margin-right:13px;
         cursor: pointer;
@@ -730,7 +732,7 @@
             position: relative;
             display: block;
             line-height:24px;
-            padding:10px 32px 12px 12px;
+            padding:23px 32px 23px 12px;
             color: #fd9644;
             &::before{
                 content: '';
@@ -746,18 +748,21 @@
                 display: block;
                 position: absolute;
                 right:10px;
-                top:18px;
+                top:30px;
                 background: url("../assets/slice/arrow-down-fff.png");
                 width:13px;
                 height:8px;
                 transition: all 0.2s;
+            }
+            &:hover{
+                background: rgba(0,0,0,0.3);
             }
         }
         ul{
             display: none;
             position: absolute;
             left:0;
-            top:46px;
+            top:66px;
             width:100%;
             overflow: hidden;
             box-sizing: border-box;
@@ -780,15 +785,15 @@
             }
             li.on{
                 font-weight:bold;
-                color: #fd9644;
+                color: #ff8321;
                 &:before{
                     content: '';
                     display: block;
                     position: absolute;
-                    top:12px;
+                    top:10px;
                     left:15px;
                     width:16px;
-                    height:11px;
+                    height:12px;
                     background: url(../assets/slice/icon-hook.png) no-repeat center;
                     background-size: cover;
                 }
@@ -1215,14 +1220,14 @@
                     width:19px;
                     height:19px;
                     margin:0 auto;
-                    opacity:0.8;
+                    opacity:0.6;
                     transition: all 0.2s;
                 }
                 .countNum{
                     display: none;
                 }
                 &:hover,&.isShowMycount{
-                    background: rgba(0,0,0,0.3);
+                    background: rgba(0,0,0,0.5);
                     &::before{
                         opacity:1;
                     }
@@ -1298,7 +1303,7 @@
                 }
             }
             &:hover,&.isChooseCoin{
-                background: rgba(0,0,0,0.3);
+                background: rgba(0,0,0,0.5);
                 .coin{
                     &:before{
                         filter: grayscale(0);
@@ -1329,8 +1334,16 @@
     }
     @media (max-width: @screen-phone) { }
 
+    @media(min-width: @screen-tablet){
+        .mycount,.choose-coin .coin {
+            &:hover{
+                background: rgba(0,0,0,0.3);
+            }
+        }
+    }
 
 
 
 </style>
+
 

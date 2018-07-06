@@ -59,7 +59,7 @@
             this.$store.dispatch('homeInfo')
             setTimeout(function () {
                 document.getElementById('coinslotLoading').style.display = 'none'
-            }, 3000)
+            }, 0)
         }
     }
 </script>
@@ -75,7 +75,7 @@
         background: #eef1f9;
         font-size: 14px;
         line-height: 20px;
-        font-family: "Microsoft Yahei", sans-r;
+        font-family: sans-r,Microsoft Yahei;
         color: #263648;
         overflow: hidden;
     }
