@@ -526,20 +526,6 @@
             formateSlotBalance,
             formateEmail,
             formateCoinType,
-            // formateSlotBalance (val) {
-            //     if (this.dft_bet) {
-            //         switch (this.dft_bet.toString()) {
-            //         case '0.0001':
-            //             return parseFloat(val).toFixed(4)
-            //         case '0.001':
-            //             return parseFloat(val).toFixed(3)
-            //         case '0.01':
-            //             return parseFloat(val).toFixed(2)
-            //         }
-            //     } else {
-            //         return this.formateBalance(val)
-            //     }
-            // },
             initPop () {
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())
@@ -647,7 +633,7 @@
                 }
             },
             stateInit () {
-                this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
+                // this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
             },
             formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
                 /* 获得口哨  坐标 */
@@ -1055,6 +1041,7 @@
                 }
             },
             async changePageState () {
+                /* 登陆登出修改页面状态 */
                 let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
                 if (slotsHome) {
                     /* 基础结构数据 */
