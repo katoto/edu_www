@@ -14,7 +14,7 @@
                         <div class="jackpot-low ">
                             <div class="jackpot-all">
                                 <p>
-                                    JACKPOT
+                                    <lang>JACKPOT</lang>
                                 </p>
                                 <i v-if="prizes_pool">
                                     {{ formateSlotBalance( prizes_pool ) }}
@@ -26,7 +26,7 @@
                             <div class="jackpot-win">
                                 <!--bug: ipone5 not fint win-->
                                 <p>
-                                    Hit to Win
+                                    <lang>Hit to Win</lang>
                                     <span v-if="prizes_pool && prizes_pool_ratio">
                                     <!-- hit WIn -->
                                     <template v-if="prizes_pool_ratio[dft_bet] >= 0">
@@ -132,7 +132,7 @@
                                     </div>
                                 </div>
                                 <p class="msg">
-                                    Total Bet
+                                    <lang>Total Bet</lang>
                                 </p>
                             </div>
                             <div class="bar">
@@ -146,13 +146,13 @@
                                     <div class="bar-lycky" v-else></div>
                                 </div>
                                 <p class="msg">
-                                    Lucky Bar
+                                    <lang>Lucky Bar</lang>
                                 </p>
                             </div>
                         </div>
                         <!--  上次赢取  -->
                         <div class="lastwin " v-if="last_prizes">
-                            Last time win {{ formateSlotBalance (last_prizes) }} ETH
+                            <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} ETH
                         </div>
                         <!--主按钮-->
                         <a href="javascript:;" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
@@ -160,23 +160,23 @@
                             <template v-if="hideBarLycky">
                                 <!--自动-->
                                 <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
-                                    <p>AUTO</p>
-                                    <div>Click to Stop</div>
+                                    <p><lang>AUTO</lang></p>
+                                    <div><lang>Click to Stop</lang></div>
                                 </div>
                                 <!--免费-->
                                 <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd('isFree')" @mousedown="touStart" @mouseup="touEnd('isFree')"  :class="{'hide':!parseFloat(free_times)}">
-                                    <p>FREE</p>
-                                    <div>{{ free_times }} Times</div>
+                                    <p><lang>FREE</lang></p>
+                                    <div>{{ free_times }} <lang>Times</lang></div>
                                 </div>
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
-                                    <p>SPIN</p>
-                                    <div>Auto(long press)</div>
+                                    <p><lang>SPIN</lang></p>
+                                    <div><lang>Auto(long press)</lang></div>
                                 </div>
                             </template>
                             <template v-else>
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
-                                    Double Up
+                                    <lang>Double Up</lang>
                                 </div>
                             </template>
                         </a>
@@ -257,69 +257,68 @@
                             <p>Instructions</p>
                         </div>
                         <ul class="tab-t">
-                            <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;">Winning Table</a></li>
-                            <li :class="{on:tab_t===2}" @click="tab_t=2"><a href="javascript:;">Lucky Prize</a></li>
-                            <li :class="{on:tab_t===3}" @click="tab_t=3"><a href="javascript:;">Winning Line</a></li>
+                            <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;"><lang>Winning Table</lang></a></li>
+                            <li :class="{on:tab_t===2}" @click="tab_t=2"><a href="javascript:;"><lang>Lucky Prize</lang></a></li>
+                            <li :class="{on:tab_t===3}" @click="tab_t=3"><a href="javascript:;"><lang>Winning Line</lang></a></li>
                         </ul>
                         <ul class="tab-c">
                             <li :class="{on:tab_t===1}">
                                 <div class="line-divi">
-                                    <div>Multiple</div>
+                                    <div><lang>Multiple</lang></div>
                                 </div>
                                 <div class="winningamount">
-                                    <p>Winning Amount =</p>
-                                    <p>pattern multiple × single line amount</p>
+                                    <p><lang>Winning Amount</lang> =</p>
+                                    <p><lang>pattern multiple × single line amount</lang></p>
                                 </div>
                                 <img class="details" src="@/assets/img/tiger/details.png" alt="details">
                                 <div class="line-divi">
-                                    <div>Special</div>
+                                    <div><lang>Special</lang></div>
                                 </div>
                                 <ul class="special">
                                     <li>
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
                                         </div>
-                                        <p>WILD，In addition to whistle, it can be</p>
-                                        <p>compared with any other</p>
+                                        <p><lang>WILD，In addition to whistle, it can be compared with any other</lang></p>
                                     </li>
                                     <li>
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-free.png" alt="icon-free">
                                         </div>
-                                        <p>Rewards free,</p>
-                                        <p>number of occurrences anywhere</p>
-                                        <p>3 free = 1 time&nbsp;&nbsp;&nbsp;&nbsp;4 free = 3 time</p>
-                                        <p>5 free = 10 time</p>
+                                        <p><lang>Rewards free</lang>,</p>
+                                        <p><lang>number of occurrences anywhere</lang></p>
+                                        <p><lang>3 free = 1 time&nbsp;&nbsp;&nbsp;&nbsp;4 free = 3 time</lang></p>
+                                        <p><lang>5 free = 10 time</lang></p>
                                     </li>
                                 </ul>
                             </li>
                             <li :class="{on:tab_t===2}">
                                 <div class="line-divi">
-                                    <div>Jaackpot</div>
+                                    <div><lang>JACKPOT</lang></div>
                                 </div>
                                 <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
                                 <div class="msg">
                                     <p>
-                                        <span class="bold">Prize pool</span>: 2% of the player's guessed coin is rolled into the prize pool.
+                                        <span class="bold"><lang>Prize pool</lang></span>: <lang>2% of the player's guessed coin is rolled into the prize pool</lang>.
                                     </p>
                                     <p>
-                                        <span>9-line betting, transfer out of 9</span>
+                                        <span><lang>9-line betting, transfer out of 9</lang></span>
                                         &nbsp;<img width="16" height="16" src="@/assets/img/tiger/icon-England.png" alt="England">&nbsp;
-                                        <span>that is winning.</span>
+                                        <span><lang>that is winning</lang>.</span>
                                     </p>
                                 </div>
                                 <div class="msg">
-                                    <p>· Each bet 0.0001ETH, only get a fixed payment</p>
-                                    <p>· Bet ETH per line 0.001, winning 5%</p>
-                                    <p>· Each line is betting 0.01ETH, winning 50% of &nbsp;&nbsp;the prize pool</p>
+                                    <p>· <lang>Each bet 0.0001ETH, only get a fixed payment</lang></p>
+                                    <p>· <lang>Bet ETH per line 0.001, winning 5%</lang></p>
+                                    <p>· <lang>Each line is betting 0.01ETH, winning 50% of &nbsp;&nbsp;the prize pool</lang></p>
                                 </div>
                                 <div class="line-divi">
-                                    <div>Lucky value</div>
+                                    <div><lang>Lucky value</lang></div>
                                 </div>
                                 <div class="lucky-value">
                                     <div class="lucky-48">
                                         <img src="@/assets/img/tiger/lucky-48.png" alt="">
-                                        <p>Not Full</p>
+                                        <p><lang>Not Full</lang></p>
                                     </div>
                                     <div class="lucky-100">
                                         <img src="@/assets/img/tiger/lucky-100.png" alt="">
@@ -328,13 +327,13 @@
                                 </div>
                                 <div class="msg">
                                     <p>
-                                        <span class="bold"> Lucky value</span>: Unlucky bets accumulate lucky value by line number
+                                        <span class="bold"><lang>Lucky value</lang></span>: <lang>Unlucky bets accumulate lucky value by line number</lang>
                                     </p>
                                     <p>
-                                        (1 line accumulates 1 lucky value, use n-line betting to accumulate n lucky value)
+                                        <lang>(1 line accumulates 1 lucky value, use n-line betting to accumulate n lucky value)</lang>
                                     </p>
                                     <p>
-                                        You can get a double reward if your lucky value is 100 or more.
+                                        <lang>You can get a double reward if your lucky value is 100 or more</lang>.
                                     </p>
                                 </div>
                             </li>
@@ -342,10 +341,10 @@
                                 <div class="line-divi">
                                     <div>
                                         <p>
-                                            Bonus settlements from
+                                            <lang>Bonus settlements from</lang>
                                         </p>
                                         <p>
-                                            left to right on the winning line
+                                            <lang>left to right on the winning line</lang>
                                         </p>
                                     </div>
                                 </div>
@@ -377,17 +376,17 @@
                     </div>
                 </div>
                 <div class="tiger-pc-msg ">
-                    <h3>Recent </h3>
+                    <h3><lang>Recent</lang></h3>
                     <div class="recent-win">
                         <div class="recent-top">
                             <div class="user">
-                                User
+                                <lang>User</lang>
                             </div>
                             <div class="win">
-                                Win
+                                <lang>Win</lang>
                             </div>
                             <div class="time">
-                                Time
+                                <lang>Time</lang>
                             </div>
                         </div>
                         <!-- height -->
@@ -408,7 +407,7 @@
                     </div>
                     <div class="contact">
                         <div class="fl">
-                            <div class="msg1">Scan to experience mobile webview</div>
+                            <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
                             <div class="msg2">www.coinslot.com/#/slotMachine</div>
                         </div>
                         <div class="fr">
