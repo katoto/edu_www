@@ -175,11 +175,13 @@ const actions = {
             console.log(e.status)
             console.log(e)
             console.log('=========')
-            if (e && e.status && e.status === '214') {
-                removeCK()
-                commit('setIsLog', false)
-                commit('setUserInfo', {})
-                commit('showLoginPop')
+            if (e && e.status) {
+                if (e.status === '214' || e.status === '206') {
+                    removeCK()
+                    commit('setIsLog', false)
+                    commit('setUserInfo', {})
+                    commit('showLoginPop')
+                }
             }
         }
     },
