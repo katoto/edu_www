@@ -175,7 +175,7 @@ const actions = {
             if (pageData) {
                 InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
             }
-            if (InfoData.status === '100') {
+            if (InfoData.status.toString() === '100') {
                 commit('setLoginSucc', InfoData.data)
                 return InfoData.data
             } else {
@@ -204,6 +204,9 @@ const actions = {
         if (~state.route.path.indexOf('account')) {
             router.push('/lucky')
         }
+        // if (~state.route.path.indexOf('SlotMachine')) {
+        //
+        // }
         dispatch('sub2out')
     },
 

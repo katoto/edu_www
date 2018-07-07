@@ -11,6 +11,9 @@ function getCommonParams () {
         src,
         lotid: 1
     }
+    if (!ck || ck === 'null') {
+        ck = ''
+    }
     return { ...params, ck }
 }
 

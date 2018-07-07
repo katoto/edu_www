@@ -108,7 +108,7 @@ const actions = {
     async getUserInfo ({state, commit, dispatch}) {
         try {
             let userMsg = null
-            if (!(getCK() === '0' || !getCK())) {
+            if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
                 userMsg = await ajax.get(`/user/info`)
                 if (userMsg.status.toString() === '100') {
                     if (userMsg.data.uid) {
@@ -172,9 +172,6 @@ const actions = {
             }
             return userMsg
         } catch (e) {
-            console.log(e.status)
-            console.log(e)
-            console.log('=========')
             if (e && e.status) {
                 if (e.status === '214' || e.status === '206') {
                     removeCK()

@@ -57,11 +57,11 @@ export function setCK (ck) {
 }
 
 export function removeCK () {
-    return localStorage.setItem(CK, null)
+    return localStorage.setItem(CK, '')
 }
 
 export function isLog () {
-    return !((getCK() === '0' || !getCK()))
+    return !((getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === ''))
 }
 
 /*

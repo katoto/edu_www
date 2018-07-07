@@ -77,4 +77,25 @@
         color: #263648;
         overflow: hidden;
     }
+    .radioLi{
+        display: flex;
+        justify-content: center;
+        height:22px;
+        line-height:22px;
+        overflow: hidden;
+        font-size:12px;
+        color: #fff;
+        li{
+            display: flex;
+            justify-content: center;
+        }
+        li+li{
+            margin-left:5px;
+        }
+        img{
+            display: block;
+            width:22px;
+            height:22px;
+        }
+    }
 </style>

@@ -185,8 +185,8 @@
                     <!-- 小奖 -->
                     <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
                         <div class="msg" >
-                            <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
-                            <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
+                            <p v-if="playBack && playBack.isdouble==='0'">{{ formateWinPop( playBack.line_prizes ) }}</p>
+                            <p v-if="playBack && playBack.isdouble==='1'">{{ formateWinPop( playBack.line_prizes / 2 ) }}</p>
                             <i>{{ formateCoinType( currCoinType ) }}</i>
 
                         </div>
@@ -198,18 +198,18 @@
                                 <div class="msg" v-if="playBack">
                                     <template v-if="jackPot">
                                         <p v-if=" playBack.isdouble==='1'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
+                                            {{ formateWinPop( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
                                         </p>
                                         <p v-if=" playBack.isdouble==='0'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
+                                            {{ formateWinPop( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
                                         </p>
                                     </template>
                                     <template v-else>
                                         <p v-if=" playBack.isdouble==='1'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) / 2 ) }}
+                                            {{ formateWinPop( parseFloat(playBack.line_prizes) / 2 ) }}
                                         </p>
                                         <p v-if=" playBack.isdouble==='0'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) ) }}
+                                            {{ formateWinPop( parseFloat(playBack.line_prizes) ) }}
                                         </p>
                                     </template>
                                     <i>
@@ -217,6 +217,8 @@
                                     </i>
                                 </div>
                                  <!--todo 奖池倍数 暂时隐藏-->
+                                <div id="radioHtmlDom"></div>
+
                                 <ul class="hide">
                                     <li>
                                         <img src="../../../static/staticImg/_A.png" alt="">&ensp;
@@ -499,7 +501,10 @@
                 auto_run: 10,
                 currRun: 0,
                 isAutoPlay: false, // 按钮双击样式
-                currBalance: 0
+                currBalance: 0,
+                winRadioObj: {
+                }, // 显示大奖用的
+                winRadioHtml: '' // 处理成展示结构html
             }
         },
         watch: {
@@ -508,6 +513,10 @@
             //         // this.setLacal()
             //     }
             // }
+            isLog (val) {
+                /* 切换登陆态之后改变状态 */
+                this.changePageState()
+            }
         },
         methods: {
             copySucc,
@@ -516,6 +525,20 @@
             formateBalance,
             formateEmail,
             formateCoinType,
+            formateWinPop (val) {
+                if (this.dft_bet) {
+                    switch (this.dft_bet.toString()) {
+                    case '0.0001':
+                        return parseFloat(val).toFixed(5)
+                    case '0.001':
+                        return parseFloat(val).toFixed(4)
+                    case '0.01':
+                        return parseFloat(val).toFixed(3)
+                    }
+                } else {
+                    return this.formateBalance(val)
+                }
+            },
             initPop () {
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())
@@ -715,6 +738,7 @@
                     }
                     if (playBack.results) {
                         this.showResults(playBack.results)
+                        this.showRadioEnd(playBack.results)
                     }
                 } else {
                     this.endInit()
@@ -968,6 +992,81 @@
                         this.$store.commit('setUserInfo', this.userInfo)
                     }
                 }
+            },
+            showRadioEnd (winArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '120', '0']) {
+                this.winRadioObj = {}
+                if (winArr) {
+                    winArr.forEach((val, index) => {
+                        if (index !== 9) {
+                            if (val !== '0') {
+                                if (!this.winRadioObj[val]) {
+                                    this.winRadioObj[val] = []
+                                }
+                                this.winRadioObj[val].push(val)
+                            }
+                        }
+                    })
+                    let i = 0
+                    this.winRadioHtml = ''
+                    for (let item in this.winRadioObj) {
+                        if (i % 2 === 0) {
+                            this.winRadioHtml += `
+                                            <ul class="radioLi"><li>
+                                                <img src="../../../static/staticImg/_${this.radioBackImg(item)}.png" alt="">&ensp;
+                                                <span>x ${this.winRadioObj[item].length}</span>&ensp;
+                                                <span>${parseFloat(item) * this.winRadioObj[item].length}</span>&ensp;
+                                                <span>Times</span>
+                                            </li>
+                                        `
+                        } else {
+                            this.winRadioHtml += `<li >
+                                                <img src="../../../static/staticImg/_${this.radioBackImg(item)}.png" alt="">&ensp;
+                                                <span>x ${this.winRadioObj[item].length}</span>&ensp;
+                                                <span>${parseFloat(item) * this.winRadioObj[item].length}</span>&ensp;
+                                                <span>Times</span>
+                                            </li></ul>`
+                        }
+                        i++
+                    }
+                    if (i % 2 !== 0) {
+                        this.winRadioHtml += '</ul>'
+                    }
+                    if (document.getElementById('radioHtmlDom')) {
+                        document.getElementById('radioHtmlDom').innerHTML = this.winRadioHtml
+                    }
+                }
+            },
+            radioBackImg (radio = '5') {
+                switch (radio.toString()) {
+                case '5':
+                    return 'A'
+                case '15':
+                    return 'B'
+                case '25':
+                    return 'C'
+                case '50':
+                    return 'D'
+                case '100':
+                    return 'E'
+                case '300':
+                    return 'F'
+                case '800':
+                    return 'G'
+                default:
+                    return 'A'
+                }
+            },
+            async changePageState () {
+                let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
+                if (slotsHome) {
+                    /* 基础结构数据 */
+                    this.initPage(slotsHome, true)
+                    if (slotsHome.lucky_values) {
+                        /* 投注列表配置 */
+                        this.formateLuckyVal(slotsHome.lucky_values)
+                    }
+                }
+                this.initLacal(true)
             }
         },
         computed: {
@@ -994,18 +1093,8 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
-            let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
-            if (slotsHome) {
-                /* 基础结构数据 */
-                this.initPage(slotsHome, true)
-                if (slotsHome.lucky_values) {
-                    /* 投注列表配置 */
-                    this.formateLuckyVal(slotsHome.lucky_values)
-                }
-            }
-            /* 订阅老虎机 */
+            await this.changePageState()
             this.$store.dispatch('subInTiger')
-            this.initLacal(true)
         },
         updated () {
             if (document.getElementById('heiImg')) {
@@ -1627,7 +1716,7 @@
                 font-size:24px;
             }
         }
-        ul{
+        ul,.radioLi{
             display: flex;
             justify-content: center;
             height:22px;

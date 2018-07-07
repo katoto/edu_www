@@ -1212,6 +1212,7 @@
                     border-right:1px solid rgba(255, 255, 255, 0.3);
                     border-radius: 0;
                     padding:0 15px;
+                    margin-top: 0;
                 }
             }
             .mycount{
