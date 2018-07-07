@@ -582,9 +582,6 @@
                 this.tabTime = new Date().getTime()
             },
             touEnd (isFree = false) {
-                console.log(isFree)
-                console.log('==========')
-                console.log(isFree)
                 if (isFree && isFree === 'isFree') {
                     /* 认为是免费的停止 */
                     if (this.isAutoPlay) {

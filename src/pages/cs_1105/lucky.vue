@@ -665,8 +665,6 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            /* 开启动态数据定时器 */
-            this.$store.dispatch(aTypes.recentBetAdd)
 
             // 首页世界杯弹窗
             if (localStorage.getItem('js_showWorldCup') !== new Date().getDate().toString()) {
@@ -674,10 +672,13 @@
                 localStorage.setItem('js_showWorldCup', new Date().getDate())
             }
 
-            /* 订阅lucky11 sock */
-            this.$store.dispatch('subInLucky')
-
             // 首页 冒泡效果
+            setTimeout(() => {
+                /* 订阅lucky11 sock */
+                this.$store.dispatch('subInLucky')
+                /* 开启动态数据定时器 */
+                this.$store.dispatch(aTypes.recentBetAdd)
+            }, 0)
             bgStarBox()
             function bgStarBox () {
                 bgstar('stars1', 30, '#7063c9')
