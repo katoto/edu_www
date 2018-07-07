@@ -193,6 +193,30 @@ export function formateBalance (val = 0) {
     return newEth
 }
 
+export function formateSlotBalance (val = 0) {
+    let newEth = null
+    if (isNaN(val) || isNaN(Number(val))) {
+        console.error('formateSlotBalance error' + val)
+        return 0
+    }
+    val = Number(val)
+    if (val > 10000000) {
+        newEth = (val / 100000000).toFixed(1) + '亿'
+    } else if (val > 100000) {
+        newEth = (val / 10000).toFixed(1) + '万'
+    } else if (val > 1000) {
+        newEth = parseFloat((val).toFixed(0))
+    } else if (val > 100) {
+        newEth = parseFloat((val).toFixed(3))
+    } else if (val > 10) {
+        newEth = parseFloat((val).toFixed(4))
+    } else {
+        newEth = parseFloat((val).toFixed(5))
+        // newEth = Math.floor(val * 100000) / 100000
+    }
+    return newEth
+}
+
 export function formateJackpot (val = 0) {
     let newEth = null
     if (isNaN(val) || isNaN(Number(val))) {

@@ -17,7 +17,7 @@
                                     JACKPOT
                                 </p>
                                 <i v-if="prizes_pool">
-                                    {{ formateBalance( prizes_pool ) }}
+                                    {{ formateSlotBalance( prizes_pool ) }}
                                 </i>
                                 <span>
                                     ETH
@@ -30,7 +30,7 @@
                                     <span v-if="prizes_pool && prizes_pool_ratio">
                                     <!-- hit WIn -->
                                     <template v-if="prizes_pool_ratio[dft_bet] >= 0">
-                                        {{formateBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
+                                        {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
                                     </template>
                                     <template v-else>
                                         {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
@@ -50,7 +50,7 @@
                                 <div class="text-scroller">
                                     <ul class="scroller-in">
                                         <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" >
-                                        Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
+                                        Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateSlotBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
                                         </li>
                                     </ul>
                                 </div>
@@ -125,7 +125,7 @@
                             <div class="all">
                                 <div class="top">
                                     <div class="all-amount">
-                                        {{ formateWinPop ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
+                                        {{ formateSlotBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
                                     </div>
                                     <div class="all-unit">
                                         ETH
@@ -152,7 +152,7 @@
                         </div>
                         <!--  上次赢取  -->
                         <div class="lastwin " v-if="last_prizes">
-                            Last time win {{ formateBalance (last_prizes) }} ETH
+                            Last time win {{ formateSlotBalance (last_prizes) }} ETH
                         </div>
                         <!--主按钮-->
                         <a href="javascript:;" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
@@ -185,8 +185,8 @@
                     <!-- 小奖 -->
                     <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
                         <div class="msg" >
-                            <p v-if="playBack && playBack.isdouble==='0'">{{ formateWinPop( playBack.line_prizes ) }}</p>
-                            <p v-if="playBack && playBack.isdouble==='1'">{{ formateWinPop( playBack.line_prizes / 2 ) }}</p>
+                            <p v-if="playBack && playBack.isdouble==='0'">{{ formateSlotBalance( playBack.line_prizes ) }}</p>
+                            <p v-if="playBack && playBack.isdouble==='1'">{{ formateSlotBalance( playBack.line_prizes / 2 ) }}</p>
                             <i>{{ formateCoinType( currCoinType ) }}</i>
 
                         </div>
@@ -198,18 +198,18 @@
                                 <div class="msg" v-if="playBack">
                                     <template v-if="jackPot">
                                         <p v-if=" playBack.isdouble==='1'">
-                                            {{ formateWinPop( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
                                         </p>
                                         <p v-if=" playBack.isdouble==='0'">
-                                            {{ formateWinPop( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
                                         </p>
                                     </template>
                                     <template v-else>
                                         <p v-if=" playBack.isdouble==='1'">
-                                            {{ formateWinPop( parseFloat(playBack.line_prizes) / 2 ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) / 2 ) }}
                                         </p>
                                         <p v-if=" playBack.isdouble==='0'">
-                                            {{ formateWinPop( parseFloat(playBack.line_prizes) ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) ) }}
                                         </p>
                                     </template>
                                     <i>
@@ -429,7 +429,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import BannerScroll from '~components/BannerScroll.vue'
-    import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
+    import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance} from '~common/util'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
@@ -523,22 +523,23 @@
             copyError,
             formatTime,
             formateBalance,
+            formateSlotBalance,
             formateEmail,
             formateCoinType,
-            formateWinPop (val) {
-                if (this.dft_bet) {
-                    switch (this.dft_bet.toString()) {
-                    case '0.0001':
-                        return parseFloat(val).toFixed(4)
-                    case '0.001':
-                        return parseFloat(val).toFixed(3)
-                    case '0.01':
-                        return parseFloat(val).toFixed(2)
-                    }
-                } else {
-                    return this.formateBalance(val)
-                }
-            },
+            // formateSlotBalance (val) {
+            //     if (this.dft_bet) {
+            //         switch (this.dft_bet.toString()) {
+            //         case '0.0001':
+            //             return parseFloat(val).toFixed(4)
+            //         case '0.001':
+            //             return parseFloat(val).toFixed(3)
+            //         case '0.01':
+            //             return parseFloat(val).toFixed(2)
+            //         }
+            //     } else {
+            //         return this.formateBalance(val)
+            //     }
+            // },
             initPop () {
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())
