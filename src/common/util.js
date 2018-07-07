@@ -64,6 +64,32 @@ export function isLog () {
     return !((getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === ''))
 }
 
+export function formateJackPot (money, poolAmount, poolRatio) {
+    money = parseFloat(money)
+    if (!poolAmount) {
+        console.error('poolAmount error at formateJackPot')
+        return 0
+    }
+    if (!poolRatio) {
+        console.error('poolRatio error at formateJackPot')
+        return 0
+    }
+    if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
+        if (money < parseFloat(poolRatio[0].value)) {
+            return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+        if (money < parseFloat(poolRatio[1].value)) {
+            return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+        if (money < parseFloat(poolRatio[2].value)) {
+            return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+        if (money <= parseFloat(poolRatio[3].value)) {
+            return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+    }
+}
+
 /*
  *   format_match  玩法选择
  * */

@@ -198,34 +198,8 @@
 </template>
 
 <script>
-    import {randomNumber, formateBalance} from '~common/util'
+    import {randomNumber, formateBalance, formateJackPot} from '~common/util'
     import {Message} from 'element-ui'
-
-    function formateJackPot (money, poolAmount, poolRatio) {
-        money = parseFloat(money)
-        if (!poolAmount) {
-            console.error('poolAmount error at formateJackPot')
-            return 0
-        }
-        if (!poolRatio) {
-            console.error('poolRatio error at formateJackPot')
-            return 0
-        }
-        if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
-            if (money < parseFloat(poolRatio[0].value)) {
-                return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-            if (money < parseFloat(poolRatio[1].value)) {
-                return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-            if (money < parseFloat(poolRatio[2].value)) {
-                return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-            if (money <= parseFloat(poolRatio[3].value)) {
-                return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-        }
-    }
 
     export default {
         data () {
@@ -241,6 +215,7 @@
         watch: {},
         methods: {
             formateBalance,
+            formateJackPot,
             //   隐藏
             showPopLimit () {
                 this.$store.commit('showPopLimit')

@@ -125,7 +125,7 @@
                             <div class="all">
                                 <div class="top">
                                     <div class="all-amount">
-                                        {{ formateBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
+                                        {{ formateWinPop ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
                                     </div>
                                     <div class="all-unit">
                                         ETH
@@ -529,11 +529,11 @@
                 if (this.dft_bet) {
                     switch (this.dft_bet.toString()) {
                     case '0.0001':
-                        return parseFloat(val).toFixed(5)
-                    case '0.001':
                         return parseFloat(val).toFixed(4)
-                    case '0.01':
+                    case '0.001':
                         return parseFloat(val).toFixed(3)
+                    case '0.01':
+                        return parseFloat(val).toFixed(2)
                     }
                 } else {
                     return this.formateBalance(val)
