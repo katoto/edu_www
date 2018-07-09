@@ -503,7 +503,8 @@
                 currBalance: 0,
                 winRadioObj: {
                 }, // 显示大奖用的
-                winRadioHtml: '' // 处理成展示结构html
+                winRadioHtml: '', // 处理成展示结构html
+                fastClick:false
             }
         },
         watch: {
@@ -563,18 +564,23 @@
                 })
             },
             touStart (evt) {
-                evt.preventDefault()
-                this.tabTime = new Date().getTime()
+                if(!this.fastClick){
+                    evt.preventDefault()
+                    this.tabTime = new Date().getTime()
+                    this.fastClick = true
+                }
             },
             touEnd (isFree = false) {
                 if (isFree && isFree === 'isFree') {
                     /* 认为是免费的停止 */
                     if (this.isAutoPlay) {
                         this.stopAutoPlay()
+                        this.fastClick = false
                         return false
                     }
                 }
                 if (this.btnDisable) {
+                    this.fastClick = false
                     return false
                 }
                 this.tabTime = (new Date().getTime() - this.tabTime)
@@ -583,6 +589,7 @@
                     if (!this.isLog) {
                         /* 是否登录 */
                         this.$store.commit('showLoginPop')
+                        this.fastClick = false
                         return false
                     }
                     this.startPlay()
@@ -592,6 +599,7 @@
                     /* 点击 */
                     this.startPlay()
                 }
+                this.fastClick = false
             },
             autoPlay () {
                 this.currRun = this.auto_run
@@ -693,6 +701,7 @@
                         return false
                     }
                 }
+                this.btnDisable = true
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
@@ -700,7 +709,6 @@
                 }
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 // this.stateInit()
-                this.btnDisable = true
                 this.slotRun = true
                 if (playBack) {
                     if (this.free_times !== null && parseFloat(this.free_times) <= 0) {
