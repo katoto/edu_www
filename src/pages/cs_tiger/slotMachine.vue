@@ -86,7 +86,7 @@
                         <!--底部操作-->
                         <div class="operating ">
                             <!-- 展开 on-->
-                            <div class="single"  @click="showBetSel">
+                            <div class="single" :class="{'single-zh':language==='zhCn'||language==='zhTw'}"  @click="showBetSel">
                                 <div>
                                     <div class="top">
                                         <div class="single-amount">
@@ -322,7 +322,7 @@
                                     </div>
                                     <div class="lucky-100">
                                         <img src="@/assets/img/tiger/lucky-100.png" alt="">
-                                        <p>Full</p>
+                                        <p><lang>Full</lang></p>
                                     </div>
                                 </div>
                                 <div class="msg">
@@ -703,7 +703,9 @@
                 this.btnDisable = true
                 this.slotRun = true
                 if (playBack) {
-                    this.reduceMoney()
+                    if (this.free_times !== null && parseFloat(this.free_times) <= 0) {
+                        this.reduceMoney()
+                    }
                     this.playBack = playBack
                     this.initPage(playBack)
                     if (playBack.idx) {
@@ -1054,6 +1056,9 @@
             }
         },
         computed: {
+            language () {
+                return this.$store.state.language
+            },
             currCoinType () {
                 return this.$store.state.currCoinType
             },
@@ -1467,6 +1472,75 @@
             /*background: #2f250f;*/
             /*border: 2px solid #bc9357;*/
             background: url("../../assets/img/tiger/bg-single.png") no-repeat center;
+            background-size: cover;
+            cursor: pointer;
+            .single-amount {
+                font-size: 15px;
+            }
+            .single-unit {
+                line-height: 22px;
+                font-size: 10px;
+            }
+            ul {
+                /*display: none;*/
+                position: absolute;
+                left: 0;
+                top: -99px;
+                width: 100%;
+                border: 2px solid #f3ca83;
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+                border-bottom: none;
+                color: #ffe400;
+                background: #2f250f;
+                box-sizing: border-box;
+                li {
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    height: 30px;
+                    line-height: 30px;
+                    background: #40861c;
+                    border-top-left-radius: 6px;
+                    border-top-right-radius: 6px;
+                    border-top:4px solid #2f250f;
+                    margin: 0 2px;
+                    font-weight: bold;
+                    .single-unit {
+                        line-height: 33px;
+                    }
+                    &:hover{
+                        background: #27570e;
+                    }
+                }
+            }
+            .msg {
+                position: relative;
+                &::after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 5px;
+                    right: 5%;
+                    background: url("../../assets/img/tiger/icon-arrow.png") no-repeat center;
+                    background-size: cover;
+                    width: 15/2px;
+                    height: 9/2px;
+                }
+            }
+            &.on {
+                border-top: transparent;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                ul {
+                    display: block;
+                }
+            }
+        }
+        .single-zh {
+            /*background: #2f250f;*/
+            /*border: 2px solid #bc9357;*/
+            background: url("../../assets/img/tiger/bg-single-zh.png") no-repeat center;
             background-size: cover;
             cursor: pointer;
             .single-amount {
