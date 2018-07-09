@@ -408,12 +408,12 @@
                     <div class="contact">
                         <div class="fl">
                             <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
-                            <div class="msg2">www.coinslot.com/slotmachine</div>
+                            <div class="msg2">2018.coinslot.com/slotmachine</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/slotmachine'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://2018.coinslot.com/slotmachine'">
                         </div>
                     </div>
                 </div>
@@ -1092,9 +1092,6 @@
             await this.changePageState()
             this.$store.dispatch('subInTiger')
 
-            if (~window.location.href.indexOf('slotmachine')) {
-                this.$store.commit('setCurrTab', 'slotmachine')
-            }
         },
         updated () {
             if (document.getElementById('heiImg')) {

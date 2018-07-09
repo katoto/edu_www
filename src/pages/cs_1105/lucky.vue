@@ -549,7 +549,8 @@
                 }
             },
             fixNav () {
-                // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
+                this.scroll = document.documentElement.scrollTop || document.body.scrollTop
+                console.log(this.scroll)
                 if (this.scroll >= 90) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
