@@ -1084,6 +1084,11 @@
         async mounted () {
             await this.changePageState()
             this.$store.dispatch('subInTiger')
+
+            console.log(window.location.href)
+            if (~window.location.href.indexOf('lotMachine')) {
+                this.$store.commit('setCurrTab', 'SlotMachine')
+            }
         },
         updated () {
             if (document.getElementById('heiImg')) {
