@@ -26,12 +26,13 @@ const state = {
 
     uid: null, // 过滤 首页数据用
 
-    syxw_bettype_odds: { // 玩法赔率 todo 更新
+    syxw_bettype_odds: { // 玩法赔率
         1101: '1.8',
         1102: '4.5',
         1103: '13.5',
         1104: '54',
-        1105: '378'
+        1105: '378',
+        11051: '378'
     },
     popLoadSpeed: 800, // 动态速率
     popTimeInterval: null,

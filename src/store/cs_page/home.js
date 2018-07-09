@@ -2,7 +2,7 @@
  * Created by xiezg on 2018/5/29
  */
 
-import { mapMutations, mapActions, tipsTime } from '~common/util'
+import { mapMutations, mapActions } from '~common/util'
 const state = {}
 
 const mutationsInfo = mapMutations({

@@ -344,8 +344,8 @@ module.exports = {
     'If you did not win, one line bet can accumulate one lucky point': '翻译',
     '(1 line accumulates 1 lucky point, N line accumulates N lucky point)': '翻译',
     'Full lucky bar can exchange for a double reward spin': '翻译',
-    'placed a pattern as following':'左右翻译',
-    'You win if 3 identical icons':'翻译',
-    'Lukcy 11':'幸运11',
-    'SlotMachine':'老虎机'
+    'placed a pattern as following': '左右翻译',
+    'You win if 3 identical icons': '翻译',
+    'Lukcy 11': '幸运11',
+    'SlotMachine': '老虎机'
 }

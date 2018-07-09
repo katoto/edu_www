@@ -142,9 +142,6 @@ export function formatTime (time, format) {
         }
     })
 }
-
-// export const format_time = formatTime
-
 /*
  *   format_match  玩法选择
  * */
@@ -212,7 +209,6 @@ export function formateSlotBalance (val = 0) {
         newEth = parseFloat((val).toFixed(4))
     } else {
         newEth = parseFloat((val).toFixed(5))
-        // newEth = Math.floor(val * 100000) / 100000
     }
     return newEth
 }
