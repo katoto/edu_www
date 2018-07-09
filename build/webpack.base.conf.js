@@ -1,11 +1,12 @@
 'use strict'
+require('./clean')
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require("webpack");
-const vConsolePlugin = require('vconsole-webpack-plugin');
-
+const vConsolePlugin = require('vconsole-webpack-plugin')
+const emptyFile = path.resolve(__dirname, './empty.js')
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
 }
@@ -60,7 +61,7 @@ module.exports = {
 			'~components': path.resolve(__dirname, '../src/components'),
 			'~store': path.resolve(__dirname, '../src/store'),
 			'~pages': path.resolve(__dirname, '../src/pages'),
-			'~router': path.resolve(__dirname, '../src/router')
+            '~router': path.resolve(__dirname, '../src/router')
 		}
 	},
 	module: {

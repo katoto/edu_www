@@ -335,6 +335,7 @@ module.exports = {
     '5 SCATTERs = 10 spin': '5個=10次',
     'Lucky value': '幸運值',
     'Not Full': '未滿',
+    'Full': '滿',
     'Prize pool': '獎池',
     '2% of the player\'s bet amount is poured into prize pool.': '投注額的2%進入獎池',
     'You win if 9': '如果9線同時全中',

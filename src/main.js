@@ -13,14 +13,15 @@ import lanaguage from './plugins/language'
 // Vue.use(ElementUI, { locale });
 
 // 全局 end
+import '@/styles/lib-reset.css'
+import '@/styles/element.css'
+
 //  按需加载  有点小问题
 import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 
-import '@/styles/lib-reset.css'
-import '@/styles/element.css'
 // 设置语言
 locale.use(lang)
 // 特定國際化
