@@ -350,5 +350,8 @@ module.exports = {
     'placed a pattern as following': '从左到右计算',
     'You win if 3 identical icons': '如果连续3个图案一致即中奖',
     'Lukcy 11': '幸运11',
-    'slotmachine': '老虎机'
+    'slotmachine': '老虎机',
+    'Copy the Ethereum wallet address': '复制钱包地址',
+    'only supports ETH': '当前仅支持ETH',
+    'or scan to get the address': '或扫描二维码获取地址'
 }

@@ -550,8 +550,7 @@
             },
             fixNav () {
                 this.scroll = document.getElementById('lucky11').scrollTop;
-                console.log( this.scroll);
-                if (this.scroll >= 90) {
+                if (this.scroll >= 160) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
                     this.$store.commit(mTypes.setNavFix, false)

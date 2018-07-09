@@ -357,8 +357,8 @@
                         {{ showRecharge }}
                         <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                         <div class="title">
-                            <p>Copy the Ethereum wallet</p>
-                            <p>address (only supports ETH)</p>
+                            <p>Copy the Ethereum wallet address</p>
+                            <p>(<lang>only supports ETH</lang>)</p>
                         </div>
                         <div class="copy" v-if="userInfo && userInfo.accounts">
                             <a href="javascript:;" rel="nofollow"
@@ -369,7 +369,7 @@
                             <p v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].address }}</p>
                         </div>
                         <div class="msg">
-                            or scan to get the address
+                            <lang>or scan to get the address</lang>
                         </div>
                         <img v-if="userInfo && userInfo.accounts"
                              :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
@@ -437,7 +437,7 @@
     export default {
         data () {
             return {
-                showRecharge: false, // 显示充值弹窗
+                showRecharge: true, // 显示充值弹窗
                 hideBarLycky: true,
                 tab_t: 1, // 规则
                 tranitionTiming: false, // 运动是否需要过程

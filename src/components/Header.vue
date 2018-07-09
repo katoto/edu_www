@@ -20,8 +20,8 @@
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
                 <div class="choose-play">
-                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')"  ><lang>Lukcy 11</lang></a>
-                    <a href="javascript:;" @click="jump2Page('slotmachine')" target="_blank"><lang>slotmachine</lang></a>
+                    <a href="javascript:;" @click="jump2Page('lucky11')"  ><lang>Lukcy 11</lang></a>
+                    <a href="javascript:;" @click="jump2Page('slotmachine')" ><lang>slotmachine</lang></a>
                     <a href="javascript:;" class="hide"  target="_blank">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
