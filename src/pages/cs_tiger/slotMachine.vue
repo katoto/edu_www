@@ -166,7 +166,8 @@
                                 <!--免费-->
                                 <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd('isFree')" @mousedown="touStart" @mouseup="touEnd('isFree')"  :class="{'hide':!parseFloat(free_times)}">
                                     <p><lang>FREE</lang></p>
-                                    <div>{{ free_times }} <lang>Times</lang></div>
+                                    <div v-if="parseFloat(free_times)>1">{{ free_times }} <lang>Times</lang></div>
+                                    <div v-else>{{ free_times }} <lang>Time</lang></div>
                                 </div>
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
@@ -268,7 +269,7 @@
                                 </div>
                                 <div class="winningamount">
                                     <p><lang>Winning Amount</lang> =</p>
-                                    <p><lang>pattern multiple × single line amount</lang></p>
+                                    <p><lang>Multiple × single Line</lang></p>
                                 </div>
                                 <img class="details" src="@/assets/img/tiger/details.png" alt="details">
                                 <div class="line-divi">
@@ -279,16 +280,16 @@
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
                                         </div>
-                                        <p><lang>WILD，In addition to whistle, it can be compared with any other</lang></p>
+                                        <p><lang>WILD: It can be paired with any 2 of the identical icons to form as 3 identical icons except for whistle icon </lang></p>
                                     </li>
                                     <li>
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-free.png" alt="icon-free">
                                         </div>
-                                        <p><lang>Rewards free</lang>,</p>
-                                        <p><lang>number of occurrences anywhere</lang></p>
-                                        <p><lang>3 free = 1 time&nbsp;&nbsp;&nbsp;&nbsp;4 free = 3 time</lang></p>
-                                        <p><lang>5 free = 10 time</lang></p>
+                                        <p><lang>SCATTER</lang>,</p>
+                                        <p><lang>Certain numbers of SCATTER can be exchanged into free spins:</lang></p>
+                                        <p><lang>3 SCATTERs = 1 spin&nbsp;&nbsp;&nbsp;&nbsp;4 SCATTERs = 3 spin</lang></p>
+                                        <p><lang>5 SCATTERs = 10 spin</lang></p>
                                     </li>
                                 </ul>
                             </li>
@@ -299,18 +300,18 @@
                                 <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
                                 <div class="msg">
                                     <p>
-                                        <span class="bold"><lang>Prize pool</lang></span>: <lang>2% of the player's guessed coin is rolled into the prize pool</lang>.
+                                        <span class="bold"><lang>Prize pool</lang></span>: <lang>2% of the player's bet amount is poured into prize pool.</lang>.
                                     </p>
                                     <p>
-                                        <span><lang>9-line betting, transfer out of 9</lang></span>
+                                        <span><lang>You win if 9</lang></span>
                                         &nbsp;<img width="16" height="16" src="@/assets/img/tiger/icon-England.png" alt="England">&nbsp;
-                                        <span><lang>that is winning</lang>.</span>
+                                        <span><lang>appear at the same time in 9-line slot</lang>.</span>
                                     </p>
                                 </div>
                                 <div class="msg">
-                                    <p>· <lang>Each bet 0.0001ETH, only get a fixed payment</lang></p>
-                                    <p>· <lang>Bet ETH per line 0.001, winning 5%</lang></p>
-                                    <p>· <lang>Each line is betting 0.01ETH, winning 50% of &nbsp;&nbsp;the prize pool</lang></p>
+                                    <p>· <lang>Place 0.0001 ETH per line, you can only get fixed reward</lang></p>
+                                    <p>· <lang>Place 0.001 ETH per line, you can get 5% of the prize pool</lang></p>
+                                    <p>· <lang>Place 0.01 ETH per line, you can get 50% of the prize pool</lang></p>
                                 </div>
                                 <div class="line-divi">
                                     <div><lang>Lucky value</lang></div>
@@ -327,13 +328,13 @@
                                 </div>
                                 <div class="msg">
                                     <p>
-                                        <span class="bold"><lang>Lucky value</lang></span>: <lang>Unlucky bets accumulate lucky value by line number</lang>
+                                        <span class="bold"><lang>Lucky value</lang></span>: <lang>If you did not win, one line bet can accumulate one lucky point</lang>
                                     </p>
                                     <p>
-                                        <lang>(1 line accumulates 1 lucky value, use n-line betting to accumulate n lucky value)</lang>
+                                        <lang>(1 line accumulates 1 lucky point, N line accumulates N lucky point)</lang>
                                     </p>
                                     <p>
-                                        <lang>You can get a double reward if your lucky value is 100 or more</lang>.
+                                        <lang>Full lucky bar can exchange for a double reward spin</lang>.
                                     </p>
                                 </div>
                             </li>
@@ -341,10 +342,10 @@
                                 <div class="line-divi">
                                     <div>
                                         <p>
-                                            <lang>Bonus settlements from</lang>
+                                            <lang>You win if 3 identical icons</lang>
                                         </p>
                                         <p>
-                                            <lang>left to right on the winning line</lang>
+                                            <lang>placed a pattern as following</lang>
                                         </p>
                                     </div>
                                 </div>
