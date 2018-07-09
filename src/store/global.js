@@ -285,7 +285,6 @@ const actions = {
                         case '2001':
                             // 老虎机初始化
                             if (msg.data) {
-                                console.log(msg.data)
                                 dispatch(actionTypes.formateTiger, msg.data)
                             }
                             break
@@ -367,7 +366,6 @@ const actions = {
     },
     sub2out ({commit, state}) {
         let sub2outStr = null
-        console.log(state)
         try {
             if (state.userInfo && state.userInfo.uid) {
                 sub2outStr = {

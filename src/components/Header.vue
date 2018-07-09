@@ -330,7 +330,6 @@
                 if (this.loginSucc && this.loginSucc.tasks.length > 0) {
                     this.showInviteSuccFlag = false
                     let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid)
-                    console.log(taskDone)
                     if (taskDone && taskDone.taskstatus.toString() === '1') {
                         document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove'
                         setTimeout(() => {

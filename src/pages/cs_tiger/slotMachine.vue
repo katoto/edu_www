@@ -908,7 +908,6 @@
                 }
                 /* 有免费次数的时候 不给切换 */
                 if (parseFloat(this.free_times)) {
-                    console.log('免费不给切换')
                     return false
                 }
                 this.showSingleBet = !this.showSingleBet
@@ -1093,7 +1092,6 @@
             await this.changePageState()
             this.$store.dispatch('subInTiger')
 
-            console.log(window.location.href)
             if (~window.location.href.indexOf('slotmachine')) {
                 this.$store.commit('setCurrTab', 'slotmachine')
             }
