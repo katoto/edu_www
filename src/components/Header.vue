@@ -1,6 +1,5 @@
 <template>
     <div class="head-box">
-        <Banner></Banner>
         <div class="head">
             <div class="top">
                 <!--展开 on-->
@@ -12,18 +11,18 @@
                         Select Game
                     </div>
                     <ul>
-                        <li @click="jump2Page('lucky11')" :class="{'on':currTab==='lucky11'}"><a href="javascript:;">Lukcy 11</a></li>
+                        <li @click="jump2Page('lucky11')" :class="{'on':currTab==='lucky11'}"><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
                         <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
-                        <li @click="jump2Page('SlotMachine')" :class="{'on':currTab==='SlotMachine'}"><a href="javascript:;">SlotMachine</a></li>
+                        <li @click="jump2Page('SlotMachine')" :class="{'on':currTab==='SlotMachine'}"><a href="javascript:;"><lang>SlotMachine</lang></a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
                 <div class="choose-play">
-                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')" :class="{'on':currTab === 'lucky11'}" >Lukcy11</a>
-                    <a href="javascript:;" @click="jump2Page('SlotMachine')" :class="{'on':currTab === 'SlotMachine'}" target="_blank">SlotMachine</a>
-                    <a href="javascript:;" class="hide"  target="_blank">Mobile APP</a>
+                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')" :class="{'on':currTab === 'lucky11'}" ><lang>Lukcy 11</lang></a>
+                    <a href="javascript:;" @click="jump2Page('SlotMachine')" :class="{'on':currTab === 'SlotMachine'}" target="_blank"><lang>SlotMachine</lang></a>
+                    <a href="javascript:;" class="hide"  target="_blank">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
                 <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
@@ -110,7 +109,7 @@
                 <!--拉新活动提示-->
 
                 <div class="act-sign right hide" v-if="!isLog">
-                    <lang>for free 0.001ETH</lang>
+                    <lang>Free 0.001ETH</lang>
                 </div>
             </div>
 
@@ -189,12 +188,11 @@
 
 <script>
     import PopList from '~components/Pop-list'
-    import Banner from '~components/banner'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import { formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
     export default {
-        components: {PopList, Banner},
+        components: {PopList},
         data () {
             return {
                 showDetail: false,
@@ -219,8 +217,7 @@
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
-                isShowChoose: false,
-                currTab: 'SlotMachine'
+                isShowChoose: false
             }
         },
         watch: {
@@ -232,6 +229,9 @@
             }
         },
         computed: {
+            currTab () {
+                return this.$store.state.currTab
+            },
             initHeadState () {
                 return this.$store.state.initHeadState
             },
@@ -300,7 +300,7 @@
                 }
             },
             jump2Page (item = 'lucky11') {
-                this.currTab = item
+                this.$store.commit('setCurrTab', item)
                 switch (item) {
                 case 'SlotMachine':
                     if (!~window.location.href.indexOf('SlotMachine')) {
@@ -1212,6 +1212,7 @@
                     border-right:1px solid rgba(255, 255, 255, 0.3);
                     border-radius: 0;
                     padding:0 15px;
+                    margin-top: 0;
                 }
             }
             .mycount{

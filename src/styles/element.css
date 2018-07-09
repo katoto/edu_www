@@ -9242,6 +9242,7 @@
     border-radius: 6px;
     overflow: hidden;
     transition: all 0.2s;
+    text-align: center !important;
 }
 
 .el-progress-bar__inner::after {

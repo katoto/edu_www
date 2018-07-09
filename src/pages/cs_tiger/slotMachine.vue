@@ -14,10 +14,10 @@
                         <div class="jackpot-low ">
                             <div class="jackpot-all">
                                 <p>
-                                    JACKPOT
+                                    <lang>JACKPOT</lang>
                                 </p>
                                 <i v-if="prizes_pool">
-                                    {{ formateBalance( prizes_pool ) }}
+                                    {{ formateSlotBalance( prizes_pool ) }}
                                 </i>
                                 <span>
                                     ETH
@@ -26,15 +26,16 @@
                             <div class="jackpot-win">
                                 <!--bug: ipone5 not fint win-->
                                 <p>
-                                    Hit to Win
+                                    <lang>Hit to Win</lang>
                                     <span v-if="prizes_pool && prizes_pool_ratio">
                                     <!-- hit WIn -->
                                     <template v-if="prizes_pool_ratio[dft_bet] >= 0">
-                                        {{formateBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
+                                        {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
                                     </template>
                                     <template v-else>
                                         {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
                                     </template>
+                                        {{ formateCoinType( currCoinType ) }}
                                     </span>
                                 </p>
                                 <!--<span>-->
@@ -49,7 +50,7 @@
                                 <div class="text-scroller">
                                     <ul class="scroller-in">
                                         <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" >
-                                        Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
+                                        Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateSlotBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
                                         </li>
                                     </ul>
                                 </div>
@@ -96,7 +97,7 @@
                                         </div>
                                     </div>
                                     <p class="msg hide">
-                                        Single Bet
+                                        Single Line
                                     </p>
                                 </div>
                                 <!-- 投注项选择 -->
@@ -124,14 +125,14 @@
                             <div class="all">
                                 <div class="top">
                                     <div class="all-amount">
-                                        {{ formateBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
+                                        {{ formateSlotBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
                                     </div>
                                     <div class="all-unit">
                                         ETH
                                     </div>
                                 </div>
                                 <p class="msg">
-                                    Current Bet
+                                    <lang>Total Bet</lang>
                                 </p>
                             </div>
                             <div class="bar">
@@ -145,37 +146,38 @@
                                     <div class="bar-lycky" v-else></div>
                                 </div>
                                 <p class="msg">
-                                    Lucky Bar
+                                    <lang>Lucky Bar</lang>
                                 </p>
                             </div>
                         </div>
                         <!--  上次赢取  -->
                         <div class="lastwin " v-if="last_prizes">
-                            Last time win {{ formateBalance (last_prizes) }} ETH
+                            <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} ETH
                         </div>
                         <!--主按钮-->
                         <a href="javascript:;" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
                             <template v-if="hideBarLycky">
-                                <!--免费-->
-                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd"  :class="{'hide':!parseFloat(free_times)}">
-                                    <p>FREE</p>
-                                    <div>{{ free_times }} Times</div>
-                                </div>
                                 <!--自动-->
                                 <div @click="stopAutoPlay" class="btn btn-auto" :class="{'hide':!isAutoPlay}">
-                                    <p>AUTO</p>
-                                    <div>Click to Stop</div>
+                                    <p><lang>AUTO</lang></p>
+                                    <div><lang>Click to Stop</lang></div>
+                                </div>
+                                <!--免费-->
+                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd('isFree')" @mousedown="touStart" @mouseup="touEnd('isFree')"  :class="{'hide':!parseFloat(free_times)}">
+                                    <p><lang>FREE</lang></p>
+                                    <div v-if="parseFloat(free_times)>1">{{ free_times }} <lang>Times</lang></div>
+                                    <div v-else>{{ free_times }} <lang>Time</lang></div>
                                 </div>
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
-                                    <p>SPIN</p>
-                                    <div>Auto(long press)</div>
+                                    <p><lang>SPIN</lang></p>
+                                    <div><lang>Auto(long press)</lang></div>
                                 </div>
                             </template>
                             <template v-else>
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
-                                    Double Up
+                                    <lang>Double Up</lang>
                                 </div>
                             </template>
                         </a>
@@ -184,10 +186,9 @@
                     <!-- 小奖 -->
                     <div class="pop reward-small " :class="{'show':rewardSmall,'double':playBack && playBack.isdouble==='1'}">
                         <div class="msg" >
-                            <p v-if="playBack && playBack.isdouble==='0'">{{ formateBalance( playBack.line_prizes ) }}</p>
-                            <p v-if="playBack && playBack.isdouble==='1'">{{ formateBalance( playBack.line_prizes / 2 ) }}</p>
+                            <p v-if="playBack && playBack.isdouble==='0'">{{ formateSlotBalance( playBack.line_prizes ) }}</p>
+                            <p v-if="playBack && playBack.isdouble==='1'">{{ formateSlotBalance( playBack.line_prizes / 2 ) }}</p>
                             <i>{{ formateCoinType( currCoinType ) }}</i>
-
                         </div>
                     </div>
                     <!--大奖 winDouble -->
@@ -197,18 +198,18 @@
                                 <div class="msg" v-if="playBack">
                                     <template v-if="jackPot">
                                         <p v-if=" playBack.isdouble==='1'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) / 2 ) }}
                                         </p>
                                         <p v-if=" playBack.isdouble==='0'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) + parseFloat(playBack.pool_prizes) ) }}
                                         </p>
                                     </template>
                                     <template v-else>
                                         <p v-if=" playBack.isdouble==='1'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) / 2 ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) / 2 ) }}
                                         </p>
                                         <p v-if=" playBack.isdouble==='0'">
-                                            {{ formateBalance( parseFloat(playBack.line_prizes) ) }}
+                                            {{ formateSlotBalance( parseFloat(playBack.line_prizes) ) }}
                                         </p>
                                     </template>
                                     <i>
@@ -216,6 +217,8 @@
                                     </i>
                                 </div>
                                  <!--todo 奖池倍数 暂时隐藏-->
+                                <div id="radioHtmlDom"></div>
+
                                 <ul class="hide">
                                     <li>
                                         <img src="../../../static/staticImg/_A.png" alt="">&ensp;
@@ -254,69 +257,68 @@
                             <p>Instructions</p>
                         </div>
                         <ul class="tab-t">
-                            <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;">Winning Table</a></li>
-                            <li :class="{on:tab_t===2}" @click="tab_t=2"><a href="javascript:;">Lucky Prize</a></li>
-                            <li :class="{on:tab_t===3}" @click="tab_t=3"><a href="javascript:;">Winning Line</a></li>
+                            <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;"><lang>Winning Table</lang></a></li>
+                            <li :class="{on:tab_t===2}" @click="tab_t=2"><a href="javascript:;"><lang>Lucky Prize</lang></a></li>
+                            <li :class="{on:tab_t===3}" @click="tab_t=3"><a href="javascript:;"><lang>Winning Line</lang></a></li>
                         </ul>
                         <ul class="tab-c">
                             <li :class="{on:tab_t===1}">
                                 <div class="line-divi">
-                                    <div>Multiple</div>
+                                    <div><lang>Multiple</lang></div>
                                 </div>
                                 <div class="winningamount">
-                                    <p>Winning Amount =</p>
-                                    <p>pattern multiple × single line amount</p>
+                                    <p><lang>Winning Amount</lang> =</p>
+                                    <p><lang>Multiple × single Line</lang></p>
                                 </div>
                                 <img class="details" src="@/assets/img/tiger/details.png" alt="details">
                                 <div class="line-divi">
-                                    <div>Special</div>
+                                    <div><lang>Special</lang></div>
                                 </div>
                                 <ul class="special">
                                     <li>
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
                                         </div>
-                                        <p>WILD，In addition to whistle, it can be</p>
-                                        <p>compared with any other</p>
+                                        <p><lang>WILD: It can be paired with any 2 of the identical icons to form as 3 identical icons except for whistle icon</lang></p>
                                     </li>
                                     <li>
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-free.png" alt="icon-free">
                                         </div>
-                                        <p>Rewards free,</p>
-                                        <p>number of occurrences anywhere</p>
-                                        <p>3 free = 1 time&nbsp;&nbsp;&nbsp;&nbsp;4 free = 3 time</p>
-                                        <p>5 free = 10 time</p>
+                                        <p><lang>SCATTER</lang>:</p>
+                                        <p><lang>Certain numbers of SCATTER can be exchanged into free spins:</lang></p>
+                                        <p><lang>3 SCATTERs = 1 spin</lang>&nbsp;&nbsp;&nbsp;<lang>4 SCATTERs = 3 spin</lang></p>
+                                        <p><lang>5 SCATTERs = 10 spin</lang></p>
                                     </li>
                                 </ul>
                             </li>
                             <li :class="{on:tab_t===2}">
                                 <div class="line-divi">
-                                    <div>Jaackpot</div>
+                                    <div><lang>JACKPOT</lang></div>
                                 </div>
                                 <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
                                 <div class="msg">
                                     <p>
-                                        <span class="bold">Prize pool</span>: 2% of the player's guessed coin is rolled into the prize pool.
+                                        <span class="bold"><lang>Prize pool</lang></span>: <lang>2% of the player's bet amount is poured into prize pool.</lang>.
                                     </p>
                                     <p>
-                                        <span>9-line betting, transfer out of 9</span>
+                                        <span><lang>You win if 9</lang></span>
                                         &nbsp;<img width="16" height="16" src="@/assets/img/tiger/icon-England.png" alt="England">&nbsp;
-                                        <span>that is winning.</span>
+                                        <span><lang>appear at the same time in 9-line slot</lang>.</span>
                                     </p>
                                 </div>
                                 <div class="msg">
-                                    <p>· Each bet 0.0001ETH, only get a fixed payment</p>
-                                    <p>· Bet ETH per line 0.001, winning 5%</p>
-                                    <p>· Each line is betting 0.01ETH, winning 50% of &nbsp;&nbsp;the prize pool</p>
+                                    <p>· <lang>Place 0.0001 ETH per line, you can only get fixed reward</lang></p>
+                                    <p>· <lang>Place 0.001 ETH per line, you can get 5% of the prize pool</lang></p>
+                                    <p>· <lang>Place 0.01 ETH per line, you can get 50% of the prize pool</lang></p>
                                 </div>
                                 <div class="line-divi">
-                                    <div>Lucky value</div>
+                                    <div><lang>Lucky value</lang></div>
                                 </div>
                                 <div class="lucky-value">
                                     <div class="lucky-48">
                                         <img src="@/assets/img/tiger/lucky-48.png" alt="">
-                                        <p>Not Full</p>
+                                        <p><lang>Not Full</lang></p>
                                     </div>
                                     <div class="lucky-100">
                                         <img src="@/assets/img/tiger/lucky-100.png" alt="">
@@ -325,13 +327,13 @@
                                 </div>
                                 <div class="msg">
                                     <p>
-                                        <span class="bold"> Lucky value</span>: Unlucky bets accumulate lucky value by line number
+                                        <span class="bold"><lang>Lucky value</lang></span>: <lang>If you did not win, one line bet can accumulate one lucky point</lang>
                                     </p>
                                     <p>
-                                        (1 line accumulates 1 lucky value, use n-line betting to accumulate n lucky value)
+                                        <lang>(1 line accumulates 1 lucky point, N line accumulates N lucky point)</lang>
                                     </p>
                                     <p>
-                                        You can get a double reward if your lucky value is 100 or more.
+                                        <lang>Full lucky bar can exchange for a double reward spin</lang>.
                                     </p>
                                 </div>
                             </li>
@@ -339,10 +341,10 @@
                                 <div class="line-divi">
                                     <div>
                                         <p>
-                                            Bonus settlements from
+                                            <lang>You win if 3 identical icons</lang>
                                         </p>
                                         <p>
-                                            left to right on the winning line
+                                            <lang>placed a pattern as following</lang>
                                         </p>
                                     </div>
                                 </div>
@@ -374,17 +376,17 @@
                     </div>
                 </div>
                 <div class="tiger-pc-msg ">
-                    <h3>Recently </h3>
+                    <h3><lang>Recent</lang></h3>
                     <div class="recent-win">
                         <div class="recent-top">
                             <div class="user">
-                                User
+                                <lang>User</lang>
                             </div>
                             <div class="win">
-                                Win
+                                <lang>Win</lang>
                             </div>
                             <div class="time">
-                                Time
+                                <lang>Time</lang>
                             </div>
                         </div>
                         <!-- height -->
@@ -405,13 +407,13 @@
                     </div>
                     <div class="contact">
                         <div class="fl">
-                            <div class="msg1">Recommend using mobile phone to Interviews the game</div>
-                            <div class="msg2">2018.coinslot.com/#/slotMachine</div>
+                            <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
+                            <div class="msg2">www.coinslot.com/#/SlotMachine</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/#/slotMachine'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/#/SlotMachine'">
                         </div>
                     </div>
                 </div>
@@ -426,7 +428,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import BannerScroll from '~components/BannerScroll.vue'
-    import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait} from '~common/util'
+    import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance} from '~common/util'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
@@ -498,7 +500,10 @@
                 auto_run: 10,
                 currRun: 0,
                 isAutoPlay: false, // 按钮双击样式
-                currBalance: 0
+                currBalance: 0,
+                winRadioObj: {
+                }, // 显示大奖用的
+                winRadioHtml: '' // 处理成展示结构html
             }
         },
         watch: {
@@ -507,12 +512,17 @@
             //         // this.setLacal()
             //     }
             // }
+            isLog (val) {
+                /* 切换登陆态之后改变状态 */
+                this.changePageState()
+            }
         },
         methods: {
             copySucc,
             copyError,
             formatTime,
             formateBalance,
+            formateSlotBalance,
             formateEmail,
             formateCoinType,
             initPop () {
@@ -556,7 +566,14 @@
                 evt.preventDefault()
                 this.tabTime = new Date().getTime()
             },
-            touEnd (evt) {
+            touEnd (isFree = false) {
+                if (isFree && isFree === 'isFree') {
+                    /* 认为是免费的停止 */
+                    if (this.isAutoPlay) {
+                        this.stopAutoPlay()
+                        return false
+                    }
+                }
                 if (this.btnDisable) {
                     return false
                 }
@@ -586,6 +603,7 @@
             },
             async endInit () {
                 /* 结束初始化 */
+                this.$store.dispatch('getUserInfo')
                 this.axes.forEach((val, index) => {
                     this.tranitionTiming = false
                     this.resetLacal()
@@ -593,8 +611,13 @@
                     this.axes[index].splice(0, 3, ...currAxes)
                 })
                 this.slotOpening = false // 开奖结束
-                if (this.playBack && this.playBack.lucky_values) {
-                    this.formateLuckyVal(this.playBack.lucky_values)
+                if (this.playBack) {
+                    if (this.playBack.lucky_values) {
+                        this.formateLuckyVal(this.playBack.lucky_values)
+                    }
+                    if (this.playBack.free_times !== undefined) {
+                        this.free_times = parseFloat(this.playBack.free_times)
+                    }
                 }
                 await wait(300)
                 this.btnDisable = false
@@ -609,7 +632,7 @@
                 }
             },
             stateInit () {
-                this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
+                // this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
             },
             formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
                 /* 获得口哨  坐标 */
@@ -676,12 +699,11 @@
                     cointype: 2001
                 }
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
-                //  todo 临时直接更新
-                this.$store.dispatch('getUserInfo')
                 // this.stateInit()
                 this.btnDisable = true
                 this.slotRun = true
                 if (playBack) {
+                    this.reduceMoney()
                     this.playBack = playBack
                     this.initPage(playBack)
                     if (playBack.idx) {
@@ -699,6 +721,7 @@
                     }
                     if (playBack.results) {
                         this.showResults(playBack.results)
+                        this.showRadioEnd(playBack.results)
                     }
                 } else {
                     this.endInit()
@@ -893,15 +916,17 @@
                     this.showSingleBet = true
                 }
             },
-            initPage (slotsHome) {
+            initPage (slotsHome, inPage = false) {
                 if (slotsHome.prizes_pool !== undefined) {
                     this.$store.commit(mTypes.prizes_pool, slotsHome.prizes_pool)
                 }
                 if (slotsHome.last_prizes !== undefined) {
                     this.$store.commit(mTypes.last_prizes, slotsHome.last_prizes)
                 }
-                if (slotsHome.free_times !== undefined) {
-                    this.free_times = parseFloat(slotsHome.free_times)
+                if (inPage) {
+                    if (slotsHome.free_times !== undefined) {
+                        this.free_times = parseFloat(slotsHome.free_times)
+                    }
                 }
                 if (slotsHome.auto_run !== undefined) {
                     this.auto_run = slotsHome.auto_run
@@ -942,6 +967,90 @@
                         }
                     })
                 }
+            },
+            reduceMoney () {
+                if (this.userInfo && this.userInfo.accounts) {
+                    if (this.currCoinType.toString() === '2001') {
+                        this.userInfo.accounts[0].balance = parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line))
+                        this.$store.commit('setUserInfo', this.userInfo)
+                    }
+                }
+            },
+            showRadioEnd (winArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '120', '0']) {
+                this.winRadioObj = {}
+                if (winArr) {
+                    winArr.forEach((val, index) => {
+                        if (index !== 9) {
+                            if (val !== '0') {
+                                if (!this.winRadioObj[val]) {
+                                    this.winRadioObj[val] = []
+                                }
+                                this.winRadioObj[val].push(val)
+                            }
+                        }
+                    })
+                    let i = 0
+                    this.winRadioHtml = ''
+                    for (let item in this.winRadioObj) {
+                        if (i % 2 === 0) {
+                            this.winRadioHtml += `
+                                            <ul class="radioLi"><li>
+                                                <img src="../../../static/staticImg/_${this.radioBackImg(item)}.png" alt="">&ensp;
+                                                <span>x ${this.winRadioObj[item].length}</span>&ensp;
+                                                <span>${parseFloat(item) * this.winRadioObj[item].length}</span>&ensp;
+                                                <span>Times</span>
+                                            </li>
+                                        `
+                        } else {
+                            this.winRadioHtml += `<li >
+                                                <img src="../../../static/staticImg/_${this.radioBackImg(item)}.png" alt="">&ensp;
+                                                <span>x ${this.winRadioObj[item].length}</span>&ensp;
+                                                <span>${parseFloat(item) * this.winRadioObj[item].length}</span>&ensp;
+                                                <span>Times</span>
+                                            </li></ul>`
+                        }
+                        i++
+                    }
+                    if (i % 2 !== 0) {
+                        this.winRadioHtml += '</ul>'
+                    }
+                    if (document.getElementById('radioHtmlDom')) {
+                        document.getElementById('radioHtmlDom').innerHTML = this.winRadioHtml
+                    }
+                }
+            },
+            radioBackImg (radio = '5') {
+                switch (radio.toString()) {
+                case '5':
+                    return 'A'
+                case '15':
+                    return 'B'
+                case '25':
+                    return 'C'
+                case '50':
+                    return 'D'
+                case '100':
+                    return 'E'
+                case '300':
+                    return 'F'
+                case '800':
+                    return 'G'
+                default:
+                    return 'A'
+                }
+            },
+            async changePageState () {
+                /* 登陆登出修改页面状态 */
+                let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
+                if (slotsHome) {
+                    /* 基础结构数据 */
+                    this.initPage(slotsHome, true)
+                    if (slotsHome.lucky_values) {
+                        /* 投注列表配置 */
+                        this.formateLuckyVal(slotsHome.lucky_values)
+                    }
+                }
+                this.initLacal(true)
             }
         },
         computed: {
@@ -968,18 +1077,8 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
-            let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
-            if (slotsHome) {
-                /* 基础结构数据 */
-                this.initPage(slotsHome)
-                if (slotsHome.lucky_values) {
-                    /* 投注列表配置 */
-                    this.formateLuckyVal(slotsHome.lucky_values)
-                }
-            }
-            /* 订阅老虎机 */
+            await this.changePageState()
             this.$store.dispatch('subInTiger')
-            this.initLacal(true)
         },
         updated () {
             if (document.getElementById('heiImg')) {
@@ -1601,7 +1700,7 @@
                 font-size:24px;
             }
         }
-        ul{
+        ul,.radioLi{
             display: flex;
             justify-content: center;
             height:22px;
@@ -2081,5 +2180,8 @@
     }
     .footer{
         border-top:0 !important;
+    }
+    .head-box{
+        background: transparent;
     }
 </style>

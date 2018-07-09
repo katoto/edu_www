@@ -27,17 +27,21 @@ const state = {
     initHeadState: null, // 初始化头部转态
     showEmailErr: false,
     userInfo: null,
+    currTab: 'lucky11',
     socket: {
         reconnect: 0,
         sock: null,
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
-    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 eth
+    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 btc
     ...common.state
 }
 
 const mutations = {
+    setCurrTab (state, data) {
+        state.currTab = data
+    },
     initHeadState (state, data) {
         state.initHeadState = data
     },
@@ -104,7 +108,7 @@ const actions = {
     async getUserInfo ({state, commit, dispatch}) {
         try {
             let userMsg = null
-            if (!(getCK() === '0' || !getCK())) {
+            if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
                 userMsg = await ajax.get(`/user/info`)
                 if (userMsg.status.toString() === '100') {
                     if (userMsg.data.uid) {
@@ -168,14 +172,13 @@ const actions = {
             }
             return userMsg
         } catch (e) {
-            console.log(e.status)
-            console.log(e)
-            console.log('=========')
-            if (e && e.status && e.status === '214') {
-                removeCK()
-                commit('setIsLog', false)
-                commit('setUserInfo', {})
-                commit('showLoginPop')
+            if (e && e.status) {
+                if (e.status === '214' || e.status === '206') {
+                    removeCK()
+                    commit('setIsLog', false)
+                    commit('setUserInfo', {})
+                    commit('showLoginPop')
+                }
             }
         }
     },
@@ -471,6 +474,7 @@ const actions = {
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
         } catch (e) {
             setTimeout(() => {
+                console.log(111)
                 dispatch('subInLucky')
             }, 100)
             console.error(e.message + 'subInLucky error')

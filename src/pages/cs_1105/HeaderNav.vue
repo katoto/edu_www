@@ -58,7 +58,6 @@ export default {
         return {
             tes: false,
             isShowHistoryCode: false
-
         }
     },
     watch: {

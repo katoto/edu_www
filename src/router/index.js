@@ -34,7 +34,7 @@ const oneToken = () => import('~/pages/cs_oneToken/oneToken')
 const page404 = () => import('~/pages/404.vue')
 
 export default new Router({
-    mode: 'hash',
+    mode: 'history',
     linkActiveClass: 'on',
     routes: [
         {

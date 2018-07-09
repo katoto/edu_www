@@ -1,5 +1,6 @@
 <template>
     <div class="">
+        <Banner></Banner>
         <Header></Header>
         <HeaderNav></HeaderNav>
         <div class="main">
@@ -328,6 +329,7 @@
 <script>
     import Header from '~components/Header.vue'
     import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
+    import Banner from '~components/banner'
     import PlayArea from '~pages/cs_1105/PlayArea.vue'
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
@@ -647,7 +649,8 @@
             Header,
             HeaderNav,
             PlayArea,
-            LuckyMybet
+            LuckyMybet,
+            Banner
         },
         filters: {
             formateCoinType,
@@ -662,8 +665,6 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            /* 开启动态数据定时器 */
-            this.$store.dispatch(aTypes.recentBetAdd)
 
             // 首页世界杯弹窗
             if (localStorage.getItem('js_showWorldCup') !== new Date().getDate().toString()) {
@@ -671,10 +672,13 @@
                 localStorage.setItem('js_showWorldCup', new Date().getDate())
             }
 
-            /* 订阅lucky11 sock */
-            this.$store.dispatch('subInLucky')
-
             // 首页 冒泡效果
+            setTimeout(() => {
+                /* 订阅lucky11 sock */
+                this.$store.dispatch('subInLucky')
+                /* 开启动态数据定时器 */
+                this.$store.dispatch(aTypes.recentBetAdd)
+            }, 0)
             bgStarBox()
             function bgStarBox () {
                 bgstar('stars1', 30, '#7063c9')

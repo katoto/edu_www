@@ -56,6 +56,13 @@ const actionsInfo = mapActions({
             state.recentList.unshift(data)
         }
         commit(mTypes.recentList, state.recentList)
+        setTimeout(() => {
+            state.recentList.forEach((val, index) => {
+                if (val.addNewRecord) {
+                    val.addNewRecord = false
+                }
+            })
+        }, 800)
     },
 
     /* 老虎机首页数据 */

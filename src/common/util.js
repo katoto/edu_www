@@ -57,11 +57,37 @@ export function setCK (ck) {
 }
 
 export function removeCK () {
-    return localStorage.setItem(CK, null)
+    return localStorage.setItem(CK, '')
 }
 
 export function isLog () {
-    return !((getCK() === '0' || !getCK()))
+    return !((getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === ''))
+}
+
+export function formateJackPot (money, poolAmount, poolRatio) {
+    money = parseFloat(money)
+    if (!poolAmount) {
+        console.error('poolAmount error at formateJackPot')
+        return 0
+    }
+    if (!poolRatio) {
+        console.error('poolRatio error at formateJackPot')
+        return 0
+    }
+    if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
+        if (money < parseFloat(poolRatio[0].value)) {
+            return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+        if (money < parseFloat(poolRatio[1].value)) {
+            return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+        if (money < parseFloat(poolRatio[2].value)) {
+            return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+        if (money <= parseFloat(poolRatio[3].value)) {
+            return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
+        }
+    }
 }
 
 /*
@@ -116,9 +142,6 @@ export function formatTime (time, format) {
         }
     })
 }
-
-// export const format_time = formatTime
-
 /*
  *   format_match  玩法选择
  * */
@@ -163,6 +186,29 @@ export function formateBalance (val = 0) {
     } else {
         newEth = (val).toFixed(5)
         // newEth = Math.floor(val * 100000) / 100000
+    }
+    return newEth
+}
+
+export function formateSlotBalance (val = 0) {
+    let newEth = null
+    if (isNaN(val) || isNaN(Number(val))) {
+        console.error('formateSlotBalance error' + val)
+        return 0
+    }
+    val = Number(val)
+    if (val > 10000000) {
+        newEth = (val / 100000000).toFixed(1) + '亿'
+    } else if (val > 100000) {
+        newEth = (val / 10000).toFixed(1) + '万'
+    } else if (val > 1000) {
+        newEth = parseFloat((val).toFixed(0))
+    } else if (val > 100) {
+        newEth = parseFloat((val).toFixed(3))
+    } else if (val > 10) {
+        newEth = parseFloat((val).toFixed(4))
+    } else {
+        newEth = parseFloat((val).toFixed(5))
     }
     return newEth
 }
@@ -225,6 +271,9 @@ export function formateEmail (email, isFull) {
         } else {
             /* tiger 要求显示更短 */
             if (regArr[1] && regArr[1].length > 6) {
+                if (regArr[2].length > 8) {
+                    regArr[2] = regArr[2].slice(0, 7) + '...'
+                }
                 email = regArr[1].slice(0, 2) + '**' + regArr[1].slice(-3) + regArr[2]
             }
         }
@@ -272,6 +321,10 @@ export function formateMoneyFlow (flowtype = '1') {
         return _('World cup')// 世界杯
     case '13':
         return _('World cup')// 世界杯中奖
+    case '14':
+        return _('Slots Bet')// 老虎机投注
+    case '15':
+        return _('Slots Prize')// 老虎机中奖
     default:
         return _('Bet')
     }

@@ -19,12 +19,10 @@
     export default {
         data () {
             return {
-
             }
         },
         components: {Pop},
         methods: {
-
         },
         computed: {
 
