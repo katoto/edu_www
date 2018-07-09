@@ -128,9 +128,11 @@ export default {
         position: relative;
         z-index: 7;
         width: 100%;
+        padding:15px 0;
         height: 60px;
         line-height: 60px;
         background: #463895;
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
         color: #fff;
         .transition();
     }
@@ -153,7 +155,7 @@ export default {
     .logo11to5 {
         float: left;
         font: 24px/60px sans-eb;
-        color: #ffffff;
+        color: #fff;
     }
 
     .deadline {

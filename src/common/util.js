@@ -5,7 +5,7 @@
 import {Message} from 'element-ui'
 
 export const src = 'pc'
-export const tipsTime = 3000
+export const tipsTime = 3000000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
 

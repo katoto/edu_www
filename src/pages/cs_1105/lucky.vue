@@ -549,7 +549,7 @@
                 }
             },
             fixNav () {
-                // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
+                 this.scroll = document.documentElement.scrollTop || document.body.scrollTop
                 if (this.scroll >= 90) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
@@ -836,7 +836,7 @@
             position: relative;
             z-index: 3;
             width: 1190px;
-            padding-top: 40px;
+            /*padding-top: 40px;*/
             margin: 0 auto;
             > li {
                 position: relative;
