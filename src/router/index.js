@@ -30,7 +30,7 @@ const slotmachine = () => import('~/pages/cs_tiger/slotMachine')
 /* 一元夺币 */
 const oneToken = () => import('~/pages/cs_oneToken/oneToken')
 
-// 404
+// 404  history
 const page404 = () => import('~/pages/404.vue')
 
 export default new Router({

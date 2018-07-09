@@ -549,6 +549,7 @@
                 }
             },
             fixNav () {
+                console.log(123)
                 this.scroll = document.documentElement.scrollTop || document.body.scrollTop
                 console.log(this.scroll)
                 if (this.scroll >= 90) {
@@ -662,7 +663,9 @@
         async mounted () {
             this.updateBaseAreaMsg()
             this.addTicket()
-            window.addEventListener('scroll', this.fixNav)
+            console.log(111)
+            document.addEventListener('scroll', this.fixNav, true)
+            window.addEventListener('scroll', this.fixNav, true)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
@@ -837,7 +840,7 @@
             position: relative;
             z-index: 3;
             width: 1190px;
-            padding-top: 40px;
+            /*padding-top: 40px;*/
             margin: 0 auto;
             > li {
                 position: relative;
