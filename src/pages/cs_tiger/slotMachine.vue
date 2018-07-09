@@ -437,14 +437,14 @@
     export default {
         data () {
             return {
-                showRecharge: true, // 显示充值弹窗
+                showRecharge: false, // 显示充值弹窗
                 hideBarLycky: true,
                 tab_t: 1, // 规则
                 tranitionTiming: false, // 运动是否需要过程
                 btnDisable: false, // 按钮不可用
                 rewardBig: false, // 大奖
                 rewardSmall: false, // 小奖
-                free_times: null, // 初始化免费次数
+                free_times: 0, // 初始化免费次数
                 // 默认投注选项
                 lucky_values: [{
                     bet: '0.0001',
@@ -504,7 +504,7 @@
                 winRadioObj: {
                 }, // 显示大奖用的
                 winRadioHtml: '', // 处理成展示结构html
-                fastClick:false
+                fastClick: false
             }
         },
         watch: {
@@ -564,7 +564,7 @@
                 })
             },
             touStart (evt) {
-                if(!this.fastClick){
+                if (!this.fastClick) {
                     evt.preventDefault()
                     this.tabTime = new Date().getTime()
                     this.fastClick = true
@@ -695,7 +695,7 @@
                 }
                 /* 余额是否充足 */
                 if (this.userInfo && this.userInfo.accounts[0]) {
-                    if (parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) {
+                    if ((parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                         /* 显示余额不足 */
                         this.showRecharge = true
                         return false
@@ -711,7 +711,7 @@
                 // this.stateInit()
                 this.slotRun = true
                 if (playBack) {
-                    if (this.free_times !== null && parseFloat(this.free_times) <= 0) {
+                    if (parseFloat(this.free_times) <= 0) {
                         this.reduceMoney()
                     }
                     this.playBack = playBack
@@ -1091,7 +1091,6 @@
         async mounted () {
             await this.changePageState()
             this.$store.dispatch('subInTiger')
-
         },
         updated () {
             if (document.getElementById('heiImg')) {
