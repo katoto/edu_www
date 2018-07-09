@@ -549,7 +549,7 @@
                 }
             },
             fixNav () {
-                this.scroll = document.getElementById('lucky11').scrollTop;
+                this.scroll = document.getElementById('lucky11').scrollTop
                 if (this.scroll >= 160) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
@@ -661,7 +661,7 @@
         async mounted () {
             this.updateBaseAreaMsg()
             this.addTicket()
-            window.addEventListener('scroll',this.fixNav,true)
+            window.addEventListener('scroll', this.fixNav, true)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
@@ -703,7 +703,7 @@
             this.$store.dispatch('subOutLucky')
         },
         destroyed () {
-            window.removeEventListener('scroll', this.fixNav,false)
+            window.removeEventListener('scroll', this.fixNav, false)
         }
 
     }

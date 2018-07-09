@@ -166,8 +166,8 @@
                                 <!--免费-->
                                 <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd('isFree')" @mousedown="touStart" @mouseup="touEnd('isFree')"  :class="{'hide':!parseFloat(free_times)}">
                                     <p><lang>FREE</lang></p>
-                                    <div v-if="parseFloat(free_times)>1">{{ free_times }} <lang>Times</lang></div>
-                                    <div v-else>{{ free_times }} <lang>Time</lang></div>
+                                    <div v-if="parseFloat(free_times)>1">{{ free_times }} <lang>Chances</lang></div>
+                                    <div v-else>{{ free_times }} <lang>Chance</lang></div>
                                 </div>
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">

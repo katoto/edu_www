@@ -317,7 +317,8 @@ module.exports = {
     'Auto(long press)': '長按自動',
     'Double Up': '雙倍獎勵',
     'FREE': '免費',
-    'Times': '次',
+    'Chances': '次',
+    'Chance': '次',
     'AUTO': '自動',
     'Click to Stop': '點擊停止',
     'Winning Table': '獎級表',
@@ -352,6 +353,6 @@ module.exports = {
     'Lukcy 11': '幸運11',
     'slotmachine': '老虎機',
     'Copy the Ethereum wallet address': '負制錢包地址',
-    'only supports ETH': '當前仅有支持ETH',
+    'only supports ETH': '當前仅有支持ETH'
 
 }
