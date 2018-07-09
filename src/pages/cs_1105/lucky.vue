@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div id="lucky11">
         <Banner></Banner>
         <Header></Header>
         <HeaderNav></HeaderNav>
@@ -549,9 +549,8 @@
                 }
             },
             fixNav () {
-                console.log(123)
-                this.scroll = document.documentElement.scrollTop || document.body.scrollTop
-                console.log(this.scroll)
+                this.scroll = document.getElementById('lucky11').scrollTop;
+                console.log( this.scroll);
                 if (this.scroll >= 90) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
@@ -663,9 +662,7 @@
         async mounted () {
             this.updateBaseAreaMsg()
             this.addTicket()
-            console.log(111)
-            document.addEventListener('scroll', this.fixNav, true)
-            window.addEventListener('scroll', this.fixNav, true)
+            window.addEventListener('scroll',this.fixNav,true)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
@@ -707,7 +704,7 @@
             this.$store.dispatch('subOutLucky')
         },
         destroyed () {
-            window.removeEventListener('scroll', this.fixNav)
+            window.removeEventListener('scroll', this.fixNav,false)
         }
 
     }

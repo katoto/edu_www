@@ -52,12 +52,13 @@
 
             /* 老虎机和首页 */
             if (!(this.socket && this.socket.sock)) {
-                await this.$store.dispatch('initWebsocket')
+                await this.$store.dispatch('initWebsocket', () => {
+                    this.$store.dispatch('homeInfo')
+                    setTimeout(function () {
+                        document.getElementById('coinslotLoading').style.display = 'none'
+                    }, 0)
+                })
             }
-            this.$store.dispatch('homeInfo')
-            setTimeout(function () {
-                document.getElementById('coinslotLoading').style.display = 'none'
-            }, 0)
         }
     }
 </script>

@@ -184,7 +184,7 @@ const actions = {
     },
 
     /* websocket */
-    initWebsocket ({commit, state, dispatch}) {
+    initWebsocket ({commit, state, dispatch}, fn) {
         return new Promise((resolve, reject) => {
             let sock = new WebSocket(`${sockURL}`)
             let interval = null
@@ -304,6 +304,7 @@ const actions = {
             sock.onopen = function () {
                 let webSockaction = null
                 let currUid = null
+                fn()
                 clearInterval(interval)
                 if (state.userInfo && state.userInfo.uid) {
                     webSockaction = {
@@ -343,11 +344,12 @@ const actions = {
                 clearInterval(interval)
                 setTimeout(() => {
                     commit('addConnectNum')
-                    dispatch('initWebsocket')
+                    dispatch('initWebsocket', fn)
                 }, 5000)
             }
             sock.onerror = function (e) {
                 console.error('sock error')
+                fn()
                 e.code = '102'
                 if (flag === 1) return
                 if (hasFinished) return
