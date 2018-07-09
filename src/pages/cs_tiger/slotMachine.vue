@@ -189,7 +189,6 @@
                             <p v-if="playBack && playBack.isdouble==='0'">{{ formateSlotBalance( playBack.line_prizes ) }}</p>
                             <p v-if="playBack && playBack.isdouble==='1'">{{ formateSlotBalance( playBack.line_prizes / 2 ) }}</p>
                             <i>{{ formateCoinType( currCoinType ) }}</i>
-
                         </div>
                     </div>
                     <!--大奖 winDouble -->
@@ -280,15 +279,15 @@
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
                                         </div>
-                                        <p><lang>WILD: It can be paired with any 2 of the identical icons to form as 3 identical icons except for whistle icon </lang></p>
+                                        <p><lang>WILD: It can be paired with any 2 of the identical icons to form as 3 identical icons except for whistle icon</lang></p>
                                     </li>
                                     <li>
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-free.png" alt="icon-free">
                                         </div>
-                                        <p><lang>SCATTER</lang>,</p>
+                                        <p><lang>SCATTER</lang>:</p>
                                         <p><lang>Certain numbers of SCATTER can be exchanged into free spins:</lang></p>
-                                        <p><lang>3 SCATTERs = 1 spin&nbsp;&nbsp;&nbsp;&nbsp;4 SCATTERs = 3 spin</lang></p>
+                                        <p><lang>3 SCATTERs = 1 spin</lang>&nbsp;&nbsp;&nbsp;<lang>4 SCATTERs = 3 spin</lang></p>
                                         <p><lang>5 SCATTERs = 10 spin</lang></p>
                                     </li>
                                 </ul>
@@ -409,12 +408,12 @@
                     <div class="contact">
                         <div class="fl">
                             <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
-                            <div class="msg2">www.coinslot.com/#/slotMachine</div>
+                            <div class="msg2">www.coinslot.com/#/SlotMachine</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/#/slotMachine'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/#/SlotMachine'">
                         </div>
                     </div>
                 </div>
