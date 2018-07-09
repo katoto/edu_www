@@ -254,7 +254,7 @@
                     <div class="pop help" :class="{show:isShowHelp}">
                         <a href="javascript:;" class="tiger-close" @click="isShowHelp=false"></a>
                         <div class="title">
-                            <p>Instructions</p>
+                            <p><lang>Instructions</lang></p>
                         </div>
                         <ul class="tab-t">
                             <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;"><lang>Winning Table</lang></a></li>
@@ -408,12 +408,12 @@
                     <div class="contact">
                         <div class="fl">
                             <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
-                            <div class="msg2">www.coinslot.com/#/SlotMachine</div>
+                            <div class="msg2">www.coinslot.com/slotmachine</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/#/SlotMachine'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/slotmachine'">
                         </div>
                     </div>
                 </div>
@@ -1094,8 +1094,8 @@
             this.$store.dispatch('subInTiger')
 
             console.log(window.location.href)
-            if (~window.location.href.indexOf('lotMachine')) {
-                this.$store.commit('setCurrTab', 'SlotMachine')
+            if (~window.location.href.indexOf('slotmachine')) {
+                this.$store.commit('setCurrTab', 'slotmachine')
             }
         },
         updated () {

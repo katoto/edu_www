@@ -333,6 +333,7 @@ module.exports = {
     '3 SCATTERs = 1 spin': '3个=1次',
     '4 SCATTERs = 3 spin': '4个=3次',
     '5 SCATTERs = 10 spin': '5个=10次',
+    'Instructions': '规则说明',
     'Lucky value': '幸运值',
     'Not Full': '未满',
     'Full': '满',
@@ -349,5 +350,5 @@ module.exports = {
     'placed a pattern as following': '从左到右计算',
     'You win if 3 identical icons': '如果连续3个图案一致即中奖',
     'Lukcy 11': '幸运11',
-    'SlotMachine': '老虎机'
+    'slotmachine': '老虎机'
 }

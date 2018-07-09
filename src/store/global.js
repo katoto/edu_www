@@ -474,10 +474,9 @@ const actions = {
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
         } catch (e) {
             setTimeout(() => {
-                console.log(111)
                 dispatch('subInLucky')
             }, 100)
-            console.error(e.message + 'subInLucky error')
+            // console.error(e.message + 'subInLucky error')
         }
     },
     subOutLucky () {

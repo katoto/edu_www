@@ -13,7 +13,7 @@
                     <ul>
                         <li @click="jump2Page('lucky11')" :class="{'on':currTab==='lucky11'}"><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
                         <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
-                        <li @click="jump2Page('SlotMachine')" :class="{'on':currTab==='SlotMachine'}"><a href="javascript:;"><lang>SlotMachine</lang></a></li>
+                        <li class="hide" @click="jump2Page('SlotMachine')" :class="{'on':currTab==='SlotMachine'}"><a href="javascript:;"><lang>SlotMachine</lang></a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
@@ -21,7 +21,7 @@
                 </router-link>
                 <div class="choose-play">
                     <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')" :class="{'on':currTab === 'lucky11'}" ><lang>Lukcy 11</lang></a>
-                    <a href="javascript:;" @click="jump2Page('SlotMachine')" :class="{'on':currTab === 'SlotMachine'}" target="_blank"><lang>SlotMachine</lang></a>
+                    <a class="hide" href="javascript:;" @click="jump2Page('SlotMachine')" :class="{'on':currTab === 'SlotMachine'}" target="_blank"><lang>SlotMachine</lang></a>
                     <a href="javascript:;" class="hide"  target="_blank">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
