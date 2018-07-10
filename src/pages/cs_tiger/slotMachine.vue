@@ -271,7 +271,9 @@
                                     <p><lang>Winning Amount</lang> =</p>
                                     <p><lang>Multiple * Single Line</lang></p>
                                 </div>
-                                <img class="details" src="@/assets/img/tiger/details.png" alt="details">
+                                <div class="details">
+                                    <img src="@/assets/img/tiger/details.png" alt="details">
+                                </div>
                                 <div class="line-divi">
                                     <div><lang>Special</lang></div>
                                 </div>
@@ -391,7 +393,7 @@
                                 <lang>Time</lang>
                             </div>
                         </div>
-                        <!-- height -->
+                        <!-- height recentList -->
                         <ul class="recent-main" v-if="recentList">
                             <li v-for="item in recentList" :class="{'newRecord':item.addNewRecord}">
                                 <div class="user">
@@ -1094,6 +1096,9 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
+            console.log(window.innerWidth)
+            console.log(window.innerHeight)
+            console.log(window.devicePixelRatio)
             await this.changePageState()
             this.$store.dispatch('subInTiger')
         },
@@ -1357,7 +1362,7 @@
                     display: block;
                     margin: 0 auto;
                     /* 168/203=82.75*/
-                    width: 82.75%;
+                    width: 82%;
                 }
             }
         }
@@ -1948,9 +1953,12 @@
                 color: #fff;
             }
             .details{
-                display: block;
                 width: percentage(550/597);
                 margin:14px auto 0;
+                img{
+                    display: block;
+                    width:100%;
+                }
             }
             .special{
                 li{
@@ -1979,6 +1987,7 @@
             .smallAward{
                 display: block;
                 margin:0 auto 0;
+                //width:percentage(375/674);
                 width:percentage(375/674);
             }
             .msg{
