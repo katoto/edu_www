@@ -12,7 +12,7 @@
                     </div>
                     <ul>
                         <li @click="jump2Page('lucky11')" ><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
-                        <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
+                        <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
                         <li class="hide" @click="jump2Page('slotmachine')" ><a href="javascript:;"><lang>slotmachine</lang></a></li>
                     </ul>
                 </div>
@@ -35,8 +35,7 @@
                     </div>
                     <ul>
                         <li v-for="item in languageOptions" v-if="item.value!==languageVal"
-                            @click="handleLanguageChange(item.value)"
-                        >
+                            @click="handleLanguageChange(item.value)">
                             <img :src="item.lanLogo" width="27" height="15" alt="">
                             <span>{{ item.label }}</span>
                         </li>

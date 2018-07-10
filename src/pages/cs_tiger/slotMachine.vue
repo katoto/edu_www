@@ -14,7 +14,7 @@
                         <div class="jackpot-low ">
                             <div class="jackpot-all">
                                 <p>
-                                    <lang>JACKPOT</lang>
+                                    <lang>JackPot</lang>
                                 </p>
                                 <i v-if="prizes_pool">
                                     {{ formateSlotBalance( prizes_pool ) }}
@@ -177,7 +177,7 @@
                             </template>
                             <template v-else>
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
-                                    <lang>Double Up</lang>
+                                    <lang>Double</lang>
                                 </div>
                             </template>
                         </a>

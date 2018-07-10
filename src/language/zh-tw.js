@@ -27,6 +27,7 @@ module.exports = {
     'More >>': '更多 >>',
     'Time Left': '剩餘時間',
     'JACKPOT': '獎池',
+    'JackPot': '獎池',
 
     'Home': '首頁',
     'terms': '服務協議',
@@ -315,7 +316,7 @@ module.exports = {
     'Last time win': '上次中獎',
     'SPIN': '開始',
     'Auto(long press)': '長按自動',
-    'Double Up': '雙倍獎勵',
+    'Double': '雙倍獎勵',
     'FREE': '免費',
     'Chances': '次',
     'Chance': '次',
