@@ -14,7 +14,7 @@
                         <div class="jackpot-low ">
                             <div class="jackpot-all">
                                 <p>
-                                    <lang>JackPot</lang>
+                                    <lang>JACKPOT</lang>
                                 </p>
                                 <i v-if="prizes_pool">
                                     {{ formateSlotBalance( prizes_pool ) }}
@@ -268,7 +268,7 @@
                                 </div>
                                 <div class="winningamount">
                                     <p><lang>Winning Amount</lang> =</p>
-                                    <p><lang>Multiple × single Line</lang></p>
+                                    <p><lang>Multiple * Single Line</lang></p>
                                 </div>
                                 <img class="details" src="@/assets/img/tiger/details.png" alt="details">
                                 <div class="line-divi">
@@ -279,7 +279,7 @@
                                         <div class="icon">
                                             <img src="@/assets/img/tiger/icon-wild.png" alt="icon-wild">
                                         </div>
-                                        <p><lang>WILD: It can be paired with any 2 of the identical icons to form as 3 identical icons except for whistle icon</lang></p>
+                                        <p><lang>WILD: It can be paired with any 2 of the identical icons to form as 3 identical icons except for whistle icon (SCATTER)</lang></p>
                                     </li>
                                     <li>
                                         <div class="icon">
@@ -287,19 +287,19 @@
                                         </div>
                                         <p><lang>SCATTER</lang>:</p>
                                         <p><lang>Certain numbers of SCATTER can be exchanged into free spins:</lang></p>
-                                        <p><lang>3 SCATTERs = 1 spin</lang>&nbsp;&nbsp;&nbsp;<lang>4 SCATTERs = 3 spin</lang></p>
-                                        <p><lang>5 SCATTERs = 10 spin</lang></p>
+                                        <p><lang>3 SCATTERs = 1 spin</lang>&nbsp;&nbsp;&nbsp;<lang>4 SCATTERs = 3 spins</lang></p>
+                                        <p><lang>5 SCATTERs = 10 spins</lang></p>
                                     </li>
                                 </ul>
                             </li>
                             <li :class="{on:tab_t===2}">
                                 <div class="line-divi">
-                                    <div><lang>JACKPOT</lang></div>
+                                    <div><lang>JackPot</lang></div>
                                 </div>
                                 <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
                                 <div class="msg">
                                     <p>
-                                        <span class="bold"><lang>Prize pool</lang></span>: <lang>2% of the player's bet amount is poured into prize pool.</lang>.
+                                        <span class="bold"><lang>Prize pool</lang></span>: <lang>2% of the player's bet amount is poured into Jackpot</lang>.
                                     </p>
                                     <p>
                                         <span><lang>You win if 9</lang></span>
@@ -309,11 +309,11 @@
                                 </div>
                                 <div class="msg">
                                     <p>· <lang>Place 0.0001 ETH per line, you can only get fixed reward</lang></p>
-                                    <p>· <lang>Place 0.001 ETH per line, you can get 5% of the prize pool</lang></p>
-                                    <p>· <lang>Place 0.01 ETH per line, you can get 50% of the prize pool</lang></p>
+                                    <p>· <lang>Place 0.001 ETH per line, you can get 50% of the Jackpot</lang></p>
+                                    <p>· <lang>Place 0.01 ETH per line, you can get 50% of the Jackpot</lang></p>
                                 </div>
                                 <div class="line-divi">
-                                    <div><lang>Lucky value</lang></div>
+                                    <div><lang>Lucky Bar</lang></div>
                                 </div>
                                 <div class="lucky-value">
                                     <div class="lucky-48">
@@ -327,7 +327,7 @@
                                 </div>
                                 <div class="msg">
                                     <p>
-                                        <span class="bold"><lang>Lucky value</lang></span>: <lang>If you did not win, one line bet can accumulate one lucky point</lang>
+                                        <span class="bold"><lang>Lucky Bar</lang></span>: <lang>If you did not win, one line bet can accumulate one lucky point in Lucky Bar</lang>
                                     </p>
                                     <p>
                                         <lang>(1 line accumulates 1 lucky point, N line accumulates N lucky point)</lang>
