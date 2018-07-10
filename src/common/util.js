@@ -5,7 +5,7 @@
 import {Message} from 'element-ui'
 
 export const src = 'pc'
-export const tipsTime = 3000000
+export const tipsTime = 3000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
 
@@ -270,11 +270,12 @@ export function formateEmail (email, isFull) {
             }
         } else {
             /* tiger 要求显示更短 */
-            if (regArr[1] && regArr[1].length > 6) {
-                if (regArr[2].length > 8) {
-                    regArr[2] = regArr[2].slice(0, 7) + '...'
+            if (regArr[1]) {
+                if (regArr[1].length >= 2) {
+                    email = regArr[1].slice(0, 2) + '**' + regArr[2]
+                } else {
+                    email = regArr[1] + '**' + regArr[2]
                 }
-                email = regArr[1].slice(0, 2) + '**' + regArr[1].slice(-3) + regArr[2]
             }
         }
         return email
