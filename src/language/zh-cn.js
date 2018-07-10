@@ -338,7 +338,7 @@ module.exports = {
     'Instructions': '规则说明',
     'Not Full': '未满',
     'Full': '满',
-    'Prize pool': '奖池',
+    'Jackpot': '奖池',
     '2% of the player\'s bet amount is poured into Jackpot': '投注额的2%进入奖池',
     'You win if 9': '如果9线同时全中',
     'appear at the same time in 9-line slot': '那么将会赢得',

@@ -287,19 +287,20 @@
                                         </div>
                                         <p><lang>SCATTER</lang>:</p>
                                         <p><lang>Certain numbers of SCATTER can be exchanged into free spins:</lang></p>
-                                        <p><lang>3 SCATTERs = 1 spin</lang>&nbsp;&nbsp;&nbsp;<lang>4 SCATTERs = 3 spins</lang></p>
+                                        <p><lang>3 SCATTERs = 1 spin</lang></p>
+                                        <p><lang>4 SCATTERs = 3 spins</lang></p>
                                         <p><lang>5 SCATTERs = 10 spins</lang></p>
                                     </li>
                                 </ul>
                             </li>
                             <li :class="{on:tab_t===2}">
                                 <div class="line-divi">
-                                    <div><lang>JackPot</lang></div>
+                                    <div><lang>Jackpot</lang></div>
                                 </div>
                                 <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
                                 <div class="msg">
                                     <p>
-                                        <span class="bold"><lang>Prize pool</lang></span>: <lang>2% of the player's bet amount is poured into Jackpot</lang>.
+                                        <span class="bold"><lang>Jackpot</lang></span>: <lang>2% of the player's bet amount is poured into Jackpot</lang>.
                                     </p>
                                     <p>
                                         <span><lang>You win if 9</lang></span>
@@ -402,18 +403,17 @@
                                     {{ formatTime ( item.bettime , 'HH:mm' ) }}
                                 </div>
                             </li>
-
                         </ul>
                     </div>
                     <div class="contact">
                         <div class="fl">
                             <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
-                            <div class="msg2">2018.coinslot.com/slotmachine</div>
+                            <div class="msg2">2018.coinslot.com</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img  :src="'http://mobile.qq.com/qrcode?url=https://2018.coinslot.com/slotmachine'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://2018.coinslot.com'">
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,6 @@ const state = {
     initHeadState: null, // 初始化头部转态
     showEmailErr: false,
     userInfo: null,
-    currTab: 'lucky11',
     socket: {
         reconnect: 0,
         sock: null,
@@ -39,9 +38,6 @@ const state = {
 }
 
 const mutations = {
-    setCurrTab (state, data) {
-        state.currTab = data
-    },
     initHeadState (state, data) {
         state.initHeadState = data
     },

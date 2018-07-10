@@ -11,17 +11,30 @@
                         Select Game
                     </div>
                     <ul>
-                        <li @click="jump2Page('lucky11')" ><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
+                        <li>
+                            <router-link :to="{path: '/lucky11'}">
+                                <lang>Lukcy 11</lang>
+                            </router-link>
+                        </li>
                         <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
-                        <li class="hide" @click="jump2Page('slotmachine')" ><a href="javascript:;"><lang>slotmachine</lang></a></li>
+                        <li>
+                            <router-link :to="{path: '/slotmachine'}">
+                                <lang>slotmachine</lang>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
                 <div class="choose-play">
-                    <a href="javascript:;" @click="jump2Page('lucky11')"  ><lang>Lukcy 11</lang></a>
-                    <a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>slotmachine</lang></a>
+                    <router-link :to="{path: '/lucky11'}">
+                        <lang>Lukcy 11</lang>
+                    </router-link>
+                    <router-link :to="{path: '/slotmachine'}">
+                        <lang>slotmachine</lang>
+                    </router-link>
+                    <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>slotmachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>
                 <!-- 修改切换语言 -->
@@ -228,9 +241,6 @@
             }
         },
         computed: {
-            currTab () {
-                return this.$store.state.currTab
-            },
             initHeadState () {
                 return this.$store.state.initHeadState
             },
@@ -298,24 +308,6 @@
                     break
                 }
             },
-            jump2Page (item = 'lucky11') {
-                this.$store.commit('setCurrTab', item)
-                switch (item) {
-                case 'slotmachine':
-                    if (!~window.location.href.indexOf('slotmachine')) {
-                        this.$router.push('/slotmachine')
-                    }
-                    ;break
-                case 'lucky11':
-                    if (!~window.location.href.indexOf('lucky11')) {
-                        this.$router.push('/lucky11')
-                    }
-                    ;break
-                case 'mobile':
-                    console.log('app downLoad')
-                    break
-                }
-            },
             changeAccounts (item) {
                 if (item) {
                     this.currBalance = item
@@ -379,6 +371,7 @@
             formateCoinType
         },
         async mounted () {
+            // this.$router.push('/lucky11')
             this.showUserMsg()
             // 获取首次中奖信息
             if (~window.location.href.indexOf('/lucky')) {
