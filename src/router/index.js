@@ -28,7 +28,7 @@ const Withdraw = () => import('~/pages/cs_account/Withdraw')
 const slotmachine = () => import('~/pages/cs_tiger/slotMachine')
 
 /* 一元夺币 */
-const oneToken = () => import('~/pages/cs_oneToken/oneToken')
+const luckycoin = () => import('~/pages/cs_luckycoin/luckycoin')
 
 // 404  history
 const page404 = () => import('~/pages/404.vue')
@@ -48,9 +48,9 @@ export default new Router({
             component: slotmachine
         },
         {
-            path: '/oneToken',
-            name: 'oneToken',
-            component: oneToken
+            path: '/luckycoin',
+            name: 'luckycoin',
+            component: luckycoin
         },
         {
             path: '/terms',
