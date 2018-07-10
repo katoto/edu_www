@@ -49,7 +49,8 @@
                             <banner-scroll v-if="recentList" class="notice">
                                 <div class="text-scroller">
                                     <ul class="scroller-in">
-                                        <li class="msgLis" v-for="item in recentList" :class="{'newRecord':item.addNewRecord}" >
+                                        <!--:class="{'newRecord':item.addNewRecord}"-->
+                                        <li class="msgLis" v-for="item in recentList" >
                                         Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateSlotBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
                                         </li>
                                     </ul>
