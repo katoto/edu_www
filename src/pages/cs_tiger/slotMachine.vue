@@ -1003,10 +1003,18 @@
                     })
                     let i = 0
                     this.winRadioHtml = ''
-                    console.log('=============')
-                    console.log(this.winRadioObj)
-                    console.log(this.winRadioObj)
-                    console.log('=============')
+                    // console.log('=============')
+                    // console.log(this.winRadioObj)
+                    // console.log(JSON.stringify(this.winRadioObj))
+                    // console.log(Object.keys(this.winRadioObj))
+                    // Object.keys(this.winRadioObj).sort((a, b) => {
+                    //     return parseFloat(a) < parseFloat(b)
+                    // }).map((v) => {
+                    //     return this.winRadioObj[v] // 根据原键名从obj中再找对应的项
+                    // })
+                    // console.log(Object.keys(this.winRadioObj))
+                    // console.log(JSON.stringify(this.winRadioObj))
+                    // console.log('=============')
                     for (let item in this.winRadioObj) {
                         if (i % 2 === 0) {
                             this.winRadioHtml += `
