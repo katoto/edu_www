@@ -358,7 +358,7 @@ const actions = {
                 let error = new Error('websocket timeout')
                 error.code = '103'
                 reject(error)
-            }, 1000)
+            }, 15000)
             commit('initSocket', {sock, interval})
         })
     },
