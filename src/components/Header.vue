@@ -190,6 +190,7 @@
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import { formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
+
     export default {
         components: {PopList},
         data () {

@@ -124,13 +124,17 @@ if (location.search) {
     })
     if (queryObj.sign) {
         if (queryObj.inviter) {
-            history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
+            console.log(location.href.split(location.pathname)[0])
+            // history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
+            history.replaceState({}, '', `${location.origin}/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
         }
         if (queryObj.from) {
             if (queryObj.from === 'resetPassword') {
-                history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
+                // history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
+                history.replaceState({}, '', `${location.origin}/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
             } else {
-                history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}`)
+                // history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}/?from=${queryObj.from}&sign=${queryObj.sign}`)
+                history.replaceState({}, '', `${location.origin}${location.pathname}/?from=${queryObj.from}&sign=${queryObj.sign}`)
             }
         }
     }
