@@ -282,6 +282,14 @@ const actions = {
                             }
                             ;
                             break
+                        case '1007':
+                            msg.data.state === '4' || msg.data.state === '5'
+                                ? dispatch('cs_luckcoin/updateBetsAndDraw')
+                                : commit('cs_luckcoin/updateBet', msg.data)
+                            break
+                        case '1008':
+                            dispatch('cs_luckcoin/updateRecentBet', msg.data)
+                            break
                         case '2001':
                             // 老虎机初始化
                             if (msg.data) {

@@ -1,19 +1,29 @@
 <template>
-    <div class="luckycoin-page"></div>
+    <div class="main">
+        <Header></Header>
+        111
+        <Footer></Footer>
+    </div>
 </template>
 <script>
-    export default {
-        data () {
-            return {
-            }
-        },
-        methods: {},
-        computed: {},
-        mounted () {
-        },
-        components: {
+import Header from '~components/Header.vue'
+import Footer from '~components/Footer.vue'
+import { mapActions } from 'vuex'
+
+export default {
+    data () {
+        return {
         }
-    }
+    },
+    methods: {
+        ...mapActions(['updateLuckyCoinPage'])
+    },
+    computed: {},
+    mounted () {
+        this.updateLuckyCoinPage()
+    },
+    components: { Header, Footer }
+}
 </script>
 <style lang="less" scoped
 </style>
