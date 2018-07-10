@@ -13,7 +13,7 @@
                     <ul>
                         <li @click="jump2Page('lucky11')" ><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
                         <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
-                        <li @click="jump2Page('slotmachine')" ><a href="javascript:;"><lang>slotmachine</lang></a></li>
+                        <li class="hide" @click="jump2Page('slotmachine')" ><a href="javascript:;"><lang>slotmachine</lang></a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
@@ -21,8 +21,8 @@
                 </router-link>
                 <div class="choose-play">
                     <a href="javascript:;" @click="jump2Page('lucky11')"  ><lang>Lukcy 11</lang></a>
-                    <a href="javascript:;" @click="jump2Page('slotmachine')" ><lang>slotmachine</lang></a>
-                    <a href="javascript:;" class="hide"  target="_blank">APP</a>
+                    <a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>slotmachine</lang></a>
+                    <a href="javascript:;" class="hide" >APP</a>
                 </div>
                 <!-- 修改切换语言 -->
                 <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
@@ -190,6 +190,7 @@
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import { formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
+
     export default {
         components: {PopList},
         data () {
@@ -1344,13 +1345,12 @@
     @media (max-width: @screen-phone) { }
 
     @media(min-width: @screen-tablet){
-        .mycount,.choose-coin .coin {
+        .mycount,.choose-coin .coin ,.language{
             &:hover{
                 background: rgba(0,0,0,0.3);
             }
         }
     }
-
 
 
 </style>

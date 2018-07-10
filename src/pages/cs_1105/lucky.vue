@@ -312,16 +312,6 @@
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-        <!-- 世界杯弹窗 -->
-        <div class="pop pop-world hide" :class="{'hide':!showPopWorld}">
-            <div class="contain">
-                <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
-                <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
-                <a target="_blank" href="https://www.coinslot.com/coinslot/html/worldCup.html" class="btn-join">
-                    Join Now
-                </a>
-            </div>
-        </div>
 
     </div>
 </template>
@@ -340,8 +330,6 @@
     export default {
         data () {
             return {
-                showPopWorld: false,
-
                 showOrderSucc: false,
                 showOrderFail: false,
                 failureMsg: '* *',
@@ -549,7 +537,7 @@
                 }
             },
             fixNav () {
-                this.scroll = document.getElementById('lucky11').scrollTop
+                this.scroll = document.getElementById('lucky11').scrollTop;
                 if (this.scroll >= 160) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
@@ -665,13 +653,6 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-
-            // 首页世界杯弹窗
-            if (localStorage.getItem('js_showWorldCup') !== new Date().getDate().toString()) {
-                this.showPopWorld = true
-                localStorage.setItem('js_showWorldCup', new Date().getDate())
-            }
-
             // 首页 冒泡效果
             setTimeout(() => {
                 /* 订阅lucky11 sock */
