@@ -166,8 +166,8 @@
                                 <!--免费-->
                                 <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd('isFree')" @mousedown="touStart" @mouseup="touEnd('isFree')"  :class="{'hide':!parseFloat(free_times)}">
                                     <p><lang>FREE</lang></p>
-                                    <div v-if="parseFloat(free_times)>1">{{ free_times }} <lang>Times</lang></div>
-                                    <div v-else>{{ free_times }} <lang>Time</lang></div>
+                                    <div v-if="parseFloat(free_times)>1">{{ free_times }} <lang>Chances</lang></div>
+                                    <div v-else>{{ free_times }} <lang>Chance</lang></div>
                                 </div>
                                 <!-- 开始按钮btn-spin  @dblclick="autoPlay"-->
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-spin" :class="{'hide':parseFloat(free_times) || isAutoPlay}">
@@ -254,7 +254,7 @@
                     <div class="pop help" :class="{show:isShowHelp}">
                         <a href="javascript:;" class="tiger-close" @click="isShowHelp=false"></a>
                         <div class="title">
-                            <p>Instructions</p>
+                            <p><lang>Instructions</lang></p>
                         </div>
                         <ul class="tab-t">
                             <li :class="{on:tab_t===1}" @click="tab_t=1"><a href="javascript:;"><lang>Winning Table</lang></a></li>
@@ -357,8 +357,8 @@
                         {{ showRecharge }}
                         <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                         <div class="title">
-                            <p>Copy the Ethereum wallet</p>
-                            <p>address (only supports ETH)</p>
+                            <p>Copy the Ethereum wallet address</p>
+                            <p>(<lang>only supports ETH</lang>)</p>
                         </div>
                         <div class="copy" v-if="userInfo && userInfo.accounts">
                             <a href="javascript:;" rel="nofollow"
@@ -369,7 +369,7 @@
                             <p v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].address }}</p>
                         </div>
                         <div class="msg">
-                            or scan to get the address
+                            <lang>or scan to get the address</lang>
                         </div>
                         <img v-if="userInfo && userInfo.accounts"
                              :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
@@ -408,12 +408,12 @@
                     <div class="contact">
                         <div class="fl">
                             <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
-                            <div class="msg2">www.coinslot.com/#/SlotMachine</div>
+                            <div class="msg2">2018.coinslot.com/slotmachine</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img  :src="'http://mobile.qq.com/qrcode?url=https://www.coinslot.com/#/SlotMachine'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://2018.coinslot.com/slotmachine'">
                         </div>
                     </div>
                 </div>
@@ -444,7 +444,7 @@
                 btnDisable: false, // 按钮不可用
                 rewardBig: false, // 大奖
                 rewardSmall: false, // 小奖
-                free_times: null, // 初始化免费次数
+                free_times: 0, // 初始化免费次数
                 // 默认投注选项
                 lucky_values: [{
                     bet: '0.0001',
@@ -503,7 +503,8 @@
                 currBalance: 0,
                 winRadioObj: {
                 }, // 显示大奖用的
-                winRadioHtml: '' // 处理成展示结构html
+                winRadioHtml: '', // 处理成展示结构html
+                fastClick: false
             }
         },
         watch: {
@@ -563,18 +564,23 @@
                 })
             },
             touStart (evt) {
-                evt.preventDefault()
-                this.tabTime = new Date().getTime()
+                if (!this.fastClick) {
+                    evt.preventDefault()
+                    this.tabTime = new Date().getTime()
+                    this.fastClick = true
+                }
             },
             touEnd (isFree = false) {
                 if (isFree && isFree === 'isFree') {
                     /* 认为是免费的停止 */
                     if (this.isAutoPlay) {
                         this.stopAutoPlay()
+                        this.fastClick = false
                         return false
                     }
                 }
                 if (this.btnDisable) {
+                    this.fastClick = false
                     return false
                 }
                 this.tabTime = (new Date().getTime() - this.tabTime)
@@ -583,6 +589,7 @@
                     if (!this.isLog) {
                         /* 是否登录 */
                         this.$store.commit('showLoginPop')
+                        this.fastClick = false
                         return false
                     }
                     this.startPlay()
@@ -592,6 +599,7 @@
                     /* 点击 */
                     this.startPlay()
                 }
+                this.fastClick = false
             },
             autoPlay () {
                 this.currRun = this.auto_run
@@ -687,12 +695,13 @@
                 }
                 /* 余额是否充足 */
                 if (this.userInfo && this.userInfo.accounts[0]) {
-                    if (parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) {
+                    if ((parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                         /* 显示余额不足 */
                         this.showRecharge = true
                         return false
                     }
                 }
+                this.btnDisable = true
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
@@ -700,10 +709,9 @@
                 }
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 // this.stateInit()
-                this.btnDisable = true
                 this.slotRun = true
                 if (playBack) {
-                    if (this.free_times !== null && parseFloat(this.free_times) <= 0) {
+                    if (parseFloat(this.free_times) <= 0) {
                         this.reduceMoney()
                     }
                     this.playBack = playBack
@@ -900,7 +908,6 @@
                 }
                 /* 有免费次数的时候 不给切换 */
                 if (parseFloat(this.free_times)) {
-                    console.log('免费不给切换')
                     return false
                 }
                 this.showSingleBet = !this.showSingleBet

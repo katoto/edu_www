@@ -11,17 +11,17 @@
                         Select Game
                     </div>
                     <ul>
-                        <li @click="jump2Page('lucky11')" :class="{'on':currTab==='lucky11'}"><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
+                        <li @click="jump2Page('lucky11')" ><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
                         <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
-                        <li @click="jump2Page('SlotMachine')" :class="{'on':currTab==='SlotMachine'}"><a href="javascript:;"><lang>SlotMachine</lang></a></li>
+                        <li @click="jump2Page('slotmachine')" ><a href="javascript:;"><lang>slotmachine</lang></a></li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
                 <div class="choose-play">
-                    <a href="javascript:;" target="_blank" @click="jump2Page('lucky11')" :class="{'on':currTab === 'lucky11'}" ><lang>Lukcy 11</lang></a>
-                    <a href="javascript:;" @click="jump2Page('SlotMachine')" :class="{'on':currTab === 'SlotMachine'}" target="_blank"><lang>SlotMachine</lang></a>
+                    <a href="javascript:;" @click="jump2Page('lucky11')"  ><lang>Lukcy 11</lang></a>
+                    <a href="javascript:;" @click="jump2Page('slotmachine')" ><lang>slotmachine</lang></a>
                     <a href="javascript:;" class="hide"  target="_blank">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
@@ -107,7 +107,6 @@
                 </a>
 
                 <!--拉新活动提示-->
-
                 <div class="act-sign right hide" v-if="!isLog">
                     <lang>Free 0.001ETH</lang>
                 </div>
@@ -302,9 +301,9 @@
             jump2Page (item = 'lucky11') {
                 this.$store.commit('setCurrTab', item)
                 switch (item) {
-                case 'SlotMachine':
-                    if (!~window.location.href.indexOf('SlotMachine')) {
-                        this.$router.push('/SlotMachine')
+                case 'slotmachine':
+                    if (!~window.location.href.indexOf('slotmachine')) {
+                        this.$router.push('/slotmachine')
                     }
                     ;break
                 case 'lucky11':
@@ -330,7 +329,6 @@
                 if (this.loginSucc && this.loginSucc.tasks.length > 0) {
                     this.showInviteSuccFlag = false
                     let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid)
-                    console.log(taskDone)
                     if (taskDone && taskDone.taskstatus.toString() === '1') {
                         document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove'
                         setTimeout(() => {

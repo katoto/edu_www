@@ -317,7 +317,8 @@ module.exports = {
     'Auto(long press)': '長按自動',
     'Double Up': '雙倍獎勵',
     'FREE': '免費',
-    'Times': '次',
+    'Chances': '次',
+    'Chance': '次',
     'AUTO': '自動',
     'Click to Stop': '點擊停止',
     'Winning Table': '獎級表',
@@ -334,6 +335,7 @@ module.exports = {
     '4 SCATTERs = 3 spin': '4個=3次',
     '5 SCATTERs = 10 spin': '5個=10次',
     'Lucky value': '幸運值',
+    'Instructions': '規則說明',
     'Not Full': '未滿',
     'Full': '滿',
     'Prize pool': '獎池',
@@ -349,6 +351,8 @@ module.exports = {
     'placed a pattern as following': '從左到右計算',
     'You win if 3 identical icons': '如果連續3個圖案一致即中獎',
     'Lukcy 11': '幸運11',
-    'SlotMachine': '老虎機'
+    'slotmachine': '老虎機',
+    'Copy the Ethereum wallet address': '負制錢包地址',
+    'only supports ETH': '當前仅有支持ETH'
 
 }

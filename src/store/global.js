@@ -184,7 +184,7 @@ const actions = {
     },
 
     /* websocket */
-    initWebsocket ({commit, state, dispatch}) {
+    initWebsocket ({commit, state, dispatch}, fn) {
         return new Promise((resolve, reject) => {
             let sock = new WebSocket(`${sockURL}`)
             let interval = null
@@ -285,7 +285,6 @@ const actions = {
                         case '2001':
                             // 老虎机初始化
                             if (msg.data) {
-                                console.log(msg.data)
                                 dispatch(actionTypes.formateTiger, msg.data)
                             }
                             break
@@ -305,6 +304,7 @@ const actions = {
             sock.onopen = function () {
                 let webSockaction = null
                 let currUid = null
+                fn()
                 clearInterval(interval)
                 if (state.userInfo && state.userInfo.uid) {
                     webSockaction = {
@@ -344,11 +344,12 @@ const actions = {
                 clearInterval(interval)
                 setTimeout(() => {
                     commit('addConnectNum')
-                    dispatch('initWebsocket')
+                    dispatch('initWebsocket', fn)
                 }, 5000)
             }
             sock.onerror = function (e) {
                 console.error('sock error')
+                fn()
                 e.code = '102'
                 if (flag === 1) return
                 if (hasFinished) return
@@ -367,7 +368,6 @@ const actions = {
     },
     sub2out ({commit, state}) {
         let sub2outStr = null
-        console.log(state)
         try {
             if (state.userInfo && state.userInfo.uid) {
                 sub2outStr = {
@@ -474,10 +474,9 @@ const actions = {
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
         } catch (e) {
             setTimeout(() => {
-                console.log(111)
                 dispatch('subInLucky')
             }, 100)
-            console.error(e.message + 'subInLucky error')
+            // console.error(e.message + 'subInLucky error')
         }
     },
     subOutLucky () {

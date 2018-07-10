@@ -25,12 +25,12 @@ const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
 /* 老虎机 */
-const SlotMachine = () => import('~/pages/cs_tiger/slotMachine')
+const slotmachine = () => import('~/pages/cs_tiger/slotMachine')
 
 /* 一元夺币 */
 const oneToken = () => import('~/pages/cs_oneToken/oneToken')
 
-// 404
+// 404  history
 const page404 = () => import('~/pages/404.vue')
 
 export default new Router({
@@ -43,9 +43,9 @@ export default new Router({
             component: lucky11
         },
         {
-            path: '/SlotMachine',
-            name: 'SlotMachine',
-            component: SlotMachine
+            path: '/slotmachine',
+            name: 'slotmachine',
+            component: slotmachine
         },
         {
             path: '/oneToken',

@@ -131,17 +131,16 @@ export default {
         padding:15px 0;
         height: 60px;
         line-height: 60px;
-        background: #463895;
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
         color: #fff;
-        .transition();
+        transition: all 0.2s;
     }
 
     .nav.fix {
         position: fixed;
         left: 0;
         top: 0;
-        z-index: 10;
+        z-index: 90;
         background: #3d3086;
     }
 
