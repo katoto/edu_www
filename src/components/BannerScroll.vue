@@ -54,9 +54,8 @@
         },
         mounted () {
             setTimeout(() => {
-                console.log(isMobile)
                 this.hitListBroadcast()
-            }, 800)
+            }, 1800)
         }
     }
 </script>

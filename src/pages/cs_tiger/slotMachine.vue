@@ -1001,6 +1001,10 @@
                     })
                     let i = 0
                     this.winRadioHtml = ''
+                    console.log('=============')
+                    console.log(this.winRadioObj)
+                    console.log(this.winRadioObj)
+                    console.log('=============')
                     for (let item in this.winRadioObj) {
                         if (i % 2 === 0) {
                             this.winRadioHtml += `

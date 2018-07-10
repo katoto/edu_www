@@ -402,7 +402,8 @@ export function getURLParams () {
 }
 
 function isThisLang (lang) {
-    let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
+    // let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
+    let source = 'en'
     if (typeof source === 'string') {
         return source.toLowerCase() === lang
     }
