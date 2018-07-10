@@ -537,7 +537,7 @@
                 }
             },
             fixNav () {
-                this.scroll = document.getElementById('lucky11').scrollTop
+                this.scroll = document.getElementById('lucky11').scrollTop;
                 if (this.scroll >= 160) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
