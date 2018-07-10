@@ -1,13 +1,9 @@
 <template>
     <div class="main">
-        <Header></Header>
-        111
-        <Footer></Footer>
+        Draw History
     </div>
 </template>
 <script>
-import Header from '~components/Header.vue'
-import Footer from '~components/Footer.vue'
 import { mapActions } from 'vuex'
 
 export default {
@@ -22,9 +18,8 @@ export default {
     mounted () {
         this.updateLuckyCoinPage()
     },
-    components: { Header, Footer }
+    components: { }
 }
 </script>
 <style lang="less" scoped
 </style>
-

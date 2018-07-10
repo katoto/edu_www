@@ -28,7 +28,13 @@ const Withdraw = () => import('~/pages/cs_account/Withdraw')
 const slotmachine = () => import('~/pages/cs_tiger/slotMachine')
 
 /* 一元夺币 */
-const luckycoin = () => import('~/pages/cs_luckycoin/luckycoin')
+const luckycoin = () => import('~/pages/cs_luckycoin/lucky-coin')
+
+const luckcoinIndex = () => import('~/pages/cs_luckycoin/index')
+
+const luckcoinMoreBids = () => import('~/pages/cs_luckycoin/more-bids')
+
+const luckycoinDrawHistory = () => import('~/pages/cs_luckycoin/draw-history')
 
 // 404  history
 const page404 = () => import('~/pages/404.vue')
@@ -48,9 +54,31 @@ export default new Router({
             component: slotmachine
         },
         {
-            path: '/luckycoin',
-            name: 'luckycoin',
+            path: '/luckycoin$',
+            name: _('Luck Coin'),
             component: luckycoin
+        },
+        {
+            path: '/luckycoin',
+            name: _('Luck Coin'),
+            component: luckycoin,
+            children: [
+                {
+                    path: 'drawHistory',
+                    name: _('Draw History'),
+                    component: luckycoinDrawHistory
+                },
+                {
+                    path: 'moreBids',
+                    name: _('More Bids'),
+                    component: luckcoinMoreBids
+                },
+                {
+                    path: '',
+                    name: _('Home'),
+                    component: luckcoinIndex
+                }
+            ]
         },
         {
             path: '/terms',

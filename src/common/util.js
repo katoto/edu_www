@@ -401,6 +401,12 @@ export function getURLParams () {
     return obj
 }
 
+export function numberComma (source, length = 3) {
+    source = String(source).split('.')
+    source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{' + length + '})+$)', 'ig'), '$1,')
+    return source.join('.')
+}
+
 function isThisLang (lang) {
     let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
     if (typeof source === 'string') {

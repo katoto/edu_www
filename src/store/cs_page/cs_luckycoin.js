@@ -2,9 +2,167 @@
 import ajax from '~common/ajax'
 
 const state = {
-    betsList: [],
-    drawHistoryList: [],
-    recentBetsList: []
+    betsList: [{
+        state: '1',
+        image: '',
+        goodsValue: '1800.0',
+        goodsType: '2001',
+        totalBids: '200',
+        bidValue: '0.02',
+        leftBids: '30',
+        isbet: '1',
+        ishot: '1'
+    }, {
+        state: '1',
+        image: '',
+        goodsValue: '20000.0',
+        goodsType: '1001',
+        totalBids: '100',
+        bidValue: '0.02',
+        leftBids: '20',
+        isbet: '1',
+        ishot: '1'
+    }, {
+        state: '1',
+        image: '',
+        goodsValue: '20000.0',
+        goodsType: '2001',
+        totalBids: '250',
+        bidValue: '0.02',
+        leftBids: '40',
+        isbet: '1',
+        ishot: '1'
+    }, {
+        state: '1',
+        image: '',
+        goodsValue: '20000.0',
+        goodsType: '1001',
+        totalBids: '150',
+        bidValue: '0.02',
+        leftBids: '50',
+        isbet: '1',
+        ishot: '1'
+    }, {
+        state: '1',
+        image: '',
+        goodsValue: '20000.0',
+        goodsType: '2001',
+        totalBids: '300',
+        bidValue: '0.02',
+        leftBids: '100',
+        isbet: '1',
+        ishot: '0'
+    }, {
+        state: '1',
+        image: '',
+        goodsValue: '20000.0',
+        goodsType: '1001',
+        totalBids: '200',
+        bidValue: '0.02',
+        leftBids: '30',
+        isbet: '1',
+        ishot: '0'
+    }, {
+        state: '1',
+        image: '',
+        goodsValue: '20000.0',
+        goodsType: '2001',
+        totalBids: '200',
+        bidValue: '0.02',
+        leftBids: '30',
+        isbet: '1',
+        ishot: '0'
+    }],
+    drawHistoryList: [
+        {
+            state: '1',
+            image: '',
+            goodsValue: '10432',
+            goodsType: '1001',
+            totalBids: '200',
+            bidValue: '0.02',
+            luckyNum: '1000192',
+            winUserName: '4637***3@qq.com',
+            crtime: '156732231'
+        },
+        {
+            state: '1',
+            image: '',
+            goodsValue: '10432',
+            goodsType: '1001',
+            totalBids: '200',
+            bidValue: '0.02',
+            luckyNum: '1000192',
+            winUserName: '4637***3@qq.com',
+            crtime: '156732231'
+        },
+        {
+            state: '4',
+            image: '',
+            goodsValue: '10432',
+            goodsType: '2001',
+            totalBids: '200',
+            bidValue: '0.02',
+            luckyNum: '1000192',
+            winUserName: '4637***3@qq.com',
+            crtime: '156732231'
+        },
+        {
+            state: '4',
+            image: '',
+            goodsValue: '10432',
+            goodsType: '2001',
+            totalBids: '200',
+            bidValue: '0.02',
+            luckyNum: '1000192',
+            winUserName: '4637***3@qq.com',
+            crtime: '156732231'
+        }
+    ],
+    recentBetsList: [
+        {
+            cointype: '2001',
+            username: '20321****@qq.com',
+            betmoney: '0.05',
+            crtime: '156732231'
+        },
+        {
+            cointype: '1001',
+            username: '120831070@qq.com',
+            betmoney: '333.05',
+            crtime: '156732231'
+        },
+        {
+            cointype: '2001',
+            username: '20321****@qq.com',
+            betmoney: '0.05',
+            crtime: '156732231'
+        },
+        {
+            cointype: '2001',
+            username: '20321****@qq.com',
+            betmoney: '0.05',
+            crtime: '156732231'
+        },
+        {
+            cointype: '2001',
+            username: '20321****@qq.com',
+            betmoney: '0.05',
+            crtime: '156732231'
+        },
+        {
+            cointype: '2001',
+            username: '20321****@qq.com',
+            betmoney: '0.05',
+            crtime: '156732231'
+        },
+        {
+            cointype: '2001',
+            username: '20321****@qq.com',
+            betmoney: '0.05',
+            crtime: '156732231'
+        }
+    ]
 }
 
 const mutations = {
@@ -52,18 +210,23 @@ const actions = {
     },
 
     // 加载投注列表
-    async getBetsList  ({ commit }, params = {}) {
+    async getBetsList ({ commit }, params = {}) {
         let data = await ajax.get('/getBetsList', {
             ...params,
             pageno: '1',
             pagesize: '7'
         })
-        commit('updateBets', data.goods)
+        commit('updateDrawHistory', data.goods)
     },
 
     // 加载投注获奖列表
-    getDrawHistory  ({ commit }, params = {}) {
-        return ajax.get('/getDrawHistory', params)
+    async getDrawHistory ({ commit }, params = {}) {
+        let data = await ajax.get('/draw/records/list', {
+            ...params,
+            pageno: '1',
+            pagesize: '4'
+        })
+        commit('updateBets', data.goods)
     },
 
     updateBetsAndDraw ({ dispatch }) {
@@ -77,4 +240,4 @@ const actions = {
     }
 }
 
-export default { state, mutations, actions }
+export default { state, mutations, actions, namespaced: true }
