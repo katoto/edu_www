@@ -4,7 +4,7 @@
             <Header></Header>
             <div class="tiger-main" @click="initPop">
                 <div class="tiger ">
-                    <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
+                    <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger2.jpg" alt="">
                     <div class="tiger-wrap ">
                         <!--规则icon-->
                         <a href="javascript:;" class="btn-rule " @click="isShowHelp = true">
@@ -1148,7 +1148,7 @@
         .bg-tiger {
             display: block;
             width: 100%;
-            height:100%;
+            /*height:100%;*/
         }
     }
 
@@ -1875,7 +1875,7 @@
             margin:15px auto 0;
             font-size:12px;
             li{
-                width:33.333%;
+                width:33.333333%;
                 box-sizing: border-box;
                 float: left;
             }
@@ -2267,6 +2267,16 @@
     @media (max-width: @screen-phone) {
         .footer{
             display: none;
+        }
+
+        .btn-main{
+            bottom:40px;
+        }
+        .lastwin{
+            bottom: percentage(234/1261);
+        }
+        .operating{
+            bottom: percentage(288/1261);
         }
     }
     .footer{
