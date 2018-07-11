@@ -25,7 +25,7 @@
                     </linearGradient>
                 </defs>
                 <g transform="matrix(0,-1,1,0,0,102)">
-                    <circle cx="51" cy="51" r="47" stroke-width="8" stroke="#723176" fill="transparent"/>
+                    <circle cx="51" cy="51" r="47" stroke-width="8" stroke="#57356b" fill="transparent"/>
                     <circle cx="51" cy="51" r="47" :stroke="`url(#${coin.circleClass[0]})`" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="296 296"/>  <!--左边 整圆-->
                     <circle cx="51" cy="51" r="47" :stroke="`url(#${coin.circleClass[1]})`" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="148 296"/>
                 </g>

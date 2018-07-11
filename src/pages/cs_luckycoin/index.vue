@@ -82,6 +82,12 @@
                                 <div class="col-xs-6 col-sm-4 col-lg-3">
                                     <history-bet-box :bet="drawHistoryList[3]"></history-bet-box>
                                 </div>
+                                <div class="col-xs-6 col-sm-4 col-lg-3 hidden-lg">
+                                    <history-bet-box :bet="drawHistoryList[4]"></history-bet-box>
+                                </div>
+                                <div class="col-xs-6 col-sm-4 col-lg-3 hidden-lg">
+                                    <history-bet-box :bet="drawHistoryList[5]"></history-bet-box>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,7 +134,6 @@ export default {
 
 /deep/
 .oneToKen {
-    background: #2a1236;
     .main {
         width: 100%;
         max-width: 1200px;
@@ -564,14 +569,15 @@ export default {
             }
             .t2 {
                 font-size: 33/2px;
-                line-height: 25/2px;
+                line-height: 45/2px;
             }
         }
         .msg {
             color: #a99acc;
-            margin: 50/2px 15/2px 0;
+            margin: 30/2px 15/2px 0;
             padding: 0;
             line-height: 42/2px;
+            font-size:28/2px;
             i {
                 float: right;
             }
@@ -669,24 +675,28 @@ export default {
         width: percentage(690/750);
         padding-top: 30/2px;
         height: 132/2px;
-        line-height: 104/2px;
         margin: 0 auto;
         overflow: hidden;
+        >*{
+            display: table-cell;
+            vertical-align: text-bottom;
+            text-align: center;
+        }
         .t1 {
-            float: left;
             color: #fff;
             font-size: 21px;
             font-weight: bold;
+
         }
         .msg {
-            float: left;
+
             color: #a99acc;
             font-size: 12px;
             margin-left: 20px;
         }
         .btn-more,
         .btn-play {
-            float: right;
+
             color: #a486f7;
             font-size: 13px;
         }
@@ -790,6 +800,7 @@ export default {
         .recentBets {
             .t1 {
                 padding-top: 0;
+
             }
         }
         .item-history {
@@ -1002,7 +1013,7 @@ export default {
         }
         .item-popular {
             width: 100%;
-            padding: 20px 30px 15px;
+            padding: 20px 20px 15px;
             margin: 0;
             .token-process {
                 top: 83px;
@@ -1063,13 +1074,17 @@ export default {
                 }
                 .t2 {
                     font-size: 14px;
-                    line-height: 22px;
+                    line-height: 32px;
                 }
             }
             .msg {
-                margin: 25px 0 0 0;
+                margin: 15px 0 0 0;
                 padding: 0 10px 0;
                 line-height: 18px;
+                font-size:12px;
+                i{
+                    font-size:14px;
+                }
             }
             .btn {
                 margin: 18px 0 0 0;
@@ -1138,12 +1153,8 @@ export default {
             padding-top: 6px;
             height: 76px;
             overflow: hidden;
-            line-height: 70px;
             .btn-play {
-                position: absolute;
-                left: 50%;
-                margin: 0;
-                transform: translateX(-50%);
+
             }
         }
         .recentBets {
@@ -1152,10 +1163,10 @@ export default {
                 padding-top: 0;
                 line-height: 16px;
                 font-size: 16px;
-                text-indent: 8px;
+                text-indent: 23px;
             }
             li {
-                padding-left: 40px;
+                padding-left: 55px;
                 .email {}
                 .amount {}
                 .time {}
@@ -1163,7 +1174,7 @@ export default {
                     content: "";
                     display: block;
                     position: absolute;
-                    left: 10px;
+                    left: 25px;
                 }
                 &.icon-eth {
                     &::before {

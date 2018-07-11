@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="page-luckycoin">
         <Header></Header>
         <router-view></router-view>
         <Footer></Footer>
@@ -14,6 +14,10 @@ export default {
     components: { Header, Footer }
 }
 </script>
-<style lang="less" scoped>
+<style scoped lang="less" rel="stylesheet/less">
+    .page-luckycoin{
+        background: #2a1236 url("../../assets/img/oneToKen/bg-page.png") no-repeat center top;
+        background-size: cover;
+    }
 </style>
 
