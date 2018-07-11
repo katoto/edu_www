@@ -698,7 +698,7 @@
                 }
                 /* 余额是否充足 */
                 if (this.userInfo && this.userInfo.accounts[0]) {
-                    if ((parseFloat(this.userInfo.accounts[0].balance) < (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
+                    if ((parseFloat(this.userInfo.accounts[0].balance) <= (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                         /* 显示余额不足 */
                         this.showRecharge = true
                         return false
