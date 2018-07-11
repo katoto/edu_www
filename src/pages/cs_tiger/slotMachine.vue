@@ -4,7 +4,7 @@
             <Header></Header>
             <div class="tiger-main" @click="initPop">
                 <div class="tiger ">
-                    <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger2.jpg" alt="">
+                    <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                     <div class="tiger-wrap ">
                         <!--规则icon-->
                         <a href="javascript:;" class="btn-rule " @click="isShowHelp = true">
@@ -2269,15 +2269,7 @@
             display: none;
         }
 
-        .btn-main{
-            bottom:40px;
-        }
-        .lastwin{
-            bottom: percentage(234/1261);
-        }
-        .operating{
-            bottom: percentage(288/1261);
-        }
+
     }
     .footer{
         border-top:0 !important;
