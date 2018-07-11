@@ -21,5 +21,5 @@ export default {
     components: { }
 }
 </script>
-<style lang="less" scoped
+<style scoped lang="less" rel="stylesheet/less">
 </style>

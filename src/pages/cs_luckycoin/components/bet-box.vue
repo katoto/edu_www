@@ -63,8 +63,10 @@
                 <i>{{ this.bet.bidValue }} {{ coinText }}</i>
             </p>
         </div>
-        <a href="javascript:;" class="btn" @click="openBetWindow">
+        <!--btn-waiting-->
+        <a href="javascript:;" class="btn btn-waiting" @click="openBetWindow">
             <lang>Bet Now</lang>
+            <!--<lange>Waiting</lange>-->
         </a>
         <!--投注-->
         <!--normal success fail balance-->
