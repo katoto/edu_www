@@ -1160,7 +1160,7 @@
         .bg-tiger {
             display: block;
             width: 100%;
-            height:100%;
+            /*height:100%;*/
         }
     }
 
@@ -1887,7 +1887,7 @@
             margin:15px auto 0;
             font-size:12px;
             li{
-                width:33.333%;
+                width:33.333333%;
                 box-sizing: border-box;
                 float: left;
             }
@@ -2280,6 +2280,8 @@
         .footer{
             display: none;
         }
+
+
     }
     .footer{
         border-top:0 !important;
