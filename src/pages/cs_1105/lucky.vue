@@ -816,7 +816,7 @@
             }
         }
         .play-tips {
-            width: 500px;
+            width: 650px;
             height:35px;
             position: relative;
             float: left;

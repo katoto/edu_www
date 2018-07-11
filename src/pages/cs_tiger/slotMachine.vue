@@ -35,7 +35,7 @@
                                     <template v-else>
                                         {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
                                     </template>
-                                        {{ formateCoinType( currCoinType ) }}
+                                        <!--{{ formateCoinType( currCoinType ) }}-->
                                     </span>
                                 </p>
                                 <!--<span>-->
@@ -87,43 +87,43 @@
                         <!--底部操作-->
                         <div class="operating ">
                             <!-- 展开 on-->
-                            <div class="single" :class="{'single-zh':language==='zhCn'||language==='zhTw'}"  @click="showBetSel">
-                                <div>
-                                    <div class="top">
+                            <div class="single " :class="{'on':showSingleBet}"  @click="showBetSel">
+                                <div class="top">
+                                    <div class="single-amount">
+                                        {{ dft_bet }}
+                                    </div>
+                                    <div class="single-unit">
+                                        ETH
+                                    </div>
+                                </div>
+                                <p class="msg ">
+                                    <lang>Single Line</lang>&nbsp;
+                                    <i></i>
+                                </p>
+                                <!-- 投注项选择 -->
+                                <ul :class="{'hide': !showSingleBet,'ul3':lucky_values.length==3}"  v-if="lucky_values.length > 0">
+                                    <li v-for="item in lucky_values" @click="betSelFn(item)">
                                         <div class="single-amount">
-                                            {{ dft_bet }}
+                                            {{ item.bet }}
                                         </div>
                                         <div class="single-unit">
                                             ETH
                                         </div>
-                                    </div>
-                                    <p class="msg hide">
-                                        Single Line
-                                    </p>
-                                </div>
-                                <!-- 投注项选择 -->
-                                <div :class="{'hide': !showSingleBet }">
-                                    <ul v-if="lucky_values.length > 0">
-                                        <li v-for="item in lucky_values" @click="betSelFn(item)">
-                                            <div class="single-amount">
-                                                {{ item.bet }}
-                                            </div>
-                                            <div class="single-unit">
-                                                ETH
-                                            </div>
-                                        </li>
-                                        <!--<li>-->
-                                        <!--<div class="single-amount">-->
-                                        <!--0.0001-->
-                                        <!--</div>-->
-                                        <!--<div class="single-unit">-->
-                                        <!--ETH-->
-                                        <!--</div>-->
-                                        <!--</li>-->
-                                    </ul>
-                                </div>
+                                    </li>
+                                    <!--<li>-->
+                                    <!--<div class="single-amount">-->
+                                    <!--0.0001-->
+                                    <!--</div>-->
+                                    <!--<div class="single-unit">-->
+                                    <!--ETH-->
+                                    <!--</div>-->
+                                    <!--</li>-->
+                                </ul>
                             </div>
                             <div class="all">
+                                <p class="msg">
+                                    <lang>Total Bet</lang>
+                                </p>
                                 <div class="top">
                                     <div class="all-amount">
                                         {{ formateSlotBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
@@ -132,9 +132,6 @@
                                         ETH
                                     </div>
                                 </div>
-                                <p class="msg">
-                                    <lang>Total Bet</lang>
-                                </p>
                             </div>
                             <div class="bar">
                                 <div class="top">
@@ -1208,20 +1205,19 @@
         .jackpot-all {
             display: flex;
             justify-content: center;
+            align-items: baseline;
             height: 37px;
+            line-height:37px;
             overflow: hidden;
             p {
-                line-height: 41px;
                 font-size: 15px;
                 color: #f3ca83;
             }
             i {
                 margin: 0 3px 0 7px;
-                line-height: 37px;
                 font-size: 23px;
             }
             span {
-                line-height: 40px;
                 font-size: 15px;
             }
         }
@@ -1229,19 +1225,18 @@
             display: flex;
             justify-content: center;
             height: 35/2px;
+            line-height:35/2px;
             overflow: hidden;
+            align-items: baseline;
             p {
-                line-height: 20px;
                 font-size: 12px;
                 color: #f3ca83;
             }
             i {
-                line-height: 35/2px;;
                 margin: 0 3px 0 7px;
                 font-size: 14px;
             }
             span {
-                line-height: 21px;
                 font-size: 10px;
                 color: #ffe400;
             }
@@ -1477,7 +1472,7 @@
     .operating {
         position: absolute;
         z-index: 3;
-        width: percentage(610/750);
+        width: percentage(595/750);
         left: 50%;
         bottom: percentage(200/1173);
         transform: translateX(-50%);
@@ -1487,66 +1482,41 @@
         > div {
             position: relative;
             //width: percentage(173/610);
-            width:195/2px;
-            height:90/2px;
+            width:percentage(194/595);
             border-radius: 6px;
-            padding: 0 5px;
+            padding:0 10px;
             box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.3);
         }
         .single {
-            /*background: #2f250f;*/
-            /*border: 2px solid #bc9357;*/
-            background: url("../../assets/img/tiger/bg-single.png") no-repeat center;
-            background-size: cover;
             cursor: pointer;
-            .single-amount {
-                font-size: 15px;
-            }
-            .single-unit {
-                line-height: 22px;
-                font-size: 10px;
-            }
-            ul {
-                /*display: none;*/
-                position: absolute;
-                left: 0;
-                top: -99px;
-                width: 100%;
-                border: 2px solid #f3ca83;
-                border-top-left-radius: 6px;
-                border-top-right-radius: 6px;
-                border-bottom: none;
-                color: #ffe400;
-                background: #2f250f;
-                box-sizing: border-box;
-                li {
-                    cursor: pointer;
-                    display: flex;
-                    justify-content: center;
-                    height: 30px;
-                    line-height: 30px;
-                    background: #40861c;
-                    border-top-left-radius: 6px;
-                    border-top-right-radius: 6px;
-                    border-top:4px solid #2f250f;
-                    margin: 0 2px;
-                    font-weight: bold;
-                    .single-unit {
-                        line-height: 33px;
-                    }
-                    &:hover{
-                        background: #27570e;
-                    }
+            padding:0;
+            .top{
+                display: flex;
+                justify-content: center;
+                align-items: baseline;
+                height: 52/2px;
+                line-height: 52/2px;
+                color: #fff;
+                .single-amount {
+                    font-size: 15px;
+                }
+                .single-unit {
+                    line-height: 22px;
+                    font-size: 10px;
                 }
             }
             .msg {
-                position: relative;
-                &::after {
-                    content: '';
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(0, 0, 0, 0.3);
+                font-size: 12px;
+                color: #fff;
+                font-weight: bold;
+                font-family: Arial;
+                i{
                     display: block;
-                    position: absolute;
-                    top: 5px;
-                    right: 5%;
                     background: url("../../assets/img/tiger/icon-arrow.png") no-repeat center;
                     background-size: cover;
                     width: 15/2px;
@@ -1554,97 +1524,89 @@
                 }
             }
             &.on {
-                border-top: transparent;
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
+                .top{
+                    background: #173407;
+                }
+                .msg{
+                    background: #0f2404;
+                }
                 ul {
                     display: block;
                 }
-            }
-        }
-        .single-zh {
-            /*background: #2f250f;*/
-            /*border: 2px solid #bc9357;*/
-            background: url("../../assets/img/tiger/bg-single-zh.png") no-repeat center;
-            background-size: cover;
-            cursor: pointer;
-            .single-amount {
-                font-size: 15px;
-            }
-            .single-unit {
-                line-height: 22px;
-                font-size: 10px;
             }
             ul {
                 /*display: none;*/
                 position: absolute;
                 left: 0;
-                top: -99px;
+                top: -77px;
                 width: 100%;
-                border: 2px solid #f3ca83;
                 border-top-left-radius: 6px;
                 border-top-right-radius: 6px;
-                border-bottom: none;
-                color: #ffe400;
-                background: #2f250f;
+                color: #fff;
+                background: #173407;
                 box-sizing: border-box;
                 li {
                     cursor: pointer;
                     display: flex;
                     justify-content: center;
-                    height: 30px;
-                    line-height: 30px;
-                    background: #40861c;
+                    align-items: baseline;
+                    height: 34px;
+                    line-height: 34px;
+                    background: #295b0d;
                     border-top-left-radius: 6px;
                     border-top-right-radius: 6px;
-                    border-top:4px solid #2f250f;
-                    margin: 0 2px;
-                    font-weight: bold;
+                    margin: 5px 2px 0;
                     .single-unit {
                         line-height: 33px;
                     }
                     &:hover{
-                        background: #27570e;
+                        background: #0f2404;
                     }
                 }
-            }
-            .msg {
-                position: relative;
-                &::after {
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    top: 5px;
-                    right: 5%;
-                    background: url("../../assets/img/tiger/icon-arrow.png") no-repeat center;
-                    background-size: cover;
-                    width: 15/2px;
-                    height: 9/2px;
-                }
-            }
-            &.on {
-                border-top: transparent;
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-                ul {
-                    display: block;
+                &.ul3{
+                    top: -116px;
                 }
             }
         }
         .all {
+            border:2px solid #f3ca83;
             background-color: rgba(0, 0, 0, 0.3);
-            .all-amount {
-                font-size: 15px;
+            color: #ffe400;
+            font-weight: bold;
+            .msg{
+                border-bottom: 2px solid #f3ca83;
+                height:18px;
+                line-height:18px;
+                font-size:12px;
+                font-family: Arial;
             }
-            .all-unit {
-                line-height: 22px;
-                font-size: 10px;
+            .top{
+                display: flex;
+                justify-content: center;
+                align-items: baseline;
+                height: 21px;
+                line-height: 21px;
+                .all-amount {
+                    font-size: 16px;
+                }
+                .all-unit {
+                    font-size: 10px;
+                }
             }
         }
         .bar {
-            background-color: rgba(0, 0, 0, 0.3);
             .top {
+                display: flex;
                 justify-content: space-between;
+                border-bottom:2px solid rgba(243,202,131,0.2);
+                padding-top: 10/2px;
+                height: 40/2px;
+                line-height: 16px;
+                color: #ffe400;
+                font-weight: bold;
+                font-size:14px;
             }
             .bar-process {
                 position: relative;
@@ -1664,10 +1626,11 @@
                     margin:1px;
                 }
             }
-            .bar-msg {
-                font-size: 13px;
-                color: #7fd31d;
+            .msg {
+                font-size: 12px;
+                color: #fff;
                 font-weight: bold;
+                font-family: Arial;
             }
             .bar-lycky{
                 position: absolute;
@@ -1680,22 +1643,7 @@
                 animation:heartbeat 1s infinite;
             }
         }
-        .top {
-            display: flex;
-            justify-content: center;
-            padding-top: 6px;
-            height: 43/2px;
-            line-height: 43/2px;
-            color: #ffe400;
-            font-weight: bold;
-        }
-        .msg {
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            line-height: 16px;
-            font-size: 10px;
-            color: #fff;
-            font-family: Arial;
-        }
+
     }
     /*pop*/
     .pop{
