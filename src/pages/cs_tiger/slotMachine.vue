@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="tiger-contain">
         <div class="tiger-pc ">
             <Header></Header>
             <div class="tiger-main" @click="initPop">
@@ -2280,8 +2280,10 @@
         .footer{
             display: none;
         }
-
-
+        .tiger-contain{
+            background:#000 url("../../assets/img/tiger/bg-tiger-bak.png") no-repeat center top;
+            background-size: 100%;
+        }
     }
     .footer{
         border-top:0 !important;
