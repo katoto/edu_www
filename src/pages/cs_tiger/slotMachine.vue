@@ -989,7 +989,7 @@
             reduceMoney () {
                 if (this.userInfo && this.userInfo.accounts) {
                     if (this.currCoinType.toString() === '2001') {
-                        this.userInfo.accounts[0].balance = parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line))
+                        this.userInfo.accounts[0].balance = Math.abs( parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)) )
                         this.$store.commit('setUserInfo', this.userInfo)
                     }
                 }
