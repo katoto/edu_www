@@ -97,7 +97,9 @@ export default {
     props: {
         bet: {
             type: Object,
-            default: {}
+            default: function () {
+                return {}
+            }
         }
     }
 }
