@@ -123,49 +123,11 @@ export default {
 <style lang="less" scoped>
 @import "../../styles/lib-mixins.less";
 @import "../../styles/lib-media.less";
-@import "../../styles/lib-reset.css";
-* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-r;
-    list-style: none;
-}
-
-.fl {
-    float: left;
-}
-
-.fr {
-    float: right;
-}
-
-.clearfix() {
-    zoom: 1;
-    &:after {
-        content: "";
-        display: table;
-        height: 0;
-        line-height: 0;
-        visibility: hidden;
-        clear: both;
-    }
-}
-
-.clearfix {
-    .clearfix();
-}
-
-.hide {
-    display: none;
-}
-
-a {
-    text-decoration: none;
-}
 
 /*mobile 为主来写*/
 
-/deep/ .oneToKen {
+/deep/
+.oneToKen {
     background: #2a1236;
     .main {
         width: 100%;
@@ -805,7 +767,8 @@ a {
 /* sm小屏幕（平板，大于等于 768px） */
 
 @media (min-width: @screen-tablet) {
-    /deep/ .oneToKen {
+    /deep/
+    .oneToKen {
         .item-popular,
         .item-tltle,
         .item-common,
@@ -851,7 +814,8 @@ a {
 /* md中等屏幕（桌面显示器，大于等于 992px） */
 
 @media (min-width: @screen-desktop) {
-    /deep/ .oneToKen {
+    /deep/
+    .oneToKen {
         /*投注*/
         .betting {
             .bet-close {
@@ -1020,7 +984,8 @@ a {
 /* lg大屏幕（大桌面显示器，大于等于 1200px） */
 
 @media (min-width: @screen-lg-desktop) {
-    /deep/ .oneToKen {
+    /deep/
+    .oneToKen {
         .main {
             padding: 32px 0 100px 0;
         }
@@ -1220,21 +1185,7 @@ a {
 
 }
 
-/* xs超小屏幕（手机，小于 480） */
 
-@media (min-width: @screen-phone) {}
-
-/* sm小屏幕（平板，大于等于 768px） */
-
-@media (min-width: @screen-tablet) {}
-
-/* md中等屏幕（桌面显示器，大于等于 992px） */
-
-@media (min-width: @screen-desktop) {}
-
-/* lg大屏幕（大桌面显示器，大于等于 1200px） */
-
-@media (min-width: @screen-lg-desktop) {}
 </style>
 
 

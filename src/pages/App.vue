@@ -64,6 +64,7 @@
 </script>
 
 <style lang="less">
+    @import "../styles/lib-reset.css";
     @import "../styles/lib-font.less";
     @import "../styles/lib-public.less";
     @import "../styles/lib-media.less";

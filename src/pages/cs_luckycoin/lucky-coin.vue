@@ -14,6 +14,6 @@ export default {
     components: { Header, Footer }
 }
 </script>
-<style lang="less" scoped
+<style lang="less" scoped>
 </style>
 
