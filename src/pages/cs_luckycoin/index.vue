@@ -19,16 +19,16 @@
                     </div>
                     <div class="row  clearfix">
                         <div class="item-tltle">
+                            <router-link :to="{path: '/luckycoin/moreBids'}" class="btn-more">
+                                <lang>More >></lang>
+                            </router-link>
+                            <a href="javascript:;" class="btn-play">How To Play</a>
                             <div class="t1">
                                 Bet For The Prize
                             </div>
                             <p class="msg hidden-xs">
                                 All or nothing, small cost, big profit
                             </p>
-                            <router-link :to="{path: '/luckycoin/moreBids'}" class="btn-more">
-                                <lang>More >></lang>
-                            </router-link>
-                            <a href="javascript:;" class="btn-play">How To Play</a>
                         </div>
                         <div class="for-full">
                             <div class="col-md-6 col-lg-3">
@@ -57,16 +57,16 @@
                     </div>
                     <div class="row  clearfix">
                         <div class="item-tltle">
+                            <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
+                                <lang>More >></lang>
+                            </router-link>
+                            <a href="javascript:;" class="btn-play">Check Transparency</a>
                             <div class="t1">
                                 Draw History
                             </div>
                             <p class="msg hidden-xs">
                                 Fair Open，Draw in blockchain
                             </p>
-                            <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
-                                <lang>More >></lang>
-                            </router-link>
-                            <a href="javascript:;" class="btn-play">Check Transparency</a>
                         </div>
                         <div class="for-full">
                             <div class="history">
@@ -673,9 +673,7 @@ export default {
     .item-tltle {
         position: relative;
         width: percentage(690/750);
-        padding-top: 30/2px;
-        height: 132/2px;
-        margin: 0 auto;
+        margin: 30px auto 20px;
         overflow: hidden;
         >*{
             display: table-cell;
@@ -689,14 +687,13 @@ export default {
 
         }
         .msg {
-
             color: #a99acc;
             font-size: 12px;
             margin-left: 20px;
         }
         .btn-more,
         .btn-play {
-
+            float: right;
             color: #a486f7;
             font-size: 13px;
         }
@@ -1150,11 +1147,13 @@ export default {
         .item-tltle {
             width: 100%;
             max-width: 1190px;
-            padding-top: 6px;
-            height: 76px;
+            margin: 32px auto 20px;
             overflow: hidden;
-            .btn-play {
-
+            .t1{
+                padding-right:20px;
+            }
+            a{
+                font-size:14px;
             }
         }
         .recentBets {
