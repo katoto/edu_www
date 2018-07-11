@@ -389,6 +389,13 @@ export function copyError () {
     })
 }
 
+/* float 浮点精度问题  0.001 * 9 */
+export function formatFloat (f, digit = 5) {
+    f = parseFloat(f)
+    let m = Math.pow(10, digit)
+    return Math.round(f * m, 10) / m
+}
+
 export function getURLParams () {
     let string = window.location.search
     let obj = {}

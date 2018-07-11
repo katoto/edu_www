@@ -180,6 +180,12 @@
                                 <div @touchstart="touStart" @touchend="touEnd" @mousedown="touStart" @mouseup="touEnd" class="btn btn-double" >
                                     <lang>Double</lang>
                                 </div>
+                                <!--免费-->
+                                <div class="btn btn-free" @touchstart="touStart" @touchend="touEnd('isFree')" @mousedown="touStart" @mouseup="touEnd('isFree')"  :class="{'hide':!parseFloat(free_times)}">
+                                    <p><lang>FREE</lang></p>
+                                    <div v-if="parseFloat(free_times)>1">{{ free_times }} <lang>Chances</lang></div>
+                                    <div v-else>{{ free_times }} <lang>Chance</lang></div>
+                                </div>
                             </template>
                         </a>
                     </div>
@@ -312,9 +318,9 @@
                                     </p>
                                 </div>
                                 <div class="msg">
-                                    <p>· <lang>Place 0.0001 ETH per line, you can only get fixed reward</lang></p>
+                                    <p>· <lang>Place 0.001 ETH per line, you can get 5% of the Jackpot</lang></p>
                                     <p>· <lang>Place 0.001 ETH per line, you can get 50% of the Jackpot</lang></p>
-                                    <p>· <lang>Place 0.01 ETH per line, you can get 50% of the Jackpot</lang></p>
+                                    <p class="hide">· <lang>Place 0.01 ETH per line, you can get 50% of the Jackpot</lang></p>
                                 </div>
                                 <div class="line-divi">
                                     <div><lang>Lucky Bar</lang></div>
@@ -431,7 +437,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import BannerScroll from '~components/BannerScroll.vue'
-    import {copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance} from '~common/util'
+    import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance} from '~common/util'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
@@ -698,7 +704,7 @@
                 }
                 /* 余额是否充足 */
                 if (this.userInfo && this.userInfo.accounts[0]) {
-                    if ((parseFloat(this.userInfo.accounts[0].balance) <= (parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
+                    if ((parseFloat(this.userInfo.accounts[0].balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                         /* 显示余额不足 */
                         this.showRecharge = true
                         return false
@@ -1003,38 +1009,35 @@
                     })
                     let i = 0
                     this.winRadioHtml = ''
-                    // console.log('=============')
-                    // console.log(this.winRadioObj)
-                    // console.log(JSON.stringify(this.winRadioObj))
-                    // console.log(Object.keys(this.winRadioObj))
-                    // Object.keys(this.winRadioObj).sort((a, b) => {
-                    //     return parseFloat(a) < parseFloat(b)
-                    // }).map((v) => {
-                    //     return this.winRadioObj[v] // 根据原键名从obj中再找对应的项
-                    // })
-                    // console.log(Object.keys(this.winRadioObj))
-                    // console.log(JSON.stringify(this.winRadioObj))
-                    // console.log('=============')
-                    for (let item in this.winRadioObj) {
+                    let copyRadioArr = []
+                    for (let index in this.winRadioObj) {
+                        let o = {}
+                        o['key'] = index
+                        o['value'] = this.winRadioObj[index]
+                        o[index] = this.winRadioObj[index]
+                        copyRadioArr.push(o)
+                    }
+                    copyRadioArr = copyRadioArr.reverse()
+                    copyRadioArr.forEach((val, index) => {
                         if (i % 2 === 0) {
                             this.winRadioHtml += `
                                             <ul class="radioLi"><li>
-                                                <img src="../../../static/staticImg/_${this.radioBackImg(item)}.png" alt="">&ensp;
-                                                <span>x ${this.winRadioObj[item].length}</span>&ensp;
-                                                <span>${parseFloat(item) * this.winRadioObj[item].length}</span>&ensp;
+                                                <img src="../../../static/staticImg/_${this.radioBackImg(val['key'])}.png" alt="">&ensp;
+                                                <span>x ${val['value'].length}</span>&ensp;
+                                                <span>${parseFloat(val['key']) * val['value'].length}</span>&ensp;
                                                 <span>Times</span>
                                             </li>
                                         `
                         } else {
                             this.winRadioHtml += `<li >
-                                                <img src="../../../static/staticImg/_${this.radioBackImg(item)}.png" alt="">&ensp;
-                                                <span>x ${this.winRadioObj[item].length}</span>&ensp;
-                                                <span>${parseFloat(item) * this.winRadioObj[item].length}</span>&ensp;
+                                                <img src="../../../static/staticImg/_${this.radioBackImg(val['key'])}.png" alt="">&ensp;
+                                                <span>x ${val['value'].length}</span>&ensp;
+                                                <span>${parseFloat(val['key']) * val['value'].length}</span>&ensp;
                                                 <span>Times</span>
                                             </li></ul>`
                         }
                         i++
-                    }
+                    })
                     if (i % 2 !== 0) {
                         this.winRadioHtml += '</ul>'
                     }
@@ -1104,9 +1107,6 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
-            console.log(window.innerWidth)
-            console.log(window.innerHeight)
-            console.log(window.devicePixelRatio)
             await this.changePageState()
             this.$store.dispatch('subInTiger')
         },
