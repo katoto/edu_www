@@ -175,7 +175,7 @@ const actions = {
             if (pageData) {
                 InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
             }
-            if (InfoData.status === '100') {
+            if (InfoData.status.toString() === '100') {
                 commit('setLoginSucc', InfoData.data)
                 return InfoData.data
             } else {
@@ -200,9 +200,13 @@ const actions = {
         commit('setIsLog', false)
         removeCK()
         commit('setUserInfo', {})
-        if (!~state.route.path.indexOf('lucky')) {
+        // || ~state.route.path.indexOf('drawNumber')
+        if (~state.route.path.indexOf('account')) {
             router.push('/lucky')
         }
+        // if (~state.route.path.indexOf('SlotMachine')) {
+        //
+        // }
         dispatch('sub2out')
     },
 
@@ -283,9 +287,6 @@ const actions = {
             let InfoData = null
             if (pageData) {
                 InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}`)
-                // if (state.mailType) {
-                //     InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}`)
-                // }
             }
             return InfoData
         } catch (e) {

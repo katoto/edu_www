@@ -97,7 +97,7 @@
 </template>
 
 <script>
-    import {Message} from 'element-ui'
+    import {copySucc, copyError} from '~common/util'
 
     export default {
         data () {
@@ -109,18 +109,9 @@
                 /* 应该是一个新的 验证邮箱的界面 */
                 this.$store.commit('showNoVerify')
             },
-            copySucc () {
-                Message({
-                    message: _('Copied to clipboard'),
-                    type: 'success'
-                })
-            },
-            copyError () {
-                Message({
-                    message: _('Failed to copy, please retry'),
-                    type: 'success'
-                })
-            }
+            copySucc,
+            copyError
+
         },
         computed: {
             isLog () {
@@ -130,7 +121,6 @@
                 return this.$store.state.userInfo
             }
         },
-        components: {},
         mounted () {
             if (!this.isLog) {
                 this.$router.push('/home')

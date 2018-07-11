@@ -8,7 +8,7 @@ Vue.use(Router)
 
 /* cs_1105 */
 /* cs_1105 首页 */
-const lucky = () => import('~/pages/cs_1105/lucky')
+const lucky11 = () => import('~/pages/cs_1105/lucky')
 /* cs_1105 开奖页 */
 const csDrawNum = () => import('~/pages/cs_1105/drawNumber')
 
@@ -25,24 +25,32 @@ const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
 /* 老虎机 */
-const tiger = () => import('~/pages/cs_tiger/tiger')
+const slotmachine = () => import('~/pages/cs_tiger/slotMachine')
 
-// 404
+/* 一元夺币 */
+const oneToken = () => import('~/pages/cs_oneToken/oneToken')
+
+// 404  history
 const page404 = () => import('~/pages/404.vue')
 
+//     linkActiveClass: 'on',
 export default new Router({
-    mode: 'hash',
-    linkActiveClass: 'on',
+    mode: 'history',
     routes: [
         {
-            path: '/lucky',
-            name: 'lucky',
-            component: lucky
+            path: '/lucky11',
+            name: 'lucky11',
+            component: lucky11
         },
         {
-            path: '/tiger',
-            name: 'tiger',
-            component: tiger
+            path: '/slotmachine',
+            name: 'slotmachine',
+            component: slotmachine
+        },
+        {
+            path: '/oneToken',
+            name: 'oneToken',
+            component: oneToken
         },
         {
             path: '/terms',
@@ -101,7 +109,7 @@ export default new Router({
         },
         {
             path: '/*',
-            redirect: '/lucky'
+            redirect: '/lucky11'
         }
     ]
 })
@@ -116,13 +124,14 @@ if (location.search) {
     })
     if (queryObj.sign) {
         if (queryObj.inviter) {
-            history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
+            // history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
+            history.replaceState({}, '', `${location.origin}/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
         }
         if (queryObj.from) {
             if (queryObj.from === 'resetPassword') {
-                history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
+                history.replaceState({}, '', `${location.origin}/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
             } else {
-                history.replaceState({}, '', `${location.href.split(location.pathname)[0]}${location.pathname}#/home/?from=${queryObj.from}&sign=${queryObj.sign}`)
+                history.replaceState({}, '', `${location.origin}${location.pathname}/?from=${queryObj.from}&sign=${queryObj.sign}`)
             }
         }
     }

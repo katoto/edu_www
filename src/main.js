@@ -6,8 +6,6 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import lanaguage from './plugins/language'
 
-import vueClipboard from 'vue-clipboard2'
-
 // 全局
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
@@ -15,14 +13,15 @@ import vueClipboard from 'vue-clipboard2'
 // Vue.use(ElementUI, { locale });
 
 // 全局 end
+import '@/styles/lib-reset.css'
+import '@/styles/element.css'
+
 //  按需加载  有点小问题
-import {Carousel, CarouselItem, Button, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
+import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 
-import '@/styles/lib-reset.css'
-import '@/styles/element.css'
 // 设置语言
 locale.use(lang)
 // 特定國際化
@@ -33,7 +32,6 @@ locale.i18n((key, value) => {
     }[key]
 })
 
-Vue.component(Button.name, Button)
 Vue.component(Table.name, Table)
 Vue.component(Pagination.name, Pagination)
 Vue.component(TableColumn.name, TableColumn)
@@ -53,8 +51,6 @@ Vue.component(CarouselItem.name, CarouselItem)
 // import $ from 'jquery'
 // import vueTap from 'v-tap'
 // Vue.use(vueTap)
-
-Vue.use(vueClipboard)
 
 const store = storeFactory()
 sync(store, router)

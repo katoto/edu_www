@@ -3,8 +3,7 @@
  */
 
 import ajax from '~common/ajax'
-import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
-import {Message} from 'element-ui'
+import {mapMutations, mapActions, wait} from '~common/util'
 
 const state = {
     recentList: [], // 最近中奖列表
@@ -47,12 +46,23 @@ const actionsInfo = mapActions({
     },
 
     /* 添加中奖播报 动态插入 */
-    addRecentList ({state, commit, dispatch}, data) {
+    async addRecentList ({state, commit, dispatch}, data) {
         if (data && state.recentList) {
             // 对象
+            await wait(5000)
+            if (state.recentList.length > 7) {
+                commit(mTypes.recentList, state.recentList.slice(0, 7))
+            }
             state.recentList.unshift(data)
         }
         commit(mTypes.recentList, state.recentList)
+        setTimeout(() => {
+            state.recentList.forEach((val, index) => {
+                if (val.addNewRecord) {
+                    val.addNewRecord = false
+                }
+            })
+        }, 800)
     },
 
     /* 老虎机首页数据 */
@@ -89,7 +99,6 @@ const actionsInfo = mapActions({
     }
 
     /*   */
-
 }, 'cs_tiger')
 
 export const mTypes = mutationsInfo.mTypes

@@ -1,5 +1,6 @@
 <template>
-    <div class="">
+    <div id="lucky11">
+        <Banner></Banner>
         <Header></Header>
         <HeaderNav></HeaderNav>
         <div class="main">
@@ -311,22 +312,6 @@
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-        <!--中奖啦 open-->
-        <!--<div class="fix-winning open">-->
-            <!--<a href="javascript:;" class="close-winning"></a>-->
-            <!--<span class="msg1">Congratulations!</span>-->
-            <!--<p class="msg2">You&ensp;Win&ensp;+&ensp;{{0.00318}}</p>-->
-        <!--</div>-->
-        <!-- 世界杯弹窗 -->
-        <div class="pop pop-world hide" :class="{'hide':!showPopWorld}">
-            <div class="contain">
-                <a href="javascript:;" @click="showPopWorld=false" class="close worldCupClose">close</a>
-                <img src="@assets/img/enter-worldCup.png" alt="" width="818" height="435">
-                <a target="_blank" href="https://www.coinslot.com/coinslot/html/worldCup.html" class="btn-join">
-                    Join Now
-                </a>
-            </div>
-        </div>
 
     </div>
 </template>
@@ -334,18 +319,17 @@
 <script>
     import Header from '~components/Header.vue'
     import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
+    import Banner from '~components/banner'
     import PlayArea from '~pages/cs_1105/PlayArea.vue'
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
     import { Message } from 'element-ui'
-    import {formateCoinType, formatMatch, formateBalance, removeCK} from '~common/util'
+    import {formateCoinType, formatMatch, formateBalance, removeCK, formatTime} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
         data () {
             return {
-                showPopWorld: false,
-
                 showOrderSucc: false,
                 showOrderFail: false,
                 failureMsg: '* *',
@@ -439,11 +423,10 @@
                     return false
                 }
                 /* 未激活的 */
-                if (this.userInfo && this.userInfo.status === '0') {
+                if (this.userInfo && this.userInfo.status !== '1') {
                     this.$store.commit('showNoVerify')
                     return false
                 }
-
                 // 判断 余额是否足
                 if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
                     Message({
@@ -554,8 +537,8 @@
                 }
             },
             fixNav () {
-                // this.scroll = document.documentElement.scrollTop || document.body.scrollTop
-                if (this.scroll >= 90) {
+                this.scroll = document.getElementById('lucky11').scrollTop
+                if (this.scroll >= 160) {
                     this.$store.commit(mTypes.setNavFix, true)
                 } else {
                     this.$store.commit(mTypes.setNavFix, false)
@@ -654,60 +637,29 @@
             Header,
             HeaderNav,
             PlayArea,
-            LuckyMybet
+            LuckyMybet,
+            Banner
         },
         filters: {
             formateCoinType,
             formatMatch,
             formateBalance,
-            formatTime: (time, format) => {
-                if (format === undefined || format == null) {
-                    format = 'MM-dd HH:mm:ss'
-                }
-                if (isNaN(time)) {
-                    return false
-                }
-                let t = new Date(+time * 1000)
-                let tf = function (i) {
-                    return (i < 10 ? '0' : '') + i
-                }
-                return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-                    switch (a) {
-                    case 'yyyy':
-                        return tf(t.getFullYear())
-                    case 'MM':
-                        return tf(t.getMonth() + 1)
-                    case 'mm':
-                        return tf(t.getMinutes())
-                    case 'dd':
-                        return tf(t.getDate())
-                    case 'HH':
-                        return tf(t.getHours())
-                    case 'ss':
-                        return tf(t.getSeconds())
-                    }
-                })
-            }
+            formatTime
         },
         async mounted () {
-            /* 订阅lucky11 sock */
-            this.$store.dispatch('subInLucky')
             this.updateBaseAreaMsg()
             this.addTicket()
-            window.addEventListener('scroll', this.fixNav)
+            window.addEventListener('scroll', this.fixNav, true)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            /* 开启动态数据定时器 */
-            this.$store.dispatch(aTypes.recentBetAdd)
-
-            // 首页世界杯弹窗
-            if (localStorage.getItem('js_showWorldCup') !== new Date().getDate().toString()) {
-                this.showPopWorld = true
-                localStorage.setItem('js_showWorldCup', new Date().getDate())
-            }
-
             // 首页 冒泡效果
+            setTimeout(() => {
+                /* 订阅lucky11 sock */
+                this.$store.dispatch('subInLucky')
+                /* 开启动态数据定时器 */
+                this.$store.dispatch(aTypes.recentBetAdd)
+            }, 0)
             bgStarBox()
             function bgStarBox () {
                 bgstar('stars1', 30, '#7063c9')
@@ -732,7 +684,7 @@
             this.$store.dispatch('subOutLucky')
         },
         destroyed () {
-            window.removeEventListener('scroll', this.fixNav)
+            window.removeEventListener('scroll', this.fixNav, false)
         }
 
     }
@@ -865,7 +817,7 @@
             position: relative;
             z-index: 3;
             width: 1190px;
-            padding-top: 40px;
+            /*padding-top: 40px;*/
             margin: 0 auto;
             > li {
                 position: relative;
@@ -1754,5 +1706,8 @@
         &.open{
             transform: translate(0,0);
         }
+    }
+    .head-box{
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
     }
 </style>

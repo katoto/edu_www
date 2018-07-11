@@ -53,14 +53,11 @@
 </template>
 
 <script>
-import {formateBalance, formateJackpot} from '~common/util'
-
 export default {
     data () {
         return {
             tes: false,
             isShowHistoryCode: false
-
         }
     },
     watch: {
@@ -71,7 +68,6 @@ export default {
         }
     },
     methods: {
-        formateBalance,
         historyCodeFilter (historyCode) {
             let isLastCode = false
             let lastIndex = 0
@@ -122,10 +118,6 @@ export default {
     },
     async mounted () {
         this.getHistoryDraw()
-    },
-    filters: {
-        formateBalance,
-        formateJackpot
     }
 }
 </script>
@@ -136,19 +128,19 @@ export default {
         position: relative;
         z-index: 7;
         width: 100%;
+        padding:15px 0;
         height: 60px;
         line-height: 60px;
-        //overflow: hidden;
-        background: #463895;
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
         color: #fff;
-        .transition();
+        transition: all 0.2s;
     }
 
     .nav.fix {
         position: fixed;
         left: 0;
         top: 0;
-        z-index: 10;
+        z-index: 90;
         background: #3d3086;
     }
 
@@ -162,7 +154,7 @@ export default {
     .logo11to5 {
         float: left;
         font: 24px/60px sans-eb;
-        color: #ffffff;
+        color: #fff;
     }
 
     .deadline {

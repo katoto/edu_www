@@ -20,7 +20,6 @@
     import PopIpLimit from '~components/Pop-ipLimit.vue'
     import PopFreeplay from '~components/Pop-freeplay.vue'
     import {isLog} from '~common/util'
-    // todo 暂时到时候改到global
     export default {
         data () {
             return {
@@ -40,7 +39,6 @@
             }
         },
         async mounted () {
-            /* isLog ? */
             if (isLog()) {
                 this.$store.commit('setIsLog', true)
                 let userMsg = await this.$store.dispatch('getUserInfo')
@@ -54,10 +52,13 @@
 
             /* 老虎机和首页 */
             if (!(this.socket && this.socket.sock)) {
-                this.$store.dispatch('initWebsocket')
+                this.$store.dispatch('initWebsocket', () => {
+                    this.$store.dispatch('homeInfo')
+                    setTimeout(function () {
+                        document.getElementById('coinslotLoading').style.display = 'none'
+                    }, 0)
+                })
             }
-            this.$store.dispatch('homeInfo')
-            document.getElementById('coinslotLoading').style.display = 'none'
         }
     }
 </script>
@@ -67,12 +68,35 @@
     @import "../styles/lib-public.less";
     @import "../styles/lib-media.less";
     #app {
+        display: flex;
+        flex-direction: column;
         position: relative;
         background: #eef1f9;
         font-size: 14px;
         line-height: 20px;
-        font-family: "Microsoft Yahei", sans-r;
+        font-family: sans-r,Microsoft Yahei;
         color: #263648;
         overflow: hidden;
+    }
+    .radioLi{
+        display: flex;
+        justify-content: center;
+        height:22px;
+        line-height:22px;
+        overflow: hidden;
+        font-size:12px;
+        color: #fff;
+        li{
+            display: flex;
+            justify-content: center;
+        }
+        li+li{
+            margin-left:5px;
+        }
+        img{
+            display: block;
+            width:22px;
+            height:22px;
+        }
     }
 </style>

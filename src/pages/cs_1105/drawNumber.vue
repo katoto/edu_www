@@ -150,7 +150,7 @@
 </template>
 <script>
     import {aTypes} from '~/store/cs_page/cs_1105'
-    import {ethUrl} from '~common/util'
+    import {ethUrl, formatTime} from '~common/util'
 
     import Header from '~/components/Header.vue'
     import Footer from '~/components/Footer.vue'
@@ -177,6 +177,7 @@
         },
         watch: {},
         methods: {
+            formatTime,
             downLoadfile (expectid) {
                 window.location.href = 'https://www.coinslot.com/download/expects/1_' + expectid + '.txt'
             },
@@ -200,47 +201,15 @@
                 }
             },
             /*
-                 *  格式化时间  allbet time
-                 * */
-            format_time (time, format) {
-                if (format === undefined || format == null) {
-                    format = 'HH:mm:ss'
-                    // format = 'MM-dd HH:mm:ss'
-                }
-                if (isNaN(time)) {
-                    return false
-                }
-                let t = new Date(+time * 1000)
-                let tf = function (i) {
-                    return (i < 10 ? '0' : '') + i
-                }
-                return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-                    switch (a) {
-                    case 'yyyy':
-                        return tf(t.getFullYear())
-                    case 'MM':
-                        return tf(t.getMonth() + 1)
-                    case 'mm':
-                        return tf(t.getMinutes())
-                    case 'dd':
-                        return tf(t.getDate())
-                    case 'HH':
-                        return tf(t.getHours())
-                    case 'ss':
-                        return tf(t.getSeconds())
-                    }
-                })
-            },
-            /*
-                 *  格式化drawNum 数据
-                 *  return 格式化后的数据
-                 * */
+             *  格式化drawNum 数据
+             *  return 格式化后的数据
+             * */
             format_drawNum (Msg) {
                 if (Msg) {
                     Msg.forEach((val, index) => {
                         val.index = index
                         // opentime
-                        val.opentime = this.format_time(val.opentime, 'MM-dd HH:mm:ss')
+                        val.opentime = this.formatTime(val.opentime, 'MM-dd HH:mm:ss')
 
                         if (val.expect_status.toString() === '4' || val.expect_status.toString() === '5') {
                             if (val.opencode === null) {
@@ -513,7 +482,6 @@
             }
         }
     }
-
 
     .main-reward{
         .icon-jackpot{

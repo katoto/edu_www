@@ -177,7 +177,7 @@
                 <!-- 奖池 -->
                 <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;ETH</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
-                    {{ _('including C5: {0}ETH; jackpot {1} ETH', formateBalanceFun(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)), formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio)) }}
+                    {{ _('including C5: {0}ETH; jackpot {1} ETH', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)), formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio)) }}
                 </i>
             </div>
         </div>
@@ -198,34 +198,8 @@
 </template>
 
 <script>
-    import {randomNumber, formateBalance} from '~common/util'
+    import {randomNumber, formateBalance, formateJackPot} from '~common/util'
     import {Message} from 'element-ui'
-
-    function formateJackPot (money, poolAmount, poolRatio) {
-        money = parseFloat(money)
-        if (!poolAmount) {
-            console.error('poolAmount error at formateJackPot')
-            return 0
-        }
-        if (!poolRatio) {
-            console.error('poolRatio error at formateJackPot')
-            return 0
-        }
-        if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
-            if (money < parseFloat(poolRatio[0].value)) {
-                return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-            if (money < parseFloat(poolRatio[1].value)) {
-                return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-            if (money < parseFloat(poolRatio[2].value)) {
-                return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-            if (money <= parseFloat(poolRatio[3].value)) {
-                return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
-            }
-        }
-    }
 
     export default {
         data () {
@@ -240,7 +214,8 @@
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
         watch: {},
         methods: {
-            formateBalanceFun: formateBalance,
+            formateBalance,
+            formateJackPot,
             //   隐藏
             showPopLimit () {
                 this.$store.commit('showPopLimit')
@@ -389,25 +364,7 @@
                         pickType: $event.target.getAttribute('data-index')
                     })
                 }
-            },
-            showReward () {
-                //  3.0  hover 的
-                // $(".js_showReward").off('mouseenter').off('mouseleave').hover(function (e) {
-                //     $('.js_pop_rewardTable').css('top', 40 + Number($(e.target).parents('.js_playArea-li').index()) * 220).stop().slideDown(300)
-                // }, function () {
-                //     $('.js_pop_rewardTable').stop().slideUp(300)
-                // });
-                //
-                // $('.js_pop_rewardTable').off('mouseenter').off('mouseleave').hover(function () {
-                //     $('.js_showReward').addClass('on')
-                //     $(this).stop().slideDown(300)
-                // }, function () {
-                //     $('.js_showReward').removeClass('on')
-                //     $(this).stop().slideUp(300)
-                // });
-                console.log('showReward')
-            },
-            formateJackPot
+            }
 
         },
         computed: {
@@ -424,35 +381,6 @@
         mounted () {
         },
         filters: {
-            formateCoinType (type = '2001') {
-                type = type.toString()
-                switch (type) {
-                case '2001':
-                    return 'ETH'
-                case '1001':
-                    return 'BTC'
-                default:
-                    return 'ETH'
-                }
-            },
-            format_match (match) {
-                if (isNaN(match)) {
-                    return ''
-                }
-                match = match.toString()
-                switch (match) {
-                case '1101':
-                    return 'C1'
-                case '1102':
-                    return 'C2'
-                case '1103':
-                    return 'C3'
-                case '1104':
-                    return 'C4'
-                case '1105':
-                    return 'C5'
-                }
-            },
             formateBalance,
             formateJackPot
         }

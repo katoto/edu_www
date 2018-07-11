@@ -1261,7 +1261,8 @@
     -webkit-transition: -webkit-transform .15s ease-in;
     transition: -webkit-transform .15s ease-in;
     transition: transform .15s ease-in;
-    transition: transform .15s ease-in,-webkit-transform .15s ease-in
+    transition: transform .15s ease-in;
+    /*-webkit-transform .15s ease-in;*/
 }
 
 .el-radio__original {
@@ -3025,7 +3026,7 @@
 }
 
 .el-range-editor.el-input__inner {
-    display: -webkit-inline-box;
+    /*display: -webkit-inline-box;*/
     display: -ms-inline-flexbox;
     display: inline-flex;
     -webkit-box-align: center;
@@ -5842,7 +5843,7 @@
 }
 
 .el-row--flex.is-justify-space-around {
-    -ms-flex-pack: distribute;
+    /*-ms-flex-pack: distribute;*/
     justify-content: space-around
 }
 
@@ -9242,6 +9243,7 @@
     border-radius: 6px;
     overflow: hidden;
     transition: all 0.2s;
+    text-align: center !important;
 }
 
 .el-progress-bar__inner::after {
@@ -10351,7 +10353,7 @@
     -webkit-transition: -webkit-transform .3s;
     transition: -webkit-transform .3s;
     transition: transform .3s;
-    transition: transform .3s,-webkit-transform .3s;
+    /*transition: transform .3s,-webkit-transform .3s;*/
     font-size: 14px
 }
 
@@ -10635,7 +10637,7 @@
 }
 
 .el-color-svpanel__cursor>div {
-    cursor: head;
+    cursor:pointer;
     width: 4px;
     height: 4px;
     -webkit-box-shadow: 0 0 0 1.5px #fff,inset 0 0 1px 1px rgba(0,0,0,.3),0 0 1px 2px rgba(0,0,0,.4);
@@ -10651,8 +10653,7 @@
     box-sizing: border-box;
     width: 280px;
     height: 12px;
-    background: url(data:image/png;
-    base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==)
+    /*background: url(data:image/png base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);*/
 }
 
 .el-color-alpha-slider__bar {
@@ -11023,6 +11024,7 @@
     cursor: pointer;
     position: relative;
     z-index: 3;
+    height:23px;
     line-height: 23px;
     color: #6a89cc;
     border: 1px solid #d5d5d5;
@@ -11030,6 +11032,7 @@
     -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     text-indent: 10px;
+    padding:0;
 }
 
 .el-input__prefix,.el-input__suffix {

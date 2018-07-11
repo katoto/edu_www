@@ -319,7 +319,6 @@ export default {
             ]
         }
     },
-    watch: {},
     methods: {
         formateBalance,
         handleStatusChange () {

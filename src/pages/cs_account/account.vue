@@ -23,9 +23,13 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import Header from '~components/Header.vue'
     import Footer from '~components/Footer.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
+
+    import vueClipboard from 'vue-clipboard2'
+    Vue.use(vueClipboard)
 
     export default {
         data () {
@@ -96,5 +100,8 @@
         border-radius: 6px;
         font-size: 20px;
         color: #263648;
+    }
+    .head-box{
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
     }
 </style>

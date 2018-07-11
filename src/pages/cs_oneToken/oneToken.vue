@@ -1,22 +1,30 @@
 <template>
     <div id="app">
+        <Header></Header>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
-	export default {
-	    data () {
-	        return {
-	            title: ''
-	        }
-	    },
-	    watch: {},
-	    methods: {},
-	    computed: {},
-	    mounted () {
+    import Header from '~components/Header.vue'
+    import Footer from '~components/Footer.vue'
 
-	    }
-	}
+    export default {
+        data () {
+            return {
+                title: ''
+            }
+        },
+        watch: {},
+        methods: {},
+        computed: {},
+        mounted () {
+
+        },
+        components: {
+            Header, Footer
+        }
+    }
 </script>
 <style>
 </style>

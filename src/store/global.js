@@ -2,7 +2,7 @@ import ajax, {sockURL} from '~common/ajax'
 import {tipsTime, removeCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-import {mutationTypes, actionTypes} from '~/store/cs_page/cs_tiger'
+import {actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
 
 function combimeStore (store, newStore) {
@@ -24,6 +24,7 @@ csCommon.keys().forEach(function (commonPath) {
 const state = {
     version: '0.0.1',
     isLog: false,
+    initHeadState: null, // 初始化头部转态
     showEmailErr: false,
     userInfo: null,
     socket: {
@@ -32,11 +33,14 @@ const state = {
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
-    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 eth
+    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 btc
     ...common.state
 }
 
 const mutations = {
+    initHeadState (state, data) {
+        state.initHeadState = data
+    },
     setCurrCoinType (state, data) {
         state.currCoinType = data
     },
@@ -100,7 +104,7 @@ const actions = {
     async getUserInfo ({state, commit, dispatch}) {
         try {
             let userMsg = null
-            if (!(getCK() === '0' || !getCK())) {
+            if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
                 userMsg = await ajax.get(`/user/info`)
                 if (userMsg.status.toString() === '100') {
                     if (userMsg.data.uid) {
@@ -164,17 +168,19 @@ const actions = {
             }
             return userMsg
         } catch (e) {
-            if (e && e.status && e.status === '214') {
-                removeCK()
-                commit('setIsLog', false)
-                commit('setUserInfo', {})
-                commit('showLoginPop')
+            if (e && e.status) {
+                if (e.status === '214' || e.status === '206') {
+                    removeCK()
+                    commit('setIsLog', false)
+                    commit('setUserInfo', {})
+                    commit('showLoginPop')
+                }
             }
         }
     },
 
     /* websocket */
-    initWebsocket ({commit, state, dispatch}) {
+    initWebsocket ({commit, state, dispatch}, fn) {
         return new Promise((resolve, reject) => {
             let sock = new WebSocket(`${sockURL}`)
             let interval = null
@@ -275,7 +281,6 @@ const actions = {
                         case '2001':
                             // 老虎机初始化
                             if (msg.data) {
-                                console.log(msg.data)
                                 dispatch(actionTypes.formateTiger, msg.data)
                             }
                             break
@@ -295,6 +300,7 @@ const actions = {
             sock.onopen = function () {
                 let webSockaction = null
                 let currUid = null
+                fn()
                 clearInterval(interval)
                 if (state.userInfo && state.userInfo.uid) {
                     webSockaction = {
@@ -334,11 +340,12 @@ const actions = {
                 clearInterval(interval)
                 setTimeout(() => {
                     commit('addConnectNum')
-                    dispatch('initWebsocket')
+                    dispatch('initWebsocket', fn)
                 }, 5000)
             }
             sock.onerror = function (e) {
                 console.error('sock error')
+                fn()
                 e.code = '102'
                 if (flag === 1) return
                 if (hasFinished) return
@@ -351,13 +358,12 @@ const actions = {
                 let error = new Error('websocket timeout')
                 error.code = '103'
                 reject(error)
-            }, 1000)
+            }, 15000)
             commit('initSocket', {sock, interval})
         })
     },
     sub2out ({commit, state}) {
         let sub2outStr = null
-        console.log(state)
         try {
             if (state.userInfo && state.userInfo.uid) {
                 sub2outStr = {
@@ -388,7 +394,7 @@ const actions = {
         localStorage.setItem('block_uid', '0')
         removeCK('block_ck')
     },
-    sub2In ({commit, state}) {
+    sub2In ({commit, state, dispatch}) {
         let sub2InStr = null
         let currUid = null
         try {
@@ -421,17 +427,21 @@ const actions = {
             console.error(e.message)
         }
     },
-    subInTiger () {
+    subInTiger ({commit, state, dispatch}) {
         /* 进入老虎机页面 订阅 */
         try {
             let subTigerStr = {
                 action: 'sub',
+                lotid: 1,
                 cointype: 2001,
                 type: 'slots'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
         } catch (e) {
             console.error(e.message + 'subInTiger error')
+            setTimeout(() => {
+                dispatch('subInTiger')
+            }, 100)
         }
     },
     subOutTiger () {
@@ -439,6 +449,7 @@ const actions = {
         try {
             let unsubTigerStr = {
                 action: 'unsub',
+                lotid: 1,
                 cointype: 2001,
                 type: 'slots'
             }
@@ -447,17 +458,21 @@ const actions = {
             console.error(e.message + 'subOutTiger error')
         }
     },
-    subInLucky () {
+    subInLucky ({commit, state, dispatch}) {
         /* 进入lucky11页面 订阅 */
         try {
             let subLuckyStr = {
                 action: 'sub',
                 cointype: 2001,
+                lotid: 1,
                 type: 'lottery'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
         } catch (e) {
-            console.error(e.message + 'subInLucky error')
+            setTimeout(() => {
+                dispatch('subInLucky')
+            }, 100)
+            // console.error(e.message + 'subInLucky error')
         }
     },
     subOutLucky () {
@@ -465,6 +480,7 @@ const actions = {
         try {
             let unsubLuckyStr = {
                 action: 'unsub',
+                lotid: 1,
                 cointype: 2001,
                 type: 'lottery'
             }
