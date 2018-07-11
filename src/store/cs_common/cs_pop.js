@@ -287,9 +287,6 @@ const actions = {
             let InfoData = null
             if (pageData) {
                 InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}`)
-                // if (state.mailType) {
-                //     InfoData = await ajax.get(`/user/reset/password?email=${pageData.email}&sign=${pageData.sign}&password=${md5(md5(pageData.password))}`)
-                // }
             }
             return InfoData
         } catch (e) {

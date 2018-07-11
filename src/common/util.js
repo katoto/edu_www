@@ -389,6 +389,13 @@ export function copyError () {
     })
 }
 
+/* float 浮点精度问题  0.001 * 9 */
+export function formatFloat (f, digit = 5) {
+    f = parseFloat(f)
+    let m = Math.pow(10, digit)
+    return Math.round(f * m, 10) / m
+}
+
 export function getURLParams () {
     let string = window.location.search
     let obj = {}
@@ -409,6 +416,7 @@ export function numberComma (source, length = 3) {
 
 function isThisLang (lang) {
     let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
+    // let source = 'en'
     if (typeof source === 'string') {
         return source.toLowerCase() === lang
     }
