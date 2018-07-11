@@ -19,7 +19,7 @@
                         <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
                         <li>
                             <router-link :to="{path: '/slotmachine'}">
-                                <lang>SlotMachine</lang>
+                                <lang>Slot</lang>
                             </router-link>
                         </li>
                     </ul>
@@ -32,7 +32,7 @@
                         <lang>Lukcy 11</lang>
                     </router-link>
                     <router-link :to="{path: '/slotmachine'}">
-                        <lang>SlotMachine</lang>
+                        <lang>Slot</lang>
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>
