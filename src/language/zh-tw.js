@@ -321,6 +321,7 @@ module.exports = {
     'Chances': '次',
     'Chance': '次',
     'AUTO': '自動',
+    'Single Line':'單線投注',
     'Click to Stop': '點擊停止',
     'Winning Table': '獎級表',
     'Lucky Prize': '幸運獎',
