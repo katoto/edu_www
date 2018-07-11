@@ -1,7 +1,6 @@
 <template>
-    <!--icon-hot  热门icon -->
-    <div
-        :class="[ isPopular ? 'item-popular' :'item-common', isHot ? 'icon-hot' : '', coin.bgClass]">
+    <!--icon-hot  热门icon  icon-win -->
+    <div :class="[ isPopular ? 'item-popular' :'item-common', isHot ? 'icon-hot' : '', coin.bgClass]" class="icon-mybet">
         <div :class="{ unvisible: !isInit }">
             <!--token-bth  币种选择-->
             <!--token-eth-->
@@ -91,8 +90,11 @@
                     <i>{{ this.betData.bidValue }} {{ coinText }}</i>
                 </p>
             </div>
-            <a href="javascript:;" class="btn" @click="openBetWindow">
+            <!--btn-waiting btn-pause-->
+            <a href="javascript:;" class="btn " @click="openBetWindow">
                 <lang>Bet Now</lang>
+                <!--<lange>Waiting</lange>-->
+                <!-- <lange>Pause Bet</lange> -->
             </a>
             <!--投注-->
             <!--normal success fail balance-->
@@ -113,11 +115,11 @@
                             <a href="javascript:;" ref="maxBtn" @click="chooseMax">{{ maxValue }}</a>
                         </div>
                         <div class="bet-input">
-                            <a href="javascript:;" class="redu">1/2</a>
-                            <input type="text" :value="betValue">
-                            <a href="javascript:;" class="add">x2</a>
+                            <a href="javascript:;" class="redu" @click="chooseHalf">1/2</a>
+                            <input type="text" v-model="betValue" @mouseout="modifyBetValue" @blur="modifyBetValue">
+                            <a href="javascript:;" class="add" @click="chooseDouble">x2</a>
                         </div>
-                        <a href="javascript:;" class="bet-btn" @click="handleBetEvent" :class="{ blinking: this.isBlinking }">
+                        <a href="javascript:;" class="bet-btn" @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
                             {{ this.isBlinking ? _('Max changes') : _('Pay Now') }}
                         </a>
                     </div>
@@ -186,7 +188,8 @@ export default {
             isBlinking: false,
             blinkTime: 2300,
             betData: {},
-            isInit: false
+            isInit: false,
+            disableBet: false
         }
     },
     props: {
@@ -232,41 +235,50 @@ export default {
                 this.windowClass = ''
             }
         },
-        changeMenuStatus () {
-            if (event.target.className === 'on') {
-                return
+        changeMenuStatus (isCalc) {
+            if (isCalc) {
+                // 通过乘法除法按钮选中，或用户手动输入金额
+                this.$refs.hotBtn.className = this.betValue === this.hotValue ? 'on' : ''
+                this.$refs.minBtn.className = this.betValue === this.minValue ? 'on' : ''
+                this.$refs.maxBtn.className = this.betValue === this.maxValue ? 'on' : ''
+            } else if (event.target.className !== 'on') {
+                // 通过推荐按钮选中
+                this.$refs.hotBtn.className = ''
+                this.$refs.minBtn.className = ''
+                this.$refs.maxBtn.className = ''
+                event.target.className = 'on'
             }
-            this.$refs.hotBtn.className = ''
-            this.$refs.minBtn.className = ''
-            this.$refs.maxBtn.className = ''
-            event.target.className = 'on'
         },
         chooseMin () {
-            this.changeMenuStatus()
             this.betValue = this.minValue
+            this.changeMenuStatus()
         },
         chooseMax () {
-            this.changeMenuStatus()
             this.betValue = this.maxValue
+            this.changeMenuStatus()
         },
         chooseHot () {
-            this.changeMenuStatus()
             this.betValue = this.hotValue
+            this.changeMenuStatus()
         },
         chooseHalf () {
-            this.betValue = this.formatBidValue(
-                this.bet.bidValue,
-                this.betValue / 2
-            )
+            if (this.betValue / 2 >= this.minValue) {
+                this.betValue = this.formatBidValue(
+                    this.betValue / 2
+                )
+                this.changeMenuStatus(true)
+            }
         },
         chooseDouble () {
-            this.betValue = this.formatBidValue(
-                this.bet.bidValue,
-                this.betValue * 2
-            )
+            if (this.betValue * 2 <= this.maxValue) {
+                this.betValue = this.formatBidValue(
+                    this.betValue * 2
+                )
+                this.changeMenuStatus(true)
+            }
         },
         handleBetEvent () {
-            if (!this.isBlinking) {
+            if (!this.isBlinking && !this.disableBet) {
                 this.closeWindow()
             }
         },
@@ -276,9 +288,28 @@ export default {
                 this.openBetWindow()
             }, 200)
         },
-        formatBidValue (minValue, value) {
+        modifyBetValue () {
+            let thisValue = Number(this.betValue)
+            if (isNaN(thisValue)) {
+                this.betValue = this.minValue
+                return false
+            } else if (thisValue < this.minValue) {
+                this.betValue = this.minValue
+            } else if (thisValue > this.maxValue) {
+                this.betValue = this.maxValue
+            } else {
+                this.betValue = this.formatBidValue(thisValue)
+            }
+            event.target.blur && event.target.blur()
+        },
+        formatBidValue (value) {
+            let minValue = this.betData.bidValue
             if (value && minValue && value > 0 && minValue > 0) {
-                return Math.floor(value / minValue) * (minValue * 100000) / 100000
+                return (
+                    minValue >= value
+                        ? minValue
+                        : Math.floor(value / minValue) * (minValue * 100000) / 100000
+                )
             }
             return value
         },
@@ -353,15 +384,11 @@ export default {
         },
         maxValue () {
             return this.formatBidValue(
-                this.betData.bidValue,
                 this.balance > this.betData.goodsValue ? this.betData.goodsValue : this.balance
             )
         },
         hotValue () {
-            return this.formatBidValue(
-                this.betData.bidValue,
-                this.maxValue / 2
-            )
+            return this.formatBidValue(this.maxValue / 2)
         },
         rate () {
             let total = this.betData.totalBids
@@ -393,6 +420,9 @@ export default {
                 this.betData = this.formatBetData(this.bet)
                 this.init()
             }
+        },
+        betValue: function (val) {
+            this.disableBet = ((Number(val) !== this.formatBidValue(val)) || Number(val) > this.maxValue)
         }
     },
     mounted () {
@@ -409,6 +439,10 @@ export default {
    .blinking {
         transition: 0.5s all;
         animation: blinking 2s;
+        background-color: gray !important;
+        cursor: default;
+    }
+    .disabled {
         background-color: gray !important;
         cursor: default;
     }

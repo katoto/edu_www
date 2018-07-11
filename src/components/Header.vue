@@ -3,7 +3,7 @@
         <div class="head">
             <div class="top">
                 <!--展开 on-->
-                <div class="m-choose-play" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
+                <div class="m-choose-play icon-slot" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
                     <div class="btn">
                         <span></span><span></span><span></span>
                     </div>
@@ -11,17 +11,30 @@
                         Select Game
                     </div>
                     <ul>
-                        <li @click="jump2Page('lucky11')" ><a href="javascript:;"><lang>Lukcy 11</lang></a></li>
-                        <li class="hide"  :class="{'on':currTab==='luckyCoin'}"><a href="javascript:;">luckyCoin</a></li>
-                        <li class="hide" @click="jump2Page('slotmachine')" ><a href="javascript:;"><lang>slotmachine</lang></a></li>
+                        <li>
+                            <router-link :to="{path: '/lucky11'}">
+                                <lang>Lukcy 11</lang>
+                            </router-link>
+                        </li>
+                        <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
+                        <li>
+                            <router-link :to="{path: '/slotmachine'}">
+                                <lang>Slot</lang>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
-                <div class="choose-play">
-                    <a href="javascript:;" @click="jump2Page('lucky11')"  ><lang>Lukcy 11</lang></a>
-                    <a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>slotmachine</lang></a>
+                <div class="choose-play icon-slot" >
+                    <router-link :to="{path: '/lucky11'}">
+                        <lang>Lukcy 11</lang>
+                    </router-link>
+                    <router-link :to="{path: '/slotmachine'}" >
+                        <lang>Slot</lang>
+                    </router-link>
+                    <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>
                 <!-- 修改切换语言 -->
@@ -35,8 +48,7 @@
                     </div>
                     <ul>
                         <li v-for="item in languageOptions" v-if="item.value!==languageVal"
-                            @click="handleLanguageChange(item.value)"
-                        >
+                            @click="handleLanguageChange(item.value)">
                             <img :src="item.lanLogo" width="27" height="15" alt="">
                             <span>{{ item.label }}</span>
                         </li>
@@ -229,9 +241,6 @@
             }
         },
         computed: {
-            currTab () {
-                return this.$store.state.currTab
-            },
             initHeadState () {
                 return this.$store.state.initHeadState
             },
@@ -299,24 +308,6 @@
                     break
                 }
             },
-            jump2Page (item = 'lucky11') {
-                this.$store.commit('setCurrTab', item)
-                switch (item) {
-                case 'slotmachine':
-                    if (!~window.location.href.indexOf('slotmachine')) {
-                        this.$router.push('/slotmachine')
-                    }
-                    ;break
-                case 'lucky11':
-                    if (!~window.location.href.indexOf('lucky11')) {
-                        this.$router.push('/lucky11')
-                    }
-                    ;break
-                case 'mobile':
-                    console.log('app downLoad')
-                    break
-                }
-            },
             changeAccounts (item) {
                 if (item) {
                     this.currBalance = item
@@ -380,6 +371,7 @@
             formateCoinType
         },
         async mounted () {
+            // this.$router.push('/lucky11')
             this.showUserMsg()
             // 获取首次中奖信息
             if (~window.location.href.indexOf('/lucky')) {
@@ -434,7 +426,7 @@
         }
         .choose-play{
             float: left;
-            overflow: hidden;
+            /*overflow: hidden;*/
             height:100%;
             display: table;
             a{
@@ -445,6 +437,21 @@
                 vertical-align: middle;
                 &.on,&:hover{
                     background: rgba(0,0,0,0.5);
+                }
+            }
+            &.icon-slot{
+                position: relative;
+                &::before{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 10px;
+                    right:-2px;
+                    width:20px;
+                    height:20px;
+                    background: url("../assets/img/icon-new.png") no-repeat center;
+                    animation: icon-new 5s 2s infinite;
+                    transform-origin: left bottom;
                 }
             }
         }
@@ -1140,6 +1147,19 @@
                   color: #fff;
               }
             }
+            &::before{
+                content: '';
+                display: block;
+                position: absolute;
+                right:5px;
+                bottom:40px;
+                width: 10px;
+                height: 10px;
+                background: url(../assets/img/icon-new.png) no-repeat center;
+                background-size: cover;
+                transform-origin: center;
+                transform: rotate(30deg);
+            }
         }
         &.isShowChoose{
             position: absolute;
@@ -1170,6 +1190,7 @@
             ul{
                 display: block;
             }
+
         }
     }
     /*开始适配*/
@@ -1352,7 +1373,19 @@
         }
     }
 
+    @keyframes icon-new {
+        0%,8%,22%,100%{
+            transform: rotate(0) translateX(0);
+        }
+        10%,14%,18%{
+            transform: rotate(30deg) translateY(4px);
+        }
+        12%,16%,20%{
+            transform: rotate(30deg) translateY(2px);
+        }
 
+
+    }
 </style>
 
 
