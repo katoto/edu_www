@@ -2,7 +2,7 @@
     <li class="js_playArea-li">
         <div class="play-area-top">
             <div id="play-type-choose" class="play-type-choose" @mouseover="slideDown = true" @mouseout="slideDown = false">
-                <span v-if="areaMsg.pickType === '5J'" v-lang="'Super&ensp;5'"></span>
+                <span v-if="areaMsg.pickType === '5J'" class="super_span" v-lang="'Super&ensp;5'"></span>
                 <span v-else><lang>Pick</lang> {{ areaMsg.pickType}}</span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
                     <li data-index="1" v-lang="'Pick 1'"></li>
@@ -10,7 +10,7 @@
                     <li data-index="3" v-lang="'Pick 3'"></li>
                     <li data-index="4" v-lang="'Pick 4'"></li>
                     <li data-index="5" v-lang="'Pick 5'"></li>
-                    <li data-index="5J" class="es" v-lang="'Super&ensp;5'">
+                    <li data-index="5J" class="es super_li" v-lang="'Super&ensp;5'">
                         <!--<p>Pick 5</p>-->
                     </li>
                 </ul>
@@ -387,6 +387,12 @@
     }
 </script>
 <style scoped>
+    .super_span{
+        background-color: #cf9236 !important;
+    }
+    .super_li{
+        background-color: #cf4331;
+    }
     .pop-rewardTable {
         overflow: hidden;
         transition: all .2s;

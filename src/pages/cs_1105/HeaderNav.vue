@@ -46,6 +46,10 @@
                     <lang>JACKPOT</lang>&nbsp;&nbsp;
                 </span>
                 <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount }}</i>
+
+                <button v-if="!isSuperPick" @click="superInPage">on</button>
+                <button v-else @click="superOutPage">back</button>
+
             </p>
         </div>
 
@@ -57,7 +61,8 @@ export default {
     data () {
         return {
             tes: false,
-            isShowHistoryCode: false
+            isShowHistoryCode: false,
+            isSuperPick: false
         }
     },
     watch: {
@@ -68,6 +73,18 @@ export default {
         }
     },
     methods: {
+        superInPage () {
+            /* 执行到父组件 */
+            this.$emit('superChange', 'superIn')
+        },
+        superOutPage () {
+            /* 执行到父组件 */
+            this.$emit('superChange', 'superOut')
+        },
+        btnState (msg) {
+            /* 父调用 */
+            this.isSuperPick = !!msg
+        },
         historyCodeFilter (historyCode) {
             let isLastCode = false
             let lastIndex = 0
