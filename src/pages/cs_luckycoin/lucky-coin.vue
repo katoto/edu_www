@@ -46,6 +46,15 @@ export default {
             color: #fff;
             overflow: hidden;
             font-size: 17px;
+            &.btn-pause{
+                cursor: default;
+                background: #5837a4;
+                color: #a99acc;
+                &:hover{
+                    background: #5837a4;
+                    color: #a99acc;
+                }
+            }
         }
         .for-full {
             margin: 0 -5px;
@@ -97,6 +106,47 @@ export default {
                 height: 49px;
                 transform-origin: right top;
                 transition: all 0.2s;
+            }
+        }
+        .icon-win{
+            &::after{
+                content: "You Win";
+                display: block;
+                position: absolute;
+                z-index: 3;
+                top:20px;
+                left: 0px;
+                overflow: hidden;
+                background: #cd204b;
+                padding:0 4px;
+
+                font-size:14px;
+                color: #fff;
+                height:20px;
+                line-height:20px;
+
+            }
+        }
+        .icon-mybet{
+            &::after{
+                content: "You Bet";
+                display: block;
+                position: absolute;
+                z-index: 3;
+                top:20px;
+                left: 0px;
+                overflow: hidden;
+
+                padding:0 4px;
+
+
+                font-size:12px;
+                color: #a57dff;
+                font-weight:bold;
+                height:20px;
+                line-height:20px;
+                border:1px solid #7b4de4;
+
             }
         }
         .msg-winning {
@@ -433,6 +483,11 @@ export default {
                 margin-top: 40/2px;
                 height: 72/2px;
                 line-height: 72/2px;
+                &.btn-waiting{
+                    cursor: default;
+                    background: none;
+                    text-align: left;
+                }
             }
             &.icon-hot {
                 &::before {
@@ -447,7 +502,7 @@ export default {
             border-radius: 6px;
             width: percentage(690/750);
             margin: 0 auto;
-            padding: 0 15px 38/2px;
+            padding: 0 38/2px 38/2px;
             overflow: hidden;
             .token-process {
                 transform: scale(75/102);
@@ -469,7 +524,7 @@ export default {
             }
             .msg {
                 color: #a99acc;
-                margin: 30/2px 15/2px 0;
+                margin: 30/2px 0 0;
                 padding: 0;
                 line-height: 42/2px;
                 font-size:28/2px;
@@ -478,15 +533,17 @@ export default {
                 }
             }
             .btn {
-                margin: 18px 20px 0;
                 height: 70/2px;
                 line-height: 70/2px;
                 font-size: 34/2px;
+
+                margin: 18px 0 0;
                 &.btn-waiting{
                     background: none;
                     text-align: left;
-                    text-indent:10px;
                     cursor: default;
+
+                    text-indent:0;
                 }
             }
             &.bg1 {
@@ -945,6 +1002,9 @@ export default {
                     height: 50px;
                     line-height: 50px;
                     font-size: 18px;
+                    &.btn-waiting{
+                        text-indent:10px;
+                    }
                 }
                 &.icon-hot {
                     &::before {
@@ -990,6 +1050,9 @@ export default {
                     height: 30px;
                     line-height: 30px;
                     font-size: 14px;
+                    &.btn-waiting{
+                        text-indent:10px;
+                    }
                 }
                 &.icon-hot {
                     &::before {

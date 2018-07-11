@@ -1,7 +1,6 @@
 <template>
-    <!--icon-hot  热门icon -->
-    <div
-        :class="[ isPopular ? 'item-popular' :'item-common', isHot ? 'icon-hot' : '', coin.bgClass]">
+    <!--icon-hot  热门icon  icon-win -->
+    <div :class="[ isPopular ? 'item-popular' :'item-common', isHot ? 'icon-hot' : '', coin.bgClass]" class="icon-mybet">
         <!--token-bth  币种选择-->
         <!--token-eth-->
         <div class="token-process" :class="[coin.boxClass]">
@@ -63,10 +62,11 @@
                 <i>{{ this.bet.bidValue }} {{ coinText }}</i>
             </p>
         </div>
-        <!--btn-waiting-->
-        <a href="javascript:;" class="btn btn-waiting" @click="openBetWindow">
-            <lang>Bet Now</lang>
+        <!--btn-waiting btn-pause-->
+        <a href="javascript:;" class="btn " @click="openBetWindow">
+            <!--<lang>Bet Now</lang>-->
             <!--<lange>Waiting</lange>-->
+            <lange>Pause Bet</lange>
         </a>
         <!--投注-->
         <!--normal success fail balance-->
