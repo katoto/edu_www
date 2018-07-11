@@ -1562,7 +1562,7 @@
                         line-height: 33px;
                     }
                     &:hover{
-                        background: #27570e;
+                        background: #0f2404;
                     }
                 }
                 &.ul3{
