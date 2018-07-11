@@ -27,11 +27,11 @@
                 <router-link to="/" title="Coinslot" class="logo">
                     <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
                 </router-link>
-                <div class="choose-play">
+                <div class="choose-play icon-slot" >
                     <router-link :to="{path: '/lucky11'}">
                         <lang>Lukcy 11</lang>
                     </router-link>
-                    <router-link :to="{path: '/slotmachine'}">
+                    <router-link :to="{path: '/slotmachine'}" >
                         <lang>Slot</lang>
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
@@ -426,7 +426,7 @@
         }
         .choose-play{
             float: left;
-            overflow: hidden;
+            /*overflow: hidden;*/
             height:100%;
             display: table;
             a{
@@ -437,6 +437,21 @@
                 vertical-align: middle;
                 &.on,&:hover{
                     background: rgba(0,0,0,0.5);
+                }
+            }
+            &.icon-slot{
+                position: relative;
+                &::before{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 10px;
+                    right:-2px;
+                    width:20px;
+                    height:20px;
+                    background: url("../assets/img/icon-new.png") no-repeat center;
+                    animation: icon-new 5s 2s infinite;
+                    transform-origin: left bottom;
                 }
             }
         }
@@ -1344,7 +1359,19 @@
         }
     }
 
+    @keyframes icon-new {
+        0%,8%,22%,100%{
+            transform: rotate(0) translateX(0);
+        }
+        10%,14%,18%{
+            transform: rotate(30deg) translateY(4px);
+        }
+        12%,16%,20%{
+            transform: rotate(30deg) translateY(2px);
+        }
 
+
+    }
 </style>
 
 
