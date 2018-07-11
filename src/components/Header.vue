@@ -3,7 +3,7 @@
         <div class="head">
             <div class="top">
                 <!--展开 on-->
-                <div class="m-choose-play" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
+                <div class="m-choose-play icon-slot" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
                     <div class="btn">
                         <span></span><span></span><span></span>
                     </div>
@@ -1147,6 +1147,19 @@
                   color: #fff;
               }
             }
+            &::before{
+                content: '';
+                display: block;
+                position: absolute;
+                right:5px;
+                bottom:40px;
+                width: 10px;
+                height: 10px;
+                background: url(../assets/img/icon-new.png) no-repeat center;
+                background-size: cover;
+                transform-origin: center;
+                transform: rotate(30deg);
+            }
         }
         &.isShowChoose{
             position: absolute;
@@ -1177,6 +1190,7 @@
             ul{
                 display: block;
             }
+
         }
     }
     /*开始适配*/
