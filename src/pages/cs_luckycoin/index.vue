@@ -108,7 +108,8 @@ import historyBetBox from './components/history-bet-box'
 
 export default {
     methods: {
-        ...mapActions('cs_luckycoin', ['updateLuckyCoinPage'])
+        ...mapActions('cs_luckycoin', ['updateLuckyCoinPage']),
+        ...mapActions(['subInLuckyCoin'])
     },
     components: { betBox, recentBets, historyBetBox },
     computed: {
@@ -120,6 +121,7 @@ export default {
     },
     mounted () {
         this.updateLuckyCoinPage()
+        this.subInLuckyCoin()
     }
 }
 </script>

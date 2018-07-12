@@ -582,13 +582,14 @@ export default {
                     font-size: 32/2px;
                 }
                 .t2 {
+                    padding-top: 5px;
                     line-height: 24/2px;
                     font-size: 16/2px;
                 }
             }
             .msg {
                 color: #a99acc;
-                margin-top: 16/2px;
+                margin-top: 10px;
                 line-height: 18/2px;
                 font-size: 16/2px;
                 i {
@@ -1094,7 +1095,7 @@ export default {
                     height: 24px;
                     line-height: 24px;
                     font-size: 14px;
-                    margin-top: 16px;
+                    margin-top: 14px;
                     &.waiting {}
                     &.win {
                         padding-left: 46px;

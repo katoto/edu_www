@@ -3,52 +3,7 @@ import ajax from '~common/ajax'
 
 const state = {
     betsList: [],
-    drawHistoryList: [
-        {
-            state: '1',
-            image: '',
-            goodsValue: '10432',
-            goodsType: '1001',
-            totalBids: '200',
-            bidValue: '0.02',
-            luckyNum: '1000192',
-            winUserName: '4637***3@qq.com',
-            crtime: '156732231'
-        },
-        {
-            state: '1',
-            image: '',
-            goodsValue: '10432',
-            goodsType: '1001',
-            totalBids: '200',
-            bidValue: '0.02',
-            luckyNum: '1000192',
-            winUserName: '4637***3@qq.com',
-            crtime: '156732231'
-        },
-        {
-            state: '4',
-            image: '',
-            goodsValue: '10432',
-            goodsType: '2001',
-            totalBids: '200',
-            bidValue: '0.02',
-            luckyNum: '1000192',
-            winUserName: '4637***3@qq.com',
-            crtime: '156732231'
-        },
-        {
-            state: '4',
-            image: '',
-            goodsValue: '10432',
-            goodsType: '2001',
-            totalBids: '200',
-            bidValue: '0.02',
-            luckyNum: '1000192',
-            winUserName: '4637***3@qq.com',
-            crtime: '156732231'
-        }
-    ],
+    drawHistoryList: [],
     recentBetsList: []
 }
 
@@ -56,8 +11,10 @@ const mutations = {
 
     // websocket 推送更新投注列表某一注
     updateBet (state, newBet) {
+        let hasFind = false
         state.betsList.map((bet, index) => {
-            if (bet.expectId === newBet.expectId) {
+            if (bet.exceptId === newBet.exceptId) {
+                hasFind = true
                 state.betsList[index] = {
                     ...bet,
                     ...newBet
@@ -65,12 +22,13 @@ const mutations = {
             }
         })
         state.betsList = [...state.betsList]
+        if (!hasFind) {
+            this.dispatch('cs_luckycoin/updateBetsAndDraw')
+        }
     },
     // 更新投注列表
     updateBets (state, newBets) {
-        if (newBets && newBets.length > 0) {
-            state.betsList = [...newBets]
-        }
+        state.betsList = [...newBets]
     },
     // 更新最新投注
     updateRecentBet (state, bet) {
@@ -94,6 +52,14 @@ const mutations = {
 }
 
 const actions = {
+
+    betNow ({ commit }, params = {}) {
+        return ajax.get('/place/order', {
+            lotid: '2',
+            ...params
+        }, true)
+    },
+
     // 加载最近投注
     async getRecentBets ({ commit }, params = {}) {
         let data = await ajax.get('/get/megacoin/orders', {
@@ -122,7 +88,13 @@ const actions = {
             pageno: '1',
             pagesize: '6'
         })
-        commit('updateDrawHistory', data.data.goods)
+        commit('updateDrawHistory', data.data.drawRecords)
+    },
+
+    getBetsPageList ({ commit }, params = {}) {
+        return ajax.get('/bid/goods/list', {
+            ...params
+        })
     },
 
     updateBetsAndDraw ({ dispatch }) {

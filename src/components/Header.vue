@@ -22,6 +22,11 @@
                                 <lang>Slot</lang>
                             </router-link>
                         </li>
+                        <li>
+                            <router-link :to="{path: '/luckycoin'}">
+                                <lang>LuckyCoin</lang>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinslot" class="logo">
@@ -33,6 +38,9 @@
                     </router-link>
                     <router-link :to="{path: '/slotmachine'}" >
                         <lang>Slot</lang>
+                    </router-link>
+                    <router-link :to="{path: '/luckycoin'}">
+                        <lang>LuckyCoin</lang>
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>

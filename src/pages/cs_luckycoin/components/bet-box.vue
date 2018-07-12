@@ -1,7 +1,12 @@
 <template>
     <!--icon-hot  热门icon  icon-win -->
-    <div :class="[ isPopular ? 'item-popular' :'item-common', isHot ? 'icon-hot' : '', coin.bgClass]" class="icon-mybet">
-        <div :class="{ unvisible: !isInit }">
+    <div :class="[
+        isPopular ? 'item-popular' :'item-common',
+        isHot ? 'icon-hot' : '',
+        isBet ? 'icon-mybet' : '',
+        isInit && !isCancel ? '' : 'unvisible',
+        coin.bgClass]">
+        <div>
             <!--token-bth  币种选择-->
             <!--token-eth-->
             <div class="token-process" :class="[coin.boxClass]">
@@ -56,17 +61,6 @@
                             v-if="rate !== 0"/>
                         <!-- 右半边圆 -->
                     </g>
-                    <!--
-                        stroke-dasharray   //2*3.14*47=296
-                        绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
-                        两个参数或者多个参数时：一个表示长度，一个表示间距
-                        stroke-dashoffset: 偏移位置
-                        0% -> 296
-                        100% -> 296 296
-
-
-                        form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
-                    -->
                 </svg>
             </div>
             <div class="title">
@@ -90,11 +84,14 @@
                     <i>{{ this.betData.bidValue }} {{ coinText }}</i>
                 </p>
             </div>
-            <!--btn-waiting btn-pause-->
-            <a href="javascript:;" class="btn " @click="openBetWindow">
+            <a href="javascript:;" class="btn btn-waiting" v-if="isWaiting">
+                <lang>Waiting</lang>
+            </a>
+            <a href="javascript:;" class="btn btn-pause" v-else-if="isPause">
+                <lang>Pause Bet</lang>
+            </a>
+            <a href="javascript:;" class="btn" v-else @click="openBetWindow">
                 <lang>Bet Now</lang>
-                <!--<lange>Waiting</lange>-->
-                <!-- <lange>Pause Bet</lange> -->
             </a>
             <!--投注-->
             <!--normal success fail balance-->
@@ -124,13 +121,13 @@
                         </a>
                     </div>
                     <!--投注成功-->
-                    <div class="bet-success ">
+                    <div class="bet-success">
                         <div class="bet-icon"></div>
                         <div class="bet-t">
                             <lang>Bet Success</lang>
                         </div>
                         <p class="bet-m">
-                            <lang>You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~</lang>
+                            {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~', this.betData.goodsValue, this.coinText) }}
                         </p>
                         <div class="btn-box">
                             <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
@@ -142,13 +139,13 @@
                         </div>
                     </div>
                     <!--投注失败-->
-                    <div class="bet-fail ">
+                    <div class="bet-fail">
                         <div class="bet-icon"></div>
                         <div class="bet-t">
                             <lang>Bet failure</lang>
                         </div>
                         <p class="bet-m">
-                            <lang>Your balance can be purchased for 0.03ETH. If you need to bet more, please top up first.</lang>
+                            <lang>{{ errorMessage }}</lang>
                         </p>
                         <a href="javascript:;" class="bet-fail" @click="closeWindow">
                             <lang>Try Again Later</lang>
@@ -161,7 +158,7 @@
                             <lang>Insufficient Balance</lang>
                         </div>
                         <p class="bet-m">
-                            <lang>Your balance is less than 0.43ETH. If you need to bet, please top up first.</lang>
+                            {{ _('Your balance is less than {0}{1}. If you need to bet, please top up first.', this.minValue, this.coinText) }}
                         </p>
                         <div class="btn-box">
                             <a href="javascript:;" class="bet-btnT" @click="closeWindow">
@@ -180,6 +177,7 @@
 
 <script>
 import { formateCoinType, numberComma } from '~/common/util'
+import { mapActions, mapState } from 'vuex'
 export default {
     data () {
         return {
@@ -189,7 +187,9 @@ export default {
             blinkTime: 2300,
             betData: {},
             isInit: false,
-            disableBet: false
+            disableBet: false,
+            errorMessage: '',
+            isCancel: false
         }
     },
     props: {
@@ -197,7 +197,7 @@ export default {
             type: Object,
             default: function () {
                 return {
-                    state: '1',
+                    state: '-1',
                     image: '',
                     coinprice: {
                         USD: '0'
@@ -218,10 +218,21 @@ export default {
         }
     },
     methods: {
+        ...mapActions('cs_luckycoin', ['betNow']),
+        ...mapActions(['getUserInfo']),
         openBetWindow () {
+            if (!this.isLogin) {
+                this.$store.commit('showLoginPop')
+                return
+            }
+            if (!this.isEnoughBalance()) {
+                this.openRechargeWindow()
+                return
+            }
             this.windowClass = 'normal'
         },
-        openFailureWindow () {
+        openFailureWindow (msg) {
+            this.errorMessage = msg
             this.windowClass = 'fail'
         },
         openSuccessWindow () {
@@ -236,16 +247,21 @@ export default {
             }
         },
         changeMenuStatus (isCalc) {
+            if (event.target.className === 'on') {
+                return
+            }
+            this.$refs.hotBtn.className = ''
+            this.$refs.minBtn.className = ''
+            this.$refs.maxBtn.className = ''
             if (isCalc) {
-                // 通过乘法除法按钮选中，或用户手动输入金额
-                this.$refs.hotBtn.className = this.betValue === this.hotValue ? 'on' : ''
-                this.$refs.minBtn.className = this.betValue === this.minValue ? 'on' : ''
-                this.$refs.maxBtn.className = this.betValue === this.maxValue ? 'on' : ''
-            } else if (event.target.className !== 'on') {
-                // 通过推荐按钮选中
-                this.$refs.hotBtn.className = ''
-                this.$refs.minBtn.className = ''
-                this.$refs.maxBtn.className = ''
+                if (this.betValue === this.hotValue) {
+                    this.$refs.hotBtn.className = 'on'
+                } else if (this.betValue === this.minValue) {
+                    this.$refs.minBtn.className = 'on'
+                } else if (this.betValue === this.maxValue) {
+                    this.$refs.maxValue.className = 'on'
+                }
+            } else {
                 event.target.className = 'on'
             }
         },
@@ -277,9 +293,19 @@ export default {
                 this.changeMenuStatus(true)
             }
         },
-        handleBetEvent () {
+        async handleBetEvent () {
             if (!this.isBlinking && !this.disableBet) {
                 this.closeWindow()
+            }
+            try {
+                let data = await this.betNow({
+                    cointype: this.coinType,
+                    codestr: `${this.betData.exceptId}|${this.coinType}|${(this.betValue * 100000) / (this.betData.bidValue * 100000)}|${this.betData.bidValue}`
+                })
+                this.getUserInfo()
+                this.openSuccessWindow()
+            } catch (errorData) {
+                this.openFailureWindow(errorData.message)
             }
         },
         handleBetMoreEvent () {
@@ -308,7 +334,7 @@ export default {
                 return (
                     minValue >= value
                         ? minValue
-                        : Math.floor(value / minValue) * (minValue * 100000) / 100000
+                        : Math.floor((value * 100000) / (minValue * 100000)) * (minValue * 100000) / 100000
                 )
             }
             return value
@@ -321,6 +347,9 @@ export default {
                 goodsValue: Number(this.bet.goodsValue),
                 totalBids: Number(this.bet.totalBids)
             }
+        },
+        isEnoughBalance () {
+            return this.balance >= this.betData.bidValue
         },
         blink () {
             this.isBlinking = true
@@ -336,9 +365,13 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            userInfo: state => state.userInfo,
+            isLogin: state => !!state.isLog
+        }),
         balance () {
-            if (this.$store.state && this.$store.state.userInfo && this.$store.state.userInfo.accounts && this.$store.state.userInfo.accounts.length > 0) {
-                let accounts = this.$store.state.userInfo.accounts
+            if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length > 0) {
+                let accounts = this.userInfo.accounts
                 for (let index = 0; index < accounts.length; index++) {
                     let account = accounts[index]
                     if (account.cointype === this.coinType) {
@@ -357,13 +390,22 @@ export default {
         isHot () {
             return this.betData.ishot === '1'
         },
+        isBet () {
+            return this.betData.isbet === '1'
+        },
+        isWaiting () {
+            return this.betData.state === '3'
+        },
+        isPause () {
+            return this.betData.state === '2'
+        },
         goodsPrice () {
             for (let keyname in this.betData.coinprice) {
                 if (keyname) {
                     return `(${keyname} ${this.betData.coinprice[keyname]})`
                 }
             }
-            return ''
+            return ' '
         },
         coin () {
             return {
@@ -383,8 +425,9 @@ export default {
             return this.betData.bidValue
         },
         maxValue () {
+            let maxBidNum = (this.betData.leftBids * 100000) * this.betData.bidValue / 100000
             return this.formatBidValue(
-                this.balance > this.betData.goodsValue ? this.betData.goodsValue : this.balance
+                this.balance > maxBidNum ? maxBidNum : this.balance
             )
         },
         hotValue () {
@@ -403,6 +446,7 @@ export default {
     watch: {
         bet: function () {
             if (this.isInit) {
+                this.isCancel = (this.bet.state === '-1')
                 // websocket 推送更新导致bet数据改变
                 if (this.windowClass === 'normal') {
                     // 如果用户正在打开投注弹窗，闪动按钮和变化文字，并延迟修改数值

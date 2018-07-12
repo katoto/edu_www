@@ -4,6 +4,7 @@ import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 import {actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
+import { stat } from 'fs'
 
 function combimeStore (store, newStore) {
     return {
@@ -280,11 +281,11 @@ const actions = {
                             break
                         case '1007':
                             msg.data.state === '4' || msg.data.state === '5'
-                                ? dispatch('cs_luckcoin/updateBetsAndDraw')
-                                : commit('cs_luckcoin/updateBet', msg.data)
+                                ? dispatch('cs_luckycoin/updateBetsAndDraw')
+                                : commit('cs_luckycoin/updateBet', msg.data)
                             break
                         case '1008':
-                            dispatch('cs_luckcoin/updateRecentBet', msg.data)
+                            commit('cs_luckycoin/updateRecentBet', msg.data.orders)
                             break
                         case '2001':
                             // 老虎机初始化
@@ -496,6 +497,34 @@ const actions = {
         } catch (e) {
             console.error(e.message + 'subOutLucky error')
         }
+    },
+    subInLuckyCoin ({ dispatch }) {
+        let data = {
+            action: 'sub',
+            lotid: 2,
+            type: 'lottery'
+        }
+        if (state.userInfo && state.userInfo.uid) {
+            data.uid = state.userInfo.uid
+        }
+        try {
+            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
+        } catch (e) {
+            setTimeout(() => {
+                dispatch('subInLuckyCoin')
+            }, 100)
+        }
+    },
+    subOutLuckyCoin () {
+        let data = {
+            action: 'unsub',
+            lotid: 2,
+            type: 'lottery'
+        }
+        if (state.userInfo && state.userInfo.uid) {
+            data.uid = state.userInfo.uid
+        }
+        state.socket.sock && state.socket.sock.send(JSON.stringify(data))
     },
     ...common.actions
 }
