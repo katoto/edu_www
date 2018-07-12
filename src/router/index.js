@@ -25,7 +25,7 @@ const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
 const Withdraw = () => import('~/pages/cs_account/Withdraw')
 
 /* 老虎机 */
-const slotmachine = () => import('~/pages/cs_tiger/slotMachine')
+const slot = () => import('~/pages/cs_tiger/slotMachine')
 
 /* 一元夺币 */
 const oneToken = () => import('~/pages/cs_oneToken/oneToken')
@@ -43,9 +43,9 @@ export default new Router({
             component: lucky11
         },
         {
-            path: '/slotmachine',
-            name: 'slotmachine',
-            component: slotmachine
+            path: '/slot',
+            name: 'slot',
+            component: slot
         },
         {
             path: '/oneToken',
