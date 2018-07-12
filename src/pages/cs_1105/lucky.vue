@@ -1,5 +1,5 @@
 <template>
-    <div id="lucky11">
+    <div id="lucky11" :class="{'superActive':superClass}" >
         <Banner></Banner>
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
@@ -30,8 +30,8 @@
                     </span>
                     <p class="total-pay ">{{ totalPay }} ETH</p>
                 </div>
-                <!--背景泡泡-->
-                <div class="star-box">
+                <!--  背景泡泡 激活模式隐藏  -->
+                <div class="star-box" :class="{'hide':superClass}">
                     <div id="stars1" class="stars"></div>
                     <div id="stars2" class="stars"></div>
                 </div>
@@ -346,7 +346,8 @@
                 },
                 playArea: [], // 玩法区 数组,
                 jackpot: false,
-                'icon-jackpot': false
+                'icon-jackpot': false,
+                superClass: false
             }
         },
         watch: {
@@ -416,6 +417,7 @@
             superBtnState (msg) {
                 /* 调 headerNav 的方法  修改按钮状态 */
                 if (this.$refs) {
+                    this.superClass = msg
                     this.$refs.headerNav.btnState(msg)
                 }
             },
@@ -809,10 +811,34 @@
                     color: #6a89cc;
                     border-top: 1px solid #778ca3;
                 }
+                li.super_li{
+                    color: #917439;
+                    font-weight: 800;
+                }
                 li.on, li:hover {
                     background: #eef1f9;
                     color: #263648;
                 }
+            }
+        }
+        /*奖池奖*/
+        .super-active{
+            span{
+                border: 1px solid #d6b571;
+                border-top: 0px;
+                background-color: #eeddbb ;
+                color: #917439;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                right: 17px;
+                top: 14px;
+                display: block;
+                background-image: url("../../assets/img/lucky11/arrow-down-color.png");
+                width: 13px;
+                height: 8px;
             }
         }
         .play-tips {
@@ -1179,6 +1205,17 @@
                 li + li {
                     margin-left: 5px;
                 }
+            }
+        }
+    }
+    .superActive {
+        .play-area{
+            background: #7b6037;
+            background: linear-gradient(to right, #463524, #81653a, #463525);
+        }
+        .btn-area{
+            .addmore{
+                border: 1px solid #725e39;
             }
         }
     }
@@ -1741,5 +1778,8 @@
     }
     .head-box{
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+    }
+    .superActive .head-box{
+        background: linear-gradient(to right, #34291d, #584724, #34281a);
     }
 </style>

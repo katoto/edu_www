@@ -1,5 +1,5 @@
 <template>
-    <div class="head-box">
+    <div class="head-box ">
         <div class="head">
             <div class="top">
                 <!--展开 on-->
