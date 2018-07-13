@@ -358,6 +358,6 @@ module.exports = {
     'Copy the Ethereum wallet address': '复制钱包地址',
     'only supports ETH': '当前仅支持ETH',
 
-    'Go': 'Go',
-    'Back': 'Back'
+    'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '试一下<span class="winColor">97%+</span>'
+
 }

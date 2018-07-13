@@ -358,6 +358,5 @@ module.exports = {
     'Copy the Ethereum wallet address': '負制錢包地址',
     'only supports ETH': '當前仅有支持ETH',
 
-    'Go': 'Go',
-    'Back': 'Back'
+
 }
