@@ -351,7 +351,7 @@ module.exports = {
     'Full lucky bar can exchange for a double reward spin': '幸運值滿後您將獲得一次獎金翻倍的機會',
     'placed a pattern as following': '從左到右計算',
     'You win if 3 identical icons': '如果連續3個圖案一致即中獎',
-    'Lukcy 11': '幸運11',
+    'Lucky 11': '幸運11',
     'slotmachine': '老虎機',
     'Slot': '老虎機',
     'SlotMachine': '老虎機',

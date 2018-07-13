@@ -13,7 +13,7 @@
                     <ul>
                         <li>
                             <router-link :to="{path: '/lucky11'}">
-                                <lang>Lukcy 11</lang>
+                                <lang>Lucky 11</lang>
                             </router-link>
                         </li>
                         <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
