@@ -1,5 +1,5 @@
 <template>
-    <div class="head-box">
+    <div class="head-box ">
         <div class="head">
             <div class="top">
                 <!--展开 on-->
@@ -29,7 +29,7 @@
                 </router-link>
                 <div class="choose-play icon-slot" >
                     <router-link :to="{path: '/lucky11'}">
-                        <lang>Lukcy 11</lang>
+                        <lang>Lucky 11</lang>
                     </router-link>
                     <router-link :to="{path: '/slot'}" >
                         <lang>Slot</lang>

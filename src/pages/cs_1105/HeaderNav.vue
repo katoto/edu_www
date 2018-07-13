@@ -9,7 +9,7 @@
                 <p>
                     <lang>Draw History</lang>
                 </p>
-                <span >NO.{{ last_expectid }}</span>
+                <span>NO.{{ last_expectid }}</span>
                 <i class="arrow"></i>
                 <ul id="js_lastDraw" class="last-numbox">
                     <li v-for="(item, index) in liveOpenCode" class="flipInY" :key="index">{{ item }}</li>
@@ -41,85 +41,111 @@
                     <i :class="{'jump5': parseFloat( timeLeft )<= 10 }">{{ timeLeft }}’</i>
                 </div>
             </div>
-            <p class="jackpot2 ">
-                <span>
-                    <lang>JACKPOT</lang>&nbsp;&nbsp;
-                </span>
+            <p class="jackpot2">
+                <!-- 奖池奖 。。 -->
+                <!--<span>-->
+                <!--<lang>JACKPOT</lang>&nbsp;&nbsp;-->
+                <!--</span>-->
                 <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount }}</i>
+                <span>{{ formateCoinType (currCoinType) }}</span>
+            </p>
+            <p>
+                <span class="jp_btn" v-if="!isSuperPick" @click="superInPage">Go</span>
+                <span class="jp_btn" v-else @click="superOutPage">Back</span>
             </p>
         </div>
-
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            tes: false,
-            isShowHistoryCode: false
-        }
-    },
-    watch: {
-        isShowHistoryCode: function (val) {
-            if (val) {
-                this.getHistoryDraw()
+    import {
+        formateCoinType
+    } from '~common/util'
+
+    export default {
+        data () {
+            return {
+                tes: false,
+                isShowHistoryCode: false,
+                isSuperPick: false
             }
-        }
-    },
-    methods: {
-        historyCodeFilter (historyCode) {
-            let isLastCode = false
-            let lastIndex = 0
-            let arr = []
-            historyCode.map((item, index) => {
-                if (item.expectid === this.last_expectid) {
-                    isLastCode = true
-                    lastIndex = index
+        },
+        watch: {
+            isShowHistoryCode: function (val) {
+                if (val) {
+                    this.getHistoryDraw()
                 }
-                if (isLastCode && index > lastIndex && arr.length < 7) {
-                    arr.push(item)
-                }
-            })
-            return isLastCode ? arr : historyCode.slice(0, 7)
+            }
         },
-        getHistoryDraw () {
-            this.$store.dispatch('cs_1105/updateHistoryDraw')
+        methods: {
+            formateCoinType,
+            superInPage () {
+                /* 执行到父组件 */
+                this.$emit('superChange', 'superIn')
+            },
+            superOutPage () {
+                /* 执行到父组件 */
+                this.$emit('superChange', 'superOut')
+            },
+            btnState (msg) {
+                /* 父调用 */
+                this.isSuperPick = !!msg
+            },
+            historyCodeFilter (historyCode) {
+                let isLastCode = false
+                let lastIndex = 0
+                let arr = []
+                historyCode.map((item, index) => {
+                    if (item.expectid === this.last_expectid) {
+                        isLastCode = true
+                        lastIndex = index
+                    }
+                    if (isLastCode && index > lastIndex && arr.length < 7) {
+                        arr.push(item)
+                    }
+                })
+                return isLastCode ? arr : historyCode.slice(0, 7)
+            },
+            getHistoryDraw () {
+                this.$store.dispatch('cs_1105/updateHistoryDraw')
+            }
+        },
+        computed: {
+            poolAmount () {
+                return this.$store.state.cs_1105.poolAmount
+            },
+            liveOpenCode () {
+                return this.$store.state.cs_1105.liveOpenCode
+            },
+            navFix () {
+                return this.$store.state.cs_1105.navFix
+            },
+            timeLeft () {
+                return this.$store.state.cs_1105.timeLeft
+            },
+            expect_blinking () {
+                return this.$store.state.cs_1105.expect_blinking
+            },
+            expect_move () {
+                return this.$store.state.cs_1105.expect_move
+            },
+            currExpectId () {
+                return this.$store.state.cs_1105.currExpectId
+            },
+            last_expectid () {
+                return this.$store.state.cs_1105.last_expectid
+            },
+            historyCode () {
+                return this.$store.state.cs_1105.historyCode
+            },
+            currCoinType () {
+                return this.$store.state.currCoinType
+            }
+        },
+        async mounted () {
+            this.getHistoryDraw()
         }
-    },
-    computed: {
-        poolAmount () {
-            return this.$store.state.cs_1105.poolAmount
-        },
-        liveOpenCode () {
-            return this.$store.state.cs_1105.liveOpenCode
-        },
-        navFix () {
-            return this.$store.state.cs_1105.navFix
-        },
-        timeLeft () {
-            return this.$store.state.cs_1105.timeLeft
-        },
-        expect_blinking () {
-            return this.$store.state.cs_1105.expect_blinking
-        },
-        expect_move () {
-            return this.$store.state.cs_1105.expect_move
-        },
-        currExpectId () {
-            return this.$store.state.cs_1105.currExpectId
-        },
-        last_expectid () {
-            return this.$store.state.cs_1105.last_expectid
-        },
-        historyCode () {
-            return this.$store.state.cs_1105.historyCode
-        }
-    },
-    async mounted () {
-        this.getHistoryDraw()
     }
-}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
@@ -128,14 +154,20 @@ export default {
         position: relative;
         z-index: 7;
         width: 100%;
-        padding:15px 0;
+        padding: 15px 0;
         height: 60px;
         line-height: 60px;
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
         color: #fff;
         transition: all 0.2s;
     }
-
+    .superActive .nav{
+        /*background: linear-gradient(to right, #403124, #81663a, #4d3b28);*/
+        background: linear-gradient(to right, #463524, #81653a, #463525);
+    }
+    .superActive .nav.fix{
+        background: #80643b
+    }
     .nav.fix {
         position: fixed;
         left: 0;
@@ -347,33 +379,59 @@ export default {
             opacity: 0;
         }
     }
-    .jackpot2{
-    float: left;
-    margin-left:200px;
-    font-family:sans-eb;
-    color: #f6b543;
-    *{
+
+    .jp_btn{
+        display: inline-block;
+        width: 80px;
+        height: 32px;
+        text-align: center;
+        color: #f4ba25;
+        line-height: 32px;
+        background-color: #544898;
+        border-radius: 5px;
+        margin-left: 26px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .jackpot2 {
         float: left;
-    }
-    span{
-        font-size:20px;
-    }
-    i{
-        position: relative;
-        padding-left: 26px;
-        font-size:36px;
-        &::before{
-            content: '';
-            position: absolute;
-            left:0;
-            top:20px;
-            background-image:url("../../assets/slice/logo-btc.png");
-            width: 20px;
-            height: 20px;
+        margin-left: 200px;
+        font-family: sans-eb;
+        color: #f6b543;
+        /** {*/
+            /*float: left;*/
+        /*}*/
+        span {
+            font-size: 20px;
+        }
+        i {
+            position: relative;
+            padding-left: 26px;
+            font-size: 36px;
+            &::before {
+                /*content: '';*/
+                /*position: absolute;*/
+                /*left:0;*/
+                /*top:20px;*/
+                /*background-image:url("../../assets/slice/logo-btc.png");*/
+                /*width: 20px;*/
+                /*height: 20px;*/
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                top:-14px;
+                right: -64px;
+                background-image:url("../../assets/img/lucky11/icon-jackpot.png");
+                width: 70px;
+                height: 21px;
+            }
         }
     }
-}
-
+    .superActive .jp_btn{
+        background-color: #6f552d;
+    }
     .deadlineMove {
         animation: deadlineMove 1.3s;
     }

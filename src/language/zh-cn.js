@@ -321,7 +321,7 @@ module.exports = {
     'Chances': '次',
     'Chance': '次',
     'AUTO': '自动',
-    'Single Line':'单线投注',
+    'Single Line': '单线投注',
     'Click to Stop': '点击停止',
     'Winning Table': '奖级表',
     'Lucky Prize': '幸运奖',
@@ -356,5 +356,8 @@ module.exports = {
     'Slot': '老虎机',
     'SlotMachine': '老虎机',
     'Copy the Ethereum wallet address': '复制钱包地址',
-    'only supports ETH': '当前仅支持ETH'
+    'only supports ETH': '当前仅支持ETH',
+
+    'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '试一下<span class="winColor">97%+</span>'
+
 }
