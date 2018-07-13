@@ -1,5 +1,6 @@
 // 一元夺币 modules
 import ajax from '~common/ajax'
+import router from '~router'
 
 const state = {
     betsList: [],
@@ -11,10 +12,8 @@ const mutations = {
 
     // websocket 推送更新投注列表某一注
     updateBet (state, newBet) {
-        let hasFind = false
         state.betsList.map((bet, index) => {
             if (bet.exceptId === newBet.exceptId) {
-                hasFind = true
                 state.betsList[index] = {
                     ...bet,
                     ...newBet
@@ -22,14 +21,13 @@ const mutations = {
             }
         })
         state.betsList = [...state.betsList]
-        if (!hasFind) {
-            this.dispatch('cs_luckycoin/updateBetsAndDraw')
-        }
     },
+
     // 更新投注列表
     updateBets (state, newBets) {
         state.betsList = [...newBets]
     },
+
     // 更新最新投注
     updateRecentBet (state, bet) {
         if (bet && bet.length > 0) {
@@ -45,9 +43,7 @@ const mutations = {
     },
     // 更新历史投注列表
     updateDrawHistory (state, bets) {
-        if (bets && bets.length > 0) {
-            state.drawHistoryList = [...bets]
-        }
+        state.drawHistoryList = [...bets]
     }
 }
 
@@ -91,19 +87,37 @@ const actions = {
         commit('updateDrawHistory', data.data.drawRecords)
     },
 
-    getBetsPageList ({ commit }, params = {}) {
-        return ajax.get('/bid/goods/list', {
-            ...params
+    async getBetsPageList ({ commit }, params = {}) {
+        let data = await ajax.get('/bid/goods/list', {
+            ...params,
+            pageno: '1',
+            pagesize: '-1'
         })
+        commit('updateBets', data.data.goods)
+        return data
     },
 
-    updateBetsAndDraw ({ dispatch }) {
-        dispatch('getDrawHistory')
-        dispatch('getBetsList')
+    async getBetsPageHistory ({ commit }, params = {}) {
+        let data = await ajax.get('/draw/records/list', {
+            ...params,
+            pageno: '1',
+            pagesize: '16'
+        })
+        commit('updateDrawHistory', data.data.drawRecords)
+        return data
+    },
+
+    updateBets ({ dispatch }) {
+        if (router.history.current.path.indexOf('/moreBids') > -1) {
+            dispatch('getBetsPageList')
+        } else {
+            dispatch('getBetsList')
+            dispatch('getDrawHistory')
+        }
     },
 
     updateLuckyCoinPage ({ dispatch }) {
-        dispatch('updateBetsAndDraw')
+        dispatch('updateBets')
         dispatch('getRecentBets')
     }
 }

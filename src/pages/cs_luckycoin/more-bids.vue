@@ -1,97 +1,316 @@
 <template>
-    <div class="oneToKen">
+    <div class="oneToKen more-bids-page">
         <div class="main">
-            <div class="container">
+            <div class="bread">
+                <router-link :to="{path: '/'}">
+                    <lang>Home</lang>
+                </router-link> >
+                <router-link :to="{path: '/luckycoin'}">
+                    <lang>Luck Coin</lang>
+                </router-link> > More Bids
+            </div>
+            <el-tabs v-model="activeName" @tab-click="handleTabClick">
+                <el-tab-pane label="More Bids" name="bids"></el-tab-pane>
+                <el-tab-pane label="Draw History" name="history"></el-tab-pane>
+            </el-tabs>
+            <div class="function-ct">
+                <el-radio-group v-model="filter" @change="onFilterChange">
+                    <el-radio-button label="All Bets">
+                        <lang>All Bets</lang>
+                    </el-radio-button>
+                    <el-radio-button label="ETH">
+                        <lang>ETH</lang>
+                    </el-radio-button>
+                    <el-radio-button label="BTC">
+                        <lang>BTC</lang>
+                    </el-radio-button>
+                    <el-radio-button label="My Bets">
+                        <lang>My Bets</lang>
+                    </el-radio-button>
+                </el-radio-group>
+                <el-select v-model="bidsFilter" @change="onBidsFilterChange" v-if="activeName === 'bids'">
+                    <el-option :label="_('Default')" value="default"></el-option>
+                    <el-option :label="_('进度由高到低')" value="progress1"></el-option>
+                    <el-option :label="_('进度由低到高')" value="progress0"></el-option>
+                    <el-option :label="_('奖金由高到低')" value="price1"></el-option>
+                    <el-option :label="_('奖金由低到高')" value="price0"></el-option>
+                </el-select>
+            </div>
+            <div class="container" v-if="activeName === 'bids'">
                 <div class="row clearfix">
                     <div class="for-full items">
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <bet-box :bet="betsList[1]"></bet-box>
+                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in filterBets(betsList)" :key="index">
+                            <bet-box :bet="bet" type="list"></bet-box>
                         </div>
                     </div>
                 </div>
+                <el-pagination
+                    @current-change="handleCurrentBetChange"
+                    background
+                    :current-page.sync="bets.pages.pageno"
+                    size="small"
+                    :page-size="bets.pages.pageSize"
+                    layout="prev, pager, next"
+                    :page-count="bets.pageCount"
+                    :next-text="_('Next >')"
+                    :prev-text="_('< Front')">
+                </el-pagination>
+            </div>
+            <div v-else>
+                <div class="row clearfix">
+                    <div class="for-full items">
+                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in historyList" :key="index">
+                            <history-bet-box :bet="bet" type="list"></history-bet-box>
+                        </div>
+                    </div>
+                </div>
+                <el-pagination
+                    @current-change="handleCurrentHistoryChange"
+                    background
+                    :current-page.sync="history.pages.pageno"
+                    size="small"
+                    :page-size="history.pages.pageSize"
+                    layout="prev, pager, next"
+                    :page-count="history.pageCount"
+                    :next-text="_('Next >')"
+                    :prev-text="_('< Front')">
+                </el-pagination>
             </div>
         </div>
-        <el-pagination
-            @current-change="handleCurrentChange"
-            background
-            :current-page.sync="pages.pageno"
-            size="small"
-            :page-size="pages.pageSize"
-            layout="prev, pager, next, jumper"
-            :page-count="pages.pageCount"
-            :next-text="_('Next >')"
-            :prev-text="_('< Front')">
-        </el-pagination>
+
     </div>
 </template>
 <script>
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import betBox from './components/bet-box'
+import historyBetBox from './components/history-bet-box'
 import { mapActions, mapState } from 'vuex'
 
 export default {
     data () {
         return {
-            pages: {
-                pageno: 1,
-                pagesize: 16,
+            bets: {
+                pages: {
+                    pageno: 1,
+                    pagesize: 16
+                },
                 pageCount: 10
-            }
+            },
+            history: {
+                pages: {
+                    pageno: 1,
+                    pagesize: 16
+                },
+                pageCount: 10
+            },
+            activeName: 'bids',
+            filter: 'All Bets',
+            bidsFilter: 'default',
+            list: []
         }
     },
     methods: {
-        ...mapActions('cs_luckycoin', ['getBetsPageList']),
-        handleCurrentChange (pageno = this.pages.pageno) {
-            this.pages.pageno = pageno
-            this.getPageData()
+        ...mapActions('cs_luckycoin', ['getBetsPageList', 'getBetsPageHistory']),
+        handleCurrentBetChange (pageno = this.bets.pages.pageno) {
+            this.bets.pages.pageno = pageno
+            this.getBetData()
         },
-        async getPageData () {
-            let data = await this.getBetsPageList(this.pages)
-            this.pages.pageCount = parseInt(data.data.pages, 10)
+        handleCurrentHistoryChange (pageno = this.history.pages.pageno) {
+            this.history.pages.pageno = pageno
+            this.getHistoryData()
+        },
+        async getBetData () {
+            let result = await this.getBetsPageList({
+                ...this.getFilter(),
+                ...this.bets.pages
+            })
+            this.bets.pageCount = parseInt(result.data.pages, 10)
+        },
+        async getHistoryData () {
+            let result = await this.getBetsPageHistory({
+                ...this.getFilter(),
+                ...this.history.pages
+            })
+            this.history.pageCount = parseInt(result.data.pages, 10)
+        },
+        sortProgress (a, b) {
+            return (
+                (Number(a.leftBids) / Number(a.totalBids)) > (Number(b.leftBids) / Number(b.totalBids))
+                    ? 1
+                    : -1
+            )
+        },
+        sortPrice (a, b) {
+            return (
+                (Number(a.goodsValue)) > (Number(b.goodsValue))
+                    ? 1
+                    : -1
+            )
+        },
+        filterBets (bets = []) {
+            let arr = []
+            if (this.filter === 'All Bets') {
+                arr = [...bets]
+            } else if (this.filter === 'ETH') {
+                arr = [...bets.filter(bet => bet.goodsType === '2001')]
+            } else if (this.filter === 'BTC') {
+                arr = [...bets.filter(bet => bet.goodsType === '1001')]
+            } else if (this.filter === 'My Bets') {
+                arr = [...bets.filter(bet => bet.isbet === '1')]
+            }
+
+            if (this.bidsFilter === 'default') {
+                return arr
+            } else if (this.bidsFilter === 'progress1') {
+                return arr.sort((a, b) => this.sortProgress(a, b))
+            } else if (this.bidsFilter === 'progress0') {
+                return arr.sort((a, b) => this.sortProgress(b, a))
+            } else if (this.bidsFilter === 'price1') {
+                return arr.sort((a, b) => this.sortPrice(b, a))
+            } else if (this.bidsFilter === 'price0') {
+                return arr.sort((a, b) => this.sortPrice(a, b))
+            }
+            return bets.slice(0, 16)
+        },
+        getFilter () {
+            if (this.filter === 'ETH' || this.filter === 'BTC') {
+                let code = { ETH: 2001, BTC: 1001 }
+                return {
+                    goodsType: code[this.filter]
+                }
+            } else if (this.filter === 'My Bets') {
+                return { mybet: 1 }
+            }
+            return {}
+        },
+        refreshPage () {
+            if (this.activeName === 'history') {
+                this.getHistoryData()
+            } else {
+                this.getBetData()
+            }
+        },
+        handleTabClick () {
+            this.refreshPage()
+        },
+        onFilterChange () {
+            if (this.activeName === 'history') {
+                this.refreshPage()
+            } else {
+                this.filterBets()
+            }
+        },
+        onBidsFilterChange () {
+            this.filterBets()
+        }
+    },
+    watch: {
+        isLogin () {
+            this.refreshPage()
         }
     },
     computed: {
+        ...mapState({
+            isLogin: state => !!state.isLog
+        }),
         ...mapState('cs_luckycoin', {
-            betsList: state => state.betsList
+            betsList: state => state.betsList,
+            historyList: state => state.drawHistoryList
         })
     },
     mounted () {
-        this.getPageData()
+        this.getBetData()
     },
-    components: { Header, Footer, betBox }
+    components: { Header, Footer, betBox, historyBetBox }
 }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-media.less";
 
+    .more-bids-page {
+        .bread {
+            margin-bottom: 20px;
+            color: #A99ACC;
+            a {
+                color: #AA85FF;
+            }
+        }
+
+        .function-ct {
+            margin: 9px 0 10px
+        }
+
+        /deep/ .el-radio-button {
+            &.is-active .el-radio-button__inner {
+                background-color: #462255;
+            }
+            .el-radio-button__inner {
+                background-color: #341540;
+                color: #FFF;
+                border-color: #412057;
+                padding: 5px 12px;
+                min-width: 80px;
+                overflow: hidden;
+                box-shadow: 0 0 0 0 #412057;
+            }
+            &:first-child {
+                border-radius: 3px 0 0 3px;
+            }
+            &:last-child {
+                border-radius: 0 3px 3px 0;
+            }
+        }
+
+        /deep/ .el-select {
+            float: right;
+            .el-input {
+                border-radius: 3px;
+                .el-input__inner {
+                    border-radius: 3px;
+                    border: solid 1px #462255;
+                    background-color: #341540;
+                    color: #A99ACC;
+                    text-shadow: 0 0 0 #A99ACC;
+                    font-weight: normal;
+                }
+            }
+        }
+
+
+        /deep/ .el-pager .number.active {
+            background-color: #462255;
+        }
+
+        /deep/ .el-pagination {
+            text-align: center;
+            button , li {
+                border: solid 1px #412057;
+                color: #A99ACC !important;
+                &:hover {
+                    background-color: rgba(0, 0, 0, .4)
+                }
+            }
+        }
+        /deep/ .el-tabs {
+            .el-tabs__item {
+                color: #FFF;
+            }
+            .el-tabs__active-bar {
+                background-color: #FFF;
+            }
+            .el-tabs__nav-wrap::after {
+                background-color: #412057;
+            }
+        }
+    }
+
     .items{
         >div{
             margin-bottom:10px;
+            box-sizing: border-box;
         }
     }
     @media (min-width: @screen-desktop){
-
     }
 </style>

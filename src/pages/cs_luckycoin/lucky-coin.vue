@@ -11,13 +11,26 @@ import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 
 export default {
-    components: { Header, Footer }
+    components: { Header, Footer },
+    mounted () {
+        this.$store.dispatch('subInLuckyCoin')
+    }
 }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
+
+    .page-luckycoin .footer {
+        background-color: rgba(0, 0, 0, 0.4);
+        .title {
+            color: #FFF;
+        }
+        p {
+            color: #887CA5;
+        }
+    }
 
     /*mobile 为主来写*/
     .page-luckycoin{
@@ -648,16 +661,15 @@ export default {
             .msg {
                 color: #a99acc;
                 font-size: 12px;
-                margin-left: 20px;
+                padding-right: 20px;
+            }
+            .btn-more {
+                float: right;
             }
             .btn-more,
             .btn-play {
-                float: right;
                 color: #a486f7;
                 font-size: 13px;
-            }
-            .btn-play {
-                margin-right: 20px;
             }
         }
 

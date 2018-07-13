@@ -215,12 +215,21 @@ export default {
         'is-popular': {
             default: false,
             type: Boolean
+        },
+        type: {
+            type: String,
+            default: ''
         }
     },
     methods: {
         ...mapActions('cs_luckycoin', ['betNow']),
         ...mapActions(['getUserInfo']),
+        clearBetStatus () {
+            // 触发最小按钮点击事件, 重置投注金额
+            this.$refs.minBtn.click()
+        },
         openBetWindow () {
+            this.clearBetStatus()
             if (!this.isLogin) {
                 this.$store.commit('showLoginPop')
                 return
@@ -311,7 +320,9 @@ export default {
         handleBetMoreEvent () {
             this.closeWindow()
             setTimeout(() => {
-                this.openBetWindow()
+                if (Number(this.betData.state) === 1 && this.maxValue !== 0) {
+                    this.openBetWindow()
+                }
             }, 200)
         },
         modifyBetValue () {
@@ -362,6 +373,16 @@ export default {
                 // 默认投注金额 为最小投注金额
                 this.betValue = this.betData.bidValue
             }
+        },
+        isStatusChange (newbet) {
+            // 判断是否数据发生改变
+            if (JSON.stringify(this.formatBetData(newbet)) !== JSON.stringify(this.betData)) {
+                return true
+            }
+            return false
+        },
+        isChangeExpect (newbet) {
+            return Number(this.betData.exceptId) !== Number(newbet.exceptId)
         }
     },
     computed: {
@@ -444,14 +465,18 @@ export default {
         }
     },
     watch: {
-        bet: function () {
+        bet: function (newBet) {
             if (this.isInit) {
                 this.isCancel = (this.bet.state === '-1')
                 // websocket 推送更新导致bet数据改变
-                if (this.windowClass === 'normal') {
+                if (this.windowClass === 'normal' && this.isStatusChange(newBet)) {
                     // 如果用户正在打开投注弹窗，闪动按钮和变化文字，并延迟修改数值
+                    this.clearBetStatus()
                     this.blink()
                     setTimeout(() => {
+                        if (this.isChangeExpect(newBet)) {
+                            this.closeWindow()
+                        }
                         this.betData = this.formatBetData(this.bet)
                     }, this.blinkTime)
                 } else {
@@ -472,6 +497,9 @@ export default {
     mounted () {
         // 组件默认数据
         this.betData = this.formatBetData(this.bet)
+        if (this.type === 'list') {
+            this.isInit = true
+        }
     }
 }
 </script>

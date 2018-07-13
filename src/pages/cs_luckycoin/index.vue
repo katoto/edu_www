@@ -21,13 +21,13 @@
                         <router-link :to="{path: '/luckycoin/moreBids'}" class="btn-more">
                             <lang>More >></lang>
                         </router-link>
-                        <a href="javascript:;" class="btn-play">How To Play</a>
                         <div class="t1">
                             Bet For The Prize
                         </div>
                         <p class="msg hidden-xs">
                             All or nothing, small cost, big profit
                         </p>
+                        <a href="javascript:;" class="btn-play">How To Play</a>
                     </div>
                     <div class="for-full">
                         <div class="col-md-6 col-lg-3">
@@ -59,13 +59,13 @@
                         <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
                             <lang>More >></lang>
                         </router-link>
-                        <a href="javascript:;" class="btn-play">Check Transparency</a>
                         <div class="t1">
                             Draw History
                         </div>
                         <p class="msg hidden-xs">
                             Fair Open，Draw in blockchain
                         </p>
+                        <a href="javascript:;" class="btn-play">Check Transparency</a>
                     </div>
                     <div class="for-full">
                         <div class="history">
@@ -121,7 +121,6 @@ export default {
     },
     mounted () {
         this.updateLuckyCoinPage()
-        this.subInLuckyCoin()
     }
 }
 </script>

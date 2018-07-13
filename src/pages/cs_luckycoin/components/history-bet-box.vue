@@ -30,7 +30,7 @@
             </div>
             <div class="title">
                 <p class="t1">
-                    {{ Number(bet.totalBids) * Number(bet.bidValue) }} <i>{{ coinText }}</i>
+                    {{ bet.goodsValue }} <i>{{ coinText }}</i>
                 </p>
                 <p class="t2">
                     {{ goodsPrice }}
@@ -124,10 +124,19 @@ export default {
                     winUserName: ''
                 }
             }
+        },
+        type: {
+            type: String,
+            default: ''
         }
     },
     watch: {
         bet (val) {
+            this.isInit = true
+        }
+    },
+    mounted () {
+        if (this.type === 'list') {
             this.isInit = true
         }
     }

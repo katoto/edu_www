@@ -17,7 +17,7 @@ import '@/styles/lib-reset.css'
 import '@/styles/element.css'
 
 //  按需加载  有点小问题
-import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
+import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane, RadioButton, RadioGroup} from 'element-ui'
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
@@ -42,6 +42,8 @@ Vue.component(TabPane.name, TabPane)
 
 Vue.component(Carousel.name, Carousel)
 Vue.component(CarouselItem.name, CarouselItem)
+Vue.component(RadioButton.name, RadioButton)
+Vue.component(RadioGroup.name, RadioGroup)
 
 //  按需加载 end
 
