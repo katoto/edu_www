@@ -1,6 +1,6 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}" >
-        <Banner></Banner>
+        <Banner v-on:superBannerChange="superChange"></Banner>
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <div class="main">
@@ -405,7 +405,6 @@
                     })
                     this.superBtnState(true)
                 } else if (msg === 'superOut') {
-                    console.log('superOut')
                     this.playArea.forEach((val, index) => {
                         val.pickType = '1'
                         val.pickNum = []
@@ -858,7 +857,7 @@
             .position-msg{
                 position: absolute;
                 left: 0;
-                top: 22px;
+                top: 18px;
             }
         }
         .limit-tips {

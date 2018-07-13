@@ -48,9 +48,10 @@
                 <!--</span>-->
                 <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount }}</i>
                 <span>{{ formateCoinType (currCoinType) }}</span>
-                <span class="jp_btn" v-if="!isSuperPick" @click="superInPage"><lang>Go</lang></span>
-                <span class="jp_btn" v-else @click="superOutPage"><lang>Back</lang></span>
-
+            </p>
+            <p>
+                <span class="jp_btn" v-if="!isSuperPick" @click="superInPage">Go</span>
+                <span class="jp_btn" v-else @click="superOutPage">Back</span>
             </p>
         </div>
     </div>
@@ -161,7 +162,8 @@
         transition: all 0.2s;
     }
     .superActive .nav{
-        background: linear-gradient(to right, #403124, #81663a, #4d3b28);
+        /*background: linear-gradient(to right, #403124, #81663a, #4d3b28);*/
+        background: linear-gradient(to right, #463524, #81653a, #463525);
     }
     .superActive .nav.fix{
         background: #80643b
@@ -378,6 +380,20 @@
         }
     }
 
+    .jp_btn{
+        display: inline-block;
+        width: 80px;
+        height: 32px;
+        text-align: center;
+        color: #f4ba25;
+        line-height: 32px;
+        background-color: #544898;
+        border-radius: 5px;
+        margin-left: 26px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+    }
     .jackpot2 {
         float: left;
         margin-left: 200px;
@@ -388,21 +404,6 @@
         /*}*/
         span {
             font-size: 20px;
-        }
-        .jp_btn{
-            display: inline-block;
-            width: 80px;
-            height: 32px;
-            text-align: center;
-            color: #f4ba25;
-            line-height: 32px;
-            background-color: #544898;
-            border-radius: 5px;
-            margin-left: 26px;
-            cursor: pointer;
-            em{
-                font-size: 14px;
-            }
         }
         i {
             position: relative;
@@ -428,7 +429,7 @@
             }
         }
     }
-    .superActive .jackpot2 .jp_btn{
+    .superActive .jp_btn{
         background-color: #6f552d;
     }
     .deadlineMove {

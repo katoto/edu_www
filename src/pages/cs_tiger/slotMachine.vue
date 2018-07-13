@@ -382,8 +382,16 @@
                              :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
                     </div>
                 </div>
-                <div class="tiger-pc-msg ">
+                <div class="tiger-pc-msg">
                     <h3><lang>Recent</lang></h3>
+                    <!-- 首次进入老虎机出现-->
+                    <div class="tiger-firstBaxi" :class="{'show':showFirstBaxi}">
+                        <p class="firstp">Try Slot & Win <span class="winColor">97%+</span> Return Rate</p>
+                        <p>Up to <img width="16" height="16" src="@/assets/img/tiger/icon-baxi.png" alt="England">
+                            <span class="winColor">x 3 = 800</span> Times Return!
+                        </p>
+                        <i @click="showFirstBaxi=false"></i>
+                    </div>
                     <div class="recent-win">
                         <div class="recent-top">
                             <div class="user">
@@ -443,6 +451,7 @@
     export default {
         data () {
             return {
+                showFirstBaxi: false, // 首次提示
                 showRecharge: false, // 显示充值弹窗
                 hideBarLycky: true,
                 tab_t: 1, // 规则
@@ -986,7 +995,7 @@
             reduceMoney () {
                 if (this.userInfo && this.userInfo.accounts) {
                     if (this.currCoinType.toString() === '2001') {
-                        this.userInfo.accounts[0].balance = Math.abs( parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)) )
+                        this.userInfo.accounts[0].balance = Math.abs(parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
                         this.$store.commit('setUserInfo', this.userInfo)
                     }
                 }
@@ -1105,6 +1114,10 @@
         },
         async mounted () {
             await this.changePageState()
+            if (!localStorage.getItem('firstJackpot')) {
+                this.showFirstBaxi = true
+                localStorage.setItem('firstJackpot', true)
+            }
             this.$store.dispatch('subInTiger')
         },
         updated () {
@@ -2061,17 +2074,55 @@
 
     /*pc content*/
     .tiger-pc-msg {
+        position: relative;
         width: 365px;
         height: 100%;
         padding: 70px 18px 0;
         background: rgba(29, 21, 7, 0.8);
         color: #79695c;
+        .tiger-firstBaxi{
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 76px;
+            width: 256px;
+            height: 74px;
+            border-radius: 2px;
+            background-color: #19130f;
+            .winColor{
+                color: #f4dc01;
+            }
+            p{
+                color: #fff;
+                height: 20px;
+                line-height: 20px;
+                text-indent: 12px;
+            }
+            img{
+                vertical-align:middle;
+            }
+            p:first-child{
+                margin-top: 16px;
+            }
+            i{
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 0;
+                background-image: url("../../assets/img/lucky11/icon-close-jack.png");
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+            }
+        }
         h3 {
+            margin-top: 10px;
             line-height: 64px;
             font-size: 28px;
         }
         .recent-win {
             text-align: center;
+            margin-top: 8px;
         }
         .user {
             float: left;
@@ -2098,7 +2149,7 @@
     }
 
     .recent-main {
-        height:320px;
+        height:300px;
         overflow: hidden;
         li {
             padding: 0 10px;
