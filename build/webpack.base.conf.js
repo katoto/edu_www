@@ -140,7 +140,7 @@ module.exports = {
         new vConsolePlugin({enable:!isDebug}),
         new prerenderSPAPlugin({
             staticDir:path.join(__dirname,'../dist'),
-            routes:['/','/lucky11','/slot'],
+            routes:['/lucky11','/slot'],
             minify:{
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,
