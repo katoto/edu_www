@@ -125,7 +125,7 @@ export default {
                 ...this.getFilter(),
                 ...this.bets.pages
             })
-            this.bets.pageCount = parseInt(result.data.pages, 10)
+            this.bets.pageCount = Math.ceil(result.data.goods.length / 16)
         },
         async getHistoryData () {
             let result = await this.getBetsPageHistory({
@@ -148,6 +148,10 @@ export default {
                     : -1
             )
         },
+        clearPageno () {
+            this.bets.pages.pageno = 1
+            this.history.pages.pageno = 1
+        },
         filterBets (bets = []) {
             let arr = []
             if (this.filter === 'All Bets') {
@@ -161,17 +165,19 @@ export default {
             }
 
             if (this.bidsFilter === 'default') {
-                return arr
+                return this.slice(arr)
             } else if (this.bidsFilter === 'progress1') {
-                return arr.sort((a, b) => this.sortProgress(a, b))
+                return this.slice(arr.sort((a, b) => this.sortProgress(a, b)))
             } else if (this.bidsFilter === 'progress0') {
-                return arr.sort((a, b) => this.sortProgress(b, a))
+                return this.slice(arr.sort((a, b) => this.sortProgress(b, a)))
             } else if (this.bidsFilter === 'price1') {
-                return arr.sort((a, b) => this.sortPrice(b, a))
+                return this.slice(arr.sort((a, b) => this.sortPrice(b, a)))
             } else if (this.bidsFilter === 'price0') {
-                return arr.sort((a, b) => this.sortPrice(a, b))
+                return this.slice(arr.sort((a, b) => this.sortPrice(a, b)))
             }
-            return bets.slice(0, 16)
+        },
+        slice (arr) {
+            return arr.slice((this.bets.pages.pageno - 1) * 16, this.bets.pages.pageno * 16)
         },
         getFilter () {
             if (this.filter === 'ETH' || this.filter === 'BTC') {
@@ -192,9 +198,11 @@ export default {
             }
         },
         handleTabClick () {
+            this.filter = 'All Bets'
             this.refreshPage()
         },
         onFilterChange () {
+            this.clearPageno()
             if (this.activeName === 'history') {
                 this.refreshPage()
             } else {
@@ -202,6 +210,7 @@ export default {
             }
         },
         onBidsFilterChange () {
+            this.clearPageno()
             this.filterBets()
         }
     },
