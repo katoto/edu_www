@@ -106,8 +106,8 @@
                 </div>
 
                 <!--show-->
-                <div class="msg-winning hide">
-                    Congratulation！ 462***98@gmail.com <i>WIN 0.1 ETH</i>
+                <div class="msg-winning" :class="{ hide: !otherWin.isShow }">
+                    Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
                 </div>
             </div>
         </div>
@@ -130,7 +130,9 @@ export default {
         ...mapState('cs_luckycoin', {
             betsList: state => state.betsList,
             drawHistoryList: state => state.drawHistoryList,
-            recentBetsList: state => state.recentBetsList
+            recentBetsList: state => state.recentBetsList,
+            otherWin: state => state.otherWin,
+            selfWin: state => state.selfWin
         })
     },
     mounted () {

@@ -1,11 +1,24 @@
 // 一元夺币 modules
 import ajax from '~common/ajax'
+import { formateCoinType } from '~common/util'
 import router from '~router'
 
 const state = {
     betsList: [],
     drawHistoryList: [],
-    recentBetsList: []
+    recentBetsList: [],
+    otherWin: {
+        name: '',
+        num: '',
+        type: '',
+        isShow: false
+    },
+    selfWin: {
+        name: '',
+        num: '',
+        type: '',
+        isShow: false
+    }
 }
 
 const mutations = {
@@ -44,6 +57,28 @@ const mutations = {
     // 更新历史投注列表
     updateDrawHistory (state, bets) {
         state.drawHistoryList = [...bets]
+    },
+
+    // 其他用户获奖弹窗
+    showOtherWin (state, params) {
+        state.otherWin = {
+            isShow: true,
+            name: params.winUserName,
+            num: params.goodsValue,
+            type: formateCoinType(params.goodsType)
+        }
+        setTimeout(() => {
+            this.commit('cs_luckycoin/hideOtherWin')
+        }, 6000)
+    },
+
+    hideOtherWin (state) {
+        state.otherWin.isShow = false
+    },
+
+    // 个人获奖弹窗
+    showMyWin (state, params) {
+
     }
 }
 
@@ -103,13 +138,26 @@ const actions = {
         return data
     },
 
-    updateBets ({ dispatch }, params = {}) {
+    updateBets ({ dispatch, commit }, params = {}) {
+        if (params.state === '4') {
+            if (
+                this.state.userInfo &&
+                this.state.userInfo.uid &&
+                params.winUid.toString() === this.state.userInfo.uid
+            ) {
+                // 当前用户获奖
+                commit('showOtherWin', params)
+            } else {
+                // 其他用户获奖
+                commit('showOtherWin', params)
+            }
+        }
         if (router.history.current.path.indexOf('/moreBids') > -1) {
             dispatch('getBetsPageList')
-        } else {
-            dispatch('getBetsList')
-            dispatch('getDrawHistory')
+            return
         }
+        dispatch('getBetsList')
+        dispatch('getDrawHistory')
     },
 
     updateLuckyCoinPage ({ dispatch }) {
