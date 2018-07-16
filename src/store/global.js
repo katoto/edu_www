@@ -195,7 +195,7 @@ const actions = {
                         switch (msg.msg_code.toString()) {
                         case '1001':
                             // 初始化
-                            //  初始化倒计时
+                            //  初始化倒计时 o
                             if (msg.data.timer !== undefined && msg.data.timer !== null) {
                                 dispatch(aTypes.formate_countDown, msg.data.timer)
                             }
