@@ -146,7 +146,7 @@ const actions = {
                 params.winUid.toString() === this.state.userInfo.uid
             ) {
                 // 当前用户获奖
-                commit('showOtherWin', params)
+                console.log('迭代二开发')
             } else {
                 // 其他用户获奖
                 commit('showOtherWin', params)

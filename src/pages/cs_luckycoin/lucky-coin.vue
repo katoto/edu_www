@@ -213,6 +213,7 @@ export default {
             border-radius: 6px;
             transform: translateY(100%);
             transition: all 0.2s;
+            z-index: 10;
             .bg-betting {
                 position: absolute;
                 left: 0;
@@ -626,6 +627,10 @@ export default {
                 line-height: 24/2px;
                 font-size: 18/2px;
                 margin-top: 22/2px;
+                &.expired {
+                    color: #a99acc;
+                    font-weight: normal;
+                }
                 &.waiting {
                     color: #fff;
                 }

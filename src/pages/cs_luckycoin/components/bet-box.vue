@@ -88,6 +88,9 @@
             <a href="javascript:;" class="btn btn-pause" v-else-if="isPause">
                 <lang>Pause Bet</lang>
             </a>
+            <a href="javascript:;" class="btn btn-pause" v-else-if="isExpired">
+                <lang>Expired</lang>
+            </a>
             <a href="javascript:;" class="btn" v-else @click="openBetWindow">
                 <lang>Bet Now</lang>
             </a>
@@ -111,7 +114,7 @@
                         </div>
                         <div class="bet-input">
                             <a href="javascript:;" class="redu" @click="chooseHalf">1/2</a>
-                            <input type="text" v-model="betValue" @mouseout="modifyBetValue" @blur="modifyBetValue">
+                            <input type="text" v-model="betValue">
                             <a href="javascript:;" class="add" @click="chooseDouble">x2</a>
                         </div>
                         <a href="javascript:;" class="bet-btn" @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
@@ -174,8 +177,22 @@
 </template>
 
 <script>
-import { formateCoinType, numberComma } from '~/common/util'
+import { formateCoinType, numberComma, accDiv, accMul } from '~/common/util'
 import { mapActions, mapState } from 'vuex'
+let defaultValue = {
+    state: '-1',
+    image: '',
+    coinprice: {
+        USD: '0'
+    },
+    goodsValue: '0',
+    goodsType: '2001',
+    totalBids: '0',
+    bidValue: '0.01',
+    leftBids: '0',
+    isbet: '0',
+    ishot: '0'
+}
 export default {
     data () {
         return {
@@ -183,7 +200,9 @@ export default {
             betValue: 0,
             isBlinking: false,
             blinkTime: 2300,
-            betData: {},
+            betData: {
+                ...defaultValue
+            },
             isInit: false,
             disableBet: false,
             errorMessage: '',
@@ -195,18 +214,7 @@ export default {
             type: Object,
             default: function () {
                 return {
-                    state: '-1',
-                    image: '',
-                    coinprice: {
-                        USD: '0'
-                    },
-                    goodsValue: '0',
-                    goodsType: '2001',
-                    totalBids: '0',
-                    bidValue: '0.01',
-                    leftBids: '0',
-                    isbet: '0',
-                    ishot: '0'
+                    ...defaultValue
                 }
             }
         },
@@ -266,7 +274,7 @@ export default {
                 } else if (this.betValue === this.minValue) {
                     this.$refs.minBtn.className = 'on'
                 } else if (this.betValue === this.maxValue) {
-                    this.$refs.maxValue.className = 'on'
+                    this.$refs.maxBtn.className = 'on'
                 }
             } else {
                 event.target.className = 'on'
@@ -286,28 +294,28 @@ export default {
         },
         chooseHalf () {
             if (this.betValue / 2 >= this.minValue) {
-                this.betValue = this.formatBidValue(
-                    this.betValue / 2
-                )
-                this.changeMenuStatus(true)
+                this.betValue = this.formatBidValue(this.betValue / 2)
+            } else if (this.betValue > this.minValue) {
+                this.betValue = this.minValue
             }
+            this.changeMenuStatus(true)
         },
         chooseDouble () {
             if (this.betValue * 2 <= this.maxValue) {
-                this.betValue = this.formatBidValue(
-                    this.betValue * 2
-                )
-                this.changeMenuStatus(true)
+                this.betValue = this.formatBidValue(this.betValue * 2)
+            } else if (this.betValue < this.maxValue) {
+                this.betValue = this.maxValue
             }
+            this.changeMenuStatus(true)
         },
         async handleBetEvent () {
-            if (!this.isBlinking && !this.disableBet) {
-                this.closeWindow()
+            if (this.disableBet || this.isBlinking) {
+                return
             }
             try {
                 let data = await this.betNow({
                     cointype: this.coinType,
-                    codestr: `${this.betData.exceptId}|${this.coinType}|${(this.betValue * 100000) / (this.betData.bidValue * 100000)}|${this.betData.bidValue}`
+                    codestr: `${this.betData.exceptId}|${this.coinType}|${accDiv(this.betValue, this.betData.bidValue)}|${this.betData.bidValue}`
                 })
                 this.getUserInfo()
                 this.openSuccessWindow()
@@ -339,11 +347,11 @@ export default {
         },
         formatBidValue (value) {
             let minValue = this.betData.bidValue
-            if (value && minValue && value > 0 && minValue > 0) {
+            if (value && minValue && value >= 0 && minValue >= 0) {
                 return (
                     minValue >= value
                         ? minValue
-                        : Math.floor((value * 100000) / (minValue * 100000)) * (minValue * 100000) / 100000
+                        : accMul(Math.floor(accDiv(value, minValue)), minValue)
                 )
             }
             return value
@@ -418,6 +426,9 @@ export default {
         isPause () {
             return this.betData.state === '2'
         },
+        isExpired () {
+            return this.betData.state === '5'
+        },
         goodsPrice () {
             this.betData.coinprice = {}
             for (let keyname in this.betData.coinprice) {
@@ -445,7 +456,7 @@ export default {
             return this.betData.bidValue
         },
         maxValue () {
-            let maxBidNum = (this.betData.leftBids * 100000) * this.betData.bidValue / 100000
+            let maxBidNum = accMul(this.betData.leftBids, this.betData.bidValue)
             return this.formatBidValue(
                 this.balance > maxBidNum ? maxBidNum : this.balance
             )
@@ -477,6 +488,9 @@ export default {
                             this.closeWindow()
                         }
                         this.betData = this.formatBetData(this.bet)
+                        if (this.isWaiting) {
+                            this.closeWindow()
+                        }
                     }, this.blinkTime)
                 } else {
                     // 如果用户不处于投注状态，直接更新数值

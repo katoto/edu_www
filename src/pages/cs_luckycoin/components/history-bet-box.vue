@@ -48,8 +48,11 @@
             <div class="result win" v-if="isWin">
                 {{ bet.winUserName }}
             </div>
+            <div class="result expired" v-else-if="isOutdate">
+                <lang>Expired</lang>
+            </div>
             <div class="result waiting" v-else>
-                waiting
+                <lang>waiting</lang>
             </div>
         </div>
     </div>
