@@ -65,8 +65,11 @@ export default new Router({
             children: [
                 {
                     path: 'drawHistory',
+                    meta: {
+                        history: true
+                    },
                     name: _('Draw History'),
-                    component: luckycoinDrawHistory
+                    component: luckcoinMoreBids
                 },
                 {
                     path: 'moreBids',

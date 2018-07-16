@@ -7,7 +7,7 @@
                 </router-link> >
                 <router-link :to="{path: '/luckycoin'}">
                     <lang>Luck Coin</lang>
-                </router-link> > More Bids
+                </router-link> > {{ $route.meta.history ? _('Draw History') : _('More Bids') }}
             </div>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                 <el-tab-pane label="More Bids" name="bids"></el-tab-pane>
@@ -212,6 +212,9 @@ export default {
         onBidsFilterChange () {
             this.clearPageno()
             this.filterBets()
+        },
+        renderHistoryPage () {
+
         }
     },
     watch: {
@@ -229,6 +232,7 @@ export default {
         })
     },
     mounted () {
+        this.activeName = this.$route.meta.history ? 'history' : 'bids'
         this.getBetData()
     },
     components: { Header, Footer, betBox, historyBetBox }
