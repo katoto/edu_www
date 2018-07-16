@@ -1104,8 +1104,11 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
+            //移动端整屏
+            document.documentElement.className = 'flexhtml';
             await this.changePageState()
             this.$store.dispatch('subInTiger')
+
         },
         updated () {
             if (document.getElementById('heiImg')) {
@@ -1117,6 +1120,7 @@
             }
         },
         beforeDestroy () {
+            document.documentElement.className = '';
             this.$store.dispatch('subOutTiger')
             this.stopAutoPlay()
         }

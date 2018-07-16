@@ -69,8 +69,6 @@
     @import "../styles/lib-public.less";
     @import "../styles/lib-media.less";
     #app {
-        display: flex;
-        flex-direction: column;
         position: relative;
         background: #eef1f9;
         font-size: 14px;
