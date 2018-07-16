@@ -138,20 +138,20 @@ module.exports = {
 		// 	$: "jquery"
 		// }),
         new vConsolePlugin({enable:!isDebug}),
-        // new prerenderSPAPlugin({
-        //     staticDir:path.join(__dirname,'../dist'),
-        //     routes:['/lucky11','/slot'],
-        //     minify:{
-        //         collapseBooleanAttributes: true,
-        //         collapseWhitespace: true,
-        //         decodeEntities: true,
-        //         keepClosingSlash: true,
-        //         sortAttributes: true
-        //     },
-        //     postProcess (renderedRoute) {
-        //         renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-        //         return renderedRoute
-        //     }
-        // })
+        new prerenderSPAPlugin({
+            staticDir:path.join(__dirname,'../dist'),
+            routes:['/lucky11','/slot'],
+            minify:{
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true,
+                decodeEntities: true,
+                keepClosingSlash: true,
+                sortAttributes: true
+            },
+            postProcess (renderedRoute) {
+                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                return renderedRoute
+            }
+        })
 	]
 }
