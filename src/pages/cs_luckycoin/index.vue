@@ -5,9 +5,23 @@
                 <div class="row  clearfix">
                     <div class="col-lg-8">
                         <div class="for-full banner">
-                            <a href="javascript:;" rel="nofollow">
-                                <img src="../../assets/img/oneToKen/banner.jpg" alt="">
-                            </a>
+                        <el-carousel :interval="3000" arrow="always">
+                            <el-carousel-item>
+                                <a href="javascript:;" rel="nofollow">
+                                    <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                </a>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <a href="javascript:;" rel="nofollow">
+                                    <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                </a>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <a href="javascript:;" rel="nofollow">
+                                    <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                </a>
+                            </el-carousel-item>
+                        </el-carousel>
                         </div>
                     </div>
                     <div class="col-lg-4">

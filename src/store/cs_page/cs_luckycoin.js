@@ -98,11 +98,7 @@ const actions = {
     },
 
     async getBetsPageHistory ({ commit }, params = {}) {
-        let data = await ajax.get('/draw/records/list', {
-            ...params,
-            pageno: '1',
-            pagesize: '16'
-        })
+        let data = await ajax.get('/draw/records/list', params)
         commit('updateDrawHistory', data.data.drawRecords)
         return data
     },

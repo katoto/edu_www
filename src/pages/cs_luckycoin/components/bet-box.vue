@@ -70,9 +70,7 @@
                 <p class="t1" v-else>
                     {{ this.betData.goodsValue }} <i>{{ coinText }}</i>
                 </p>
-                <p class="t2">
-                    {{ goodsPrice }}
-                </p>
+                <p class="t2" v-html="goodsPrice"></p>
             </div>
             <div class="msg">
                 <p class="c1">
@@ -421,12 +419,13 @@ export default {
             return this.betData.state === '2'
         },
         goodsPrice () {
+            this.betData.coinprice = {}
             for (let keyname in this.betData.coinprice) {
                 if (keyname) {
                     return `(${keyname} ${this.betData.coinprice[keyname]})`
                 }
             }
-            return ' '
+            return '<br>'
         },
         coin () {
             return {
