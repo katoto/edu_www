@@ -103,7 +103,7 @@ const actions = {
         return data
     },
 
-    updateBets ({ dispatch }) {
+    updateBets ({ dispatch }, params = {}) {
         if (router.history.current.path.indexOf('/moreBids') > -1) {
             dispatch('getBetsPageList')
         } else {
