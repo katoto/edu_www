@@ -292,3 +292,18 @@ h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
 .bold{
   font-weight:bold;
 }
+
+
+/*移动端整屏*/
+html.flexhtml, .flexhtml body,.flexhtml #app {
+    height: 100%;
+    overflow: hidden;
+}
+.flexhtml #app {
+    display: flex;
+    flex-direction: column;
+}
+.flexhtml #app > div {
+    flex: 1;
+    overflow-y: auto;
+}
