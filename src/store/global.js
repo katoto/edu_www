@@ -281,7 +281,7 @@ const actions = {
                             break
                         case '1007':
                             msg.data.state === '4' || msg.data.state === '5'
-                                ? dispatch('cs_luckycoin/updateBets')
+                                ? dispatch('cs_luckycoin/updateBets', msg.data)
                                 : commit('cs_luckycoin/updateBet', msg.data)
                             break
                         case '1008':

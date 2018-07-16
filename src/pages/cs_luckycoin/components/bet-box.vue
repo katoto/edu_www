@@ -115,7 +115,7 @@
                             <a href="javascript:;" class="add" @click="chooseDouble">x2</a>
                         </div>
                         <a href="javascript:;" class="bet-btn" @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                            {{ this.isBlinking ? _('Max changes') : _('Pay Now') }}
+                            {{ this.isBlinking ? _('Amount changes') : _('Pay Now') }}
                         </a>
                     </div>
                     <!--投注成功-->
