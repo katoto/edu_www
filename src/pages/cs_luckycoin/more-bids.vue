@@ -1,14 +1,7 @@
 <template>
     <div class="oneToKen more-bids-page">
         <div class="main">
-            <div class="bread">
-                <router-link :to="{path: '/'}">
-                    <lang>Home</lang>
-                </router-link> >
-                <router-link :to="{path: '/luckycoin'}">
-                    <lang>Luck Coin</lang>
-                </router-link> > More Bids
-            </div>
+            <BreadCrumbs></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                 <el-tab-pane label="More Bids" name="bids"></el-tab-pane>
                 <el-tab-pane label="Draw History" name="history"></el-tab-pane>
@@ -81,236 +74,267 @@
     </div>
 </template>
 <script>
-import Header from '~components/Header.vue'
-import Footer from '~components/Footer.vue'
-import betBox from './components/bet-box'
-import historyBetBox from './components/history-bet-box'
-import { mapActions, mapState } from 'vuex'
+import Header from "~components/Header.vue";
+import Footer from "~components/Footer.vue";
+import betBox from "./components/bet-box";
+import historyBetBox from "./components/history-bet-box";
+import { mapActions, mapState } from "vuex";
+import BreadCrumbs from "~/components/BreadCrumbs.vue";
 
 export default {
-    data () {
-        return {
-            bets: {
-                pages: {
-                    pageno: 1,
-                    pagesize: 16
-                },
-                pageCount: 10
-            },
-            history: {
-                pages: {
-                    pageno: 1,
-                    pagesize: 16
-                },
-                pageCount: 10
-            },
-            activeName: 'bids',
-            filter: 'All Bets',
-            bidsFilter: 'default',
-            list: []
-        }
+  data() {
+    return {
+      bets: {
+        pages: {
+          pageno: 1,
+          pagesize: 16
+        },
+        pageCount: 10
+      },
+      history: {
+        pages: {
+          pageno: 1,
+          pagesize: 16
+        },
+        pageCount: 10
+      },
+      activeName: "bids",
+      filter: "All Bets",
+      bidsFilter: "default",
+      list: []
+    };
+  },
+  methods: {
+    ...mapActions("cs_luckycoin", ["getBetsPageList", "getBetsPageHistory"]),
+    handleCurrentBetChange(pageno = this.bets.pages.pageno) {
+      this.bets.pages.pageno = pageno;
+      this.getBetData();
     },
-    methods: {
-        ...mapActions('cs_luckycoin', ['getBetsPageList', 'getBetsPageHistory']),
-        handleCurrentBetChange (pageno = this.bets.pages.pageno) {
-            this.bets.pages.pageno = pageno
-            this.getBetData()
-        },
-        handleCurrentHistoryChange (pageno = this.history.pages.pageno) {
-            this.history.pages.pageno = pageno
-            this.getHistoryData()
-        },
-        async getBetData () {
-            let result = await this.getBetsPageList({
-                ...this.getFilter(),
-                ...this.bets.pages
-            })
-            this.bets.pageCount = parseInt(result.data.pages, 10)
-        },
-        async getHistoryData () {
-            let result = await this.getBetsPageHistory({
-                ...this.getFilter(),
-                ...this.history.pages
-            })
-            this.history.pageCount = parseInt(result.data.pages, 10)
-        },
-        sortProgress (a, b) {
-            return (
-                (Number(a.leftBids) / Number(a.totalBids)) > (Number(b.leftBids) / Number(b.totalBids))
-                    ? 1
-                    : -1
-            )
-        },
-        sortPrice (a, b) {
-            return (
-                (Number(a.goodsValue)) > (Number(b.goodsValue))
-                    ? 1
-                    : -1
-            )
-        },
-        filterBets (bets = []) {
-            let arr = []
-            if (this.filter === 'All Bets') {
-                arr = [...bets]
-            } else if (this.filter === 'ETH') {
-                arr = [...bets.filter(bet => bet.goodsType === '2001')]
-            } else if (this.filter === 'BTC') {
-                arr = [...bets.filter(bet => bet.goodsType === '1001')]
-            } else if (this.filter === 'My Bets') {
-                arr = [...bets.filter(bet => bet.isbet === '1')]
-            }
+    handleCurrentHistoryChange(pageno = this.history.pages.pageno) {
+      this.history.pages.pageno = pageno;
+      this.getHistoryData();
+    },
+    async getBetData() {
+      let result = await this.getBetsPageList({
+        ...this.getFilter(),
+        ...this.bets.pages
+      });
+      this.bets.pageCount = parseInt(result.data.pages, 10);
+    },
+    async getHistoryData() {
+      let result = await this.getBetsPageHistory({
+        ...this.getFilter(),
+        ...this.history.pages
+      });
+      this.history.pageCount = parseInt(result.data.pages, 10);
+    },
+    sortProgress(a, b) {
+      return Number(a.leftBids) / Number(a.totalBids) >
+        Number(b.leftBids) / Number(b.totalBids)
+        ? 1
+        : -1;
+    },
+    sortPrice(a, b) {
+      return Number(a.goodsValue) > Number(b.goodsValue) ? 1 : -1;
+    },
+    filterBets(bets = []) {
+      let arr = [];
+      if (this.filter === "All Bets") {
+        arr = [...bets];
+      } else if (this.filter === "ETH") {
+        arr = [...bets.filter(bet => bet.goodsType === "2001")];
+      } else if (this.filter === "BTC") {
+        arr = [...bets.filter(bet => bet.goodsType === "1001")];
+      } else if (this.filter === "My Bets") {
+        arr = [...bets.filter(bet => bet.isbet === "1")];
+      }
 
-            if (this.bidsFilter === 'default') {
-                return arr
-            } else if (this.bidsFilter === 'progress1') {
-                return arr.sort((a, b) => this.sortProgress(a, b))
-            } else if (this.bidsFilter === 'progress0') {
-                return arr.sort((a, b) => this.sortProgress(b, a))
-            } else if (this.bidsFilter === 'price1') {
-                return arr.sort((a, b) => this.sortPrice(b, a))
-            } else if (this.bidsFilter === 'price0') {
-                return arr.sort((a, b) => this.sortPrice(a, b))
-            }
-            return bets.slice(0, 16)
-        },
-        getFilter () {
-            if (this.filter === 'ETH' || this.filter === 'BTC') {
-                let code = { ETH: 2001, BTC: 1001 }
-                return {
-                    goodsType: code[this.filter]
-                }
-            } else if (this.filter === 'My Bets') {
-                return { mybet: 1 }
-            }
-            return {}
-        },
-        refreshPage () {
-            if (this.activeName === 'history') {
-                this.getHistoryData()
-            } else {
-                this.getBetData()
-            }
-        },
-        handleTabClick () {
-            this.refreshPage()
-        },
-        onFilterChange () {
-            if (this.activeName === 'history') {
-                this.refreshPage()
-            } else {
-                this.filterBets()
-            }
-        },
-        onBidsFilterChange () {
-            this.filterBets()
-        }
+      if (this.bidsFilter === "default") {
+        return arr;
+      } else if (this.bidsFilter === "progress1") {
+        return arr.sort((a, b) => this.sortProgress(a, b));
+      } else if (this.bidsFilter === "progress0") {
+        return arr.sort((a, b) => this.sortProgress(b, a));
+      } else if (this.bidsFilter === "price1") {
+        return arr.sort((a, b) => this.sortPrice(b, a));
+      } else if (this.bidsFilter === "price0") {
+        return arr.sort((a, b) => this.sortPrice(a, b));
+      }
+      return bets.slice(0, 16);
     },
-    watch: {
-        isLogin () {
-            this.refreshPage()
-        }
+    getFilter() {
+      if (this.filter === "ETH" || this.filter === "BTC") {
+        let code = { ETH: 2001, BTC: 1001 };
+        return {
+          goodsType: code[this.filter]
+        };
+      } else if (this.filter === "My Bets") {
+        return { mybet: 1 };
+      }
+      return {};
     },
-    computed: {
-        ...mapState({
-            isLogin: state => !!state.isLog
-        }),
-        ...mapState('cs_luckycoin', {
-            betsList: state => state.betsList,
-            historyList: state => state.drawHistoryList
-        })
+    refreshPage() {
+      if (this.activeName === "history") {
+        this.getHistoryData();
+      } else {
+        this.getBetData();
+      }
     },
-    mounted () {
-        this.getBetData()
+    handleTabClick() {
+      this.refreshPage();
     },
-    components: { Header, Footer, betBox, historyBetBox }
-}
+    onFilterChange() {
+      if (this.activeName === "history") {
+        this.refreshPage();
+      } else {
+        this.filterBets();
+      }
+    },
+    onBidsFilterChange() {
+      this.filterBets();
+    }
+  },
+  watch: {
+    isLogin() {
+      this.refreshPage();
+    }
+  },
+  computed: {
+    ...mapState({
+      isLogin: state => !!state.isLog
+    }),
+    ...mapState("cs_luckycoin", {
+      betsList: state => state.betsList,
+      historyList: state => state.drawHistoryList
+    })
+  },
+  mounted() {
+    this.getBetData();
+  },
+  components: { Header, Footer, betBox, historyBetBox, BreadCrumbs }
+};
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../../styles/lib-media.less";
+@import "../../styles/lib-media.less";
 
-    .more-bids-page {
-        .bread {
-            margin-bottom: 20px;
-            color: #A99ACC;
-            a {
-                color: #AA85FF;
-            }
-        }
+.more-bids-page {
+  .main {
+    padding-top: 0;
+  }
+  .b-nav {
+    max-width: 1190px;
+    width: 92%;
+    margin: 13px auto 10px;
+  }
+  .function-ct {
+    width: 92%;
+    max-width: 1190px;
+    margin: 28px auto 30px;
+    overflow: hidden;
+  }
 
-        .function-ct {
-            margin: 9px 0 10px
-        }
-
-        /deep/ .el-radio-button {
-            &.is-active .el-radio-button__inner {
-                background-color: #462255;
-            }
-            .el-radio-button__inner {
-                background-color: #341540;
-                color: #FFF;
-                border-color: #412057;
-                padding: 5px 12px;
-                min-width: 80px;
-                overflow: hidden;
-                box-shadow: 0 0 0 0 #412057;
-            }
-            &:first-child {
-                border-radius: 3px 0 0 3px;
-            }
-            &:last-child {
-                border-radius: 0 3px 3px 0;
-            }
-        }
-
-        /deep/ .el-select {
-            float: right;
-            .el-input {
-                border-radius: 3px;
-                .el-input__inner {
-                    border-radius: 3px;
-                    border: solid 1px #462255;
-                    background-color: #341540;
-                    color: #A99ACC;
-                    text-shadow: 0 0 0 #A99ACC;
-                    font-weight: normal;
-                }
-            }
-        }
-
-
-        /deep/ .el-pager .number.active {
-            background-color: #462255;
-        }
-
-        /deep/ .el-pagination {
-            text-align: center;
-            button , li {
-                border: solid 1px #412057;
-                color: #A99ACC !important;
-                &:hover {
-                    background-color: rgba(0, 0, 0, .4)
-                }
-            }
-        }
-        /deep/ .el-tabs {
-            .el-tabs__item {
-                color: #FFF;
-            }
-            .el-tabs__active-bar {
-                background-color: #FFF;
-            }
-            .el-tabs__nav-wrap::after {
-                background-color: #412057;
-            }
-        }
+  /deep/ .el-radio-button {
+    &.is-active .el-radio-button__inner {
+      background-color: #412057;
+      color: #fff;
     }
+    .el-radio-button__inner {
+      background: transparent;
+      color: #aa85ff;
+      border-color: #412057;
+      padding: 5px 12px;
+      min-width: 80px;
+      overflow: hidden;
+      box-shadow: 0 0 0 0 #412057;
+    }
+  }
 
-    .items{
-        >div{
-            margin-bottom:10px;
-            box-sizing: border-box;
-        }
+  /deep/ .el-select {
+    float: left;
+    margin: 10px 0 10px 0;
+
+    .el-input__inner {
+      width: auto;
+      border: solid 1px #422852;
+      background-color: #2b1438;
+      color: #a99acc;
+      text-shadow: 0 0 0 #a99acc;
+      font-weight: normal;
     }
-    @media (min-width: @screen-desktop){
+    .el-input.is-focus .el-input__inner {
+      border-color: #a99acc;
+      color: #fff;
     }
+  }
+  /deep/ .el-pager .number.active {
+    background-color: #462255;
+  }
+
+  /deep/ .el-pagination {
+    margin-top: 20px;
+    text-align: center;
+    button,
+    li {
+      border: solid 1px #412057;
+      color: #a99acc !important;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+  .el-tabs {
+    max-width: 1190px;
+    margin: 0 auto;
+  }
+  /deep/ .el-tabs {
+    width: 92%;
+    .el-tabs__item {
+      color: #aa85ff;
+      &.is-active {
+        color: #fff;
+      }
+    }
+    .el-tabs__active-bar {
+      background-color: #fff;
+    }
+    .el-tabs__nav-wrap::after {
+      background-color: #412057;
+    }
+  }
+}
+.el-select > .el-input.is-focus {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.el-popper {
+  color: #a99acc;
+}
+.el-select-dropdown__list,
+.el-select-dropdown__item {
+  color: #fff;
+  border-top: 1px solid #a99acc;
+  background: #2b1438;
+  &:hover {
+    background: #462255;
+  }
+}
+.items {
+  > div {
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+}
+@media (min-width: @screen-phone) {
+  .more-bids-page {
+    .b-nav,
+    .el-tabs,
+    .function-ct {
+      width: 100%;
+    }
+    .el-select {
+      float: right;
+      margin: 0;
+    }
+  }
+}
 </style>
