@@ -36,6 +36,10 @@
                             <bet-box :bet="bet" type="list"></bet-box>
                         </div>
                     </div>
+                    <div class="nomsg" v-if="filterBets(betsList).length === 0">
+                        <img src="@/assets/img/oneToKen/nomsg.png" alt="">
+                        <p>No record. <a href="">Try a luck !</a></p>
+                    </div>
                 </div>
                 <el-pagination
                     @current-change="handleCurrentBetChange"
@@ -55,6 +59,15 @@
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in historyList" :key="index">
                             <history-bet-box :bet="bet" type="list"></history-bet-box>
                         </div>
+                    </div>
+                    <div class="nomsg" v-if="historyList.length === 0">
+                        <img src="@/assets/img/oneToKen/nomsg.png" alt="">
+                        <p>
+                            No record. 
+                            <router-link to="/luckycoin">
+                                <lang>Try a luck !</lang>
+                            </router-link>
+                        </p>
                     </div>
                 </div>
                 <el-pagination
@@ -229,7 +242,7 @@ export default {
         this.$route.meta.history ? this.getHistoryData() : this.getBetData()
         this.activeName = this.$route.meta.history ? 'history' : 'bids'
     },
-    components: { Header, Footer, betBox, historyBetBox,BreadCrumbs }
+    components: { Header, Footer, betBox, historyBetBox, BreadCrumbs }
 }
 </script>
 <style scoped lang="less" rel="stylesheet/less">

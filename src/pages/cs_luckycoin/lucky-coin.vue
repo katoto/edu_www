@@ -2,10 +2,6 @@
     <div class="page-luckycoin">
         <Header></Header>
         <router-view></router-view>
-        <div class="nomsg">
-            <img src="@/assets/img/oneToKen/nomsg.png" alt="">
-            <p>No record. <a href="">Try a luck !</a></p>
-        </div>
         <Footer></Footer>
     </div>
 </template>
@@ -750,7 +746,8 @@ export default {
     }
 
 
-    .nomsg{
+    /deep/ .nomsg{
+        padding: 10px 0;
         img{
             display: block;
             margin: 0 auto;

@@ -4,6 +4,9 @@
         <router-link to="/">
             <lang>Home</lang>
         </router-link>
+        <router-link to="/luckycoin">
+            <lang>LuckyCoin</lang>
+        </router-link>
         <a href="javascript:;" class="now">
             {{_(mysite)}}
         </a>
@@ -12,18 +15,12 @@
 
 <script>
 export default {
-  data() {
-    return {};
-  },
-  watch: {},
-  methods: {},
-  computed: {
-    mysite() {
-      return this.$store.state.route.name;
+    computed: {
+        mysite () {
+            return this.$store.state.route.name
+        }
     }
-  },
-  mounted() {}
-};
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 //面包屑
