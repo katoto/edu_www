@@ -232,8 +232,8 @@ export default {
         })
     },
     mounted () {
+        this.$route.meta.history ? this.getHistoryData() : this.getBetData()
         this.activeName = this.$route.meta.history ? 'history' : 'bids'
-        this.getBetData()
     },
     components: { Header, Footer, betBox, historyBetBox }
 }
