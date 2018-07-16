@@ -1,14 +1,7 @@
 <template>
     <div class="oneToKen more-bids-page">
         <div class="main">
-            <div class="bread">
-                <router-link :to="{path: '/'}">
-                    <lang>Home</lang>
-                </router-link> >
-                <router-link :to="{path: '/luckycoin'}">
-                    <lang>Luck Coin</lang>
-                </router-link> > {{ $route.meta.history ? _('Draw History') : _('More Bids') }}
-            </div>
+            <BreadCrumbs></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                 <el-tab-pane label="More Bids" name="bids"></el-tab-pane>
                 <el-tab-pane label="Draw History" name="history"></el-tab-pane>
@@ -86,6 +79,7 @@ import Footer from '~components/Footer.vue'
 import betBox from './components/bet-box'
 import historyBetBox from './components/history-bet-box'
 import { mapActions, mapState } from 'vuex'
+import BreadCrumbs from '~/components/BreadCrumbs.vue'
 
 export default {
     data () {
@@ -235,95 +229,130 @@ export default {
         this.$route.meta.history ? this.getHistoryData() : this.getBetData()
         this.activeName = this.$route.meta.history ? 'history' : 'bids'
     },
-    components: { Header, Footer, betBox, historyBetBox }
+    components: { Header, Footer, betBox, historyBetBox,BreadCrumbs }
 }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-media.less";
 
     .more-bids-page {
-        .bread {
-            margin-bottom: 20px;
-            color: #A99ACC;
-            a {
-                color: #AA85FF;
-            }
+        .main {
+            padding-top: 0;
         }
-
+        .b-nav {
+            max-width: 1190px;
+            width: 92%;
+            margin: 13px auto 10px;
+        }
         .function-ct {
-            margin: 9px 0 10px
+            width: 92%;
+            max-width: 1190px;
+            margin: 28px auto 30px;
+            overflow: hidden;
         }
 
         /deep/ .el-radio-button {
             &.is-active .el-radio-button__inner {
-                background-color: #462255;
+                background-color: #412057;
+                color: #fff;
             }
             .el-radio-button__inner {
-                background-color: #341540;
-                color: #FFF;
+                background: transparent;
+                color: #aa85ff;
                 border-color: #412057;
                 padding: 5px 12px;
                 min-width: 80px;
                 overflow: hidden;
                 box-shadow: 0 0 0 0 #412057;
             }
-            &:first-child {
-                border-radius: 3px 0 0 3px;
-            }
-            &:last-child {
-                border-radius: 0 3px 3px 0;
-            }
         }
 
         /deep/ .el-select {
-            float: right;
-            .el-input {
-                border-radius: 3px;
-                .el-input__inner {
-                    border-radius: 3px;
-                    border: solid 1px #462255;
-                    background-color: #341540;
-                    color: #A99ACC;
-                    text-shadow: 0 0 0 #A99ACC;
-                    font-weight: normal;
-                }
+            float: left;
+            margin: 10px 0 10px 0;
+
+            .el-input__inner {
+                width: auto;
+                border: solid 1px #422852;
+                background-color: #2b1438;
+                color: #a99acc;
+                text-shadow: 0 0 0 #a99acc;
+                font-weight: normal;
+            }
+            .el-input.is-focus .el-input__inner {
+                border-color: #a99acc;
+                color: #fff;
             }
         }
-
-
         /deep/ .el-pager .number.active {
             background-color: #462255;
         }
 
         /deep/ .el-pagination {
+            margin-top: 20px;
             text-align: center;
-            button , li {
+            button,
+            li {
                 border: solid 1px #412057;
-                color: #A99ACC !important;
+                color: #a99acc !important;
                 &:hover {
-                    background-color: rgba(0, 0, 0, .4)
+                    background-color: rgba(0, 0, 0, 0.4);
                 }
             }
         }
+        .el-tabs {
+            max-width: 1190px;
+            margin: 0 auto;
+        }
         /deep/ .el-tabs {
+            width: 92%;
             .el-tabs__item {
-                color: #FFF;
+                color: #aa85ff;
+                &.is-active {
+                    color: #fff;
+                }
             }
             .el-tabs__active-bar {
-                background-color: #FFF;
+                background-color: #fff;
             }
             .el-tabs__nav-wrap::after {
                 background-color: #412057;
             }
         }
     }
-
-    .items{
-        >div{
-            margin-bottom:10px;
+    .el-select > .el-input.is-focus {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .el-popper {
+        color: #a99acc;
+    }
+    .el-select-dropdown__list,
+    .el-select-dropdown__item {
+        color: #fff;
+        border-top: 1px solid #a99acc;
+        background: #2b1438;
+        &:hover {
+            background: #462255;
+        }
+    }
+    .items {
+        > div {
+            margin-bottom: 10px;
             box-sizing: border-box;
         }
     }
-    @media (min-width: @screen-desktop){
+    @media (min-width: @screen-phone) {
+        .more-bids-page {
+            .b-nav,
+            .el-tabs,
+            .function-ct {
+                width: 100%;
+            }
+            .el-select {
+                float: right;
+                margin: 0;
+            }
+        }
     }
 </style>
