@@ -9907,7 +9907,7 @@
 
 .el-carousel__container {
     position: relative;
-    height: 300px
+    /*height: 270px*/
 }
 
 .el-carousel__arrow {
@@ -9958,7 +9958,6 @@
     margin: 0;
     padding: 0;
     z-index: 2;
-    display: none !important;
 }
 
 .el-carousel__indicators--outside {
@@ -10000,7 +9999,7 @@
 .el-carousel__indicator {
     display: inline-block;
     background-color: transparent;
-    padding: 12px 4px;
+    padding: 12px 5px;
     cursor: pointer
 }
 
@@ -10014,9 +10013,9 @@
 
 .el-carousel__button {
     display: block;
-    opacity: .48;
-    width: 30px;
-    height: 2px;
+    opacity: .2;
+    width: 8px;
+    height: 8px;
     background-color: #fff;
     border: none;
     outline: 0;
@@ -10024,7 +10023,8 @@
     margin: 0;
     cursor: pointer;
     -webkit-transition: .3s;
-    transition: .3s
+    transition: .3s;
+    border-radius:50%;
 }
 
 .carousel-arrow-left-enter,.carousel-arrow-left-leave-active {

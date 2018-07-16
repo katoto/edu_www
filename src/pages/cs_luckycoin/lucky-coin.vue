@@ -89,6 +89,13 @@ export default {
                 max-width: 790px;
                 border: none;
             }
+            .el-carousel__arrow{
+                display: none;
+            }
+        }
+        .el-carousel__container{
+            height:0;
+            padding-top:percentage(270/790);
         }
         .token-process {
             position: absolute;
@@ -153,27 +160,25 @@ export default {
                 display: block;
                 position: absolute;
                 z-index: 3;
-                top:20px;
-                left: 0px;
                 overflow: hidden;
-
                 padding:0 4px;
 
-
+                top:56px;
+                left: 120px;
                 font-size:12px;
                 color: #a57dff;
                 font-weight:bold;
                 height:20px;
                 line-height:20px;
                 border:1px solid #7b4de4;
-
             }
         }
         .msg-winning {
             position: fixed;
             left: 50%;
             bottom: 0;
-            transform: translate(-50%, 0%);
+            z-index:100;
+            transform: translate(-50%, 100%);
             background: url("../../assets/img/oneToKen/bg-congratulate.jpg") no-repeat center;
             background-size: cover;
             text-align: center;
@@ -185,6 +190,7 @@ export default {
             transition: all 0.2s;
             height: 35px;
             line-height: 35px;
+            overflow: hidden;
             font-size: 26/2px;
             i {
                 font-family: sans-eb;
@@ -764,7 +770,9 @@ export default {
 
     /* xs超小屏幕（手机，大于 480） */
 
-    @media (min-width: @screen-phone) {}
+    @media (min-width: @screen-phone) {
+
+    }
 
     /* sm小屏幕（平板，大于等于 768px） */
 
@@ -809,6 +817,12 @@ export default {
                             top: 3px;
                         }
                     }
+                }
+            }
+            .icon-mybet{
+                &::after{
+                    top:70px;
+                    left: 120px;
                 }
             }
         }

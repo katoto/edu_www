@@ -5,7 +5,7 @@
                 <div class="row  clearfix">
                     <div class="col-lg-8">
                         <div class="for-full banner">
-                        <el-carousel :interval="3000" arrow="always">
+                        <el-carousel :interval="30000000" arrow="always">
                             <el-carousel-item>
                                 <a href="javascript:;" rel="nofollow">
                                     <img src="../../assets/img/oneToKen/banner.jpg" alt="">
@@ -106,7 +106,7 @@
                 </div>
 
                 <!--show-->
-                <div class="msg-winning" :class="{ hide: !otherWin.isShow }">
+                <div class="msg-winning" :class="{ show: otherWin.isShow }">
                     Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
                 </div>
             </div>
