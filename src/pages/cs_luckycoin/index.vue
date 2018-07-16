@@ -5,7 +5,7 @@
                 <div class="row  clearfix">
                     <div class="col-lg-8">
                         <div class="for-full banner">
-                        <el-carousel :interval="3000" arrow="always">
+                        <el-carousel :interval="30000000" arrow="always">
                             <el-carousel-item>
                                 <a href="javascript:;" rel="nofollow">
                                     <img src="../../assets/img/oneToKen/banner.jpg" alt="">
@@ -106,7 +106,7 @@
                 </div>
 
                 <!--show-->
-                <div class="msg-winning hide">
+                <div class="msg-winning show">
                     Congratulation！ 462***98@gmail.com <i>WIN 0.1 ETH</i>
                 </div>
             </div>
