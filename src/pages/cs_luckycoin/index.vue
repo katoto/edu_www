@@ -122,7 +122,7 @@ import historyBetBox from './components/history-bet-box'
 
 export default {
     methods: {
-        ...mapActions('cs_luckycoin', ['updateLuckyCoinPage']),
+        ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
         ...mapActions(['subInLuckyCoin'])
     },
     components: { betBox, recentBets, historyBetBox },
@@ -133,7 +133,15 @@ export default {
             recentBetsList: state => state.recentBetsList,
             otherWin: state => state.otherWin,
             selfWin: state => state.selfWin
+        }),
+        ...mapState({
+            isLogin: state => !!state.isLog
         })
+    },
+    watch: {
+        isLogin () {
+            this.getBetsList()
+        }
     },
     mounted () {
         this.updateLuckyCoinPage()

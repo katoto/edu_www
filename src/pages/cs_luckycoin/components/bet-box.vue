@@ -108,10 +108,10 @@
                         <p class="bet-m">
                             <lang>more bets，more probability</lang>
                         </p>
-                        <div class="bet-amount">
-                            <a href="javascript:;" ref="minBtn" class="on" @click="chooseMin">{{ minValue }}</a>
-                            <a href="javascript:;" ref="hotBtn" @click="chooseHot">{{ hotValue }}</a>
-                            <a href="javascript:;" ref="maxBtn" @click="chooseMax">{{ maxValue }}</a>
+                        <div class="bet-amount" :class="[activeBetClass]">
+                            <a href="javascript:;" ref="minBtn" class="min-btn" @click="chooseMin">{{ minValue }}</a>
+                            <a href="javascript:;" ref="hotBtn" class="hot-btn" @click="chooseHot">{{ hotValue }}</a>
+                            <a href="javascript:;" ref="maxBtn" class="max-btn" @click="chooseMax">{{ maxValue }}</a>
                         </div>
                         <div class="bet-input">
                             <a href="javascript:;" class="redu" @click="chooseHalf">1/2</a>
@@ -262,52 +262,28 @@ export default {
                 this.windowClass = ''
             }
         },
-        changeMenuStatus (isCalc) {
-            if (event.target.className === 'on') {
-                return
-            }
-            this.$refs.hotBtn.className = ''
-            this.$refs.minBtn.className = ''
-            this.$refs.maxBtn.className = ''
-            if (isCalc) {
-                if (this.betValue === this.hotValue) {
-                    this.$refs.hotBtn.className = 'on'
-                } else if (this.betValue === this.minValue) {
-                    this.$refs.minBtn.className = 'on'
-                } else if (this.betValue === this.maxValue) {
-                    this.$refs.maxBtn.className = 'on'
-                }
-            } else {
-                event.target.className = 'on'
-            }
-        },
-        chooseMin () {
+        chooseMin (event) {
             this.betValue = this.minValue
-            this.changeMenuStatus()
         },
-        chooseMax () {
+        chooseMax (event) {
             this.betValue = this.maxValue
-            this.changeMenuStatus()
         },
-        chooseHot () {
+        chooseHot (event) {
             this.betValue = this.hotValue
-            this.changeMenuStatus()
         },
-        chooseHalf () {
+        chooseHalf (event) {
             if (this.betValue / 2 >= this.minValue) {
                 this.betValue = this.formatBidValue(this.betValue / 2)
             } else if (this.betValue > this.minValue) {
                 this.betValue = this.minValue
             }
-            this.changeMenuStatus(true)
         },
-        chooseDouble () {
+        chooseDouble (event) {
             if (this.betValue * 2 <= this.maxValue) {
                 this.betValue = this.formatBidValue(this.betValue * 2)
             } else if (this.betValue < this.maxValue) {
                 this.betValue = this.maxValue
             }
-            this.changeMenuStatus(true)
         },
         async handleBetEvent () {
             if (this.disableBet || this.isBlinking) {
@@ -325,26 +301,15 @@ export default {
             }
         },
         handleBetMoreEvent () {
+            if (this.isBlinking) {
+                this.isBlinking = false
+            }
             this.closeWindow()
             setTimeout(() => {
                 if (Number(this.betData.state) === 1 && this.maxValue !== 0) {
                     this.openBetWindow()
                 }
             }, 200)
-        },
-        modifyBetValue () {
-            let thisValue = Number(this.betValue)
-            if (isNaN(thisValue)) {
-                this.betValue = this.minValue
-                return false
-            } else if (thisValue < this.minValue) {
-                this.betValue = this.minValue
-            } else if (thisValue > this.maxValue) {
-                this.betValue = this.maxValue
-            } else {
-                this.betValue = this.formatBidValue(thisValue)
-            }
-            event.target.blur && event.target.blur()
         },
         formatBidValue (value) {
             let minValue = this.betData.bidValue
@@ -380,13 +345,6 @@ export default {
                 // 默认投注金额 为最小投注金额
                 this.betValue = this.betData.bidValue
             }
-        },
-        isStatusChange (newbet) {
-            // 判断是否数据发生改变
-            if (JSON.stringify(this.formatBetData(newbet)) !== JSON.stringify(this.betData)) {
-                return true
-            }
-            return false
         },
         isChangeExpect (newbet) {
             return Number(this.betData.exceptId) !== Number(newbet.exceptId)
@@ -472,39 +430,49 @@ export default {
                     ? 0
                     : parseInt((total - left) / total * 296)
             )
+        },
+        activeBetClass () {
+            let betValue = Number(this.betValue)
+            if (betValue === this.maxValue) {
+                return 'max'
+            } else if (betValue === this.hotValue) {
+                return 'hot'
+            } else if (betValue === this.minValue) {
+                return 'min'
+            }
+            return ''
         }
     },
     watch: {
         bet: function (newBet) {
+            this.betData = this.formatBetData(this.bet)
             if (this.isInit) {
                 this.isCancel = (this.bet.state === '-1')
                 // websocket 推送更新导致bet数据改变
-                if (this.windowClass === 'normal' && this.isStatusChange(newBet)) {
-                    // 如果用户正在打开投注弹窗，闪动按钮和变化文字，并延迟修改数值
+                if (this.windowClass === 'normal') {
+                    // 如果用户正在打开投注弹窗，闪动按钮和变化文字
+                    if (this.isWaiting) {
+                        this.closeWindow()
+                    }
                     this.clearBetStatus()
                     this.blink()
                     setTimeout(() => {
                         if (this.isChangeExpect(newBet)) {
                             this.closeWindow()
                         }
-                        this.betData = this.formatBetData(this.bet)
-                        if (this.isWaiting) {
-                            this.closeWindow()
-                        }
                     }, this.blinkTime)
-                } else {
-                    // 如果用户不处于投注状态，直接更新数值
-                    this.betData = this.formatBetData(this.bet)
                 }
             } else {
                 // 首次加载
                 this.isInit = true
-                this.betData = this.formatBetData(this.bet)
                 this.init()
             }
         },
         betValue: function (val) {
             this.disableBet = ((Number(val) !== this.formatBidValue(val)) || Number(val) > this.maxValue)
+        },
+        isLogin: function () {
+            this.disableBet = ((Number(this.betValue) !== this.formatBidValue(this.betValue)) || Number(this.betValue) > this.maxValue)
         }
     },
     mounted () {
