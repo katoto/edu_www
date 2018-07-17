@@ -8,17 +8,15 @@
             <lang>LuckyCoin</lang>
         </router-link>
         <a href="javascript:;" class="now">
-            {{_(mysite)}}
+            {{_(pageName)}}
         </a>
     </div>
 </template>
 
 <script>
 export default {
-    computed: {
-        mysite () {
-            return this.$store.state.route.name
-        }
+    props: {
+        pageName: String
     }
 }
 </script>
