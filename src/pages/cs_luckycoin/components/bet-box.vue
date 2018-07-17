@@ -6,6 +6,7 @@
         isBet ? 'icon-mybet' : '',
         isInit && !isCancel ? '' : 'unvisible',
         coin.bgClass]">
+        <p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{betData.exceptId}}</p>
         <div>
             <!--token-bth  币种选择-->
             <!--token-eth-->
