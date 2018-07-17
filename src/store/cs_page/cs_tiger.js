@@ -40,6 +40,9 @@ const actionsInfo = mapActions({
             }
             /* 中奖top 10 */
             if (data.top !== undefined) {
+                if (data.top.length > 7) {
+                    data.top = data.top.slice(0, 7)
+                }
                 commit(mTypes.recentList, data.top)
             }
         }
@@ -50,8 +53,8 @@ const actionsInfo = mapActions({
         if (data && state.recentList) {
             // 对象
             await wait(5000)
-            if (state.recentList.length > 7) {
-                commit(mTypes.recentList, state.recentList.slice(0, 7))
+            if (state.recentList.length > 6) {
+                commit(mTypes.recentList, state.recentList.slice(0, 6))
             }
             state.recentList.unshift(data)
         }

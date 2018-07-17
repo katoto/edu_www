@@ -13,6 +13,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://www.coinslot.com/" />
     <link href="./static/icon.ico" rel="shortcut icon"/>
     <style>
         #coinslotLoading {
@@ -27,25 +28,21 @@
             text-align: center;
             font-weight: bold;
         }
-
         #coinslotLoading > div {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
         }
-
         #cs {
             width: 100px;
             height: 100px;
         }
-
         .animation {
             background: url("./static/loading.png") no-repeat;
             background-size: 3400px 100px;
             animation: keyframes-loading 1.36s steps(33, end) infinite;
         }
-
         @keyframes keyframes-loading {
             0% {
                 background-position: 0px 0px;
@@ -55,7 +52,6 @@
             }
         }
     </style>
-
 </head>
 <body>
 <div id="app" class="">
@@ -67,39 +63,24 @@
     </div>
 </div>
 <script>
-    function preloadImage(names, cb, prefix) {
-        window.gkaCache = window.gkaCache || []
-        var n = 0, img, imgs = {}
-        names.forEach(function (name) {
+    function preloadImage (names, cb, prefix) {
+        window.gkaCache = window.gkaCache || [] 
+    var n = 0, img, imgs = {} 
+    names.forEach(function (name) {
             img = new Image()
-            window.gkaCache.push(img)
-            img.onload = (function (name, img) {
+        window.gkaCache.push(img)
+        img.onload = (function (name, img) {
                 return function () {
                     imgs[name] = img;
-                    (++n === names.length) && cb && cb(imgs)
-                }
-            })(name, img)
-            img.src = (prefix || '') + name
-        })
+                    (++n === names.length) && cb && cb(imgs) 
+            }
+            })(name, img) 
+        img.src = (prefix || '') + name
+    })
     }
-
     preloadImage(['loading.png'], function () {
-        document.getElementById('cs').className += ' animation'
-    }, 'static/')
-
-    /* 禁止左右滚动 */
-    var xStart, xEnd, yStart, yEnd
-    document.addEventListener('touchstart', function (evt) {
-        xStart = evt.touches[0].pageX
-        yStart = evt.touches[0].pageY
-    }, false)
-
-    document.addEventListener('touchmove', function (evt) {
-        xEnd = evt.touches[0].pageX
-        yEnd = evt.touches[0].pageY
-        Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) &&
-        evt.preventDefault()
-    }, false)
+        document.getElementById('cs').className += ' animation' 
+}, 'static/')
 </script>
 </body>
 <!-- 结构化数据 -->
@@ -117,12 +98,10 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118873303-1"></script>
 <script>
     window.dataLayer = window.dataLayer || []
-
-    function gtag() {
+function gtag () {
         window.dataLayer.push(arguments)
     }
-
     gtag('js', new Date())
-    gtag('config', 'UA-118873303-1')
+gtag('config', 'UA-118873303-1')
 </script>
 </html>
