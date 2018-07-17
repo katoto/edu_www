@@ -138,7 +138,7 @@ const webpackConfig = merge(baseWebpackConfig, {
             postProcess (renderedRoute) {
                 renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
                 console.log('============')
-                console.log(renderedRoute.html)
+                console.log(renderedRoute)
                 return renderedRoute
             }
         })
