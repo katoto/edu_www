@@ -149,10 +149,9 @@ module.exports = {
                 sortAttributes: true
             },
             postProcess (renderedRoute) {
-                console.log('===============')
-                console.log(renderedRoute)
+                console.log('============')
+                console.log(renderedRoute.html)
                 renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-                console.log('===============')
                 return renderedRoute
             }
         })
