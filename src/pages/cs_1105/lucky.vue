@@ -311,7 +311,6 @@
         </div>
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
-
     </div>
 </template>
 
@@ -713,6 +712,10 @@
                 str1 = str.slice(0, -1)
                 document.getElementById(id).style.boxShadow = str1
             }
+
+
+
+
         },
         beforeDestroy () {
             this.$store.dispatch('subOutLucky')
