@@ -1,8 +1,8 @@
 <template>
-    <div id="lucky11">
-        <Banner></Banner>
+    <div id="lucky11" :class="{'superActive':superClass}" >
+        <Banner v-on:superBannerChange="superChange"></Banner>
         <Header></Header>
-        <HeaderNav></HeaderNav>
+        <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <div class="main">
             <Lucky-mybet></Lucky-mybet>
             <!--玩法区-->
@@ -30,8 +30,8 @@
                     </span>
                     <p class="total-pay ">{{ totalPay }} ETH</p>
                 </div>
-                <!--背景泡泡-->
-                <div class="star-box">
+                <!--  背景泡泡 激活模式隐藏  -->
+                <div class="star-box" :class="{'hide':superClass}">
                     <div id="stars1" class="stars"></div>
                     <div id="stars2" class="stars"></div>
                 </div>
@@ -312,7 +312,6 @@
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-
     </div>
 </template>
 
@@ -347,8 +346,8 @@
                 },
                 playArea: [], // 玩法区 数组,
                 jackpot: false,
-                'icon-jackpot': false
-
+                'icon-jackpot': false,
+                superClass: false
             }
         },
         watch: {
@@ -360,11 +359,17 @@
                     /* 总金额 */
                     if (this.playArea) {
                         let sum = 0
+                        let hasPick5J = false
                         this.playArea.forEach((val, index) => {
                             if (val.pickMoney) {
                                 sum += parseFloat((parseFloat(val.pickMoney)).toFixed(5))
                             }
+                            if (val.pickType.toString() === '5J') {
+                                /* 更新 按钮状态 */
+                                hasPick5J = true
+                            }
                         })
+                        this.superBtnState(hasPick5J)
                         this.totalPay = parseFloat(sum.toFixed(5))
                     }
                 },
@@ -390,6 +395,31 @@
         },
         methods: {
             formateBalance,
+            superChange (msg = 'superIn') {
+                /* headerNav 调的 */
+                if (msg === 'superIn') {
+                    this.playArea.forEach((val, index) => {
+                        val.pickType = '5J'
+                        val.pickNum = []
+                        val.pickJackPot = []
+                    })
+                    this.superBtnState(true)
+                } else if (msg === 'superOut') {
+                    this.playArea.forEach((val, index) => {
+                        val.pickType = '1'
+                        val.pickNum = []
+                        val.pickJackPot = []
+                    })
+                    this.superBtnState(false)
+                }
+            },
+            superBtnState (msg) {
+                /* 调 headerNav 的方法  修改按钮状态 */
+                if (this.$refs) {
+                    this.superClass = msg
+                    this.$refs.headerNav.btnState(msg)
+                }
+            },
             playType (val) {
                 // 玩法类型1,2,3,4,5,5J
                 val = val.toString()
@@ -647,20 +677,24 @@
             formatTime
         },
         async mounted () {
+            // setTimeout(()=>{
+            //     this.superBtnState()
+            // },3000)
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav, true)
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-            // 首页 冒泡效果
             setTimeout(() => {
                 /* 订阅lucky11 sock */
                 this.$store.dispatch('subInLucky')
                 /* 开启动态数据定时器 */
                 this.$store.dispatch(aTypes.recentBetAdd)
+
+                // 首页 冒泡效果
+                bgStarBox()
             }, 0)
-            bgStarBox()
             function bgStarBox () {
                 bgstar('stars1', 30, '#7063c9')
                 bgstar('stars2', 10, '#fff')
@@ -777,10 +811,34 @@
                     color: #6a89cc;
                     border-top: 1px solid #778ca3;
                 }
+                li.super_li{
+                    color: #917439;
+                    font-weight: 800;
+                }
                 li.on, li:hover {
                     background: #eef1f9;
                     color: #263648;
                 }
+            }
+        }
+        /*奖池奖*/
+        .super-active{
+            span{
+                border: 1px solid #d6b571;
+                border-top: 0px;
+                background-color: #eeddbb ;
+                color: #917439;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                right: 17px;
+                top: 14px;
+                display: block;
+                background-image: url("../../assets/img/lucky11/arrow-down-color.png");
+                width: 13px;
+                height: 8px;
             }
         }
         .play-tips {
@@ -800,7 +858,7 @@
             .position-msg{
                 position: absolute;
                 left: 0;
-                top: 22px;
+                top: 18px;
             }
         }
         .limit-tips {
@@ -1147,6 +1205,17 @@
                 li + li {
                     margin-left: 5px;
                 }
+            }
+        }
+    }
+    .superActive {
+        .play-area{
+            background: #7b6037;
+            background: linear-gradient(to right, #463524, #81653a, #463525);
+        }
+        .btn-area{
+            .addmore{
+                border: 1px solid #725e39;
             }
         }
     }
@@ -1709,5 +1778,8 @@
     }
     .head-box{
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+    }
+    .superActive .head-box{
+        background: linear-gradient(to right, #34291d, #584724, #34281a);
     }
 </style>

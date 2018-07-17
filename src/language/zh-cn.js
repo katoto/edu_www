@@ -321,7 +321,7 @@ module.exports = {
     'Chances': '次',
     'Chance': '次',
     'AUTO': '自动',
-    'Single Line':'单线投注',
+    'Single Line': '单线投注',
     'Click to Stop': '点击停止',
     'Winning Table': '奖级表',
     'Lucky Prize': '幸运奖',
@@ -351,10 +351,13 @@ module.exports = {
     'Full lucky bar can exchange for a double reward spin': '幸运值满后您将获得一次奖金翻倍的机会',
     'placed a pattern as following': '从左到右计算',
     'You win if 3 identical icons': '如果连续3个图案一致即中奖',
-    'Lukcy 11': '幸运11',
+    'Lucky 11': '幸运11',
     'slotmachine': '老虎机',
     'Slot': '老虎机',
     'SlotMachine': '老虎机',
     'Copy the Ethereum wallet address': '复制钱包地址',
-    'only supports ETH': '当前仅支持ETH'
+    'only supports ETH': '当前仅支持ETH',
+
+    'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '试一下<span class="winColor">97%+</span>'
+
 }

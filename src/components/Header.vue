@@ -1,5 +1,5 @@
 <template>
-    <div class="head-box">
+    <div class="head-box ">
         <div class="head">
             <div class="top">
                 <!--展开 on-->
@@ -13,12 +13,12 @@
                     <ul>
                         <li>
                             <router-link :to="{path: '/lucky11'}">
-                                <lang>Lukcy 11</lang>
+                                <lang>Lucky 11</lang>
                             </router-link>
                         </li>
                         <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
                         <li>
-                            <router-link :to="{path: '/slotmachine'}">
+                            <router-link :to="{path: '/slot'}">
                                 <lang>Slot</lang>
                             </router-link>
                         </li>
@@ -34,9 +34,9 @@
                 </router-link>
                 <div class="choose-play icon-slot" >
                     <router-link :to="{path: '/lucky11'}">
-                        <lang>Lukcy 11</lang>
+                        <lang>Lucky 11</lang>
                     </router-link>
-                    <router-link :to="{path: '/slotmachine'}" >
+                    <router-link :to="{path: '/slot'}" >
                         <lang>Slot</lang>
                     </router-link>
                     <router-link :to="{path: '/luckycoin'}">

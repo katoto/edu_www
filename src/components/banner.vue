@@ -1,7 +1,8 @@
 <template>
     <div class="banner"  v-if="banner">
-        <a href="./coinslot/html/worldCup.html" class="banner-main">
-            <img src="../assets/img/banner.jpg" alt="">
+        <a href="javascript:;" class="banner-main" @click="superInPage">
+            <!--<img src="../assets/img/banner.jpg" alt="">-->
+            <img src="../assets/img/lucky11/banner-jackpot.png" alt="">
         </a>
         <a href="javascript:;" class="banner-close" @click="closeBanner"></a>
     </div>
@@ -18,6 +19,10 @@
         methods: {
             closeBanner () {
                 this.banner = false
+            },
+            superInPage () {
+                /* 执行到父组件 */
+                this.$emit('superBannerChange', 'superIn')
             }
         },
         computed: {},
