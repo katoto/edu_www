@@ -8,7 +8,6 @@ const webpack = require("webpack");
 const vConsolePlugin = require('vconsole-webpack-plugin')
 const emptyFile = path.resolve(__dirname, './empty.js')
 
-const prerenderSPAPlugin = require('prerender-spa-plugin')
 
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
@@ -137,23 +136,6 @@ module.exports = {
 		// 	jQuery: "jquery",
 		// 	$: "jquery"
 		// }),
-        new vConsolePlugin({enable:!isDebug}),
-        new prerenderSPAPlugin({
-            staticDir:path.join(__dirname,'../dist'),
-            routes:['/lucky11','/slot', '/luckycoin'],
-            minify:{
-                collapseBooleanAttributes: true,
-                collapseWhitespace: true,
-                decodeEntities: true,
-                keepClosingSlash: true,
-                sortAttributes: true
-            },
-            postProcess (renderedRoute) {
-                console.log('============')
-                console.log(renderedRoute.html)
-                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-                return renderedRoute
-            }
-        })
+        new vConsolePlugin({enable:!isDebug})
 	]
 }
