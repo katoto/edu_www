@@ -136,9 +136,10 @@ const webpackConfig = merge(baseWebpackConfig, {
                 sortAttributes: true
             },
             postProcess (renderedRoute) {
-                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-                console.log('============')
-                console.log(renderedRoute.html)
+                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"")
+                    .replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                    .replace(/<div id="app"[^>]*>/i,'<div id="app" style="display:none">');
+                console.log(renderedRoute.html);
                 return renderedRoute
             }
         })
