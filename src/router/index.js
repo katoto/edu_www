@@ -36,7 +36,9 @@ const luckcoinMoreBids = () => import('~/pages/cs_luckycoin/more-bids')
 
 const luckycoinDrawHistory = () => import('~/pages/cs_luckycoin/draw-history')
 
-/*品牌首页*/
+const Home = () => import('~/pages/cs_home/home')
+
+/*品牌首页 */
 const home = () => import('~/pages/cs_home/home')
 // 404  history
 const page404 = () => import('~/pages/404.vue')
@@ -147,7 +149,8 @@ export default new Router({
         },
         {
             path: '/*',
-            redirect: '/lucky11/'
+            name: _('Home'),
+            component: Home
         }
     ]
 })
