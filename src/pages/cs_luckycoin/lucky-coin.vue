@@ -863,6 +863,11 @@ export default {
                     }
                     .bet-amount {
                         margin: 15px auto 0;
+                        &.hot .hot-btn,
+                        &.min .min-btn,
+                        &.max .max-btn {
+                            background: #9368f7;
+                        }
                         a {
                             height: 22px;
                             line-height: 22px;
