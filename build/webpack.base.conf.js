@@ -150,7 +150,7 @@ module.exports = {
             },
             postProcess (renderedRoute) {
                 console.log(renderedRoute.html)
-                renderedRoute.html = renderedRoute.html.replace(/\n/g," ").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                renderedRoute.html = renderedRoute.html.replace(/[\n]/g," ").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
                 return renderedRoute
             }
         })
