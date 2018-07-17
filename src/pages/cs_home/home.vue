@@ -1,22 +1,867 @@
 <template>
-    <div id="app">
+    <!--bg1 bg2 bg3-->
+    <div class="home">
+        <Header></Header>
+        <div class="main">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-xs-12">
+                        <!--banner-->
+                        <el-carousel :interval="3000">
+                            <el-carousel-item v-for="item in banner" :key="item">
+                                <img src="@/assets/img/home/banner-icon.png" alt="">
+                                <div class="banner-t1">{{ item.t1 }}</div>
+                                <p class="banner-t2">{{ item.t2 }}</p>
+                                <a class="banner-more" :href="item.href">Learn more More  ></a>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </div>
+                </div>
+                <div class="row clearfix items-game ">
+                    <!--各种游戏宣传图-->
+                    <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
+                            <div class="game-11t5">
+                                <p class="msg1">Lucky 11</p>
+                                <p class="msg2">High frequency reward game</p>
+                                <p class="msg3">Jackpot</p>
+                                <p class="msg4"><span>20.587</span><i>ETH</i></p>
+                                <p class="msg5">2384,233 USD</p>
+                                <a href="javascript:;" class="game-btn">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
+                            <div class="game-slot">
+                                <p class="msg1">Slot</p>
+                                <p class="msg2">Try Slot & Win 97%+ Return Rate</p>
+                                <p class="msg3">Jackpot</p>
+                                <p class="msg4"><span>3.587</span><i>ETH</i></p>
+                                <p class="msg5">2384,233 USD</p>
+                                <a href="javascript:;" class="game-btn">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
+                            <div class="game-onecoin">
+                                <p class="msg1">LuckyCoin</p>
+                                <p class="msg2">High frequency reward game</p>
+                                <p class="msg3">Maximum Award</p>
+                                <p class="msg4"><span>3</span><i>ETH</i></p>
+                                <p class="msg5">2384,233 USD</p>
+                                <a href="javascript:;" class="game-btn">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="items-msg ">
+            <div class="msg-container container">
+                <div class="msg-row row">
+                    <!--最近下注-->
+                    <div class="item-recent recent-bet">
+                        <div class="recent-t">Recent Bet</div>
+                        <div class="tab-t">
+                            <a href="javascript:;" class="on">Lucky11</a>
+                            <a href="javascript:;">slot</a>
+                            <a href="javascript:;">LucyCoin</a>
+                        </div>
+                        <div class="tab-c">
+                            <div class="tab-t2">
+                                <div class="is-left">User ID</div>
+                                <div>Time</div>
+                                <div class="is-right">Bet Amount</div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-bth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--最近中奖-->
+                    <div class="item-recent recent-win">
+                        <div class="recent-t">Recently won</div>
+                        <div class="tab-t">
+                            <a href="javascript:;" class="on">Lucky11</a>
+                            <a href="javascript:;">slot</a>
+                            <a href="javascript:;">LucyCoin</a>
+                        </div>
+                        <div class="tab-c">
+                            <div class="tab-t2">
+                                <div class="is-left">User ID</div>
+                                <div>Time</div>
+                                <div class="is-right">Bet Amount</div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="user">
+                                        10213133
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.03000</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--最近流水-->
+                    <div class="item-recent recent-water">
+                        <div class="recent-t">Recently Flowing Water</div>
+                        <div class="tab-t">
+                            <a href="javascript:;" class="on">Recharge</a>
+                            <a href="javascript:;">Withdrawal</a>
+                        </div>
+                        <div class="tab-c">
+                            <div class="tab-t2">
+                                <div class="is-left">Address</div>
+                                <div>ID</div>
+                                <div>Time</div>
+                                <div class="is-right">Bet Amount</div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="add">
+                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
+                                    </div>
+                                    <div class="id">
+                                        908123765
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.0.01300</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add">
+                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
+                                    </div>
+                                    <div class="id">
+                                        908123765
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.0.01300</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add">
+                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
+                                    </div>
+                                    <div class="id">
+                                        908123765
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.0.01300</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add">
+                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
+                                    </div>
+                                    <div class="id">
+                                        908123765
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.0.01300</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add">
+                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
+                                    </div>
+                                    <div class="id">
+                                        908123765
+                                    </div>
+                                    <div class="time">
+                                        02.07
+                                    </div>
+                                    <div class="amount icon-eth">
+                                        <i></i>
+                                        <span>0.0.01300</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="safe-msg ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="img-box img-box1">
+                            <img class="img3" src="@/assets/img/home/safe-img1-3.png" alt="">
+                            <img class="img2" src="@/assets/img/home/safe-img1-2.png" alt="">
+                            <img class="img1" src="@/assets/img/home/safe-img1-1.png" alt="">
+                        </div>
+                        <div class="safe-t">
+                            Open, Fair And Transparent
+                        </div>
+                        <p>
+                            The lottery algorithm is based on blockchain technology,
+                        </p>
+                        <p>
+                            and no one can predict that bet information will be upload
+                        </p>
+                        <p>
+                            ed to the blockchain and no one can tamper with it.
+                        </p>
+                        <a href="javascript:;" class="btn-check">Go to check</a>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="img-box img-box2">
+                            <img class="img3" src="@/assets/img/home/safe-img2-3.png" alt="">
+                            <img class="img2" src="@/assets/img/home/safe-img2-2.png" alt="">
+                            <img class="img1" src="@/assets/img/home/safe-img2-1.png" alt="">
+                        </div>
+                        <div class="safe-t">
+                            BTC、ETH Multi-currency Betting
+                        </div>
+                        <p>
+                            Current games support the most popular Bitcoin and
+                        </p>
+                        <p>
+                            Ethereum for betting, deposits and withdrawals, and will
+                        </p>
+                        <p>
+                            receive more encrypted digital currencies in the future, so
+                        </p>
+                        <p>
+                            stay tuned
+                        </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="img-box img-box3"></div>
+                        <div class="safe-t">
+                            Support Mobile Devices
+                        </div>
+                        <p>Betting, recharging, and withdrawing anytime, </p>
+                        <p>anywhere, to be a more intimate, more conve</p>
+                        <p>nient, and more secure platform. </p>
+                        <a href="javascript:;" class="btn-down"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
+    import Header from '~components/Header.vue'
+    import Footer from '~components/Footer.vue'
 	export default {
 	    data () {
 	        return {
-	            title: ''
+                banner:[
+                    {t1:'Welcome To The Blockchain Game Platform',t2:'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs',href:"https://www.coinslot.com/"},
+                    {t1:'2',t2:'22',href:"https://www.coinslot.com/"},
+                    {t1:'3',t2:'33',href:"https://www.coinslot.com/"},
+                    {t1:'44',t2:'44',href:"https://www.coinslot.com/"},
+                ],
 	        }
 	    },
 	    watch: {},
-	    methods: {},
-	    computed: {},
-	    mounted () {
+	    methods: {
 
-	    }
+        },
+	    computed: {},
+        components: { Header, Footer },
+	    mounted () {
+            document.querySelector('.home').classList.add('bg'+Math.ceil(Math.random() * 3));
+        }
 	}
 </script>
-<style>
+
+<style scoped lang="less" rel="stylesheet/less">
+    /*重置media*/
+    @import "../../styles/lib-media2.less";
+    /*h5为主*/
+    .home{
+        position: relative;
+        width:100%;
+        &.bg1{
+            background:#1d1a43 url("../../assets/img/home/bg1-1d1a43.png") no-repeat top center;
+            background-size: 1920px;
+        }
+        &.bg2{
+            background:#1a192f url("../../assets/img/home/bg2-1a192f.png") no-repeat top center;
+            background-size: 1920px;
+
+        }
+        &.bg3{
+            background:#250c34 url("../../assets/img/home/bg3-250c34.png") no-repeat top center;
+            background-size: 1920px;
+        }
+        .main{
+            width: 100%;
+            max-width: @screen-lg;
+            margin: 0 auto 40px;
+            overflow: hidden;
+        }
+        /*banner*/
+        .el-carousel{
+            height:450-58px;
+            margin-bottom:58px;
+            color: #fff;
+            text-align: center;
+        }
+        .el-carousel__item{
+            img{
+                display: block;
+                width:145px;
+                margin:70px auto 0;
+            }
+            .banner-t1{
+                margin-top:18px;
+                line-height:27px;
+                font-size:23px;
+                overflow: hidden;
+                font-weight:bold;
+            }
+            .banner-t2{
+                width:90%;
+                margin:0 auto;
+                line-height:14px;
+                font-size:10px;
+            }
+            .banner-more{
+                display: block;
+                width:150px;
+                height:35px;
+                overflow: hidden;
+                margin:34px auto 0;
+                line-height:35px;
+                overflow: hidden;
+                border-radius: 6px;
+                border: 1px solid #575763;
+                color: #fff;
+            }
+        }
+        /*banner*/
+    }
+    .for-full{
+        margin:0 -20px;
+    }
+    .items-game{
+        color: #fff;
+        >div+div{
+            margin-top:20px;
+        }
+        .game-11t5,.game-slot,.game-onecoin{
+            width:92%;
+            padding-top:27px;
+            height:290px;
+            overflow: hidden;
+            margin:0 auto;
+            border-radius: 6px;
+            text-align: center;
+
+            //text-indent:percentage(94/369);
+            .msg1{
+                line-height:30px;
+                font-size:24px;
+                font-weight:bold;
+            }
+            .msg2{
+                line-height:22px;
+                font-size:16px;
+            }
+            .msg3{
+                margin-top:28px;
+                line-height:25px;
+                font-size:16px;
+                font-weight:bold;
+            }
+            .msg4{
+                display: flex;
+                /*justify-content: flex-start;*/
+                justify-content: center;
+                align-items: baseline;
+                height:50px;
+                line-height:50px;
+                font-size:48px;
+                font-family: sans-eb;
+                i{
+                    text-indent:0;
+                    font-size:24px;
+                    font-family: sans-r;
+                }
+            }
+            .msg5{
+                line-height:20px;
+                font-size:16px;
+            }
+        }
+        .game-11t5{
+            background: url("../../assets/img/home/game1.png") no-repeat center top;
+            background-size: cover;
+        }
+        .game-slot{
+            background: url("../../assets/img/home/game2.png") no-repeat center top;
+            background-size: cover;
+        }
+        .game-onecoin{
+            background: url("../../assets/img/home/game3.png") no-repeat center top;
+            background-size: cover;
+        }
+        .game-btn{
+            display: block;
+            width:percentage(228/369);
+            height:52px;
+            overflow: hidden;
+            margin:26px auto 0;
+            border-radius: 6px;
+            background: #ff950b;
+            line-height:52px;
+            text-align: center;
+            font-size:20px;
+            color: #fff;
+            font-weight:bold;
+            text-indent:0;
+        }
+    }
+    .items-msg{
+        background: #242240;
+        .recent-win{
+            background: #292748;
+        }
+        .recent-bet,.recent-win{
+            float: left;
+            width:percentage(378/1190);
+        }
+        .recent-water{
+            float: left;
+            width:percentage(434/1190);
+        }
+        .item-recent{
+            padding:15px 40px 40px;
+            .recent-t{
+                line-height:48px;
+                text-align: center;
+                font-size:20px;
+                color: #ffffff;
+            }
+            .tab-t{
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                height:30px;
+                line-height:30px;
+                a{
+                    position: relative;
+                    z-index:2;
+                    flex:1;
+                    display: block;
+                    text-align: center;
+                    font-size:14px;
+                    color: #6a89cc;
+                    &.on{
+                        color: #fff;
+                        border-bottom:2px solid #fff;
+                    }
+                }
+                &::after{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    z-index:1;
+                    left:0;
+                    bottom:0;
+                    width:100%;
+                    height:2px;
+                    background: #6a86c5;
+                }
+            }
+            .tab-c{
+                .tab-t2{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top:15px;
+                    height: 30px;
+                    line-height: 30px;
+                    border-bottom: 1px solid #3a3953;
+                    font-size:12px;
+                    color: #fff;
+                    text-align: center;
+                    div{
+                        flex: 1;
+                        overflow: hidden;
+                    }
+                }
+                ul{
+                    li{
+                        display: flex;
+                        justify-content: space-between;
+                        height:46px;
+                        line-height:46px;
+                        overflow: hidden;
+                        font-size:14px;
+                        color: #fff;
+                        text-align: center;
+                        border-bottom: 1px solid #3a3953;
+                        >div{
+                            flex: 1;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                        .user{
+                            text-align: left;
+                        }
+                        .amount{
+                            text-align: right;
+                        }
+                        .add{
+                            a{
+                                display: block;
+                                width:80%;
+                                color: #fff;
+                                text-decoration: underline;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                color: #fff;
+                                text-decoration: underline;
+                            }
+                        }
+                        .amount{
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                            i{
+                                display: block;
+                                margin-right:10px;
+                                width:16px;
+                                height:16px;
+                                overflow: hidden;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .icon-eth{
+                i{
+                    background: url("../../assets/img/home/table-eth.png") no-repeat center;
+                }
+            }
+            .icon-bth{
+                i{
+                    background: url("../../assets/img/home/table-bth.png") no-repeat center;
+                }
+            }
+            &.recent-win{
+                span{
+                    display: block;
+                    height:24px;
+                    line-height:24px;
+                    padding:0 8px;
+                    background: #36c57a;
+                }
+            }
+        }
+    }
+    .safe-msg{
+        color: #fff;
+        text-align: center;
+        margin-bottom:40px;
+        .safe-t{
+            line-height:50px;
+            font-size:20px;
+        }
+        p{
+            line-height:24px;
+            font-size:14px;
+        }
+        .btn-check{
+            display: block;
+            width:146px;
+            height:40px;
+            overflow: hidden;
+            margin:26px auto 0;
+            border:1px solid #5e5c71;
+            line-height:40px;
+            border-radius:6px;
+            color: #fff;
+        }
+        .btn-down{
+            display: block;
+            width:196px;
+            height:60px;
+            margin:26px auto 0;
+            border:1px solid #5e5c71;
+            border-radius:6px;
+            background: url("../../assets/img/home/btn-down.png") no-repeat center;
+            background-size: 127px 35px;
+        }
+        .img-box{
+            position: relative;
+            height:338px;
+        }
+        .img-box1{
+            .img1{
+                position: absolute;
+                left: percentage(54/410);
+                top: 95px;
+                /*animation: anima-img1 20s ease-in-out infinite;*/
+            }
+            .img2{
+                position: absolute;
+                left: percentage(145/410);
+                top: 88px;
+            }
+            .img3{
+                position: absolute;
+                left: percentage(170/410);
+                top: 48px;
+            }
+        }
+        .img-box2{
+            margin:48px 0 50px 0;
+            height:240px;
+            overflow: hidden;
+            img{
+                position: absolute;
+                left:50%;
+                transform: translateX(-50%);
+            }
+            .img1{
+                top:95px;
+                animation: animate-img2 20s ease-in-out infinite;
+            }
+            .img2{
+                top:50px;
+            }
+            .img3{
+                top:0px;
+            }
+
+        }
+        .img-box3{
+            background: url("../../assets/img/home/safe-img3.png") no-repeat center;
+            background-size: 273px;
+        }
+    }
+
+    @media (max-width:@screen-phone){
+
+    }
+    @media (max-width: @screen-tablet) {
+        .items-msg{
+            .recent-bet,.recent-win,.recent-water{
+                width:100%;
+            }
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        .home{
+            /*banner*/
+            .el-carousel__item{
+                .banner-t1{
+                    line-height:54px;
+                    font-size:(4600)/1920vw;
+                }
+                .banner-t2{
+                    line-height:26px;
+                    font-size:(1600)/1920vw;
+                }
+            }
+            /*banner*/
+        }
+
+    }
+    @media (min-width: @screen-desktop) {
+        .items-game{
+            >div+div{
+                margin-top:0;
+            }
+            .game-11t5,.game-slot,.game-onecoin{
+                width:100%;
+                text-indent: 104px;
+                text-align: left;
+                transition: all 0.2s;
+                transform-origin: bottom;
+                .msg4{
+                    justify-content: flex-start;
+                }
+                &:hover{
+                    transform: scale(1.08);
+                }
+            }
+            .game-btn{
+                transition: all 0.2s;
+                &:hover{
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+                }
+            }
+        }
+        .safe-msg{
+            .col-lg-4{
+                padding:0;
+            }
+        }
+    }
+    @media (min-width: @screen-lg-desktop) {
+        .home{
+            /*banner*/
+            .el-carousel{
+                height:450-58px;
+            }
+            .el-carousel__item{
+                .banner-t1{
+                    font-size:46px;
+                }
+                .banner-t2{
+                    font-size:16px;
+                }
+            }
+            /*banner*/
+        }
+        .for-full{
+            margin:0;
+        }
+
+    }
+
+
+    @keyframes animate-img2 {
+        0%{
+            transform: translate(-50%,0);
+        }
+        10%{
+            transform: translate(-50%,100px);
+        }
+        100%{
+
+        }
+    }
 </style>
