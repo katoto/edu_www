@@ -137,7 +137,7 @@ export default new Router({
         },
         {
             path: '/*',
-            redirect: '/lucky11'
+            redirect: '/lucky11/'
         }
     ]
 })
