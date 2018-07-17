@@ -415,8 +415,8 @@ export function numberComma (source, length = 3) {
 }
 
 function isThisLang (lang) {
-    let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
-    // let source = 'en'
+    // let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
+    let source = 'en'
     if (typeof source === 'string') {
         return source.toLowerCase() === lang
     }

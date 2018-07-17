@@ -19,7 +19,7 @@
 <script>
     import PopIpLimit from '~components/Pop-ipLimit.vue'
     import PopFreeplay from '~components/Pop-freeplay.vue'
-    import {isLog} from '~common/util'
+    import {isLog, defaultLanguage} from '~common/util'
     export default {
         data () {
             return {
@@ -30,6 +30,18 @@
             PopIpLimit,
             PopFreeplay
         },
+        methods: {
+            handleInit () {
+                switch (defaultLanguage) {
+                case 'zhTw':
+                    document.title = 'Coinslot-基於區塊鏈技術的賭場博彩高頻彩票遊戲平台'
+                    break
+                case 'zhCn':
+                    document.title = 'Coinslot-基于区块链技术的赌场博彩高频彩票游戏平台'
+                    break
+                }
+            }
+        },
         computed: {
             showEmailErr () {
                 return this.$store.state.showEmailErr
@@ -39,6 +51,7 @@
             }
         },
         async mounted () {
+            this.handleInit()
             if (isLog()) {
                 this.$store.commit('setIsLog', true)
                 let userMsg = await this.$store.dispatch('getUserInfo')
