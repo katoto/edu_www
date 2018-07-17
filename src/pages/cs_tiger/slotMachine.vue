@@ -1113,15 +1113,14 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
-            //移动端整屏
-            document.documentElement.className = 'flexhtml';
+            // 移动端整屏
+            document.documentElement.className = 'flexhtml'
             await this.changePageState()
             if (!localStorage.getItem('firstJackpot')) {
                 this.showFirstBaxi = true
                 localStorage.setItem('firstJackpot', true)
             }
             this.$store.dispatch('subInTiger')
-
         },
         updated () {
             if (document.getElementById('heiImg')) {
@@ -1133,8 +1132,8 @@
             }
         },
         beforeDestroy () {
-            document.documentElement.className = '';
-            this.$store.dispatch('subOutTiger')
+            document.documentElement.className = ''
+        this.$store.dispatch('subOutTiger')
             this.stopAutoPlay()
         }
     }
