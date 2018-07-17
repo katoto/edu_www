@@ -9908,6 +9908,7 @@
 .el-carousel__container {
     position: relative;
     /*height: 270px*/
+    height:100%;
 }
 
 .el-carousel__arrow {
@@ -10014,8 +10015,8 @@
 .el-carousel__button {
     display: block;
     opacity: .2;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background-color: #fff;
     border: none;
     outline: 0;
