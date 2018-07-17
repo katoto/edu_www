@@ -430,7 +430,6 @@ export default {
             return this.betData.state === '5'
         },
         goodsPrice () {
-            this.betData.coinprice = {}
             for (let keyname in this.betData.coinprice) {
                 if (keyname) {
                     return `(${keyname} ${this.betData.coinprice[keyname]})`
