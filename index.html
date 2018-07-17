@@ -5,7 +5,8 @@
     <title>Coinslot-High Frequency Gaming Platform Based on Blockchain</title>
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-    <meta name="keywords" content="high frequency lottery, Coinslot, blockchain-based casino, blockchain-based game, blockchain-based lottery"/>
+    <meta name="keywords"
+          content="high frequency lottery, Coinslot, blockchain-based casino, blockchain-based game, blockchain-based lottery"/>
     <meta name="description"
           content="Coinslot is one of the first batch of gaming platform who endeavors to develop high frequency casino games based on blockchain technology. Our games are provably fair with decentralized Ethereum as well as smart contract. You could play these high frequency Ether games including Lucky 11 on our platform to enjoy the best experience you have ever had!"/>
     <meta name="apple-mobile-web-app-capable" content="no"/>
@@ -13,7 +14,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="robots" content="index,follow">
-    <link rel="canonical" href="https://www.coinslot.com/" />
+    <link rel="canonical" href="https://www.coinslot.com/"/>
     <link href="./static/icon.ico" rel="shortcut icon"/>
     <style>
         #coinslotLoading {
@@ -28,21 +29,25 @@
             text-align: center;
             font-weight: bold;
         }
+
         #coinslotLoading > div {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
         }
+
         #cs {
             width: 100px;
             height: 100px;
         }
+
         .animation {
             background: url("./static/loading.png") no-repeat;
             background-size: 3400px 100px;
             animation: keyframes-loading 1.36s steps(33, end) infinite;
         }
+
         @keyframes keyframes-loading {
             0% {
                 background-position: 0px 0px;
@@ -63,24 +68,24 @@
     </div>
 </div>
 <script>
-    function preloadImage (names, cb, prefix) {
-        window.gkaCache = window.gkaCache || [] 
-    var n = 0, img, imgs = {} 
-    names.forEach(function (name) {
-            img = new Image()
-        window.gkaCache.push(img)
-        img.onload = (function (name, img) {
+    function preloadImage(names, cb, prefix) {
+        window.gkaCache = window.gkaCache || [];
+        var n = 0, img, imgs = {};
+        names.forEach(function (name) {
+            img = new Image();
+            window.gkaCache.push(img);
+            img.onload = (function (name, img) {
                 return function () {
                     imgs[name] = img;
-                    (++n === names.length) && cb && cb(imgs) 
-            }
-            })(name, img) 
-        img.src = (prefix || '') + name
-    })
+                    (++n === names.length) && cb && cb(imgs);
+                }
+            })(name, img);
+            img.src = (prefix || '') + name;
+        })
     }
     preloadImage(['loading.png'], function () {
-        document.getElementById('cs').className += ' animation' 
-}, 'static/')
+        document.getElementById('cs').className += ' animation';
+    }, 'static/')
 </script>
 </body>
 <!-- 结构化数据 -->
@@ -97,11 +102,11 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118873303-1"></script>
 <script>
-    window.dataLayer = window.dataLayer || []
-function gtag () {
-        window.dataLayer.push(arguments)
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        window.dataLayer.push(arguments);
     }
-    gtag('js', new Date())
-gtag('config', 'UA-118873303-1')
+    gtag('js', new Date());
+    gtag('config', 'UA-118873303-1');
 </script>
 </html>
