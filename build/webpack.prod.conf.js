@@ -149,7 +149,6 @@ const webpackConfig = merge(baseWebpackConfig, {
                 renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"")
                     .replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
                     .replace(/<div id="app"[^>]*>/i,'<div id="app" style="visibility:hidden">');
-                console.log(renderedRoute.html);
                 return renderedRoute
             }
         })
