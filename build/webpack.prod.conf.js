@@ -127,7 +127,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]),
         new prerenderSPAPlugin({
             staticDir:path.join(__dirname,'../dist'),
-            routes:['/lucky11','/slot', '/luckycoin'],
+            routes:['/lucky11/'],
             minify:{
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,
@@ -136,9 +136,8 @@ const webpackConfig = merge(baseWebpackConfig, {
                 sortAttributes: true
             },
             postProcess (renderedRoute) {
-                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"")
-                    .replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-                    .replace(/<div id="app"[^>]*>/i,'<div id="app" style="display:none">');
+                // .replace(/<div id="app"[^>]*>/i,'<div id="app" style="display:none">');
+                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
                 console.log(renderedRoute.html);
                 return renderedRoute
             }
