@@ -388,11 +388,15 @@
         color: #f4ba25;
         line-height: 32px;
         background-color: #544898;
-        border-radius: 5px;
+        border-radius: 6px;
         margin-left: 26px;
         cursor: pointer;
         font-size: 14px;
-        font-weight: 700;
+        font-weight: bold;
+        transition: all 0.2s;
+        &:hover{
+            background: #443982;
+        }
     }
     .jackpot2 {
         float: left;
@@ -431,6 +435,9 @@
     }
     .superActive .jp_btn{
         background-color: #6f552d;
+        &:hover{
+            background-color: #58421f;
+        }
     }
     .deadlineMove {
         animation: deadlineMove 1.3s;

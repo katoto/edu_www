@@ -13,7 +13,6 @@ import lanaguage from './plugins/language'
 // Vue.use(ElementUI, { locale });
 
 // 全局 end
-import '@/styles/lib-reset.css'
 import '@/styles/element.css'
 
 //  按需加载  有点小问题

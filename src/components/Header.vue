@@ -444,7 +444,7 @@
                 display: table-cell;
                 vertical-align: middle;
                 &.on,&:hover{
-                    background: rgba(0,0,0,0.5);
+                    background: rgba(0,0,0,0.3);
                 }
             }
             &.icon-slot{
@@ -547,7 +547,7 @@
             position: relative;
             float: right;
             transform: translate3d(0,0,0);
-            padding:20px 0;
+            padding:20px;
             .transition();
             .countNum {
                 position: relative;
@@ -581,7 +581,7 @@
         .login {
             position: relative;
             float: right;
-            margin: 0 20px 0 0;
+            margin: 0;
             text-align: center;
             .to-login{
                 display: block;
@@ -596,13 +596,13 @@
                 border:1px solid rgba(255,255,255,0.3);
                 color: #fff;
                 &:hover {
-                   background: rgba(255,255,255,0.2);
+                   background: rgba(255,255,255,0.3);
                 }
             }
             .hadlogin {
                 position: relative;
                 float: left;
-                margin:20px 20px 0 0;
+                margin:20px 0 0 0;
                 text-align: center;
                 overflow: hidden;
                 border-radius: 6px;
@@ -616,7 +616,7 @@
                 padding:0 12px;
                 color: #fff;
                 &:hover {
-                    background: rgba(255,255,255,0.2);
+                    background: rgba(255,255,255,0.3);
                 }
             }
             .btn-rechrage{

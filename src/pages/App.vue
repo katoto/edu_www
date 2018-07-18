@@ -107,6 +107,11 @@
         overflow: hidden;
         -webkit-overflow-scrolling: touch;
     }
+    .noscrolling{
+        #app{
+            -webkit-overflow-scrolling: auto;
+        }
+    }
     .radioLi{
         display: flex;
         justify-content: center;

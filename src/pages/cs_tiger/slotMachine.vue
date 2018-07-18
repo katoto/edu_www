@@ -1114,7 +1114,7 @@
         },
         async mounted () {
             // 移动端整屏
-            document.documentElement.className = 'flexhtml'
+            document.documentElement.className = 'flexhtml noscrolling'
             await this.changePageState()
             if (!localStorage.getItem('firstJackpot')) {
                 this.showFirstBaxi = true
@@ -1138,11 +1138,6 @@
         }
     }
 </script>
-<style lang="less" rel="stylesheet/less">
-    #app{
-        -webkit-overflow-scrolling: auto;
-    }
-</style>
 <style scoped="" lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";

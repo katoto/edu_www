@@ -196,8 +196,7 @@ let defaultValue = {
     bidValue: '0.01',
     leftBids: '0',
     isbet: '0',
-    ishot: '0',
-    isOn:'0'
+    ishot: '0'
 }
 export default {
     data () {
@@ -212,7 +211,8 @@ export default {
             isInit: false,
             disableBet: false,
             errorMessage: '',
-            isCancel: false
+            isCancel: false,
+            isOn: false
         }
     },
     props: {
