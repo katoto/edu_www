@@ -5,10 +5,13 @@
     "private": true,
     "scripts": {
         "build": "cross-env NODE_ENV=production node build/build.js",
+        "postbuild": "npm run create404",
         "build-test": "cross-env NODE_ENV=preRelease node build/build.js",
+        "postbuild-test": "npm run create404",
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
         "dev47": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.50.47",
         "dev19": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.50.19",
+        "create404": "cp ./dist/index.html ./dist/404.html",
         "lint-fix": "eslint --ext .js,.vue src --fix",
         "clean": "rimraf dist/*",
         "i18n": "node ./i18n.js",
