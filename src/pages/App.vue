@@ -105,6 +105,7 @@
         font-family: sans-r,Microsoft Yahei;
         color: #263648;
         overflow: hidden;
+        -webkit-overflow-scrolling: touch;
     }
     .radioLi{
         display: flex;

@@ -1,13 +1,14 @@
 <template>
     <!--icon-hot  热门icon  icon-win -->
     <div :class="[
-        {on:isOn},
+        isOn ? 'on' : '',
         isPopular ? 'item-popular' :'item-common',
         isHot ? 'icon-hot' : '',
         isBet ? 'icon-mybet' : '',
         isInit && !isCancel ? '' : 'unvisible',
-        coin.bgClass]">
-        <p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{betData.exceptId}}</p>
+        coin.bgClass]"
+    >
+        <!--<p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{betData.exceptId}}</p>-->
         <!--token-bth  币种选择-->
         <!--token-eth-->
         <div class="token-process" :class="[coin.boxClass]">
@@ -66,10 +67,10 @@
         </div>
         <div class="title">
             <p class="t1" v-if="isPopular">
-                {{ _('Play For {0}', this.betData.goodsValue) }} <i>{{ coinText }}</i>
+                {{ _('Play For {0}', this.betData.goodsValue) }}<i>{{ coinText }}</i>
             </p>
             <p class="t1" v-else>
-                {{ this.betData.goodsValue }} <i>{{ coinText }}</i>
+                {{ this.betData.goodsValue }}<i>{{ coinText }}</i>
             </p>
             <div class="row-msg">
                 <p class="t2" v-html="goodsPrice"></p>
@@ -79,11 +80,11 @@
         <div class="msg">
             <p class="c1">
                 <lang>Draw Process:</lang>
-                <i>{{ this.betData.totalBids - this.betData.leftBids }} / {{ this.betData.totalBids }}</i>
+                <i>{{ this.betData.totalBids - this.betData.leftBids }}/{{ this.betData.totalBids }}</i>
             </p>
             <p class="c2">
                 <lang>Ticket Price:</lang>
-                <i>{{ this.betData.bidValue }} {{ coinText }}</i>
+                <i>{{ this.betData.bidValue }}{{ coinText }}</i>
             </p>
         </div>
         <a href="javascript:;" class="btn btn-waiting" v-if="isWaiting">
@@ -196,7 +197,7 @@ let defaultValue = {
     leftBids: '0',
     isbet: '0',
     ishot: '0',
-    isOn:false
+    isOn:'0'
 }
 export default {
     data () {
@@ -400,7 +401,7 @@ export default {
         goodsPrice () {
             for (let keyname in this.betData.coinprice) {
                 if (keyname) {
-                    return `${keyname} ${this.betData.coinprice[keyname]}`
+                    return `${keyname}${this.betData.coinprice[keyname]}`
                 }
             }
             return '<br>'

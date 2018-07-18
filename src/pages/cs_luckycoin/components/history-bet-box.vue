@@ -1,25 +1,25 @@
 <template>
     <div class="item-history">
-        <p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{bet.exceptId}}</p>
+        <!--<p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{bet.exceptId}}</p>-->
         <div class="item-history-box" :class="{ visiable: !isInit }">
             <div class="token-process" :class="[coin.boxClass]">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
                     <defs>
                         <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
-                            <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
-                            <stop offset="100%" stop-color="#fdc90c"></stop>
+                            <stop offset="0%" stop-color="#ee8125"></stop>   <!--这个是终点-->
+                            <stop offset="100%" stop-color="#f1a62f"></stop>
                         </linearGradient>
                         <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
-                            <stop offset="0%" stop-color="#fdc90c"></stop>
-                            <stop offset="100%" stop-color="#f9c600"></stop>
+                            <stop offset="0%" stop-color="#f1a62f"></stop>
+                            <stop offset="100%" stop-color="#f3cc38"></stop>
                         </linearGradient>
                         <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
-                            <stop offset="0%" stop-color="#62f7d9"></stop>
-                            <stop offset="100%" stop-color="#5ed9eb"></stop>
+                            <stop offset="0%" stop-color="#5abbf8"></stop>
+                            <stop offset="100%" stop-color="#5cd7ee"></stop>
                         </linearGradient>
                         <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
-                            <stop offset="0%" stop-color="#53b8f0"></stop>
-                            <stop offset="100%" stop-color="#5ed9eb"></stop>
+                            <stop offset="0%" stop-color="#5cd7ee"></stop>
+                            <stop offset="100%" stop-color="#5df8e3"></stop>
                         </linearGradient>
                     </defs>
                     <g transform="matrix(0,-1,1,0,0,102)">
