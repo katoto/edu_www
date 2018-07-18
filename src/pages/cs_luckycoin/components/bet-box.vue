@@ -8,7 +8,7 @@
         isInit && !isCancel ? '' : 'unvisible',
         coin.bgClass]"
     >
-        <!--<p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{betData.exceptId}}</p>-->
+        <p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{betData.exceptId}}</p>
         <!--token-bth  币种选择-->
         <!--token-eth-->
         <div class="token-process" :class="[coin.boxClass]">
