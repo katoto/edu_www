@@ -56,6 +56,9 @@ export default {
   .b-nav {
     a {
       color: #aa85ff;
+        &:hover{
+            color: #7e5bcf;
+        }
     }
     a.now {
       color: #a99acc;

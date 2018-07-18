@@ -1138,6 +1138,11 @@
         }
     }
 </script>
+<style lang="less" rel="stylesheet/less">
+    #app{
+        -webkit-overflow-scrolling: auto;
+    }
+</style>
 <style scoped="" lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";

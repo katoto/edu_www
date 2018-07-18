@@ -53,7 +53,7 @@
                     :prev-text="_('< Front')">
                 </el-pagination>
             </div>
-            <div v-else>
+            <div class="container" v-else>
                 <div class="row clearfix">
                     <div class="for-full items">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in historyList" :key="index">
@@ -63,7 +63,7 @@
                     <div class="nomsg" v-if="historyList.length === 0">
                         <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                         <p>
-                            No record. 
+                            No record.
                             <router-link to="/luckycoin">
                                 <lang>Try a luck !</lang>
                             </router-link>
@@ -297,22 +297,9 @@ export default {
                 color: #fff;
             }
         }
-        /deep/ .el-pager .number.active {
-            background-color: #462255;
-        }
 
-        /deep/ .el-pagination {
-            margin-top: 20px;
-            text-align: center;
-            button,
-            li {
-                border: solid 1px #412057;
-                color: #a99acc !important;
-                &:hover {
-                    background-color: rgba(0, 0, 0, 0.4);
-                }
-            }
-        }
+
+
         .el-tabs {
             max-width: 1190px;
             margin: 0 auto;
@@ -346,7 +333,7 @@ export default {
         border-top: 1px solid #a99acc;
         background: #2b1438;
         &:hover {
-            background: #462255;
+            background: #3e284b;
         }
     }
     .items {
@@ -355,16 +342,25 @@ export default {
             box-sizing: border-box;
         }
     }
+    .item-history{
+        width:92%;
+        margin:0 auto;
+    }
     @media (min-width: @screen-phone) {
-        .more-bids-page {
-            .b-nav,
-            .el-tabs,
-            .function-ct {
-                width: 100%;
-            }
+        .more-bids-page{
             .el-select {
                 float: right;
                 margin: 0;
+            }
+        }
+    }
+    @media (min-width: @screen-lg-desktop) {
+        .more-bids-page {
+            .b-nav,
+            .el-tabs,
+            .function-ct,
+            .item-history{
+                width: 100%;
             }
         }
     }

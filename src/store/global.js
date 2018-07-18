@@ -286,6 +286,7 @@ const actions = {
                             break
                         case '1008':
                             commit('cs_luckycoin/updateRecentBet', msg.data.orders)
+                            commit('cs_luckycoin/handleMyBet', msg.data.orders)
                             break
                         case '2001':
                             // 老虎机初始化
