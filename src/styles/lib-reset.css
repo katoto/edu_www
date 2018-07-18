@@ -263,10 +263,6 @@ table {
 textarea{
   resize:none;
 }
-td,
-th {
-  padding: 0;
-}
 
 ol,ul,li{list-style:none}
 i,b{
@@ -288,6 +284,12 @@ h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
 }
 .fr{
   float: right;
+}
+.is-left{
+    text-align: left;
+}
+.is-right{
+    text-align: right;
 }
 .bold{
   font-weight:bold;

@@ -32,7 +32,7 @@
         },
         methods: {
             handleInit () {
-                document.getElementById('app').style.display = 'block'
+                document.getElementById('app').style.visibility = 'visible'
                 switch (defaultLanguage) {
                 case 'zhTw':
                     document.title = 'Coinslot-基於區塊鏈技術的賭場博彩高頻彩票遊戲平台'

@@ -13,6 +13,7 @@ import Footer from '~components/Footer.vue'
 export default {
     components: { Header, Footer },
     mounted () {
+        document.documentElement.className = 'flexhtml'
         this.$store.dispatch('subInLuckyCoin')
     },
     beforeDestroy () {
