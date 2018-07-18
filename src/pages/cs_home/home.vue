@@ -8,7 +8,7 @@
                     <div class="col-xs-12">
                         <!--banner-->
                         <el-carousel :interval="3000">
-                            <el-carousel-item v-for="item in banner" :key="item">
+                            <el-carousel-item v-for="(item, index) in banner" :key="index">
                                 <img src="@/assets/img/home/banner-icon.png" alt="">
                                 <div class="banner-t1">{{ item.t1 }}</div>
                                 <p class="banner-t2">{{ item.t2 }}</p>
@@ -378,15 +378,15 @@
 <script>
     import Header from '~components/Header.vue'
     import Footer from '~components/Footer.vue'
-	export default {
+export default {
 	    data () {
 	        return {
-                banner:[
-                    {t1:'Welcome To The Blockchain Game Platform',t2:'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs',href:"https://www.coinslot.com/"},
-                    {t1:'2',t2:'22',href:"https://www.coinslot.com/"},
-                    {t1:'3',t2:'33',href:"https://www.coinslot.com/"},
-                    {t1:'44',t2:'44',href:"https://www.coinslot.com/"},
-                ],
+                banner: [
+                    {t1: 'Welcome To The Blockchain Game Platform', t2: 'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs', href: 'https://www.coinslot.com/'},
+                    {t1: '2', t2: '22', href: 'https://www.coinslot.com/'},
+                    {t1: '3', t2: '33', href: 'https://www.coinslot.com/'},
+                    {t1: '44', t2: '44', href: 'https://www.coinslot.com/'}
+                ]
 	        }
 	    },
 	    watch: {},
@@ -396,9 +396,9 @@
 	    computed: {},
         components: { Header, Footer },
 	    mounted () {
-            document.querySelector('.home').classList.add('bg'+Math.ceil(Math.random() * 3));
-        }
-	}
+            document.querySelector('.home').classList.add('bg' + Math.ceil(Math.random() * 3))
+    }
+}
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">

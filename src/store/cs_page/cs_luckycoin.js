@@ -78,7 +78,30 @@ const mutations = {
 
     // 个人获奖弹窗
     showMyWin (state, params) {
+    },
 
+    updateMyBet (state, betid) {
+        state.betsList.map((bet, index) => {
+            if (bet.exceptId === betid) {
+                state.betsList[index] = {
+                    ...bet,
+                    isbet: '1'
+                }
+            }
+        })
+        state.betsList = [...state.betsList]
+    },
+
+    handleMyBet (state, orders) {
+        orders.map(order => {
+            if (
+                this.state.userInfo &&
+                this.state.userInfo.uid &&
+                order.uid.toString() === this.state.userInfo.uid
+            ) {
+                this.commit('cs_luckycoin/updateMyBet', order.expectid)
+            }
+        })
     }
 }
 
