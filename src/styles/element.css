@@ -365,14 +365,14 @@
     background: transparent;
 }
 .el-pager .number:hover,.el-pagination button:hover,.el-pagination .more:hover{
-    color: #666 !important;
+    color: #666;
     border: 1px solid #d5d5d5;
     background: #f2f2f2;
 }
 .el-pager .number.active{
     border: none;
     background: none;
-    color: #263648 !important;
+    color: #263648;
 }
 .el-pagination .more::after{
     display: inline-block;

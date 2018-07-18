@@ -17,11 +17,39 @@ export default {
         this.$store.dispatch('subInLuckyCoin')
     },
     beforeDestroy () {
+        document.documentElement.className = ''
         this.$store.dispatch('subOutLuckyCoin')
     }
 }
 </script>
+<style lang="less" rel="stylesheet/less">
+.page-luckycoin{
+    /*banner按钮*/
+    .el-carousel__button{
+        width:8px;
+        height:8px;
+    }
+    /*分页器*/
+    .el-pagination {
+        margin-top: 20px;
+        text-align: center;
+        button,
+        li {
+            border: 1px solid #412057;
+            color: #a99acc;
+            &:hover {
+                background: #3e284b;
+                color: #fff;
+            }
+        }
+    }
+    .el-pager .number.active {
+        color: #fff !important;
+        background-color: transparent;
+    }
 
+}
+</style>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
@@ -113,7 +141,7 @@ export default {
                 transform: rotate(-0.05deg);
             }
             circle {
-                transition: stroke-dasharray 0.2s;
+                transition: all 0.2s;
             }
         }
         .icon-hot {
@@ -126,8 +154,8 @@ export default {
                 overflow: hidden;
                 background: url("../../assets/img/oneToKen/icon-hot.png") no-repeat center;
                 background-size: cover;
-                width: 98px;
-                height: 49px;
+                width: 37px;
+                height: 19px;
                 transform-origin: right top;
                 transition: all 0.2s;
             }
@@ -151,17 +179,26 @@ export default {
 
             }
         }
+        .icon-bet{
+            display: none;
+        }
         .icon-mybet{
-            &::after{
-                content: "You Bet";
+            .row-msg{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+            }
+            .t2{
+                float: left;
+                margin-right:10px;
+            }
+            .icon-bet{
+                float: left;
                 display: block;
-                position: absolute;
                 z-index: 3;
                 overflow: hidden;
                 padding:0 4px;
 
-                top:56px;
-                left: 120px;
                 font-size:12px;
                 color: #a57dff;
                 font-weight:bold;
@@ -203,6 +240,21 @@ export default {
             overflow: hidden;
         }
         /*投注*/
+        .bg2-betting{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            background: rgba(39, 17, 53, 0.7);
+            border-radius: 6px;
+            visibility: hidden;
+            transition: all 0.2s;
+        }
+        .on .bg2-betting{
+            visibility: visible;
+        }
         .betting {
             position: absolute;
             width: 100%;
@@ -210,7 +262,6 @@ export default {
             overflow: hidden;
             top: 0;
             left: 0;
-            background: rgba(0, 0, 0, 0.7);
             border-radius: 6px;
             transform: translateY(100%);
             transition: all 0.2s;
@@ -516,7 +567,6 @@ export default {
             &.icon-hot {
                 &::before {
                     top: 4px;
-                    transform: scale(0.5);
                 }
             }
         }
@@ -579,7 +629,6 @@ export default {
             &.icon-hot {
                 &::before {
                     top: 4px;
-                    transform: scale(0.5);
                 }
             }
             &+.item-common {
@@ -660,20 +709,19 @@ export default {
         .item-tltle {
             position: relative;
             width: percentage(690/750);
-            margin: 30px auto 20px;
+            height:55px;
+            line-height:55px;
             overflow: hidden;
-            >*{
-                display: table-cell;
-                vertical-align: text-bottom;
-                text-align: center;
-            }
+            margin:10px auto 0;
             .t1 {
+                float: left;
                 color: #fff;
                 font-size: 21px;
                 font-weight: bold;
-
+                margin-right: 20px;
             }
             .msg {
+                float: left;
                 color: #a99acc;
                 font-size: 12px;
                 padding-right: 20px;
@@ -791,15 +839,10 @@ export default {
             }
             .btn {
                 &:hover {
-                    background: #5848b3;
+                    background: #6237c3;
                     color: #fff;
                 }
 
-            }
-            a {
-                &:hover {
-                    color: #5848b3;
-                }
             }
             .recentBets {
                 .t1 {
@@ -873,7 +916,9 @@ export default {
                             height: 22px;
                             line-height: 22px;
                             font-size: 12px;
-                            &:hover,
+                            &:hover{
+                                background: #633fb6;
+                            }
                             &.on {
                                 background: #9368f7;
                             }
@@ -928,7 +973,7 @@ export default {
                         .bet-btnV {
                             border: 1px solid #9e8dc7;
                             &:hover {
-                                background: #5848b3;
+                                background: #633fb6;
                             }
                         }
                         .bet-btnB {
@@ -961,7 +1006,7 @@ export default {
                         font-size: 14px;
                         margin-top: 19px;
                         &:hover {
-                            background: #5848b3;
+                            background: #a99acc;
                         }
                     }
                 }
@@ -984,7 +1029,7 @@ export default {
                         margin-top: 20px;
                         a {
                             height: 34px;
-                            line-height: 34px;
+                            line-height: 32px;
                             border-radius: 6px;
                             font-size: 14px;
                         }
@@ -1040,6 +1085,9 @@ export default {
                     .t1 {
                         line-height: 44px;
                         font-size: 36px;
+                        i{
+                            font-size:26px;
+                        }
                     }
                     .t2 {
                         line-height: 32px;
@@ -1068,7 +1116,6 @@ export default {
                 &.icon-hot {
                     &::before {
                         top: 5px;
-                        transform: scale(30/49);
                     }
                 }
             }
@@ -1116,7 +1163,6 @@ export default {
                 &.icon-hot {
                     &::before {
                         top: 5px;
-                        transform: scale(23/49);
                     }
                 }
                 &+.item-common {
@@ -1171,13 +1217,21 @@ export default {
             .item-tltle {
                 width: 100%;
                 max-width: 1190px;
-                margin: 32px auto 20px;
+                height:70px;
+                line-height:70px;
+                margin-top:6px;
                 overflow: hidden;
-                .t1{
-                    padding-right:20px;
-                }
-                a{
+                .btn-play,.btn-more{
                     font-size:14px;
+                    &:hover{
+                        color: #7e5bcf;
+                    }
+                }
+                .btn-play{
+                    position: absolute;
+                    top:50%;
+                    left:50%;
+                    transform: translate3d(-50%,-50%,0);
                 }
             }
             .recentBets {

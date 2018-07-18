@@ -5,7 +5,7 @@
                 <div class="row  clearfix">
                     <div class="col-lg-8">
                         <div class="for-full banner">
-                        <el-carousel :interval="30000000" arrow="always">
+                        <el-carousel :interval="3000" arrow="always">
                             <el-carousel-item>
                                 <a href="javascript:;" rel="nofollow">
                                     <img src="../../assets/img/oneToKen/banner.jpg" alt="">
@@ -38,7 +38,7 @@
                         <div class="t1">
                             Bet For The Prize
                         </div>
-                        <p class="msg hidden-xs">
+                        <p class="msg  hidden-xs hidden-sm">
                             All or nothing, small cost, big profit
                         </p>
                         <a href="javascript:;" class="btn-play">How To Play</a>
@@ -76,7 +76,7 @@
                         <div class="t1">
                             Draw History
                         </div>
-                        <p class="msg hidden-xs">
+                        <p class="msg hidden-xs hidden-sm">
                             Fair Open，Draw in blockchain
                         </p>
                         <a href="javascript:;" class="btn-play">Check Transparency</a>
