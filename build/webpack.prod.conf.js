@@ -13,6 +13,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 
 const prerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = prerenderSPAPlugin.PuppeteerRenderer
+
 const env = require('../config/prod.env')
 
 function resolve(dir) {
@@ -127,7 +129,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]),
         new prerenderSPAPlugin({
             staticDir:path.join(__dirname,'../dist'),
-            routes:['/lucky11/'],
+            routes:['/'],
             minify:{
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,
@@ -135,6 +137,14 @@ const webpackConfig = merge(baseWebpackConfig, {
                 keepClosingSlash: true,
                 sortAttributes: true
             },
+            server:{
+                port: 8070
+            },
+            renderer:new Renderer({
+                headless: false,
+                renderAfterElementExists:'#app',
+                renderAfterTime:5000
+            }),
             postProcess (renderedRoute) {
                 renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"")
                     .replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
