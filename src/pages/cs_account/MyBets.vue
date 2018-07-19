@@ -20,6 +20,16 @@
                     :value="item.value">
                 </el-option>
             </el-select>
+            <!--  eth  -->
+            <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                <el-option
+                    v-for="item in ethOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
+
         </section>
         <template>
             <el-table
@@ -138,7 +148,17 @@ export default {
                 value: '2',
                 label: _('Last 7 days')
             }],
-            betTimeOptionVal: '1'
+            betTimeOptionVal: '1',
+
+            ethOptions: [{
+                value: '1',
+                label: _('BTC')
+            }, {
+                value: '2',
+                label: _('ETH')
+            }],
+            ethOptionVal: '1'
+
         }
     },
     methods: {
