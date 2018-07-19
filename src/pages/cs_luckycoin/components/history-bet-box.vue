@@ -14,12 +14,12 @@
                             <stop offset="100%" stop-color="#f3cc38"></stop>
                         </linearGradient>
                         <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
-                            <stop offset="0%" stop-color="#5abbf8"></stop>
+                            <stop offset="0%" stop-color="#5df8e3"></stop><!--这个是终点-->
                             <stop offset="100%" stop-color="#5cd7ee"></stop>
                         </linearGradient>
                         <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
-                            <stop offset="0%" stop-color="#5cd7ee"></stop>
-                            <stop offset="100%" stop-color="#5df8e3"></stop>
+                            <stop offset="0%" stop-color="#5abbf8"></stop>  <!--右边起点-->
+                            <stop offset="100%" stop-color="#5cd7ee"></stop>
                         </linearGradient>
                     </defs>
                     <g transform="matrix(0,-1,1,0,0,102)">
@@ -31,7 +31,7 @@
             </div>
             <div class="title">
                 <p class="t1">
-                    {{ bet.goodsValue }} <i>{{ coinText }}</i>
+                    {{ bet.goodsValue }}<i> {{ coinText }}</i>
                 </p>
                 <p class="t2">
                     {{ goodsPrice }}
@@ -39,7 +39,7 @@
             </div>
             <div class="msg">
                 <p class="c1">
-                    <lang>Draw Time:</lang> <i>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}</i>
+                    <lang>Draw Time:</lang> <i> {{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}</i>
                 </p>
                 <p class="c2">
                     <lang>Draw Number:</lang> <i> {{ bet.luckyNum }}</i>

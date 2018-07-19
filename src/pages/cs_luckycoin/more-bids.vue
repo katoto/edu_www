@@ -42,6 +42,7 @@
                     </div>
                 </div>
                 <el-pagination
+                    v-if="filterBets(betsList).length != 0"
                     @current-change="handleCurrentBetChange"
                     background
                     :current-page.sync="bets.pages.pageno"
@@ -71,6 +72,7 @@
                     </div>
                 </div>
                 <el-pagination
+                    v-if="historyList.length != 0"
                     @current-change="handleCurrentHistoryChange"
                     background
                     :current-page.sync="history.pages.pageno"
@@ -238,11 +240,15 @@ export default {
             historyList: state => state.drawHistoryList
         })
     },
+    components: { Header, Footer, betBox, historyBetBox, BreadCrumbs },
     mounted () {
+        document.documentElement.className = 'flexhtml'
         this.$route.meta.history ? this.getHistoryData() : this.getBetData()
         this.activeName = this.$route.meta.history ? 'history' : 'bids'
     },
-    components: { Header, Footer, betBox, historyBetBox, BreadCrumbs }
+    beforeDestroy () {
+        document.documentElement.className = ''
+    }
 }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
@@ -268,10 +274,12 @@ export default {
             &.is-active .el-radio-button__inner {
                 background-color: #412057;
                 color: #fff;
+                outline:none;
             }
             .el-radio-button__inner {
+                display: block;
                 background: transparent;
-                color: #aa85ff;
+                color: #a99acc;
                 border-color: #412057;
                 padding: 5px 12px;
                 min-width: 80px;

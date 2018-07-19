@@ -212,6 +212,10 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
+input{
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
 /**
  * Define consistent border, margin, and padding.
  */
