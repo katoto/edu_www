@@ -4,8 +4,10 @@
     "description": "coinslot_pc project",
     "private": true,
     "scripts": {
+        "prebuild": "npm run clean",
         "build": "cross-env NODE_ENV=production node build/build.js",
         "postbuild": "npm run create404",
+        "prebuild-test": "npm run clean",
         "build-test": "cross-env NODE_ENV=preRelease node build/build.js",
         "postbuild-test": "npm run create404",
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",

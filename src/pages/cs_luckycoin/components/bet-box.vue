@@ -208,7 +208,6 @@ export default {
                 ...defaultValue
             },
             isInit: false,
-            disableBet: false,
             errorMessage: '',
             isCancel: false
         }
@@ -442,6 +441,9 @@ export default {
                 return 'min'
             }
             return ''
+        },
+        disableBet () {
+            return ((Number(this.betValue) !== this.formatBidValue(this.betValue)) || Number(this.betValue) > this.maxValue)
         }
     },
     watch: {
@@ -468,9 +470,6 @@ export default {
                 this.isInit = true
                 this.init()
             }
-        },
-        betValue: function (val) {
-            this.disableBet = ((Number(val) !== this.formatBidValue(val)) || Number(val) > this.maxValue)
         },
         isLogin: function () {
             this.disableBet = ((Number(this.betValue) !== this.formatBidValue(this.betValue)) || Number(this.betValue) > this.maxValue)
