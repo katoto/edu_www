@@ -289,7 +289,9 @@
                     <div class="col-lg-4">
                         <div class="img-box img-box3">
                             <div class="circle-box">
-                                <div class="circle"></div>
+                                <div class="circle circle1"></div>
+                                <div class="circle circle2"></div>
+                                <div class="circle circle3"></div>
                             </div>
                         </div>
                         <div class="safe-t">
@@ -787,19 +789,30 @@
             .circle-box{
                 position: absolute;
                 left:52%;
-                top:19%;
+                top:31%;
                 width:18px;
                 height:18px;
+                transform: rotateX(50deg);
                 .circle{
                     position: absolute;
-                    top:50%;
-                    left:50%;
+                    top:0;
+                    left:0;
                     width:18px;
                     height:18px;
                     border:1px solid #68a4ff;
                     border-radius: 50%;
-                    transform:translate(-50%,-50%) rotateX(50deg);
-                    /*animation: animate-img3 10s ease-in-out infinite;*/
+                    animation-name: animate-img3;
+                    animation-duration: 3s;
+                    animation-iteration-count: infinite;
+                }
+                .circle1{
+                    animation-delay: 1s;
+                }
+                .circle2{
+                    animation-delay: 0.5s;
+                }
+                .circle3{
+                    animation-delay: 0;
                 }
             }
         }
@@ -912,15 +925,17 @@
         }
     }
     @keyframes animate-img3 {
-        0%,100%{
+        0%{
             opacity:1;
-            /*transform: rotateX(50deg);*/
+            transform: scale(1);
         }
         50%{
-            width:50px;
-            height:50px;
-            /*transform: rotateX(50deg);*/
+            opacity:0;
+            transform: scale(3);
         }
-
+        51%,100%{
+            opacity:0;
+            transform: scale(1);
+        }
     }
 </style>
