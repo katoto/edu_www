@@ -25,9 +25,11 @@
                                 <p class="msg1">Lucky 11</p>
                                 <p class="msg2">High frequency reward game</p>
                                 <p class="msg3">Jackpot</p>
-                                <p class="msg4"><span>20.587</span><i>ETH</i></p>
-                                <p class="msg5">2384,233 USD</p>
-                                <a href="javascript:;" class="game-btn">Play Now</a>
+                                <p class="msg4"><span>{{Number(entrance.syxw.jackpot)}}</span><i>{{formateCoinType(entrance.syxw.cointype)}}</i></p>
+                                <p class="msg5">{{entrance.syxw.USD}} USD</p>
+                                <router-link :to="{path: '/lucky11'}" class="game-btn">
+                                    <lang>Play Now</lang>
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -37,9 +39,11 @@
                                 <p class="msg1">Slot</p>
                                 <p class="msg2">Try Slot & Win 97%+ Return Rate</p>
                                 <p class="msg3">Jackpot</p>
-                                <p class="msg4"><span>3.587</span><i>ETH</i></p>
-                                <p class="msg5">2384,233 USD</p>
-                                <a href="javascript:;" class="game-btn">Play Now</a>
+                                <p class="msg4"><span>{{Number(entrance.slot.jackpot)}}</span><i>{{formateCoinType(entrance.slot.cointype)}}</i></p>
+                                <p class="msg5">{{entrance.slot.USD}} USD</p>
+                                <router-link :to="{path: '/slot'}" class="game-btn">
+                                    <lang>Play Now</lang>
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -49,9 +53,11 @@
                                 <p class="msg1">LuckyCoin</p>
                                 <p class="msg2">High frequency reward game</p>
                                 <p class="msg3">Maximum Award</p>
-                                <p class="msg4"><span>3</span><i>ETH</i></p>
-                                <p class="msg5">2384,233 USD</p>
-                                <a href="javascript:;" class="game-btn">Play Now</a>
+                                <p class="msg4"><span>{{Number(entrance.megacoin.goodsvalue)}}</span><i>{{formateCoinType(entrance.megacoin.cointype)}}</i></p>
+                                <p class="msg5">{{entrance.megacoin.USD}} USD</p>
+                                <router-link :to="{path: '/luckycoin'}" class="game-btn">
+                                    <lang>Play Now</lang>
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -64,10 +70,10 @@
                     <!--最近下注-->
                     <div class="item-recent recent-bet">
                         <div class="recent-t">Recent Bet</div>
-                        <div class="tab-t">
-                            <a href="javascript:;" class="on">Lucky11</a>
-                            <a href="javascript:;">slot</a>
-                            <a href="javascript:;">LucyCoin</a>
+                        <div class="tab-t" :class="[activeClass]">
+                            <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'">Lucky11</a>
+                            <a href="javascript:;" class="slot" @click="activeClass = 'slot'">slot</a>
+                            <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'">LucyCoin</a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
@@ -75,65 +81,45 @@
                                 <div>Time</div>
                                 <div class="is-right">Bet Amount</div>
                             </div>
-                            <ul>
-                                <li>
+                            <ul v-if="activeClass === 'lucky11'">
+                                <li v-for="(bet, index) in bets.syxw_orders.slice(0, 5)" :key="index">
                                     <div class="user">
-                                        10213133
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.crtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-bth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.03000</span>
+                                        <span>{{formateBalance(bet.betmoney)}}</span>
                                     </div>
                                 </li>
-                                <li>
+                            </ul>
+                            <ul v-if="activeClass === 'slot'">
+                                <li v-for="(bet, index) in bets.slot_orders.slice(0, 5)" :key="index">
                                     <div class="user">
-                                        10213133
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.crtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-eth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.03000</span>
+                                        <span>{{formateBalance(bet.betmoney)}}</span>
                                     </div>
                                 </li>
-                                <li>
+                            </ul>
+                            <ul v-if="activeClass === 'luckycoin'">
+                                <li v-for="(bet, index) in bets.megacoin_orders.slice(0, 5)" :key="index">
                                     <div class="user">
-                                        10213133
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.crtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-eth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.03000</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="user">
-                                        10213133
-                                    </div>
-                                    <div class="time">
-                                        02.07
-                                    </div>
-                                    <div class="amount icon-eth">
-                                        <i></i>
-                                        <span>0.03000</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="user">
-                                        10213133
-                                    </div>
-                                    <div class="time">
-                                        02.07
-                                    </div>
-                                    <div class="amount icon-eth">
-                                        <i></i>
-                                        <span>0.03000</span>
+                                        <span>{{formateBalance(bet.betmoney)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -142,10 +128,10 @@
                     <!--最近中奖-->
                     <div class="item-recent recent-win">
                         <div class="recent-t">Recently won</div>
-                        <div class="tab-t">
-                            <a href="javascript:;" class="on">Lucky11</a>
-                            <a href="javascript:;">slot</a>
-                            <a href="javascript:;">LucyCoin</a>
+                        <div class="tab-t" :class="[activeClass1]">
+                            <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'">Lucky11</a>
+                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'">slot</a>
+                            <a href="javascript:;" class="luckycoin" @click="activeClass1 = 'luckycoin'">LuckyCoin</a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
@@ -153,65 +139,45 @@
                                 <div>Time</div>
                                 <div class="is-right">Bet Amount</div>
                             </div>
-                            <ul>
-                                <li>
+                            <ul v-if="activeClass1 === 'lucky11'">
+                                <li v-for="(bet, index) in wins.syxw_orders.slice(0, 5)" :key="index">
                                     <div class="user">
-                                        10213133
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.drawtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-eth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.03000</span>
+                                        <span>{{formateBalance(bet.betprize)}}</span>
                                     </div>
                                 </li>
-                                <li>
+                            </ul>
+                            <ul v-if="activeClass1 === 'slot'">
+                                <li v-for="(bet, index) in wins.slot_orders.slice(0, 5)" :key="index">
                                     <div class="user">
-                                        10213133
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.drawtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-eth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.03000</span>
+                                        <span>{{formateBalance(bet.betprize)}}</span>
                                     </div>
                                 </li>
-                                <li>
+                            </ul>
+                            <ul v-if="activeClass1 === 'luckycoin'">
+                                <li v-for="(bet, index) in wins.megacoin_orders.slice(0, 5)" :key="index">
                                     <div class="user">
-                                        10213133
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.drawtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-eth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.03000</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="user">
-                                        10213133
-                                    </div>
-                                    <div class="time">
-                                        02.07
-                                    </div>
-                                    <div class="amount icon-eth">
-                                        <i></i>
-                                        <span>0.03000</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="user">
-                                        10213133
-                                    </div>
-                                    <div class="time">
-                                        02.07
-                                    </div>
-                                    <div class="amount icon-eth">
-                                        <i></i>
-                                        <span>0.03000</span>
+                                        <span>{{formateBalance(bet.betprize)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -220,9 +186,9 @@
                     <!--最近流水-->
                     <div class="item-recent recent-water">
                         <div class="recent-t">Recently Flowing Water</div>
-                        <div class="tab-t">
-                            <a href="javascript:;" class="on">Recharge</a>
-                            <a href="javascript:;">Withdrawal</a>
+                        <div class="tab-t" :class="activeClass2">
+                            <a href="javascript:;" class="recharge" @click="activeClass2 = 'recharge'">Recharge</a>
+                            <a href="javascript:;" class="withdraw" @click="activeClass2 = 'withdraw'">Withdrawal</a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
@@ -231,80 +197,37 @@
                                 <div>Time</div>
                                 <div class="is-right">Bet Amount</div>
                             </div>
-                            <ul>
-                                <li>
+                            <ul v-if="activeClass2 === 'recharge'">
+                                <li v-for="(bet, index) in water.recharge_orders.slice(0, 5)" :key="index">
                                     <div class="add">
-                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
+                                        <a href="javascript:;">{{bet.address}}</a>
                                     </div>
                                     <div class="id">
-                                        908123765
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.crtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-eth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.0.01300</span>
+                                        <span>{{formateBalance(bet.rechargemoney)}}</span>
                                     </div>
                                 </li>
-                                <li>
+                            </ul>
+                            <ul v-if="activeClass2 === 'withdraw'">
+                                <li v-for="(bet, index) in water.withdraw_orders.slice(0, 5)" :key="index">
                                     <div class="add">
-                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
+                                        <a href="javascript:;">{{bet.address}}</a>
                                     </div>
                                     <div class="id">
-                                        908123765
+                                        {{bet.uid}}
                                     </div>
                                     <div class="time">
-                                        02.07
+                                        {{formatTime(bet.crtime, 'MM-dd HH:mm')}}
                                     </div>
-                                    <div class="amount icon-eth">
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>0.0.01300</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="add">
-                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
-                                    </div>
-                                    <div class="id">
-                                        908123765
-                                    </div>
-                                    <div class="time">
-                                        02.07
-                                    </div>
-                                    <div class="amount icon-eth">
-                                        <i></i>
-                                        <span>0.0.01300</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="add">
-                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
-                                    </div>
-                                    <div class="id">
-                                        908123765
-                                    </div>
-                                    <div class="time">
-                                        02.07
-                                    </div>
-                                    <div class="amount icon-eth">
-                                        <i></i>
-                                        <span>0.0.01300</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="add">
-                                        <a href="javascript:;">0x9266c3fcbd212624bed3b6fe5313c6d4740cff4d6078899c72cb4501cdcf1c90</a>
-                                    </div>
-                                    <div class="id">
-                                        908123765
-                                    </div>
-                                    <div class="time">
-                                        02.07
-                                    </div>
-                                    <div class="amount icon-eth">
-                                        <i></i>
-                                        <span>0.0.01300</span>
+                                        <span>{{formateBalance(bet.drawmoney)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -376,492 +299,596 @@
 </template>
 
 <script>
-    import Header from '~components/Header.vue'
-    import Footer from '~components/Footer.vue'
+import Header from '~components/Header.vue'
+import Footer from '~components/Footer.vue'
+import { mapActions } from 'vuex'
+import { formatTime, formateCoinType, formateBalance } from '~/common/util'
 export default {
-	    data () {
-	        return {
-                banner: [
-                    {t1: 'Welcome To The Blockchain Game Platform', t2: 'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs', href: 'https://www.coinslot.com/'},
-                    {t1: '2', t2: '22', href: 'https://www.coinslot.com/'},
-                    {t1: '3', t2: '33', href: 'https://www.coinslot.com/'},
-                    {t1: '44', t2: '44', href: 'https://www.coinslot.com/'}
-                ]
-	        }
-	    },
-	    watch: {},
-	    methods: {
-
+    data () {
+        return {
+            activeClass: 'lucky11',
+            activeClass1: 'lucky11',
+            activeClass2: 'recharge',
+            bets: {
+                syxw_orders: [],
+                slot_orders: [],
+                megacoin_orders: []
+            },
+            wins: {
+                syxw_orders: [],
+                slot_orders: [],
+                megacoin_orders: []
+            },
+            water: {
+                recharge_orders: [],
+                withdraw_orders: []
+            },
+            entrance: {
+                megacoin: {
+                    USD: '',
+                    cointype: '2001',
+                    goodsvalue: ''
+                },
+                slot: {
+                    USD: '',
+                    cointype: '2001',
+                    goodsvalue: ''
+                },
+                syxw: {
+                    USD: '',
+                    cointype: '2001',
+                    goodsvalue: ''
+                }
+            },
+            banner: [
+                {
+                    t1: 'Welcome To The Blockchain Game Platform',
+                    t2: 'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs',
+                    href: 'https://www.coinslot.com/'
+                },
+                { t1: '2', t2: '22', href: 'https://www.coinslot.com/' },
+                { t1: '3', t2: '33', href: 'https://www.coinslot.com/' },
+                { t1: '44', t2: '44', href: 'https://www.coinslot.com/' }
+            ]
+        }
+    },
+    methods: {
+        ...mapActions('home', ['getHomeBet', 'getHomeDraw', 'getHomeWithdraw', 'getHomeEntrance']),
+        formatTime,
+        formateBalance,
+        formateCoinType,
+        getCoinClass (type) {
+            return `icon-${formateCoinType(type).toLowerCase()}`
         },
-	    computed: {},
-        components: { Header, Footer },
-	    mounted () {
-            document.querySelector('.home').classList.add('bg' + Math.ceil(Math.random() * 3))
+        init () {
+            this.renderHomeBet()
+            this.renderHomeDraw()
+            this.renderHomeWithdraw()
+            this.renderHomeEntrance()
+        },
+        renderHomeBet () {
+            this.getHomeBet()
+                .then(({ data }) => {
+                    this.bets = {
+                        ...data
+                    }
+                })
+        },
+        renderHomeDraw () {
+            this.getHomeDraw()
+                .then(({ data }) => {
+                    this.wins = {
+                        ...data
+                    }
+                })
+        },
+        renderHomeWithdraw () {
+            this.getHomeWithdraw()
+                .then(({ data }) => {
+                    this.water = {
+                        ...data
+                    }
+                })
+        },
+        renderHomeEntrance () {
+            this.getHomeEntrance()
+                .then(({ data }) => {
+                    this.entrance = {
+                        ...data
+                    }
+                })
+        }
+    },
+    components: { Header, Footer },
+    mounted () {
+        this.init()
+        document
+            .querySelector('.home')
+            .classList.add('bg' + Math.ceil(Math.random() * 3))
     }
 }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-    /*重置media*/
-    @import "../../styles/lib-media2.less";
-    /*h5为主*/
-    .home{
+/*重置media*/
+@import "../../styles/lib-media2.less";
+/*h5为主*/
+.home {
+  position: relative;
+  width: 100%;
+  &.bg1 {
+    background: #1d1a43 url("../../assets/img/home/bg1-1d1a43.png") no-repeat
+      top center;
+    background-size: 1920px;
+  }
+  &.bg2 {
+    background: #1a192f url("../../assets/img/home/bg2-1a192f.png") no-repeat
+      top center;
+    background-size: 1920px;
+  }
+  &.bg3 {
+    background: #250c34 url("../../assets/img/home/bg3-250c34.png") no-repeat
+      top center;
+    background-size: 1920px;
+  }
+  .main {
+    width: 100%;
+    max-width: @screen-lg;
+    margin: 0 auto 40px;
+    overflow: hidden;
+  }
+  /*banner*/
+  .el-carousel {
+    height: 450-58px;
+    margin-bottom: 58px;
+    color: #fff;
+    text-align: center;
+  }
+  .el-carousel__item {
+    img {
+      display: block;
+      width: 145px;
+      margin: 70px auto 0;
+    }
+    .banner-t1 {
+      margin-top: 18px;
+      line-height: 27px;
+      font-size: 23px;
+      overflow: hidden;
+      font-weight: bold;
+    }
+    .banner-t2 {
+      width: 90%;
+      margin: 0 auto;
+      line-height: 14px;
+      font-size: 10px;
+    }
+    .banner-more {
+      display: block;
+      width: 150px;
+      height: 35px;
+      overflow: hidden;
+      margin: 34px auto 0;
+      line-height: 35px;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid #575763;
+      color: #fff;
+    }
+  }
+  /*banner*/
+}
+.for-full {
+  margin: 0 -20px;
+}
+.items-game {
+  color: #fff;
+  > div + div {
+    margin-top: 20px;
+  }
+  .game-11t5,
+  .game-slot,
+  .game-onecoin {
+    width: 92%;
+    padding-top: 27px;
+    height: 290px;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 6px;
+    text-align: center;
+
+    //text-indent:percentage(94/369);
+    .msg1 {
+      line-height: 30px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .msg2 {
+      line-height: 22px;
+      font-size: 16px;
+    }
+    .msg3 {
+      margin-top: 28px;
+      line-height: 25px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .msg4 {
+      display: flex;
+      /*justify-content: flex-start;*/
+      justify-content: center;
+      align-items: baseline;
+      height: 50px;
+      line-height: 50px;
+      font-size: 48px;
+      font-family: sans-eb;
+      i {
+        text-indent: 0;
+        font-size: 24px;
+        font-family: sans-r;
+      }
+    }
+    .msg5 {
+      line-height: 20px;
+      font-size: 16px;
+    }
+  }
+  .game-11t5 {
+    background: url("../../assets/img/home/game1.png") no-repeat center top;
+    background-size: cover;
+  }
+  .game-slot {
+    background: url("../../assets/img/home/game2.png") no-repeat center top;
+    background-size: cover;
+  }
+  .game-onecoin {
+    background: url("../../assets/img/home/game3.png") no-repeat center top;
+    background-size: cover;
+  }
+  .game-btn {
+    display: block;
+    width: percentage(228/369);
+    height: 52px;
+    overflow: hidden;
+    margin: 26px auto 0;
+    border-radius: 6px;
+    background: #ff950b;
+    line-height: 52px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    text-indent: 0;
+  }
+}
+.items-msg {
+  background: #242240;
+  .recent-win {
+    background: #292748;
+  }
+  .recent-bet,
+  .recent-win {
+    float: left;
+    width: percentage(378/1190);
+  }
+  .recent-water {
+    float: left;
+    width: percentage(434/1190);
+  }
+  .item-recent {
+    padding: 15px 40px 40px;
+    .recent-t {
+      line-height: 48px;
+      text-align: center;
+      font-size: 20px;
+      color: #ffffff;
+    }
+    .tab-t {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      height: 30px;
+      line-height: 30px;
+      &.lucky11 .lucky11 {
+          color: #fff;
+          border-bottom: 2px solid #fff;
+      }
+      &.slot .slot {
+          color: #fff;
+          border-bottom: 2px solid #fff;
+      }
+      &.luckycoin .luckycoin {
+          color: #fff;
+          border-bottom: 2px solid #fff;
+      }
+      &.recharge .recharge {
+          color: #fff;
+          border-bottom: 2px solid #fff;
+      }
+      &.withdraw .withdraw {
+          color: #fff;
+          border-bottom: 2px solid #fff;
+      }
+      a {
         position: relative;
-        width:100%;
-        &.bg1{
-            background:#1d1a43 url("../../assets/img/home/bg1-1d1a43.png") no-repeat top center;
-            background-size: 1920px;
-        }
-        &.bg2{
-            background:#1a192f url("../../assets/img/home/bg2-1a192f.png") no-repeat top center;
-            background-size: 1920px;
-
-        }
-        &.bg3{
-            background:#250c34 url("../../assets/img/home/bg3-250c34.png") no-repeat top center;
-            background-size: 1920px;
-        }
-        .main{
-            width: 100%;
-            max-width: @screen-lg;
-            margin: 0 auto 40px;
-            overflow: hidden;
-        }
-        /*banner*/
-        .el-carousel{
-            height:450-58px;
-            margin-bottom:58px;
-            color: #fff;
-            text-align: center;
-        }
-        .el-carousel__item{
-            img{
-                display: block;
-                width:145px;
-                margin:70px auto 0;
-            }
-            .banner-t1{
-                margin-top:18px;
-                line-height:27px;
-                font-size:23px;
-                overflow: hidden;
-                font-weight:bold;
-            }
-            .banner-t2{
-                width:90%;
-                margin:0 auto;
-                line-height:14px;
-                font-size:10px;
-            }
-            .banner-more{
-                display: block;
-                width:150px;
-                height:35px;
-                overflow: hidden;
-                margin:34px auto 0;
-                line-height:35px;
-                overflow: hidden;
-                border-radius: 6px;
-                border: 1px solid #575763;
-                color: #fff;
-            }
-        }
-        /*banner*/
+        z-index: 2;
+        flex: 1;
+        display: block;
+        text-align: center;
+        font-size: 14px;
+        color: #6a89cc;
+      }
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: #6a86c5;
+      }
     }
-    .for-full{
-        margin:0 -20px;
-    }
-    .items-game{
-        color: #fff;
-        >div+div{
-            margin-top:20px;
-        }
-        .game-11t5,.game-slot,.game-onecoin{
-            width:92%;
-            padding-top:27px;
-            height:290px;
-            overflow: hidden;
-            margin:0 auto;
-            border-radius: 6px;
-            text-align: center;
-
-            //text-indent:percentage(94/369);
-            .msg1{
-                line-height:30px;
-                font-size:24px;
-                font-weight:bold;
-            }
-            .msg2{
-                line-height:22px;
-                font-size:16px;
-            }
-            .msg3{
-                margin-top:28px;
-                line-height:25px;
-                font-size:16px;
-                font-weight:bold;
-            }
-            .msg4{
-                display: flex;
-                /*justify-content: flex-start;*/
-                justify-content: center;
-                align-items: baseline;
-                height:50px;
-                line-height:50px;
-                font-size:48px;
-                font-family: sans-eb;
-                i{
-                    text-indent:0;
-                    font-size:24px;
-                    font-family: sans-r;
-                }
-            }
-            .msg5{
-                line-height:20px;
-                font-size:16px;
-            }
-        }
-        .game-11t5{
-            background: url("../../assets/img/home/game1.png") no-repeat center top;
-            background-size: cover;
-        }
-        .game-slot{
-            background: url("../../assets/img/home/game2.png") no-repeat center top;
-            background-size: cover;
-        }
-        .game-onecoin{
-            background: url("../../assets/img/home/game3.png") no-repeat center top;
-            background-size: cover;
-        }
-        .game-btn{
-            display: block;
-            width:percentage(228/369);
-            height:52px;
-            overflow: hidden;
-            margin:26px auto 0;
-            border-radius: 6px;
-            background: #ff950b;
-            line-height:52px;
-            text-align: center;
-            font-size:20px;
-            color: #fff;
-            font-weight:bold;
-            text-indent:0;
-        }
-    }
-    .items-msg{
-        background: #242240;
-        .recent-win{
-            background: #292748;
-        }
-        .recent-bet,.recent-win{
-            float: left;
-            width:percentage(378/1190);
-        }
-        .recent-water{
-            float: left;
-            width:percentage(434/1190);
-        }
-        .item-recent{
-            padding:15px 40px 40px;
-            .recent-t{
-                line-height:48px;
-                text-align: center;
-                font-size:20px;
-                color: #ffffff;
-            }
-            .tab-t{
-                position: relative;
-                display: flex;
-                justify-content: space-between;
-                height:30px;
-                line-height:30px;
-                a{
-                    position: relative;
-                    z-index:2;
-                    flex:1;
-                    display: block;
-                    text-align: center;
-                    font-size:14px;
-                    color: #6a89cc;
-                    &.on{
-                        color: #fff;
-                        border-bottom:2px solid #fff;
-                    }
-                }
-                &::after{
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    z-index:1;
-                    left:0;
-                    bottom:0;
-                    width:100%;
-                    height:2px;
-                    background: #6a86c5;
-                }
-            }
-            .tab-c{
-                .tab-t2{
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top:15px;
-                    height: 30px;
-                    line-height: 30px;
-                    border-bottom: 1px solid #3a3953;
-                    font-size:12px;
-                    color: #fff;
-                    text-align: center;
-                    div{
-                        flex: 1;
-                        overflow: hidden;
-                    }
-                }
-                ul{
-                    li{
-                        display: flex;
-                        justify-content: space-between;
-                        height:46px;
-                        line-height:46px;
-                        overflow: hidden;
-                        font-size:14px;
-                        color: #fff;
-                        text-align: center;
-                        border-bottom: 1px solid #3a3953;
-                        >div{
-                            flex: 1;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                        }
-                        .user{
-                            text-align: left;
-                        }
-                        .amount{
-                            text-align: right;
-                        }
-                        .add{
-                            a{
-                                display: block;
-                                width:80%;
-                                color: #fff;
-                                text-decoration: underline;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                                color: #fff;
-                                text-decoration: underline;
-                            }
-                        }
-                        .amount{
-                            display: flex;
-                            justify-content: flex-end;
-                            align-items: center;
-                            i{
-                                display: block;
-                                margin-right:10px;
-                                width:16px;
-                                height:16px;
-                                overflow: hidden;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .icon-eth{
-                i{
-                    background: url("../../assets/img/home/table-eth.png") no-repeat center;
-                }
-            }
-            .icon-bth{
-                i{
-                    background: url("../../assets/img/home/table-bth.png") no-repeat center;
-                }
-            }
-            &.recent-win{
-                span{
-                    display: block;
-                    height:24px;
-                    line-height:24px;
-                    padding:0 8px;
-                    background: #36c57a;
-                }
-            }
-        }
-    }
-    .safe-msg{
+    .tab-c {
+      .tab-t2 {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid #3a3953;
+        font-size: 12px;
         color: #fff;
         text-align: center;
-        margin-bottom:40px;
-        .safe-t{
-            line-height:50px;
-            font-size:20px;
+        div {
+          flex: 1;
+          overflow: hidden;
         }
-        p{
-            line-height:24px;
-            font-size:14px;
-        }
-        .btn-check{
-            display: block;
-            width:146px;
-            height:40px;
+      }
+      ul {
+        li {
+          display: flex;
+          justify-content: space-between;
+          height: 46px;
+          line-height: 46px;
+          overflow: hidden;
+          font-size: 14px;
+          color: #fff;
+          text-align: center;
+          border-bottom: 1px solid #3a3953;
+          > div {
+            flex: 1;
             overflow: hidden;
-            margin:26px auto 0;
-            border:1px solid #5e5c71;
-            line-height:40px;
-            border-radius:6px;
-            color: #fff;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .user {
+            text-align: left;
+          }
+          .amount {
+            text-align: right;
+          }
+          .add {
+            a {
+              display: block;
+              width: 80%;
+              color: #fff;
+              text-decoration: underline;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              color: #fff;
+              text-decoration: underline;
+            }
+          }
+          .amount {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            i {
+              display: block;
+              margin-right: 10px;
+              width: 16px;
+              height: 16px;
+              overflow: hidden;
+            }
+          }
         }
-        .btn-down{
-            display: block;
-            width:196px;
-            height:60px;
-            margin:26px auto 0;
-            border:1px solid #5e5c71;
-            border-radius:6px;
-            background: url("../../assets/img/home/btn-down.png") no-repeat center;
-            background-size: 127px 35px;
-        }
-        .img-box{
-            position: relative;
-            height:338px;
-        }
-        .img-box1{
-            .img1{
-                position: absolute;
-                left: percentage(54/410);
-                top: 95px;
-                /*animation: anima-img1 20s ease-in-out infinite;*/
-            }
-            .img2{
-                position: absolute;
-                left: percentage(145/410);
-                top: 88px;
-            }
-            .img3{
-                position: absolute;
-                left: percentage(170/410);
-                top: 48px;
-            }
-        }
-        .img-box2{
-            margin:48px 0 50px 0;
-            height:240px;
-            overflow: hidden;
-            img{
-                position: absolute;
-                left:50%;
-                transform: translateX(-50%);
-            }
-            .img1{
-                top:95px;
-                animation: animate-img2 20s ease-in-out infinite;
-            }
-            .img2{
-                top:50px;
-            }
-            .img3{
-                top:0px;
-            }
-
-        }
-        .img-box3{
-            background: url("../../assets/img/home/safe-img3.png") no-repeat center;
-            background-size: 273px;
-        }
+      }
     }
 
-    @media (max-width:@screen-phone){
-
+    .icon-eth {
+      i {
+        background: url("../../assets/img/home/table-eth.png") no-repeat center;
+      }
     }
-    @media (max-width: @screen-tablet) {
-        .items-msg{
-            .recent-bet,.recent-win,.recent-water{
-                width:100%;
-            }
-        }
+    .icon-bth {
+      i {
+        background: url("../../assets/img/home/table-bth.png") no-repeat center;
+      }
     }
-    @media (min-width: @screen-tablet) {
-        .home{
-            /*banner*/
-            .el-carousel__item{
-                .banner-t1{
-                    line-height:54px;
-                    font-size:(4600)/1920vw;
-                }
-                .banner-t2{
-                    line-height:26px;
-                    font-size:(1600)/1920vw;
-                }
-            }
-            /*banner*/
-        }
-
+    &.recent-win {
+      span {
+        display: block;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 8px;
+        background: #36c57a;
+      }
     }
-    @media (min-width: @screen-desktop) {
-        .items-game{
-            >div+div{
-                margin-top:0;
-            }
-            .game-11t5,.game-slot,.game-onecoin{
-                width:100%;
-                text-indent: 104px;
-                text-align: left;
-                transition: all 0.2s;
-                transform-origin: bottom;
-                .msg4{
-                    justify-content: flex-start;
-                }
-                &:hover{
-                    transform: scale(1.08);
-                }
-            }
-            .game-btn{
-                transition: all 0.2s;
-                &:hover{
-                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-                }
-            }
-        }
-        .safe-msg{
-            .col-lg-4{
-                padding:0;
-            }
-        }
+  }
+}
+.safe-msg {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 40px;
+  .safe-t {
+    line-height: 50px;
+    font-size: 20px;
+  }
+  p {
+    line-height: 24px;
+    font-size: 14px;
+  }
+  .btn-check {
+    display: block;
+    width: 146px;
+    height: 40px;
+    overflow: hidden;
+    margin: 26px auto 0;
+    border: 1px solid #5e5c71;
+    line-height: 40px;
+    border-radius: 6px;
+    color: #fff;
+  }
+  .btn-down {
+    display: block;
+    width: 196px;
+    height: 60px;
+    margin: 26px auto 0;
+    border: 1px solid #5e5c71;
+    border-radius: 6px;
+    background: url("../../assets/img/home/btn-down.png") no-repeat center;
+    background-size: 127px 35px;
+  }
+  .img-box {
+    position: relative;
+    height: 338px;
+  }
+  .img-box1 {
+    .img1 {
+      position: absolute;
+      left: percentage(54/410);
+      top: 95px;
+      /*animation: anima-img1 20s ease-in-out infinite;*/
     }
-    @media (min-width: @screen-lg-desktop) {
-        .home{
-            /*banner*/
-            .el-carousel{
-                height:450-58px;
-            }
-            .el-carousel__item{
-                .banner-t1{
-                    font-size:46px;
-                }
-                .banner-t2{
-                    font-size:16px;
-                }
-            }
-            /*banner*/
-        }
-        .for-full{
-            margin:0;
-        }
-
+    .img2 {
+      position: absolute;
+      left: percentage(145/410);
+      top: 88px;
     }
-
-
-    @keyframes animate-img2 {
-        0%{
-            transform: translate(-50%,0);
-        }
-        10%{
-            transform: translate(-50%,100px);
-        }
-        100%{
-
-        }
+    .img3 {
+      position: absolute;
+      left: percentage(170/410);
+      top: 48px;
     }
+  }
+  .img-box2 {
+    margin: 48px 0 50px 0;
+    height: 240px;
+    overflow: hidden;
+    img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .img1 {
+      top: 95px;
+      animation: animate-img2 20s ease-in-out infinite;
+    }
+    .img2 {
+      top: 50px;
+    }
+    .img3 {
+      top: 0px;
+    }
+  }
+  .img-box3 {
+    background: url("../../assets/img/home/safe-img3.png") no-repeat center;
+    background-size: 273px;
+  }
+}
+
+@media (max-width: @screen-phone) {
+}
+@media (max-width: @screen-tablet) {
+  .items-msg {
+    .recent-bet,
+    .recent-win,
+    .recent-water {
+      width: 100%;
+    }
+  }
+}
+@media (min-width: @screen-tablet) {
+  .home {
+    /*banner*/
+    .el-carousel__item {
+      .banner-t1 {
+        line-height: 54px;
+        font-size: (4600)/1920vw;
+      }
+      .banner-t2 {
+        line-height: 26px;
+        font-size: (1600)/1920vw;
+      }
+    }
+    /*banner*/
+  }
+}
+@media (min-width: @screen-desktop) {
+  .items-game {
+    > div + div {
+      margin-top: 0;
+    }
+    .game-11t5,
+    .game-slot,
+    .game-onecoin {
+      width: 100%;
+      text-indent: 104px;
+      text-align: left;
+      transition: all 0.2s;
+      transform-origin: bottom;
+      .msg4 {
+        justify-content: flex-start;
+      }
+      &:hover {
+        transform: scale(1.08);
+      }
+    }
+    .game-btn {
+      transition: all 0.2s;
+      &:hover {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+  .safe-msg {
+    .col-lg-4 {
+      padding: 0;
+    }
+  }
+}
+@media (min-width: @screen-lg-desktop) {
+  .home {
+    /*banner*/
+    .el-carousel {
+      height: 450-58px;
+    }
+    .el-carousel__item {
+      .banner-t1 {
+        font-size: 46px;
+      }
+      .banner-t2 {
+        font-size: 16px;
+      }
+    }
+    /*banner*/
+  }
+  .for-full {
+    margin: 0;
+  }
+}
+
+@keyframes animate-img2 {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  10% {
+    transform: translate(-50%, 100px);
+  }
+  100% {
+  }
+}
 </style>
