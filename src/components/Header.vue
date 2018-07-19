@@ -84,7 +84,7 @@
                                 <lang>Withdraw</lang>
                             </router-link>
                         </div>
-                        <div class="mycount"  :class="{isShowMycount:isShowMycount}"  @click="headControlPop('showMycount')">
+                        <div class="mycount isShowMycount"  :class="{isShowMycount:isShowMycount}"  @click="headControlPop('showMycount')">
                             <div class="countNum">
                                 {{ formateEmail(userInfo.email) }}<i></i>
                             </div>
@@ -98,12 +98,33 @@
                                         </div>
                                     </div>
 
-                                    <router-link :to="{path: '/account/myBets'}">
-                                        <a href="" class="my-transaction"><lang>My Bets</lang></a>
+                                    <router-link :to="{path: '/account/myBets'}" class="my-transaction">
+                                        <lang>My Bets</lang>
                                     </router-link>
-                                    <router-link :to="{path: '/account/general'}">
-                                        <a href="" class="account-center"><lang>Account Center</lang></a>
+                                    <router-link :to="{path: '/account/general'}" class="account-center">
+                                        <lang>Account Center</lang>
                                     </router-link>
+                                    <div class="currency-select">
+                                        <p>Select Currency</p>
+                                        <ul>
+                                            <li class="on">
+                                                <div class="currency-input"></div>
+                                                <div class="currency-account">
+                                                    <i>BTH</i>
+                                                    <span>0.00000</span>
+                                                </div>
+                                                <a class="address" href="javascript:;">BX31188BX31188</a>
+                                            </li>
+                                            <li>
+                                                <div class="currency-input"></div>
+                                                <div class="currency-account">
+                                                    <i>ETH</i>
+                                                    <span>0.00000</span>
+                                                </div>
+                                                <a class="address" href="javascript:;">BX31188BX31188</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
                                 </div>
                         </div>
@@ -566,6 +587,40 @@
                 }
                 .mycount-detailed{
                     display: block;
+                }
+            }
+            .currency-select{
+                color: #000;
+                p{
+
+                }
+                li{
+                    overflow: hidden;
+                    .currency-input{
+                        float: left;
+                        width:10px;
+                        height:10px;
+                        border:2px solid #000;
+                        border-radius: 50%;
+                        cursor: pointer;
+                    }
+                    .currency-account{
+                        float: left;
+                    }
+                    .address{
+                        float: right;
+                        display: none;
+                        width:70px;
+                        .text-overflow();
+                    }
+                    &.on{
+                        .currency-input{
+                            border-color: #6A89CC;
+                        }
+                        .address{
+                            display: block;
+                        }
+                    }
                 }
             }
 
