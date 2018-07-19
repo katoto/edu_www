@@ -152,9 +152,12 @@ export default {
 
             ethOptions: [{
                 value: '1',
-                label: _('BTC')
+                label: _('All')
             }, {
                 value: '2',
+                label: _('BTC')
+            }, {
+                value: '3',
                 label: _('ETH')
             }],
             ethOptionVal: '1'

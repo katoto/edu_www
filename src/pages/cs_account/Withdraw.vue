@@ -68,6 +68,16 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
+                        <!-- btc -->
+                        <el-select v-model="withdrawTimeOptionVal" @change="handleStatusChange">
+                            <el-option
+                                v-for="item in withdrawTimeOptions"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+
                     </section>
                     <template>
                         <el-table
