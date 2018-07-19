@@ -33,9 +33,12 @@
                 <p class="t1">
                     {{ bet.goodsValue }}<i> {{ coinText }}</i>
                 </p>
-                <p class="t2">
-                    {{ goodsPrice }}
-                </p>
+                <div class="row-msg">
+                    <p class="t2">
+                        {{ goodsPrice }}
+                    </p>
+                    <i class="icon-mywin">You Win</i>
+                </div>
             </div>
             <div class="msg">
                 <p class="c1">

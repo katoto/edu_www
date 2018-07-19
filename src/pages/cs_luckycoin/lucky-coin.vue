@@ -33,7 +33,7 @@ export default {
 <style lang="less" rel="stylesheet/less">
 .page-luckycoin{
     position: relative;
-    
+
     /*banner按钮*/
     .el-carousel__button{
         width:8px;
@@ -196,40 +196,22 @@ export default {
                 transition: all 0.2s;
             }
         }
-        .icon-win{
-            &::after{
-                content: "You Win";
-                display: block;
-                position: absolute;
-                z-index: 3;
-                top:20px;
-                left: 0px;
-                overflow: hidden;
-                background: #cd204b;
-                padding:0 4px;
-
-                font-size:14px;
-                color: #fff;
-                height:20px;
-                line-height:20px;
-
-            }
-        }
-        .icon-bet{
+        .icon-bet,.icon-mywin{
             display: none;
         }
-        .icon-mybet{
+        .icon-mybet,.icon-win{
             .row-msg{
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
             }
             .t2{
-                float: left;
                 margin-right:10px;
             }
+
+        }
+        .icon-mybet{
             .icon-bet{
-                float: left;
                 display: block;
                 z-index: 3;
                 overflow: hidden;
@@ -241,6 +223,20 @@ export default {
                 height:20px;
                 line-height:20px;
                 border:1px solid #7b4de4;
+            }
+        }
+        .icon-win{
+            .icon-mywin{
+                display: block;
+                z-index: 3;
+                overflow: hidden;
+                padding:0 4px;
+                font-size:12px;
+                color: #fff;
+                font-weight:bold;
+                height:16px;
+                line-height:16px;
+                background: #cd204b;
             }
         }
         .history {
