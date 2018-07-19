@@ -31,7 +31,7 @@
                     <lang>About Us</lang>
                 </div>
                 <a href="javascript:;" class="hide"><lang>Terms of Use</lang></a>
-                <a href="javascript:;"><lang>Privacy Policy</lang></a>
+                <a href="javascript:;" @click="jump2Page"><lang>Privacy Policy</lang></a>
                 <a href="javascript:;" class="hide">How to Play</a>
             </div>
         </div>
@@ -47,11 +47,31 @@
         methods: {
             scroll () {
                 window.scrollTo(0, 0)
+            },
+            jump2Page (lan = 'en') {
+                if (this.language) {
+                    lan = this.language
+                }
+                switch (lan) {
+                case 'en':
+                    this.$router.push('/policy')
+                    break
+                case 'zhCn':
+                    this.$router.push('/policy_zhCn')
+                    break
+                case 'zhTw':
+                    this.$router.push('/policy_zhTw')
+                    break
+                }
             }
         },
-        computed: {},
+        computed: {
+            language () {
+                return this.$store.state.language
+            }
+        },
         mounted () {
-
+            this.jump2Page()
         }
     }
 </script>

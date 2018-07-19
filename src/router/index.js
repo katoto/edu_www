@@ -63,6 +63,16 @@ export default new Router({
             component: csProtocolPolicy
         },
         {
+            path: '/policy_zhCn',
+            name: _('policy'),
+            component: csProtocolPolicy
+        },
+        {
+            path: '/policy_zhTw',
+            name: _('policy'),
+            component: csProtocolPolicy
+        },
+        {
             path: '/drawNumber',
             name: _('Draw Number'),
             component: csDrawNum
