@@ -128,7 +128,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]),
         new prerenderSPAPlugin({
             staticDir:path.join(__dirname,'../dist'),
-            routes:['/','/lucky11','/luckycoin','/slot'],
+            routes:['/'],
             minify:{
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,

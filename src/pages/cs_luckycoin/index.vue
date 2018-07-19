@@ -104,11 +104,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!--show-->
-                <div class="msg-winning" :class="{ show: otherWin.isShow }">
-                    Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
-                </div>
             </div>
         </div>
     </div>

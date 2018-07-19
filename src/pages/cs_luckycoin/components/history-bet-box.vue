@@ -1,5 +1,5 @@
 <template>
-    <div class="item-history">
+    <div class="item-history" :class="{ 'icon-win': isMyWin }">
         <p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{bet.exceptId}}</p>
         <div class="item-history-box" :class="{ visiable: !isInit }">
             <div class="token-process" :class="[coin.boxClass]">
@@ -60,6 +60,8 @@
 </template>
 <script>
 import { formatTime, formateCoinType, formateBalance } from '~/common/util'
+import { mapState } from 'vuex'
+
 export default {
     methods: {
         formatTime,
@@ -73,6 +75,9 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            uid: state => state.userInfo.uid || ''
+        }),
         goodsPrice () {
             for (let keyname in this.bet.coinprice) {
                 if (keyname) {
@@ -92,6 +97,9 @@ export default {
         },
         coinText () {
             return formateCoinType(this.bet.goodsType)
+        },
+        isMyWin () {
+            return this.bet.winUid === this.uid
         },
         coin () {
             return {
