@@ -5,257 +5,241 @@
             <BreadCrumbs></BreadCrumbs>
             <div id="main-policy" class="main-policy">
                 <h1>
-                    <lang>Coinslot平台用户服务协议</lang>
+                    Terms and Conditions
                 </h1>
                 <h2>
-                    综述
+                    General
                 </h2>
                 <p>
-                    以下条款和条件(“T&Cs”或“协议”)构成并支配双方之间的合同关系，自2018年5月起生效。在使用http://coinslot.com	平台之前，请仔细阅读条款和条件。使用该平台任何服务的事实证实了您对条款和条件的同意（包括登录、注册平台账号，使用平台任一应用）。 本协议由《Coinslot服务协议》、《Coinslot隐私政策》及运营团队不时公布的各项规则（包括“帮助中心”的内容）组成。平台会有新产品推出，围绕新产品会更新本用户协议，让协议适用新产品并保护用户利益。
+                    These Terms and Conditions (“T&Cs” or “Agreement”) constitute and govern the contractual relationship between the parties and are effective as of May, 2018. All applications provided by Coinslot platform and the platform (http://coinslot.com) hereinafter referred to as “The Platform”, “Coinslot” or “We”, “Us”; or “Our”; a single application uses the application name; and You, as the user and customer, hereinafter referred to as “User” or “You” or “Yours”; “Coinslot Service Agreement” hereinafter referred to as the "The Agreement“.
                 </p>
                 <p>
-                    以下条款和条件。Coinslot平台及平台提供的所有应用（http://coinslot.com）以下简称“平台”、“Coinslot”或者“我们”，单一应用说明使用应用名称；平台使用应用的用户以下部分情况使用以下简称“用户”、“客户”“你”或“你们”；《Coinslot平台用户服务协议》以下简称《协议》。
+                    The User must read, agree with and accept all of the Terms and Conditions contained in this Agreement without modifications, which include those Terms and Conditions expressly set forth below and those incorporated by reference, before the User may become an active, registered User of Coinslot. By continuing to access or use the Website, the User agrees to follow the Terms and Conditions of this Agreement. This Agreement shall also apply to all Services provided via mobile devices, including downloadable applications. All references to the use of the Website shall be construed as references to the use of our Services provided for mobile devices.
                 </p>
                 <p>
-                    在成为http://coinslot.com	的有效注册用户之前，用户必须阅读，同意并接受本协议中包含的所有条款与条件，且不得进行任何修改，包括以下明确规定的条款与条件以及通过援引并入的条款与条件。继续访问或使用本网站则代表用户同意遵守本协议的条款与条件。本协议也适用于通过移动设备提供的所有服务，包括可下载的应用程序。所有对本网站使用的援引均理解为对使用我们为移动设备提供的服务的援引。
+                    Coinslot may amend and/or assign this Agreement or any rights and/or obligations from time to time. The Terms and Conditions and the Privacy Policy are published on the Website and may be changed at any time. The new version of these Terms and Conditions will take effect immediately upon the next visit or login on the Website. By continuing to use the Website, the Services or the software offered by Coinslot, the User agrees to be bound by the T&Cs as well as by the latest modifications to it. If the User does not agree to be bound by the changes to these T&C's, the User must not use or access Our Services, and inform Us in writing immediately. In order to avoid misunderstandings and disputes at a later stage, Users can print out these T&C's.
                 </p>
                 <p>
-                    Coinslot运营团队可能不时修改和/或转让本协议或任何权利和/或义务，或随时更改在网站上公布的条款与条件以及隐私政策，更改过后的条款与条件将在下次访问或登录时立即生效。继续使用Coinslot运营团队提供的网站，服务或软件则表示用户同意接受更改后的条款与条件。若用户不同意接受更改后的条款与条件，则用户不得继续使用或访问我们的服务，并立即以书面形式通知我们。为了避免之后可能出现的误解和争议，用户可打印本条款与条件。Coinslot运营团队会以多种语言发布本条款与条件，其反映与英文版本相同之内容，以便提供信息，帮助用户。英文版本将构成您与Coinslot运营团队之间关系的法律依据，如果英语版本的条款与条件与任何其他语言版本之间存在任何差异，则以英文版本为准。
+                    Coinslot may publish these Terms and Conditions in a number of languages and shall reflect the same principles. This is done for information purposes and to help players. It is however the English version that constitutes the legal basis of the relationship between You and Coinslot. Should there be any discrepancy between the T&Cs in the English version and the version in any other language, the English version shall prevail.
                 </p>
                 <p>
-                    用户在网站注册并确认您的注册详细信息时本协议即生效。在网站注册帐户即代表用户已阅读、理解并同意本协议。使用本网站即表示用户已同意并接受其中所有内容。注册帐户之前，用户必须完整阅读并理解本协议。若不同意本协议的任一部分，则不得使用本网站。
-                </p>
-                <p>
-                    Coinslot运营团队保留在服务非法使用时自行决定拒绝和/或取消服务的权利。
+                    Coinslot reserves the right to refuse and/or cancel Services at its own discretion where the Services are illegal to use.
                 </p>
                 <h2>
-                    第一条 应用范围
+                    1.	Scope of the Agreement
                 </h2>
                 <p>
-                    平台产品为博彩产品，平台产品只接受法律允许在线赌博的国家及地区的用户，且不接受用户将其视为金融理财或其他投资业务，平台不对用户因使用应用造成的可能损失承担如何责任。
+                    Products on the Platform are gaming products. Thus, the Platform only accepts Users from countries and geographic regions where online gambling is allowed by law. And Users who regard the Platform as a tool of financial management or other investment businesses are not accepted. The Platform is excluded from any liability regarding User’s loss of money.
                 </p>
                 <p>
-                    在使用平台产品前，请确保你已经确认当地的现有法律允许你的游戏行为。用户保证在任何时候都不是下列国家的居民：包括但不限于美国、美属萨摩亚、关岛、马绍尔群岛、北马里亚纳群岛、波多黎各、维尔京群岛、古巴、伊朗、中国、中国香港、中国澳门、苏丹、朝鲜、英国、叙利亚、法国或西班牙。
+                    It is the User’s sole responsibility to inquire about the existing gambling laws and regulations of the given jurisdiction before placing bets on the website. The User guarantees at all times that he/she is not the resident of countries including the United States and its dependencies, and territories including but not limited to American Samoa, Guam, Marshall Islands, North Mariana Islands, Puerto Rico, and the Virgin Islands, Cuba, Iran, China, Hong Kong, Macau, Sudan, North Korea, United Kingdom or Syria, France or Spain.
                 </p>
                 <p>
-                    使用平台账号获取服务，请应确保自己已年满18岁（或达到所属国家成年人最低年龄），任何未满18岁用户或未达到所属国家成年人最低年龄的用户，平台均会视其账号为无效账号，发现后拒绝为其账号继续提供服务。非法使用平台账号获取平台服务（如盗用他人信息进行游戏），将停止给该用户提供服务。
+                    The User assures the Platform that he/she is over 18 years of age（or at least reach the minimum age for adults in the country). No person under the age of 18 or who do not meet the minimum age of the adult in their country can be registered as a User and any funds deposited or any money won by any such person shall be void. We are entitled to require User to provide proof of age and to refuse a User's access to the Service if we have reasons to believe that the minimum age requirement is not fulfilled.
                 </p>
                 <p>
-                    平台为区块链应用产品，多数应用为完全基于区块链实现的产品，在使用产品前，请明确当地法律并没有对区块链进行法律禁止。
+                    The Platform is a blockchain application product. Thus, most applications are based on blockchain technology. Before using the Platform, please make sure that the blockchain is not prohibited by local laws.
                 </p>
                 <p>
-                    用户完全负责根据用户居住权限的法律，向他们的奖金费用支付税费。
-                </p>
-                <p>
-                    本协议未尽事宜，您需遵守不时更新的公告及相关规则。
+                    The User is solely responsible for paying applicable taxes on winnings where local laws require. For matters not covered by this Agreement, you must comply with the announcements and relevant rules that are updated from time to time.
                 </p>
                 <h2>
-                    第二条 用户账号
+                    2. Account
                 </h2>
                 <h3>
-                    1.	账号的用途
+                    2.1 Use of Account
                 </h3>
                 <p>
-                    可以登录平台，并使用平台中提供的所有应用服务（自身进行限制、被违规制裁或无效账号将无法享受部分或全部服务）
+                    You can log in to the Platform and use all application services provided on the Platform (self-excluded, sanctioned for violation and invalid accounts are not qualified for part or all of services).
                 </p>
                 <h2>
-                    2. 账号的修改
+                    2.2 Account Modification
                 </h2>
                 <p>
-                    为保障用户的权益且账号的唯一性，部分信息用户无法自行修改；
+                    To protect rights of Users and ensure the uniqueness of accounts, Users cannot modify part of the account information on their own;
                 </p>
                 <p>
-                    用户自行操作，导致账号信息发生变更而未及时修改或保存，导致无法证明用户的有效身份，Coinslot运营团队有权拒绝提供任何信息或承担任何义务。
+                    If it is User's own operation causing the account information to be changed without timely modification or saving, resulting in the inability to prove the User's effective identity, Coinslot operator reserves the right to decline providing any information or assuming any obligations.
                 </p>
                 <h3>
-                    3. 账号的保护
+                    2.3 Account Protection
                 </h3>
                 <p>
-                    用户应妥善保管自己的账号和密码，并对自己的账号和密码安全负全部责任；
+                    Users should keep their own accounts and passwords properly, and take full responsibility for the security of their own accounts and passwords.
+                    If any illegal use of the account or account theft is found by the User, he/she should inform Coinslot operator immediately;
                 </p>
                 <p>
-                    用户若发现任何非法使用的账号或存在安全漏洞的情况，请立即通知Coinslot运营团队；
+                    If the Coinslot operator suspects an account being theft, we reserve the right to terminate the account immediately. The User must prove that the account belongs to him/her before recover the account which was suspended because suspected of being stolen.
                 </p>
                 <p>
-                    若Coinslot运营团队发现疑似遭盗用的账号，可以立即终止该账号的使用权；因疑似遭盗用被停止使用权的账号，账号所有人需证明账号所属正常，方可恢复使用；
+                    The account on Platform corresponds to the account on blockchain. If the account or password is illegally used by another person due to the User's own reasons, the Coinslot operator will not be liable for undertaking and dealing the issue. The User's own reasons include but not limited to: disclosing account and password and login information to a third party; sharing the same account with other persons; installing illegal or unsolicited programs; attempting malicious attacks to obtain the private key of the blockchain account, keystore and other information; User’s misuse of funds to transfer the digital currency in the account to a wrong address.
                 </p>
                 <p>
-                    平台账户对应区块链账户，若因为用户自身原因，而导致账号、密码遭他人非法使用时，Coinslot运营团队将不负责处理且不承担任何责任。用户自身原因包括但不限于：任意向第三者透露账号和密码及所有登录资料；多人共享同一个账号；安装非法或来路不明的程序等；尝试恶意攻击获取区块链账户的私钥、keystore等信息；用户提款误操作，将账户中数字货币转移至错误地址等。
+                    If the Platform account is found with abnormal operations, funds in the account may be preferentially transferred to a securities account. The User may then attempt to recover funds in the account with a valid credential.
                 </p>
                 <p>
-                    平台账号一旦发现账号有异常操作，可能会优先转移账号资金至安全账号，用户可后续凭有效证明尝试获取恢复账号资金。
-                </p>
-                <p>
-                    用户使用第三方软件使用平台产品，账户出现问题平台不承担任意责任。
+                    Unless Users use Our services via the Platform, otherwise the Platform is not liable for any problems Users meet via the third party Platform login.
                 </p>
                 <h3>
-                    4. 账户充值、转账
+                    2.4 Deposit and Transfer
                 </h3>
                 <p>
-                    用户可在平台上，使用账户进行充值、转账（即将自己游戏账户中资金转移至个人持有的区块链账户中）操作，实际的充值、转账行为均在相关区块链系统（而非Coinslot）发生，区块链系统交易“不可撤销”的属性，我们不能为您暂停或撤销已发起的充值、转账等操作。同时以下情况的出现可能导致转账“交易失败”或“打包超时”：
+                    User can use the account to deposit and transfer on the Platform (i.e., to transfer money from game account to a personal blockchain account). The specific deposit and transfer activities proceed in corresponding blockchain system rather than Coinslot. Since data on blockchain are featured with irrevocability, we are not able to suspend or cancel your ongoing deposit or transfer activities.
+                    Meanwhile, the following conditions may lead to "transaction failure" or "request timeout":
                 </p>
                 <div>
-                    <p>a) 钱包余额不足；</p>
-                    <p>b) 交易矿工费不足；</p>
-                    <p>c) 区块链执行合约代码失败；</p>
-                    <p>d) 超出监管部门、Coinslot或法律法规规定的付款额度；</p>
-                    <p>e) 网络、设备等技术故障；</p>
-                    <p>f) 区块链网络拥堵、故障等原因引起交易被抛弃；</p>
-                    <p>g) 您的地址或交易对方地址被识别为特殊地址, 如高风险地址、交易所地址、ICO 地址、Token地址等。</p>
+                    <p>a)  Insufficient balance;</p>
+                    <p>b) Insufficient trading miner fees;</p>
+                    <p>c) Blockchain fails to execute the contract code;</p>
+                    <p>d) Exceed the maximum trading amount specified by the regulatory authorities, Coinslot, or laws and regulations;</p>
+                    <p>e) The occurrence of technical failures (network, equipment and so forth);</p>
+                    <p>f) Blockchain congestion, failures and other reasons that may terminate transactions;</p>
+                    <p>g) Your address or your counterpart’s is identified as an abnormal address, such as high-risky address, exchange address, ICO address, Token address and so forth.</p>
                 </div>
                 <h3>
-                    5. 账号数据处理规则
+                    2.5 Rules for Account Data
                 </h3>
                 <p>
-                    对于用户提供给平台的账号数据，用户享有以下权利：
+                    For the account data on the platform provided by the User, he/she reserves the following rights:
                 </p>
                 <div>
-                    <p>a) 知情权：平台必须披露信息使用细节，并免费提供用户查询，同时平台会记录每一次用户查询的记录</p>
-                    <p>b) 访问权：用户可随时确认数据是不是被处理过、可以随时查看保存数据的具体信息</p>
-                    <p>c) 有权整改权：用户可有权修改错误的数据，如果修改不被采纳，用户有权投诉或司法补救，同时平台会及时响应用户请求</p>
-                    <p>d) 有权删除权：当用户提供给平台的数据，涉及：资料已不需要使用、平台无法证明数据用途、数据被他人非法使用、涉及未成年人数据等情况，用户有权要求删除数据，平台会积极配合审查并进行操作</p>
-                    <p>e)反对权：用户有权反对个人数据被用于营销数据处理</p>
-                    <p>f) 自动决策和分析：用户可同意他的个人数据被进行分析处理</p>
-                </div>
-                <p>
-                    除以下情况，Coinslot会保证用户信息的完全保密
-                </p>
-                <div>
-                    <p>a) 相应的政府机关、司法机关的要求；</p>
-                    <p>b) 现行的法律法规的要求，包括但不限于部分地区会要求用户使用平台前先提供身份证明等信息；</p>
-                    <p>c) Coinslot运营团队合理怀疑用户有危害所属国家安全或其他违法情形，Coinslot运营团队主动将相关资料供执法机关调查处理；</p>
-                </div>
-               <h3>
-                   6. 账户制裁与封禁
-               </h3>
-                <p>
-                    触发以下条例，平台将对用户的行为造成的影响进行评估，进行部分甚至全部功能的限制，或封禁账号
-                </p>
-                <div>
-                    <p>a)用户未如实填写注册表，包括盗用他人邮箱等内容</p>
-                    <p>b)用户属于18岁以下的个人，或属于用户管辖范围内最低法定成年年龄的个人</p>
-                    <p>c)用户在业务活动中受法律监督及限制</p>
-                    <p>d)用户使用帐号进行商业意图</p>
-                    <p>e)用户在放置之前不知道下注的后果</p>
-                    <p>f)用户未阅读这些通用条款和条件，或未能完全理解平台服务协议</p>
-                    <p>g)用户注册名含不雅信息，或有冒犯和违背当地法律规定的词汇</p>
-                </div>
-                <p>
-                    用户若有违反以下任意条例，平台有权停止账户的所有服务，包括但不限于停止、暂停用户账户服务，冻结用户账户资金，删除用户账户等措施；
-                </p>
-                <div>
-                    <p>a)使用多账号进行游戏，平台仅支持每名用户使用单一账号；平台有权怀疑并依据用户账户行为判断用户是否存在多账号操作</p>
-                    <p>b)盗取他人信息或违背他人意愿，使用他人信息进行账号注册及使用</p>
-                    <p>c)进行商业意图，使用范围广，或造成其他用户利益受损</p>
-                    <p>d)平台账号本身不具备任何实际价值，禁止用户向其他用户出售、质押、转账或获取账号</p>
-                    <p>e)用户因自身原因，受当地法律明令禁止参与平台运营的产品类别，或明确限制不许可使用本平台</p>
-                    <p>f)存在利用平台可能存在的bug或区块链技术破绽，为自己账户牟利行为</p>
-                    <p>g)任何欺诈、操作、洗钱或当地法律或更广范围法律所禁止的事情，属于欺诈的行为包括：
-                        <span>1）参与与其他用户的任何类型的勾结</span>
-                        <span>2）制定针对不公平获取奖金的战略;</span>
-                        <span>3）针对我公司其他在线区块链游戏或支付提供商的欺诈行为;</span>
-                        <span>4）使用平台进行洗钱行为;</span>
-                        <span>5）其他类型的作弊行为;</span>
-                        <span>6）或在其居住国成为破产人;</span>
-                    </p>
+                    <p>a) Right to Know: The Platform must open the details of use, and provide Users free check access. All checking records will be recorded on the Platform.</p>
+                    <p>b) Access Right: Users can check specific information at any time whether the data has been modified or not.</p>
+                    <p>c) Right to Rectify: User reserves the right to modify the wrong data, if the modification is not adopted, the User has right to complain or require judicial remedy, and the Platform will respond to the User’s request in time.</p>
+                    <p>d) Right to Delete: When date on the Platform provided by User involves: data no longer needed, data required by the Platform but unclear about the purpose, data illegally used by others, and data related to the minor, User reserves the right to request the deletion of the data. The platform will actively cooperate with the issue</p>
+                   <p>e) Right of Objection: User reserves the right to object to personal data being used for marketing</p>
+                    <p>f) Automated individual decision-making and analysis: the User can agree that his/her personal data could be analyzed.</p>
 
                 </div>
                 <p>
-                    平台账号存在1年以上休眠状态，经过3次以上提醒未有所操作行为，平台将停止游戏所有服务，用户后续需提供可验证的真实身份信息，恢复账号的服务
-                </p>
-                <h2>
-                    第三条 Coinslot平台
-                </h2>
-                <h3>
-                    Coinslot平台
-                </h3>
-                    <h4>
-                        1.	Coinslot平台服务
-                    </h4>
-                    <p>
-                        Coinslot平台服务指Coinslot平台提供的所有应用：Lucky11游戏、LuckyCoin游戏以及平台其他服务。平台多数功能完全基于以太链实现，如平台基于以太链的服务因以太链网络、技术原因，造成延迟、服务中断，平台不承担因此相应责任。
-                    </p>
-                    <h4>
-                        2.	Coinslot平台资费
-                    </h4>
-                    <p>
-                        Coinslot平台，除Lucky11，LuckyCoin 游戏外，其他服务为免费提供，平台不再收取任何费用；平台及平台上部分应用及服务是基于以太链技术实现，其中可能涉及到部分手续费用以提供给以太链服务，该笔手续费不为平台收取。
-                    </p>
-                <h3>
-                    Lucky11游戏
-                </h3>
-                <h4>
-                    1.  Lucky11游戏服务
-                </h4>
-                <p>
-                    Lucky11为概率型游戏，用户选择的号码如果与开奖号码一致则可获得对应奖励。用户须知该游戏为纯概率开奖，可能存在亏损的可能。游戏开奖基于以太链某一区块的Hash值得出，开奖依据可从以太链上查询校验。
-                </p>
-                <h4>
-                    2.	Lucky11游戏资费
-                </h4>
-                <p>
-                    Lucky11游戏资费为0.001-0.1 ETH，用户自行选择所需的资费，中奖后，对应的奖励为付出资费*奖励对应倍数；选择额外的奖池玩法，在选择号码与开奖号码开奖顺序及号码一致时，可获得奖池对应公式的奖励。
-                </p>
-                <h4>
-                    3.  Lucky11特殊情况
-                </h4>
-                <p>
-                    Lucky11游戏可能会出现以下特殊情况，请在完全知晓可能出现以下风险的情况下参与Lucky11游戏：
-                </p>
-              <div>
-                  <p>1）游戏开奖完全基于区块链实现，如果区块链出现网络延迟或堵塞，为防止开奖有误，平台会暂时关闭投注；</p>
-                  <p>2）区块链存在数据回滚可能，若已经开奖，即使开奖区块取消，平台开奖结果不变；游戏投注完全上线后，投注方能生效，若出现网络堵塞，可能导致投注不成功；</p>
-                  <p>3）游戏奖池开奖为异步开奖，需2次验证区块链hash，若区块取消无法查询，奖池奖无法正常派奖。</p>
-              </div>
-                <h3>
-                    LuckyCoin游戏
-                </h3>
-                <h4>
-                    LuckyCoin游戏服务
-                </h4>
-                <p>
-                    LuckyCoin为概率抽奖类游戏，用户在选择认购1份或多份购买额后，会随机获得对应的开奖号码，若自己持有的开奖号码与中奖号码一致，则获得奖励。游戏百分百开奖，必有用户能获得奖励。开奖依据以太链某一区块的Hash值得出。
-                </p>
-                <h4>
-                    LuckyCoin游戏资费
-                </h4>
-                <p>
-                    LuckyCoin无固定游戏资费，用户可根据自身情况，自行选择支付资费，理论用户资费支付越高，中奖概率越大。
-                </p>
-                <h4>
-                    LuckyCoin特殊情况
-                </h4>
-                <p>
-                    游戏开奖完全基于区块链实现，如果区块链出现网络延迟或堵塞，为防止开奖有误，平台会暂停当前所有未开奖的期数；
-                </p>
-                <p>
-                    区块链存在数据回滚可能，若已经开奖，即使开奖区块取消，平台开奖结果不变；
-                </p>
-                <p>
-                    游戏投注完全上线后，投注方能生效，若出现网络堵塞，可能导致投注不成功；
-                </p>
-                <h2>
-                    第四条 用户的义务
-                </h2>
-                <p>
-                    1.	除非本《协议》另有规定，否则，未经Coinslot运营团队书面同意，用户不得实施下列行为（无论是营利的还是非营利的）：
+                    Coinslot guarantees to completely keep Users’ information confidential except when:
                 </p>
                 <div>
-                    <p>
-                        a)复制、翻录、传播和陈列平台上所有应用的程序、使用手册和其它图文音像资料的全部或部分内容；
+                    <p>a) It is required by government offices or judicial authorities;   </p>
+                    <p>b) It is required by the current laws and regulations, including but not limited to providing identity proof before using the Platform in some regions;   </p>
+                    <p>c) Coinslot reserves the right to suspect that the User might have threatened their national security or with other illegal behaviors. In this case, the Coinslot operator will provide relevant information to law enforcement agencies for investigation.   </p>
+                </div>
+               <h3>
+                   2.6 Account Sanction and Suspension
+               </h3>
+                <p>
+                    If the User violates any of the following regulations, We will evaluate the consequential influence. The Platform reserves the right to restrict part or all of account services, or suspend the account;
+                </p>
+                <div>
+                    <p>a) The User provides incorrect or misleading information on his/her account or upon registration, including but not limited to stealing others’ email addresses. </p>
+                    <p>b) The User is an individual under 18 years of age, or under legal age of majority in jurisdiction of where the User resides. </p>
+                    <p>c) The User is under legal supervision or restricted in his/her business activities. </p>
+                    <p>d) The User uses the account for commercial purposes. </p>
+                    <p>e) The User has no knowledge about any results before placing a bet. </p>
+                    <p>f) The User has not read these Terms and Conditions, or has not fully understood the Agreement. </p>
+                    <p>g) The User's registered name contains offensive or indecent information, or words that are considered to be a violation of local laws; </p>
+                </div>
+                <p>
+                    If the User violates any of the following regulations or any terms of the Agreement, the Platform reserves the right to stop all services of the account, including but not limited to stopping, suspending account services, freezing account funds and closing accounts;
+                </p>
+                <div>
+                    <p>a) Coinslot allows only one account per person. The use of multiple accounts per physical User is strictly forbidden. Coinslot reserves the right to suspect that the User has registered multiple accounts according to account activity. </p>
+                    <p>b) Create and use an account by stealing information from others or against the will of others. </p>
+                    <p>c) Use the Platform or services for massive commercial intentions, or cause damage to other Users. </p>
+                    <p>d) The Platform account itself does not have any substantial value, any kinds of account selling, pledging, obtaining or transferring to other Users are prohibited by the Platform. </p>
+                    <p>e) For Users’ own reasons, Users are prohibited by their local laws from using this sort of product or Our Platform if it is explicitly restricted. </p>
+                    <p>f) Making profits from bugs or flaws of blockchain technology that may exist in the Platform. </p>
+                    <p>g) Fraud, money laundering and anything forbidden by local laws or a broader applicable law. The fraudulent acts include:
+                        <span>1) Participating in any type of collusion with other users; </span>
+                        <span>2) Developing strategies against bonuses from unfair access; </span>
+                        <span>3) Fraudulent acts against other blockchain games or payment providers on the Platform; </span>
+                        <span>4) Using the platform for money laundering; </span>
+                        <span>5) Other types of cheating; </span>
+                        <span>6) Being a bankrupt in the resident country. </span>
                     </p>
+                </div>
+                <p>
+                    The account dormancy lasts for more than 1 year and no activity has been performed after receiving 3 or more times of reminder. In this case, all account service will be ceased by the Platform. Users can provide relevant documents to apply for service recovery.
+                </p>
+                <h2>
+                    3. Coinslot Platform
+                </h2>
+                    <h4>
+                        3.1 Services on Coinslot Platform
+                    </h4>
                     <p>
-                        b)公开展示和播放平台上所有应用的全部或部分内容；
+                        Services on Coinslot Platform refer to all applications offered by Coinslot Platform, Lucky11, LuckyCoin and other services on Platform. Most services on Platform are utterly based on the Ethernet chain. Thus, the Platform does not assume any responsibility if the services are delayed, interrupted or failed because of the network error of Ethernet chain or relevant technical problems.
                     </p>
+                    <h4>
+                        3.2 Coinslot Platform Fees
+                    </h4>
                     <p>
-                        c)出租、销售本软件或者利用平台上所有应用从事营利行为；
+                        Except Lucky11 and LuckyCoin, any other services on Coinslot Platform are provided for free. Since part of the services is based on Ethernet chain, it may require fees to support the service provided. Users should notice that the fee is not charged by the Platform.
                     </p>
-                    <p>
-                        d)修改或遮盖平台上所有应用的程序、图像、动画、包装和手册等内容上的产品名称、公司标志、商标（或）版权信息、其他知识产权声明等内容；
-                    </p>
-                    <p>
-                        e)在区块链上恶意复制平台的内容，平台有权怀疑用户在链上存在以上行为，并对用户账号进行处理
-                    </p>
+                <h3>
+                    3.3 Lucky11
+                </h3>
+                <h4>
+                    3.3.1. Lucky11 Service
+                </h4>
+                <p>
+                    Lucky11 is a game of chance. User wins if his/her chosen number matches the draw result. The User must know that the game result is purely based on nothing but chance, so losses may occur. The draw result is calculated from the hash value of the corresponding block on Ethereum, and Users can check the data from Ethereum.
+                </p>
+                <h4>
+                    3.3.2 Lucky11 Game Cost
+                </h4>
+                <p>
+                    Lucky11 game cost varies from 0.001 ETH to 0.1 ETH per draw for Users to choose, the winning prize equals the corresponding cost * multiples. If Users would like to win extra reward from prize pool, both numbers and the sequence of chosen numbers should exactly match the draw results.
+                </p>
+                <h4>
+                    3.3.3 Special Circumstances of Lucky11
+                </h4>
+                <p>
+                    The following special circumstances may occur in Lucky11. Please ensure you are fully aware of the following risks before playing the game:
+                </p>
+              <div>
+                  <p>a) The draw result is entirely based on the blockchain technology. If network delay or blockage on blockchain occurs, the Platform will temporarily close the bet to avoid unfair draw result. </p>
+                  <p>b) Data on blockchain may rollback. If it happens, the draw result which has already calculated will not be changed even though the corresponding block was canceled. </p>
+                  <p>c) The bet takes effect only after the relevant info successfully uploaded to the Ethereum. Network congestion may lead to the failure of placing a bet. </p>
+                  <p>d) The draw of prize pool is asynchronous which requires two times of hash verification. The prize pool cannot be distributed if the block was canceled. </p>
+              </div>
+                <h3>
+                    3.4 LuckyCoin
+                </h3>
+                <h4>
+                    3.4.1 LuckyCoin Service
+                </h4>
+                <p>
+                    LuckyCoin is a game of chance raffle. After the User chooses to purchase 1 or more tickets, he/she will get a series of random numbers. If all chosen numbers match the draw numbers the User wins. The game is with 100% drawing rate and all draws have winners. Draw result is calculated from the hash of block on Ethernet.
+                </p>
+                <h4>
+                    3.4.2 LuckyCoin Game Cost
+                </h4>
+                <p>
+                    LuckyCoin has no fixed game cost, the User’s spending depends on his/her own circumstances. Theoretically, the more User costs, the higher winning chance will be.
+                </p>
+                <h4>
+                    3.4.3 Special Circumstances of LuckyCoin
+                </h4>
+                <p>
+                    The following special circumstances may occur in LuckyCoin. Please ensure you are fully aware of the following risks before playing the game:
+                </p>
+                <p>
+                    The draw result is entirely based on the blockchain technology. If network delay or blockage on blockchain occurs, the Platform will temporarily close the bet to avoid unfair draw result.
+                </p>
+                <p>
+                    Data on blockchain may rollback. If it happens, the draw result which has already calculated will not be changed even though the corresponding block was canceled.
+                </p>
+                <p>
+                    The bet takes effect only after the relevant info successfully uploaded to the Ethereum. Network congestion may lead to the failure of placing a bet.
+                </p>
+                <h2>
+                    4. Obligations of Users
+                </h2>
+                <p>
+                    4.1 Unless stated in the Agreement, otherwise Users shall not perform the following behaviors (whether profitable or not) without the written consent from the Coinslot operator:
+                </p>
+                <div>
+                    <p>a) Copy, rip, spread or display all or part of the content of applications, manuals or other audiovisual materials on the Platform;     </p>
+                    <p>b) Publicly display all or part of the content of applications on the Platform;    </p>
+                    <p>c) Rent or sell the software, or use applications on the Platform to engage in profit-making activities;    </p>
+                    <p>d) Modify or cover product names, company logos, trademark (or) copyright information or other statements on intellectual property rights, on the contents of applications, images, animations, packages, or manuals on the Platform;    </p>
+                    <p>e) Coinslot reserves the right to suspect that User may maliciously copy the Platform content on the blockchain, and in this case, the Platform reserves the right to take applicable measures on the account.    </p>
                 </div>
                 <p>
                     2.	用户应通过合法的途径使用平台产品的相关服务，不得作出以下侵害Coinslot运营团队或第三人利益，扰乱应用秩序，违反应用公平性、违反本《协议》或者Coinslot团队发布的其他规则或者当地国家有关法律法规规定的行为，包括但不限于：
