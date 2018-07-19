@@ -11,7 +11,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-
 const prerenderSPAPlugin = require('prerender-spa-plugin')
 const Renderer = prerenderSPAPlugin.PuppeteerRenderer
 
