@@ -33,8 +33,7 @@ const state = {
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
-    // currCoinType: 2001, // 当前币种 todo  2001 eth  1001 btc
-    currBalance: null, // 当前币种
+    currBalance: null, // 当前币种  2001 eth  1001 btc
     ...common.state
 }
 
@@ -45,9 +44,6 @@ const mutations = {
     setCurrBalance (state, data) {
         state.currBalance = data
     },
-    // setCurrCoinType (state, data) {
-    //     state.currCoinType = data
-    // },
     showEmailErr (state, data) {
         state.showEmailErr = data
     },
