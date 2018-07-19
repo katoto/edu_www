@@ -3,17 +3,27 @@
         <Header></Header>
         <router-view></router-view>
         <Footer></Footer>
+        <!--show-->
+        <div class="msg-winning" :class="{ show: otherWin.isShow }">
+            Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
+        </div>
     </div>
 </template>
 <script>
 
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
+import { mapState } from 'vuex'
 
 export default {
     components: { Header, Footer },
     mounted () {
         this.$store.dispatch('subInLuckyCoin')
+    },
+    computed: {
+        ...mapState('cs_luckycoin', {
+            otherWin: state => state.otherWin
+        })
     },
     beforeDestroy () {
         this.$store.dispatch('subOutLuckyCoin')
@@ -22,6 +32,8 @@ export default {
 </script>
 <style lang="less" rel="stylesheet/less">
 .page-luckycoin{
+    position: relative;
+    
     /*banner按钮*/
     .el-carousel__button{
         width:8px;
@@ -51,7 +63,33 @@ export default {
 <style scoped lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
-
+    .msg-winning {
+        position: fixed;
+        left: 50%;
+        bottom: 0;
+        z-index:100;
+        transform: translate(-50%, 100%);
+        background: url("../../assets/img/oneToKen/bg-congratulate.jpg") no-repeat center;
+        background-size: cover;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+        overflow: hidden;
+        width: 100%;
+        max-width: 1190px;
+        transition: all 0.2s;
+        height: 35px;
+        line-height: 35px;
+        overflow: hidden;
+        font-size: 26/2px;
+        i {
+            font-family: sans-eb;
+            font-size: 34/2px;
+        }
+        &.show {
+            transform: translate(-50%, 0);
+        }
+    }
     .page-luckycoin .footer {
         background-color: rgba(0, 0, 0, 0.4);
         .title {
@@ -203,33 +241,6 @@ export default {
                 height:20px;
                 line-height:20px;
                 border:1px solid #7b4de4;
-            }
-        }
-        .msg-winning {
-            position: fixed;
-            left: 50%;
-            bottom: 0;
-            z-index:100;
-            transform: translate(-50%, 100%);
-            background: url("../../assets/img/oneToKen/bg-congratulate.jpg") no-repeat center;
-            background-size: cover;
-            text-align: center;
-            color: #fff;
-            font-weight: bold;
-            overflow: hidden;
-            width: 100%;
-            max-width: 1190px;
-            transition: all 0.2s;
-            height: 35px;
-            line-height: 35px;
-            overflow: hidden;
-            font-size: 26/2px;
-            i {
-                font-family: sans-eb;
-                font-size: 34/2px;
-            }
-            &.show {
-                transform: translate(-50%, 0);
             }
         }
         .history {
@@ -1062,18 +1073,18 @@ export default {
     /* lg大屏幕（大桌面显示器，大于等于 1200px） */
 
     @media (min-width: @screen-lg-desktop) {
+        .msg-winning {
+            height: 70px;
+            line-height: 70px;
+            font-size: 26px; //padding-top:percentage(70/1190);
+            i {
+                font-size: 34px;
+            }
+        }
         /deep/
         .oneToKen {
             .main {
                 padding: 32px 0 100px 0;
-            }
-            .msg-winning {
-                height: 70px;
-                line-height: 70px;
-                font-size: 26px; //padding-top:percentage(70/1190);
-                i {
-                    font-size: 34px;
-                }
             }
             .for-full {
                 margin: 0;

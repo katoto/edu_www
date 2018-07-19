@@ -144,18 +144,24 @@ export default {
             this.history.pageCount = parseInt(result.data.pages, 10)
         },
         sortProgress (a, b) {
-            return (
-                (Number(a.leftBids) / Number(a.totalBids)) > (Number(b.leftBids) / Number(b.totalBids))
-                    ? 1
-                    : -1
-            )
+            let aProgress = Number(a.leftBids) / Number(a.totalBids)
+            let bProgress = Number(b.leftBids) / Number(b.totalBids)
+            let aId = Number(a.exceptId)
+            let bId = Number(b.exceptId)
+            if (aProgress === bProgress) {
+                return aId >= bId ? 1 : -1
+            }
+            return aProgress > bProgress ? 1 : -1
         },
         sortPrice (a, b) {
-            return (
-                (Number(a.goodsValue)) > (Number(b.goodsValue))
-                    ? 1
-                    : -1
-            )
+            let aValue = Number(a.goodsValue)
+            let bValue = Number(b.goodsValue)
+            let aId = Number(a.exceptId)
+            let bId = Number(b.exceptId)
+            if (aValue === bValue) {
+                return aId >= bId ? 1 : -1
+            }
+            return aValue > bValue ? 1 : -1
         },
         clearPageno () {
             this.bets.pages.pageno = 1

@@ -1,7 +1,7 @@
 <template>
     <!--icon-hot  热门icon  icon-win -->
     <div :class="[
-        isOn ? 'on' : '',
+        windowClass !== '' ? 'on' : '',
         isPopular ? 'item-popular' :'item-common',
         isHot ? 'icon-hot' : '',
         isBet ? 'icon-mybet' : '',
@@ -210,8 +210,7 @@ export default {
             isInit: false,
             disableBet: false,
             errorMessage: '',
-            isCancel: false,
-            isOn: false
+            isCancel: false
         }
     },
     props: {
@@ -249,45 +248,38 @@ export default {
                 this.openRechargeWindow()
                 return
             }
-            this.isOn = true
             this.windowClass = 'normal'
         },
         openFailureWindow (msg) {
-            this.isOn = true
             this.errorMessage = msg
             this.windowClass = 'fail'
         },
         openSuccessWindow () {
-            this.isOn = true
             this.windowClass = 'success'
         },
         openRechargeWindow () {
-            this.isOn = true
             this.windowClass = 'balance'
         },
         closeWindow () {
-            if (!this.isBlinking) {
-                this.isOn = false
-                this.windowClass = ''
-            }
+            this.windowClass = ''
         },
-        chooseMin (event) {
+        chooseMin () {
             this.betValue = this.minValue
         },
-        chooseMax (event) {
+        chooseMax () {
             this.betValue = this.maxValue
         },
-        chooseHot (event) {
+        chooseHot () {
             this.betValue = this.hotValue
         },
-        chooseHalf (event) {
+        chooseHalf () {
             if (this.betValue / 2 >= this.minValue) {
                 this.betValue = this.formatBidValue(this.betValue / 2)
             } else if (this.betValue > this.minValue) {
                 this.betValue = this.minValue
             }
         },
-        chooseDouble (event) {
+        chooseDouble () {
             if (this.betValue * 2 <= this.maxValue) {
                 this.betValue = this.formatBidValue(this.betValue * 2)
             } else if (this.betValue < this.maxValue) {
