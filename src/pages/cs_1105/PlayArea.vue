@@ -30,7 +30,7 @@
                 </span>
                 <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false" class="pop-reward-ct">
                     <lang>Reward table</lang>
-                    <!-- Lucky 11 show  647 356 奖级表 todo -->
+                    <!-- Lucky 11 show -->
                     <div class="pop pop-rewardTable" :class="{hide: !rewardTable}">
                         <!-- <img src="../../assets/img/pop-rewardTable.png" alt=""> -->
                         <h3>LUCKY 11</h3>
@@ -193,7 +193,6 @@
                 <li v-else>-</li>
             </ul>
         </div>
-
     </li>
 </template>
 
@@ -206,13 +205,22 @@
             return {
                 playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 baseJackPot: [1, 2, 3, 4, 5],
-                limitUnit: 0.0001,
+                limitUnit: 0.0001, // 减去最小单位
                 slideDown: false,
-                rewardTable: false
+                rewardTable: false,
+                min_limit: 0.0005, // 限额
+                max_limit: 0.1 // 限额
             }
         },
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
-        watch: {},
+        watch: {
+            currBalance (balance) {
+                if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype) {
+                    this.min_limit = this.bet_limit[balance.cointype].min_limit
+                    this.max_limit = this.bet_limit[balance.cointype].max_limit
+                }
+            }
+        },
         methods: {
             formateBalance,
             formateJackPot,
@@ -376,6 +384,12 @@
             },
             poolRatio () {
                 return this.$store.state.cs_1105.poolRatio
+            },
+            currBalance () {
+                return this.$store.state.currBalance
+            },
+            bet_limit () {
+                return this.$store.state.cs_1105.bet_limit
             }
         },
         mounted () {

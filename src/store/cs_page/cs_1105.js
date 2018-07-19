@@ -44,10 +44,17 @@ const state = {
 
     poolAmount: 1, // 奖池
     poolRatio: null, //  奖池比例
-    jackPotMsg: null // 奖池信息 中奖池
+    jackPotMsg: null, // 奖池信息 中奖池
+
+    bet_limit: {} // 11选五 最小、大 限额
+
 }
 
 const mutationsInfo = mapMutations({
+    bet_limit (state, data) {
+        state.bet_limit = data
+    },
+
     setjackPotMsg (state, data) {
         state.jackPotMsg = data
     },

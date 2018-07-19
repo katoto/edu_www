@@ -77,7 +77,12 @@ const actions = {
                 if (homeMsg.data.syxw_bettype_odds) {
                     commit(mTypes.syxw_bettype_odds, homeMsg.data.syxw_bettype_odds)
                 }
+                /* btc add */
+                if (homeMsg.data.bet_limit) {
+                    commit(mTypes.bet_limit, homeMsg.data.bet_limit)
+                }
             }
+
             // todo
             if (homeMsg.data.invite_tips.toString() === '0') {
                 commit('hideFreeplay')
