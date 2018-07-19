@@ -8,14 +8,14 @@
         isInit && !isCancel ? '' : 'unvisible',
         coin.bgClass]"
     >
-        <!--<p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{betData.exceptId}}</p>-->
+        <p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{betData.exceptId}}</p>
         <!--token-bth  币种选择-->
         <!--token-eth-->
         <div class="token-process" :class="[coin.boxClass]">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
                 <defs>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
-                        <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                        <stop offset="0%" stop-color="#e46b12"></stop>
                         <stop offset="100%" stop-color="#fdc90c"></stop>
                     </linearGradient>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
@@ -23,12 +23,12 @@
                         <stop offset="100%" stop-color="#f9c600"></stop>
                     </linearGradient>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
-                        <stop offset="0%" stop-color="#62f7d9"></stop>
-                        <stop offset="100%" stop-color="#5ed9eb"></stop>
+                        <stop offset="0%" stop-color="#5df8e3"></stop><!--这个是终点-->
+                        <stop offset="100%" stop-color="#5cd7ee"></stop>
                     </linearGradient>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
-                        <stop offset="0%" stop-color="#53b8f0"></stop>
-                        <stop offset="100%" stop-color="#5ed9eb"></stop>
+                        <stop offset="0%" stop-color="#5abbf8"></stop>  <!--右边起点-->
+                        <stop offset="100%" stop-color="#5cd7ee"></stop>
                     </linearGradient>
                 </defs>
                 <g transform="matrix(0,-1,1,0,0,102)">
@@ -47,9 +47,9 @@
                         :stroke="`url(#${coin.circleClass[0]})`"
                         stroke-width="8"
                         fill="transparent"
-                        stroke-linecap='round'
-                        :stroke-dasharray="`${rate} 296`"
-                        v-if="rate > 148"/>
+                        :stroke-linecap='rate>0?round : none'
+                        :stroke-dasharray="`${rate>148?rate:0} 296`"
+                       />
                     <!-- 左半边圆 -->
                     <circle
                         cx="51"
@@ -58,19 +58,19 @@
                         :stroke="`url(#${coin.circleClass[1]})`"
                         stroke-width="8"
                         fill="transparent"
-                        stroke-linecap='round'
+                        :stroke-linecap='rate>0?round : none'
                         :stroke-dasharray="`${rate > 148 ? 148 : rate} 296`"
-                        v-if="rate !== 0"/>
+                       />
                     <!-- 右半边圆 -->
                 </g>
             </svg>
         </div>
         <div class="title">
             <p class="t1" v-if="isPopular">
-                {{ _('Play For {0}', this.betData.goodsValue) }}<i>{{ coinText }}</i>
+                {{ _('Play For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
             </p>
             <p class="t1" v-else>
-                {{ this.betData.goodsValue }}<i>{{ coinText }}</i>
+                {{ this.betData.goodsValue }}<i> {{ coinText }}</i>
             </p>
             <div class="row-msg">
                 <p class="t2" v-html="goodsPrice"></p>
@@ -84,7 +84,7 @@
             </p>
             <p class="c2">
                 <lang>Ticket Price:</lang>
-                <i>{{ this.betData.bidValue }}{{ coinText }}</i>
+                <i>{{ this.betData.bidValue }}&nbsp;{{ coinText }}</i>
             </p>
         </div>
         <a href="javascript:;" class="btn btn-waiting" v-if="isWaiting">
@@ -401,7 +401,7 @@ export default {
         goodsPrice () {
             for (let keyname in this.betData.coinprice) {
                 if (keyname) {
-                    return `${keyname}${this.betData.coinprice[keyname]}`
+                    return `${keyname}&ensp;${this.betData.coinprice[keyname]}`
                 }
             }
             return '<br>'

@@ -13,11 +13,9 @@ import Footer from '~components/Footer.vue'
 export default {
     components: { Header, Footer },
     mounted () {
-        document.documentElement.className = 'flexhtml'
         this.$store.dispatch('subInLuckyCoin')
     },
     beforeDestroy () {
-        document.documentElement.className = ''
         this.$store.dispatch('subOutLuckyCoin')
     }
 }
@@ -141,7 +139,7 @@ export default {
                 transform: rotate(-0.05deg);
             }
             circle {
-                transition: all 0.2s;
+                transition: all 2s;
             }
         }
         .icon-hot {
@@ -305,6 +303,11 @@ export default {
                     width: percentage(186/250);
                     overflow: hidden;
                     margin: 35/2px auto 0;
+                    &.hot .hot-btn,
+                    &.min .min-btn,
+                    &.max .max-btn {
+                        background: #9368f7;
+                    }
                     a {
                         display: block;
                         border: 1px solid #9368f7;
@@ -534,6 +537,9 @@ export default {
                 .t1 {
                     line-height: 70/2px;
                     font-size: 58/2px;
+                    i{
+                        font-size:20px;
+                    }
                 }
                 .t2 {
                     line-height: 52/2px;
@@ -590,6 +596,9 @@ export default {
                     font-weight: bold;
                     font-size: 76/2px;
                     line-height: 80/2px;
+                    i{
+                        font-size:26px;
+                    }
                 }
                 .t2 {
                     font-size: 33/2px;
@@ -653,6 +662,9 @@ export default {
                     height: 35/2px;
                     line-height: 35/2px;
                     font-size: 32/2px;
+                    i{
+                        font-size:12px;
+                    }
                 }
                 .t2 {
                     padding-top: 5px;
@@ -814,6 +826,9 @@ export default {
         }
         a{
             color: #aa85ff;
+            &:hover{
+                color: #7e5bcf;
+            }
         }
     }
 
@@ -907,20 +922,12 @@ export default {
                     }
                     .bet-amount {
                         margin: 15px auto 0;
-                        &.hot .hot-btn,
-                        &.min .min-btn,
-                        &.max .max-btn {
-                            background: #9368f7;
-                        }
                         a {
                             height: 22px;
                             line-height: 22px;
                             font-size: 12px;
                             &:hover{
                                 background: #633fb6;
-                            }
-                            &.on {
-                                background: #9368f7;
                             }
                         }
                     }
@@ -1036,7 +1043,7 @@ export default {
                         .bet-btnT {
                             border: 1px solid #9e8dc7;
                             &:hover {
-                                background: #5848b3;
+                                background: #633fb6;
                             }
                         }
                         .bet-btnR {
@@ -1098,7 +1105,7 @@ export default {
                     width: 184px;
                     font-size: 14px;
                     line-height: 22px;
-                    margin-top: 40px;
+                    margin-top: 38px;
                     padding-left: 10px;
                     i {
                         font-size: 16px;
