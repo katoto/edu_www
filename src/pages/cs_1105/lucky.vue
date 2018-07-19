@@ -395,6 +395,7 @@
         },
         methods: {
             formateBalance,
+            formateCoinType,
             superChange (msg = 'superIn') {
                 /* headerNav 调的 */
                 if (msg === 'superIn') {
@@ -588,8 +589,8 @@
                     msg.forEach((item, index) => {
                         item.bettype = formatMatch(item.bettype)
                         item.betcode = this.format_betCode(item.betcode)
-                        item.betmoney = formateBalance(parseFloat(item.betmoney)) + 'ETH'
-                        item.betprize = '<span class="win"><span>' + formateBalance(parseFloat(item.betprize)) + '</span>ETH</span>'
+                        item.betmoney = formateBalance(parseFloat(item.betmoney)) + formateCoinType(item.cointype)
+                        item.betprize = '<span class="win"><span>' + formateBalance(parseFloat(item.betprize)) + '</span>' + formateCoinType(item.cointype) + '</span>'
                     })
                 }
                 return msg
@@ -677,9 +678,6 @@
             formatTime
         },
         async mounted () {
-            // setTimeout(()=>{
-            //     this.superBtnState()
-            // },3000)
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav, true)
