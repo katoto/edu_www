@@ -47,7 +47,6 @@
                         :stroke="`url(#${coin.circleClass[0]})`"
                         stroke-width="8"
                         fill="transparent"
-                        :stroke-linecap='rate>0?round : none'
                         :stroke-dasharray="`${rate>148?rate:0} 296`"
                        />
                     <!-- 左半边圆 -->
@@ -58,10 +57,10 @@
                         :stroke="`url(#${coin.circleClass[1]})`"
                         stroke-width="8"
                         fill="transparent"
-                        :stroke-linecap='rate>0?round : none'
                         :stroke-dasharray="`${rate > 148 ? 148 : rate} 296`"
                        />
                     <!-- 右半边圆 -->
+                    <!--:stroke-linecap='rate>0?round : square'-->
                 </g>
             </svg>
         </div>

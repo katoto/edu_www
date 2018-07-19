@@ -1,7 +1,7 @@
 <template>
     <ul>
         <!--icon-eth icon-bth-->
-        <li :class="formatCoinClass(formateCoinType(item.cointype))" v-for="(item, index) in data" :key="index">
+        <li :class="formatCoinClass(formateCoinType(item.cointype))"  v-for="(item, index) in data" :key="index">
             <div class="email fl">
                 {{item.username}}
             </div>
@@ -12,7 +12,6 @@
                 {{formatTime(item.crtime, 'MM-dd HH:mm')}}
             </span>
         </li>
-
     </ul>
 </template>
 
@@ -38,3 +37,21 @@ export default {
     }
 }
 </script>
+<style scoped lang="less" rel="stylesheet/less">
+    .newData{
+        animation: newRecord 0.5s both;
+    }
+    @keyframes newRecord {
+        0%{
+            opacity:0;
+            transform: translateY(-100%);
+        }
+        50%{
+            opacity:0;
+        }
+        100%{
+            opacity:1;
+            transform: translateY(0);
+        }
+    }
+</style>
