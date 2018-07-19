@@ -104,7 +104,6 @@
         line-height: 20px;
         font-family: sans-r,Microsoft Yahei;
         color: #263648;
-        overflow: hidden;
         -webkit-overflow-scrolling: touch;
     }
     .noscrolling{
