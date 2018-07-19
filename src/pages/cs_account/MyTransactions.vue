@@ -237,7 +237,7 @@ export default {
                         : `<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money)}</a>`
                 )
                 if (val.balance) {
-                    val.balance = formateBalance(val.balance) + 'ETH'
+                    val.balance = formateBalance(val.balance) + formateCoinType(val.cointype)
                 }
             })
             return Msg

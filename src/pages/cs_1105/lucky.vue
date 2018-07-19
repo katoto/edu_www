@@ -82,7 +82,6 @@
                                             <td>{{ item.betmoney | formateBalance }}{{ item.cointype | formateCoinType }}
                                             </td>
                                             <td v-html="item.newTbody">
-
                                             </td>
                                         </tr>
                                     </tbody>
@@ -119,26 +118,21 @@
                                     </thead>
                                     <tbody>
                                     <!--jackpot-->
-                                    <tr class="hide">
-                                        <td>1803281404</td>
-                                        <td>1803281404</td>
-                                        <td>C5</td>
-                                        <td>
-                                            <ul class="num-box">
-                                                <li>3</li>
-                                                <li>5</li>
-                                                <li>6</li>
-                                                <li>9</li>
-                                                <li>11</li>
-                                            </ul>
-                                        </td>
-                                        <td><span>0.01</span>ETH</td>
-                                        <td>
-                                        <span class="win">
-                                            <span>21.5</span> ETH
-                                        </span>
-                                        </td>
-                                    </tr>
+                                    <!--<tr class="hide">-->
+                                        <!--<td>1803281404</td>-->
+                                        <!--<td>C5</td>-->
+                                        <!--<td>-->
+                                            <!--<ul class="num-box">-->
+                                                <!--<li>3</li>-->
+                                            <!--</ul>-->
+                                        <!--</td>-->
+                                        <!--<td><span>0.01</span>ETH</td>-->
+                                        <!--<td>-->
+                                        <!--<span class="win">-->
+                                            <!--<span>21.5</span> ETH-->
+                                        <!--</span>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
                                     <tr v-for="(data, index) in DataWinnerList" :key="index" :class="{jackpot:data.win_jackpot === '1'}">
                                         <!--icon-jackpot-->
                                         <td :class="{'icon-jackpot':data.win_jackpot == '1'}">

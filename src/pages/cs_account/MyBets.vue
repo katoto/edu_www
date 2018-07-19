@@ -122,7 +122,8 @@ import {
     ethUrl,
     formatMatchAccount,
     formatTime,
-    formateBalance
+    formateBalance,
+    formateCoinType
 } from '~common/util'
 
 export default {
@@ -240,7 +241,7 @@ export default {
                     }
 
                     if (val.betmoney) {
-                        val.betmoney = formateBalance(Number(val.betmoney)) + ' ETH'
+                        val.betmoney = formateBalance(Number(val.betmoney)) + formateCoinType(val.cointype)
                     }
 
                     // win state
@@ -248,7 +249,7 @@ export default {
                         // 结算 并且大于0
                         val.betprizeVal = (
                             parseFloat(val.betprize, 10) > 0
-                                ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize)}ETH</a>`
+                                ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize)}${formateCoinType(val.cointype)}</a>`
                                 : "<a href='javascript:;' class='fail'>0</a>"
                         )
                     } else {

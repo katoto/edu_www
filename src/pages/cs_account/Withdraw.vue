@@ -507,13 +507,13 @@ export default {
                         }
                     }
 
-                    val.balance = formateBalance(val.balance) + ' ETH'
+                    val.balance = formateBalance(val.balance) + formateCoinType(val.cointype)
 
                     // win state
                     if (val.orderstatus === '2') {
                         // 结算 并且大于0
                         if (Number(val.betprize) > 0) {
-                            val.betprizeVal = "<a href='javascript:;' class='win'>+ " + formateBalance(val.betprize) + 'ETH</a>'
+                            val.betprizeVal = "<a href='javascript:;' class='win'>+ " + formateBalance(val.betprize) + ' ' + formateCoinType(val.cointype) + '</a>'
                         } else {
                             val.betprizeVal = "<a href='javascript:;' class='fail'>0</a>"
                         }
