@@ -89,44 +89,43 @@
                                 {{ formateEmail(userInfo.email) }}<i></i>
                             </div>
                             <div id="mycount-detailed" class="mycount-detailed ">
-                                    <div class="account-info">
-                                        <div class="email js_email-account" :title="userInfo.email">
-                                            {{ userInfo.email }}
-                                        </div>
-                                        <div class="uid">
-                                            <lang>UserID</lang>:<i class="js_user_uid">{{ userInfo.uid }}</i>
-                                        </div>
+                                <div class="account-info">
+                                    <div class="email js_email-account" :title="userInfo.email">
+                                        {{ userInfo.email }}
                                     </div>
-
-                                    <router-link :to="{path: '/account/myBets'}" class="my-transaction">
-                                        <lang>My Bets</lang>
-                                    </router-link>
-                                    <router-link :to="{path: '/account/general'}" class="account-center">
-                                        <lang>Account Center</lang>
-                                    </router-link>
-                                    <div class="currency-select">
-                                        <p>Select Currency</p>
-                                        <ul>
-                                            <li class="on">
-                                                <div class="currency-input"></div>
-                                                <div class="currency-account">
-                                                    <i>BTH</i>
-                                                    <span>0.00000</span>
-                                                </div>
-                                                <a class="address" href="javascript:;">BX31188BX31188</a>
-                                            </li>
-                                            <li>
-                                                <div class="currency-input"></div>
-                                                <div class="currency-account">
-                                                    <i>ETH</i>
-                                                    <span>0.00000</span>
-                                                </div>
-                                                <a class="address" href="javascript:;">BX31188BX31188</a>
-                                            </li>
-                                        </ul>
+                                    <div class="uid">
+                                        <lang>UserID</lang>:<i class="js_user_uid">{{ userInfo.uid }}</i>
                                     </div>
-                                    <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
                                 </div>
+                                <router-link :to="{path: '/account/myBets'}" class="my-transaction">
+                                    <lang>My Bets</lang>
+                                </router-link>
+                                <router-link :to="{path: '/account/general'}" class="account-center">
+                                    <lang>Account Center</lang>
+                                </router-link>
+                                <div class="currency-select">
+                                    <p>Select Currency</p>
+                                    <ul>
+                                        <li  v-for="item in userInfo.accounts" @click="changeAccounts( item )" :class="{'on': item.cointype === currBalance.cointype }">
+                                            <div class="currency-input"></div>
+                                            <div class="currency-account">
+                                                <i>{{ item.cointype | formateCoinType }}</i>
+                                                <span>{{ formateBalance( item.balance ) }}</span>
+                                            </div>
+                                            <a class="address" href="javascript:;">{{ item.address }}</a>
+                                        </li>
+                                        <!--<li>-->
+                                            <!--<div class="currency-input"></div>-->
+                                            <!--<div class="currency-account">-->
+                                                <!--<i>ETH</i>-->
+                                                <!--<span>0.00000</span>-->
+                                            <!--</div>-->
+                                            <!--<a class="address" href="javascript:;">BX31188BX31188</a>-->
+                                        <!--</li>-->
+                                    </ul>
+                                </div>
+                                <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
+                            </div>
                         </div>
 
                     </section>
@@ -246,7 +245,6 @@
                     label: '中文繁體',
                     lanLogo: '../../../static/staticImg/lan-cn.jpg'
                 }],
-                currBalance: null, // 当前钱包,
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
@@ -263,6 +261,7 @@
         },
         computed: {
             initHeadState () {
+                /* 去除所有弹层 */
                 return this.$store.state.initHeadState
             },
             jackPotMsg () {
@@ -280,10 +279,10 @@
             isLog () {
                 return this.$store.state.isLog
             },
+            currBalance () {
+                return this.$store.state.currBalance
+            },
             userInfo () {
-                if (this.$store.state.userInfo && this.$store.state.userInfo.accounts) {
-                    this.currBalance = this.$store.state.userInfo.accounts[0]
-                }
                 return this.$store.state.userInfo
             },
             languageVal: {
@@ -331,7 +330,7 @@
             },
             changeAccounts (item) {
                 if (item) {
-                    this.currBalance = item
+                    this.$store.commit('setCurrBalance', item)
                 }
             },
             showUserMsg () {
@@ -843,6 +842,7 @@
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
             li{
+                position: relative;
                 line-height:34px;
                 border-top:1px solid #778ca3;
                 padding: 0 32px 0 10px;

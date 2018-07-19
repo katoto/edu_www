@@ -24,7 +24,7 @@ csCommon.keys().forEach(function (commonPath) {
 const state = {
     version: '0.0.1',
     isLog: false,
-    initHeadState: null, // 初始化头部转态
+    initHeadState: null, // 初始化头部状态，用于收起弹层
     showEmailErr: false,
     userInfo: null,
     socket: {
@@ -33,7 +33,8 @@ const state = {
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
-    currCoinType: 2001, // 当前币种 todo  2001 eth  1001 btc
+    // currCoinType: 2001, // 当前币种 todo  2001 eth  1001 btc
+    currBalance: null, // 当前币种
     ...common.state
 }
 
@@ -41,9 +42,12 @@ const mutations = {
     initHeadState (state, data) {
         state.initHeadState = data
     },
-    setCurrCoinType (state, data) {
-        state.currCoinType = data
+    setCurrBalance (state, data) {
+        state.currBalance = data
     },
+    // setCurrCoinType (state, data) {
+    //     state.currCoinType = data
+    // },
     showEmailErr (state, data) {
         state.showEmailErr = data
     },
@@ -127,14 +131,18 @@ const actions = {
                             freez: '0.0'
                         })
                     }
-                    // test
-                    // userMsg.data.accounts.push({
-                    //     address: '',
-                    //     balance: '12111',
-                    //     cointype: '1001',
-                    //     fee: '0.003',
-                    //     freez: '0.0'
-                    // })
+                    if (userMsg.data.accounts) {
+                        let findEthSucc = false
+                        userMsg.data.accounts.forEach((item, index) => {
+                            if (item.cointype === '2001') {
+                                findEthSucc = true
+                                commit('setCurrBalance', item)
+                            }
+                        })
+                        if (!findEthSucc) {
+                            commit('setCurrBalance', userMsg.data.accounts[0])
+                        }
+                    }
                     commit('setUserInfo', userMsg.data)
                     // 邀请 活动
                     // userMsg.data.tasks = [{
