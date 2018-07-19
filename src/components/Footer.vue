@@ -71,7 +71,9 @@
             }
         },
         mounted () {
-            this.jump2Page()
+            if (~window.location.href.indexOf('policy')) {
+                this.jump2Page()
+            }
         }
     }
 </script>
