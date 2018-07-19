@@ -480,16 +480,10 @@
                 title: ''
             }
         },
-        watch: {},
-        methods: {},
         components: {
             Footer,
             Header,
             BreadCrumbs
-        },
-        computed: {},
-        mounted () {
-
         }
     }
 </script>

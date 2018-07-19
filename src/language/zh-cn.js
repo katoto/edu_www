@@ -45,6 +45,9 @@ module.exports = {
     'telegram:': '电报群:',
     'Sign Up': '注册',
     'Access Error': '地区受限',
+    'About Us': '关于我们',
+    'Privacy Policy': '用户协议',
+
     'You are not in our service area for more info': '当前我们无法向您所在地区的用户提供服务',
     'please contact us support@coinslot.com': '请联系我们 support@coinslot.com',
     'Telegram: @CoinslotOffice': '电报群: @CoinslotOffice',
