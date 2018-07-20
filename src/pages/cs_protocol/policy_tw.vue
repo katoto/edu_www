@@ -436,6 +436,10 @@
     }
 </script>
 <style scoped lang="less">
+
+    .head-box{
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+    }
     .main {
         position: relative;
         width: 1190px;
