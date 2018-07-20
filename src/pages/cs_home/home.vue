@@ -313,10 +313,12 @@
     import Header from '~components/Header.vue'
     import Footer from '~components/Footer.vue'
     import {mapActions} from 'vuex'
-    import {formatTime, formateCoinType, formateBalance} from '~/common/util'
+    import {formatTime, formateCoinType, formateBalance, removeCK} from '~/common/util'
+    import { aTypes } from '~/store/cs_page/cs_1105'
+    import { Message } from 'element-ui'
 
     export default {
-        data() {
+        data () {
             return {
                 activeClass: 'lucky11',
                 activeClass1: 'lucky11',
@@ -369,16 +371,63 @@
             formatTime,
             formateBalance,
             formateCoinType,
-            getCoinClass(type) {
+            async indexRouter (query) {
+                /* 邮箱注册 找回密码  邀请等 */
+                if (query.sign) {
+                    if (query.from === 'reg') {
+                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
+                        console.log(mailBack)
+                        if (mailBack) {
+                            if (mailBack.status === '100') {
+                                if (parseFloat(mailBack.data.login_times) >= 0 && mailBack.data.invite_status.toString() === '0') {
+                                    // 显示第一次邀请
+                                    this.$store.commit('showFirstLogin', true)
+                                } else {
+                                    this.$store.commit('showFirstLogin', false)
+                                }
+                                this.$store.dispatch('getUserInfo')
+                                this.$store.commit('showRegSuccess')
+                            } else {
+                                Message({
+                                    message: mailBack.message,
+                                    type: 'error'
+                                })
+                            }
+                        }
+                        this.$router.push('')
+                    }
+                    if (query.from === 'resetPassword') {
+                        // 重置密码
+                        this.$store.commit('setResetObj', {
+                            email: query.email,
+                            sign: query.sign,
+                            showReset: true
+                        })
+                        this.$store.commit('showResetPwd')
+                        // 修改密码的时候，清楚ck
+                        removeCK()
+                        this.$store.commit('setIsLog', false)
+                        this.$store.commit('setUserInfo', {})
+                    }
+                    if (query.inviter) {
+                        // 邀请
+                        this.$store.commit('setInviterObj', {
+                            inviter: query.inviter,
+                            sign: query.sign
+                        })
+                    }
+                }
+            },
+            getCoinClass (type) {
                 return `icon-${formateCoinType(type).toLowerCase()}`
             },
-            init() {
+            init () {
                 this.renderHomeBet()
                 this.renderHomeDraw()
                 this.renderHomeWithdraw()
                 this.renderHomeEntrance()
             },
-            renderHomeBet() {
+            renderHomeBet () {
                 this.getHomeBet()
                     .then(({data}) => {
                         this.bets = {
@@ -386,7 +435,7 @@
                         }
                     })
             },
-            renderHomeDraw() {
+            renderHomeDraw () {
                 this.getHomeDraw()
                     .then(({data}) => {
                         this.wins = {
@@ -394,7 +443,7 @@
                         }
                     })
             },
-            renderHomeWithdraw() {
+            renderHomeWithdraw () {
                 this.getHomeWithdraw()
                     .then(({data}) => {
                         this.water = {
@@ -402,7 +451,7 @@
                         }
                     })
             },
-            renderHomeEntrance() {
+            renderHomeEntrance () {
                 this.getHomeEntrance()
                     .then(({data}) => {
                         this.entrance = {
@@ -412,8 +461,11 @@
             }
         },
         components: {Header, Footer},
-        mounted() {
+        mounted () {
             this.init()
+            if (this.$store.state.route.query) {
+                this.indexRouter(this.$store.state.route.query)
+            }
         }
     }
 </script>
