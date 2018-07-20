@@ -132,7 +132,7 @@ const actions = {
                             freez: '0.0'
                         })
                     }
-                    if (userMsg.data.accounts) {
+                    if (userMsg.data.accounts && !state.currBalance) {
                         let findEthSucc = false
                         userMsg.data.accounts.forEach((item, index) => {
                             if (item.cointype === '2001') {

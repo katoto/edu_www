@@ -385,7 +385,14 @@
             },
             currExpectId () {
                 return this.$store.state.cs_1105.currExpectId
+            },
+            currBalance () {
+                return this.$store.state.currBalance
+            },
+            bet_limit () {
+                return this.$store.state.cs_1105.bet_limit
             }
+
         },
         methods: {
             formateBalance,
@@ -591,7 +598,7 @@
             },
 
             async indexRouter (query) {
-                /* 邮箱注册 找回密码  邀请等 */
+                /* 邮箱注册 找回密码  邀请等 todo */
                 if (query.sign) {
                     if (query.from === 'reg') {
                         let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
@@ -612,7 +619,7 @@
                             })
                         }
                         // 清除参数
-                        this.$router.push('/lucky')
+                        this.$router.push('/lucky11')
                     }
                     if (query.from === 'resetPassword') {
                         // 重置密码

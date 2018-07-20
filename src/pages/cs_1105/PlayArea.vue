@@ -175,7 +175,7 @@
                 <!-- 奖池 -->
                 <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
-                    {{ _('including C5: {0}ETH; jackpot {1} ETH', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)), formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio)) }}
+                    {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ), formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio)) + formateCoinType ( currBalance.cointype ) }}
                 </i>
             </div>
         </div>
@@ -223,6 +223,7 @@
         methods: {
             formateBalance,
             formateJackPot,
+            formateCoinType,
             //   隐藏
             showPopLimit () {
                 this.$store.commit('showPopLimit')
@@ -235,18 +236,18 @@
                     })
                     return false
                 }
-                if (Number(this.areaMsg.pickMoney) > 0.1) {
-                    this.areaMsg.pickMoney = 0.1
+                if (Number(this.areaMsg.pickMoney) > parseFloat(this.max_limit)) {
+                    this.areaMsg.pickMoney = parseFloat(this.max_limit)
                     Message({
-                        message: _('Bet amount is between 0.0005 and 0.1 ETH'),
+                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
                         type: 'error'
                     })
                     return false
                 }
-                if (Number(this.areaMsg.pickMoney) < 0.0005) {
-                    this.areaMsg.pickMoney = 0.0005
+                if (Number(this.areaMsg.pickMoney) < parseFloat(this.min_limit)) {
+                    this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _('Bet amount is between 0.0005 and 0.1 ETH'),
+                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
                         type: 'error'
                     })
                     return false
@@ -267,9 +268,9 @@
             js_beting_add () {
                 // 加钱  （上限）
                 let currpickMoney = this.areaMsg.pickMoney
-                if (currpickMoney >= 0.1) {
+                if (currpickMoney >= parseFloat(this.max_limit)) {
                     Message({
-                        message: _('Bet amount is between 0.0005 and 0.1 ETH'),
+                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
                         type: 'error'
                     })
                 } else {
@@ -282,20 +283,20 @@
             js_beting_low () {
                 // 减钱  （下限）
                 let currpickMoney = this.areaMsg.pickMoney
-                if (currpickMoney <= 0.0005) {
-                    this.areaMsg.pickMoney = 0.0005
+                if (currpickMoney <= parseFloat(this.min_limit)) {
+                    this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _('The minimum bet is 0.0005 ETH'),
+                        message: _(`The minimum bet is ${this.min_limit} ${formateCoinType(this.currBalance.cointype)}`),
                         type: 'error'
                     })
                 } else {
-                    if (parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5)) < 0.0005) {
+                    if (parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5)) < parseFloat(this.min_limit)) {
                         this.$emit('update:data', {
                             ...this.areaMsg,
-                            pickMoney: 0.0005
+                            pickMoney: parseFloat(this.min_limit)
                         })
                         Message({
-                            message: _('The minimum bet is 0.0005 ETH'),
+                            message: _(`The minimum bet is ${this.min_limit} ${formateCoinType(this.currBalance.cointype)}`),
                             type: 'error'
                         })
                     } else {
@@ -389,7 +390,7 @@
             },
             bet_limit () {
                 return this.$store.state.cs_1105.bet_limit
-            }
+            },
         },
         mounted () {
         },
