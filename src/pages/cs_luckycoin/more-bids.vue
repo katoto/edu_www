@@ -57,7 +57,7 @@
             <div class="container" v-else>
                 <div class="row clearfix">
                     <div class="for-full items">
-                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in historyList" :key="index">
+                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="index">
                             <history-bet-box :bet="bet" type="list"></history-bet-box>
                         </div>
                     </div>
@@ -94,6 +94,7 @@ import Footer from '~components/Footer.vue'
 import betBox from './components/bet-box'
 import historyBetBox from './components/history-bet-box'
 import { mapActions, mapState } from 'vuex'
+import { mobileCheck } from '~common/util'
 import BreadCrumbs from '~/components/BreadCrumbs.vue'
 
 export default {
@@ -149,7 +150,7 @@ export default {
             let aId = Number(a.exceptId)
             let bId = Number(b.exceptId)
             if (aProgress === bProgress) {
-                return aId >= bId ? 1 : -1
+                return this.bidsFilter === 'progress1' ? (aId < bId ? 1 : -1) : (aId > bId ? 1 : -1)
             }
             return aProgress > bProgress ? 1 : -1
         },
@@ -159,7 +160,7 @@ export default {
             let aId = Number(a.exceptId)
             let bId = Number(b.exceptId)
             if (aValue === bValue) {
-                return aId >= bId ? 1 : -1
+                return this.bidsFilter === 'price1' ? (aId > bId ? 1 : -1) : (aId < bId ? 1 : -1)
             }
             return aValue > bValue ? 1 : -1
         },
@@ -167,6 +168,25 @@ export default {
             this.bets.pages.pageno = 1
             this.history.pages.pageno = 1
         },
+
+        commonSort (a, b) {
+            let aId = Number(a.exceptId)
+            let bId = Number(b.exceptId)
+            return aId >= bId ? -1 : 1
+        },
+
+        commonHistorySort (a, b) {
+            let aTime = Number(a.drawtime)
+            let bTime = Number(b.drawtime)
+            return aTime >= bTime ? -1 : 1
+        },
+
+        historySort (bets) {
+            let arr = [...bets]
+            arr.sort(this.commonHistorySort)
+            return arr
+        },
+
         filterBets (bets = []) {
             let arr = []
             if (this.filter === 'All Bets') {
@@ -178,6 +198,8 @@ export default {
             } else if (this.filter === 'My Bets') {
                 arr = [...bets.filter(bet => bet.isbet === '1')]
             }
+
+            arr.sort(this.commonSort)
 
             if (this.bidsFilter === 'default') {
                 return this.slice(arr)
@@ -248,7 +270,7 @@ export default {
     },
     components: { Header, Footer, betBox, historyBetBox, BreadCrumbs },
     mounted () {
-        document.documentElement.className = 'flexhtml'
+        document.documentElement.className = mobileCheck() ? '' : 'flexhtml'
         this.$route.meta.history ? this.getHistoryData() : this.getBetData()
         this.activeName = this.$route.meta.history ? 'history' : 'bids'
     },

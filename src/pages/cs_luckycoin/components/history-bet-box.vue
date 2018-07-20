@@ -79,7 +79,7 @@ export default {
     },
     computed: {
         ...mapState({
-            uid: state => state.userInfo.uid || ''
+            uid: state => (state.userInfo && state.userInfo.uid) || ''
         }),
         goodsPrice () {
             for (let keyname in this.bet.coinprice) {
