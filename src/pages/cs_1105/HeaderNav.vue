@@ -46,8 +46,8 @@
                 <!--<span>-->
                 <!--<lang>JACKPOT</lang>&nbsp;&nbsp;-->
                 <!--</span>-->
-                <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount }}</i>
-                <span>{{ formateCoinType (currCoinType) }}</span>
+                <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount[currBalance.cointype] }}</i>
+                <span>{{ formateCoinType (currBalance.cointype) }}</span>
             </p>
             <p>
                 <span class="jp_btn" v-if="!isSuperPick" @click="superInPage">Go</span>
@@ -138,9 +138,9 @@
             historyCode () {
                 return this.$store.state.cs_1105.historyCode
             },
-            currCoinType () {
-                return this.$store.state.currCoinType
-            }
+            currBalance () {
+                return this.$store.state.currBalance
+            },
         },
         async mounted () {
             this.getHistoryDraw()

@@ -59,7 +59,7 @@ const mutationsInfo = mapMutations({
         state.jackPotMsg = data
     },
     setPoolAmount (state, data) {
-        state.poolAmount = parseFloat(data)
+        state.poolAmount = data
     },
     poolRatio (state, data) {
         state.poolRatio = data
@@ -247,8 +247,12 @@ const actionsInfo = mapActions({
     //  初始化上一期的结果
     formate_Result ({state, commit, dispatch}, msg) {
         /* 奖池 */
-        if (msg.pool_amount) {
-            commit(mTypes.setPoolAmount, msg.pool_amount)
+        if (msg.pools_amount) {
+            console.log(msg.pools_amount);
+            console.log(msg.pools_amount);
+            console.log(msg.pools_amount);
+            console.log(msg.pools_amount);
+            commit(mTypes.setPoolAmount, msg.pools_amount)
         }
         /* 比例 */
         if (msg.pool_ratio) {
