@@ -135,7 +135,7 @@ const actions = {
                     if (userMsg.data.accounts && !state.currBalance) {
                         let findEthSucc = false
                         userMsg.data.accounts.forEach((item, index) => {
-                            if (item.cointype === '2001') {
+                            if (item.cointype === '1001') {
                                 findEthSucc = true
                                 commit('setCurrBalance', item)
                             }
