@@ -299,8 +299,8 @@
                     </div>
                 </div>
             </div>
-            <a href="/coinslot/html/worldCup.html" target="_blank" class="icon-enterWorld">
-                <img src="@assets/img/worldCup/enterIcon-worldCup.png"/>
+            <a @click="superChange('superIn')" class="icon-enterWorld">
+                <img src="@assets/img/lucky11/jackpot-left.png"/>
             </a>
         </div>
         <Footer></Footer>
@@ -709,7 +709,7 @@
             this.$store.dispatch('subOutLucky')
         },
         destroyed () {
-            window.removeEventListener('scroll', this.fixNav, false)
+            window.removeEventListener('scroll', this.fixNav, true)
         }
 
     }
@@ -730,10 +730,9 @@
 
     .icon-enterWorld {
         position: fixed;
-        width: 108px;
-        height: 135px;
+        width: 120px;
         top: 45%;
-        right: 0;
+        right: 17px;
         z-index: 10;
     }
 
