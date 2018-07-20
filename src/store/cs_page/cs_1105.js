@@ -400,10 +400,7 @@ const actionsInfo = mapActions({
     /* 投注下单  2001  */
     async placeOrder ({commit, dispatch}, transferOrderStr) {
         try {
-            let InfoData = await ajax.post(`/place/order`, {
-                codestr: transferOrderStr,
-                cointype: 2001
-            })
+            let InfoData = await ajax.post(`/place/order`, transferOrderStr)
             return InfoData
         } catch (e) {
             Message({

@@ -33,7 +33,9 @@ const state = {
         interval: null
     },
     ip_status: 0, // 1 禁止 0 正常
-    currBalance: null, // 当前币种  2001 eth  1001 btc
+    currBalance: {
+        cointype: '1001'
+    }, // 当前币种  2001 eth  1001 btc
     ...common.state
 }
 
@@ -132,7 +134,8 @@ const actions = {
                             freez: '0.0'
                         })
                     }
-                    if (userMsg.data.accounts && !state.currBalance) {
+                    /* 防止刷地址 */
+                    if (userMsg.data.accounts && !state.currBalance.address) {
                         let findEthSucc = false
                         userMsg.data.accounts.forEach((item, index) => {
                             if (item.cointype === '1001') {

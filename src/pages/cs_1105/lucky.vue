@@ -13,9 +13,6 @@
                               :data.sync="playArea[index]"></PlayArea>
                 </ul>
                 <div class="btn-area">
-                    <span class="fee-count hide">
-                        <lang>Fee</lang>&nbsp;&nbsp;<i><span class="js_gasNumber">0</span>ETH</i>
-                    </span>
                     <a href="javascript:;" @click="addTicket" class="addmore">
                         <lang>Add Ticket</lang>
                     </a>
@@ -28,7 +25,7 @@
                     <span>
                         <lang>Total Pay</lang>
                     </span>
-                    <p class="total-pay ">{{ totalPay }} ETH</p>
+                    <p class="total-pay ">{{ totalPay }} {{ currBalance.cointype | formateCoinType }}</p>
                 </div>
                 <!--  背景泡泡 激活模式隐藏  -->
                 <div class="star-box" :class="{'hide':superClass}">
@@ -491,7 +488,11 @@
                     })
                     if (noComplete.length === 0) {
                         let sendBetStr = (this.currExpectId + '|' + beginBetStr).slice(0, -1)
-                        let orderMsg = await this.$store.dispatch(aTypes.placeOrder, sendBetStr)
+                        let newSendBetStr = {
+                            codestr: sendBetStr,
+                            cointype: this.currBalance.cointype
+                        }
+                        let orderMsg = await this.$store.dispatch(aTypes.placeOrder, newSendBetStr)
                         let errorResArr = []
                         if (orderMsg && orderMsg.status.toString() === '100') {
                             this.$store.dispatch('cs_1105/updateMyBets')
