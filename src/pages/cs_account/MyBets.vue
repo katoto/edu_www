@@ -155,10 +155,10 @@ export default {
                 value: '1',
                 label: _('All')
             }, {
-                value: '2',
+                value: '1001',
                 label: _('BTC')
             }, {
-                value: '3',
+                value: '2001',
                 label: _('ETH')
             }],
             ethOptionVal: '1'
@@ -191,10 +191,11 @@ export default {
             if (this.betOptionVal === '2') {
                 params.prize = 1
             }
-
+            if (this.ethOptionVal !== '1') {
+                params.cointype = this.ethOptionVal
+            }
             let data = await this.getList(params)
             data = data.data
-
             if (data) {
                 this.orderList = this.formatData(data.orders)
                 this.PageTotal = parseInt(data.counter, 10)

@@ -333,10 +333,10 @@ export default {
                 value: '1',
                 label: _('All')
             }, {
-                value: '2',
+                value: '1001',
                 label: _('BTC')
             }, {
-                value: '3',
+                value: '2001',
                 label: _('ETH')
             }],
             ethOptionVal: '1'
@@ -454,15 +454,16 @@ export default {
             if (this.withdrawOptionVal !== '1') {
                 params.drawstatus = this.withdrawOptionVal
             }
+            if (this.ethOptionVal !== '1') {
+                params.cointype = this.ethOptionVal
+            }
             let data = await this.$store.dispatch('cs_account/getWithdrawRecords', {
                 pageno: val,
                 pagesize: this.pageSize,
                 crday: this.withdrawTimeOptionVal === '1' ? 30 : 7,
                 ...params
             })
-
             data = data.data
-
             if (data) {
                 this.orderList = this.formatWithdrawList(data.list)
                 this.PageTotal = Number(data.counter)

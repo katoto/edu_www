@@ -169,10 +169,10 @@ export default {
                 value: '1',
                 label: _('All')
             }, {
-                value: '2',
+                value: '1001',
                 label: _('BTC')
             }, {
-                value: '3',
+                value: '2001',
                 label: _('ETH')
             }],
             ethOptionVal: '1'
@@ -210,10 +210,11 @@ export default {
                     '7': [7, 5].join('|')
                 }[this.tranOptionVal] || ''
             }
-
+            if (this.ethOptionVal !== '1') {
+                params.cointype = this.ethOptionVal
+            }
             let data = await this.getList(params)
             data = data.data
-
             if (data) {
                 this.orderList = this.formatData(data.account_logs)
                 this.pageCount = parseInt(data.pages, 10)
@@ -237,7 +238,7 @@ export default {
                         : `<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money)}</a>`
                 )
                 if (val.balance) {
-                    val.balance = formateBalance(val.balance) + formateCoinType(val.cointype)
+                    val.balance = formateBalance(val.balance) + val.cointype
                 }
             })
             return Msg
