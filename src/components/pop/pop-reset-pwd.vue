@@ -115,7 +115,7 @@
                     setTimeout(() => {
                         this.$store.commit('hideResetPwd')
                         this.$store.commit('showLoginPop')
-                        this.$router.push('/lucky')
+                        this.$router.push('')
                     }, tipsTime)
                 }
             }
