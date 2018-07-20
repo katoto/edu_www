@@ -15,9 +15,7 @@
                 <div class="sure-old">
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
-                        <lang>I'm 18+ years old and agree</lang>
-                        <!-- with <a href="terms.html" target="_blank">Terms of use</a>
-                    and <a href="policy.html" target="_blank">Privacy policy</a>-->
+                        <lang>I'm 18+ years old and agree</lang>with <a href="policy.html" target="_blank">Privacy policy</a>
                     </p>
                 </div>
                 <!--no-->
