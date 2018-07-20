@@ -292,7 +292,7 @@ const actions = {
         } catch (e) {
             if (e && e.status && e.status === '208') {
                 setTimeout(() => {
-                    router.push('/lucky')
+                    router.push('')
                     commit('hideResetPwd')
                 }, tipsTime)
             }

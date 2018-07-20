@@ -5,464 +5,376 @@
             <BreadCrumbs></BreadCrumbs>
             <div id="main-policy" class="main-policy">
                 <h1>
-                    <lang>Coinslot Platform User Service Agreement</lang>
+                    Terms and Conditions
                 </h1>
-                <span>
-                    <lang>Last updated: May 4, 2018</lang>
-                </span>
-                <p>
-                    <lang>The following terms and conditions (“T&Cs” or “Agreement”) constitute and govern the contractual relationship between the parties and take effect from May 2018. Before using the http://coinslot.com platform, please read the terms and conditions carefully. The fact that you use any service of the platform confirms your agreement to the terms and conditions (including logging in, registering for platform account, using any application of the platform).</lang>
-                </p>
-                <p>
-                    <lang>This agreement consists of the “Coinslot Service Agreement”,“Coinslot Privacy Policy”, and various rules (including the contents of the “Help Center”) published by the operations team from time to time. New products will be launched on the platform.</lang>
-                </p>
-                <p>
-                    <lang>This new user agreement will be updated around the new product, allowing the agreement to apply new products and protect user interests.</lang>
-                </p>
-                <p>
-                    <lang>The following terms and conditions. All applications provided by the Coinslot platform and platform (http://coinslot.com) are hereinafter referred to as “platform”, “Coinslot” or “us”. A single application description uses the application name; users of the platform use application use the following in the following cases: "users," "customers," or "you"; “Coinslot Platform User Services Agreement” is hereinafter referred to as the "Agreement”.</lang>
-                </p>
-                <p>
-                    <lang>The Coinslot operations team hereby specifically reminds users to carefully read all the terms of this “Agreement”, in particular the terms of the exemption or restriction of Coinslot's operational team's responsibility and other restrictions on user rights.</lang>
-                </p>
-                <p>
-                    <lang>The game supports multilingual user agreements. If there is a slight difference between each other's versions, the English version is the main one.</lang>
-                </p>
                 <h2>
-                    <lang>1 Definition and description</lang>
-                </h2>
-                <h3>
-                    <lang>1.1 Coinslot platform</lang>
-                </h3>
-                <p>
-                    <lang>Refers to the blockchain gaming platform developed and operated by the blockchain developer: coinslot operations team based on the Ethereum, including all application services under the http://coinslot.com domain name and its domain name, and all provided application services through mobile devices, including downloadable applications.</lang>
-                </p>
-                <h3>
-                    <lang>1.2 User</lang>
-                </h3>
-                <p>
-                    <lang>Individuals who use the Coinslot platform through the legal channels provided by the Coinslot operations team and register and use the Coinslot platform products and services in accordance with the Coinslot platform registration rules. User can use the products and services provided by the Coinslot operations team in accordance with this Agreement and other rules updated and announced by the Coinslot operations team from time to time.</lang>
-                </p>
-                <h2>
-                    <lang>2 Application area</lang>
+                    General
                 </h2>
                 <p>
-                    <lang>Platform products are gaming products. Platform products only accept users of countries and regions that are permitted by law to engage in online gambling, and do not accept users as financial management or other investment businesses. The platform does not assume any responsibility for the possible loss of users due to the use of applications.</lang>
+                    These Terms and Conditions (“T&Cs” or “Agreement”) constitute and govern the contractual relationship between the parties and are effective as of May, 2018. All applications provided by Coinslot platform and the platform (http://coinslot.com) hereinafter referred to as “The Platform”, “Coinslot” or “We”, “Us”; or “Our”; a single application uses the application name; and You, as the user and customer, hereinafter referred to as “User” or “You” or “Yours”; “Coinslot Service Agreement” hereinafter referred to as the "The Agreement“.
                 </p>
                 <p>
-                    <lang>Before using the platform product, please make sure that you have confirmed that the existing local laws allow your game behavior. The user guarantees that the country is not a resident at any time including the United States and its dependencies, and the area includes but is not limited to American Samoa, Guam, Marshall Islands, Northern Mariana Islands, Puerto Rico, Virgin Islands, Cuba, Iran, China, Hong Kong China, Macau China, Sudan, North Korea, United Kingdom, Syria, France or Spain.</lang>
+                    The User must read, agree with and accept all of the Terms and Conditions contained in this Agreement without modifications, which include those Terms and Conditions expressly set forth below and those incorporated by reference, before the User may become an active, registered User of Coinslot. By continuing to access or use the Website, the User agrees to follow the Terms and Conditions of this Agreement. This Agreement shall also apply to all Services provided via mobile devices, including downloadable applications. All references to the use of the Website shall be construed as references to the use of our Services provided for mobile devices.
                 </p>
                 <p>
-                    <lang>The platform is a blockchain application product. Most applications are products based on blockchain implementation. Before using the product, please make sure that local laws do not legally prohibit the blockchain.</lang>
+                    Coinslot may amend and/or assign this Agreement or any rights and/or obligations from time to time. The Terms and Conditions and the Privacy Policy are published on the Website and may be changed at any time. The new version of these Terms and Conditions will take effect immediately upon the next visit or login on the Website. By continuing to use the Website, the Services or the software offered by Coinslot, the User agrees to be bound by the T&Cs as well as by the latest modifications to it. If the User does not agree to be bound by the changes to these T&C's, the User must not use or access Our Services, and inform Us in writing immediately. In order to avoid misunderstandings and disputes at a later stage, Users can print out these T&C's.
                 </p>
                 <p>
-                    <lang>The user is solely responsible for paying taxes to their bonuses based on the user's residence permit laws.</lang>
+                    Coinslot may publish these Terms and Conditions in a number of languages and shall reflect the same principles. This is done for information purposes and to help players. It is however the English version that constitutes the legal basis of the relationship between You and Coinslot. Should there be any discrepancy between the T&Cs in the English version and the version in any other language, the English version shall prevail.
                 </p>
                 <p>
-                    <lang>For matters not covered in this agreement, you must comply with the announcements and relevant rules that are updated from time to time.</lang>
+                    Coinslot reserves the right to refuse and/or cancel Services at its own discretion where the Services are illegal to use.
                 </p>
                 <h2>
-                    <lang>3 User account</lang>
+                    1.	Scope of the Agreement
                 </h2>
                 <p>
-                    <lang>To use the platform account to obtain services, the user should ensure that he or she has reached the age of 18, any user under the age of 18 or a user who violates the scope of the second application, the platform will regard his account as an invalid account, and refuses to continue with his account after discovery. Provide services. Illegal use of platform account to obtain platform services. Once it is found to be.</lang>
+                    Products on the Platform are gaming products. Thus, the Platform only accepts Users from countries and geographic regions where online gambling is allowed by law. And Users who regard the Platform as a tool of financial management or other investment businesses are not accepted. The Platform is excluded from any liability regarding User’s loss of money.
                 </p>
+                <p>
+                    It is the User’s sole responsibility to inquire about the existing gambling laws and regulations of the given jurisdiction before placing bets on the website. The User guarantees at all times that he/she is not the resident of countries including the United States and its dependencies, and territories including but not limited to American Samoa, Guam, Marshall Islands, North Mariana Islands, Puerto Rico, and the Virgin Islands, Cuba, Iran, China, Hong Kong, Macau, Sudan, North Korea, United Kingdom or Syria, France or Spain.
+                </p>
+                <p>
+                    The User assures the Platform that he/she is over 18 years of age（or at least reach the minimum age for adults in the country). No person under the age of 18 or who do not meet the minimum age of the adult in their country can be registered as a User and any funds deposited or any money won by any such person shall be void. We are entitled to require User to provide proof of age and to refuse a User's access to the Service if we have reasons to believe that the minimum age requirement is not fulfilled.
+                </p>
+                <p>
+                    The Platform is a blockchain application product. Thus, most applications are based on blockchain technology. Before using the Platform, please make sure that the blockchain is not prohibited by local laws.
+                </p>
+                <p>
+                    The User is solely responsible for paying applicable taxes on winnings where local laws require. For matters not covered by this Agreement, you must comply with the announcements and relevant rules that are updated from time to time.
+                </p>
+                <h2>
+                    2. Account
+                </h2>
                 <h3>
-                    <lang>3.1 The purpose of the account</lang>
+                    2.1 Use of Account
                 </h3>
                 <p>
-                    <lang>You can log in to the platform and use all the application services provided in the platform (limit yourself, be sanctioned for violation or invalid account will not be able to enjoy some or all services)</lang>
+                    You can log in to the Platform and use all application services provided on the Platform (self-excluded, sanctioned for violation and invalid accounts are not qualified for part or all of services).
+                </p>
+                <h2>
+                    2.2 Account Modification
+                </h2>
+                <p>
+                    To protect rights of Users and ensure the uniqueness of accounts, Users cannot modify part of the account information on their own;
+                </p>
+                <p>
+                    If it is User's own operation causing the account information to be changed without timely modification or saving, resulting in the inability to prove the User's effective identity, Coinslot operator reserves the right to decline providing any information or assuming any obligations.
                 </p>
                 <h3>
-                    <lang>3.2 Get an account</lang>
+                    2.3 Account Protection
                 </h3>
                 <p>
-                    <lang>The user must agree to all the terms and comply with the natural person regulations for all users of the game, including not limited to the scope of application, 18 years of age, and the conditions for participation permitted by local laws;</lang>
+                    Users should keep their own accounts and passwords properly, and take full responsibility for the security of their own accounts and passwords.
+                    If any illegal use of the account or account theft is found by the User, he/she should inform Coinslot operator immediately;
                 </p>
                 <p>
-                    <lang>After the user successfully obtains the account number, it will obtain the unique corresponding blockchain account, which is the only account for the user to recharge, withdraw funds, and obtain the platform service. The platform holds the private key of the user account.</lang>
+                    If the Coinslot operator suspects an account being theft, we reserve the right to terminate the account immediately. The User must prove that the account belongs to him/her before recover the account which was suspended because suspected of being stolen.
                 </p>
                 <p>
-                    <lang>Based on the special requirements of some local laws, the platform will request some personal information from users in some areas, so as to obtain local legal permission and allow users to legally obtain platform accounts.</lang>
+                    The account on Platform corresponds to the account on blockchain. If the account or password is illegally used by another person due to the User's own reasons, the Coinslot operator will not be liable for undertaking and dealing the issue. The User's own reasons include but not limited to: disclosing account and password and login information to a third party; sharing the same account with other persons; installing illegal or unsolicited programs; attempting malicious attacks to obtain the private key of the blockchain account, keystore and other information; User’s misuse of funds to transfer the digital currency in the account to a wrong address.
+                </p>
+                <p>
+                    If the Platform account is found with abnormal operations, funds in the account may be preferentially transferred to a securities account. The User may then attempt to recover funds in the account with a valid credential.
+                </p>
+                <p>
+                    Unless Users use Our services via the Platform, otherwise the Platform is not liable for any problems Users meet via the third party Platform login.
                 </p>
                 <h3>
-                    <lang>3.3 Account modification</lang>
+                    2.4 Deposit and Transfer
                 </h3>
                 <p>
-                    <lang>To protect the rights of users and the uniqueness of accounts, users cannot modify their own account information;</lang>
-                </p>
-                <p>
-                    <lang>The user's own operation resulted in the change of account information without timely modification or preservation. As a result, the user's valid identity could not be proved and the Coinslot operations team had the right to refuse to provide any information or assume any obligations.</lang>
-                </p>
-                <h3>
-                    <lang>3.4 Account protection</lang>
-                </h3>
-                <p>
-                    <lang>Users should keep their own account numbers and passwords properly, and take full responsibility for the security of their own accounts and passwords.</lang>
-                </p>
-                <p>
-                    <lang>If the user finds any illegal use of the account or the existence of a security breach, please inform the Coinslot operations team immediately;</lang>
-                </p>
-                <p>
-                    <lang>If the Coinslot operations team finds an account suspected of being stolen, it may immediately terminate the use right of the account;</lang>
-                </p>
-                <p>
-                    <lang>The platform account corresponds to a blockchain account, if the account or password is illegally used by another person due to the user's own reasons, the Coinslot operations team will not be responsible for handling and not bear any responsibility. The user's own reasons include but are not limited to: revealing the account number and password and all login information to the third party; sharing the same account with multiple persons; installing illegal or unsolicited programs; attempting malicious attacks to obtain the private key of the blockchain account, keystore and other information; user misuse of funds to transfer the digital currency in the account to the wrong address.</lang>
-                </p>
-                <p>
-                    <lang>If the platform account is found to have abnormal operations, the account funds may be preferentially transferred to the security account. The user may then attempt to obtain the recovery account funds with a valid certificate.</lang>
-                </p>
-                <p>
-                    <lang>If the user uses the third-party software to use the platform product, the platform of the account will not bear any responsibility.</lang>
-                </p>
-                <h3>
-                    <lang>3.5 Sanctions on Accounts</lang>
-                </h3>
-                <p>
-                    <lang>If the user violates any of the following regulations, or violates any of the relevant contents of this Agreement, the platform has the right to handle service restrictions on the account:</lang>
+                    User can use the account to deposit and transfer on the Platform (i.e., to transfer money from game account to a personal blockchain account). The specific deposit and transfer activities proceed in corresponding blockchain system rather than Coinslot. Since data on blockchain are featured with irrevocability, we are not able to suspend or cancel your ongoing deposit or transfer activities.
+                    Meanwhile, the following conditions may lead to "transaction failure" or "request timeout":
                 </p>
                 <div>
-                    <p>
-                        <lang>a) The user did not fill in the registration form, including the use of other people's mailbox</lang>
-                    </p>
-                    <p>
-                        <lang>b) The user is an individual under the age of 18 and also belongs to other higher minimum legal age within the jurisdiction of the user</lang>
-                    </p>
-                    <p>
-                        <lang>c) Users are subject to legal supervision and restrictions in their business activities</lang>
-                    </p>
-                    <p>
-                        <lang>d) The user uses the account for commercial intent</lang>
-                    </p>
-                    <p>
-                        <lang>e) The user does not know the outcome of the bet before placing it</lang>
-                    </p>
-                    <p>
-                        <lang>f) The user did not read these general terms and conditions, or did not fully understand the platform service agreement</lang>
-                    </p>
-                    <p>
-                        <lang>g) The user's registered name contains indecent information, or vocabulary that is offensive and contrary to local law</lang>
-                    </p>
+                    <p>a)  Insufficient balance;</p>
+                    <p>b) Insufficient trading miner fees;</p>
+                    <p>c) Blockchain fails to execute the contract code;</p>
+                    <p>d) Exceed the maximum trading amount specified by the regulatory authorities, Coinslot, or laws and regulations;</p>
+                    <p>e) The occurrence of technical failures (network, equipment and so forth);</p>
+                    <p>f) Blockchain congestion, failures and other reasons that may terminate transactions;</p>
+                    <p>g) Your address or your counterpart’s is identified as an abnormal address, such as high-risky address, exchange address, ICO address, Token address and so forth.</p>
                 </div>
                 <h3>
-                    <lang>3.6 Account deletion and ban</lang>
+                    2.5 Rules for Account Data
                 </h3>
                 <p>
-                    <lang>If the user violates any of the following regulations, or violates any relevant contents of this Agreement, the platform has the right to stop all services of the account, including but not limited to stop, suspend user account services, freeze user account funds, delete user accounts and other measures;</lang>
+                    For the account data on the platform provided by the User, he/she reserves the following rights:
                 </p>
                 <div>
-                    <p>
-                        <lang>a) Use multiple accounts to play games, the platform only supports each user to use a single account; the platform has the right to suspect and determine whether there are multiple account operations based on user account behavior. </lang>
-                    </p>
-                    <p>
-                        <lang>b) Stealing other people's information or violating the will of others, using other people's information for account registration and use.</lang>
-                    </p>
-                    <p>
-                        <lang>c) Conducting commercial intentions, using a wide range of fields or causing damage to other users.</lang>
-                    </p>
-                    <p>
-                        <lang>d) The platform account itself does not have any actual value, prohibiting the user from selling, pledging, transferring or obtaining accounts to other users.</lang>
-                    </p>
-                    <p>
-                        <lang>e) Users are prohibited by their local laws from participating in the product categories operated by the platform for their own reasons, or explicitly restricted from using the platform.</lang>
-                    </p>
-                    <p>
-                        <lang>f) There are bugs or blockchain technology flaws that may exist on the platform, and profit-making behavior for your account.</lang>
-                    </p>
-                    <p>
-                        <lang>g) Any fraud, operation, money laundering or anything prohibited by local law or a broader law.</lang>
-                    </p>
-                    <p>
-                        <lang>h) The platform account has been in hibernation for more than 1 year. After 3 or more reminds, no operation has been performed.</lang>
-                    </p>
+                    <p>a) Right to Know: The Platform must open the details of use, and provide Users free check access. All checking records will be recorded on the Platform.</p>
+                    <p>b) Access Right: Users can check specific information at any time whether the data has been modified or not.</p>
+                    <p>c) Right to Rectify: User reserves the right to modify the wrong data, if the modification is not adopted, the User has right to complain or require judicial remedy, and the Platform will respond to the User’s request in time.</p>
+                    <p>d) Right to Delete: When date on the Platform provided by User involves: data no longer needed, data required by the Platform but unclear about the purpose, data illegally used by others, and data related to the minor, User reserves the right to request the deletion of the data. The platform will actively cooperate with the issue</p>
+                   <p>e) Right of Objection: User reserves the right to object to personal data being used for marketing</p>
+                    <p>f) Automated individual decision-making and analysis: the User can agree that his/her personal data could be analyzed.</p>
+
                 </div>
-                <h3>
-                    <lang>3.7 Account recharge, transfer</lang>
-                </h3>
                 <p>
-                    <lang>The user can use the account to recharge and transfer money on the platform (that is, to transfer money from his own game account to a personally held blockchain account). The actual recharging and transfer activities are all in the relevant blockchain system (not Coinslot). ) Occurrence, blockchain system transactions "irrevocable" attribute, we can not suspend or withdraw your initiated recharge, transfer operations.</lang>
-                </p>
-                <p>
-                    <lang>At the same time, the following situations may lead to the transaction "transaction failure" or "packaging timeout":</lang>
+                    Coinslot guarantees to completely keep Users’ information confidential except when:
                 </p>
                 <div>
-                    <p>
-                        <lang>a) insufficient wallet balance;</lang>
-                    </p>
-                    <p>
-                        <lang>b) Insufficient trading miner fees;</lang>
-                    </p>
-                    <p>
-                        <lang>c) The blockchain execution contract code failed;</lang>
-                    </p>
-                    <p>
-                        <lang>d) exceed the amount of payment required by the regulatory authorities, Coinslot, or laws and regulations;</lang>
-                    </p>
-                    <p>
-                        <lang>e) Technical failures such as network and equipment;</lang>
-                    </p>
-                    <p>
-                        <lang>f) Blocked network congestion, failures and other reasons caused the transaction to be abandoned;</lang>
-                    </p>
-                    <p>
-                        <lang>g) Your address or counterparty address is identified as a special address, such as a high-risk address, exchange address, ICO address, Token address, etc.</lang>
+                    <p>a) It is required by government offices or judicial authorities;   </p>
+                    <p>b) It is required by the current laws and regulations, including but not limited to providing identity proof before using the Platform in some regions;   </p>
+                    <p>c) Coinslot reserves the right to suspect that the User might have threatened their national security or with other illegal behaviors. In this case, the Coinslot operator will provide relevant information to law enforcement agencies for investigation.   </p>
+                </div>
+               <h3>
+                   2.6 Account Sanction and Suspension
+               </h3>
+                <p>
+                    If the User violates any of the following regulations, We will evaluate the consequential influence. The Platform reserves the right to restrict part or all of account services, or suspend the account;
+                </p>
+                <div>
+                    <p>a) The User provides incorrect or misleading information on his/her account or upon registration, including but not limited to stealing others’ email addresses. </p>
+                    <p>b) The User is an individual under 18 years of age, or under legal age of majority in jurisdiction of where the User resides. </p>
+                    <p>c) The User is under legal supervision or restricted in his/her business activities. </p>
+                    <p>d) The User uses the account for commercial purposes. </p>
+                    <p>e) The User has no knowledge about any results before placing a bet. </p>
+                    <p>f) The User has not read these Terms and Conditions, or has not fully understood the Agreement. </p>
+                    <p>g) The User's registered name contains offensive or indecent information, or words that are considered to be a violation of local laws; </p>
+                </div>
+                <p>
+                    If the User violates any of the following regulations or any terms of the Agreement, the Platform reserves the right to stop all services of the account, including but not limited to stopping, suspending account services, freezing account funds and closing accounts;
+                </p>
+                <div>
+                    <p>a) Coinslot allows only one account per person. The use of multiple accounts per physical User is strictly forbidden. Coinslot reserves the right to suspect that the User has registered multiple accounts according to account activity. </p>
+                    <p>b) Create and use an account by stealing information from others or against the will of others. </p>
+                    <p>c) Use the Platform or services for massive commercial intentions, or cause damage to other Users. </p>
+                    <p>d) The Platform account itself does not have any substantial value, any kinds of account selling, pledging, obtaining or transferring to other Users are prohibited by the Platform. </p>
+                    <p>e) For Users’ own reasons, Users are prohibited by their local laws from using this sort of product or Our Platform if it is explicitly restricted. </p>
+                    <p>f) Making profits from bugs or flaws of blockchain technology that may exist in the Platform. </p>
+                    <p>g) Fraud, money laundering and anything forbidden by local laws or a broader applicable law. The fraudulent acts include:
+                        <span>1) Participating in any type of collusion with other users; </span>
+                        <span>2) Developing strategies against bonuses from unfair access; </span>
+                        <span>3) Fraudulent acts against other blockchain games or payment providers on the Platform; </span>
+                        <span>4) Using the platform for money laundering; </span>
+                        <span>5) Other types of cheating; </span>
+                        <span>6) Being a bankrupt in the resident country. </span>
                     </p>
                 </div>
+                <p>
+                    The account dormancy lasts for more than 1 year and no activity has been performed after receiving 3 or more times of reminder. In this case, all account service will be ceased by the Platform. Users can provide relevant documents to apply for service recovery.
+                </p>
                 <h2>
-                    <lang>4 Coinslot Platform</lang>
+                    3. Coinslot Platform
                 </h2>
+                    <h4>
+                        3.1 Services on Coinslot Platform
+                    </h4>
+                    <p>
+                        Services on Coinslot Platform refer to all applications offered by Coinslot Platform, Lucky11, LuckyCoin and other services on Platform. Most services on Platform are utterly based on the Ethernet chain. Thus, the Platform does not assume any responsibility if the services are delayed, interrupted or failed because of the network error of Ethernet chain or relevant technical problems.
+                    </p>
+                    <h4>
+                        3.2 Coinslot Platform Fees
+                    </h4>
+                    <p>
+                        Except Lucky11 and LuckyCoin, any other services on Coinslot Platform are provided for free. Since part of the services is based on Ethernet chain, it may require fees to support the service provided. Users should notice that the fee is not charged by the Platform.
+                    </p>
                 <h3>
-                    <lang>4.1 Coinslot platform service</lang>
-                </h3>
-                <p>
-                    <lang>Coinslot platform services refer to all applications offered by the Coinslot platform: Lucky11 games, LuckyCoin games and other platform services. Most functions of the platform are based solely on the Ethernet chain. For example, if the platform is based on the Ethernet chain, the Ethernet chain network and technical reasons cause delays and service interruptions. The platform does not assume corresponding responsibility.</lang>
-                </p>
-                <h3>
-                    <lang>4.2 Coinslot platform fees</lang>
-                </h3>
-                <p>
-                    <lang>Coinslot platform, in addition to Lucky11, LuckyCoin games, other services are provided free of charge, the platform no longer charge any fees; some applications and services on the platform and platform are based on Ethernet chain technology, which may involve part of the formal fee to provide to the Ethernet chain Service, this fee is not charged for the platform.</lang>
-                </p>
-                <h3>
-                    <lang>4.3 Lucky11 Games</lang>
+                    3.3 Lucky11
                 </h3>
                 <h4>
-                    <lang>4.3.1. Lucky11 game service</lang>
+                    3.3.1. Lucky11 Service
                 </h4>
                 <p>
-                    <lang>Lucky11 is a probabilistic game. If the number selected by the user matches the lottery number, the corresponding reward can be obtained. The user must know that the game is a pure probability lottery, and there may be a loss. The game lottery is based on the Hash value of a certain block of the Ethernet chain, and the lottery basis can be checked from the Ethernet chain.</lang>
+                    Lucky11 is a game of chance. User wins if his/her chosen number matches the draw result. The User must know that the game result is purely based on nothing but chance, so losses may occur. The draw result is calculated from the hash value of the corresponding block on Ethereum, and Users can check the data from Ethereum.
                 </p>
                 <h4>
-                    <lang>4.3.2 Lucky11 game fees</lang>
+                    3.3.2 Lucky11 Game Cost
                 </h4>
                 <p>
-                    <lang>Lucky11 game tariff is 0.001-0.1 ETH, the user selects the required tariff, and after the winning, the corresponding reward is to pay the corresponding fee * multiple reward; select an additional pool game, when the selection number and the lottery number lottery sequence and number consistent, The prize pool formula can be awarded.</lang>
+                    Lucky11 game cost varies from 0.001 ETH to 0.1 ETH per draw for Users to choose, the winning prize equals the corresponding cost * multiples. If Users would like to win extra reward from prize pool, both numbers and the sequence of chosen numbers should exactly match the draw results.
                 </p>
                 <h4>
-                    <lang>4.3.3 Lucky11 special circumstances</lang>
+                    3.3.3 Special Circumstances of Lucky11
                 </h4>
                 <p>
-                    <lang>The following special circumstances may occur for Lucky11 games. Please participate in Lucky11 games if you are fully aware of the following risks:</lang>
+                    The following special circumstances may occur in Lucky11. Please ensure you are fully aware of the following risks before playing the game:
                 </p>
-                <div>
-                    <p>
-                        <lang>a) The game lottery is based entirely on the blockchain implementation. If there is a network delay or blockage in the blockchain, the platform will temporarily close the bet in order to prevent the lottery from making a mistake.</lang>
-                    </p>
-                    <p>
-                        <lang>b) There may be data rollback in the blockchain. If the lottery is already open, even if the lottery block is cancelled, the platform lottery result will not change.</lang>
-                    </p>
-                    <p>
-                        <lang>c) After the game betting is fully online, the bet can take effect. If there is a network congestion, the betting may not be successful;</lang>
-                    </p>
-                    <p>
-                        <lang>d) The game prize pool lottery is an asynchronous lottery, which requires 2 blocks of hash chain verification. If the block is cancelled, the prize pool cannot be awarded.</lang>
-                    </p>
-                </div>
+              <div>
+                  <p>a) The draw result is entirely based on the blockchain technology. If network delay or blockage on blockchain occurs, the Platform will temporarily close the bet to avoid unfair draw result. </p>
+                  <p>b) Data on blockchain may rollback. If it happens, the draw result which has already calculated will not be changed even though the corresponding block was canceled. </p>
+                  <p>c) The bet takes effect only after the relevant info successfully uploaded to the Ethereum. Network congestion may lead to the failure of placing a bet. </p>
+                  <p>d) The draw of prize pool is asynchronous which requires two times of hash verification. The prize pool cannot be distributed if the block was canceled. </p>
+              </div>
                 <h3>
-                    <lang>4.4 LuckyCoin game</lang>
+                    3.4 LuckyCoin
                 </h3>
                 <h4>
-                    <lang>4.4.1 LuckyCoin Game Service</lang>
+                    3.4.1 LuckyCoin Service
                 </h4>
                 <p>
-                    <lang>LuckyCoin is a game of probability sweepstakes. After the user chooses to purchase 1 or more purchases, he will randomly obtain the corresponding lottery number. If the user has the same lottery number as the winning number, he will be rewarded. The game is 100% prize-winning and must be rewarded by users. The lottery is based on the Hash value of a block in the Ethernet chain.</lang>
+                    LuckyCoin is a game of chance raffle. After the User chooses to purchase 1 or more tickets, he/she will get a series of random numbers. If all chosen numbers match the draw numbers the User wins. The game is with 100% drawing rate and all draws have winners. Draw result is calculated from the hash of block on Ethernet.
                 </p>
                 <h4>
-                    <lang>4.4.2 LuckyCoin game fees</lang>
+                    3.4.2 LuckyCoin Game Cost
                 </h4>
                 <p>
-                    <lang>LuckyCoin has no fixed game fees, users can choose to pay their own fees according to their own circumstances, the higher the theoretical user charges, the greater the probability of winning.</lang>
+                    LuckyCoin has no fixed game cost, the User’s spending depends on his/her own circumstances. Theoretically, the more User costs, the higher winning chance will be.
                 </p>
                 <h4>
-                    <lang>4.4.3 Special circumstances of LuckyCoin</lang>
+                    3.4.3 Special Circumstances of LuckyCoin
                 </h4>
+                <p>
+                    The following special circumstances may occur in LuckyCoin. Please ensure you are fully aware of the following risks before playing the game:
+                </p>
+                <p>
+                    The draw result is entirely based on the blockchain technology. If network delay or blockage on blockchain occurs, the Platform will temporarily close the bet to avoid unfair draw result.
+                </p>
+                <p>
+                    Data on blockchain may rollback. If it happens, the draw result which has already calculated will not be changed even though the corresponding block was canceled.
+                </p>
+                <p>
+                    The bet takes effect only after the relevant info successfully uploaded to the Ethereum. Network congestion may lead to the failure of placing a bet.
+                </p>
+                <h2>
+                    4. Obligations of Users
+                </h2>
+                <p>
+                    4.1 Unless stated in the Agreement, otherwise Users shall not perform the following behaviors (whether profitable or not) without the written consent from the Coinslot operator:
+                </p>
+                <div>
+                    <p>a) Copy, rip, spread or display all or part of the content of applications, manuals or other audiovisual materials on the Platform;     </p>
+                    <p>b) Publicly display all or part of the content of applications on the Platform;    </p>
+                    <p>c) Rent or sell the software, or use applications on the Platform to engage in profit-making activities;    </p>
+                    <p>d) Modify or cover product names, company logos, trademark (or) copyright information or other statements on intellectual property rights, on the contents of applications, images, animations, packages, or manuals on the Platform;    </p>
+                    <p>e) Coinslot reserves the right to suspect that User may maliciously copy the Platform content on the blockchain, and in this case, the Platform reserves the right to take applicable measures on the account.    </p>
+                </div>
+                <p>
+                    4.2 Users shall use the relevant services on the Platform through legal channels, and shall not perform any acts which may infringe the interests of the Coinslot operator or third parties, disrupt the application order, violate the fairness of the application, violate the Agreement or other rules published by the Coinslot team or relevant local laws and regulations, including but not limited to:
+                </p>
+                <div>
+                    <p>a) Modify, translate, annotate, organize, compile, or interpret products on the Platform;  </p>
+                    <p>b) reverse engineer, decompile or disassemble products on the Platform, or use other technical methods to analyze, modify, attack, or derive products on the Platform;  </p>
+                    <p>c) Reverse, compile, decode or modify products on the Platform through plugins or application modification programs ("plugins" in this Agreement refers to programs which could affect the operation of the running Platform products but are independent of all products on the Platform, including but not limited to programs which could stimulate User operations, change operating environment or modify data and so forth. If there is a conflict between the definition of the relevant local laws and regulations and this Agreement, the provisions of local laws and regulations shall prevail);  </p>
+                    <p>d) Log in to the Platform through abnormal or illegal channels (including but not limited to the third-party software or login system which are not developed, authorized or recognized by Coinslot operator), use web accelerators or other plugins, or robot programs to maliciously destroy service facilities and disrupt normal service order;  </p>
+                    <p>e) Use Platform products through abnormal or illegal methods (including but not limited to log in to the private server by using Coinslot account), maliciously destroy the Platform, disrupt normal service order or have other misconducts;  </p>
+                    <p>f) Develop, spread or use plugins, packets, accelerators and other kinds of cheating programs, or organize, instigate others to use such programs, or seek economic benefits for individuals or organizations by selling this sort of program;  </p>
+                    <p>g) Attempt to attack the relevant servers, routers, switches or other equipment providing services on Platform to illegally obtain or modify the data unauthorized by Coinslot, and affecting the normal order of application services on the Platform, or have any other actions with harmful intentions;  </p>
+                    <p>h) Use the Platform as a carrier to develop, copy, publish and disseminate information in violation of the local laws and regulations.  </p>
+
+                </div>
+                <p>
+                    Once the behaviors above of Users are detected by Coinslot operator through internal monitoring programs or reported by other Users, the Coinslot operator reserves the right to  make judgments and take corresponding measures at its sole discretion, including but is not limited to restricting account login and activities on the Platform, terminate the authorization of the account, freezing all balance in the account, deducting the account balance to offset users’ debts on Platform or compensate for the loss of Coinslot team, freezing the account and requesting the compensation to Coinslot.
+                </p>
+                <h2>
+                    5. Interruption and Ceasing of Services
+                </h2>
+                <p>
+                    Downtime maintenance will be implemented from time to time in order to operate the system properly. Therefore, service interruption or ceasing caused by this kind of situation should be understood by Users. The Coinslot operator is obliged to do its best not to frequently implement maintenance, or if necessary, shorten the time for the maintenance;
+                </p>
+                <p>
+                    The Coinslot operator reserves the right to interrupt or cease services provided by the application server when any of the following situations occurs. The Coinslot operator is excluded from any liability regarding the inconvenience or the loss caused by these kinds of situations for Users or any third parties:
+                </p>
+                <div>
+                    <p>a) Periodic inspection or construction, updating of hardware and software, updating of blockchain contracts and so forth. Coinslot operator reserves the right to suspend services and will complete the maintenance or updating as soon as possible;  </p>
+                    <p>b) Server damage which may lead to operation failure;  </p>
+                    <p>c) Abrupt faults of equipment of hardware, software or electronic communication;  </p>
+                    <p>d) Network error or other failures caused by network provider;   </p>
+                    <p>e) Safeguarding the security of the nation, Users or the third parties in the event of an emergency;  </p>
+                    <p>f) Serious blockchain problems or blockage of the blockchain network (Ethernet);  </p>
+                    <p>g) Force majeure or other reasons from any third party.  </p>
+                </div>
+                <p>
+                    Except for the circumstances above, Users shall agree that the Coinslot operator reserves the right to interrupt or terminate part or all of the network services by noticing Users through official announcements one month in advance. User shall be clear that he/she has already known the authorization of rights above and the direct or indirect loss in benefits that may be caused by implementing the rights to the User or the third parties, and User hereby shall explicitly claim that no liability of Coinslot operator to unilaterally interrupt or cease the services for implementing rights above will be pursued.
+                </p>
+                <h2>
+                    6. Limitation of Liability
+                </h2>
+                <p>
+                    For Our products and services, the Coinslot operator only makes the limited warranty described below which supersedes any other express or implied warranties (if any) in documents, packages, or other materials.
+                </p>
+                <p>
+                    The relevant products, software, programs or any form of the support services only and is provided on an “as is” basis, and Coinslot operator only guarantees that
+                </p>
+                <div>
+                    <p>(1) the products and services provided by the Coinslot operator can basically accommodate the requirements issued by Us;  </p>
+                    <p>(2) the products and services provided by the Coinslot operator can basically be in line with the warranty made by Us;  </p>
+                    <p>(3) Coinslot operator tries its best to solve the problems we meet in providing products and services to a reasonable extent that business allows. </p>
+                </div>
+                <p>
+                    To the fullest extent permitted by applicable local law, the Coinslot operator expressly states that any other types of warranty, whether express or implied, will not be provided, including but not limited to marketability, applicability, reliability, accuracy, completeness, and any implied warranties or liabilities with no virus and mistake.
+                </p>
+                <p>
+                    In addition, to the fullest extent permitted by applicable local law, the Coinslot operator does not guarantee that the products and services provided by the Coinslot operator could completely meet the needs of Users, nor guarantee that no interruption exists during providing products and services. And the team does not warrant timeliness, safety, control of mistake, and accurate, prompt, and successful transfer of information.
+                </p>
+                <p>
+                    To the maximum extent permitted by applicable local law, the Coinslot operator shall not be liable for any loss, costs, expenses or damages, whether direct, indirect, special, consequential, incidental or otherwise, arising in relation to your use of the products and services provided by the Coinslot operator, or certain requests (including but not limited to issues related to personal injury, privacy leakage, failure to fulfill any duties of honesty, reasonability or prudence, or any other negligent pecuniary loss).
+                </p>
+                <p>
+                    The opinions, suggestions or other comments expressed by Users on the Platform are all belong to Users themselves, and do not represent the views of the Coinslot operator.
+                </p>
+                <p>
+                    The Platform will make every effort to help Users retrieve but not be liable for their losses caused by the blockchain problems.
+                </p>
+                <p>
+                    Since User’s account funds are all on the corresponding blockchain account, the Platform warrants that it can only be operated by User himself/herself. And the Platform is not liable for User’s pecuniary loss if the User intentionally or unintentionally leaks his/her account information to others.
+                </p>
+                <p>
+                    Coinslot operator is not liable of any hardware or software, defects, unstable or lost Internet connections, or any other technical errors that may limit User’s access to the website or prevent User from an uninterrupted play.
+                </p>
+                <p>
+                    If we mistakenly credit your Account with winnings that do not belong to you, whether due to a technical, error in the pay-tables, or human error or otherwise, the amount will remain our property and will be deducted from your Account. If you have withdrawn funds that do not belong to you prior to us becoming aware of the error, the mistakenly paid amount will (without prejudice to other remedies and actions that may be available at law) constitute a debt owed by you to us. In the event of an incorrect crediting, you are obliged to notify us immediately by email.
+                </p>
+                <h2>
+                    7. Alterations
+                </h2>
+                <p>
+                    The Coinslot operator reserves the right to amend the Agreement, apply conventions and terms of use if necessary. Once the alteration happens, it will be shown on relevant major page of the application. All the alterations will immediately take effect upon the next time visit or login, and the Platform will inform Users through email. By continuing to use the products and services, Users must read and accept the new version of the Agreement. Otherwise, Users must not use or access our products and services, and inform Us immediately in written form. In order to avoid misunderstandings and disputes at a large stage, Users can print out the Agreement. If Users continue to obtain services provided by the Platform after receiving the notification about Agreement alterations, The Platform will regard it as acceptance by Users.
+                </p>
+                <p>
+                    Coinslot operator will inform Users with all notifications via announcements on major pages on the Platform, emails or letters.
+                </p>
+                <h2>
+                    8. Intellectual Property
+                </h2>
+                <p>
+                    The Coinslot Platform and all works and materials on the Platform published by the coinslot operator, whose copyrights, patents, trademarks, trade secret rights and other intellectual property rights are owned by the legal owner of the Coinslot operator or persons who authorized the rights to Coinslot operator. Unless authorized previously by the Coinslot operator or legal owners, anyone shall not use the software in any form, otherwise the Coinslot operator will immediately terminate the providing of products and services to Users, and pursue the legal liability of Users in accordance with the law to compensate all the losses of Coinslot operator.
+                </p>
+                <p>
+                    No person shall copy, decompile, disassemble or reverse engineer any functions or programs without the authorization of the Coinslot operator.
+                </p>
+                <h2>
+                    9. Authorization
+                </h2>
+                <p>
+                    When User’s original works are provided to the Coinslot official website by uploading, transmission, input or other methods, it is regarded that the User transfers all copyright to Coinslot operator except for the reserved authorship. The Coinslot operator reserves the right to use, modify, edit, copy, publicly broadcast or publish the works, or assign/distribute the aforementioned rights. User authorizes the Coinslot operator to exercise all necessary rights above, including but not limited to copyright, portrait rights and so forth.
+                </p>
+                <h2>
+                    10. Risk Notifications
+                </h2>
+                <p>
+                    The User understands and accepts the risks in connection with transferring digital currencies to the Platform and participating games. In particular, the User understands the inherent risks listed hereinafter:
+                </p>
                 <div>
                     <p>
-                        <lang>a) The game lottery is based entirely on the blockchain implementation. If there is a network delay or blockage in the blockchain, the platform will suspend the current number of unbilled days in order to prevent the lottery from making a mistake.</lang>
+                        a)	Risk of software weaknesses: The User understands and accepts that the Blockchain System concept, the underlying software application and software platform is still in an early development stage and unproven, why there is no warranty that the process for creating tickets will be uninterrupted or error-free and why there is an inherent risk that the software could contain weaknesses, vulnerabilities or bugs causing, inter alia, the complete loss of digital currencies.
                     </p>
                     <p>
-                        <lang>b) There may be data rollback in the blockchain. If the lottery is already open, even if the lottery block is cancelled, the platform lottery result will not change.</lang>
+                        b)	Regulatory risk: The User understands and accepts that the blockchain technology allows new forms of interaction and that it is possible that certain jurisdictions will apply existing regulations on, or introduce new regulations addressing blockchain technology based applications, which may be contrary to the current setup of the System and which may, inter alia, result in substantial modifications of the Service, including its termination and the loss of digital currencies.
                     </p>
                     <p>
-                        <lang>c) After the game betting is fully online, the bet can take effect. If there is a network congestion, the betting may not be successful;</lang>
+                        c)	Risk of loss of private key: Digital currencies in account wallet can only be accessed with a wallet seed or combination of private key and password. The private key is encrypted with a password. The User understands and accepts that if his wallet file or password respectively his private key got lost or stolen, the obtained digital currencies associated with the User’s Wallet or password will be unrecoverable and will be permanently lost with the wallet seed.
+                    </p>
+                    <p>
+                        d)	Risk of theft: The User understands and accepts that the Service concept, the underlying software application and software platform may be exposed to attacks by hackers or other individuals that that could result in theft or loss of digital currencies, impacting the ability to develop the Services.
                     </p>
                 </div>
                 <h2>
-                    <lang>5 Obligations of the Coinslot Operations Team</lang>
+                    11. Complaints
                 </h2>
-                <h3>
-                    <lang>5.1 Provide services</lang>
-                </h3>
-                <p>
-                    <lang>Coinslot will provide services for all applications on the platform and related services of the corresponding blockchain account (recharging of accounts, services of corresponding platforms, and transfers)</lang>
-                </p>
-                <h3>
-                    <lang>5.2 Confidentiality of information</lang>
-                </h3>
-                <p>
-                    <lang>Coinslot guarantees complete confidentiality of user information except when:</lang>
-                </p>
-                <div>
-                    <p>
-                        <lang>a) The requirements of the corresponding government agencies and judicial organs;</lang>
-                    </p>
-                    <p>
-                        <lang>b) The requirements of the current laws and regulations, including but not limited to, the information required to be provided by the user before using the platform in some regions;</lang>
-                    </p>
-                    <p>
-                        <lang>c) Coinslot's operations team reasonably suspects that the user has endangered their national security or other illegal situations. The Coinslot operations team took the initiative to provide relevant information for investigation by law enforcement agencies.</lang>
-                    </p>
-                </div>
-                <h2>
-                    <lang>6 Obligations of Users</lang>
-                </h2>
-                <p>
-                    <lang>Unless otherwise specified in this Agreement, Users shall not perform the following (whether profitable or not) without the written consent of the Coinslot Operations Team:</lang>
-                </p>
-                <div>
-                    <p>
-                        <lang>a) Copy, rip, spread and display all or part of the programs, manuals and other audiovisual materials of all applications on the platform;</lang>
-                    </p>
-                    <p>
-                        <lang>b) Publicly display and play all or part of all applications on the platform;</lang>
-                    </p>
-                    <p>
-                        <lang>c) Renting or selling the software or using all applications on the platform to engage in profit-making activities;</lang>
-                    </p>
-                    <p>
-                        <lang>d) modify or cover product names, company logos, trademark (or) copyright information, other intellectual property rights statements, etc. on the contents of programs, images, animations, packages, and manuals of all applications on the platform;</lang>
-                    </p>
-                    <p>
-                        <lang>e) maliciously copying the content of the platform on the blockchain, the platform has the right to suspect that the user has the above behavior on the chain and handles the user account.</lang>
-                    </p>
-                </div>
-                <p>
-                    <lang>The user shall use the relevant services of the platform product through legal channels, and shall not make any infringement of the interests of the Coinslot operations team or third parties, disrupt the application order, violate the fairness of the application, violate this Agreement or other rules issued by the Coinslot team or Acts of relevant laws and regulations in local countries include, but are not limited to:</lang>
-                </p>
-                <div>
-                    <p>
-                        <lang>a) Modify, translate, annotate, organize, compile, and interpret all products of the platform;</lang>
-                    </p>
-                    <p>
-                        <lang>b) reverse engineer, decompile or disassemble all products of the platform, or use other technical means to analyze, modify, attack, and derive all products of the platform;</lang>
-                    </p>
-                    <p>
-                        <lang>c) use any plug-in program or application modification program ("external program" in this "Agreement" refers to all programs that are independent of all products of the platform and can affect the operation of the product application while the application is running, including but not It is limited to analog user operations, changes in the operating environment, modification of data, etc. If there is a conflict between the definition of the relevant laws and regulations of the local country and the regulations or regulatory documents of the competent government department, the laws, regulations, The provisions of the departmental regulations or regulatory documents shall prevail, and all products of the platform shall be restored, compiled, decoded or modified;</lang>
-                    </p>
-                    <p>
-                        <lang>d) Use unusual methods to log in to the platform (including but not limited to the use of non-Coinslot operations team developed, authorized or approved third-party software, system login applications), the use of network accelerators and other plug-in software or robot programs to maliciously destroy service facilities and disrupt normal operations. Service order behavior;</lang>
-                    </p>
-                    <p>
-                        <lang>e) using platform products (including but not limited to using Coinslot account to log in to the application server) through abnormal or illegal means, maliciously breaking the platform, disrupting normal service order or other improper behavior;</lang>
-                    </p>
-                    <p>
-                        <lang>f) make, distribute or use plug-ins, packets, acceleration software and other kinds of cheating procedures, or organize, abet others to use such software programs, or sell such software programs to seek economic benefits for individuals or organizations;</lang>
-                    </p>
-                    <p>
-                        <lang>g) use any method or method to attempt to attack the relevant servers, routers, switches and other equipment providing application services so as to achieve the illegal acquisition or modification of unauthorized data data, affecting the normal application services of the platform, and any other harmful purpose. behavior;</lang>
-                    </p>
-                    <p>
-                        <lang>h) In violation of local laws and regulations, use the platform as a carrier to produce, copy, publish and disseminate information.</lang>
-                    </p>
-                </div>
-                <p>
-                    <lang>The Coinslot operations team has the right to make independent judgments and take appropriate measures once the Coinslot operations team finds out through internal monitoring procedures or reports by other users that the user is likely to be engaged in the above-mentioned actions. This includes, but is not limited to, restricting user accounts. Log in, restrict user activity in the application, terminate the software license, freeze all account funds, deduct the account balance directly to offset your arrears or damages to the Coinslot team, freeze the user's account number and ask the user to indemnify The above behavior caused losses to the Coinslot operations team.</lang>
-                </p>
-                <h2>
-                    <lang>7 Interruption and Stopping of Services</lang>
-                </h2>
-                <p>
-                    <lang>For the normal operation of the application, the Coinslot operating team needs to stop or maintain the application on a regular or irregular basis. Therefore, the normal service interruption and stop caused by the type of situation should be understood by the user. The Coinslot operation team is obliged to do its best to avoid service interruption and stop. Or limit the interruption and stop time to the shortest time;</lang>
-                </p>
-                <p>
-                    <lang>The Coinslot operations team has the right to stop or interrupt the services provided by the application server when one of the following situations occurs. The Coinslot operations team assumes no responsibility for the users or the third person due to the inconvenience or damage caused by the application server:</lang>
-                </p>
-                <div>
-                    <p>
-                        <lang>a) Periodic inspection or construction, updating of hardware and software, updating of blockchain contracts, etc. Coinslot operations team has the right to suspend services, but the Coinslot operations team will complete maintenance and update work as soon as possible;</lang>
-                    </p>
-                    <p>
-                        <lang>b) The server is damaged and cannot operate normally;</lang>
-                    </p>
-                    <p>
-                        <lang>c) sudden hardware and software equipment and electronic communication equipment failure;</lang>
-                    </p>
-                    <p>
-                        <lang>d) network provider line or other failure;</lang>
-                    </p>
-                    <p>
-                        <lang>e) in the event of an emergency to maintain the safety of the national security or other members and third parties;</lang>
-                    </p>
-                    <p>
-                        <lang>f) Serious blockchain problems, or blockage of the blockchain (ethernet) network</lang>
-                    </p>
-                    <p>
-                        <lang>g) Force majeure and other third-party reasons.</lang>
-                    </p>
-                </div>
-                <p>
-                    <lang>Except for the circumstances mentioned in the preceding paragraph, the user agrees that the Coinslot operations team has the right to interrupt or terminate part or all of the network services by using the official announcement notice one month in advance. The user has been clearly informed of the above rights and knows that The exercise may result in derogation of direct or indirect benefits to itself and other third parties, and the user hereby expressly disclaims any responsibility that Coinslot's operations team may incur as a result of such unilateral interruption or termination of service rights.</lang>
-                </p>
-                <h2>
-                    <lang>8 Limitation of Liability</lang>
-                </h2>
-                <p>
-                    <lang>For the products and services of the Coinslot operations team, the Coinslot operations team only makes the limited warranty described below, which supersedes any other express or implied warranty (if any) in any document, package, or other material.</lang>
-                </p>
-                <p>
-                    <lang>The Coinslot operations team only provides relevant products, software or programs and any support services in the form of "existing conditions and all errors", and only guarantees that (1) the products and services provided by the Coinslot operations team can basically meet the Coinslot operations team. Formally announced requirements, (2) Coinslot operations team's related products and services are basically in line with the service commitment officially announced by the Coinslot operations team (3) Coinslot operations team is only trying to solve the Coinslot operations team within a reasonable range of business conditions. Any problems encountered in providing products and services.</lang>
-                </p>
-                <p>
-                    <lang>To the fullest extent permitted by applicable local law, the Coinslot operations team expressly states that it does not provide any other type of warranty, whether express or implied, including but not limited to marketability, fitness for purpose, reliability, accuracy, completeness, , no viruses, and no implied warranties or liabilities.</lang>
-                </p>
-                <p>
-                    <lang>In addition, to the maximum extent permitted by applicable local law, the Coinslot operations team does not guarantee that the products and services provided by the Coinslot operations team will be able to meet the requirements of the users, nor will it guarantee that the products and services provided will not be interrupted, and that the products And the timeliness and safety of the service, the occurrence of errors, and whether the information can be accurately, promptly, and smoothly transmitted are not guaranteed.</lang>
-                </p>
-                <p>
-                    <lang>To the maximum extent permitted by applicable local law, the Coinslot operations team is not responsible for any accidental, indirect, or indirect connection with the products and services of the Coinslot operations team, or in any way related to the products and services of the Coinslot operations team. Special or indirect damages or requests (including but not limited to personal injury, leakage of privacy, failure to perform any duties including integrity or reasonable care, negligence, and any other financial loss or other loss The damages caused) assume any responsibility.</lang>
-                </p>
-                <p>
-                    <lang>The opinions, suggestions and other content expressed by the user on all pages of the platform are opinions of the users themselves and do not represent the views of the Coinslot operations team.</lang>
-                </p>
-                <p>
-                    <lang>All the user losses caused by the problem of the blockchain itself, the platform will try to save the user's losses, but does not bear the corresponding responsibility.</lang>
-                </p>
-                <p>
-                    <lang>User account funds are all on the blockchain account. Platform guarantee funds are only valid for user operations.</lang>
-                </p>
-                <p>
-                    <lang>If the user intentionally reveals or conducts information leakage on their own account, the account funds will be lost. The platform will not bear the responsibility for recovery of losses.</lang>
-                </p>
-                <h2>
-                    <lang>9 Changes</lang>
-                </h2>
-                <p>
-                    <lang>The Coinslot operations team has the right to amend this Agreement, apply conventions and user codes when necessary. Once the Coinslot operations team's user agreement terms, application conventions, and user codes have changed, they will be prompted on the important pages of the application. At the time of the update, these terms and conditions will be effective immediately upon the next login or use of the platform. The platform will know the user by email. The user must read and accept the new agreement before using the platform, services or software provided by the blockchain game. If users do not agree to the changes in these Agreements, users cannot use or access our services and immediately inform us in writing. In order to avoid misunderstandings and disputes in the later period, users can print out this Agreement. The platform has reached the user to inform the "agreement" to modify, the user chooses to continue to obtain the services provided by the platform, then the user has agreed to change in the "agreement".</lang>
-                </p>
-                <h2>
-                    <lang>10 Notice</lang>
-                </h2>
-                <p>
-                    <lang>All notifications sent to users by the Coinslot operations team can be sent via an important page announcement or email or regular letter.</lang>
-                </p>
-                <h2>
-                    <lang>11 Authorization</lang>
-                </h2>
-                <p>
-                    <lang>When user original works are uploaded, transmitted, entered, or otherwise provided to Coinslot's official website, it is regarded that the user transfers the copyright to Coinslot's operating team in addition to the reserved authorship; the Coinslot operations team can use, modify, edit, reproduce, publicly broadcast, The above-mentioned works may be distributed, and the aforementioned rights may be transferred/submitted to others; the user authorizes the Coinslot operations team to exercise all rights necessary for the above-mentioned actions, including but not limited to copyright, portrait rights, etc.</lang>
-                </p>
-                <h2>
-                    <lang>12 Disputes</lang>
-                </h2>
-                <p>
-                    <lang>This user’s terms apply to the local laws of the user. Some of the contents of this agreement have been found to be infringed or invalid by a court with jurisdiction, and do not affect the validity of other content.</lang>
-                </p>
-                <p>
-                    <lang>If the terms of service of Coinslot's operations team conflict with the local law, the terms will be fully re-interpreted in accordance with the law, while the other terms will remain unchanged; if local laws do not allow users to use the platform, the user does not The platform will not bear any legal liability arising from knowing that all platform services are feasible.</lang>
-                </p>
-                <p>
-                    <lang>In the event of a dispute, the users and the Coinslot operations team unanimously agree to be administered by the jurisdiction of the Coinslot operations team.</lang>
-                </p>
+                <p>Any disputes from Users can be addressed through complaint.</p>
+                <p>You may contact our support@coinslot.com customer service according to the instructions located at the Website to give us any complaints regarding our services.</p>
+                <p>Complaints are handled in the support department and escalated in the organization of the Coinslot in the case that support personnel do not solve the case immediately. The User shall be informed about the state of the complaint to a reasonable level.</p>
+                <p>If the dispute is not resolved by support personnel, you can contact any independent body, gaming authority or licensor listed on the Coinslot website.</p>
+                <p>In the event of any dispute, you agree that the records of the server and blockchain shall act as the final authority in determining the outcome of any claim.</p>
+                <p>You agree that in the unlikely event of a disagreement between the result that appears on your screen and the game server, the result that appears on the game server and in blockchain will prevail, and you acknowledge and agree that our records will be the final authority in determining the terms and circumstances of your participation in the relevant online gaming activity and the results of this participation. </p>
+                <p>When we wish to contact you regarding such a dispute, we will do so by using any of Your contact details in your User account. </p>
+                <p>If ways above cannot effectively resolve the dispute, the user can address the issue through the corresponding legal channels.</p>
+                <p>This Terms and Conditions shall apply to the local laws of the User. If any part of the Agreement is found to be in violation of or void by a court of competent jurisdiction, it shall not affect the validity of other contents.</p>
+                <p>If the terms of the Agreement conflict with local laws, the terms will be utterly re-interpreted in accordance with the local laws, and other terms remain valid. The Platform is not liable if Users use the Platform without clear knowing of the Platform not being permitted by local laws.</p>
+                <p>Both Users and the Coinslot operator unanimously agree to be governed by the judicial authority of the geographic region where Coinslot operator is located if any dispute occurs.</p>
             </div>
         </div>
         <Footer></Footer>
@@ -470,7 +382,7 @@
 </template>
 
 <script>
-    import Header from '~/components/Header.bar.vue'
+    import Header from '~/components/Header.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Footer from '~/components/Footer.vue'
 
@@ -480,20 +392,17 @@
                 title: ''
             }
         },
-        watch: {},
-        methods: {},
         components: {
             Footer,
             Header,
             BreadCrumbs
-        },
-        computed: {},
-        mounted () {
-
         }
     }
 </script>
 <style scoped lang="less">
+    .head-box{
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+    }
     .main {
         position: relative;
         width: 1190px;
@@ -529,12 +438,7 @@
             font-size: 16px;
         }
         span {
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            color: #778ca3;
+
         }
         p {
             font-size: 14px;

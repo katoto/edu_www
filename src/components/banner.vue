@@ -1,7 +1,6 @@
 <template>
     <div class="banner"  v-if="banner">
         <a href="javascript:;" class="banner-main" @click="superInPage">
-            <!--<img src="../assets/img/banner.jpg" alt="">-->
             <img src="../assets/img/lucky11/banner-jackpot.png" alt="">
         </a>
         <a href="javascript:;" class="banner-close" @click="closeBanner"></a>

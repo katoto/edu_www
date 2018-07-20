@@ -305,8 +305,8 @@
                     </div>
                 </div>
             </div>
-            <a href="/coinslot/html/worldCup.html" target="_blank" class="icon-enterWorld">
-                <img src="@assets/img/worldCup/enterIcon-worldCup.png"/>
+            <a @click="superChange('superIn')" class="icon-enterWorld">
+                <img src="@assets/img/lucky11/jackpot-left.png"/>
             </a>
         </div>
         <Footer></Footer>
@@ -594,52 +594,6 @@
                 return msg
             },
 
-            async indexRouter (query) {
-                /* 邮箱注册 找回密码  邀请等 */
-                if (query.sign) {
-                    if (query.from === 'reg') {
-                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
-                        console.log(mailBack)
-                        if (mailBack && mailBack.status === '100') {
-                            if (parseFloat(mailBack.data.login_times) >= 0 && mailBack.data.invite_status.toString() === '0') {
-                                // 显示第一次邀请
-                                this.$store.commit('showFirstLogin', true)
-                            } else {
-                                this.$store.commit('showFirstLogin', false)
-                            }
-                            this.$store.dispatch('getUserInfo')
-                            this.$store.commit('showRegSuccess')
-                        } else {
-                            Message({
-                                message: mailBack.message,
-                                type: 'error'
-                            })
-                        }
-                        // 清除参数
-                        this.$router.push('/lucky')
-                    }
-                    if (query.from === 'resetPassword') {
-                        // 重置密码
-                        this.$store.commit('setResetObj', {
-                            email: query.email,
-                            sign: query.sign,
-                            showReset: true
-                        })
-                        this.$store.commit('showResetPwd')
-                        // 修改密码的时候，清楚ck
-                        removeCK()
-                        this.$store.commit('setIsLog', false)
-                        this.$store.commit('setUserInfo', {})
-                    }
-                    if (query.inviter) {
-                        // 邀请
-                        this.$store.commit('setInviterObj', {
-                            inviter: query.inviter,
-                            sign: query.sign
-                        })
-                    }
-                }
-            },
             async handleRecentWin (tab) {
                 if (tab.name === 'Wins') {
                     let dataRecentWinsList = await this.$store.dispatch(aTypes.getRecentWinsList)
@@ -682,9 +636,6 @@
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav, true)
-            if (this.$store.state.route.query) {
-                this.indexRouter(this.$store.state.route.query)
-            }
             setTimeout(() => {
                 /* 订阅lucky11 sock */
                 this.$store.dispatch('subInLucky')
@@ -726,8 +677,9 @@
 
     }
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less" >
     @import "../../styles/lib-mixins.less";
+
     .worldCupClose::after{
         width: 12px;
         height: 12px;
@@ -742,10 +694,9 @@
 
     .icon-enterWorld {
         position: fixed;
-        width: 108px;
-        height: 135px;
+        width: 120px;
         top: 45%;
-        right: 0;
+        right: 17px;
         z-index: 10;
     }
 
@@ -1779,10 +1730,12 @@
             transform: translate(0,0);
         }
     }
-    .head-box{
-        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
-    }
-    .superActive .head-box{
-        background: linear-gradient(to right, #34291d, #584724, #34281a);
+    #lucky11{
+        .head-box{
+            background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+        }
+        &.superActive .head-box{
+            background: linear-gradient(to right, #34291d, #584724, #34281a);
+        }
     }
 </style>

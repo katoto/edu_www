@@ -14,7 +14,8 @@ const csDrawNum = () => import('~/pages/cs_1105/drawNumber')
 
 /* 协议 */
 const csProtocolPolicy = () => import('~/pages/cs_protocol/policy')
-const csProtocolTerms = () => import('~/pages/cs_protocol/terms')
+const csProtocolPolicy_cn = () => import('~/pages/cs_protocol/policy_cn')
+const csProtocolPolicy_tw = () => import('~/pages/cs_protocol/policy_tw')
 
 /* 个人中心 */
 const account = () => import('~/pages/cs_account/account')
@@ -88,11 +89,6 @@ let routesArr = [
                 component: luckcoinIndex
             }
         ]
-    },
-    {
-        path: '/terms',
-        name: _('terms'),
-        component: csProtocolTerms
     },
     {
         path: '/policy',
