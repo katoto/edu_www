@@ -15,6 +15,7 @@ const csDrawNum = () => import('~/pages/cs_1105/drawNumber')
 /* 协议 */
 const csProtocolPolicy = () => import('~/pages/cs_protocol/policy')
 const csProtocolPolicy_cn = () => import('~/pages/cs_protocol/policy_cn')
+const csProtocolPolicy_tw = () => import('~/pages/cs_protocol/policy_tw')
 
 /* 个人中心 */
 const account = () => import('~/pages/cs_account/account')
@@ -65,7 +66,7 @@ export default new Router({
         {
             path: '/policy_zhTw',
             name: _('policy'),
-            component: csProtocolPolicy
+            component: csProtocolPolicy_tw
         },
         {
             path: '/drawNumber',
