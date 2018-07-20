@@ -390,7 +390,7 @@
             },
             bet_limit () {
                 return this.$store.state.cs_1105.bet_limit
-            },
+            }
         },
         mounted () {
         },

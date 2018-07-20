@@ -348,6 +348,9 @@
             isLog (val) {
                 this.updateBaseAreaMsg()
             },
+            currBalance () {
+                this.updateBaseAreaMsg()
+            },
             playArea: {
                 handler () {
                     /* 总金额 */
@@ -650,15 +653,37 @@
                 }
             },
             updateBaseAreaMsg () {
-                if (this.isLog) {
-                    let blance = this.userInfo && parseFloat(this.userInfo.accounts[0].balance)
-                    if (blance <= 0.005) {
-                        this.baseAreaMsg.pickMoney = 0.0005
-                    } else if (blance < 0.05 && blance >= 0.005) {
-                        this.baseAreaMsg.pickMoney = 0.001
-                    } else if (blance >= 0.05) {
-                        this.baseAreaMsg.pickMoney = 0.01
+                if (this.isLog && this.currBalance) {
+                    let blance = this.currBalance.balance
+                    let cointype = this.currBalance.cointype.toString()
+
+                    switch (cointype) {
+                    case '1001':
+                        /* 比特币 */
+                        if (blance <= 0.0005) {
+                            this.baseAreaMsg.pickMoney = 0.00005
+                        } else if (blance < 0.005 && blance >= 0.0005) {
+                            this.baseAreaMsg.pickMoney = 0.0001
+                        } else if (blance >= 0.005) {
+                            this.baseAreaMsg.pickMoney = 0.001
+                        }
+                        ;break
+                    case '2001':
+                        /* 以太币 */
+                        if (blance <= 0.005) {
+                            this.baseAreaMsg.pickMoney = 0.0005
+                        } else if (blance < 0.05 && blance >= 0.005) {
+                            this.baseAreaMsg.pickMoney = 0.001
+                        } else if (blance >= 0.05) {
+                            this.baseAreaMsg.pickMoney = 0.01
+                        }
+                        ;break
                     }
+                    this.playArea.forEach((val, index) => {
+                        if (val.pickMoney) {
+                            val.pickMoney = this.baseAreaMsg.pickMoney
+                        }
+                    })
                 } else {
                     this.baseAreaMsg.pickMoney = 0.0005
                 }
