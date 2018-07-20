@@ -248,10 +248,6 @@ const actionsInfo = mapActions({
     formate_Result ({state, commit, dispatch}, msg) {
         /* 奖池 */
         if (msg.pools_amount) {
-            console.log(msg.pools_amount);
-            console.log(msg.pools_amount);
-            console.log(msg.pools_amount);
-            console.log(msg.pools_amount);
             commit(mTypes.setPoolAmount, msg.pools_amount)
         }
         /* 比例 */
