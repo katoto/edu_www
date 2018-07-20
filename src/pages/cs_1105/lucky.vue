@@ -717,7 +717,7 @@
             this.$store.dispatch('subOutLucky')
         },
         destroyed () {
-            window.removeEventListener('scroll', this.fixNav, false)
+            window.removeEventListener('scroll', this.fixNav, true)
         }
 
     }
