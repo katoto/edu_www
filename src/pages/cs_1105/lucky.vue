@@ -726,8 +726,9 @@
 
     }
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less" >
     @import "../../styles/lib-mixins.less";
+
     .worldCupClose::after{
         width: 12px;
         height: 12px;
@@ -1779,10 +1780,12 @@
             transform: translate(0,0);
         }
     }
-    .head-box{
-        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
-    }
-    .superActive .head-box{
-        background: linear-gradient(to right, #34291d, #584724, #34281a);
+    #lucky11{
+        .head-box{
+            background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+        }
+        &.superActive .head-box{
+            background: linear-gradient(to right, #34291d, #584724, #34281a);
+        }
     }
 </style>

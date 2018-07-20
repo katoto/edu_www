@@ -46,7 +46,7 @@
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>
                 <!-- 修改切换语言 -->
-                <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
+                <div class="language hide" :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <!--languageVal-->
                     <div class="language-choose">
                         <template v-for="item in languageOptions" v-if="item.value===languageVal">
@@ -84,14 +84,6 @@
                                 <!--<li>0.00001<i>HTC</i></li>-->
                             </ul>
                         </div>
-                        <div class="hadlogin" >
-                            <router-link :to="{path: '/account/deposit'}" class="btn-rechrage">
-                                <lang>Deposit</lang>
-                            </router-link>
-                            <router-link :to="{path: '/account/withdraw'}" class="btn-cash">
-                                <lang>Withdraw</lang>
-                            </router-link>
-                        </div>
                         <div class="mycount"  :class="{isShowMycount:isShowMycount}"  @click="headControlPop('showMycount')">
                             <div class="countNum">
                                 {{ formateEmail(userInfo.email) }}<i></i>
@@ -115,7 +107,14 @@
                                     <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
                                 </div>
                         </div>
-
+                        <div class="hadlogin" >
+                            <router-link :to="{path: '/account/deposit'}" class="btn-rechrage">
+                                <lang>Deposit</lang>
+                            </router-link>
+                            <router-link :to="{path: '/account/withdraw'}" class="btn-cash">
+                                <lang>Withdraw</lang>
+                            </router-link>
+                        </div>
                     </section>
                 </div>
 
@@ -433,22 +432,22 @@
             }
         }
         .choose-play{
+            position: relative;
+            display: table;
             float: left;
             /*overflow: hidden;*/
             height:100%;
-            display: table;
             a{
+                display: table-cell;
+                vertical-align: middle;
                 padding:0 23px;
                 font-size:16px;
                 color: #fff;
-                display: table-cell;
-                vertical-align: middle;
                 &.on,&:hover{
                     background: rgba(0,0,0,0.3);
                 }
             }
             &.icon-slot{
-                position: relative;
                 &::before{
                     content: '';
                     display: block;
@@ -581,19 +580,17 @@
         .login {
             position: relative;
             float: right;
-            margin: 0;
             text-align: center;
             .to-login{
-                display: block;
-                float: left;
                 position: relative;
-                margin-top:20px;
+                display: block;
                 overflow: hidden;
+                margin-top:20px;
                 height:28px;
-                line-height:28px;
-                padding:0 12px;
                 border-radius: 6px;
                 border:1px solid rgba(255,255,255,0.3);
+                line-height:28px;
+                padding:0 12px;
                 color: #fff;
                 &:hover {
                    background: rgba(255,255,255,0.3);
@@ -601,8 +598,8 @@
             }
             .hadlogin {
                 position: relative;
-                float: left;
-                margin:20px 0 0 0;
+                float: right;
+                margin-top:20px;
                 text-align: center;
                 overflow: hidden;
                 border-radius: 6px;
