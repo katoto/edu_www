@@ -74,21 +74,13 @@
                     </a>
                     <!-- 登录 -->
                     <section v-else>
-                        <!--选择币种,暂时不做-->
-                        <div class="choose-coin" v-if="userInfo && userInfo.accounts" :class="{isChooseCoin:isChooseCoin}" @click="headControlPop('chooseCoin')">
-                            <span class="coin" v-if="currBalance">{{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}</span>
-                            <ul>
-                                <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
-                                    @click="changeAccounts( item )"
-                                >{{ formateBalance( item.balance ) }}<i>{{ item.cointype | formateCoinType }}</i></li>
-                                <!--<li>0.00001<i>HTC</i></li>-->
-                            </ul>
-                        </div>
-                        <div class="mycount"  :class="{isShowMycount:isShowMycount}"  @click="headControlPop('showMycount')">
+                        <div class="mycount"  :class="{on:isShowMycount}"  @click="headControlPop('showMycount')">
                             <div class="countNum">
-                                {{ formateEmail(userInfo.email) }}<i></i>
+                                <span class="icon-user"></span>
+                                {{ formateEmail(userInfo.email) }} BTC
+                                <i></i>
                             </div>
-                            <div id="mycount-detailed" class="mycount-detailed ">
+                            <div class="mycount-detailed ">
                                     <div class="account-info">
                                         <div class="email js_email-account" :title="userInfo.email">
                                             {{ userInfo.email }}
@@ -98,12 +90,33 @@
                                         </div>
                                     </div>
 
-                                    <router-link :to="{path: '/account/myBets'}">
-                                        <a href="" class="my-transaction"><lang>My Bets</lang></a>
+                                    <router-link :to="{path: '/account/myBets'}"  class="my-transaction">
+                                        <lang>My Bets</lang>
                                     </router-link>
-                                    <router-link :to="{path: '/account/general'}">
-                                        <a href="" class="account-center"><lang>Account Center</lang></a>
+                                    <router-link :to="{path: '/account/general'}" class="account-center">
+                                        <lang>Account Center</lang>
                                     </router-link>
+                                    <div class="currency-select">
+                                        <p>Select Currency</p>
+                                            <ul>
+                                                <li class="on">
+                                                    <div class="currency-input"></div>
+                                                    <div class="currency-account">
+                                                        <i >ETH</i>
+                                                        <span >107.894</span>
+                                                    </div>
+                                                    <a href="javascript:;" class="address">0xD6d93A11751694c20D3E4a3e684A6C877401CBe9</a>
+                                                </li>
+                                                <li>
+                                                    <div class="currency-input"></div>
+                                                    <div class="currency-account">
+                                                        <i >BTC</i>
+                                                        <span >107.894</span>
+                                                    </div>
+                                                    <a href="javascript:;" class="address">0xD6d93A11751694c20D3E4a3e684A6C877401CBe9</a>
+                                                </li>
+                                            </ul>
+                                    </div>
                                     <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
                                 </div>
                         </div>
@@ -118,17 +131,45 @@
                     </section>
                 </div>
 
-                <!--主按钮 ( 必须是激活用户 ) light over  -1  未开始  1 已结束  -2  -->
-                <a href="javascript:;" id="js_btn-faucet" @click="showFaucet" class="btn-faucet"
-                   v-if="0 && isLog && userInfo && userInfo.status.toString() ==='1'"
-                   :class="{'over':(loginSucc && ( loginSucc.invite_status !== '0' )) || (userInfo.invite_prize_chances === '0' && userInfo.tasks.length === 0 )}"
-                    ><lang>Faucet</lang>
-                </a>
+                <!--拉新活動 on-->
+                <div class="cs-faucet">
+                    <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
+                    </a>
+                    <!--拉新活动提示-->
+                    <div class="act-sign right ">
+                        <lang>Free 0.001 ETH</lang>
+                    </div>
+                    <div class="faucet-detailed">
+                        <div class="faucet-title">
+                            Free Water
+                        </div>
+                        <ul>
+                            <li>
+                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i class="bold">2/2</i> a day</p>
+                                <a href="javascript:;" class="btn btn-green">Get</a>
+                            </li>
+                            <li>
+                                <p>Recharge 0.01 ETH and give extra free slot machines</p>
+                                <a href="javascript:;" class="btn btn-yellow">Deposit</a>
+                            </li>
+                            <li>
+                                <p>Login for 0.001 ETH for 7 consecutive days，Logged in for <i class="bold">2 / 7</i> day</p>
+                                <a href="javascript:;" class="btn btn-gray">Get</a>
+                            </li>
+                            <li>
+                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i class="bold">2/2</i> a day</p>
+                                <a href="javascript:;" class="btn btn-ok"></a>
+                            </li>
 
-                <!--拉新活动提示-->
-                <div class="act-sign right hide" v-if="!isLog">
-                    <lang>Free 0.001ETH</lang>
+                        </ul>
+                    </div>
                 </div>
+
+
+
+
+
+
             </div>
 
             <div class="jackpot" v-show="jackPotMsg">
@@ -544,7 +585,8 @@
         }
         .mycount {
             position: relative;
-            float: right;
+            float: left;
+            margin-right:20px;
             transform: translate3d(0,0,0);
             padding:20px;
             .transition();
@@ -552,9 +594,18 @@
                 position: relative;
                 cursor: pointer;
                 display: block;
-                padding-right: 25px;
+                padding:0 25px 0 40px;
                 line-height: 30px;
-                font-size: 20px;
+                font-size: 16px;
+                .icon-user{
+                    display: block;
+                    position: absolute;
+                    width: 29px;
+                    height: 30px;
+                    left: 0;
+                    top: 0;
+                    background: url(" ../assets/img/icon-user.png") no-repeat center;
+                }
                 i {
                     display: block;
                     position: absolute;
@@ -567,7 +618,7 @@
                     .transition();
                 }
             }
-            &.isShowMycount{
+            &.on{
                 i {
                     transform: rotate(180deg);
                 }
@@ -590,7 +641,7 @@
                 border-radius: 6px;
                 border:1px solid rgba(255,255,255,0.3);
                 line-height:28px;
-                padding:0 12px;
+                padding:0 20px;
                 color: #fff;
                 &:hover {
                    background: rgba(255,255,255,0.3);
@@ -610,19 +661,13 @@
                 float: left;
                 height:28px;
                 line-height:28px;
-                padding:0 12px;
+                padding:0 20px;
                 color: #fff;
                 &:hover {
                     background: rgba(255,255,255,0.3);
                 }
             }
-            .btn-rechrage{
-                /*border-top-left-radius: 6px;*/
-                /*border-bottom-left-radius: 6px;*/
-            }
             .btn-cash {
-                /*border-top-right-radius: 6px;*/
-                /*border-bottom-right-radius: 6px;*/
                 border-left:1px solid rgba(255, 255, 255, 0.3);
             }
         }
@@ -633,225 +678,228 @@
         display: none;
         position: absolute;
         z-index: 10;
-        right: 0;
-        top: 56px;
-        width: 207px;
+        right: 20px;
+        top: 60px;
+        padding:16px 16px 0;
+        width: 235px;
         border-radius: 6px;
-        overflow: hidden;
+        /*overflow: hidden;*/
         background: #fff;
-        text-align: right;
+        text-align: left;
         -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        .wallet-balance,
-        .wallet-add {
-            padding: 0 18px;
-            p {
-                height: 26px;
-                line-height: 26px;
-                overflow: hidden;
-                font-size: 12px;
-                color: #778ca3;
-            }
-        }
-        .wallet-balance {
-            margin: 16px 0 25px 0;
-            li {
-                height: 26px;
-                line-height: 26px;
-                overflow: hidden;
+        .account-info {
+            color: #263648;
+            .email {
+                line-height: 25px;
                 font-size: 16px;
                 font-weight: bold;
-                color: #263648;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
-            .unit {
-                float: right;
-            }
-            .amount {
-                margin-left: 15px;
-                float: right;
-            }
-            .btn-refresh {
-                display: block;
-                float: right;
-                margin: 8px 0 0 10px;
-                background-image: url(" ../assets/slice/icon-refresh.png");
-            }
-        }
-        .wallet-add {
-            margin: 14px auto 26px;
-            .items-add {
-                line-height: 22px;
-                .clearfix();
-                span {
-                    float: left;
-                    color: #263648;
-                }
-                a {
-                    float: right;
-                    width: 120px;
-                    color: #263648;
-                    text-decoration: none;
-                    .transition();
-                    .text-overflow();
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
+            .uid {
+                line-height: 20px;
+                font-size: 14px;
             }
         }
         .my-transaction,
         .account-center {
             display: block;
-            width: 175px;
             height: 28px;
             overflow: hidden;
             margin: 10px auto 0;
             line-height: 28px;
             text-align: center;
-            border: 1px solid #ced6e0;
+            border: 1px solid #6a89cc;
             border-radius: 6px;
+            &:hover {
+                background: #eef1f9;
+            }
+        }
+        .currency-select{
+            margin:10px 0 20px 0;
+            >p{
+                line-height:38px;
+                color: #778ca3;
+            }
+            li{
+                height:16px;
+                line-height:16px;
+                overflow: hidden;
+                .currency-input{
+                    float: left;
+                    position: relative;
+                    float: left;
+                    width:12px;
+                    height:12px;
+                    overflow: hidden;
+                    margin-right:7px;
+                    border-radius: 50%;
+                    border: 2px solid #6a89cc;
+                    cursor: pointer;
+                    &::before{
+                        content: '';
+                        display: block;
+                        width:8px;
+                        height:8px;
+                        border-radius: 50%;
+                        position: absolute;
+                        left:50%;
+                        top:50%;
+                        transform: translate(-50%,-50%);
+                        background: #fff;
+                        transition: all 0.2s;
+                    }
+                }
+                .currency-account{
+                    float: left;
+                    font-size:16px;
+                    font-weight:bold;
+                    color: #6a89cc;
+                }
+                .address{
+                    float: right;
+                    display: block;
+                    width:70px;
+                    .text-overflow();
+                    display: none;
+                }
+                &.on{
+                    .currency-input{
+                        border-color: #263648;
+                        &::before{
+                            background: #263648;
+                        }
+                    }
+                    .currency-account{
+                        color: #263648;
+                    }
+                    .address{
+                        display: block;
+                    }
+                }
+                &+li{
+                    margin-top:16px;
+                }
+            }
         }
         .log-out {
             display: block;
-            height: 30px;
             overflow: hidden;
             margin-top: 30px;
-            line-height: 30px;
+            line-height: 40px;
             text-align: center;
             border-top: 1px solid #ced6e0;
             &:hover {
                 background: #eef1f9;
             }
         }
-    }
-
-    .account-info {
-        padding: 0 16px;
-        color: #263648;
-        .email {
-            margin-top: 25px;
-            line-height: 26px;
-            font-size: 16px;
-            font-weight: bold;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .uid {
-            line-height: 26px;
-            font-size: 12px;
-        }
-    }
-
-    .choose-coin{
-        position: relative;
-        top:0;
-        float: left;
-        margin-right:13px;
-        cursor: pointer;
-        .transition();
-        .coin{
-            position: relative;
+        &::before{
+            content: '';
             display: block;
-            line-height:24px;
-            padding:23px 32px 23px 12px;
-            color: #fd9644;
+            position: absolute;
+            right:34px;
+            top:-9px;
+            width:18px;
+            height:10px;
+            overflow: hidden;
+            background: url("../assets/img/icon-tri.png") no-repeat center;
+            background-size: cover;
+        }
+    }
+    /*20180720 newAct 拉新活动*/
+    .cs-faucet{
+        position: relative;
+        float: right;
+        margin:21px 32px 0 0;
+        .btn-faucet{
+            display: block;
+            width:19px;
+            height:26px;
+            overflow: hidden;
+            background: url("../assets/img/icon-water.png") no-repeat center;
+        }
+        .act-sign{
+            top: 3px;
+            right: 33px;
+            animation: actMove 5s 2s infinite;
+            min-width:100px;
+        }
+        .faucet-detailed{
+            display: none;
+            position: absolute;
+            top:37px;
+            right:-34px;
+            padding:10px 20px 54px;
+            width:455px;
+            background: #fff;
+            border-radius: 6px;
+            color: #263648;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             &::before{
                 content: '';
                 display: block;
-                margin-right:12px;
-                float: left;
-                background: url("../assets/slice/icon-wallet.png");
-                width:22px;
-                height:24px;
-            }
-            &::after{
-                content: '';
-                display: block;
                 position: absolute;
-                right:10px;
-                top:30px;
-                background: url("../assets/slice/arrow-down-fff.png");
-                width:13px;
-                height:8px;
-                transition: all 0.2s;
+                right: 34px;
+                top: -9px;
+                width: 18px;
+                height: 10px;
+                overflow: hidden;
+                background: url('../assets/img/icon-tri.png') no-repeat center;
+                background-size: cover;
             }
-            &:hover{
-                background: rgba(0,0,0,0.3);
-            }
-        }
-        ul{
-            display: none;
-            position: absolute;
-            left:0;
-            top:66px;
-            width:100%;
-            overflow: hidden;
-            box-sizing: border-box;
-            background: #fff;
-            color: #6a89cc;
-            text-align: right;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
-            li{
-                line-height:34px;
-                border-top:1px solid #778ca3;
-                padding: 0 32px 0 10px;
-                i{
-                    display: inline-block;
-                    width:34px;
-                }
-                &:hover{
-                    background: #eef1f9;
-                }
-            }
-            li.on{
+            .faucet-title{
+                line-height:68px;
+                font-size:24px;
                 font-weight:bold;
-                color: #ff8321;
-                &:before{
-                    content: '';
+                text-align: center;
+                border-bottom:1px solid #ced6e0;
+            }
+            li{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                overflow: hidden;
+                border-bottom:1px solid #ced6e0;
+                padding:14px 0;
+                p{
+                    width:295px;
+                    line-height:20px;
+                }
+                .btn{
                     display: block;
-                    position: absolute;
-                    top:10px;
-                    left:15px;
-                    width:16px;
-                    height:12px;
-                    background: url(../assets/slice/icon-hook.png) no-repeat center;
-                    background-size: cover;
+                    width:83px;
+                    height:35px;
+                    overflow: hidden;
+                    text-align: center;
+                    line-height:35px;
+                    border-radius:6px;
+                    font-size:16px;
+                    color: #fff;
+                    transition: all 0.2s;
+                    &.btn-green{
+                        background: #20bf6b;
+                    }
+                    &.btn-yellow{
+                        background: #fd9644;
+                    }
+                    &.btn-gray{
+                        background: #ced6e0;
+                    }
+                    &.btn-ok{
+                        cursor: default;
+                        background: url("../assets/img/btn-waterok.png") no-repeat center;
+                    }
+                    &:not(.btn-ok):hover{
+                        filter: brightness(1.1);
+                    }
                 }
             }
         }
-        &.isChooseCoin{
-            .coin{
-                &::after{
-                    transform: rotate(180deg);
-                }
-            }
-            ul{
+        &.on{
+            .faucet-detailed{
                 display: block;
             }
-        }
-
-    }
-
-    /*2180514 newAct 拉新活动*/
-    .btn-faucet{
-        display: block;
-        display: none;
-        /*等待*/
-        float: right;
-        margin:22.5px 40px 0 0;
-        width:18px;
-        height:25px;
-        overflow: hidden;
-        background: url("../assets/slice/icon-water.png") no-repeat center;
-        &:hover{
-            background: url("../assets/slice/icon-water-hover.png") no-repeat center;
-        }
-        &.over{
-            background: url("../assets/slice/icon-water-gray.png") no-repeat center;
-        }
-        &.light{
-            background: url("../assets/slice/icon-water-hign.png") no-repeat center;
         }
     }
 
@@ -1008,11 +1056,7 @@
     }
 
 
-    .act-sign{
-        top: 25px;
-        right: 210px;
-        animation: actMove 5s 2s infinite;
-    }
+
     @keyframes actMove {
         0%,12%,16%,20%,100%{
             transform: translateX(0);
@@ -1248,19 +1292,11 @@
                 padding:17px 10px 0;
                 border-left:1px solid rgba(51,26,64,0.3);
                 border-right:1px solid rgba(51,26,64,0.3);
-                &::before{
-                    content: '';
-                    display: block;
-                    background: url("../assets/slice/icon-user.png");
-                    background-size: cover;
-                    width:19px;
-                    height:19px;
-                    margin:0 auto;
-                    opacity:0.6;
-                    transition: all 0.2s;
-                }
                 .countNum{
-                    display: none;
+                   .hide-text();
+                    i{
+                        display: none;
+                    }
                 }
                 &:hover,&.isShowMycount{
                     background: rgba(0,0,0,0.5);
@@ -1319,45 +1355,6 @@
         .act-sign{
             display: none;
         }
-        .choose-coin{
-            top:0;
-            margin-right: 0;
-            height:50px;
-            .coin{
-                padding:17px 15px 0;
-                font-size:0;
-                text-indent:-999999px;
-                &:before{
-                    margin-right: 0;
-                    width:17px;
-                    height:19px;
-                    background-size: cover;
-                }
-                &:after{
-                    content: '';
-                    display: none;
-                }
-            }
-            &:hover,&.isChooseCoin{
-                background: rgba(0,0,0,0.5);
-                .coin{
-                    &:before{
-                        filter: grayscale(0);
-                    }
-                }
-            }
-            ul{
-                top:44px;
-                width:167px;
-                z-index:3;
-                right:0;
-                left:auto;
-                border-radius: 6px;
-                li:first-child{
-                    border-top:none;
-                }
-            }
-        }
         .mycount-detailed{
             top:44px;
         }
@@ -1365,11 +1362,11 @@
             box-sizing: border-box;
             width:50px;
         }
-
-
+        .cs-faucet{
+            margin: 12px 20px 0 0;
+        }
     }
     @media (max-width: @screen-phone) { }
-
     @media(min-width: @screen-tablet){
         .mycount,.choose-coin .coin ,.language{
             &:hover{
