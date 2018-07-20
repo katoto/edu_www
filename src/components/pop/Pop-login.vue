@@ -15,9 +15,7 @@
                 <div class="sure-old">
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
-                        <lang>I'm 18+ years old and agree</lang>
-                        <!-- with <a href="terms.html" target="_blank">Terms of use</a>
-                    and <a href="policy.html" target="_blank">Privacy policy</a>-->
+                        <lang>I'm 18+ years old and agree with</lang><a style="cursor: pointer" @click="jump2Page"><lang>Privacy policy</lang></a>
                     </p>
                 </div>
                 <!--no-->
@@ -61,6 +59,22 @@
         },
         components: {Pop},
         methods: {
+            jump2Page (lan = 'en') {
+                if (this.language) {
+                    lan = this.language
+                }
+                switch (lan) {
+                case 'en':
+                    this.$router.push('/policy')
+                    break
+                case 'zhCn':
+                    this.$router.push('/policy_zhCn')
+                    break
+                case 'zhTw':
+                    this.$router.push('/policy_zhTw')
+                    break
+                }
+            },
             async submitLogin () {
                 // 判断邮箱
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
@@ -119,6 +133,9 @@
             }
         },
         computed: {
+            language () {
+                return this.$store.state.language
+            },
             show: {
                 set: function (isShow) {
                     if (!!isShow === true) {

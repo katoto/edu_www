@@ -45,6 +45,9 @@ module.exports = {
     'telegram:': '電報群:',
     'Sign Up': '注冊',
     'Access Error': '地區受限',
+    'About Us': '關於我們',
+    'Privacy Policy': '用戶協議',
+
     'You are not in our service area for more info': '我們無法向您所在地區的用戶提供服務',
     'please contact us support@coinslot.com': '請聯繫我們 support@coinslot.com',
     'Telegram: @CoinslotOffice': '電報群: @CoinslotOffice',
@@ -67,7 +70,8 @@ module.exports = {
     'limit number': '限號',
     'limit error': '限號有誤',
     'Sign In': '登錄',
-    "I'm 18+ years old and agree": '我已年滿18周歲',
+    "I'm 18+ years old and agree with": '我已年滿18周歲',
+    'Privacy policy': '用戶協議',
     'Forgot your password?': '忘記密碼?',
     'Import Wallet': '導入錢包',
     'Email Verification': '郵箱認證',
@@ -356,7 +360,6 @@ module.exports = {
     'Slot': '老虎機',
     'SlotMachine': '老虎機',
     'Copy the Ethereum wallet address': '負制錢包地址',
-    'only supports ETH': '當前仅有支持ETH',
-
+    'only supports ETH': '當前仅有支持ETH'
 
 }
