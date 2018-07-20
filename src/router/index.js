@@ -34,90 +34,92 @@ const oneToken = () => import('~/pages/cs_oneToken/oneToken')
 // 404  history
 const page404 = () => import('~/pages/404.vue')
 
+let routesArr = [
+    {
+        path: '/lucky11',
+        name: 'lucky11',
+        component: lucky11
+    },
+    {
+        path: '/slot',
+        name: 'slot',
+        component: slot
+    },
+    {
+        path: '/oneToken',
+        name: 'oneToken',
+        component: oneToken
+    },
+    {
+        path: '/policy',
+        name: _('policy'),
+        component: csProtocolPolicy
+    },
+    {
+        path: '/policy_zhCn',
+        name: _('policy'),
+        component: csProtocolPolicy_cn
+    },
+    {
+        path: '/policy_zhTw',
+        name: _('policy'),
+        component: csProtocolPolicy_tw
+    },
+    {
+        path: '/drawNumber',
+        name: _('Draw Number'),
+        component: csDrawNum
+    },
+    {
+        path: '/404',
+        component: page404,
+        hidden: true
+    },
+    {
+        path: '/account',
+        component: account,
+        children: [
+            {
+                path: 'general',
+                name: _('General'),
+                component: General
+            },
+            {
+                path: 'deposit',
+                name: _('Deposit'),
+                component: Deposit
+            },
+            {
+                path: 'myBets',
+                name: _('MyBets'),
+                component: MyBets
+            },
+            {
+                path: 'myTransactions',
+                name: _('MyTransactions'),
+                component: MyTransactions
+            },
+            {
+                path: 'withdraw',
+                name: _('Withdraw'),
+                component: Withdraw
+            },
+            {
+                path: '/',
+                redirect: '/account/general'
+            }
+        ]
+    },
+    {
+        path: '/*',
+        redirect: '/lucky11'
+    }
+]
+
 //     linkActiveClass: 'on',
 export default new Router({
     mode: 'history',
-    routes: [
-        {
-            path: '/lucky11',
-            name: 'lucky11',
-            component: lucky11
-        },
-        {
-            path: '/slot',
-            name: 'slot',
-            component: slot
-        },
-        {
-            path: '/oneToken',
-            name: 'oneToken',
-            component: oneToken
-        },
-        {
-            path: '/policy',
-            name: _('policy'),
-            component: csProtocolPolicy
-        },
-        {
-            path: '/policy_zhCn',
-            name: _('policy'),
-            component: csProtocolPolicy_cn
-        },
-        {
-            path: '/policy_zhTw',
-            name: _('policy'),
-            component: csProtocolPolicy_tw
-        },
-        {
-            path: '/drawNumber',
-            name: _('Draw Number'),
-            component: csDrawNum
-        },
-        {
-            path: '/404',
-            component: page404,
-            hidden: true
-        },
-        {
-            path: '/account',
-            component: account,
-            children: [
-                {
-                    path: 'general',
-                    name: _('General'),
-                    component: General
-                },
-                {
-                    path: 'deposit',
-                    name: _('Deposit'),
-                    component: Deposit
-                },
-                {
-                    path: 'myBets',
-                    name: _('MyBets'),
-                    component: MyBets
-                },
-                {
-                    path: 'myTransactions',
-                    name: _('MyTransactions'),
-                    component: MyTransactions
-                },
-                {
-                    path: 'withdraw',
-                    name: _('Withdraw'),
-                    component: Withdraw
-                },
-                {
-                    path: '/',
-                    redirect: '/account/general'
-                }
-            ]
-        },
-        {
-            path: '/*',
-            redirect: '/lucky11'
-        }
-    ]
+    routes: routesArr
 })
 
 if (location.search) {
