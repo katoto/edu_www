@@ -20,7 +20,7 @@
                                     {{ formateSlotBalance( prizes_pool ) }}
                                 </i>
                                 <span>
-                                    ETH
+                                    {{ formateCoinType( currBalance.cointype ) }}
                                 </span>
                             </div>
                             <div class="jackpot-win">
@@ -35,7 +35,7 @@
                                     <template v-else>
                                         {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
                                     </template>
-                                        <!--{{ formateCoinType( currCoinType ) }}-->
+
                                     </span>
                                 </p>
                                 <!--<span>-->
@@ -192,7 +192,7 @@
                         <div class="msg" >
                             <p v-if="playBack && playBack.isdouble==='0'">{{ formateSlotBalance( playBack.line_prizes ) }}</p>
                             <p v-if="playBack && playBack.isdouble==='1'">{{ formateSlotBalance( playBack.line_prizes / 2 ) }}</p>
-                            <i>{{ formateCoinType( currCoinType ) }}</i>
+                            <i>{{ formateCoinType( currBalance.cointype ) }}</i>
                         </div>
                     </div>
                     <!--大奖 winDouble -->
@@ -217,7 +217,7 @@
                                         </p>
                                     </template>
                                     <i>
-                                        {{ formateCoinType( currCoinType ) }}
+                                        {{ formateCoinType( currBalance.cointype ) }}
                                     </i>
                                 </div>
                                  <!--todo 奖池倍数 暂时隐藏-->
@@ -515,7 +515,6 @@
                 auto_run: 10,
                 currRun: 0,
                 isAutoPlay: false, // 按钮双击样式
-                currBalance: 0,
                 winRadioObj: {
                 }, // 显示大奖用的
                 winRadioHtml: '', // 处理成展示结构html
@@ -994,7 +993,7 @@
             },
             reduceMoney () {
                 if (this.userInfo && this.userInfo.accounts) {
-                    if (this.currCoinType.toString() === '2001') {
+                    if (this.currBalance.cointype.toString() === '2001') {
                         this.userInfo.accounts[0].balance = Math.abs(parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
                         this.$store.commit('setUserInfo', this.userInfo)
                     }
@@ -1090,9 +1089,6 @@
             language () {
                 return this.$store.state.language
             },
-            currCoinType () {
-                return this.$store.state.currCoinType
-            },
             last_prizes () {
                 return this.$store.state.cs_tiger.last_prizes
             },
@@ -1107,6 +1103,9 @@
             },
             userInfo () {
                 return this.$store.state.userInfo
+            },
+            currBalance () {
+                return this.$store.state.currBalance
             }
         },
         components: {

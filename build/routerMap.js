@@ -3,7 +3,7 @@ const fs = require('fs')
 
 let routeJson = null
 let reg = /let routesArr = (\[.*?\])/gi
-let rmComponentReg = /component:}/gi
+let rmComponentReg = /component.*?[^}]/gi
 
 // let reg = /let routesArr = (\[.*?\])/gi
 
@@ -12,9 +12,10 @@ fs.readFile('../src/router/index.js','utf-8',(err, data)=>{
     let currRout = null
     routeJson = reg.exec(newData)[0]
     console.log(routeJson)
-    routeJson.replace(rmComponentReg,' ')
+    routeJson = routeJson.replace(rmComponentReg,' ')
     console.log('==========')
-    console.log( routeJson )
+    console.log(routeJson);
+    // console.log( JSON.parse(routeJson) )
     console.log('==========')
 })
 
