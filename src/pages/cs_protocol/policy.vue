@@ -258,6 +258,9 @@
                 <p>
                     Once the behaviors above of Users are detected by Coinslot operator through internal monitoring programs or reported by other Users, the Coinslot operator reserves the right to  make judgments and take corresponding measures at its sole discretion, including but is not limited to restricting account login and activities on the Platform, terminate the authorization of the account, freezing all balance in the account, deducting the account balance to offset users’ debts on Platform or compensate for the loss of Coinslot team, freezing the account and requesting the compensation to Coinslot.
                 </p>
+                <h2>
+                    5. Interruption and Ceasing of Services
+                </h2>
                 <p>
                     Downtime maintenance will be implemented from time to time in order to operate the system properly. Therefore, service interruption or ceasing caused by this kind of situation should be understood by Users. The Coinslot operator is obliged to do its best not to frequently implement maintenance, or if necessary, shorten the time for the maintenance;
                 </p>
