@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
         <div class=" container">
-            <div class="reserved col-md-6">
+            <div class="reserved col-md-5">
                 <div class="title">
                     <lang>©Coinslot 2018.  All Rights Reserved</lang>
                 </div>
@@ -9,7 +9,7 @@
                     <lang>Lucky 11 is a decentralized lottery product based on distributed ledger technology. Players can pick 1-5 numbers from 1 to 11 and submit it to the Ethereum. One draw per minute, let's start to win the prize!</lang>
                 </p>
             </div>
-            <div class="contact col-md-6">
+            <div class="contact col-md-4">
                 <div class="title">
                     <lang>Contact Us</lang>
                 </div>
@@ -26,13 +26,13 @@
                     <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
                 </p>
             </div>
-            <div class="fr about hide">
+            <div class="about col-md-3">
                 <div class="title">
-                    About Us
+                    <lang>About Us</lang>
                 </div>
-                <a href="javascript:;">Terms of Use </a>
-                <a href="javascript:;">Privacy Policy</a>
-                <a href="javascript:;">How to Play</a>
+                <a href="javascript:;" class="hide"><lang>Terms of Use</lang></a>
+                <a href="javascript:;" @click="jump2Page"><lang>Privacy Policy</lang></a>
+                <a href="javascript:;" class="hide">How to Play</a>
             </div>
         </div>
     </div>
@@ -47,11 +47,33 @@
         methods: {
             scroll () {
                 window.scrollTo(0, 0)
+            },
+            jump2Page (lan = 'en') {
+                if (this.language) {
+                    lan = this.language
+                }
+                switch (lan) {
+                case 'en':
+                    this.$router.push('/policy')
+                    break
+                case 'zhCn':
+                    this.$router.push('/policy_zhCn')
+                    break
+                case 'zhTw':
+                    this.$router.push('/policy_zhTw')
+                    break
+                }
             }
         },
-        computed: {},
+        computed: {
+            language () {
+                return this.$store.state.language
+            }
+        },
         mounted () {
-
+            if (~window.location.href.indexOf('policy')) {
+                this.jump2Page()
+            }
         }
     }
 </script>
