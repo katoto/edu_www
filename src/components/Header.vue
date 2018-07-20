@@ -84,7 +84,7 @@
                                 <lang>Withdraw</lang>
                             </router-link>
                         </div>
-                        <div class="mycount isShowMycount"  :class="{isShowMycount:isShowMycount}"  @click="headControlPop('showMycount')">
+                        <div class="mycount"  :class="{isShowMycount:isShowMycount}"  @click="headControlPop('showMycount')">
                             <div class="countNum">
                                 {{ formateEmail(userInfo.email) }}<i></i>
                             </div>

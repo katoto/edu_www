@@ -110,24 +110,22 @@
                                     <td>
                                         <lang>Super5</lang>
                                     </td>
-                                    <td>
-                                        <div class="reward-tip-box">
-                                            <p class="reward-pick-five-title">
-                                                <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
-                                            </p>
-                                        </div>
+                                    <td class="reward-tip-box">
+                                        <p class="reward-pick-five-title">
+                                            <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
+                                        </p>
+                                        <p class="reward-table-tip">
+                                            <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
+                                        </p>
+                                        <p class="reward-table-tip">
+                                            <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
+                                        </p>
+                                        <p class="reward-table-tip">
+                                            <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
+                                        </p>
+                                        <p class="reward-table-tip">
+                                            <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
+                                        </p>
                                     </td>
                                     <td>
                                         <i class="bold">
@@ -164,18 +162,18 @@
             <span><lang>Bet</lang></span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
-                <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney" value="0.0005"
-                       placeholder="0.0005">
+                <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney"
+                       :placeholder="min_limit" >
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
-            <span>ETH</span>
+            <span>{{ currBalance.cointype | formateCoinType }}</span>
             <div class="winning" v-if="areaMsg.pickType !== '5J'">
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;ETH</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
             </div>
             <div class="winning" v-else>
                 <!-- 奖池 -->
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;ETH</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
                     {{ _('including C5: {0}ETH; jackpot {1} ETH', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)), formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio)) }}
                 </i>
@@ -197,7 +195,7 @@
 </template>
 
 <script>
-    import {randomNumber, formateBalance, formateJackPot} from '~common/util'
+    import {randomNumber, formateBalance, formateJackPot, formateCoinType} from '~common/util'
     import {Message} from 'element-ui'
 
     export default {
@@ -215,6 +213,7 @@
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
         watch: {
             currBalance (balance) {
+                /* 切换金额变化对应的选项 */
                 if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype) {
                     this.min_limit = this.bet_limit[balance.cointype].min_limit
                     this.max_limit = this.bet_limit[balance.cointype].max_limit
@@ -396,7 +395,8 @@
         },
         filters: {
             formateBalance,
-            formateJackPot
+            formateJackPot,
+            formateCoinType
         }
     }
 </script>

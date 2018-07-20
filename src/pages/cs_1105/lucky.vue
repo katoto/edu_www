@@ -335,7 +335,7 @@
                 baseAreaMsg: {
                     pickType: '1', // 玩法类型1,2,3,4,5,5J
                     pickNum: [],
-                    pickMoney: 0.0001,
+                    pickMoney: 0.0005,
                     pickJackPot: [] // 奖池用
                 },
                 playArea: [], // 玩法区 数组,
