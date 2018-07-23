@@ -130,10 +130,10 @@
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                     </a>
                     <!--拉新活动提示-->
-                    <div class="act-sign right ">
+                    <div class="act-sign right" :class="{'hide':isLog}">
                         <lang>Free 0.001 ETH</lang>
                     </div>
-                    <div class="faucet-detailed">
+                    <div class="faucet-detailed" :class="{'show':freeWaterPop}">
                         <div class="faucet-title">
                             Free Water
                         </div>
@@ -165,7 +165,7 @@
                     <el-carousel :interval="5000" arrow="never" height="72px">
                         <el-carousel-item v-for="(item,index) in jackPotMsg" :key="index"  v-if="item">
                             <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
-                            <span class="jackpot-money">{{ _('Win {0}ETH', formateBalance (  item.prize ) || '') }}</span>
+                            <span class="jackpot-money">{{ _('Win {0} {1}', formateBalance (  item.prize ) || '') ,  formateBalance (  item.cointype ) }}</span>
                         </el-carousel-item>
                     </el-carousel>
                 </div>
@@ -186,9 +186,6 @@
                         </a>
                         <div class="bottom">
                             <lang>Invite friends to earn more free ETH.</lang>
-                            <a href="javascript:;" @click="showFaucet" class="bold js_invite">
-                                <lang>Earn now</lang>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -210,8 +207,8 @@
         components: {PopList},
         data () {
             return {
+                freeWaterPop: false, // new水龙头
                 showDetail: false,
-                showInviteSuccFlag: false,
                 slideDown: false,
                 languageOptions: [{
                     value: 'en',
@@ -263,6 +260,7 @@
             userInfo () {
                 return this.$store.state.userInfo
             },
+
             languageVal: {
                 set (val) {
                     this.$store.commit('changeLanguage', val)
@@ -323,6 +321,8 @@
                 this.$store.commit('setLoginSucc', null)
             },
             async showFaucet () {
+                /* free water */
+                this.freeWaterPop = !this.freeWaterPop
             },
             showDetailFn () {
                 this.showDetail = true

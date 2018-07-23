@@ -526,6 +526,14 @@
             //         // this.setLacal()
             //     }
             // }
+            updataPools (msg) {
+                console.log(msg)
+                console.log('============')
+            },
+            currBalance () {
+                /* 切换币种 */
+                this.changePageState()
+            },
             isLog (val) {
                 /* 切换登陆态之后改变状态 */
                 this.changePageState()
@@ -1072,7 +1080,7 @@
             },
             async changePageState () {
                 /* 登陆登出修改页面状态 */
-                let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
+                let slotsHome = await this.$store.dispatch(aTypes.slotsHome, this.currBalance.cointype)
                 if (slotsHome) {
                     /* 基础结构数据 */
                     this.initPage(slotsHome, true)
@@ -1105,6 +1113,9 @@
             },
             currBalance () {
                 return this.$store.state.currBalance
+            },
+            updataPools () {
+                return this.$store.state.cs_tiger.updataPools
             }
         },
         components: {
