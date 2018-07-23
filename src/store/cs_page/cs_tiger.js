@@ -26,6 +26,7 @@ const mutationsInfo = mapMutations({
         state.jackPotMsg = data
     },
     setupdataPools (state, data) {
+        /* 2002 推送的多币种 */
         state.updataPools = data
     }
 
@@ -55,8 +56,6 @@ const actionsInfo = mapActions({
                 prizes_pool: data.prizes_pool
             })
             commit(mTypes.setupdataPools, updataPools)
-            console.log(updataPools)
-            console.log(updataPools)
             // 对象
             await wait(5000)
             if (state.recentList.length > 6) {

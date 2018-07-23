@@ -92,7 +92,7 @@
                                         {{ dft_bet }}
                                     </div>
                                     <div class="single-unit">
-                                        ETH
+                                        {{ formateCoinType(currBalance.cointype) }}
                                     </div>
                                 </div>
                                 <p class="msg ">
@@ -106,7 +106,7 @@
                                             {{ item.bet }}
                                         </div>
                                         <div class="single-unit">
-                                            ETH
+                                            {{ formateCoinType(currBalance.cointype) }}
                                         </div>
                                     </li>
                                     <!--<li>-->
@@ -128,7 +128,7 @@
                                         {{ formateSlotBalance ( parseFloat(dft_bet) * parseFloat(dft_line) )}}
                                     </div>
                                     <div class="all-unit">
-                                        ETH
+                                        {{ formateCoinType(currBalance.cointype) }}
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                         </div>
                         <!--  上次赢取  -->
                         <div class="lastwin " v-if="last_prizes">
-                            <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} ETH
+                            <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} {{ formateCoinType(currBalance.cointype) }}
                         </div>
                         <!--主按钮-->
                         <a href="javascript:;" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
@@ -527,8 +527,9 @@
             //     }
             // }
             updataPools (msg) {
-                console.log(msg)
-                console.log('============')
+                if (msg && this.currBalance.cointype.toString() === msg.cointype) {
+                    this.$store.commit(mTypes.prizes_pool, msg.prizes_pool)
+                }
             },
             currBalance () {
                 /* 切换币种 */
@@ -715,8 +716,8 @@
                     return false
                 }
                 /* 余额是否充足 */
-                if (this.userInfo && this.userInfo.accounts[0]) {
-                    if ((parseFloat(this.userInfo.accounts[0].balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
+                if (this.currBalance && this.currBalance.balance) {
+                    if ((parseFloat(this.currBalance.balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                         /* 显示余额不足 */
                         this.showRecharge = true
                         return false
@@ -726,7 +727,7 @@
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
-                    cointype: 2001
+                    cointype: this.currBalance.cointype
                 }
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 // this.stateInit()
@@ -1000,8 +1001,14 @@
             },
             reduceMoney () {
                 if (this.userInfo && this.userInfo.accounts) {
+                    let findIndex = 0
+                    this.userInfo.accounts.forEach((val, index) => {
+                        if (val.cointype === this.currBalance.cointype) {
+                            findIndex = index
+                        }
+                    })
                     if (this.currBalance.cointype.toString() === '2001') {
-                        this.userInfo.accounts[0].balance = Math.abs(parseFloat(this.userInfo.accounts[0].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
+                        this.userInfo.accounts[findIndex].balance = Math.abs(parseFloat(this.userInfo.accounts[findIndex].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
                         this.$store.commit('setUserInfo', this.userInfo)
                     }
                 }

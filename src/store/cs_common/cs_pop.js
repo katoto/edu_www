@@ -41,7 +41,7 @@ const state = {
             invite_status: '0',
             invite_prize_chances: 2,
             tasks: []
-        },
+        }
 
     }
 }
@@ -286,9 +286,7 @@ const actions = {
                 }, tipsTime)
             }
         }
-    },
-
-
+    }
 
 }
 
