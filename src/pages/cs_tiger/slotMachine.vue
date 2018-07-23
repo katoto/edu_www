@@ -152,7 +152,7 @@
                             <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} {{ formateCoinType(currBalance.cointype) }}
                         </div>
                         <!--主按钮-->
-                        <a href="javascript:;" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
+                        <a href="javascript:;" id="controlShowMsg" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
                             <template v-if="hideBarLycky">
                                 <!--自动-->

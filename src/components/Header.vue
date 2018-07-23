@@ -92,8 +92,7 @@
                                     <p>Select Currency</p>
                                     <ul>
                                         <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
-                                            @click="changeAccounts( item )"
-                                        >
+                                            @click="changeAccounts( item )" >
                                             <div class="currency-input"></div>
                                             <div class="currency-account">
                                                 <i >{{ item.cointype | formateCoinType }}</i>
@@ -277,6 +276,12 @@
                 this.$store.commit('changeLanguage', val)
             },
             headControlPop (tab = 'showChoose') {
+                let controlShowMsgDom = document.getElementById('controlShowMsg')
+                if (controlShowMsgDom) {
+                    if (~controlShowMsgDom.className.indexOf('disable')) {
+                        return false
+                    }
+                }
                 switch (tab) {
                 case 'showChoose':
                     this.isShowLanguage = false
