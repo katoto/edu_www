@@ -26,7 +26,13 @@
             <div class="fr-box" v-if="currBalance">
                 <div class="item2-1">
                     <a href="javascript:;" class="address">{{ currBalance.address }}</a>
-                    <a href="javascript:;" class="btn-Copy">Copy</a>
+                    <a href="javascript:;"
+                       v-clipboard:copy="currBalance.address"
+                       v-clipboard:success="copySucc"
+                       v-clipboard:error="copyError"
+                       class="btn-Copy ">
+                        <lang>Copy</lang>
+                    </a>
                 </div>
                 <p class="item2-2">
                     Tip: This address only supports ETH recharge, do not choose the wrong currency
