@@ -12,20 +12,20 @@
             </div>
             <div class="fr-box">
                 <el-select v-model="tranOptionVal" @change="handleStatusChange">
-                    <el-option v-for="item in tranOptions" :key="item.value" :label="item.label" :value="item.value">
+                    <el-option v-for="item in this.userInfo.accounts" :key="item.cointype" :label="formateCoinType(item.cointype)" :value="item">
                     </el-option>
                 </el-select>
                 Current balance
-                <i class="bold">{{ currBalance.balance }}</i> {{ currBalance.cointype }}
+                <i class="bold">{{ formateBalance(currBalance.balance) }}</i> {{ formateCoinType(currBalance.cointype) }}
             </div>
         </div>
         <div class="item2 clearfix">
             <div class="fl150">
                 copy Link
             </div>
-            <div class="fr-box">
+            <div class="fr-box" userInfo>
                 <div class="item2-1">
-                    <a href="javascript:;" class="address">C1FEK7gfZaaKm48Y1N8Y8Gm81PhmiB8q</a>
+                    <a href="javascript:;" class="address"></a>
                     <a href="javascript:;" class="btn-Copy">Copy</a>
                 </div>
                 <p class="item2-2">
@@ -78,12 +78,20 @@ import { copySucc, copyError, formateBalance, formateCoinType } from '~common/ut
 
 export default {
     data () {
-        return {}
+        return {
+            tranOptionVal: null
+        }
     },
     watch: {},
     methods: {
         formateBalance,
         formateCoinType,
+        handleStatusChange (val) {
+            if (val) {
+                this.tranOptionVal = this.formateCoinType(val.cointype)
+                this.$store.commit('setCurrBalance', val)
+            }
+        },
         goVerify () {
             /* 应该是一个新的 验证邮箱的界面 */
             this.$store.commit('showNoVerify')
@@ -106,6 +114,7 @@ export default {
         if (!this.isLog) {
             this.$router.push('/home')
         }
+        this.tranOptionVal = this.formateCoinType(this.currBalance.cointype)
     },
     filters: {
         formateCoinType: (type = '2001') => {

@@ -23,30 +23,30 @@
 </template>
 
 <script>
-import Vue from "vue";
-import Header from "~components/Header.vue";
-import Footer from "~components/Footer.vue";
-import BreadCrumbs from "~/components/BreadCrumbs.vue";
+import Vue from 'vue'
+import Header from '~components/Header.vue'
+import Footer from '~components/Footer.vue'
+import BreadCrumbs from '~/components/BreadCrumbs.vue'
 
-import vueClipboard from "vue-clipboard2";
-Vue.use(vueClipboard);
+import vueClipboard from 'vue-clipboard2'
+Vue.use(vueClipboard)
 
 export default {
-    data() {
+    data () {
         return {
             lists: [
-                { msg: _("General"), link: "/account/general" },
-                { msg: _("My Bets"), link: "/account/myBets" },
-                { msg: _("My Transactions"), link: "/account/myTransactions" },
-                { msg: _("Deposit"), link: "/account/deposit" },
-                { msg: _("Withdraw"), link: "/account/withdraw" }
+                { msg: _('General'), link: '/account/general' },
+                { msg: _('My Bets'), link: '/account/myBets' },
+                { msg: _('My Transactions'), link: '/account/myTransactions' },
+                { msg: _('Deposit'), link: '/account/deposit' },
+                { msg: _('Withdraw'), link: '/account/withdraw' }
             ]
-        };
+        }
     },
     watch: {},
     computed: {
-        isLog() {
-            return this.$store.state.isLog;
+        isLog () {
+            return this.$store.state.isLog
         }
     },
     methods: {},
@@ -55,9 +55,9 @@ export default {
         Header,
         BreadCrumbs
     },
-    mounted() {},
-    destroyed() {}
-};
+    mounted () {},
+    destroyed () {}
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 @import "../../styles/lib-mixins.less";
