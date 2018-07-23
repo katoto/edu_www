@@ -140,7 +140,7 @@
             },
             currBalance () {
                 return this.$store.state.currBalance
-            },
+            }
         },
         async mounted () {
             this.getHistoryDraw()
