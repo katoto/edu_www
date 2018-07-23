@@ -50,7 +50,7 @@
                     <a href="javascript:;" class="hide">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
-                <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
+                <div class="language hide" :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <!--languageVal-->
                     <div class="language-choose">
                         <template v-for="item in languageOptions" v-if="item.value===languageVal">
@@ -89,7 +89,8 @@
                                         {{ userInfo.email }}
                                     </div>
                                     <div class="uid">
-                                        <lang>UserID</lang>:
+                                        <lang>UserID</lang>
+                                        :
                                         <i class="js_user_uid">{{ userInfo.uid }}</i>
                                     </div>
                                 </div>
@@ -190,7 +191,7 @@
 
             <!--浮层 -->
             <!--第一次登陆 js_firstLogin    -->
-            <section v-if="0 && (loginSucc || showFirstLogin)&&isLog">
+            <section v-if="0 && (loginSucc || showFirstLogin)&& isLog">
                 <div class="tips-newAct tips-newAct2" :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
                     <div class="msg">
                         <p>
@@ -210,7 +211,7 @@
             </section>
             <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
             <!--  user/info 里还有问题  已经邀请 -->
-            <section v-if="0 && loginSucc&&isLog&&showEndFaucet">
+            <section v-if="0 && loginSucc&& isLog&& showEndFaucet">
                 <div class="tips-newAct" :class="{'hide':!( loginSucc.invite_status != '0'||( loginSucc.invite_prize_chances == '0' && loginSucc.tasks.length == 0 ))}">
                     <div class="msg">
                         <p v-if="loginSucc.invite_status==='-1'">
@@ -250,14 +251,14 @@
 </template>
 
 <script>
-import PopList from "~components/Pop-list";
-import { mTypes, aTypes } from "~/store/cs_page/cs_1105";
-import { formateBalance, formateCoinType, formateEmail } from "~common/util";
-import startCanvas from "~/common/canvas";
+import PopList from '~components/Pop-list'
+import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
+import { formateBalance, formateCoinType, formateEmail } from '~common/util'
+import startCanvas from '~/common/canvas'
 
 export default {
     components: { PopList },
-    data() {
+    data () {
         return {
             showDetail: false,
             showEndFaucet: false, // 控制 结束弹窗 tips
@@ -266,19 +267,19 @@ export default {
             slideDown: false,
             languageOptions: [
                 {
-                    value: "en",
-                    label: "English",
-                    lanLogo: "../../../static/staticImg/lan-en.jpg"
+                    value: 'en',
+                    label: 'English',
+                    lanLogo: '../../../static/staticImg/lan-en.jpg'
                 },
                 {
-                    value: "zhCn",
-                    label: "中文简体",
-                    lanLogo: "../../../static/staticImg/lan-cn.jpg"
+                    value: 'zhCn',
+                    label: '中文简体',
+                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
                 },
                 {
-                    value: "zhTw",
-                    label: "中文繁體",
-                    lanLogo: "../../../static/staticImg/lan-cn.jpg"
+                    value: 'zhTw',
+                    label: '中文繁體',
+                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
                 }
             ],
             currBalance: null, // 当前钱包,
@@ -286,196 +287,199 @@ export default {
             isShowMycount: false,
             isChooseCoin: false,
             isShowChoose: false
-        };
+        }
     },
     watch: {
-        initHeadState() {
-            this.isShowLanguage = false;
-            this.isShowMycount = false;
-            this.isChooseCoin = false;
-            this.isShowChoose = false;
+        initHeadState () {
+            this.isShowLanguage = false
+            this.isShowMycount = false
+            this.isChooseCoin = false
+            this.isShowChoose = false
         }
     },
     computed: {
-        initHeadState() {
-            return this.$store.state.initHeadState;
+        initHeadState () {
+            return this.$store.state.initHeadState
         },
-        jackPotMsg() {
-            return this.$store.state.cs_1105.jackPotMsg;
+        jackPotMsg () {
+            return this.$store.state.cs_1105.jackPotMsg
         },
-        inviteTips() {
-            return this.$store.state.pop.inviteTips;
+        inviteTips () {
+            return this.$store.state.pop.inviteTips
         },
-        showFirstLogin() {
-            return this.$store.state.pop.showFirstLogin;
+        showFirstLogin () {
+            return this.$store.state.pop.showFirstLogin
         },
-        loginSucc() {
-            return this.$store.state.pop.loginSucc;
+        loginSucc () {
+            return this.$store.state.pop.loginSucc
         },
-        isLog() {
-            return this.$store.state.isLog;
+        isLog () {
+            return this.$store.state.isLog
         },
-        userInfo() {
+        userInfo () {
             if (
-                this.$store.state.userInfo &&
+                this.$store.state.userInfo && 
                 this.$store.state.userInfo.accounts
             ) {
-                this.currBalance = this.$store.state.userInfo.accounts[0];
+                this.currBalance = this.$store.state.userInfo.accounts[0]
             }
-            return this.$store.state.userInfo;
+            return this.$store.state.userInfo
         },
         languageVal: {
-            set(val) {
-                this.$store.commit("changeLanguage", val);
+            set (val) {
+                this.$store.commit('changeLanguage', val)
             },
-            get() {
-                return this.$store.state.language;
+            get () {
+                return this.$store.state.language
             }
         }
     },
     methods: {
         formateEmail,
         formateBalance,
-        handleLanguageChange(val) {
-            this.$store.commit("changeLanguage", val);
+        handleLanguageChange (val) {
+            this.$store.commit('changeLanguage', val)
         },
-        headControlPop(tab = "showChoose") {
+        headControlPop (tab = 'showChoose') {
             switch (tab) {
-                case "showChoose":
-                    this.isShowLanguage = false;
-                    this.isShowMycount = false;
-                    this.isChooseCoin = false;
-                    this.isShowChoose = !this.isShowChoose;
-                    break;
-                case "chooseCoin":
-                    this.isShowLanguage = false;
-                    this.isShowMycount = false;
-                    this.isShowChoose = false;
-                    this.isChooseCoin = !this.isChooseCoin;
-                    break;
-                case "showMycount":
-                    this.isChooseCoin = false;
-                    this.isShowChoose = false;
-                    this.isShowLanguage = false;
-                    this.isShowMycount = !this.isShowMycount;
-                    break;
-                case "showLanguage":
-                    this.isShowMycount = false;
-                    this.isChooseCoin = false;
-                    this.isShowChoose = false;
-                    this.isShowLanguage = !this.isShowLanguage;
-                    break;
+            case 'showChoose':
+                this.isShowLanguage = false
+                this.isShowMycount = false
+                this.isChooseCoin = false
+                this.isShowChoose = !this.isShowChoose
+                break
+            case 'chooseCoin':
+                this.isShowLanguage = false
+                this.isShowMycount = false
+                this.isShowChoose = false
+                this.isChooseCoin = !this.isChooseCoin
+                break
+            case 'showMycount':
+                this.isChooseCoin = false
+                this.isShowChoose = false
+                this.isShowLanguage = false
+                this.isShowMycount = !this.isShowMycount
+                break
+            case 'showLanguage':
+                this.isShowMycount = false
+                this.isChooseCoin = false
+                this.isShowChoose = false
+                this.isShowLanguage = !this.isShowLanguage
+                break
             }
         },
-        changeAccounts(item) {
+        changeAccounts (item) {
             if (item) {
-                this.currBalance = item;
+                this.currBalance = item
             }
         },
-        showUserMsg() {
-            this.$store.dispatch("getUserInfo");
+        showUserMsg () {
+            this.$store.dispatch('getUserInfo')
         },
-        async getFaucet() {
+        async getFaucet () {
             // 领取邀请奖励
             if (this.loginSucc && this.loginSucc.tasks.length > 0) {
-                this.showInviteSuccFlag = false;
+                this.showInviteSuccFlag = false
                 let taskDone = await this.$store.dispatch(
-                    "getTaskDone",
+                    'getTaskDone',
                     this.loginSucc.tasks[0].tid
-                );
-                if (taskDone && taskDone.taskstatus.toString() === "1") {
-                    document.querySelector(".js_addMoneyMove").className =
-                        "add0001 js_addMoneyMove";
+                )
+                if (taskDone && taskDone.taskstatus.toString() === '1') {
+                    document.querySelector('.js_addMoneyMove').className =
+                        'add0001 js_addMoneyMove'
                     setTimeout(() => {
-                        this.$store.commit("inviteTips", false);
-                        this.showInviteSuccFlag = true;
-                        this.$store.dispatch("getUserInfo");
-                        document.querySelector(".js_addMoneyMove").className =
-                            "hide js_addMoneyMove";
-                    }, 3000);
+                        this.$store.commit('inviteTips', false)
+                        this.showInviteSuccFlag = true
+                        this.$store.dispatch('getUserInfo')
+                        document.querySelector('.js_addMoneyMove').className =
+                            'hide js_addMoneyMove'
+                    }, 3000)
                 }
             }
         },
-        hideFirstLoginAll() {
+        hideFirstLoginAll () {
             // 关闭第一个弹窗
-            this.$store.commit("showFirstLogin", false);
-            this.$store.commit("setLoginSucc", null);
+            this.$store.commit('showFirstLogin', false)
+            this.$store.commit('setLoginSucc', null)
         },
-        async showFaucet() {
+        async showFaucet () {
             if (
                 ~document
-                    .getElementById("js_btn-faucet")
-                    .className.indexOf("over")
+                    .getElementById('js_btn-faucet')
+                    .className.indexOf('over')
             ) {
-                this.showEndFaucet = true;
-                clearTimeout(this.showEndFaucetTime);
+                this.showEndFaucet = true
+                clearTimeout(this.showEndFaucetTime)
                 this.showEndFaucetTime = setTimeout(() => {
-                    this.showEndFaucet = false;
-                }, 2000);
+                    this.showEndFaucet = false
+                }, 2000)
             } else {
-                let faucetMsg = await this.$store.dispatch("getFaucet");
+                let faucetMsg = await this.$store.dispatch('getFaucet')
                 /* 显示邀请 */
-                this.$store.commit("showFaucet");
+                this.$store.commit('showFaucet')
                 // 关闭第一个弹窗 ?
-                this.$store.commit("showFirstLogin", false);
+                this.$store.commit('showFirstLogin', false)
                 // this.$store.commit('setLoginSucc', null);
             }
         },
-        showDetailFn() {
-            this.showDetail = true;
+        showDetailFn () {
+            this.showDetail = true
         },
-        hideDetailFn() {
-            this.showDetail = false;
+        hideDetailFn () {
+            this.showDetail = false
         },
-        signOut() {
+        signOut () {
             /* 退出登录 */
-            this.$store.dispatch("loginOut");
+            this.$store.dispatch('loginOut')
         },
-        onLoginIn() {
-            this.$store.commit("showLoginPop");
+        onLoginIn () {
+            this.$store.commit('showLoginPop')
         }
     },
     filters: {
         formateCoinType
     },
-    async mounted() {
+    async mounted () {
         // this.$router.push('/lucky11')
-        this.showUserMsg();
+        this.showUserMsg()
         // 获取首次中奖信息
-        if (~window.location.href.indexOf("/lucky")) {
+        if (~window.location.href.indexOf('/lucky')) {
             if (this.$refs.canvas) {
-                startCanvas(this.$refs.canvas)();
+                startCanvas(this.$refs.canvas)()
             }
-            let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage);
+            let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
             if (prizeMsg && prizeMsg.data) {
                 if (prizeMsg.data.prize_list) {
                     this.$store.commit(
                         mTypes.setjackPotMsg,
                         prizeMsg.data.prize_list
-                    );
+                    )
                 }
                 if (prizeMsg.data.num) {
                     setTimeout(() => {
-                        this.$store.commit(mTypes.setjackPotMsg, null);
-                    }, 5000 * parseFloat(prizeMsg.data.num));
+                        this.$store.commit(mTypes.setjackPotMsg, null)
+                    }, 5000 * parseFloat(prizeMsg.data.num))
                 }
             }
         }
     }
-};
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 @import "../styles/lib-mixins.less";
 @import "../styles/lib-media.less";
+
 .banner {
     display: none;
 }
+
 .head {
     position: relative;
     width: 100%;
     height: 70px;
     background: rgba(0, 0, 0, 0.4);
     color: #fff;
+
     .top {
         position: relative;
         z-index: 9;
@@ -484,12 +488,14 @@ export default {
         height: 100%;
         margin: 0 auto;
     }
+
     .logo {
         display: block;
         float: left;
         width: 137px;
         height: 32px;
         margin: 19px 27px 0 0;
+
         img {
             display: block;
             height: 100%;
@@ -501,12 +507,14 @@ export default {
         float: left;
         /*overflow: hidden;*/
         height: 100%;
+
         a {
             display: table-cell;
             vertical-align: middle;
             padding: 0 23px;
             font-size: 16px;
             color: #fff;
+
             &.on,
             &:hover {
                 background: rgba(0, 0, 0, 0.3);
@@ -536,11 +544,13 @@ export default {
         padding-top: 21px;
         position: relative;
         cursor: pointer;
+
         .language-choose {
             img {
                 display: block;
                 margin: 0 auto;
             }
+
             span {
                 display: block;
                 margin-top: 4px;
@@ -562,12 +572,14 @@ export default {
             cursor: pointer;
             font-size: 12px;
             color: #263648;
+
             li {
                 box-sizing: border-box;
                 padding-top: 20px;
                 width: 70px;
                 height: 70px;
                 background: #fff;
+
                 &:hover {
                     background: #eef1f9;
                 }
@@ -575,10 +587,12 @@ export default {
             li + li {
                 border-top: 1px solid #778ca3;
             }
+
             img {
                 display: block;
                 margin: 0 auto;
             }
+
             span {
                 display: block;
                 height: 20px;
@@ -589,6 +603,7 @@ export default {
         }
         &.isLanguage {
             background: rgba(0, 0, 0, 0.5);
+
             ul {
                 display: block;
             }
@@ -607,6 +622,7 @@ export default {
         border-radius: 6px;
         color: #fff;
     }
+
     .mycount {
         position: relative;
         float: left;
@@ -614,6 +630,7 @@ export default {
         transform: translate3d(0, 0, 0);
         padding: 20px;
         .transition();
+
         .countNum {
             position: relative;
             cursor: pointer;
@@ -621,6 +638,7 @@ export default {
             padding: 0 25px 0 40px;
             line-height: 30px;
             font-size: 16px;
+
             .icon-user {
                 display: block;
                 position: absolute;
@@ -630,6 +648,7 @@ export default {
                 top: 0;
                 background: url(" ../assets/img/icon-user.png") no-repeat center;
             }
+
             i {
                 display: block;
                 position: absolute;
@@ -646,6 +665,7 @@ export default {
             i {
                 transform: rotate(180deg);
             }
+
             .mycount-detailed {
                 display: block;
             }
@@ -655,6 +675,7 @@ export default {
         position: relative;
         float: right;
         text-align: center;
+
         .to-login {
             position: relative;
             display: block;
@@ -666,6 +687,7 @@ export default {
             line-height: 28px;
             padding: 0 20px;
             color: #fff;
+
             &:hover {
                 background: rgba(255, 255, 255, 0.3);
             }
@@ -679,6 +701,7 @@ export default {
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
+
         .btn-rechrage,
         .btn-cash {
             display: block;
@@ -711,8 +734,10 @@ export default {
     text-align: left;
     -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+
     .account-info {
         color: #263648;
+
         .email {
             line-height: 25px;
             font-size: 16px;
@@ -720,6 +745,7 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .uid {
             line-height: 20px;
             font-size: 14px;
@@ -735,20 +761,24 @@ export default {
         text-align: center;
         border: 1px solid #6a89cc;
         border-radius: 6px;
+
         &:hover {
             background: #eef1f9;
         }
     }
     .currency-select {
         margin: 10px 0 20px 0;
+
         > p {
             line-height: 38px;
             color: #778ca3;
         }
+
         li {
             height: 16px;
             line-height: 16px;
             overflow: hidden;
+
             .currency-input {
                 float: left;
                 position: relative;
@@ -760,6 +790,7 @@ export default {
                 border-radius: 50%;
                 border: 2px solid #6a89cc;
                 cursor: pointer;
+
                 &::before {
                     content: "";
                     display: block;
@@ -780,6 +811,7 @@ export default {
                 font-weight: bold;
                 color: #6a89cc;
             }
+
             .address {
                 float: right;
                 display: block;
@@ -787,9 +819,11 @@ export default {
                 .text-overflow();
                 display: none;
             }
+
             &.on {
                 .currency-input {
                     border-color: #263648;
+
                     &::before {
                         background: #263648;
                     }
@@ -797,11 +831,12 @@ export default {
                 .currency-account {
                     color: #263648;
                 }
+
                 .address {
                     display: block;
                 }
             }
-            & + li {
+            &+ li {
                 margin-top: 16px;
             }
         }
@@ -813,6 +848,7 @@ export default {
         line-height: 40px;
         text-align: center;
         border-top: 1px solid #ced6e0;
+
         &:hover {
             background: #eef1f9;
         }
@@ -835,6 +871,7 @@ export default {
     position: relative;
     float: right;
     margin: 21px 22px 0 0;
+
     .btn-faucet {
         display: block;
         width: 19px;
@@ -843,12 +880,14 @@ export default {
         padding: 0 10px;
         background: url("../assets/img/icon-water.png") no-repeat center;
     }
+
     .act-sign {
         top: 3px;
         right: 33px;
         animation: actMove 5s 2s infinite;
         min-width: 100px;
     }
+
     .faucet-detailed {
         display: none;
         position: absolute;
@@ -860,6 +899,7 @@ export default {
         border-radius: 6px;
         color: #263648;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+
         &::before {
             content: "";
             display: block;
@@ -872,6 +912,7 @@ export default {
             background: url("../assets/img/icon-tri.png") no-repeat center;
             background-size: cover;
         }
+
         .faucet-title {
             line-height: 68px;
             font-size: 24px;
@@ -879,6 +920,7 @@ export default {
             text-align: center;
             border-bottom: 1px solid #ced6e0;
         }
+
         li {
             display: flex;
             justify-content: space-between;
@@ -886,10 +928,12 @@ export default {
             overflow: hidden;
             border-bottom: 1px solid #ced6e0;
             padding: 14px 0;
+
             p {
                 width: 295px;
                 line-height: 20px;
             }
+
             .btn {
                 display: block;
                 width: 83px;
@@ -901,20 +945,25 @@ export default {
                 font-size: 16px;
                 color: #fff;
                 transition: all 0.2s;
+
                 &.btn-green {
                     background: #20bf6b;
                 }
+
                 &.btn-yellow {
                     background: #fd9644;
                 }
+
                 &.btn-gray {
                     background: #ced6e0;
                 }
+
                 &.btn-ok {
                     cursor: default;
                     background: url("../assets/img/btn-waterok.png") no-repeat
                         center;
                 }
+
                 &:not(.btn-ok):hover {
                     filter: brightness(1.1);
                 }
@@ -1105,8 +1154,9 @@ export default {
     z-index: 10;
     width: 100%;
     height: 150px;
-    //overflow: hidden;
+    // overflow: hidden;
     animation: slideDownIn 1s;
+
     .jackpot-box {
         position: relative;
         z-index: 2;
@@ -1116,12 +1166,15 @@ export default {
         background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
         line-height: 76px;
         font-size: 22px;
+
         .el-carousel {
             padding-top: 25px;
         }
+
         .el-carousel__item {
             text-align: center;
         }
+
         .jackpot-money {
             font-size: 36px;
             font-family: sans-eb;
@@ -1175,12 +1228,14 @@ export default {
     float: left;
     width: 104/2px;
     height: 100%;
+
     .btn {
         position: relative;
         width: 20px;
         height: 20px;
         margin: 25px auto;
         cursor: pointer;
+
         span {
             position: absolute;
             left: 0;
@@ -1193,9 +1248,11 @@ export default {
             .transition();
             transform-origin: left center;
         }
+
         span:first-child {
             top: 0;
         }
+
         span:last-child {
             top: 15px;
         }
@@ -1208,6 +1265,7 @@ export default {
         color: #444c55;
         .transition();
     }
+
     ul {
         display: none;
         position: absolute;
@@ -1222,6 +1280,7 @@ export default {
         text-align: right;
         background: #000;
         .transition();
+
         li.on,
         li:hover {
             a {
@@ -1250,16 +1309,20 @@ export default {
         box-sizing: border-box;
         width: 324/2px;
         padding-right: 25px;
+
         .btn {
             float: left;
             margin: 25px 0 25px 13px;
+
             span {
                 opacity: 0;
             }
+
             span:first-child {
                 opacity: 1;
                 transform: rotateZ(40deg) scaleX(1.2);
             }
+
             span:last-child {
                 opacity: 1;
                 transform: rotateZ(-40deg) scaleX(1.2);
@@ -1268,6 +1331,7 @@ export default {
         .msg {
             display: block;
         }
+
         ul {
             display: block;
         }
@@ -1279,9 +1343,11 @@ export default {
         .choose-play {
             display: none;
         }
+
         .m-choose-play {
             display: block;
         }
+
         .act-sign {
             right: 190px;
         }
@@ -1297,14 +1363,17 @@ export default {
 @media (max-width: @screen-tablet) {
     .head {
         height: 50px;
+
         .logo {
             width: auto;
             height: 22px;
             margin: 14px 0 0 0;
         }
+
         .login {
             margin: 0;
             height: 100%;
+
             .to-login {
                 height: 50px;
                 line-height: 50px;
@@ -1315,6 +1384,7 @@ export default {
                 margin-top: 0;
             }
         }
+
         .mycount {
             cursor: pointer;
             box-sizing: border-box;
@@ -1324,8 +1394,10 @@ export default {
             border-left: 1px solid rgba(51, 26, 64, 0.3);
             border-right: 1px solid rgba(51, 26, 64, 0.3);
             margin-right: 0;
+
             .countNum {
                 .hide-text();
+
                 i {
                     display: none;
                 }
@@ -1333,6 +1405,7 @@ export default {
             &:hover,
             &.isShowMycount {
                 background: rgba(0, 0, 0, 0.5);
+
                 &::before {
                     opacity: 1;
                 }
@@ -1342,9 +1415,11 @@ export default {
             width: 50px;
             height: 50px;
             padding-top: 15px;
+
             img {
                 width: 22px;
             }
+
             .language-choose {
                 span {
                     height: 16px;
@@ -1358,11 +1433,13 @@ export default {
                 top: 50px;
                 width: 50px;
                 font-size: 8px;
+
                 li {
                     width: 50px;
                     height: 63px;
                     padding-top: 15px;
                 }
+
                 img {
                     width: 22px;
                 }
@@ -1373,13 +1450,16 @@ export default {
         .btn {
             margin: 15px 0 15px 13px;
         }
+
         .msg {
             line-height: 50px;
         }
+
         &.isShowChoose {
             .btn {
                 margin: 15px 0 15px 13px;
             }
+
             ul {
                 top: 50px;
             }
@@ -1388,20 +1468,24 @@ export default {
     .act-sign {
         display: none;
     }
+
     .mycount-detailed {
         top: 44px;
     }
+
     .choose-coin,
     .mycount {
         box-sizing: border-box;
         width: 50px;
     }
+
     .cs-faucet {
         margin: 12px 0 0 0;
     }
 }
 @media (max-width: @screen-phone) {
 }
+
 @media (min-width: @screen-tablet) {
     .mycount,
     .choose-coin .coin,

@@ -7,11 +7,11 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
-                        <el-carousel :interval="30000000">
+                        <el-carousel :interval="3000">
                             <el-carousel-item v-for="(item, index) in banner" :key="index">
                                 <div class="banner-t1">{{ item.t1 }}</div>
                                 <p class="banner-t2">{{ item.t2 }}</p>
-                                <a class="banner-more" :href="item.href">Learn more More  ></a>
+                                <a class="banner-more" :href="item.href">Learn more More ></a>
                             </el-carousel-item>
                         </el-carousel>
                     </div>
@@ -25,7 +25,8 @@
                                 <p class="msg2">High frequency reward game</p>
                                 <p class="msg3">Jackpot</p>
                                 <p class="msg4">
-                                    <span>{{Number(entrance.syxw.jackpot)}}</span><i> {{formateCoinType(entrance.syxw.cointype)}}</i>
+                                    <span>{{Number(entrance.syxw.jackpot)}}</span>
+                                    <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{entrance.syxw.USD}} USD</p>
                                 <router-link :to="{path: '/lucky11'}" class="game-btn">
@@ -41,7 +42,8 @@
                                 <p class="msg2">Try Slot & Win 97%+ Return Rate</p>
                                 <p class="msg3">Jackpot</p>
                                 <p class="msg4">
-                                    <span>{{Number(entrance.slot.jackpot)}}</span><i> {{formateCoinType(entrance.slot.cointype)}}</i>
+                                    <span>{{Number(entrance.slot.jackpot)}}</span>
+                                    <i> {{formateCoinType(entrance.slot.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{entrance.slot.USD}} USD</p>
                                 <router-link :to="{path: '/slot'}" class="game-btn">
@@ -57,7 +59,8 @@
                                 <p class="msg2">High frequency reward game</p>
                                 <p class="msg3">Maximum Award</p>
                                 <p class="msg4">
-                                    <span>{{Number(entrance.megacoin.goodsvalue)}}</span><i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
+                                    <span>{{Number(entrance.megacoin.goodsvalue)}}</span>
+                                    <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{entrance.megacoin.USD}} USD</p>
                                 <router-link :to="{path: '/luckycoin'}" class="game-btn">
@@ -310,684 +313,707 @@
 </template>
 
 <script>
-    import Header from '~components/Header.vue'
-    import Footer from '~components/Footer.vue'
-    import {mapActions} from 'vuex'
-    import {formatTime, formateCoinType, formateBalance, removeCK} from '~/common/util'
-    import { aTypes } from '~/store/cs_page/cs_1105'
-    import { Message } from 'element-ui'
+import Header from '~components/Header.vue'
+import Footer from '~components/Footer.vue'
+import { mapActions } from 'vuex'
+import {
+    formatTime,
+    formateCoinType,
+    formateBalance,
+    removeCK
+} from '~/common/util'
+import { aTypes } from '~/store/cs_page/cs_1105'
+import { Message } from 'element-ui'
 
-    export default {
-        data () {
-            return {
-                activeClass: 'lucky11',
-                activeClass1: 'lucky11',
-                activeClass2: 'recharge',
-                bets: {
-                    syxw_orders: [],
-                    slot_orders: [],
-                    megacoin_orders: []
+export default {
+    data () {
+        return {
+            activeClass: 'lucky11',
+            activeClass1: 'lucky11',
+            activeClass2: 'recharge',
+            bets: {
+                syxw_orders: [],
+                slot_orders: [],
+                megacoin_orders: []
+            },
+            wins: {
+                syxw_orders: [],
+                slot_orders: [],
+                megacoin_orders: []
+            },
+            water: {
+                recharge_orders: [],
+                withdraw_orders: []
+            },
+            entrance: {
+                megacoin: {
+                    USD: '',
+                    cointype: '2001',
+                    goodsvalue: ''
                 },
-                wins: {
-                    syxw_orders: [],
-                    slot_orders: [],
-                    megacoin_orders: []
+                slot: {
+                    USD: '',
+                    cointype: '2001',
+                    goodsvalue: ''
                 },
-                water: {
-                    recharge_orders: [],
-                    withdraw_orders: []
-                },
-                entrance: {
-                    megacoin: {
-                        USD: '',
-                        cointype: '2001',
-                        goodsvalue: ''
-                    },
-                    slot: {
-                        USD: '',
-                        cointype: '2001',
-                        goodsvalue: ''
-                    },
-                    syxw: {
-                        USD: '',
-                        cointype: '2001',
-                        goodsvalue: ''
-                    }
-                },
-                banner: [
-                    {
-                        t1: 'Welcome To The Blockchain Game Platform',
-                        t2: 'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs',
-                        href: 'https://www.coinslot.com/'
-                    },
-                    {t1: '2', t2: '22', href: 'https://www.coinslot.com/'},
-                    {t1: '3', t2: '33', href: 'https://www.coinslot.com/'},
-                    {t1: '44', t2: '44', href: 'https://www.coinslot.com/'}
-                ]
-            }
-        },
-        methods: {
-            ...mapActions('home', ['getHomeBet', 'getHomeDraw', 'getHomeWithdraw', 'getHomeEntrance']),
-            formatTime,
-            formateBalance,
-            formateCoinType,
-            async indexRouter (query) {
-                /* 邮箱注册 找回密码  邀请等 */
-                if (query.sign) {
-                    if (query.from === 'reg') {
-                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
-                        console.log(mailBack)
-                        if (mailBack) {
-                            if (mailBack.status === '100') {
-                                if (parseFloat(mailBack.data.login_times) >= 0 && mailBack.data.invite_status.toString() === '0') {
-                                    // 显示第一次邀请
-                                    this.$store.commit('showFirstLogin', true)
-                                } else {
-                                    this.$store.commit('showFirstLogin', false)
-                                }
-                                this.$store.dispatch('getUserInfo')
-                                this.$store.commit('showRegSuccess')
-                            } else {
-                                Message({
-                                    message: mailBack.message,
-                                    type: 'error'
-                                })
-                            }
-                        }
-                        this.$router.push('')
-                    }
-                    if (query.from === 'resetPassword') {
-                        // 重置密码
-                        this.$store.commit('setResetObj', {
-                            email: query.email,
-                            sign: query.sign,
-                            showReset: true
-                        })
-                        this.$store.commit('showResetPwd')
-                        // 修改密码的时候，清楚ck
-                        removeCK()
-                        this.$store.commit('setIsLog', false)
-                        this.$store.commit('setUserInfo', {})
-                    }
-                    if (query.inviter) {
-                        // 邀请
-                        this.$store.commit('setInviterObj', {
-                            inviter: query.inviter,
-                            sign: query.sign
-                        })
-                    }
+                syxw: {
+                    USD: '',
+                    cointype: '2001',
+                    goodsvalue: ''
                 }
             },
-            getCoinClass (type) {
-                return `icon-${formateCoinType(type).toLowerCase()}`
-            },
-            init () {
-                this.renderHomeBet()
-                this.renderHomeDraw()
-                this.renderHomeWithdraw()
-                this.renderHomeEntrance()
-            },
-            renderHomeBet () {
-                this.getHomeBet()
-                    .then(({data}) => {
-                        this.bets = {
-                            ...data
+            banner: [
+                {
+                    t1: 'Welcome To The Blockchain Game Platform',
+                    t2:
+                        'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs',
+                    href: 'https://www.coinslot.com/'
+                },
+                { t1: '2', t2: '22', href: 'https://www.coinslot.com/' },
+                { t1: '3', t2: '33', href: 'https://www.coinslot.com/' },
+                { t1: '44', t2: '44', href: 'https://www.coinslot.com/' }
+            ]
+        }
+    },
+    methods: {
+        ...mapActions('home', [
+            'getHomeBet',
+            'getHomeDraw',
+            'getHomeWithdraw',
+            'getHomeEntrance'
+        ]),
+        formatTime,
+        formateBalance,
+        formateCoinType,
+        async indexRouter (query) {
+            /* 邮箱注册 找回密码  邀请等 */
+            if (query.sign) {
+                if (query.from === 'reg') {
+                    let mailBack = await this.$store.dispatch(
+                        aTypes.mailActivate,
+                        query.sign
+                    )
+                    console.log(mailBack)
+                    if (mailBack) {
+                        if (mailBack.status === '100') {
+                            if (
+                                parseFloat(mailBack.data.login_times) >= 0 &&
+                                mailBack.data.invite_status.toString() === '0'
+                            ) {
+                                // 显示第一次邀请
+                                this.$store.commit('showFirstLogin', true)
+                            } else {
+                                this.$store.commit('showFirstLogin', false)
+                            }
+                            this.$store.dispatch('getUserInfo')
+                            this.$store.commit('showRegSuccess')
+                        } else {
+                            Message({
+                                message: mailBack.message,
+                                type: 'error'
+                            })
                         }
+                    }
+                    this.$router.push('')
+                }
+                if (query.from === 'resetPassword') {
+                    // 重置密码
+                    this.$store.commit('setResetObj', {
+                        email: query.email,
+                        sign: query.sign,
+                        showReset: true
                     })
-            },
-            renderHomeDraw () {
-                this.getHomeDraw()
-                    .then(({data}) => {
-                        this.wins = {
-                            ...data
-                        }
+                    this.$store.commit('showResetPwd')
+                    // 修改密码的时候，清楚ck
+                    removeCK()
+                    this.$store.commit('setIsLog', false)
+                    this.$store.commit('setUserInfo', {})
+                }
+                if (query.inviter) {
+                    // 邀请
+                    this.$store.commit('setInviterObj', {
+                        inviter: query.inviter,
+                        sign: query.sign
                     })
-            },
-            renderHomeWithdraw () {
-                this.getHomeWithdraw()
-                    .then(({data}) => {
-                        this.water = {
-                            ...data
-                        }
-                    })
-            },
-            renderHomeEntrance () {
-                this.getHomeEntrance()
-                    .then(({data}) => {
-                        this.entrance = {
-                            ...data
-                        }
-                    })
+                }
             }
         },
-        components: {Header, Footer},
-        mounted () {
-            this.init()
-            if (this.$store.state.route.query) {
-                this.indexRouter(this.$store.state.route.query)
-            }
+        getCoinClass (type) {
+            return `icon-${formateCoinType(type).toLowerCase()}`
+        },
+        init () {
+            this.renderHomeBet()
+            this.renderHomeDraw()
+            this.renderHomeWithdraw()
+            this.renderHomeEntrance()
+        },
+        renderHomeBet () {
+            this.getHomeBet().then(({ data }) => {
+                this.bets = {
+                    ...data
+                }
+            })
+        },
+        renderHomeDraw () {
+            this.getHomeDraw().then(({ data }) => {
+                this.wins = {
+                    ...data
+                }
+            })
+        },
+        renderHomeWithdraw () {
+            this.getHomeWithdraw().then(({ data }) => {
+                this.water = {
+                    ...data
+                }
+            })
+        },
+        renderHomeEntrance () {
+            this.getHomeEntrance().then(({ data }) => {
+                this.entrance = {
+                    ...data
+                }
+            })
+        }
+    },
+    components: { Header, Footer },
+    mounted () {
+        this.init()
+        if (this.$store.state.route.query) {
+            this.indexRouter(this.$store.state.route.query)
         }
     }
+}
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-    /*重置media*/
-    @import "../../styles/lib-media2.less";
-    /*h5为主*/
-    .home {
-        position: relative;
+/*重置media*/
+@import "../../styles/lib-media2.less";
+/*h5为主*/
+.home {
+    position: relative;
+    width: 100%;
+    background: #181633 url("../../assets/img/home/bg1.png") no-repeat top
+        center;
+    background-size: 1920px;
+    .main {
         width: 100%;
-        background:#181633 url("../../assets/img/home/bg1.png") no-repeat top center;
-        background-size: 1920px;
-        .main {
-            width: 100%;
-            max-width: @screen-lg;
-            margin: 0 auto 40px;
+        max-width: @screen-lg;
+        margin: 0 auto 40px;
+        overflow: hidden;
+    }
+    /*banner*/
+    .el-carousel {
+        height: 300-58px;
+        margin-bottom: 58px;
+        color: #fff;
+        text-align: center;
+    }
+    .el-carousel__item {
+        img {
+            display: block;
+            width: 145px;
+            margin: 70px auto 0;
+        }
+        .banner-t1 {
+            margin-top: 70px;
+            line-height: 27px;
+            font-size: 23px;
             overflow: hidden;
+            font-weight: bold;
         }
-        /*banner*/
-        .el-carousel {
-            height: 300-58px;
-            margin-bottom: 58px;
+        .banner-t2 {
+            width: 90%;
+            margin: 0 auto;
+            line-height: 14px;
+            font-size: 10px;
+        }
+        .banner-more {
+            display: block;
+            width: 150px;
+            height: 35px;
+            overflow: hidden;
+            margin: 25px auto 0;
+            line-height: 35px;
+            overflow: hidden;
+            border-radius: 6px;
+            border: 1px solid #575763;
             color: #fff;
-            text-align: center;
         }
-        .el-carousel__item {
-            img {
-                display: block;
-                width: 145px;
-                margin: 70px auto 0;
-            }
-            .banner-t1 {
-                margin-top: 70px;
-                line-height: 27px;
-                font-size: 23px;
-                overflow: hidden;
+    }
+    /*banner*/
+}
+
+.for-full {
+    margin: 0 -20px;
+}
+
+.items-game {
+    color: #fff;
+    > div + div {
+        margin-top: 20px;
+    }
+    .game-11t5,
+    .game-slot,
+    .game-onecoin {
+        width: 92%;
+        padding-top: 27px;
+        height: 290px;
+        overflow: hidden;
+        margin: 0 auto;
+        border-radius: 6px;
+        text-align: center;
+        //text-indent:percentage(94/369);
+        .msg1 {
+            line-height: 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .msg2 {
+            line-height: 22px;
+            font-size: 16px;
+        }
+        .msg3 {
+            margin-top: 28px;
+            line-height: 25px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .msg4 {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            height: 50px;
+            line-height: 50px;
+            font-size: 48px;
+            font-family: sans-eb;
+            i {
+                text-indent: 0;
+                font-size: 24px;
+                font-family: sans-r;
                 font-weight: bold;
             }
-            .banner-t2 {
-                width: 90%;
-                margin: 0 auto;
-                line-height: 14px;
-                font-size: 10px;
+        }
+        .msg5 {
+            line-height: 20px;
+            font-size: 16px;
+        }
+    }
+    .game-11t5 {
+        background: url("../../assets/img/home/game1.png") no-repeat center top;
+        background-size: cover;
+    }
+    .game-slot {
+        background: url("../../assets/img/home/game2.png") no-repeat center top;
+        background-size: cover;
+    }
+    .game-onecoin {
+        background: url("../../assets/img/home/game3.png") no-repeat center top;
+        background-size: cover;
+    }
+    .game-btn {
+        display: block;
+        width: percentage(228/369);
+        height: 52px;
+        overflow: hidden;
+        margin: 26px auto 0;
+        border-radius: 6px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+        color: #fff;
+        font-weight: bold;
+        border: 2px solid #ffffff;
+    }
+}
+
+.items-msg {
+    background: #242240;
+    .recent-win {
+        background: #292748;
+    }
+    .recent-bet,
+    .recent-win {
+        float: left;
+        width: percentage(378/1190);
+    }
+    .recent-water {
+        float: left;
+        width: percentage(434/1190);
+    }
+    .item-recent {
+        padding: 15px 40px 40px;
+        .recent-t {
+            line-height: 48px;
+            text-align: center;
+            font-size: 20px;
+            color: #ffffff;
+        }
+        .tab-t {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            height: 30px;
+            line-height: 30px;
+            &.lucky11 .lucky11,
+            &.slot .slot,
+            &.luckycoin .luckycoin,
+            &.recharge .recharge,
+            &.withdraw .withdraw {
+                color: #788ca3;
+                border-bottom: 2px solid #788ca3;
             }
-            .banner-more {
+            a {
+                position: relative;
+                z-index: 2;
+                flex: 1;
                 display: block;
-                width: 150px;
-                height: 35px;
-                overflow: hidden;
-                margin: 25px auto 0;
-                line-height: 35px;
-                overflow: hidden;
-                border-radius: 6px;
-                border: 1px solid #575763;
+                text-align: center;
+                font-size: 14px;
+                color: #6a89cc;
+                transition: all 0.2s;
+            }
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                z-index: 1;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 1px;
+                background: #3a3953;
+                transition: all 0.2s;
+            }
+        }
+        .tab-c {
+            .tab-t2 {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 15px;
+                height: 30px;
+                line-height: 30px;
+                border-bottom: 1px solid #3a3953;
+                font-size: 12px;
                 color: #fff;
+                text-align: center;
+                div {
+                    flex: 1;
+                    overflow: hidden;
+                }
+            }
+            ul {
+                li {
+                    display: flex;
+                    justify-content: space-between;
+                    height: 46px;
+                    line-height: 46px;
+                    overflow: hidden;
+                    font-size: 14px;
+                    color: #fff;
+                    text-align: center;
+                    border-bottom: 1px solid #3a3953;
+                    > div {
+                        flex: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .user {
+                        text-align: left;
+                    }
+                    .amount {
+                        text-align: right;
+                    }
+                    .add {
+                        a {
+                            display: block;
+                            width: 80%;
+                            color: #fff;
+                            text-decoration: underline;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            color: #fff;
+                            text-decoration: underline;
+                        }
+                    }
+                    .amount {
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        i {
+                            display: block;
+                            margin-right: 10px;
+                            width: 16px;
+                            height: 16px;
+                            overflow: hidden;
+                        }
+                    }
+                }
+            }
+        }
+
+        .icon-eth {
+            i {
+                background: url("../../assets/img/home/table-eth.png") no-repeat
+                    center;
+                background-size: cover;
+            }
+        }
+        .icon-btc {
+            i {
+                background: url("../../assets/img/home/table-bth.png") no-repeat
+                    center;
+                background-size: cover;
+            }
+        }
+        &.recent-win {
+            span {
+                display: block;
+                height: 24px;
+                line-height: 24px;
+                padding: 0 8px;
+                background: #36c57a;
+            }
+        }
+    }
+}
+
+.safe-msg {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px;
+    .safe-t {
+        line-height: 50px;
+        font-size: 20px;
+    }
+    p {
+        line-height: 24px;
+        font-size: 14px;
+    }
+    .btn-check {
+        display: block;
+        width: 146px;
+        height: 40px;
+        overflow: hidden;
+        margin: 26px auto 0;
+        border: 1px solid #5e5c71;
+        line-height: 40px;
+        border-radius: 6px;
+        color: #fff;
+    }
+    .btn-down {
+        display: block;
+        width: 196px;
+        height: 60px;
+        margin: 26px auto 0;
+        border: 1px solid #5e5c71;
+        border-radius: 6px;
+        background: url("../../assets/img/home/btn-down.png") no-repeat center;
+        background-size: 127px 35px;
+    }
+    .img-box {
+        position: relative;
+        height: 338px;
+    }
+    .img-box1 {
+        .img1 {
+            position: absolute;
+            left: percentage(54/410);
+            top: 95px;
+            animation: anima-img1 10s 2s ease-in-out infinite;
+        }
+        .img2 {
+            position: absolute;
+            left: percentage(145/410);
+            top: 88px;
+        }
+        .img3 {
+            position: absolute;
+            left: percentage(170/410);
+            top: 48px;
+        }
+    }
+    .img-box2 {
+        margin: 48px 0 50px 0;
+        height: 240px;
+        overflow: hidden;
+        img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .img1 {
+            top: 95px;
+            animation: animate-img2 10s 2s ease-in-out infinite;
+        }
+        .img2 {
+            top: 50px;
+            animation: animate-img2 10s 1s ease-in-out infinite;
+        }
+        .img3 {
+            top: 0px;
+            animation: animate-img2 10s ease-in-out infinite;
+        }
+    }
+    .img-box3 {
+        position: relative;
+        background: url("../../assets/img/home/safe-img3.png") no-repeat center;
+        background-size: 273px;
+        .circle-box {
+            position: absolute;
+            left: 52%;
+            top: 31%;
+            width: 18px;
+            height: 18px;
+            transform: rotateX(50deg);
+            .circle {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 18px;
+                height: 18px;
+                border: 1px solid #68a4ff;
+                border-radius: 50%;
+                animation-name: animate-img3;
+                animation-duration: 3s;
+                animation-iteration-count: infinite;
+            }
+            .circle1 {
+                animation-delay: 1s;
+            }
+            .circle2 {
+                animation-delay: 0.5s;
+            }
+            .circle3 {
+                animation-delay: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-phone) {
+}
+
+@media (max-width: @screen-tablet) {
+    .items-msg {
+        .recent-bet,
+        .recent-win,
+        .recent-water {
+            width: 100%;
+        }
+    }
+}
+
+@media (min-width: @screen-tablet) {
+    .home {
+        /*banner*/
+        .el-carousel__item {
+            .banner-t1 {
+                line-height: 54px;
+                font-size: (4600)/1920vw;
+            }
+            .banner-t2 {
+                line-height: 26px;
+                font-size: (1600)/1920vw;
+            }
+        }
+        /*banner*/
+    }
+}
+
+@media (min-width: @screen-desktop) {
+    .items-game {
+        > div + div {
+            margin-top: 0;
+        }
+        .game-11t5,
+        .game-slot,
+        .game-onecoin {
+            width: 100%;
+            transition: all 0.2s;
+            transform-origin: bottom;
+            &:hover {
+                transform: scale(1.08);
+            }
+        }
+        .game-btn {
+            transition: all 0.2s;
+            &:hover {
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+            }
+        }
+    }
+
+    .safe-msg {
+        .col-lg-4 {
+            padding: 0;
+        }
+    }
+}
+
+@media (min-width: @screen-lg-desktop) {
+    .home {
+        /*banner*/
+        .el-carousel {
+            height: 450-58px;
+        }
+        .el-carousel__item {
+            .banner-t1 {
+                margin-top: 143px;
+                line-height: 57px;
+                font-size: 46px;
+            }
+            .banner-t2 {
+                line-height: 28px;
+                font-size: 16px;
             }
         }
         /*banner*/
     }
 
     .for-full {
-        margin: 0 -20px;
+        margin: 0;
     }
-
-    .items-game {
-        color: #fff;
-        > div + div {
-            margin-top: 20px;
-        }
-        .game-11t5,
-        .game-slot,
-        .game-onecoin {
-            width: 92%;
-            padding-top: 27px;
-            height: 290px;
-            overflow: hidden;
-            margin: 0 auto;
-            border-radius: 6px;
-            text-align: center;
-            //text-indent:percentage(94/369);
-            .msg1 {
-                line-height: 30px;
-                font-size: 24px;
-                font-weight: bold;
-            }
-            .msg2 {
-                line-height: 22px;
-                font-size: 16px;
-            }
-            .msg3 {
-                margin-top: 28px;
-                line-height: 25px;
-                font-size: 16px;
-                font-weight: bold;
-            }
-            .msg4 {
-                display: flex;
-                justify-content: center;
-                align-items: baseline;
-                height: 50px;
-                line-height: 50px;
-                font-size: 48px;
-                font-family: sans-eb;
-                i {
-                    text-indent: 0;
-                    font-size: 24px;
-                    font-family: sans-r;
-                    font-weight:bold;
-                }
-            }
-            .msg5 {
-                line-height: 20px;
-                font-size: 16px;
-            }
-        }
-        .game-11t5 {
-            background: url("../../assets/img/home/game1.png") no-repeat center top;
-            background-size: cover;
-        }
-        .game-slot {
-            background: url("../../assets/img/home/game2.png") no-repeat center top;
-            background-size: cover;
-        }
-        .game-onecoin {
-            background: url("../../assets/img/home/game3.png") no-repeat center top;
-            background-size: cover;
-        }
-        .game-btn {
-            display: block;
-            width: percentage(228/369);
-            height: 52px;
-            overflow: hidden;
-            margin: 26px auto 0;
-            border-radius: 6px;
-            line-height: 50px;
-            text-align: center;
-            font-size: 20px;
-            color: #fff;
-            font-weight: bold;
-            border:2px solid #ffffff;
-        }
+}
+@keyframes anima-img1 {
+    0% {
+        transform: translate3d(0, 0, 0);
     }
-
-    .items-msg {
-        background: #242240;
-        .recent-win {
-            background: #292748;
-        }
-        .recent-bet,
-        .recent-win {
-            float: left;
-            width: percentage(378/1190);
-        }
-        .recent-water {
-            float: left;
-            width: percentage(434/1190);
-        }
-        .item-recent {
-            padding: 15px 40px 40px;
-            .recent-t {
-                line-height: 48px;
-                text-align: center;
-                font-size: 20px;
-                color: #ffffff;
-            }
-            .tab-t {
-                position: relative;
-                display: flex;
-                justify-content: space-between;
-                height: 30px;
-                line-height: 30px;
-                &.lucky11 .lucky11, &.slot .slot, &.luckycoin .luckycoin ,&.recharge .recharge ,&.withdraw .withdraw {
-                    color: #788ca3;
-                    border-bottom: 2px solid #788ca3;
-                }
-                a {
-                    position: relative;
-                    z-index: 2;
-                    flex: 1;
-                    display: block;
-                    text-align: center;
-                    font-size: 14px;
-                    color: #6a89cc;
-                    transition: all 0.2s;
-                }
-                &::after {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    z-index: 1;
-                    left: 0;
-                    bottom: 0;
-                    width: 100%;
-                    height: 1px;
-                    background: #3a3953;
-                    transition: all 0.2s;
-                }
-            }
-            .tab-c {
-                .tab-t2 {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top: 15px;
-                    height: 30px;
-                    line-height: 30px;
-                    border-bottom: 1px solid #3a3953;
-                    font-size: 12px;
-                    color: #fff;
-                    text-align: center;
-                    div {
-                        flex: 1;
-                        overflow: hidden;
-                    }
-                }
-                ul {
-                    li {
-                        display: flex;
-                        justify-content: space-between;
-                        height: 46px;
-                        line-height: 46px;
-                        overflow: hidden;
-                        font-size: 14px;
-                        color: #fff;
-                        text-align: center;
-                        border-bottom: 1px solid #3a3953;
-                        > div {
-                            flex: 1;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                        }
-                        .user {
-                            text-align: left;
-                        }
-                        .amount {
-                            text-align: right;
-                        }
-                        .add {
-                            a {
-                                display: block;
-                                width: 80%;
-                                color: #fff;
-                                text-decoration: underline;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                                color: #fff;
-                                text-decoration: underline;
-                            }
-                        }
-                        .amount {
-                            display: flex;
-                            justify-content: flex-end;
-                            align-items: center;
-                            i {
-                                display: block;
-                                margin-right: 10px;
-                                width: 16px;
-                                height: 16px;
-                                overflow: hidden;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .icon-eth {
-                i {
-                    background: url("../../assets/img/home/table-eth.png") no-repeat center;
-                    background-size: cover;
-                }
-            }
-            .icon-bth {
-                i {
-                    background: url("../../assets/img/home/table-bth.png") no-repeat center;
-                    background-size: cover;
-                }
-            }
-            &.recent-win {
-                span {
-                    display: block;
-                    height: 24px;
-                    line-height: 24px;
-                    padding: 0 8px;
-                    background: #36c57a;
-                }
-            }
-        }
+    10%,
+    95% {
+        transform: translate3d(20px, 0, 0);
     }
-
-    .safe-msg {
-        color: #fff;
-        text-align: center;
-        margin-bottom: 40px;
-        .safe-t {
-            line-height: 50px;
-            font-size: 20px;
-        }
-        p {
-            line-height: 24px;
-            font-size: 14px;
-        }
-        .btn-check {
-            display: block;
-            width: 146px;
-            height: 40px;
-            overflow: hidden;
-            margin: 26px auto 0;
-            border: 1px solid #5e5c71;
-            line-height: 40px;
-            border-radius: 6px;
-            color: #fff;
-        }
-        .btn-down {
-            display: block;
-            width: 196px;
-            height: 60px;
-            margin: 26px auto 0;
-            border: 1px solid #5e5c71;
-            border-radius: 6px;
-            background: url("../../assets/img/home/btn-down.png") no-repeat center;
-            background-size: 127px 35px;
-        }
-        .img-box {
-            position: relative;
-            height: 338px;
-        }
-        .img-box1 {
-            .img1 {
-                position: absolute;
-                left: percentage(54/410);
-                top: 95px;
-                animation: anima-img1 10s 2s ease-in-out infinite;
-            }
-            .img2 {
-                position: absolute;
-                left: percentage(145/410);
-                top: 88px;
-            }
-            .img3 {
-                position: absolute;
-                left: percentage(170/410);
-                top: 48px;
-            }
-        }
-        .img-box2 {
-            margin: 48px 0 50px 0;
-            height: 240px;
-            overflow: hidden;
-            img {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            .img1 {
-                top: 95px;
-                animation: animate-img2 10s 2s ease-in-out infinite;
-            }
-            .img2 {
-                top: 50px;
-                animation: animate-img2 10s 1s ease-in-out infinite;
-            }
-            .img3 {
-                top: 0px;
-                animation: animate-img2 10s ease-in-out infinite;
-            }
-        }
-        .img-box3 {
-            position: relative;
-            background: url("../../assets/img/home/safe-img3.png") no-repeat center;
-            background-size: 273px;
-            .circle-box{
-                position: absolute;
-                left:52%;
-                top:31%;
-                width:18px;
-                height:18px;
-                transform: rotateX(50deg);
-                .circle{
-                    position: absolute;
-                    top:0;
-                    left:0;
-                    width:18px;
-                    height:18px;
-                    border:1px solid #68a4ff;
-                    border-radius: 50%;
-                    animation-name: animate-img3;
-                    animation-duration: 3s;
-                    animation-iteration-count: infinite;
-                }
-                .circle1{
-                    animation-delay: 1s;
-                }
-                .circle2{
-                    animation-delay: 0.5s;
-                }
-                .circle3{
-                    animation-delay: 0;
-                }
-            }
-        }
+    100% {
+        transform: translate3d(0, 0, 0);
     }
-
-    @media (max-width: @screen-phone) {
+}
+@keyframes animate-img2 {
+    0% {
+        transform: translate3d(-50%, 0, 0);
     }
-
-    @media (max-width: @screen-tablet) {
-        .items-msg {
-            .recent-bet,
-            .recent-win,
-            .recent-water {
-                width: 100%;
-            }
-        }
+    10%,
+    95% {
+        transform: translate3d(-50%, 20px, 0);
     }
-
-    @media (min-width: @screen-tablet) {
-        .home {
-            /*banner*/
-            .el-carousel__item {
-                .banner-t1 {
-                    line-height: 54px;
-                    font-size: (4600)/1920vw;
-                }
-                .banner-t2 {
-                    line-height: 26px;
-                    font-size: (1600)/1920vw;
-                }
-            }
-            /*banner*/
-        }
+    100% {
+        transform: translate3d(-50%, 0, 0);
     }
-
-    @media (min-width: @screen-desktop) {
-        .items-game {
-            > div + div {
-                margin-top: 0;
-            }
-            .game-11t5,
-            .game-slot,
-            .game-onecoin {
-                width: 100%;
-                transition: all 0.2s;
-                transform-origin: bottom;
-                &:hover {
-                    transform: scale(1.08);
-                }
-            }
-            .game-btn {
-                transition: all 0.2s;
-                &:hover {
-                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-                }
-            }
-        }
-
-        .safe-msg {
-            .col-lg-4 {
-                padding: 0;
-            }
-        }
+}
+@keyframes animate-img3 {
+    0% {
+        opacity: 1;
+        transform: scale(1);
     }
-
-    @media (min-width: @screen-lg-desktop) {
-        .home {
-            /*banner*/
-            .el-carousel {
-                height: 450-58px;
-            }
-            .el-carousel__item {
-                .banner-t1 {
-                    margin-top:143px;
-                    line-height: 57px;
-                    font-size: 46px;
-                }
-                .banner-t2 {
-                    line-height: 28px;
-                    font-size: 16px;
-                }
-            }
-            /*banner*/
-        }
-
-        .for-full {
-            margin: 0;
-        }
+    50% {
+        opacity: 0;
+        transform: scale(3);
     }
-    @keyframes anima-img1 {
-        0%{
-            transform: translate3d(0,0,0);
-        }
-        10%,95%{
-            transform: translate3d(20px,0,0);
-        }
-        100%{
-            transform: translate3d(0,0,0);
-        }
+    51%,
+    100% {
+        opacity: 0;
+        transform: scale(1);
     }
-    @keyframes animate-img2 {
-        0%{
-            transform: translate3d(-50%,0,0);
-        }
-        10%,95%{
-            transform: translate3d(-50%,20px,0);
-        }
-        100%{
-            transform: translate3d(-50%,0,0);
-        }
-    }
-    @keyframes animate-img3 {
-        0%{
-            opacity:1;
-            transform: scale(1);
-        }
-        50%{
-            opacity:0;
-            transform: scale(3);
-        }
-        51%,100%{
-            opacity:0;
-            transform: scale(1);
-        }
-    }
+}
 </style>

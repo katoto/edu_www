@@ -38,26 +38,18 @@
                     </div>
                     <div class="nomsg" v-if="filterBets(betsList).length === 0">
                         <img src="@/assets/img/oneToKen/nomsg.png" alt="">
-                        <p>No record. <a href="">Try a luck !</a></p>
+                        <p>No record.
+                            <a href="">Try a luck !</a>
+                        </p>
                     </div>
                 </div>
-                <el-pagination
-                    v-if="filterBets(betsList).length != 0"
-                    @current-change="handleCurrentBetChange"
-                    background
-                    :current-page.sync="bets.pages.pageno"
-                    size="small"
-                    :page-size="bets.pages.pageSize"
-                    layout="prev, pager, next"
-                    :page-count="bets.pageCount"
-                    :next-text="_('Next >')"
-                    :prev-text="_('< Front')">
+                <el-pagination v-if="filterBets(betsList).length != 0" @current-change="handleCurrentBetChange" background :current-page.sync="bets.pages.pageno" size="small" :page-size="bets.pages.pageSize" layout="prev, pager, next" :page-count="bets.pageCount" :next-text="_('Next >')" :prev-text="_('< Front')">
                 </el-pagination>
             </div>
             <div class="container" v-else>
                 <div class="row clearfix">
                     <div class="for-full items">
-                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="index">
+                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="index * Math.random()">
                             <history-bet-box :bet="bet" type="list"></history-bet-box>
                         </div>
                     </div>
@@ -71,21 +63,10 @@
                         </p>
                     </div>
                 </div>
-                <el-pagination
-                    v-if="historyList.length != 0"
-                    @current-change="handleCurrentHistoryChange"
-                    background
-                    :current-page.sync="history.pages.pageno"
-                    size="small"
-                    :page-size="history.pages.pageSize"
-                    layout="prev, pager, next"
-                    :page-count="history.pageCount"
-                    :next-text="_('Next >')"
-                    :prev-text="_('< Front')">
+                <el-pagination v-if="historyList.length != 0" @current-change="handleCurrentHistoryChange" background :current-page.sync="history.pages.pageno" size="small" :page-size="history.pages.pageSize" layout="prev, pager, next" :page-count="history.pageCount" :next-text="_('Next >')" :prev-text="_('< Front')">
                 </el-pagination>
             </div>
         </div>
-
     </div>
 </template>
 <script>
@@ -121,7 +102,10 @@ export default {
         }
     },
     methods: {
-        ...mapActions('cs_luckycoin', ['getBetsPageList', 'getBetsPageHistory']),
+        ...mapActions('cs_luckycoin', [
+            'getBetsPageList',
+            'getBetsPageHistory'
+        ]),
         handleCurrentBetChange (pageno = this.bets.pages.pageno) {
             this.bets.pages.pageno = pageno
             this.getBetData()
@@ -150,7 +134,9 @@ export default {
             let aId = Number(a.exceptId)
             let bId = Number(b.exceptId)
             if (aProgress === bProgress) {
-                return this.bidsFilter === 'progress1' ? (aId < bId ? 1 : -1) : (aId > bId ? 1 : -1)
+                return this.bidsFilter === 'progress1'
+                    ? aId < bId ? 1 : -1
+                    : aId > bId ? 1 : -1
             }
             return aProgress > bProgress ? 1 : -1
         },
@@ -160,7 +146,9 @@ export default {
             let aId = Number(a.exceptId)
             let bId = Number(b.exceptId)
             if (aValue === bValue) {
-                return this.bidsFilter === 'price1' ? (aId > bId ? 1 : -1) : (aId < bId ? 1 : -1)
+                return this.bidsFilter === 'price1'
+                    ? aId > bId ? 1 : -1
+                    : aId < bId ? 1 : -1
             }
             return aValue > bValue ? 1 : -1
         },
@@ -214,7 +202,10 @@ export default {
             }
         },
         slice (arr) {
-            return arr.slice((this.bets.pages.pageno - 1) * 16, this.bets.pages.pageno * 16)
+            return arr.slice(
+                (this.bets.pages.pageno - 1) * 16,
+                this.bets.pages.pageno * 16
+            )
         },
         getFilter () {
             if (this.filter === 'ETH' || this.filter === 'BTC') {
@@ -250,9 +241,7 @@ export default {
             this.clearPageno()
             this.filterBets()
         },
-        renderHistoryPage () {
-
-        }
+        renderHistoryPage () {}
     },
     watch: {
         isLogin () {
@@ -280,124 +269,122 @@ export default {
 }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../../styles/lib-media.less";
+@import "../../styles/lib-media.less";
 
-    .more-bids-page {
-        .main {
-            padding-top: 0;
+.more-bids-page {
+    .main {
+        padding-top: 0;
+    }
+    .b-nav {
+        max-width: 1190px;
+        width: 92%;
+        margin: 13px auto 10px;
+    }
+    .function-ct {
+        width: 92%;
+        max-width: 1190px;
+        margin: 28px auto 30px;
+        overflow: hidden;
+    }
+
+    /deep/ .el-radio-button {
+        &.is-active .el-radio-button__inner {
+            background-color: #412057;
+            color: #fff;
+            outline: none;
         }
-        .b-nav {
-            max-width: 1190px;
-            width: 92%;
-            margin: 13px auto 10px;
-        }
-        .function-ct {
-            width: 92%;
-            max-width: 1190px;
-            margin: 28px auto 30px;
+        .el-radio-button__inner {
+            display: block;
+            background: transparent;
+            color: #a99acc;
+            border-color: #412057;
+            padding: 5px 12px;
+            min-width: 80px;
             overflow: hidden;
+            box-shadow: 0 0 0 0 #412057;
         }
+    }
 
-        /deep/ .el-radio-button {
-            &.is-active .el-radio-button__inner {
-                background-color: #412057;
-                color: #fff;
-                outline:none;
-            }
-            .el-radio-button__inner {
-                display: block;
-                background: transparent;
-                color: #a99acc;
-                border-color: #412057;
-                padding: 5px 12px;
-                min-width: 80px;
-                overflow: hidden;
-                box-shadow: 0 0 0 0 #412057;
-            }
+    /deep/ .el-select {
+        float: left;
+        margin: 10px 0 10px 0;
+
+        .el-input__inner {
+            width: auto;
+            border: solid 1px #422852;
+            background-color: #2b1438;
+            color: #a99acc;
+            text-shadow: 0 0 0 #a99acc;
+            font-weight: normal;
         }
+        .el-input.is-focus .el-input__inner {
+            border-color: #a99acc;
+            color: #fff;
+        }
+    }
 
-        /deep/ .el-select {
-            float: left;
-            margin: 10px 0 10px 0;
-
-            .el-input__inner {
-                width: auto;
-                border: solid 1px #422852;
-                background-color: #2b1438;
-                color: #a99acc;
-                text-shadow: 0 0 0 #a99acc;
-                font-weight: normal;
-            }
-            .el-input.is-focus .el-input__inner {
-                border-color: #a99acc;
+    .el-tabs {
+        max-width: 1190px;
+        margin: 0 auto;
+    }
+    /deep/ .el-tabs {
+        width: 92%;
+        .el-tabs__item {
+            color: #aa85ff;
+            &.is-active {
                 color: #fff;
             }
         }
-
-
-
-        .el-tabs {
-            max-width: 1190px;
-            margin: 0 auto;
+        .el-tabs__active-bar {
+            background-color: #fff;
         }
-        /deep/ .el-tabs {
-            width: 92%;
-            .el-tabs__item {
-                color: #aa85ff;
-                &.is-active {
-                    color: #fff;
-                }
-            }
-            .el-tabs__active-bar {
-                background-color: #fff;
-            }
-            .el-tabs__nav-wrap::after {
-                background-color: #412057;
-            }
+        .el-tabs__nav-wrap::after {
+            background-color: #412057;
         }
     }
-    .el-select > .el-input.is-focus {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+}
+.el-select > .el-input.is-focus {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.el-popper {
+    color: #a99acc;
+}
+.el-select-dropdown__list,
+.el-select-dropdown__item {
+    color: #fff;
+    border-top: 1px solid #a99acc;
+    background: #2b1438;
+    &:hover {
+        background: #3e284b;
     }
-    .el-popper {
-        color: #a99acc;
+}
+.items {
+    > div {
+        margin-bottom: 10px;
+        box-sizing: border-box;
     }
-    .el-select-dropdown__list,
-    .el-select-dropdown__item {
-        color: #fff;
-        border-top: 1px solid #a99acc;
-        background: #2b1438;
-        &:hover {
-            background: #3e284b;
+}
+.item-history {
+    width: 92%;
+    margin: 0 auto;
+}
+@media (min-width: @screen-phone) {
+    .more-bids-page {
+        .el-select {
+            float: right;
+            margin: 0;
         }
     }
-    .items {
-        > div {
-            margin-bottom: 10px;
-            box-sizing: border-box;
+}
+@media (min-width: @screen-lg-desktop) {
+    .more-bids-page {
+        .b-nav,
+        .el-tabs,
+        .function-ct,
+        .item-history {
+            width: 100%;
         }
     }
-    .item-history{
-        width:92%;
-        margin:0 auto;
-    }
-    @media (min-width: @screen-phone) {
-        .more-bids-page{
-            .el-select {
-                float: right;
-                margin: 0;
-            }
-        }
-    }
-    @media (min-width: @screen-lg-desktop) {
-        .more-bids-page {
-            .b-nav,
-            .el-tabs,
-            .function-ct,
-            .item-history{
-                width: 100%;
-            }
-        }
-    }
+}
 </style>

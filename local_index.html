@@ -1,35 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Coinslot-the fair game platform for casino games,based on blockchain technology.</title>
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-    <meta name="keywords" content="casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet"/>
-    <meta name="description"
-          content="Coinslot is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games."/>
-    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"
+    />
+    <meta name="keywords" content="casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet" />
+    <meta name="description" content="Coinslot is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games."
+    />
+    <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="robots" content="index,follow">
-    <link href="./static/icon.ico" rel="shortcut icon"/>
+    <link href="./static/icon.ico" rel="shortcut icon" />
     <style>
-        html, body, #app {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        #app {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #app > div {
-            flex: 1;
-            overflow-y: auto;
-        }
-
         #coinslotLoading {
             position: fixed;
             z-index: 999;
@@ -43,7 +29,7 @@
             font-weight: bold;
         }
 
-        #coinslotLoading > div {
+        #coinslotLoading>div {
             position: absolute;
             left: 50%;
             top: 50%;
@@ -69,75 +55,81 @@
                 background-position: -3300px 0px;
             }
         }
+
     </style>
 
 </head>
+
 <body>
-<div id="app" class="">
-</div>
-<div id="coinslotLoading">
-    <div>
-        <div id="cs" class="animation"></div>
-        <p>Coinslot</p>
+    <div id="app" class="">
     </div>
-</div>
-<script>
-    function preloadImage(names, cb, prefix) {
-        window.gkaCache = window.gkaCache || []
-        var n = 0, img, imgs = {}
-        names.forEach(function (name) {
-            img = new Image()
-            window.gkaCache.push(img)
-            img.onload = (function (name, img) {
-                return function () {
-                    imgs[name] = img;
-                    (++n === names.length) && cb && cb(imgs)
-                }
-            })(name, img)
-            img.src = (prefix || '') + name
-        })
-    }
+    <div id="coinslotLoading">
+        <div>
+            <div id="cs" class="animation"></div>
+            <p>Coinslot</p>
+        </div>
+    </div>
+    <script>
+        function preloadImage(names, cb, prefix) {
+            window.gkaCache = window.gkaCache || []
+            var n = 0,
+                img, imgs = {}
+            names.forEach(function (name) {
+                img = new Image()
+                window.gkaCache.push(img)
+                img.onload = (function (name, img) {
+                    return function () {
+                        imgs[name] = img;
+                        (++n === names.length) && cb && cb(imgs)
+                    }
+                })(name, img)
+                img.src = (prefix || '') + name
+            })
+        }
 
-    preloadImage(['loading.png'], function () {
-        document.getElementById('cs').className += ' animation'
-    }, 'static/')
+        preloadImage(['loading.png'], function () {
+            document.getElementById('cs').className += ' animation'
+        }, 'static/')
 
-    /* 禁止左右滚动 */
-    var xStart, xEnd, yStart, yEnd
-    document.addEventListener('touchstart', function (evt) {
-        xStart = evt.touches[0].pageX
-        yStart = evt.touches[0].pageY
-    }, false)
+        /* 禁止左右滚动 */
+        var xStart, xEnd, yStart, yEnd
+        document.addEventListener('touchstart', function (evt) {
+            xStart = evt.touches[0].pageX
+            yStart = evt.touches[0].pageY
+        }, false)
 
-    document.addEventListener('touchmove', function (evt) {
-        xEnd = evt.touches[0].pageX
-        yEnd = evt.touches[0].pageY
-        Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) &&
-        evt.preventDefault()
-    }, false)
-</script>
+        document.addEventListener('touchmove', function (evt) {
+            xEnd = evt.touches[0].pageX
+            yEnd = evt.touches[0].pageY
+            Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) &&
+                evt.preventDefault()
+        }, false)
+
+    </script>
 </body>
 <!-- 结构化数据 -->
 <script type="application/ld+json">
     {
         "@context": "http://coinslot.com",
-        "header":"Coinslot-the fair game platform for casino games , based on blockchain technology !",
+        "header": "Coinslot-the fair game platform for casino games , based on blockchain technology !",
         "name": "casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet",
         "description": "Coinslot is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.",
         "image": "http://www.coinslot.com/coinslot/media/icon.ico",
         "url": "http://www.coinslot.com/coinslot/html/index.html"
     }
+
 </script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118873303-1"></script>-->
 <!--<script>-->
-    <!--window.dataLayer = window.dataLayer || []-->
+<!--window.dataLayer = window.dataLayer || []-->
 
-    <!--function gtag() {-->
-        <!--window.dataLayer.push(arguments)-->
-    <!--}-->
+<!--function gtag() {-->
+<!--window.dataLayer.push(arguments)-->
+<!--}-->
 
-    <!--gtag('js', new Date())-->
-    <!--gtag('config', 'UA-118873303-1')-->
+<!--gtag('js', new Date())-->
+<!--gtag('config', 'UA-118873303-1')-->
 <!--</script>-->
+
 </html>
