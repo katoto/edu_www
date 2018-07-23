@@ -1,64 +1,81 @@
 <template>
-  <div class="footer">
-    <div class=" container">
-      <div class="reserved col-md-4">
-        <p>
-          Welcome to Coinslot and start a new gaming experience! Coinslot is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.
-        </p>
-      </div>
-      <div class="col-md-4 ">
-        <div class="about col-md-6">
-          <div class="title">
-            <lang>Coinslot</lang>
-          </div>
-          <a href="javascript:;">
-            <lang>Terms of Use</lang>
-          </a>
-          <a href="javascript:;" @click="jump2Page">
-            <lang>Privacy Policy</lang>
-          </a>
-          <a href="javascript:;">Transparency</a>
-          <a href="javascript:;">Help Center</a>
+    <div class="footer">
+        <div class=" container">
+            <div class="reserved col-md-4">
+                <p>
+                    Welcome to Coinslot and start a new gaming experience! Coinslot is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.
+                </p>
+            </div>
+            <div class="col-md-4 ">
+                <div class="about col-md-6">
+                    <div class="title">
+                        <lang>Coinslot</lang>
+                    </div>
+                    <a href="javascript:;">
+                        <lang>Terms of Use</lang>
+                    </a>
+                    <a href="javascript:;" @click="jump2Page">
+                        <lang>Privacy Policy</lang>
+                    </a>
+                    <a href="javascript:;">Transparency</a>
+                    <a href="javascript:;">Help Center</a>
+                </div>
+                <div class="game col-md-6">
+                    <div class="title">
+                        <lang>game</lang>
+                    </div>
+                    <a href="javascript:;">
+                        Lucky 11
+                    </a>
+                    <a href="javascript:;">
+                        slot
+                    </a>
+                    <a href="javascript:;">
+                        LuckyCoin
+                    </a>
+                    <a href="javascript:;">
+                        Mobile APP
+                    </a>
+                </div>
+            </div>
+            <div class="contact col-md-4">
+                <div class="title">
+                    <lang>Contact Us</lang>
+                </div>
+                <p>
+                    <lang>General issues:</lang>
+                    <a href="mailto:lucky11@coinslot.com">lucky11@coinslot.com</a>
+                </p>
+                <p>
+                    <lang>Technical support service:</lang>
+                    <a href="mailto:support@coinslot.com">support@coinslot.com</a>
+                </p>
+                <p>
+                    <lang>Telegram:</lang>
+                    <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
+                </p>
+                <div class="language">
+                    <div class="language-choose">
+                        <img src="../../static/staticImg/lan-en.jpg" alt="">
+                        <span>English</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <img src="../../static/staticImg/lan-cn.jpg" alt="">
+                            <span>简体中文</span>
+                        </li>
+                        <li>
+                            <img src="../../static/staticImg/lan-cn.jpg" alt="">
+                            <span>繁体中文</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="reserved hide">
+                ©Coinslot 2018. All Rights Reserved
+            </div>
         </div>
-        <div class="game col-md-6">
-          <div class="title">
-            <lang>game</lang>
-          </div>
-          <a href="javascript:;">
-            Lucky 11
-          </a>
-          <a href="javascript:;">
-            slot
-          </a>
-          <a href="javascript:;">
-            LuckyCoin
-          </a>
-          <a href="javascript:;">
-            Mobile APP
-          </a>
-        </div>
-      </div>
-
-      <div class="contact col-md-4">
-        <div class="title">
-          <lang>Contact Us</lang>
-        </div>
-        <p>
-          <lang>General issues:</lang>
-          <a href="mailto:lucky11@coinslot.com">lucky11@coinslot.com</a>
-        </p>
-        <p>
-          <lang>Technical support service:</lang>
-          <a href="mailto:support@coinslot.com">support@coinslot.com</a>
-        </p>
-        <p>
-          <lang>Telegram:</lang>
-          <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
-        </p>
-
-      </div>
-    </div> 
-  </div>
+    </div>
 </template>
 
 <script>
@@ -106,7 +123,7 @@ export default {
 .footer {
     position: relative;
     z-index: 5;
-    background: #fff;
+    background: #151515;
     border-top: 50px solid #eef1f9;
     //用border代替margin挡住冒泡
     padding: 16px 0 62px 0;
@@ -118,7 +135,7 @@ export default {
     }
     .title {
         line-height: 45px;
-        font-size: 16px;
+        font-size: 20px;
     }
     p {
         line-height: 20px;
@@ -133,18 +150,49 @@ export default {
             color: #333;
         }
     }
-    .reserved {
-    }
-    .contact {
-        a {
-            font-weight: bold;
-        }
-    }
-    .about,.game {
+    .about,
+    .game {
         a {
             display: block;
         }
     }
+    .contact {
+        text-align: right;
+    }
+    .language {
+        position: relative;
+        width: 130px;
+        height: 30px;
+        border: 1px solid #6f8198;
+        padding: 6px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #fff;
+        img {
+            width: 32px;
+            height: 16px;
+        }
+        .language-choose {
+            position: relative;
+            &::after {
+                position: absolute;
+                top: 11px;
+                right: 11px;
+                content: "";
+                display: block;
+                width: 13px;
+                height: 8px;
+                background: url(../assets/img/icon-arrow-down.png) no-repeat
+                    center;
+                background-size: 13px 8px;
+            }
+        }
+
+        ul {
+            display: none;
+        }
+    }
+
     @media (max-width: @screen-desktop) {
         padding: 0 20px 25px;
         .title {

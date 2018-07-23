@@ -8,43 +8,71 @@ Vue.use(Router)
 
 /* cs_1105 */
 /* cs_1105 首页 */
-const lucky11 = () => import('~/pages/cs_1105/lucky')
+const lucky11 = () =>
+    import ('~/pages/cs_1105/lucky')
 /* cs_1105 开奖页 */
-const csDrawNum = () => import('~/pages/cs_1105/drawNumber')
+const csDrawNum = () =>
+    import ('~/pages/cs_1105/drawNumber')
 
 /* 协议 */
-const csProtocolPolicy = () => import('~/pages/cs_protocol/policy')
-const csProtocolPolicy_cn = () => import('~/pages/cs_protocol/policy_cn')
-const csProtocolPolicy_tw = () => import('~/pages/cs_protocol/policy_tw')
+const csProtocolPolicy = () =>
+    import ('~/pages/cs_protocol/policy')
+const csProtocolPolicy_cn = () =>
+    import ('~/pages/cs_protocol/policy_cn')
+const csProtocolPolicy_tw = () =>
+    import ('~/pages/cs_protocol/policy_tw')
 
 /* 个人中心 */
-const account = () => import('~/pages/cs_account/account')
-const General = () => import('~/pages/cs_account/General')
-const Deposit = () => import('~/pages/cs_account/Deposit')
-const MyBets = () => import('~/pages/cs_account/MyBets')
-const MyTransactions = () => import('~/pages/cs_account/MyTransactions')
-const Withdraw = () => import('~/pages/cs_account/Withdraw')
+const account = () =>
+    import ('~/pages/cs_account/account')
+const General = () =>
+    import ('~/pages/cs_account/General')
+const Deposit = () =>
+    import ('~/pages/cs_account/Deposit')
+const MyBets = () =>
+    import ('~/pages/cs_account/MyBets')
+const MyTransactions = () =>
+    import ('~/pages/cs_account/MyTransactions')
+const Withdraw = () =>
+    import ('~/pages/cs_account/Withdraw')
 
 /* 老虎机 */
-const slot = () => import('~/pages/cs_tiger/slotMachine')
+const slot = () =>
+    import ('~/pages/cs_tiger/slotMachine')
 
 /* 一元夺币 */
-const luckycoin = () => import('~/pages/cs_luckycoin/lucky-coin')
+const luckycoin = () =>
+    import ('~/pages/cs_luckycoin/lucky-coin')
 
-const luckcoinIndex = () => import('~/pages/cs_luckycoin/index')
+const luckcoinIndex = () =>
+    import ('~/pages/cs_luckycoin/index')
 
-const luckcoinMoreBids = () => import('~/pages/cs_luckycoin/more-bids')
+const luckcoinMoreBids = () =>
+    import ('~/pages/cs_luckycoin/more-bids')
 
-const luckycoinDrawHistory = () => import('~/pages/cs_luckycoin/draw-history')
+const luckycoinDrawHistory = () =>
+    import ('~/pages/cs_luckycoin/draw-history')
 
-const Home = () => import('~/pages/cs_home/home')
+const Home = () =>
+    import ('~/pages/cs_home/home')
 
 /*品牌首页 */
-const home = () => import('~/pages/cs_home/home')
+const home = () =>
+    import ('~/pages/cs_home/home')
 // 404  history
-const page404 = () => import('~/pages/404.vue')
+const page404 = () =>
+    import ('~/pages/404.vue')
+//foot
+const foot = () =>
+    import ('~/components/Footer.vue')
 
-let routesArr = [
+
+
+let routesArr = [{
+        path: '/foot',
+        name: 'foot',
+        component: foot
+    },
     {
         path: '/lucky11',
         name: 'lucky11',
@@ -69,8 +97,7 @@ let routesArr = [
         path: '/luckycoin',
         name: _('Luck Coin'),
         component: luckycoin,
-        children: [
-            {
+        children: [{
                 path: 'drawHistory',
                 meta: {
                     history: true
@@ -108,8 +135,7 @@ let routesArr = [
     {
         path: '/account',
         component: account,
-        children: [
-            {
+        children: [{
                 path: 'general',
                 name: _('General'),
                 component: General
