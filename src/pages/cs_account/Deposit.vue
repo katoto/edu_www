@@ -16,7 +16,7 @@
                     </el-option>
                 </el-select>
                 Current balance
-                <i class="bold">0.0034</i> ETH
+                <i class="bold">{{ currBalance.balance }}</i> {{ currBalance.cointype }}
             </div>
         </div>
         <div class="item2 clearfix">
@@ -74,40 +74,45 @@
 </template>
 
 <script>
-import { copySucc, copyError } from "~common/util";
+import { copySucc, copyError, formateBalance, formateCoinType } from '~common/util'
 
 export default {
-    data() {
-        return {};
+    data () {
+        return {}
     },
     watch: {},
     methods: {
-        goVerify() {
+        formateBalance,
+        formateCoinType,
+        goVerify () {
             /* 应该是一个新的 验证邮箱的界面 */
-            this.$store.commit("showNoVerify");
+            this.$store.commit('showNoVerify')
         },
         copySucc,
         copyError
     },
     computed: {
-        isLog() {
-            return this.$store.state.isLog;
+        isLog () {
+            return this.$store.state.isLog
         },
-        userInfo() {
-            return this.$store.state.userInfo;
+        userInfo () {
+            return this.$store.state.userInfo
+        },
+        currBalance () {
+            return this.$store.state.currBalance
         }
     },
-    mounted() {
+    mounted () {
         if (!this.isLog) {
-            this.$router.push("/home");
+            this.$router.push('/home')
         }
     },
     filters: {
-        formateCoinType: (type = "2001") => {
-            return "a" + type;
+        formateCoinType: (type = '2001') => {
+            return 'a' + type
         }
     }
-};
+}
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 @import "../../styles/lib-mixins.less";
