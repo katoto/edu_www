@@ -132,7 +132,7 @@
                 </div>
 
                 <!--拉新活動 on-->
-                <div class="cs-faucet">
+                <div class="cs-faucet hide">
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                     </a>
                     <!--拉新活动提示-->
@@ -811,12 +811,13 @@
     .cs-faucet{
         position: relative;
         float: right;
-        margin:21px 32px 0 0;
+        margin:21px 22px 0 0;
         .btn-faucet{
             display: block;
             width:19px;
             height:26px;
             overflow: hidden;
+            padding:0 10px;
             background: url("../assets/img/icon-water.png") no-repeat center;
         }
         .act-sign{
@@ -1289,9 +1290,10 @@
                 box-sizing: border-box;
                 width:50px;
                 height:50px;
-                padding:17px 10px 0;
+                padding:10px 10px 0;
                 border-left:1px solid rgba(51,26,64,0.3);
                 border-right:1px solid rgba(51,26,64,0.3);
+                margin-right:0;
                 .countNum{
                    .hide-text();
                     i{
@@ -1363,7 +1365,7 @@
             width:50px;
         }
         .cs-faucet{
-            margin: 12px 20px 0 0;
+            margin: 12px 0 0 0;
         }
     }
     @media (max-width: @screen-phone) { }
