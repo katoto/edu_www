@@ -21,7 +21,8 @@
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
                         <!--<el-button @click="showSucc">模拟成功</el-button>-->
-                        <lang>I'm 18+ years old and agree</lang>
+                        <!--<lang>I'm 18+ years old and agree</lang>-->
+                        <lang>I'm 18+ years old and agree with</lang><a style="cursor: pointer" @click="jump2Page"><lang>Privacy policy</lang></a>
                         <!--with <a href="terms.html" target="_blank">Terms of use</a>
                     and <a href="policy.html" target="_blank">Privacy policy</a>-->
                     </p>
@@ -36,7 +37,7 @@
         </div>
         <div class="pop-bottom">
             <p>
-                <lang>Already Have Account？</lang> 
+                <lang>Already Have Account？</lang>
                 <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">
                     <lang>Sign In</lang>
                 </a>
@@ -64,6 +65,22 @@
         },
         components: {Pop},
         methods: {
+            jump2Page (lan = 'en') {
+                if (this.language) {
+                    lan = this.language
+                }
+                switch (lan) {
+                case 'en':
+                    this.$router.push('/policy')
+                    break
+                case 'zhCn':
+                    this.$router.push('/policy_zhCn')
+                    break
+                case 'zhTw':
+                    this.$router.push('/policy_zhTw')
+                    break
+                }
+            },
             clearStatus () {
                 this.reg_email = ''
                 this.reg_pass = ''

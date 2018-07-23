@@ -35,7 +35,6 @@
                                     <template v-else>
                                         {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
                                     </template>
-
                                     </span>
                                 </p>
                                 <!--<span>-->
