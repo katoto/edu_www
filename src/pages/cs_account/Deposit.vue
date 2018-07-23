@@ -25,7 +25,8 @@
             </div>
             <div class="fr-box" v-if="currBalance">
                 <div class="item2-1">
-                    <a href="javascript:;" class="address">{{ currBalance.address }}</a>
+                    <a :href="'https://etherscan.io/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='2001'" class="address">{{ currBalance.address }}</a>
+                    <a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='1001'"class="address">{{ currBalance.address }}</a>
                     <a href="javascript:;"
                        v-clipboard:copy="currBalance.address"
                        v-clipboard:success="copySucc"
@@ -34,8 +35,11 @@
                         <lang>Copy</lang>
                     </a>
                 </div>
-                <p class="item2-2">
+                <p class="item2-2" v-if="currBalance.cointype==='2001'">
                     Tip: This address only supports ETH recharge, do not choose the wrong currency
+                </p>
+                <p class="item2-2" v-if="currBalance.cointype==='1001'">
+                    Tip: This address only supports BTC recharge, do not choose the wrong currency
                 </p>
                 <div class="item2-3">
                     or scan to get the address

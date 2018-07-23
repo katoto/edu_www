@@ -14,8 +14,9 @@
                                 <el-option v-for="item in this.userInfo.accounts" :key="item.cointype" :label="formateCoinType(item.cointype)" :value="item">
                                 </el-option>
                             </el-select>
-                            Withdraw amount:
-                            <i class="orange bold"></i> , Current balance {{ formateBalance(currBalance.balance) }} {{ formateCoinType(currBalance.cointype) }}
+                            <!--Withdraw amount:-->
+                            <!--<i class="orange bold"></i> , -->
+                            Current balance {{ formateBalance(currBalance.balance) }} {{ formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                  <div class="mark-view" :class="{on:ShowMarkView}">
                                     The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip <a href="javascript:;">View detailed rules</a>
@@ -53,7 +54,7 @@
                     </div>
                     <p class="fee">
                         <lang>Fee</lang>&ensp;
-                        <i v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].fee }}</i><i v-else>0.003</i><i>ETH</i>
+                        <i v-if="currBalance">{{ currBalance.fee }}</i><i v-else>0.003</i><i>{{  formateCoinType(currBalance.cointype) }}</i>
                     </p>
                     <button @click="sendDraw">
                         <lang>Withdraw</lang>
@@ -363,14 +364,29 @@ export default {
                 this.error(_('Please enter the correct ETH wallet address'))
                 return false
             }
-            if (!~this.withdrawAddr.indexOf('0x')) {
-                this.error(_('Please enter the correct ETH wallet address'))
-                this.withdrawAddr = ''
-                return false
-            } else if (this.withdrawAddr.length !== 42) {
-                this.error(_('Please enter the correct length wallet address'))
-                this.withdrawAddr = ''
-                return false
+            switch (this.currBalance.cointype) {
+            case '1001':
+                if (!(this.withdrawAddr[0].toString() === '0' || this.withdrawAddr[0].toString() === '1')) {
+                    this.error(_('Please enter the correct BTC wallet address'))
+                    this.withdrawAddr = ''
+                    return false
+                } else if (this.withdrawAddr.length !== 34) {
+                    this.error(_('Please enter the correct length wallet address'))
+                    this.withdrawAddr = ''
+                    return false
+                }
+                ;break
+            case '2001':
+                if (!~this.withdrawAddr.indexOf('0x')) {
+                    this.error(_('Please enter the correct ETH wallet address'))
+                    this.withdrawAddr = ''
+                    return false
+                } else if (this.withdrawAddr.length !== 42) {
+                    this.error(_('Please enter the correct length wallet address'))
+                    this.withdrawAddr = ''
+                    return false
+                }
+                ;break
             }
             if (isNaN(Number(this.withdrawAmount))) {
                 this.error(_('Please enter the correct amount'))
