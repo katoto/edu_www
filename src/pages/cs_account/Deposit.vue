@@ -3,246 +3,203 @@
         <h2>
             <lang>Deposit</lang>
         </h2>
-        <span class="small-explain hide">
-            <lang>Wallet Balance</lang>
-        </span>
-        <ul class="coin-detail hide">
-            <li>
-                <div class="lf130">
-                    <span class="coin-name">ETH</span>
-                    <span class="coin-num bold js_withDrawal_eth"></span>
-                </div>
-                <span class="coin-add js_walletaAddress_noJump" id="js_copyWallBalance"></span>
-                <a href="javascript:;" data-clipboard-target="#js_copyWallBalance"
-                   class="btn-copy js_btn-copy">
-                   <lang>Copy</lang>
-                </a>
-            </li>
-            <li class="hide">
-                <div class="lf130">
-                    <span class="coin-name">ETH</span>
-                    <span class="coin-num bold">0.00000</span>
-                </div>
-                <span class="coin-add"></span>
-                <a href="javascript:;" class="btn-copy">
-                    <lang>Copy</lang>
-                </a>
-            </li>
-        </ul>
         <a href="javascript:;" class="btn-Recharge">
             <lang>How to deposit?</lang>
         </a>
-        <div class="recharge-box">
-            <div class="recharge-item recharge-item1" v-if="userInfo">
-                <h3>
-                    <lang>1.Copy the Ethereum wallet address (only supports ETH)</lang>
-                </h3>
-                <div class="js_verifyBox" v-if="userInfo && userInfo.status ==='1'">
-                    <div v-for="(item, index) in userInfo.accounts" :key="index">
-                        <span class="recharge-add">
-                            {{ item.address }}
-                        </span>
-                        <a href="javascript:;"
-                           v-clipboard:copy="item.address"
-                           v-clipboard:success="copySucc"
-                           v-clipboard:error="copyError"
-                           class="copy js_btn-copy">
-                           <lang>Copy</lang>
-                        </a>
-                        <p>
-                            <lang>or scan to get the address</lang>
-                        </p>
-                        <div class="img-box">
-                            <div class="img-box2">
-                                <img id="js_address_code_eth" alt=""
-                                     :src="'http://mobile.qq.com/qrcode?url='+ item.address ">
-                            </div>
+        <div class="item1 clearfix">
+            <div class="fl150">
+                Select Currency
+            </div>
+            <div class="fr-box">
+                <el-select v-model="tranOptionVal" @change="handleStatusChange">
+                    <el-option v-for="item in tranOptions" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+                Current balance
+                <i class="bold">0.0034</i> ETH
+            </div>
+        </div>
+        <div class="item2 clearfix">
+            <div class="fl150">
+                copy Link
+            </div>
+            <div class="fr-box">
+                <div class="item2-1">
+                    <a href="javascript:;" class="address">C1FEK7gfZaaKm48Y1N8Y8Gm81PhmiB8q</a>
+                    <a href="javascript:;" class="btn-Copy">Copy</a>
+                </div>
+                <p class="item2-2">
+                    Tip: This address only supports ETH recharge, do not choose the wrong currency
+                </p>
+                <div class="item2-3">
+                    or scan to get the address
+                </div>
+                <img src="@/assets/img/code.png" alt="" width="98" height="98">
+            </div>
+        </div>
+        <div class="item3 clearfix">
+            <div class="fl150">
+                Notice
+            </div>
+            <div class="fr-box">
+                <ul>
+                    <li>
+                        1. It is recommended that you use a regular and secure ETH wallet or trading platform. Recommended:
+                        <div style="color:#6a89cc">
+                            Mist, MyEtherWallet, MetaMask, IMToken, huobi.com, etc.
                         </div>
-                    </div>
-                </div>
-                <div v-else class="js_unverifyBox">
-                    <!-- todo 验证 -->
-                    <p>
-                        <lang>Account has not been verified，and the block chain account has not been generated.</lang>
-                        <a href="javascript:;" @click="goVerify">
-                            <lang>go to verified</lang>
-                        </a>
-                    </p>
-                </div>
-            </div>
-            <div class="recharge-item recharge-item2">
-                <h3>
-                    <lang>2. Transfer to the wallet address</lang>
-                </h3><br>
-                <h3>
-                    <lang>In order to transfer successfully, you can use an Ethereum wallet or exchange platforms, and always make sure your account is secure. Coinslot doesn't have any partnership with any of these applications or platforms. Other users recommend: Mist, MyEtherWallet, MetaMask, imToken, huobi.com and so forth.</lang>
-                </h3>
-                <a href="javascript:;" class="reco-soft js_reco-soft hide">
-                    <lang>Recommended software</lang>
-                </a>
-            </div>
-            <div class="recharge-item recharge-item3">
-                <h3>
-                    <lang>3. Confirm your balance</lang>
-                </h3><br>
-                <h3>
-                    <lang>Usually, it takes about 5 minutes for transaction block to confirm your deposit. Don't forget to refresh and check your balance.</lang>
-                </h3>
-                <img class="transfer" src="../../assets/img/transfer.png" alt="transfer" width="340" height="40">
-                <p class="hide">After the deposit is successful, your balance will be updated, and the order details can
-                    be found in the details of the fund,<br>or entered in:<a href=" https://etherscan.io" target="_blank"></a></p>
+                    </li>
+                    <li>
+                        2. the general recharge needs 5 minutes to arrive, please be patient, if the recharge has not arrived, please contact us at support@coinslot.com
+                        <p>
+                            · Do not recharge any non-BTC assets to the above address, otherwise the assets will not be recovered.
+                        </p>
+                        <p>
+                            · After you recharge to the above address, you need to confirm the entire network node. After 1 network. confirmation, you will receive the account. After 6 network confirmations, you can withdraw the currency.
+                        </p>
+                        <p>
+                            · The recommended minimum recharge amount is 0.0001 BTC. The recharge value less than the minimum amount may not be successfully received and cannot be returned.
+                        </p>
+                        <p>
+                            · Your recharge address will not change frequently, you can repeat the recharge; if there is any change, we will try to notify you by website announcement or email.
+                        </p>
+                        <p>
+                            · Be sure to check the security of your computer and browser to prevent the information from being tam pered with or leaked.
+                        </p>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {copySucc, copyError} from '~common/util'
+import { copySucc, copyError } from "~common/util";
 
-    export default {
-        data () {
-            return {}
+export default {
+    data() {
+        return {};
+    },
+    watch: {},
+    methods: {
+        goVerify() {
+            /* 应该是一个新的 验证邮箱的界面 */
+            this.$store.commit("showNoVerify");
         },
-        watch: {},
-        methods: {
-            goVerify () {
-                /* 应该是一个新的 验证邮箱的界面 */
-                this.$store.commit('showNoVerify')
-            },
-            copySucc,
-            copyError
-
+        copySucc,
+        copyError
+    },
+    computed: {
+        isLog() {
+            return this.$store.state.isLog;
         },
-        computed: {
-            isLog () {
-                return this.$store.state.isLog
-            },
-            userInfo () {
-                return this.$store.state.userInfo
-            }
-        },
-        mounted () {
-            if (!this.isLog) {
-                this.$router.push('/home')
-            }
-        },
-        filters: {
-            formateCoinType: (type = '2001') => {
-                return 'a' + type
-            }
+        userInfo() {
+            return this.$store.state.userInfo;
+        }
+    },
+    mounted() {
+        if (!this.isLog) {
+            this.$router.push("/home");
+        }
+    },
+    filters: {
+        formateCoinType: (type = "2001") => {
+            return "a" + type;
         }
     }
+};
 </script>
 <style scoped lang="less" rel="stylesheet/less">
-    @import "../../styles/lib-mixins.less";
+@import "../../styles/lib-mixins.less";
 
-    //  RECHARGE
-    .recharge {
-        padding-bottom: 29px;
-        h2 {
-            margin-bottom: 38px;
+//  RECHARGE
+.recharge {
+    position: relative;
+    padding-bottom: 50px;
+    font-size: 14px;
+    h2 {
+        margin-bottom: 38px;
+        line-height: 30px;
+        font-size: 26px;
+        color: #263648;
+        text-transform: capitalize;
+    }
+    .btn-Recharge {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 14px;
+    }
+    .fl150 {
+        float: left;
+        box-sizing: border-box;
+        width: 150px;
+        padding-right: 45px;
+        text-align: right;
+        font-size: 14px;
+    }
+    .fr-box {
+        overflow: hidden;
+    }
+    .item1 {
+        margin-bottom: 30px;
+        line-height: 25px;
+    }
+    .item2 {
+        .fl150 {
+            height: 30px;
             line-height: 30px;
-            font-size: 24px;
-            color: #263648;
-            text-transform: capitalize;
         }
-        .coin-detail {
-            margin: 4px 0 43px 0;
-        }
-        .coin-add {
-            a {
-                max-width: 640px !important;
-                margin-right: 10px;
-                color: #263648;
-                text-decoration: underline;
-                .text-overflow();
+        .item2-1 {
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            .address {
+                float: left;
+            }
+            .btn-Copy {
+                margin-left: 7px;
+                float: left;
+                display: block;
+                width: 60px;
+                height: 30px;
+                overflow: hidden;
+                border-radius: 6px;
+                line-height: 30px;
+                text-align: center;
+                background: #6a89cc;
+                color: #fff;
+                transition: all 0.2s;
                 &:hover {
-                    text-decoration: none;
+                    filter: brightness(1.1);
                 }
             }
         }
-        .btn-Recharge, .constructions {
-            line-height: 16px;
+        .item2-2 {
+            line-height: 30px;
             font-size: 12px;
             color: #778ca3;
         }
-    }
-
-    .recharge-box {
-        padding-left: 17px;
-        margin-top: 10px;
-        .recharge-item {
-            h3 {
-                text-indent: -17px;
-                font-size: 14px;
-                line-height: 20px;
-            }
-            .recharge-explain {
-                margin-top: 17px;
-            }
-            .reco-soft {
-                display: table;
-                padding: 0 15px;
-                margin: 17px 0 38px 0;
-                line-height: 28px;
-                border: 1px solid #ced6e0;
-                border-radius: 6px;
-                font-size: 14px;
-            }
-            .transfer {
-                margin: 15px 0 16px 0;
-            }
-        }
-        .recharge-item1 {
-            position: relative;
-            margin-bottom: 20px;
-            p {
-                clear: both;
-                font-size: 14px;
-                color: #263648;
-                line-height: 24px;
-                margin-bottom: 12px;
-            }
-            .recharge-add {
-                float: left;
-                font-size: 20px;
-                line-height: 48px;
-            }
-            .copy {
-                float: left;
-                margin-left: 20px;
-                font-size: 14px;
-                line-height: 48px;
-            }
-            .img-box {
-                width: 98px;
-                height: 98px;
-                overflow: hidden;
-            }
-            .img-box2 {
-                position: relative;
-                width: 145px;
-                height: 145px;
-                overflow: hidden;
-                transform: scale(0.6758);
-                transform-origin: left top;
-            }
-            #js_address_code_eth {
-                position: absolute;
-                left: -27px;
-                top: -27px;
-                clip: rect(27px 172px 172px 27px);
-            }
-        }
-        .recharge-item2 {
-            margin-bottom: 20px;
-        }
-        .recharge-item3 {
-            p {
-                line-height: 20px;
-                font-size: 12px;
-                color: #778ca3;
-            }
+        .item2-3 {
+            margin-top: 13px;
+            line-height: 27px;
         }
     }
+    .item3 {
+        margin-top: 29px;
+        line-height: 16px;
+        li {
+            padding-left: 1em;
+            text-indent: -1em;
+        }
+        li + li {
+            margin-top: 16px;
+        }
+        li p {
+            margin-top: 16px;
+            text-indent: -0.5em;
+            padding-left: 1em;
+        }
+    }
+}
 </style>

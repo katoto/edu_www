@@ -38,7 +38,7 @@
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>
                 <!-- 修改切换语言 -->
-                <div class="language hide" :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
+                <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <!--languageVal-->
                     <div class="language-choose">
                         <template v-for="item in languageOptions" v-if="item.value===languageVal">
