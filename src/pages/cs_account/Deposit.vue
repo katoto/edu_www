@@ -23,9 +23,9 @@
             <div class="fl150">
                 copy Link
             </div>
-            <div class="fr-box" userInfo>
+            <div class="fr-box" v-if="currBalance">
                 <div class="item2-1">
-                    <a href="javascript:;" class="address"></a>
+                    <a href="javascript:;" class="address">{{ currBalance.address }}</a>
                     <a href="javascript:;" class="btn-Copy">Copy</a>
                 </div>
                 <p class="item2-2">
