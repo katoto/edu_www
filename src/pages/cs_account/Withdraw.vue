@@ -17,8 +17,7 @@
                             </el-select>
                             <!--Withdraw amount:-->
                             <!--<i class="orange bold"></i> , -->
-                            Current balance {{ formateBalance(currBalance.balance) }} {{
-                            formateCoinType(currBalance.cointype) }}
+                            Current balance {{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
                                     The amount of the event, you need to meet the flow conditions to withdraw View
