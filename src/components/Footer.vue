@@ -3,7 +3,10 @@
         <div class=" container">
             <div class="reserved col-xs-12 col-md-4">
                 <p>
-                    Welcome to Coinslot and start a new gaming experience! Coinslot is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.
+                    Welcome to Coinslot and start a new gaming experience! Coinslot is a fair and fair, open and
+                    absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is
+                    used to guarantee the results of the lottery. The lottery number and betting record cannot be
+                    falsified.
                 </p>
             </div>
             <div class="col-md-4 clearfix">
@@ -54,19 +57,18 @@
                     <lang>Telegram:</lang>
                     <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
                 </p>
-                <div class="language" :class="{on:showLanguage}" @click="showLanguage=!showLanguage">
+                <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">
-                        <img src="../../static/staticImg/lan-en.jpg" alt="">
-                        <span>English</span>
+                        <template v-for="item in languageOptions" v-if="item.value===languageVal">
+                            <img :src="item.lanLogo" alt="">
+                            <span>{{ item.label }}</span>
+                        </template>
                     </div>
                     <ul>
-                        <li>
-                            <img src="../../static/staticImg/lan-cn.jpg" alt="">
-                            <span>简体中文</span>
-                        </li>
-                        <li>
-                            <img src="../../static/staticImg/lan-cn.jpg" alt="">
-                            <span>繁体中文</span>
+                        <li v-for="item in languageOptions" v-if="item.value!==languageVal"
+                            @click="handleLanguageChange(item.value)">
+                            <img :src="item.lanLogo" width="27" height="15" alt="">
+                            <span>{{ item.label }}</span>
                         </li>
                     </ul>
                 </div>
@@ -82,13 +84,29 @@
     export default {
         data () {
             return {
-                showLanguage: false
+                languageOptions: [{
+                    value: 'en',
+                    label: 'English',
+                    lanLogo: '../../../static/staticImg/lan-en.jpg'
+                }, {
+                    value: 'zhCn',
+                    label: '中文简体',
+                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
+                }, {
+                    value: 'zhTw',
+                    label: '中文繁體',
+                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
+                }],
+                isShowLanguage: false
             }
-    },
+        },
         watch: {},
         methods: {
             scroll () {
                 window.scrollTo(0, 0)
+            },
+            handleLanguageChange (val) {
+                this.$store.commit('changeLanguage', val)
             },
             jump2Page (lan = 'en') {
                 if (this.language) {
@@ -108,8 +126,16 @@
             }
         },
         computed: {
-            language () {
-                return this.$store.state.language
+            languageVal: {
+                set (val) {
+                    this.$store.commit('changeLanguage', val)
+                },
+                get () {
+                    return this.$store.state.language
+                }
+            },
+            headControlPop () {
+                this.isShowLanguage = !this.isShowLanguage
             }
         },
         mounted () {
@@ -119,9 +145,10 @@
         }
     }
 </script>
-<style lang="less" scoped >
+<style lang="less" scoped>
     @import "../styles/lib-public.less";
     @import "../styles/lib-media.less";
+
     .footer {
         position: relative;
         z-index: 5;
@@ -196,8 +223,7 @@
                     display: block;
                     width: 13px;
                     height: 8px;
-                    background: url(../assets/img/icon-arrow-down.png) no-repeat
-                    center;
+                    background: url(../assets/img/icon-arrow-down.png) no-repeat center;
                     background-size: 13px 8px;
                 }
             }
@@ -231,18 +257,22 @@
                 line-height: 30px;
                 font-size: 14px;
             }
+
             p {
                 line-height: 15px;
                 font-size: 12px;
             }
+
             .about,
             .game {
                 margin: 0;
                 padding: 0;
             }
+
             .reserved {
                 padding-right: 0;
             }
+
             .contact {
                 text-align: left;
                 .language {

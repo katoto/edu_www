@@ -11,11 +11,11 @@
                         <div class="fl210 ">Select Currency</div>
                         <p>
                             <el-select v-model="tranOptionVal" @change="handleStatusChange">
-                                <el-option v-for="item in tranOptions" :key="item.value" :label="item.label" :value="item.value">
+                                <el-option v-for="item in this.userInfo.accounts" :key="item.cointype" :label="formateCoinType(item.cointype)" :value="item">
                                 </el-option>
                             </el-select>
                             Withdraw amount:
-                            <i class="orange bold">0.0021BTC</i> , Current balance 0.0034 BTC
+                            <i class="orange bold"></i> , Current balance {{ formateBalance(currBalance.balance) }} {{ formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                  <div class="mark-view" :class="{on:ShowMarkView}">
                                     The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip <a href="javascript:;">View detailed rules</a>
@@ -290,14 +290,18 @@ export default {
                     label: _('ETH')
                 }
             ],
-            ethOptionVal: '1'
+            ethOptionVal: '1',
+            tranOptionVal: null
         }
     },
     methods: {
         formateBalance,
-        handleStatusChange () {
-            this.pageno = 1
-            this.handleCurrentChange()
+        formateCoinType,
+        handleStatusChange (val) {
+            if (val) {
+                this.tranOptionVal = this.formateCoinType(val.cointype)
+                this.$store.commit('setCurrBalance', val)
+            }
         },
         closeTransferError () {
             this.showTransferError = false
@@ -539,6 +543,9 @@ export default {
     computed: {
         userInfo () {
             return this.$store.state.userInfo
+        },
+        currBalance () {
+            return this.$store.state.currBalance
         }
     },
     components: {
@@ -546,6 +553,7 @@ export default {
     },
     async mounted () {
         this.handleCurrentChange()
+        this.tranOptionVal = this.formateCoinType(this.currBalance.cointype)
     }
 }
 </script>

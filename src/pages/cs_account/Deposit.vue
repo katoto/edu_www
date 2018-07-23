@@ -40,7 +40,9 @@
                 <div class="item2-3">
                     or scan to get the address
                 </div>
-                <img src="@/assets/img/code.png" alt="" width="98" height="98">
+                <img id="js_address_code_eth" alt=""
+                     :src="'http://mobile.qq.com/qrcode?url='+ currBalance.address ">
+                <!--<img src="@/assets/img/code.png" alt="" width="98" height="98">-->
             </div>
         </div>
         <div class="item3 clearfix">
