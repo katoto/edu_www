@@ -531,9 +531,11 @@
                     this.$store.commit(mTypes.prizes_pool, msg.prizes_pool)
                 }
             },
-            currBalance () {
+            currBalance (newVal, oldVal) {
                 /* 切换币种 */
-                this.changePageState()
+                if (oldVal.cointype !== newVal.cointype) {
+                    this.changePageState()
+                }
             },
             isLog (val) {
                 /* 切换登陆态之后改变状态 */
@@ -1007,10 +1009,9 @@
                             findIndex = index
                         }
                     })
-                    if (this.currBalance.cointype.toString() === '2001') {
-                        this.userInfo.accounts[findIndex].balance = Math.abs(parseFloat(this.userInfo.accounts[findIndex].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
-                        this.$store.commit('setUserInfo', this.userInfo)
-                    }
+                    this.userInfo.accounts[findIndex].balance = Math.abs(parseFloat(this.userInfo.accounts[findIndex].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
+                    this.$store.commit('setUserInfo', this.userInfo)
+                    this.$store.commit('setCurrBalance', this.userInfo.accounts[findIndex])
                 }
             },
             showRadioEnd (winArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '120', '0']) {

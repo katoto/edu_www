@@ -147,6 +147,14 @@ const actions = {
                             commit('setCurrBalance', userMsg.data.accounts[0])
                         }
                     }
+                    /* 更新currBalance */
+                    let findIndex = 0
+                    userMsg.data.accounts.forEach((val, index) => {
+                        if (val.cointype === state.currBalance.cointype) {
+                            findIndex = index
+                        }
+                    })
+                    commit('setCurrBalance', userMsg.data.accounts[findIndex])
                     commit('setUserInfo', userMsg.data)
                     // 邀请 活动
                     // userMsg.data.tasks = [{
