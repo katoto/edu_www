@@ -98,7 +98,8 @@
                                                 <i >{{ item.cointype | formateCoinType }}</i>
                                                 <span >{{ formateBalance( item.balance ) }}</span>
                                             </div>
-                                            <a href="javascript:;" class="address">{{ item.address }}</a>
+                                            <a :href="'https://etherscan.io/address/'+currBalance.address" v-if="currBalance.cointype==='2001'" target="_blank" class="address">{{ item.address }}</a>
+                                            <a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='1001'" class="address">{{ item.address }}</a>
                                         </li>
                                         <!--<li>-->
                                             <!--<div class="currency-input"></div>-->
