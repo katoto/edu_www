@@ -7,7 +7,6 @@
         <pop-verify-email-error></pop-verify-email-error>
         <pop-reg-success></pop-reg-success>
         <pop-reg-failure></pop-reg-failure>
-        <pop-faucet></pop-faucet>
         <pop-limit></pop-limit>
         <pop-noVerify></pop-noVerify>
         <Next></Next>
@@ -22,7 +21,6 @@
     import PopVerifyEmailError from './pop/Pop-verify-email-error'
     import PopRegSuccess from './pop/Pop-reg-success'
     import PopRegFailure from './pop/Pop-reg-failure'
-    import PopFaucet from './pop/Pop-faucet'
     import PopLimit from './pop/Pop-limit'
     import PopNoVerify from './pop/Pop-noVerify'
     import Next from './pop/Next'
@@ -36,7 +34,6 @@
             PopVerifyEmailError,
             PopRegSuccess,
             PopRegFailure,
-            PopFaucet,
             PopLimit,
             PopNoVerify,
             Next

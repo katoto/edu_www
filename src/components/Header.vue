@@ -125,8 +125,8 @@
                     </section>
                 </div>
 
-                <!--拉新活動 on-->
-                <div class="cs-faucet hide">
+                <!--拉新活動 on 水龙头new -->
+                <div class="cs-faucet">
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                     </a>
                     <!--拉新活动提示-->
@@ -158,7 +158,6 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
 
             <div class="jackpot" v-show="jackPotMsg">
@@ -194,39 +193,6 @@
                     </div>
                 </div>
             </section>
-            <!--活动结束或者已邀请两次  //	-1  未开始  1 已结束  -2 经费用完 -->
-            <!--  user/info 里还有问题  已经邀请 -->
-            <section v-if="0 && loginSucc&&isLog&&showEndFaucet">
-                <div class="tips-newAct"
-                     :class="{'hide':!( loginSucc.invite_status != '0'||( loginSucc.invite_prize_chances == '0' && loginSucc.tasks.length == 0 ))}">
-                    <div class="msg">
-                        <p v-if="loginSucc.invite_status==='-1'">
-                            <lang>Let's expect the upcoming activity!</lang>
-                        </p>
-                        <p v-else>
-                            <lang>This activity is end and more bonus will coming soon!</lang>
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!--成功邀请-->
-            <section v-if="0 && isLog && userInfo && userInfo.tasks.length > 0 && inviteTips">
-                <div class="tips-newAct tips-newAct2">
-                    <div class="msg">
-                        <p v-html="_('Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.')">
-                        </p>
-                        <a href="javascript:;" @click="getFaucet" class="btn-receive">
-                            <lang>Get it !</lang>
-                        </a>
-                        <div class="bottom hide">
-                            <lang>Invite friends and get more ETH~</lang>
-                            <a href="javascript:;" @click="showFaucet" class="bold"><lang>Invite Now</lang></a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!--拉新活动-->
 
         </div>
         <!-- 公用的模态框列表 -->
@@ -245,8 +211,6 @@
         data () {
             return {
                 showDetail: false,
-                showEndFaucet: false, // 控制 结束弹窗 tips
-                showEndFaucetTime: null,
                 showInviteSuccFlag: false,
                 slideDown: false,
                 languageOptions: [{
@@ -283,9 +247,6 @@
             },
             jackPotMsg () {
                 return this.$store.state.cs_1105.jackPotMsg
-            },
-            inviteTips () {
-                return this.$store.state.pop.inviteTips
             },
             showFirstLogin () {
                 return this.$store.state.pop.showFirstLogin
@@ -354,20 +315,7 @@
                 this.$store.dispatch('getUserInfo')
             },
             async getFaucet () {
-                // 领取邀请奖励
-                if (this.loginSucc && this.loginSucc.tasks.length > 0) {
-                    this.showInviteSuccFlag = false
-                    let taskDone = await this.$store.dispatch('getTaskDone', this.loginSucc.tasks[0].tid)
-                    if (taskDone && taskDone.taskstatus.toString() === '1') {
-                        document.querySelector('.js_addMoneyMove').className = 'add0001 js_addMoneyMove'
-                        setTimeout(() => {
-                            this.$store.commit('inviteTips', false)
-                            this.showInviteSuccFlag = true
-                            this.$store.dispatch('getUserInfo')
-                            document.querySelector('.js_addMoneyMove').className = 'hide js_addMoneyMove'
-                        }, 3000)
-                    }
-                }
+
             },
             hideFirstLoginAll () {
                 // 关闭第一个弹窗
@@ -375,20 +323,6 @@
                 this.$store.commit('setLoginSucc', null)
             },
             async showFaucet () {
-                if (~document.getElementById('js_btn-faucet').className.indexOf('over')) {
-                    this.showEndFaucet = true
-                    clearTimeout(this.showEndFaucetTime)
-                    this.showEndFaucetTime = setTimeout(() => {
-                        this.showEndFaucet = false
-                    }, 2000)
-                } else {
-                    let faucetMsg = await this.$store.dispatch('getFaucet')
-                    /* 显示邀请 */
-                    this.$store.commit('showFaucet')
-                    // 关闭第一个弹窗 ?
-                    this.$store.commit('showFirstLogin', false)
-                    // this.$store.commit('setLoginSucc', null);
-                }
             },
             showDetailFn () {
                 this.showDetail = true
@@ -411,7 +345,7 @@
             // this.$router.push('/lucky11')
             this.showUserMsg()
             // 获取首次中奖信息
-            if (~window.location.href.indexOf('/lucky')) {
+            if (~window.location.href.indexOf('/lucky11')) {
                 if (this.$refs.canvas) {
                     startCanvas(this.$refs.canvas)()
                 }

@@ -18,7 +18,6 @@ const state = {
         showVerifyEmailError: false,
         showRegSuccess: false,
         showRegFailure: false,
-        showFaucet: false,
         showTransfer: false,
 
         emailBackTime: 60,
@@ -43,7 +42,6 @@ const state = {
             invite_prize_chances: 2,
             tasks: []
         },
-        inviteTips: false // 控制成功邀请的弹窗,
 
     }
 }
@@ -65,10 +63,7 @@ const mutations = {
     hideFreeplay (state) {
         state.pop.showFreeplay = false
     },
-    //  激活用的
-    inviteTips (state, data) {
-        state.pop.inviteTips = data
-    },
+
     //  激活用的
     showFirstLogin (state, data) {
         state.pop.showFirstLogin = data
@@ -150,12 +145,6 @@ const mutations = {
     },
     hideRegFailure (state) {
         state.pop.showRegFailure = false
-    },
-    showFaucet (state) {
-        state.pop.showFaucet = true
-    },
-    hideFaucet (state) {
-        state.pop.showFaucet = false
     },
     faucetMsg (state, msg) {
         state.pop.faucetMsg = msg
@@ -299,44 +288,7 @@ const actions = {
         }
     },
 
-    /* 邀请 faucet */
-    async getFaucet ({commit, dispatch}) {
-        try {
-            let InfoData = await ajax.get(`/user/invite?ck=${getCK()}&src=${src}&platform=${platform}`)
-            if (InfoData.status.toString() === '100') {
-                commit('faucetMsg', InfoData.data)
-            }
-            return InfoData
-        } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
-    },
 
-    /* 邀请 faucet 领取 */
-    async getTaskDone ({commit, dispatch}, taskid) {
-        try {
-            let InfoData = await ajax.get(`/task/done?tid=${taskid}&ck=${getCK()}&src=${src}&platform=${platform}`)
-            if (InfoData && InfoData.status.toString() === '100') {
-                return InfoData.data
-            } else {
-                Message({
-                    message: InfoData.message,
-                    type: 'error',
-                    duration: tipsTime
-                })
-            }
-        } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
-        }
-    }
 
 }
 

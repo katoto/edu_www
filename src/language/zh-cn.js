@@ -15,7 +15,6 @@ module.exports = {
     'Earn now': '即刻开始',
     "Let's expect the upcoming activity!": '让我们期待更多即将到来的活动!',
     'This activity is end and more bonus will coming soon!': '活动已结束，更多活动即将来临!',
-    'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': '恭喜您成功邀请好友, <i class=bold>0.001 ETH</i>已经派发给您.',
     'Get it !': '知道了!',
     'Invite friends and get more ETH~': '邀请好友并获得更多ETH~',
     'Invite Now': '立即邀请',
