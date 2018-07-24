@@ -38,7 +38,7 @@
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>
                 <!-- 修改切换语言 -->
-                <div class="language " :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
+                <div class="language hide" :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <!--languageVal-->
                     <div class="language-choose">
                         <template v-for="item in languageOptions" v-if="item.value===languageVal">
@@ -126,7 +126,7 @@
                 </div>
 
                 <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet hide">
+                <div class="cs-faucet ">
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                     </a>
                     <!--拉新活动提示-->

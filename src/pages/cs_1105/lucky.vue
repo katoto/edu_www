@@ -767,6 +767,7 @@
         top: 67%;
         right: 17px;
         z-index: 10;
+        cursor: pointer;
     }
 
     //玩法区

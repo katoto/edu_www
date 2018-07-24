@@ -754,7 +754,7 @@
                 height: 50px;
                 line-height: 50px;
                 overflow: hidden;
-                margin: 0 0 30px 210px;
+                margin: 0 0 30px 153px;
                 background: #fd9644;
                 border-radius: 6px;
                 font-size: 20px;
