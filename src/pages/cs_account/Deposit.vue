@@ -3,7 +3,7 @@
         <h2>
             <lang>Deposit</lang>
         </h2>
-        <a href="javascript:;" class="btn-Recharge">
+        <a href="javascript:;" class="btn-Recharge hide">
             <lang>How to deposit?</lang>
         </a>
         <div class="item1 clearfix">

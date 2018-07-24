@@ -26,11 +26,12 @@
                             </i>
                         </p>
                     </div>
-                    <div class="item wallet-add">
+                    <div class="wallet-add">
                         <div class="fl210">
                             <lang>Wallet Address</lang>
                         </div>
-                        <input v-model="withdrawAddr" name="wallet" type="text">
+                        <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
+                        <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
                     </div>
                     <div class="item pick-up">
                         <div class="fl210">
@@ -47,7 +48,7 @@
                             </template>
                         </div>
                         <input v-model="withdrawAmount" autocomplete="off" type="text">
-                        <span @click="checkMaximum" class="css_withdraw_topMoney">
+                        <span @click="checkMaximum" class="css_withdraw_topMoney hide">
                             <lang>Maximum</lang>
                         </span>
                     </div>
@@ -314,14 +315,20 @@
         methods: {
             formateBalance,
             formateCoinType,
+            checkAddrLen () {
+                if (this.withdrawAddr.length >= 50) {
+                    this.withdrawAddr = this.withdrawAddr.slice(0, 50)
+                }
+            },
             handleStatusChange (val) {
                 if (val) {
-                    this.tranOptionVal = this.formateCoinType(val.cointype)
-                    this.$store.commit('setCurrBalance', val)
-                    /* 清空对应的数据 */
-                    this.withdrawAddr = ''
-                    this.withdrawAmount = ''
-                    this.withdrawPsw = ''
+                    console.log(val)
+                    // this.tranOptionVal = this.formateCoinType(val.cointype)
+                    // this.$store.commit('setCurrBalance', val)
+                    // /* 清空对应的数据 */
+                    // this.withdrawAddr = ''
+                    // this.withdrawAmount = ''
+                    // this.withdrawPsw = ''
                 }
             },
             closeTransferError () {
@@ -593,6 +600,21 @@
             font-size: 26px;
             color: #263648;
             text-transform: capitalize;
+        }
+        .wallet-add{
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            .clearfix();
+            .wallet_warn{
+                position: absolute;
+                top: 32px;
+                left: 162px;
+                font-size: 12px;
+                color: #f27d1f;
+            }
         }
         .withdraw {
             position: absolute;
