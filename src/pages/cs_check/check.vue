@@ -2,6 +2,8 @@
     <div class="page-check">
         <Header></Header>
         <div class="main">
+            <BreadCrumbs></BreadCrumbs>
+
             <!--查询框-->
             <div class="check-input">
                 <div class="check-enter">
@@ -485,7 +487,9 @@
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     export default {
         data () {
-            return {}
+            return {
+                activeName:'Lucky11'
+            }
         },
         watch: {},
         methods: {},
