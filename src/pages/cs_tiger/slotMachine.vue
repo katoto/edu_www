@@ -30,7 +30,7 @@
                                     <span v-if="prizes_pool && prizes_pool_ratio">
                                     <!-- hit WIn -->
                                     <template v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
-                                        {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
+                                       {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
                                     </template>
                                     <template v-else>
                                         {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
