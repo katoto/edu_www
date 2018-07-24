@@ -162,8 +162,8 @@
             <span><lang>Bet</lang></span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
-                <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney"
-                       :placeholder="min_limit" >
+                <input type="text" name="bet1" @input="checkMoneyLen" @blur="checkBetMoney" v-model="areaMsg.pickMoney"
+                       :placeholder="min_limit.toString()" >
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
@@ -215,8 +215,8 @@
             currBalance (balance) {
                 /* 切换金额变化对应的选项 */
                 if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype) {
-                    this.min_limit = this.bet_limit[balance.cointype].min_limit
-                    this.max_limit = this.bet_limit[balance.cointype].max_limit
+                    this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
+                    this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
                 }
             }
         },
@@ -224,7 +224,11 @@
             formateBalance,
             formateJackPot,
             formateCoinType,
-            //   隐藏
+            checkMoneyLen () {
+                if (this.areaMsg.pickMoney.toString().length > 8) {
+                    this.areaMsg.pickMoney = this.areaMsg.pickMoney.toString().slice(0, 8)
+                }
+            },
             showPopLimit () {
                 this.$store.commit('showPopLimit')
             },
@@ -251,11 +255,6 @@
                         type: 'error'
                     })
                     return false
-                }
-                // 临时字符串处理
-                let pointArr = this.areaMsg.pickMoney.split('.')
-                if (pointArr && pointArr[1] && pointArr[1].length >= 4) {
-                    this.areaMsg.pickMoney = parseFloat(this.areaMsg.pickMoney).toFixed(4)
                 }
             },
             delTicket ($event) {

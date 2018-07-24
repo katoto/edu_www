@@ -3,12 +3,12 @@
         <h2>
             <lang>withdraw</lang>
         </h2>
-        <a href="javascript:;" class="withdraw">How to withdraw ?</a>
+        <a href="javascript:;" class="withdraw"><lang>How to withdraw ?</lang></a>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane :label="_('Request')" name="Request">
                 <li class="li-records">
                     <div class="item chose-coin ">
-                        <div class="fl210 ">Select Currency</div>
+                        <div class="fl210 "><lang>Select Currency</lang></div>
                         <p>
                             <el-select v-model="tranOptionVal" @change="handleStatusChange">
                                 <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
@@ -17,21 +17,21 @@
                             </el-select>
                             <!--Withdraw amount:-->
                             <!--<i class="orange bold"></i> , -->
-                            Current balance {{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }}
-                            <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
+                            <lang>Current balance</lang> {{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }}
+                            <i class="icon-mark hide" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
-                                    The amount of the event, you need to meet the flow conditions to withdraw View
-                                    detailed rules Also need 0.234ETH water strip <a href="javascript:;">View detailed
-                                    rules</a>
+                                    <lang>The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip</lang>
+                                    <a href="javascript:;"><lang>View detailed rules</lang></a>
                                 </div>
                             </i>
                         </p>
                     </div>
-                    <div class="item wallet-add">
+                    <div class="wallet-add">
                         <div class="fl210">
                             <lang>Wallet Address</lang>
                         </div>
-                        <input v-model="withdrawAddr" name="wallet" type="text">
+                        <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
+                        <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
                     </div>
                     <div class="item pick-up">
                         <div class="fl210">
@@ -48,7 +48,7 @@
                             </template>
                         </div>
                         <input v-model="withdrawAmount" autocomplete="off" type="text">
-                        <span @click="checkMaximum" class="css_withdraw_topMoney">
+                        <span @click="checkMaximum" class="css_withdraw_topMoney hide">
                             <lang>Maximum</lang>
                         </span>
                     </div>
@@ -130,7 +130,7 @@
                     <div class="pop-main">
                         <a href="javascript:;" class="btn-close" @click="showTransfer=false">close</a>
                         <h3>
-                            <lang>Withdraw comfirm</lang>
+                            <lang>Confirm Withdrawal</lang>
                         </h3>
                         <div class="trans-items">
                             <div class="trans-msg top-top">
@@ -315,15 +315,18 @@
         methods: {
             formateBalance,
             formateCoinType,
-            handleStatusChange (val) {
-                if (val) {
-                    this.tranOptionVal = this.formateCoinType(val.cointype)
-                    this.$store.commit('setCurrBalance', val)
-                    /* 清空对应的数据 */
-                    this.withdrawAddr = ''
-                    this.withdrawAmount = ''
-                    this.withdrawPsw = ''
+            checkAddrLen () {
+                if (this.withdrawAddr.length >= 50) {
+                    this.withdrawAddr = this.withdrawAddr.slice(0, 50)
                 }
+            },
+            handleStatusChange () {
+                this.pageno = 1
+                this.handleCurrentChange()
+                /* 清空对应的数据 */
+                this.withdrawAddr = ''
+                this.withdrawAmount = ''
+                this.withdrawPsw = ''
             },
             closeTransferError () {
                 this.showTransferError = false
@@ -385,7 +388,7 @@
                         this.error(_('Please enter the correct BTC wallet address'))
                         this.withdrawAddr = ''
                         return false
-                    } else if (this.withdrawAddr.length !== 34) {
+                    } else if (!(this.withdrawAddr.length === 34 || this.withdrawAddr.length === 35)) {
                         this.error(_('Please enter the correct length wallet address'))
                         this.withdrawAddr = ''
                         return false
@@ -594,6 +597,21 @@
             font-size: 26px;
             color: #263648;
             text-transform: capitalize;
+        }
+        .wallet-add{
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            .clearfix();
+            .wallet_warn{
+                position: absolute;
+                top: 32px;
+                left: 162px;
+                font-size: 12px;
+                color: #f27d1f;
+            }
         }
         .withdraw {
             position: absolute;

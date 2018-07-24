@@ -3,7 +3,7 @@
         <h2>
             <lang>Deposit</lang>
         </h2>
-        <a href="javascript:;" class="btn-Recharge">
+        <a href="javascript:;" class="btn-Recharge hide">
             <lang>How to deposit?</lang>
         </a>
         <div class="item1 clearfix">
@@ -36,48 +36,50 @@
                     </a>
                 </div>
                 <p class="item2-2" v-if="currBalance.cointype==='2001'">
-                    Tip: This address only supports ETH recharge, do not choose the wrong currency
+                    <lang>Tip: This address only supports ETH recharge, do not choose the wrong currency</lang>
                 </p>
                 <p class="item2-2" v-if="currBalance.cointype==='1001'">
-                    Tip: This address only supports BTC recharge, do not choose the wrong currency
+                    <lang>Tip: This address only supports BTC recharge, do not choose the wrong currency</lang>
                 </p>
                 <div class="item2-3">
-                    or scan to get the address
+                    <lang>or scan to get the address</lang>
                 </div>
-                <img id="js_address_code_eth" alt=""
-                     :src="'http://mobile.qq.com/qrcode?url='+ currBalance.address ">
+                <img id="js_address_code_eth" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address ">
                 <!--<img src="@/assets/img/code.png" alt="" width="98" height="98">-->
             </div>
         </div>
         <div class="item3 clearfix">
             <div class="fl150">
-                Notice
+                <lang>Kind Reminder</lang>
             </div>
             <div class="fr-box">
                 <ul>
                     <li>
-                        1. It is recommended that you use a regular and secure ETH wallet or trading platform. Recommended:
-                        <div style="color:#6a89cc">
-                            Mist, MyEtherWallet, MetaMask, IMToken, huobi.com, etc.
-                        </div>
+                        1. <lang>Legal cryptocurrency wallets or trading platforms with high security are highly recommended.</lang>
+                    </li>
+                    <li v-if="currBalance.cointype==='1001'">
+                        2. <lang>This address is only for BTC transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
+                    </li>
+                    <li v-if="currBalance.cointype==='2001'">
+                        2. <lang>This address is only for ETH transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
+                    </li>
+                    <li v-if="currBalance.cointype==='1001'">
+                        3. <lang>Minimum top-up：0.0001BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
+                    </li>
+                    <li v-if="currBalance.cointype==='2001'">
+                        3. <lang>Minimum top-up：0.001ETH. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
                     </li>
                     <li>
-                        2. the general recharge needs 5 minutes to arrive, please be patient, if the recharge has not arrived, please contact us at support@coinslot.com
-                        <p>
-                            · Do not recharge any non-BTC assets to the above address, otherwise the assets will not be recovered.
-                        </p>
-                        <p>
-                            · After you recharge to the above address, you need to confirm the entire network node. After 1 network. confirmation, you will receive the account. After 6 network confirmations, you can withdraw the currency.
-                        </p>
-                        <p>
-                            · The recommended minimum recharge amount is 0.0001 BTC. The recharge value less than the minimum amount may not be successfully received and cannot be returned.
-                        </p>
-                        <p>
-                            · Your recharge address will not change frequently, you can repeat the recharge; if there is any change, we will try to notify you by website announcement or email.
-                        </p>
-                        <p>
-                            · Be sure to check the security of your computer and browser to prevent the information from being tam pered with or leaked.
-                        </p>
+                        4. <lang>Your wallet address may be changed sometimes, and Coinslot team will inform you through notification or email as soon as possible.</lang>
+                    </li>
+                    <li>
+                        5. <lang>Make sure that your computer and browser are under the secure environment to prevent modification or disclosure of information.</lang>
+                    </li>
+                    <li>
+                        6. <lang>Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.</lang>
+                    </li>
+                    <li>
+                        7. <lang>Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@coinslot.com.</lang>
                     </li>
                 </ul>
             </div>

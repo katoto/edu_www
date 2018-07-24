@@ -183,9 +183,10 @@ export function formateBalance (val = 0) {
         newEth = (val).toFixed(3)
     } else if (val > 10) {
         newEth = (val).toFixed(4)
-    } else {
+    } else if (val > 1) {
         newEth = (val).toFixed(5)
-        // newEth = Math.floor(val * 100000) / 100000
+    } else {
+        newEth = (val).toFixed(6)
     }
     return newEth
 }
@@ -207,8 +208,10 @@ export function formateSlotBalance (val = 0) {
         newEth = parseFloat((val).toFixed(3))
     } else if (val > 10) {
         newEth = parseFloat((val).toFixed(4))
-    } else {
+    } else if (val > 1) {
         newEth = parseFloat((val).toFixed(5))
+    } else {
+        newEth = parseFloat((val).toFixed(6))
     }
     return newEth
 }

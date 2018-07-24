@@ -344,8 +344,10 @@
             isLog (val) {
                 this.updateBaseAreaMsg()
             },
-            currBalance () {
-                this.updateBaseAreaMsg()
+            currBalance (newVal, oldVal) {
+                if (newVal.cointype !== oldVal.cointype) {
+                    this.updateBaseAreaMsg()
+                }
             },
             playArea: {
                 handler () {

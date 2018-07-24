@@ -19,8 +19,7 @@ module.exports = {
     'Invite friends and get more ETH~': '邀請好友並獲得更多ETH~',
     'Invite Now': '立即邀請',
     'Congratulations to {0} hit {1},': '恭喜用戶 {0} 擊中獎池 {1},',
-    'Win {0}ETH': '贏得 {0}ETH',
-
+    'Win {0} {1}': '贏得 {0} {1}',
     'Lucky11': 'Lucky11',
     'Draw History': '開獎歷史',
     'More >>': '更多 >>',
@@ -50,15 +49,10 @@ module.exports = {
     'You are not in our service area for more info': '我們無法向您所在地區的用戶提供服務',
     'please contact us support@coinslot.com': '請聯繫我們 support@coinslot.com',
     'Telegram: @CoinslotOffice': '電報群: @CoinslotOffice',
-    'Inviting friends earn 0.001 ETH per invitation (2 chances)': '邀請好友獲贈0.001ETH（2次機會）',
     'Inviting address': '邀請地址',
     'Copy to Clipboard': '複製到剪切板',
     'Tips:': '注釋:',
-    '1. Free ETH reward cannot be cashed out.': '1. 免費的ETH獎勵不可直接提款.',
-    '2. Each account has two chances to get invitation reward.': '2. 每個賬號只有兩次機會獲取邀請獎勵.',
-    '3. The amount of free ETH is limited. First come, first served.': '3. 免費ETH數量有限，先到先得.',
-    '4. The right of final interpretation of this activity reserved to Coinslot.com.': '4. 活動最終解釋權歸Coinslot.com所有.',
-    'Inviting friends earn {0} {1} per invitation (2 chances)': '邀請好友贏取 {0} {1} 每個用戶 (2 次機會)',
+
     'Copied to clipboard': '已複製到剪切板',
     'Failed to copy, please retry': '複製失敗，請重試',
 
@@ -147,7 +141,7 @@ module.exports = {
     'Bet': '投注',
     'Winning': '贏得',
     'Picking&ensp;Order': '選號方案',
-    'including C5: {0}ETH; jackpot {1} ETH': '包括選5: {0}ETH; 獎池 {1} ETH',
+    'including C5: {0}; jackpot {1}': '包括選5: {0}; 獎池 {1}',
     "Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward": '選 {0} 號碼, 如果所有的號碼與開獎結果一致，那麼您將贏得{1} 倍獎勵',
     'My Transactions': '流水記錄',
     'Copy': '複製',
@@ -192,7 +186,7 @@ module.exports = {
     'at least': '至少',
     'Maximum': '最大',
     'Account Password': '賬戶密碼',
-    'Withdraw comfirm': '提款確認',
+    'Confirm Withdrawal': '提款確認',
     'Total': '總計',
     'Transfer to': '交易至',
     'Confirm': '確認',
@@ -360,5 +354,26 @@ module.exports = {
     'SlotMachine': '老虎機',
     'Copy the Ethereum wallet address': '負制錢包地址',
     'only supports ETH': '當前仅有支持ETH',
-    '=====================': '===='
+    '=====================': '====',
+
+    'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '试一下<span class="winColor">97%+</span>',
+    'Select Currency': '當前選擇',
+    'Current balance': '當前餘額',
+    'copy Link': '複製鏈接',
+    'Tip: This address only supports ETH recharge, do not choose the wrong currency': '只支持ETH地址充值',
+    'Tip: This address only supports BTC recharge, do not choose the wrong currency': '只支持ETH地址充值',
+    'The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip': 'eqwe',
+
+    'Kind Reminder': '温馨提示',
+    'Legal cryptocurrency wallets or trading platforms with high security are highly recommended.': '建议您使用正规安全的数字货币钱包或者交易平台.',
+    'This address is only for BTC transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.': '请勿向上述地址充值任何非BTC资产，否则资产将不可找回.',
+    'Minimum top-up：0.0001BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.': '建议最小充值金额：0.0001BTC ，小于最小金额的充值可能无法顺利到账且无法退回.',
+    'Your wallet address may be changed sometimes, and Coinslot team will inform you through notification or email as soon as possible.': '您的充值地址不会经常改变，可以重复充值；如有更改，我们会尽量通过网站公告或邮件通知您.',
+    'Make sure that your computer and browser are under the secure environment to prevent modification or disclosure of information.': '请务必确认电脑及浏览器安全，防止信息被篡改或泄露.',
+    'Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.': '您充值至上述地址后，需要整个网络节点的确认，1次网络确认后到账，6次网络确认后可提币.',
+    'Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@coinslot.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@coinslot.com',
+
+    'View detailed rules': '查看详情',
+    'How to withdraw ?': '如何提款'
+
 }
