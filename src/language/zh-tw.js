@@ -192,7 +192,7 @@ module.exports = {
     'at least': '至少',
     'Maximum': '最大',
     'Account Password': '賬戶密碼',
-    'Withdraw comfirm': '提款確認',
+    'Confirm Withdrawal': '提款確認',
     'Total': '總計',
     'Transfer to': '交易至',
     'Confirm': '確認',

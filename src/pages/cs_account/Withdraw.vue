@@ -129,7 +129,7 @@
                     <div class="pop-main">
                         <a href="javascript:;" class="btn-close" @click="showTransfer=false">close</a>
                         <h3>
-                            <lang>Withdraw comfirm</lang>
+                            <lang>Confirm Withdrawal</lang>
                         </h3>
                         <div class="trans-items">
                             <div class="trans-msg top-top">
@@ -384,7 +384,7 @@
                         this.error(_('Please enter the correct BTC wallet address'))
                         this.withdrawAddr = ''
                         return false
-                    } else if (this.withdrawAddr.length !== 34) {
+                    } else if (!(this.withdrawAddr.length === 34 || this.withdrawAddr.length === 35)) {
                         this.error(_('Please enter the correct length wallet address'))
                         this.withdrawAddr = ''
                         return false
