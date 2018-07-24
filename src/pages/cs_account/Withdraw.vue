@@ -320,16 +320,13 @@
                     this.withdrawAddr = this.withdrawAddr.slice(0, 50)
                 }
             },
-            handleStatusChange (val) {
-                if (val) {
-                    console.log(val)
-                    // this.tranOptionVal = this.formateCoinType(val.cointype)
-                    // this.$store.commit('setCurrBalance', val)
-                    // /* 清空对应的数据 */
-                    // this.withdrawAddr = ''
-                    // this.withdrawAmount = ''
-                    // this.withdrawPsw = ''
-                }
+            handleStatusChange () {
+                this.pageno = 1
+                this.handleCurrentChange()
+                /* 清空对应的数据 */
+                this.withdrawAddr = ''
+                this.withdrawAmount = ''
+                this.withdrawPsw = ''
             },
             closeTransferError () {
                 this.showTransferError = false

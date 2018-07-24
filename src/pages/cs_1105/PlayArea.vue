@@ -162,7 +162,7 @@
             <span><lang>Bet</lang></span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
-                <input type="text" name="bet1" @blur="checkBetMoney" v-model="areaMsg.pickMoney"
+                <input type="text" name="bet1" @input="checkMoneyLen" @blur="checkBetMoney" v-model="areaMsg.pickMoney"
                        :placeholder="min_limit.toString()" >
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
@@ -224,7 +224,11 @@
             formateBalance,
             formateJackPot,
             formateCoinType,
-            //   隐藏
+            checkMoneyLen () {
+                if (this.areaMsg.pickMoney.toString().length > 8) {
+                    this.areaMsg.pickMoney = this.areaMsg.pickMoney.toString().slice(0, 8)
+                }
+            },
             showPopLimit () {
                 this.$store.commit('showPopLimit')
             },
@@ -251,11 +255,6 @@
                         type: 'error'
                     })
                     return false
-                }
-                // 临时字符串处理
-                let pointArr = this.areaMsg.pickMoney.split('.')
-                if (pointArr && pointArr[1] && pointArr[1].length >= 4) {
-                    this.areaMsg.pickMoney = parseFloat(this.areaMsg.pickMoney).toFixed(4)
                 }
             },
             delTicket ($event) {
