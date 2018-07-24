@@ -366,4 +366,17 @@ module.exports = {
     'Select Currency': '当前选择',
     'Current balance': '当前余额',
     'copy Link':'复制链接',
+    'Tip: This address only supports ETH recharge, do not choose the wrong currency':'提示。。。。。。。。。。',
+    'Tip: This address only supports BTC recharge, do not choose the wrong currency':'提示。。。。。。。。。。',
+    '1. It is recommended that you use a regular and secure ETH wallet or trading platform. Recommended:':'提示。。。。。。。。。。',
+    'Mist, MyEtherWallet, MetaMask, IMToken, huobi.com, etc.':'提示。。。。。。。。。。',
+    '2. the general recharge needs 5 minutes to arrive, please be patient, if the recharge has not arrived, please contact us at support@coinslot.com':'rwrwer',
+    'Do not recharge any non-BTC assets to the above address, otherwise the assets will not be recovered.':'翻译。。。。。',
+    'After you recharge to the above address, you need to confirm the entire network node. After 1 network. confirmation, you will receive the account. After 6 network confirmations, you can withdraw the currency.':'翻译‘’',
+    'The recommended minimum recharge amount is 0.0001 BTC. The recharge value less than the minimum amount may not be successfully received and cannot be returned.':'翻译。。。。',
+    'Your recharge address will not change frequently, you can repeat the recharge; if there is any change, we will try to notify you by website announcement or email.':'翻译。。。',
+    'Be sure to check the security of your computer and browser to prevent the information from being tam pered with or leaked.':'翻译。。。',
+    'The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip':'eqwe',
+    'View detailed rules':'查看详情',
+    'How to withdraw ?':'如何提款'
 }

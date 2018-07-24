@@ -3,12 +3,12 @@
         <h2>
             <lang>withdraw</lang>
         </h2>
-        <a href="javascript:;" class="withdraw">How to withdraw ?</a>
+        <a href="javascript:;" class="withdraw"><lang>How to withdraw ?</lang></a>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane :label="_('Request')" name="Request">
                 <li class="li-records">
                     <div class="item chose-coin ">
-                        <div class="fl210 ">Select Currency</div>
+                        <div class="fl210 "><lang>Select Currency</lang></div>
                         <p>
                             <el-select v-model="tranOptionVal" @change="handleStatusChange">
                                 <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
@@ -17,12 +17,11 @@
                             </el-select>
                             <!--Withdraw amount:-->
                             <!--<i class="orange bold"></i> , -->
-                            Current balance {{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }}
+                            <lang>Current balance</lang> {{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
-                                    The amount of the event, you need to meet the flow conditions to withdraw View
-                                    detailed rules Also need 0.234ETH water strip <a href="javascript:;">View detailed
-                                    rules</a>
+                                    <lang>The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip</lang>
+                                    <a href="javascript:;"><lang>View detailed rules</lang></a>
                                 </div>
                             </i>
                         </p>

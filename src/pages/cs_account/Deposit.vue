@@ -36,47 +36,46 @@
                     </a>
                 </div>
                 <p class="item2-2" v-if="currBalance.cointype==='2001'">
-                    Tip: This address only supports ETH recharge, do not choose the wrong currency
+                    <lang>Tip: This address only supports ETH recharge, do not choose the wrong currency</lang>
                 </p>
                 <p class="item2-2" v-if="currBalance.cointype==='1001'">
-                    Tip: This address only supports BTC recharge, do not choose the wrong currency
+                    <lang>Tip: This address only supports BTC recharge, do not choose the wrong currency</lang>
                 </p>
                 <div class="item2-3">
-                    or scan to get the address
+                    <lang>or scan to get the address</lang>
                 </div>
-                <img id="js_address_code_eth" alt=""
-                     :src="'http://mobile.qq.com/qrcode?url='+ currBalance.address ">
+                <img id="js_address_code_eth" alt="" :src="'http://mobile.qq.com/qrcode?url='+ currBalance.address ">
                 <!--<img src="@/assets/img/code.png" alt="" width="98" height="98">-->
             </div>
         </div>
         <div class="item3 clearfix">
             <div class="fl150">
-                Notice
+                <lang>Notice</lang>
             </div>
             <div class="fr-box">
                 <ul>
                     <li>
-                        1. It is recommended that you use a regular and secure ETH wallet or trading platform. Recommended:
+                        <lang>1. It is recommended that you use a regular and secure ETH wallet or trading platform. Recommended:</lang>
                         <div style="color:#6a89cc">
-                            Mist, MyEtherWallet, MetaMask, IMToken, huobi.com, etc.
+                            <lang>Mist, MyEtherWallet, MetaMask, IMToken, huobi.com, etc.</lang>
                         </div>
                     </li>
                     <li>
-                        2. the general recharge needs 5 minutes to arrive, please be patient, if the recharge has not arrived, please contact us at support@coinslot.com
+                        <lang>2. the general recharge needs 5 minutes to arrive, please be patient, if the recharge has not arrived, please contact us at support@coinslot.com</lang>
                         <p>
-                            · Do not recharge any non-BTC assets to the above address, otherwise the assets will not be recovered.
+                            · <lang>Do not recharge any non-BTC assets to the above address, otherwise the assets will not be recovered.</lang>
                         </p>
                         <p>
-                            · After you recharge to the above address, you need to confirm the entire network node. After 1 network. confirmation, you will receive the account. After 6 network confirmations, you can withdraw the currency.
+                            · <lang>After you recharge to the above address, you need to confirm the entire network node. After 1 network. confirmation, you will receive the account. After 6 network confirmations, you can withdraw the currency.</lang>
                         </p>
                         <p>
-                            · The recommended minimum recharge amount is 0.0001 BTC. The recharge value less than the minimum amount may not be successfully received and cannot be returned.
+                            · <lang>The recommended minimum recharge amount is 0.0001 BTC. The recharge value less than the minimum amount may not be successfully received and cannot be returned.</lang>
                         </p>
                         <p>
-                            · Your recharge address will not change frequently, you can repeat the recharge; if there is any change, we will try to notify you by website announcement or email.
+                            · <lang>Your recharge address will not change frequently, you can repeat the recharge; if there is any change, we will try to notify you by website announcement or email.</lang>
                         </p>
                         <p>
-                            · Be sure to check the security of your computer and browser to prevent the information from being tam pered with or leaked.
+                            · <lang>Be sure to check the security of your computer and browser to prevent the information from being tam pered with or leaked.</lang>
                         </p>
                     </li>
                 </ul>
