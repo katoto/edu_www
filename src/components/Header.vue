@@ -126,7 +126,7 @@
                 </div>
 
                 <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet ">
+                <div class="cs-faucet hide">
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                     </a>
                     <!--拉新活动提示-->

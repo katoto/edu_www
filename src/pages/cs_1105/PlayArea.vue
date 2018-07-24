@@ -162,8 +162,8 @@
             <span><lang>Bet</lang></span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
-                <input type="text" name="bet1" @input="checkBetMoney" v-model="areaMsg.pickMoney"
-                       :placeholder="min_limit" >
+                <input type="text" name="bet1" @blur="checkBetMoney" v-model="areaMsg.pickMoney"
+                       :placeholder="min_limit.toString()" >
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
@@ -215,8 +215,8 @@
             currBalance (balance) {
                 /* 切换金额变化对应的选项 */
                 if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype) {
-                    this.min_limit = this.bet_limit[balance.cointype].min_limit
-                    this.max_limit = this.bet_limit[balance.cointype].max_limit
+                    this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
+                    this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
                 }
             }
         },
