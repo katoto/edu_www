@@ -61,7 +61,11 @@
                 <!-- 登录  -->
                 <div class="login">
                     <!-- 未登录 -->
+                    <div class="act-sign" v-if="!isLog">
+                        <lang>Free 0.001 ETH</lang>
+                    </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
+                        <!--拉新活动提示-->
                         <lang>Sign In / Up</lang>
                     </a>
                     <!-- 登录 -->
@@ -126,13 +130,9 @@
                 </div>
 
                 <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet ">
+                <div class="cs-faucet" v-if="isLog">
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                     </a>
-                    <!--拉新活动提示-->
-                    <div class="act-sign right" :class="{'hide':isLog}">
-                        <lang>Free 0.001 ETH</lang>
-                    </div>
                     <div class="faucet-detailed" :class="{'show':freeWaterPop}">
                         <div class="faucet-title">
                             Free Water
@@ -381,6 +381,7 @@
         width: 100%;
         height: 70px;
         background: rgba(0,0,0,0.4);
+        background: #151515;
         color: #fff;
         .top {
             position: relative;
@@ -561,6 +562,10 @@
             position: relative;
             float: right;
             text-align: center;
+            .act-sign{
+                top: 25px;
+                left: -140px;
+            }
             .to-login{
                 position: relative;
                 display: block;
@@ -655,6 +660,7 @@
                 height:16px;
                 line-height:16px;
                 overflow: hidden;
+                cursor: pointer;
                 .currency-input{
                     float: left;
                     position: relative;
@@ -665,7 +671,6 @@
                     margin-right:7px;
                     border-radius: 50%;
                     border: 2px solid #6a89cc;
-                    cursor: pointer;
                     &::before{
                         content: '';
                         display: block;
@@ -749,17 +754,11 @@
             padding:0 10px;
             background: url("../assets/img/icon-water.png") no-repeat center;
         }
-        .act-sign{
-            top: 3px;
-            right: 33px;
-            animation: actMove 5s 2s infinite;
-            min-width:100px;
-        }
         .faucet-detailed{
             display: none;
             position: absolute;
             top:37px;
-            right:-34px;
+            right:-24px;
             padding:10px 20px 54px;
             width:455px;
             background: #fff;
@@ -984,22 +983,6 @@
             opacity: 1;
         }
     }
-
-
-
-    @keyframes actMove {
-        0%,12%,16%,20%,100%{
-            transform: translateX(0);
-        }
-        10%{
-            transform: translateX(5px);
-        }
-        14%,18%{
-            transform: translateX(10px);
-        }
-    }
-
-
     .jackpot{
         position: fixed;
         left:0;

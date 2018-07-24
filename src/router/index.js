@@ -9,6 +9,7 @@ Vue.use(Router)
 /* cs_1105 */
 /* cs_1105 首页 */
 const lucky11 = () => import('~/pages/cs_1105/lucky')
+const test = () => import('~/pages/cs_1105/test')
 /* cs_1105 开奖页 */
 const csDrawNum = () => import('~/pages/cs_1105/drawNumber')
 
@@ -35,6 +36,11 @@ const oneToken = () => import('~/pages/cs_oneToken/oneToken')
 const page404 = () => import('~/pages/404.vue')
 
 let routesArr = [
+    {
+        path: '/test',
+        name: 'test',
+        component: test
+    },
     {
         path: '/lucky11',
         name: 'lucky11',

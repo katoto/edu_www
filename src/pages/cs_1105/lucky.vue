@@ -302,7 +302,6 @@
         </div>
         <Footer></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
-
     </div>
 </template>
 
@@ -1800,10 +1799,7 @@
             transform: translate(0,0);
         }
     }
-    .head-box{
-        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
-    }
-    .superActive .head-box{
-        background: linear-gradient(to right, #34291d, #584724, #34281a);
+    .superActive .head{
+        background: linear-gradient(to right, #34291d, #584724, #34281a) !important;
     }
 </style>
