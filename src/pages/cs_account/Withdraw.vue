@@ -556,6 +556,11 @@
                 return this.$store.state.currBalance
             }
         },
+        watch: {
+            currBalance (val) {
+                this.tranOptionVal = this.formateCoinType(val.cointype)
+            }
+        },
         components: {
             PopList
         },

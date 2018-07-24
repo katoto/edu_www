@@ -94,7 +94,11 @@ export default {
             tranOptionVal: null
         }
     },
-    watch: {},
+    watch: {
+        currBalance (val) {
+            this.tranOptionVal = this.formateCoinType(val.cointype)
+        }
+    },
     methods: {
         formateBalance,
         formateCoinType,
