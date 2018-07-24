@@ -46,7 +46,7 @@
                 <!--<span>-->
                 <!--<lang>JACKPOT</lang>&nbsp;&nbsp;-->
                 <!--</span>-->
-                <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount[currBalance.cointype] }}</i>
+                <i id="js_jackpotM" v-if="poolAmount">{{ poolAmount[currBalance.cointype] || 0 }}</i>
                 <span>{{ formateCoinType (currBalance.cointype) }}</span>
             </p>
             <p>

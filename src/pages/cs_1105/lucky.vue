@@ -764,7 +764,7 @@
     .icon-enterWorld {
         position: fixed;
         width: 120px;
-        top: 45%;
+        top: 67%;
         right: 17px;
         z-index: 10;
     }

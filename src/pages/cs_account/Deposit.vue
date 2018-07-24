@@ -8,20 +8,20 @@
         </a>
         <div class="item1 clearfix">
             <div class="fl150">
-                Select Currency
+                <lang>Select Currency</lang>
             </div>
             <div class="fr-box">
                 <el-select v-model="tranOptionVal" @change="handleStatusChange">
                     <el-option v-for="item in this.userInfo.accounts" :key="item.cointype" :label="formateCoinType(item.cointype)" :value="item">
                     </el-option>
                 </el-select>
-                Current balance
+                <lang>Current balance</lang>
                 <i class="bold">{{ formateBalance(currBalance.balance) }}</i> {{ formateCoinType(currBalance.cointype) }}
             </div>
         </div>
         <div class="item2 clearfix">
             <div class="fl150">
-                copy Link
+                <lang>copy Link</lang>
             </div>
             <div class="fr-box" v-if="currBalance">
                 <div class="item2-1">

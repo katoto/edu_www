@@ -360,7 +360,10 @@ module.exports = {
     'SlotMachine': '老虎机',
     'Copy the Ethereum wallet address': '复制钱包地址',
     'only supports ETH': '当前仅支持ETH',
+    '=====================': '====',
 
-    'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '试一下<span class="winColor">97%+</span>'
-
+    'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '试一下<span class="winColor">97%+</span>',
+    'Select Currency': '当前选择',
+    'Current balance': '当前余额',
+    'copy Link':'复制链接',
 }

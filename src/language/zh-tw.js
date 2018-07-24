@@ -359,6 +359,6 @@ module.exports = {
     'Slot': '老虎機',
     'SlotMachine': '老虎機',
     'Copy the Ethereum wallet address': '負制錢包地址',
-    'only supports ETH': '當前仅有支持ETH'
-
+    'only supports ETH': '當前仅有支持ETH',
+    '=====================': '===='
 }
