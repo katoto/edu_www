@@ -36,6 +36,10 @@ const MyTransactions = () =>
 const Withdraw = () =>
     import('~/pages/cs_account/Withdraw')
 
+/*验证页面*/
+const check = () =>
+    import('~/pages/cs_check/check')
+
 /* 老虎机 */
 const slot = () =>
     import('~/pages/cs_tiger/slotMachine')
@@ -68,11 +72,16 @@ let routesArr = [{
     name: 'lucky11',
     component: lucky11
 },
-{
-    path: '/home',
-    name: 'home',
-    component: home
-},
+    {
+        path: '/home',
+        name: 'home',
+        component: home
+    },
+    {
+        path: '/check',
+        name: 'check',
+        component: check
+    },
 {
     path: '/slot',
     name: 'slot',
