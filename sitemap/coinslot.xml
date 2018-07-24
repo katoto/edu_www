@@ -10,19 +10,19 @@
         <loc>https://www.coinslot.com/lucky11</loc>
         <priority>0.8</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>always</changefreq>
+        <changefreq>daily</changefreq>
     </url>
     <url>
         <loc>https://www.coinslot.com/slot</loc>
         <priority>0.8</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>always</changefreq>
+        <changefreq>daily</changefreq>
     </url>
     <url>
         <loc>https://www.coinslot.com/policy</loc>
         <priority>0.5</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>always</changefreq>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://www.coinslot.com/policy_zhCn</loc>
@@ -70,7 +70,7 @@
         <loc>https://www.coinslot.com/account/myBets</loc>
         <priority>0.5</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
+        <changefreq>always</changefreq>
     </url>
     <url>
         <loc>https://www.coinslot.com/account/myTransactions</loc>
