@@ -29,7 +29,7 @@
                                     <lang>Hit to Win</lang>
                                     <span v-if="prizes_pool && prizes_pool_ratio">
                                     <!-- hit WIn -->
-                                    <template v-if="prizes_pool_ratio[dft_bet] >= 0">
+                                    <template v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
                                         {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
                                     </template>
                                     <template v-else>
