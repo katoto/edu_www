@@ -829,7 +829,7 @@
                 margin-right: 50px;
                 border: 2px dashed #788ca3;
                 border-radius: 6px;
-                margin-bottom: 40px;
+                margin-bottom: 50px;
                 &:last-child{
                     margin-bottom: 0;
                 }
