@@ -44,7 +44,8 @@
                 <div class="item2-3">
                     <lang>or scan to get the address</lang>
                 </div>
-                <img id="js_address_code_eth" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address ">
+                <img v-if="currBalance.cointype==='1001'" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address ">
+                <img v-if="currBalance.cointype==='2001'" alt="" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address ">
                 <!--<img src="@/assets/img/code.png" alt="" width="98" height="98">-->
             </div>
         </div>
