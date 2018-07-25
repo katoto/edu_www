@@ -10,7 +10,7 @@
                     <div class="item chose-coin ">
                         <div class="fl210 "><lang>Select Currency</lang></div>
                         <p>
-                            <el-select v-model="tranOptionVal" @change="handleStatusChange">
+                            <el-select v-model="tranOptionVal" @change="changeCoin">
                                 <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
                                            :label="formateCoinType(item.cointype)" :value="item">
                                 </el-option>
@@ -318,6 +318,12 @@
             checkAddrLen () {
                 if (this.withdrawAddr.length >= 50) {
                     this.withdrawAddr = this.withdrawAddr.slice(0, 50)
+                }
+            },
+            changeCoin (val) {
+                if (val) {
+                    this.tranOptionVal = this.formateCoinType(val.cointype)
+                    this.$store.commit('setCurrBalance', val)
                 }
             },
             handleStatusChange () {

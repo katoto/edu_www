@@ -5,7 +5,7 @@
 import ajax from '~common/ajax'
 import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
 import {Message} from 'element-ui'
-import {formateCoinType} from "../../common/util";
+import {formateCoinType} from '../../common/util'
 
 const state = {
     navFix: false,
@@ -221,7 +221,7 @@ const actionsInfo = mapActions({
                 if (newData[i].orderstatus.toString() === '2') {
                     // 结算 并且大于0
                     if (newData[i].betprize > 0) {
-                        newTbody += '<td class="win-amount js_resultDom"><a class="win">+' + formateBalance(newData[i].betprize) +formateCoinType(newData[i].cointype) +'</a></td>'
+                        newTbody += '<td class="win-amount js_resultDom"><a class="win">+' + formateBalance(newData[i].betprize) + formateCoinType(newData[i].cointype) + '</a></td>'
                     } else {
                         newTbody += '<p>-</p>'
                     }
