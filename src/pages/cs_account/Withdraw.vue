@@ -145,7 +145,7 @@
                                     <lang>Fee</lang>
                                 </span>
                                 <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
-                                <p v-if="userInfo && userInfo.accounts" class="fr">{{ userInfo.accounts[0].fee }}</p>
+                                <p v-if="currBalance" class="fr">{{ currBalance.fee }}</p>
                             </div>
                             <div class="trans-msg">
                                 <span class="fl">
