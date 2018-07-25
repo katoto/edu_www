@@ -1,22 +1,29 @@
 <template>
-    <div id="app">
-    </div>
+    <Pop>
+        22222222
+    </Pop>
 </template>
 
 <script>
-	export default {
-	    data () {
-	        return {
-	            title: ''
-	        }
-	    },
-	    watch: {},
-	    methods: {},
-	    computed: {},
-	    mounted () {
+    import Pop from '../../components/pop/Pop'
+    export default {
+        data () {
+            return {
 
-	    }
-	}
+            }
+        },
+        watch: {},
+        methods: {
+
+        },
+        computed: {},
+        components: {
+            Pop
+        },
+        mounted () {
+
+        }
+    }
 </script>
 <style>
 </style>

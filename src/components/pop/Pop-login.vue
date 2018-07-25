@@ -37,7 +37,7 @@
             <a href="javascript:;" class="importwallet hide">
                 <lang>Import Wallet</lang>
             </a>
-            <div class="act-sign left hide">
+            <div class="act-sign ">
                 <lang>for free 0.001ETH</lang>
             </div>
         </div>
@@ -154,10 +154,9 @@
 
 <style lang="less" scoped rel="stylesheet/less">
     .act-sign {
-        position: absolute;
         top: 20px;
-        left: 50%;
-        margin-left: 40px;
+        right: 50%;
+        margin-right: 40px;
     }
 </style>
 
