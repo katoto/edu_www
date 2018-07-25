@@ -17,14 +17,12 @@
                     <img  width="137" height="50" alt="" class="img-ver" @click="reloadVerifyImg" :src="verifyImgPath">
                 </div>
                 <div class="sure-old">
-                    <!--  $('.js_isAgreeAge').is(':checked')  -->
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
-                        <!--<el-button @click="showSucc">模拟成功</el-button>-->
-                        <!--<lang>I'm 18+ years old and agree</lang>-->
-                        <lang>I'm 18+ years old and agree with</lang><a style="cursor: pointer" @click="jump2Page"><lang>Privacy policy</lang></a>
-                        <!--with <a href="terms.html" target="_blank">Terms of use</a>
-                    and <a href="policy.html" target="_blank">Privacy policy</a>-->
+                        <lang>I'm 18+ years old and agree with</lang>
+                        <a href="javascript:;" @click="jump2Page">
+                            <lang>Privacy policy</lang>
+                        </a>
                     </p>
                 </div>
                 <!--no-->

@@ -35,11 +35,18 @@ const oneToken = () => import('~/pages/cs_oneToken/oneToken')
 // 404  history
 const page404 = () => import('~/pages/404.vue')
 
+
+const foot = () => import('~/components/Footer.vue')
 let routesArr = [
     {
         path: '/test',
         name: 'test',
         component: test
+    },
+    {
+        path: '/foot',
+        name: 'foot',
+        component: foot
     },
     {
         path: '/lucky11',
