@@ -261,7 +261,7 @@
 
     @media (max-width: @screen-tablet) {
         .footer{
-            height: 1132/2px;
+            height: 1152/2px;
             padding: 0 4% 0;
             line-height: 20px;
             .title {
@@ -291,7 +291,7 @@
             }
             .cs-copyright{
                 position: absolute;
-                bottom: 0;
+                bottom: 10px;
                 left: 4%;
                 transform: translateX(0);
                 line-height: 42/2px;
