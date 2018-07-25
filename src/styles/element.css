@@ -1673,7 +1673,7 @@
     position: absolute;
     right: 9px;
     top: 9px;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFAQMAAACtnVQoAAAABlBMVEUAAAB3jKMsMOIPAAAAAXRSTlMAQObYZgAAABdJREFUCNdj+N/AUM/AYMfAIMPAwMEAAByCAmHsSri4AAAAAElFTkSuQmCC);
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFAQMAAACtnVQoAAAABlBMVEUAAAB3jKMsMOIPAAAAAXRSTlMAQObYZgAAABdJREFUCNdj+N/AUM/AYMfAIMPAwMEAAByCAmHsSri4AAAAAElFTkSuQmCC) no-repeat center;
     width: 9px;
     height: 5px;
     z-index:10;
