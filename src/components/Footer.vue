@@ -73,7 +73,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="reserved hide">
+            <div class="cs-copyright">
                 ©Coinslot 2018. All Rights Reserved
             </div>
         </div>
@@ -151,12 +151,16 @@
 
     .footer {
         position: relative;
+        height: 342px;
+        box-sizing: border-box;
         z-index: 5;
         background: #151515;
-        border-top: 50px solid #eef1f9;
+        /*border-top: 50px solid #eef1f9;*/
         //用border代替margin挡住冒泡
-        padding: 57px 0 62px 0;
+        padding: 58px 0 0 0;
         color: rgba(255, 255, 255, 0.2);
+        line-height: 24px;
+        font-size: 14px;
         .main {
             max-width: 1190px;
             margin: 0 auto;
@@ -167,17 +171,13 @@
             line-height: 32px;
             font-size: 20px;
         }
-        p {
+        a {
             line-height: 24px;
             font-size: 14px;
-        }
-        a {
-            &:link,
-            &:visited {
-                color: rgba(255, 255, 255, 0.2);
-            }
+            color: rgba(255, 255, 255, 0.2);
+            transform: translate3d(0,0,0);
             &:hover {
-                color: #333;
+                filter: brightness(1.3);
             }
         }
         .reserved {
@@ -185,6 +185,7 @@
         }
         .about,
         .game {
+            overflow: hidden;
             a {
                 display: block;
             }
@@ -192,7 +193,7 @@
         .contact {
             text-align: right;
             a {
-                color: #788ca3;
+                color: #6f88cb;
             }
         }
         .language {
@@ -249,36 +250,53 @@
                 }
             }
         }
+        .cs-copyright{
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            line-height: 90px;
+        }
+    }
 
-        @media (max-width: @screen-desktop) {
-            padding: 20px 20px 25px;
+    @media (max-width: @screen-tablet) {
+        .footer{
+            height: 1132/2px;
+            padding: 0 4% 0;
+            line-height: 20px;
             .title {
-                padding-top: 14px;
-                line-height: 30px;
-                font-size: 14px;
+                margin-top: 17/2px;
+                line-height: 57/2px;
+                font-size: 18px;
             }
-
-            p {
-                line-height: 15px;
-                font-size: 12px;
+            .reserved {
+                padding: 55/2px 0 0 0;
             }
-
             .about,
             .game {
-                margin: 0;
-                padding: 0;
-            }
-
-            .reserved {
-                padding-right: 0;
+                a{
+                    line-height: 24px;
+                    font-size: 14px;
+                }
             }
 
             .contact {
                 text-align: left;
+                p{
+                    line-height: 24px;
+                }
                 .language {
                     float: left;
                 }
             }
+            .cs-copyright{
+                position: absolute;
+                bottom: 0;
+                left: 4%;
+                transform: translateX(0);
+                line-height: 42/2px;
+            }
+
         }
     }
 </style>

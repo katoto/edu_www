@@ -97,7 +97,6 @@
                                     <ul>
                                         <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
                                             @click="changeAccounts( item )" >
-                                            <div class="currency-input"></div>
                                             <div class="currency-account">
                                                 <i >{{ item.cointype | formateCoinType }}</i>
                                                 <span >{{ formateBalance( item.balance ) }}</span>
@@ -535,39 +534,43 @@
                     left: 0;
                     top: 0;
                     background: url(" ../assets/img/icon-user.png") no-repeat center;
+                    background-size: cover;
                 }
                 i {
                     display: block;
                     position: absolute;
-                    width: 13px;
+                    width: 14px;
                     height: 8px;
                     right: 0;
-                    top: 11px;
-                    background-image: url(" ../assets/slice/arrow-down-fff.png");
+                    top: 9px;
+                    background: url(" ../assets/slice/arrow-down-fff.png") no-repeat center;
+                    background-size: 14px;
                     transform-origin: 50%;
                     .transition();
                 }
             }
             &.on{
-                i {
-                    transform: rotate(180deg);
+                .countNum{
+                    >i {
+                        transform: rotate(180deg);
+                    }
                 }
                 .mycount-detailed{
                     display: block;
                 }
             }
-
         }
         .login {
             position: relative;
             float: right;
             text-align: center;
             .act-sign{
-                top: 25px;
-                left: -140px;
+                position: relative;
+                margin: 25px 20px 0 0;
+                float: left;
             }
             .to-login{
-                position: relative;
+                float: right;
                 display: block;
                 overflow: hidden;
                 margin-top:20px;
@@ -612,7 +615,7 @@
         display: none;
         position: absolute;
         z-index: 10;
-        right: 20px;
+        left: 50%;
         top: 60px;
         padding:16px 16px 0;
         width: 235px;
@@ -620,6 +623,7 @@
         /*overflow: hidden;*/
         background: #fff;
         text-align: left;
+        transform: translateX(-50%);
         -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         .account-info {
@@ -651,76 +655,63 @@
             }
         }
         .currency-select{
-            margin:10px 0 20px 0;
+            margin:10px 0 0 0;
             >p{
                 line-height:38px;
-                color: #778ca3;
+                color: #263648;
             }
             li{
-                height:16px;
-                line-height:16px;
-                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                border-radius: 6px;
+                border: 2px solid #6f88cb;
+                height: 50px;
+                margin-bottom: 10px;
+                font-size: 20px;
+                font-weight: bold;
+                color: #6f88cb;
                 cursor: pointer;
-                .currency-input{
-                    float: left;
-                    position: relative;
-                    float: left;
-                    width:12px;
-                    height:12px;
-                    overflow: hidden;
-                    margin-right:7px;
-                    border-radius: 50%;
-                    border: 2px solid #6a89cc;
-                    &::before{
-                        content: '';
-                        display: block;
-                        width:8px;
-                        height:8px;
-                        border-radius: 50%;
-                        position: absolute;
-                        left:50%;
-                        top:50%;
-                        transform: translate(-50%,-50%);
-                        background: #fff;
-                        transition: all 0.2s;
-                    }
-                }
-                .currency-account{
-                    float: left;
-                    font-size:16px;
-                    font-weight:bold;
-                    color: #6a89cc;
-                }
-                .address{
-                    float: right;
-                    display: block;
-                    width:70px;
-                    .text-overflow();
+                overflow: hidden;
+                a{
                     display: none;
                 }
-                &.on{
-                    .currency-input{
-                        border-color: #263648;
-                        &::before{
-                            background: #263648;
-                        }
-                    }
-                    .currency-account{
-                        color: #263648;
-                    }
-                    .address{
-                        display: block;
-                    }
+            }
+            li.on{
+                flex-direction: column;
+                background: #6f88cb;
+                color: #fff;
+                .currency-account{
+                    height: 22px;
                 }
-                &+li{
-                    margin-top:16px;
+                a{
+                    display: block;
+                    line-height: 16px;
+                    text-decoration: underline;
+                    font-size: 12px;
+                    color: #fff;
+                    width: 70px;
+                    .text-overflow();
+                    margin: 0 auto;
+                }
+                &::after{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    width: 32px;
+                    height: 30px;
+                    background: url("../assets/img/icon-select.png") no-repeat center;
+                    background-size: 32px;
                 }
             }
         }
         .log-out {
             display: block;
             overflow: hidden;
-            margin-top: 30px;
+            margin-top: 22px;
             line-height: 40px;
             text-align: center;
             border-top: 1px solid #ced6e0;
@@ -732,13 +723,14 @@
             content: '';
             display: block;
             position: absolute;
-            right:34px;
+            left: 50%;
             top:-9px;
             width:18px;
             height:10px;
             overflow: hidden;
             background: url("../assets/img/icon-tri.png") no-repeat center;
             background-size: cover;
+            transform: translateX(-50%);
         }
     }
     /*20180720 newAct 拉新活动*/
@@ -753,6 +745,7 @@
             overflow: hidden;
             padding:0 10px;
             background: url("../assets/img/icon-water.png") no-repeat center;
+            background-size: 19px;
         }
         .faucet-detailed{
             display: none;
@@ -818,6 +811,7 @@
                     &.btn-ok{
                         cursor: default;
                         background: url("../assets/img/btn-waterok.png") no-repeat center;
+                        background-size: 24px;
                     }
                     &:not(.btn-ok):hover{
                         filter: brightness(1.1);
@@ -1164,9 +1158,6 @@
             .m-choose-play{
                 display: block;
             }
-            .act-sign{
-                right:190px;
-            }
         }
     }
     @media (max-width: @screen-desktop) {
@@ -1188,64 +1179,47 @@
                 margin:0;
                 height:100%;
                 .to-login{
+                    font-size: 12px;
+                }
+                .act-sign{
+                    padding: 0 4px;
+                    height: 15px;
+                    margin: 17.5px 7.5px 0 0;
+                    line-height: 15px;
+                    font-size: 11px;
+                    &::before{
+                        top: 3px;
+                        right:-8px;
+                    }
+                }
+                .to-login{
                     height:50px;
                     line-height:50px;
                     border:none;
-                    border-right:1px solid rgba(255, 255, 255, 0.3);
                     border-radius: 0;
                     padding:0 15px;
                     margin-top: 0;
                 }
             }
             .mycount{
-                cursor: pointer;
-                box-sizing: border-box;
-                width:50px;
-                height:50px;
-                padding:10px 10px 0;
-                border-left:1px solid rgba(51,26,64,0.3);
-                border-right:1px solid rgba(51,26,64,0.3);
-                margin-right:0;
+                margin: 0 10px 0 0;
+                padding: 13.5px 10px;
                 .countNum{
-                    .hide-text();
+                    padding: 0 12px 0 30px;
+                    line-height: 47/2px;
+                    font-size: 13px;
+                    .icon-user{
+                        width: 46/2px;
+                        height: 47/2px;
+                        background-size: cover;
+                    }
                     i{
-                        display: none;
-                    }
-                }
-                &:hover,&.isShowMycount{
-                    background: rgba(0,0,0,0.5);
-                    &::before{
-                        opacity:1;
-                    }
-                }
-            }
-            .language{
-                width:50px;
-                height:50px;
-                padding-top: 15px;
-                img{
-                    width:22px;
-                }
-                .language-choose{
-                    span{
-                        height:16px;
-                        line-height:16px;
-                        margin:0;
-                        font-size:8px;
-                        opacity:0.6;
-                    }
-                }
-                ul{
-                    top:50px;
-                    width:50px;
-                    font-size:8px;
-                    li{
-                        width:50px;
-                        height:63px;
-                        padding-top:15px;
-                    }
-                    img{
-                        width:22px;
+                        width: 14/2px;
+                        height: 8/2px;
+                        right: 0;
+                        top: 10px;
+                        background-size: 14/2px;
+                        background-origin: 50%;
                     }
                 }
             }
@@ -1266,29 +1240,116 @@
                 }
             }
         }
-        .act-sign{
-            display: none;
+        .cs-faucet{
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            margin: 0;
+            .btn-faucet{
+                width: 33/2px;
+                height: 45/2px;
+                background-size: 33/2px;
+                padding: 13.75px 10px;
+            }
+            .faucet-detailed{
+                top: 46px;
+                right: 50%;
+                transform: translateX(50%);
+                padding: 5px 8px 0;
+                width: 250px;
+                .faucet-title{
+                    line-height: 34px;
+                    font-size: 18px;
+                }
+                li{
+                    padding: 12px 0;
+                    p{
+                        width: 170px;
+                        line-height: 13px;
+                        font-size: 12px;
+                    }
+                    .btn{
+                        width: 128/2px;
+                        height: 60/2px;
+                        line-height: 60/2px;
+                        font-size: 13px;
+                        &.btn-ok{
+                            background-size: 28px;
+                        }
+                    }
+                }
+                &::before{
+                    right: 50%;
+                    transform: translateX(50%);
+                    top: -3.5px;
+                    width: 16/2px;
+                    height: 8/2px;
+                    overflow: hidden;
+                    background: url('../assets/img/icon-tri.png') no-repeat center;
+                    background-size: cover;
+                }
+            }
         }
         .mycount-detailed{
-            top:44px;
-        }
-        .choose-coin,.mycount{
-            box-sizing: border-box;
-            width:50px;
-        }
-        .cs-faucet{
-            margin: 12px 0 0 0;
-        }
-    }
-    @media (max-width: @screen-phone) { }
-    @media(min-width: @screen-tablet){
-        .mycount,.choose-coin .coin ,.language{
-            &:hover{
-                background: rgba(0,0,0,0.3);
+            top:46px;
+            padding: 13px 13px 0;
+            width: 275/2px;
+            .account-info{
+                .email{
+                    line-height: 19px;
+                    font-size: 14px;
+                }
+                .uid{
+                    line-height: 17px;
+                    font-size: 12px;
+                }
+            }
+            .my-transaction,.account-center{
+                margin-top: 5px;
+                height: 24px;
+                line-height: 24px;
+                font-size: 12px;
+            }
+            .currency-select{
+                margin: 14px 0 0 0;
+                >p{
+                    line-height: 25px;
+                    font-size: 12px;
+                }
+                li{
+                    height: 48px;
+                    border-width: 1px;
+                    font-size: 16px;
+                }
+                li.on{
+                    a{
+                        width: 60px;
+                        font-size: 11px;
+                        &::after{
+                            width: 57/2px;
+                            height: 53/2px;
+                            background: url("../assets/img/icon-select.png") no-repeat center;
+                            background-size: 57/2px;
+                        }
+                    }
+                }
+            }
+            .log-out{
+                margin-top: 20px;
+                line-height: 31px;
+                font-size: 12px;
+            }
+            &::before{
+                right: 50%;
+                transform: translateX(50%);
+                top: -3.5px;
+                width: 8px;
+                height: 4px;
             }
         }
     }
-
+    @media (max-width: @screen-phone){
+    }
     @keyframes icon-new {
         0%,8%,22%,100%{
             transform: rotate(0) translateX(0);
