@@ -101,8 +101,18 @@
                                                 <i >{{ item.cointype | formateCoinType }}</i>
                                                 <span >{{ formateBalance( item.balance ) }}</span>
                                             </div>
-                                            <a :href="'https://etherscan.io/address/'+currBalance.address" v-if="currBalance.cointype==='2001'" target="_blank" class="address">{{ item.address }}</a>
-                                            <a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='1001'" class="address">{{ item.address }}</a>
+                                            <!--<a :href="'https://etherscan.io/address/'+currBalance.address" v-if="currBalance.cointype==='2001'" target="_blank" class="address">{{ item.address }}</a>-->
+                                            <a v-if="currBalance.cointype==='2001'" class="address"
+                                               v-clipboard:copy="currBalance.address"
+                                               v-clipboard:success="copySucc"
+                                               v-clipboard:error="copyError"
+                                            >{{ item.address }}</a>
+                                            <!--<a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='1001'" class="address">{{ item.address }}</a>-->
+                                            <a v-if="currBalance.cointype==='1001'" class="address"
+                                               v-clipboard:copy="currBalance.address"
+                                               v-clipboard:success="copySucc"
+                                               v-clipboard:error="copyError"
+                                            >{{ item.address }}</a>
                                         </li>
                                         <!--<li>-->
                                             <!--<div class="currency-input"></div>-->
@@ -129,7 +139,7 @@
                 </div>
 
                 <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet" v-if="isLog">
+                <div class="cs-faucet hide" v-if="isLog">
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                     </a>
                     <div class="faucet-detailed" :class="{'show':freeWaterPop}">
@@ -199,8 +209,12 @@
 <script>
     import PopList from '~components/Pop-list'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-    import { formateBalance, formateCoinType, formateEmail } from '~common/util'
+    import {copySucc, copyError, formateBalance, formateCoinType, formateEmail } from '~common/util'
     import startCanvas from '~/common/canvas'
+
+    import Vue from 'vue'
+    import vueClipboard from 'vue-clipboard2'
+    Vue.use(vueClipboard)
 
     export default {
         components: {PopList},
@@ -272,6 +286,8 @@
         methods: {
             formateEmail,
             formateBalance,
+            copySucc,
+            copyError,
             handleLanguageChange (val) {
                 this.$store.commit('changeLanguage', val)
             },
@@ -285,7 +301,7 @@
                 switch (tab) {
                 case 'showChoose':
                     this.isShowLanguage = false
-                    this.isShowMycount = false
+                    // this.isShowMycount = false
                     this.isChooseCoin = false
                     this.isShowChoose = !this.isShowChoose
                     break

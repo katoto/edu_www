@@ -123,6 +123,9 @@
                     this.$router.push('/policy_zhTw')
                     break
                 }
+            },
+            headControlPop () {
+                this.isShowLanguage = !this.isShowLanguage
             }
         },
         computed: {
@@ -133,9 +136,6 @@
                 get () {
                     return this.$store.state.language
                 }
-            },
-            headControlPop () {
-                this.isShowLanguage = !this.isShowLanguage
             }
         },
         mounted () {

@@ -434,18 +434,14 @@
                 }
 
                 if (this.currBalance) {
-                    if (
-                        Number(this.withdrawAmount) >
-                        Number(this.currBalance.balance)
-                    ) {
-                        if (Number(this.withdrawAmount) >= parseFloat(this.currBalance.draw_limit)) {
+                    if (Number(this.withdrawAmount) > (parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee))) {
+                        if ((parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)) >= parseFloat(this.currBalance.draw_limit)) {
                             this.withdrawAmount = parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)
-                            this.error(
-                                _(
-                                    'The maximum withdrawal is {0} {1}',
-                                    this.withdrawAmount,
-                                    this.formateCoinType(this.currBalance.cointype)
-                                )
+                            this.error(_(
+                                'The maximum withdrawal is {0} {1}',
+                                this.withdrawAmount,
+                                this.formateCoinType(this.currBalance.cointype)
+                            )
                             )
                         } else {
                             this.error(_('The minimum withdrawal is') + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
