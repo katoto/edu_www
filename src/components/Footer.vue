@@ -109,8 +109,8 @@
                 this.$store.commit('changeLanguage', val)
             },
             jump2Page (lan = 'en') {
-                if (this.language) {
-                    lan = this.language
+                if (this.languageVal) {
+                    lan = this.languageVal
                 }
                 switch (lan) {
                 case 'en':

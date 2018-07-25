@@ -74,6 +74,7 @@
                     this.$router.push('/policy_zhTw')
                     break
                 }
+                this.$store.commit('hideLoginPop')
             },
             async submitLogin () {
                 // 判断邮箱
