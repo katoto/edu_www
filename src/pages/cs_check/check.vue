@@ -3,20 +3,20 @@
         <Header></Header>
         <div class="main">
             <BreadCrumbs></BreadCrumbs>
-
             <!--查询框-->
             <div class="check-input">
                 <div class="check-enter">
                     <h2>Check the results</h2>
                     <input type="text" placeholder="Enter the issue number">
-                    <p>The issue number can be viewed in the draw record</p>
+                    <p>The issue number can be viewed in the <a href="javascript:;">draw record</a></p>
                 </div>
                 <a href="javascript:;" class="btn-verification">Verification</a>
+                <!--rollIn animated-->
                 <div class="checkout-result">
                     <h3>Lottery result</h3>
                     <div class="result-view">
                         <!--lucky11-->
-                        <ul class="hide">
+                        <ul class="">
                             <li>1</li>
                             <li>3</li>
                             <li>6</li>
@@ -24,14 +24,14 @@
                             <li>11</li>
                         </ul>
                         <!--LuckyCoin-->
-                        <div>10033</div>
+                        <div class="hide">10033</div>
                     </div>
                 </div>
             </div>
             <!--步骤说明-->
             <div class="check-explain">
                 <div class="step-title">Check the results</div>
-                <div class="step-view">
+                <div class="step-view bounce animated delay-2s">
                     <ul>
                         <li>
                             User order<br/>
@@ -66,60 +66,48 @@
             <!--输入前-->
             <p class="before-input hide">Enter the issue number to view the verification details</p>
             <!--输入后-->
-            <div class="after-input">
+            <div class="after-input ">
                 <div class="step-title">Lottery number generation process&nbsp;&nbsp;&nbsp;&nbsp;201704051234 </div>
                 <!--用户信息-->
                 <div class="item item1">
-                    <a href="javascript:;" class="btn-copy">Copy user order</a>
-                    <!--漂浮规则-->
-                    <div class="rule-view hide">
-                        <p>User order information</p>
-                        <ul>
-                            <li data-msg="(Issue)">
-                                1000340
-                            </li>
-                            <li data-msg="(Play)">
-                                1101
-                            </li>
-                            <li data-msg="(Number)">
-                                1,3
-                            </li>
-                            <li data-msg="(Amount)">
-                                0.0008
-                            </li>
-                            <li data-msg="(Currency)">
-                                2001
-                            </li>
-                        </ul>
-                    </div>
+                    {{tes}}
+                    <a href="javascript:;" class="btn-copy"
+                       v-clipboard:copy="msgItems"
+                       v-clipboard:success="copySucc"
+                       v-clipboard:error="copyError"
+                    >
+                        Copy user order
+                    </a>
                     <div class="title-1">
                         User order information
-                        <i class="icon-mark"></i>
+                        <i class="icon-mark" @mouseenter="showRuleView = true"  @mouseout="showRuleView = false">
+                            <!--漂浮规则-->
+                            <div class="rule-view" v-if="showRuleView">
+                                <p>User order information</p>
+                                <ul>
+                                    <li data-msg="(Issue)">
+                                        1000340
+                                    </li>
+                                    <li data-msg="(Play)">
+                                        1101
+                                    </li>
+                                    <li data-msg="(Number)">
+                                        1,3
+                                    </li>
+                                    <li data-msg="(Amount)">
+                                        0.0008
+                                    </li>
+                                    <li data-msg="(Currency)">
+                                        2001
+                                    </li>
+                                </ul>
+                            </div>
+                        </i>
                     </div>
                     <ul class="msg-items">
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
-                        <li>1000340#1101#1#0.0008#2001</li>
+                        <li v-for="item in msgItems">
+                            {{item}}
+                        </li>
                     </ul>
                 </div>
                 <div class="item item2">
@@ -261,18 +249,7 @@
                                     <li data-count="7">
                                         <div>7</div>
                                     </li>
-                                    <li data-count="8">
-                                        <div>8</div>
-                                    </li>
-                                    <li data-count="9">
-                                        <div>9</div>
-                                    </li>
-                                    <li data-count="10">
-                                        <div>10</div>
-                                    </li>
-                                    <li data-count="11">
-                                        <div>11</div>
-                                    </li>
+
                                 </ul>
                                 <p class="p3">
                                     The 5th digit is the lottery number
@@ -476,6 +453,8 @@
                     </p>
                 </div>
             </div>
+            <!--返回顶部-->
+            <ScrollTop></ScrollTop>
         </div>
         <Footer></Footer>
     </div>
@@ -485,17 +464,26 @@
     import Header from '~components/Header.vue'
     import Footer from '~components/Footer.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
+    import ScrollTop from '~/components/ScrollTop.vue'
+    import {copySucc, copyError} from '~common/util'
+    import vueClipboard from "vue-clipboard2";
+    import Vue from "vue";
+    Vue.use(vueClipboard);
     export default {
         data () {
             return {
-                activeName:'Lucky11'
+                showRuleView: false,
+                msgItems: ['1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001', '1000340#1101#1#0.0008#2001'],
             }
         },
         watch: {},
-        methods: {},
+        methods: {
+            copySucc,
+            copyError
+        },
         computed: {},
         components: {
-            Header, Footer, BreadCrumbs
+            Header, Footer, BreadCrumbs, ScrollTop
         },
         mounted () {
 
@@ -508,6 +496,7 @@
         background: #242240;
     }
     .main{
+        position: relative;
         width: 1190px;
         margin: 0 auto;
         background: #242240;
@@ -532,6 +521,7 @@
         .check-enter{
             h2{
                 line-height: 82px;
+                font-family: sans-eb;
                 font-size: 30px;
                 font-weight: bold;
                 color: #fff;
@@ -541,20 +531,32 @@
                 height: 52px;
                 overflow: hidden;
                 outline: none;
-                border: 1px solid #6a89cc;
+                border: 1px solid #788ca3;
                 border-radius: 6px;
                 background: #242240;
                 line-height: 52px;
                 text-indent: 30px;
                 font-size: 16px;
-                color: #788ca3;
-                //placeholdcolor
+                color: #fff;
+                &::-webkit-input-placeholder{
+                    color: #788ca3;
+                }
+                &:focus{
+                    border-color: #fff;
+                }
             }
             p{
                 padding-bottom: 18px;
                 line-height: 64px;
                 font-size: 14px;
                 color: #788ca3;
+            }
+            a{
+                color: #788ca3;
+                text-decoration: underline;
+                &:hover{
+                    filter: brightness(1.3);
+                }
             }
         }
         .btn-verification{
@@ -576,10 +578,14 @@
             }
         }
         .checkout-result{
+            position: relative;
             padding: 7px 40px 68px;
             border: 1px solid #6a89cc;
             border-radius: 6px;
             background: #242240;
+            visibility: hidden;
+            opacity: 0;
+            transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
             h3{
                 line-height: 80px;
                 font-family: sans-eb;
@@ -616,6 +622,17 @@
                     font-weight: bold;
                     color: #fd9644;
                 }
+            }
+            &::before{
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: -22px;
+                transform: translateY(-50%);
+                display: block;
+                width: 22px;
+                height: 22px;
+                background: url("../../assets/img/check/icon-arrow.png") no-repeat center;
             }
         }
     }
@@ -655,6 +672,7 @@
         }
     }
     .before-input{
+        padding-bottom: 292px;
         line-height: 54px;
         font-size: 14px;
         color: #788ca3;
@@ -668,7 +686,7 @@
             font-size: 16px;
             color: #ffffff;
             .title-1{
-                overflow: hidden;
+                /*overflow: hidden;*/
                 font-weight: bold;
                 color: #6a89cc;
             }
@@ -703,7 +721,6 @@
                 display: block;
                 width: 16px;
                 height: 16px;
-                overflow: hidden;
                 background: url("../../assets/img/check/icon-mark.png") no-repeat center;
                 cursor: pointer;
             }
@@ -728,6 +745,17 @@
                     margin-right: 20px;
                     line-height: 41px;
                 }
+                &::-webkit-scrollbar {
+                    width: 6px;
+                }
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 6px;
+                    background: rgba(120,140,163,0.5);
+                }
+                &::-webkit-scrollbar-track{
+                    border-radius: 6px;
+                    background: #1d1c3a;
+                }
             }
         }
         .item2{
@@ -739,6 +767,14 @@
             padding-top: 37px;
             padding-bottom: 36px;
             line-height: 37px;
+            a{
+                color: #fff;
+                text-decoration: underline;
+                font-weight: bold;
+                &:hover{
+                    filter: brightness(1.3);
+                }
+            }
         }
         .item4{
             padding-top: 27px;
@@ -955,8 +991,8 @@
     /*漂浮规则*/
     .rule-view{
         position: absolute;
-        top: -160px;
-        left: 218px;
+        top: -185px;
+        left: -33px;
         padding: 4px 26px 70px;
         background: #ffffff;
         border-radius: 6px;
