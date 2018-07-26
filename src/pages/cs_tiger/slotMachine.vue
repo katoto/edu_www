@@ -363,22 +363,28 @@
                         {{ showRecharge }}
                         <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                         <div class="title">
-                            <p>Copy the Ethereum wallet address</p>
-                            <p>(<lang>only supports ETH</lang>)</p>
+                            <div v-if="currBalance.cointype==='2001'">
+                                <p>Copy the Ethereum wallet address</p>
+                                <p>(<lang>only supports ETH</lang>)</p>
+                            </div>
+                            <div v-if="currBalance.cointype==='1001'">
+                                <p >Copy the Bitcoin wallet address</p>
+                                <p>(<lang>only supports BTC</lang>)</p>
+                            </div>
                         </div>
-                        <div class="copy" v-if="userInfo && userInfo.accounts">
+                        <div class="copy" v-if="currBalance">
                             <a href="javascript:;" rel="nofollow"
-                               v-clipboard:copy="userInfo.accounts[0].address"
+                               v-clipboard:copy="currBalance.address"
                                v-clipboard:success="copySucc"
                                v-clipboard:error="copyError"
                             >COPY</a>
-                            <p v-if="userInfo && userInfo.accounts">{{ userInfo.accounts[0].address }}</p>
+                            <p v-if="currBalance">{{ currBalance.address }}</p>
                         </div>
                         <div class="msg">
                             <lang>or scan to get the address</lang>
                         </div>
-                        <img v-if="userInfo && userInfo.accounts"
-                             :src="'http://mobile.qq.com/qrcode?url='+ userInfo.accounts[0].address " alt="recharge">
+                        <img v-if="currBalance.cointype==='1001'" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address " alt="recharge">
+                        <img v-if="currBalance.cointype==='2001'" alt="" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address " alt="recharge">
                     </div>
                 </div>
                 <div class="tiger-pc-msg">

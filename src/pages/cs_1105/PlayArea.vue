@@ -1,8 +1,9 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose" :class="{'super-active':areaMsg.pickType === '5J'}" @mouseover="slideDown = true" @mouseout="slideDown = false">
-                <span v-if="areaMsg.pickType === '5J'"  v-lang="'Super&ensp;5'"></span>
+            <div id="play-type-choose" class="play-type-choose" :class="{'super-active':areaMsg.pickType === '5J'}"
+                 @mouseover="slideDown = true" @mouseout="slideDown = false">
+                <span v-if="areaMsg.pickType === '5J'" v-lang="'Super&ensp;5'"></span>
                 <span v-else><lang>Pick</lang> {{ areaMsg.pickType}}</span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
                     <li data-index="1" v-lang="'Pick 1'"></li>
@@ -28,7 +29,8 @@
                 <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">
                     {{ _("Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward", areaMsg.pickType, syxw_bettype_odds['110'+( areaMsg.pickType )]) }}
                 </span>
-                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false" class="pop-reward-ct">
+                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false"
+                   class="pop-reward-ct">
                     <lang>Reward table</lang>
                     <!-- Lucky 11 show -->
                     <div class="pop pop-rewardTable" :class="{hide: !rewardTable}">
@@ -111,39 +113,39 @@
                                         <lang>Super5</lang>
                                     </td>
                                     <td class="reward-tip-box">
-                                        <p class="reward-pick-five-title">
-                                            <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
-                                        </p>
-                                        <p class="reward-table-tip">
-                                            <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
-                                        </p>
-                                        <p class="reward-table-tip">
-                                            <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
-                                        </p>
-                                        <p class="reward-table-tip">
-                                            <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
-                                        </p>
-                                        <p class="reward-table-tip">
-                                            <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <i class="bold">
-                                            <lang>jackpot</lang>
-                                        </i>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </a>
+            <p class="reward-pick-five-title">
+                <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
             </p>
-            <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">
-                <lang>Limit number list</lang>
-            </a>
+            <p class="reward-table-tip">
+                <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
+            </p>
+            <p class="reward-table-tip">
+                <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
+            </p>
+            <p class="reward-table-tip">
+                <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
+            </p>
+            <p class="reward-table-tip">
+                <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
+            </p>
+            </td>
+            <td>
+                <i class="bold">
+                    <lang>jackpot</lang>
+                </i>
+            </td>
+            </tr>
+            </tbody>
+            </table>
         </div>
-        <span class="line js_line" ><lang>Ticket</lang> {{ currIndex + 1 }}</span>
+        </div>
+        </a>
+        </p>
+        <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">
+            <lang>Limit number list</lang>
+        </a>
+        </div>
+        <span class="line js_line"><lang>Ticket</lang> {{ currIndex + 1 }}</span>
         <ul class="number-box" v-if="areaMsg" @click="lineNumClick">
             <li v-for="(number,index) in playList"
                 :data-flag="(index+1)" class="on"
@@ -163,19 +165,26 @@
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
                 <input type="text" name="bet1" @input="checkMoneyLen" @blur="checkBetMoney" v-model="areaMsg.pickMoney"
-                       :placeholder="min_limit.toString()" >
+                       :placeholder="min_limit.toString()">
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
             <span>{{ currBalance.cointype | formateCoinType }}</span>
             <div class="winning" v-if="areaMsg.pickType !== '5J'">
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType) )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType)
+                )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType
+                }}</i>
             </div>
             <div class="winning" v-else>
                 <!-- 奖池 -->
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot( this.poolAmount[currBalance.cointype] , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot(
+                this.poolAmount[currBalance.cointype] , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat(
+                areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
-                    {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ), formateJackPot(areaMsg.pickMoney, this.poolAmount[currBalance.cointype], this.poolRatio)) + formateCoinType ( currBalance.cointype ) }}
+                    {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] *
+                    parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ),
+                    formateJackPot(areaMsg.pickMoney, this.poolAmount[currBalance.cointype], this.poolRatio)) +
+                    formateCoinType ( currBalance.cointype ) }}
                 </i>
             </div>
         </div>
@@ -392,6 +401,10 @@
             }
         },
         mounted () {
+            if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
+                this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
+                this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
+            }
         },
         filters: {
             formateBalance,
@@ -407,15 +420,18 @@
         transition: all .2s;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2)
     }
+
     .reward-table-tip {
         font-size: 12px;
         color: #778ca3;
         line-height: 15px;
     }
+
     .reward-pick-five-title {
         line-height: 15px;
         margin-bottom: 10px;
     }
+
     .reward-tip-box {
         padding: 15px 0 20px;
     }
