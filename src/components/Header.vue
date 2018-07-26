@@ -93,7 +93,7 @@
                                     <lang>Account Center</lang>
                                 </router-link>
                                 <div class="currency-select">
-                                    <p>Select Currency</p>
+                                    <p><lang>Select Currency</lang></p>
                                     <ul>
                                         <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
                                             @click="changeAccounts( item )" >
