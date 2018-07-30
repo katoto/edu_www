@@ -10,7 +10,7 @@
                     <div class="item chose-coin ">
                         <div class="fl210 "><lang>Select Currency</lang></div>
                         <p>
-                            <el-select v-model="tranOptionVal" @change="handleStatusChange">
+                            <el-select v-model="tranOptionVal" @change="changeCoin">
                                 <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
                                            :label="formateCoinType(item.cointype)" :value="item">
                                 </el-option>
@@ -145,7 +145,7 @@
                                     <lang>Fee</lang>
                                 </span>
                                 <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
-                                <p v-if="userInfo && userInfo.accounts" class="fr">{{ userInfo.accounts[0].fee }}</p>
+                                <p v-if="currBalance" class="fr">{{ currBalance.fee }}</p>
                             </div>
                             <div class="trans-msg">
                                 <span class="fl">
@@ -320,6 +320,12 @@
                     this.withdrawAddr = this.withdrawAddr.slice(0, 50)
                 }
             },
+            changeCoin (val) {
+                if (val) {
+                    this.tranOptionVal = this.formateCoinType(val.cointype)
+                    this.$store.commit('setCurrBalance', val)
+                }
+            },
             handleStatusChange () {
                 this.pageno = 1
                 this.handleCurrentChange()
@@ -428,18 +434,14 @@
                 }
 
                 if (this.currBalance) {
-                    if (
-                        Number(this.withdrawAmount) >
-                        Number(this.currBalance.balance)
-                    ) {
-                        if (Number(this.withdrawAmount) >= parseFloat(this.currBalance.draw_limit)) {
+                    if (Number(this.withdrawAmount) > (parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee))) {
+                        if ((parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)) >= parseFloat(this.currBalance.draw_limit)) {
                             this.withdrawAmount = parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)
-                            this.error(
-                                _(
-                                    'The maximum withdrawal is {0} {1}',
-                                    this.withdrawAmount,
-                                    this.formateCoinType(this.currBalance.cointype)
-                                )
+                            this.error(_(
+                                'The maximum withdrawal is {0} {1}',
+                                this.withdrawAmount,
+                                this.formateCoinType(this.currBalance.cointype)
+                            )
                             )
                         } else {
                             this.error(_('The minimum withdrawal is') + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))

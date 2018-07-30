@@ -5,7 +5,7 @@ import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 import {actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
 
-function combimeStore(store, newStore) {
+function combimeStore (store, newStore) {
     return {
         state: {...store.state, ...newStore.state},
         mutations: {...store.mutations, ...newStore.mutations},
@@ -40,36 +40,36 @@ const state = {
 }
 
 const mutations = {
-    initHeadState(state, data) {
+    initHeadState (state, data) {
         state.initHeadState = data
     },
-    setCurrBalance(state, data) {
+    setCurrBalance (state, data) {
         state.currBalance = data
     },
-    showEmailErr(state, data) {
+    showEmailErr (state, data) {
         state.showEmailErr = data
     },
-    setIp_status(state, data) {
+    setIp_status (state, data) {
         state.ip_status = data
     },
-    setUserInfo(state, msg) {
+    setUserInfo (state, msg) {
         state.userInfo = msg
     },
-    setIsLog(state, msg) {
+    setIsLog (state, msg) {
         state.isLog = msg
     },
-    initSocket(state, {sock, interval}) {
+    initSocket (state, {sock, interval}) {
         state.socket.sock = sock
         state.socket.interval = interval
     },
-    addConnectNum(state) {
+    addConnectNum (state) {
         state.socket.reconnect++
     },
     ...common.mutations
 }
 const actions = {
     /* home info */
-    async homeInfo({state, commit, dispatch}) {
+    async homeInfo ({state, commit, dispatch}) {
         try {
             let homeMsg = await ajax.get(`/home/info`)
             if (homeMsg.ip_status !== undefined || homeMsg.ip_status !== null) {
@@ -108,7 +108,7 @@ const actions = {
     },
 
     /* user info */
-    async getUserInfo({state, commit, dispatch}) {
+    async getUserInfo ({state, commit, dispatch}) {
         try {
             let userMsg = null
             if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
@@ -200,7 +200,7 @@ const actions = {
     },
 
     /* websocket */
-    initWebsocket({commit, state, dispatch}, fn) {
+    initWebsocket ({commit, state, dispatch}, fn) {
         return new Promise((resolve, reject) => {
             let sock = new WebSocket(`${sockURL}`)
             let interval = null
@@ -213,106 +213,106 @@ const actions = {
                     // 总的分发
                     if (msg && msg.data) {
                         switch (msg.msg_code.toString()) {
-                            case '1001':
-                                // 初始化
-                                //  初始化倒计时
-                                if (msg.data.timer !== undefined && msg.data.timer !== null) {
-                                    dispatch(aTypes.formate_countDown, msg.data.timer)
-                                }
-                                // 初始化上一期结果
-                                dispatch(aTypes.formate_Result, msg.data)
-                                // 当前期号
-                                if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                    dispatch(aTypes.formate_expectid, msg.data.expectid)
-                                }
-                                // recent bet
-                                if (msg.data.top) {
-                                    dispatch(aTypes.formate_recentBet, msg.data.top)
-                                }
-                                break
-                            case '1002':
-                                //  初始化倒计时
-                                if (msg.data.timer !== undefined && msg.data.timer !== null) {
-                                    dispatch(aTypes.formate_countDown, msg.data.timer)
-                                }
-                                // 初始化上一期结果
-                                dispatch(aTypes.formate_Result, msg.data)
-                                // 当前期号
-                                if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                    dispatch(aTypes.formate_expectid, msg.data.expectid)
-                                }
-                                /*
+                        case '1001':
+                            // 初始化
+                            //  初始化倒计时
+                            if (msg.data.timer !== undefined && msg.data.timer !== null) {
+                                dispatch(aTypes.formate_countDown, msg.data.timer)
+                            }
+                            // 初始化上一期结果
+                            dispatch(aTypes.formate_Result, msg.data)
+                            // 当前期号
+                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
+                                dispatch(aTypes.formate_expectid, msg.data.expectid)
+                            }
+                            // recent bet
+                            if (msg.data.top) {
+                                dispatch(aTypes.formate_recentBet, msg.data.top)
+                            }
+                            break
+                        case '1002':
+                            //  初始化倒计时
+                            if (msg.data.timer !== undefined && msg.data.timer !== null) {
+                                dispatch(aTypes.formate_countDown, msg.data.timer)
+                            }
+                            // 初始化上一期结果
+                            dispatch(aTypes.formate_Result, msg.data)
+                            // 当前期号
+                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
+                                dispatch(aTypes.formate_expectid, msg.data.expectid)
+                            }
+                            /*
                                  *  处理 区块链阻塞
                                  * */
-                                let jsStartBetBtn = document.getElementById('js_startBetBtn')
-                                // msg.data.block_status = '0' 报错错误
-                                if (jsStartBetBtn) {
-                                    if (msg.data.block_status.toString() === '1') {
-                                        //  健康
-                                        if (~jsStartBetBtn.className.indexOf('unable')) {
-                                            jsStartBetBtn.className = 'btn-play-now'
-                                        }
-                                    } else if (msg.data.block_status.toString() === '0') {
-                                        // 不健康  添加unable
-                                        Message({
-                                            message: _('The network is blocking, please retry later'),
-                                            type: 'error',
-                                            duration: tipsTime
-                                        })
-                                        jsStartBetBtn.className = 'btn-play-now unable'
+                            let jsStartBetBtn = document.getElementById('js_startBetBtn')
+                            // msg.data.block_status = '0' 报错错误
+                            if (jsStartBetBtn) {
+                                if (msg.data.block_status.toString() === '1') {
+                                    //  健康
+                                    if (~jsStartBetBtn.className.indexOf('unable')) {
+                                        jsStartBetBtn.className = 'btn-play-now'
                                     }
-                                }
-                                break
-                            case '1003':
-                                // 开奖结果消息  更新 my Bet  todo
-                                if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                    dispatch(aTypes.formate_expectid, msg.data.expectid)
-                                }
-                                // recent bet
-                                if (msg.data.top) {
-                                    dispatch(aTypes.formate_recentBet, msg.data.top)
-                                }
-                                // 初始化上一期结果
-                                dispatch(aTypes.formate_Result, msg.data)
-
-                                if (~state.route.path.indexOf('lucky')) {
-                                    // mybet 弹窗
-                                    if (state.isLog) {
-                                        dispatch('cs_1105/updateMyBets')
-                                    }
-                                    dispatch('cs_1105/updateHistoryDraw')
-                                    // 更新用户信息
-                                    dispatch('getUserInfo')
-                                }
-                                break
-                            case '1004':
-                                /* 投注推送  和 更新 my bet todo  */
-                                if (msg.data && msg.data.orders) {
-                                    dispatch(aTypes.formate_pushBetData, msg.data.orders)
-                                }
-                                break
-                            case '1005':
-                                // 奖池中奖
-                                if (msg.data) {
-                                    dispatch(aTypes.fomateJackPot, msg.data)
-                                }
-                                ;
-                                break
-                            case '2001':
-                                // 老虎机初始化
-                                if (msg.data) {
-                                    dispatch(actionTypes.formateTiger, msg.data)
-                                }
-                                break
-                            case '2002':
-                                // 老虎机初始化
-                                if (msg.data) {
-                                    Object.assign(msg.data, {
-                                        addNewRecord: true
+                                } else if (msg.data.block_status.toString() === '0') {
+                                    // 不健康  添加unable
+                                    Message({
+                                        message: _('The network is blocking, please retry later'),
+                                        type: 'error',
+                                        duration: tipsTime
                                     })
-                                    dispatch(actionTypes.addRecentList, msg.data)
+                                    jsStartBetBtn.className = 'btn-play-now unable'
                                 }
-                                break
+                            }
+                            break
+                        case '1003':
+                            // 开奖结果消息  更新 my Bet  todo
+                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
+                                dispatch(aTypes.formate_expectid, msg.data.expectid)
+                            }
+                            // recent bet
+                            if (msg.data.top) {
+                                dispatch(aTypes.formate_recentBet, msg.data.top)
+                            }
+                            // 初始化上一期结果
+                            dispatch(aTypes.formate_Result, msg.data)
+
+                            if (~state.route.path.indexOf('lucky')) {
+                                // mybet 弹窗
+                                if (state.isLog) {
+                                    dispatch('cs_1105/updateMyBets')
+                                }
+                                dispatch('cs_1105/updateHistoryDraw')
+                                // 更新用户信息
+                                dispatch('getUserInfo')
+                            }
+                            break
+                        case '1004':
+                            /* 投注推送  和 更新 my bet todo  */
+                            if (msg.data && msg.data.orders) {
+                                dispatch(aTypes.formate_pushBetData, msg.data.orders)
+                            }
+                            break
+                        case '1005':
+                            // 奖池中奖
+                            if (msg.data) {
+                                dispatch(aTypes.fomateJackPot, msg.data)
+                            }
+                            ;
+                            break
+                        case '2001':
+                            // 老虎机初始化
+                            if (msg.data) {
+                                dispatch(actionTypes.formateTiger, msg.data)
+                            }
+                            break
+                        case '2002':
+                            // 老虎机初始化
+                            if (msg.data) {
+                                Object.assign(msg.data, {
+                                    addNewRecord: true
+                                })
+                                dispatch(actionTypes.addRecentList, msg.data)
+                            }
+                            break
                         }
                     }
                 }
@@ -382,7 +382,7 @@ const actions = {
             commit('initSocket', {sock, interval})
         })
     },
-    sub2out({commit, state}) {
+    sub2out ({commit, state}) {
         let sub2outStr = null
         try {
             if (state.userInfo && state.userInfo.uid) {
@@ -414,7 +414,7 @@ const actions = {
         localStorage.setItem('block_uid', '0')
         removeCK('block_ck')
     },
-    sub2In({commit, state, dispatch}) {
+    sub2In ({commit, state, dispatch}) {
         let sub2InStr = null
         let currUid = null
         try {
@@ -447,7 +447,7 @@ const actions = {
             console.error(e.message)
         }
     },
-    subInTiger({commit, state, dispatch}) {
+    subInTiger ({commit, state, dispatch}) {
         /* 进入老虎机页面 订阅 */
         try {
             let subTigerStr = {
@@ -464,7 +464,7 @@ const actions = {
             }, 100)
         }
     },
-    subOutTiger() {
+    subOutTiger () {
         /* 离开老虎机页面 解订阅 */
         try {
             let unsubTigerStr = {
@@ -478,7 +478,7 @@ const actions = {
             console.error(e.message + 'subOutTiger error')
         }
     },
-    subInLucky({commit, state, dispatch}) {
+    subInLucky ({commit, state, dispatch}) {
         /* 进入lucky11页面 订阅 */
         try {
             let subLuckyStr = {
@@ -495,7 +495,7 @@ const actions = {
             // console.error(e.message + 'subInLucky error')
         }
     },
-    subOutLucky() {
+    subOutLucky () {
         /* 离开lucky页面 解订阅 */
         try {
             let unsubLuckyStr = {

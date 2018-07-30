@@ -78,6 +78,7 @@
                     this.$router.push('/policy_zhTw')
                     break
                 }
+                this.$store.commit('hideRegPop')
             },
             clearStatus () {
                 this.reg_email = ''
@@ -204,6 +205,9 @@
             }
         },
         computed: {
+            language () {
+                return this.$store.state.language
+            },
             show: {
                 set: function (isShow) {
                     if (!!isShow === true) {

@@ -3,10 +3,7 @@
         <div class=" container">
             <div class="reserved col-xs-12 col-md-4">
                 <p>
-                    Welcome to Coinslot and start a new gaming experience! Coinslot is a fair and fair, open and
-                    absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is
-                    used to guarantee the results of the lottery. The lottery number and betting record cannot be
-                    falsified.
+                    <lang>Welcome to Coinslot and start a new gaming experience! Coinslot is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.</lang>
                 </p>
             </div>
             <div class="col-md-4 clearfix">
@@ -14,29 +11,29 @@
                     <div class="title">
                         <lang>Coinslot</lang>
                     </div>
-                    <a href="javascript:;">
+                    <a class="hide" href="javascript:;">
                         <lang>Terms of Use</lang>
                     </a>
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Privacy Policy</lang>
                     </a>
-                    <a href="javascript:;">Transparency</a>
-                    <a href="javascript:;">Help Center</a>
+                    <a href="javascript:;"><lang>Transparency</lang></a>
+                    <a href="javascript:;"><lang>Help Center</lang></a>
                 </div>
                 <div class="game col-xs-6 col-md-6">
                     <div class="title">
                         <lang>game</lang>
                     </div>
-                    <a href="javascript:;">
-                        Lucky 11
-                    </a>
-                    <a href="javascript:;">
-                        slot
-                    </a>
-                    <a href="javascript:;">
+                    <router-link :to="{path: '/lucky11'}">
+                        <lang>Lucky 11</lang>
+                    </router-link>
+                    <router-link :to="{path: '/slot'}" >
+                        <lang>Slot</lang>
+                    </router-link>
+                    <a class="hide" href="javascript:;">
                         LuckyCoin
                     </a>
-                    <a href="javascript:;">
+                    <a class="hide" href="javascript:;">
                         Mobile APP
                     </a>
                 </div>
@@ -102,12 +99,6 @@
         },
         watch: {},
         methods: {
-            scroll () {
-                window.scrollTo(0, 0)
-            },
-            handleLanguageChange (val) {
-                this.$store.commit('changeLanguage', val)
-            },
             jump2Page (lan = 'en') {
                 if (this.language) {
                     lan = this.language
@@ -123,6 +114,32 @@
                     this.$router.push('/policy_zhTw')
                     break
                 }
+                this.$store.commit('hideLoginPop')
+            },
+            scroll () {
+                window.scrollTo(0, 0)
+            },
+            handleLanguageChange (val) {
+                this.$store.commit('changeLanguage', val)
+            },
+            jump2Page (lan = 'en') {
+                if (this.languageVal) {
+                    lan = this.languageVal
+                }
+                switch (lan) {
+                case 'en':
+                    this.$router.push('/policy')
+                    break
+                case 'zhCn':
+                    this.$router.push('/policy_zhCn')
+                    break
+                case 'zhTw':
+                    this.$router.push('/policy_zhTw')
+                    break
+                }
+            },
+            headControlPop () {
+                this.isShowLanguage = !this.isShowLanguage
             }
         },
         computed: {
@@ -133,9 +150,6 @@
                 get () {
                     return this.$store.state.language
                 }
-            },
-            headControlPop () {
-                this.isShowLanguage = !this.isShowLanguage
             }
         },
         mounted () {
