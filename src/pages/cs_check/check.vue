@@ -70,7 +70,6 @@
                 <div class="step-title">Lottery number generation process&nbsp;&nbsp;&nbsp;&nbsp;201704051234 </div>
                 <!--用户信息-->
                 <div class="item item1">
-                    {{tes}}
                     <a href="javascript:;" class="btn-copy"
                        v-clipboard:copy="msgItems"
                        v-clipboard:success="copySucc"

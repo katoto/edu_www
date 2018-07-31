@@ -6,6 +6,9 @@ import language from '../plugins/language'
 
 Vue.use(Router)
 
+const help = () =>
+    import('~/pages/cs_help/help')
+
 /* cs_1105 */
 /* cs_1105 首页 */
 const lucky11 = () =>
@@ -36,7 +39,7 @@ const MyTransactions = () =>
 const Withdraw = () =>
     import('~/pages/cs_account/Withdraw')
 
-/*验证页面*/
+/* 验证页面 */
 const check = () =>
     import('~/pages/cs_check/check')
 
@@ -68,20 +71,24 @@ const page404 = () =>
     import('~/pages/404.vue')
 
 let routesArr = [{
+    path: '/help',
+    name: 'help',
+    component: help
+},{
     path: '/lucky11',
     name: 'lucky11',
     component: lucky11
 },
-    {
-        path: '/home',
-        name: 'home',
-        component: home
-    },
-    {
-        path: '/check',
-        name: 'check',
-        component: check
-    },
+{
+    path: '/home',
+    name: 'home',
+    component: home
+},
+{
+    path: '/check',
+    name: 'check',
+    component: check
+},
 {
     path: '/slot',
     name: 'slot',
