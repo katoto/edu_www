@@ -150,7 +150,7 @@ module.exports = {
     'Bet': '投注',
     'Winning': '赢得',
     'Picking&ensp;Order': '选号方案',
-    'including C5: {0}ETH; jackpot {1} ETH': '包括选5: {0}ETH; 奖池 {1} ETH',
+    'including C5: {0}; jackpot {1}': '包括选5: {0}; 奖池 {1}',
     "Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward": '选 {0} 号码, 如果所有的号码与开奖结果一致，那么您将赢得{1} 倍奖励',
     'My Transactions': '流水记录',
     'Copy': '复制',
@@ -387,5 +387,9 @@ module.exports = {
     'Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@coinslot.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@coinslot.com',
 
     'View detailed rules': '查看详情',
-    'How to withdraw ?': '如何提款'
+    'How to withdraw ?': '如何提款',
+
+    'Place 0.00001 BTC per line, you can get 5% of the Jackpot': '每线投注0.00001 BTC,您将赢得5%的奖池',
+    'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每条线投注0.0001 BTC,您将赢得50%的奖池'
+
 }

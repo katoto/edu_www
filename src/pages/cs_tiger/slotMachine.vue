@@ -302,7 +302,8 @@
                                 <div class="line-divi">
                                     <div><lang>Jackpot</lang></div>
                                 </div>
-                                <img class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
+                                <img v-if="currBalance.cointype==='2001'" class="smallAward" src="@/assets/img/tiger/bg-jackpot2.png" alt="Small award">
+                                <img v-if="currBalance.cointype==='1001'" class="smallAward" src="@/assets/img/tiger/bg-jackpot_btc.png" alt="Small award">
                                 <div class="msg">
                                     <p>
                                         <span class="bold"><lang>Jackpot</lang></span>: <lang>2% of the player's bet amount is poured into Jackpot</lang>.
@@ -313,9 +314,14 @@
                                         <span><lang>appear at the same time in 9-line slot</lang>.</span>
                                     </p>
                                 </div>
-                                <div class="msg">
+                                <div class="msg" v-if="currBalance.cointype==='2001'">
                                     <p>· <lang>Place 0.001 ETH per line, you can get 5% of the Jackpot</lang></p>
                                     <p>· <lang>Place 0.001 ETH per line, you can get 50% of the Jackpot</lang></p>
+                                    <p class="hide">· <lang>Place 0.01 ETH per line, you can get 50% of the Jackpot</lang></p>
+                                </div>
+                                <div class="msg" v-if="currBalance.cointype==='1001'">
+                                    <p>· <lang>Place 0.00001 BTC per line, you can get 5% of the Jackpot</lang></p>
+                                    <p>· <lang>Place 0.0001 BTC per line, you can get 50% of the Jackpot</lang></p>
                                     <p class="hide">· <lang>Place 0.01 ETH per line, you can get 50% of the Jackpot</lang></p>
                                 </div>
                                 <div class="line-divi">

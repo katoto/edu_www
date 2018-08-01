@@ -150,7 +150,7 @@ module.exports = {
     'Bet': '投注',
     'Winning': '贏得',
     'Picking&ensp;Order': '選號方案',
-    'including C5: {0}ETH; jackpot {1} ETH': '包括選5: {0}ETH; 獎池 {1} ETH',
+    'including C5: {0}; jackpot {1}': '包括選5: {0}; 獎池 {1}',
     "Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward": '選 {0} 號碼, 如果所有的號碼與開獎結果一致，那麼您將贏得{1} 倍獎勵',
     'My Transactions': '流水記錄',
     'Copy': '複製',
@@ -382,11 +382,13 @@ module.exports = {
     'Minimum top-up：0.0001BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.': '建議最小充值金額：0.0001BTC ，小於最小金額的充值可能無法順利到賬且無法退回.',
     'Minimum top-up：0.001ETH. Less than the minimum amount may cause the failed top-up and it cannot be returned.': '建議最小充值金額：0.001ETH ，小於最小金額的充值可能無法順利到賬且無法退回.',
     'Your wallet address may be changed sometimes, and Coinslot team will inform you through notification or email as soon as possible.': '您的充值位址不會經常改變，可以重複充值；如有更改，我們會儘量通過網站公告或郵件通知您.',
-    'Make sure that your computer and browser are under the secure environment to prevent modification or disclosure of information.': '請務必確認電腦及流覽器安全，防止資訊被篡改或洩露.',
+    'Make sure that your computer and browser are under the sincluding C5ecure environment to prevent modification or disclosure of information.': '請務必確認電腦及流覽器安全，防止資訊被篡改或洩露.',
     'Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.': '您充值至上述位址後，需要整個網路節點的確認，1次網路確認後到賬，6次網路確認後可提幣.',
     'Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@coinslot.com.': '一般充值需要5分鐘到賬，請耐心等待，若充值持續未到賬，可郵件聯繫我們 support@coinslot.com',
 
     'View detailed rules': '查看詳情',
-    'How to withdraw ?': '如何提款'
+    'How to withdraw ?': '如何提款',
+    'Place 0.00001 BTC per line, you can get 5% of the Jackpot': '每條線投注0.00001BTC,您將贏得5%的獎池',
+    'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每條線投注0.0001BTC,您將贏得50%的獎池'
 
 }
