@@ -169,12 +169,14 @@
         box-sizing: border-box;
         z-index: 5;
         background: #151515;
-        /*border-top: 50px solid #eef1f9;*/
-        //用border代替margin挡住冒泡
         padding: 58px 0 0 0;
-        color: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.4);
         line-height: 24px;
         font-size: 14px;
+        &.border{
+            border-top: 50px solid #eef1f9;
+            //用border代替margin挡住冒泡
+        }
         .main {
             max-width: 1190px;
             margin: 0 auto;
@@ -188,7 +190,7 @@
         a {
             line-height: 24px;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.4);
             transform: translate3d(0,0,0);
             &:hover {
                 filter: brightness(1.3);
@@ -275,7 +277,7 @@
 
     @media (max-width: @screen-tablet) {
         .footer{
-            height: 1152/2px;
+            height: 620px;
             padding: 0 4% 0;
             line-height: 20px;
             .title {

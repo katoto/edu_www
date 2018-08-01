@@ -18,7 +18,7 @@
                 <router-view></router-view>
             </div>
         </div>
-        <Footer></Footer>
+        <Footer class="border"></Footer>
     </div>
 </template>
 
