@@ -21,3 +21,6 @@ npm run build --report
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 sitemap //  手动维护
+
+// jaxx 插件 教程
+http://8btc.com/thread-87320-1-3.html
