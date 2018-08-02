@@ -17,7 +17,7 @@
                         <lang>Add Ticket</lang>
                     </a>
                 </div>
-                <!--js_startBetBtn 用的-->
+                <!--js_startBetBtn 用的 -->
                 <div id="js_startBetBtn" class="btn-play-now">
                     <a href="javascript:;" @click="playNow">
                         <lang>Play Now</lang>
