@@ -300,7 +300,7 @@
                 <img src="@assets/img/lucky11/jackpot-left.png"/>
             </a>
         </div>
-        <Footer class="border"></Footer>
+        <Footer class="lucky11"></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
     </div>
 </template>

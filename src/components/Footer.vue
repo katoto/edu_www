@@ -173,7 +173,7 @@
         color: rgba(255, 255, 255, 0.4);
         line-height: 24px;
         font-size: 14px;
-        &.border{
+        &.lucky11{
             border-top: 50px solid #eef1f9;
             //用border代替margin挡住冒泡
         }

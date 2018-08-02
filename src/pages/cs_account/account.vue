@@ -18,7 +18,7 @@
                 <router-view></router-view>
             </div>
         </div>
-        <Footer class="border"></Footer>
+        <Footer class="lucky11"></Footer>
     </div>
 </template>
 
