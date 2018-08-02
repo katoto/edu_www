@@ -207,7 +207,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
     .verCode{
         position: relative;
         width:334px;

@@ -7,6 +7,21 @@
         <div class="msg-winning" :class="{ show: otherWin.isShow }">
             Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
         </div>
+        <div class="self-winning" :class="{show:selfWin.isShow}">
+            <div class="main">
+                <div class="bounceIn animated">
+                    <a href="javascript:;" class="close" @click="hideMyWin"></a>
+                    <p class="p1">Congratulate! </p>
+                    <p class="p2">you have just won No.187468</p>
+                    <p class="p3">
+                        +10<i>ETH</i>
+                    </p>
+                    <a href="javascript:;" class="btn-see">
+                        See My Bids
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -20,9 +35,15 @@ export default {
     mounted () {
         this.$store.dispatch('subInLuckyCoin')
     },
+    methods: {
+        hideMyWin () {
+            this.$store.commit('cs_luckycoin/hideMyWin')
+        }
+    },
     computed: {
         ...mapState('cs_luckycoin', {
-            otherWin: state => state.otherWin
+            otherWin: state => state.otherWin,
+            selfWin: state => state.selfWin
         })
     },
     beforeDestroy () {
@@ -30,7 +51,7 @@ export default {
     }
 }
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" type="text/less">
 .page-luckycoin{
     position: relative;
 
@@ -60,7 +81,7 @@ export default {
 
 }
 </style>
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
     .msg-winning {
@@ -90,6 +111,81 @@ export default {
             transform: translate(-50%, 0);
         }
     }
+    .self-winning{
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        z-index: 9;
+        .main{
+            width: 544px;
+            height: 100%;
+            position: absolute;
+            left: 50%;
+            top: 157px;
+            transform: translateX(-50%);
+            text-align: center;
+            div{
+                padding-top: 202px;
+                background: url("../../assets/img/oneToKen/bg-win.png") no-repeat top;
+                background-size: 544px 265px;
+            }
+        }
+        .p1{
+            line-height: 61px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 32px;
+        }
+        .p2{
+            line-height: 58px;
+            font-size: 20px;
+            color: #fff;
+        }
+        .p3{
+            height: 93px;
+            line-height: 70px;
+            color: #ffc000;
+            text-align: center;
+            font-family: sans-eb;
+            font-weight: bold;
+            font-size: 72px;
+            i{
+                font-size: 32px;
+            }
+        }
+        .close{
+            display: block;
+            position: absolute;
+            top: 58px;
+            right: -14px;
+            width: 41px;
+            height: 41px;
+            background: url("../../assets/img/oneToKen/btn-close.png") no-repeat center top;
+            &:hover{
+                transform: rotate(90deg);
+            }
+        }
+        .btn-see{
+            display: block;
+            margin: 0 auto;
+            width:260px;
+            height:50px;
+            overflow: hidden;
+            line-height: 50px;
+            background:#7b4de4;
+            border-radius:6px;
+            font-size: 24px;
+            color: #fff;
+            font-weight: bold;
+            &:hover{
+                background: #6237c3;
+            }
+        }
+    }
     .page-luckycoin .footer {
         background-color: rgba(0, 0, 0, 0.4);
         .title {
@@ -99,7 +195,6 @@ export default {
             color: #887CA5;
         }
     }
-
     /*mobile 为主来写*/
     .page-luckycoin{
         background: #2a1236 url("../../assets/img/oneToKen/bg-page.png") no-repeat center top;
@@ -114,26 +209,28 @@ export default {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            overflow: hidden;
+            /*overflow: hidden;*/
             padding: 0 0 140/2px 0;
         }
         .btn {
-            display: block;
-            text-align: center;
-            background: #7b4de4;
-            text-decoration: none;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             border-radius: 6px;
-            font-weight: bold;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            background: #7b4de4;
             color: #fff;
-            overflow: hidden;
-            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+
+            line-height: 50px;
+            font-size: 20px;
             &.btn-pause{
-                cursor: default;
-                background: #5837a4;
-                color: #a99acc;
+                cursor: not-allowed;
                 &:hover{
-                    background: #5837a4;
-                    color: #a99acc;
+                    background: #7b4de4;
                 }
             }
         }
@@ -180,65 +277,6 @@ export default {
                 transition: all 2s;
             }
         }
-        .icon-hot {
-            &::before {
-                content: "";
-                display: block;
-                position: absolute;
-                z-index: 3;
-                right: 0;
-                overflow: hidden;
-                background: url("../../assets/img/oneToKen/icon-hot.png") no-repeat center;
-                background-size: cover;
-                width: 37px;
-                height: 19px;
-                transform-origin: right top;
-                transition: all 0.2s;
-            }
-        }
-        .icon-bet,.icon-mywin{
-            display: none;
-        }
-        .icon-mybet,.icon-win{
-            .row-msg{
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-            }
-            .t2{
-                margin-right:10px;
-            }
-
-        }
-        .icon-mybet{
-            .icon-bet{
-                display: block;
-                z-index: 3;
-                overflow: hidden;
-                padding:0 4px;
-
-                font-size:12px;
-                color: #a57dff;
-                font-weight:bold;
-                height:20px;
-                line-height:20px;
-                border:1px solid #7b4de4;
-            }
-        }
-        .icon-win{
-            .icon-mywin{
-                display: block;
-                z-index: 3;
-                overflow: hidden;
-                padding:0 4px;
-                font-size:12px;
-                color: #fff;
-                font-weight:bold;
-                height:16px;
-                line-height:16px;
-                background: #cd204b;
-            }
-        }
         .history {
             width: 92%;
             margin: 0 auto;
@@ -257,8 +295,29 @@ export default {
             visibility: hidden;
             transition: all 0.2s;
         }
-        .on .bg2-betting{
-            visibility: visible;
+        /*icon*/
+        .icon-box{
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 18px;
+            border-radius: 2px;
+            i{
+                display: none;
+                float: right;
+                margin-left: 4px;
+            }
+            .icon-hot{
+                padding: 0 4px;
+                background: #f65555;
+            }
+            .icon-bet{
+                padding: 0 8px;
+                background: #7b4de4;
+            }
         }
         .betting {
             position: absolute;
@@ -271,150 +330,150 @@ export default {
             transform: translateY(100%);
             transition: all 0.2s;
             z-index: 10;
-            .bg-betting {
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                background: rgba(90, 47, 163, 1);
-                border-radius: 6px;
-                padding: 10px percentage(20/290);
-            }
             .bet-close {
                 display: block;
                 position: absolute;
-                right: 0px;
-                top: 0px;
+                right: 5px;
+                top: 5px;
                 background: url("../../assets/img/oneToKen/close-bet.png") no-repeat center;
-                background-size: 12px;
-                padding: 13/2px;
-                width: 70/2px;
-                height: 70/2px;
+                background-size: cover;
+                width: 26px;
+                height: 26px;
             }
             /*正常投注*/
             .bet-normal {
+                padding: 0 percentage(14/290);
+                color: #fff;
                 .bet-t {
-                    color: #fff;
+                    margin-top: 10px;
+                    line-height:56px;
+                    font-size: 22px;
                     font-weight: bold;
-                    line-height: 48/2px;
-                    font-size: 19px;
-                }
-                .bet-m {
-                    color: #a99acc;
-                    line-height: 42/2px;
-                    font-size: 28/2px;
-                }
-                .bet-amount {
-                    display: flex;
-                    justify-content: space-between;
-                    width: percentage(186/250);
-                    overflow: hidden;
-                    margin: 35/2px auto 0;
-                    &.hot .hot-btn,
-                    &.min .min-btn,
-                    &.max .max-btn {
-                        background: #9368f7;
+                    span{
+                        font-size: 32px;
                     }
-                    a {
+                }
+                .bet-m1{
+                    line-height: 16px;
+                    font-size: 16px;
+                }
+                .bet-m2{
+                    margin-top: 1px;
+                    height: 12px;
+                    line-height: 12px;
+                    font-size: 12px;
+                }
+                .bet-amount{
+                    position: relative;
+                    margin-top: 8px;
+                    height: 38px;
+                    line-height: 36px;
+                    border-radius: 6px;
+                    border: 1px solid #a99acc;
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        left: 10px;
+                        top: 10px;
                         display: block;
-                        border: 1px solid #9368f7;
-                        color: #fff;
-                        text-align: center;
-                        height: 52/2px;
-                        width: percentage(60/186);
-                        line-height: 52/2px;
-                        font-size: 28/2px;
-                        &.on {
-                            background: #9368f7;
-                        }
+                        width: 16px;
+                        height: 16px;
+                        background: url("../../assets/img/oneToKen/btc-input.png") no-repeat center;
                     }
-                }
-                .bet-input {
-                    display: flex;
-                    width: percentage(186/250);
-                    margin: 10/2px auto 0;
-                    text-align: center;
-                    overflow: hidden;
-                    border: 1px solid #9368f7;
-                    border-radius: 3px;
-                    overflow: hidden;
-                    height: 76/2px;
-                    line-height: 76/2px;
-                    a {
+                    input{
+                        float: left;
                         display: block;
-                        color: #fff;
-                        font-size: 28/2px;
-                        width: percentage(35/186);
-                        &:active {
-                            background: #633fb6;
-                        }
-                    }
-                    input {
-                        flex: 1;
-                        outline: none;
-                        border: 1px solid #9368f7;
-                        border-top: none;
-                        border-bottom: none;
-                        text-align: center;
-                        overflow: hidden;
                         background: transparent;
-                        color: #fff;
-                        height: 76/2px;
-                        font-size: 32/2px;
+                        border: none;
+                        outline: none;
+                        width: 129px;
+                        height: 38px;
+                        line-height: 36px;
+                        text-indent: 38px;
+                    }
+                    div{
+                        height: 100%;
+                        overflow: hidden;
+                        display: flex;
+                        border-top-right-radius: 6px;
+                        border-bottom-right-radius: 6px;
+                        a{
+                            flex: 1;
+                            border-left: 1px solid #a99acc;
+                            font-size: 16px;
+                            color: #fff;
+                            text-align: center;
+                            background: #4b2688;
+                        }
+                        a:hover{
+                            background: #412057;
+                        }
                     }
                 }
                 .bet-btn {
                     display: block;
-                    border-radius: 6px;
-                    background: #f67c22;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
                     text-align: center;
-                    font-weight: bold;
                     color: #fff;
-                    height: 80/2px;
-                    line-height: 80/2px;
-                    margin: 22/2px 0 0 0;
-                    &:active {
-                        background: #dd6d1b;
-                    }
+                    font-weight: bold;
+                    background: #f67c22;
+                    font-size: 16px;
+                    line-height: 35px;
                 }
             }
             /*投注成功*/
             .bet-success {
+                padding-top: 10px;
+                text-align: center;
+                color: #fff;
                 .bet-icon {
                     overflow: hidden;
                     background: url("../../assets/img/oneToKen/bet-success.png") no-repeat center;
                     background-size: cover;
-                    width: 88/2px;
-                    height: 88/2px;
+                    width: 37px;
+                    height: 37px;
                     margin: 0 auto 2/2px;
                 }
                 .bet-t {
-                    color: #fff;
                     font-weight: bold;
-                    text-align: center;
-                    line-height: 60/2px;
+                    font-size: 20px;
+                    line-height: 30px;
                 }
                 .bet-m {
-                    color: #a99acc;
-                    line-height: 34/2px;
-                    font-size: 28/2px;
+                    width: percentage(250/290);
+                    margin: 0 auto;
+                    text-align: left;
+                    line-height: 16px;
+                    font-size: 14px;
                 }
                 .btn-box {
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: 10px;
+                    width: percentage(250/290);
+
                     display: flex;
                     justify-content: space-between;
-                    margin-top: 30/2px;
+                    margin-top: 5px;
                     a {
                         display: block;
                         text-align: center;
                         color: #fff;
                         overflow: hidden;
                         width: percentage(120/250);
-                        height: 80/2px;
-                        line-height: 80/2px;
-                        border-radius: 6/2px;
+                        height: 34px;
+                        line-height: 34px;
+                        border-radius: 6px;
+                        &:hover{
+                            filter: brightness(1.3);
+                        }
                     }
                     .bet-btnV {
-                        border: 1px solid #9e8dc7;
+                        border: 1px solid #fff;
                     }
                     .bet-btnB {
                         background: #f67c22;
@@ -424,79 +483,80 @@ export default {
             }
             /*投注失败*/
             .bet-fail {
+                padding-top: 10px;
+                text-align: center;
+                color: #fff;
                 .bet-icon {
                     overflow: hidden;
                     background: url("../../assets/img/oneToKen/bet-fail.png") no-repeat center;
                     background-size: cover;
-                    width: 88/2px;
-                    height: 88/2px;
+                    width: 37px;
+                    height: 37px;
                     margin: 0 auto 2/2px;
                 }
                 .bet-t {
-                    color: #fff;
                     font-weight: bold;
-                    text-align: center;
-                    line-height: 60/2px;
+                    font-size: 20px;
+                    line-height: 30px;
                 }
                 .bet-m {
-                    color: #a99acc;
-                    line-height: 34/2px;
-                    font-size: 28/2px;
+                    width: percentage(250/290);
+                    margin: 0 auto;
+                    text-align: left;
+                    line-height: 16px;
+                    font-size: 14px;
                 }
-                .bet-fail {
+                .btn-fail {
                     display: block;
-                    border: 1px solid #a99acc;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
                     text-align: center;
-                    border-radius: 6px;
-                    color: #fff;
-                    height: 80/2px;
-                    line-height: 80/2px;
-                    font-size: 34/2px;
-                    margin-top: 44/2px;
+                    color: #a42f61;
+                    font-weight: bold;
+                    background: #fff;
+                    font-size: 16px;
+                    line-height: 35px;
                 }
             }
             /*余额不足*/
             .bet-balance {
+                padding-top: 10px;
+                text-align: center;
+                color: #fff;
                 .bet-icon {
                     overflow: hidden;
-                    background: url("../../assets/img/oneToKen/bet-fail.png") no-repeat center;
+                    background: url("../../assets/img/oneToKen/bet-balance.png") no-repeat center;
                     background-size: cover;
-                    width: 88/2px;
-                    height: 88/2px;
+                    width: 39px;
+                    height: 37px;
                     margin: 0 auto 2/2px;
                 }
                 .bet-t {
-                    color: #fff;
                     font-weight: bold;
-                    text-align: center;
-                    line-height: 60/2px;
+                    font-size: 20px;
+                    line-height: 30px;
                 }
                 .bet-m {
-                    color: #a99acc;
-                    line-height: 34/2px;
-                    font-size: 28/2px;
+                    width: percentage(250/290);
+                    margin: 0 auto;
+                    text-align: left;
+                    line-height: 16px;
+                    font-size: 14px;
                 }
-                .btn-box {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top: 30/2px;
-                    a {
-                        display: block;
-                        text-align: center;
-                        color: #fff;
-                        overflow: hidden;
-                        width: percentage(120/250);
-                        height: 80/2px;
-                        line-height: 80/2px;
-                        border-radius: 6/2px;
-                    }
-                    .bet-btnT {
-                        border: 1px solid #9e8dc7;
-                    }
-                    .bet-btnR {
-                        background: #f67c22;
-                        font-weight: bold;
-                    }
+                .btn-fail {
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    text-align: center;
+                    color: #a42f61;
+                    font-weight: bold;
+                    background: #fff;
+                    font-size: 16px;
+                    line-height: 35px;
                 }
             }
             .bet-normal,
@@ -506,24 +566,28 @@ export default {
                 display: none;
             }
             &.normal {
+                background: #5b2fa4;
                 transform: translateY(0);
                 .bet-normal {
                     display: block;
                 }
             }
             &.success {
+                background: #3fc06f;
                 transform: translateY(0);
                 .bet-success {
                     display: block;
                 }
             }
             &.fail {
+                background: #a42f61;
                 transform: translateY(0);
                 .bet-fail {
                     display: block;
                 }
             }
             &.balance {
+                background: #5b2fa4;
                 transform: translateY(0);
                 .bet-balance {
                     display: block;
@@ -555,7 +619,6 @@ export default {
             }
             .msg {
                 color: #a99acc;
-                width: 280/2px;
                 font-size: 22/2px;
                 line-height: 34/2px;
                 margin-top: 74/2px;
@@ -563,23 +626,7 @@ export default {
                     overflow: hidden;
                 }
                 i {
-                    float: right;
                     font-size: 25/2px;
-                }
-            }
-            .btn {
-                margin-top: 40/2px;
-                height: 72/2px;
-                line-height: 72/2px;
-                &.btn-waiting{
-                    cursor: default;
-                    background: none;
-                    text-align: left;
-                }
-            }
-            &.icon-hot {
-                &::before {
-                    top: 4px;
                 }
             }
         }
@@ -618,22 +665,9 @@ export default {
                 padding: 0;
                 line-height: 42/2px;
                 font-size:28/2px;
-                i {
-                    float: right;
-                }
             }
             .btn {
-                height: 70/2px;
-                line-height: 70/2px;
-                font-size: 34/2px;
-
-                margin: 18px 0 0;
                 &.btn-waiting{
-                    background: none;
-                    text-align: left;
-                    cursor: default;
-
-                    text-indent:0;
                 }
             }
             &.bg1 {
@@ -641,11 +675,6 @@ export default {
             }
             &.bg2 {
                 background: linear-gradient(#412057, #3e2568);
-            }
-            &.icon-hot {
-                &::before {
-                    top: 4px;
-                }
             }
             &+.item-common {
                 margin-top: 20px;
@@ -657,6 +686,18 @@ export default {
             background: #361845;
             border-radius: 6px;
             padding: 20/2px 24/2px 15/2px;
+            .icon-mywin{
+                position: absolute;
+                top: 3px;
+                right: 3px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #fff;
+                line-height: 18px;
+                border-radius: 2px;
+                padding: 0 4px;
+                background: #f65555;
+            }
             .token-process {
                 top: 20/2px;
                 right: 24/2px;
@@ -684,9 +725,6 @@ export default {
                 margin-top: 10px;
                 line-height: 18/2px;
                 font-size: 16/2px;
-                i {
-                    float: right;
-                }
             }
             .result {
                 position: relative;
@@ -729,29 +767,33 @@ export default {
             position: relative;
             width: percentage(690/750);
             height:55px;
-            line-height:55px;
             overflow: hidden;
             margin:10px auto 0;
-            .t1 {
-                float: left;
-                color: #fff;
-                font-size: 21px;
-                font-weight: bold;
-                margin-right: 20px;
-            }
-            .msg {
-                float: left;
-                color: #a99acc;
+            color: #fff;
+            height: 104/2px;
+            margin-top: 30/2px;
+            
+            >div{
+                display: flex;
+                height: 100%;
+                line-height: 110/2px;
                 font-size: 12px;
-                padding-right: 20px;
             }
-            .btn-more {
-                float: right;
+            .t1{
+                line-height: 104/2px;
+                font-size: 20px;
+                font-weight: bold;
             }
-            .btn-more,
-            .btn-play {
-                color: #a486f7;
-                font-size: 13px;
+            .msg{
+                margin-left: 18px;
+            }
+            .btn-play{
+                margin-left: 10px;
+                text-decoration: underline;
+                color: #fff;
+            }
+            .btn-more{
+                color: #aa85ff;
             }
         }
 
@@ -765,55 +807,71 @@ export default {
                 font-size: 42/2px;
                 font-weight: bold;
             }
+            ul{
+                border-top: 1px solid #412057;
+            }
             li {
                 position: relative;
                 color: #fff;
-                height: 50px;
-                line-height: 50px;
+                height: 58px;
                 overflow: hidden;
-                font-size: 14px;
-                padding-left: 25px;
+                border-bottom: 1px solid #412057;
                 .email {
                     width: 60%;
+                    line-height: 50px;
+                    font-size: 20px;
                     .text-overflow();
                 }
                 .amount {
+                    margin-top: 10px;
                     width: 40%;
+                    line-height: 20px;
+                    font-size: 14px;
                     text-align: right;
                     .text-overflow();
                 }
                 .time {
                     position: absolute;
                     right: 0;
-                    bottom: 0;
-                    line-height: 17px;
-                    font-size: 12px;
+                    bottom: 10px;
+                    line-height: 18px;
+                    font-size: 14px;
                     color: #a99acc;
                 }
                 &::before {
                     content: "";
                     display: block;
                     position: absolute;
-                    left: 0;
+                    left: 162px;
+                    top: 12px;
                 }
                 &.icon-eth {
                     &::before {
-                        background: url("../../assets/img/oneToKen/icon-eth.png");
+                        background: url("../../assets/img/oneToKen/eth-input.png");
                         background-size: cover;
-                        width: 25/2px;
-                        height: 42/2px;
-                        top: 15px;
+                        width: 16px;
+                        height: 16px;
                     }
                 }
                 &.icon-bth {
                     &::before {
-                        background: url("../../assets/img/oneToKen/icon-bth.png");
+                        background: url("../../assets/img/oneToKen/btc-input.png");
                         background-size: cover;
-                        width: 27/2px;
-                        height: 42/2px;
-                        top: 13px;
+                        width: 16px;
+                        height: 16px;
                     }
                 }
+            }
+        }
+
+        .icon-hot{
+            .icon-hot{
+                display: block;
+            }
+        }
+        .icon-mybet{
+            .icon-bet{
+                display: block;
             }
         }
     }
@@ -838,22 +896,16 @@ export default {
             }
         }
     }
-
-
-
     /* xs超小屏幕（手机，大于 480） */
-
     @media (min-width: @screen-phone) {
 
     }
-
     /* sm小屏幕（平板，大于等于 768px） */
 
     @media (min-width: @screen-tablet) {
         /deep/
         .oneToKen {
             .item-popular,
-            .item-tltle,
             .item-common,
             .recentBets,
             .history {
@@ -864,12 +916,10 @@ export default {
                     background: #6237c3;
                     color: #fff;
                 }
-
             }
             .recentBets {
                 .t1 {
                     padding-top: 0;
-
                 }
             }
             .item-history {
@@ -904,164 +954,164 @@ export default {
         .oneToKen {
             /*投注*/
             .betting {
-                .bet-close {
-                    display: block;
-                    position: absolute;
-                    right: 0px;
-                    top: 0px;
-                    background: url("../../assets/img/oneToKen/close-bet.png") no-repeat center;
-                    background-size: 12px;
-                    padding: 10px;
-                    width: 30px;
-                    height: 30px;
-                    &:hover {
-                        transform: rotate(90deg);
-                    }
-                }
-                .bet-normal {
-                    .bet-t {
-                        line-height: 20px;
-                        font-size: 16px;
-                    }
-                    .bet-m {
-                        font-size: 12px;
-                        line-height: 17px;
-                    }
-                    .bet-amount {
-                        margin: 15px auto 0;
-                        a {
-                            height: 22px;
-                            line-height: 22px;
-                            font-size: 12px;
-                            &:hover{
-                                background: #633fb6;
-                            }
-                        }
-                    }
-                    .bet-input {
-                        height: 32px;
-                        line-height: 32px;
-                        a {
-                            font-size: 12px;
-                            &:hover {
-                                background: #633fb6;
-                            }
-                        }
-                        input {
-                            height: 32px;
-                            font-size: 14px;
-                        }
-                    }
-                    .bet-btn {
-                        height: 34px;
-                        line-height: 34px;
-                        margin: 10px 0 0 0;
-                        &:hover,
-                        &:active {
-                            background: #dd6d1b;
-                        }
-                    }
-                }
-                .bet-success {
-                    .bet-icon {
-                        width: 37px;
-                        height: 37px;
-                        margin: 0 auto 4px;
-                    }
-                    .bet-t {
-                        font-size: 14px;
-                        line-height: 22px;
-                    }
-                    .bet-m {
-                        line-height: 14px;
-                        font-size: 12px;
-                    }
-                    .btn-box {
-                        margin-top: 12px;
-                        a {
-                            height: 34px;
-                            line-height: 34px;
-                            border-radius: 6px;
-                            font-size: 14px;
-                        }
-                        .bet-btnV {
-                            border: 1px solid #9e8dc7;
-                            &:hover {
-                                background: #633fb6;
-                            }
-                        }
-                        .bet-btnB {
-                            background: #f67c22;
-                            font-weight: bold;
-                            &:hover {
-                                background: #df6911;
-                            }
-                        }
-                    }
-                }
-                .bet-fail {
-                    .bet-icon {
-                        width: 37px;
-                        height: 37px;
-                        margin: 0 auto;
-                    }
-                    .bet-t {
-                        font-size: 14px;
-                        line-height: 26px;
-                    }
-                    .bet-m {
-                        margin-top: 5px;
-                        line-height: 14px;
-                        font-size: 12px;
-                    }
-                    .bet-fail {
-                        height: 34px;
-                        line-height: 34px;
-                        font-size: 14px;
-                        margin-top: 19px;
-                        &:hover {
-                            background: #a99acc;
-                        }
-                    }
-                }
-                .bet-balance {
-                    .bet-icon {
-                        width: 37px;
-                        height: 37px;
-                        margin: 0 auto;
-                    }
-                    .bet-t {
-                        font-size: 14px;
-                        line-height: 26px;
-                    }
-                    .bet-m {
-                        margin-top: 5px;
-                        line-height: 14px;
-                        font-size: 12px;
-                    }
-                    .btn-box {
-                        margin-top: 20px;
-                        a {
-                            height: 34px;
-                            line-height: 32px;
-                            border-radius: 6px;
-                            font-size: 14px;
-                        }
-                        .bet-btnT {
-                            border: 1px solid #9e8dc7;
-                            &:hover {
-                                background: #633fb6;
-                            }
-                        }
-                        .bet-btnR {
-                            background: #f67c22;
-                            font-weight: bold;
-                            &:hover {
-                                background: #df6911;
-                            }
-                        }
-                    }
-                }
+                /*.bet-close {*/
+                    /*display: block;*/
+                    /*position: absolute;*/
+                    /*right: 0px;*/
+                    /*top: 0px;*/
+                    /*background: url("../../assets/img/oneToKen/close-bet.png") no-repeat center;*/
+                    /*background-size: 12px;*/
+                    /*padding: 10px;*/
+                    /*width: 30px;*/
+                    /*height: 30px;*/
+                    /*&:hover {*/
+                        /*transform: rotate(90deg);*/
+                    /*}*/
+                /*}*/
+                /*.bet-normal {*/
+                    /*.bet-t {*/
+                        /*line-height: 20px;*/
+                        /*font-size: 16px;*/
+                    /*}*/
+                    /*.bet-m {*/
+                        /*font-size: 12px;*/
+                        /*line-height: 17px;*/
+                    /*}*/
+                    /*.bet-amount {*/
+                        /*margin: 15px auto 0;*/
+                        /*a {*/
+                            /*height: 22px;*/
+                            /*line-height: 22px;*/
+                            /*font-size: 12px;*/
+                            /*&:hover{*/
+                                /*background: #633fb6;*/
+                            /*}*/
+                        /*}*/
+                    /*}*/
+                    /*.bet-input {*/
+                        /*height: 32px;*/
+                        /*line-height: 32px;*/
+                        /*a {*/
+                            /*font-size: 12px;*/
+                            /*&:hover {*/
+                                /*background: #633fb6;*/
+                            /*}*/
+                        /*}*/
+                        /*input {*/
+                            /*height: 32px;*/
+                            /*font-size: 14px;*/
+                        /*}*/
+                    /*}*/
+                    /*.bet-btn {*/
+                        /*height: 34px;*/
+                        /*line-height: 34px;*/
+                        /*margin: 10px 0 0 0;*/
+                        /*&:hover,*/
+                        /*&:active {*/
+                            /*background: #dd6d1b;*/
+                        /*}*/
+                    /*}*/
+                /*}*/
+                /*.bet-success {*/
+                    /*.bet-icon {*/
+                        /*width: 37px;*/
+                        /*height: 37px;*/
+                        /*margin: 0 auto 4px;*/
+                    /*}*/
+                    /*.bet-t {*/
+                        /*font-size: 14px;*/
+                        /*line-height: 22px;*/
+                    /*}*/
+                    /*.bet-m {*/
+                        /*line-height: 14px;*/
+                        /*font-size: 12px;*/
+                    /*}*/
+                    /*.btn-box {*/
+                        /*margin-top: 12px;*/
+                        /*a {*/
+                            /*height: 34px;*/
+                            /*line-height: 34px;*/
+                            /*border-radius: 6px;*/
+                            /*font-size: 14px;*/
+                        /*}*/
+                        /*.bet-btnV {*/
+                            /*border: 1px solid #9e8dc7;*/
+                            /*&:hover {*/
+                                /*background: #633fb6;*/
+                            /*}*/
+                        /*}*/
+                        /*.bet-btnB {*/
+                            /*background: #f67c22;*/
+                            /*font-weight: bold;*/
+                            /*&:hover {*/
+                                /*background: #df6911;*/
+                            /*}*/
+                        /*}*/
+                    /*}*/
+                /*}*/
+                /*.bet-fail {*/
+                    /*.bet-icon {*/
+                        /*width: 37px;*/
+                        /*height: 37px;*/
+                        /*margin: 0 auto;*/
+                    /*}*/
+                    /*.bet-t {*/
+                        /*font-size: 14px;*/
+                        /*line-height: 26px;*/
+                    /*}*/
+                    /*.bet-m {*/
+                        /*margin-top: 5px;*/
+                        /*line-height: 14px;*/
+                        /*font-size: 12px;*/
+                    /*}*/
+                    /*.bet-fail {*/
+                        /*height: 34px;*/
+                        /*line-height: 34px;*/
+                        /*font-size: 14px;*/
+                        /*margin-top: 19px;*/
+                        /*&:hover {*/
+                            /*background: #a99acc;*/
+                        /*}*/
+                    /*}*/
+                /*}*/
+                /*.bet-balance {*/
+                    /*.bet-icon {*/
+                        /*width: 37px;*/
+                        /*height: 37px;*/
+                        /*margin: 0 auto;*/
+                    /*}*/
+                    /*.bet-t {*/
+                        /*font-size: 14px;*/
+                        /*line-height: 26px;*/
+                    /*}*/
+                    /*.bet-m {*/
+                        /*margin-top: 5px;*/
+                        /*line-height: 14px;*/
+                        /*font-size: 12px;*/
+                    /*}*/
+                    /*.btn-box {*/
+                        /*margin-top: 20px;*/
+                        /*a {*/
+                            /*height: 34px;*/
+                            /*line-height: 32px;*/
+                            /*border-radius: 6px;*/
+                            /*font-size: 14px;*/
+                        /*}*/
+                        /*.bet-btnT {*/
+                            /*border: 1px solid #9e8dc7;*/
+                            /*&:hover {*/
+                                /*background: #633fb6;*/
+                            /*}*/
+                        /*}*/
+                        /*.bet-btnR {*/
+                            /*background: #f67c22;*/
+                            /*font-weight: bold;*/
+                            /*&:hover {*/
+                                /*background: #df6911;*/
+                            /*}*/
+                        /*}*/
+                    /*}*/
+                /*}*/
             }
         }
     }
@@ -1087,7 +1137,7 @@ export default {
             }
             .item-popular {
                 width: 100%;
-                padding: 20px 20px 15px;
+                padding: 20px 30px 80px;
                 margin: 0;
                 .token-process {
                     top: 83px;
@@ -1095,12 +1145,11 @@ export default {
                     transform: scale(1);
                 }
                 .title {
-                    padding-left: 10px;
                     .t1 {
                         line-height: 44px;
                         font-size: 36px;
                         i{
-                            font-size:26px;
+                            font-size:36px;
                         }
                     }
                     .t2 {
@@ -1109,40 +1158,24 @@ export default {
                     }
                 }
                 .msg {
-                    width: 184px;
-                    font-size: 14px;
-                    line-height: 22px;
-                    margin-top: 38px;
-                    padding-left: 10px;
+                    font-size: 16px;
+                    line-height: 26px;
+                    margin-top: 16px;
                     i {
                         font-size: 16px;
-                    }
-                }
-                .btn {
-                    margin-top: 24px;
-                    height: 50px;
-                    line-height: 50px;
-                    font-size: 18px;
-                    &.btn-waiting{
-                        text-indent:10px;
-                    }
-                }
-                &.icon-hot {
-                    &::before {
-                        top: 5px;
                     }
                 }
             }
             .item-common {
                 width: 100%;
-                padding: 0 30px 16px;
+                padding: 0 30px 48px;
                 .token-process {
                     transform: scale(62/102);
-                    top: 17px;
-                    right: 40px;
+                    top: 86px;
+                    right: 22px;
                 }
                 .title {
-                    padding: 23px 10px 0;
+                    padding: 23px 0 0;
                     .t1 {
                         font-size: 32px;
                         height: 28px;
@@ -1157,9 +1190,8 @@ export default {
                     }
                 }
                 .msg {
-                    margin: 15px 0 0 0;
-                    padding: 0 10px 0;
-                    line-height: 18px;
+                    margin: 5px 0 0 0;
+                    line-height: 20px;
                     font-size:12px;
                     i{
                         font-size:14px;
@@ -1172,11 +1204,6 @@ export default {
                     font-size: 14px;
                     &.btn-waiting{
                         text-indent:10px;
-                    }
-                }
-                &.icon-hot {
-                    &::before {
-                        top: 5px;
                     }
                 }
                 &+.item-common {
@@ -1231,62 +1258,33 @@ export default {
             .item-tltle {
                 width: 100%;
                 max-width: 1190px;
-                height:70px;
-                line-height:70px;
-                margin-top:6px;
-                overflow: hidden;
-                .btn-play,.btn-more{
-                    font-size:14px;
-                    &:hover{
-                        color: #7e5bcf;
-                    }
+                height: 70px;
+                margin-top: 5px;
+                >div{
+                    line-height: 72px;
+                    font-size: 14px;
+                }
+                .t1{
+                    line-height: 70px;
+                    font-size: 20px;
+                }
+                .msg{
+                    margin-left: 18px;
                 }
                 .btn-play{
-                    position: absolute;
-                    top:50%;
-                    left:50%;
-                    transform: translate3d(-50%,-50%,0);
+                    margin-left: 10px;
+                }
+                a{
+                    &:hover{
+                        color: #6237c3;
+                    }
                 }
             }
-            .recentBets {
-                .t1 {
-                    height: 36px;
-                    padding-top: 0;
-                    line-height: 16px;
-                    font-size: 16px;
-                    text-indent: 23px;
-                }
-                li {
-                    padding-left: 55px;
-                    .email {}
-                    .amount {}
-                    .time {}
-                    &::before {
-                        content: "";
-                        display: block;
-                        position: absolute;
-                        left: 25px;
-                    }
-                    &.icon-eth {
-                        &::before {
-                            width: 16px;
-                            height: 27px;
-                            top: 10px;
-                        }
-                    }
-                    &.icon-bth {
-                        &::before {
-                            width: 18px;
-                            height: 25px;
-                            top: 13px;
-                        }
-                    }
-                }
+            .recentBets{
+                width: 270px;
             }
         }
-
     }
-
 
 </style>
 

@@ -152,7 +152,7 @@
     }
 </script>
 
-<style lang="less" scoped rel="stylesheet/less">
+<style lang="less" scoped type="text/less">
     .act-sign {
         position: absolute;
         top: 20px;

@@ -20,7 +20,7 @@ export default {
     }
 }
 </script>
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
 //面包屑
 .b-nav {
   height: 50px;

@@ -83,7 +83,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
     .pop-verify-email .icon-email {
         width: 64px;
         height: 48px;

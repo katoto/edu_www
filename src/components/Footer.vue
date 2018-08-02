@@ -119,7 +119,7 @@ export default {
     }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
 @import "../styles/lib-public.less";
 @import "../styles/lib-media.less";
 

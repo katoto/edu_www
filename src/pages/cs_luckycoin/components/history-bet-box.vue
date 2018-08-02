@@ -1,6 +1,6 @@
 <template>
     <div class="item-history" :class="{ 'icon-win': isMyWin }">
-        <p class="expectid" style="position: absolute;left:10px;top:2px;color:#a99acc;">{{bet.exceptId}}</p>
+
         <div class="item-history-box" :class="{ visiable: !isInit }">
             <div class="token-process" :class="[coin.boxClass]">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
@@ -29,18 +29,20 @@
                     </g>
                 </svg>
             </div>
+            <i class="icon-mywin">Win</i>
             <div class="title">
                 <p class="t1">
                     {{ bet.goodsValue }}<i> {{ coinText }}</i>
                 </p>
-                <div class="row-msg">
-                    <p class="t2">
-                        {{ goodsPrice }}
-                    </p>
-                    <i class="icon-mywin">You Win</i>
-                </div>
+                <p class="t2">
+                    USD 14,776
+                    <!--{{ goodsPrice }}-->
+                </p>
             </div>
             <div class="msg">
+                <p class="expectid">
+                    No.{{bet.exceptId}}
+                </p>
                 <p class="c1">
                     <lang>Draw Time:</lang> <i> {{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}</i>
                 </p>
@@ -158,7 +160,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
 .visiable {
     visibility: hidden;
 }

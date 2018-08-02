@@ -8,6 +8,10 @@ Vue.use(Router)
 
 const help = () =>
     import('~/pages/cs_help/help')
+const helpIndex = () =>
+    import('~/pages/cs_help/helpIndex')
+const helpView = () =>
+    import('~/pages/cs_help/helpView')
 
 /* cs_1105 */
 /* cs_1105 首页 */
@@ -72,9 +76,17 @@ const page404 = () =>
 
 let routesArr = [{
     path: '/help',
-    name: 'help',
-    component: help
-},{
+    component: help,
+    children: [{
+        path: 'helpView/:a/:b',
+        name: 'helpView',
+        component: helpView
+    }, {
+        path: '',
+        name: 'helpIndex',
+        component: helpIndex
+    }]
+}, {
     path: '/lucky11',
     name: 'lucky11',
     component: lucky11
@@ -101,7 +113,6 @@ let routesArr = [{
 },
 {
     path: '/luckycoin',
-    name: _('Luck Coin'),
     component: luckycoin,
     children: [{
         path: 'drawHistory',
@@ -172,11 +183,11 @@ let routesArr = [{
     }
     ]
 },
-{
-    path: '/*',
-    name: _('Home'),
-    component: Home
-}
+    {
+        path: '/*',
+        name: _('Home'),
+        component: Home
+    }
 ]
 
 //     linkActiveClass: 'on',
