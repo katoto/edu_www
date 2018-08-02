@@ -55,7 +55,7 @@
                 this.$store.dispatch('initWebsocket', () => {
                     this.$store.dispatch('homeInfo')
                     setTimeout(function () {
-                        document.getElementById('coinslotLoading').style.display = 'none'
+                        document.getElementById('csLoading').style.display = 'none'
                     }, 0)
                 })
             }

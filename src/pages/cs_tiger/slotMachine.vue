@@ -433,12 +433,12 @@
                     <div class="contact">
                         <div class="fl">
                             <div class="msg1"><lang>Scan to experience mobile webview</lang></div>
-                            <div class="msg2">2018.coinslot.com</div>
+                            <div class="msg2">2018.Coinsprize.com</div>
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
                             <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
-                            <img  :src="'http://mobile.qq.com/qrcode?url=https://2018.coinslot.com'">
+                            <img  :src="'http://mobile.qq.com/qrcode?url=https://2018.Coinsprize.com'">
                         </div>
                     </div>
                 </div>

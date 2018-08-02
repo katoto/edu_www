@@ -71,7 +71,7 @@
                         3. <lang>Minimum top-up：0.001ETH. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
                     </li>
                     <li>
-                        4. <lang>Your wallet address may be changed sometimes, and Coinslot team will inform you through notification or email as soon as possible.</lang>
+                        4. <lang>Your wallet address may be changed sometimes, and Coinsprize team will inform you through notification or email as soon as possible.</lang>
                     </li>
                     <li>
                         5. <lang>Make sure that your computer and browser are under the secure environment to prevent modification or disclosure of information.</lang>
@@ -80,7 +80,7 @@
                         6. <lang>Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.</lang>
                     </li>
                     <li>
-                        7. <lang>Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@coinslot.com.</lang>
+                        7. <lang>Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@Coinsprize.com.</lang>
                     </li>
                 </ul>
             </div>

@@ -11,10 +11,10 @@
                     <lang>You are not in our service area for more info</lang>
                 </p>
                 <p>
-                    <lang>please contact us support@coinslot.com</lang>
+                    <lang>please contact us support@Coinsprize.com</lang>
                 </p>
                 <span>
-                    <lang>Telegram: @CoinslotOffice</lang>
+                    <lang>Telegram: @CoinsprizeOffice</lang>
                 </span>
             </div>
         </div>

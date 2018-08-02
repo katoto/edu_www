@@ -352,7 +352,7 @@
                     password: md5(md5(this.withdrawPsw)),
                     gas: this.currBalance.fee,
                     cointype: this.currBalance.cointype,
-                    withdrawFrom: 'coinslot_1105'
+                    withdrawFrom: 'coinsprize_1105'
                 }
                 this.$store.dispatch('cs_account/getWithdrawApply', params).then(data => {
                     this.$store.dispatch('getUserInfo')

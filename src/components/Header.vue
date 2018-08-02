@@ -24,8 +24,8 @@
                         </li>
                     </ul>
                 </div>
-                <router-link to="/" title="Coinslot" class="logo">
-                    <img src="../assets/img/coinslotLogo.png" alt="coinslotLogo">
+                <router-link to="/" title="Coinsprize" class="logo">
+                    <img src="../assets/img/CoinsprizeLogo.png" alt="CoinsprizeLogo">
                 </router-link>
                 <div class="choose-play icon-slot" >
                     <router-link :to="{path: '/lucky11'}">
@@ -61,7 +61,7 @@
                 <!-- 登录  -->
                 <div class="login">
                     <!-- 未登录 -->
-                    <div class="act-sign" v-if="!isLog">
+                    <div class="act-sign hide" v-if="!isLog">
                         <lang>Free 0.001 ETH</lang>
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">

@@ -178,7 +178,7 @@
         methods: {
             formatTime,
             downLoadfile (expectid) {
-                window.location.href = 'https://www.coinslot.com/download/expects/1_' + expectid + '.txt'
+                window.location.href = 'https://www.Coinsprize.com/download/expects/1_' + expectid + '.txt'
             },
             closePop_reward () {
                 this.showPop_reward = false

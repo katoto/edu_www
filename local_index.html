@@ -2,12 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Coinslot-the fair game platform for casino games,based on blockchain technology.</title>
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
+    <title>Coinsprize-the fair game platform for casino games,based on blockchain technology.</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
     <meta name="keywords" content="casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet"/>
-    <meta name="description"
-          content="Coinslot is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games."/>
+    <meta name="description" content="Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games."/>
     <meta name="apple-mobile-web-app-capable" content="no"/>
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
@@ -30,7 +28,7 @@
             overflow-y: auto;
         }
 
-        #coinslotLoading {
+        #csLoading {
             position: fixed;
             z-index: 999;
             left: 0;
@@ -43,7 +41,7 @@
             font-weight: bold;
         }
 
-        #coinslotLoading > div {
+        #csLoading > div {
             position: absolute;
             left: 50%;
             top: 50%;
@@ -56,9 +54,9 @@
         }
 
         .animation {
-            background: url("./static/loading.png") no-repeat;
-            background-size: 3400px 100px;
-            animation: keyframes-loading 1.36s steps(33, end) infinite;
+            background: url("./static/loading.png") no-repeat center;
+            background-size: 60px;
+            /*animation: keyframes-loading 1.36s steps(33, end) infinite;*/
         }
 
         @keyframes keyframes-loading {
@@ -75,10 +73,10 @@
 <body>
 <div id="app" class="">
 </div>
-<div id="coinslotLoading">
+<div id="csLoading">
     <div>
         <div id="cs" class=""></div>
-        <p>Coinslot</p>
+        <p>Coinsprize</p>
     </div>
 </div>
 <script>

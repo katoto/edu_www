@@ -3,13 +3,13 @@
         <div class=" container">
             <div class="reserved col-xs-12 col-md-4">
                 <p>
-                    <lang>Welcome to Coinslot and start a new gaming experience! Coinslot is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.</lang>
+                    <lang>Welcome to Coinsprize and start a new gaming experience! Coinsprize is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.</lang>
                 </p>
             </div>
             <div class="col-md-4 clearfix">
                 <div class="about col-xs-6 col-md-6">
                     <div class="title">
-                        <lang>Coinslot</lang>
+                        <lang>Coinsprize</lang>
                     </div>
                     <a class="hide" href="javascript:;">
                         <lang>Terms of Use</lang>
@@ -42,17 +42,17 @@
                 <div class="title">
                     <lang>Contact Us</lang>
                 </div>
-                <p>
+                <p class="hide">
                     <lang>General issues:</lang>
-                    <a href="mailto:lucky11@coinslot.com">lucky11@coinslot.com</a>
+                    <a href="mailto:lucky11@Coinsprize.com">lucky11@Coinsprize.com</a>
                 </p>
                 <p>
                     <lang>Technical support service:</lang>
-                    <a href="mailto:support@coinslot.com">support@coinslot.com</a>
+                    <a href="mailto:support@Coinsprize.com">support@Coinsprize.com</a>
                 </p>
                 <p>
                     <lang>Telegram:</lang>
-                    <a href="https://t.me/coinslotoffice" target="_blank">https://t.me/coinslotoffice</a>
+                    <a href="https://t.me/Coinsprizeoffice" target="_blank">https://t.me/Coinsprizeoffice</a>
                 </p>
                 <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="cs-copyright">
-                ©Coinslot 2018. All Rights Reserved
+                ©Coinsprize 2018. All Rights Reserved
             </div>
         </div>
     </div>
@@ -165,7 +165,7 @@
 
     .footer {
         position: relative;
-        height: 342px;
+        min-height: 342px;
         box-sizing: border-box;
         z-index: 5;
         background: #151515;
