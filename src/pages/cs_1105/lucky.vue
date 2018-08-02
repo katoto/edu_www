@@ -1,6 +1,6 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}" >
-        <Banner v-on:superBannerChange="superChange"></Banner>
+        <Banner class="hide" v-on:superBannerChange="superChange"></Banner>
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <div class="main">
