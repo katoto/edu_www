@@ -45,7 +45,7 @@
                     document.getElementsByTagName('meta')['description'].setAttribute('content', 'Coinslot是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。')
                     break
                 }
-            },
+            }
         },
         computed: {
             showEmailErr () {
@@ -88,7 +88,7 @@
                 yEnd = evt.touches[0].pageY
                 Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
             }, false)
-        },
+        }
     }
 </script>
 
