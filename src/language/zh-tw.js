@@ -1,4 +1,5 @@
 module.exports = {
+    'F3d west': '造夢西遊',
     'Sign In / Up': '登錄 / 注冊',
     'Deposit': '充值',
     'Withdraw': '提款',

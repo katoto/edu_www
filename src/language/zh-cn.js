@@ -1,4 +1,5 @@
 module.exports = {
+    'F3d west': '造梦西游',
     'Sign In / Up': '登录 / 注册',
     'Deposit': '充值',
     'Withdraw': '提款',
@@ -359,7 +360,7 @@ module.exports = {
     'You win if 3 identical icons': '如果连续3个图案一致即中奖',
     'Lucky 11': '幸运11',
     'slotmachine': '老虎机',
-    'game':'游戏',
+    'game': '游戏',
     'Slot': '老虎机',
     'SlotMachine': '老虎机',
     'Copy the Ethereum wallet address': '复制钱包地址',
