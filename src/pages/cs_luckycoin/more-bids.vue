@@ -268,7 +268,7 @@ export default {
     }
 }
 </script>
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
 @import "../../styles/lib-media.less";
 
 .more-bids-page {

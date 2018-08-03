@@ -33,14 +33,14 @@
 
 <script>
     export default {
-        data() {
+        data () {
             return {}
         },
         watch: {},
         methods: {},
         computed: {},
         components: {},
-        mounted() {
+        mounted () {
 
         }
     }

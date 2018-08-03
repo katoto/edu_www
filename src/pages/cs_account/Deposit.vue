@@ -133,7 +133,7 @@
         }
     }
 </script>
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
 
     //  RECHARGE

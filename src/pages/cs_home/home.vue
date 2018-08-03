@@ -488,7 +488,7 @@
     }
 </script>
 
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
     /*重置media*/
     @import "../../styles/lib-media2.less";
     /*h5为主*/

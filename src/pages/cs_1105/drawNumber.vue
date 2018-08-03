@@ -264,7 +264,7 @@
         }
     }
 </script>
-<style lang="less" scoped  rel="stylesheet/less">
+<style lang="less" scoped  type="text/less">
     @import "../../styles/lib-mixins.less";
 
     .main {

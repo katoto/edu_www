@@ -193,7 +193,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
 .my-bets-title {
     text-align: center;
     text-indent: 0;

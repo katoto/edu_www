@@ -45,7 +45,7 @@ const mutations = {
     updateRecentBet (state, bet) {
         if (bet && bet.length > 0) {
             let newRecentBetList = [...state.recentBetsList]
-            state.recentBetsList = [...bet.concat(newRecentBetList)].slice(0, 7)
+            state.recentBetsList = [...bet.concat(newRecentBetList)].slice(0, 6)
         }
     },
     // 更新最近投注列表
@@ -78,6 +78,9 @@ const mutations = {
 
     // 个人获奖弹窗
     showMyWin (state, params) {
+    },
+    hideMyWin (state) {
+        state.selfWin.isShow = false
     },
 
     updateMyBet (state, betid) {
