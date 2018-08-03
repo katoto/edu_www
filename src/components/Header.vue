@@ -157,18 +157,20 @@
                             <li>
                                 <p><lang>Get daily free spins of Slot (Balance less than 0.00005BTC)</lang></p>
                                 <a href="javascript:;" class="btn btn-green"><lang>Free Spins</lang></a>
-                                <a href="javascript:;" class="btn btn-gray"><lang>Free Spins</lang></a>
-                                <a href="javascript:;" class="btn btn-ok"></a>
+                                <a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>
+                                <a href="javascript:;" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
                                 <p><lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)</lang></p>
                                 <a href="javascript:;" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" class="btn btn-yellow"><lang>Top Up</lang></a>
-                                <a href="javascript:;" class="btn btn-ok"></a>
+                                <a href="javascript:;" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
                                 <p><lang>Get 0.0001BTC (Log in for 7 consecutive days)</lang></p>
                                 <a href="javascript:;" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                                 <a href="javascript:;" class="btn btn-yellow">{{ _('{0}/7 Days', 4 ) }}</a>
                             </li>
 

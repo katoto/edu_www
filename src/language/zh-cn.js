@@ -4,6 +4,8 @@ module.exports = {
     'Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)': '充值0.001BTC，立即赠送额外10次免费老虎机机会（每日仅可领取1次）',
     'Get 0.0001BTC (Log in for 7 consecutive days)': '连续7天登录赠0.0001BTC',
     'Free Spins': '领取',
+    'Play': '前往',
+    'Come Tomorrow': '明日再来',
     'Top Up': '去充值',
     '{0}/7 Days': '已登录{0}天',
 
