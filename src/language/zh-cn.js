@@ -1,5 +1,11 @@
 module.exports = {
     'Sign Up to Get 0.0001 BTC for Free': '注册即可领取免费0.0001BTC',
+    'Get daily free spins of Slot (Balance less than 0.00005BTC)': '少于0.00005BTC的时候可每日免费领取老虎机次数',
+    'Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)': '充值0.001BTC，立即赠送额外10次免费老虎机机会（每日仅可领取1次）',
+    'Get 0.0001BTC (Log in for 7 consecutive days)': '连续7天登录赠0.0001BTC',
+    'Free Spins': '领取',
+    'Top Up': '去充值',
+    '{0}/7 Days': '已登录{0}天',
 
     'Sign In / Up': '登录 / 注册',
     'Deposit': '充值',

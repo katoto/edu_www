@@ -36,7 +36,7 @@ const state = {
 
         // loginSucc: null, // 登陆成功后的数据
 
-        showFirstLogin: true // 邀请用（激活处）
+        showFirstLogin: false // 邀请用（激活处）
         // loginSucc: { //  登陆
         //     login_times: '0', // 用户信息的地方没有这个字段
         //     invite_status: '0',
@@ -158,26 +158,33 @@ const mutations = {
     }
 }
 const actions = {
+    /* 水龙头邀请 */
+    async faucetTask ({commit, dispatch}) {
+        return await ajax.post(`/faucet/task`, {
+            ck: getCK()
+        })
+    },
+
     /* login 登陆 */
     async userLogin ({commit, dispatch}, pageData) {
         try {
-            let InfoData
+            let InfoData = null
             if (pageData) {
                 InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
             }
+            console.log(InfoData)
             if (InfoData.status.toString() === '100') {
-                if (InfoData.data.login_times === '1' && InfoData.data.status === '1') {
-                    // 显示第一次邀请
-                    this.$store.commit('showFirstLogin', true)
-                } else {
-                    this.$store.commit('showFirstLogin', false)
-                }
+                // if (InfoData.data.login_times === '1' && InfoData.data.status === '1') {
+                //     // 显示第一次邀请
+                //     commit('showFirstLogin', true)
+                // } else {
+                //     commit('showFirstLogin', false)
+                // }
 
                 // commit('setLoginSucc', {
                 //     status: InfoData.data.status,
                 //     login_times: InfoData.data.login_times
                 // })
-
                 return InfoData.data
             } else {
                 Message({
