@@ -45,7 +45,7 @@ module.exports = {
     'Sign Up': '注册',
     'Access Error': '地区受限',
     'About Us': '关于我们',
-    'Privacy Policy': '隐私政策',
+    'Privacy Policy': '用户协议',
     'Transparency': '公证性',
     'Help Center': '帮助中心',
     'Welcome to Coinsprize and start a new gaming experience! Coinsprize is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.': '欢迎来到Coinsprize，开启全新的博彩体验！Coinsprize是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
