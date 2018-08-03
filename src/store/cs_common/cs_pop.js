@@ -34,14 +34,15 @@ const state = {
         faucetMsg: null, // 邀请的msg
         inviterObj: null, // 邀请接收
 
-        // loginSucc: null,  // 登陆成功后的数据
-        showFirstLogin: false, // 邀请用（激活处）
-        loginSucc: { //  登陆
-            login_times: '0', // 用户信息的地方没有这个字段
-            invite_status: '0',
-            invite_prize_chances: 2,
-            tasks: []
-        }
+        // loginSucc: null, // 登陆成功后的数据
+
+        showFirstLogin: true // 邀请用（激活处）
+        // loginSucc: { //  登陆
+        //     login_times: '0', // 用户信息的地方没有这个字段
+        //     invite_status: '0',
+        //     invite_prize_chances: 2,
+        //     tasks: []
+        // }
 
     }
 }
@@ -69,9 +70,9 @@ const mutations = {
         state.pop.showFirstLogin = data
     },
     //  登陆回来的数据
-    setLoginSucc (state, msg) {
-        state.pop.loginSucc = msg
-    },
+    // setLoginSucc (state, msg) {
+    //     state.pop.loginSucc = msg
+    // },
     // 邀请用
     setInviterObj (state, msg) {
         state.pop.inviterObj = msg
@@ -165,7 +166,18 @@ const actions = {
                 InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
             }
             if (InfoData.status.toString() === '100') {
-                commit('setLoginSucc', InfoData.data)
+                if (InfoData.data.login_times === '1' && InfoData.data.status === '1') {
+                    // 显示第一次邀请
+                    this.$store.commit('showFirstLogin', true)
+                } else {
+                    this.$store.commit('showFirstLogin', false)
+                }
+
+                // commit('setLoginSucc', {
+                //     status: InfoData.data.status,
+                //     login_times: InfoData.data.login_times
+                // })
+
                 return InfoData.data
             } else {
                 Message({
@@ -189,13 +201,9 @@ const actions = {
         commit('setIsLog', false)
         removeCK()
         commit('setUserInfo', {})
-        // || ~state.route.path.indexOf('drawNumber')
         if (~state.route.path.indexOf('account')) {
-            router.push('/lucky')
+            router.push('/lucky11')
         }
-        // if (~state.route.path.indexOf('SlotMachine')) {
-        //
-        // }
         dispatch('sub2out')
     },
 

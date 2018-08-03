@@ -40,7 +40,7 @@
             <a href="javascript:;" class="importwallet hide">
                 <lang>Import Wallet</lang>
             </a>
-            <div class="act-sign hide">
+            <div class="act-sign">
                 <lang>for free 0.001ETH</lang>
             </div>
         </div>

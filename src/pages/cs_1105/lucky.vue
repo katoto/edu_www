@@ -603,13 +603,14 @@
             },
 
             async indexRouter (query) {
-                /* 邮箱注册 找回密码  邀请等 todo */
+                /* 邮箱注册 找回密码  邀请等 */
                 if (query.sign) {
                     if (query.from === 'reg') {
                         let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
-                        console.log(mailBack)
                         if (mailBack && mailBack.status === '100') {
-                            if (parseFloat(mailBack.data.login_times) >= 0 && mailBack.data.invite_status.toString() === '0') {
+                            // if (parseFloat(mailBack.data.login_times) >= 0 && mailBack.data.invite_status.toString() === '0') {
+                            // 是不是不用invite_status 了
+                            if (parseFloat(mailBack.data.login_times) >= 0) {
                                 // 显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
                             } else {

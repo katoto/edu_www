@@ -96,7 +96,6 @@ const actions = {
                 }
             }
 
-            // "invite_tips": "0"
             return homeMsg
         } catch (e) {
             Message({
@@ -163,27 +162,27 @@ const actions = {
                     //     "subtype": 2,
                     //     "taskstatus": "0"
                     // }];
-                    let newTask = []
-                    userMsg.data.tasks.forEach((val, index) => {
-                        if (val.subtype.toString() === '2' && val.taskstatus.toString() === '0') {
-                            newTask.push(val)
-                        }
-                    })
-                    if (newTask.length > 0) {
-                        commit('inviteTips', true)
-                    }
+                    //  旧的
+                    // let newTask = []
+                    // userMsg.data.tasks.forEach((val, index) => {
+                    //     if (val.subtype.toString() === '2' && val.taskstatus.toString() === '0') {
+                    //         newTask.push(val)
+                    //     }
+                    // })
+                    // if (newTask.length > 0) {
+                    //     commit('inviteTips', true)
+                    // }
                     // 取回之前数据
-                    let newInviteObj = {
-                        invite_status: userMsg.data.invite_status, //
-                        invite_prize_chances: userMsg.data.invite_prize_chances,
-                        tasks: newTask
-                    }
-                    if (state && state.pop.loginSucc && state.pop.loginSucc.login_times) {
-                        Object.assign(newInviteObj, {
-                            login_times: state.pop.loginSucc.login_times
-                        })
-                    }
-                    commit('setLoginSucc', newInviteObj)
+                    // let newInvite = {
+                    //     status: userMsg.data.status
+                    // }
+                    // if (state && state.pop.loginSucc && state.pop.loginSucc.login_times) {
+                    //     Object.assign(newInvite, {
+                    //         login_times: state.pop.loginSucc.login_times
+                    //     })
+                    // }
+                    // commit('setLoginSucc', newInvite)
+
                 }
             }
             return userMsg

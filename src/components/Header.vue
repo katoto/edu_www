@@ -3,7 +3,8 @@
         <div class="head">
             <div class="top">
                 <!--展开 on-->
-                <div class="m-choose-play icon-slot" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
+                <div class="m-choose-play icon-slot" :class="{isShowChoose:isShowChoose}"
+                     @click="headControlPop('showChoose')">
                     <div class="btn">
                         <span></span><span></span><span></span>
                     </div>
@@ -16,7 +17,7 @@
                                 <lang>Lucky 11</lang>
                             </router-link>
                         </li>
-                        <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
+                        <li class="hide"><a href="javascript:;">luckyCoin</a></li>
                         <li>
                             <router-link :to="{path: '/slot'}">
                                 <lang>Slot</lang>
@@ -27,15 +28,15 @@
                 <router-link to="/" title="Coinsprize" class="logo">
                     <img src="../assets/img/CoinsprizeLogo.png" alt="CoinsprizeLogo">
                 </router-link>
-                <div class="choose-play icon-slot" >
+                <div class="choose-play icon-slot">
                     <router-link :to="{path: '/lucky11'}">
                         <lang>Lucky 11</lang>
                     </router-link>
-                    <router-link :to="{path: '/slot'}" >
+                    <router-link :to="{path: '/slot'}">
                         <lang>Slot</lang>
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
-                    <a href="javascript:;" class="hide" >APP</a>
+                    <a href="javascript:;" class="hide">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
                 <div class="language hide" :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
@@ -61,7 +62,7 @@
                 <!-- 登录  -->
                 <div class="login">
                     <!-- 未登录 -->
-                    <div class="act-sign hide" v-if="!isLog">
+                    <div class="act-sign" v-if="!isLog">
                         <lang>Free 0.001 ETH</lang>
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
@@ -70,8 +71,9 @@
                     </a>
                     <!-- 登录 -->
                     <section v-else>
-                        <div class="mycount"  :class="{on:isShowMycount}"  @click="headControlPop('showMycount')">
-                            <div class="countNum" v-if="currBalance">
+                        <div class="mycount" :class="{on:isShowMycount}" @click="headControlPop('showMycount')">
+                            <!-- light  闪动特效 -->
+                            <div class="countNum" v-if="currBalance" :class="{'light':showLight}">
                                 <span class="icon-user"></span>
                                 {{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}
                                 <i></i>
@@ -82,24 +84,28 @@
                                         {{ userInfo.email }}
                                     </div>
                                     <div class="uid">
-                                        <lang>UserID</lang>:<i class="js_user_uid">{{ userInfo.uid }}</i>
+                                        <lang>UserID</lang>
+                                        :<i class="js_user_uid">{{ userInfo.uid }}</i>
                                     </div>
                                 </div>
 
-                                <router-link :to="{path: '/account/myBets'}"  class="my-transaction">
+                                <router-link :to="{path: '/account/myBets'}" class="my-transaction">
                                     <lang>My Bets</lang>
                                 </router-link>
                                 <router-link :to="{path: '/account/general'}" class="account-center">
                                     <lang>Account Center</lang>
                                 </router-link>
                                 <div class="currency-select">
-                                    <p><lang>Select Currency</lang></p>
+                                    <p>
+                                        <lang>Select Currency</lang>
+                                    </p>
                                     <ul>
-                                        <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
-                                            @click="changeAccounts( item )" >
+                                        <li v-for="item in userInfo.accounts"
+                                            :class="{'on': item.cointype === currBalance.cointype }"
+                                            @click="changeAccounts( item )">
                                             <div class="currency-account">
-                                                <i >{{ item.cointype | formateCoinType }}</i>
-                                                <span >{{ formateBalance( item.balance ) }}</span>
+                                                <i>{{ item.cointype | formateCoinType }}</i>
+                                                <span>{{ formateBalance( item.balance ) }}</span>
                                             </div>
                                             <!--<a :href="'https://etherscan.io/address/'+currBalance.address" v-if="currBalance.cointype==='2001'" target="_blank" class="address">{{ item.address }}</a>-->
                                             <a v-if="currBalance.cointype==='2001'" class="address"
@@ -115,19 +121,21 @@
                                             >{{ item.address }}</a>
                                         </li>
                                         <!--<li>-->
-                                            <!--<div class="currency-input"></div>-->
-                                            <!--<div class="currency-account">-->
-                                                <!--<i >BTC</i>-->
-                                                <!--<span >107.894</span>-->
-                                            <!--</div>-->
-                                            <!--<a href="javascript:;" class="address">0xD6d93A11751694c20D3E4a3e684A6C877401CBe9</a>-->
+                                        <!--<div class="currency-input"></div>-->
+                                        <!--<div class="currency-account">-->
+                                        <!--<i >BTC</i>-->
+                                        <!--<span >107.894</span>-->
+                                        <!--</div>-->
+                                        <!--<a href="javascript:;" class="address">0xD6d93A11751694c20D3E4a3e684A6C877401CBe9</a>-->
                                         <!--</li>-->
                                     </ul>
                                 </div>
-                                <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
+                                <a href="javascript:;" @click="signOut" class="log-out">
+                                    <lang>Sign Out</lang>
+                                </a>
                             </div>
                         </div>
-                        <div class="hadlogin" >
+                        <div class="hadlogin">
                             <router-link :to="{path: '/account/deposit'}" class="btn-rechrage">
                                 <lang>Deposit</lang>
                             </router-link>
@@ -139,8 +147,8 @@
                 </div>
 
                 <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet hide" v-if="isLog">
-                    <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
+                <div class="cs-faucet" v-if="isLog">
+                    <a href="javascript:;" @click="showFaucet" class="btn-faucet">
                     </a>
                     <div class="faucet-detailed" :class="{'show':freeWaterPop}">
                         <div class="faucet-title">
@@ -148,7 +156,8 @@
                         </div>
                         <ul>
                             <li>
-                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i class="bold">2/2</i> a day</p>
+                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i
+                                    class="bold">2/2</i> a day</p>
                                 <a href="javascript:;" class="btn btn-green">Get</a>
                             </li>
                             <li>
@@ -156,11 +165,13 @@
                                 <a href="javascript:;" class="btn btn-yellow">Deposit</a>
                             </li>
                             <li>
-                                <p>Login for 0.001 ETH for 7 consecutive days，Logged in for <i class="bold">2 / 7</i> day</p>
+                                <p>Login for 0.001 ETH for 7 consecutive days，Logged in for <i class="bold">2 / 7</i>
+                                    day</p>
                                 <a href="javascript:;" class="btn btn-gray">Get</a>
                             </li>
                             <li>
-                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i class="bold">2/2</i> a day</p>
+                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i
+                                    class="bold">2/2</i> a day</p>
                                 <a href="javascript:;" class="btn btn-ok"></a>
                             </li>
 
@@ -172,7 +183,7 @@
             <div class="jackpot" v-show="jackPotMsg">
                 <div class="jackpot-box">
                     <el-carousel :interval="5000" arrow="never" height="72px">
-                        <el-carousel-item v-for="(item,index) in jackPotMsg" :key="index"  v-if="item">
+                        <el-carousel-item v-for="(item,index) in jackPotMsg" :key="index" v-if="item">
                             <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
                             <span class="jackpot-money">{{ _('Win {0} {1}', formateBalance (  item.prize ) || '') ,  formateBalance (  item.cointype ) }}</span>
                         </el-carousel-item>
@@ -182,21 +193,17 @@
             </div>
 
             <!--浮层 -->
-            <!--第一次登陆 js_firstLogin    -->
-            <section v-if="0 && (loginSucc || showFirstLogin)&&isLog">
-                <div class="tips-newAct tips-newAct2"
-                     :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
+            <!--第一次登陆 -->
+            <section v-if="showFirstLogin">
+                <div class="tips-newAct tips-newAct2">
                     <div class="msg">
                         <p>
-                            <lang>You have earned 0.001 free ETH already, go to bet to win more!</lang>
+                            <lang>Sign Up to Get 0.0001 BTC for Free</lang>
                         </p>
-                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
-                            <lang>Try a luck</lang>
-                        </a>
-                        <div class="bottom">
-                            <lang>Invite friends to earn more free ETH.</lang>
-                        </div>
                     </div>
+                    <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
+                        <lang>Try a luck</lang>
+                    </a>
                 </div>
             </section>
 
@@ -209,33 +216,36 @@
 <script>
     import PopList from '~components/Pop-list'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-    import {copySucc, copyError, formateBalance, formateCoinType, formateEmail } from '~common/util'
+    import {copySucc, copyError, formateBalance, formateCoinType, formateEmail} from '~common/util'
     import startCanvas from '~/common/canvas'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
+
     Vue.use(vueClipboard)
 
     export default {
         components: {PopList},
         data () {
             return {
+                showLight: false, // new 闪烁
                 freeWaterPop: false, // new水龙头
                 showDetail: false,
                 slideDown: false,
-                languageOptions: [{
-                    value: 'en',
-                    label: 'English',
-                    lanLogo: '../../../static/staticImg/lan-en.jpg'
-                }, {
-                    value: 'zhCn',
-                    label: '中文简体',
-                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
-                }, {
-                    value: 'zhTw',
-                    label: '中文繁體',
-                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
-                }],
+                languageOptions: [
+                    {
+                        value: 'en',
+                        label: 'English',
+                        lanLogo: '../../../static/staticImg/lan-en.jpg'
+                    }, {
+                        value: 'zhCn',
+                        label: '中文简体',
+                        lanLogo: '../../../static/staticImg/lan-cn.jpg'
+                    }, {
+                        value: 'zhTw',
+                        label: '中文繁體',
+                        lanLogo: '../../../static/staticImg/lan-cn.jpg'
+                    }],
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
@@ -261,9 +271,9 @@
             showFirstLogin () {
                 return this.$store.state.pop.showFirstLogin
             },
-            loginSucc () {
-                return this.$store.state.pop.loginSucc
-            },
+            // loginSucc () {
+            //     return this.$store.state.pop.loginSucc
+            // },
             isLog () {
                 return this.$store.state.isLog
             },
@@ -273,7 +283,6 @@
             userInfo () {
                 return this.$store.state.userInfo
             },
-
             languageVal: {
                 set (val) {
                     this.$store.commit('changeLanguage', val)
@@ -339,17 +348,14 @@
             hideFirstLoginAll () {
                 // 关闭第一个弹窗
                 this.$store.commit('showFirstLogin', false)
-                this.$store.commit('setLoginSucc', null)
+                setTimeout(() => {
+                    // 闪烁
+                    this.showLight = true
+                }, 800)
             },
             async showFaucet () {
                 /* free water */
                 this.freeWaterPop = !this.freeWaterPop
-            },
-            showDetailFn () {
-                this.showDetail = true
-            },
-            hideDetailFn () {
-                this.showDetail = false
             },
             signOut () {
                 /* 退出登录 */
@@ -363,7 +369,6 @@
             formateCoinType
         },
         async mounted () {
-            // this.$router.push('/lucky11')
             this.showUserMsg()
             // 获取首次中奖信息
             if (~window.location.href.indexOf('/lucky11')) {
@@ -388,21 +393,27 @@
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
-    .banner{
+
+    .light {
+        background-color: red;
+    }
+
+    .banner {
         display: none;
     }
+
     .head {
         position: relative;
         width: 100%;
         height: 70px;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
         background: #151515;
         color: #fff;
         .top {
             position: relative;
             z-index: 9;
-            width:100%;
-            max-width:1190px;
+            width: 100%;
+            max-width: 1190px;
             height: 100%;
             margin: 0 auto;
         }
@@ -411,37 +422,37 @@
             float: left;
             width: 137px;
             height: 32px;
-            margin:19px 27px 0 0;
-            img{
+            margin: 19px 27px 0 0;
+            img {
                 display: block;
-                height:100%;
+                height: 100%;
             }
         }
-        .choose-play{
+        .choose-play {
             position: relative;
             display: table;
             float: left;
             /*overflow: hidden;*/
-            height:100%;
-            a{
+            height: 100%;
+            a {
                 display: table-cell;
                 vertical-align: middle;
-                padding:0 23px;
-                font-size:16px;
+                padding: 0 23px;
+                font-size: 16px;
                 color: #fff;
-                &.on,&:hover{
-                    background: rgba(0,0,0,0.3);
+                &.on, &:hover {
+                    background: rgba(0, 0, 0, 0.3);
                 }
             }
-            &.icon-slot{
-                &::before{
+            &.icon-slot {
+                &::before {
                     content: '';
                     display: block;
                     position: absolute;
                     top: 10px;
-                    right:-2px;
-                    width:20px;
-                    height:20px;
+                    right: -2px;
+                    width: 20px;
+                    height: 20px;
                     background: url("../assets/img/icon-new.png") no-repeat center;
                     animation: icon-new 5s 2s infinite;
                     transform-origin: left bottom;
@@ -451,66 +462,66 @@
         .language {
             box-sizing: border-box;
             position: relative;
-            width:70px;
-            height:70px;
+            width: 70px;
+            height: 70px;
             float: right;
-            padding-top:21px;
+            padding-top: 21px;
             position: relative;
             cursor: pointer;
-            .language-choose{
-                img{
+            .language-choose {
+                img {
                     display: block;
-                    margin:0 auto;
+                    margin: 0 auto;
                 }
-                span{
+                span {
                     display: block;
-                    margin-top:4px;
-                    line-height:16px;
+                    margin-top: 4px;
+                    line-height: 16px;
                     text-align: center;
-                    font-size:12px;
+                    font-size: 12px;
                     color: #fff;
                 }
             }
-            ul{
+            ul {
                 display: none;
                 position: absolute;
-                width:70px;
-                z-index:2;
-                left:0;
-                top:57px;
+                width: 70px;
+                z-index: 2;
+                left: 0;
+                top: 57px;
                 border-radius: 6px;
                 overflow: hidden;
                 cursor: pointer;
-                font-size:12px;
+                font-size: 12px;
                 color: #263648;
-                li{
+                li {
                     box-sizing: border-box;
-                    padding-top:20px;
-                    width:70px;
-                    height:70px;
+                    padding-top: 20px;
+                    width: 70px;
+                    height: 70px;
                     background: #fff;
-                    &:hover{
+                    &:hover {
                         background: #eef1f9;
                     }
                 }
-                li+li{
-                    border-top:1px solid #778ca3;
+                li + li {
+                    border-top: 1px solid #778ca3;
                 }
-                img{
+                img {
                     display: block;
-                    margin:0 auto;
+                    margin: 0 auto;
                 }
-                span{
+                span {
                     display: block;
-                    height:20px;
-                    line-height:20px;
+                    height: 20px;
+                    line-height: 20px;
                     text-align: center;
                     .text-overflow();
                 }
             }
-            &.isLanguage{
-                background: rgba(0,0,0,0.5);
-                ul{
+            &.isLanguage {
+                background: rgba(0, 0, 0, 0.5);
+                ul {
                     display: block;
                 }
             }
@@ -531,18 +542,18 @@
         .mycount {
             position: relative;
             float: left;
-            margin-right:20px;
-            transform: translate3d(0,0,0);
-            padding:20px;
+            margin-right: 20px;
+            transform: translate3d(0, 0, 0);
+            padding: 20px;
             .transition();
             .countNum {
                 position: relative;
                 cursor: pointer;
                 display: block;
-                padding:0 25px 0 40px;
+                padding: 0 25px 0 40px;
                 line-height: 30px;
                 font-size: 16px;
-                .icon-user{
+                .icon-user {
                     display: block;
                     position: absolute;
                     width: 29px;
@@ -565,13 +576,13 @@
                     .transition();
                 }
             }
-            &.on{
-                .countNum{
-                    >i {
+            &.on {
+                .countNum {
+                    > i {
                         transform: rotate(180deg);
                     }
                 }
-                .mycount-detailed{
+                .mycount-detailed {
                     display: block;
                 }
             }
@@ -580,48 +591,48 @@
             position: relative;
             float: right;
             text-align: center;
-            .act-sign{
+            .act-sign {
                 position: relative;
                 margin: 25px 20px 0 0;
                 float: left;
             }
-            .to-login{
+            .to-login {
                 float: right;
                 display: block;
                 overflow: hidden;
-                margin-top:20px;
-                height:28px;
+                margin-top: 20px;
+                height: 28px;
                 border-radius: 6px;
-                border:1px solid rgba(255,255,255,0.3);
-                line-height:28px;
-                padding:0 20px;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                line-height: 28px;
+                padding: 0 20px;
                 color: #fff;
                 &:hover {
-                    background: rgba(255,255,255,0.3);
+                    background: rgba(255, 255, 255, 0.3);
                 }
             }
             .hadlogin {
                 position: relative;
                 float: right;
-                margin-top:20px;
+                margin-top: 20px;
                 text-align: center;
                 overflow: hidden;
                 border-radius: 6px;
-                border:1px solid rgba(255,255,255,0.3);
+                border: 1px solid rgba(255, 255, 255, 0.3);
             }
-            .btn-rechrage,.btn-cash{
+            .btn-rechrage, .btn-cash {
                 display: block;
                 float: left;
-                height:28px;
-                line-height:28px;
-                padding:0 20px;
+                height: 28px;
+                line-height: 28px;
+                padding: 0 20px;
                 color: #fff;
                 &:hover {
-                    background: rgba(255,255,255,0.3);
+                    background: rgba(255, 255, 255, 0.3);
                 }
             }
             .btn-cash {
-                border-left:1px solid rgba(255, 255, 255, 0.3);
+                border-left: 1px solid rgba(255, 255, 255, 0.3);
             }
         }
 
@@ -633,7 +644,7 @@
         z-index: 10;
         left: 50%;
         top: 60px;
-        padding:16px 16px 0;
+        padding: 16px 16px 0;
         width: 235px;
         border-radius: 6px;
         /*overflow: hidden;*/
@@ -670,13 +681,13 @@
                 background: #eef1f9;
             }
         }
-        .currency-select{
-            margin:10px 0 0 0;
-            >p{
-                line-height:38px;
+        .currency-select {
+            margin: 10px 0 0 0;
+            > p {
+                line-height: 38px;
                 color: #263648;
             }
-            li{
+            li {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -690,18 +701,18 @@
                 color: #6f88cb;
                 cursor: pointer;
                 overflow: hidden;
-                a{
+                a {
                     display: none;
                 }
             }
-            li.on{
+            li.on {
                 flex-direction: column;
                 background: #6f88cb;
                 color: #fff;
-                .currency-account{
+                .currency-account {
                     height: 22px;
                 }
-                a{
+                a {
                     display: block;
                     line-height: 16px;
                     text-decoration: underline;
@@ -711,7 +722,7 @@
                     .text-overflow();
                     margin: 0 auto;
                 }
-                &::after{
+                &::after {
                     content: '';
                     display: block;
                     position: absolute;
@@ -735,46 +746,47 @@
                 background: #eef1f9;
             }
         }
-        &::before{
+        &::before {
             content: '';
             display: block;
             position: absolute;
             left: 50%;
-            top:-9px;
-            width:18px;
-            height:10px;
+            top: -9px;
+            width: 18px;
+            height: 10px;
             overflow: hidden;
             background: url("../assets/img/icon-tri.png") no-repeat center;
             background-size: cover;
             transform: translateX(-50%);
         }
     }
+
     /*20180720 newAct 拉新活动*/
-    .cs-faucet{
+    .cs-faucet {
         position: relative;
         float: right;
-        margin:21px 22px 0 0;
-        .btn-faucet{
+        margin: 21px 22px 0 0;
+        .btn-faucet {
             display: block;
-            width:19px;
-            height:26px;
+            width: 19px;
+            height: 26px;
             overflow: hidden;
-            padding:0 10px;
+            padding: 0 10px;
             background: url("../assets/img/icon-water.png") no-repeat center;
             background-size: 19px;
         }
-        .faucet-detailed{
+        .faucet-detailed {
             display: none;
             position: absolute;
-            top:37px;
-            right:-24px;
-            padding:10px 20px 54px;
-            width:455px;
+            top: 37px;
+            right: -24px;
+            padding: 10px 20px 54px;
+            width: 455px;
             background: #fff;
             border-radius: 6px;
             color: #263648;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            &::before{
+            &::before {
                 content: '';
                 display: block;
                 position: absolute;
@@ -786,57 +798,57 @@
                 background: url('../assets/img/icon-tri.png') no-repeat center;
                 background-size: cover;
             }
-            .faucet-title{
-                line-height:68px;
-                font-size:24px;
-                font-weight:bold;
+            .faucet-title {
+                line-height: 68px;
+                font-size: 24px;
+                font-weight: bold;
                 text-align: center;
-                border-bottom:1px solid #ced6e0;
+                border-bottom: 1px solid #ced6e0;
             }
-            li{
+            li {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 overflow: hidden;
-                border-bottom:1px solid #ced6e0;
-                padding:14px 0;
-                p{
-                    width:295px;
-                    line-height:20px;
+                border-bottom: 1px solid #ced6e0;
+                padding: 14px 0;
+                p {
+                    width: 295px;
+                    line-height: 20px;
                 }
-                .btn{
+                .btn {
                     display: block;
-                    width:83px;
-                    height:35px;
+                    width: 83px;
+                    height: 35px;
                     overflow: hidden;
                     text-align: center;
-                    line-height:35px;
-                    border-radius:6px;
-                    font-size:16px;
+                    line-height: 35px;
+                    border-radius: 6px;
+                    font-size: 16px;
                     color: #fff;
                     transition: all 0.2s;
-                    &.btn-green{
+                    &.btn-green {
                         background: #20bf6b;
                     }
-                    &.btn-yellow{
+                    &.btn-yellow {
                         background: #fd9644;
                     }
-                    &.btn-gray{
+                    &.btn-gray {
                         background: #ced6e0;
                     }
-                    &.btn-ok{
+                    &.btn-ok {
                         cursor: default;
                         background: url("../assets/img/btn-waterok.png") no-repeat center;
                         background-size: 24px;
                     }
-                    &:not(.btn-ok):hover{
+                    &:not(.btn-ok):hover {
                         filter: brightness(1.1);
                     }
                 }
             }
         }
-        &.on{
-            .faucet-detailed{
+        &.on {
+            .faucet-detailed {
                 display: block;
             }
         }
@@ -852,15 +864,12 @@
         font-weight: bold;
     }
 
-
     #cicle {
         position: absolute;
         left: 50%;
         top: 0;
         transform: translate(-50%);
     }
-
-
 
     @keyframes rubberBand {
         0% {
@@ -993,41 +1002,42 @@
             opacity: 1;
         }
     }
-    .jackpot{
+
+    .jackpot {
         position: fixed;
-        left:0;
-        top:0;
-        z-index:10;
-        width:100%;
-        height:150px;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        width: 100%;
+        height: 150px;
         //overflow: hidden;
         animation: slideDownIn 1s;
-        .jackpot-box{
+        .jackpot-box {
             position: relative;
-            z-index:2;
+            z-index: 2;
             width: 947px;
             height: 112px;
-            margin:0 auto;
+            margin: 0 auto;
             background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
-            line-height:76px;
-            font-size:22px;
-            .el-carousel{
-                padding-top:25px;
+            line-height: 76px;
+            font-size: 22px;
+            .el-carousel {
+                padding-top: 25px;
             }
-            .el-carousel__item{
+            .el-carousel__item {
                 text-align: center;
             }
-            .jackpot-money{
-                font-size:36px;
-                font-family:sans-eb;
-                line-height:72px;
+            .jackpot-money {
+                font-size: 36px;
+                font-family: sans-eb;
+                line-height: 72px;
             }
         }
-        canvas{
+        canvas {
             position: absolute;
-            z-index:1;
-            top:0;
-            left:0;
+            z-index: 1;
+            top: 0;
+            left: 0;
         }
     }
 
@@ -1059,72 +1069,71 @@
         }
     }
 
-
     /*移动端选择玩法*/
-    .m-choose-play{
+    .m-choose-play {
         display: none;
         position: relative;
         float: left;
-        width:104/2px;
-        height:100%;
-        .btn{
+        width: 104/2px;
+        height: 100%;
+        .btn {
             position: relative;
-            width:20px;
-            height:20px;
-            margin:25px auto;
+            width: 20px;
+            height: 20px;
+            margin: 25px auto;
             cursor: pointer;
-            span{
+            span {
                 position: absolute;
-                left:0;
+                left: 0;
                 display: block;
-                width:100%;
-                height:2px;
+                width: 100%;
+                height: 2px;
                 background: #fff;
                 border-radius: 2px;
-                top:7px;
+                top: 7px;
                 .transition();
                 transform-origin: left center;
             }
-            span:first-child{
-                top:0;
+            span:first-child {
+                top: 0;
             }
-            span:last-child{
-                top:15px;
+            span:last-child {
+                top: 15px;
             }
         }
-        .msg{
+        .msg {
             display: none;
             float: right;
-            line-height:70px;
-            font-size:14px;
+            line-height: 70px;
+            font-size: 14px;
             color: #444c55;
             .transition();
         }
-        ul{
+        ul {
             display: none;
             position: absolute;
-            top:70px;
-            left:0;
+            top: 70px;
+            left: 0;
             box-sizing: border-box;
-            padding:0 25px 18px 0;
-            width:100%;
-            line-height:40px;
-            font-size:20px;
-            font-weight:bold;
+            padding: 0 25px 18px 0;
+            width: 100%;
+            line-height: 40px;
+            font-size: 20px;
+            font-weight: bold;
             text-align: right;
             background: #000;
             .transition();
-            li.on,li:hover{
-                a{
+            li.on, li:hover {
+                a {
                     color: #fff;
                 }
             }
-            &::before{
+            &::before {
                 content: '';
                 display: block;
                 position: absolute;
-                right:5px;
-                bottom:40px;
+                right: 5px;
+                bottom: 40px;
                 width: 10px;
                 height: 10px;
                 background: url(../assets/img/icon-new.png) no-repeat center;
@@ -1133,103 +1142,106 @@
                 transform: rotate(30deg);
             }
         }
-        &.isShowChoose{
+        &.isShowChoose {
             position: absolute;
-            left:0;
-            top:0;
+            left: 0;
+            top: 0;
             background: #000;
             box-sizing: border-box;
-            width:324/2px;
-            padding-right:25px;
-            .btn{
+            width: 324/2px;
+            padding-right: 25px;
+            .btn {
                 float: left;
-                margin:25px 0 25px 13px;
-                span{
-                    opacity:0;
+                margin: 25px 0 25px 13px;
+                span {
+                    opacity: 0;
                 }
-                span:first-child{
-                    opacity:1;
+                span:first-child {
+                    opacity: 1;
                     transform: rotateZ(40deg) scaleX(1.2);
                 }
-                span:last-child{
-                    opacity:1;
+                span:last-child {
+                    opacity: 1;
                     transform: rotateZ(-40deg) scaleX(1.2);
                 }
             }
-            .msg{
+            .msg {
                 display: block;
             }
-            ul{
+            ul {
                 display: block;
             }
 
         }
     }
+
     /*开始适配*/
     @media (max-width: @screen-lg-desktop) {
-        .head{
-            .choose-play{
+        .head {
+            .choose-play {
                 display: none;
             }
-            .m-choose-play{
+            .m-choose-play {
                 display: block;
             }
         }
     }
+
     @media (max-width: @screen-desktop) {
-        .head{
-            .hadlogin{
+        .head {
+            .hadlogin {
                 display: none;
             }
         }
     }
+
     @media (max-width: @screen-tablet) {
-        .head{
-            height:50px;
-            .logo{
-                width:auto;
-                height:22px;
-                margin:14px 0 0 0;
+        .head {
+            height: 50px;
+            .logo {
+                width: auto;
+                height: 22px;
+                margin: 14px 0 0 0;
             }
-            .login{
-                margin:0;
-                height:100%;
-                .to-login{
+            .login {
+                margin: 0;
+                height: 100%;
+                .to-login {
                     font-size: 12px;
                 }
-                .act-sign{
+                .act-sign {
                     padding: 0 4px;
                     height: 15px;
                     margin: 17.5px 7.5px 0 0;
                     line-height: 15px;
                     font-size: 11px;
-                    &::before{
+                    &::before {
                         top: 3px;
-                        right:-8px;
+                        right: -8px;
                     }
                 }
-                .to-login{
-                    height:50px;
-                    line-height:50px;
-                    border:none;
+                .to-login {
+                    height: 50px;
+                    line-height: 50px;
+                    border: none;
                     border-radius: 0;
-                    padding:0 15px;
+                    padding: 0 15px;
                     margin-top: 0;
                 }
             }
-            .mycount{
+            .mycount {
                 margin: 0 10px 0 0;
                 padding: 13.5px 10px;
-                .countNum{
+                .countNum {
                     padding: 0 12px 0 30px;
                     line-height: 47/2px;
                     font-size: 13px;
-                    .icon-user{
+                    .icon-user {
                         width: 46/2px;
                         height: 47/2px;
                         background-size: cover;
                     }
-                    i{
+                    i {
                         width: 14/2px;
                         height: 8/2px;
                         right: 0;
@@ -1240,61 +1252,63 @@
                 }
             }
         }
-        .m-choose-play{
-            .btn{
+
+        .m-choose-play {
+            .btn {
                 margin: 15px 0 15px 13px;
             }
-            .msg{
-                line-height:50px;
+            .msg {
+                line-height: 50px;
             }
-            &.isShowChoose{
-                .btn{
+            &.isShowChoose {
+                .btn {
                     margin: 15px 0 15px 13px;
                 }
-                ul{
-                    top:50px;
+                ul {
+                    top: 50px;
                 }
             }
         }
-        .cs-faucet{
+
+        .cs-faucet {
             position: absolute;
             left: 50%;
             transform: translate(-50%);
             margin: 0;
-            .btn-faucet{
+            .btn-faucet {
                 width: 33/2px;
                 height: 45/2px;
                 background-size: 33/2px;
                 padding: 13.75px 10px;
             }
-            .faucet-detailed{
+            .faucet-detailed {
                 top: 46px;
                 right: 50%;
                 transform: translateX(50%);
                 padding: 5px 8px 0;
                 width: 250px;
-                .faucet-title{
+                .faucet-title {
                     line-height: 34px;
                     font-size: 18px;
                 }
-                li{
+                li {
                     padding: 12px 0;
-                    p{
+                    p {
                         width: 170px;
                         line-height: 13px;
                         font-size: 12px;
                     }
-                    .btn{
+                    .btn {
                         width: 128/2px;
                         height: 60/2px;
                         line-height: 60/2px;
                         font-size: 13px;
-                        &.btn-ok{
+                        &.btn-ok {
                             background-size: 28px;
                         }
                     }
                 }
-                &::before{
+                &::before {
                     right: 50%;
                     transform: translateX(50%);
                     top: -3.5px;
@@ -1306,42 +1320,43 @@
                 }
             }
         }
-        .mycount-detailed{
-            top:46px;
+
+        .mycount-detailed {
+            top: 46px;
             padding: 13px 13px 0;
             width: 275/2px;
-            .account-info{
-                .email{
+            .account-info {
+                .email {
                     line-height: 19px;
                     font-size: 14px;
                 }
-                .uid{
+                .uid {
                     line-height: 17px;
                     font-size: 12px;
                 }
             }
-            .my-transaction,.account-center{
+            .my-transaction, .account-center {
                 margin-top: 5px;
                 height: 24px;
                 line-height: 24px;
                 font-size: 12px;
             }
-            .currency-select{
+            .currency-select {
                 margin: 14px 0 0 0;
-                >p{
+                > p {
                     line-height: 25px;
                     font-size: 12px;
                 }
-                li{
+                li {
                     height: 48px;
                     border-width: 1px;
                     font-size: 16px;
                 }
-                li.on{
-                    a{
+                li.on {
+                    a {
                         width: 60px;
                         font-size: 11px;
-                        &::after{
+                        &::after {
                             width: 57/2px;
                             height: 53/2px;
                             background: url("../assets/img/icon-select.png") no-repeat center;
@@ -1350,12 +1365,12 @@
                     }
                 }
             }
-            .log-out{
+            .log-out {
                 margin-top: 20px;
                 line-height: 31px;
                 font-size: 12px;
             }
-            &::before{
+            &::before {
                 right: 50%;
                 transform: translateX(50%);
                 top: -3.5px;
@@ -1364,19 +1379,20 @@
             }
         }
     }
-    @media (max-width: @screen-phone){
+
+    @media (max-width: @screen-phone) {
     }
+
     @keyframes icon-new {
-        0%,8%,22%,100%{
+        0%, 8%, 22%, 100% {
             transform: rotate(0) translateX(0);
         }
-        10%,14%,18%{
+        10%, 14%, 18% {
             transform: rotate(30deg) translateY(4px);
         }
-        12%,16%,20%{
+        12%, 16%, 20% {
             transform: rotate(30deg) translateY(2px);
         }
-
 
     }
 </style>
