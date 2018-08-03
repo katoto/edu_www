@@ -265,7 +265,9 @@
                         <p>
                             ed to the blockchain and no one can tamper with it.
                         </p>
-                        <a href="javascript:;" class="btn-check">Go to check</a>
+                        <router-link :to="{path: '/check'}" class="btn-check">
+                            <lang>Go to check</lang>
+                        </router-link>
                     </div>
                     <div class="col-lg-4">
                         <div class="img-box img-box2">
@@ -326,7 +328,7 @@
     import {Message} from 'element-ui'
 
     export default {
-        data() {
+        data () {
             return {
                 activeClass: 'lucky11',
                 activeClass1: 'lucky11',
@@ -385,7 +387,7 @@
             formatTime,
             formateBalance,
             formateCoinType,
-            async indexRouter(query) {
+            async indexRouter (query) {
                 /* 邮箱注册 找回密码  邀请等 */
                 if (query.sign) {
                     if (query.from === 'reg') {
@@ -438,37 +440,37 @@
                     }
                 }
             },
-            getCoinClass(type) {
+            getCoinClass (type) {
                 return `icon-${formateCoinType(type).toLowerCase()}`
             },
-            init() {
+            init () {
                 this.renderHomeBet()
                 this.renderHomeDraw()
                 this.renderHomeWithdraw()
                 this.renderHomeEntrance()
             },
-            renderHomeBet() {
+            renderHomeBet () {
                 this.getHomeBet().then(({data}) => {
                     this.bets = {
                         ...data
                     }
                 })
             },
-            renderHomeDraw() {
+            renderHomeDraw () {
                 this.getHomeDraw().then(({data}) => {
                     this.wins = {
                         ...data
                     }
                 })
             },
-            renderHomeWithdraw() {
+            renderHomeWithdraw () {
                 this.getHomeWithdraw().then(({data}) => {
                     this.water = {
                         ...data
                     }
                 })
             },
-            renderHomeEntrance() {
+            renderHomeEntrance () {
                 this.getHomeEntrance().then(({data}) => {
                     this.entrance = {
                         ...data
@@ -477,7 +479,7 @@
             }
         },
         components: {Header, Footer},
-        mounted() {
+        mounted () {
             this.init()
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)

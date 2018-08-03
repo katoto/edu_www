@@ -79,7 +79,9 @@
                         <p class="msg hidden-xs hidden-sm">
                             Fair Open，Draw in blockchain
                         </p>
-                        <a href="javascript:;" class="btn-play">Check Transparency</a>
+                        <router-link :to="{path: '/check'}" class="btn-play">
+                            <lang>Check Transparency</lang>
+                        </router-link>
                     </div>
                     <div class="for-full">
                         <div class="history">
