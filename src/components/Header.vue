@@ -282,9 +282,6 @@
             showFirstLogin () {
                 return this.$store.state.pop.showFirstLogin
             },
-            // loginSucc () {
-            //     return this.$store.state.pop.loginSucc
-            // },
             isLog () {
                 return this.$store.state.isLog
             },

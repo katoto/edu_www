@@ -384,7 +384,7 @@ module.exports = {
     'copy Link': '复制链接',
     'Tip: This address only supports ETH recharge, do not choose the wrong currency': '温馨提示：只支持ETH地址转账，请仔细检查地址是否正确',
     'Tip: This address only supports BTC recharge, do not choose the wrong currency': '温馨提示：只支持BTC地址转账，请仔细检查地址是否正确',
-    'The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip': 'eqwe',
+    'The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need {0}{1} water strip': '满足流水条件即可提取赠送金额,还需{0}{1}流水解锁',
 
     'Only support {0} wallet': '仅支持{0}地址转账，请仔细检查地址是否正确',
 
