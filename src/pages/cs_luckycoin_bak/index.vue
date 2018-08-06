@@ -1,0 +1,268 @@
+<template>
+    <div class="oneToKen">
+        <div class="main">
+            <div class="container">
+                <div class="row  clearfix">
+                    <div class="col-lg-8">
+                        <div class="for-full banner">
+                            <el-carousel :interval="3000" arrow="always">
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                    </a>
+                                </el-carousel-item>
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                    </a>
+                                </el-carousel-item>
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                    </a>
+                                </el-carousel-item>
+                            </el-carousel>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="for-full for-new">
+                            <bet-box :bet="betsList[0]" :is-popular="true"></bet-box>
+                        </div>
+                        <div class="pop-mask hide"></div>
+                        <div class="pop-new hide">
+                            <div class="step step1">
+                                <p>
+                                    Here is the bonus: pick a lucky <br>
+                                    user through the blockchain
+                                </p>
+                                <a href="javascript:;" class="btn-next">Next</a>
+                                <img src="../../assets/img/oneToken/line.png" alt="">
+                            </div>
+                            <div class="step step2">
+                                <p>
+                                    Here is the remaining bet amount:  <br>
+                                    you can draw a lot when you buy it..
+                                </p>
+                                <a href="javascript:;" class="btn-next">Next</a>
+                                <img src="../../assets/img/oneToken/line.png" alt="">
+                            </div>
+                            <div class="step step3">
+                                <img src="../../assets/img/oneToken/line.png" alt="">
+                                <p>
+                                    Click here to bet: the more bets,<br>
+                                    the higher the probability of winning.
+                                </p>
+                                <a href="javascript:;" class="btn-next">ok</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  clearfix">
+                    <div class="item-tltle">
+                        <div class="fl">
+                            <p class="t1">
+                                Bet For The Prize
+                            </p>
+                            <p class="msg  hidden-xs hidden-sm">
+                                All or nothing, small cost, big profit
+                            </p>
+                            <a href="javascript:;" class="btn-play">How To Play</a>
+                        </div>
+                        <div class="fr">
+                            <router-link :to="{path: '/luckycoin/moreBids'}" class="btn-more">
+                                <lang>More >></lang>
+                            </router-link>
+                        </div>
+                    </div>
+                    <div class="for-full">
+                        <div class="col-md-6 col-lg-3">
+                            <!--icon-hot  是否热门-->
+                            <!--bg1 bg2-->
+                            <bet-box :bet="betsList[1]"></bet-box>
+                            <bet-box :bet="betsList[4]"></bet-box>
+                        </div>
+                        <div class="col-md-6 col-lg-3 visible-lg">
+                            <bet-box :bet="betsList[2]"></bet-box>
+                            <bet-box :bet="betsList[5]"></bet-box>
+                        </div>
+                        <div class="col-md-6 col-lg-3 visible-lg">
+                            <bet-box :bet="betsList[3]"></bet-box>
+                            <bet-box :bet="betsList[6]"></bet-box>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="recentBets">
+                                <div class="t1">
+                                    Recent Bets
+                                </div>
+                                <recent-bets :data="recentBetsList"></recent-bets>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  clearfix">
+                    <div class="item-tltle">
+                        <div class="fl">
+                            <p class="t1">
+                                Draw History
+                            </p>
+                            <p class="msg hidden-xs hidden-sm">
+                                Fair Open，Draw in blockchain
+                            </p>
+                            <a href="javascript:;" class="btn-play">Check Transparency</a>
+                        </div>
+                        <div class="fr">
+                            <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
+                                <lang>More >></lang>
+                            </router-link>
+                        </div>
+                    </div>
+                    <div class="for-full">
+                        <div class="history">
+                            <div class="col-xs-6 col-sm-4 col-lg-3">
+                                <history-bet-box :bet="drawHistoryList[0]"></history-bet-box>
+                            </div>
+                            <div class="col-xs-6 col-sm-4 col-lg-3">
+                                <history-bet-box :bet="drawHistoryList[1]"></history-bet-box>
+                            </div>
+                            <div class="col-xs-6 col-sm-4 col-lg-3">
+                                <history-bet-box :bet="drawHistoryList[2]"></history-bet-box>
+                            </div>
+                            <div class="col-xs-6 col-sm-4 col-lg-3">
+                                <history-bet-box :bet="drawHistoryList[3]"></history-bet-box>
+                            </div>
+                            <div class="col-xs-6 col-sm-4 col-lg-3 hidden-lg">
+                                <history-bet-box :bet="drawHistoryList[4]"></history-bet-box>
+                            </div>
+                            <div class="col-xs-6 col-sm-4 col-lg-3 hidden-lg">
+                                <history-bet-box :bet="drawHistoryList[5]"></history-bet-box>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import { mapActions, mapState } from 'vuex'
+import betBox from './components/bet-box'
+import recentBets from './components/recent-bets'
+import historyBetBox from './components/history-bet-box'
+
+export default {
+    methods: {
+        ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
+        ...mapActions(['subInLuckyCoin'])
+    },
+    components: { betBox, recentBets, historyBetBox },
+    computed: {
+        ...mapState('cs_luckycoin', {
+            betsList: state => state.betsList,
+            drawHistoryList: state => state.drawHistoryList,
+            recentBetsList: state => state.recentBetsList,
+            otherWin: state => state.otherWin,
+            selfWin: state => state.selfWin
+        }),
+        ...mapState({
+            isLogin: state => !!state.isLog
+        })
+    },
+    watch: {
+        isLogin () {
+            this.getBetsList()
+        }
+    },
+    mounted () {
+        this.updateLuckyCoinPage()
+    }
+}
+</script>
+
+<style scoped lang="less" type="text/less">
+    .for-new{
+        position: relative;
+        z-index: 11;
+    }
+    .pop-mask{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9;
+    }
+    .pop-new{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 12;
+        text-align: center;
+        font-size: 20px;
+        color: #ffdd8e;
+        .new-main{
+            position: relative;
+            width: 100%;
+            max-width: 1190px;
+            margin: 0 auto;
+        }
+        .btn-next{
+            display: table;
+            padding: 0 16px;
+            min-width: 67px;
+            margin: 6px auto 0;
+            line-height: 28px;
+            color: #fff;
+            background: #20bf6b;
+            border-radius: 6px;
+            &:hover{
+                filter:brightness(1.1);
+            }
+        }
+        .step{
+            display: none;
+            position: relative;
+            z-index: 12;
+            animation: bounceIn 1s;
+        }
+        .step1{
+            display: block;
+            position: absolute;
+            left: -170px;
+            top: -75px;
+            img{
+                display: block;
+                position: absolute;
+                top: 86px;
+                left: 50%;
+            }
+        }
+        .step2{
+            position: absolute;
+            top: 60px;
+            left: -86%;
+            img{
+                display: block;
+                position: absolute;
+                top: 52px;
+                right: -32px;
+                transform:scaleY(-1) rotateZ(-90deg);
+            }
+        }
+        .step3{
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            bottom: -140px;
+            transform: translateX(-50%);
+            img{
+                display: block;
+                margin: 0 auto 15px;
+                transform: rotateZ(120deg) scaleX(-1);
+            }
+        }
+    }
+</style>

@@ -1,140 +1,879 @@
 <template>
-    <div class="oneToKen">
+    <div class="lucky-index">
         <div class="main">
             <div class="container">
-                <div class="row  clearfix">
+                <div class="row">
                     <div class="col-lg-8">
-                        <div class="for-full banner">
+                        <div class="banner">
                             <el-carousel :interval="3000" arrow="always">
-                            <el-carousel-item>
-                                <a href="javascript:;" rel="nofollow">
-                                    <img src="../../assets/img/oneToKen/banner.jpg" alt="">
-                                </a>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <a href="javascript:;" rel="nofollow">
-                                    <img src="../../assets/img/oneToKen/banner.jpg" alt="">
-                                </a>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <a href="javascript:;" rel="nofollow">
-                                    <img src="../../assets/img/oneToKen/banner.jpg" alt="">
-                                </a>
-                            </el-carousel-item>
-                        </el-carousel>
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                    </a>
+                                </el-carousel-item>
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                    </a>
+                                </el-carousel-item>
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                    </a>
+                                </el-carousel-item>
+                            </el-carousel>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="for-full for-new">
-                            <bet-box :bet="betsList[0]" :is-popular="true"></bet-box>
-                        </div>
-                        <div class="pop-mask"></div>
-                        <div class="pop-new">
-                            <div class="step step1">
-                                <p>
-                                    Here is the bonus: pick a lucky <br>
-                                    user through the blockchain
-                                </p>
-                                <a href="javascript:;" class="btn-next">Next</a>
-                                <img src="../../assets/img/oneToken/line.png" alt="">
+                        <!--match-popular/match-common-->
+                        <div class="match match-popular ">
+                            <!-- hot bet-->
+                            <div class="icon-box hot bet">
+                                <i class="icon-hot">H</i>
+                                <i class="icon-youbet">You Bet</i>
                             </div>
-                            <div class="step step2">
-                                <p>
-                                    Here is the remaining bet amount:  <br>
-                                    you can draw a lot when you buy it..
-                                </p>
-                                <a href="javascript:;" class="btn-next">Next</a>
-                                <img src="../../assets/img/oneToken/line.png" alt="">
+                            <!--match-eth/match-btc-->
+                            <div class="match-img match-eth">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
+                                    <defs>
+                                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                            <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                                            <stop offset="100%" stop-color="#fdc90c"></stop>
+                                        </linearGradient>
+                                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                            <stop offset="0%" stop-color="#fdc90c"></stop>
+                                            <stop offset="100%" stop-color="#f9c600"></stop>
+                                        </linearGradient>
+                                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
+                                            <stop offset="0%" stop-color="#62f7d9"></stop>
+                                            <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                        </linearGradient>
+                                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
+                                            <stop offset="0%" stop-color="#53b8f0"></stop>
+                                            <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <g transform="matrix(0,-1,1,0,0,102)">
+                                        <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                        <circle cx="51" cy="51" r="47" stroke="url(#blueColor1)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>  <!--左边 整圆-->
+                                        <circle cx="51" cy="51" r="47" stroke="url(#blueColor2)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>
+                                    </g>
+                                    <!--
+                                       stroke-dasharray   //2*3.14*47=296
+                                       绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                                       两个参数或者多个参数时：一个表示长度，一个表示间距
+                                       stroke-dashoffset: 偏移位置
+                                       0% -> 296
+                                       100% -> 296 296
+                                       148/296
+                                       form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                                       -->
+                                </svg>
                             </div>
-                            <div class="step step3">
-                                <img src="../../assets/img/oneToken/line.png" alt="">
-                                <p>
-                                    Click here to bet: the more bets,<br>
-                                    the higher the probability of winning.
-                                </p>
-                                <a href="javascript:;" class="btn-next">ok</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row  clearfix">
-                    <div class="item-tltle">
-                        <div class="fl">
-                            <p class="t1">
-                                Bet For The Prize
+                            <!--奖金-->
+                            <p class="match-prize">
+                                <span class="payfor">Play For</span> 20 <i>BTC</i>
                             </p>
-                            <p class="msg  hidden-xs hidden-sm">
-                                All or nothing, small cost, big profit
+                            <!--价值-->
+                            <p class="match-usd">
+                                USD 14,776
                             </p>
-                            <a href="javascript:;" class="btn-play">How To Play</a>
-                        </div>
-                        <div class="fr">
-                            <router-link :to="{path: '/luckycoin/moreBids'}" class="btn-more">
-                                <lang>More >></lang>
-                            </router-link>
-                        </div>
-                    </div>
-                    <div class="for-full">
-                        <div class="col-md-6 col-lg-3">
-                            <!--icon-hot  是否热门-->
-                            <!--bg1 bg2-->
-                            <bet-box :bet="betsList[1]"></bet-box>
-                            <bet-box :bet="betsList[4]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3 visible-lg">
-                            <bet-box :bet="betsList[2]"></bet-box>
-                            <bet-box :bet="betsList[5]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3 visible-lg">
-                            <bet-box :bet="betsList[3]"></bet-box>
-                            <bet-box :bet="betsList[6]"></bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="recentBets">
-                                <div class="t1">
-                                    Recent Bets
+                            <!--期号-->
+                            <p class="match-issue">
+                                NO.180327018
+                            </p>
+                            <!--进度-->
+                            <p class="match-process">
+                                Draw Process 100 / 120
+                            </p>
+                            <!--价格-->
+                            <p class="match-price">
+                                Ticket Price 0.01 BTC
+                            </p>
+                            <a href="javascript:;" class="match-btn">
+                                Bet Now
+                            </a>
+
+                            <!--投注状态-->
+                            <!--show-->
+                            <div class="bet- bet-normal ">
+                                <a href="javascript:;" class="bet-close"></a>
+                                <div class="bet-t">
+                                    <span>Bid for</span> 0.5 <i>BTC</i>
                                 </div>
-                                <recent-bets :data="recentBetsList"></recent-bets>
+                                <p class="bet-m1">
+                                    Bet Amount
+                                </p>
+                                <p class="bet-m2">
+                                    more bets，more probability
+                                </p>
+                                <!--icon-eth/icon-btc-->
+                                <div class="input-box icon-eth">
+                                    <input type="text">
+                                    <a href="javascript:;">1/2</a>
+                                    <a href="javascript:;">2X</a>
+                                    <a href="javascript:;">Max</a>
+                                </div>
+                                <a href="javascript:;" class="btn-bet">
+                                    Pay Now
+                                </a>
+                            </div>
+                            <div class="bet- bet-success ">
+                                <a href="javascript:;" class="bet-close"></a>
+                                <div class="bet-icon"></div>
+                                <p class="bet-t">
+                                    Bet Success
+                                </p>
+                                <p class="bet-m">
+                                    You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~
+                                </p>
+                                <div class="btn-box">
+                                    <a href="/luckycoin/moreBids" class="bet-btnV">
+                                        View Number
+                                    </a>
+                                    <a  href="javascript:;" class="bet-btnB">
+                                        Bet More
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="bet- bet-fail ">
+                                <a href="javascript:;" class="bet-close"></a>
+                                <div class="bet-icon"></div>
+                                <p class="bet-t">
+                                    Bet failure
+                                </p>
+                                <p class="bet-m">
+                                    Temporarily unavailable due to network reasons
+                                </p>
+                                <a href="javascript:;" class="btn-fail">
+                                    Try Again Later
+                                </a>
+                            </div>
+                            <div class="bet- bet-balance ">
+                                <a href="javascript:;" class="bet-close"></a>
+                                <div class="bet-icon"></div>
+                                <p class="bet-t">
+                                    Insufficient Balance
+                                </p>
+                                <p class="bet-m">
+                                    Your balance can be purchased for 0.03ETH. If you need to bet more, please top up first.
+                                </p>
+                                <a href="javascript:;" class="btn-balance">
+                                    Deposit
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row  clearfix">
-                    <div class="item-tltle">
-                        <div class="fl">
-                            <p class="t1">
-                                Draw History
-                            </p>
-                            <p class="msg hidden-xs hidden-sm">
-                                Fair Open，Draw in blockchain
-                            </p>
-                            <a href="javascript:;" class="btn-play">Check Transparency</a>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-xs-12 ">
+                                <div class="title">
+                                    <div class="left">
+                                        <p class="t1">Bet For The Prize</p>
+                                        <p class="t2 hidden-xs hidden-sm">All or nothing, small cost,  big profit</p>
+                                        <a href="javascript:;" class="play ">
+                                            How To Play ？
+                                        </a>
+                                    </div>
+                                    <div class="right">
+                                        <a href="javascript:;" class="btn-more ">
+                                            More >
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="fr">
-                            <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
-                                <lang>More >></lang>
-                            </router-link>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="match match-common ">
+                                    <!-- hot bet-->
+                                    <div class="icon-box hot bet">
+                                        <i class="icon-hot">H</i>
+                                        <i class="icon-youbet">You Bet</i>
+                                    </div>
+                                    <!--match-eth/match-btc-->
+                                    <div class="match-img match-eth">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
+                                            <defs>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                                    <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                                                    <stop offset="100%" stop-color="#fdc90c"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                                    <stop offset="0%" stop-color="#fdc90c"></stop>
+                                                    <stop offset="100%" stop-color="#f9c600"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
+                                                    <stop offset="0%" stop-color="#62f7d9"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
+                                                    <stop offset="0%" stop-color="#53b8f0"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                            <g transform="matrix(0,-1,1,0,0,102)">
+                                                <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor1)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>  <!--左边 整圆-->
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor2)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>
+                                            </g>
+                                            <!--
+                                               stroke-dasharray   //2*3.14*47=296
+                                               绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                                               两个参数或者多个参数时：一个表示长度，一个表示间距
+                                               stroke-dashoffset: 偏移位置
+                                               0% -> 296
+                                               100% -> 296 296
+                                               148/296
+                                               form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                                               -->
+                                        </svg>
+                                    </div>
+                                    <!--奖金-->
+                                    <p class="match-prize">
+                                        <span class="payfor">Play For</span>
+                                        20 <i>BTC</i>
+                                    </p>
+                                    <!--价值-->
+                                    <p class="match-usd">
+                                        USD 14,776
+                                    </p>
+                                    <!--期号-->
+                                    <p class="match-issue">
+                                        NO.180327018
+                                    </p>
+                                    <!--进度-->
+                                    <p class="match-process">
+                                        Draw Process 100 / 120
+                                    </p>
+                                    <!--价格-->
+                                    <p class="match-price">
+                                        Ticket Price 0.01 BTC
+                                    </p>
+                                    <a href="javascript:;" class="match-btn">
+                                        Bet Now
+                                    </a>
+
+                                    <!--投注状态-->
+                                    <div class="bet-normal hide">
+                                        <a href="javascript:;" class="bet-close"></a>
+                                        <div class="bet-t">
+                                            <span>Bid for</span> 0.5 <i>BTC</i>
+                                        </div>
+                                        <p class="bet-m1">
+                                            Bet Amount
+                                        </p>
+                                        <p class="bet-m2">
+                                            more bets，more probability
+                                        </p>
+                                        <div class="input-box icon-eth">
+                                            <input type="text">
+                                            <a href="javascript:;">1/2</a>
+                                            <a href="javascript:;">2X</a>
+                                            <a href="javascript:;">Max</a>
+                                        </div>
+                                        <a href="javascript:;" class="btn-bet">
+                                            Pay Now
+                                        </a>
+                                    </div>
+                                    <div class="bet-success hide">
+                                        <a href="javascript:;" class="bet-close"></a>
+                                        <div class="bet-icon"></div>
+                                        <p class="bet-t">
+                                            Bet Success
+                                        </p>
+                                        <p class="bet-m">
+                                            You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~
+                                        </p>
+                                        <div class="btn-box">
+                                            <a href="/luckycoin/moreBids" class="bet-btnV">
+                                                View Number
+                                            </a>
+                                            <a  href="javascript:;" class="bet-btnB">
+                                                Bet More
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="bet-fail hide">
+                                        <a href="javascript:;" class="bet-close"></a>
+                                        <div class="bet-icon"></div>
+                                        <p class="bet-t">
+                                            Bet failure
+                                        </p>
+                                        <p class="bet-m">
+                                            Temporarily unavailable due to network reasons
+                                        </p>
+                                        <a href="javascript:;" class="btn-fail">
+                                            Try Again Later
+                                        </a>
+                                    </div>
+                                    <div class="bet-balance hide">
+                                        <a href="javascript:;" class="bet-close"></a>
+                                        <div class="bet-icon"></div>
+                                        <p class="bet-t">
+                                            Insufficient Balance
+                                        </p>
+                                        <p class="bet-m">
+                                            Your balance can be purchased for 0.03ETH. If you need to bet more, please top up first.
+                                        </p>
+                                        <a href="javascript:;" class="btn-balance">
+                                            Deposit
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="match match-common ">
+                                    <!-- hot bet-->
+                                    <div class="icon-box hot bet">
+                                        <i class="icon-hot">H</i>
+                                        <i class="icon-youbet">You Bet</i>
+                                    </div>
+                                    <!--match-eth/match-btc-->
+                                    <div class="match-img match-eth">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
+                                            <defs>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                                    <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                                                    <stop offset="100%" stop-color="#fdc90c"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                                    <stop offset="0%" stop-color="#fdc90c"></stop>
+                                                    <stop offset="100%" stop-color="#f9c600"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
+                                                    <stop offset="0%" stop-color="#62f7d9"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
+                                                    <stop offset="0%" stop-color="#53b8f0"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                            <g transform="matrix(0,-1,1,0,0,102)">
+                                                <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor1)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>  <!--左边 整圆-->
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor2)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>
+                                            </g>
+                                            <!--
+                                               stroke-dasharray   //2*3.14*47=296
+                                               绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                                               两个参数或者多个参数时：一个表示长度，一个表示间距
+                                               stroke-dashoffset: 偏移位置
+                                               0% -> 296
+                                               100% -> 296 296
+                                               148/296
+                                               form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                                               -->
+                                        </svg>
+                                    </div>
+                                    <!--奖金-->
+                                    <p class="match-prize">
+                                        <span class="payfor">Play For</span>
+                                        20 <i>BTC</i>
+                                    </p>
+                                    <!--价值-->
+                                    <p class="match-usd">
+                                        USD 14,776
+                                    </p>
+                                    <!--期号-->
+                                    <p class="match-issue">
+                                        NO.180327018
+                                    </p>
+                                    <!--进度-->
+                                    <p class="match-process">
+                                        Draw Process 100 / 120
+                                    </p>
+                                    <!--价格-->
+                                    <p class="match-price">
+                                        Ticket Price 0.01 BTC
+                                    </p>
+                                    <a href="javascript:;" class="match-btn">
+                                        Bet Now
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 hidden-xs hidden-sm">
+                                <div class="match match-common ">
+                                    <!-- hot bet-->
+                                    <div class="icon-box hot bet">
+                                        <i class="icon-hot">H</i>
+                                        <i class="icon-youbet">You Bet</i>
+                                    </div>
+                                    <!--match-eth/match-btc-->
+                                    <div class="match-img match-eth">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
+                                            <defs>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                                    <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                                                    <stop offset="100%" stop-color="#fdc90c"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                                    <stop offset="0%" stop-color="#fdc90c"></stop>
+                                                    <stop offset="100%" stop-color="#f9c600"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
+                                                    <stop offset="0%" stop-color="#62f7d9"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
+                                                    <stop offset="0%" stop-color="#53b8f0"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                            <g transform="matrix(0,-1,1,0,0,102)">
+                                                <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor1)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>  <!--左边 整圆-->
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor2)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>
+                                            </g>
+                                            <!--
+                                               stroke-dasharray   //2*3.14*47=296
+                                               绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                                               两个参数或者多个参数时：一个表示长度，一个表示间距
+                                               stroke-dashoffset: 偏移位置
+                                               0% -> 296
+                                               100% -> 296 296
+                                               148/296
+                                               form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                                               -->
+                                        </svg>
+                                    </div>
+                                    <!--奖金-->
+                                    <p class="match-prize">
+                                        <span class="payfor">Play For</span>
+                                        20 <i>BTC</i>
+                                    </p>
+                                    <!--价值-->
+                                    <p class="match-usd">
+                                        USD 14,776
+                                    </p>
+                                    <!--期号-->
+                                    <p class="match-issue">
+                                        NO.180327018
+                                    </p>
+                                    <!--进度-->
+                                    <p class="match-process">
+                                        Draw Process 100 / 120
+                                    </p>
+                                    <!--价格-->
+                                    <p class="match-price">
+                                        Ticket Price 0.01 BTC
+                                    </p>
+                                    <a href="javascript:;" class="match-btn">
+                                        Bet Now
+                                    </a>
+                                </div>
+                                <div class="match match-common ">
+                                    <!-- hot bet-->
+                                    <div class="icon-box hot bet">
+                                        <i class="icon-hot">H</i>
+                                        <i class="icon-youbet">You Bet</i>
+                                    </div>
+                                    <!--match-eth/match-btc-->
+                                    <div class="match-img match-eth">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
+                                            <defs>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                                    <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                                                    <stop offset="100%" stop-color="#fdc90c"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                                    <stop offset="0%" stop-color="#fdc90c"></stop>
+                                                    <stop offset="100%" stop-color="#f9c600"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
+                                                    <stop offset="0%" stop-color="#62f7d9"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
+                                                    <stop offset="0%" stop-color="#53b8f0"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                            <g transform="matrix(0,-1,1,0,0,102)">
+                                                <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor1)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>  <!--左边 整圆-->
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor2)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>
+                                            </g>
+                                            <!--
+                                               stroke-dasharray   //2*3.14*47=296
+                                               绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                                               两个参数或者多个参数时：一个表示长度，一个表示间距
+                                               stroke-dashoffset: 偏移位置
+                                               0% -> 296
+                                               100% -> 296 296
+                                               148/296
+                                               form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                                               -->
+                                        </svg>
+                                    </div>
+                                    <!--奖金-->
+                                    <p class="match-prize">
+                                        <span class="payfor">Play For</span>
+                                        20 <i>BTC</i>
+                                    </p>
+                                    <!--价值-->
+                                    <p class="match-usd">
+                                        USD 14,776
+                                    </p>
+                                    <!--期号-->
+                                    <p class="match-issue">
+                                        NO.180327018
+                                    </p>
+                                    <!--进度-->
+                                    <p class="match-process">
+                                        Draw Process 100 / 120
+                                    </p>
+                                    <!--价格-->
+                                    <p class="match-price">
+                                        Ticket Price 0.01 BTC
+                                    </p>
+                                    <a href="javascript:;" class="match-btn">
+                                        Bet Now
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 hidden-xs hidden-xs hidden-sm hidden-md">
+                                <div class="match match-common ">
+                                    <!-- hot bet-->
+                                    <div class="icon-box hot bet">
+                                        <i class="icon-hot">H</i>
+                                        <i class="icon-youbet">You Bet</i>
+                                    </div>
+                                    <!--match-eth/match-btc-->
+                                    <div class="match-img match-btc">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
+                                            <defs>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                                    <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                                                    <stop offset="100%" stop-color="#fdc90c"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                                    <stop offset="0%" stop-color="#fdc90c"></stop>
+                                                    <stop offset="100%" stop-color="#f9c600"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
+                                                    <stop offset="0%" stop-color="#62f7d9"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
+                                                    <stop offset="0%" stop-color="#53b8f0"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                            <g transform="matrix(0,-1,1,0,0,102)">
+                                                <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor1)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>  <!--左边 整圆-->
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor2)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>
+                                            </g>
+                                            <!--
+                                               stroke-dasharray   //2*3.14*47=296
+                                               绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                                               两个参数或者多个参数时：一个表示长度，一个表示间距
+                                               stroke-dashoffset: 偏移位置
+                                               0% -> 296
+                                               100% -> 296 296
+                                               148/296
+                                               form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                                               -->
+                                        </svg>
+                                    </div>
+                                    <!--奖金-->
+                                    <p class="match-prize">
+                                        <span class="payfor">Play For</span>
+                                        20 <i>BTC</i>
+                                    </p>
+                                    <!--价值-->
+                                    <p class="match-usd">
+                                        USD 14,776
+                                    </p>
+                                    <!--期号-->
+                                    <p class="match-issue">
+                                        NO.180327018
+                                    </p>
+                                    <!--进度-->
+                                    <p class="match-process">
+                                        Draw Process 100 / 120
+                                    </p>
+                                    <!--价格-->
+                                    <p class="match-price">
+                                        Ticket Price 0.01 BTC
+                                    </p>
+                                    <a href="javascript:;" class="match-btn waiting">
+                                        Waiting ...
+                                    </a>
+                                </div>
+                                <div class="match match-common ">
+                                    <!-- hot bet-->
+                                    <div class="icon-box hot bet">
+                                        <i class="icon-hot">H</i>
+                                        <i class="icon-youbet">You Bet</i>
+                                    </div>
+                                    <!--match-eth/match-btc-->
+                                    <div class="match-img match-btc">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
+                                            <defs>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                                    <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
+                                                    <stop offset="100%" stop-color="#fdc90c"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                                    <stop offset="0%" stop-color="#fdc90c"></stop>
+                                                    <stop offset="100%" stop-color="#f9c600"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
+                                                    <stop offset="0%" stop-color="#62f7d9"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
+                                                    <stop offset="0%" stop-color="#53b8f0"></stop>
+                                                    <stop offset="100%" stop-color="#5ed9eb"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                            <g transform="matrix(0,-1,1,0,0,102)">
+                                                <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor1)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>  <!--左边 整圆-->
+                                                <circle cx="51" cy="51" r="47" stroke="url(#blueColor2)" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="0 296"/>
+                                            </g>
+                                            <!--
+                                               stroke-dasharray   //2*3.14*47=296
+                                               绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                                               两个参数或者多个参数时：一个表示长度，一个表示间距
+                                               stroke-dashoffset: 偏移位置
+                                               0% -> 296
+                                               100% -> 296 296
+                                               148/296
+                                               form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                                               -->
+                                        </svg>
+                                    </div>
+                                    <!--奖金-->
+                                    <p class="match-prize">
+                                        <span class="payfor">Play For</span>
+                                        20 <i>BTC</i>
+                                    </p>
+                                    <!--价值-->
+                                    <p class="match-usd">
+                                        USD 14,776
+                                    </p>
+                                    <!--期号-->
+                                    <p class="match-issue">
+                                        NO.180327018
+                                    </p>
+                                    <!--进度-->
+                                    <p class="match-process">
+                                        Draw Process 100 / 120
+                                    </p>
+                                    <!--价格-->
+                                    <p class="match-price">
+                                        Ticket Price 0.01 BTC
+                                    </p>
+                                    <a href="javascript:;" class="match-btn">
+                                        Bet Now
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="for-full">
-                        <div class="history">
-                            <div class="col-xs-6 col-sm-4 col-lg-3">
-                                <history-bet-box :bet="drawHistoryList[0]"></history-bet-box>
+                    <div class="col-lg-3">
+                        <div class="recent-bets">
+                            <div class="title">
+                                <div class="left">
+                                    <p class="t1">Recent Bets</p>
+                                </div>
                             </div>
-                            <div class="col-xs-6 col-sm-4 col-lg-3">
-                                <history-bet-box :bet="drawHistoryList[1]"></history-bet-box>
+                            <ul>
+                                <li>
+                                    <div class="email">
+                                        test@gmail.com  test@gmail.com  test@gmail.com
+                                    </div>
+                                    <!--icon-eth/icon-btc-->
+                                    <div class="amount icon-btc">
+                                        0.0008
+                                    </div>
+                                    <div class="time">
+                                        23:12
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="email">
+                                        test@gmail.com  test@gmail.com  test@gmail.com
+                                    </div>
+                                    <!--icon-eth/icon-btc-->
+                                    <div class="amount icon-btc">
+                                        0.0008
+                                    </div>
+                                    <div class="time">
+                                        23:12
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="email">
+                                        test@gmail.com  test@gmail.com  test@gmail.com
+                                    </div>
+                                    <!--icon-eth/icon-btc-->
+                                    <div class="amount icon-btc">
+                                        0.0008
+                                    </div>
+                                    <div class="time">
+                                        23:12
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="email">
+                                        test@gmail.com  test@gmail.com  test@gmail.com
+                                    </div>
+                                    <!--icon-eth/icon-btc-->
+                                    <div class="amount icon-btc">
+                                        0.0008
+                                    </div>
+                                    <div class="time">
+                                        23:12
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="email">
+                                        test@gmail.com  test@gmail.com  test@gmail.com
+                                    </div>
+                                    <!--icon-eth/icon-btc-->
+                                    <div class="amount icon-btc">
+                                        0.0008
+                                    </div>
+                                    <div class="time">
+                                        23:12
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="email">
+                                        test@gmail.com  test@gmail.com  test@gmail.com
+                                    </div>
+                                    <!--icon-eth/icon-btc-->
+                                    <div class="amount icon-btc">
+                                        0.0008
+                                    </div>
+                                    <div class="time">
+                                        23:12
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="email">
+                                        test@gmail.com  test@gmail.com  test@gmail.com
+                                    </div>
+                                    <!--icon-eth/icon-btc-->
+                                    <div class="amount icon-eth">
+                                        0.0008
+                                    </div>
+                                    <div class="time">
+                                        23:12
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 ">
+                        <div class="title">
+                            <div class="left">
+                                <p class="t1">Draw History</p>
+                                <p class="t2  hidden-xs hidden-sm">Fair Open，Draw in blockchain</p>
+                                <a href="javascript:;" class="check">
+                                    Check Transparency >
+                                </a>
                             </div>
-                            <div class="col-xs-6 col-sm-4 col-lg-3">
-                                <history-bet-box :bet="drawHistoryList[2]"></history-bet-box>
+                            <div class="right">
+                                <a href="javascript:;" class="btn-more ">
+                                    More >
+                                </a>
                             </div>
-                            <div class="col-xs-6 col-sm-4 col-lg-3">
-                                <history-bet-box :bet="drawHistoryList[3]"></history-bet-box>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <!--icon-eth/icon-btc  win-->
+                        <div class="history icon-eth win">
+                            <p class="history-prize">
+                                0.0008 <i>BTC</i>
+                            </p>
+                            <p class="history-usd">
+                                USD 14,776
+                            </p>
+                            <p class="history-issue">
+                                NO.180327018
+                            </p>
+                            <p class="history-process">
+                                Draw Process 100 / 120
+                            </p>
+                            <p class="history-price">
+                                Ticket Price 0.01 BTC
+                            </p>
+                            <div class="history-result">
+                                gm**@gmail.com gm**@gmail.comm**@gmail.com gm**@gmail.com
                             </div>
-                            <div class="col-xs-6 col-sm-4 col-lg-3 hidden-lg">
-                                <history-bet-box :bet="drawHistoryList[4]"></history-bet-box>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="history icon-eth ">
+                            <p class="history-prize">
+                                0.0008 <i>BTC</i>
+                            </p>
+                            <p class="history-usd">
+                                USD 14,776
+                            </p>
+                            <p class="history-issue">
+                                NO.180327018
+                            </p>
+                            <p class="history-process">
+                                Draw Process 100 / 120
+                            </p>
+                            <p class="history-price">
+                                Ticket Price 0.01 BTC
+                            </p>
+                            <div class="history-result">
+                                gm**@gmail.com gm**@gmail.comm**@gmail.com gm**@gmail.com
                             </div>
-                            <div class="col-xs-6 col-sm-4 col-lg-3 hidden-lg">
-                                <history-bet-box :bet="drawHistoryList[5]"></history-bet-box>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="history icon-btc ">
+                            <p class="history-prize">
+                                0.0008 <i>BTC</i>
+                            </p>
+                            <p class="history-usd">
+                                USD 14,776
+                            </p>
+                            <p class="history-issue">
+                                NO.180327018
+                            </p>
+                            <p class="history-process">
+                                Draw Process 100 / 120
+                            </p>
+                            <p class="history-price">
+                                Ticket Price 0.01 BTC
+                            </p>
+                            <div class="history-result">
+                                gm**@gmail.com gm**@gmail.comm**@gmail.com gm**@gmail.com
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="history icon-btc ">
+                            <p class="history-prize">
+                                0.0008 <i>BTC</i>
+                            </p>
+                            <p class="history-usd">
+                                USD 14,776
+                            </p>
+                            <p class="history-issue">
+                                NO.180327018
+                            </p>
+                            <p class="history-process">
+                                Draw Process 100 / 120
+                            </p>
+                            <p class="history-price">
+                                Ticket Price 0.01 BTC
+                            </p>
+                            <div class="history-result">
+                                gm**@gmail.com gm**@gmail.comm**@gmail.com gm**@gmail.com
                             </div>
                         </div>
                     </div>
@@ -145,123 +884,10 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import betBox from './components/bet-box'
-import recentBets from './components/recent-bets'
-import historyBetBox from './components/history-bet-box'
 
-export default {
-    methods: {
-        ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
-        ...mapActions(['subInLuckyCoin'])
-    },
-    components: { betBox, recentBets, historyBetBox },
-    computed: {
-        ...mapState('cs_luckycoin', {
-            betsList: state => state.betsList,
-            drawHistoryList: state => state.drawHistoryList,
-            recentBetsList: state => state.recentBetsList,
-            otherWin: state => state.otherWin,
-            selfWin: state => state.selfWin
-        }),
-        ...mapState({
-            isLogin: state => !!state.isLog
-        })
-    },
-    watch: {
-        isLogin () {
-            this.getBetsList()
-        }
-    },
-    mounted () {
-        this.updateLuckyCoinPage()
-    }
-}
+
 </script>
 
 <style scoped lang="less" type="text/less">
-    .for-new{
-        position: relative;
-        z-index: 11;
-    }
-    .pop-mask{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        z-index: 9;
-    }
-    .pop-new{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 12;
-        text-align: center;
-        font-size: 20px;
-        color: #ffdd8e;
-        .new-main{
-            position: relative;
-            width: 100%;
-            max-width: 1190px;
-            margin: 0 auto;
-        }
-        .btn-next{
-            display: table;
-            padding: 0 16px;
-            min-width: 67px;
-            margin: 6px auto 0;
-            line-height: 28px;
-            color: #fff;
-            background: #20bf6b;
-            border-radius: 6px;
-            &:hover{
-                filter:brightness(1.1);
-            }
-        }
-        .step{
-            display: none;
-            position: relative;
-            z-index: 12;
-        }
-        .step1{
-            position: absolute;
-            left: -170px;
-            top: -75px;
-            img{
-                display: block;
-                position: absolute;
-                top: 86px;
-                left: 50%;
-            }
-        }
-        .step2{
-            position: absolute;
-            top: 60px;
-            left: -86%;
-            img{
-                display: block;
-                position: absolute;
-                top: 52px;
-                right: -32px;
-                transform:scaleY(-1) rotateZ(-90deg);
-            }
-        }
-        .step3{
-            display: block;
-            position: absolute;
-            width: 100%;
-            left: 50%;
-            bottom: -140px;
-            transform: translateX(-50%);
-            img{
-                display: block;
-                margin: 0 auto 15px;
-                transform: rotateZ(120deg) scaleX(-1);
-            }
-        }
-    }
+
 </style>
