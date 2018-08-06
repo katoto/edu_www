@@ -179,9 +179,9 @@
                             </li>
                             <li>
                                 <p><lang>Get 0.0001BTC (Log in for 7 consecutive days)</lang></p>
-                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('tasks_4',tasks_4)" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spins</lang></a>
                                 <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'||tasks_4!=='1')" class="btn btn-yellow">{{ _('{0}/7 Days', tasks_day ) }}</a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn btn-yellow">{{ _('{0}/7 Days', tasks_day ) }}</a>
                             </li>
                         </ul>
                     </div>
@@ -336,7 +336,8 @@
                     }
                     let faucetGet = await this.$store.dispatch('faucetGet', taskid)
                     if (faucetGet && faucetGet.status === '100') {
-                        this.showFaucet()
+                        this.faucetTask()
+                        this.showUserMsg()
                     } else {
                         this.$message({
                             message: 'faucetGet error',
@@ -402,29 +403,32 @@
                     this.showLight = true
                 }, 800)
             },
-            async showFaucet () {
+            async faucetTask(){
+                let taskMsg = await this.$store.dispatch('faucetTask')
+                if (taskMsg && taskMsg.status === '100') {
+                    this.received_counter = taskMsg.data.not_received_counter
+                    if (taskMsg.data.tasks) {
+                        taskMsg.data.tasks.forEach((item, index) => {
+                            if (item.task === '2' || item.task === '3' || item.task === '4') {
+                                if (item.info) {
+                                    this['tasks_' + item.task] = item.info.status
+                                }
+                            }
+                        })
+                    }
+                    if (taskMsg.data.sign_days !== undefined) {
+                        this.tasks_day = taskMsg.data.sign_days
+                    }
+                    if (parseFloat(taskMsg.data.free) > 0) {
+                        this.tasks_2 = 2
+                        this.tasks_3 = 2
+                    }
+                }
+            },
+            showFaucet () {
                 /* free water  请求列表接口 new */
                 if (!this.freeWaterPop) {
-                    let taskMsg = await this.$store.dispatch('faucetTask')
-                    if (taskMsg && taskMsg.status === '100') {
-                        this.received_counter = taskMsg.data.not_received_counter
-                        if (taskMsg.data.tasks) {
-                            taskMsg.data.tasks.forEach((item, index) => {
-                                if (item.task === '2' || item.task === '3' || item.task === '4') {
-                                    if (item.info) {
-                                        this['tasks_' + item.task] = item.info.status
-                                    }
-                                }
-                            })
-                        }
-                        if (taskMsg.data.sign_days !== undefined) {
-                            this.tasks_day = taskMsg.data.sign_days
-                        }
-                        if (parseFloat(taskMsg.data.free) > 0) {
-                            this.tasks_2 = 2
-                            this.tasks_3 = 2
-                        }
-                    }
+                    this.faucetTask()
                 }
                 this.freeWaterPop = !this.freeWaterPop
             },
@@ -458,6 +462,9 @@
                     }
                 }
             }
+            setTimeout(() => {
+                this.faucetTask()
+            }, 2000)
         }
     }
 </script>

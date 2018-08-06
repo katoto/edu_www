@@ -164,7 +164,7 @@ const actions = {
     },
     /* 水龙头领取 */
     async faucetGet ({commit, dispatch}, taskid) {
-        return ajax.get(`/faucet/qw?task_id=${taskid}`)
+        return ajax.get(`/faucet/get?task_id=${taskid}`)
     },
     /* login 登陆 */
     async userLogin ({commit, dispatch}, pageData) {
