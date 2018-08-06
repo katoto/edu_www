@@ -1,7 +1,7 @@
 <template>
     <ul>
         <!--icon-eth icon-bth-->
-        <li  v-for="(item, index) in data" :key="index">
+        <li  v-for="(item, index) in data" :key="index*Math.random()" :class="[item.current ? 'newData' : '']">
             <div class="email">
                 {{item.username}}
             </div>

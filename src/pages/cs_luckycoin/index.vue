@@ -28,7 +28,7 @@
                         <bet-box :bet="betsList[0]" :is-popular="true"></bet-box>
                         <div class="pop-mask" :class="[isShowNew ? '' : 'hide']"></div>
                         <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
-                            <div class="step step1" :class="[isShowStep1 ? '' : 'hide']">
+                            <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
                                 <p>
                                     Here is the bonus: pick a lucky <br>
                                     user through the blockchain
@@ -36,7 +36,7 @@
                                 <a href="javascript:;" class="btn-next" @click="isShowStep1 = false; isShowStep2 = true">Next</a>
                                 <img src="../../assets/img/oneToken/line.png" alt="">
                             </div>
-                            <div class="step step2" :class="[isShowStep2 ? '' : 'hide']">
+                            <div class="step bounceIn animated step2" :class="[isShowStep2 ? '' : 'hide']">
                                 <p>
                                     Here is the remaining bet amount:  <br>
                                     you can draw a lot when you buy it..
@@ -44,7 +44,7 @@
                                 <a href="javascript:;" class="btn-next" @click="isShowStep2 = false; isShowStep3 = true">Next</a>
                                 <img src="../../assets/img/oneToken/line.png" alt="">
                             </div>
-                            <div class="step step3" :class="[isShowStep3 ? '' : 'hide']">
+                            <div class="step bounceIn animated step3" :class="[isShowStep3 ? '' : 'hide']">
                                 <img src="../../assets/img/oneToken/line.png" alt="">
                                 <p>
                                     Click here to bet: the more bets,<br>
@@ -184,7 +184,12 @@
     }
 </script>
 
-<style scoped lang="less" type="text/less">
+<style scope lang="less" type="text/less">
+    .page-luckycoin{
+        .carousel__arrow{
+            display: none;
+        }
+    }
     .for-new{
         position: relative;
         z-index: 11;
@@ -267,6 +272,13 @@
                 margin: 0 auto 15px;
                 transform: rotateZ(120deg) scaleX(-1);
             }
+        }
+    }
+    /* lg大屏幕（大桌面显示器，大于等于 1200px） */
+
+    @media (max-width: 1200px) {
+        .pop-mask,.pop-new{
+            display: none;
         }
     }
 </style>

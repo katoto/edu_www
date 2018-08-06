@@ -46,12 +46,24 @@ const mutations = {
     updateRecentBet (state, bet) {
         if (bet && bet.length > 0) {
             let newRecentBetList = [...state.recentBetsList]
-            state.recentBetsList = [...bet.concat(newRecentBetList)].slice(0, 6)
+            newRecentBetList = newRecentBetList.map(bet => {
+                bet.current = false
+                return bet
+            })
+            bet = bet.map(bet => {
+                bet.current = true
+                return bet
+            })
+            state.recentBetsList = [...bet.concat(newRecentBetList)].slice(0, 7)
         }
     },
     // 更新最近投注列表
     updateRecentBets (state, bets) {
         if (bets && bets.length > 0) {
+            bets = bets.map(bet => {
+                bet.current = false
+                return bet
+            })
             state.recentBetsList = [...bets]
         }
     },
