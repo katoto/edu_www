@@ -88,8 +88,7 @@
             </div>
 
             <!--开奖明细弹窗-->
-            <!-- :class="{'hide':!showPop_reward}"-->
-            <div class="pop pop-reward">
+            <div class="pop pop-reward" :class="{'hide':!showPop_reward}">
                 <div class="pop-body">
                     <div class="pop-ani">
                         <div class="pop-main">
