@@ -5,13 +5,13 @@
             <BreadCrumbs></BreadCrumbs>
             <!--查询框-->
             <el-tabs v-model="params.type" @tab-click="handleTabClick">
-                <el-tab-pane :label="_('Lucky11')" name="Lucky11"></el-tab-pane>
-                <el-tab-pane :label="_('Luckycoin')" name="Luckycoin"></el-tab-pane>
+                <el-tab-pane :label="_('Lucky11')" name="lucky11"></el-tab-pane>
+                <el-tab-pane :label="_('Luckycoin')" name="luckycoin"></el-tab-pane>
             </el-tabs>
             <div class="check-input">
                 <div class="check-enter">
                     <h2><lang>Check the results</lang></h2>
-                    <input type="text" :placeholder="_('Enter the issue number')" v-model="issueNumber" @keyup.enter="issueInputHandler">
+                    <input type="text" :placeholder="_('Enter the issue number')" v-model="issueNumber" @keyup.enter="issueInputEnterHandler">
                     <p><lang>The issue number can be viewed in the </lang></p> <a href="javascript:;"><lang>draw record</lang></a>
                 </div>
                 <a href="javascript:;" class="btn-verification" @click="verifyHandler"><lang>Verification</lang></a>
@@ -20,11 +20,11 @@
                     <h3><lang>Lottery result</lang></h3>
                     <div class="result-view">
                         <!--lucky11-->
-                        <ul v-if="params.type === 'Lucky11'">
+                        <ul v-if="params.type === 'lucky11'">
                             <li v-for="(item, index) in luck11Result" :key="index">{{item}}</li>
                         </ul>
                         <!--LuckyCoin-->
-                        <div v-if="params.type === 'Luckycoin'">{{luckyCoinResult.toString()}}</div>
+                        <div v-if="params.type === 'luckycoin'">{{luckyCoinResult.toString()}}</div>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,8 @@
             <p class="before-input" :class="{ hide: isChecked }"><lang>Enter the issue number to view the verification details</lang></p>
             <!--输入后-->
             <div class="after-input" :class="{ hide: !isChecked }">
-                <lucky11 :number="issueNumber" :result.sync="luck11Result" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
-                <luckycoin :number="issueNumber" :result.sync="luckyCoinResult" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
+                <lucky11 :number="number" :result.sync="luck11Result" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
+                <luckycoin :number="number" :result.sync="luckyCoinResult" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
                 <div class="relate-msg">
                     <p><lang>Reference Information</lang></p>
                     <p>
@@ -86,13 +86,20 @@
     export default {
         data () {
             return {
-                isChecked: false,
                 luck11Result: [],
                 luckyCoinResult: 0,
                 issueNumber: '',
+                type: 'lucky11',
                 params: {
-                    number: '',
-                    type: 'Lucky11'
+                    lucky11: {
+                        number: '',
+                        isChecked: false
+                    },
+                    luckycoin: {
+                        number: '',
+                        isChecked: false
+                    },
+                    type: 'lucky11'
                 }
             }
         },
@@ -105,41 +112,63 @@
                         'lucky11': 1,
                         'luckycoin': 2
                     }[params.type.toLowerCase()] || 1
-                    this.params.type = ['Lucky11', 'Luckycoin'][type - 1]
+                    this.params.type = ['lucky11', 'luckycoin'][type - 1]
+                    this.params.type = this.params.type
                 }
                 if (params.number) {
-                    this.params.number = params.number
-                    this.getData(this.params.number)
+                    this.params[this.params.type].number = params.number
+                    this.issueNumber = this.number
+                    this.getData()
                         .then(() => {
-                            this.isChecked = true
-                            this.issueNumber = this.params.number
+                            this.params[this.params.type].isChecked = true
                         })
                 }
             },
             handleTabClick () {
                 // TODO: 切换tab
+                this.issueNumber = this.number
             },
-            issueInputHandler () {
+            issueInputEnterHandler () {
                 if (this.issueNumber && this.issueNumber.length > 0) {
-                    this.getData(this.issueNumber)
+                    this.getData()
                 }
             },
             verifyHandler () {
-                this.getData(this.issueNumber)
+                this.getData()
             },
-            getData (number) {
+            getData () {
                 return (({
-                    Lucky11: this.$refs.lucky11.getData,
-                    Luckycoin: this.$refs.luckycoin.getData
-                })[this.params.type])(number)
+                    lucky11: this.$refs.lucky11.getData,
+                    luckycoin: this.$refs.luckycoin.getData
+                })[this.params.type])(this.number)
+                    .then(res => {
+                        this.params[this.params.type].isChecked = true
+                        return res
+                    })
+                    .catch(err => {
+                        this.$error(_('查找不到当前期号数据'))
+                        this.params[this.params.type].isChecked = false
+                        return err
+                    })
+            }
+        },
+        watch: {
+            issueNumber (val) {
+                this.params[this.params.type].number = val
             }
         },
         computed: {
             lotid () {
                 return {
-                    Lucky11: 1,
-                    Luckycoin: 2
+                    lucky11: 1,
+                    luckycoin: 2
                 }[this.params.type]
+            },
+            number () {
+                return this.params[this.params.type].number
+            },
+            isChecked () {
+                return this.params[this.params.type].isChecked
             }
         },
         components: {

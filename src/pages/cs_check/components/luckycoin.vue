@@ -109,7 +109,6 @@ export default {
         return {
             showRuleView: false,
             orderLists: [],
-            issueNumber: '',
             merkelValue: '',
             blockid: '',
             blockhash: '',
@@ -143,10 +142,7 @@ export default {
             return Promise.all([
                 this.getCheckData(number),
                 this.getOrderData(number)
-            ]).then(() => {
-                this.issueNumber = number
-                this.isChecked = true
-            })
+            ])
         },
         getOrderData (number = this.number) {
             return (
