@@ -263,8 +263,12 @@ export default {
                     expectid: number,
                     lotid: 1
                 }).then(res => {
-                    this.renderCheckData(res.data.detail)
-                    return res
+                    if (res.data.detail.expect_status === '4' || res.data.detail.expect_status === '5') {
+                        this.renderCheckData(res.data.detail)
+                        return res
+                    } else {
+                        return Promise.reject(new Error('waitting'))
+                    }
                 })
             )
         },
