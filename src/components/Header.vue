@@ -71,7 +71,7 @@
                 <div class="login">
                     <!-- 未登录 -->
                     <div class="act-sign" v-if="!isLog">
-                        <lang>Free 0.001 ETH</lang>
+                        <lang>Free 0.0001 BTC</lang>
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
                         <!--拉新活动提示-->
@@ -157,6 +157,7 @@
                 <div class="cs-faucet" v-if="isLog">
                     <a href="javascript:;" @click="showFaucet" class="btn-faucet">
                     </a>
+                    <p v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
                     <div class="faucet-detailed" :class="{'show':freeWaterPop}">
                         <div class="faucet-title">
                             Free Water
@@ -164,42 +165,24 @@
                         <ul>
                             <li>
                                 <p><lang>Get daily free spins of Slot (Balance less than 0.00005BTC)</lang></p>
-                                <a href="javascript:;" class="btn btn-green"><lang>Free Spins</lang></a>
-                                <a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>
-                                <a href="javascript:;" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
+                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="tasks_2==='1'" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <!--<a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>-->
+                                <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
                                 <p><lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)</lang></p>
-                                <a href="javascript:;" class="btn btn-green"><lang>Free Spins</lang></a>
-                                <a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>
-                                <a href="javascript:;" class="btn btn-yellow"><lang>Top Up</lang></a>
-                                <a href="javascript:;" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='1'" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <!--<a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>-->
+                                <a href="javascript:;" v-if="tasks_3==='-1'" class="btn btn-yellow"><lang>Top Up</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
                                 <p><lang>Get 0.0001BTC (Log in for 7 consecutive days)</lang></p>
-                                <a href="javascript:;" class="btn btn-green"><lang>Free Spins</lang></a>
-                                <a href="javascript:;" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
-                                <a href="javascript:;" class="btn btn-yellow">{{ _('{0}/7 Days', 4 ) }}</a>
+                                <a href="javascript:;" v-if="tasks_4==='-1'" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
+                                <a href="javascript:;" class="btn btn-yellow">{{ _('{0}/7 Days', tasks_day ) }}</a>
                             </li>
-
-                            <!--<li>-->
-                                <!--<p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i-->
-                                    <!--class="bold">2/2</i> a day</p>-->
-                                <!--<a href="javascript:;" class="btn btn-green">Get</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<p>Recharge 0.01 ETH and give extra free slot machines</p>-->
-                                <!--<a href="javascript:;" class="btn btn-yellow">Deposit</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<p>Login for 0.001 ETH for 7 consecutive days，Logged in for <i class="bold">2 / 7</i>-->
-                                    <!--day</p>-->
-                                <!--<a href="javascript:;" class="btn btn-gray">Get</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i class="bold">2/2</i> a day</p>-->
-                                <!--<a href="javascript:;" class="btn btn-ok"></a>-->
-                            <!--</li>-->
 
                         </ul>
                     </div>
@@ -275,7 +258,12 @@
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
-                isShowChoose: false
+                isShowChoose: false,
+                received_counter: 0, // 已完成未领取数量
+                tasks_2: '-1',
+                tasks_3: '-1',
+                tasks_4: '-1',
+                tasks_day: '0'
             }
         },
         watch: {
@@ -382,26 +370,34 @@
             async showFaucet () {
                 /* free water  请求列表接口 new */
                 if (!this.freeWaterPop) {
-                    // let taskMsg = this.$store.dispatch('faucetTask')
-                    let taskMsg = {
-                        data: {
-                            not_received_counter: '1',
-                            tasks: [
-                                {
-                                    'task': '1',
-                                    'status': '1'
-                                }, {
-                                    'task': '2',
-                                    'status': '0'
-                                }, {
-                                    'task': '3',
-                                    'status': '2'
-                                }]
+                    let taskMsg = await this.$store.dispatch('faucetTask')
+                    if (taskMsg && taskMsg.status === '100') {
+                        this.received_counter = taskMsg.data.not_received_counter
+                        if (taskMsg.data.tasks) {
+                            taskMsg.data.tasks.forEach((item, index) => {
+                                if (item.task === '2') {
+                                    if (item.info) {
+                                        this.tasks_2 = item.info.status
+                                    }
+                                }
+                                if (item.task === '3') {
+                                    if (item.info) {
+                                        this.tasks_3 = item.info.status
+                                    }
+                                }
+                                if (item.task === '4') {
+                                    if (item.info) {
+                                        this.tasks_4 = item.info.status
+                                    }
+                                }
+                            })
+                        }
+                        if(taskMsg.data.sign_days !== undefined){
+                            this.tasks_day = taskMsg.data.sign_days
                         }
                     }
                     console.log(taskMsg)
                     console.log('======taskMsg======')
-
                 }
                 this.freeWaterPop = !this.freeWaterPop
             },

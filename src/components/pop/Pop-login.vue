@@ -41,7 +41,7 @@
                 <lang>Import Wallet</lang>
             </a>
             <div class="act-sign">
-                <lang>for free 0.001ETH</lang>
+                <lang>for free 0.0001 BTC</lang>
             </div>
         </div>
     </Pop>
