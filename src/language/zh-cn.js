@@ -8,7 +8,7 @@ module.exports = {
     'Come Tomorrow': '明日再来',
     'Top Up': '去充值',
     '{0}/7 Days': '已登录{0}天',
-
+    'F3d west': '造梦西游',
     'Sign In / Up': '登录 / 注册',
     'Deposit': '充值',
     'Withdraw': '提款',
