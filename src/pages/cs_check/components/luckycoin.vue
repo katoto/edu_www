@@ -1,9 +1,9 @@
 <template>
-    <div class="lucky11-page">
+    <div class="lucky11-page" v-if="state === '4'">
         <div class="step-title">
             {{ _('Lottery number generation process') }}&nbsp;&nbsp;&nbsp;&nbsp;{{ number }}
         </div>
-        <template v-if="blockid !== null">
+        <div>
             <!--用户信息-->
             <div class="item item1">
                 <a href="javascript:;" class="btn-copy"
@@ -73,7 +73,7 @@
                     </p>
                     <div class="address">{{prehash}}<i class="special">{{last7Hash}}</i></div>
                     <p class="p2">
-                        <lang>2 step : For the above results, divided by the total number of the current period 49, the result is +10000, which is the result of the lottery.</lang>
+                        <lang>2 step : For the above results, divided by the total number of the current period {{totalBids}}, the result is +10001, which is the result of the lottery.</lang>
                     </p>
                     <div>
                         <i class="special">{{modNumber}}</i>mod {{totalBids}} = {{modResult0}} x {{totalBids}} + {{modResult1}}
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </div>
     </div>
 </template>
 
@@ -103,7 +103,11 @@ export default {
             required: true
         },
         result: {
-            type: Number,
+            type: String,
+            required: true
+        },
+        status: {
+            type: String,
             required: true
         }
     },
@@ -119,7 +123,8 @@ export default {
             modNumber: '',
             totalBids: '',
             modResult0: 0,
-            modResult1: 0
+            modResult1: 0,
+            state: '0'
         }
     },
     methods: {
@@ -159,7 +164,7 @@ export default {
             )
         },
         renderCheckData (res) {
-            this.merkelValue = res.merkelHash
+            this.merkelValue = res.merkelHash || _('None')
             this.blockid = res.blockNum
             this.blockhash = res.tradeHash
             this.totalBids = Number(res.totalBids)
@@ -168,14 +173,32 @@ export default {
             this.modNumber = parseInt(this.last7Hash, 16)
             this.modResult0 = parseInt(accDiv(this.modNumber, this.totalBids), 10)
             this.modResult1 = this.modNumber % this.totalBids
-            this.$emit('update:result', this.modResult1 + 10001)
+            this.state = res.state
+            this.renderResult()
         },
         renderOrderData (res) {
             if (res && res.length > 0) {
                 this.orderLists = [...this.formatDrawOrderList(res)]
             } else {
                 // TODO 没有订单数据以及默克尔值如何显示 整块隐藏
+                this.orderLists = [_('There is no bet on this draw, the result uses the hash of the last block.')]
             }
+        },
+        renderResult () {
+            let thisResult
+            let thisStatus
+            if (this.state === '4') {
+                thisResult = (this.modResult1 + 10001).toString()
+                thisStatus = 'normal'
+            } else if (this.state === '5') {
+                thisResult = _('该期未筹满人次，所有资金已返还给投注的用户')
+                thisStatus = 'expired'
+            } else {
+                thisResult = _('当前期次未开奖')
+                thisStatus = 'wait'
+            }
+            this.$emit('update:result', thisResult)
+            this.$emit('update:status', thisStatus)
         },
         formatDrawOrderList (orders) {
             return orders.map(order => {

@@ -5,6 +5,7 @@ import storeFactory from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 import lanaguage from './plugins/language'
+import message from './plugins/message'
 import vueClipboard from 'vue-clipboard2'
 // 全局
 // import ElementUI from 'element-ui'
@@ -58,6 +59,8 @@ const store = storeFactory()
 sync(store, router)
 
 Vue.use(lanaguage, store)
+Vue.use(message, store)
+
 Vue.use(vueClipboard)
 
 const app = new Vue(Object.assign({
