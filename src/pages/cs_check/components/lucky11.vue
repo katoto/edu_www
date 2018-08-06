@@ -67,7 +67,7 @@
                 <lang>Blockchain hash value</lang>
             </div>
             <!--11选5-->
-            <div class="result-lucky11" v-if="params.type === 'Lucky11'">
+            <div class="result-lucky11">
                 <p class="p1">
                     <lang>1 step : 25 places after the draw Hash value, divided into 5 parts, respectively A1, A2, A3, A4, A5</lang>
                 </p>
@@ -207,28 +207,6 @@
                 </div>
 
             </div>
-            <!--一元夺币-->
-            <div class="result-onecoin" v-if="params.type === 'Luckycoin'">
-                <p class="p1">
-                    <lang>1 step : to take the 6 digits after the bonus Hash value and convert the hexadecimal to decimal.</lang>
-                </p>
-                <div class="address">0x458QAD412424994A8283A01D6CFeEB27F<i class="special">c3bBe9C</i></div>
-                <p class="p2">
-                    <lang>2 step : For the above results, divided by the total number of the current period 49, the result is +10000, which is the result of the lottery.</lang>
-                </p>
-                <div>
-                    <i class="special">13459</i>mod 49 = 274 x 49 + 33
-                </div>
-                <div>
-                    33 + 10000 = <i class="special">10033</i>
-                </div>
-                <p class="p3">
-                    <lang>In summary, the lottery number</lang>
-                </p>
-                <div class="finally-result">
-                    10033
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -270,11 +248,7 @@ export default {
             hashNumberA2: [],
             hashNumberA3: [],
             hashNumberA4: [],
-            hashNumberA5: [],
-            params: {
-                number: '',
-                type: 'Lucky11'
-            }
+            hashNumberA5: []
         }
     },
     methods: {
