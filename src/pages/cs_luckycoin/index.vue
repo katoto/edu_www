@@ -810,6 +810,12 @@
                                 gm**@gmail.com gm**@gmail.comm**@gmail.com gm**@gmail.com
                             </div>
                         </div>
+                        <p class="msg hidden-xs hidden-sm">
+                            Fair Open，Draw in blockchain
+                        </p>
+                        <router-link :to="{path: '/check'}" class="btn-play">
+                            <lang>Check Transparency</lang>
+                        </router-link>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <div class="history icon-eth ">
