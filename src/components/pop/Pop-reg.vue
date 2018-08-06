@@ -37,7 +37,7 @@
             <p>
                 <lang>Already Have Account？</lang>
                 <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">
-                    <lang>Sign In</lang>
+                    <lang>Log In</lang>
                 </a>
             </p>
         </div>

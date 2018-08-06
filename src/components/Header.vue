@@ -139,7 +139,7 @@
                                     </ul>
                                 </div>
                                 <a href="javascript:;" @click="signOut" class="log-out">
-                                    <lang>Sign Out</lang>
+                                    <lang>Log Out</lang>
                                 </a>
                             </div>
                         </div>
@@ -464,7 +464,9 @@
                 }
             }
             setTimeout(() => {
-                this.faucetTask()
+                if(this.isLog){
+                    this.faucetTask()
+                }
             }, 2000)
         }
     }
