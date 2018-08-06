@@ -61,10 +61,6 @@
                             <img :src="item.lanLogo" width="27" height="15" alt="">
                             <span>{{ item.label }}</span>
                         </li>
-                        <!--<li>-->
-                        <!--<img src="../assets/slice/lan-cn.jpg" width="27" height="15" alt="">-->
-                        <!--<span>中文(繁)</span>-->
-                        <!--</li>-->
                     </ul>
                 </div>
                 <!-- 登录  -->
@@ -75,7 +71,6 @@
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
                         <!--拉新活动提示-->
-                        <!--<lang>Sign In / Up</lang>-->
                         <lang>Log In / Sign Up</lang>
                     </a>
                     <!-- 登录 -->
@@ -156,9 +151,11 @@
 
                 <!--拉新活動 on 水龙头new -->
                 <div class="cs-faucet" v-if="isLog">
-                    <a href="javascript:;" @click="showFaucet" class="btn-faucet">
-                    </a>
-                    <p v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
+                    <div>
+                        <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
+                        </a>
+                        <p class="redPoint" style="" v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
+                    </div>
                     <div class="faucet-detailed" :class="{'show':freeWaterPop}">
                         <div class="faucet-title">
                             Free Water
@@ -259,7 +256,7 @@
                 isShowMycount: false,
                 isChooseCoin: false,
                 isShowChoose: false,
-                received_counter: 0, // 已完成未领取数量
+                received_counter: 10, // 已完成未领取数量
                 tasks_2: '-1',
                 tasks_3: '-1',
                 tasks_4: '-1',
@@ -404,10 +401,10 @@
                     this.showLight = true
                 }, 800)
             },
-            async faucetTask(){
+            async faucetTask () {
                 let taskMsg = await this.$store.dispatch('faucetTask')
                 if (taskMsg && taskMsg.status === '100') {
-                    this.received_counter = taskMsg.data.not_received_counter
+                    // this.received_counter = taskMsg.data.not_received_counter
                     if (taskMsg.data.tasks) {
                         taskMsg.data.tasks.forEach((item, index) => {
                             if (item.task === '2' || item.task === '3' || item.task === '4') {
@@ -464,7 +461,7 @@
                 }
             }
             setTimeout(() => {
-                if(this.isLog){
+                if (this.isLog) {
                     this.faucetTask()
                 }
             }, 2000)
@@ -847,6 +844,18 @@
         position: relative;
         float: right;
         margin: 21px 22px 0 0;
+        .redPoint{
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff1b0e;
+            border-radius: 50%;
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
         .btn-faucet {
             display: block;
             width: 19px;
