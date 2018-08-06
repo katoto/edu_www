@@ -17,6 +17,7 @@ const state = {
         name: '',
         num: '',
         type: '',
+        exceptId: '',
         isShow: false
     }
 }
@@ -78,6 +79,13 @@ const mutations = {
 
     // 个人获奖弹窗
     showMyWin (state, params) {
+        state.selfWin = {
+            isShow: true,
+            name: '',
+            num: params.goodsValue,
+            type: formateCoinType(params.goodsType),
+            exceptId: params.exceptId
+        }
     },
     hideMyWin (state) {
         state.selfWin.isShow = false
@@ -165,14 +173,13 @@ const actions = {
     },
 
     updateBets ({ dispatch, commit }, params = {}) {
-        if (params.state === '4') {
+        if (params && params.state === '4') {
             if (
                 this.state.userInfo &&
                 this.state.userInfo.uid &&
                 params.winUid.toString() === this.state.userInfo.uid
             ) {
-                // 当前用户获奖
-                console.log('迭代二开发')
+                commit('showMyWin', params)
             } else {
                 // 其他用户获奖
                 commit('showOtherWin', params)

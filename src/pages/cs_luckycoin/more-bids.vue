@@ -226,6 +226,7 @@ export default {
             }
         },
         handleTabClick () {
+            this.$router.replace(this.activeName === 'bids' ? '/luckycoin/moreBids' : '/luckycoin/drawHistory')
             this.filter = 'All Bets'
             this.refreshPage()
         },

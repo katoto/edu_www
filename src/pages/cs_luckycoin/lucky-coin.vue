@@ -12,13 +12,13 @@
                 <div class="bounceIn animated">
                     <a href="javascript:;" class="close" @click="hideMyWin"></a>
                     <p class="p1">Congratulate! </p>
-                    <p class="p2">you have just won No.187468</p>
+                    <p class="p2">you have just won No.{{selfWin.exceptId}}</p>
                     <p class="p3">
-                        +10<i>ETH</i>
+                        +{{selfWin.num}}<i>{{selfWin.type}}</i>
                     </p>
-                    <a href="javascript:;" class="btn-see">
-                        See My Bids
-                    </a>
+                    <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-see" @click="hideMyWin">
+                        <lang>See My Bids</lang>
+                    </router-link>
                 </div>
             </div>
         </div>

@@ -106,7 +106,7 @@
         <div class="bet- bet-normal " :class="{show:windowClass === 'normal'}">
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
             <div class="bet-t">
-                <span>Bid for</span> 0.5 <i>BTC</i>
+                <span>Bid for</span> {{ this.betData.goodsValue }} <i>{{ coinText }}</i>
             </div>
             <p class="bet-m1">
                 Bet Amount
