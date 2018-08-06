@@ -256,7 +256,7 @@
                 isShowMycount: false,
                 isChooseCoin: false,
                 isShowChoose: false,
-                received_counter: 10, // 已完成未领取数量
+                received_counter: 0, // 已完成未领取数量
                 tasks_2: '-1',
                 tasks_3: '-1',
                 tasks_4: '-1',
@@ -404,7 +404,7 @@
             async faucetTask () {
                 let taskMsg = await this.$store.dispatch('faucetTask')
                 if (taskMsg && taskMsg.status === '100') {
-                    // this.received_counter = taskMsg.data.not_received_counter
+                    this.received_counter = taskMsg.data.not_received_counter
                     if (taskMsg.data.tasks) {
                         taskMsg.data.tasks.forEach((item, index) => {
                             if (item.task === '2' || item.task === '3' || item.task === '4') {
@@ -846,8 +846,8 @@
         margin: 21px 22px 0 0;
         .redPoint{
             position: absolute;
-            top: -10px;
-            right: -10px;
+            top: -8px;
+            right: -8px;
             background-color: #ff1b0e;
             border-radius: 50%;
             color: #fff;
