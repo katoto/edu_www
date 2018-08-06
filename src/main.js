@@ -29,7 +29,8 @@ locale.use(lang)
 locale.i18n((key, value) => {
     return {
         'el.table.emptyText': _('No Data'),
-        'el.pagination.goto': _('go to')
+        'el.pagination.goto': _('go to'),
+        'el.pagination.pagesize': ''
     }[key]
 })
 
