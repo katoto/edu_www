@@ -166,24 +166,23 @@
                             <li>
                                 <p><lang>Get daily free spins of Slot (Balance less than 0.00005BTC)</lang></p>
                                 <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spins</lang></a>
-                                <a href="javascript:;" v-if="tasks_2==='1'" class="btn btn-green"><lang>Free Spins</lang></a>
-                                <!--<a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>-->
+                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
                                 <p><lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)</lang></p>
-                                <a href="javascript:;" v-if="tasks_3==='1'" class="btn btn-green"><lang>Free Spins</lang></a>
-                                <!--<a href="javascript:;" class="btn btn-yellow"><lang>Play</lang></a>-->
-                                <a href="javascript:;" v-if="tasks_3==='-1'" class="btn btn-yellow"><lang>Top Up</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Top Up</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" v-if="tasks_3==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
                                 <p><lang>Get 0.0001BTC (Log in for 7 consecutive days)</lang></p>
-                                <a href="javascript:;" v-if="tasks_4==='-1'" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('tasks_4',tasks_4)" class="btn btn-green"><lang>Free Spins</lang></a>
                                 <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
-                                <a href="javascript:;" class="btn btn-yellow">{{ _('{0}/7 Days', tasks_day ) }}</a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'||tasks_4!=='1')" class="btn btn-yellow">{{ _('{0}/7 Days', tasks_day ) }}</a>
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -311,6 +310,42 @@
             formateBalance,
             copySucc,
             copyError,
+            async taskClick (type, val) {
+                val = val.toString()
+                if (val === '2') {
+                    this.$router.push('/slot')
+                    return false
+                }
+                if (val === '-1' && type === 'task_3') {
+                    this.$router.push('/account/deposit')
+                    return false
+                }
+                if (val === '1') {
+                    /* 领取 */
+                    let taskid = null
+                    switch (type) {
+                    case 'task_2':
+                        taskid = 2
+                        break
+                    case 'task_3':
+                        taskid = 3
+                        break
+                    case 'task_4':
+                        taskid = 4
+                        break
+                    }
+                    let faucetGet = await this.$store.dispatch('faucetGet', taskid)
+                    if (faucetGet && faucetGet.status === '100') {
+                        this.showFaucet()
+                    } else {
+                        this.$message({
+                            message: 'faucetGet error',
+                            type: 'error',
+                            duration: 1500
+                        })
+                    }
+                }
+            },
             handleLanguageChange (val) {
                 this.$store.commit('changeLanguage', val)
             },
@@ -375,29 +410,21 @@
                         this.received_counter = taskMsg.data.not_received_counter
                         if (taskMsg.data.tasks) {
                             taskMsg.data.tasks.forEach((item, index) => {
-                                if (item.task === '2') {
+                                if (item.task === '2' || item.task === '3' || item.task === '4') {
                                     if (item.info) {
-                                        this.tasks_2 = item.info.status
-                                    }
-                                }
-                                if (item.task === '3') {
-                                    if (item.info) {
-                                        this.tasks_3 = item.info.status
-                                    }
-                                }
-                                if (item.task === '4') {
-                                    if (item.info) {
-                                        this.tasks_4 = item.info.status
+                                        this['tasks_' + item.task] = item.info.status
                                     }
                                 }
                             })
                         }
-                        if(taskMsg.data.sign_days !== undefined){
+                        if (taskMsg.data.sign_days !== undefined) {
                             this.tasks_day = taskMsg.data.sign_days
                         }
+                        if (parseFloat(taskMsg.data.free) > 0) {
+                            this.tasks_2 = 2
+                            this.tasks_3 = 2
+                        }
                     }
-                    console.log(taskMsg)
-                    console.log('======taskMsg======')
                 }
                 this.freeWaterPop = !this.freeWaterPop
             },

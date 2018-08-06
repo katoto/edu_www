@@ -160,9 +160,12 @@ const mutations = {
 const actions = {
     /* 水龙头邀请 */
     async faucetTask ({commit, dispatch}) {
-        return ajax.get(`/faucet/tasks?ck=${getCK()}`)
+        return ajax.get(`/faucet/tasks`)
     },
-
+    /* 水龙头领取 */
+    async faucetGet ({commit, dispatch}, taskid) {
+        return ajax.get(`/faucet/qw?task_id=${taskid}`)
+    },
     /* login 登陆 */
     async userLogin ({commit, dispatch}, pageData) {
         try {
