@@ -88,57 +88,100 @@
             </div>
 
             <!--开奖明细弹窗-->
-            <div class="pop pop-reward" :class="{'hide':!showPop_reward}" style="text-transform: none">
+            <!-- :class="{'hide':!showPop_reward}"-->
+            <div class="pop pop-reward">
                 <div class="pop-body">
                     <div class="pop-ani">
                         <div class="pop-main">
                             <a href="javascript:;" class="btn-close" @click="closePop_reward">关闭</a>
-                            <h3>
+                            <h3 class="font26">
                                 <lang>Draw Details</lang>
                             </h3>
-                            <div class="view-header">
-                                <div class="fl">
-                                    <p>
-                                        <lang>Number on the block</lang>
-                                    </p>
-                                    <span class="random-block ">
+                            <div class="hide">
+                                <div class="view-header">
+                                    <div class="fl">
+                                        <p>
+                                            <lang>Number on the block</lang>
+                                        </p>
+                                        <span class="random-block ">
                                         <a class="js_random_block" target="_blank" :href="popRewardMsg.jumpEthUrl">{{ popRewardMsg.blocknum }}</a>
                                     </span>
+                                    </div>
+                                    <div class="fr">
+                                        <p>
+                                            <lang>No.</lang>
+                                        </p>
+                                        <span class="nper js_nper">{{ popRewardMsg.expectid }}</span>
+                                    </div>
                                 </div>
-                                <div class="fr">
+                                <div class="view-hash">
                                     <p>
-                                        <lang>No.</lang>
+                                        <lang>Hash on the block</lang>
                                     </p>
-                                    <span class="nper js_nper">{{ popRewardMsg.expectid }}</span>
+                                    <span class="js_randomHash"> {{ popRewardMsg.blockhash }} </span>
+                                </div>
+                                <div v-if="popRewardMsg.merkel_hash!==''" class="js_show_calcul_show">
+                                    <div class="view-process">
+                                        <p>
+                                            <lang>Calculating Process</lang>
+                                        </p>
+                                        <span class="js_calAddr">{{ popRewardMsg.merkel_hash }}</span>
+                                    </div>
+                                    <div class="node">
+                                        <p>
+                                            <lang>Note:</lang><br/>
+                                            <lang>All order information of the current period will eventually generate a hash value through the Merkel tree algorithm. This hash value will be uploaded to the Ethereum chain. The hash value is verified by the open class so that the bet cannot be tampered with.</lang>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div v-else class="js_show_calcul_hide">
+                                    <div class="node">
+                                        <p>
+                                            <lang>Note:</lang><br/>
+                                            <lang>If there is no bet on this draw, the result will use the hash of the last block.</lang>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="view-hash">
+                            <div class="no">
                                 <p>
-                                    <lang>Hash on the block</lang>
+                                    No:
                                 </p>
-                                <span class="js_randomHash"> {{ popRewardMsg.blockhash }} </span>
+                                <span>
+                                    1806051503
+                                </span>
                             </div>
-                            <div v-if="popRewardMsg.merkel_hash!==''" class="js_show_calcul_show">
-                                <div class="view-process">
-                                    <p>
-                                        <lang>Calculating Process</lang>
-                                    </p>
-                                    <span class="js_calAddr">{{ popRewardMsg.merkel_hash }}</span>
-                                </div>
-                                <div class="node">
-                                    <p>
-                                        <lang>Note:</lang><br/>
-                                        <lang>All order information of the current period will eventually generate a hash value through the Merkel tree algorithm. This hash value will be uploaded to the Ethereum chain. The hash value is verified by the open class so that the bet cannot be tampered with.</lang>
-                                    </p>
-                                </div>
+                            <div class="block">
+                                <p>
+                                    Block:
+                                </p>
+                                <a href="javascript:;">
+                                    #5735198
+                                </a>
                             </div>
-                            <div v-else class="js_show_calcul_hide">
-                                <div class="node">
-                                    <p>
-                                        <lang>Note:</lang><br/>
-                                        <lang>If there is no bet on this draw, the result will use the hash of the last block.</lang>
-                                    </p>
-                                </div>
+                            <div class="araw">
+                                <p>
+                                    Draw Hash:
+                                </p>
+                                <span>
+                                    0xb547659da637f5c2ecdf1671bf85bee5f9094c0cba4a8e7e131f5968482a2691
+                                </span>
+                            </div>
+                            <div class="merkle">
+                                <p>
+                                    Draw Hash:
+                                </p>
+                                <span>
+                                    0xb547659da637f5c2ecdf1671bf85bee5f9094c0cba4a8e7e131f5968482a2691
+                                </span>
+                            </div>
+                            <div class="note">
+                                <p>
+                                    Note:
+                                </p>
+                                <p>
+                                    If there is no bet on this draw, the result will use the hash of the last block.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -296,73 +339,7 @@
         .pop-main {
             padding-bottom: 30px;
         }
-        p {
-            line-height: 12px;
-            font-size: 12px;
-            color: #778ca3;
-        }
-        .view-header {
-            margin-top: 26px;
-            overflow: hidden;
-            .fl {
-                max-width: 67%;
-                overflow: hidden;
-                text-align: left;
-            }
-            .fr {
-                max-width: 32%;
-                overflow: hidden;
-                text-align: right;
-            }
-        }
-        .random-block {
-            position: relative;
-            width: 100%;
-            display: block;
-            line-height: 33px;
-            font-size: 26px;
-            font-weight: bold;
-            .text-overflow();
-            &:hover {
-                &::before {
-                    color: #263648;
-                }
-            }
-            &::before {
-                .transition();
-                content: "#";
-                color: #6a89cc;
-            }
-        }
-        .nper {
-            width: 100%;
-            display: block;
-            line-height: 33px;
-            .text-overflow();
-        }
-        .view-hash {
-            margin-top: 32px;
-        }
-        .view-process {
-            margin-top: 10px;
-        }
-        .view-hash,
-        .view-process,
-        .node {
-            text-align: justify;
-            word-break: break-all;
-            span {
-                display: block;
-                margin-top: 6px;
-                line-height: 24px;
-            }
-        }
-        .node {
-            margin-top: 20px;
-            p {
-                line-height: 16px;
-            }
-        }
+
     }
 
     //开奖列表table

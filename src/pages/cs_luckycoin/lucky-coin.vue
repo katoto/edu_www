@@ -8,7 +8,7 @@
             Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
         </div>
         <div class="self-winning" :class="{show:selfWin.isShow}">
-            <div class="main">
+            <div class="main2">
                 <div class="bounceIn animated">
                     <a href="javascript:;" class="close" @click="hideMyWin"></a>
                     <p class="p1">Congratulate! </p>
@@ -120,7 +120,7 @@ export default {
         height: 100%;
         background: rgba(0,0,0,0.7);
         z-index: 9;
-        .main{
+        .main2{
             width: 544px;
             height: 100%;
             position: absolute;

@@ -25,7 +25,36 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <bet-box :bet="betsList[0]" :is-popular="true"></bet-box>
+                        <!--新手引导-->
+                        <!--for-new-->
+                        <bet-box class="" :bet="betsList[0]" :is-popular="true"></bet-box>
+                        <div class="pop-mask  hide"></div>
+                        <div class="pop-new  hide">
+                            <div class="step bounceIn animated step1">
+                                <p>
+                                    Here is the bonus: pick a lucky <br>
+                                    user through the blockchain
+                                </p>
+                                <a href="javascript:;" class="btn-next">Next</a>
+                                <img src="../../assets/img/oneToken/line.png" alt="">
+                            </div>
+                            <div class="step bounceIn animated step2">
+                                <p>
+                                    Here is the remaining bet amount:  <br>
+                                    you can draw a lot when you buy it..
+                                </p>
+                                <a href="javascript:;" class="btn-next">Next</a>
+                                <img src="../../assets/img/oneToken/line.png" alt="">
+                            </div>
+                            <div class="step bounceIn animated step3">
+                                <img src="../../assets/img/oneToken/line.png" alt="">
+                                <p>
+                                    Click here to bet: the more bets,<br>
+                                    the higher the probability of winning.
+                                </p>
+                                <a href="javascript:;" class="btn-next">ok</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -145,6 +174,102 @@
     }
 </script>
 
-<style scoped lang="less" type="text/less">
+<style scope lang="less" type="text/less">
+    .page-luckycoin{
+        .carousel__arrow{
+            display: none;
+        }
+    }
+    .for-new{
+        position: relative;
+        z-index: 11;
+    }
+    .pop-mask{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 9;
+    }
+    .pop-new{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 12;
+        text-align: center;
+        font-size: 20px;
+        color: #ffdd8e;
+        .new-main{
+            position: relative;
+            width: 100%;
+            max-width: 1190px;
+            margin: 0 auto;
+        }
+        .btn-next{
+            display: table;
+            padding: 0 16px;
+            min-width: 67px;
+            margin: 6px auto 0;
+            line-height: 28px;
+            color: #fff;
+            background: #20bf6b;
+            border-radius: 6px;
+            &:hover{
+                filter:brightness(1.1);
+            }
+        }
+        .step{
+            display: none;
+            position: relative;
+            z-index: 12;
+            animation: bounceIn 1s;
+        }
+        .step1{
+            display: block;
+            position: absolute;
+            left: -170px;
+            top: -75px;
+            img{
+                display: block;
+                position: absolute;
+                top: 86px;
+                left: 50%;
+            }
+        }
+        .step2{
+            position: absolute;
+            top: 60px;
+            left: -86%;
+            img{
+                display: block;
+                position: absolute;
+                top: 52px;
+                right: -32px;
+                transform:scaleY(-1) rotateZ(-90deg);
+            }
+        }
+        .step3{
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            bottom: -140px;
+            transform: translateX(-50%);
+            img{
+                display: block;
+                margin: 0 auto 15px;
+                transform: rotateZ(120deg) scaleX(-1);
+            }
+        }
+    }
+    /* lg大屏幕（大桌面显示器，大于等于 1200px） */
 
+    @media (max-width: 1200px) {
+        .pop-mask,.pop-new{
+            display: none;
+        }
+    }
 </style>

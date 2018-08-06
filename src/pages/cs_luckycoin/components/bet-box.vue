@@ -13,22 +13,13 @@
         <div class="match-img" :class="[coin.boxClass]">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
                 <defs>
-                    <!--写死黄色，颜色需要再调整-->
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
-                        <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
-                        <stop offset="100%" stop-color="#fdc90c"></stop>
+                        <stop offset="0%" stop-color="#f7aa17"></stop>
+                        <stop offset="100%" stop-color="#f19221"></stop>
                     </linearGradient>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
-                        <stop offset="0%" stop-color="#fdc90c"></stop>
-                        <stop offset="100%" stop-color="#f9c600"></stop>
-                    </linearGradient>
-                    <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
-                        <stop offset="0%" stop-color="#62f7d9"></stop>
-                        <stop offset="100%" stop-color="#5ed9eb"></stop>
-                    </linearGradient>
-                    <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
-                        <stop offset="0%" stop-color="#53b8f0"></stop>
-                        <stop offset="100%" stop-color="#5ed9eb"></stop>
+                        <stop offset="0%" stop-color="#ef8a25"></stop>
+                        <stop offset="100%" stop-color="#f19221"></stop>
                     </linearGradient>
                 </defs>
                 <g transform="matrix(0,-1,1,0,0,102)">
@@ -37,7 +28,7 @@
                         cx="51"
                         cy="51"
                         r="47"
-                        stroke="url(#yellowColor2)"
+                        stroke="url(#yellowColor1)"
                         stroke-width="8"
                         fill="transparent"
                         :stroke-dasharray="`${rate>148?rate:0} 296`"
@@ -46,7 +37,7 @@
                         cx="51"
                         cy="51"
                         r="47"
-                        stroke="url(#yellowColor1)"
+                        stroke="url(#yellowColor2)"
                         stroke-width="8"
                         fill="transparent"
                         :stroke-dasharray="`${rate > 148 ? 148 : rate} 296`"
