@@ -53,16 +53,16 @@ const slot = () =>
 
 /* 一元夺币 */
 const luckycoin = () =>
-    import('~/pages/cs_luckycoin/lucky-coin')
+    import('~/pages/cs_luckycoin_bak/lucky-coin')
 
 const luckcoinIndex = () =>
-    import('~/pages/cs_luckycoin/index')
+    import('~/pages/cs_luckycoin_bak/index')
 
 const luckcoinMoreBids = () =>
-    import('~/pages/cs_luckycoin/more-bids')
+    import('~/pages/cs_luckycoin_bak/more-bids')
 
 const luckycoinDrawHistory = () =>
-    import('~/pages/cs_luckycoin/draw-history')
+    import('~/pages/cs_luckycoin_bak/draw-history')
 
 const Home = () =>
     import('~/pages/cs_home/home')
@@ -183,11 +183,11 @@ let routesArr = [{
     }
     ]
 },
-    {
-        path: '/*',
-        name: _('Home'),
-        component: Home
-    }
+{
+    path: '/*',
+    name: _('Home'),
+    component: Home
+}
 ]
 
 //     linkActiveClass: 'on',

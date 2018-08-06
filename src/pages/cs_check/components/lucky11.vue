@@ -229,7 +229,6 @@ export default {
     data () {
         return {
             showRuleView: false,
-            isChecked: false,
             orderLists: [],
             issueNumber: '',
             merkelValue: '',
@@ -264,7 +263,6 @@ export default {
                     expectid: number,
                     lotid: 1
                 }).then(res => {
-                    console.log(res)
                     this.renderCheckData(res.data.detail)
                     return res
                 })
@@ -276,7 +274,6 @@ export default {
                 this.getOrderData(number)
             ]).then(() => {
                 this.issueNumber = number
-                this.isChecked = true
             })
         },
         getOrderData (number = this.number) {
@@ -292,7 +289,7 @@ export default {
         },
         renderCheckData (res) {
             if (res.merkel_hash === '') {
-                this.merkelValue = 'None'
+                this.merkelValue = _('None')
             } else {
                 this.merkelValue = res.merkel_hash
             }
@@ -306,7 +303,7 @@ export default {
                 this.orderLists = [...this.formatDrawOrderList(res)]
             } else {
                 // TODO 没有订单数据以及默克尔值如何显示
-                this.orderLists = ['There is no bet on this draw, the result uses the hash of the last block.']
+                this.orderLists = [_('There is no bet on this draw, the result uses the hash of the last block.')]
             }
         },
         mod (hash, num) {

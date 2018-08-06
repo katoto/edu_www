@@ -12,7 +12,15 @@
                 <div class="check-enter">
                     <h2><lang>Check the results</lang></h2>
                     <input type="text" :placeholder="_('Enter the issue number')" v-model="issueNumber" @keyup.enter="issueInputEnterHandler">
-                    <p><lang>The issue number can be viewed in the </lang><a href="javascript:;"><lang>draw record</lang></a></p>
+                    <p>
+                        <lang>The issue number can be viewed in the </lang>
+                        <a href="/luckycoin/drawHistory" target="_blank" v-if="params.type === 'luckycoin'">
+                            <lang>draw record</lang>
+                        </a>
+                        <a href="/drawNumber" target="_blank" v-if="params.type === 'lucky11'">
+                            <lang>draw record</lang>
+                        </a>
+                    </p>
                 </div>
                 <a href="javascript:;" class="btn-verification" @click="verifyHandler"><lang>Verification</lang></a>
                 <!--rollIn animated-->
@@ -24,8 +32,9 @@
                             <li v-for="(item, index) in luck11Result" :key="index">{{item}}</li>
                         </ul>
                         <!--LuckyCoin-->
-                        <div v-if="params.type === 'luckycoin'">
-                            {{luckyCoinResult.toString()}}
+                        <!--luckyCoinStatus: normal 已开奖，wait 未开奖，expired 过期 -->
+                        <div v-if="params.type === 'luckycoin'" :class="[luckyCoinStatus]">
+                            {{luckyCoinResult}}
                         </div>
                     </div>
                 </div>
@@ -35,7 +44,7 @@
                 <div class="step-title">
                     <lang>Check the results</lang>
                 </div>
-                <div class="step-view bounce animated delay-2s">
+                <div class="step-view bounce animated delay-2s" ref="errorCt">
                     <ul>
                         <li v-lang="'User order<br/>information'">
                         </li>
@@ -55,14 +64,14 @@
             <!--输入后-->
             <div class="after-input" :class="{ hide: !isChecked }">
                 <lucky11 :number="number" :result.sync="luck11Result" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
-                <luckycoin :number="number" :result.sync="luckyCoinResult" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
+                <luckycoin :number="number" :result.sync="luckyCoinResult" :status.sync="luckyCoinStatus" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
                 <div class="relate-msg">
                     <p><lang>Reference Information</lang></p>
                     <p>
-                        <lang>1. What is a</lang> <a href="javascript:;"><lang>hash value</lang></a> <lang>And</lang> <a href="javascript:;"><lang>online hash calculations</lang></a>?
+                        <lang>1. What is a</lang> <a href="https://en.wikipedia.org/wiki/Hash" target="_blank"><lang>hash value</lang></a> <lang>And</lang> <a href="https://www.tools4noobs.com/online_tools/hash" target="_blank"><lang>online hash calculations</lang></a>?
                     </p>
                     <p>
-                        <lang>2. What is the</lang> <a href="javascript:;"><lang>Merkel value</lang></a>?
+                        <lang>2. What is the</lang> <a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank"><lang>Merkel value</lang></a>?
                     </p>
                     <p>
                         <lang>3. Ethereum transaction inquiry entrance.</lang>
@@ -89,7 +98,8 @@
         data () {
             return {
                 luck11Result: [],
-                luckyCoinResult: 0,
+                luckyCoinResult: '',
+                luckyCoinStatus: '',
                 issueNumber: '',
                 type: 'lucky11',
                 params: {
@@ -121,9 +131,6 @@
                     this.params[this.params.type].number = params.number
                     this.issueNumber = this.number
                     this.getData()
-                        .then(() => {
-                            this.params[this.params.type].isChecked = true
-                        })
                 }
             },
             handleTabClick () {
@@ -139,6 +146,10 @@
                 this.getData()
             },
             getData () {
+                if (!this.verifyNumber()) {
+                    this.$error('期号为10位数字，可点击下方开奖历史查看期号')
+                    return
+                }
                 return (({
                     lucky11: this.$refs.lucky11.getData,
                     luckycoin: this.$refs.luckycoin.getData
@@ -148,10 +159,20 @@
                         return res
                     })
                     .catch(err => {
-                        this.$error(_('查找不到当前期号数据'))
+                        this.$error(_('此期号不存在，可点击下方开奖历史查看期号'))
                         this.params[this.params.type].isChecked = false
+                        this.showErrorAnimate()
                         return err
                     })
+            },
+            showErrorAnimate () {
+                this.$refs.errorCt.className = 'step-view animated'
+                setTimeout(() => {
+                    this.$refs.errorCt.className = 'step-view bounce animated'
+                }, 100)
+            },
+            verifyNumber () {
+                return /^[\d]{10}$/.test(this.number)
             }
         },
         watch: {
