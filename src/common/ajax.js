@@ -56,8 +56,8 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.171:8098/betblock`// 成哥ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8080/betblock'`// 建清ws
-    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`// 线下测试环境ws
-    websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.171:7081/betblock`// 线下测试环境ws
+    websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`// 线下测试环境ws
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.171:7081/betblock`// 线下测试环境ws
 }
 
 export const sockURL = websocketUrl
