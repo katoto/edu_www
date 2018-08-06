@@ -202,7 +202,7 @@ export default {
         },
         formatDrawOrderList (orders) {
             return orders.map(order => {
-                return `${order.expectid}#${order.cointype}#${order.betcode}#${order.betmoney}#${order.cointype}`
+                return `${order.uid}#${order.cointype}#${order.betcode}#${Number(order.betmoney)}#${order.cointype}`
             })
         }
     }

@@ -8,7 +8,7 @@
             {{ goodsPrice }}
         </p>
         <p class="history-issue">
-            No.{{bet.exceptId}}
+            No.<a :href="`/check?number=${bet.exceptId}&type=luckycoin`" target="_blank">{{bet.exceptId}}</a>
         </p>
         <p class="history-time">
             <lang>Draw Time: </lang>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}
