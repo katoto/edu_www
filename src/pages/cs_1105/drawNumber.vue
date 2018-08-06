@@ -22,8 +22,10 @@
                     <el-table-column
                         align="center"
                         header-align="center"
-                        prop="expectid"
                         :label="_('No.')">
+                        <template slot-scope="scope">
+                            <a :href="`/check?number=${scope.row.expectid}&type=lucky11`" target="_blank">{{scope.row.expectid}}</a>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         align="center"
@@ -147,34 +149,39 @@
                                     No:
                                 </p>
                                 <span>
-                                    1806051503
+                                    {{popRewardMsg.expectid}}
                                 </span>
-                                <router-link :to="{path:'/check'}" class="btn-check">
+                                <a :href="`/check?number=${popRewardMsg.expectid}&type=lucky11`" class="btn-check" target="_blank">
                                     Verify
-                                </router-link>
+                                </a>
                             </div>
                             <div class="block">
                                 <p>
                                     Block:
                                 </p>
-                                <a href="javascript:;">
-                                    #5735198
+                                <a target="_blank" :href="popRewardMsg.jumpEthUrl">
+                                    #{{popRewardMsg.blocknum}}
                                 </a>
                             </div>
                             <div class="araw">
                                 <p>
-                                    Draw Hash:
+                                    <lang>Hash on the block</lang>:
                                 </p>
                                 <span>
-                                    0xb547659da637f5c2ecdf1671bf85bee5f9094c0cba4a8e7e131f5968482a2691
+                                    <a target="_blank" :href="popRewardMsg.jumpEthUrl">
+                                        {{ popRewardMsg.blockhash }}
+                                    </a>
                                 </span>
                             </div>
-                            <div class="merkle">
+                            <div class="merkle" v-if="popRewardMsg.merkel_hash !== ''">
                                 <p>
-                                    Draw Hash:
+                                    <lang>Calculating Process</lang>: 
                                 </p>
                                 <span>
-                                    0xb547659da637f5c2ecdf1671bf85bee5f9094c0cba4a8e7e131f5968482a2691
+                                    <a target="_blank" :href="`/check?number=${popRewardMsg.expectid}&type=lucky11`">
+                                        {{ popRewardMsg.merkel_hash }}
+                                    </a>
+                                    
                                 </span>
                             </div>
                             <div class="note">
@@ -231,6 +238,11 @@
             },
             showBlockMsg (msg) {
                 this.popRewardMsg = msg
+                if (this.popRewardMsg.txhash === '') {
+                    this.popRewardMsg.jumpEthUrl = ethUrl + 'block/' + this.popRewardMsg.blocknum
+                } else {
+                    this.popRewardMsg.jumpEthUrl = ethUrl + 'tx/' + this.popRewardMsg.txhash
+                }
                 this.showPop_reward = true
             },
             async handleCurrentChange (val) {
