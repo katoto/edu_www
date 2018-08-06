@@ -1,4 +1,5 @@
 module.exports = {
+    'Withdraw amount': '可提款金额',
     'Sign gift': '签到送',
     'Sign Up to Get 0.0001 BTC for Free': '注册即可领取免费0.0001BTC',
     'Get daily free spins of Slot (Balance less than 0.00005BTC)': '少于0.00005BTC的时候可每日免费领取老虎机次数',

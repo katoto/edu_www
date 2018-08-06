@@ -1,4 +1,5 @@
 module.exports = {
+    'Withdraw amount': '可提款金額',
     'Sign gift': '簽到送',
     'F3d west': '造夢西遊',
     'Log In / Sign Up': '登錄 / 注冊',

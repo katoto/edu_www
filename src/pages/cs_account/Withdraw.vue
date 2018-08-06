@@ -15,12 +15,11 @@
                                            :label="formateCoinType(item.cointype)" :value="item">
                                 </el-option>
                             </el-select>
-                            <!--Withdraw amount:-->
-                            <!--<i class="orange bold"></i> , -->
-                            <lang>Current balance</lang> {{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }}
+                            <lang>Current balance</lang>:{{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }} &nbsp;
+                            <lang>Withdraw amount</lang>:{{ formateBalance(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
-                                    {{ _('The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need {0}{1} water strip',33,'btc') }}
+                                    {{ _('The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need {0}{1} water strip',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
                                     <lang></lang>
                                     <a href="javascript:;"><lang>View detailed rules</lang></a>
                                 </div>
