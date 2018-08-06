@@ -3,7 +3,7 @@
     <Pop class="pop-login" :show.sync="show">
         <div class="pop-main">
             <h3 class="font26">
-                <lang>Sign In</lang>
+                <lang>Log In</lang>
             </h3>
             <!--fadeDown-->
             <span class="error js_loginInErr"></span>

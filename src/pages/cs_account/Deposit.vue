@@ -1,7 +1,7 @@
 <template>
     <div class="recharge">
         <h2>
-            <lang>Deposit</lang>
+            <lang>Top up</lang>
         </h2>
         <a href="javascript:;" class="btn-Recharge hide">
             <lang>How to deposit?</lang>

@@ -65,7 +65,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <lang>C1</lang>
+                                        <lang>P1</lang>
                                     </td>
                                     <td>
                                         <lang>Pick 1 number and hit 1/5 draw numbers</lang>
@@ -74,7 +74,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <lang>C2</lang>
+                                        <lang>P2</lang>
                                     </td>
                                     <td>
                                         <lang>Pick 2 numbers and hit 2/5 draw numbers</lang>
@@ -83,7 +83,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <lang>C3</lang>
+                                        <lang>P3</lang>
                                     </td>
                                     <td>
                                         <lang>Pick 3 numbers and hit 3/5 draw numbers</lang>
@@ -92,7 +92,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <lang>C4</lang>
+                                        <lang>P4</lang>
                                     </td>
                                     <td>
                                         <lang>Pick 4 numbers and hit 4/5 draw numbers</lang>
@@ -101,7 +101,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <lang>C5</lang>
+                                        <lang>P5</lang>
                                     </td>
                                     <td>
                                         <lang>Pick 5 numbers and hit 5/5 draw numbers</lang>

@@ -75,7 +75,8 @@
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
                         <!--拉新活动提示-->
-                        <lang>Sign In / Up</lang>
+                        <!--<lang>Sign In / Up</lang>-->
+                        <lang>Log In / Sign Up</lang>
                     </a>
                     <!-- 登录 -->
                     <section v-else>

@@ -100,15 +100,15 @@ export function formatMatchAccount (match) {
     match = match.toString()
     switch (match) {
     case '1101':
-        return _('Lucky 11/C1')
+        return _('Lucky 11/P1')
     case '1102':
-        return _('Lucky 11/C2')
+        return _('Lucky 11/P2')
     case '1103':
-        return _('Lucky 11/C3')
+        return _('Lucky 11/P3')
     case '1104':
-        return _('Lucky 11/C4')
+        return _('Lucky 11/P4')
     case '1105':
-        return _('Lucky 11/C5')
+        return _('Lucky 11/P5')
     case '11051':
         return _('Super 5')
     }
@@ -152,15 +152,15 @@ export function formatMatch (match) {
     match = match.toString()
     switch (match) {
     case '1101':
-        return _('C1')
+        return _('P1')
     case '1102':
-        return _('C2')
+        return _('P2')
     case '1103':
-        return _('C3')
+        return _('P3')
     case '1104':
-        return _('C4')
+        return _('P4')
     case '1105':
-        return _('C5')
+        return _('P5')
     default:
         return _('Super 5')
     }
@@ -329,6 +329,8 @@ export function formateMoneyFlow (flowtype = '1') {
         return _('Slots Bet')// 老虎机投注
     case '15':
         return _('Slots Prize')// 老虎机中奖
+    case '18':
+        return _('Sign gift')// 连续七天送
     default:
         return _('Bet')
     }
