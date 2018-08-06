@@ -1,65 +1,28 @@
 <template>
-    <div class="item-history" :class="{ 'icon-win': isMyWin }">
-
-        <div class="item-history-box" :class="{ visiable: !isInit }">
-            <div class="token-process" :class="[coin.boxClass]">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
-                    <defs>
-                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
-                            <stop offset="0%" stop-color="#ee8125"></stop>   <!--这个是终点-->
-                            <stop offset="100%" stop-color="#f1a62f"></stop>
-                        </linearGradient>
-                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
-                            <stop offset="0%" stop-color="#f1a62f"></stop>
-                            <stop offset="100%" stop-color="#f3cc38"></stop>
-                        </linearGradient>
-                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
-                            <stop offset="0%" stop-color="#5df8e3"></stop><!--这个是终点-->
-                            <stop offset="100%" stop-color="#5cd7ee"></stop>
-                        </linearGradient>
-                        <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
-                            <stop offset="0%" stop-color="#5abbf8"></stop>  <!--右边起点-->
-                            <stop offset="100%" stop-color="#5cd7ee"></stop>
-                        </linearGradient>
-                    </defs>
-                    <g transform="matrix(0,-1,1,0,0,102)">
-                        <circle cx="51" cy="51" r="47" stroke-width="8" stroke="#723176" fill="transparent"/>
-                        <circle cx="51" cy="51" r="47" :stroke="`url(#${coin.circleClass[0]})`" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="296 296"/>  <!--左边 整圆-->
-                        <circle cx="51" cy="51" r="47" :stroke="`url(#${coin.circleClass[1]})`" stroke-width="8" fill="transparent" stroke-linecap='round'  stroke-dasharray="148 296"/>
-                    </g>
-                </svg>
-            </div>
-            <i class="icon-mywin">Win</i>
-            <div class="title">
-                <p class="t1">
-                    {{ bet.goodsValue }}<i> {{ coinText }}</i>
-                </p>
-                <p class="t2">
-                    USD 14,776
-                    <!--{{ goodsPrice }}-->
-                </p>
-            </div>
-            <div class="msg">
-                <p class="expectid">
-                    No.{{bet.exceptId}}
-                </p>
-                <p class="c1">
-                    <lang>Draw Time:</lang> <i> {{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}</i>
-                </p>
-                <p class="c2">
-                    <lang>Draw Number:</lang> <i> {{ bet.luckyNum }}</i>
-                </p>
-            </div>
-            <!--waiting-->
-            <div class="result win" v-if="isWin">
+    <!--icon-eth/icon-btc  win-->
+    <div class="history" :class="[coin.boxClass==='eth'? 'icon-eth' : 'icon-btc',isMyWin?'win':'']">
+        <p class="history-prize">
+            {{ bet.goodsValue }}<i> {{ coinText }}</i>
+        </p>
+        <p class="history-usd">
+            {{ goodsPrice }}
+        </p>
+        <p class="history-issue">
+            No.{{bet.exceptId}}
+        </p>
+        <p class="history-time">
+            <lang>Draw Time: </lang>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}
+        </p>
+        <p class="history-number">
+            <lang>Draw Number: </lang>{{ bet.luckyNum }}
+        </p>
+        <div class="history-result" :class="{expired:isOutdate}">
+            <template v-if="bet.state == 4">
                 {{ bet.winUserName }}
-            </div>
-            <div class="result expired" v-else-if="isOutdate">
-                <lang>Expired</lang>
-            </div>
-            <div class="result waiting" v-else>
-                <lang>waiting</lang>
-            </div>
+            </template>
+            <template v-else>
+                none
+            </template>
         </div>
     </div>
 </template>
@@ -109,14 +72,10 @@ export default {
         coin () {
             return {
                 'ETH': {
-                    bgClass: 'bg1',
-                    boxClass: 'token-eth',
-                    circleClass: ['blueColor1', 'blueColor2']
+                    boxClass: 'eth'
                 },
                 'BTC': {
-                    bgClass: 'bg2',
-                    boxClass: 'token-bth',
-                    circleClass: ['yellowColor1', 'yellowColor2']
+                    boxClass: 'btc'
                 }
             }[this.coinText]
         }

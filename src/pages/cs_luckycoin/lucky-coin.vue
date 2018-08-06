@@ -62,7 +62,7 @@ export default {
     }
     /*分页器*/
     .el-pagination {
-        margin-top: 20px;
+        margin: 20px 0 30px 0;
         text-align: center;
         button,
         li {
@@ -189,7 +189,9 @@ export default {
     .page-luckycoin{
         background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat center top;
         background-size: 1920px;
-        padding: 36px 0 50px 0;
+        .lucky-index{
+            padding: 36px 0 50px 0;
+        }
         .title{
             height: 76px;
             padding-top: 5px;
@@ -236,12 +238,19 @@ export default {
             margin: 0 auto;
         }
         .banner{
-            margin: 0 -5px;
+            border-radius: 6px;
+            overflow: hidden;
             a,img{
                 display: block;
                 width: 100%;
                 max-width: 790px;
                 margin: 0 auto;
+            }
+            .el-carousel__container{
+                height:0;
+                padding-top:percentage(270/790);
+                border-radius: 6px;
+                overflow: hidden;
             }
         }
         .match{
@@ -626,6 +635,7 @@ export default {
             }
         }
         .match.match-popular{
+            transform: translate3d(0,0,0);
             margin-top: 20px;
             padding: 26px 30px 74px;
             .match-img{
@@ -856,7 +866,7 @@ export default {
                 line-height: 18px;
                 font-size: 14px;
             }
-            .history-issue,.history-process,.history-price{
+            .history-issue,.history-time,.history-number{
                 line-height: 20px;
                 font-size: 12px;
             }
@@ -905,6 +915,13 @@ export default {
                     overflow: hidden;
                     background: url("../../assets/img/luckyCoin/icon-champion.png") no-repeat center
                 }
+                &.expired{
+                    background: #000;
+                    color: #fff;
+                    &::before{
+                        display: none;
+                    }
+                }
             }
             &.win{
                 .history-result{
@@ -930,7 +947,29 @@ export default {
 
 
     @media (max-width: @screen-phone) {
-
+        .page-luckycoin{
+            .title{
+                height: 52px;
+                padding-top: 15px;
+                .left,.right{
+                    height: 27px;
+                }
+                .t1{
+                    margin-right: 10px;
+                    font-size: 14px;
+                }
+                .t2{
+                    margin-right: 10px;
+                    font-size: 12px;
+                }
+                .play,.check{
+                    font-size: 12px;
+                }
+                .btn-more{
+                    line-height: 20px;
+                }
+            }
+        }
     }
 
     /* xs超小屏幕（手机，大于 480） */

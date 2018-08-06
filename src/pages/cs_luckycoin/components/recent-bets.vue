@@ -1,12 +1,14 @@
 <template>
     <ul>
         <!--icon-eth icon-bth-->
-        <li :class="formatCoinClass(formateCoinType(item.cointype))"  v-for="(item, index) in data" :key="index">
-            <div class="email fl">
+        <li  v-for="(item, index) in data" :key="index">
+            <div class="email">
                 {{item.username}}
             </div>
-            <div class="amount fr">
-                {{formateBalance(item.betmoney)}}{{ formateCoinType(item.cointype) }}
+            <!--icon-eth/icon-btc-->
+            <div class="amount" :class="formatCoinClass(formateCoinType(item.cointype))" >
+                {{formateBalance(item.betmoney)}}
+                <!--{{ formateCoinType(item.cointype) }}-->
             </div>
             <span class="time">
                 {{formatTime(item.crtime, 'MM-dd HH:mm')}}
@@ -25,7 +27,7 @@ export default {
         formatCoinClass (coinText) {
             return {
                 'ETH': 'icon-eth',
-                'BTC': 'icon-bth'
+                'BTC': 'icon-btc'
             }[coinText]
         }
     },

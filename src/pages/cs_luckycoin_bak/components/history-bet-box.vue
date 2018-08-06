@@ -1,6 +1,5 @@
 <template>
     <div class="item-history" :class="{ 'icon-win': isMyWin }">
-
         <div class="item-history-box" :class="{ visiable: !isInit }">
             <div class="token-process" :class="[coin.boxClass]">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">

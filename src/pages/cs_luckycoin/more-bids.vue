@@ -31,7 +31,7 @@
             </div>
             <div class="container" v-if="activeName === 'bids'">
                 <div class="row clearfix">
-                    <div class="for-full items">
+                    <div class=" items">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in filterBets(betsList)" :key="index">
                             <bet-box :bet="bet" type="list"></bet-box>
                         </div>
@@ -48,7 +48,7 @@
             </div>
             <div class="container" v-else>
                 <div class="row clearfix">
-                    <div class="for-full items">
+                    <div class="items">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="index * Math.random()">
                             <history-bet-box :bet="bet" type="list"></history-bet-box>
                         </div>
@@ -360,6 +360,7 @@ export default {
     }
 }
 .items {
+    overflow: hidden;
     > div {
         margin-bottom: 10px;
         box-sizing: border-box;

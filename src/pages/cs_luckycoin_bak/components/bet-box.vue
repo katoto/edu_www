@@ -77,7 +77,6 @@
             <p class="t2">
                 USD 14,776
             </p>
-
         </div>
         <div class="msg">
             <p class="expectid">NO.{{betData.exceptId}}</p>

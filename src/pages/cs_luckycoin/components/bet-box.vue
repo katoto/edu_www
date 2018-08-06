@@ -1,23 +1,21 @@
 <template>
-    <!--icon-hot  热门icon  icon-win -->
-    <div :class="[
-        isPopular ? 'item-popular' :'item-common',
-        isHot ? 'icon-hot' : '',
-        isBet ? 'icon-mybet' : '',
-        isInit && !isCancel ? '' : 'unvisible',
-        coin.bgClass]"
-    >
-        <div class="icon-box">
-            <i class="icon-bet">You Bet</i>
+    <!--match-popular/match-common-->
+    <div class="match"  :class="[
+                        isPopular? 'match-popular' : 'match-common',
+                        isInit && !isCancel ? '' : 'unvisible',
+          ]">
+        <!-- hot bet-->
+        <div class="icon-box "  :class="[isHot? 'hot' : '', isBet? 'bet':'']">
             <i class="icon-hot">H</i>
+            <i class="icon-youbet">You Bet</i>
         </div>
-        <!--token-bth  币种选择-->
-        <!--token-eth-->
-        <div class="token-process" :class="[coin.boxClass]">
+        <!--match-eth/match-btc-->
+        <div class="match-img" :class="[coin.boxClass]">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="102" height="102">
                 <defs>
+                    <!--写死黄色，颜色需要再调整-->
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
-                        <stop offset="0%" stop-color="#e46b12"></stop>
+                        <stop offset="0%" stop-color="#e46b12"></stop>   <!--这个是终点-->
                         <stop offset="100%" stop-color="#fdc90c"></stop>
                     </linearGradient>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
@@ -25,166 +23,151 @@
                         <stop offset="100%" stop-color="#f9c600"></stop>
                     </linearGradient>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor1">
-                        <stop offset="0%" stop-color="#5df8e3"></stop><!--这个是终点-->
-                        <stop offset="100%" stop-color="#5cd7ee"></stop>
+                        <stop offset="0%" stop-color="#62f7d9"></stop>
+                        <stop offset="100%" stop-color="#5ed9eb"></stop>
                     </linearGradient>
                     <linearGradient x1="1" y1="0" x2="0" y2="0" id="blueColor2">
-                        <stop offset="0%" stop-color="#5abbf8"></stop>  <!--右边起点-->
-                        <stop offset="100%" stop-color="#5cd7ee"></stop>
+                        <stop offset="0%" stop-color="#53b8f0"></stop>
+                        <stop offset="100%" stop-color="#5ed9eb"></stop>
                     </linearGradient>
                 </defs>
                 <g transform="matrix(0,-1,1,0,0,102)">
+                    <circle cx="51" cy="51" r="47" stroke-width="8" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
                     <circle
                         cx="51"
                         cy="51"
                         r="47"
-                        stroke-width="8"
-                        stroke="#57356b"
-                        fill="transparent"/>
-                    <!-- 底色圆 -->
-                    <circle
-                        cx="51"
-                        cy="51"
-                        r="47"
-                        :stroke="`url(#${coin.circleClass[0]})`"
+                        stroke="url(#yellowColor2)"
                         stroke-width="8"
                         fill="transparent"
                         :stroke-dasharray="`${rate>148?rate:0} 296`"
                     />
-                    <!-- 左半边圆 -->
                     <circle
                         cx="51"
                         cy="51"
                         r="47"
-                        :stroke="`url(#${coin.circleClass[1]})`"
+                        stroke="url(#yellowColor1)"
                         stroke-width="8"
                         fill="transparent"
                         :stroke-dasharray="`${rate > 148 ? 148 : rate} 296`"
                     />
-                    <!-- 右半边圆 -->
-                    <!--:stroke-linecap='rate>0?round : square'-->
                 </g>
+                <!--
+                   stroke-dasharray   //2*3.14*47=296
+                   绘制虚线: 一个参数时： 表示一段虚线长度和每段虚线之间的间距
+                   两个参数或者多个参数时：一个表示长度，一个表示间距
+                   stroke-dashoffset: 偏移位置
+                   0% -> 296
+                   100% -> 296 296
+                   148/296
+                   form:https://www.zhangxinxu.com/wordpress/2015/07/svg-circle-loading/
+                   -->
             </svg>
         </div>
-        <div class="title">
-            <p class="t1" v-if="isPopular">
-                {{ _('Play For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
-            </p>
-            <p class="t1" v-else>
-                {{ this.betData.goodsValue }}<i> {{ coinText }}</i>
-            </p>
-            <!--v-html="goodsPrice"-->
-            <p class="t2">
-                USD 14,776
-            </p>
-
-        </div>
-        <div class="msg">
-            <p class="expectid">NO.{{betData.exceptId}}</p>
-            <p class="c1">
-                <lang>Draw Process:</lang>
-                <i>{{ this.betData.totalBids - this.betData.leftBids }}/{{ this.betData.totalBids }}</i>
-            </p>
-            <p class="c2">
-                <lang>Ticket Price:</lang>
-                <i>{{ this.betData.bidValue }}&nbsp;{{ coinText }}</i>
-            </p>
-        </div>
-        <a href="javascript:;" class="btn btn-waiting" v-if="isWaiting">
+        <!--奖金-->
+        <p class="match-prize" v-if="isPopular">
+            {{ _('Play For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
+        </p>
+        <p class="match-prize" v-else>
+            {{ this.betData.goodsValue }}<i> {{ coinText }}</i>
+        </p>
+        <!--价值-->
+        <p class="match-usd" v-html="goodsPrice">
+            0
+        </p>
+        <!--期号-->
+        <p class="match-issue">
+            NO.{{betData.exceptId}}
+        </p>
+        <!--进度-->
+        <p class="match-process">
+            <lang>Draw Process:</lang>
+            {{ this.betData.totalBids - this.betData.leftBids }}/{{ this.betData.totalBids }}
+        </p>
+        <!--价格-->
+        <p class="match-price">
+            <lang>Ticket Price:</lang>
+            {{ this.betData.bidValue }}&nbsp;{{ coinText }}
+        </p>
+        <a href="javascript:;" class="match-btn waiting" v-if="isWaiting">
             <lang>Waiting</lang>
         </a>
-        <a href="javascript:;" class="btn btn-pause" v-else-if="isPause">
+        <a href="javascript:;" class="match-btn btn-pause" v-else-if="isPause">
             <lang>Pause Bet</lang>
         </a>
-        <a href="javascript:;" class="btn btn-pause" v-else-if="isExpired">
+        <a href="javascript:;" class="match-btn btn-pause" v-else-if="isExpired">
             <lang>Expired</lang>
         </a>
-        <a href="javascript:;" class="btn" v-else @click="openBetWindow">
+        <a href="javascript:;" class="match-btn" v-else @click="openBetWindow">
             <lang>Bet Now</lang>
         </a>
-        <!--投注-->
-        <!--normal success fail balance-->
-        <div class="betting " :class="[windowClass]">
+        <!--投注状态-->
+        <!--show-->
+        <div class="bet- bet-normal " :class="{show:windowClass === 'normal'}">
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
-            <!--正常投注-->
-            <div class="bet-normal">
-                <div class="bet-t">
-                    Bid For <span>{{ this.betData.goodsValue }}</span> {{ coinText }}
-                </div>
-                <p class="bet-m1">
-                    <lang>Bet Amount </lang>
-                </p>
-                <p class="bet-m2">
-                    <lang>more bets，more probability</lang>
-                </p>
-                <!--<div class="bet-amount" :class="[activeBetClass]">-->
-                    <!--<a href="javascript:;" ref="minBtn" class="min-btn" @click="chooseMin">{{ minValue }}</a>-->
-                    <!--<a href="javascript:;" ref="hotBtn" class="hot-btn" @click="chooseHot">{{ hotValue }}</a>-->
-                    <!--<a href="javascript:;" ref="maxBtn" class="max-btn" @click="chooseMax">{{ maxValue }}</a>-->
-                <!--</div>-->
-                <!--<div class="bet-input">-->
-                    <!--<a href="javascript:;" class="redu" @click="chooseHalf">1/2</a>-->
-                    <!--<input type="text" v-model="betValue">-->
-                    <!--<a href="javascript:;" class="add" @click="chooseDouble">x2</a>-->
-                <!--</div>-->
-                <div class="bet-amount">
-                    <input type="text"  v-model="betValue">
-                    <div>
-                        <a href="javascript:;" class="redu" @click="chooseHalf">1/2</a>
-                        <a href="javascript:;" class="add" @click="chooseDouble">2X</a>
-                        <a href="javascript:;" ref="maxBtn" class="max-btn" @click="chooseMax">MAX</a>
-                    </div>
-                </div>
-                <a href="javascript:;" class="bet-btn" @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                    {{ this.isBlinking ? _('Amount changes') : _('Pay Now') }}
+            <div class="bet-t">
+                <span>Bid for</span> 0.5 <i>BTC</i>
+            </div>
+            <p class="bet-m1">
+                Bet Amount
+            </p>
+            <p class="bet-m2">
+                more bets，more probability
+            </p>
+            <!--icon-eth/icon-btc-->
+            <div class="input-box icon-eth">
+                <input type="text" v-model="betValue">
+                <a href="javascript:;" @click="chooseHalf">1/2</a>
+                <a href="javascript:;" @click="chooseDouble">2X</a>
+                <a href="javascript:;" ref="maxBtn" @click="chooseMax">Max</a>
+            </div>
+            <a href="javascript:;" class="btn-bet"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
+                {{ this.isBlinking ? _('Amount changes') : _('Pay Now') }}
+            </a>
+        </div>
+        <div class="bet- bet-success " :class="{show:windowClass === 'success'}">
+            <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
+            <div class="bet-icon"></div>
+            <p class="bet-t">
+                Bet Success
+            </p>
+            <p class="bet-m">
+                {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~', this.betData.goodsValue, this.coinText) }}
+            </p>
+            <div class="btn-box">
+                <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
+                    <lang>View Number</lang>
+                </router-link>
+                <a href="javascript:;" class="bet-btnB" @click="handleBetMoreEvent">
+                    <lang>Bet More</lang>
                 </a>
             </div>
-            <!--投注成功-->
-            <div class="bet-success">
-                <div class="bet-icon"></div>
-                <div class="bet-t">
-                    <lang>Bet Success</lang>
-                </div>
-                <p class="bet-m">
-                    {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~', this.betData.goodsValue, this.coinText) }}
-                </p>
-                <div class="btn-box">
-                    <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
-                        <lang>View Number</lang>
-                    </router-link>
-                    <a href="javascript:;" class="bet-btnB" @click="handleBetMoreEvent">
-                        <lang>Bet More</lang>
-                    </a>
-                </div>
-            </div>
-            <!--投注失败-->
-            <div class="bet-fail">
-                <div class="bet-icon"></div>
-                <div class="bet-t">
-                    <lang>Bet failure</lang>
-                </div>
-                <p class="bet-m">
-                    Temporarily unavailable due to network reasons
-                    <!--<lang>{{ errorMessage }}</lang>-->
-                </p>
-                <a href="javascript:;" class="btn-fail" @click="closeWindow">
-                    <lang>Try Again Later</lang>
-                </a>
-            </div>
-            <!--余额不足-->
-            <div class="bet-balance">
-                <div class="bet-icon"></div>
-                <div class="bet-t">
-                    <lang>Insufficient Balance</lang>
-                </div>
-                <p class="bet-m">
-                    {{ _('Your balance is less than {0}{1}. If you need to bet, please top up first.',
-                    this.minValue, this.coinText) }}
-                </p>
-                <a href="javascript:;" class="btn-fail" @click="closeWindow">
-                    Deposit
-                </a>
-            </div>
+        </div>
+        <div class="bet- bet-fail " :class="{show:windowClass === 'fail'}">
+            <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
+            <div class="bet-icon"></div>
+            <p class="bet-t">
+                Bet failure
+            </p>
+            <p class="bet-m">
+                Temporarily unavailable due to network reasons
+            </p>
+            <a href="javascript:;" class="btn-fail" @click="closeWindow">
+                <lang>Try Again Later</lang>
+            </a>
+        </div>
+        <div class="bet- bet-balance " :class="{show:windowClass === 'balance'}">
+            <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
+            <div class="bet-icon"></div>
+            <p class="bet-t">
+                Insufficient Balance
+            </p>
+            <p class="bet-m">
+                {{ _('Your balance is less than {0}{1}. If you need to bet, please top up first.', this.minValue, this.coinText) }}
+            </p>
+            <a href="javascript:;" class="btn-balance" @click="closeWindow">
+                Deposit
+            </a>
         </div>
     </div>
 </template>
@@ -409,14 +392,10 @@
             coin () {
                 return {
                     'ETH': {
-                        bgClass: 'bg1',
-                        boxClass: 'token-eth',
-                        circleClass: ['blueColor1', 'blueColor2']
+                        boxClass: 'match-eth'
                     },
                     'BTC': {
-                        bgClass: 'bg2',
-                        boxClass: 'token-bth',
-                        circleClass: ['yellowColor1', 'yellowColor2']
+                        boxClass: 'match-btc'
                     }
                 }[this.coinText]
             },
