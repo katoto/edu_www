@@ -150,6 +150,9 @@
                                 <span>
                                     1806051503
                                 </span>
+                                <router-link :to="{path:'/check'}" class="btn-check">
+                                    Verify
+                                </router-link>
                             </div>
                             <div class="block">
                                 <p>
@@ -338,8 +341,43 @@
     .pop-reward {
         .pop-main {
             padding-bottom: 30px;
+            text-align: left;
         }
+        h3{
+            text-align: center;
+        }
+        .btn-check{
+            position: absolute;
+            right: 0;
+            top: -(27-20)/2px;
+            border: 1px solid #6a89cc;
+            border-radius: 6px;
+            padding: 0 17px;
+            line-height: 25px;
+            &:hover{
+                border-color: #263648;
+            }
+        }
+        .no,.block,.araw,.merkle{
+            position: relative;
+            display: flex;
+            margin-bottom: 23px;
+            line-height: 20px;
+            p{
+                width: 115px;
 
+            }
+            a{
+                font-weight: bold;
+            }
+            span{
+                flex: 1;
+                word-break: break-all;
+            }
+        }
+        .note{
+            color: #788ca3;
+        }
     }
 
     //开奖列表table
