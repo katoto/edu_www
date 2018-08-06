@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="banner">
-                            <el-carousel :interval="3000" arrow="always">
+                            <el-carousel :interval="300000" arrow="always">
                                 <el-carousel-item>
                                     <a href="javascript:;" rel="nofollow">
                                         <img src="../../assets/img/oneToKen/banner.jpg" alt="">

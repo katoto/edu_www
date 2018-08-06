@@ -291,7 +291,11 @@ export default {
             )
         },
         renderCheckData (res) {
-            this.merkelValue = res.merkel_hash
+            if (res.merkel_hash === '') {
+                this.merkelValue = 'None'
+            } else {
+                this.merkelValue = res.merkel_hash
+            }
             this.blockid = res.blockid
             this.blockhash = res.blockhash
             this.luck11Result = [...this.getResult(res.blockhash)]
@@ -302,6 +306,7 @@ export default {
                 this.orderLists = [...this.formatDrawOrderList(res)]
             } else {
                 // TODO 没有订单数据以及默克尔值如何显示
+                this.orderLists = ['There is no bet on this draw, the result uses the hash of the last block.']
             }
         },
         mod (hash, num) {

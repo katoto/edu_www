@@ -12,7 +12,7 @@
                 <div class="check-enter">
                     <h2><lang>Check the results</lang></h2>
                     <input type="text" :placeholder="_('Enter the issue number')" v-model="issueNumber" @keyup.enter="issueInputHandler">
-                    <p><lang>The issue number can be viewed in the </lang></p> <a href="javascript:;"><lang>draw record</lang></a>
+                    <p><lang>The issue number can be viewed in the </lang><a href="javascript:;"><lang>draw record</lang></a></p>
                 </div>
                 <a href="javascript:;" class="btn-verification" @click="verifyHandler"><lang>Verification</lang></a>
                 <!--rollIn animated-->
@@ -24,7 +24,9 @@
                             <li v-for="(item, index) in luck11Result" :key="index">{{item}}</li>
                         </ul>
                         <!--LuckyCoin-->
-                        <div v-if="params.type === 'Luckycoin'">{{luckyCoinResult.toString()}}</div>
+                        <div v-if="params.type === 'Luckycoin'">
+                            {{luckyCoinResult.toString()}}
+                        </div>
                     </div>
                 </div>
             </div>
