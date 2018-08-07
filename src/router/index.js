@@ -63,11 +63,12 @@ const luckcoinMoreBids = () =>
 
 const luckycoinDrawHistory = () =>
     import('~/pages/cs_luckycoin/draw-history')
-
-const Home = () =>
-    import('~/pages/cs_home/home')
+const luckycoinDetailed = () =>
+    import('~/pages/cs_luckycoin/detailed')
 
 /* 品牌首页 */
+const Home = () =>
+    import('~/pages/cs_home/home')
 const home = () =>
     import('~/pages/cs_home/home')
 // 404  history
@@ -126,6 +127,11 @@ let routesArr = [{
         path: 'moreBids',
         name: _('More Bids'),
         component: luckcoinMoreBids
+    },
+    {
+        path: 'detailed',
+        name: _('detailed'),
+        component: luckycoinDetailed
     },
     {
         path: '',

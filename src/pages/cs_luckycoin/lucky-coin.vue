@@ -914,7 +914,8 @@ export default {
                     width: 16px;
                     height: 14px;
                     overflow: hidden;
-                    background: url("../../assets/img/luckyCoin/icon-champion.png") no-repeat center
+                    background: url("../../assets/img/luckyCoin/icon-champion.png") no-repeat center;
+                    background-size: cover;
                 }
                 &.expired{
                     background: #000;
@@ -929,7 +930,9 @@ export default {
                     background: #20bf6b;
                     color: #fff;
                     &::before{
-                        background: url("../../assets/img/luckyCoin/icon-champion-win.png") no-repeat center
+                        background: url("../../assets/img/luckyCoin/icon-champion-win.png") no-repeat center;
+                        background-size: cover;
+
                     }
                 }
                 &::after{
@@ -941,6 +944,7 @@ export default {
                     width: 47px;
                     height: 46px;
                     background: url("../../assets/img/luckyCoin/icon-win.png") no-repeat center;
+                    background-size: cover;
                 }
             }
         }

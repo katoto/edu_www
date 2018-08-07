@@ -1,6 +1,6 @@
 <template>
-    <div id="app">
-        test
+    <div id="test">
+
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 	export default {
 	    data () {
 	        return {
-	            title: ''
+
 	        }
 	    },
 	    watch: {},
@@ -19,5 +19,5 @@
 	    }
 	}
 </script>
-<style>
+<style scope lang="less" type="text/less">
 </style>
