@@ -1,18 +1,29 @@
-/**
- * Created by xiezg on 2018/5/29
- */
+// 一元夺币 modules
+import ajax from '~common/ajax'
 
-import { mapMutations, mapActions } from '~common/util'
-const state = {}
+const state = {
+}
 
-const mutationsInfo = mapMutations({
-}, 'home')
+const mutations = {
+}
 
-const actionsInfo = mapActions({
-}, 'home')
+const actions = {
+    // 首页投注列表
+    getHomeBet ({ commit }, params = {}) {
+        return ajax.get('/home/orders/bet', params)
+    },
+    // 首页获奖列表
+    getHomeDraw ({ commit }, params = {}) {
+        return ajax.get('/home/orders/win', params)
+    },
+    // 首页流水列表
+    getHomeWithdraw ({ commit }, params = {}) {
+        return ajax.get('/home/orders/account', params)
+    },
+    // 首页玩法入口数据
+    getHomeEntrance ({ commit }, params = {}) {
+        return ajax.get('/home/games/entrance', params)
+    }
+}
 
-export const mTypes = mutationsInfo.mTypes
-const mutations = mutationsInfo.mutations
-export const aTypes = actionsInfo.aTypes
-const actions = actionsInfo.actions
-export default { state, mutations, actions }
+export default { state, mutations, actions, namespaced: true }

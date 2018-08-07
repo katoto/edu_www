@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
     .pop-freeplay .close:after {
         width: 14px;
         height: 14px;

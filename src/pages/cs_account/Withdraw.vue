@@ -585,8 +585,31 @@
     }
 </style>
 
-<style scoped lang="less" rel="stylesheet/less">
-    @import "../../styles/lib-mixins.less";
+<style scoped lang="less" type="text/less">
+@import "../../styles/lib-mixins.less";
+.orange {
+  color: #fd9644;
+}
+.withdrawal {
+  h2 {
+    line-height: 30px;
+    font-size: 24px;
+    color: #263648;
+    text-transform: capitalize;
+  }
+  .lf130 {
+    width: 130px;
+    margin-right: 35px;
+    float: left;
+    overflow: hidden;
+  }
+  .fl210 {
+    position: relative;
+    float: left;
+    width: 210px;
+    height: 50px;
+    overflow: hidden;
+  }
 
     .orange {
         color: #fd9644;
@@ -805,4 +828,5 @@
         padding: 0 20px;
         height: auto;
     }
+}
 </style>

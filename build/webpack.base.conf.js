@@ -7,6 +7,8 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require("webpack");
 const vConsolePlugin = require('vconsole-webpack-plugin')
 const emptyFile = path.resolve(__dirname, './empty.js')
+
+
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
 }

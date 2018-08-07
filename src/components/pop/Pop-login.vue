@@ -156,7 +156,7 @@
     }
 </script>
 
-<style lang="less" scoped rel="stylesheet/less">
+<style lang="less" scoped type="text/less">
     .act-sign {
         top: 20px;
         right: 50%;

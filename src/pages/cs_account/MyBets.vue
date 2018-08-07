@@ -272,7 +272,7 @@ export default {
     }
 }
 </script>
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
 .betting {
   h2 {
     line-height: 30px;

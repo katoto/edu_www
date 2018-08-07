@@ -11,6 +11,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+const prerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = prerenderSPAPlugin.PuppeteerRenderer
+
 const env = require('../config/prod.env')
 
 function resolve(dir) {
@@ -126,7 +129,31 @@ const webpackConfig = merge(baseWebpackConfig, {
                 ignore: ['.*']
             }
         ]),
-
+        // new prerenderSPAPlugin({
+        //     staticDir:path.join(__dirname,'../dist'),
+        //     routes:['/'],
+        //     minify:{
+        //         collapseBooleanAttributes: true,
+        //         collapseWhitespace: true,
+        //         decodeEntities: true,
+        //         keepClosingSlash: true,
+        //         sortAttributes: true
+        //     },
+        //     // server:{
+        //     //     port: 8070
+        //     // },
+        //     renderer:new Renderer({
+        //         headless: false,
+        //         renderAfterElementExists:'#app',
+        //         renderAfterTime:5000
+        //     }),
+        //     postProcess (renderedRoute) {
+        //         renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"")
+        //             .replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+        //             .replace(/<div id="app"[^>]*>/i,'<div id="app" style="visibility:hidden">');
+        //         return renderedRoute
+        //     }
+        // })
     ]
 })
 

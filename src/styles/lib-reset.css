@@ -212,6 +212,10 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
+input{
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
 /**
  * Define consistent border, margin, and padding.
  */
@@ -263,10 +267,6 @@ table {
 textarea{
   resize:none;
 }
-td,
-th {
-  padding: 0;
-}
 
 ol,ul,li{list-style:none}
 i,b{
@@ -289,6 +289,27 @@ h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
 .fr{
   float: right;
 }
+.is-left{
+    text-align: left;
+}
+.is-right{
+    text-align: right;
+}
 .bold{
   font-weight:bold;
+}
+
+
+/*移动端整屏*/
+html.flexhtml, .flexhtml body,.flexhtml #app {
+    height: 100%;
+    overflow: hidden;
+}
+.flexhtml #app {
+    display: flex;
+    flex-direction: column;
+}
+.flexhtml #app > div {
+    flex: 1;
+    overflow-y: auto;
 }

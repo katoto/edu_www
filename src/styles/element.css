@@ -365,14 +365,14 @@
     background: transparent;
 }
 .el-pager .number:hover,.el-pagination button:hover,.el-pagination .more:hover{
-    color: #666 !important;
+    color: #666;
     border: 1px solid #d5d5d5;
     background: #f2f2f2;
 }
 .el-pager .number.active{
     border: none;
     background: none;
-    color: #263648 !important;
+    color: #263648;
 }
 .el-pagination .more::after{
     display: inline-block;
@@ -1280,12 +1280,13 @@
 .el-radio-button,.el-radio-button__inner {
     display: inline-block;
     position: relative;
-    outline: 0
+    outline: 0;
+
 }
 
 .el-radio:focus:not(.is-focus):not(:active) .el-radio__inner {
-    -webkit-box-shadow: 0 0 2px 2px #409EFF;
-    box-shadow: 0 0 2px 2px #409EFF
+    /*-webkit-box-shadow: 0 0 2px 2px #409EFF;*/
+    /*box-shadow: 0 0 2px 2px #409EFF*/
 }
 
 .el-radio__label {
@@ -1352,10 +1353,10 @@
 
 .el-radio-button__orig-radio:checked+.el-radio-button__inner {
     color: #fff;
-    background-color: #409EFF;
-    border-color: #409EFF;
-    -webkit-box-shadow: -1px 0 0 0 #409EFF;
-    box-shadow: -1px 0 0 0 #409EFF
+    /*background-color: #409EFF;*/
+    /*border-color: #409EFF;*/
+    /*-webkit-box-shadow: -1px 0 0 0 #409EFF;*/
+    /*box-shadow: -1px 0 0 0 #409EFF*/
 }
 
 .el-radio-button__orig-radio:disabled+.el-radio-button__inner {
@@ -1411,8 +1412,8 @@
 }
 
 .el-radio-button:focus:not(.is-focus):not(:active) {
-    -webkit-box-shadow: 0 0 2px 2px #409EFF;
-    box-shadow: 0 0 2px 2px #409EFF
+    /*-webkit-box-shadow: 0 0 2px 2px #409EFF;*/
+    /*box-shadow: 0 0 2px 2px #409EFF*/
 }
 
 .el-switch {
@@ -4112,8 +4113,8 @@
 }
 
 .el-tabs__item:focus.is-active.is-focus:not(:active) {
-    -webkit-box-shadow: 0 0 2px 2px #409eff inset;
-    box-shadow: 0 0 2px 2px #409eff inset;
+    /*-webkit-box-shadow: 0 0 2px 2px #409eff inset;*/
+    /*box-shadow: 0 0 2px 2px #409eff inset;*/
     border-radius: 3px
 }
 
@@ -9907,7 +9908,8 @@
 
 .el-carousel__container {
     position: relative;
-    height: 300px
+    /*height: 270px*/
+    height:100%;
 }
 
 .el-carousel__arrow {
@@ -9958,7 +9960,6 @@
     margin: 0;
     padding: 0;
     z-index: 2;
-    display: none !important;
 }
 
 .el-carousel__indicators--outside {
@@ -10000,7 +10001,7 @@
 .el-carousel__indicator {
     display: inline-block;
     background-color: transparent;
-    padding: 12px 4px;
+    padding: 12px 5px;
     cursor: pointer
 }
 
@@ -10014,9 +10015,9 @@
 
 .el-carousel__button {
     display: block;
-    opacity: .48;
-    width: 30px;
-    height: 2px;
+    opacity: .2;
+    width: 10px;
+    height: 10px;
     background-color: #fff;
     border: none;
     outline: 0;
@@ -10024,7 +10025,8 @@
     margin: 0;
     cursor: pointer;
     -webkit-transition: .3s;
-    transition: .3s
+    transition: .3s;
+    border-radius:50%;
 }
 
 .carousel-arrow-left-enter,.carousel-arrow-left-leave-active {

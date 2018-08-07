@@ -25,5 +25,5 @@
         }
     }
 </script>
-<style>
+<style scope lang="less" type="text/less">
 </style>

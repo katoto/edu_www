@@ -3,9 +3,6 @@
 import zhCn from '../language/zh-cn'
 import zhTw from '../language/zh-tw'
 
-import {tipsTime} from '~common/util'
-import {Message} from 'element-ui'
-
 const MyPlugin = {}
 const languagePackage = {
     zhCn,
@@ -44,21 +41,6 @@ MyPlugin.install = function (Vue, store) {
         return store.state.language === 'en'
     }
 
-    store.$error = Vue.prototype.$error = function (msg) {
-        Message({
-            message: msg,
-            type: 'error',
-            duration: tipsTime
-        })
-    }
-
-    store.$success = Vue.prototype.$success = function (msg) {
-        Message({
-            message: msg,
-            type: 'success',
-            duration: tipsTime
-        })
-    }
     // 注册全局lang翻译组件
     Vue.component('lang', {
         render: function (h) {

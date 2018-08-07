@@ -11,23 +11,11 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://www.coinsprize.com/"/>
+    <meta name="applicable-device" content="PC">
+    <meta name="applicable-device" content="mobile">
     <link href="./static/icon.ico" rel="shortcut icon"/>
     <style>
-        html, body, #app {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        #app {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #app > div {
-            flex: 1;
-            overflow-y: auto;
-        }
-
         #csLoading {
             position: fixed;
             z-index: 999;
@@ -40,25 +28,21 @@
             text-align: center;
             font-weight: bold;
         }
-
         #csLoading > div {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
         }
-
         #cs {
             width: 100px;
             height: 100px;
         }
-
         .animation {
             background: url("./static/loading.png") no-repeat center;
             background-size: 60px;
             /*animation: keyframes-loading 1.36s steps(33, end) infinite;*/
         }
-
         @keyframes keyframes-loading {
             0% {
                 background-position: 0px 0px;
@@ -68,10 +52,9 @@
             }
         }
     </style>
-
 </head>
 <body>
-<div id="app" class="">
+<div id="app">
 </div>
 <div id="csLoading">
     <div>
@@ -95,44 +78,20 @@
             img.src = (prefix || '') + name
         })
     }
-
     preloadImage(['loading.png'], function () {
         document.getElementById('cs').className += ' animation'
-    }, 'static/')
-
-    /* 禁止左右滚动 */
-    var xStart, xEnd, yStart, yEnd
-    document.addEventListener('touchstart', function (evt) {
-        xStart = evt.touches[0].pageX
-        yStart = evt.touches[0].pageY
-    }, false)
-
-    document.addEventListener('touchmove', function (evt) {
-        xEnd = evt.touches[0].pageX
-        yEnd = evt.touches[0].pageY
-        Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) &&
-        evt.preventDefault()
-    }, false)
+}, '/static/')
 </script>
 </body>
-<!-- 结构化数据 -->
-<script type="application/ld+json">
-    {
-        "@context": "http://coinslot.com",
-        "header":"Coinslot-the fair game platform for casino games , based on blockchain technology !",
-        "name": "casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet",
-        "description": "Coinslot is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.",
-        "image": "http://www.coinslot.com/coinslot/media/icon.ico",
-        "url": "http://www.coinslot.com/coinslot/html/index.html"
-    }
-</script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123327740-1"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    window.dataLayer = window.dataLayer || []
+    function gtag () {
+        window.dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
 
-    gtag('config', 'UA-123327740-1');
+    gtag('config', 'UA-123327740-1')
 </script>
 </html>

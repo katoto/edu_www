@@ -45,7 +45,7 @@
 //** Number of columns in the grid.
 @grid-columns:              12;
 //** Padding between columns. Gets divided in half for the left and right.
-@grid-gutter-width:         0;
+@grid-gutter-width:         10px;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
 @grid-float-breakpoint:     @screen-sm-min;
@@ -85,6 +85,7 @@
 
 .container {
     .container-fixed();
+    width: 94.6666%;
 
     @media (min-width: @screen-sm-min) {
         width: @container-sm;
@@ -182,7 +183,8 @@
             padding-right: floor((@grid-gutter-width / 2));
         }
     }
-    .col(5); // kickstart it
+    .col(1); // kickstart it
+
 }
 
 .float-grid-columns(@class) {
@@ -379,6 +381,156 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+/*
+通过使用 .col-md-push-* 和 .col-md-pull-* 类就可以很容易的改变列（column）的顺序。
+
+percentage  百分比将浮点数转换为百分比字符串。
+*/
+
+
+
+// Visibility utilities
+// Note: Deprecated .visible-xs, .visible-sm, .visible-md, and .visible-lg as of v3.2.0
+.responsive-visibility() {
+    display: block !important;
+    table&  { display: table !important; }
+    tr&     { display: table-row !important; }
+    th&,
+    td&     { display: table-cell !important; }
+}
+
+.responsive-invisibility() {
+    display: none !important;
+}
+
+.visible-xs,
+.visible-sm,
+.visible-md,
+.visible-lg {
+    .responsive-invisibility();
+}
+
+.visible-xs-block,
+.visible-xs-inline,
+.visible-xs-inline-block,
+.visible-sm-block,
+.visible-sm-inline,
+.visible-sm-inline-block,
+.visible-md-block,
+.visible-md-inline,
+.visible-md-inline-block,
+.visible-lg-block,
+.visible-lg-inline,
+.visible-lg-inline-block {
+    display: none !important;
+}
+
+.visible-xs {
+    @media (max-width: @screen-xs-max) {
+        .responsive-visibility();
+    }
+}
+.visible-xs-block {
+    @media (max-width: @screen-xs-max) {
+        display: block !important;
+    }
+}
+.visible-xs-inline {
+    @media (max-width: @screen-xs-max) {
+        display: inline !important;
+    }
+}
+.visible-xs-inline-block {
+    @media (max-width: @screen-xs-max) {
+        display: inline-block !important;
+    }
+}
+
+.visible-sm {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        .responsive-visibility();
+    }
+}
+.visible-sm-block {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        display: block !important;
+    }
+}
+.visible-sm-inline {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        display: inline !important;
+    }
+}
+.visible-sm-inline-block {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        display: inline-block !important;
+    }
+}
+
+.visible-md {
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        .responsive-visibility();
+    }
+}
+.visible-md-block {
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        display: block !important;
+    }
+}
+.visible-md-inline {
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        display: inline !important;
+    }
+}
+.visible-md-inline-block {
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        display: inline-block !important;
+    }
+}
+
+.visible-lg {
+    @media (min-width: @screen-lg-min) {
+        .responsive-visibility();
+    }
+}
+.visible-lg-block {
+    @media (min-width: @screen-lg-min) {
+        display: block !important;
+    }
+}
+.visible-lg-inline {
+    @media (min-width: @screen-lg-min) {
+        display: inline !important;
+    }
+}
+.visible-lg-inline-block {
+    @media (min-width: @screen-lg-min) {
+        display: inline-block !important;
+    }
+}
+
+.hidden-xs {
+    @media (max-width: @screen-xs-max) {
+        .responsive-invisibility();
+    }
+}
+.hidden-sm {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        .responsive-invisibility();
+    }
+}
+.hidden-md {
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        .responsive-invisibility();
+    }
+}
+.hidden-lg {
+    @media (min-width: @screen-lg-min) {
+        .responsive-invisibility();
+    }
+}
+
 
 /*
 通过使用 .col-md-push-* 和 .col-md-pull-* 类就可以很容易的改变列（column）的顺序。

@@ -18,6 +18,8 @@ npm run build
 npm run build --report
 ```
 
+let reg = /let routesArr = (\[.*?\])/gi
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 sitemap //  手动维护

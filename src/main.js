@@ -5,7 +5,8 @@ import storeFactory from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 import lanaguage from './plugins/language'
-
+import message from './plugins/message'
+import vueClipboard from 'vue-clipboard2'
 // 全局
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
@@ -13,11 +14,11 @@ import lanaguage from './plugins/language'
 // Vue.use(ElementUI, { locale });
 
 // 全局 end
-import '@/styles/lib-reset.css'
 import '@/styles/element.css'
+import '@/styles/animate.css'
 
 //  按需加载  有点小问题
-import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane} from 'element-ui'
+import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane, RadioButton, RadioGroup} from 'element-ui'
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
@@ -28,7 +29,8 @@ locale.use(lang)
 locale.i18n((key, value) => {
     return {
         'el.table.emptyText': _('No Data'),
-        'el.pagination.goto': _('go to')
+        'el.pagination.goto': _('go to'),
+        'el.pagination.pagesize': ''
     }[key]
 })
 
@@ -42,6 +44,8 @@ Vue.component(TabPane.name, TabPane)
 
 Vue.component(Carousel.name, Carousel)
 Vue.component(CarouselItem.name, CarouselItem)
+Vue.component(RadioButton.name, RadioButton)
+Vue.component(RadioGroup.name, RadioGroup)
 
 //  按需加载 end
 
@@ -56,6 +60,9 @@ const store = storeFactory()
 sync(store, router)
 
 Vue.use(lanaguage, store)
+Vue.use(message, store)
+
+Vue.use(vueClipboard)
 
 const app = new Vue(Object.assign({
     router,
