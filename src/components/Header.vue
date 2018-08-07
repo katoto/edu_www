@@ -306,6 +306,10 @@
             formateBalance,
             copySucc,
             copyError,
+            hideComPop () {
+                // 点击蒙层隐藏
+                this.freeWaterPop = false
+            },
             async taskClick (type, val) {
                 val = val.toString()
                 if (val === '2') {
@@ -427,6 +431,7 @@
                     this.faucetTask()
                 }
                 this.freeWaterPop = !this.freeWaterPop
+                this.$emit('headPopChange', this.freeWaterPop)
             },
             signOut () {
                 /* 退出登录 */
@@ -913,6 +918,7 @@
             display: none;
             position: absolute;
             top: 37px;
+            z-index: 20;
             right: -24px;
             padding: 10px 20px 54px;
             width: 455px;

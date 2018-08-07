@@ -1,9 +1,9 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}" >
         <Banner class="hide" v-on:superBannerChange="superChange"></Banner>
-        <Header></Header>
+        <Header ref="comHeader" v-on:headPopChange="showPopMask"></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
-        <div class="main">
+        <div class="main" @click="closeHeadPop">
             <Lucky-mybet></Lucky-mybet>
             <!--玩法区-->
             <div class="play-area" id="play-area">
@@ -302,6 +302,9 @@
         </div>
         <Footer class="lucky11"></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
+
+        <!--全局蒙层-->
+        <div class="pop-mask" :class="{'show':popMask}" @click="closeHeadPop"></div>
     </div>
 </template>
 
@@ -319,6 +322,7 @@
     export default {
         data () {
             return {
+                popMask: false,
                 showOrderSucc: false,
                 showOrderFail: false,
                 failureMsg: '* *',
@@ -398,6 +402,17 @@
         methods: {
             formateBalance,
             formateCoinType,
+            closeHeadPop () {
+                /* 调 header 的方法  修改弹窗状态 */
+                if (this.$refs) {
+                    this.popMask = false
+                    this.$refs.comHeader.hideComPop()
+                }
+            },
+            showPopMask (msg = false) {
+                /*  header 调*/
+                this.popMask = msg
+            },
             superChange (msg = 'superIn') {
                 /* headerNav 调的 */
                 if (msg === 'superIn') {
@@ -751,6 +766,17 @@
 </script>
 <style lang="less" rel="stylesheet/less">
     @import "../../styles/lib-mixins.less";
+
+    .pop-mask{
+        position: fixed;
+        display: none;
+        z-index: 8;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+    }
     .worldCupClose::after{
         width: 12px;
         height: 12px;
