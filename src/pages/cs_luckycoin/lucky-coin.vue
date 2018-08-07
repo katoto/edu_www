@@ -853,6 +853,7 @@ export default {
             border-radius: 6px;
             overflow: hidden;
             margin-bottom: 10px;
+            transform: translate3d(0,0,0);
             .history-prize{
                 font-weight: bold;
                 line-height: 32px;
