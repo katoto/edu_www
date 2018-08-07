@@ -16,7 +16,7 @@
                     <p class="p3">
                         +{{selfWin.num}}<i>{{selfWin.type}}</i>
                     </p>
-                    <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-see" @click="hideMyWin">
+                    <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-see" @click.native="hideMyWin">
                         <lang>See My Bids</lang>
                     </router-link>
                 </div>
@@ -28,16 +28,49 @@
 
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
+    data () {
+        return {
+            profitPopPromise: null
+        }
+    },
     components: { Header, Footer },
     mounted () {
         this.$store.dispatch('subInLuckyCoin')
     },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            vm.getLastProfit()
+        })
+    },
+    beforeRouteUpdate (to, from, next) {
+        next()
+        this.getLastProfit()
+    },
     methods: {
-        hideMyWin () {
-            this.$store.commit('cs_luckycoin/hideMyWin')
+        ...mapActions('cs_luckycoin', ['hideMyWin', 'showMyWin', 'getLastProfitRecord', 'showProfitCallback']),
+        getLastProfit () {
+            this.getLastProfitRecord()
+                .then(res => {
+                    if (res.data.goods.length > 0) {
+                        this.showProfitPop(res.data.goods, 0, res.data.goods.length)
+                    }
+                })
+        },
+        showProfitPop (goods, index, total) {
+            let good = goods[index]
+            this.showMyWin({
+                goodsValue: good.goodsValue,
+                goodsType: good.goodsType,
+                exceptId: good.exceptid,
+                callback: () => {
+                    if (index < total - 1) {
+                        this.showProfitPop(goods, index + 1, total)
+                    }
+                }
+            })
         }
     },
     computed: {
