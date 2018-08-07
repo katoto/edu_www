@@ -461,7 +461,7 @@
                     return false
                 }
                 // 判断 余额是否足
-                if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
+                if (parseFloat(this.currBalance.balance) < parseFloat(this.totalPay)) {
                     Message({
                         message: _('Your balance is insufficient, please top up'),
                         type: 'error'
@@ -620,7 +620,7 @@
                             this.$store.commit('showRegSuccess')
                         } else {
                             Message({
-                                message: mailBack.message,
+                                message: 'reg error',
                                 type: 'error'
                             })
                         }
@@ -664,7 +664,7 @@
                     case '1001':
                         /* 比特币 */
                         if (blance <= 0.0005) {
-                            this.baseAreaMsg.pickMoney = 0.00005
+                            this.baseAreaMsg.pickMoney = 0.0001
                         } else if (blance < 0.005 && blance >= 0.0005) {
                             this.baseAreaMsg.pickMoney = 0.0001
                         } else if (blance >= 0.005) {

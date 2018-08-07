@@ -215,8 +215,8 @@
                 limitUnit: 0.0001, // 减去最小单位
                 slideDown: false,
                 rewardTable: false,
-                min_limit: 0.0005, // 限额
-                max_limit: 0.1 // 限额
+                min_limit: 0.0001, // 限额
+                max_limit: 0.01 // 限额
             }
         },
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
