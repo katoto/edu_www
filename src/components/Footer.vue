@@ -17,22 +17,24 @@
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Privacy Policy</lang>
                     </a>
-                    <a href="javascript:;">Transparency</a>
+                    <router-link :to="{path: '/check'}">
+                        <lang>Transparency</lang>
+                    </router-link>
                     <a href="javascript:;">Help Center</a>
                 </div>
                 <div class="game col-xs-6 col-md-6">
                     <div class="title">
                         <lang>game</lang>
                     </div>
-                    <a href="javascript:;">
-                        Lucky 11
-                    </a>
-                    <a href="javascript:;">
-                        slot
-                    </a>
-                    <a href="javascript:;">
-                        LuckyCoin
-                    </a>
+                    <router-link :to="{path: '/lucky11'}">
+                        <lang>Lucky 11</lang>
+                    </router-link>
+                    <router-link :to="{path: '/slot'}">
+                        <lang>Slot</lang>
+                    </router-link>
+                    <router-link :to="{path: '/luckycoin'}">
+                        <lang>LuckyCoin</lang>
+                    </router-link>
                     <a href="javascript:;">
                         Mobile APP
                     </a>

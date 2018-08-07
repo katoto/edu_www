@@ -225,12 +225,9 @@ const actions = {
     },
 
     hideMyWin ({ commit, dispatch }, params) {
+        commit('hideMyWin', params)
         dispatch('showProfitCallback', {
             expectid: this.state.cs_luckycoin.selfWin.exceptId
-        }).then(res => {
-            commit('hideMyWin', params)
-        }).catch(res => {
-            commit('hideMyWin', params)
         })
     }
 }

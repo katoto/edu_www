@@ -1,7 +1,7 @@
 <template>
     <div class="page-luckycoin">
         <Header></Header>
-        <router-view></router-view>
+        <router-view ref="child"></router-view>
         <Footer></Footer>
         <!--show-->
         <div class="msg-winning" :class="{ show: otherWin.isShow }">
@@ -16,7 +16,7 @@
                     <p class="p3">
                         +{{selfWin.num}}<i>{{selfWin.type}}</i>
                     </p>
-                    <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-see" @click.native="hideMyWin">
+                    <router-link :to="{path: '/luckycoin/drawHistory', query: { entry: 'myBids' }}" class="btn-see" @click.native="hideMyWinHandler">
                         <lang>See My Bids</lang>
                     </router-link>
                 </div>
@@ -45,14 +45,17 @@ export default {
             vm.getLastProfit()
         })
     },
-    beforeRouteUpdate (to, from, next) {
-        next()
-        this.getLastProfit()
-    },
     methods: {
         ...mapActions('cs_luckycoin', ['hideMyWin', 'showMyWin', 'getLastProfitRecord', 'showProfitCallback']),
         getLastProfit () {
             this.getLastProfitRecord()
+                .then(res => {
+                    return {
+                        data: {
+                            goods: [{luckyNum: 1111111, goodsType: '2001', goodsValue: '10.8', exceptid: '10000'}, {luckyNum: 2222, goodsType: '2001', goodsValue: '5.8', exceptid: '1000'}]
+                        }
+                    }
+                })
                 .then(res => {
                     if (res.data.goods.length > 0) {
                         this.showProfitPop(res.data.goods, 0, res.data.goods.length)
@@ -71,6 +74,10 @@ export default {
                     }
                 }
             })
+        },
+        hideMyWinHandler () {
+            this.$refs.child && this.$refs.child.changeToMyBets && this.$refs.child.changeToMyBets()
+            this.hideMyWin()
         }
     },
     computed: {
@@ -886,7 +893,6 @@ export default {
             border-radius: 6px;
             overflow: hidden;
             margin-bottom: 10px;
-            transform: translate3d(0,0,0);
             .history-prize{
                 font-weight: bold;
                 line-height: 32px;

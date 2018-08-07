@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <bet-box :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']"></bet-box>
+                        <bet-box :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box"></bet-box>
                         <div class="pop-mask" :class="[isShowNew ? '' : 'hide']"></div>
                         <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
                             <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
@@ -63,7 +63,7 @@
                                     <div class="left">
                                         <p class="t1">Bet For The Prize</p>
                                         <p class="t2 hidden-xs hidden-sm">All or nothing, small cost,  big profit</p>
-                                        <a href="javascript:;" class="play ">
+                                        <a href="#app" class="play" @click="howToPlayHandler">
                                             How To Play ？
                                         </a>
                                     </div>
@@ -154,7 +154,13 @@
         },
         methods: {
             ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
-            ...mapActions(['subInLuckyCoin'])
+            ...mapActions(['subInLuckyCoin']),
+            howToPlayHandler () {
+                this.isShowNew = true
+                this.isShowStep1 = true
+                this.isShowStep2 = false
+                this.isShowStep3 = false
+            }
         },
         components: { betBox, recentBets, historyBetBox },
         computed: {
