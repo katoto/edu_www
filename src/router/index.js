@@ -61,8 +61,7 @@ const luckcoinIndex = () =>
 const luckcoinMoreBids = () =>
     import('~/pages/cs_luckycoin/more-bids')
 
-const luckycoinDrawHistory = () =>
-    import('~/pages/cs_luckycoin/draw-history')
+
 const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
