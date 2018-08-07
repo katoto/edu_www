@@ -140,7 +140,7 @@
                         </div>
                         <div class="hadlogin">
                             <router-link :to="{path: '/account/deposit'}" class="btn-rechrage">
-                                <lang>Deposit</lang>
+                                <lang>Top up</lang>
                             </router-link>
                             <router-link :to="{path: '/account/withdraw'}" class="btn-cash">
                                 <lang>Withdraw</lang>
@@ -183,6 +183,22 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!--浮层 -->
+                    <!--第一次登陆 -->
+                    <section v-if="showFirstLogin&&isLog">
+                        <div class="newFirst">
+                            <div class="msg">
+                                <p>
+                                    <lang>Sign Up to Get 0.0001 BTC for Free</lang>
+                                </p>
+                                <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
+                                    <!--<lang>Try a luck</lang>-->
+                                    <lang>Get it !</lang>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
 
@@ -197,21 +213,6 @@
                 </div>
                 <canvas id="canvas" ref="canvas"></canvas>
             </div>
-
-            <!--浮层 -->
-            <!--第一次登陆 -->
-            <section v-if="showFirstLogin&&isLog">
-                <div class="tips-newAct tips-newAct2">
-                    <div class="msg">
-                        <p>
-                            <lang>Sign Up to Get 0.0001 BTC for Free</lang>
-                        </p>
-                    </div>
-                    <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
-                        <lang>Try a luck</lang>
-                    </a>
-                </div>
-            </section>
 
         </div>
         <!-- 公用的模态框列表 -->
@@ -469,10 +470,56 @@
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
 
-    .light {
-        background-color: red;
+    .newFirst{
+        position: absolute;
+        top:26px;
+        left:39%;
+        margin-left:-118px;
+        z-index:99;
+        &:before{
+            content: '';
+            display: block;
+            width:0;
+            height:0;
+            margin:0 auto;
+            border-left:5px solid transparent;
+            border-right:5px solid transparent;
+            border-top:7px solid transparent;
+            border-bottom:7px solid #fff;
+        }
+        .msg{
+            box-sizing: border-box;
+            width:250px;
+            height: 52px;
+            overflow: hidden;
+            line-height:20px;
+            font-size:14px;
+            color: #263648;
+            box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
+            border-radius: 6px;
+            background: #fff;
+            p{
+                padding: 5px 0px 2px 8px;
+                text-align: center;
+            }
+            .btn-luck{
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+            }
+        }
     }
-
+    .light {
+       animation: brightness 1.5s;
+    }
+    @keyframes brightness {
+        0%,30%,50%,70%,100%{
+            filter:brightness(1);
+        }
+        20%,40%,60%,80%{
+            filter:brightness(1.8);
+        }
+    }
     .banner {
         display: none;
     }

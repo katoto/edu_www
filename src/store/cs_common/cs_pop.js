@@ -43,7 +43,6 @@ const state = {
         //     invite_prize_chances: 2,
         //     tasks: []
         // }
-
     }
 }
 
