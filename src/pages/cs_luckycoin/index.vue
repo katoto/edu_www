@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <bet-box :bet="betsList[0]" :is-popular="true"></bet-box>
+                        <bet-box :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']"></bet-box>
                         <div class="pop-mask" :class="[isShowNew ? '' : 'hide']"></div>
                         <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
                             <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
@@ -33,7 +33,7 @@
                                     Here is the bonus: pick a lucky <br>
                                     user through the blockchain
                                 </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false; isShowStep2 = true">Next</a>
+                                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true">Next</a>
                                 <img src="../../assets/img/oneToken/line.png" alt="">
                             </div>
                             <div class="step bounceIn animated step2" :class="[isShowStep2 ? '' : 'hide']">
@@ -41,7 +41,7 @@
                                     Here is the remaining bet amount:  <br>
                                     you can draw a lot when you buy it..
                                 </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false; isShowStep3 = true">Next</a>
+                                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true">Next</a>
                                 <img src="../../assets/img/oneToken/line.png" alt="">
                             </div>
                             <div class="step bounceIn animated step3" :class="[isShowStep3 ? '' : 'hide']">
@@ -265,8 +265,8 @@
             position: absolute;
             width: 100%;
             left: 50%;
+            margin-left: -200px;
             bottom: -140px;
-            transform: translateX(-50%);
             img{
                 display: block;
                 margin: 0 auto 15px;
