@@ -20,7 +20,6 @@
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
                                     {{ _('The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need {0}{1} water strip',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
-                                    <lang></lang>
                                     <a href="javascript:;"><lang>View detailed rules</lang></a>
                                 </div>
                             </i>
