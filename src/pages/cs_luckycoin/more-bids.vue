@@ -242,7 +242,11 @@ export default {
             this.clearPageno()
             this.filterBets()
         },
-        renderHistoryPage () {}
+        changeToMyBets () {
+            this.activeName = 'history'
+            this.filter = 'My Bets'
+            this.getHistoryData()
+        }
     },
     watch: {
         isLogin () {
@@ -261,8 +265,12 @@ export default {
     components: { Header, Footer, betBox, historyBetBox, BreadCrumbs },
     mounted () {
         document.documentElement.className = mobileCheck() ? '' : 'flexhtml'
-        this.$route.meta.history ? this.getHistoryData() : this.getBetData()
         this.activeName = this.$route.meta.history ? 'history' : 'bids'
+        if (this.$route.query.entry && this.$route.query.entry === 'myBids' && this.$route.meta.history) {
+            this.changeToMyBets()
+            return
+        }
+        this.$route.meta.history ? this.getHistoryData() : this.getBetData()
     },
     beforeDestroy () {
         document.documentElement.className = ''

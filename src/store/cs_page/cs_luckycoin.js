@@ -2,6 +2,7 @@
 import ajax from '~common/ajax'
 import { formateCoinType } from '~common/util'
 import router from '~router'
+import { stat } from 'fs'
 
 const state = {
     betsList: [],
@@ -14,11 +15,11 @@ const state = {
         isShow: false
     },
     selfWin: {
-        name: '',
         num: '',
         type: '',
         exceptId: '',
-        isShow: false
+        isShow: false,
+        callback: null
     }
 }
 
@@ -93,14 +94,15 @@ const mutations = {
     showMyWin (state, params) {
         state.selfWin = {
             isShow: true,
-            name: '',
             num: params.goodsValue,
             type: formateCoinType(params.goodsType),
-            exceptId: params.exceptId
+            exceptId: params.exceptId,
+            callback: params.callback
         }
     },
     hideMyWin (state) {
         state.selfWin.isShow = false
+        state.selfWin.callback && state.selfWin.callback()
     },
 
     updateMyBet (state, betid) {
@@ -184,6 +186,14 @@ const actions = {
         return data
     },
 
+    getLastProfitRecord ({ commit }, params = {}) {
+        return ajax.get('/goods/winner', params)
+    },
+
+    showProfitCallback ({ commit }, params = {}) {
+        return ajax.get('/goods/winner/callback', params)
+    },
+
     updateBets ({ dispatch, commit }, params = {}) {
         if (params && params.state === '4') {
             if (
@@ -208,6 +218,17 @@ const actions = {
     updateLuckyCoinPage ({ dispatch }) {
         dispatch('updateBets')
         dispatch('getRecentBets')
+    },
+
+    showMyWin ({ commit }, params) {
+        return commit('showMyWin', params)
+    },
+
+    hideMyWin ({ commit, dispatch }, params) {
+        commit('hideMyWin', params)
+        dispatch('showProfitCallback', {
+            expectid: this.state.cs_luckycoin.selfWin.exceptId
+        })
     }
 }
 

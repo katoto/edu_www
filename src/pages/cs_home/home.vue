@@ -81,7 +81,7 @@
                         <div class="tab-t" :class="[activeClass]">
                             <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'">Lucky11</a>
                             <a href="javascript:;" class="slot" @click="activeClass = 'slot'">slot</a>
-                            <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'">LucyCoin</a>
+                            <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'">LuckyCoin</a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
