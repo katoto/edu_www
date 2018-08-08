@@ -8,7 +8,7 @@
             {{ goodsPrice }}
         </p>
         <p class="history-issue">
-            No.<a :href="`/check?number=${bet.exceptId}&type=luckycoin`" target="_blank">{{bet.exceptId}}</a>
+            No.<router-link :to="{path: `/luckycoin/detailed?number=${bet.exceptId}&type=luckycoin`}">{{bet.exceptId}}</router-link>
         </p>
         <p class="history-time">
             <lang>Draw Time: </lang>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}
