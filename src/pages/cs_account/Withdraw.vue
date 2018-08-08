@@ -575,7 +575,7 @@
         }
     }
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" type="text/less">
     .account {
         .my-info {
             .el-tabs__content {
@@ -586,35 +586,10 @@
 </style>
 
 <style scoped lang="less" type="text/less">
-@import "../../styles/lib-mixins.less";
-.orange {
-  color: #fd9644;
-}
-.withdrawal {
-  h2 {
-    line-height: 30px;
-    font-size: 24px;
-    color: #263648;
-    text-transform: capitalize;
-  }
-  .lf130 {
-    width: 130px;
-    margin-right: 35px;
-    float: left;
-    overflow: hidden;
-  }
-  .fl210 {
-    position: relative;
-    float: left;
-    width: 210px;
-    height: 50px;
-    overflow: hidden;
-  }
-
+    @import "../../styles/lib-mixins.less";
     .orange {
         color: #fd9644;
     }
-
     .withdrawal {
         position: relative;
         h2 {
@@ -629,186 +604,186 @@
             line-height: 40px;
             margin-bottom: 30px;
             font-size: 14px;
-            .clearfix();
-            .wallet_warn{
-                position: absolute;
-                top: 32px;
-                left: 162px;
-                font-size: 12px;
-                color: #f27d1f;
-            }
-        }
-        .withdraw {
+        .clearfix();
+        .wallet_warn{
             position: absolute;
-            right: 0;
-            top: 0;
-            font-size: 14px;
+            top: 32px;
+            left: 162px;
+            font-size: 12px;
+            color: #f27d1f;
         }
-        .lf130 {
-            width: 130px;
-            margin-right: 35px;
-            float: left;
-            overflow: hidden;
-        }
-        .fl210 {
-            position: relative;
-            float: left;
-            width: 133px;
-            height: 40px;
-            padding-right: 20px;
-            overflow: hidden;
-            text-align: right;
-        }
+    }
+    .withdraw {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 14px;
+    }
+    .lf130 {
+        width: 130px;
+        margin-right: 35px;
+        float: left;
+        overflow: hidden;
+    }
+    .fl210 {
+        position: relative;
+        float: left;
+        width: 133px;
+        height: 40px;
+        padding-right: 20px;
+        overflow: hidden;
+        text-align: right;
+    }
 
-        .li-records {
-            .item {
-                position: relative;
-                height: 40px;
-                line-height: 40px;
-                overflow: hidden;
-                margin-bottom: 30px;
-                font-size: 14px;
-                .clearfix();
-            }
-            > li {
-                display: none;
-            }
-            > li.on {
-                display: block;
-            }
-            .chose-coin {
-                height: 25px;
-                line-height: 25px;
-                margin: 25px 0 30px 0;
-                overflow: visible;
-                .fl210 {
-                    height: 25px;
-                    line-height: 25px;
-                }
-                p {
-                    position: relative;
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                }
-                .icon-mark {
-                    position: relative;
-                    display: block;
-                    width: 16px;
-                    height: 16px;
-                    background: url('../../assets/img/icon-mark.png') no-repeat center;
-                    cursor: pointer;
-                    margin-left: 6px;
-                }
-                .mark-view {
-                    display: none;
-                    position: absolute;
-                    left: 50%;
-                    top: -10px;
-                    transform: translate(-50%, -100%);
-                    z-index: 3;
-                    background: #ffedbe;
-                    width: 230px;
-                    padding: 7px 10px;
-                    font-size: 12px;
-                    line-height: 15px;
-                    color: #000000;
-                    &::after {
-                        position: absolute;
-                        left: 50%;
-                        bottom: -7px;
-                        margin-left: -7px;
-                        content: '';
-                        display: block;
-                        width: 0;
-                        height: 0;
-                        border-bottom: 0;
-                        border-left: 7px solid #fff;
-                        border-top: 7px solid #ffedbe;
-                        border-right: 7px solid #fff;
-                    }
-                    &.on {
-                        display: block;
-                    }
-                }
-            }
-            input {
-                height: 38px;
-                line-height: 38px;
-                border: 1px solid #ced6e0;
-                outline: none;
-                text-indent: 5px;
-                width: 455px;
-                font-size: 16px;
-            }
-            .account-psw {
-                margin-bottom: 0;
-                input {
-                    width: 275px;
-                }
-            }
-            .pick-up {
-                .css_withdraw_tips {
-                    display: block;
-                    height: 16px;
-                    line-height: 16px;
-                    position: absolute;
-                    right: 20px;
-                    top: 6px;
-                }
-                .css_withdraw_total {
-                    position: absolute;
-                    top: 24px;
-                    right: 20px;
-                    line-height: 12px;
-                    font-size: 12px;
-                }
-                .css_withdraw_topMoney {
-                    position: absolute;
-                    right: 330px;
-                    cursor: pointer;
-                    color: #6a89cc;
-                }
-            }
-            .pickup-tips {
-                position: absolute;
-                top: 8px;
-                left: 677px;
-                height: 36px;
-                overflow: hidden;
-                line-height: 18px;
-                font-size: 14px;
-                color: #fc5c65;
-                text-transform: capitalize;
-            }
-            .fee {
-                margin-left: 153px;
-                height: 36px;
-                line-height: 22px;
-                font-size: 14px;
-                color: #a5b1c2;
-                i {
-                    color: #263648;
-                }
-            }
-            button {
-                display: block;
-                width: 280px;
-                height: 50px;
-                line-height: 50px;
-                overflow: hidden;
-                margin: 0 0 30px 153px;
-                background: #fd9644;
-                border-radius: 6px;
-                font-size: 20px;
-                color: #fff;
-                font-weight: bold;
-                .transition();
-                &:hover {
-                    background: #f27d1f;
-                }
-            }
-        }
+    .li-records {
+    .item {
+        position: relative;
+        height: 40px;
+        line-height: 40px;
+        overflow: hidden;
+        margin-bottom: 30px;
+        font-size: 14px;
+        .clearfix();
+    }
+    > li {
+        display: none;
+    }
+    > li.on {
+        display: block;
+    }
+    .chose-coin {
+        height: 25px;
+        line-height: 25px;
+        margin: 25px 0 30px 0;
+        overflow: visible;
+    .fl210 {
+        height: 25px;
+        line-height: 25px;
+    }
+    p {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .icon-mark {
+        position: relative;
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: url('../../assets/img/icon-mark.png') no-repeat center;
+        cursor: pointer;
+        margin-left: 6px;
+    }
+    .mark-view {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: -10px;
+        transform: translate(-50%, -100%);
+        z-index: 3;
+        background: #ffedbe;
+        width: 230px;
+        padding: 7px 10px;
+        font-size: 12px;
+        line-height: 15px;
+        color: #000000;
+    &::after {
+         position: absolute;
+         left: 50%;
+         bottom: -7px;
+         margin-left: -7px;
+         content: '';
+         display: block;
+         width: 0;
+         height: 0;
+         border-bottom: 0;
+         border-left: 7px solid #fff;
+         border-top: 7px solid #ffedbe;
+         border-right: 7px solid #fff;
+     }
+    &.on {
+         display: block;
+     }
+    }
+    }
+    input {
+        height: 38px;
+        line-height: 38px;
+        border: 1px solid #ced6e0;
+        outline: none;
+        text-indent: 5px;
+        width: 455px;
+        font-size: 16px;
+    }
+    .account-psw {
+        margin-bottom: 0;
+    input {
+        width: 275px;
+    }
+    }
+    .pick-up {
+    .css_withdraw_tips {
+        display: block;
+        height: 16px;
+        line-height: 16px;
+        position: absolute;
+        right: 20px;
+        top: 6px;
+    }
+    .css_withdraw_total {
+        position: absolute;
+        top: 24px;
+        right: 20px;
+        line-height: 12px;
+        font-size: 12px;
+    }
+    .css_withdraw_topMoney {
+        position: absolute;
+        right: 330px;
+        cursor: pointer;
+        color: #6a89cc;
+    }
+    }
+    .pickup-tips {
+        position: absolute;
+        top: 8px;
+        left: 677px;
+        height: 36px;
+        overflow: hidden;
+        line-height: 18px;
+        font-size: 14px;
+        color: #fc5c65;
+        text-transform: capitalize;
+    }
+    .fee {
+        margin-left: 153px;
+        height: 36px;
+        line-height: 22px;
+        font-size: 14px;
+        color: #a5b1c2;
+    i {
+        color: #263648;
+    }
+    }
+    button {
+        display: block;
+        width: 280px;
+        height: 50px;
+        line-height: 50px;
+        overflow: hidden;
+        margin: 0 0 30px 153px;
+        background: #fd9644;
+        border-radius: 6px;
+        font-size: 20px;
+        color: #fff;
+        font-weight: bold;
+    .transition();
+    &:hover {
+         background: #f27d1f;
+     }
+    }
+    }
     }
 
     .pagination {
@@ -828,5 +803,4 @@
         padding: 0 20px;
         height: auto;
     }
-}
 </style>

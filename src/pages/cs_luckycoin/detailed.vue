@@ -3,9 +3,9 @@
     <div class="luckyCoinDetailed">
         <div class="main">
             <BreadCrumbs></BreadCrumbs>
-            <div class="main-detailed">
-                <!--eth/btc  normal/win/fail/finished/expired-->
-                <div class="item eth expired">
+            <div class="main-detailed flex">
+                <!--eth/btc  normal/win/fail/finished/expired -->
+                <div class="item btc normal">
                     <div class="item-left">
                         <div class="match-img">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="110" height="110">
@@ -154,6 +154,52 @@
                         <div class="btn btn-expired">
                             The bid was expired, system will ，refund to the participators later.
                         </div>
+                        <!--这里逻辑跟首页一样-->
+                        <!--show-->
+                        <div class="bet- bet-success ">
+                            <a href="javascript:;" class="bet-close"></a>
+                            <div class="bet-icon"></div>
+                            <p class="bet-t">
+                                Bet Success
+                            </p>
+                            <p class="bet-m">
+                                You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~
+                            </p>
+                            <div class="btn-box">
+                                <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
+                                    <lang>View Number</lang>
+                                </router-link>
+                                <a href="javascript:;" class="bet-btnB">
+                                    <lang>Bet More</lang>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bet- bet-fail " >
+                            <a href="javascript:;" class="bet-close" ></a>
+                            <div class="bet-icon"></div>
+                            <p class="bet-t">
+                                Bet failure
+                            </p>
+                            <p class="bet-m">
+                                Temporarily unavailable due to network reasons
+                            </p>
+                            <a href="javascript:;" class="btn-fail" >
+                                <lang>Try Again Later</lang>
+                            </a>
+                        </div>
+                        <div class="bet- bet-balance">
+                            <a href="javascript:;" class="bet-close" ></a>
+                            <div class="bet-icon"></div>
+                            <p class="bet-t">
+                                Insufficient Balance
+                            </p>
+                            <p class="bet-m">
+                                Your balance can be purchased for 0.03ETH. If you need to bet more, please top up first.
+                            </p>
+                            <a href="javascript:;" class="btn-balance">
+                                Deposit
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="tips">
@@ -164,7 +210,62 @@
                 </div>
             </div>
             <div class="main-detailed">
+                <el-tabs v-model="activeName" >
+                    <el-tab-pane label="ALL BETS" name="all">
 
+                    </el-tab-pane>
+                    <el-tab-pane label="MY BETS" name="my">
+
+                    </el-tab-pane>
+                </el-tabs>
+                <el-table
+                    :data="tableData"
+                    style="width: 100%"
+                    :default-sort = "{prop: 'date', order: 'descending'}"
+                >
+                    <el-table-column
+                        prop="time"
+                        label="Bet Time"
+                        sortable
+                        width="137"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                        prop="id"
+                        label="User ID"
+                        width="440"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                        prop="amount"
+                        label="Amount"
+                    >
+                        <template slot-scope="scope">
+                            <div class="icon-amount " :class="[scope.row.type=='eth'?'eth':'btc']">
+                                {{scope.row.amount}}
+                            </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="number"
+                        label="Number of Number"
+                        width="130"
+                    >
+                         <template slot-scope="scope">
+                             <a href="javascript:;" class="allnum" @click="alert">
+                                {{scope.row.number}}
+                             </a>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <el-pagination
+                    :page-size="10"
+                   layout="prev, pager, next"
+                   :next-text="_('Next >')"
+                   :prev-text="_('< Front')"
+                    :total="50"
+                >
+                </el-pagination>
             </div>
         </div>
     </div>
@@ -174,10 +275,68 @@
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     export default {
         data () {
-            return {}
+            return {
+                activeName: 'all',
+                tableData: [{
+                    time: '06-23 23:23:23',
+                    id: '王小虎',
+                    amount: '0.0045',
+                    number: 20,
+                    type: 'eth'
+                }, {
+                    time: '06-22 23:23:23',
+                    id: '王小虎',
+                    amount: '45',
+                    number: 1,
+                    type: 'btc'
+                }, {
+                    time: '06-21 23:23:23',
+                    id: '王小虎',
+                    amount: '0.45',
+                    number: 1,
+                    type: 'eth'
+                }, {
+                    time: '06-02 23:23:23',
+                    id: '王小虎',
+                    amount: '0.0045',
+                    number: 1,
+                    type: 'eth'
+                }, {
+                    time: '06-23 23:23:23',
+                    id: '王小虎',
+                    amount: '0.0045',
+                    number: 20,
+                    type: 'eth'
+                }, {
+                    time: '06-22 23:23:23',
+                    id: '王小虎',
+                    amount: '45',
+                    number: 1,
+                    type: 'btc'
+                }, {
+                    time: '06-21 23:23:23',
+                    id: '王小虎',
+                    amount: '0.45',
+                    number: 1,
+                    type: 'eth'
+                }, {
+                    time: '06-02 23:23:23',
+                    id: '王小虎',
+                    amount: '0.0045',
+                    number: 1,
+                    type: 'eth'
+                }],
+                pageno: 1,
+                pageSize: 8,
+                PageTotal: 10,
+            }
         },
         watch: {},
-        methods: {},
+        methods: {
+            alert () {
+                alert('详细信息')
+            }
+        },
         computed: {},
         components: {
             BreadCrumbs
@@ -187,16 +346,138 @@
         }
     }
 </script>
+<style lang="less" type="text/less">
+    .luckyCoinDetailed{
+        .el-tabs{
+            margin-top: 40px;
+        }
+        .el-tabs__nav-wrap{
+            &::after{
+                background: #341f40;
+            }
+        }
+        .el-tabs__item{
+            color: #6a88cc;
+            &.is-active{
+                color: #fff;
+            }
+        }
+        .el-tabs__active-bar{
+            background: #fff;
+        }
+        .el-table{
+            background: transparent;
+            thead{
+                tr{
+                    height: 50px;
+                    line-height: 50px;
+                }
+                th{
+                    color: #fff;
+                    &.el-table_1_column_3{
+                        display: block;
+                        width: 98px;
+                    }
+                }
+            }
+            tbody{
+                tr:hover{
+                    background: #311c3d;
+                }
+                td{
+                    color: #fff;
+                }
+                .allnum{
+                    display: block;
+                    &:hover{
+                        color: #fff;
+                    }
+                }
+                .icon-amount{
+                    position: relative;
+                    padding-right: 26px;
+                    margin-right: 195px;
+                    text-align: right;
+                    &::after{
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        right: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 16px;
+                        height: 16px;
+                    }
+                    &.eth{
+                        &::after{
+                            background: url("../../assets/img/luckyCoin/icon-eth-sm.png") no-repeat center;
+                        }
+                    }
+                    &.btc{
+                        &::after{
+                            background: url("../../assets/img/luckyCoin/icon-btc-sm.png") no-repeat center;
+                        }
+                    }
+                }
+            }
+            tr{
+                border-color: #311c3d;
+            }
+            .caret-wrapper{
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                height: 34px;
+                width: 24px;
+                vertical-align: middle;
+                cursor: pointer;
+                overflow: initial;
+                position: relative;
+            }
+            .sort-caret{
+                width: 0;
+                height: 0;
+                border: 5px solid transparent;
+                position: absolute;
+                left: 7px;
+                &.ascending{
+                    border-bottom-color: #c0c4cc;
+                    top: 5px;
+                }
+                &.descending{
+                    border-top-color: #c0c4cc;
+                    bottom: 7px;
+                }
+            }
+            .ascending{
+                .sort-caret{
+                    &.ascending{
+                        border-bottom-color: #6a88cc;
+                    }
+                }
+            }
+            .descending{
+                .sort-caret{
+                    &.descending{
+                        border-top-color: #6a88cc;
+                    }
+                }
+            }
+        }
+    }
+</style>
 <style scope lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     .luckyCoinDetailed *{
         box-sizing: border-box;
     }
     .main-detailed{
-        display: flex;
         width: 100%;
         max-width: 1000px;
         margin: 0 auto;
+        &.flex{
+            display: flex;
+        }
     }
     .item{
         position: relative;
@@ -204,6 +485,7 @@
         flex: 1;
         color: #fff;
         transition: all 0.2s;
+        overflow: hidden;
         .item-left{
             position: relative;
             width: 196px;
@@ -634,6 +916,75 @@
                 transform: translateY(0);
             }
         }
+        .bet-success{
+            padding: 40px percentage(30/600) 0;
+            .bet-icon{
+                width: 60px;
+                height: 60px;
+            }
+            .bet-t{
+                line-height: 45px;
+                font-size: 28px;
+            }
+            .bet-m{
+                max-height: 60px;
+                line-height: 20px;
+                font-size: 16px;
+            }
+            .btn-box{
+                width: 90%;
+                height: 44px;
+                left: 5%;
+                bottom: 37px;
+                a{
+                    height: 100%;
+                    line-height: 44px;
+                    font-size: 20px;
+                }
+            }
+        }
+        .bet-fail{
+            padding: 40px percentage(30/600) 0;
+            .bet-icon{
+                width: 60px;
+                height: 60px;
+            }
+            .bet-t{
+                line-height: 45px;
+                font-size: 28px;
+            }
+            .bet-m{
+                text-align: center;
+                max-height: 60px;
+                line-height: 20px;
+                font-size: 16px;
+            }
+            .btn-fail{
+                line-height: 43px;
+                font-size: 20px;
+            }
+        }
+        .bet-balance{
+            padding: 40px percentage(30/600) 0;
+            .bet-icon{
+                width: 63px;
+                height: 60px;
+            }
+            .bet-t{
+                line-height: 45px;
+                font-size: 28px;
+            }
+            .bet-m{
+                text-align: center;
+                max-height: 60px;
+                line-height: 20px;
+                font-size: 16px;
+            }
+            .btn-balance{
+                line-height: 43px;
+                font-size: 20px;
+            }
+        }
     }
     .tips{
         width: 204-30px;
@@ -642,4 +993,5 @@
         font-size: 14px;
         color: #fff;
     }
+
 </style>

@@ -47,15 +47,15 @@
                         :label="_('Time')">
                 </el-table-column>
                 <el-table-column
+                        prop="bettype"
                         align="center"
                         header-align="center"
-                        prop="bettype"
                         :label="_('Type')">
                 </el-table-column>
                 <el-table-column
+                        prop="txhash"
                         align="center"
                         header-align="center"
-                        prop="txhash"
                         :label="_('Address')">
                     <template slot-scope="scope">
                         <a target='_blank'

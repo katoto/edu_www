@@ -7,7 +7,8 @@
         <div class="msg-winning" :class="{ show: otherWin.isShow }">
             Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
         </div>
-        <div class="self-winning" :class="{show:selfWin.isShow}">
+        <!--:class="{show:selfWin.isShow}"-->
+        <div class="self-winning hide">
             <div class="main2">
                 <div class="bounceIn animated">
                     <a href="javascript:;" class="close" @click="hideMyWin"></a>
