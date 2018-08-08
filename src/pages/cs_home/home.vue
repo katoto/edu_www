@@ -25,7 +25,7 @@
                                 <p class="msg2">High frequency reward game</p>
                                 <p class="msg3">Jackpot</p>
                                 <p class="msg4">
-                                    <span>{{Number(entrance.syxw.jackpot)}}</span>
+                                    <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{entrance.syxw.USD}} USD</p>
@@ -42,7 +42,7 @@
                                 <p class="msg2">Try Slot & Win 97%+ Return Rate</p>
                                 <p class="msg3">Jackpot</p>
                                 <p class="msg4">
-                                    <span>{{Number(entrance.slot.jackpot)}}</span>
+                                    <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.slot.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{entrance.slot.USD}} USD</p>
@@ -59,7 +59,7 @@
                                 <p class="msg2">High frequency reward game</p>
                                 <p class="msg3">Maximum Award</p>
                                 <p class="msg4">
-                                    <span>{{Number(entrance.megacoin.goodsvalue)}}</span>
+                                    <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
                                     <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{entrance.megacoin.USD}} USD</p>
@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>{{formateBalance(bet.betmoney)}}</span>
+                                        <span>{{formatMoney(bet.betmoney)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>{{formateBalance(bet.betmoney)}}</span>
+                                        <span>{{formatMoney(bet.betmoney)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>{{formateBalance(bet.betmoney)}}</span>
+                                        <span>{{formatMoney(bet.betmoney)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -157,7 +157,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>+{{formateBalance(bet.betprize)}}</span>
+                                        <span>+{{formatMoney(bet.betprize)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>+{{formateBalance(bet.betprize)}}</span>
+                                        <span>+{{formatMoney(bet.betprize)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -185,7 +185,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>+{{formateBalance(bet.betprize)}}</span>
+                                        <span>+{{formatMoney(bet.betprize)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -218,7 +218,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>{{formateBalance(bet.rechargemoney)}}</span>
+                                        <span>{{formatMoney(bet.rechargemoney)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -235,7 +235,7 @@
                                     </div>
                                     <div class="amount" :class="[getCoinClass(bet.cointype)]">
                                         <i></i>
-                                        <span>{{formateBalance(bet.drawmoney)}}</span>
+                                        <span>{{formatMoney(bet.drawmoney)}}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -322,6 +322,7 @@
         formatTime,
         formateCoinType,
         formateBalance,
+        formatNum,
         removeCK
     } from '~/common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
@@ -387,6 +388,10 @@
             formatTime,
             formateBalance,
             formateCoinType,
+            formatNum,
+            formatMoney (num) {
+                return formatNum(Number(num), 4).toFixed(5)
+            },
             async indexRouter (query) {
                 /* 邮箱注册 找回密码  邀请等 */
                 if (query.sign) {
