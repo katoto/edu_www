@@ -123,14 +123,6 @@
                                                v-clipboard:error="copyError"
                                             >{{ item.address }}</a>
                                         </li>
-                                        <!--<li>-->
-                                        <!--<div class="currency-input"></div>-->
-                                        <!--<div class="currency-account">-->
-                                        <!--<i >BTC</i>-->
-                                        <!--<span >107.894</span>-->
-                                        <!--</div>-->
-                                        <!--<a href="javascript:;" class="address">0xD6d93A11751694c20D3E4a3e684A6C877401CBe9</a>-->
-                                        <!--</li>-->
                                     </ul>
                                 </div>
                                 <a href="javascript:;" @click="signOut" class="log-out">
@@ -270,6 +262,7 @@
                 this.isShowMycount = false
                 this.isChooseCoin = false
                 this.isShowChoose = false
+                this.freeWaterPop = false
             }
         },
         computed: {
@@ -306,10 +299,6 @@
             formateBalance,
             copySucc,
             copyError,
-            hideComPop () {
-                // 点击蒙层隐藏
-                this.freeWaterPop = false
-            },
             async taskClick (type, val) {
                 val = val.toString()
                 if (val === '2') {

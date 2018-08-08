@@ -1,7 +1,7 @@
 <template>
     <div class="account">
         <Header></Header>
-        <div class="main">
+        <div class="main" @click="initPop">
             <BreadCrumbs></BreadCrumbs>
             <!--侧边栏-->
             <div class="slide-bar">
@@ -49,7 +49,12 @@ export default {
             return this.$store.state.isLog
         }
     },
-    methods: {},
+    methods: {
+        initPop () {
+            /* head 弹窗 */
+            this.$store.commit('initHeadState', new Date().getTime())
+        }
+    },
     components: {
         Footer,
         Header,

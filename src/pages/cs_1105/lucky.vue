@@ -1,9 +1,9 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}" >
         <Banner class="hide" v-on:superBannerChange="superChange"></Banner>
-        <Header ref="comHeader" v-on:headPopChange="showPopMask"></Header>
+        <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
-        <div class="main" @click="closeHeadPop">
+        <div class="main" @click="initPop">
             <Lucky-mybet></Lucky-mybet>
             <!--玩法区-->
             <div class="play-area" id="play-area">
@@ -304,7 +304,7 @@
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
         <!--全局蒙层-->
-        <div class="pop-mask" :class="{'show':popMask}" @click="closeHeadPop"></div>
+        <!--<div class="pop-mask" :class="{'show':popMask}" @click="closeHeadPop"></div>-->
     </div>
 </template>
 
@@ -322,7 +322,6 @@
     export default {
         data () {
             return {
-                popMask: false,
                 showOrderSucc: false,
                 showOrderFail: false,
                 failureMsg: '* *',
@@ -402,16 +401,9 @@
         methods: {
             formateBalance,
             formateCoinType,
-            closeHeadPop () {
-                /* 调 header 的方法  修改弹窗状态 */
-                if (this.$refs) {
-                    this.popMask = false
-                    this.$refs.comHeader.hideComPop()
-                }
-            },
-            showPopMask (msg = false) {
-                /*  header 调*/
-                this.popMask = msg
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
             },
             superChange (msg = 'superIn') {
                 /* headerNav 调的 */
