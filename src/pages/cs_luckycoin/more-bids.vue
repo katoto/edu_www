@@ -1,5 +1,5 @@
 <template>
-    <div class="oneToKen more-bids-page">
+    <div class="more-bids-page">
         <div class="main">
             <BreadCrumbs :pageName="activeName === 'bids' ? _('More Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
@@ -48,7 +48,7 @@
             </div>
             <div class="container" v-else>
                 <div class="row clearfix">
-                    <div class="items">
+                    <div class="items ">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="index * Math.random()">
                             <history-bet-box :bet="bet" type="list"></history-bet-box>
                         </div>
@@ -295,7 +295,14 @@ export default {
         margin: 28px auto 30px;
         overflow: hidden;
     }
-
+    .nomsg{
+        margin: 30px auto;
+        text-align: center;
+        color: #a99acc;
+        img{
+            margin: 0 auto;
+        }
+    }
     /deep/ .el-radio-button {
         &.is-active .el-radio-button__inner {
             background-color: #412057;

@@ -5,7 +5,7 @@
             <BreadCrumbs></BreadCrumbs>
             <div class="main-detailed flex">
                 <!--eth/btc  normal/win/fail/finished/expired -->
-                <div class="item btc normal">
+                <div class="item btc win">
                     <div class="item-left">
                         <div class="match-img">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="110" height="110">

@@ -1,6 +1,6 @@
 <template>
     <!--icon-eth/icon-btc  win-->
-    <div class="history" :class="[coin.boxClass==='eth'? 'icon-eth' : 'icon-btc',isMyWin?'win':'']">
+    <div class="history" :class="[coin.boxClass==='eth'? 'icon-eth' : 'icon-btc',isMyWin?'win':'',this.bet.state === '5'?'expired':'']">
         <p class="history-prize">
             {{ bet.goodsValue }}<i> {{ coinText }}</i>
         </p>
@@ -10,20 +10,29 @@
         <p class="history-issue">
             No.<router-link :to="{path: `/luckycoin/detailed?number=${bet.exceptId}&type=luckycoin`}">{{bet.exceptId}}</router-link>
         </p>
-        <p class="history-time">
-            <lang>Draw Time: </lang>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}
-        </p>
-        <p class="history-number">
-            <lang>Draw Number: </lang>{{ bet.luckyNum }}
-        </p>
-        <div class="history-result" :class="{expired:isOutdate}">
-            <template v-if="bet.state == 4">
+        <template v-if="bet.state == 4">
+            <p class="history-time">
+                <i><lang>Finished </lang></i>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}
+            </p>
+            <div class="history-result">
                 {{ bet.winUserName }}
-            </template>
-            <template v-else>
-                none
-            </template>
-        </div>
+            </div>
+        </template>
+        <template v-else>
+            <p class="isExpired">
+                Expired
+            </p>
+            <div class="isExpired-msg">
+                <p v-if="bet.betmoney === null">
+                    The system has returned<br>
+                    funds to the bet user account
+                </p>
+                <p style="color: #3fc06f;" v-else>
+                    Your bet has been refunded<br>
+                  {{formateBalance( bet.betmoney )}}{{ coinText }}
+                </p>
+            </div>
+        </template>
     </div>
 </template>
 <script>
