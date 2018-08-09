@@ -2,7 +2,7 @@
     <div class="luckyCoinDetailed">
         <div class="main">
             <BreadCrumbs>No.{{number}}</BreadCrumbs> 
-            <div class="main-detailed flex">
+            <div class="main-detailed flex" v-if="goodsinfo">
                 <!--eth/btc  normal/win/fail/finished/expired -->
                 <div class="item" :class="[betStatus, coinText.toLowerCase()]">
                     <div class="item-left">
@@ -49,7 +49,7 @@
                             <i class="icon-youbet" v-if="betMoney !== 0">You have been Bet {{betMoney}} {{coinText}}</i>
                         </div>
                         <div class="item-prize">
-                            {{ betData.goodsValue }}<i> {{coinText}}</i>
+                            {{ goodsinfo.goodsValue }}<i> {{coinText}}</i>
                         </div>
                         <div class="item-usd">
                             USD 14,776
@@ -62,10 +62,10 @@
                                         Bet Amount
                                     </p>
                                     <div class="input-box ">
-                                        <input type="text">
-                                        <a href="javascript:;">1/2</a>
-                                        <a href="javascript:;">2X</a>
-                                        <a href="javascript:;">Max</a>
+                                        <input type="text" v-model="betValue">
+                                        <a href="javascript:;" @click="chooseHalf">1/2</a>
+                                        <a href="javascript:;" @click="chooseDouble">2X</a>
+                                        <a href="javascript:;" @click="chooseMax">Max</a>
                                     </div>
 
                                 </div>
@@ -75,7 +75,7 @@
                                         Draw number
                                     </p>
                                     <p>
-                                        1000001
+                                        {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
                                         Finished  2018.4.23 23:23
@@ -87,7 +87,7 @@
                                         Draw number
                                     </p>
                                     <p>
-                                        1000001
+                                        {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
                                         Finished  2018.4.23 23:23
@@ -103,7 +103,7 @@
                                     </span>
                                 </div>
                                 <!--过期-->
-                                <div class="main-expired">
+                                <div class="main-expired" v-if="betMoney !== 0">
                                     <span>
                                         Expired
                                     </span>
@@ -111,25 +111,24 @@
                                         Your bet has been refunded
                                     </p>
                                     <p>
-                                        0.0002ETH
+                                        {{betMoney}}{{coinText}}
                                     </p>
                                 </div>
                             </div>
                             <div class="main-right">
                                 <div class="item-issue">
-                                    NO.180327018
+                                    NO.{{number}}
                                 </div>
                                 <div class="item-process">
-                                    Draw Process 100 / 120
+                                    Draw Process {{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}} / {{Number(goodsinfo.totalBids)}}
                                 </div>
                                 <div class="item-price">
-                                    Ticket Price  0.00001 BTC
+                                    Ticket Price {{goodsinfo.bidValue}} {{coinText}}
                                 </div>
                             </div>
                         </div>
-
-                        <a href="javascript:;" class="btn btn-normal">
-                            Pay Now
+                        <a href="javascript:;" class="btn btn-normal"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
+                            {{ this.isBlinking ? _('Amount changes') : _('Pay Now') }}
                         </a>
                         <div class="btn btn-win" v-if="isDraw">
                             <p>
@@ -151,18 +150,18 @@
                             Winner is coming 1'23”
                         </div>
                         <div class="btn btn-expired">
-                            The bid was expired, system will ，refund to the participators later.
+                            The bid was expired, system will refund to the participators later.
                         </div>
                         <!--这里逻辑跟首页一样-->
                         <!--show-->
-                        <div class="bet- bet-success ">
+                        <div class="bet- bet-success show">
                             <a href="javascript:;" class="bet-close"></a>
                             <div class="bet-icon"></div>
                             <p class="bet-t">
                                 Bet Success
                             </p>
                             <p class="bet-m">
-                                You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~
+                                You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus {{ goodsinfo.goodsValue }}{{coinText}}. The more bets, the higher the probability of winning, I wish you good luck~ 
                             </p>
                             <div class="btn-box">
                                 <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
@@ -336,7 +335,7 @@
 
 <script>
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
-    import { getURLParams, formatTime, formatNum, accMul, formateCoinType } from '~/common/util'
+    import { getURLParams, formatTime, formatNum, accMul, accDiv, formateCoinType } from '~/common/util'
     import { mapActions, mapState } from 'vuex'
     export default {
         data () {
@@ -350,13 +349,16 @@
                 totalBids: [],
                 isShowNumberPop: false,
                 numbers: [],
-                goodsinfo: {},
+                goodsinfo: null,
                 infoName: '',
-                betMoney: 0
+                betMoney: 0,
+                betValue: 0,
+                isBlinking: false
             }
         },
         methods: {
-            ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids']),
+            ...mapActions(['getUserInfo']),
+            ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids', 'betNow']),
             init () {
                 let params = getURLParams()
                 if (params.number) {
@@ -380,6 +382,7 @@
             },
             renderDetailInfo (res) {
                 this.goodsinfo = res.data.goodsinfo
+                this.betValue = Number(this.goodsinfo.bidValue)
             },
             getAllBidsInfo () {
                 this.getAllBids({
@@ -419,22 +422,91 @@
                     }
                 })
             },
+            handleBetEvent () {
+                if (this.disableBet || this.isBlinking) {
+                    return
+                }
+                this.betNow({
+                    cointype: this.coinType,
+                    codestr: `${this.number}|${this.coinType}|${accDiv(this.betValue, this.goodsinfo.bidValue)}|${this.goodsinfo.bidValue}`
+                })
+                    .then(() => {
+                        this.getUserInfo()
+                        this.openSuccessWindow()
+                    })
+                    .catch((errorData) => {
+                        this.openFailureWindow(errorData.message)
+                    })
+            },
             getMyBidsInfo () {
                 this.getMyBids({
                     expectId: this.number,
                     lotid: '2'
                 })
-                    .then(res => this.renderMyBet(res))
+                    .then(res => this.renderMyBet(res.data))
             },
             renderMyBet (res) {
-
+                let money = 0
+                let price = accMul(Number(res.goodsinfo.bidValue), res.luckyNums.length)
+                this.betMoney = (price === 0 ? 0 : price)
             },
             handleAllBidsChange () {
                 this.getAllBidsInfo()
+            },
+            chooseHalf () {
+                if (isNaN(Number(this.betValue))) {
+                    return
+                }
+                this.betValue = Number(this.betValue)
+                if (this.betValue / 2 >= this.minValue) {
+                    this.betValue = this.formatBidValue(this.betValue / 2)
+                } else if (this.betValue > this.minValue) {
+                    this.betValue = this.minValue
+                }
+            },
+            chooseDouble () {
+                if (isNaN(Number(this.betValue))) {
+                    return
+                }
+                this.betValue = Number(this.betValue)
+                if (this.betValue * 2 <= this.maxValue) {
+                    this.betValue = this.formatBidValue(this.betValue * 2)
+                } else if (this.betValue < this.maxValue) {
+                    this.betValue = this.maxValue
+                }
+            },
+            chooseMax () {
+                this.betValue = this.maxValue
+            },
+            formatBidValue (value) {
+                let minValue = this.goodsinfo.bidValue
+                if (value && minValue && value >= 0 && minValue >= 0) {
+                    return (
+                        minValue >= value
+                            ? minValue
+                            : accMul(Math.floor(accDiv(value, minValue)), minValue)
+                    )
+                }
+                return value
             }
         },
         computed: {
             ...mapState(['userInfo']),
+            balance () {
+                if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length > 0) {
+                    let accounts = this.userInfo.accounts
+                    for (let index = 0; index < accounts.length; index++) {
+                        let account = accounts[index]
+                        if (account.cointype === this.coinType) {
+                            return Number(account.balance)
+                        }
+                    }
+                }
+                return 0
+            },
+            coinType () {
+                return this.goodsinfo.goodsType || '2001'
+            },
             coinText () {
                 return formateCoinType(this.goodsinfo.goodsType || '2001').toUpperCase()
             },
@@ -456,6 +528,15 @@
                     return 'expired'
                 }
                 return 'normal'
+            },
+            minValue () {
+                return this.goodsinfo.bidValue || 0
+            },
+            maxValue () {
+                return accMul(this.goodsinfo.leftBids, this.goodsinfo.bidValue)
+            },
+            disableBet () {
+                return ((Number(this.betValue) !== Number(this.formatBidValue(this.betValue))) || Number(this.betValue) > this.maxValue)
             }
         },
         components: {
@@ -623,6 +704,47 @@
 </style>
 <style scope lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
+    .blinking {
+        transition: 0.5s all;
+        animation: blinking 2s;
+        background-color: gray !important;
+        cursor: default;
+    }
+
+    .disabled {
+        background-color: gray !important;
+        cursor: default;
+    }
+
+    @keyframes blinking {
+        0% {
+            opacity: 1;
+        }
+        12.5% {
+            opacity: 0;
+        }
+        25% {
+            opacity: 1;
+        }
+        37.5% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        62.5% {
+            opacity: 0;
+        }
+        75% {
+            opacity: 1;
+        }
+        87.5% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
     .luckyCoinDetailed *{
         box-sizing: border-box;
     }
