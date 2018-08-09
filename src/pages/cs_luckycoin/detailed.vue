@@ -267,6 +267,31 @@
                 >
                 </el-pagination>
             </div>
+
+            <!--投注记录弹窗-->
+            <div class="pop pop-bet">
+                <div class="pop-body">
+                    <div class="pop-ani">
+                        <a href="javascript:;" class="btn-close"></a>
+                        <div class="pop-main">
+                            <h3>48****34gm@gmail.com</h3>
+                            <p class="msg1">
+                                A total of 5 numbers, the more bets, the more numbers, the higher the probability of winning!
+                            </p>
+                            <div class="item-number">
+                                <ul>
+                                    <li v-for="item in 200" :class="[item==2?'win':'']">
+                                       10000
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="msg2">
+                                The bet number is randomly assigned to the system. When your bet number matches the lottery number, you will win this session bonus! The lottery algorithm is based on blockchain technology, unpredictable, absolutely fair and open!<a href="javascript:;"> Click to view transparency</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -279,7 +304,7 @@
                 activeName: 'all',
                 tableData: [{
                     time: '06-23 23:23:23',
-                    id: '王小虎',
+                    id: '王小王小虎虎',
                     amount: '0.0045',
                     number: 20,
                     type: 'eth'
@@ -328,7 +353,7 @@
                 }],
                 pageno: 1,
                 pageSize: 8,
-                PageTotal: 10,
+                PageTotal: 10
             }
         },
         watch: {},
@@ -342,7 +367,9 @@
             BreadCrumbs
         },
         mounted () {
-
+            document.body.oncopy = e => {
+                console.log('被复制的数据:', window.getSelection(0).toString());
+            }
         }
     }
 </script>
@@ -992,6 +1019,62 @@
         line-height: 20px;
         font-size: 14px;
         color: #fff;
+    }
+    .pop-bet{
+        .pop-body{
+            width: 727px;
+        }
+        .pop-main{
+            padding-bottom: 18px;
+        }
+        h3{
+            margin: 30px 0 0 0;
+            height: 30px;
+            line-height: 30px;
+            color: #000000;
+            font-weight: normal;
+        }
+        .msg1{
+            margin-bottom: 7px;
+            line-height: 20px;
+            font-size: 14px;
+            color: #293648;
+            text-align: left;
+        }
+        .item-number{
+            overflow: hidden;
+            ul{
+                overflow-y: scroll;
+                max-height: 12*28px;
+                &::-webkit-scrollbar {
+                    width: 16px;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background: #798ca3;
+                }
+                &::-webkit-scrollbar-track{
+                    background: #eff1f9;
+                }
+            }
+            li{
+                float: left;
+                margin-right: 15px;
+                line-height: 28px;
+                font-size: 16px;
+                color: #000000;
+                &.win{
+                    font-weight: bold;
+                    color: #f1b545;
+                }
+            }
+        }
+        .msg2{
+            margin-top: 20px;
+            line-height: 20px;
+            text-align: left;
+            font-size: 14px;
+            color: #798ca3;
+        }
     }
 
 </style>
