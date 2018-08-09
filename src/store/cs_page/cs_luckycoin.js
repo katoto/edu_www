@@ -134,11 +134,9 @@ const mutations = {
             ...state.listener,
             ...params
         }
-        console.log(`bind listener`, state.listener)
     },
     unbindListener (state, expectid) {
         delete state.listener[expectid]
-        console.log(`unbind listener ${expectid}`, state.listener)
     }
 }
 

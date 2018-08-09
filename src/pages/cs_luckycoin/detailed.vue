@@ -301,7 +301,7 @@
                     layout="prev, pager, next"
                     :next-text="_('Next >')"
                     :prev-text="_('< Front')"
-                    v-if="activeName === 'all'"
+                    v-if="activeName === 'all' && PageTotal !== 0"
                 >
                 </el-pagination>
             </div>
@@ -612,7 +612,8 @@
             this.$store.commit('cs_luckycoin/bindListener', {
                 [this.number]: () => {
                     if (!this.showSuccess) {
-                        this.blink()
+                        this.blink().then(() => this.refresh())
+                        return
                     }
                     this.refresh()
                 }
@@ -625,6 +626,9 @@
 </script>
 <style lang="less" type="text/less">
     .luckyCoinDetailed{
+        .el-table__empty-block {
+            display: none;
+        }
         .el-tabs{
             margin-top: 40px;
         }
