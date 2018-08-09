@@ -1,4 +1,3 @@
-
 <template>
     <div class="luckyCoinDetailed">
         <div class="main">
@@ -252,7 +251,7 @@
                         width="130"
                     >
                          <template slot-scope="scope">
-                             <a href="javascript:;" class="allnum" @click="alert">
+                             <a href="javascript:;" class="allnum">
                                 {{scope.row.number}}
                              </a>
                         </template>
@@ -273,76 +272,112 @@
 
 <script>
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
+    import { getURLParams } from '~/common/util'
+    import { mapActions } from 'vuex'
     export default {
         data () {
             return {
+                number: '',
                 activeName: 'all',
-                tableData: [{
-                    time: '06-23 23:23:23',
-                    id: '王小虎',
-                    amount: '0.0045',
-                    number: 20,
-                    type: 'eth'
-                }, {
-                    time: '06-22 23:23:23',
-                    id: '王小虎',
-                    amount: '45',
-                    number: 1,
-                    type: 'btc'
-                }, {
-                    time: '06-21 23:23:23',
-                    id: '王小虎',
-                    amount: '0.45',
-                    number: 1,
-                    type: 'eth'
-                }, {
-                    time: '06-02 23:23:23',
-                    id: '王小虎',
-                    amount: '0.0045',
-                    number: 1,
-                    type: 'eth'
-                }, {
-                    time: '06-23 23:23:23',
-                    id: '王小虎',
-                    amount: '0.0045',
-                    number: 20,
-                    type: 'eth'
-                }, {
-                    time: '06-22 23:23:23',
-                    id: '王小虎',
-                    amount: '45',
-                    number: 1,
-                    type: 'btc'
-                }, {
-                    time: '06-21 23:23:23',
-                    id: '王小虎',
-                    amount: '0.45',
-                    number: 1,
-                    type: 'eth'
-                }, {
-                    time: '06-02 23:23:23',
-                    id: '王小虎',
-                    amount: '0.0045',
-                    number: 1,
-                    type: 'eth'
-                }],
+                tableData: [
+                    {
+                        time: '06-23 23:23:23',
+                        id: '王小虎',
+                        amount: '0.0045',
+                        number: 20,
+                        type: 'eth'
+                    }, {
+                        time: '06-22 23:23:23',
+                        id: '王小虎',
+                        amount: '45',
+                        number: 1,
+                        type: 'btc'
+                    }, {
+                        time: '06-21 23:23:23',
+                        id: '王小虎',
+                        amount: '0.45',
+                        number: 1,
+                        type: 'eth'
+                    }, {
+                        time: '06-02 23:23:23',
+                        id: '王小虎',
+                        amount: '0.0045',
+                        number: 1,
+                        type: 'eth'
+                    }, {
+                        time: '06-23 23:23:23',
+                        id: '王小虎',
+                        amount: '0.0045',
+                        number: 20,
+                        type: 'eth'
+                    }, {
+                        time: '06-22 23:23:23',
+                        id: '王小虎',
+                        amount: '45',
+                        number: 1,
+                        type: 'btc'
+                    }, {
+                        time: '06-21 23:23:23',
+                        id: '王小虎',
+                        amount: '0.45',
+                        number: 1,
+                        type: 'eth'
+                    }, {
+                        time: '06-02 23:23:23',
+                        id: '王小虎',
+                        amount: '0.0045',
+                        number: 1,
+                        type: 'eth'
+                    }
+                ],
                 pageno: 1,
                 pageSize: 8,
-                PageTotal: 10,
+                PageTotal: 10
             }
         },
-        watch: {},
         methods: {
-            alert () {
-                alert('详细信息')
+            ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids']),
+            init () {
+                let params = getURLParams()
+                if (params.number) {
+                    this.number = params.number
+                    this.getDetailInfo()
+                    this.getAllBidsInfo()
+                    this.getMyBidsInfo()
+                } else {
+                    window.location.pathname = '/luckycoin'
+                }
+            },
+            getDetailInfo () {
+                return this.getDetailData({
+                    expectId: this.number
+                })
+                    .then(res => {
+                        this.renderDetailInfo(res)
+                        return res
+                    })
+            },
+            renderDetailInfo (res) {
+                console.log(res)
+            },
+            getAllBidsInfo () {
+                this.getAllBids({
+                    expectId: this.number
+                })
+                    .then(res => console.log(res))
+            },
+            getMyBidsInfo () {
+                this.getMyBids({
+                    expectId: this.number
+                })
+                    .then(res => console.log(res))
             }
         },
-        computed: {},
         components: {
             BreadCrumbs
         },
         mounted () {
-
+            this.init()
         }
     }
 </script>
