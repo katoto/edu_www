@@ -164,9 +164,9 @@
                                 You get five numbers obtained bonus 5ETH. The more bets, the higher the probability of winning, I wish you good luck~  You get five numbers obtained bonus {{ goodsinfo.goodsValue }}{{coinText}}. The more bets, the higher the probability of winning, I wish you good luck~ 
                             </p>
                             <div class="btn-box">
-                                <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
+                                <a href="javascript:;" class="bet-btnV" @click="activeName = 'my'; showSuccess = false">
                                     <lang>View Number</lang>
-                                </router-link>
+                                </a>
                                 <a href="javascript:;" class="bet-btnB" @click="showSuccess = false">
                                     <lang>Bet More</lang>
                                 </a>

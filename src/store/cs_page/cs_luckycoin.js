@@ -36,6 +36,7 @@ const mutations = {
             }
         })
         state.betsList = [...state.betsList]
+        state.listener[newBet.exceptId] && (state.listener[newBet.exceptId])()
     },
 
     // 更新投注列表
@@ -115,7 +116,6 @@ const mutations = {
             }
         })
         state.betsList = [...state.betsList]
-        state.listener[betid] && (state.listener[betid])()
     },
 
     handleMyBet (state, orders) {
@@ -220,6 +220,9 @@ const actions = {
         if (router.history.current.path.indexOf('/moreBids') > -1) {
             dispatch('getBetsPageList')
             return
+        }
+        for (let name in this.state.listener) {
+            this.state.listener[name] && this.state.listener[name]()
         }
         dispatch('getBetsList')
         dispatch('getDrawHistory')
