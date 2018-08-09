@@ -95,7 +95,6 @@ export default {
 <style lang="less" type="text/less">
 .page-luckycoin{
     position: relative;
-
     /*banner按钮*/
     .el-carousel__button{
         width:8px;
@@ -125,6 +124,14 @@ export default {
 <style  lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
+    .page-luckycoin{
+        display: flex;
+        flex-direction: column;
+        .more-bids-page{
+            flex: 1;
+        }
+    }
+
     .msg-winning {
         position: fixed;
         left: 50%;
@@ -335,7 +342,6 @@ export default {
             }
             .match-img{
                 position: absolute;
-                overflow: hidden;
                 &.match-eth{
                     background: url("../../assets/img/luckyCoin/icon-eth.png") no-repeat center;
                 }
@@ -889,7 +895,7 @@ export default {
         .history{
             position: relative;
             background: url("../../assets/img/luckyCoin/bg-history.png") no-repeat right bottom, linear-gradient(to right,#7c6238,#4e3c27);
-            padding: 14px percentage(26/290) 38px;
+            padding: 14px percentage(26/290) 54px;
             color: #fff;
             border-radius: 6px;
             overflow: hidden;
@@ -907,9 +913,32 @@ export default {
                 line-height: 18px;
                 font-size: 14px;
             }
-            .history-issue,.history-time,.history-number{
+            .history-issue,.history-time,.isExpired{
                 line-height: 20px;
                 font-size: 12px;
+            }
+            .history-issue{
+                a{
+                    color: #fff;
+                    &:hover{
+                        color: #ffca28;
+                    }
+                }
+            }
+            .history-time{
+                i{
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+            }
+            .isExpired{
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .isExpired-msg{
+                margin-top: 2px;
+                line-height: 22px;
+                font-size: 14px;
             }
             &::before {
                 content: '';
@@ -940,6 +969,8 @@ export default {
                 height: 28px;
                 line-height: 28px;
                 text-indent:50px;
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
                 background: #ffca28;
                 font-size: 14px;
                 font-weight: bold;
@@ -956,13 +987,6 @@ export default {
                     overflow: hidden;
                     background: url("../../assets/img/luckyCoin/icon-champion.png") no-repeat center;
                     background-size: cover;
-                }
-                &.expired{
-                    background: #000;
-                    color: #fff;
-                    &::before{
-                        display: none;
-                    }
                 }
             }
             &.win{
@@ -985,6 +1009,13 @@ export default {
                     height: 46px;
                     background: url("../../assets/img/luckyCoin/icon-win.png") no-repeat center;
                     background-size: cover;
+                }
+            }
+            &.expired{
+                padding-bottom: 10px;
+                background: #401f56;
+                &::before{
+                    display: none;
                 }
             }
         }
