@@ -247,7 +247,7 @@
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
-                isShowChoose: false
+                isShowChoose: true
             }
         },
         watch: {
