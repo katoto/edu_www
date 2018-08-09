@@ -401,7 +401,7 @@
                             if (item.task === '2' || item.task === '3' || item.task === '4') {
                                 if (item.info) {
                                     this['tasks_' + item.task] = item.info.status
-                                    if (item.info.free !== null && parseInt(item.info.free) > 0) {
+                                    if (item.info.free !== '0' && parseInt(item.info.free) > 0) {
                                         this['tasks_' + item.task] = 2
                                     }
                                 }
