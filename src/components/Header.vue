@@ -248,7 +248,7 @@
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
-                isShowChoose: false,
+                isShowChoose: true,
                 received_counter: 0, // 已完成未领取数量
                 tasks_2: '-1',
                 tasks_3: '-1',
