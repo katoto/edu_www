@@ -133,7 +133,7 @@ export default {
         .nomsg{
             margin: 30px auto;
             text-align: center;
-            color: #a99acc;
+            color: #766490;
             img{
                 margin: 0 auto;
             }
@@ -317,6 +317,7 @@ export default {
             }
         }
         .match{
+            display: block;
             position: relative;
             background: #412057;
             border-radius: 6px;
@@ -395,6 +396,9 @@ export default {
                 &:not(.waiting):hover{
                     background: #6237c3;
                 }
+            }
+            &:hover{
+                filter: brightness(1.3);
             }
         }
         .bet-{
@@ -908,6 +912,7 @@ export default {
             }
         }
         .history{
+            display: block;
             position: relative;
             background: url("../../assets/img/luckyCoin/bg-history.png") no-repeat right bottom, linear-gradient(to right,#7c6238,#4e3c27);
             padding: 14px percentage(26/290) 54px;
@@ -1032,6 +1037,9 @@ export default {
                 &::before{
                     display: none;
                 }
+            }
+            &:hover{
+                filter: brightness(1.3);
             }
         }
     }

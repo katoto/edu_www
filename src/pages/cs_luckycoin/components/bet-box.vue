@@ -1,6 +1,6 @@
 <template>
     <!--match-popular/match-common-->
-    <div class="match"  :class="[
+    <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}" class="match"  :class="[
                         isPopular? 'match-popular' : 'match-common',
                         isInit && !isCancel ? '' : 'unvisible',
           ]">
@@ -68,9 +68,7 @@
         </p>
         <!--期号-->
         <p class="match-issue">
-            <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}">
-                NO.{{betData.exceptId}}
-            </router-link>
+            NO.{{betData.exceptId}}
         </p>
         <!--进度-->
         <p class="match-process">
@@ -162,7 +160,7 @@
                 Deposit
             </a>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>

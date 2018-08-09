@@ -1,6 +1,6 @@
 <template>
     <!--icon-eth/icon-btc  win-->
-    <div class="history" :class="[coin.boxClass==='eth'? 'icon-eth' : 'icon-btc',isMyWin?'win':'',this.bet.state === '5'?'expired':'']">
+    <router-link :to="{path: `/luckycoin/detailed?number=${bet.exceptId}&type=luckycoin`}"  class="history" :class="[coin.boxClass==='eth'? 'icon-eth' : 'icon-btc',isMyWin?'win':'',this.bet.state === '5'?'expired':'']">
         <p class="history-prize">
             {{ bet.goodsValue }}<i> {{ coinText }}</i>
         </p>
@@ -8,7 +8,7 @@
             {{ goodsPrice }}
         </p>
         <p class="history-issue">
-            No.<router-link :to="{path: `/luckycoin/detailed?number=${bet.exceptId}&type=luckycoin`}">{{bet.exceptId}}</router-link>
+            No.{{ bet.exceptId}}
         </p>
         <template v-if="bet.state == 4">
             <p class="history-time">
@@ -33,7 +33,7 @@
                 </p>
             </div>
         </template>
-    </div>
+    </router-link>
 </template>
 <script>
 import { formatTime, formateCoinType, formateBalance } from '~/common/util'
