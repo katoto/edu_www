@@ -19,7 +19,8 @@ const state = {
         exceptId: '',
         isShow: false,
         callback: null
-    }
+    },
+    listener: {}
 }
 
 const mutations = {
@@ -114,6 +115,7 @@ const mutations = {
             }
         })
         state.betsList = [...state.betsList]
+        state.listener[betid] && (state.listener[betid])()
     },
 
     handleMyBet (state, orders) {
@@ -126,6 +128,17 @@ const mutations = {
                 this.commit('cs_luckycoin/updateMyBet', order.expectid)
             }
         })
+    },
+    bindListener (state, params) {
+        state.listener = {
+            ...state.listener,
+            ...params
+        }
+        console.log(`bind listener`, state.listener)
+    },
+    unbindListener (state, expectid) {
+        delete state.listener[expectid]
+        console.log(`unbind listener ${expectid}`, state.listener)
     }
 }
 

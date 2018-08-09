@@ -45,7 +45,7 @@
                     <div class="item-right">
                         <!--hot/bet-->
                         <div class="icon-box hot bet">
-                            <i class="icon-hot">H</i>
+                            <i class="icon-hot" v-if="goodsinfo.ishot === '1'">H</i>
                             <i class="icon-youbet" v-if="betMoney !== 0">You have been Bet {{betMoney}} {{coinText}}</i>
                         </div>
                         <div class="item-prize">
@@ -78,7 +78,7 @@
                                         {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
-                                        Finished  2018.4.23 23:23
+                                        Finished  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
                                     </span>
                                 </div>
                                 <!--失败-->
@@ -90,7 +90,7 @@
                                         {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
-                                        Finished  2018.4.23 23:23
+                                        Finished  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
                                     </span>
                                 </div>
                                 <!--已结束待开奖-->
@@ -99,7 +99,7 @@
                                         Time Up!
                                     </p>
                                     <span>
-                                        Finished  2018.4.23 23:23
+                                        Finished  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
                                     </span>
                                 </div>
                                 <!--过期-->
@@ -154,8 +154,8 @@
                         </div>
                         <!--这里逻辑跟首页一样-->
                         <!--show-->
-                        <div class="bet- bet-success show">
-                            <a href="javascript:;" class="bet-close"></a>
+                        <div class="bet- bet-success" :class="{ show: showSuccess }">
+                            <a href="javascript:;" class="bet-close" @click="showSuccess = false"></a>
                             <div class="bet-icon"></div>
                             <p class="bet-t">
                                 Bet Success
@@ -167,41 +167,44 @@
                                 <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
                                     <lang>View Number</lang>
                                 </router-link>
-                                <a href="javascript:;" class="bet-btnB">
+                                <a href="javascript:;" class="bet-btnB" @click="showSuccess = false">
                                     <lang>Bet More</lang>
                                 </a>
                             </div>
                         </div>
-                        <div class="bet- bet-fail " >
-                            <a href="javascript:;" class="bet-close" ></a>
+                        <div class="bet- bet-fail " :class="{ show: showFail }">
+                            <a href="javascript:;" class="bet-close" @click="showFail = false"></a>
                             <div class="bet-icon"></div>
                             <p class="bet-t">
                                 Bet failure
                             </p>
                             <p class="bet-m">
-                                Temporarily unavailable due to network reasons
+                                {{ failMsg }}Temporarily unavailable due to network reasons
                             </p>
-                            <a href="javascript:;" class="btn-fail" >
+                            <a href="javascript:;" class="btn-fail" @click="showFail = false">
                                 <lang>Try Again Later</lang>
                             </a>
                         </div>
-                        <div class="bet- bet-balance">
-                            <a href="javascript:;" class="bet-close" ></a>
+                        <div class="bet- bet-balance" :class="{ show: showDeposit }">
+                            <a href="javascript:;" class="bet-close" @click="showDeposit = false"></a>
                             <div class="bet-icon"></div>
                             <p class="bet-t">
                                 Insufficient Balance
                             </p>
-                            <p class="bet-m">
-                                Your balance can be purchased for 0.03ETH. If you need to bet more, please top up first.
+                            <p class="bet-m" v-if="canBuyValue !== 0">
+                                Your balance can be purchased for {{canBuyValue}}{{coinText}}. If you need to bet more, please top up first.
                             </p>
-                            <a href="javascript:;" class="btn-balance">
-                                Deposit
-                            </a>
+                            <p class="bet-m" v-else>
+                                If you need to bet more, please top up first.
+                            </p>
+                            <router-link :to="{path: '/account/deposit'}" class="btn-balance">
+                                <lang>Deposit</lang>
+                            </router-link>
                         </div>
                     </div>
                 </div>
                 <div class="tips">
-                    Play Tips: Each betting 0.01ETH, you can get a number. The more bets you have, the more numbers you have and the higher the probability of winning.
+                    Play Tips: Each betting {{goodsinfo.bidValue}}{{coinText}}, you can get a number. The more bets you have, the more numbers you have and the higher the probability of winning.
                     <br>
                     <br>
                     When the lottery is drawn, a lucky number is drawn through the blockchain, and the lucky number winner receives the full bonus.
@@ -221,6 +224,7 @@
                     style="width: 100%"
                     :default-sort = "{prop: 'date', order: 'descending'}"
                     v-if="activeName === 'all'"
+                    :row-class-name="getRowClass"
                 >
                     <el-table-column
                         prop="crtime"
@@ -268,7 +272,7 @@
                     </p>
                     <div class="item-number">
                         <p>
-                            2018-06-23 23:23:23   You bet {{betMoney}} {{coinText}} to get {{myNumbers.length}} numbers
+                            {{mybetTime}}   You bet {{betMoney}} {{coinText}} to get {{myNumbers.length}} numbers
                         </p>
                         <ul>
                             <li v-for="(item, index) in myNumbers" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
@@ -353,12 +357,19 @@
                 infoName: '',
                 betMoney: 0,
                 betValue: 0,
-                isBlinking: false
+                canBuyValue: 0,
+                isBlinking: false,
+                showSuccess: false,
+                showFail: false,
+                showDeposit: false,
+                failMsg: '',
+                mybetTime: ''
             }
         },
         methods: {
             ...mapActions(['getUserInfo']),
             ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids', 'betNow']),
+            formatTime,
             init () {
                 let params = getURLParams()
                 if (params.number) {
@@ -413,6 +424,9 @@
             },
             formatTotalBids (data, goodsinfo) {
                 return data.map(item => {
+                    if (item.uid === this.userInfo.uid) {
+                        this.mybetTime = formatTime(item.crtime, 'MM-dd HH:mm:ss')
+                    }
                     return {
                         ...item,
                         crtime: formatTime(item.crtime, 'MM-dd HH:mm:ss'),
@@ -430,16 +444,27 @@
                 if (this.disableBet || this.isBlinking) {
                     return
                 }
+                if (Number(this.betValue) > this.balance) {
+                    if (this.balance && this.balance > Number(this.goodsinfo.bidValue)) {
+                        this.canBuyValue = this.formatBidValue(this.balance)
+                    } else {
+                        this.canBuyValue = 0
+                    }
+                    this.showDeposit = true
+                    return
+                }
                 this.betNow({
                     cointype: this.coinType,
                     codestr: `${this.number}|${this.coinType}|${accDiv(this.betValue, this.goodsinfo.bidValue)}|${this.goodsinfo.bidValue}`
                 })
                     .then(() => {
+                        this.refresh()
                         this.getUserInfo()
-                        this.openSuccessWindow()
+                        this.showSuccess = true
                     })
                     .catch((errorData) => {
-                        this.openFailureWindow(errorData.message)
+                        this.failMsg = errorData.message
+                        this.showFail = true
                     })
             },
             getMyBidsInfo () {
@@ -505,6 +530,21 @@
             },
             loginHandler () {
                 this.$store.commit('showLoginPop')
+            },
+            getRowClass (row) {
+                return row.isWin ? 'mywin' : ''
+            },
+            refresh () {
+                this.init()
+            },
+            blink () {
+                return new Promise((resolve) => {
+                    this.isBlinking = true
+                    setTimeout(() => {
+                        this.isBlinking = false
+                        resolve(true)
+                    }, 2300)
+                })
             }
         },
         computed: {
@@ -564,11 +604,22 @@
         },
         watch: {
             isLogin () {
-                this.init()
+                this.refresh()
             }
         },
         mounted () {
-            this.init()
+            this.refresh()
+            this.$store.commit('cs_luckycoin/bindListener', {
+                [this.number]: () => {
+                    if (!this.showSuccess) {
+                        this.blink()
+                    }
+                    this.refresh()
+                }
+            })
+        },
+        beforeDestroy () {
+            this.$store.commit('cs_luckycoin/unbindListener', this.number)
         }
     }
 </script>
