@@ -8,7 +8,7 @@
             {{ goodsPrice }}
         </p>
         <p class="history-issue">
-            No.<a :href="`/check?number=${bet.exceptId}&type=luckycoin`" target="_blank">{{bet.exceptId}}</a>
+            No.<router-link :to="{path: `/luckycoin/detailed?number=${bet.exceptId}&type=luckycoin`}">{{bet.exceptId}}</router-link>
         </p>
         <template v-if="bet.state == 4">
             <p class="history-time">

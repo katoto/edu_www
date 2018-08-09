@@ -23,6 +23,11 @@
                             </router-link>
                         </li>
                         <li>
+                            <router-link :to="{path: '/luckycoin'}">
+                                <lang>Luckycoin</lang>
+                            </router-link>
+                        </li>
+                        <li>
                             <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                                 <lang>F3d west</lang>
                             </a>
@@ -32,12 +37,15 @@
                 <router-link to="/" title="Coinsprize" class="logo">
                     <img src="../assets/img/CoinsprizeLogo.png" alt="CoinsprizeLogo">
                 </router-link>
-                <div class="choose-play icon-slot" >
+                <div class="choose-play icon-Luckycoin" >
                     <router-link :to="{path: '/lucky11'}">
                         <lang>Lucky 11</lang>
                     </router-link>
                     <router-link :to="{path: '/slot'}" >
                         <lang>Slot</lang>
+                    </router-link>
+                    <router-link :to="{path: '/luckycoin'}">
+                        <lang>Luckycoin</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                         <lang>F3d west</lang>

@@ -68,7 +68,9 @@
         </p>
         <!--期号-->
         <p class="match-issue">
-            NO.{{betData.exceptId}}
+            <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}">
+                NO.{{betData.exceptId}}
+            </router-link>
         </p>
         <!--进度-->
         <p class="match-process">
