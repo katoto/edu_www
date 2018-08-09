@@ -1,6 +1,6 @@
 <template>
     <!--icon-eth/icon-btc  win-->
-    <router-link :to="{path: `/luckycoin/detailed?number=${bet.exceptId}&type=luckycoin`}"  class="history" :class="[coin.boxClass==='eth'? 'icon-eth' : 'icon-btc',isMyWin?'win':'',this.bet.state === '5'?'expired':'']">
+    <router-link :to="{path: `/luckycoin/detailed?number=${bet.exceptId}&type=luckycoin`}"  class="history" :class="[coin.boxClass==='eth'? 'icon-eth' : 'icon-btc',isMyWin?'iswin':'',this.bet.state === '5'?'expired':'']">
         <p class="history-prize">
             {{ bet.goodsValue }}<i> {{ coinText }}</i>
         </p>

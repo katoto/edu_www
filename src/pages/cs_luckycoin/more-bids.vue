@@ -53,12 +53,12 @@
             </div>
             <div class="container" v-else>
                 <div class="row clearfix">
-                    <div class="items hide">
+                    <div class="items ">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="index * Math.random()">
                             <history-bet-box :bet="bet" type="list"></history-bet-box>
                         </div>
                     </div>
-                    <div class="nomsg" v-if="historyList.length != 0">
+                    <div class="nomsg" v-if="historyList.length === 0">
                         <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                         <p>
                             No record.

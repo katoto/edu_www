@@ -234,10 +234,16 @@
                         label="User ID"
                         width="440"
                     >
+                        <template slot-scope="scope">
+                            <div class="selfwin">
+                                {{scope.row.id}}
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         prop="amount"
                         label="Amount"
+                        width="144"
                     >
                         <template slot-scope="scope">
                             <div class="icon-amount " :class="[scope.row.type=='eth'?'eth':'btc']">
@@ -247,8 +253,8 @@
                     </el-table-column>
                     <el-table-column
                         prop="number"
-                        label="Number of Number"
-                        width="130"
+                        label="Bet number"
+                        width="274"
                     >
                          <template slot-scope="scope">
                              <a href="javascript:;" class="allnum">
@@ -257,6 +263,24 @@
                         </template>
                     </el-table-column>
                 </el-table>
+                <div class="mybets">
+                    <p class="msg1">
+                        A total of 0.4ETH bets are placed to get 125 numbers. The more bets, the more numbers, and the higher the probability of winning!
+                    </p>
+                    <div class="item-number">
+                        <p>
+                            2018-06-23 23:23:23   You bet 0.045 ETH to get 5 numbers
+                        </p>
+                        <ul>
+                            <li v-for="item in 200" :class="[item==2?'win':'']">
+                                10000
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="msg2">
+                        The betting number is randomly assigned by the system. When your betting number coincides with the winning number, you will win this bonus! The lottery algorithm is based on blockchain technology and cannot be predicted. It is absolutely fair and open!  <router-link :to="{path:'/check'}">Click to see transparency</router-link>
+                    </p>
+                </div>
                 <div class="nomsg" v-show="tableData.length === 0">
                     <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                     <p>
@@ -444,9 +468,12 @@
                 }
                 th{
                     color: #fff;
-                    &.el-table_1_column_3{
-                        display: block;
-                        width: 98px;
+                    &.el-table_1_column_2{
+                        text-align: left;
+                        text-indent: 162px;
+                    }
+                    &.el-table_1_column_3, &.el-table_1_column_4{
+                        text-align: right;
                     }
                 }
             }
@@ -457,16 +484,26 @@
                 td{
                     color: #fff;
                 }
+                .selfwin{
+                    position: relative;
+                    margin-left: 138px;
+                    text-align: left;
+                    padding-left: 24px;
+                }
                 .allnum{
                     display: block;
+                    padding-right: 30px;
+                    text-align: right;
+                    color: #fff;
+                    text-decoration: underline;
                     &:hover{
+                        filter: brightness(1.1);
                         color: #fff;
                     }
                 }
                 .icon-amount{
                     position: relative;
                     padding-right: 26px;
-                    margin-right: 195px;
                     text-align: right;
                     &::after{
                         content: '';
@@ -492,6 +529,28 @@
             }
             tr{
                 border-color: #311c3d;
+                &.mywin{
+                    background: #56432a;
+                    .selfwin{
+                        color: #ffca28;
+                        &::before{
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            top: 13px;
+                            display: block;
+                            width: 16px;
+                            height: 14px;
+                            overflow: hidden;
+                            background: url("../../assets/img/luckyCoin/icon-champion2.png") no-repeat center;
+                            background-size: cover;
+                        }
+                    }
+                    &:hover{
+                        background: #56432a;
+                        filter:brightness(1.1);
+                    }
+                }
             }
             .caret-wrapper{
                 display: inline-flex;
@@ -1087,7 +1146,7 @@
         .item-number{
             overflow: hidden;
             ul{
-                overflow-y: scroll;
+                overflow-y: auto;
                 max-height: 12*28px;
                 &::-webkit-scrollbar {
                     width: 16px;
@@ -1119,5 +1178,54 @@
             color: #798ca3;
         }
     }
-
+    .mybets{
+        color: #fff;
+        .msg1{
+            margin-top: 12px;
+            line-height: 52px;
+        }
+        .item-number{
+            padding: 26px 30px 0;
+            background: #321740;
+            border-radius: 6px;
+            overflow: hidden;
+            p{
+                line-height: 22px;
+                color: #798ca3;
+            }
+            ul{
+                overflow-y: auto;
+                max-height: 12*28px;
+                &::-webkit-scrollbar {
+                    width: 16px;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background: #798ca3;
+                }
+                &::-webkit-scrollbar-track{
+                    background: #2b1237;
+                }
+            }
+            li{
+                float: left;
+                margin-right: 15px;
+                line-height: 28px;
+                font-size: 16px;
+                &.win{
+                    font-weight: bold;
+                    color: #f1b545;
+                }
+            }
+        }
+        .msg2{
+            margin: 34px 0;
+            line-height: 24px;
+            a{
+                color: #6a88cc;
+                &:hover{
+                    color: currentColor;
+                }
+            }
+        }
+    }
 </style>

@@ -1,9 +1,10 @@
 <template>
     <!--match-popular/match-common-->
-    <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}" class="match"  :class="[
+    <div class="match"  :class="[
                         isPopular? 'match-popular' : 'match-common',
                         isInit && !isCancel ? '' : 'unvisible',
           ]">
+        <router-link class="todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
         <!-- hot bet-->
         <div class="icon-box "  :class="[isHot? 'hot' : '', isBet? 'bet':'']">
             <i class="icon-hot">H</i>
@@ -160,7 +161,7 @@
                 Deposit
             </a>
         </div>
-    </router-link>
+    </div>
 </template>
 
 <script>

@@ -317,11 +317,18 @@ export default {
             }
         }
         .match{
-            display: block;
             position: relative;
             background: #412057;
             border-radius: 6px;
             overflow: hidden;
+            .todetailed{
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
             /*icon 没做common和popular区分*/
             .icon-box{
                 position: absolute;
@@ -380,6 +387,7 @@ export default {
             }
             .match-btn{
                 position: absolute;
+                z-index: 2;
                 left: 0;
                 bottom: 0;
                 display: block;
@@ -398,10 +406,11 @@ export default {
                 }
             }
             &:hover{
-                filter: brightness(1.3);
+                filter: brightness(1.1);
             }
         }
         .bet-{
+            z-index: 3;
             transform: translateY(100%);
             transition: all 0.2s ease-in-out;
             &.show{
@@ -1009,7 +1018,7 @@ export default {
                     background-size: cover;
                 }
             }
-            &.win{
+            &.iswin{
                 .history-result{
                     background: #20bf6b;
                     color: #fff;
@@ -1039,7 +1048,7 @@ export default {
                 }
             }
             &:hover{
-                filter: brightness(1.3);
+                filter: brightness(1.1);
             }
         }
     }
