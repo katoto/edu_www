@@ -81,11 +81,13 @@
             <div class="pagination">
                 <el-pagination
                         @current-change="handleCurrentChange"
+                        @size-change="myTranSizeChange"
                         background
                         :current-page.sync="pageno"
                         size="small"
+                        :page-sizes="[10, 25, 50, 100]"
                         :page-size="pageSize"
-                        layout="prev, pager, next, jumper"
+                        layout="sizes,prev, pager, next,jumper"
                         :page-count="pageCount"
                         :next-text="_('Next >')"
                         :prev-text="_('< Front')"
@@ -109,7 +111,7 @@ export default {
     data () {
         return {
             pageno: 1,
-            pageSize: 8,
+            pageSize: 10,
             pageCount: 10,
             orderList: [],
             ethUrl,
@@ -181,6 +183,10 @@ export default {
     },
     watch: {},
     methods: {
+        myTranSizeChange (size) {
+            this.pageSize = size
+            this.handleCurrentChange()
+        },
         handleStatusChange () {
             this.pageno = 1
             this.handleCurrentChange()
