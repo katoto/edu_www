@@ -114,9 +114,15 @@
                             </el-table-column>
                         </el-table>
                         <div class="pagination">
-                            <el-pagination @current-change="handleCurrentChange" background :current-page.sync="pageno"
-                                           size="small" :page-size="pageSize" layout="prev, pager, next,jumper"
-                                           :total="PageTotal" :next-text="_('Next >')" :prev-text="_('< Front')">
+                            <el-pagination @current-change="handleCurrentChange"
+                                           @size-change="withdrawSizeChange"
+                                           background :current-page.sync="pageno"
+                                           size="small"
+                                           :page-sizes="[10, 25, 50, 100]"
+                                           :page-size="pageSize"
+                                           layout="sizes,prev, pager, next,jumper"
+                                           :total="PageTotal"
+                                           :next-text="_('Next >')" :prev-text="_('< Front')">
                             </el-pagination>
                         </div>
                     </template>
@@ -256,7 +262,7 @@
                 showTransfer: false, // 转账弹窗
 
                 pageno: 1,
-                pageSize: 8,
+                pageSize: 10,
                 PageTotal: 10,
                 orderList: [],
                 ethUrl,
@@ -315,6 +321,10 @@
         methods: {
             formateBalance,
             formateCoinType,
+            withdrawSizeChange (size) {
+                this.pageSize = size
+                this.handleCurrentChange()
+            },
             checkAddrLen () {
                 if (this.withdrawAddr.length >= 50) {
                     this.withdrawAddr = this.withdrawAddr.slice(0, 50)

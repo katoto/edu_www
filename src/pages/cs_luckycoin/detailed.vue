@@ -1,4 +1,3 @@
-
 <template>
     <div class="luckyCoinDetailed">
         <div class="main">
@@ -252,12 +251,24 @@
                         width="130"
                     >
                          <template slot-scope="scope">
-                             <a href="javascript:;" class="allnum" @click="alert">
+                             <a href="javascript:;" class="allnum">
                                 {{scope.row.number}}
                              </a>
                         </template>
                     </el-table-column>
                 </el-table>
+                <div class="nomsg" v-show="tableData.length === 0">
+                    <img src="@/assets/img/oneToKen/nomsg.png" alt="">
+                    <p>
+                        No record.
+                        <router-link to="/luckycoin">
+                            <lang>Try a luck !</lang>
+                        </router-link>
+                        <a href="javascript:;">
+                            <lang>Log in to view</lang>
+                        </a>
+                    </p>
+                </div>
                 <el-pagination
                     :page-size="10"
                    layout="prev, pager, next"
@@ -269,7 +280,7 @@
             </div>
 
             <!--投注记录弹窗-->
-            <div class="pop pop-bet">
+            <div class="pop pop-bet hide">
                 <div class="pop-body">
                     <div class="pop-ani">
                         <a href="javascript:;" class="btn-close"></a>
@@ -298,9 +309,12 @@
 
 <script>
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
+    import { getURLParams } from '~/common/util'
+    import { mapActions } from 'vuex'
     export default {
         data () {
             return {
+                number: '',
                 activeName: 'all',
                 tableData: [{
                     time: '06-23 23:23:23',
@@ -356,20 +370,49 @@
                 PageTotal: 10
             }
         },
-        watch: {},
         methods: {
-            alert () {
-                alert('详细信息')
+            ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids']),
+            init () {
+                let params = getURLParams()
+                if (params.number) {
+                    this.number = params.number
+                    this.getDetailInfo()
+                    this.getAllBidsInfo()
+                    this.getMyBidsInfo()
+                } else {
+                    window.location.pathname = '/luckycoin'
+                }
+            },
+            getDetailInfo () {
+                return this.getDetailData({
+                    expectId: this.number
+                })
+                    .then(res => {
+                        this.renderDetailInfo(res)
+                        return res
+                    })
+            },
+            renderDetailInfo (res) {
+                console.log(res)
+            },
+            getAllBidsInfo () {
+                this.getAllBids({
+                    expectId: this.number
+                })
+                    .then(res => console.log(res))
+            },
+            getMyBidsInfo () {
+                this.getMyBids({
+                    expectId: this.number
+                })
+                    .then(res => console.log(res))
             }
         },
-        computed: {},
         components: {
             BreadCrumbs
         },
         mounted () {
-            document.body.oncopy = e => {
-                console.log('被复制的数据:', window.getSelection(0).toString());
-            }
+            this.init()
         }
     }
 </script>

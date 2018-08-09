@@ -130,6 +130,21 @@ export default {
         .more-bids-page{
             flex: 1;
         }
+        .nomsg{
+            margin: 30px auto;
+            text-align: center;
+            color: #a99acc;
+            img{
+                margin: 0 auto;
+            }
+            a{
+                &:hover{
+                    color: currentColor;
+                    filter: brightness(1.3);
+                }
+            }
+
+        }
     }
 
     .msg-winning {

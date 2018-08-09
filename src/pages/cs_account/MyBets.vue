@@ -102,16 +102,19 @@
             <div class="pagination">
                 <el-pagination
                         @current-change="handleCurrentChange"
+                        @size-change="myBetSizeChange"
                         background
                         :current-page.sync="pageno"
                         size="small"
+                        :page-sizes="[10, 25, 50, 100]"
                         :page-size="pageSize"
-                        layout="prev, pager, next,jumper"
+                        layout="sizes,prev, pager, next,jumper"
                         :total="PageTotal"
                         :next-text="_('Next >')"
                         :prev-text="_('< Front')"
                 >
                 </el-pagination>
+
             </div>
         </template>
     </div>
@@ -130,7 +133,7 @@ export default {
     data () {
         return {
             pageno: 1,
-            pageSize: 8,
+            pageSize: 10,
             PageTotal: 10,
             orderList: [],
             ethUrl,
@@ -166,6 +169,10 @@ export default {
         }
     },
     methods: {
+        myBetSizeChange (size) {
+            this.pageSize = size
+            this.handleCurrentChange()
+        },
         isJackPot ({columnIndex, row}) {
             if (columnIndex === 4 && row.win_jackpot === '1') {
                 return 'icon-jackpot'

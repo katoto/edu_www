@@ -2,7 +2,6 @@
 import ajax from '~common/ajax'
 import { formateCoinType } from '~common/util'
 import router from '~router'
-import { stat } from 'fs'
 
 const state = {
     betsList: [],
@@ -229,6 +228,16 @@ const actions = {
         dispatch('showProfitCallback', {
             expectid: this.state.cs_luckycoin.selfWin.exceptId
         })
+    },
+
+    getDetailData ({ commit }, params = {}) {
+        return ajax.get('/draw/goods/detail', params)
+    },
+    getAllBids ({ commit }, params = {}) {
+        return ajax.get('/get/total/bids', params)
+    },
+    getMyBids ({ commit }, params = {}) {
+        return ajax.get('/get/personal/bids', params)
     }
 }
 

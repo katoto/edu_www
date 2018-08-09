@@ -39,7 +39,12 @@
                     <div class="nomsg" v-if="filterBets(betsList).length === 0">
                         <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                         <p>No record.
-                            <a href="">Try a luck !</a>
+                            <router-link to="/luckycoin">
+                                <lang>Try a luck !</lang>
+                            </router-link>
+                            <a href="javascript:;">
+                                <lang>Log in to view</lang>
+                            </a>
                         </p>
                     </div>
                 </div>
@@ -48,18 +53,21 @@
             </div>
             <div class="container" v-else>
                 <div class="row clearfix">
-                    <div class="items ">
+                    <div class="items hide">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="index * Math.random()">
                             <history-bet-box :bet="bet" type="list"></history-bet-box>
                         </div>
                     </div>
-                    <div class="nomsg" v-if="historyList.length === 0">
+                    <div class="nomsg" v-if="historyList.length != 0">
                         <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                         <p>
                             No record.
                             <router-link to="/luckycoin">
                                 <lang>Try a luck !</lang>
                             </router-link>
+                            <a href="javascript:;">
+                                <lang>Log in to view</lang>
+                            </a>
                         </p>
                     </div>
                 </div>
@@ -294,14 +302,6 @@ export default {
         max-width: 1190px;
         margin: 28px auto 30px;
         overflow: hidden;
-    }
-    .nomsg{
-        margin: 30px auto;
-        text-align: center;
-        color: #a99acc;
-        img{
-            margin: 0 auto;
-        }
     }
     /deep/ .el-radio-button {
         &.is-active .el-radio-button__inner {
