@@ -1,10 +1,10 @@
 <template>
     <div class="luckyCoinDetailed">
         <div class="main">
-            <BreadCrumbs></BreadCrumbs>
+            <BreadCrumbs>No.{{number}}</BreadCrumbs> 
             <div class="main-detailed flex">
                 <!--eth/btc  normal/win/fail/finished/expired -->
-                <div class="item btc win">
+                <div class="item" :class="[betStatus, coinText.toLowerCase()]">
                     <div class="item-left">
                         <div class="match-img">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="110" height="110">
@@ -46,10 +46,10 @@
                         <!--hot/bet-->
                         <div class="icon-box hot bet">
                             <i class="icon-hot">H</i>
-                            <i class="icon-youbet">You have been Bet 0.00001 BTC</i>
+                            <i class="icon-youbet" v-if="betMoney !== 0">You have been Bet {{betMoney}} {{coinText}}</i>
                         </div>
                         <div class="item-prize">
-                            20<i> BTC</i>
+                            {{ betData.goodsValue }}<i> {{coinText}}</i>
                         </div>
                         <div class="item-usd">
                             USD 14,776
@@ -131,21 +131,21 @@
                         <a href="javascript:;" class="btn btn-normal">
                             Pay Now
                         </a>
-                        <div class="btn btn-win">
+                        <div class="btn btn-win" v-if="isDraw">
                             <p>
-                                gm**@gmail.com
+                                {{goodsinfo.winUserName || ''}}
                             </p>
-                            <a href="javascript:;">
-                                Detail >>
-                            </a>
+                            <router-link :to="`/check?number=${number}&type=luckycoin`">
+                                <lang>Detail >></lang>
+                            </router-link>
                         </div>
                         <div class="btn btn-fail">
                             <p>
-                                gm**@gmail.com
+                                {{goodsinfo.winUserName || ''}}
                             </p>
-                            <a href="javascript:;">
-                                Detail >>
-                            </a>
+                            <router-link :to="`/check?number=${number}&type=luckycoin`">
+                                <lang>Detail >></lang>
+                            </router-link>
                         </div>
                         <div class="btn btn-finished">
                             Winner is coming 1'23”
@@ -218,46 +218,44 @@
                     </el-tab-pane>
                 </el-tabs>
                 <el-table
-                    :data="tableData"
+                    :data="totalBids"
                     style="width: 100%"
                     :default-sort = "{prop: 'date', order: 'descending'}"
                 >
                     <el-table-column
-                        prop="time"
+                        prop="crtime"
                         label="Bet Time"
                         sortable
                         width="137"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="id"
+                        prop="username"
                         label="User ID"
                         width="440"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="amount"
                         label="Amount"
                     >
                         <template slot-scope="scope">
-                            <div class="icon-amount " :class="[scope.row.type=='eth'?'eth':'btc']">
+                            <div class="icon-amount " :class="[scope.row.type]">
                                 {{scope.row.amount}}
                             </div>
                         </template>
                     </el-table-column>
                     <el-table-column
-                        prop="number"
                         label="Number of Number"
                         width="130"
                     >
                          <template slot-scope="scope">
-                             <a href="javascript:;" class="allnum">
-                                {{scope.row.number}}
+                             <a href="javascript:;" class="allnum" @click="showAllNumber(scope.row.uid, scope.row.username)">
+                                {{scope.row.bids}}
                              </a>
                         </template>
                     </el-table-column>
                 </el-table>
-                <div class="nomsg" v-show="tableData.length === 0">
+                <div class="nomsg" v-show="totalBids.length === 0">
                     <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                     <p>
                         No record.
@@ -270,34 +268,38 @@
                     </p>
                 </div>
                 <el-pagination
-                    :page-size="10"
-                   layout="prev, pager, next"
-                   :next-text="_('Next >')"
-                   :prev-text="_('< Front')"
-                    :total="50"
+                    @current-change="handleAllBidsChange"
+                    :current-page.sync="pageno"
+                    :page-size="pageSize"
+                    :total="PageTotal"
+                    layout="prev, pager, next"
+                    :next-text="_('Next >')"
+                    :prev-text="_('< Front')"
                 >
                 </el-pagination>
             </div>
 
             <!--投注记录弹窗-->
-            <div class="pop pop-bet hide">
+            <div class="pop pop-bet" :class="{ hide: !isShowNumberPop }">
                 <div class="pop-body">
                     <div class="pop-ani">
-                        <a href="javascript:;" class="btn-close"></a>
+                        <a href="javascript:;" class="btn-close" @click="isShowNumberPop = false"></a>
                         <div class="pop-main">
-                            <h3>48****34gm@gmail.com</h3>
+                            <h3>{{infoName}}</h3>
                             <p class="msg1">
                                 A total of 5 numbers, the more bets, the more numbers, the higher the probability of winning!
                             </p>
                             <div class="item-number">
                                 <ul>
-                                    <li v-for="item in 200" :class="[item==2?'win':'']">
-                                       10000
+                                    <li v-for="(item, index) in numbers" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
+                                       {{item}}
                                     </li>
                                 </ul>
                             </div>
                             <p class="msg2">
-                                The bet number is randomly assigned to the system. When your bet number matches the lottery number, you will win this session bonus! The lottery algorithm is based on blockchain technology, unpredictable, absolutely fair and open!<a href="javascript:;"> Click to view transparency</a>
+                                The bet number is randomly assigned to the system. When your bet number matches the lottery number, you will win this session bonus! The lottery algorithm is based on blockchain technology, unpredictable, absolutely fair and open! <router-link :to="`/check?number=${number}&type=luckycoin`">
+                                            <lang>Click to view transparency</lang>
+                                        </router-link>
                             </p>
                         </div>
                     </div>
@@ -309,65 +311,23 @@
 
 <script>
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
-    import { getURLParams } from '~/common/util'
-    import { mapActions } from 'vuex'
+    import { getURLParams, formatTime, formatNum, accMul, formateCoinType } from '~/common/util'
+    import { mapActions, mapState } from 'vuex'
     export default {
         data () {
             return {
                 number: '',
                 activeName: 'all',
-                tableData: [{
-                    time: '06-23 23:23:23',
-                    id: '王小王小虎虎',
-                    amount: '0.0045',
-                    number: 20,
-                    type: 'eth'
-                }, {
-                    time: '06-22 23:23:23',
-                    id: '王小虎',
-                    amount: '45',
-                    number: 1,
-                    type: 'btc'
-                }, {
-                    time: '06-21 23:23:23',
-                    id: '王小虎',
-                    amount: '0.45',
-                    number: 1,
-                    type: 'eth'
-                }, {
-                    time: '06-02 23:23:23',
-                    id: '王小虎',
-                    amount: '0.0045',
-                    number: 1,
-                    type: 'eth'
-                }, {
-                    time: '06-23 23:23:23',
-                    id: '王小虎',
-                    amount: '0.0045',
-                    number: 20,
-                    type: 'eth'
-                }, {
-                    time: '06-22 23:23:23',
-                    id: '王小虎',
-                    amount: '45',
-                    number: 1,
-                    type: 'btc'
-                }, {
-                    time: '06-21 23:23:23',
-                    id: '王小虎',
-                    amount: '0.45',
-                    number: 1,
-                    type: 'eth'
-                }, {
-                    time: '06-02 23:23:23',
-                    id: '王小虎',
-                    amount: '0.0045',
-                    number: 1,
-                    type: 'eth'
-                }],
                 pageno: 1,
-                pageSize: 8,
-                PageTotal: 10
+                pageSize: 10,
+                PageTotal: 10,
+                betData: {},
+                totalBids: [],
+                isShowNumberPop: false,
+                numbers: [],
+                goodsinfo: {},
+                infoName: '',
+                betMoney: 0
             }
         },
         methods: {
@@ -385,7 +345,8 @@
             },
             getDetailInfo () {
                 return this.getDetailData({
-                    expectId: this.number
+                    expectId: this.number,
+                    lotid: '2'
                 })
                     .then(res => {
                         this.renderDetailInfo(res)
@@ -393,19 +354,83 @@
                     })
             },
             renderDetailInfo (res) {
-                console.log(res)
+                this.goodsinfo = res.data.goodsinfo
             },
             getAllBidsInfo () {
                 this.getAllBids({
-                    expectId: this.number
+                    expectId: this.number,
+                    lotid: '2',
+                    pagesize: this.pageSize,
+                    pageno: this.pageno
                 })
-                    .then(res => console.log(res))
+                    .then(res => {
+                        this.totalBids = [...this.formatTotalBids(res.data.totalBids, res.data.goodsinfo)]
+                        this.PageTotal = Number(res.data.pages)
+                    })
+            },
+            showAllNumber (uid, infoName) {
+                this.getNumberDetail(uid)
+                    .then(res => {
+                        this.infoName = infoName
+                        this.numbers = res.data.luckyNums
+                        this.isShowNumberPop = true
+                    })
+            },
+            getNumberDetail (uid) {
+                return this.getMyBids({
+                    expectId: this.number,
+                    lotid: '2',
+                    uid
+                })
+            },
+            formatTotalBids (data, goodsinfo) {
+                return data.map(item => {
+                    return {
+                        ...item,
+                        crtime: formatTime(item.crtime, 'MM-dd HH:mm:ss'),
+                        isWin: item.winstate === '1',
+                        type: formateCoinType(goodsinfo.goodsType).toLowerCase(),
+                        amount: formatNum(accMul(Number(goodsinfo.bidValue), Number(item.bids)), 5)
+                    }
+                })
             },
             getMyBidsInfo () {
                 this.getMyBids({
-                    expectId: this.number
+                    expectId: this.number,
+                    lotid: '2'
                 })
-                    .then(res => console.log(res))
+                    .then(res => this.renderMyBet(res))
+            },
+            renderMyBet (res) {
+
+            },
+            handleAllBidsChange () {
+                this.getAllBidsInfo()
+            }
+        },
+        computed: {
+            ...mapState(['userInfo']),
+            coinText () {
+                return formateCoinType(this.goodsinfo.goodsType || '2001').toUpperCase()
+            },
+            isDraw () {
+                return this.goodsinfo.state === '4'
+            },
+            isYouWin () {
+                return this.isDraw && this.goodsinfo.winUid === this.userInfo.uid
+            },
+            betStatus () {
+                // normal/win/fail/finished/expired
+                if (this.isYouWin) {
+                    return 'win'
+                } else if (this.isDraw) {
+                    return 'fail'
+                } else if (this.goodsinfo.state === '3') {
+                    return 'finished'
+                } else if (this.goodsinfo.state === '5') {
+                    return 'expired'
+                }
+                return 'normal'
             }
         },
         components: {

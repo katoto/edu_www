@@ -7,8 +7,11 @@
         <router-link to="/luckycoin">
             <lang>LuckyCoin</lang>
         </router-link>
-        <a href="javascript:;" class="now">
+        <a href="javascript:;" class="now" v-if="pageName">
             {{_(pageName)}}
+        </a>
+        <a href="javascript:;" class="default">
+            <slot/>
         </a>
     </div>
 </template>
@@ -50,6 +53,10 @@ export default {
   .now {
     color: #778ca3;
   }
+}
+.default {
+    color: #FFF !important;
+    cursor: default;
 }
 
 .page-luckycoin {
