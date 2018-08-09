@@ -383,14 +383,14 @@ export function commonErrorHandler (data) {
 
 export function copySucc () {
     Message({
-        message: 'Copied to clipboard',
+        message: _('Copied to clipboard'),
         type: 'success'
     })
 }
 export function copyError () {
     Message({
-        message: 'Failed to copy, please retry',
-        type: 'success'
+        message: _('Failed to copy, please retry'),
+        type: 'error'
     })
 }
 
