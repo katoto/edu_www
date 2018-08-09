@@ -393,7 +393,7 @@
                 }, 800)
             },
             async faucetTask () {
-                let taskMsg = await this.$store.dispatch('faucetTask')
+                let taskMsg = await this.$store.dispatch('faucetTask', this.currBalance.cointype)
                 if (taskMsg && taskMsg.status === '100') {
                     this.received_counter = taskMsg.data.not_received_counter
                     if (taskMsg.data.tasks) {
@@ -401,16 +401,15 @@
                             if (item.task === '2' || item.task === '3' || item.task === '4') {
                                 if (item.info) {
                                     this['tasks_' + item.task] = item.info.status
+                                    if (item.info.free !== null && parseInt(item.info.free) > 0) {
+                                        this['tasks_' + item.task] = 2
+                                    }
                                 }
                             }
                         })
                     }
                     if (taskMsg.data.sign_days !== undefined) {
                         this.tasks_day = taskMsg.data.sign_days
-                    }
-                    if (parseFloat(taskMsg.data.free) > 0) {
-                        this.tasks_2 = 2
-                        this.tasks_3 = 2
                     }
                 }
             },

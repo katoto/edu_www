@@ -158,8 +158,8 @@ const mutations = {
 }
 const actions = {
     /* 水龙头邀请 */
-    async faucetTask ({commit, dispatch}) {
-        return ajax.get(`/faucet/tasks`)
+    async faucetTask ({commit, dispatch}, coinType) {
+        return ajax.get(`/faucet/tasks?cointype=${coinType}`)
     },
     /* 水龙头领取 */
     async faucetGet ({commit, dispatch}, taskid) {
