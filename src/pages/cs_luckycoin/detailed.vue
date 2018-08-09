@@ -220,6 +220,7 @@
                     :data="totalBids"
                     style="width: 100%"
                     :default-sort = "{prop: 'date', order: 'descending'}"
+                    v-if="activeName === 'all'"
                 >
                     <el-table-column
                         prop="crtime"
@@ -235,7 +236,7 @@
                     >
                         <template slot-scope="scope">
                             <div class="selfwin">
-                                {{scope.row.id}}
+                                {{scope.row.username}}
                             </div>
                         </template>
                     </el-table-column>
@@ -261,32 +262,29 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <div class="mybets">
+                <div class="mybets" v-if="myNumbers.length > 0 && activeName === 'my'">
                     <p class="msg1">
-                        A total of 0.4ETH bets are placed to get 125 numbers. The more bets, the more numbers, and the higher the probability of winning!
+                        A total of {{betMoney}}{{coinText}} bets are placed to get {{myNumbers.length}} numbers. The more bets, the more numbers, and the higher the probability of winning!
                     </p>
                     <div class="item-number">
                         <p>
-                            2018-06-23 23:23:23   You bet 0.045 ETH to get 5 numbers
+                            2018-06-23 23:23:23   You bet {{betMoney}} {{coinText}} to get {{myNumbers.length}} numbers
                         </p>
                         <ul>
-                            <li v-for="item in 200" :class="[item==2?'win':'']">
-                                10000
+                            <li v-for="(item, index) in myNumbers" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
+                                {{item}}
                             </li>
                         </ul>
                     </div>
                     <p class="msg2">
-                        The betting number is randomly assigned by the system. When your betting number coincides with the winning number, you will win this bonus! The lottery algorithm is based on blockchain technology and cannot be predicted. It is absolutely fair and open!  <router-link :to="{path:'/check'}">Click to see transparency</router-link>
+                        The betting number is randomly assigned by the system. When your betting number coincides with the winning number, you will win this bonus! The lottery algorithm is based on blockchain technology and cannot be predicted. It is absolutely fair and open!  <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click to view transparency</lang></router-link>
                     </p>
                 </div>
-                <div class="nomsg" v-show="totalBids.length === 0">
+                <div class="nomsg" v-show="(totalBids.length === 0 && activeName === 'all') || (myNumbers.length === 0 && activeName === 'my')">
                     <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                     <p>
                         No record.
-                        <router-link to="/luckycoin">
-                            <lang>Try a luck !</lang>
-                        </router-link>
-                        <a href="javascript:;">
+                        <a href="javascript:;" @click="loginHandler" v-if="!this.isLogin && activeName === 'my'">
                             <lang>Log in to view</lang>
                         </a>
                     </p>
@@ -299,6 +297,7 @@
                     layout="prev, pager, next"
                     :next-text="_('Next >')"
                     :prev-text="_('< Front')"
+                    v-if="activeName === 'all'"
                 >
                 </el-pagination>
             </div>
@@ -349,6 +348,7 @@
                 totalBids: [],
                 isShowNumberPop: false,
                 numbers: [],
+                myNumbers: [],
                 goodsinfo: null,
                 infoName: '',
                 betMoney: 0,
@@ -423,6 +423,10 @@
                 })
             },
             handleBetEvent () {
+                if (!this.isLogin) {
+                    this.$store.commit('showLoginPop')
+                    return
+                }
                 if (this.disableBet || this.isBlinking) {
                     return
                 }
@@ -439,9 +443,19 @@
                     })
             },
             getMyBidsInfo () {
+                if (!this.isLogin) {
+                    return
+                }
+                this.getNumberDetail(this.userInfo.uid)
+                    .then(res => {
+                        this.myNumbers = res.data.luckyNums.filter(item => {
+                            return item !== ''
+                        })
+                    })
                 this.getMyBids({
                     expectId: this.number,
-                    lotid: '2'
+                    lotid: '2',
+                    uid: this.userInfo.uid
                 })
                     .then(res => this.renderMyBet(res.data))
             },
@@ -488,9 +502,15 @@
                     )
                 }
                 return value
+            },
+            loginHandler () {
+                this.$store.commit('showLoginPop')
             }
         },
         computed: {
+            ...mapState({
+                isLogin: state => !!state.isLog
+            }),
             ...mapState(['userInfo']),
             balance () {
                 if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length > 0) {
@@ -541,6 +561,11 @@
         },
         components: {
             BreadCrumbs
+        },
+        watch: {
+            isLogin () {
+                this.init()
+            }
         },
         mounted () {
             this.init()
