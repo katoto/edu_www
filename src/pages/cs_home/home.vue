@@ -606,15 +606,15 @@
             }
         }
         .game-11t5 {
-            background: url("../../assets/img/home/game1.png") no-repeat center top;
+            background: url("../../assets/img/home/game1.png") no-repeat left top;
             background-size: cover;
         }
         .game-slot {
-            background: url("../../assets/img/home/game2.png") no-repeat center top;
+            background: url("../../assets/img/home/game2.png") no-repeat left top;
             background-size: cover;
         }
         .game-onecoin {
-            background: url("../../assets/img/home/game3.png") no-repeat center top;
+            background: url("../../assets/img/home/game3.png") no-repeat left top;
             background-size: cover;
         }
         .game-btn {
@@ -906,6 +906,11 @@
             .recent-win,
             .recent-water {
                 width: 100%;
+                .icon-btc,.icon-eth{
+                    i{
+                        display: none !important;
+                    }
+                }
             }
         }
     }

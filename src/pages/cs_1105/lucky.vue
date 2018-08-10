@@ -65,7 +65,7 @@
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist newRecord">
+                                    <tbody v-if="recentBet.length>0" id="tabody-betlist" class="tabody-betlist">
                                         <tr v-for="(item, index) in recentBet" :data-oid="item.oid" :class="{ 'newRecord':item.addNewRecord }" :key="index">
                                             <td>{{ item.create_time | formatTime("HH:mm:ss") }}</td>
                                             <td :class="{'bold':item.boldUid}">{{ item.uid }}</td>
@@ -748,7 +748,7 @@
 
     }
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" type="text/less" >
     @import "../../styles/lib-mixins.less";
     .worldCupClose::after{
         width: 12px;

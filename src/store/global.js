@@ -350,7 +350,6 @@ const actions = {
                         action: 'sub',
                         lotid: 1
                     }
-
                     interval = setInterval(() => {
                         sock.send(JSON.stringify({
                             action: 'ping'
