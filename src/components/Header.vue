@@ -171,7 +171,7 @@
                                 <p><lang>Get 0.0001BTC (Log in for 7 consecutive days)</lang></p>
                                 <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spins</lang></a>
                                 <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn btn-yellow">{{ _('{0}/7 Days', tasks_day ) }}</a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</a>
                             </li>
                         </ul>
                     </div>
@@ -462,6 +462,19 @@
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
+
+    .btn-signDay{
+        display: block;
+        width: 83px;
+        height: 35px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: default;
+        color: #263648;
+    }
 
     .newFirst{
         position: absolute;
