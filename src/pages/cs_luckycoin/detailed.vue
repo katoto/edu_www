@@ -1,8 +1,8 @@
 <template>
     <div class="luckyCoinDetailed">
-        <div class="main">
+        <div class="main" v-if="goodsinfo">
             <BreadCrumbs>No.{{number}}</BreadCrumbs> 
-            <div class="main-detailed flex" v-if="goodsinfo">
+            <div class="main-detailed flex">
                 <!--eth/btc  normal/win/fail/finished/expired -->
                 <div class="itemluck" :class="[betStatus, coinText.toLowerCase()]">
                     <div class="item-left">
