@@ -23,13 +23,13 @@
                 Expired
             </p>
             <div class="isExpired-msg">
-                <p v-if="bet.betmoney === null">
+                <p v-if="bet.betmoney === null || Number(bet.betmoney) === 0">
                     The system has returned<br>
                     funds to the bet user account
                 </p>
                 <p style="color: #3fc06f;" v-else>
                     Your bet has been refunded<br>
-                  {{formateBalance( bet.betmoney )}}{{ coinText }}
+                  {{Number(formateBalance( bet.betmoney ))}}{{ coinText }}
                 </p>
             </div>
         </template>
