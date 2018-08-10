@@ -108,7 +108,7 @@
             </p>
             <!--icon-eth/icon-btc-->
             <div class="input-box icon-eth">
-                <input type="text" v-model="betValue">
+                <input type="text" v-model="betValue" :placeholder="betData.bidValue">
                 <a href="javascript:;" @click="chooseHalf">1/2</a>
                 <a href="javascript:;" @click="chooseDouble">2X</a>
                 <a href="javascript:;" ref="maxBtn" @click="chooseMax">Max</a>
@@ -275,10 +275,13 @@
                     return
                 }
                 try {
+                    let value = this.betValue
+                    value = (value === '' ? this.betData.bidValue : Number(value))
                     let data = await this.betNow({
                         cointype: this.coinType,
-                        codestr: `${this.betData.exceptId}|${this.coinType}|${accDiv(this.betValue, this.betData.bidValue)}|${this.betData.bidValue}`
+                        codestr: `${this.betData.exceptId}|${this.coinType}|${accDiv(value, this.betData.bidValue)}|${this.betData.bidValue}`
                     })
+                    this.betValue = this.betData.bidValue
                     this.getUserInfo()
                     this.openSuccessWindow()
                 } catch (errorData) {
@@ -424,7 +427,7 @@
                 return ''
             },
             disableBet () {
-                return ((Number(this.betValue) !== this.formatBidValue(this.betValue)) || Number(this.betValue) > this.maxValue)
+                return ((Number(this.betValue) !== Number(this.formatBidValue(this.betValue))) || Number(this.betValue) > this.maxValue)
             }
         },
         watch: {
@@ -451,9 +454,6 @@
                     this.isInit = true
                     this.init()
                 }
-            },
-            isLogin: function () {
-                this.disableBet = ((Number(this.betValue) !== this.formatBidValue(this.betValue)) || Number(this.betValue) > this.maxValue)
             }
         },
         mounted () {

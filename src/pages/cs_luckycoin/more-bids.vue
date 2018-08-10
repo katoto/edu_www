@@ -39,12 +39,12 @@
                     <div class="nomsg" v-if="filterBets(betsList).length === 0">
                         <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                         <p>No record.
-                            <router-link to="/luckycoin">
-                                <lang>Try a luck !</lang>
-                            </router-link>
-                            <a href="javascript:;">
+                            <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
                                 <lang>Log in to view</lang>
                             </a>
+                            <router-link to="/luckycoin" v-else>
+                                <lang>Try a luck !</lang>
+                            </router-link>
                         </p>
                     </div>
                 </div>
@@ -62,12 +62,12 @@
                         <img src="@/assets/img/oneToKen/nomsg.png" alt="">
                         <p>
                             No record.
-                            <router-link to="/luckycoin">
-                                <lang>Try a luck !</lang>
-                            </router-link>
-                            <a href="javascript:;">
+                            <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
                                 <lang>Log in to view</lang>
                             </a>
+                            <router-link to="/luckycoin" v-else>
+                                <lang>Try a luck !</lang>
+                            </router-link>
                         </p>
                     </div>
                 </div>
@@ -254,6 +254,9 @@ export default {
             this.activeName = 'history'
             this.filter = 'My Bets'
             this.getHistoryData()
+        },
+        loginHandler () {
+            this.$store.commit('showLoginPop')
         }
     },
     watch: {

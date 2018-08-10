@@ -8,7 +8,7 @@
             Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
         </div>
         <!--:class="{show:selfWin.isShow}"-->
-        <div class="self-winning hide">
+        <div class="self-winning hide" :class="{show: selfWin.isShow}">
             <div class="main2">
                 <div class="bounceIn animated">
                     <a href="javascript:;" class="close" @click="hideMyWin"></a>
@@ -50,13 +50,6 @@ export default {
         ...mapActions('cs_luckycoin', ['hideMyWin', 'showMyWin', 'getLastProfitRecord', 'showProfitCallback']),
         getLastProfit () {
             this.getLastProfitRecord()
-                .then(res => {
-                    return {
-                        data: {
-                            goods: [{luckyNum: 1111111, goodsType: '2001', goodsValue: '10.8', exceptid: '10000'}, {luckyNum: 2222, goodsType: '2001', goodsValue: '5.8', exceptid: '1000'}]
-                        }
-                    }
-                })
                 .then(res => {
                     if (res.data.goods.length > 0) {
                         this.showProfitPop(res.data.goods, 0, res.data.goods.length)
