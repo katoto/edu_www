@@ -182,7 +182,6 @@ const actions = {
                     //     })
                     // }
                     // commit('setLoginSucc', newInvite)
-
                 }
             }
             return userMsg
