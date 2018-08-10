@@ -42,7 +42,7 @@
                                       class="css_withdraw_total">{{ currBalance.draw_limit }} ~
                                 <span>{{ formateBalance( parseFloat(currBalance.checkout_balance)-parseFloat(currBalance.fee) ) }}</span> {{ formateCoinType( currBalance.cointype ) }}</span>
                                 <span v-else class="css_withdraw_total">
-                                <lang>at least {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}</lang>
+                                <lang>at least</lang> {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}
                             </span>
                             </template>
                         </div>
