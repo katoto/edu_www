@@ -24,6 +24,7 @@ const state = {
     time_drawFlip: null, // 开奖动画 interval变量
 
     recentBet: [], // 最近投注
+    recentTest: [], // test
 
     uid: null, // 过滤 首页数据用
 

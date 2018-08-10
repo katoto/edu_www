@@ -37,11 +37,15 @@
             Footer
         },
         mounted () {
-
+            document.documentElement.className = 'flexhtml'
+        },
+        destroyed () {},
+        beforeDestroy () {
+            document.documentElement.className = ''
         }
     }
 </script>
-<style scoped lang="less">
+<style scoped lang="less" type="text/less">
     .page-help{
         .main{
             position: relative;

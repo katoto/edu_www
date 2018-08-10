@@ -85,7 +85,7 @@ export default {
     }
 }
 </script>
-<style lang="less" type="text/less">
+<style  lang="less" type="text/less">
 .page-luckycoin{
     position: relative;
     /*banner按钮*/
@@ -114,7 +114,7 @@ export default {
 
 }
 </style>
-<style  lang="less" type="text/less">
+<style scope  lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
     .page-luckycoin{
@@ -959,6 +959,7 @@ export default {
             }
             .isExpired-msg{
                 margin-top: 2px;
+                height: 44px;
                 line-height: 22px;
                 font-size: 14px;
             }

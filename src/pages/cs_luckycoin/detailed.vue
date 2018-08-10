@@ -4,7 +4,7 @@
             <BreadCrumbs>No.{{number}}</BreadCrumbs> 
             <div class="main-detailed flex">
                 <!--eth/btc  normal/win/fail/finished/expired -->
-                <div class="item" :class="[betStatus, coinText.toLowerCase()]">
+                <div class="itemluck" :class="[betStatus, coinText.toLowerCase()]">
                     <div class="item-left">
                         <div class="match-img">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="110" height="110">
@@ -18,7 +18,7 @@
                                         <stop offset="100%" stop-color="#f19221"></stop>
                                     </linearGradient>
                                 </defs>
-                                <g>
+                                <g transform="matrix(0,-1,1,0,0,110)">
                                     <circle cx="55" cy="55" r="50" stroke-width="10" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
                                     <circle
                                         cx="55"
@@ -51,7 +51,7 @@
                             </i>
                         </div>
                         <div class="item-prize">
-                            {{ goodsinfo.goodsValue }}<i> {{coinText}}</i>
+                            {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
                         </div>
                         <div class="item-usd">
                             USD {{numberComma(Number(goodsinfo.coinprice.USD))}}
@@ -170,7 +170,7 @@
                                 {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~ ', goodsinfo.goodsValue, coinText) }}
                             </p>
                             <div class="btn-box">
-                                <a href="javascript:;" class="bet-btnV" @click="activeName = 'my'; showSuccess = false">
+                                <a href="javascript:;" class="bet-btnV" @click="activeName = 'my', showSuccess = false">
                                     <lang>View Number</lang>
                                 </a>
                                 <a href="javascript:;" class="bet-btnB" @click="showSuccess = false">
@@ -885,7 +885,7 @@
             display: flex;
         }
     }
-    .item{
+    .itemluck{
         position: relative;
         display: flex;
         flex: 1;
@@ -917,7 +917,7 @@
                 top: 3px;
                 right: 1px;
                 i{
-                    display: none;
+                    display: block;
                     border-radius: 2px;
                     float: right;
                     margin-right: 3px;
@@ -933,16 +933,6 @@
                 .icon-youbet{
                     background: #7b4de4;
                     padding: 0 20px;
-                }
-                &.hot{
-                    .icon-hot{
-                        display: block;
-                    }
-                }
-                &.bet{
-                    .icon-youbet{
-                        display: block;
-                    }
                 }
             }
             .item-prize{

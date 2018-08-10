@@ -55,19 +55,25 @@ export default {
         Header,
         BreadCrumbs
     },
-    mounted () {},
-    destroyed () {}
+    mounted () {
+        document.documentElement.className = 'flexhtml'
+    },
+    destroyed () {},
+    beforeDestroy () {
+        document.documentElement.className = ''
+    }
 }
 </script>
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
 @import "../../styles/lib-mixins.less";
-
-.main {
-    position: relative;
-    width: 1190px;
-    margin: 0 auto;
-    overflow: hidden;
+.account{
+    .main {
+        position: relative;
+        width: 1190px;
+        margin: 0 auto;
+    }
 }
+
 
 .slide-bar {
     float: left;

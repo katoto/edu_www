@@ -10,7 +10,7 @@
         <a href="javascript:;" class="now" v-if="pageName">
             {{_(pageName)}}
         </a>
-        <a href="javascript:;" class="default">
+        <a href="javascript:;" class="now">
             <slot/>
         </a>
     </div>

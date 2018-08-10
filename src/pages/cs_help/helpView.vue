@@ -81,7 +81,7 @@ export default {
     }
 }
 </script>
-<style scoped lang="less">
+<style scoped lang="less" type="text/less">
     .page-view{
         .main{
             position: relative;
@@ -118,7 +118,7 @@ export default {
                 width: 16px;
                 height: 10px;
                 overflow: hidden;
-                background-image: url("../../assets/img/icon-arrow-down.png");
+                background: url("../../assets/img/icon-arrow-down.png") no-repeat center;
                 transition: all 0.2s;
             }
             &.on{

@@ -292,6 +292,7 @@ export default {
 @import "../../styles/lib-media.less";
 
 .more-bids-page {
+    background: #2a1236 ;
     .main {
         padding-top: 0;
     }

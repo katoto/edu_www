@@ -202,23 +202,22 @@
         }
     }
 </script>
-<style scoped lang="less">
-
+<style scoped lang="less" type="text/less">
     .page-check{
         background: #242240;
     }
-    .main{
+    /deep/.main{
         position: relative;
         width: 1190px;
         margin: 0 auto;
         background: #242240;
-        /deep/ .step-title{
+        .step-title{
             line-height: 84px;
             font-size: 20px;
             color: #fff;
             font-weight: bold;
         }
-        /deep/ .check-input{
+       .check-input{
             width: 1190px;
             height: 385px;
             overflow: hidden;
@@ -346,7 +345,7 @@
                 }
             }
         }
-        /deep/ .check-explain{
+         .check-explain{
             margin-top: 23px;
             .step-title{
                 margin-bottom:5px;
@@ -381,13 +380,13 @@
                 color: #6a89cc;
             }
         }
-        /deep/ .before-input{
+         .before-input{
             padding-bottom: 292px;
             line-height: 54px;
             font-size: 14px;
             color: #788ca3;
         }
-        /deep/ .after-input{
+         .after-input{
             margin-top: 38px;
             .item{
                 position: relative;
@@ -519,7 +518,7 @@
                 }
             }
         }
-        /deep/ .result-lucky11{
+         .result-lucky11{
             padding-bottom: 56px;
             p{
                 &.p1{
@@ -651,7 +650,7 @@
                 }
             }
         }
-        /deep/ .result-onecoin{
+         .result-onecoin{
             padding-bottom: 52px;
             p{
                 &.p1{
@@ -685,7 +684,7 @@
                 font-weight: bold;
             }
         }
-        /deep/ .relate-msg{
+         .relate-msg{
             padding: 36px 0 190px 0;
             line-height: 24px;
             color: #6a89cc;
@@ -699,7 +698,7 @@
             }
         }
         /*漂浮规则*/
-        /deep/ .rule-view{
+         .rule-view{
             position: absolute;
             top: -185px;
             left: -33px;
@@ -757,7 +756,7 @@
                 border-top: 15px solid #fff;
             }
         }
-        /deep/ .el-tabs {
+         .el-tabs {
             width: 92%;
             .el-tabs__item {
                 color: #aa85ff;
