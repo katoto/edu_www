@@ -221,8 +221,8 @@ const actions = {
             dispatch('getBetsPageList')
             return
         }
-        for (let name in this.state.listener) {
-            this.state.listener[name] && this.state.listener[name]()
+        for (let name in this.state.cs_luckycoin.listener) {
+            this.state.cs_luckycoin.listener[name] && this.state.cs_luckycoin.listener[name]()
         }
         dispatch('getBetsList')
         dispatch('getDrawHistory')
