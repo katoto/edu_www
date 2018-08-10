@@ -1142,6 +1142,7 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
+            document.documentElement.className = "flexhtml noscrolling"
             await this.changePageState()
             if (!localStorage.getItem('firstJackpot')) {
                 this.showFirstBaxi = true
@@ -1159,12 +1160,13 @@
             }
         },
         beforeDestroy () {
+            document.documentElement.className = "";
             this.$store.dispatch('subOutTiger')
             this.stopAutoPlay()
         }
     }
 </script>
-<style scoped="" lang="less" rel="stylesheet/less">
+<style scoped="" lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
     @import "../../styles/lib-font.less";
