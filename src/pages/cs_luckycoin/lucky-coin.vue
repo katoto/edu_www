@@ -959,6 +959,7 @@ export default {
             }
             .isExpired-msg{
                 margin-top: 2px;
+                height: 44px;
                 line-height: 22px;
                 font-size: 14px;
             }

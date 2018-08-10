@@ -18,7 +18,7 @@
                                         <stop offset="100%" stop-color="#f19221"></stop>
                                     </linearGradient>
                                 </defs>
-                                <g>
+                                <g transform="matrix(0,-1,1,0,0,110)">
                                     <circle cx="55" cy="55" r="50" stroke-width="10" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
                                     <circle
                                         cx="55"

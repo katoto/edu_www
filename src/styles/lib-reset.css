@@ -304,15 +304,26 @@ h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
 
 
 /*移动端整屏*/
-html.flexhtml, .flexhtml body,.flexhtml #app {
+html.flexhtml, .flexhtml body{
     height: 100%;
     overflow: hidden;
 }
 .flexhtml #app {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    overflow: auto;
 }
-.flexhtml #app > div {
+.flexhtml #app > div:not(.pop) {
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    overflow-y: auto;
+
+
+}
+.flexhtml #app .main{
+    flex: 1;
+    overflow: visible;
+    width: 100%;
+    max-width: 1190px;
 }

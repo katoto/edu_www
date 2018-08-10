@@ -53,7 +53,7 @@
         }
     }
 </script>
-<style scoped lang="less">
+<style scoped lang="less" type="text/less">
     .help-cneter{
         padding: 18px 45px 104px;
         background: #fff;
