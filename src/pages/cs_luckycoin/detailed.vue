@@ -27,7 +27,7 @@
                                         stroke="url(#yellowColor1)"
                                         stroke-width="10"
                                         fill="transparent"
-                                        stroke-dasharray="0 314"
+                                        :stroke-dasharray="`${rate > 157 ? rate : 0} 314`"
                                     />
                                     <circle
                                         cx="55"
@@ -36,7 +36,7 @@
                                         stroke="url(#yellowColor2)"
                                         stroke-width="10"
                                         fill="transparent"
-                                        stroke-dasharray="314 314"
+                                        :stroke-dasharray="`${rate > 157 ? 157 : rate} 314`"
                                     />
                                 </g>
                             </svg>
@@ -64,7 +64,7 @@
                                         <lang>Bet Amount</lang>
                                     </p>
                                     <div class="input-box ">
-                                        <input type="text" v-model="betValue">
+                                        <input type="text" v-model="betValue" :placeholder="goodsinfo.bidValue">
                                         <a href="javascript:;" @click="chooseHalf">1/2</a>
                                         <a href="javascript:;" @click="chooseDouble">2X</a>
                                         <a href="javascript:;" @click="chooseMax">
@@ -151,7 +151,7 @@
                             </router-link>
                         </div>
                         <div class="btn btn-finished">
-                            <lang>Winner is coming</lang> 1'23”
+                            <lang>Winner is coming</lang> {{ time }}
                         </div>
                         <div class="btn btn-expired">
                             <lang>The bid was expired, system will refund to the participators later.</lang>
@@ -365,7 +365,10 @@
                 showFail: false,
                 showDeposit: false,
                 failMsg: '',
-                mybetTime: ''
+                mybetTime: '',
+                time: '1\' 30"',
+                _time: 90,
+                timer: null
             }
         },
         methods: {
@@ -396,6 +399,29 @@
             renderDetailInfo (res) {
                 this.goodsinfo = res.data.goodsinfo
                 this.betValue = Number(this.goodsinfo.bidValue)
+                this.formatCommingTime(this.goodsinfo.lefttime)
+            },
+            formatCommingTime (time) {
+                let num = Number(time)
+                num = (num === 0 || num > 90) ? 90 : num
+
+                if (this.timer) {
+                    clearInterval(this.timer)
+                    this.timer = null
+                }
+                this._time = num
+                this.renderTime()
+                this.timer = setInterval(() => {
+                    this._time--
+                    if (this._time === 0) {
+                        clearInterval(this.timer)
+                        this.refresh()
+                    }
+                    this.renderTime()
+                }, 1000)
+            },
+            renderTime () {
+                this.time = `${Math.floor(this._time / 60)}' ${this._time % 60}"`
             },
             getAllBidsInfo () {
                 this.getAllBids({
@@ -455,9 +481,11 @@
                     this.showDeposit = true
                     return
                 }
+                let value = this.betValue
+                value = (value === '' ? this.goodsinfo.bidValue : Number(value))
                 this.betNow({
                     cointype: this.coinType,
-                    codestr: `${this.number}|${this.coinType}|${accDiv(this.betValue, this.goodsinfo.bidValue)}|${this.goodsinfo.bidValue}`
+                    codestr: `${this.number}|${this.coinType}|${accDiv(value, this.goodsinfo.bidValue)}|${this.goodsinfo.bidValue}`
                 })
                     .then(() => {
                         this.refresh()
@@ -599,6 +627,15 @@
             },
             disableBet () {
                 return ((Number(this.betValue) !== Number(this.formatBidValue(this.betValue))) || Number(this.betValue) > this.maxValue)
+            },
+            rate () {
+                let total = this.goodsinfo.totalBids
+                let left = this.goodsinfo.leftBids
+                return (
+                    total === 0 && left === 0
+                        ? 0
+                        : parseInt((total - left) / total * 314)
+                )
             }
         },
         components: {
@@ -623,6 +660,9 @@
         },
         beforeDestroy () {
             this.$store.commit('cs_luckycoin/unbindListener', this.number)
+            if (this.timer) {
+                clearInterval(this.timer)
+            }
         }
     }
 </script>
