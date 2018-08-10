@@ -141,7 +141,6 @@ export default {
                     lotid: 2
                 }).then(res => {
                     this.renderCheckData(res.data.goodsinfo)
-                    console.dir(res.data)
                     return res.data
                 })
             )

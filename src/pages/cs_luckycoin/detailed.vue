@@ -121,7 +121,9 @@
                             </div>
                             <div class="main-right">
                                 <div class="item-issue">
-                                    NO.{{number}}
+                                    NO.<router-link :to="`/check?number=${number}&type=luckycoin`">
+                                        {{number}}
+                                    </router-link>
                                 </div>
                                 <div class="item-process">
                                     <lang>Draw Process</lang> {{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}} / {{Number(goodsinfo.totalBids)}}
@@ -385,6 +387,10 @@
                     this.getMyBidsInfo()
                 } else {
                     window.location.pathname = '/luckycoin'
+                }
+
+                if (params.go) {
+                    this.activeName = 'my'
                 }
             },
             getDetailInfo () {
