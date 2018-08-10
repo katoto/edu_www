@@ -454,9 +454,6 @@
                     this.isInit = true
                     this.init()
                 }
-            },
-            isLogin: function () {
-                this.disableBet = ((Number(this.betValue) !== this.formatBidValue(this.betValue)) || Number(this.betValue) > this.maxValue)
             }
         },
         mounted () {

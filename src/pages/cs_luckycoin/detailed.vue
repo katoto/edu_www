@@ -54,7 +54,7 @@
                             {{ goodsinfo.goodsValue }}<i> {{coinText}}</i>
                         </div>
                         <div class="item-usd">
-                            USD 14,776
+                            USD {{numberComma(Number(goodsinfo.coinprice.USD))}}
                         </div>
                         <div class="item-main">
                             <div class="main-left">
@@ -340,7 +340,7 @@
 
 <script>
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
-    import { getURLParams, formatTime, formatNum, accMul, accDiv, formateCoinType } from '~/common/util'
+    import { getURLParams, formatTime, formatNum, accMul, accDiv, formateCoinType, numberComma } from '~/common/util'
     import { mapActions, mapState } from 'vuex'
     export default {
         data () {
@@ -375,6 +375,7 @@
             ...mapActions(['getUserInfo']),
             ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids', 'betNow']),
             formatTime,
+            numberComma,
             init () {
                 let params = getURLParams()
                 if (params.number) {
