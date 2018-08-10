@@ -1,7 +1,7 @@
 <template>
     <div class="tiger-contain">
         <div class="tiger-pc ">
-            <Header></Header>
+            <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
                 <div class="tiger ">
                     <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">

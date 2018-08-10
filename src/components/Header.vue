@@ -319,6 +319,7 @@
                         break
                     case 'task_3':
                         taskid = 3
+                        this.$emit('freshSlot', '')
                         break
                     case 'task_4':
                         taskid = 4
