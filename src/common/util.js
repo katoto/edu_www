@@ -558,3 +558,12 @@ export function formatUSD (price, num) {
     var total = accMul(price, num)
     return numberComma(formatNum(total, 3))
 }
+
+export function structDom (msg = 'home') {
+    let createSci = document.createElement('script')
+    createSci
+    if (msg === 'home') {
+
+    }
+    return '<script>fafd</script>'
+}
