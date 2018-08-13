@@ -665,6 +665,7 @@
             }
         },
         mounted () {
+            document.documentElement.className = 'flexhtml'
             this.refresh()
             this.$store.commit('cs_luckycoin/bindListener', {
                 [this.number]: () => {
@@ -677,6 +678,7 @@
             })
         },
         beforeDestroy () {
+            document.documentElement.className = ''
             this.$store.commit('cs_luckycoin/unbindListener', this.number)
             if (this.timer) {
                 clearInterval(this.timer)
@@ -686,6 +688,7 @@
 </script>
 <style lang="less" type="text/less">
     .luckyCoinDetailed{
+        flex: 1;
         .el-table__empty-block {
             display: none;
         }

@@ -52,10 +52,13 @@ export default {
 }
 </script>
 <style lang="less" type="text/less">
+    @import "../styles/lib-public.less";
 //面包屑
 .b-nav {
-  height: 50px;
-  line-height: 50px;
+    width: 92%;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 auto;
   a {
     position: relative;
     display: block;
@@ -99,5 +102,35 @@ export default {
       color: #a99acc;
     }
   }
+}
+
+@media (max-width: @screen-phone) {
+
+}
+
+/* xs超小屏幕（手机，大于 480） */
+
+@media (min-width: @screen-phone) {
+
+}
+
+/* sm小屏幕（平板，大于等于 768px） */
+
+@media (min-width: @screen-tablet) {
+
+}
+
+/* md中等屏幕（桌面显示器，大于等于 992px） */
+
+@media (min-width: @screen-desktop) {
+
+}
+
+/* lg大屏幕（大桌面显示器，大于等于 1200px） */
+
+@media (min-width: @screen-lg-desktop) {
+    .b-nav {
+        width: 100%;
+    }
 }
 </style>
