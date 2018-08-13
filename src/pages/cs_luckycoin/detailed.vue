@@ -1095,6 +1095,12 @@
                 padding-bottom: 20px;
                 line-height: 26px;
                 font-size: 16px;
+                a{
+                    color: #fff;
+                    &:hover{
+                        filter:brightness(1.3);
+                    }
+                }
             }
         }
         .btn{
