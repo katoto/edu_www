@@ -4,6 +4,14 @@
             <lang>Bet Record</lang>
         </h2>
         <section class="cs-select">
+            <el-select v-model="playOptionVal" @change="handleStatusChange">
+                <el-option
+                    v-for="item in playOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
             <el-select v-model="betOptionVal" @change="handleStatusChange">
                 <el-option
                     v-for="item in betOptions"
@@ -29,7 +37,6 @@
                     :value="item.value">
                 </el-option>
             </el-select>
-
         </section>
         <template>
             <el-table
@@ -71,16 +78,25 @@
                 <el-table-column
                         align="center"
                         header-align="center"
-                        prop="expectid"
                         :label="_('No.')">
+                        <template slot-scope="scope">
+                            <router-link :to="`/check?number=${scope.row.expectid}&type=lucky11}`" v-if="scope.row.lotid === '1'">
+                                {{scope.row.expectid}}
+                            </router-link>
+                            <router-link :to="`/luckycoin/detailed?number=${scope.row.expectid}&go=mybets`" v-if="scope.row.lotid === '2'">
+                                {{scope.row.expectid}}
+                            </router-link>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         align="center"
                         header-align="center"
                         width="170"
-                        :label="_('Number')">
+                        :label="_('Number')"
+                        v-if="playOptionVal === '1'">
                     <template slot-scope="scope">
-                        <div v-html="scope.row.betcodeVal"></div>
+                        <div v-html="scope.row.betcodeVal" v-if="scope.row.lotid === '1'"></div>
+                        <div v-html="scope.row.betcode" v-if="scope.row.lotid === '2'" style="overflow: hidden;"></div>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -97,7 +113,6 @@
                         <div v-html="scope.row.betprizeVal"></div>
                     </template>
                 </el-table-column>
-
             </el-table>
             <div class="pagination">
                 <el-pagination
@@ -114,7 +129,6 @@
                         :prev-text="_('< Front')"
                 >
                 </el-pagination>
-
             </div>
         </template>
     </div>
@@ -136,6 +150,7 @@ export default {
             pageSize: 10,
             PageTotal: 10,
             orderList: [],
+            orderList1: [],
             ethUrl,
             betOptions: [{
                 value: '1',
@@ -164,8 +179,15 @@ export default {
                 value: '2001',
                 label: _('ETH')
             }],
-            ethOptionVal: '1'
-
+            ethOptionVal: '1',
+            playOptions: [{
+                value: '1',
+                label: _('Lucky11')
+            }, {
+                value: '2',
+                label: _('LuckyCoin')
+            }],
+            playOptionVal: '1'
         }
     },
     methods: {
@@ -193,7 +215,8 @@ export default {
         async handleCurrentChange (pageno = this.pageno) {
             let params = {
                 pageno,
-                day: this.betTimeOptionVal === '1' ? 30 : 7
+                day: this.betTimeOptionVal === '1' ? 30 : 7,
+                lotid: this.playOptionVal
             }
             if (this.betOptionVal === '2') {
                 params.prize = 1
@@ -218,7 +241,7 @@ export default {
                     // bettime
                     val.bettime = formatTime(val.bettime, 'yyyy-MM-dd HH:mm')
                     val.bettypeNum = val.bettype
-                    val.bettype = formatMatchAccount(val.bettype)
+                    val.bettype = val.lotid === '1' ? formatMatchAccount(val.bettype) : 'LuckyCoin'
 
                     if (!val.txhash || val.orderstatus !== '2') {
                         val.txhash = '-'
