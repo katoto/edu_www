@@ -1261,7 +1261,6 @@
     -webkit-transition: -webkit-transform .15s ease-in;
     transition: -webkit-transform .15s ease-in;
     transition: transform .15s ease-in;
-    transition: transform .15s ease-in;
     /*-webkit-transform .15s ease-in;*/
 }
 

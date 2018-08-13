@@ -37,6 +37,7 @@
                     :value="item.value">
                 </el-option>
             </el-select>
+            <p class="tocheck">点期号可查看开奖过程</p>
         </section>
         <template>
             <el-table
@@ -310,6 +311,12 @@ export default {
     color: #263648;
     text-transform: capitalize;
   }
+    .tocheck{
+        float: right;
+        line-height: 25px;
+        font-size: 12px;
+        color: #778ca3;
+    }
   .filter {
     margin-top: 15px;
   }
