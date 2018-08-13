@@ -135,29 +135,30 @@ let routesArr = [
     {
         path: '/luckycoin',
         component: luckycoin,
-        children: [{
-            path: 'drawHistory',
-            meta: {
-                history: true
+        children: [
+            {
+                path: 'drawHistory',
+                meta: {
+                    history: true
+                },
+                name: _('Draw History'),
+                component: luckcoinMoreBids
             },
-            name: _('Draw History'),
-            component: luckcoinMoreBids
-        },
-        {
-            path: 'moreBids',
-            name: _('More Bids'),
-            component: luckcoinMoreBids
-        },
-        {
-            path: 'detailed',
-            name: _('detailed'),
-            component: luckycoinDetailed
-        },
-        {
-            path: '',
-            name: _('Home'),
-            component: luckcoinIndex
-        }
+            {
+                path: 'moreBids',
+                name: _('More Bids'),
+                component: luckcoinMoreBids
+            },
+            {
+                path: 'detailed',
+                name: _('detailed'),
+                component: luckycoinDetailed
+            },
+            {
+                path: '',
+                name: _('Home'),
+                component: luckcoinIndex
+            }
         ]
     },
     {
