@@ -165,7 +165,7 @@
 </template>
 
 <script>
-    import {formateCoinType, numberComma, accDiv, accMul} from '~/common/util'
+    import {formateCoinType, formatUSD, accDiv, accMul} from '~/common/util'
     import {mapActions, mapState} from 'vuex'
 
     let defaultValue = {
@@ -377,12 +377,7 @@
                 return this.betData.state === '5'
             },
             goodsPrice () {
-                for (let keyname in this.betData.coinprice) {
-                    if (keyname) {
-                        return `${keyname}&ensp;${this.betData.coinprice[keyname]}`
-                    }
-                }
-                return '<br>'
+                return `USD&ensp;${formatUSD(this.betData.coinprice.USD, this.betData.goodsValue)}` || '<br>'
             },
             coin () {
                 return {

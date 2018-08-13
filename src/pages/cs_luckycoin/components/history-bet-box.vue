@@ -4,8 +4,7 @@
         <p class="history-prize">
             {{ bet.goodsValue }}<i> {{ coinText }}</i>
         </p>
-        <p class="history-usd">
-            {{ goodsPrice }}
+        <p class="history-usd" v-html="goodsPrice">
         </p>
         <p class="history-issue">
             No.{{ bet.exceptId}}
@@ -36,7 +35,7 @@
     </router-link>
 </template>
 <script>
-import { formatTime, formateCoinType, formateBalance } from '~/common/util'
+import { formatTime, formateCoinType, formateBalance, formatUSD } from '~/common/util'
 import { mapState } from 'vuex'
 
 export default {
@@ -56,12 +55,7 @@ export default {
             uid: state => (state.userInfo && state.userInfo.uid) || ''
         }),
         goodsPrice () {
-            for (let keyname in this.bet.coinprice) {
-                if (keyname) {
-                    return `${keyname} ${this.bet.coinprice[keyname]}`
-                }
-            }
-            return ' '
+            return `USD&ensp;${formatUSD(this.bet.coinprice.USD, this.bet.goodsValue)}` || '<br>'
         },
         isWin () {
             return this.bet.state === '4'

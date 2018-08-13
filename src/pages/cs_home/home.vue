@@ -28,7 +28,7 @@
                                     <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
                                 </p>
-                                <p class="msg5">{{entrance.syxw.USD}} USD</p>
+                                <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
                                 <router-link :to="{path: '/lucky11'}" class="game-btn">
                                     <lang>Play</lang>
                                 </router-link>
@@ -45,7 +45,7 @@
                                     <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.slot.cointype)}}</i>
                                 </p>
-                                <p class="msg5">{{entrance.slot.USD}} USD</p>
+                                <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
                                 <router-link :to="{path: '/slot'}" class="game-btn">
                                     <lang>Play</lang>
                                 </router-link>
@@ -62,7 +62,7 @@
                                     <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
                                     <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
                                 </p>
-                                <p class="msg5">{{entrance.megacoin.USD}} USD</p>
+                                <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
                                 <router-link :to="{path: '/luckycoin'}" class="game-btn">
                                     <lang>Play</lang>
                                 </router-link>
@@ -323,7 +323,8 @@
         formateCoinType,
         formateBalance,
         formatNum,
-        removeCK
+        removeCK,
+        formatUSD
     } from '~/common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
@@ -379,6 +380,7 @@
             }
         },
         methods: {
+            formatUSD,
             ...mapActions('home', [
                 'getHomeBet',
                 'getHomeDraw',

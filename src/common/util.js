@@ -551,3 +551,10 @@ export function mobileCheck () {
 export function formatNum (num, bit = 5) {
     return accDiv(Math.floor(accMul(Number(num), Math.pow(10, bit))), Math.pow(10, bit))
 }
+
+export function formatUSD (price, num) {
+    price = Number(price)
+    num = Number(num)
+    var total = accMul(price, num)
+    return numberComma(formatNum(total, 3))
+}
