@@ -558,3 +558,19 @@ export function formatUSD (price, num) {
     var total = accMul(price, num)
     return numberComma(formatNum(total, 3))
 }
+
+export function structDom (msg = 'home') {
+    let createSci = document.createElement('script')
+    createSci.setAttribute('type', 'application/ld+json')
+    if (msg === 'home') {
+        createSci.innerHTML = `{
+        "@context": "https://coinsprize.com",
+        "header":"Coinsprize-the fair game platform for casino games , based on blockchain technology !",
+        "name": "casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet",
+        "description": "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.",
+        "image": "http://www.coinsprize.com/",
+        "url": "http://www.coinsprize.com/"
+        }`
+        return createSci
+    }
+}

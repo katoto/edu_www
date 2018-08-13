@@ -324,7 +324,8 @@
         formateBalance,
         formatNum,
         removeCK,
-        formatUSD
+        formatUSD,
+        structDom
     } from '~/common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
@@ -491,6 +492,8 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
+
+            document.body.appendChild(structDom('home'))
         }
     }
 </script>
