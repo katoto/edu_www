@@ -569,34 +569,34 @@ export function structDom (msg = 'home') {
           "@type": "BreadcrumbList", 
           "url": "https://www.coinsprize.com/",   
           "name": "${_('Coinsprize-the fair game platform for casino games,based on blockchain technology')}",
-          "image": "http://www.coinslot.com/images/sprize/CoinsprizeLogo.png",    
+          "image": "http://www.coinsprize.com/images/sprize/CoinsprizeLogo.png",    
           "description": "${_('Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.')}",   
           "itemListElement": [
             {
                 "@type": "ListItem", 
                 "position": 1, 
                 "item": {
-                  "@id": "https://www.coinslot.com/lucky11/",
+                  "@id": "https://www.coinsprize.com/lucky11/",
                   "name": "${_('Lucky11')}", 
-                  "image": "http://www.coinslot.com/images/sprize/logo-115.png" 
+                  "image": "http://www.coinsprize.com/images/sprize/logo-115.png" 
                 }
             },
             {
                 "@type": "ListItem",
                 "position": 2,
                 "item": {
-                  "@id": "https://www.coinslot.com/slot/",
-                  "name": "${_('slot')}",
-                  "image": "http://www.coinslot.com/images/sprize/logo-slot.png"
+                  "@id": "https://www.coinsprize.com/slot/",
+                  "name": "${_('Slot')}",
+                  "image": "http://www.coinsprize.com/images/sprize/logo-slot.png"
                 }
             },
             {
                 "@type": "ListItem",
                 "position": 3,
                 "item": {
-                  "@id": "https://www.coinslot.com/luckycoin/",
-                  "name": "${_('luckycoin')}",
-                  "image": "http://www.coinslot.com/images/sprize/logo-luckyCoin.png"
+                  "@id": "https://www.coinsprize.com/luckycoin/",
+                  "name": "${_('LuckyCoin')}",
+                  "image": "http://www.coinsprize.com/images/sprize/logo-luckyCoin.png"
                 }
             }
           ]
