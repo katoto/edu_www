@@ -7,8 +7,8 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require("webpack");
 const vConsolePlugin = require('vconsole-webpack-plugin')
 const emptyFile = path.resolve(__dirname, './empty.js')
-// const prerenderSPAPlugin = require('prerender-spa-plugin')
-// const Renderer = prerenderSPAPlugin.PuppeteerRenderer
+const prerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = prerenderSPAPlugin.PuppeteerRenderer
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
 }
@@ -132,11 +132,11 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin('common.js'),
-		// new webpack.ProvidePlugin({
-		// 	jQuery: "jquery",
-		// 	$: "jquery"
-		// }),
-        // new vConsolePlugin({enable:!isDebug})
+		new webpack.ProvidePlugin({
+			jQuery: "jquery",
+			$: "jquery"
+		}),
+        new vConsolePlugin({enable:!isDebug}),
         // new prerenderSPAPlugin({
         //     staticDir:path.join(__dirname,'../dist'),
         //     routes:['/', '/lucky11','/slot', '/luckycoin'],
