@@ -8,6 +8,9 @@ const webpack = require("webpack");
 const vConsolePlugin = require('vconsole-webpack-plugin')
 const emptyFile = path.resolve(__dirname, './empty.js')
 
+const prerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = prerenderSPAPlugin.PuppeteerRenderer
+
 
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
@@ -137,5 +140,30 @@ module.exports = {
 		// 	$: "jquery"
 		// }),
         // new vConsolePlugin({enable:!isDebug})
+        new prerenderSPAPlugin({
+            staticDir:path.join(__dirname,'../dist'),
+            routes:['/lucky11','/slot', '/luckycoin'],
+            minify:{
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true,
+                decodeEntities: true,
+                keepClosingSlash: true,
+                sortAttributes: true
+            },
+            server:{
+                port: 8070
+            },
+            renderer:new Renderer({
+                headless: false,
+                renderAfterElementExists:'#app',
+                renderAfterTime:5000
+            }),
+            postProcess (renderedRoute) {
+                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"")
+                    .replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                    .replace(/<div id="app"[^>]*>/i,'<div id="app" style="visibility:hidden">');
+                return renderedRoute
+            }
+        })
 	]
 }
