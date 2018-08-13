@@ -63,9 +63,9 @@
                                     <div class="left">
                                         <p class="t1">Bet For The Prize</p>
                                         <p class="t2 hidden-xs hidden-sm">All or nothing, small cost,  big profit</p>
-                                        <a href="#app" class="play" @click="howToPlayHandler">
-                                            How To Play ？
-                                        </a>
+                                        <router-link :to="{path:'/help/helpView/2/1'}" class="play">
+                                            <lang>How To Play ?</lang>
+                                        </router-link>
                                     </div>
                                     <div class="right">
                                         <router-link :to="{path:'/luckycoin/moreBids'}" class="btn-more">
@@ -182,7 +182,7 @@
         },
         mounted () {
             if (!localStorage.getItem('firstLuckycoin')) {
-                this.isShowNew = true
+                this.howToPlayHandler()
                 localStorage.setItem('firstLuckycoin', true)
             }
             this.updateLuckyCoinPage()
@@ -191,6 +191,14 @@
 </script>
 
 <style scope lang="less" type="text/less">
+    #app .for-new, #app .pop-mask {
+        display: none;
+    }
+
+    #app.ready .for-new, #app.ready .pop-mask {
+        display: block;
+    }
+
     .page-luckycoin{
         .carousel__arrow{
             display: none;

@@ -118,6 +118,11 @@
                                         {{betMoney}}{{coinText}}
                                     </p>
                                 </div>
+                                <div class="main-expired" v-else-if="goodsinfo.state === '5'">
+                                    <span>
+                                        <lang>Expired</lang>
+                                    </span>
+                                </div>
                             </div>
                             <div class="main-right">
                                 <div class="item-issue">
@@ -229,7 +234,7 @@
                     :data="totalBids"
                     style="width: 100%"
                     :default-sort = "{prop: 'date', order: 'descending'}"
-                    v-if="activeName === 'all'"
+                    v-if="activeName === 'all' && totalBids.length > 0"
                     :row-class-name="getRowClass"
                 >
                     <el-table-column
@@ -553,6 +558,10 @@
                     this.betValue = this.minValue
                     return
                 }
+                if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                    this.betValue = this.minValue
+                    return
+                }
                 if (this.betValue / 2 >= this.minValue) {
                     this.betValue = this.formatBidValue(this.betValue / 2)
                 } else if (this.betValue > this.minValue) {
@@ -569,6 +578,10 @@
                     this.betValue = this.formatBidValue(this.minValue * 2)
                     return
                 }
+                if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                    this.betValue = this.minValue
+                    return
+                }
                 if (this.betValue * 2 <= this.maxValue) {
                     this.betValue = this.formatBidValue(this.betValue * 2)
                 } else if (this.betValue < this.maxValue) {
@@ -576,6 +589,10 @@
                 }
             },
             chooseMax () {
+                if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                    this.betValue = this.minValue
+                    return
+                }
                 this.betValue = this.maxValue
             },
             formatBidValue (value) {
@@ -656,7 +673,7 @@
             maxValue () {
                 let maxBidNum = accMul(this.goodsinfo.leftBids, this.goodsinfo.bidValue)
                 return this.formatBidValue(
-                    this.balance > maxBidNum ? maxBidNum : this.balance
+                    (!this.isLogin || this.balance > maxBidNum) ? maxBidNum : this.balance
                 )
             },
             disableBet () {
