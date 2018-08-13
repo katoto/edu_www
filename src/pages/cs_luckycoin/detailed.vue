@@ -477,7 +477,7 @@
                 })
             },
             formatTotalBids (data, goodsinfo) {
-                return data.map(item => {
+                let tmp = data.map(item => {
                     if (item.uid === this.userInfo && this.userInfo.uid) {
                         this.mybetTime = formatTime(item.crtime, 'MM-dd HH:mm:ss')
                     }
@@ -489,6 +489,15 @@
                         amount: formatNum(accMul(Number(goodsinfo.bidValue), Number(item.bids)), 5)
                     }
                 })
+                for (let index = 0; index < tmp.length; index++) {
+                    let item = tmp[index]
+                    if (item.isWin) {
+                        tmp.splice(index, 1)
+                        tmp.unshift(item)
+                        break
+                    }
+                }
+                return tmp
             },
             handleBetEvent () {
                 if (!this.isLogin) {
