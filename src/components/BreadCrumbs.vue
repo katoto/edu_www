@@ -1,29 +1,57 @@
 <template>
-    <!--面包屑-->
-    <div class="b-nav">
-        <router-link to="/">
-            <lang>Home</lang>
-        </router-link>
-        <router-link to="/luckycoin">
-            <lang>LuckyCoin</lang>
-        </router-link>
-        <a href="javascript:;" class="now" v-if="pageName">
-            {{_(pageName)}}
-        </a>
-        <a href="javascript:;" class="now">
-            <slot/>
-        </a>
+    <div>
+        <!--面包屑-->
+        <div class="b-nav" v-if="data.length === 0">
+            <router-link to="/">
+                <lang>Home</lang>
+            </router-link>
+            <router-link to="/luckycoin">
+                <lang>LuckyCoin</lang>
+            </router-link>
+            <a href="javascript:;" class="now" v-if="pageName">
+                {{_(pageName)}}
+            </a>
+            <a href="javascript:;" class="now" v-if="$slots.default">
+                <slot/>
+            </a>
+        </div>
+        <bread :data="data" v-else></bread>
     </div>
 </template>
 
 <script>
+import Vue from 'vue'
+let bread = Vue.component('bread', {
+    render (h, vm) {
+        let links = this.$attrs.data.map((item, index) => {
+            console.log(this.$attrs.data.length - 1, index, item.name)
+            return (
+                (this.$attrs.data.length - 1 === index)
+                    ? (<a href="javascript:;" class="now">
+                        {item.name}
+                    </a>)
+                    : (<router-link to={item.path}>
+                        {item.name}
+                    </router-link>)
+            )
+        })
+        return <div class="b-nav">{ links }</div>
+    }
+})
 export default {
     props: {
-        pageName: String
-    }
+        pageName: String,
+        data: {
+            type: Array,
+            default () {
+                return []
+            }
+        }
+    },
+    components: { bread }
 }
 </script>
-<style scoped lang="less" type="text/less">
+<style lang="less" type="text/less">
 //面包屑
 .b-nav {
   height: 50px;

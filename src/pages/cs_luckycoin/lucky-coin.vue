@@ -17,7 +17,7 @@
                     <p class="p3">
                         +{{selfWin.num}}<i>{{selfWin.type}}</i>
                     </p>
-                    <router-link :to="{path: '/luckycoin/drawHistory', query: { entry: 'myBids' }}" class="btn-see" @click.native="hideMyWinHandler">
+                    <router-link :to="{path: `/luckycoin/detailed?number=${selfWin.exceptId}&go=mybets`}" class="btn-see" @click.native="hideMyWinHandler">
                         <lang>See My Bids</lang>
                     </router-link>
                 </div>

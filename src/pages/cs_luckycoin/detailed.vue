@@ -568,7 +568,7 @@
             loginHandler () {
                 this.$store.commit('showLoginPop')
             },
-            getRowClass (row) {
+            getRowClass ({row}) {
                 return row.isWin ? 'mywin' : ''
             },
             refresh () {
