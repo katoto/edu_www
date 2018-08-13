@@ -715,6 +715,7 @@ export default {
                 svg{
                     //transform-origin: left top;
                     //transform: scale(102/102);
+                    transform: rotate(-0.05deg);
                 }
                 background-size: 73px;
             }
@@ -822,7 +823,7 @@ export default {
                 bottom: 48px;
                 svg{
                     transform-origin: left top;
-                    transform: scale(62/102);
+                    transform: scale(62/102)  rotate(-0.05deg);
                 }
                 background-size: 42px;
             }
@@ -993,7 +994,6 @@ export default {
                 width: 100%;
                 height: 28px;
                 line-height: 28px;
-                text-indent:50px;
                 border-bottom-left-radius: 6px;
                 border-bottom-right-radius: 6px;
                 background: #ffca28;
@@ -1001,7 +1001,8 @@ export default {
                 font-weight: bold;
                 color: #755c35;
                 .text-overflow();
-                &::before{
+                text-indent:50px;
+                &::after{
                     content: '';
                     display: block;
                     position: absolute;
