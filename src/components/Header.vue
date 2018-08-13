@@ -143,7 +143,7 @@
 
                 <!--拉新活動 on 水龙头new -->
                 <div class="cs-faucet" v-if="isLog">
-                    <div>
+                    <div class="hide">
                         <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
                         </a>
                         <p class="redPoint" style="" v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
@@ -185,7 +185,6 @@
                                     <lang>Sign Up to Get 0.0001 BTC for Free</lang>
                                 </p>
                                 <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
-                                    <!--<lang>Try a luck</lang>-->
                                     <lang>Get it !</lang>
                                 </a>
                             </div>
