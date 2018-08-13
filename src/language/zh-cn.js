@@ -392,6 +392,9 @@ module.exports = {
     'How to withdraw ?': '如何提款',
 
     'Place 0.00001 BTC per line, you can get 5% of the Jackpot': '每线投注0.00001 BTC,您将赢得5%的奖池',
-    'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每条线投注0.0001 BTC,您将赢得50%的奖池'
+    'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每条线投注0.0001 BTC,您将赢得50%的奖池',
+    '# ': '序号',
+    'LuckyCoin': '一元夺币',
+    'Lucky11 ': '幸运11'
 
 }
