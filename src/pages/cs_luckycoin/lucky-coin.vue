@@ -117,12 +117,13 @@ export default {
 <style scope  lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
-    .main{
-        overflow: visible !important;
-    }
+
     .page-luckycoin{
         .more-bids-page{
             flex: 1;
+        }
+        .main{
+            overflow: visible !important;
         }
         .nomsg{
             margin: 30px auto;

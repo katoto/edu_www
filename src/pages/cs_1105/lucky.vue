@@ -759,7 +759,7 @@
     .main {
         position: relative;
         width: 100%;
-        overflow: hidden;
+        overflow: hidden !important;
     }
 
     .icon-enterWorld {
