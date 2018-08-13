@@ -654,7 +654,10 @@
                 return this.goodsinfo.bidValue || 0
             },
             maxValue () {
-                return accMul(this.goodsinfo.leftBids, this.goodsinfo.bidValue)
+                let maxBidNum = accMul(this.goodsinfo.leftBids, this.goodsinfo.bidValue)
+                return this.formatBidValue(
+                    this.balance > maxBidNum ? maxBidNum : this.balance
+                )
             },
             disableBet () {
                 return ((Number(this.betValue) !== Number(this.formatBidValue(this.betValue))) || Number(this.betValue) > this.maxValue)
