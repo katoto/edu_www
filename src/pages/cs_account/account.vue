@@ -4,7 +4,7 @@
         <div class="main">
             <BreadCrumbs></BreadCrumbs>
             <!--侧边栏-->
-            <div class="slide-bar">
+            <div class="slide-bar visible-lg">
                 <ul class="account_Tab">
                     <router-link active-class="on" :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
@@ -14,7 +14,25 @@
                 </ul>
             </div>
             <!-- 主体内容 -->
-            <div class="my-info">
+            <div class="my-info visible-lg">
+                <router-view></router-view>
+            </div>
+            <!--移动端-->
+            <div class="pop-mask hidden-lg" @click="isShowH5SideBar = false" :class="{hide:!isShowH5SideBar}"></div>
+            <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}">
+               <p>INFORMATION</p>
+                <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
+                    <span></span><span></span><span></span>
+                </div>
+                <ul>
+                    <router-link active-class="on"  :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
+                        <a href="javascript:;">
+                            {{_(item.msg)}}
+                        </a>
+                    </router-link>
+                </ul>
+            </div>
+            <div class="h5-my-info hidden-lg">
                 <router-view></router-view>
             </div>
         </div>
@@ -40,7 +58,8 @@ export default {
                 { msg: _('My Transactions'), link: '/account/myTransactions' },
                 { msg: _('Deposit'), link: '/account/deposit' },
                 { msg: _('Withdraw'), link: '/account/withdraw' }
-            ]
+            ],
+            isShowH5SideBar: false
         }
     },
     watch: {},
@@ -65,46 +84,154 @@ export default {
 }
 </script>
 <style scoped lang="less" type="text/less">
-@import "../../styles/lib-mixins.less";
-.account{
-    .main {
-        position: relative;
-        width: 1190px;
-        margin: 0 auto;
+    @import "../../styles/lib-public.less";
+    .account{
+        .main {
+            position: relative;
+            width: 94% !important;
+            margin: 0 auto;
+        }
     }
-}
-
-
-.slide-bar {
-    float: left;
-    width: 170px;
-    padding: 14px 0 10px 20px;
-    border-radius: 6px;
-    background: #fff;
-    li {
-        height: 50px;
-        line-height: 50px;
-    }
-    .on {
-        a {
-            color: #263648;
-            &::after {
-                display: none;
+    .slide-bar {
+        float: left;
+        width: 170px;
+        padding: 14px 0 10px 20px;
+        border-radius: 6px;
+        background: #fff;
+        li {
+            height: 50px;
+            line-height: 50px;
+        }
+        .on {
+            a {
+                color: #263648;
+                &::after {
+                    display: none;
+                }
             }
         }
     }
+    .my-info {
+        float: right;
+        width: 920px;
+        padding: 24px 30px 0 40px;
+        background: #fff;
+        border-radius: 6px;
+        font-size: 20px;
+        color: #263648;
+    }
+    .head-box {
+        background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+    }
+
+
+    .pop-mask{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+    .h5-slide-bar{
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        top: 50px;
+        width: 100%;
+        height: 95/2px;
+        padding: 0 percentage(30/710);
+        line-height: 95/2px;
+        overflow: hidden;
+        background: #ffffff;
+        border-radius: 6px;
+        font-size: 22/2px;
+        color: #263648;
+        >p{
+            float: left;
+        }
+        .btn{
+            float: right;
+            position: relative;
+            width:20px;
+            height:20px;
+            margin:27.5/2px auto;
+            cursor: pointer;
+            span{
+                position: absolute;
+                left:0;
+                display: block;
+                width:100%;
+                height:2px;
+                background: #000000;
+                border-radius: 2px;
+                top:7px;
+                .transition();
+                transform-origin: left center;
+            }
+            span:first-child{
+                top:0;
+            }
+            span:last-child{
+                top:15px;
+            }
+        }
+        ul{
+            display: none;
+            clear: both;
+            li{
+                a{
+                    display: block;
+                    line-height: 90/2px;
+                    font-size: 22/2px;
+                }
+            }
+        }
+        &.show{
+            z-index: 11;
+            height: 95/2px+90/2*5px;
+            ul{
+                display: block;
+            }
+        }
+    }
+    .h5-my-info{
+        margin-top: 122/2px;
+        background: #ffffff;
+        border-radius: 6px;
+    }
+
+
+    @media (max-width: @screen-phone) {
+
 }
 
-.my-info {
-    float: right;
-    width: 920px;
-    padding: 24px 30px 0 40px;
-    background: #fff;
-    border-radius: 6px;
-    font-size: 20px;
-    color: #263648;
+/* xs超小屏幕（手机，大于 480） */
+
+@media (min-width: @screen-phone) {
+
 }
-.head-box {
-    background: linear-gradient(to right, #4b6584, #655aae, #545f94);
+
+/* sm小屏幕（平板，大于等于 768px） */
+
+@media (min-width: @screen-tablet) {
+
+}
+
+/* md中等屏幕（桌面显示器，大于等于 992px） */
+
+@media (min-width: @screen-desktop) {
+
+}
+
+/* lg大屏幕（大桌面显示器，大于等于 1200px） */
+
+@media (min-width: @screen-lg-desktop) {
+    .account{
+        .main {
+            width: 1190px !important;
+        }
+    }
 }
 </style>
