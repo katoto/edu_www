@@ -35,16 +35,14 @@
                 document.getElementById('app').style.visibility = 'visible'
                 switch (defaultLanguage) {
                 case 'zhTw':
-                    document.title = 'Coinslot-基於區塊鏈技術的賭場博彩高頻彩票遊戲平台'
                     document.getElementsByTagName('meta')['keywords'].setAttribute('content', '高頻彩票,Coinslot,區塊鏈賭場,區塊鏈遊戲,區塊鏈彩票')
-                    document.getElementsByTagName('meta')['description'].setAttribute('content', 'Coinslot是世界上第一批基於區塊鏈技術開發的賭場博彩高頻彩票遊戲平台。我們提供了可證明地公平、分散式Ethereum,smart-contract等賭博賭場遊戲。你可以在平台體驗、購買包括lucky 11等在内的區塊鏈高頻彩票，體驗不一樣的刺激玩法。')
                     break
                 case 'zhCn':
-                    document.title = 'Coinslot-基于区块链技术的赌场博彩高频彩票游戏平台'
                     document.getElementsByTagName('meta')['keywords'].setAttribute('content', '高频彩票,Coinslot,区块链赌场,区块链游戏,区块链彩票')
-                    document.getElementsByTagName('meta')['description'].setAttribute('content', 'Coinslot是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。')
                     break
                 }
+                document.title = _('Coinsprize-the fair game platform for casino games,based on blockchain technology')
+                document.getElementsByTagName('meta')['description'].setAttribute('content', _('Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.'))
             }
         },
         computed: {

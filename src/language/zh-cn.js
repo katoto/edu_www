@@ -395,6 +395,10 @@ module.exports = {
     'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每条线投注0.0001 BTC,您将赢得50%的奖池',
     '# ': '序号',
     'LuckyCoin': '一元夺币',
-    'Lucky11 ': '幸运11'
+    'Lucky11 ': '幸运11',
+    /*  seo */
+    'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基于区块链技术的赌场博彩高频彩票游戏平台',
+    'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。'
+    /*  seo end */
 
 }
