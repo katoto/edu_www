@@ -1,5 +1,5 @@
 <template>
-    <div id="app"  @scroll.native="test">
+    <div id="app"  @scroll.native="test" :class="isReady ? 'ready' : ''">
         <router-view v-if="isReady"/>
         <!-- ip -->
         <PopIpLimit></PopIpLimit>
