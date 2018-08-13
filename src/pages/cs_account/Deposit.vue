@@ -1,27 +1,27 @@
 <template>
     <div class="recharge">
         <h2>
-            <lang>Top up</lang>
+            <lang>Top Up</lang>
         </h2>
         <a href="javascript:;" class="btn-Recharge hide">
             <lang>How to deposit?</lang>
         </a>
         <div class="item1 clearfix">
             <div class="fl150">
-                <lang>Select Currency</lang>
+                <lang>Select Coin</lang>
             </div>
             <div class="fr-box">
                 <el-select v-model="tranOptionVal" @change="handleStatusChange">
                     <el-option v-for="item in this.userInfo.accounts" :key="item.cointype" :label="formateCoinType(item.cointype)" :value="item">
                     </el-option>
                 </el-select>
-                <lang>Current balance</lang>
+                <lang>Balance</lang>
                 <i class="bold">{{ formateBalance(currBalance.balance) }}</i> {{ formateCoinType(currBalance.cointype) }}
             </div>
         </div>
         <div class="item2 clearfix">
             <div class="fl150">
-                <lang>copy Link</lang>
+                <lang>Copy Address</lang>
             </div>
             <div class="fr-box" v-if="currBalance">
                 <div class="item2-1">
@@ -36,10 +36,10 @@
                     </a>
                 </div>
                 <p class="item2-2" v-if="currBalance.cointype==='2001'">
-                    <lang>Tip: This address only supports ETH recharge, do not choose the wrong currency</lang>
+                    <lang>Tip: This address is only for ETH top-up, do not choose another type of coins</lang>
                 </p>
                 <p class="item2-2" v-if="currBalance.cointype==='1001'">
-                    <lang>Tip: This address only supports BTC recharge, do not choose the wrong currency</lang>
+                    <lang>Tip: This address is only for BTC top-up, do not choose another type of coins</lang>
                 </p>
                 <div class="item2-3">
                     <lang>or scan to get the address</lang>
@@ -65,10 +65,10 @@
                         2. <lang>This address is only for ETH transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
                     </li>
                     <li v-if="currBalance.cointype==='1001'">
-                        3. <lang>Minimum top-up：0.0001BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
+                        3. <lang>Minimum top-up：0.0001BTC. Top-up less than the minimum amount may fail and it cannot be returned.</lang>
                     </li>
                     <li v-if="currBalance.cointype==='2001'">
-                        3. <lang>Minimum top-up：0.001ETH. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
+                        3. <lang>Minimum top-up：0.001ETH. Top-up less than the minimum amount may fail and it cannot be returned.</lang>
                     </li>
                     <li>
                         4. <lang>Your wallet address may be changed sometimes, and Coinsprize team will inform you through notification or email as soon as possible.</lang>
@@ -77,7 +77,7 @@
                         5. <lang>Make sure that your computer and browser are under the secure environment to prevent modification or disclosure of information.</lang>
                     </li>
                     <li>
-                        6. <lang>Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.</lang>
+                        6. <lang>Top-up needs to be confirmed by network node. Transfer will be successful after one confirmation, and you can withdraw the balance after six confirmations.</lang>
                     </li>
                     <li>
                         7. <lang>Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@Coinsprize.com.</lang>

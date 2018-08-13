@@ -8,19 +8,19 @@
             <el-tab-pane :label="_('Request')" name="Request">
                 <li class="li-records">
                     <div class="item chose-coin ">
-                        <div class="fl210 "><lang>Select Currency</lang></div>
+                        <div class="fl210 "><lang>Select Coin</lang></div>
                         <p>
                             <el-select v-model="tranOptionVal" @change="changeCoin">
                                 <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
                                            :label="formateCoinType(item.cointype)" :value="item">
                                 </el-option>
                             </el-select>
-                            <lang>Current balance</lang>:{{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }} &nbsp;
-                            <lang>Withdraw amount</lang>:{{ formateBalance(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
+                            <lang>Balance</lang>:{{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }} &nbsp;
+                            <lang>Withdrawable Amount</lang>:{{ formateBalance(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
-                                    {{ _('The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need {0}{1} water strip',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
-                                    <a href="javascript:;"><lang>View detailed rules</lang></a>
+                                    {{ _('Eligible user can withdraw bonus!Still need {0} {1} transfer to be eligible!',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
+                                    &nbsp;<a href="javascript:;"><lang>Details</lang></a>
                                 </div>
                             </i>
                         </p>

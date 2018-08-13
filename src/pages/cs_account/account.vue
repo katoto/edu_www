@@ -38,7 +38,7 @@ export default {
                 { msg: _('General'), link: '/account/general' },
                 { msg: _('My Bets'), link: '/account/myBets' },
                 { msg: _('My Transactions'), link: '/account/myTransactions' },
-                { msg: _('Top up'), link: '/account/deposit' },
+                { msg: _('Top Up'), link: '/account/deposit' },
                 { msg: _('Withdraw'), link: '/account/withdraw' }
             ]
         }

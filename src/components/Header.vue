@@ -14,7 +14,7 @@
                     <ul>
                         <li>
                             <router-link :to="{path: '/lucky11'}">
-                                <lang>Lucky 11</lang>
+                                <lang>Lucky11</lang>
                             </router-link>
                         </li>
                         <li class="hide"><a href="javascript:;">luckyCoin</a></li>
@@ -35,7 +35,7 @@
                 </router-link>
                 <div class="choose-play icon-slot">
                     <router-link :to="{path: '/lucky11'}">
-                        <lang>Lucky 11</lang>
+                        <lang>Lucky11</lang>
                     </router-link>
                     <router-link :to="{path: '/slot'}">
                         <lang>Slot</lang>
@@ -100,7 +100,7 @@
                                 </router-link>
                                 <div class="currency-select">
                                     <p>
-                                        <lang>Select Currency</lang>
+                                        <lang>Select Coin</lang>
                                     </p>
                                     <ul>
                                         <li v-for="item in userInfo.accounts"
@@ -132,7 +132,7 @@
                         </div>
                         <div class="hadlogin">
                             <router-link :to="{path: '/account/deposit'}" class="btn-rechrage">
-                                <lang>Top up</lang>
+                                <lang>Top Up</lang>
                             </router-link>
                             <router-link :to="{path: '/account/withdraw'}" class="btn-cash">
                                 <lang>Withdraw</lang>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="faucet-detailed" :class="{'show':freeWaterPop}">
                         <div class="faucet-title">
-                            Free Water
+                            <lang>Free Bonus</lang>
                         </div>
                         <ul>
                             <li>
@@ -166,12 +166,10 @@
                                 <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" v-if="tasks_3==='0'" class="btn-comeTom"><lang>Come Tomorrow</lang></a>
-                                <!--<a href="javascript:;" v-if="tasks_3==='0'||1" class="btn btn-gray"><lang>Come Tomorrow</lang></a>-->
                             </li>
                             <li v-if="userInfo">
-                                <!--  Get 0.0001BTC/ 0.001ETH (Log in for 7 consecutive days)  -->
-                                <p v-if="userInfo.last_recharge==='ETH'"><lang>Get 0.001ETH (Log in for 7 consecutive days)</lang></p>
-                                <p v-else><lang>Get 0.0001BTC (Log in for 7 consecutive days)</lang></p>
+                                <p v-if="userInfo.last_recharge==='BTC'" v-lang="'Get <b>0.0001BTC</b>/ 0.001ETH (Log in for 7 consecutive days)'"></p>
+                                <p  v-else v-lang="'Get 0.0001BTC/ <b>0.001ETH</b> (Log in for 7 consecutive days)'"></p>
                                 <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</a>
