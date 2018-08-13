@@ -460,7 +460,7 @@
             },
             formatTotalBids (data, goodsinfo) {
                 return data.map(item => {
-                    if (item.uid === this.userInfo.uid) {
+                    if (item.uid === this.userInfo && this.userInfo.uid) {
                         this.mybetTime = formatTime(item.crtime, 'MM-dd HH:mm:ss')
                     }
                     return {
@@ -612,7 +612,7 @@
                 return this.goodsinfo.state === '4'
             },
             isYouWin () {
-                return this.isDraw && this.goodsinfo.winUid === this.userInfo.uid
+                return this.isDraw && this.userInfo && this.goodsinfo.winUid === this.userInfo.uid
             },
             betStatus () {
                 // normal/win/fail/finished/expired
