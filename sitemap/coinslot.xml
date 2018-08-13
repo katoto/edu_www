@@ -7,6 +7,18 @@
         <changefreq>always</changefreq>
     </url>
     <url>
+        <loc>https://www.coinslot.com/home</loc>
+        <priority>0.8</priority>
+        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>
+    <url>
+        <loc>https://www.coinslot.com/check</loc>
+        <priority>0.8</priority>
+        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>
+    <url>
         <loc>https://www.coinslot.com/lucky11</loc>
         <priority>0.8</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
@@ -16,6 +28,12 @@
         <loc>https://www.coinslot.com/slot</loc>
         <priority>0.8</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
+        <loc>https://www.coinslot.com/luckycoin</loc>
+        <priority>0.8</priority>
+        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
@@ -82,6 +100,12 @@
         <loc>https://www.coinslot.com/account/withdraw</loc>
         <priority>0.5</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://www.coinslot.com/help</loc>
+        <priority>0.5</priority>
+        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
         <changefreq>weekly</changefreq>
     </url>
 </urlset>
