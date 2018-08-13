@@ -138,6 +138,7 @@
             }
         },
         mounted () {
+            console.log(window.devicePixelRatio);
             if (!this.isLog) {
                 this.$router.push('/home')
             }
@@ -330,7 +331,7 @@
         }
     }
     .h5-information{
-        padding:12px percentage(15/710) 32px;
+        padding:12px percentage(30/710) 32px;
         .small-explain{
             display: block;
             line-height: 23px;
@@ -380,6 +381,11 @@
             line-height: 45px;
             font-size: 15px;
             color: #778ca3;
+            transition: all 0.2s;
+            &:hover{
+                background: #263648;
+                color: #fff;
+            }
         }
     }
 </style>

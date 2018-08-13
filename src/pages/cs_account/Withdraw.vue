@@ -404,7 +404,7 @@
                         this.error(_('Please enter the correct BTC wallet address'))
                         this.withdrawAddr = ''
                         return false
-                    } else if (!(this.withdrawAddr.length > 25 && this.withdrawAddr.length < 35)) {
+                    } else if (!(this.withdrawAddr.length > 25 && this.withdrawAddr.length <= 35)) {
                         this.error(_('Please enter the correct length wallet address'))
                         this.withdrawAddr = ''
                         return false

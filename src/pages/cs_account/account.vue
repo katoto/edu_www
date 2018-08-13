@@ -24,7 +24,7 @@
                 <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
                     <span></span><span></span><span></span>
                 </div>
-                <ul>
+                <ul @click="isShowH5SideBar = false">
                     <router-link active-class="on"  :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
                             {{_(item.msg)}}
@@ -146,8 +146,8 @@ export default {
         overflow: hidden;
         background: #ffffff;
         border-radius: 6px;
-        font-size: 22/2px;
         color: #263648;
+
         >p{
             float: left;
         }
@@ -205,7 +205,7 @@ export default {
 
     @media (max-width: @screen-phone) {
 
-}
+    }
 
 /* xs超小屏幕（手机，大于 480） */
 
@@ -234,4 +234,7 @@ export default {
         }
     }
 }
+
+
+
 </style>
