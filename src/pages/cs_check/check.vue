@@ -330,6 +330,9 @@
                         font-size: 20px;
                         font-weight: bold;
                         color: #fd9644;
+                        &.expired {
+                            font-size: 15px;
+                        }
                     }
                 }
                 &::before{

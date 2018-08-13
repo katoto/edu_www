@@ -359,7 +359,7 @@ module.exports = {
     'placed a pattern as following': '從左到右計算',
     'You win if 3 identical icons': '如果連續3個圖案一致即中獎',
     'Lucky 11': '幸運11',
-    'game':'遊戲',
+    'game': '遊戲',
     'slotmachine': '老虎機',
     'Slot': '老虎機',
     'SlotMachine': '老虎機',
@@ -391,6 +391,10 @@ module.exports = {
     'View detailed rules': '查看詳情',
     'How to withdraw ?': '如何提款',
     'Place 0.00001 BTC per line, you can get 5% of the Jackpot': '每條線投注0.00001BTC,您將贏得5%的獎池',
-    'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每條線投注0.0001BTC,您將贏得50%的獎池'
+    'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每條線投注0.0001BTC,您將贏得50%的獎池',
+    /*  seo */
+    'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基於區塊鏈技術的賭場博彩高頻彩票遊戲平台',
+    'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基於區塊鏈技術開發的賭場博彩高頻彩票遊戲平台。我們提供了可證明地公平、分散式Ethereum,smart-contract等賭博賭場遊戲。你可以在平台體驗、購買包括lucky 11等在内的區塊鏈高頻彩票，體驗不一樣的刺激玩法。'
+    /*  seo end */
 
 }
