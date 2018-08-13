@@ -154,29 +154,30 @@
                         </div>
                         <ul>
                             <li>
-                                <p><lang>Get daily free spins of Slot (Balance less than 0.00005BTC and 0.0005ETH)</lang></p>
-                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spins</lang></a>
-                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <p><lang>Get daily free spins of Slot (Balance less than 0.00005BTC and/or 0.0005ETH)</lang></p>
+                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spin</lang></a>
+                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
                                 <p><lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC or 0.01ETH,1 chance/day)</lang></p>
                                 <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Top Up</lang></a>
-                                <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>
-                                <a href="javascript:;" v-if="tasks_3==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='0'" class="btn-comeTom"><lang>Come Tomorrow</lang></a>
+                                <!--<a href="javascript:;" v-if="tasks_3==='0'||1" class="btn btn-gray"><lang>Come Tomorrow</lang></a>-->
                             </li>
                             <li v-if="userInfo">
+                                <!--  Get 0.0001BTC/ 0.001ETH (Log in for 7 consecutive days)  -->
                                 <p v-if="userInfo.last_recharge==='ETH'"><lang>Get 0.001ETH (Log in for 7 consecutive days)</lang></p>
                                 <p v-else><lang>Get 0.0001BTC (Log in for 7 consecutive days)</lang></p>
-                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spins</lang></a>
+                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</a>
                             </li>
                         </ul>
                     </div>
-
                     <!--浮层 -->
                     <!--第一次登陆 -->
                     <section v-if="showFirstLogin&&isLog">
@@ -462,6 +463,18 @@
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
 
+    .btn-comeTom{
+        display: block;
+        width: 133px;
+        height: 35px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: default;
+        color: #263648;
+    }
     .btn-signDay{
         display: block;
         width: 83px;
