@@ -257,6 +257,15 @@
                 this.betValue = this.hotValue
             },
             chooseHalf () {
+                this.betValue = Number(this.betValue)
+                if (isNaN(this.betValue)) {
+                    this.betValue = this.minValue
+                    return
+                }
+                if (this.betValue === 0) {
+                    this.betValue = this.minValue
+                    return
+                }
                 if (this.betValue / 2 >= this.minValue) {
                     this.betValue = this.formatBidValue(this.betValue / 2)
                 } else if (this.betValue > this.minValue) {
@@ -264,6 +273,15 @@
                 }
             },
             chooseDouble () {
+                this.betValue = Number(this.betValue)
+                if (isNaN(this.betValue)) {
+                    this.betValue = this.minValue
+                    return
+                }
+                if (this.betValue === 0) {
+                    this.betValue = this.formatBidValue(this.minValue * 2)
+                    return
+                }
                 if (this.betValue * 2 <= this.maxValue) {
                     this.betValue = this.formatBidValue(this.betValue * 2)
                 } else if (this.betValue < this.maxValue) {
