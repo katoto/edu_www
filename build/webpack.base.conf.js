@@ -8,10 +8,6 @@ const webpack = require("webpack");
 const vConsolePlugin = require('vconsole-webpack-plugin')
 const emptyFile = path.resolve(__dirname, './empty.js')
 
-const prerenderSPAPlugin = require('prerender-spa-plugin')
-const Renderer = prerenderSPAPlugin.PuppeteerRenderer
-
-
 function resolve (dir) {
 	return path.join(__dirname, '..', dir)
 }

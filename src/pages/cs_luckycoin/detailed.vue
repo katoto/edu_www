@@ -281,7 +281,7 @@
                             {{mybetTime}}   {{ _('You bet {0} {1} to get {2} numbers', betMoney, coinText, myNumbers.length) }}
                         </p>
                         <ul>
-                            <li v-for="(item, index) in myNumbers" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
+                            <li v-for="(item, index) in winSort(myNumbers)" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
                                 {{item}}
                             </li>
                         </ul>
@@ -324,7 +324,7 @@
                             </p>
                             <div class="item-number">
                                 <ul>
-                                    <li v-for="(item, index) in numbers" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
+                                    <li v-for="(item, index) in winSort(numbers)" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
                                        {{item}}
                                     </li>
                                 </ul>
@@ -393,6 +393,19 @@
                 if (params.go) {
                     this.activeName = 'my'
                 }
+            },
+            winSort (numbers) {
+                let vm = this
+                let tmp = [...numbers]
+                for (let index = 0; index < tmp.length; index++) {
+                    let item = tmp[index]
+                    if (item === this.goodsinfo.luckyNum) {
+                        tmp.splice(index, 1)
+                        tmp.unshift(item)
+                        break
+                    }
+                }
+                return tmp
             },
             getDetailInfo () {
                 return this.getDetailData({
@@ -665,6 +678,7 @@
             }
         },
         mounted () {
+            document.documentElement.className = 'flexhtml'
             this.refresh()
             this.$store.commit('cs_luckycoin/bindListener', {
                 [this.number]: () => {
@@ -677,6 +691,7 @@
             })
         },
         beforeDestroy () {
+            document.documentElement.className = ''
             this.$store.commit('cs_luckycoin/unbindListener', this.number)
             if (this.timer) {
                 clearInterval(this.timer)
@@ -686,6 +701,7 @@
 </script>
 <style lang="less" type="text/less">
     .luckyCoinDetailed{
+        flex: 1;
         .el-table__empty-block {
             display: none;
         }

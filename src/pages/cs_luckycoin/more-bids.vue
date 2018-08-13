@@ -301,6 +301,9 @@ export default {
         max-width: 1190px;
         margin: 28px auto 30px;
         overflow: hidden;
+        .el-radio-group{
+            display: block;
+        }
     }
     /deep/ .el-radio-button {
         &.is-active .el-radio-button__inner {
@@ -384,8 +387,13 @@ export default {
     width: 92%;
     margin: 0 auto;
 }
-@media (min-width: @screen-phone) {
-    .more-bids-page {
+@media (min-width: @screen-tablet) {
+    .function-ct {
+        .el-radio-group{
+            float: left;
+        }
+    }
+    .main {
         .el-select {
             float: right;
             margin: 0;
@@ -393,7 +401,7 @@ export default {
     }
 }
 @media (min-width: @screen-lg-desktop) {
-    .more-bids-page {
+    .main {
         .b-nav,
         .el-tabs,
         .function-ct,

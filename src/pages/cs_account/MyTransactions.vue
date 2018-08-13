@@ -39,10 +39,13 @@
                     highlight-current-row
                     style="width: 100%">
                 <el-table-column
-                        type="index"
                         align="center"
                         header-align="center"
-                        :label="_('No. ')">
+                        width="50"
+                        :label="_('# ')">
+                    <template slot-scope="scope">
+                        {{ scope.row.index }}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         align="center"
@@ -238,6 +241,7 @@ export default {
                     val.inout = formateMoneyFlow(val.inout)
                 }
                 val.cointype = formateCoinType(val.cointype)
+                val.index = (index + 1) + Number(this.pageSize) * Number(this.pageno - 1)
                 val.moneyVal = (
                     parseFloat(val.money, 10) <= 0
                         ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money)}</a>`

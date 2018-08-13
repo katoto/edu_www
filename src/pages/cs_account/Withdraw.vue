@@ -91,7 +91,14 @@
                     </section>
                     <template>
                         <el-table :data="orderList" stripe size="small" highlight-current-row style="width: 100%">
-                            <el-table-column align="center" header-align="center" type="index" :label="_('No. ')">
+                            <el-table-column
+                                    align="center"
+                                    header-align="center"
+                                    width="50"
+                                    :label="_('# ')">
+                                <template slot-scope="scope">
+                                    {{ scope.row.index }}
+                                </template>
                             </el-table-column>
                             <el-table-column align="center" header-align="center" prop="drawtime"
                                              :label="_('Transaction Time ')">
@@ -507,6 +514,7 @@
                             }
                         }
                         val.cointype = formateCoinType(val.cointype)
+                        val.index = (index + 1) + Number(this.pageSize) * Number(this.pageno - 1)
                         val.drawmoney = formateBalance(val.drawmoney)
                         val.drawfee = formateBalance(val.drawfee)
 
