@@ -738,6 +738,11 @@
                     &.el-table_1_column_3, &.el-table_1_column_4{
                         text-align: right;
                     }
+                    &.el-table_1_column_3{
+                        div{
+                            margin-right: 10px;
+                        }
+                    }
                 }
             }
             tbody{
