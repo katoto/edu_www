@@ -8,17 +8,17 @@
                             <el-carousel :interval="3000" arrow="always">
                                 <el-carousel-item>
                                     <a href="javascript:;" rel="nofollow">
-                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                        <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
                                 </el-carousel-item>
                                 <el-carousel-item>
                                     <a href="javascript:;" rel="nofollow">
-                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                        <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
                                 </el-carousel-item>
                                 <el-carousel-item>
                                     <a href="javascript:;" rel="nofollow">
-                                        <img src="../../assets/img/oneToKen/banner.jpg" alt="">
+                                        <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
                                 </el-carousel-item>
                             </el-carousel>
@@ -34,7 +34,7 @@
                                     user through the blockchain
                                 </p>
                                 <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true">Next</a>
-                                <img src="../../assets/img/oneToken/line.png" alt="">
+                                <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
                             <div class="step bounceIn animated step2" :class="[isShowStep2 ? '' : 'hide']">
                                 <p>
@@ -42,10 +42,10 @@
                                     you can draw a lot when you buy it..
                                 </p>
                                 <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true">Next</a>
-                                <img src="../../assets/img/oneToken/line.png" alt="">
+                                <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
                             <div class="step bounceIn animated step3" :class="[isShowStep3 ? '' : 'hide']">
-                                <img src="../../assets/img/oneToken/line.png" alt="">
+                                <img src="../../assets/img/luckyCoin/line.png" alt="">
                                 <p>
                                     Click here to bet: the more bets,<br>
                                     the higher the probability of winning.

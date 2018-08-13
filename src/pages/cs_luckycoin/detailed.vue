@@ -289,7 +289,7 @@
                     </p>
                 </div>
                 <div class="nomsg" v-show="(totalBids.length === 0 && activeName === 'all') || (myNumbers.length === 0 && activeName === 'my')">
-                    <img src="@/assets/img/oneToKen/nomsg.png" alt="">
+                    <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                     <p>
                         <lang>No record.</lang>
                         <a href="javascript:;" @click="loginHandler" v-if="!this.isLogin && activeName === 'my'">

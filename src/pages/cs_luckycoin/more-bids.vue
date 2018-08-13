@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="nomsg" v-if="filterBets(betsList).length === 0">
-                        <img src="@/assets/img/oneToKen/nomsg.png" alt="">
+                        <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                         <p>No record.
                             <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
                                 <lang>Log in to view</lang>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="nomsg" v-if="historyList.length === 0">
-                        <img src="@/assets/img/oneToKen/nomsg.png" alt="">
+                        <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                         <p>
                             No record.
                             <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">

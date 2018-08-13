@@ -146,7 +146,7 @@ export default {
         bottom: 0;
         z-index:100;
         transform: translate(-50%, 100%);
-        background: url("../../assets/img/oneToKen/bg-congratulate.jpg") no-repeat center;
+        background: url("../../assets/img/luckyCoin/bg-congratulate.jpg") no-repeat center;
         background-size: cover;
         text-align: center;
         color: #fff;
@@ -186,7 +186,7 @@ export default {
             text-align: center;
             div{
                 padding-top: 202px;
-                background: url("../../assets/img/oneToKen/bg-win.png") no-repeat top;
+                background: url("../../assets/img/luckyCoin/bg-win.png") no-repeat top;
                 background-size: 544px 265px;
             }
         }
@@ -220,7 +220,7 @@ export default {
             right: -14px;
             width: 41px;
             height: 41px;
-            background: url("../../assets/img/oneToKen/btn-close.png") no-repeat center top;
+            background: url("../../assets/img/luckyCoin/btn-close.png") no-repeat center top;
             &:hover{
                 transform: rotate(90deg);
             }
