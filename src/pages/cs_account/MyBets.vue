@@ -48,6 +48,15 @@
                     :cell-class-name="isJackPot"
                     style="width: 100%">
                 <el-table-column
+                        align="center"
+                        header-align="center"
+                        width="50"
+                        :label="_('# ')">
+                    <template slot-scope="scope">
+                        {{ scope.row.index }}
+                    </template>
+                </el-table-column>
+                <el-table-column
                         prop="bettime"
                         align="center"
                         width="150"
@@ -183,7 +192,7 @@ export default {
             ethOptionVal: '1',
             playOptions: [{
                 value: '1',
-                label: _('Lucky11')
+                label: _('Lucky11 ')
             }, {
                 value: '2',
                 label: _('LuckyCoin')
@@ -248,6 +257,7 @@ export default {
                         val.txhash = '-'
                     }
                     val.jumpEthUrl = ethUrl + 'block/' + val.blocknum
+                    val.index = (index + 1) + Number(this.pageSize) * Number(this.pageno - 1)
                     //    number 处理
                     let luckyNumArr = []
                     let betNumStr

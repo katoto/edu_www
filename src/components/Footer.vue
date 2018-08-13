@@ -17,8 +17,12 @@
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Privacy Policy</lang>
                     </a>
-                    <a href="javascript:;"><lang>Transparency</lang></a>
-                    <a href="javascript:;"><lang>Help Center</lang></a>
+                    <router-link :to="{path: '/check'}" >
+                        <lang>Transparency</lang>
+                    </router-link>
+                    <router-link :to="{path: '/help'}" >
+                        <lang>Help Center</lang>
+                    </router-link>
                 </div>
                 <div class="game col-xs-6 col-md-6">
                     <div class="title">
@@ -56,13 +60,13 @@
                 </p>
                 <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">
-                        <template v-for="item in languageOptions" v-if="item.value===languageVal">
+                        <div v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
                             <img :src="item.lanLogo" alt="">
                             <span>{{ item.label }}</span>
-                        </template>
+                        </div>
                     </div>
                     <ul>
-                        <li v-for="item in languageOptions" v-if="item.value!==languageVal"
+                        <li v-for="(item, index) in languageOptions" :key="index" v-if="item.value!==languageVal"
                             @click="handleLanguageChange(item.value)">
                             <img :src="item.lanLogo" width="27" height="15" alt="">
                             <span>{{ item.label }}</span>

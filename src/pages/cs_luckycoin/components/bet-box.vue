@@ -127,7 +127,7 @@
                 {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~', this.betData.goodsValue, this.coinText) }}
             </p>
             <div class="btn-box">
-                <router-link :to="{path: '/luckycoin/moreBids'}" class="bet-btnV">
+                <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}&go=mybets`}" class="bet-btnV">
                     <lang>View Number</lang>
                 </router-link>
                 <a href="javascript:;" class="bet-btnB" @click="handleBetMoreEvent">
