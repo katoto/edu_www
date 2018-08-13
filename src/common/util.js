@@ -173,6 +173,9 @@ export function formateBalance (val = 0) {
         return 0
     }
     val = Number(val)
+    if (val < 0) {
+        return 0
+    }
     if (val > 10000000) {
         newEth = (val / 100000000).toFixed(1) + '亿'
     } else if (val > 100000) {
