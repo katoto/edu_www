@@ -568,9 +568,9 @@ export function structDom (msg = 'home') {
           "@context":"http://schema.org",
           "@type": "BreadcrumbList", 
           "url": "https://www.coinsprize.com/",   
-          "name": "Coinsprize-the fair game platform for casino games,based on blockchain technology",    
+          "name": "${_('Coinsprize-the fair game platform for casino games,based on blockchain technology')}",
           "image": "http://www.coinslot.com/images/sprize/CoinsprizeLogo.png",    
-          "description": "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.",   
+          "description": "${_('Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.')}",   
           "itemListElement": [
             {
                 "@type": "ListItem", 
@@ -586,7 +586,7 @@ export function structDom (msg = 'home') {
                 "position": 2,
                 "item": {
                   "@id": "https://www.coinslot.com/slot/",
-                  "name": "slot",
+                  "name": "${_('slot')}",
                   "image": "http://www.coinslot.com/images/sprize/logo-slot.png"
                 }
             },
@@ -595,7 +595,7 @@ export function structDom (msg = 'home') {
                 "position": 3,
                 "item": {
                   "@id": "https://www.coinslot.com/luckycoin/",
-                  "name": "luckycoin",
+                  "name": "${_('luckycoin')}",
                   "image": "http://www.coinslot.com/images/sprize/logo-luckyCoin.png"
                 }
             }
