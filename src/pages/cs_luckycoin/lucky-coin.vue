@@ -118,8 +118,6 @@ export default {
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
     .page-luckycoin{
-        display: flex;
-        flex-direction: column;
         .more-bids-page{
             flex: 1;
         }
@@ -917,6 +915,7 @@ export default {
             display: block;
             position: relative;
             background: url("../../assets/img/luckyCoin/bg-history.png") no-repeat right bottom, linear-gradient(to right,#7c6238,#4e3c27);
+            height: 168px;
             padding: 14px percentage(26/290) 54px;
             color: #fff;
             border-radius: 6px;

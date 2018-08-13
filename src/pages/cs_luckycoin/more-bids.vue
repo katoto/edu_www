@@ -1,6 +1,5 @@
 <template>
-    <div class="more-bids-page">
-        <div class="main">
+    <div class="main">
             <BreadCrumbs :pageName="activeName === 'bids' ? _('More Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                 <el-tab-pane label="More Bids" name="bids"></el-tab-pane>
@@ -75,7 +74,6 @@
                 </el-pagination>
             </div>
         </div>
-    </div>
 </template>
 <script>
 import Header from '~components/Header.vue'
@@ -290,9 +288,6 @@ export default {
 </script>
 <style scoped lang="less" type="text/less">
 @import "../../styles/lib-media.less";
-
-.more-bids-page {
-    background: #2a1236 ;
     .main {
         padding-top: 0;
     }
@@ -362,7 +357,6 @@ export default {
             background-color: #412057;
         }
     }
-}
 .el-select > .el-input.is-focus {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
