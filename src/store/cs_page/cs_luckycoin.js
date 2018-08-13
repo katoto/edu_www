@@ -46,6 +46,7 @@ const mutations = {
 
     // 更新最新投注
     updateRecentBet (state, bet) {
+        var isMybet = false
         if (bet && bet.length > 0) {
             let newRecentBetList = [...state.recentBetsList]
             newRecentBetList = newRecentBetList.map(bet => {
@@ -54,9 +55,15 @@ const mutations = {
             })
             bet = bet.map(bet => {
                 bet.current = true
+                if (this.state.userInfo && this.state.userInfo.uid && this.state.userInfo.uid === bet.uid) {
+                    isMybet = true
+                }
                 return bet
             })
             state.recentBetsList = [...bet.concat(newRecentBetList)].slice(0, 7)
+        }
+        if (isMybet) {
+            this.dispatch('getUserInfo')
         }
     },
     // 更新最近投注列表
@@ -211,6 +218,7 @@ const actions = {
                 this.state.userInfo.uid &&
                 params.winUid.toString() === this.state.userInfo.uid
             ) {
+                dispatch('getUserInfo')
                 commit('showMyWin', params)
             } else {
                 // 其他用户获奖

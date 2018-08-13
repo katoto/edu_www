@@ -107,7 +107,7 @@
                 more bets，more probability
             </p>
             <!--icon-eth/icon-btc-->
-            <div class="input-box icon-eth">
+            <div class="input-box" :class="[coinType === '2001' ? 'icon-eth': 'icon-btc']">
                 <input type="text" v-model="betValue" :placeholder="betData.bidValue">
                 <a href="javascript:;" @click="chooseHalf">1/2</a>
                 <a href="javascript:;" @click="chooseDouble">2X</a>
@@ -456,6 +456,10 @@
             this.betData = this.formatBetData(this.bet)
             if (this.type === 'list') {
                 this.isInit = true
+                if (this.betValue === 0) {
+                    // 默认投注金额 为最小投注金额
+                    this.betValue = this.betData.bidValue
+                }
             }
         }
     }
