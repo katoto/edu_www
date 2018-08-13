@@ -563,13 +563,43 @@ export function structDom (msg = 'home') {
     let createSci = document.createElement('script')
     createSci.setAttribute('type', 'application/ld+json')
     if (msg === 'home') {
-        createSci.innerHTML = `{
-        "@context": "https://coinsprize.com",
-        "header":"Coinsprize-the fair game platform for casino games , based on blockchain technology !",
-        "name": "casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet",
-        "description": "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.",
-        "image": "http://www.coinsprize.com/",
-        "url": "http://www.coinsprize.com/"
+        createSci.innerHTML = `
+        {
+          "@context":"http://schema.org",
+          "@type": "BreadcrumbList", 
+          "url": "https://www.coinsprize.com/",   
+          "name": "Coinsprize-the fair game platform for casino games,based on blockchain technology",    
+          "image": "http://www.coinslot.com/images/sprize/CoinsprizeLogo.png",    
+          "description": "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.",   
+          "itemListElement": [
+            {
+                "@type": "ListItem", 
+                "position": 1, 
+                "item": {
+                  "@id": "https://www.coinslot.com/lucky11/",
+                  "name": "${_('Lucky11')}", 
+                  "image": "http://www.coinslot.com/images/sprize/logo-115.png" 
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@id": "https://www.coinslot.com/slot/",
+                  "name": "slot",
+                  "image": "http://www.coinslot.com/images/sprize/logo-slot.png"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@id": "https://www.coinslot.com/luckycoin/",
+                  "name": "luckycoin",
+                  "image": "http://www.coinslot.com/images/sprize/logo-luckyCoin.png"
+                }
+            }
+          ]
         }`
         return createSci
     }
