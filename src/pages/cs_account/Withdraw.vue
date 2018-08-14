@@ -16,7 +16,7 @@
                                 </el-option>
                             </el-select>
                             <lang>Balance</lang>:{{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }} &nbsp;
-                            <lang>Withdrawable Amount</lang>:{{ formateBalance(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
+                            <lang>Withdrawable Amount</lang>:{{ formateBalance_sub(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
                                     {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
@@ -314,6 +314,33 @@
         methods: {
             formateBalance,
             formateCoinType,
+            formateBalance_sub (val) {
+                let newEth = null
+                if (isNaN(val) || isNaN(Number(val))) {
+                    console.error('formateBalance error' + val)
+                    return 0
+                }
+                val = Number(val)
+                if (val < 0) {
+                    val = 0
+                }
+                if (val > 10000000) {
+                    newEth = (val / 100000000).toFixed(1) + '亿'
+                } else if (val > 100000) {
+                    newEth = (val / 10000).toFixed(1) + '万'
+                } else if (val > 1000) {
+                    newEth = parseFloat((val).toFixed(0))
+                } else if (val > 100) {
+                    newEth = (val).toFixed(3)
+                } else if (val > 10) {
+                    newEth = (val).toFixed(4)
+                } else if (val > 1) {
+                    newEth = (val).toFixed(5)
+                } else {
+                    newEth = (val).toFixed(6)
+                }
+                return newEth
+            },
             checkAddrLen () {
                 if (this.withdrawAddr.length >= 50) {
                     this.withdrawAddr = this.withdrawAddr.slice(0, 50)
