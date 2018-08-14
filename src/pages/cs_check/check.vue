@@ -144,7 +144,7 @@
             },
             getData () {
                 if (!this.verifyNumber()) {
-                    this.$error('期号为10位数字，可点击下方开奖历史查看期号')
+                    this.$error(_('No. should consist of 10 numbers. You can check No. from draw history.'))
                     return
                 }
                 return (({
@@ -156,7 +156,7 @@
                         return res
                     })
                     .catch(err => {
-                        this.$error(_('此期号不存在，可点击下方开奖历史查看期号'))
+                        this.$error(_('This No. is non-exist. You can check No. from draw history.'))
                         this.params[this.params.type].isChecked = false
                         this.showErrorAnimate()
                         return err

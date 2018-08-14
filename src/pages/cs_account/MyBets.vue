@@ -37,7 +37,10 @@
                     :value="item.value">
                 </el-option>
             </el-select>
-            <p class="tocheck">点期号可查看开奖过程</p>
+            <p class="tocheck">
+                <lang v-if="playOptionVal === '1'">Click No. to see draw details</lang>
+                <lang v-else>Click No. to see bid details</lang>
+            </p>
         </section>
         <template>
             <el-table

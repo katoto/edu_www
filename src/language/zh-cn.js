@@ -199,6 +199,7 @@ module.exports = {
     'Prize': '奖金',
     'Activities': '活动',
     'Fee': '手续费',
+    'Refound': '退款',
     'All': '所有',
     'Last 90 days': '最近90天',
     'withdraw': '提款',
@@ -496,4 +497,16 @@ module.exports = {
     '(* Effective Bet Amount = Bet Amount in Lucky11 + 1/5 Bet Amount in Slot)': '（*平台有效投注额 = Lucky11游戏投注额 + 1/5 slot游戏投注额）'
 
     /* help end */
+
+    /* 验证页面 start */
+
+    /* 验证页面 end */
+
+    /* 首页 start */
+
+    /* 首页 end */
+
+    /* 一元夺币 start */
+
+    /* 一元夺币 end */
 }

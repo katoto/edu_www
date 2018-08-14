@@ -243,6 +243,7 @@ module.exports = {
     'Block': '區塊',
     'Bet refund': '投注退款',
     'fee': '提款手續費',
+    'Refound': '退款',
     'withdrawal refund': '提款失敗退款',
     'fee refund': '提款失敗手續費退款',
     'deposit': '充值',
