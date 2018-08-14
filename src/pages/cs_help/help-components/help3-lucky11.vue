@@ -53,7 +53,7 @@
                     ② <lang>Fair draw</lang><br/>
                     <lang>The draw numbers are selected from hash value, due to its unpredictability and unchangeableness, the fair draw can be assured.</lang><br/>
                     ③ <lang>Fair reward</lang><br/>
-                    Both draw and reward distribution are based on Ethereum chain. Thus, there is no chance for the platform to interfere. All information and process is transparent and fair.<br/>
+                    <lang>Both draw and reward distribution are based on Ethereum chain. Thus, there is no chance for the platform to interfere. All information and process is transparent and fair.</lang><br/>
                     ④ <lang>No robot</lang><br/>
                     <lang>Since all process is transparent and unchangeable, the platform cannot use any robot to do black box operations. The game is utterly fair.</lang><br/>
                 </p>

@@ -1,26 +1,27 @@
 <template>
     <div class="">
         <h1>
-            联系我们
+            <lang>Contact Us</lang>
         </h1>
         <ul>
             <li>
                 <p class="title">
-                    1、邮件联系
+                    <lang>1、Email</lang>
                 </p>
                 <p class="msg">
-                    为了更好更快地解决您的疑问，建议您的邮件里包含以下信息，我们将尽快联系您：<br>
-                    ①您的账户邮箱账号<br>
-                    ②问题详细描述<br>
-                    ③问题截图<br>
-                    通用咨询：support@coinslot.com<br>
-                    Lucky 11玩法问题咨询：lucky11@coinslot.com<br>
-                    LuckyCoin玩法问题咨询：luckycoin@coinslot.com
+                    <lang>To offer you a better and quick solution, please send the email to us with the information below:</lang><br>
+                    ① <lang>Your account's email</lang><br>
+                    ② <lang>Describe your problems in detail</lang><br>
+                    ③ <lang>The screenshot of the problem page</lang><br>
+                    <span v-if="language!=='en'">通用咨询：support@coinslot.com <br></span>
+                    <span v-else>General：support@coinslot.com <br></span>
+                    <lang>Lucky11 Issues</lang>：lucky11@coinslot.com<br>
+                    <lang>LuckyCoin Issues</lang>：luckycoin@coinslot.com
                 </p>
             </li>
             <li>
                 <p class="title">
-                    2、电报群交流
+                    <lang>2、Telegram</lang>
                 </p>
                 <p class="msg">
                     Coinslot: t.me/coinslotoffice<br>
@@ -38,7 +39,11 @@
         },
         watch: {},
         methods: {},
-        computed: {},
+        computed: {
+            language () {
+                return this.$store.state.language
+            }
+        },
         components: {},
         mounted () {
 

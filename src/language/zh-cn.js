@@ -419,7 +419,7 @@ module.exports = {
     'About Games': '玩法问题',
     'Others': '其他重要',
     'Email verification': '邮箱验证',
-    'Withdrawal Conditions': '流水说明',
+    'Withdrawal Conditions': '提款条件',
     'How to top up': '如何充值',
     'How to withdraw': '如何提现',
     'Play Lucky11': 'Lucky11怎么玩',
@@ -467,7 +467,31 @@ module.exports = {
     'Choose one bidding type': '选择一个场次',
     'Pay for your bid and get the bidding number': '支付该该场次并获得投注号码',
     'Wait for draw (after all bids of one bidding type are sold out)': '等待系统开奖（场次筹齐人数时将开）',
-    'If your bidding number matches draw number, you win the reward.': '若号码匹配则获得该场次奖励'
+    'If your bidding number matches draw number, you win the reward.': '若号码匹配则获得该场次奖励',
+
+    'For 1 ETH bidding type, players can bid 0.01 ETH to win 1 ETH, and the bidding times of "1 ETH" for all players are 100. Players will get a bid number after bidding.': '比如该1ETH场次被平分为100个幸运等份，每个用户仅需要出0.01ETH，即可获得一个投注号码',
+    'Players can bid one or more times for each type.': '每个用户都可以在这个场次里购买一注或者多注投注号码',
+    'When there is no available bidding times, the system will calculated the "Lucky Number". If your bidding number matches lucky number, you are the winner!': '当该场次的100个幸运等份被均分后，系统将开始计算“幸运号码”，当你的投注号码和幸运号码数字一致时，你将赢得该场次的1个ETH奖励',
+
+    'After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.': '当一个场次筹齐人次时，游戏将所有本期投注信息进行Merkle Tree计算，得出Merkel number，并将Merkel number上传至以太链；',
+    'By using hexadecimal, the last 6 characters of the hash value will convert into a number.Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.': '信息打包上链生成的Hash值，使用最后六个十六进制数转成十进制数，然后对该十进制数进行求余，将余数加上10001即得到最终的开奖结果。用户可以随时在etherscan.io里查验开奖哈希，它是十分透明公开和公平地。',
+    'If the bidding times did not sold out within 7 days, the draw won\'t proceed and the system will return your bidding payment to your wallet.': '当一个场次在7天内尚未筹齐人次时，系统将会退款给参与该场次的用户。',
+
+    '1、Email': '1、邮件联系',
+    '2、Telegram': '2、电报群交流',
+    'To offer you a better and quick solution, please send the email to us with the information below:': '为了更好更快地解决您的疑问，建议您的邮件里包含以下信息，我们将尽快联系您：',
+    'Your account\'s email': '您的账户邮箱账号',
+    'Describe your problems in detail': '问题详细描述',
+    'The screenshot of the problem page': '问题截图',
+    'Lucky11 Issues': 'Lucky 11玩法问题咨询',
+    'LuckyCoin Issues': 'LuckyCoin玩法问题咨询',
+    'All top-up is withdrawable': '充值金额全部进入可提现账户',
+    'All bonus from activities on the platform is non-withdrawable': '赠送金额全部进入不可提现账户',
+    '1. Withdrawal Limit': '1. 提现额度',
+    '2. Withdrawable Issues': '2. 资金流水分配',
+    'Maximum Withdrawal = 1/10 * Effective Bet Amount + All Former Withdrawal Amount': '最大提现额度 = 1/10 * 平台有效投注额+ 历史提现总额',
+    '(* Effective Bet Amount = Bet Amount in Lucky11 + 1/5 Bet Amount in Slot)': '（*平台有效投注额 = Lucky11游戏投注额 + 1/5 slot游戏投注额）'
+
     /* help end */
 
     /* 验证页面 start */
