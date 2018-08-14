@@ -198,10 +198,33 @@ export default {
             }
         }
     }
-    .h5-my-info{
+    /deep/.h5-my-info{
         margin-top: 122/2px;
         background: #ffffff;
         border-radius: 6px;
+        .nomsg{
+            img{
+                width: 107/2px;
+                display: block;
+                margin: 20px auto 10px;
+            }
+            p{
+                line-height: 1.5;
+                text-align: center;
+                font-size: 12px;
+                color: #778ca3;
+            }
+        }
+        .btn-more{
+            margin: 0 percentage(35/710);
+            display: block;
+            text-align: center;
+            line-height: 45px;
+            background: #eef1f9;
+            border-radius: 6px;
+            font-size: 18px;
+            color: #778ca3;
+        }
     }
 
 

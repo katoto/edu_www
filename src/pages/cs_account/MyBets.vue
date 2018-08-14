@@ -1,137 +1,224 @@
 <template>
-    <div class="betting">
-        <h2>
-            <lang>Bet Record</lang>
-        </h2>
-        <section class="cs-select">
-            <el-select v-model="playOptionVal" @change="handleStatusChange">
-                <el-option
-                    v-for="item in playOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="betOptionVal" @change="handleStatusChange">
-                <el-option
-                    v-for="item in betOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="betTimeOptionVal" @change="handleStatusChange">
-                <el-option
-                    v-for="item in betTimeOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-            <!--  eth  -->
-            <el-select v-model="ethOptionVal" @change="handleStatusChange">
-                <el-option
-                    v-for="item in ethOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-            <p class="tocheck">点期号可查看开奖过程</p>
-        </section>
-        <template>
-            <el-table
-                    :data="orderList"
-                    stripe
-                    size="small"
-                    highlight-current-row
-                    :cell-class-name="isJackPot"
-                    style="width: 100%">
-                <el-table-column
-                        prop="bettime"
-                        align="center"
-                        width="150"
-                        header-align="center"
-                        :label="_('Time')">
-                </el-table-column>
-                <el-table-column
-                        prop="bettype"
-                        align="center"
-                        header-align="center"
-                        :label="_('Type')">
-                </el-table-column>
-                <el-table-column
-                        prop="txhash"
-                        align="center"
-                        header-align="center"
-                        :label="_('Address')">
-                    <template slot-scope="scope">
-                        <a target='_blank'
-                           v-if="scope.row.txhash != '-'"
-                           :href="scope.row.jumpEthUrl"
-                           class="address"
-                           :title="scope.row.txhash">
-                           {{ scope.row.txhash }}
-                        </a>
-                        <span v-else>-</span>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        :label="_('No.')">
-                        <template slot-scope="scope">
-                            <router-link :to="`/check?number=${scope.row.expectid}&type=lucky11}`" v-if="scope.row.lotid === '1'">
-                                {{scope.row.expectid}}
-                            </router-link>
-                            <router-link :to="`/luckycoin/detailed?number=${scope.row.expectid}&go=mybets`" v-if="scope.row.lotid === '2'">
-                                {{scope.row.expectid}}
-                            </router-link>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        width="170"
-                        :label="_('Number')"
-                        v-if="playOptionVal === '1'">
-                    <template slot-scope="scope">
-                        <div v-html="scope.row.betcodeVal" v-if="scope.row.lotid === '1'"></div>
-                        <div v-html="scope.row.betcode" v-if="scope.row.lotid === '2'" style="overflow: hidden;"></div>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        prop="betmoney"
-                        :label="_('Bet')">
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        :label="_('Win')">
-                    <template slot-scope="scope">
-                        <div v-html="scope.row.betprizeVal"></div>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <div class="pagination">
-                <el-pagination
-                        @current-change="handleCurrentChange"
-                        @size-change="myBetSizeChange"
-                        background
-                        :current-page.sync="pageno"
+    <div>
+        <div class="betting visible-lg">
+            <h2>
+                <lang>Bet Record</lang>
+            </h2>
+            <section class="cs-select">
+                <el-select v-model="playOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in playOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="betOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in betOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="betTimeOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in betTimeOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <!--  eth  -->
+                <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in ethOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <p class="tocheck">点期号可查看开奖过程</p>
+            </section>
+            <template>
+                <el-table
+                        :data="orderList"
+                        stripe
                         size="small"
-                        :page-sizes="[10, 25, 50, 100]"
-                        :page-size="pageSize"
-                        layout="sizes,prev, pager, next,jumper"
-                        :total="PageTotal"
-                        :next-text="_('Next >')"
-                        :prev-text="_('< Front')"
-                >
-                </el-pagination>
+                        highlight-current-row
+                        :cell-class-name="isJackPot"
+                        style="width: 100%">
+                    <el-table-column
+                            prop="bettime"
+                            align="center"
+                            width="150"
+                            header-align="center"
+                            :label="_('Time')">
+                    </el-table-column>
+                    <el-table-column
+                            prop="bettype"
+                            align="center"
+                            header-align="center"
+                            :label="_('Type')">
+                    </el-table-column>
+                    <el-table-column
+                            prop="txhash"
+                            align="center"
+                            header-align="center"
+                            :label="_('Address')">
+                        <template slot-scope="scope">
+                            <a target='_blank'
+                               v-if="scope.row.txhash != '-'"
+                               :href="scope.row.jumpEthUrl"
+                               class="address"
+                               :title="scope.row.txhash">
+                               {{ scope.row.txhash }}
+                            </a>
+                            <span v-else>-</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            :label="_('No.')">
+                            <template slot-scope="scope">
+                                <router-link :to="`/check?number=${scope.row.expectid}&type=lucky11}`" v-if="scope.row.lotid === '1'">
+                                    {{scope.row.expectid}}
+                                </router-link>
+                                <router-link :to="`/luckycoin/detailed?number=${scope.row.expectid}&go=mybets`" v-if="scope.row.lotid === '2'">
+                                    {{scope.row.expectid}}
+                                </router-link>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            width="170"
+                            :label="_('Number')"
+                            v-if="playOptionVal === '1'">
+                        <template slot-scope="scope">
+                            <div v-html="scope.row.betcodeVal" v-if="scope.row.lotid === '1'"></div>
+                            <div v-html="scope.row.betcode" v-if="scope.row.lotid === '2'" style="overflow: hidden;"></div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            prop="betmoney"
+                            :label="_('Bet')">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            :label="_('Win')">
+                        <template slot-scope="scope">
+                            <div v-html="scope.row.betprizeVal"></div>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div class="pagination">
+                    <el-pagination
+                            @current-change="handleCurrentChange"
+                            @size-change="myBetSizeChange"
+                            background
+                            :current-page.sync="pageno"
+                            size="small"
+                            :page-sizes="[10, 25, 50, 100]"
+                            :page-size="pageSize"
+                            layout="sizes,prev, pager, next,jumper"
+                            :total="PageTotal"
+                            :next-text="_('Next >')"
+                            :prev-text="_('< Front')"
+                    >
+                    </el-pagination>
+                </div>
+            </template>
+        </div>
+        <div class="h5-betting hidden-lg">
+            <template v-if="orderList.length>0">
+                <section class="cs-select">
+                    <el-select v-model="playOptionVal" @change="handleStatusChange">
+                        <el-option
+                            v-for="item in playOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-model="betOptionVal" @change="handleStatusChange">
+                        <el-option
+                            v-for="item in betOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-model="betTimeOptionVal" @change="handleStatusChange">
+                        <el-option
+                            v-for="item in betTimeOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                        <el-option
+                            v-for="item in ethOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </section>
+                <ul class="div-betting">
+                    <li v-for="item in orderList" :key="item.index">
+                        <div class="item-bet item-re1">
+                            <p class="time">
+                                {{item.bettime.substr(5)}}
+                            </p>
+                            <p class="type">
+                                {{item.bettype}}
+                            </p>
+                            <p class="money">
+                                {{item.betmoney}}
+                            </p>
+                        </div>
+                        <div class="item-bet item-re2">
+                            <p class="no">
+                                <lang>No.</lang>{{item.expectid}}
+                            </p>
+                            <ul class="num-box">
+                                <li class="bingo">
+                                    2
+                                </li>
+                                <li>
+                                    2
+                                </li>
+                                <li>
+                                    2
+                                </li>
+                                <li>
+                                    2
+                                </li>
+                                <li>
+                                    2
+                                </li>
+                            </ul>
+                            <div class="staus" v-html="item.betprizeVal"></div>
+                        </div>
+                    </li>
+                </ul>
+                <a href="javascript:;" class="btn-more">点击加载更多</a>
+            </template>
+            <div class="nomsg " v-else>
+                <img src="@/assets/img/nomsg.png" alt="">
+                <p>
+                    <lang>
+                        No Data
+                    </lang>
+                </p>
             </div>
-        </template>
+        </div>
     </div>
 </template>
 
@@ -303,29 +390,99 @@ export default {
     }
 }
 </script>
-<style scoped lang="less" type="text/less">
-.betting {
-  h2 {
-    line-height: 30px;
-    font-size: 24px;
-    color: #263648;
-    text-transform: capitalize;
-  }
-    .tocheck{
-        float: right;
-        line-height: 25px;
-        font-size: 12px;
-        color: #778ca3;
+<style lang="less" type="text/less">
+    .h5-betting{
+        .cs-select{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            height: auto;
+            .el-select{
+                width: 40%;
+                margin: 0 0 10px 0;
+                .el-input__inner{
+                    box-sizing: border-box;
+                    width: 100%;
+                }
+                .el-input{
+                    .el-select__caret{
+                        right: 5px;
+                    }
+                }
+            }
+        }
+        a.win{
+            width: 100% !important;
+            font-size: 10px;
+        }
     }
-  .filter {
-    margin-top: 15px;
-  }
-}
-.pagination {
-  display: table;
-  margin: 20px auto 30px;
-}
-table .icon-jackpot::after, table.dataTable .icon-jackpot::after{
-    right: -14px !important;
-}
+</style>
+<style scoped lang="less" type="text/less">
+    .betting {
+      h2 {
+        line-height: 30px;
+        font-size: 24px;
+        color: #263648;
+        text-transform: capitalize;
+      }
+        .tocheck{
+            float: right;
+            line-height: 25px;
+            font-size: 12px;
+            color: #778ca3;
+        }
+      .filter {
+        margin-top: 15px;
+      }
+    }
+    .pagination {
+      display: table;
+      margin: 20px auto 30px;
+    }
+    table .icon-jackpot::after, table.dataTable .icon-jackpot::after{
+        right: -14px !important;
+    }
+
+
+    .h5-betting{
+        padding: 35/2px 0 50/2px 0;
+        .div-betting{
+            >li{
+                padding-bottom: 14px;
+            }
+            >li+li{
+                border-top: 1px solid #f2f2f2;
+            }
+            .item-bet{
+                display: flex;
+                margin: 0 percentage(30/710);
+                text-align: center;
+                .time,.no{
+                    width: percentage(170/660);
+                    text-align: left;
+                }
+                .type,.num-box{
+                    flex: 1;
+                    text-align: center;
+                }
+                .money,.staus{
+                    width: percentage(168/660);
+                    text-align: center;
+
+                }
+            }
+            .item-re1{
+                line-height: 40px;
+                font-size: 12px;
+                color: #778ca3;
+            }
+            .item-re2{
+                line-height: 25px;
+                font-size: 12px;
+                .num-box{
+
+                }
+            }
+        }
+    }
 </style>

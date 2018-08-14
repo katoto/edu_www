@@ -431,6 +431,7 @@
                     width: 16px;
                     height: 16px;
                     background: url("../../assets/img/check/icon-mark.png") no-repeat center;
+                    background-size: 16px;
                     cursor: pointer;
                 }
                 .btn-copy{

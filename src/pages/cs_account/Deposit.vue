@@ -361,7 +361,7 @@ export default {
                 }
             }
             .item2-2{
-                line-height: 30/2px;
+                line-height: 40/2px;
                 font-size: 28/2px;
                 color: #778ca3;
             }

@@ -4,7 +4,9 @@
             <h2>
                 <lang>withdraw</lang>
             </h2>
-            <a href="javascript:;" class="withdraw"><lang>How to withdraw ?</lang></a>
+            <router-link class="withdraw" :to="{path:'/help/helpView/1/1'}">
+                <lang>How to withdraw ?</lang>
+            </router-link>
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane :label="_('Request')" name="Request">
                     <li class="li-records">
@@ -130,126 +132,25 @@
                     </li>
                 </el-tab-pane>
             </el-tabs>
-            <!-- 转账确认-->
-            <div class="pop pop-transfer" :class="{'hide':!showTransfer}">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close" @click="showTransfer=false">close</a>
-                            <h3>
-                                <lang>Confirm Withdrawal</lang>
-                            </h3>
-                            <div class="trans-items">
-                                <div class="trans-msg top-top">
-                                <span class="fl">
-                                    <lang>Amount</lang>
-                                </span>
-                                    <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
-                                    <p class="fr">{{ withdrawAmount }}</p>
-                                </div>
-                                <div class="trans-msg">
-                                <span class="fl">
-                                    <lang>Fee</lang>
-                                </span>
-                                    <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
-                                    <p v-if="currBalance" class="fr">{{ currBalance.fee }}</p>
-                                </div>
-                                <div class="trans-msg">
-                                <span class="fl">
-                                    <lang>Total</lang>
-                                </span>
-                                    <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
-                                    <p class="fr">{{ formateBalance(Number( withdrawAmount) + Number(currBalance.fee)) }}</p>
-                                </div>
-                            </div>
-                            <p class="trans-add1">
-                                <lang>Transfer to</lang>
-                            </p>
-                            <p class="trans-add2">{{ withdrawAddr }}</p>
-                            <a href="javascript:;" v-clipboard:copy="withdrawAddr" v-clipboard:success="copySucc"
-                               v-clipboard:error="copyError" class="trans-copy ">
-                                <lang>Copy</lang>
-                            </a>
-                            <a href="javascript:;" @click="upWithdraw" class="pop-btn">
-                                <lang>Confirm</lang>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 转账 成功  -->
-            <div class="pop pop-reg-success" :class="{'hide':!showTransferSucc}">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close" @click="showTransferSucc=false">close</a>
-                            <h3>
-                                <lang>Transfer Successful</lang>
-                            </h3>
-                            <div class="icon-face on">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
-                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
-                                    <path class="mouth" d="M18 40 C28,45 33,46 46,40" stroke="#20bf6b" fill="none"
-                                          style="stroke-width: 4px;"></path>
-                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#20bf6b"
-                                          style="stroke-width: 4px;"></path>
-                                </svg>
-                            </div>
-                            <p v-lang="'The transfer is successful. Details<br>can be obtained for details.'">
-                            </p>
-                            <a href="javascript:;" @click="closeTransferSucc" class="btn-success">
-                                <lang>OK</lang>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 转账 失败  -->
-            <div class="pop pop-reg-failure" :class="{'hide':!showTransferError}">
-                <div class="pop-body">
-                    <div class="pop-ani">
-                        <div class="pop-main">
-                            <a href="javascript:;" class="btn-close" @click="showTransferError=false">close</a>
-                            <h3>
-                                <lang>Transfer Failure</lang>
-                            </h3>
-                            <div class="icon-face on">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                                    <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
-                                    <circle cx="43.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
-                                    <path class="mouth" d="M18 40 C28,30 33,30 46,40" stroke="#fc5c65" fill="none"
-                                          style="stroke-width: 4px;"></path>
-                                    <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#fc5c65"
-                                          style="stroke-width: 4px;"></path>
-                                </svg>
-                            </div>
-                            <p>{{ transferMsg || _('Transfer Failure') }}</p>
-                            <a href="javascript:;" @click="closeTransferError" class="btn-failure">
-                                <lang>Try Later</lang>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="h5-withdrawal hidden-lg">
             <div class="tab">
                 <ul>
-                    <li class="on">
+                    <li :class="{on:h5activeName == 'Request'}"  @click="h5activeName= 'Request'">
                         <lang>
                             Request
                         </lang>
                     </li>
-                    <li>
+                    <li :class="{on:h5activeName == 'Records'}" @click="h5activeName= 'Records'">
                         <lang>
                             Records
                         </lang>
                     </li>
                 </ul>
             </div>
-
-            <div class="div-records hide">
+            <div class="div-records" v-if="h5activeName=='Request'">
+                <router-link class="btn-tohelp" :to="{path:'/help/helpView/1/1'}">
+                </router-link>
                 <div class="chose-coin">
                     <div class="tips">
                         <lang>Select Currency</lang>
@@ -308,8 +209,8 @@
                     <lang>Withdraw</lang>
                 </button>
             </div>
-            <div class="div-request">
-                <template v-if="false">
+            <div class="div-request" v-else>
+                <template v-if="orderList.length>0">
                     <section class="cs-select">
                         <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
                             <el-option v-for="item in withdrawOptions" :key="item.value" :label="item.label"
@@ -330,8 +231,28 @@
                         </el-select>
 
                     </section>
+                    <ul>
+                        <li v-for="item in orderList" :key="item.index">
+                            <div class="item-re item-re1">
+                                <p>
+                                    {{item.drawtime.substr(5)}}
+                                </p>
+                                <p>
+                                    {{item.drawstatus}}
+                                </p>
+                            </div>
+                            <div class="item-re item-re2">
+                                <a :title=item.to_addr :href="`https://etherscan.io/address/`+item.to_addr" target="_blank">
+                                    {{item.to_addr}}
+                                </a>
+                                <p>
+                                    {{item.drawmoney}} {{item.cointype}}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="javascript:;" class="btn-more">点击加载更多</a>
                 </template>
-
                 <div class="nomsg" v-else>
                     <img src="@/assets/img/nomsg.png" alt="">
                     <p>
@@ -339,6 +260,109 @@
                             No Data
                         </lang>
                     </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 转账确认-->
+        <div class="pop pop-transfer" :class="{'hide':!showTransfer}">
+            <div class="pop-body">
+                <div class="pop-ani">
+                    <div class="pop-main">
+                        <a href="javascript:;" class="btn-close" @click="showTransfer=false">close</a>
+                        <h3>
+                            <lang>Confirm Withdrawal</lang>
+                        </h3>
+                        <div class="trans-items">
+                            <div class="trans-msg top-top">
+                                <span class="fl">
+                                    <lang>Amount</lang>
+                                </span>
+                                <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
+                                <p class="fr">{{ withdrawAmount }}</p>
+                            </div>
+                            <div class="trans-msg">
+                                <span class="fl">
+                                    <lang>Fee</lang>
+                                </span>
+                                <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
+                                <p v-if="currBalance" class="fr">{{ currBalance.fee }}</p>
+                            </div>
+                            <div class="trans-msg">
+                                <span class="fl">
+                                    <lang>Total</lang>
+                                </span>
+                                <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
+                                <p class="fr">{{ formateBalance(Number( withdrawAmount) + Number(currBalance.fee)) }}</p>
+                            </div>
+                        </div>
+                        <p class="trans-add1">
+                            <lang>Transfer to</lang>
+                        </p>
+                        <p class="trans-add2">{{ withdrawAddr }}</p>
+                        <a href="javascript:;" v-clipboard:copy="withdrawAddr" v-clipboard:success="copySucc"
+                           v-clipboard:error="copyError" class="trans-copy ">
+                            <lang>Copy</lang>
+                        </a>
+                        <a href="javascript:;" @click="upWithdraw" class="pop-btn">
+                            <lang>Confirm</lang>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 转账 成功  -->
+        <div class="pop pop-reg-success" :class="{'hide':!showTransferSucc}">
+            <div class="pop-body">
+                <div class="pop-ani">
+                    <div class="pop-main">
+                        <a href="javascript:;" class="btn-close" @click="showTransferSucc=false">close</a>
+                        <h3>
+                            <lang>Transfer Successful</lang>
+                        </h3>
+                        <div class="icon-face on">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                <circle cx="20.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
+                                <circle cx="43.5" cy="23.5" r="3.5" fill="#20bf6b"></circle>
+                                <path class="mouth" d="M18 40 C28,45 33,46 46,40" stroke="#20bf6b" fill="none"
+                                      style="stroke-width: 4px;"></path>
+                                <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#20bf6b"
+                                      style="stroke-width: 4px;"></path>
+                            </svg>
+                        </div>
+                        <p v-lang="'The transfer is successful. Details<br>can be obtained for details.'">
+                        </p>
+                        <a href="javascript:;" @click="closeTransferSucc" class="btn-success">
+                            <lang>OK</lang>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 转账 失败  -->
+        <div class="pop pop-reg-failure" :class="{'hide':!showTransferError}">
+            <div class="pop-body">
+                <div class="pop-ani">
+                    <div class="pop-main">
+                        <a href="javascript:;" class="btn-close" @click="showTransferError=false">close</a>
+                        <h3>
+                            <lang>Transfer Failure</lang>
+                        </h3>
+                        <div class="icon-face on">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                <circle cx="20.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
+                                <circle cx="43.5" cy="23.5" r="3.5" fill="#fc5c65"></circle>
+                                <path class="mouth" d="M18 40 C28,30 33,30 46,40" stroke="#fc5c65" fill="none"
+                                      style="stroke-width: 4px;"></path>
+                                <path class="cheek" d="M58 47  A 30 30 0 1 0 50 56" fill="none" stroke="#fc5c65"
+                                      style="stroke-width: 4px;"></path>
+                            </svg>
+                        </div>
+                        <p>{{ transferMsg || _('Transfer Failure') }}</p>
+                        <a href="javascript:;" @click="closeTransferError" class="btn-failure">
+                            <lang>Try Later</lang>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -378,7 +402,8 @@
                 orderList: [],
                 ethUrl,
                 activeName: 'Request',
-
+                h5activeName: 'Request',
+                h5orderList: [],
                 withdrawOptionVal: '1',
                 withdrawOptions: [
                     {
@@ -709,6 +734,7 @@
             .cs-select{
                 display: flex;
                 justify-content: space-around;
+                margin: 26px percentage(20/710) 0;
                 .el-select{
                     margin: 0 2%;
                     .el-input__inner{
@@ -814,6 +840,7 @@
         width: 16px;
         height: 16px;
         background: url('../../assets/img/icon-mark.png') no-repeat center;
+        background-size: 16px;
         cursor: pointer;
         margin-left: 6px;
     }
@@ -960,6 +987,7 @@
                 border-bottom: 1px solid #f2f2f2;
                 background: #f7f9fe;
                 cursor: pointer;
+                transition: all 0.2s;
                 &.on{
                     background: #fff;
                     border-top: 2px solid #263648;
@@ -969,8 +997,21 @@
         }
         .div-records{
             position: relative;
-            padding: 28/2px percentage(20/710) 73/2px;
+            padding: 62/2px percentage(20/710) 73/2px;
             background: #fff;
+            .btn-tohelp{
+                position: absolute;
+                z-index: 2;
+                right: 2.8%;
+                top: 8px;
+                display: block;
+                width: 34/2px;
+                height: 34/2px;
+                overflow: hidden;
+                padding: 10px 0 10px 10px;
+                background: url("../../assets/img/icon-mark.png") no-repeat right center;
+                background-size: 34/2px;
+            }
             .chose-coin{
                 position: relative;
                 .tips{
@@ -1027,19 +1068,33 @@
             }
         }
         .div-request{
-            padding:0 percentage(20/710) 30/2px;
+            padding:0 0 30/2px;
 
-            .nomsg{
-                img{
-                    width: 107/2px;
-                    display: block;
-                    margin: 10px auto;
+            li{
+                padding: 16px 0 20px 0;
+                .item-re{
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 percentage(35/710);
+                    &.item-re1{
+                        line-height: 62/2px;
+                        font-size: 14px;
+                        color: #778ca3;
+                    }
+                    &.item-re2{
+                        line-height: 68/2px;
+                        font-size: 16px;
+                        a{
+                            display: block;
+                            width: percentage(220/650);
+                            color: #263648;
+                            text-decoration: underline;
+                            .text-overflow();
+                        }
+                    }
                 }
-                p{
-                    line-height: 1.5;
-                    text-align: center;
-                    font-size: 12px;
-                    color: #778ca3;
+                &+li{
+                    border-top: 1px solid #f2f2f2;
                 }
             }
         }
