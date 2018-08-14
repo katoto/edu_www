@@ -409,7 +409,58 @@ module.exports = {
     'Lucky11 ': '幸运11',
     /*  seo */
     'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基于区块链技术的赌场博彩高频彩票游戏平台',
-    'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。'
+    'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
     /*  seo end */
 
+    /* help */
+    'About Account': '账户问题',
+    'About Wallet': '钱包问题',
+    'About Games': '玩法问题',
+    'Others': '其他重要',
+    'Email verification': '邮箱验证',
+    'Withdrawal Conditions': '流水说明',
+    'How to top up': '如何充值',
+    'How to withdraw': '如何提现',
+    'Play Lucky11': 'Lucky11怎么玩',
+    'Play LuckyCoin': 'LuckyCoin怎么玩',
+    'Transparency checking': '查询透明性',
+    'Contact us': '联系我们',
+    'Q & A': '有什么需要帮助的吗？',
+    '1. Advantages': '1. 验证的好处',
+    '2. How to Verify the Email': '2.验证方式',
+    'Automatic Verification': '注册时验证',
+    'Manual Verification': '账户中心验证',
+    'Only verified account could implement bet, withdraw and other operations. Temporary email is banned. Any account registered with temporary email  may be permanently terminated .': '未进行邮箱验证的账号，将无法进行投注、提现等操作，需尽快完成邮箱验证。同时平台禁止使用临时邮箱注册账户，通过使用临时邮箱注册的账户，将可能被永久封禁。',
+    'After sign up you will receive a verification email from the system. Check the email and follow instructions in it.': '当注册号账号时，系统将实时发送验证邮件到您的邮箱里，前往您的邮箱查看邮件，并点击链接即可完成验证。',
+    'In case you did not timely verify email after sign up, you can manually verify it through Home > Account and click "Verify"': '当注册时未来得及验证，可点击顶部导航栏里的个人账户，进到账户信息页面，点击“前往验证”即可进行验证。',
+
+    '1. Channels': '1. 充值方式',
+    '2. Top-Up Confirmation': '2. 充值到账时间',
+    '3. Kind Reminder': '3. 充值注意事项',
+    'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, MyEtherWallet, MetaMask, imToken, huobi.com.': '建议您使用正规安全的ETH钱包或者交易平台，推荐： Mist，MyEtherWallet、MetaMask、IMToken、huobi.com 等。',
+    'It usually takes 5 minutes for transaction block to confirm your top-up. If your top-up fails, please contact us through email support@coinsprize.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@coinslot.com。',
+    'Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.': '您充值至上述地址后，需要整个网络节点的确认，1次网络确认后到账，6次网络确认后可提币。',
+    'Minimum top-up：0.0001 BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.': '建议最小充值金额：0.0001BTC ，小于最小金额的充值可能无法顺利到账且无法退回。',
+
+    '1. How to Withdraw': '1. 提款方式',
+    '2. Withdrawal Confirmation': '2. 提现到账时间',
+    'Enter your wallet address.': '输入正确的钱包地址。',
+    'Enter your withdrawal amount.': '输入需要提款的金额（不得超过最大可提现金额，详情可见与流水说明）',
+    'Enter your account password.': '输入正确的交易密码，此密码即为登录密码',
+    'It usually takes 12 hours to confirm your withdrawal before it is sent to your wallet.': '提款申请发出后通常需要12小时的等待确认，最终转入您的账户钱包。',
+
+    'How to Play  (Lucky11)': 'Lucky11怎么玩',
+    '1. What is Lucky 11?': '1. 什么是Lucky 11？',
+    '2. How to play the game?': '2. 游戏怎么玩？',
+    '3. How to win the game?': '3. 游戏怎么开奖？',
+    '4. How to ensure fairness?': '4. 怎么保证的公平？',
+    'Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain. Blockchain-based data are featured with its unchangeableness and recognized by the whole network, which means it can completely avoid black box operations. Thus, issues like information asymmetry or non-transparency could be addressed to give players a game platform with maximum fairness they have never enjoyed before.': 'Lucky 11是一款基于分布式账本技术的去中心化的彩票产品。鉴于以太坊区块链的性质，所有抽奖结果都是加密安全的且随机可查。区块链上资料具有全网共识，不可篡改的特点，使得Lucky11区别于传统游戏平台，安全杜绝了传统游戏中存在的暗箱操作，以及用户间不对等挥着游戏规则与信息不透明等问题，从而为玩家提供一个最为公平的游戏平台。',
+
+    'Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the Ethereum blockchain. One draw per minute. The result is determined by the last hash value uploaded in the minute. If the chosen numbers match the draw result, the player wins the reward (virtual currency) stipulated in smart': '玩家可以从1到11选择1到5个数字并将其提交至以太坊区块链。每分钟进行一次开奖，开奖结果由每分钟上传的最后一个区块的哈希值决定。如果所选数字与开奖结果相匹配，则玩家赢得智能合约中规定的奖励（虚拟货币）。',
+
+    'After closing the bet, all the betting information will be calculated through the Merkle Tree to get the Merkle number. And the Merkle number will be uploaded to the Ethereum, then get the hash value of this transaction\'s block. ': '每期游戏投注结束，游戏将所有本期投注信息进行Merkle Tree计算，得出Merkel number，并将Merkel number上传至以太链;',
+    'The last 25 digits of the value will be divided into 5 groups. Each group has 5 numbers, and it will be converted into a decimal number. The first group numbers will be processed through (x mod11 + 1) calculation. Then retrieving its current value as the first lottery number. The second group numbers will be processed through (x mod10+1) calculation, and by using same method, the second lottery number can be drew, and the rest can be done in the same manner. Finally, the five numbers calculated through this method will be draw result.': '信息打包上链生成的Hash值，将对其最后6位进行分割处理，使用最后六个16进制数改成ASCII码，并对其进行 (x mod11 + 1)的处理，第二个号(x mod10+1)，以此类推。每次选出号码后去除该位置的号码，然后进一步重排，并去除新的所在位置号码直至只剩5个，即为开奖结果。',
+
+
+    /* help end */
 }

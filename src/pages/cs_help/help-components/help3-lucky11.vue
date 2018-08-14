@@ -1,54 +1,61 @@
 <template>
     <div class="">
         <h1>
-            Lucky11怎么玩
+            <lang>How to Play  (Lucky11)</lang>
         </h1>
         <ul>
             <li>
                 <p class="title">
-                    1. 什么是Lucky 11？
+                    <lang>1. What is Lucky 11?</lang>
                 </p>
                 <p class="msg">
-                    Lucky 11是一款基于分布式账本技术的去中心化的彩票产品。鉴于以太坊区块链的性质，所有抽奖结果都是加密安全的且随机可查。区块链上资料具有全网共识，不可篡改的特点，使得Lucky11区别于传统游戏平台，安全杜绝了传统游戏中存在的暗箱操作，以及用户间不对等挥着游戏规则与信息不透明等问题，从而为玩家提供一个最为公平的游戏平台。
+                    <lang>Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain. Blockchain-based data are featured with its unchangeableness and recognized by the whole network, which means it can completely avoid black box operations. Thus, issues like information asymmetry or non-transparency could be addressed to give players a game platform with maximum fairness they have never enjoyed before.</lang>
                 </p>
                 <p class="msg">
-                    玩家可以从1到11选择1到5个数字并将其提交至以太坊区块链。每分钟进行一次开奖，开奖结果由每分钟上传的最后一个区块的哈希值决定。如果所选数字与开奖结果相匹配，则玩家赢得智能合约中规定的奖励（虚拟货币）。
+                    <lang>Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the Ethereum blockchain. One draw per minute. The result is determined by the last hash value uploaded in the minute. If the chosen numbers match the draw result, the player wins the reward (virtual currency) stipulated in smart</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    2. 游戏怎么玩？
+                    <lang>2. How to play the game?</lang>
                 </p>
                 <p class="msg">
-                    Lucky11玩法，用户从01至11的号码选1个或者多个（至多5个）号码组成一组号码，若开奖数字与所选号码一致，则用户获得对应奖励：<br>
-                    从11个号码中任选1个号码的投注为"任选一"，中奖概率5/11，中奖回报1.8倍；<br>
-                    选2个号码的投注分为"任选二"，中奖概率1/5.5，中奖回报4.5倍；<br>
-                    选3个号码的投注分为"任选三"，中奖概率1/16.5，中奖回报13.5倍；<br>
-                    选4个号码的投注为"任选四"，中奖概率1/66，中奖回报54倍；<br>
-                    选5个号码的投注为"任选五"，中奖概率1/462，中奖回报378倍；<br>
+                    <lang>Players will pick 1-5 numbers from 1 to 11. Players win the reward when the chosen numbers are in line with that of the draw result:</lang><br>
+                    <lang>Pick 1 number, players have 5/11 of the win probability with 1.8 times return.</lang><br>
+                    <lang>Pick 2 numbers, players have 1/5.5 of the win probability with 4.5 times return.</lang><br>
+                    <lang>Pick 3 numbers, players have 1/16.5 of the win probability with 13.5 times return.</lang><br>
+                    <lang>Pick 4 numbers, players have 1/66 of the win probability with 54 times return.</lang><br>
+                    <lang>Pick 5 numbers, players have 1/462 of the win probability with 378 times return.</lang><br>
+                    <!--Lucky11玩法，用户从01至11的号码选1个或者多个（至多5个）号码组成一组号码，若开奖数字与所选号码一致，则用户获得对应奖励：<br>-->
+                    <!--从11个号码中任选1个号码的投注为"任选一"，中奖概率5/11，中奖回报1.8倍；<br>-->
+                    <!--选2个号码的投注分为"任选二"，中奖概率1/5.5，中奖回报4.5倍；<br>-->
+                    <!--选3个号码的投注分为"任选三"，中奖概率1/16.5，中奖回报13.5倍；<br>-->
+                    <!--选4个号码的投注为"任选四"，中奖概率1/66，中奖回报54倍；<br>-->
+                    <!--选5个号码的投注为"任选五"，中奖概率1/462，中奖回报378倍；<br>-->
                 </p>
             </li>
             <li>
                 <p class="title">
-                    3. 游戏怎么开奖？
+                    <lang>3. How to win the game?</lang>
                 </p>
                 <p class="msg">
-                    每期游戏投注结束，游戏将所有本期投注信息进行Merkle Tree计算，得出Merkel number，并将Merkel number上传至以太链；信息打包上链生成的Hash值，将对其最后6位进行分割处理，使用最后六个16进制数改成ASCII码，并对其进行 (x mod11 + 1)的处理，第二个号(x mod10+1)，以此类推。每次选出号码后去除该位置的号码，然后进一步重排，并去除新的所在位置号码直至只剩5个，即为开奖结果。
+                    <lang>After closing the bet, all the betting information will be calculated through the Merkle Tree to get the Merkle number. And the Merkle number will be uploaded to the Ethereum, then get the hash value of this transaction's block. </lang>
+                    <lang>The last 25 digits of the value will be divided into 5 groups. Each group has 5 numbers, and it will be converted into a decimal number. The first group numbers will be processed through (x mod11 + 1) calculation. Then retrieving its current value as the first lottery number. The second group numbers will be processed through (x mod10+1) calculation, and by using same method, the second lottery number can be drew, and the rest can be done in the same manner. Finally, the five numbers calculated through this method will be draw result.</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    4. 怎么保证的公平？
+                    <lang>4. How to ensure fairness?</lang>
                 </p>
                 <p class="msg">
-                    ①投注信息不可篡改<br/>
-                    游戏开奖区块为上传的Merkle number的区块Hash值，即投注信息已经完成上链后才开奖，信息无法进行篡改<br/>
-                    ②开奖公正<br/>
-                    开奖选取的是上传的Merkle number的区块Hash值，这个值无法提前预知，也无法进行人为修改，开奖结果完全随机<br/>
-                    ③派奖公平<br/>
-                    开奖、派奖完全在链上实现，派奖流向完全基于开奖结果决定，平台无法干涉<br/>
-                    ④无机器人<br/>
-                    因投注、开奖的完全随机，且信息完全透明，平台无法也无利益引导进行机器人设置，从而分散用户奖池的获利<br/>
+                    ① <lang>Unchangeable betting information</lang><br/>
+                    <lang>The draw result is based on hash value which was calculated from Merkle number. Since Merkle number has already uploaded to the Ethereum chain, the information cannot be modified.</lang><br/>
+                    ② <lang>Fair draw</lang><br/>
+                    <lang>The draw numbers are selected from hash value, due to its unpredictability and unchangeableness, the fair draw can be assured.</lang><br/>
+                    ③ <lang>Fair reward</lang><br/>
+                    Both draw and reward distribution are based on Ethereum chain. Thus, there is no chance for the platform to interfere. All information and process is transparent and fair.<br/>
+                    ④ <lang>No robot</lang><br/>
+                    <lang>Since all process is transparent and unchangeable, the platform cannot use any robot to do black box operations. The game is utterly fair.</lang><br/>
                 </p>
             </li>
         </ul>

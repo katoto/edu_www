@@ -408,4 +408,7 @@ module.exports = {
     'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基於區塊鏈技術開發的賭場博彩高頻彩票遊戲平台。我們提供了可證明地公平、分散式Ethereum,smart-contract等賭博賭場遊戲。你可以在平台體驗、購買包括lucky 11等在内的區塊鏈高頻彩票，體驗不一樣的刺激玩法。'
     /*  seo end */
 
+    /* help */
+
+    /* help end */
 }

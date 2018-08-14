@@ -1,7 +1,7 @@
 <template>
     <div class="help-cneter">
         <h1>
-            有什么需要帮助的吗？
+            <lang>Q & A</lang>
         </h1>
         <ul class="menu">
             <li v-for="(item,index) in dataMenu" :key="index">
