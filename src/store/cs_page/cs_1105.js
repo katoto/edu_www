@@ -56,7 +56,6 @@ const mutationsInfo = mapMutations({
     bet_limit (state, data) {
         state.bet_limit = data
     },
-
     setjackPotMsg (state, data) {
         state.jackPotMsg = data
     },

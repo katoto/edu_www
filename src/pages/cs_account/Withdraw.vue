@@ -8,20 +8,19 @@
             <el-tab-pane :label="_('Request')" name="Request">
                 <li class="li-records">
                     <div class="item chose-coin ">
-                        <div class="fl210 "><lang>Select Currency</lang></div>
+                        <div class="fl210 "><lang>Select Coin</lang></div>
                         <p>
                             <el-select v-model="tranOptionVal" @change="changeCoin">
                                 <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
                                            :label="formateCoinType(item.cointype)" :value="item">
                                 </el-option>
                             </el-select>
-                            <!--Withdraw amount:-->
-                            <!--<i class="orange bold"></i> , -->
-                            <lang>Current balance</lang> {{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }}
-                            <i class="icon-mark hide" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
+                            <lang>Balance</lang>:{{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }} &nbsp;
+                            <lang>Withdrawable Amount</lang>:{{ formateBalance(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
+                            <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
-                                    <lang>The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip</lang>
-                                    <a href="javascript:;"><lang>View detailed rules</lang></a>
+                                    {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
+                                    &nbsp;<a href="javascript:;"><lang>Details</lang></a>
                                 </div>
                             </i>
                         </p>
@@ -39,11 +38,11 @@
                                 <lang>Withdrawal Amount</lang>
                             </span>
                             <template v-if="currBalance">
-                                <span v-if=" Number( currBalance.balance)> parseFloat(currBalance.draw_limit) "
+                                <span v-if=" Number( currBalance.checkout_balance)> parseFloat(currBalance.draw_limit) "
                                       class="css_withdraw_total">{{ currBalance.draw_limit }} ~
-                                <span>{{ formateBalance( parseFloat(currBalance.balance)-parseFloat(currBalance.fee) ) }}</span> {{ formateCoinType( currBalance.cointype ) }}</span>
+                                <span>{{ formateBalance( parseFloat(currBalance.checkout_balance)-parseFloat(currBalance.fee) ) }}</span> {{ formateCoinType( currBalance.cointype ) }}</span>
                                 <span v-else class="css_withdraw_total">
-                                <lang>at least {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}</lang>
+                                <lang>at least</lang> {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}
                             </span>
                             </template>
                         </div>

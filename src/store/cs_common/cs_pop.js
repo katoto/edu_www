@@ -34,15 +34,15 @@ const state = {
         faucetMsg: null, // 邀请的msg
         inviterObj: null, // 邀请接收
 
-        // loginSucc: null,  // 登陆成功后的数据
-        showFirstLogin: false, // 邀请用（激活处）
-        loginSucc: { //  登陆
-            login_times: '0', // 用户信息的地方没有这个字段
-            invite_status: '0',
-            invite_prize_chances: 2,
-            tasks: []
-        }
+        // loginSucc: null, // 登陆成功后的数据
 
+        showFirstLogin: false // 邀请用（激活处）
+        // loginSucc: { //  登陆
+        //     login_times: '0', // 用户信息的地方没有这个字段
+        //     invite_status: '0',
+        //     invite_prize_chances: 2,
+        //     tasks: []
+        // }
     }
 }
 
@@ -69,9 +69,9 @@ const mutations = {
         state.pop.showFirstLogin = data
     },
     //  登陆回来的数据
-    setLoginSucc (state, msg) {
-        state.pop.loginSucc = msg
-    },
+    // setLoginSucc (state, msg) {
+    //     state.pop.loginSucc = msg
+    // },
     // 邀请用
     setInviterObj (state, msg) {
         state.pop.inviterObj = msg
@@ -157,15 +157,34 @@ const mutations = {
     }
 }
 const actions = {
+    /* 水龙头邀请 */
+    async faucetTask ({commit, dispatch}, coinType) {
+        return ajax.get(`/faucet/tasks?cointype=${coinType}`)
+    },
+    /* 水龙头领取 */
+    async faucetGet ({commit, dispatch}, taskid) {
+        return ajax.get(`/faucet/get?task_id=${taskid}`)
+    },
     /* login 登陆 */
     async userLogin ({commit, dispatch}, pageData) {
         try {
-            let InfoData
+            let InfoData = null
             if (pageData) {
                 InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
             }
+            console.log(InfoData)
             if (InfoData.status.toString() === '100') {
-                commit('setLoginSucc', InfoData.data)
+                // if (InfoData.data.login_times === '1' && InfoData.data.status === '1') {
+                //     // 显示第一次邀请
+                //     commit('showFirstLogin', true)
+                // } else {
+                //     commit('showFirstLogin', false)
+                // }
+
+                // commit('setLoginSucc', {
+                //     status: InfoData.data.status,
+                //     login_times: InfoData.data.login_times
+                // })
                 return InfoData.data
             } else {
                 Message({
@@ -189,13 +208,9 @@ const actions = {
         commit('setIsLog', false)
         removeCK()
         commit('setUserInfo', {})
-        // || ~state.route.path.indexOf('drawNumber')
         if (~state.route.path.indexOf('account')) {
-            router.push('/lucky')
+            router.push('/lucky11')
         }
-        // if (~state.route.path.indexOf('SlotMachine')) {
-        //
-        // }
         dispatch('sub2out')
     },
 

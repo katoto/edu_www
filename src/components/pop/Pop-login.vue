@@ -3,7 +3,7 @@
     <Pop class="pop-login" :show.sync="show">
         <div class="pop-main">
             <h3 class="font26">
-                <lang>Sign In</lang>
+                <lang>Log In</lang>
             </h3>
             <!--fadeDown-->
             <span class="error js_loginInErr"></span>
@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <!--no-->
-                <input type="submit" :value="_('Sign In')" @click.stop.prevent="submitLogin"
+                <input type="submit" :value="_('Log In')" @click.stop.prevent="submitLogin"
                        :class="{'no':!(log_checked) || login_email === '' || login_pass === '' }">
             </form>
             <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">
@@ -40,8 +40,8 @@
             <a href="javascript:;" class="importwallet hide">
                 <lang>Import Wallet</lang>
             </a>
-            <div class="act-sign hide">
-                <lang>for free 0.001ETH</lang>
+            <div class="act-sign">
+                <lang>for free 0.0001 BTC</lang>
             </div>
         </div>
     </Pop>
@@ -98,7 +98,7 @@
                             let userMsg = await this.$store.dispatch('getUserInfo')
                             if (userMsg && userMsg.status.toString() === '100') {
                                 Message({
-                                    message: _('Sign in successfully'),
+                                    message: _('Log in successfully'),
                                     type: 'success',
                                     duration: tipsTime
                                 })

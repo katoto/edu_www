@@ -3,7 +3,7 @@
         <Banner class="hide" v-on:superBannerChange="superChange"></Banner>
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
-        <div class="main">
+        <div class="main" @click="initPop">
             <Lucky-mybet></Lucky-mybet>
             <!--玩法区-->
             <div class="play-area" id="play-area">
@@ -302,6 +302,9 @@
         </div>
         <Footer class="lucky11"></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
+
+        <!--全局蒙层-->
+        <!--<div class="pop-mask" :class="{'show':popMask}" @click="closeHeadPop"></div>-->
     </div>
 </template>
 
@@ -398,6 +401,10 @@
         methods: {
             formateBalance,
             formateCoinType,
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
+            },
             superChange (msg = 'superIn') {
                 /* headerNav 调的 */
                 if (msg === 'superIn') {
@@ -461,7 +468,7 @@
                     return false
                 }
                 // 判断 余额是否足
-                if (parseFloat(this.userInfo.accounts[0].balance) < parseFloat(this.totalPay)) {
+                if (parseFloat(this.currBalance.balance) < parseFloat(this.totalPay)) {
                     Message({
                         message: _('Your balance is insufficient, please top up'),
                         type: 'error'
@@ -663,7 +670,7 @@
                     case '1001':
                         /* 比特币 */
                         if (blance <= 0.0005) {
-                            this.baseAreaMsg.pickMoney = 0.00005
+                            this.baseAreaMsg.pickMoney = 0.0001
                         } else if (blance < 0.005 && blance >= 0.0005) {
                             this.baseAreaMsg.pickMoney = 0.0001
                         } else if (blance >= 0.005) {
@@ -750,6 +757,17 @@
 </script>
 <style lang="less" type="text/less" >
     @import "../../styles/lib-mixins.less";
+
+    .pop-mask{
+        position: fixed;
+        display: none;
+        z-index: 8;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+    }
     .worldCupClose::after{
         width: 12px;
         height: 12px;

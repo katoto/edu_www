@@ -1,7 +1,7 @@
 <template>
     <div class="information">
         <a href="javascript:;" @click="signOut" class="btn-logout">
-            <lang>Sign Out</lang>
+            <lang>Log Out</lang>
         </a>
         <span class="small-explain">
             <lang>Account</lang>

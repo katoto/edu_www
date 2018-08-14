@@ -1,7 +1,7 @@
 <template>
     <div class="account">
         <Header></Header>
-        <div class="main">
+        <div class="main" @click="initPop">
             <BreadCrumbs></BreadCrumbs>
             <!--侧边栏-->
             <div class="slide-bar">
@@ -38,7 +38,7 @@ export default {
                 { msg: _('General'), link: '/account/general' },
                 { msg: _('My Bets'), link: '/account/myBets' },
                 { msg: _('My Transactions'), link: '/account/myTransactions' },
-                { msg: _('Deposit'), link: '/account/deposit' },
+                { msg: _('Top Up'), link: '/account/deposit' },
                 { msg: _('Withdraw'), link: '/account/withdraw' }
             ]
         }
@@ -49,7 +49,12 @@ export default {
             return this.$store.state.isLog
         }
     },
-    methods: {},
+    methods: {
+        initPop () {
+            /* head 弹窗 */
+            this.$store.commit('initHeadState', new Date().getTime())
+        }
+    },
     components: {
         Footer,
         Header,

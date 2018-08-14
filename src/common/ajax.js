@@ -2,7 +2,7 @@
  * 默认发生任何异常都返回一个空对象
  */
 import axios from 'axios'
-import { getCK, platform, src, commonErrorHandler, defaultLanguage } from '~common/util'
+import {getCK, platform, src, commonErrorHandler, defaultLanguage} from '~common/util'
 
 function getCommonParams () {
     let ck = getCK() || ''
@@ -14,7 +14,7 @@ function getCommonParams () {
     if (!ck || ck === 'null') {
         ck = ''
     }
-    return { ...params, ck }
+    return {...params, ck}
 }
 
 const options = {

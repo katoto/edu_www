@@ -37,7 +37,7 @@
                 <router-link to="/" title="Coinsprize" class="logo">
                     <img src="../assets/img/CoinsprizeLogo.png" alt="CoinsprizeLogo">
                 </router-link>
-                <div class="choose-play icon-Luckycoin" >
+                <div class="choose-play icon-Luckycoin icon-slot" >
                     <router-link :to="{path: '/lucky11'}">
                         <lang>Lucky 11</lang>
                     </router-link>
@@ -77,17 +77,18 @@
                 <!-- 登录  -->
                 <div class="login">
                     <!-- 未登录 -->
-                    <div class="act-sign hide" v-if="!isLog">
-                        <lang>Free 0.001 ETH</lang>
+                    <div class="act-sign" v-if="!isLog">
+                        <lang>Free 0.0001 BTC</lang>
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
                         <!--拉新活动提示-->
-                        <lang>Sign In / Up</lang>
+                        <lang>Log In / Sign Up</lang>
                     </a>
                     <!-- 登录 -->
                     <section v-else>
-                        <div class="mycount"  :class="{on:isShowMycount}"  @click="headControlPop('showMycount')">
-                            <div class="countNum" v-if="currBalance">
+                        <div class="mycount" :class="{on:isShowMycount}" @click="headControlPop('showMycount')">
+                            <!-- light  闪动特效 -->
+                            <div class="countNum" v-if="currBalance" :class="{'light':showLight}">
                                 <span class="icon-user"></span>
                                 {{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}
                                 <i></i>
@@ -98,7 +99,8 @@
                                         {{ userInfo.email }}
                                     </div>
                                     <div class="uid">
-                                        <lang>UserID</lang>:<i class="js_user_uid">{{ userInfo.uid }}</i>
+                                        <lang>UserID</lang>
+                                        :<i class="js_user_uid">{{ userInfo.uid }}</i>
                                     </div>
                                 </div>
 
@@ -109,10 +111,13 @@
                                     <lang>Account Center</lang>
                                 </router-link>
                                 <div class="currency-select">
-                                    <p><lang>Select Currency</lang></p>
+                                    <p>
+                                        <lang>Select Coin</lang>
+                                    </p>
                                     <ul>
-                                        <li v-for="item in userInfo.accounts" :class="{'on': item.cointype === currBalance.cointype }"
-                                            @click="changeAccounts( item )" >
+                                        <li v-for="item in userInfo.accounts"
+                                            :class="{'on': item.cointype === currBalance.cointype }"
+                                            @click="changeAccounts( item )">
                                             <div class="currency-account">
                                                 <i >{{ item.cointype | formateCoinType }}</i>
                                                 <span >{{ formateBalance( item.balance ) }}</span>
@@ -140,12 +145,14 @@
                                         <!--</li>-->
                                     </ul>
                                 </div>
-                                <a href="javascript:;" @click="signOut" class="log-out"><lang>Sign Out</lang></a>
+                                <a href="javascript:;" @click="signOut" class="log-out">
+                                    <lang>Log Out</lang>
+                                </a>
                             </div>
                         </div>
                         <div class="hadlogin" >
                             <router-link :to="{path: '/account/deposit'}" class="btn-rechrage">
-                                <lang>Deposit</lang>
+                                <lang>Top Up</lang>
                             </router-link>
                             <router-link :to="{path: '/account/withdraw'}" class="btn-cash">
                                 <lang>Withdraw</lang>
@@ -155,33 +162,55 @@
                 </div>
 
                 <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet hide" v-if="isLog">
-                    <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
-                    </a>
+                <div class="cs-faucet" v-if="isLog">
+                    <div class="hide">
+                        <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
+                        </a>
+                        <p class="redPoint" style="" v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
+                    </div>
                     <div class="faucet-detailed" :class="{'show':freeWaterPop}">
                         <div class="faucet-title">
-                            Free Water
+                            <lang>Free Bonus</lang>
                         </div>
                         <ul>
                             <li>
-                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i class="bold">2/2</i> a day</p>
-                                <a href="javascript:;" class="btn btn-green">Get</a>
+                                <p><lang>Get daily free spin of Slot (Balance less than 0.00005BTC and/or 0.0005ETH)</lang></p>
+                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spin</lang></a>
+                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green"><lang>Free Spin</lang></a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow"><lang>Play</lang></a>
+                                <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
-                                <p>Recharge 0.01 ETH and give extra free slot machines</p>
-                                <a href="javascript:;" class="btn btn-yellow">Deposit</a>
+                                <p><lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)</lang></p>
+                                <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Top Up</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='0'" class="btn-comeTom"><lang>Come Tomorrow</lang></a>
                             </li>
-                            <li>
-                                <p>Login for 0.001 ETH for 7 consecutive days，Logged in for <i class="bold">2 / 7</i> day</p>
-                                <a href="javascript:;" class="btn btn-gray">Get</a>
-                            </li>
-                            <li>
-                                <p>Available when less than 0.0005 ETH 0.001 ETH each time, up to <i class="bold">2/2</i> a day</p>
-                                <a href="javascript:;" class="btn btn-ok"></a>
+                            <li v-if="userInfo">
+                                <p v-if="userInfo.last_recharge==='BTC'" v-lang="'Get <b>0.0001BTC</b>/ 0.001ETH (Log in for 7 consecutive days)'"></p>
+                                <p  v-else v-lang="'Get 0.0001BTC/ <b>0.001ETH</b> (Log in for 7 consecutive days)'"></p>
+                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spin</lang></a>
+                                <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</a>
                             </li>
 
                         </ul>
                     </div>
+                    <!--浮层 -->
+                    <!--第一次登陆 -->
+                    <section v-if="showFirstLogin&&isLog">
+                        <div class="newFirst">
+                            <div class="msg">
+                                <p>
+                                    <lang>Sign Up to Get 0.0001 BTC for Free</lang>
+                                </p>
+                                <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
+                                    <lang>Get it !</lang>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
 
@@ -197,25 +226,6 @@
                 <canvas id="canvas" ref="canvas"></canvas>
             </div>
 
-            <!--浮层 -->
-            <!--第一次登陆 js_firstLogin    -->
-            <section v-if="0 && (loginSucc || showFirstLogin)&&isLog">
-                <div class="tips-newAct tips-newAct2"
-                     :class="{'hide': !( ( showFirstLogin )||(loginSucc.login_times == '1' && loginSucc.invite_status == '0' && userInfo && userInfo.status =='1'))}">
-                    <div class="msg">
-                        <p>
-                            <lang>You have earned 0.001 free ETH already, go to bet to win more!</lang>
-                        </p>
-                        <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
-                            <lang>Try a luck</lang>
-                        </a>
-                        <div class="bottom">
-                            <lang>Invite friends to earn more free ETH.</lang>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
@@ -225,37 +235,45 @@
 <script>
     import PopList from '~components/Pop-list'
     import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-    import {copySucc, copyError, formateBalance, formateCoinType, formateEmail } from '~common/util'
+    import {copySucc, copyError, formateBalance, formateCoinType, formateEmail} from '~common/util'
     import startCanvas from '~/common/canvas'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
+
     Vue.use(vueClipboard)
 
     export default {
         components: {PopList},
         data () {
             return {
+                showLight: false, // new 闪烁
                 freeWaterPop: false, // new水龙头
                 showDetail: false,
                 slideDown: false,
-                languageOptions: [{
-                    value: 'en',
-                    label: 'English',
-                    lanLogo: '../../../static/staticImg/lan-en.jpg'
-                }, {
-                    value: 'zhCn',
-                    label: '中文简体',
-                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
-                }, {
-                    value: 'zhTw',
-                    label: '中文繁體',
-                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
-                }],
+                languageOptions: [
+                    {
+                        value: 'en',
+                        label: 'English',
+                        lanLogo: '../../../static/staticImg/lan-en.jpg'
+                    }, {
+                        value: 'zhCn',
+                        label: '中文简体',
+                        lanLogo: '../../../static/staticImg/lan-cn.jpg'
+                    }, {
+                        value: 'zhTw',
+                        label: '中文繁體',
+                        lanLogo: '../../../static/staticImg/lan-cn.jpg'
+                    }],
                 isShowLanguage: false,
                 isShowMycount: false,
                 isChooseCoin: false,
-                isShowChoose: false
+                isShowChoose: true,
+                received_counter: 0, // 已完成未领取数量
+                tasks_2: '-1',
+                tasks_3: '-1',
+                tasks_4: '-1',
+                tasks_day: '0'
             }
         },
         watch: {
@@ -264,6 +282,7 @@
                 this.isShowMycount = false
                 this.isChooseCoin = false
                 this.isShowChoose = false
+                this.freeWaterPop = false
             }
         },
         computed: {
@@ -277,9 +296,6 @@
             showFirstLogin () {
                 return this.$store.state.pop.showFirstLogin
             },
-            loginSucc () {
-                return this.$store.state.pop.loginSucc
-            },
             isLog () {
                 return this.$store.state.isLog
             },
@@ -289,7 +305,6 @@
             userInfo () {
                 return this.$store.state.userInfo
             },
-
             languageVal: {
                 set (val) {
                     this.$store.commit('changeLanguage', val)
@@ -304,6 +319,44 @@
             formateBalance,
             copySucc,
             copyError,
+            async taskClick (type, val) {
+                val = val.toString()
+                if (val === '2') {
+                    this.$router.push('/slot')
+                    return false
+                }
+                if (val === '-1' && type === 'task_3') {
+                    this.$router.push('/account/deposit')
+                    return false
+                }
+                if (val === '1') {
+                    /* 领取 */
+                    let taskid = null
+                    switch (type) {
+                    case 'task_2':
+                        taskid = 2
+                        break
+                    case 'task_3':
+                        taskid = 3
+                        break
+                    case 'task_4':
+                        taskid = 4
+                        break
+                    }
+                    let faucetGet = await this.$store.dispatch('faucetGet', taskid)
+                    if (faucetGet && faucetGet.status === '100') {
+                        this.faucetTask()
+                        this.showUserMsg()
+                        this.$emit('freshSlot', '')
+                    } else {
+                        this.$message({
+                            message: 'faucetGet error',
+                            type: 'error',
+                            duration: 1500
+                        })
+                    }
+                }
+            },
             handleLanguageChange (val) {
                 this.$store.commit('changeLanguage', val)
             },
@@ -349,23 +402,42 @@
             showUserMsg () {
                 this.$store.dispatch('getUserInfo')
             },
-            async getFaucet () {
-
-            },
             hideFirstLoginAll () {
-                // 关闭第一个弹窗
+                // 关闭 0.0001 弹窗
                 this.$store.commit('showFirstLogin', false)
-                this.$store.commit('setLoginSucc', null)
+                setTimeout(() => {
+                    // 闪烁
+                    this.showLight = true
+                }, 800)
             },
-            async showFaucet () {
-                /* free water */
+            async faucetTask () {
+                let taskMsg = await this.$store.dispatch('faucetTask', this.currBalance.cointype)
+                if (taskMsg && taskMsg.status === '100') {
+                    this.received_counter = taskMsg.data.not_received_counter
+                    if (taskMsg.data.tasks) {
+                        taskMsg.data.tasks.forEach((item, index) => {
+                            if (item.task === '2' || item.task === '3' || item.task === '4') {
+                                if (item.info) {
+                                    this['tasks_' + item.task] = item.info.status
+                                    if (item.info.free !== '0' && parseInt(item.info.free) > 0) {
+                                        this['tasks_' + item.task] = 2
+                                    }
+                                }
+                            }
+                        })
+                    }
+                    if (taskMsg.data.sign_days !== undefined) {
+                        this.tasks_day = taskMsg.data.sign_days
+                    }
+                }
+            },
+            showFaucet () {
+                /* free water  请求列表接口 new */
+                if (!this.freeWaterPop) {
+                    this.faucetTask()
+                }
                 this.freeWaterPop = !this.freeWaterPop
-            },
-            showDetailFn () {
-                this.showDetail = true
-            },
-            hideDetailFn () {
-                this.showDetail = false
+                this.$emit('headPopChange', this.freeWaterPop)
             },
             signOut () {
                 /* 退出登录 */
@@ -379,7 +451,6 @@
             formateCoinType
         },
         async mounted () {
-            // this.$router.push('/lucky11')
             this.showUserMsg()
             // 获取首次中奖信息
             if (~window.location.href.indexOf('/lucky11')) {
@@ -398,12 +469,91 @@
                     }
                 }
             }
+            setTimeout(() => {
+                if (this.isLog) {
+                    this.faucetTask()
+                }
+            }, 2000)
         }
     }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
+    .btn-comeTom{
+        display: block;
+        width: 133px;
+        height: 35px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: default;
+        color: #263648;
+    }
+    .btn-signDay{
+        display: block;
+        width: 83px;
+        height: 35px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: default;
+        color: #263648;
+    }
+    .newFirst{
+        position: absolute;
+        top:26px;
+        left:39%;
+        margin-left:-118px;
+        z-index:99;
+        &:before{
+            content: '';
+            display: block;
+            width:0;
+            height:0;
+            margin:0 auto;
+            border-left:5px solid transparent;
+            border-right:5px solid transparent;
+            border-top:7px solid transparent;
+            border-bottom:7px solid #fff;
+        }
+        .msg{
+            box-sizing: border-box;
+            width:250px;
+            height: 52px;
+            overflow: hidden;
+            line-height:20px;
+            font-size:14px;
+            color: #263648;
+            box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
+            border-radius: 6px;
+            background: #fff;
+            p{
+                padding: 5px 0px 2px 8px;
+                text-align: center;
+            }
+            .btn-luck{
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+    .light {
+       animation: brightness 1.5s;
+    }
+    @keyframes brightness {
+        0%,30%,50%,70%,100%{
+            filter:brightness(1);
+        }
+        20%,40%,60%,80%{
+            filter:brightness(1.8);
+        }
+    }
     .banner{
         display: none;
     }
@@ -770,6 +920,18 @@
         position: relative;
         float: right;
         margin:21px 22px 0 0;
+        .redPoint{
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff1b0e;
+            border-radius: 50%;
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
         .btn-faucet{
             display: block;
             width:19px;
@@ -783,6 +945,7 @@
             display: none;
             position: absolute;
             top:37px;
+            z-index: 20;
             right:-24px;
             padding:10px 20px 54px;
             width:455px;
@@ -1396,5 +1559,4 @@
 
     }
 </style>
-
 
