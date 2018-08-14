@@ -326,7 +326,7 @@ export default {
                 left: 0;
                 top: 0;
                 line-height: 25px;
-                font-size: 11px;
+                font-size: 12px;
             }
             .el-select{
                 display: table;
@@ -336,7 +336,7 @@ export default {
             p{
                 text-align: center;
                 line-height: 84/2px;
-                font-size: 22/2px;
+                font-size: 28/2px;
                 color: #778ca3;
                 i{
                     color: #263648;
@@ -348,21 +348,21 @@ export default {
             border-bottom: 1px solid #f2f2f2;
             .tips{
                 line-height: 56/2px;
-                font-size: 22/2px;
+                font-size: 28/2px;
                 color: #263648;
             }
             .item2-1{
                 a{
                     display: block;
                     line-height: 51px;
-                    font-size: 15px;
+                    font-size: 16px;
                     text-decoration: underline;
                     .text-overflow();
                 }
             }
             .item2-2{
                 line-height: 30/2px;
-                font-size: 22/2px;
+                font-size: 28/2px;
                 color: #778ca3;
             }
             .btn-Copy{
@@ -375,13 +375,13 @@ export default {
                 background: #6a89cc;
                 margin: 0 auto;
                 color: #fff;
-                font-size: 15px;
+                font-size: 16px;
             }
             .item2-3{
                 margin-top: 12px;
                 line-height: 76/2px;
                 color: #778ca3;
-                font-size: 22/2px;
+                font-size: 28/2px;
             }
             img{
                 display: block;
@@ -392,13 +392,12 @@ export default {
         }
         .item3{
             padding: 30/2px 0 58px/2 0;
+            font-size: 28/2px;
             .tips{
-                line-height: 58/2px;
-                font-size: 22/2px;
+                line-height: 58/22;
             }
             ul{
-                line-height: 30/2px;
-                font-size: 22/2px;
+                line-height: 33/22;
                 color: #778ca3;
             }
         }

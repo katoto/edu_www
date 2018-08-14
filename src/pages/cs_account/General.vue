@@ -335,23 +335,23 @@
         .small-explain{
             display: block;
             line-height: 23px;
-            font-size: 11px;
+            font-size: 14px;
             color: #778ca3;
         }
         .my-account{
             margin-bottom: 30px;
             line-height: 50/2px;
-            font-size: 30/2px;
+            font-size: 36/2px;
             a{
                 margin-left: 40px;
-                font-size: 30/2px;
+                font-size: 28/2px;
             }
         }
         .coin-detail{
             margin: 4px 0 30px 0;
             li{
                 line-height: 20px;
-                font-size: 15px;
+                font-size: 18px;
             }
             li+li{
                 margin-top: 20px;
@@ -365,12 +365,11 @@
             overflow: hidden;
             .psw-x{
                 margin-right: percentage(220/710);
-                font-size: 15px;
+                font-size: 14px;
             }
             .btn-changepsw{
-
                 display: block;
-                font-size: 11px;
+                font-size: 14px;
             }
         }
         .btn-logout{
@@ -379,13 +378,9 @@
             background: #eef1f9;
             text-align: center;
             line-height: 45px;
-            font-size: 15px;
+            font-size: 16px;
             color: #778ca3;
             transition: all 0.2s;
-            &:hover{
-                background: #263648;
-                color: #fff;
-            }
         }
     }
 </style>

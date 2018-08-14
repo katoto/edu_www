@@ -20,12 +20,12 @@
             <!--移动端-->
             <div class="pop-mask hidden-lg" @click="isShowH5SideBar = false" :class="{hide:!isShowH5SideBar}"></div>
             <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}">
-               <p>INFORMATION</p>
+               <p> {{currenMsg}}</p>
                 <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
                     <span></span><span></span><span></span>
                 </div>
-                <ul @click="isShowH5SideBar = false">
-                    <router-link active-class="on"  :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
+                <ul>
+                    <router-link active-class="on" @click.native="currenMsg=item.msg,isShowH5SideBar = false"  :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
                             {{_(item.msg)}}
                         </a>
@@ -59,6 +59,7 @@ export default {
                 { msg: _('Deposit'), link: '/account/deposit' },
                 { msg: _('Withdraw'), link: '/account/withdraw' }
             ],
+            currenMsg: 'account',
             isShowH5SideBar: false
         }
     },
@@ -85,6 +86,7 @@ export default {
 </script>
 <style scoped lang="less" type="text/less">
     @import "../../styles/lib-public.less";
+    @import "../../styles/lib-mixins.less";
     .account{
         .main {
             position: relative;
@@ -147,7 +149,7 @@ export default {
         background: #ffffff;
         border-radius: 6px;
         color: #263648;
-
+        font-size: 36/2px;
         >p{
             float: left;
         }
@@ -184,13 +186,13 @@ export default {
                 a{
                     display: block;
                     line-height: 90/2px;
-                    font-size: 22/2px;
+                    font-size:36/2px;
                 }
             }
         }
         &.show{
             z-index: 11;
-            height: 95/2px+90/2*5px;
+            height: 95/2px+90/2*5px+5px;
             ul{
                 display: block;
             }
