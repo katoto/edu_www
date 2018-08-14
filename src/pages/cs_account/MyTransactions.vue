@@ -201,6 +201,7 @@ export default {
         getList (params) {
             return this.$store.dispatch('cs_account/getAccountLog', {
                 pagesize: this.pageSize,
+                lotid: '',
                 ...params
             })
         },

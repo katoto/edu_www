@@ -11,7 +11,7 @@
                             <el-carousel-item v-for="(item, index) in banner" :key="index">
                                 <div class="banner-t1">{{ item.t1 }}</div>
                                 <p class="banner-t2">{{ item.t2 }}</p>
-                                <a class="banner-more" :href="item.href">Learn more More ></a>
+                                <a class="banner-more" :href="item.href"><lang>Details</lang></a>
                             </el-carousel-item>
                         </el-carousel>
                     </div>
@@ -21,16 +21,16 @@
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
                             <div class="game-11t5">
-                                <p class="msg1">Lucky 11</p>
-                                <p class="msg2">High frequency reward game</p>
-                                <p class="msg3">Jackpot</p>
+                                <p class="msg1"><lang>Lucky 11</lang></p>
+                                <p class="msg2"><lang>Classic game with high reward</lang></p>
+                                <p class="msg3"><lang>Jackpot</lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
                                 <router-link :to="{path: '/lucky11'}" class="game-btn">
-                                    <lang>Play</lang>
+                                    <lang>Play Now</lang>
                                 </router-link>
                             </div>
                         </div>
@@ -38,16 +38,16 @@
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
                             <div class="game-slot">
-                                <p class="msg1">Slot</p>
-                                <p class="msg2">Try Slot & Win 97%+ Return Rate</p>
-                                <p class="msg3">Jackpot</p>
+                                <p class="msg1"><lang>Mad Soccer</lang></p>
+                                <p class="msg2"><lang>Fun soccer guessing game</lang></p>
+                                <p class="msg3"><lang>Super Prize</lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.slot.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
                                 <router-link :to="{path: '/slot'}" class="game-btn">
-                                    <lang>Play</lang>
+                                    <lang>Play Now</lang>
                                 </router-link>
                             </div>
                         </div>
@@ -55,16 +55,16 @@
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
                             <div class="game-onecoin">
-                                <p class="msg1">LuckyCoin</p>
-                                <p class="msg2">High frequency reward game</p>
-                                <p class="msg3">Maximum Award</p>
+                                <p class="msg1"><lang>LuckyCoin</lang></p>
+                                <p class="msg2"><lang>Bid 0.01 ETH to win more</lang></p>
+                                <p class="msg3"><lang>Instant reward</lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
                                     <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
                                 <router-link :to="{path: '/luckycoin'}" class="game-btn">
-                                    <lang>Play</lang>
+                                    <lang>Play Now</lang>
                                 </router-link>
                             </div>
                         </div>
@@ -77,17 +77,17 @@
                 <div class="msg-row row">
                     <!--最近下注-->
                     <div class="item-recent recent-bet">
-                        <div class="recent-t">Recent Bet</div>
+                        <div class="recent-t"><lang>Recent Bids</lang></div>
                         <div class="tab-t" :class="[activeClass]">
-                            <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'">Lucky11</a>
-                            <a href="javascript:;" class="slot" @click="activeClass = 'slot'">slot</a>
-                            <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'">LuckyCoin</a>
+                            <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'"><lang>Lucky11</lang></a>
+                            <a href="javascript:;" class="slot" @click="activeClass = 'slot'"><lang>Mad Soccer</lang></a>
+                            <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'"><lang>LuckyCoin</lang></a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
-                                <div class="is-left">User ID</div>
-                                <div>Time</div>
-                                <div class="is-right">Bet Amount</div>
+                                <div class="is-left"><lang>User</lang></div>
+                                <div><lang>Date</lang></div>
+                                <div class="is-right"><lang>Amount</lang></div>
                             </div>
                             <ul v-if="activeClass === 'lucky11'">
                                 <li v-for="(bet, index) in bets.syxw_orders.slice(0, 5)" :key="index">
@@ -138,14 +138,14 @@
                         <div class="recent-t">Recently won</div>
                         <div class="tab-t" :class="[activeClass1]">
                             <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'">Lucky11</a>
-                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'">slot</a>
+                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'">Mad Soccer</a>
                             <a href="javascript:;" class="luckycoin" @click="activeClass1 = 'luckycoin'">LuckyCoin</a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
-                                <div class="is-left">User ID</div>
-                                <div>Time</div>
-                                <div class="is-right">Bet Amount</div>
+                                <div class="is-left"><lang>User</lang></div>
+                                <div><lang>Date</lang></div>
+                                <div class="is-right"><lang>Amount</lang></div>
                             </div>
                             <ul v-if="activeClass1 === 'lucky11'">
                                 <li v-for="(bet, index) in wins.syxw_orders.slice(0, 5)" :key="index">
@@ -200,10 +200,10 @@
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
-                                <div class="is-left">Address</div>
-                                <div>ID</div>
-                                <div>Time</div>
-                                <div class="is-right">Bet Amount</div>
+                                <div class="is-left"><lang>Address</lang></div>
+                                <div><lang>User</lang></div>
+                                <div><lang>Date</lang></div>
+                                <div class="is-right"><lang>Amount</lang></div>
                             </div>
                             <ul v-if="activeClass2 === 'recharge'">
                                 <li v-for="(bet, index) in water.recharge_orders.slice(0, 5)" :key="index">
@@ -254,19 +254,16 @@
                             <img class="img1" src="@/assets/img/home/safe-img1-1.png" alt="">
                         </div>
                         <div class="safe-t">
-                            Open, Fair And Transparent
+                            <lang>Open, Fair, Transparent</lang>
                         </div>
                         <p>
-                            The lottery algorithm is based on blockchain technology,
+                            <lang>Blockchain-based draw is unpredictable</lang>
                         </p>
                         <p>
-                            and no one can predict that bet information will be upload
-                        </p>
-                        <p>
-                            ed to the blockchain and no one can tamper with it.
+                            <lang>Bid information on blockchain cannot be modified</lang>
                         </p>
                         <router-link :to="{path: '/check'}" class="btn-check">
-                            <lang>Go to check</lang>
+                            <lang>Details</lang>
                         </router-link>
                     </div>
                     <div class="col-lg-4">
@@ -276,19 +273,10 @@
                             <img class="img1" src="@/assets/img/home/safe-img2-1.png" alt="">
                         </div>
                         <div class="safe-t">
-                            BTC、ETH Multi-currency Betting
+                            <lang>Support ETH and BTC Bid</lang>
                         </div>
                         <p>
-                            Current games support the most popular Bitcoin and
-                        </p>
-                        <p>
-                            Ethereum for betting, deposits and withdrawals, and will
-                        </p>
-                        <p>
-                            receive more encrypted digital currencies in the future, so
-                        </p>
-                        <p>
-                            stay tuned
+                            <lang>Currently,  popular coins ETH and BTC are supported on the platform to bid, top up and withdraw. More coins will be supported in the near future.</lang>
                         </p>
                     </div>
                     <div class="col-lg-4">
@@ -300,11 +288,9 @@
                             </div>
                         </div>
                         <div class="safe-t">
-                            Support Mobile Devices
+                            <lang>Support Mobile APP</lang>
                         </div>
-                        <p>Betting, recharging, and withdrawing anytime, </p>
-                        <p>anywhere, to be a more intimate, more conve</p>
-                        <p>nient, and more secure platform. </p>
+                        <lang>Enjoy conveniece and fun from quick bid and fair play at any time & any where.</lang>
                         <a href="javascript:;" class="btn-down"></a>
                     </div>
                 </div>
@@ -369,14 +355,10 @@
                 },
                 banner: [
                     {
-                        t1: 'Welcome To The Blockchain Game Platform',
-                        t2:
-                            'A city in southern Nevada; population 558,383 (est. 2008).It is noted for its casinos and nightclubs',
+                        t1: _('Finally! You found the wonderland---- Coinslot, a blockchain-based game platform with fairness and openness'),
+                        t2: _('Only for your terrific experience in games'),
                         href: 'https://www.coinslot.com/'
-                    },
-                    {t1: '2', t2: '22', href: 'https://www.coinslot.com/'},
-                    {t1: '3', t2: '33', href: 'https://www.coinslot.com/'},
-                    {t1: '44', t2: '44', href: 'https://www.coinslot.com/'}
+                    }
                 ]
             }
         },
@@ -519,6 +501,9 @@
             margin-bottom: 58px;
             color: #fff;
             text-align: center;
+            /deep/ .el-carousel__indicators {
+                display: none;
+            }
         }
         .el-carousel__item {
             img {

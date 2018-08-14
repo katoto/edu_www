@@ -67,11 +67,11 @@
                 <luckycoin :number="number" :result.sync="luckyCoinResult" :status.sync="luckyCoinStatus" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
                 <div class="relate-msg">
                     <p><lang>Notes</lang></p>
-                    <p v-lang="'1. What is <a href=https://en.wikipedia.org/wiki/Hash target=_blank>hash</a>? <a href=https://www.tools4noobs.com/online_tools/hash target=_blank>How to calculate hash</a>?'">
+                    <p v-lang="'1. What is <a href=https://en.wikipedia.org/wiki/Hexadecimal target=_blank>hash</a>? <a href=https://www.tools4noobs.com/online_tools/hash/ target=_blank>How to calculate hash</a>?'">
                     </p>
                     <p v-lang="'2. What is <a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>Merkle value</a>?'">
                     </p>
-                    <p v-lang="'3. Check from <a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>Etherscan.io</a>.'">
+                    <p v-lang="'3. Check from <a href=https://etherscan.io target=_blank>Etherscan.io</a>.'">
                     </p>
                 </div>
             </div>

@@ -24,7 +24,7 @@
                         </li>
                         <li>
                             <router-link :to="{path: '/luckycoin'}">
-                                <lang>Luckycoin</lang>
+                                <lang>LuckyCoin</lang>
                             </router-link>
                         </li>
                         <li>
@@ -45,7 +45,7 @@
                         <lang>Slot</lang>
                     </router-link>
                     <router-link :to="{path: '/luckycoin'}">
-                        <lang>Luckycoin</lang>
+                        <lang>LuckyCoin</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                         <lang>F3d west</lang>

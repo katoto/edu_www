@@ -9,11 +9,8 @@
             <div class="col-md-4 clearfix">
                 <div class="about col-xs-6 col-md-6">
                     <div class="title">
-                        <lang>Coinsprize</lang>
+                        <lang>General</lang>
                     </div>
-                    <a class="hide" href="javascript:;">
-                        <lang>Terms of Use</lang>
-                    </a>
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Privacy Policy</lang>
                     </a>
@@ -26,7 +23,7 @@
                 </div>
                 <div class="game col-xs-6 col-md-6">
                     <div class="title">
-                        <lang>game</lang>
+                        <lang>Games</lang>
                     </div>
                     <router-link :to="{path: '/lucky11'}">
                         <lang>Lucky 11</lang>
@@ -34,11 +31,11 @@
                     <router-link :to="{path: '/slot'}" >
                         <lang>Slot</lang>
                     </router-link>
-                    <a class="hide" href="javascript:;">
-                        LuckyCoin
-                    </a>
-                    <a class="hide" href="javascript:;">
-                        Mobile APP
+                    <router-link :to="{path: '/luckycoin'}" >
+                        <lang>LuckyCoin</lang>
+                    </router-link>
+                    <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
+                        <lang>F3d west</lang>
                     </a>
                 </div>
             </div>
@@ -125,22 +122,6 @@
             },
             handleLanguageChange (val) {
                 this.$store.commit('changeLanguage', val)
-            },
-            jump2Page (lan = 'en') {
-                if (this.languageVal) {
-                    lan = this.languageVal
-                }
-                switch (lan) {
-                case 'en':
-                    this.$router.push('/policy')
-                    break
-                case 'zhCn':
-                    this.$router.push('/policy_zhCn')
-                    break
-                case 'zhTw':
-                    this.$router.push('/policy_zhTw')
-                    break
-                }
             },
             headControlPop () {
                 this.isShowLanguage = !this.isShowLanguage
