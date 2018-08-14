@@ -78,7 +78,7 @@
         </p>
         <!--价格-->
         <p class="match-price">
-            {{ this.betData.bidValue }}&nbsp;{{ coinText }}
+            {{ this.betData.bidValue }}&nbsp;{{ coinText }} / <lang>Bid</lang>
         </p>
         <a href="javascript:;" class="match-btn waiting" v-if="isWaiting">
             <lang>Drawing</lang>

@@ -91,7 +91,7 @@
                         <div class="recent-bets">
                             <div class="title">
                                 <div class="left">
-                                    <p class="t1"><lang>Recent Bets</lang></p>
+                                    <p class="t1"><lang>Recent Bids</lang></p>
                                 </div>
                             </div>
                             <recent-bets :data="recentBetsList"></recent-bets>

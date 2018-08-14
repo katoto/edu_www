@@ -8,7 +8,7 @@
             <div class="function-ct">
                 <el-radio-group v-model="filter" @change="onFilterChange">
                     <el-radio-button label="All Bets">
-                        <lang>All Bets</lang>
+                        <lang>All</lang>
                     </el-radio-button>
                     <el-radio-button label="ETH">
                         <lang>ETH</lang>
@@ -17,7 +17,7 @@
                         <lang>BTC</lang>
                     </el-radio-button>
                     <el-radio-button label="My Bets">
-                        <lang>My Bets</lang>
+                        <lang>My Bids</lang>
                     </el-radio-button>
                 </el-radio-group>
                 <el-select v-model="bidsFilter" @change="onBidsFilterChange" v-if="activeName === 'bids'">
