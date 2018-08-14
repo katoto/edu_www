@@ -276,8 +276,9 @@ export default {
             return Promise.all([
                 this.getCheckData(number),
                 this.getOrderData(number)
-            ]).then(() => {
+            ]).then((res) => {
                 this.issueNumber = number
+                return res
             })
         },
         getOrderData (number = this.number) {

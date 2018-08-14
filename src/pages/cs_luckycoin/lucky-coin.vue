@@ -5,20 +5,20 @@
         <Footer></Footer>
         <!--show-->
         <div class="msg-winning" :class="{ show: otherWin.isShow }">
-            Congratulation！ {{ otherWin.name }} <i>WIN {{ otherWin.num }} {{ otherWin.type }}</i>
+            <lang>Congratulations!</lang> {{ otherWin.name }} <i><lang>WIN</lang> {{ otherWin.num }} {{ otherWin.type }}</i>
         </div>
         <!--:class="{show:selfWin.isShow}"-->
         <div class="self-winning hide" :class="{show: selfWin.isShow}">
             <div class="main2">
                 <div class="bounceIn animated">
                     <a href="javascript:;" class="close" @click="hideMyWin"></a>
-                    <p class="p1">Congratulate! </p>
-                    <p class="p2">you have just won No.{{selfWin.exceptId}}</p>
+                    <p class="p1"><lang>Congratulations!</lang></p>
+                    <p class="p2">{{ _('You win {0} {1} in No.{2}', selfWin.num, selfWin.type, selfWin.exceptId) }}</p>
                     <p class="p3">
                         +{{selfWin.num}}<i>{{selfWin.type}}</i>
                     </p>
                     <router-link :to="{path: `/luckycoin/detailed?number=${selfWin.exceptId}&go=mybets`}" class="btn-see" @click.native="hideMyWinHandler">
-                        <lang>See My Bids</lang>
+                        <lang>Details</lang>
                     </router-link>
                 </div>
             </div>

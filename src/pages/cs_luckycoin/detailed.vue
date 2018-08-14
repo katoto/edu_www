@@ -60,7 +60,7 @@
                             <div class="main-left">
                                 <!--正常投注-->
                                 <div class="main-normal">
-                                    <p>
+                                    <p class="hide">
                                         <lang>Bet Amount</lang>
                                     </p>
                                     <div class="input-box ">
@@ -82,7 +82,7 @@
                                         {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
-                                        <lang>Finished</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
+                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
                                     </span>
                                 </div>
                                 <!--失败-->
@@ -94,7 +94,7 @@
                                         {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
-                                        <lang>Finished</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
+                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
                                     </span>
                                 </div>
                                 <!--已结束待开奖-->
@@ -103,25 +103,25 @@
                                         <lang>Time Up!</lang>
                                     </p>
                                     <span>
-                                        <lang>Finished</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
+                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
                                     </span>
                                 </div>
                                 <!--过期-->
                                 <div class="main-expired" v-if="betMoney !== 0">
                                     <span>
-                                        <lang>Expired</lang>
+                                        <lang>Draw expired.</lang>
                                     </span>
                                     <p>
-                                        <lang>Your bet has been refunded</lang>
-                                    </p>
-                                    <p>
-                                        {{betMoney}}{{coinText}}
+                                        {{_('Your {0} {1} has been refunded.', betMoney, coinText)}}
                                     </p>
                                 </div>
                                 <div class="main-expired" v-else-if="goodsinfo.state === '5'">
                                     <span>
-                                        <lang>Expired</lang>
+                                        <lang>Draw expired.</lang>
                                     </span>
+                                    <p>
+                                        <lang>User's payment has been refunded.</lang>
+                                    </p>
                                 </div>
                             </div>
                             <div class="main-right">
@@ -131,10 +131,10 @@
                                     </router-link>
                                 </div>
                                 <div class="item-process">
-                                    <lang>Draw Process</lang> {{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}} / {{Number(goodsinfo.totalBids)}}
+                                    <lang>Bids:</lang> {{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}} / {{Number(goodsinfo.totalBids)}}
                                 </div>
                                 <div class="item-price">
-                                    <lang>Ticket Price</lang> {{goodsinfo.bidValue}} {{coinText}}
+                                    {{goodsinfo.bidValue}} {{coinText}} / <lang>Bid</lang>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                             <lang>Winner is coming</lang> {{ time }}
                         </div>
                         <div class="btn btn-expired">
-                            <lang>The bid was expired, system will refund to the participators later.</lang>
+                            <lang>Draw expired. Your payment has been refunded.</lang>
                         </div>
                         <!--这里逻辑跟首页一样-->
                         <!--show-->
@@ -214,11 +214,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tips">
-                    {{ _('Play Tips: Each betting {0}{1}, you can get a number. The more bets you have, the more numbers you have and the higher the probability of winning.', goodsinfo.bidValue, coinText) }}
-                    <br>
-                    <br>
-                    <lang>When the lottery is drawn, a lucky number is drawn through the blockchain, and the lucky number winner receives the full bonus.</lang>
+                <div class="tips" v-lang="'Note: You will get a bidding number after buying a bid. Bid more, win more! Winner takes all reward.'">
                 </div>
             </div>
             <div class="main-detailed">
@@ -292,7 +288,7 @@
                         </ul>
                     </div>
                     <p class="msg2">
-                        <lang>The betting number is randomly assigned by the system. When your betting number coincides with the winning number, you will win this bonus! The lottery algorithm is based on blockchain technology and cannot be predicted. It is absolutely fair and open!</lang>  <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click to view transparency</lang></router-link>
+                        <lang>Winner takes all reward!</lang>  <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click here to see transparent information.</lang></router-link>
                     </p>
                 </div>
                 <div class="nomsg" v-show="(totalBids.length === 0 && activeName === 'all') || (myNumbers.length === 0 && activeName === 'my')">
@@ -325,7 +321,7 @@
                         <div class="pop-main">
                             <h3>{{infoName}}</h3>
                             <p class="msg1">
-                                <lang>A total of 5 numbers, the more bets, the more numbers, the higher the probability of winning!</lang>
+                                {{ _('You have {0} bidding numbers. Bid more, win more!', numbers.length) }}
                             </p>
                             <div class="item-number">
                                 <ul>
@@ -335,7 +331,7 @@
                                 </ul>
                             </div>
                             <p class="msg2">
-                                <lang>The bet number is randomly assigned to the system. When your bet number matches the lottery number, you will win this session bonus! The lottery algorithm is based on blockchain technology, unpredictable, absolutely fair and open!</lang> <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click to view transparency</lang></router-link>
+                                <lang>Winner takes all reward! </lang> <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click to view transparency</lang></router-link>
                             </p>
                         </div>
                     </div>
@@ -384,6 +380,7 @@
             formatTime,
             numberComma,
             formatUSD,
+            accMul,
             init () {
                 let params = getURLParams()
                 if (params.number) {
@@ -1452,7 +1449,7 @@
     .tips{
         width: 204-30px;
         margin-left: 30px;
-        line-height: 20px;
+        line-height: 25px;
         font-size: 14px;
         color: #fff;
     }

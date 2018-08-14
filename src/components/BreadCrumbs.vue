@@ -52,7 +52,7 @@ export default {
 }
 </script>
 <style lang="less" type="text/less">
-    @import "../styles/lib-public.less";
+    @import "../styles/lib-media.less";
 //面包屑
 .b-nav {
     width: 92%;

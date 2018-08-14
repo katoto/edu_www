@@ -22,10 +22,10 @@
                 </el-radio-group>
                 <el-select v-model="bidsFilter" @change="onBidsFilterChange" v-if="activeName === 'bids'">
                     <el-option :label="_('Default')" value="default"></el-option>
-                    <el-option :label="_('进度由高到低')" value="progress1"></el-option>
-                    <el-option :label="_('进度由低到高')" value="progress0"></el-option>
-                    <el-option :label="_('奖金由高到低')" value="price1"></el-option>
-                    <el-option :label="_('奖金由低到高')" value="price0"></el-option>
+                    <el-option :label="_('Left Time↓')" value="progress1"></el-option>
+                    <el-option :label="_('Left Time↑')" value="progress0"></el-option>
+                    <el-option :label="_('Reward↓')" value="price1"></el-option>
+                    <el-option :label="_('Reward↑')" value="price0"></el-option>
                 </el-select>
             </div>
             <div class="container" v-if="activeName === 'bids'">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="nomsg" v-if="filterBets(betsList).length === 0">
                         <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
-                        <p>No record.
+                        <p><lang>No record.</lang>
                             <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
                                 <lang>Log in to view</lang>
                             </a>
@@ -60,7 +60,7 @@
                     <div class="nomsg" v-if="historyList.length === 0">
                         <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                         <p>
-                            No record.
+                            <lang>No record.</lang>
                             <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
                                 <lang>Log in to view</lang>
                             </a>
