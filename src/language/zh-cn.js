@@ -618,7 +618,7 @@ module.exports = {
     'Detail >>': '查看详情 >>',
     'Winner is coming': 'Winner is coming',
     'Winner takes all reward!': '投注号码为系统随机分配，当您的投注号码与开奖号码一致时，您将赢得本场次奖金！开奖算法基于区块链技术，无法预测，绝对公正公开哦！',
-    'Click here to see transparent information.': 'Click here to see transparent information.',
+    'Click here to see transparent information.': '点击查看透明性',
     'No record.': '没有数据.',
     'Log in to view': '请登录查看',
     'Click to view transparency': '点击查看透明性',

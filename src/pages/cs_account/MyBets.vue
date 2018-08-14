@@ -303,7 +303,7 @@ export default {
                         } else if (val.orderstatus === '1') {
                             val.betprizeVal = `<a href='javascript:;' class='waiting'>${_('waiting')}</a>`
                         } else if (val.orderstatus === '-1' || val.orderstatus === '-2') {
-                            val.betprizeVal = _('failure')
+                            val.betprizeVal = _('Expired')
                         }
                     }
                 })
