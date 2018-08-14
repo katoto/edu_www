@@ -25,10 +25,10 @@
                     3. 资金流水分配
                 </p>
                 <p class="cicle">
-                    · 充值金额全部进入可提现账户
+                    · <lang>All top-up is withdrawable</lang>
                 </p>
                 <p class="cicle">
-                    · 赠送金额全部进入不可提现账户
+                    · <lang>All bonus from activities on the platform is non-withdrawable</lang>
                 </p>
             </li>
         </ul>
