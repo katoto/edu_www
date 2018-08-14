@@ -566,8 +566,16 @@ export function formatUSD (price, num) {
 }
 
 export function structDom (msg = 'home') {
-    let createSci = document.createElement('script')
-    createSci.setAttribute('type', 'application/ld+json')
+    let createSci = null
+    let baseDes = null
+    if (!document.getElementById('js_struct')) {
+        createSci = document.createElement('script')
+        baseDes = null
+        createSci.setAttribute('type', 'application/ld+json')
+        createSci.setAttribute('id', 'js_struct')
+    } else {
+        createSci = document.getElementById('js_struct')
+    }
     if (msg === 'home') {
         createSci.innerHTML = `
         {
@@ -607,10 +615,119 @@ export function structDom (msg = 'home') {
             }
           ]
         }`
+    } else {
+        baseDes = `
+        {
+          "@context":"http://schema.org",
+          "@type": "BreadcrumbList", 
+          "url": "https://www.coinsprize.com/",   
+          "name": "${_('{0} Draw Result|Information|Announcements|Records -- Coinsprize', msg)}",
+          "image": "http://www.coinsprize.com/images/sprize/CoinsprizeLogo.png",
+          "keyword":"${_('{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}', msg)}"
+          "description": "${_('{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of Lucky11 can be checked on this page.', msg)}",
+          `
     }
     if (msg === 'lucky11') {
-
+        createSci.innerHTML = `${baseDes}
+        "itemListElement": [
+            {
+                "@type": "ListItem", 
+                "position": 1, 
+                "item": {
+                  "@id": "https://www.coinsprize.com/help",
+                  "name": "${_('Help Center')}", 
+                  "image": "" 
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@id": "https://www.coinsprize.com/drawNumber",
+                  "name": "${_('Draw Number')}",
+                  "image": ""
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@id": "https://www.coinsprize.com/lucky11",
+                  "name": "${_('Recent Wins')}",
+                  "image": ""
+                }
+            }
+          ]
+        }`
+    }
+    if (msg === 'luckycoin') {
+        createSci.innerHTML = `${baseDes}
+        "itemListElement": [
+            {
+                "@type": "ListItem", 
+                "position": 1, 
+                "item": {
+                  "@id": "https://www.coinsprize.com/help",
+                  "name": "${_('Help Center')}", 
+                  "image": "" 
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@id": "https://www.coinsprize.com/luckycoin/drawHistory",
+                  "name": "${_('Draw History')}",
+                  "image": ""
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@id": "https://www.coinsprize.com/luckycoin",
+                  "name": "${_('Bet For The Prize')}",
+                  "image": ""
+                }
+            }
+          ]
+        }`
+    }
+    if (msg === 'slot') {
+        createSci.innerHTML = `${baseDes}
+        "itemListElement": [
+            {
+                "@type": "ListItem", 
+                "position": 1, 
+                "item": {
+                  "@id": "https://www.coinsprize.com/help",
+                  "name": "${_('Help Center')}", 
+                  "image": "" 
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@id": "https://www.coinsprize.com/slot",
+                  "name": "${_('Recent')}",
+                  "image": ""
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@id": "https://www.coinsprize.com/slot",
+                  "name": "${_('Slot')}",
+                  "image": ""
+                }
+            }
+          ]
+        }`
     }
 
-    return createSci
+    if (!document.getElementById('js_struct')) {
+        document.body.appendChild(createSci)
+    }
 }

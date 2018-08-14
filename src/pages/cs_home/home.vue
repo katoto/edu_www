@@ -474,8 +474,8 @@
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }
-
-            document.body.appendChild(structDom('home'))
+            /* 动态结构化 */
+            structDom('home')
         }
     }
 </script>

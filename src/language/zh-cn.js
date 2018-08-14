@@ -411,6 +411,10 @@ module.exports = {
     /*  seo */
     'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基于区块链技术的赌场博彩高频彩票游戏平台',
     'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
+    '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票开奖结果|信息|公告|记录 - Coinsprize',
+    '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11开奖结果,{0} 11开奖信息,{0} 11开奖公告,{0} 11开奖记录',
+    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of Lucky11 can be checked on this page.': '{0}高频彩票是Coinslot公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到lucky 11的最新开奖结果、信息、公告、和往期记录等。',
+
     /*  seo end */
 
     /* help */
