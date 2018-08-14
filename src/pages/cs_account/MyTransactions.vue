@@ -147,6 +147,10 @@ export default {
                 {
                     value: '7',
                     label: _('Fee')
+                },
+                {
+                    value: '8',
+                    label: _('Refound')
                 }
             ],
 
@@ -216,7 +220,8 @@ export default {
                     '4': '2',
                     '5': [4, 6].join('|'),
                     '6': [10, 11, 12, 13].join('|'),
-                    '7': [7, 5].join('|')
+                    '7': [7, 5].join('|'),
+                    '8': '3'
                 }[this.tranOptionVal] || ''
             }
             if (this.ethOptionVal !== '1') {

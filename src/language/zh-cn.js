@@ -199,6 +199,7 @@ module.exports = {
     'Prize': '奖金',
     'Activities': '活动',
     'Fee': '手续费',
+    'Refound': '退款',
     'All': '所有',
     'Last 90 days': '最近90天',
     'withdraw': '提款',
@@ -468,4 +469,16 @@ module.exports = {
     'Wait for draw (after all bids of one bidding type are sold out)': '等待系统开奖（场次筹齐人数时将开）',
     'If your bidding number matches draw number, you win the reward.': '若号码匹配则获得该场次奖励'
     /* help end */
+
+    /* 验证页面 start */
+
+    /* 验证页面 end */
+
+    /* 首页 start */
+
+    /* 首页 end */
+
+    /* 一元夺币 start */
+
+    /* 一元夺币 end */
 }
