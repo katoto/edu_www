@@ -24,9 +24,9 @@
 
 <script>
 import help00 from './help-components/help1-yxyz'
-import help01 from './help-components/help1-lssm'
 import help10 from './help-components/help2-rhcz'
 import help11 from './help-components/help2-rhtx'
+import help12 from './help-components/help2-tktj'
 import help20 from './help-components/help3-lucky11'
 import help21 from './help-components/help3-luckyCoin'
 import help30 from './help-components/help4-cxtmx'
@@ -66,9 +66,9 @@ export default {
     },
     components: {
         help00,
-        help01,
         help10,
         help11,
+        help12,
         help20,
         help21,
         help30,

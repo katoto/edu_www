@@ -418,7 +418,7 @@ module.exports = {
     'About Games': '玩法问题',
     'Others': '其他重要',
     'Email verification': '邮箱验证',
-    'Withdrawal Conditions': '流水说明',
+    'Withdrawal Conditions': '提款条件',
     'How to top up': '如何充值',
     'How to withdraw': '如何提现',
     'Play Lucky11': 'Lucky11怎么玩',
