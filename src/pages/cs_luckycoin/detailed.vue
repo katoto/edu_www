@@ -139,7 +139,7 @@
                             </div>
                         </div>
                         <a href="javascript:;" class="btn btn-normal"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                            {{ this.isBlinking ? _('Amount changes') : _('Pay Now') }}
+                            {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
                         </a>
                         <div class="btn btn-win" v-if="isDraw">
                             <p>

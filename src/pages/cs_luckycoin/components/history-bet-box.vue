@@ -19,16 +19,14 @@
         </template>
         <template v-else>
             <p class="isExpired">
-                Expired
+                <lang>Expired</lang>
             </p>
             <div class="isExpired-msg">
                 <p v-if="bet.betmoney === null || Number(bet.betmoney) === 0">
-                    The system has returned<br>
-                    funds to the bet user account
+                    <lang>Draw expired. Your payment has been refunded.</lang>
                 </p>
                 <p style="color: #3fc06f;" v-else>
-                    Your bet has been refunded<br>
-                  {{Number(formateBalance( bet.betmoney ))}}{{ coinText }}
+                    {{ _('Draw expired. Your {0} {1} has been refunded.', Number(formateBalance( bet.betmoney )), coinText) }}
                 </p>
             </div>
         </template>

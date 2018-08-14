@@ -3,7 +3,7 @@
         <div class=" container">
             <div class="reserved col-xs-12 col-md-4">
                 <p>
-                    <lang>Welcome to Coinsprize and start a new gaming experience! Coinsprize is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.</lang>
+                    <lang>Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.</lang>
                 </p>
             </div>
             <div class="col-md-4 clearfix">
@@ -43,17 +43,21 @@
                 <div class="title">
                     <lang>Contact Us</lang>
                 </div>
-                <p class="hide">
-                    <lang>General issues:</lang>
-                    <a href="mailto:lucky11@Coinsprize.com">lucky11@Coinsprize.com</a>
-                </p>
-                <p>
-                    <lang>Technical support service:</lang>
-                    <a href="mailto:support@Coinsprize.com">support@Coinsprize.com</a>
-                </p>
                 <p>
                     <lang>Telegram:</lang>
                     <a href="https://t.me/Coinsprizeoffice" target="_blank">https://t.me/Coinsprizeoffice</a>
+                </p>
+                <p>
+                    <lang>Lucky11 issues:</lang>
+                    <a href="mailto:lucky11@Coinsprize.com">lucky11@Coinsprize.com</a>
+                </p>
+                <p>
+                    <lang>LuckyCoin issues:</lang>
+                    <a href="mailto:lucky11@Coinsprize.com">luckycoin@Coinsprize.com</a>
+                </p>
+                <p>
+                    <lang>Support service:</lang>
+                    <a href="mailto:support@Coinsprize.com">support@Coinsprize.com</a>
                 </p>
                 <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose">

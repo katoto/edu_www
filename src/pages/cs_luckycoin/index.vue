@@ -30,27 +30,24 @@
                         <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
                             <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
                                 <p>
-                                    Here is the bonus: pick a lucky <br>
-                                    user through the blockchain
+                                    <lang>Reward is here: Blockchain-based draw</lang>
                                 </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true">Next</a>
+                                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
                             <div class="step bounceIn animated step2" :class="[isShowStep2 ? '' : 'hide']">
                                 <p>
-                                    Here is the remaining bet amount:  <br>
-                                    you can draw a lot when you buy it..
+                                    <lang>Available bid is here: Draw after all bids sold out</lang>
                                 </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true">Next</a>
+                                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
                             <div class="step bounceIn animated step3" :class="[isShowStep3 ? '' : 'hide']">
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                                 <p>
-                                    Click here to bet: the more bets,<br>
-                                    the higher the probability of winning.
+                                    <lang>Click here to play: Bid more, win more</lang>
                                 </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowNew = false">ok</a>
+                                <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>OK</lang></a>
                             </div>
                         </div>
                     </div>
@@ -61,8 +58,8 @@
                             <div class="col-xs-12 ">
                                 <div class="title">
                                     <div class="left">
-                                        <p class="t1">Bet For The Prize</p>
-                                        <p class="t2 hidden-xs hidden-sm">All or nothing, small cost,  big profit</p>
+                                        <p class="t1"><lang>Win Instant Reward</lang></p>
+                                        <p class="t2 hidden-xs hidden-sm"><lang>Small cost, big profit!</lang></p>
                                         <router-link :to="{path:'/help/helpView/2/1'}" class="play">
                                             <lang>How To Play ?</lang>
                                         </router-link>
@@ -94,7 +91,7 @@
                         <div class="recent-bets">
                             <div class="title">
                                 <div class="left">
-                                    <p class="t1">Recent Bets</p>
+                                    <p class="t1"><lang>Recent Bets</lang></p>
                                 </div>
                             </div>
                             <recent-bets :data="recentBetsList"></recent-bets>
@@ -105,10 +102,10 @@
                     <div class="col-xs-12 ">
                         <div class="title">
                             <div class="left">
-                                <p class="t1">Draw History</p>
-                                <p class="t2  hidden-xs hidden-sm">Fair Open，Draw in blockchain</p>
+                                <p class="t1"><lang>Draw History</lang></p>
+                                <p class="t2  hidden-xs hidden-sm"><lang>Transparent blockchain-based draw</lang></p>
                                 <router-link :to="{path:'/check'}" class="check">
-                                    Check Transparency >
+                                    <lang>Details Checking ></lang>
                                 </router-link>
                             </div>
                             <div class="right">

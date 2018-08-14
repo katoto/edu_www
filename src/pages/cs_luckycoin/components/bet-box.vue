@@ -73,25 +73,24 @@
         </p>
         <!--进度-->
         <p class="match-process">
-            <lang>Draw Process:</lang>
+            <lang>Bids:</lang>
             {{ this.betData.totalBids - this.betData.leftBids }}/{{ this.betData.totalBids }}
         </p>
         <!--价格-->
         <p class="match-price">
-            <lang>Ticket Price:</lang>
             {{ this.betData.bidValue }}&nbsp;{{ coinText }}
         </p>
         <a href="javascript:;" class="match-btn waiting" v-if="isWaiting">
-            <lang>Waiting</lang>
+            <lang>Drawing</lang>
         </a>
         <a href="javascript:;" class="match-btn btn-pause" v-else-if="isPause">
-            <lang>Pause Bet</lang>
+            <lang>Paused</lang>
         </a>
         <a href="javascript:;" class="match-btn btn-pause" v-else-if="isExpired">
             <lang>Expired</lang>
         </a>
         <a href="javascript:;" class="match-btn" v-else @click="openBetWindow">
-            <lang>Bet Now</lang>
+            <lang>Bid Now</lang>
         </a>
         <!--投注状态-->
         <!--show-->
@@ -100,11 +99,11 @@
             <div class="bet-t">
                 <span>Bid for</span> {{ this.betData.goodsValue }} <i>{{ coinText }}</i>
             </div>
-            <p class="bet-m1">
+            <p class="bet-m1 hide">
                 Bet Amount
             </p>
             <p class="bet-m2">
-                more bets，more probability
+                <lang>Bid more, win more!</lang>
             </p>
             <!--icon-eth/icon-btc-->
             <div class="input-box" :class="[coinType === '2001' ? 'icon-eth': 'icon-btc']">
@@ -114,17 +113,20 @@
                 <a href="javascript:;" ref="maxBtn" @click="chooseMax">Max</a>
             </div>
             <a href="javascript:;" class="btn-bet"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                {{ this.isBlinking ? _('Amount changes') : _('Pay Now') }}
+                {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
             </a>
         </div>
         <div class="bet- bet-success " :class="{show:windowClass === 'success'}">
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
             <div class="bet-icon"></div>
             <p class="bet-t">
-                Bet Success
+                <lang>Bid Successful</lang>
             </p>
             <p class="bet-m">
-                {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~', this.betData.goodsValue, this.coinText) }}
+                {{ this.betNum === 1
+                    ? _('You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.betData.goodsValue, this.coinText)
+                    : _('You have bought {2} bids. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.betData.goodsValue, this.coinText, this.betNum)
+                 }}
             </p>
             <div class="btn-box">
                 <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}&go=mybets`}" class="bet-btnV">
@@ -139,27 +141,27 @@
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
             <div class="bet-icon"></div>
             <p class="bet-t">
-                Bet failure
+                <lang>Bid Failed</lang>
             </p>
             <p class="bet-m">
-                Temporarily unavailable due to network reasons
+                <lang>Uh-oh~ network problems occured.</lang>
             </p>
             <a href="javascript:;" class="btn-fail" @click="closeWindow">
-                <lang>Try Again Later</lang>
+                <lang>Try Later</lang>
             </a>
         </div>
         <div class="bet- bet-balance " :class="{show:windowClass === 'balance'}">
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
             <div class="bet-icon"></div>
             <p class="bet-t">
-                Insufficient Balance
+                <lang>Insufficient Balance</lang>
             </p>
             <p class="bet-m">
-                {{ _('Your balance is less than {0}{1}. If you need to bet, please top up first.', this.minValue, this.coinText) }}
+                <lang>Please top up first.</lang>
             </p>
-            <a href="javascript:;" class="btn-balance" @click="closeWindow">
-                Deposit
-            </a>
+            <router-link :to="{path: '/account/deposit'}" class="btn-balance">
+                <lang>Top Up</lang>
+            </router-link>
         </div>
     </div>
 </template>
@@ -187,6 +189,7 @@
             return {
                 windowClass: '',
                 betValue: 0,
+                betNum: 0,
                 isBlinking: false,
                 blinkTime: 2300,
                 betData: {
@@ -295,9 +298,10 @@
                 try {
                     let value = this.betValue
                     value = (value === '' ? this.betData.bidValue : Number(value))
+                    this.betNum = accDiv(value, this.betData.bidValue)
                     let data = await this.betNow({
                         cointype: this.coinType,
-                        codestr: `${this.betData.exceptId}|${this.coinType}|${accDiv(value, this.betData.bidValue)}|${this.betData.bidValue}`
+                        codestr: `${this.betData.exceptId}|${this.coinType}|${this.betNum}|${this.betData.bidValue}`
                     })
                     this.betValue = this.betData.bidValue
                     this.getUserInfo()

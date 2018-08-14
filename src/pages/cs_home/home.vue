@@ -11,7 +11,9 @@
                             <el-carousel-item v-for="(item, index) in banner" :key="index">
                                 <div class="banner-t1">{{ item.t1 }}</div>
                                 <p class="banner-t2">{{ item.t2 }}</p>
-                                <a class="banner-more" :href="item.href"><lang>Details</lang></a>
+                                <router-link :to="{path: item.href}" class="banner-more">
+                                    <lang>Details</lang>
+                                </router-link>
                             </el-carousel-item>
                         </el-carousel>
                     </div>
@@ -38,9 +40,9 @@
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
                             <div class="game-slot">
-                                <p class="msg1"><lang>Mad Soccer</lang></p>
-                                <p class="msg2"><lang>Fun soccer guessing game</lang></p>
-                                <p class="msg3"><lang>Super Prize</lang></p>
+                                <p class="msg1"><lang>Slot</lang></p>
+                                <p class="msg2"><lang>Win 97%+ Return Rate</lang></p>
+                                <p class="msg3"><lang>Jackpot</lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.slot.cointype)}}</i>
@@ -57,7 +59,7 @@
                             <div class="game-onecoin">
                                 <p class="msg1"><lang>LuckyCoin</lang></p>
                                 <p class="msg2"><lang>Bid 0.01 ETH to win more</lang></p>
-                                <p class="msg3"><lang>Instant reward</lang></p>
+                                <p class="msg3"><lang>Instant Reward</lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
                                     <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
@@ -80,7 +82,7 @@
                         <div class="recent-t"><lang>Recent Bids</lang></div>
                         <div class="tab-t" :class="[activeClass]">
                             <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'"><lang>Lucky11</lang></a>
-                            <a href="javascript:;" class="slot" @click="activeClass = 'slot'"><lang>Mad Soccer</lang></a>
+                            <a href="javascript:;" class="slot" @click="activeClass = 'slot'"><lang>Slot</lang></a>
                             <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'"><lang>LuckyCoin</lang></a>
                         </div>
                         <div class="tab-c">
@@ -138,7 +140,7 @@
                         <div class="recent-t">Recently won</div>
                         <div class="tab-t" :class="[activeClass1]">
                             <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'">Lucky11</a>
-                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'">Mad Soccer</a>
+                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'">Slot</a>
                             <a href="javascript:;" class="luckycoin" @click="activeClass1 = 'luckycoin'">LuckyCoin</a>
                         </div>
                         <div class="tab-c">
@@ -357,7 +359,7 @@
                     {
                         t1: _('Finally! You found the wonderland---- Coinslot, a blockchain-based game platform with fairness and openness'),
                         t2: _('Only for your terrific experience in games'),
-                        href: 'https://www.coinslot.com/'
+                        href: '/check'
                     }
                 ]
             }
