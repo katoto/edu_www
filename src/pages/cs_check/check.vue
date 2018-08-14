@@ -2,30 +2,30 @@
     <div class="page-check">
         <Header></Header>
         <div class="main">
-            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Check'), path: '/check' }]"></BreadCrumbs>
+            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Transparency Checking'), path: '/check' }]"></BreadCrumbs>
             <!--查询框-->
             <el-tabs v-model="params.type" @tab-click="handleTabClick">
                 <el-tab-pane :label="_('Lucky11')" name="lucky11"></el-tab-pane>
-                <el-tab-pane :label="_('Luckycoin')" name="luckycoin"></el-tab-pane>
+                <el-tab-pane :label="_('LuckyCoin')" name="luckycoin"></el-tab-pane>
             </el-tabs>
             <div class="check-input">
                 <div class="check-enter">
-                    <h2><lang>Check the results</lang></h2>
-                    <input type="text" :placeholder="_('Enter the issue number')" v-model="issueNumber" @keyup.enter="issueInputEnterHandler">
+                    <h2><lang>Draw Result Checking</lang></h2>
+                    <input type="text" :placeholder="_('Enter Draw No.')" v-model="issueNumber" @keyup.enter="issueInputEnterHandler">
                     <p>
-                        <lang>The issue number can be viewed in the </lang>
+                        <lang>Find No. in </lang>
                         <a href="/luckycoin/drawHistory" target="_blank" v-if="params.type === 'luckycoin'">
-                            <lang>draw record</lang>
+                            <lang>Draw Records</lang>
                         </a>
                         <a href="/drawNumber" target="_blank" v-if="params.type === 'lucky11'">
-                            <lang>draw record</lang>
+                            <lang>Draw Records</lang>
                         </a>
                     </p>
                 </div>
-                <a href="javascript:;" class="btn-verification" @click="verifyHandler"><lang>Verification</lang></a>
+                <a href="javascript:;" class="btn-verification" @click="verifyHandler"><lang>Check Now</lang></a>
                 <!--rollIn animated-->
                 <div class="checkout-result" :class="{ 'rollIn animated': isChecked }">
-                    <h3><lang>Lottery result</lang></h3>
+                    <h3><lang>Draw Result</lang></h3>
                     <div class="result-view">
                         <!--lucky11-->
                         <ul v-if="params.type === 'lucky11'">
@@ -42,20 +42,20 @@
             <!--步骤说明-->
             <div class="check-explain">
                 <div class="step-title">
-                    <lang>Check the results</lang>
+                    <lang>Draw Process</lang>
                 </div>
                 <div class="step-view bounce animated delay-2s" ref="errorCt">
                     <ul>
-                        <li v-lang="'User order<br/>information'">
+                        <li v-lang="'Order <br/>Information'">
                         </li>
-                        <li v-lang="'SHA256<br/>operation'"></li>
+                        <li v-lang="'SHA256'"></li>
                         <li>
-                            <lang>Merkel value</lang>
+                            <lang>Merkel Value</lang>
                         </li>
-                        <li v-lang="'SHA256<br/>operation'"></li>
-                        <li v-lang="'blockchain<br/>hash value'"></li>
-                        <li v-lang="'SHA256<br/>operation'"></li>
-                        <li v-lang="'Lottery<br/>result'"></li>
+                        <li v-lang="'Upload <br/>to Ethereum'"></li>
+                        <li v-lang="'Block Hash'"></li>
+                        <li v-lang="'Open <br/>Calculation'"></li>
+                        <li v-lang="'Draw <br/>Numbers'"></li>
                     </ul>
                 </div>
             </div>
@@ -66,15 +66,12 @@
                 <lucky11 :number="number" :result.sync="luck11Result" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
                 <luckycoin :number="number" :result.sync="luckyCoinResult" :status.sync="luckyCoinStatus" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
                 <div class="relate-msg">
-                    <p><lang>Reference Information</lang></p>
-                    <p>
-                        <lang>1. What is a</lang> <a href="https://en.wikipedia.org/wiki/Hash" target="_blank"><lang>hash value</lang></a> <lang>And</lang> <a href="https://www.tools4noobs.com/online_tools/hash" target="_blank"><lang>online hash calculations</lang></a>?
+                    <p><lang>Notes</lang></p>
+                    <p v-lang="'1. What is <a href=https://en.wikipedia.org/wiki/Hash target=_blank>hash</a>? <a href=https://www.tools4noobs.com/online_tools/hash target=_blank>How to calculate hash</a>?'">
                     </p>
-                    <p>
-                        <lang>2. What is the</lang> <a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank"><lang>Merkel value</lang></a>?
+                    <p v-lang="'2. What is <a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>Merkle value</a>?'">
                     </p>
-                    <p>
-                        <lang>3. Ethereum transaction inquiry entrance.</lang>
+                    <p v-lang="'3. Check from <a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>Etherscan.io</a>.'">
                     </p>
                 </div>
             </div>
@@ -331,7 +328,7 @@
                         font-weight: bold;
                         color: #fd9644;
                         &.expired {
-                            font-size: 15px;
+                            font-size: 14px;
                         }
                     }
                 }

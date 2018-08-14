@@ -1,7 +1,7 @@
 <template>
     <div class="lucky11-page">
         <div class="step-title">
-            {{ _('Lottery number generation process') }}&nbsp;&nbsp;&nbsp;&nbsp;{{ issueNumber }}
+            {{ _('Draw Details') }}&nbsp;&nbsp;&nbsp;&nbsp;{{ issueNumber }}
         </div>
         <!--用户信息-->
         <div class="item item1">
@@ -9,28 +9,28 @@
                 v-clipboard:copy="orderLists"
                 v-clipboard:success="copySucc"
                 v-clipboard:error="copyError">
-                <lang>Copy user order</lang>
+                <lang>Copy Order Info</lang>
             </a>
             <div class="title-1">
-                <lang>User order information</lang>
+                <lang>Order Information</lang>
                 <i class="icon-mark" @mouseenter="showRuleView = true"  @mouseout="showRuleView = false">
                     <!--漂浮规则-->
                     <div class="rule-view" v-if="showRuleView">
-                        <p><lang>User order information</lang></p>
+                        <p><lang>Order Information</lang></p>
                         <ul>
-                            <li :data-msg="_('(Issue)')">
+                            <li :data-msg="_('(User ID)')">
                                 1000340
                             </li>
-                            <li :data-msg="_('(Play)')">
+                            <li :data-msg="_('(Type)')">
                                 1101
                             </li>
-                            <li :data-msg="_('(Number)')">
+                            <li :data-msg="_('(Bid Numbers)')">
                                 1,3
                             </li>
                             <li :data-msg="_('(Amount)')">
                                 0.0008
                             </li>
-                            <li :data-msg="_('(Currency)')">
+                            <li :data-msg="_('(Coin)')">
                                 2001
                             </li>
                         </ul>
@@ -45,7 +45,7 @@
         </div>
         <div class="item item2">
             <div class="title-1">
-                <lang>Merkel value</lang>
+                <lang>Merkel Value</lang>
             </div>
             <p>
                 {{merkelValue}}
@@ -64,12 +64,12 @@
         </div>
         <div class="item item4">
             <div class="title-1">
-                <lang>Blockchain hash value</lang>
+                <lang>Draw Calculation</lang>
             </div>
             <!--11选5-->
             <div class="result-lucky11">
                 <p class="p1">
-                    <lang>1 step : 25 places after the draw Hash value, divided into 5 parts, respectively A1, A2, A3, A4, A5</lang>
+                    <lang>Step 1. The last 25 characters of the hash will be equally divided into 5 groups: A1, A2, A3, A4 and A5.</lang>
                 </p>
                 <div class="hash">
                     {{preHash}}<span>{{hashA5}}&nbsp;&nbsp;{{hashA4}}&nbsp;&nbsp;{{hashA3}}&nbsp;&nbsp;{{hashA2}}&nbsp;&nbsp;{{hashA1}}</span>
@@ -98,7 +98,7 @@
                     </li>
                 </ul>
                 <p class="p2">
-                    <lang>2 step : For A1-A5, mod operations 11, 10, 9, 8, and 7, respectively, are obtained, and a 5-digit lottery number is obtained.</lang>
+                    <lang>Step 2. Each group will be calculated through an algorithm shows below to produce the draw numbers.</lang>
                 </p>
                 <ul class="mod-5 clearfix">
                     <li>
@@ -117,7 +117,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th digit is the lottery number', '5') }}
+                            {{ _('The {0}th number of the sequence is the first draw number.', hashNumber[0]) }}
                         </p>
                     </li>
                     <li>
@@ -136,7 +136,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th digit is the lottery number', '5') }}
+                            {{ _('The {0}th number of the sequence is the second draw number.', hashNumber[1]) }}
                         </p>
                     </li>
                     <li>
@@ -155,7 +155,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th digit is the lottery number', '5') }}
+                            {{ _('The {0}th number of the sequence is the third draw number.', hashNumber[2]) }}
                         </p>
                     </li>
                     <li>
@@ -174,7 +174,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th digit is the lottery number', '5') }}
+                            {{ _('The {0}th number of the sequence is the fourth draw number.', hashNumber[3]) }}
                         </p>
                     </li>
                     <li>
@@ -193,13 +193,13 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th digit is the lottery number', '5') }}
+                            {{ _('The {0}th number of the sequence is the fifth draw number.', hashNumber[4]) }}
                         </p>
                     </li>
                 </ul>
                 <div class="finally-result">
                     <p class="p4">
-                        <lang>In summary, the lottery number</lang>
+                        <lang>From the above, the draw result is:</lang>
                     </p>
                     <ul>
                         <li v-for="(item, index) in luck11Result" :key="index">{{ item }}</li>
@@ -307,7 +307,7 @@ export default {
                 this.orderLists = [...this.formatDrawOrderList(res)]
             } else {
                 // TODO 没有订单数据以及默克尔值如何显示
-                this.orderLists = [_('There is no bet on this draw, the result uses the hash of the last block.')]
+                this.orderLists = [_('If there is no bet on this draw, the result will use the hash of the last block.')]
             }
         },
         mod (hash, num) {

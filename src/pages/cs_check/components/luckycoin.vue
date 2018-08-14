@@ -1,7 +1,7 @@
 <template>
     <div class="lucky11-page" v-if="state === '4'">
         <div class="step-title">
-            {{ _('Lottery number generation process') }}&nbsp;&nbsp;&nbsp;&nbsp;{{ number }}
+            {{ _('Draw Details') }}&nbsp;&nbsp;&nbsp;&nbsp;{{ number }}
         </div>
         <div>
             <!--用户信息-->
@@ -10,28 +10,28 @@
                     v-clipboard:copy="orderLists"
                     v-clipboard:success="copySucc"
                     v-clipboard:error="copyError">
-                    <lang>Copy user order</lang>
+                    <lang>Copy Order Info</lang>
                 </a>
                 <div class="title-1">
-                    <lang>User order information</lang>
+                    <lang>Order Information</lang>
                     <i class="icon-mark" @mouseenter="showRuleView = true"  @mouseout="showRuleView = false">
                         <!--漂浮规则-->
                         <div class="rule-view" v-if="showRuleView">
-                            <p><lang>User order information</lang></p>
+                            <p><lang>Order Information</lang></p>
                             <ul>
-                                <li :data-msg="_('(Issue)')">
+                                <li :data-msg="_('(User ID)')">
                                     1000340
                                 </li>
-                                <li :data-msg="_('(Currency)')">
+                                <li :data-msg="_('(Type)')">
                                     1101
                                 </li>
-                                <li :data-msg="_('(Number)')">
+                                <li :data-msg="_('(Bid Numbers)')">
                                     1,3
                                 </li>
                                 <li :data-msg="_('(Amount)')">
                                     0.0008
                                 </li>
-                                <li :data-msg="_('(Currency)')">
+                                <li :data-msg="_('(Coin)')">
                                     2001
                                 </li>
                             </ul>
@@ -46,7 +46,7 @@
             </div>
             <div class="item item2">
                 <div class="title-1">
-                    <lang>Merkel value</lang>
+                    <lang>Merkel Value</lang>
                 </div>
                 <p>
                     {{merkelValue}}
@@ -65,24 +65,23 @@
             </div>
             <div class="item item4">
                 <div class="title-1">
-                    <lang>Blockchain hash value</lang>
+                    <lang>Draw Calculation</lang>
                 </div>
                 <div class="result-onecoin">
                     <p class="p1">
-                        <lang>1 step : to take the 6 digits after the bonus Hash value and convert the hexadecimal to decimal.</lang>
+                        <lang>Step 1. By using hexadecimal, the last 6 characters of the hash will convert into a decimal number.</lang>
                     </p>
                     <div class="address">{{prehash}}<i class="special">{{last7Hash}}</i></div>
-                    <p class="p2">
-                        <lang>2 step : For the above results, divided by the total number of the current period {{totalBids}}, the result is +10001, which is the result of the lottery.</lang>
+                    <p class="p2">{{_('Step 2. Divide the number calculated from step 1 by total bids ({0} for this draw), then add 10,001. That is how lucky number comes from.', totalBids)}}
                     </p>
                     <div>
-                        <i class="special">{{modNumber}}</i>mod {{totalBids}} = {{modResult0}} x {{totalBids}} + {{modResult1}}
+                        <i class="special">{{modNumber}}</i> mod {{totalBids}} = {{modResult0}} x {{totalBids}} + {{modResult1}}
                     </div>
                     <div>
                         {{modResult1}} + 10001= <i class="special">{{result}}</i>
                     </div>
                     <p class="p3">
-                        <lang>In summary, the lottery number</lang>
+                        <lang>From the above, the draw result is:</lang>
                     </p>
                     <div class="finally-result">
                         {{result}}
@@ -180,7 +179,7 @@ export default {
                 this.orderLists = [...this.formatDrawOrderList(res)]
             } else {
                 // TODO 没有订单数据以及默克尔值如何显示 整块隐藏
-                this.orderLists = [_('There is no bet on this draw, the result uses the hash of the last block.')]
+                this.orderLists = [_('If there is no bet on this draw, the result will use the hash of the last block.')]
             }
         },
         renderResult () {
@@ -190,10 +189,10 @@ export default {
                 thisResult = (this.modResult1 + 10001).toString()
                 thisStatus = 'normal'
             } else if (this.state === '5') {
-                thisResult = _('该期未筹满人次，所有资金已返还给投注的用户')
+                thisResult = _('Draw expired. User\'s payment has been refunded.')
                 thisStatus = 'expired'
             } else {
-                thisResult = _('当前期次未开奖')
+                thisResult = _('Waiting for sold out')
                 thisStatus = 'wait'
             }
             this.$emit('update:result', thisResult)
