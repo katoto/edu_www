@@ -1,29 +1,30 @@
 <template>
     <div class="">
         <h1>
-            提款条件
+            <lang>Withdrawal Conditions</lang>
         </h1>
         <ul>
             <li>
                 <p class="title">
-                    1. 提现额度
+                    <lang>1. Withdrawal Limit</lang>
                 </p>
                 <p class="msg">
-                    最大提现额度 = 1/10 * 平台有效投注额+ 历史提现总额
+                    <lang>Maximum Withdrawal = 1/10 * Effective Bet Amount + All Former Withdrawal Amount</lang>
                 </p>
                 <p class="msg">
-                    （*平台有效投注额 = Lucky11游戏投注额 + 1/5 slot游戏投注额）
+                    <lang>(* Effective Bet Amount = Bet Amount in Lucky11 + 1/5 Bet Amount in Slot)</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    2. 资金流水分配
+                    <lang>2. Withdrawable Issues</lang>
                 </p>
                 <p class="msg">
-                    充值金额全部进入可提现账户
+                    <lang>All top-up is withdrawable</lang>
                 </p>
                 <p class="msg">
-                    赠送金额全部进入不可提现账户
+                    <lang>All bonus from activities on the platform is non-withdrawable</lang>
+                    <span v-if="languang==='en'">（* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)</span>
                 </p>
             </li>
         </ul>
@@ -37,7 +38,11 @@
         },
         watch: {},
         methods: {},
-        computed: {},
+        computed: {
+            languang () {
+                return this.$store.state.languang
+            }
+        },
         components: {},
         mounted () {
 

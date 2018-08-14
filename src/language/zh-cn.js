@@ -486,6 +486,10 @@ module.exports = {
     'LuckyCoin Issues': 'LuckyCoin玩法问题咨询',
     'All top-up is withdrawable': '充值金额全部进入可提现账户',
     'All bonus from activities on the platform is non-withdrawable': '赠送金额全部进入不可提现账户',
+    '1. Withdrawal Limit': '1. 提现额度',
+    '2. Withdrawable Issues': '2. 资金流水分配',
+    'Maximum Withdrawal = 1/10 * Effective Bet Amount + All Former Withdrawal Amount': '最大提现额度 = 1/10 * 平台有效投注额+ 历史提现总额',
+    '(* Effective Bet Amount = Bet Amount in Lucky11 + 1/5 Bet Amount in Slot)': '（*平台有效投注额 = Lucky11游戏投注额 + 1/5 slot游戏投注额）'
 
     /* help end */
 }
