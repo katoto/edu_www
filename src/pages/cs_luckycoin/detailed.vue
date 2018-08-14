@@ -477,7 +477,7 @@
                 })
             },
             formatTotalBids (data, goodsinfo) {
-                return data.map(item => {
+                let tmp = data.map(item => {
                     if (item.uid === this.userInfo && this.userInfo.uid) {
                         this.mybetTime = formatTime(item.crtime, 'MM-dd HH:mm:ss')
                     }
@@ -489,6 +489,15 @@
                         amount: formatNum(accMul(Number(goodsinfo.bidValue), Number(item.bids)), 5)
                     }
                 })
+                for (let index = 0; index < tmp.length; index++) {
+                    let item = tmp[index]
+                    if (item.isWin) {
+                        tmp.splice(index, 1)
+                        tmp.unshift(item)
+                        break
+                    }
+                }
+                return tmp
             },
             handleBetEvent () {
                 if (!this.isLogin) {
@@ -757,6 +766,11 @@
                     }
                     &.el-table_1_column_3, &.el-table_1_column_4{
                         text-align: right;
+                    }
+                    &.el-table_1_column_3{
+                        div{
+                            margin-right: 10px;
+                        }
                     }
                 }
             }
@@ -1090,6 +1104,12 @@
                 padding-bottom: 20px;
                 line-height: 26px;
                 font-size: 16px;
+                a{
+                    color: #fff;
+                    &:hover{
+                        filter:brightness(1.3);
+                    }
+                }
             }
         }
         .btn{
