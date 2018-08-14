@@ -17,10 +17,10 @@
         data () {
             return {
                 dataMenu: [
-                    {menu1: '账户问题', menu2: [ '邮箱验证', '流水说明']},
-                    {menu1: '钱包问题', menu2: [ '如何充值', '如何提现']},
-                    {menu1: '玩法问题', menu2: [ 'Lucky11怎么玩', 'LuckyCoin怎么玩']},
-                    {menu1: '其他重要', menu2: [ '查询透明性', '联系我们']}
+                    {menu1: _('About Account'), menu2: [ _('Email verification'), _('Withdrawal Conditions')]},
+                    {menu1: _('About Wallet'), menu2: [ _('How to top up'), _('How to withdraw')]},
+                    {menu1: _('About Games'), menu2: [ _('Play Lucky11'), _('Play LuckyCoin')]},
+                    {menu1: _('Others'), menu2: [ _('Transparency checking'), _('Contact us')]}
                 ]
             }
         },

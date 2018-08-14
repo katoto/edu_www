@@ -1,43 +1,43 @@
 <template>
     <div class="">
         <h1>
-            如何充值
+            <lang>Top Up</lang>
         </h1>
         <ul>
             <li>
                 <p class="title">
-                    1. 充值方式
+                    <lang>1. Channels</lang>
                 </p>
                 <p class="msg">
-                    建议您使用正规安全的ETH钱包或者交易平台，推荐： Mist，MyEtherWallet、MetaMask、IMToken、huobi.com 等。
+                    <lang>Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, MyEtherWallet, MetaMask, imToken, huobi.com.</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    2. 充值到账时间
+                    <lang>2. Top-Up Confirmation</lang>
                 </p>
                 <p class="msg">
-                    一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@coinslot.com。
+                    <lang>It usually takes 5 minutes for transaction block to confirm your top-up. If your top-up fails, please contact us through email support@coinsprize.com.</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    3. 充值注意事项
+                    <lang>3. Kind Reminder</lang>
                 </p>
                 <p class="cicle">
-                    ·  请勿向上述地址充值任何非BTC资产，否则资产将不可找回。 <br>
+                    ·  <lang>This address is only for BTC transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang> <br>
                 </p>
                 <p class="cicle">
-                    ·  您充值至上述地址后，需要整个网络节点的确认，1次网络确认后到账，6次网络确认后可提币。
+                    ·  <lang>Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.</lang>
                 </p>
                 <p class="cicle">
-                    ·  建议最小充值金额：0.0001BTC ，小于最小金额的充值可能无法顺利到账且无法退回。
+                    ·  <lang>Minimum top-up：0.0001 BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
                 </p>
                 <p class="cicle">
-                    ·  您的充值地址不会经常改变，可以重复充值；如有更改，我们会尽量通过网站公告或邮件通知您。
+                    ·  <lang>Your wallet address may be changed sometimes, and Coinsprize team will inform you through notification or email as soon as possible.</lang>
                 </p>
                 <p class="cicle">
-                    ·  请务必确认电脑及浏览器安全，防止信息被篡改或泄露。
+                    ·  <lang>Make sure that your computer and browser are under the secure environment to prevent modification or disclosure of information.</lang>
                 </p>
             </li>
         </ul>
