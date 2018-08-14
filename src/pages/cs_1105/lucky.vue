@@ -316,7 +316,7 @@
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
     import { Message } from 'element-ui'
-    import {formateCoinType, formatMatch, formateBalance, removeCK, formatTime} from '~common/util'
+    import {formateCoinType, formatMatch, formateBalance, removeCK, formatTime,structDom} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -725,6 +725,8 @@
                 this.$store.dispatch('subInLucky')
                 /* 开启动态数据定时器 */
                 this.$store.dispatch(aTypes.recentBetAdd)
+                /* 动态结构化 */
+                structDom('lucky11')
             }, 0)
             bgStarBox()
             function bgStarBox () {

@@ -453,7 +453,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import BannerScroll from '~components/BannerScroll.vue'
-    import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance} from '~common/util'
+    import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance,structDom} from '~common/util'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
@@ -1148,6 +1148,7 @@
                 this.showFirstBaxi = true
                 localStorage.setItem('firstJackpot', true)
             }
+            structDom('slot')
             this.$store.dispatch('subInTiger')
         },
         updated () {

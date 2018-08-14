@@ -142,7 +142,7 @@
     import betBox from './components/bet-box'
     import recentBets from './components/recent-bets'
     import historyBetBox from './components/history-bet-box'
-
+    import { structDom} from '~/common/util'
     export default {
         data () {
             return {
@@ -186,6 +186,7 @@
                 localStorage.setItem('firstLuckycoin', true)
             }
             this.updateLuckyCoinPage()
+            structDom('luckycoin')
         }
     }
 </script>
