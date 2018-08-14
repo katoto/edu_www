@@ -442,13 +442,26 @@ function isZhHk () {
     return isThisLang('zh-hk')
 }
 
+function getLocalStorageLanguage () {
+    return localStorage.getItem('language')
+}
+
+export function setLocalStorageLanguage (lang) {
+    localStorage.setItem('language', lang)
+}
+
 function getDefaultLanguage () {
+    let localStorageLanguage = getLocalStorageLanguage()
     if (isZhTw() || isZhHk()) {
         return 'zhTw'
     }
 
     if (isZhcn()) {
         return 'zhCn'
+    }
+
+    if (localStorageLanguage) {
+        return localStorageLanguage
     }
 
     return 'en'

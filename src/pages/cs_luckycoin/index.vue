@@ -11,7 +11,7 @@
                                         <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
                                 </el-carousel-item>
-                                <el-carousel-item>
+                                <!-- <el-carousel-item>
                                     <a href="javascript:;" rel="nofollow">
                                         <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
@@ -20,7 +20,7 @@
                                     <a href="javascript:;" rel="nofollow">
                                         <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
-                                </el-carousel-item>
+                                </el-carousel-item> -->
                             </el-carousel>
                         </div>
                     </div>
@@ -195,6 +195,10 @@
 
     #app.ready .for-new, #app.ready .pop-mask {
         display: block;
+    }
+
+    .main /deep/ .el-carousel__indicators {
+        display: none;
     }
 
     .page-luckycoin{

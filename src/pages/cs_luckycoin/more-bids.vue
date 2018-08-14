@@ -2,8 +2,8 @@
     <div class="main">
             <BreadCrumbs :pageName="activeName === 'bids' ? _('More Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
-                <el-tab-pane label="More Bids" name="bids"></el-tab-pane>
-                <el-tab-pane label="Draw History" name="history"></el-tab-pane>
+                <el-tab-pane :label="_('More Bids')" name="bids"></el-tab-pane>
+                <el-tab-pane :label="_('Draw History')" name="history"></el-tab-pane>
             </el-tabs>
             <div class="function-ct">
                 <el-radio-group v-model="filter" @change="onFilterChange">

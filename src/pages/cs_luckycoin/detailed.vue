@@ -100,11 +100,8 @@
                                 <!--已结束待开奖-->
                                 <div class="main-finished">
                                     <p>
-                                        <lang>Time Up!</lang>
+                                        <lang>Drawing</lang>
                                     </p>
-                                    <span>
-                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
-                                    </span>
                                 </div>
                                 <!--过期-->
                                 <div class="main-expired" v-if="betMoney !== 0">
@@ -169,17 +166,17 @@
                             <a href="javascript:;" class="bet-close" @click="showSuccess = false"></a>
                             <div class="bet-icon"></div>
                             <p class="bet-t">
-                                <lang>Bet Success</lang>
+                                <lang>Bid Successful</lang>
                             </p>
                             <p class="bet-m">
                                 {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~ ', goodsinfo.goodsValue, coinText) }}
                             </p>
                             <div class="btn-box">
                                 <a href="javascript:;" class="bet-btnV" @click="activeName = 'my', showSuccess = false">
-                                    <lang>View Number</lang>
+                                    <lang>See Details</lang>
                                 </a>
                                 <a href="javascript:;" class="bet-btnB" @click="showSuccess = false">
-                                    <lang>Bet More</lang>
+                                    <lang>Bid More</lang>
                                 </a>
                             </div>
                         </div>
@@ -187,13 +184,13 @@
                             <a href="javascript:;" class="bet-close" @click="showFail = false"></a>
                             <div class="bet-icon"></div>
                             <p class="bet-t">
-                                <lang>Bet failure</lang>
+                                <lang>Bid Failed</lang>
                             </p>
                             <p class="bet-m">
-                                {{ failMsg || _('Temporarily unavailable due to network reasons') }}
+                                {{ failMsg || _('Uh-oh~ network problems occured.') }}
                             </p>
                             <a href="javascript:;" class="btn-fail" @click="showFail = false">
-                                <lang>Try Again Later</lang>
+                                <lang>Try Later</lang>
                             </a>
                         </div>
                         <div class="bet- bet-balance" :class="{ show: showDeposit }">
@@ -202,27 +199,24 @@
                             <p class="bet-t">
                                 <lang>Insufficient Balance</lang>
                             </p>
-                            <p class="bet-m" v-if="canBuyValue !== 0">
-                                {{ _('Your balance can be purchased for {0}{1}. If you need to bet more, please top up first.', canBuyValue, coinText) }}
-                            </p>
-                            <p class="bet-m" v-else>
-                                <lang>If you need to bet more, please top up first.</lang>
+                            <p class="bet-m">
+                                <lang>please top up first.</lang>
                             </p>
                             <router-link :to="{path: '/account/deposit'}" class="btn-balance">
-                                <lang>Deposit</lang>
+                                <lang>Top Up</lang>
                             </router-link>
                         </div>
                     </div>
                 </div>
-                <div class="tips" v-lang="'Note: You will get a bidding number after buying a bid. Bid more, win more! Winner takes all reward.'">
+                <div class="tips" v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'">
                 </div>
             </div>
             <div class="main-detailed">
                 <el-tabs v-model="activeName" >
-                    <el-tab-pane label="ALL BETS" name="all">
+                    <el-tab-pane :label="_('All Bids')" name="all">
 
                     </el-tab-pane>
-                    <el-tab-pane label="MY BETS" name="my">
+                    <el-tab-pane :label="_('My Bids')" name="my">
 
                     </el-tab-pane>
                 </el-tabs>
@@ -331,7 +325,7 @@
                                 </ul>
                             </div>
                             <p class="msg2">
-                                <lang>Winner takes all reward! </lang> <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click to view transparency</lang></router-link>
+                                <lang>Winner takes all reward!</lang> <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click to view transparency</lang></router-link>
                             </p>
                         </div>
                     </div>

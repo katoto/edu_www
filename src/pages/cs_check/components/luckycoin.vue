@@ -189,7 +189,7 @@ export default {
                 thisResult = (this.modResult1 + 10001).toString()
                 thisStatus = 'normal'
             } else if (this.state === '5') {
-                thisResult = _('Draw expired. User\'s payment has been refunded.')
+                thisResult = _("Draw expired. User's payment has been refunded.")
                 thisStatus = 'expired'
             } else {
                 thisResult = _('Waiting for sold out')

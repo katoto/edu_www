@@ -1,7 +1,6 @@
-import { getURLParams, defaultLanguage } from '~/common/util'
+import { getURLParams, defaultLanguage, setLocalStorageLanguage } from '~/common/util'
 
 let params = getURLParams()
-
 const state = {
     language: defaultLanguage
 }
@@ -9,12 +8,14 @@ const state = {
 const mutations = {
     setLanguage (state, language) {
         state.language = language
+        setLocalStorageLanguage(language)
     },
     changeLanguage (state, language) {
         params = {
             ...params,
             language
         }
+        setLocalStorageLanguage(language)
         window.location.search = Object.keys(params).map((key, index) => {
             return (
                 index === 0

@@ -5,7 +5,7 @@
             <BreadCrumbs></BreadCrumbs>
             <div id="main-policy" class="main-policy">
                 <h1>
-                    <lang>Coinsprize平台用户服务协议</lang>
+                    Coinsprize平台用户服务协议
                 </h1>
                 <h2>
                     综述
