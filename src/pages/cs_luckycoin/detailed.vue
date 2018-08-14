@@ -234,7 +234,7 @@
                     :data="totalBids"
                     style="width: 100%"
                     :default-sort = "{prop: 'date', order: 'descending'}"
-                    v-if="activeName === 'all' && totalBids.length > 0"
+                    v-show="activeName === 'all' && totalBids.length > 0"
                     :row-class-name="getRowClass"
                 >
                     <el-table-column
