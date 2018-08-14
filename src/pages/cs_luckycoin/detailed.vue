@@ -760,14 +760,14 @@
                 }
                 th{
                     color: #fff;
-                    &.el-table_1_column_2{
+                    &:nth-child(2){
                         text-align: left;
                         text-indent: 162px;
                     }
-                    &.el-table_1_column_3, &.el-table_1_column_4{
+                    &:nth-child(3),&:nth-child(4){
                         text-align: right;
                     }
-                    &.el-table_1_column_3{
+                    &:nth-child(3){
                         div{
                             margin-right: 10px;
                         }
@@ -1352,6 +1352,9 @@
             .item-main{
                 .main-right{
                     color: #a999cb;
+                    a{
+                        color: #a999cb;
+                    }
                 }
                 .main-left{
                     .main-finished{
