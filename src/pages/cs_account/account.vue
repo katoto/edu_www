@@ -223,7 +223,7 @@ export default {
             }
         }
         .btn-more{
-            margin: 0 percentage(35/710);
+            margin: 20px percentage(35/710) 0;
             display: block;
             text-align: center;
             line-height: 45px;

@@ -348,7 +348,13 @@ export default {
             }
         }
         a.win{
+            display: block;
             width: 100% !important;
+        }
+        a.fail{
+            display: block;
+            width: 100% !important;
+            text-align: right;
         }
     }
 </style>
@@ -371,7 +377,7 @@ export default {
         border-radius: 6px;
         .items-myTransactions{
             li{
-                padding: 16px 0 20px 0;
+                padding: 8px 0;
                 .item-re{
                     display: flex;
                     justify-content: space-between;

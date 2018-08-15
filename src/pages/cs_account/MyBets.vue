@@ -392,9 +392,10 @@ export default {
             justify-content: space-around;
             flex-wrap: wrap;
             height: auto;
+            margin-top: 0;
             .el-select{
                 width: 40%;
-                margin: 0 0 15px 0;
+                margin: 0 0 20px 0;
                 .el-input__inner{
                     box-sizing: border-box;
                     width: 100%;
@@ -407,8 +408,8 @@ export default {
             }
         }
         a.win{
+            display: block;
             width: 100% !important;
-            font-size: 10px;
         }
     }
 </style>
@@ -453,15 +454,18 @@ export default {
                 margin: 0 percentage(30/710);
                 text-align: center;
                 .time,.no{
-                    width: percentage(170/660);
+                    width: percentage(150/660);
                     text-align: left;
+                }
+                .no{
+                    font-size: 10px;
                 }
                 .type,.num-box{
                     flex: 1;
                     text-align: center;
                 }
                 .money,.staus{
-                    width: percentage(168/660);
+                    width: percentage(188/660);
                     text-align: center;
 
                 }

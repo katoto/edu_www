@@ -994,16 +994,18 @@
                 background: #f7f9fe;
                 cursor: pointer;
                 transition: all 0.2s;
+                color: #6a89cc;
                 &.on{
                     background: #fff;
                     border-top: 2px solid #263648;
                     border-bottom-color: #fff;
+                    color: #263648;
                 }
             }
         }
         .div-records{
             position: relative;
-            padding: 62/2px percentage(20/710) 73/2px;
+            padding: 62/2px percentage(20/710) 25px;
             background: #fff;
             .btn-tohelp{
                 position: absolute;

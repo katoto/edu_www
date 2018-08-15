@@ -331,7 +331,7 @@
         }
     }
     .h5-information{
-        padding:12px percentage(30/710) 32px;
+        padding:12px percentage(30/710) 25px;
         .small-explain{
             display: block;
             line-height: 23px;
@@ -374,6 +374,7 @@
         }
         .btn-logout{
             display: block;
+            margin-top: 20px;
             border-radius: 6px;
             background: #eef1f9;
             text-align: center;
