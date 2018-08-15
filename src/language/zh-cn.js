@@ -506,7 +506,6 @@ module.exports = {
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
     'Free 0.0001 BTC': 'Free 0.0001 BTC',
     'Win {0} {1}': 'Win {0} {1}',
-    '4. The right of final interpretation of this activity reserved to Coinsprize.com.': '4. The right of final interpretation of this activity reserved to Coinsprize.com.',
     'for free 0.0001 BTC': 'for free 0.0001 BTC',
     'Sign In': 'Sign In',
     'BTC': 'BTC',
