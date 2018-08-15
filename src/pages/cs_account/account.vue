@@ -19,7 +19,7 @@
             </div>
             <!--移动端-->
             <div class="pop-mask hidden-lg" @click="isShowH5SideBar = false" :class="{hide:!isShowH5SideBar}"></div>
-            <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}">
+            <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}" data-msg="Free Bouns">
                <p> {{_(h5NavMsg)}}</p>
                 <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
                     <span></span><span></span><span></span>
@@ -78,6 +78,7 @@ export default {
             this.$store.commit('initHeadState', new Date().getTime())
         },
         changH5Msg (value) {
+            this.isShowH5SideBar = false
             this.$store.commit('cs_account/setH5NavMsg', value)
         }
     },
@@ -189,6 +190,20 @@ export default {
         border-radius: 6px;
         color: #263648;
         font-size: 36/2px;
+        &::before{
+            content: attr(data-msg);
+            display: block;
+            position: absolute;
+            left: 85px;
+            bottom: 70px;
+            border-radius: 2px;
+            background: #36c57a;
+            line-height: 18px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            padding: 0 5px;
+        }
         >p{
             float: left;
         }

@@ -1233,19 +1233,19 @@
                     color: #fff;
                 }
             }
-            &::before{
-                content: '';
-                display: block;
-                position: absolute;
-                right:5px;
-                bottom:40px;
-                width: 10px;
-                height: 10px;
-                background: url(../assets/img/icon-new.png) no-repeat center;
-                background-size: cover;
-                transform-origin: center;
-                transform: rotate(30deg);
-            }
+            /*&::before{*/
+                /*content: '';*/
+                /*display: block;*/
+                /*position: absolute;*/
+                /*right:5px;*/
+                /*bottom:40px;*/
+                /*width: 10px;*/
+                /*height: 10px;*/
+                /*background: url(../assets/img/icon-new.png) no-repeat center;*/
+                /*background-size: cover;*/
+                /*transform-origin: center;*/
+                /*transform: rotate(30deg);*/
+            /*}*/
         }
         &.isShowChoose{
             position: absolute;
