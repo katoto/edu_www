@@ -2,7 +2,7 @@
     <!--bg1 bg2 bg3-->
     <div class="home">
         <Header></Header>
-        <div class="main">
+        <div class="main" @click="initPop">
             <div class="container">
                 <div class="row clearfix">
                     <div class="col-xs-12">
@@ -378,6 +378,10 @@
             formatNum,
             formatMoney (num) {
                 return formatNum(Number(num), 4).toFixed(5)
+            },
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
             },
             async indexRouter (query) {
                 /* 邮箱注册 找回密码  邀请等 */

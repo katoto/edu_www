@@ -473,7 +473,11 @@
                 if (this.isLog) {
                     this.faucetTask()
                 }
-            }, 2000)
+                if (!localStorage.getItem('waterPop') || localStorage.getItem('waterPop') !== (new Date().getDay()).toString()) {
+                    localStorage.setItem('waterPop', new Date().getDay())
+                    this.freeWaterPop = true
+                }
+            }, 0)
         }
     }
 </script>
