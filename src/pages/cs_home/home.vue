@@ -391,7 +391,7 @@
                         console.log(mailBack)
                         if (mailBack) {
                             if (mailBack.status === '100') {
-                                if (parseFloat(mailBack.data.login_times) >= 0 && mailBack.data.invite_status.toString() === '0') {
+                                if (parseFloat(mailBack.data.login_times) >= 0) {
                                     // 显示第一次邀请
                                     this.$store.commit('showFirstLogin', true)
                                 } else {
