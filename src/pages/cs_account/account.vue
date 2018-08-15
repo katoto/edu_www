@@ -4,7 +4,7 @@
         <div class="main" @click="initPop">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Account Center'), path: '/account' }]"></BreadCrumbs>
             <!--侧边栏-->
-            <div class="slide-bar visible-lg" data-msg="Free Bouns">
+            <div class="slide-bar visible-lg" :data-msg="_('Free Bouns')">
                 <ul class="account_Tab">
                     <router-link active-class="on" :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
