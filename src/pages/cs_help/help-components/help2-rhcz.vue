@@ -6,7 +6,7 @@
         <ul>
             <li>
                 <p class="title">
-                    <lang>1. Channels</lang>
+                    <lang>Channels</lang>
                 </p>
                 <p class="msg">
                     <lang>Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, MyEtherWallet, MetaMask, imToken, huobi.com.</lang>
@@ -14,7 +14,7 @@
             </li>
             <li>
                 <p class="title">
-                    <lang>2. Top-Up Confirmation</lang>
+                    <lang>Top-Up Confirmation</lang>
                 </p>
                 <p class="msg">
                     <lang>It usually takes 5 minutes for transaction block to confirm your top-up. If your top-up fails, please contact us through email support@coinsprize.com.</lang>
@@ -22,7 +22,7 @@
             </li>
             <li>
                 <p class="title">
-                    <lang>3. Kind Reminder</lang>
+                    <lang>Kind Reminder</lang>
                 </p>
                 <p class="cicle">
                     ·  <lang>This address is only for BTC transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang> <br>

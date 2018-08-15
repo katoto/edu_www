@@ -6,7 +6,7 @@
         <ul>
             <li>
                 <p class="title">
-                    <lang>1. What is Lucky 11?</lang>
+                    <lang>What is Lucky 11?</lang>
                 </p>
                 <p class="msg">
                     <lang>Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain. Blockchain-based data are featured with its unchangeableness and recognized by the whole network, which means it can completely avoid black box operations. Thus, issues like information asymmetry or non-transparency could be addressed to give players a game platform with maximum fairness they have never enjoyed before.</lang>
@@ -17,7 +17,7 @@
             </li>
             <li>
                 <p class="title">
-                    <lang>2. How to play the game?</lang>
+                    <lang>How to play the game?</lang>
                 </p>
                 <p class="msg">
                     <lang>Players will pick 1-5 numbers from 1 to 11. Players win the reward when the chosen numbers are in line with that of the draw result:</lang><br>
@@ -36,7 +36,7 @@
             </li>
             <li>
                 <p class="title">
-                    <lang>3. How to win the game?</lang>
+                    <lang>How to win the game?</lang>
                 </p>
                 <p class="msg">
                     <lang>After closing the bet, all the betting information will be calculated through the Merkle Tree to get the Merkle number. And the Merkle number will be uploaded to the Ethereum, then get the hash value of this transaction's block. </lang>
@@ -45,16 +45,16 @@
             </li>
             <li>
                 <p class="title">
-                    <lang>4. How to ensure fairness?</lang>
+                    <lang>How to ensure fairness?</lang>
                 </p>
                 <p class="msg">
-                    ① <lang>Unchangeable betting information</lang><br/>
+                    1. <lang>Unchangeable betting information</lang><br/>
                     <lang>The draw result is based on hash value which was calculated from Merkle number. Since Merkle number has already uploaded to the Ethereum chain, the information cannot be modified.</lang><br/>
-                    ② <lang>Fair draw</lang><br/>
+                    2. <lang>Fair draw</lang><br/>
                     <lang>The draw numbers are selected from hash value, due to its unpredictability and unchangeableness, the fair draw can be assured.</lang><br/>
-                    ③ <lang>Fair reward</lang><br/>
+                    3. <lang>Fair reward</lang><br/>
                     <lang>Both draw and reward distribution are based on Ethereum chain. Thus, there is no chance for the platform to interfere. All information and process is transparent and fair.</lang><br/>
-                    ④ <lang>No robot</lang><br/>
+                    4. <lang>No robot</lang><br/>
                     <lang>Since all process is transparent and unchangeable, the platform cannot use any robot to do black box operations. The game is utterly fair.</lang><br/>
                 </p>
             </li>

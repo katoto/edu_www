@@ -203,7 +203,7 @@
                                 <lang>Insufficient Balance</lang>
                             </p>
                             <p class="bet-m">
-                                <lang>please top up first.</lang>
+                                <lang>Please top up first.</lang>
                             </p>
                             <router-link :to="{path: '/account/deposit'}" class="btn-balance">
                                 <lang>Top Up</lang>

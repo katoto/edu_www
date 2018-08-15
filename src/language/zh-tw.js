@@ -482,9 +482,7 @@ module.exports = {
     'After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.': '當壹個場次籌齊人次時，遊戲將所有本期投註信息進行Merkle Tree計算，得出Merkel number，並將Merkel number上傳至以太鏈；',
     'By using hexadecimal, the last 6 characters of the hash value will convert into a number.Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.': '信息打包上鏈生成的Hash值，使用最後六個十六進制數轉成十進制數，然後對該十進制數進行求余，將余數加上10001即得到最終的開獎結果。用戶可以隨時在etherscan.io裏查驗開獎哈希，它是十分透明公開和公平地。',
     'If the bidding times did not sold out within 7 days, the draw won\'t proceed and the system will return your bidding payment to your wallet.': '當壹個場次在7天內尚未籌齊人次時，系統將會退款給參與該場次的用戶。',
-
-    '1、Email': '1、郵件聯系',
-    '2、Telegram': '2、電報群交流',
+    'Telegram': '電報群交流',
     'To offer you a better and quick solution, please send the email to us with the information below:': '為了更好更快地解決您的疑問，建議您的郵件裏包含以下信息，我們將盡快聯系您：',
     'Your account\'s email': '您的賬戶郵箱賬號',
     'Describe your problems in detail': '問題詳細描述',

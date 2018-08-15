@@ -6,13 +6,13 @@
         <ul>
             <li>
                 <p class="title">
-                    <lang>1、Email</lang>
+                    <lang>Email</lang>
                 </p>
                 <p class="msg">
                     <lang>To offer you a better and quick solution, please send the email to us with the information below:</lang><br>
-                    ① <lang>Your account's email</lang><br>
-                    ② <lang>Describe your problems in detail</lang><br>
-                    ③ <lang>The screenshot of the problem page</lang><br>
+                    1. <lang>Your account's email</lang><br>
+                    2. <lang>Describe your problems in detail</lang><br>
+                    3. <lang>The screenshot of the problem page</lang><br>
                     <span v-if="language!=='en'">通用咨询：support@coinslot.com <br></span>
                     <span v-else>General：support@coinslot.com <br></span>
                     <lang>Lucky11 Issues</lang>：lucky11@coinslot.com<br>
@@ -21,7 +21,7 @@
             </li>
             <li>
                 <p class="title">
-                    <lang>2、Telegram</lang>
+                    <lang>Telegram</lang>
                 </p>
                 <p class="msg">
                     Coinslot: t.me/coinslotoffice<br>

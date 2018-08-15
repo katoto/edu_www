@@ -6,7 +6,7 @@
         <ul>
             <li>
                 <p class="title">
-                    <lang>1. Withdrawal Limit</lang>
+                    <lang>Withdrawal Limit</lang>
                 </p>
                 <p class="msg">
                     <lang>Maximum Withdrawal = 1/10 * Effective Bet Amount + All Former Withdrawal Amount</lang>
@@ -17,7 +17,7 @@
             </li>
             <li>
                 <p class="title">
-                    <lang>2. Withdrawable Issues</lang>
+                    <lang>Withdrawable Issues</lang>
                 </p>
                 <p class="msg">
                     <lang>All top-up is withdrawable</lang>
