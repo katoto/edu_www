@@ -301,7 +301,7 @@
                     @current-change="handleAllBidsChange"
                     :current-page.sync="pageno"
                     :page-size="pageSize"
-                    :total="PageTotal"
+                    :page-count="PageTotal"
                     layout="prev, pager, next"
                     :next-text="_('Next >')"
                     :prev-text="_('< Front')"
