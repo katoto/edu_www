@@ -21,18 +21,43 @@
                 </p>
                 <p class="msg">
                     <lang>Players will pick 1-5 numbers from 1 to 11. Players win the reward when the chosen numbers are in line with that of the draw result:</lang><br>
-                    <lang>Pick 1 number, players have 5/11 of the win probability with 1.8 times return.</lang><br>
-                    <lang>Pick 2 numbers, players have 1/5.5 of the win probability with 4.5 times return.</lang><br>
-                    <lang>Pick 3 numbers, players have 1/16.5 of the win probability with 13.5 times return.</lang><br>
-                    <lang>Pick 4 numbers, players have 1/66 of the win probability with 54 times return.</lang><br>
-                    <lang>Pick 5 numbers, players have 1/462 of the win probability with 378 times return.</lang><br>
-                    <!--Lucky11玩法，用户从01至11的号码选1个或者多个（至多5个）号码组成一组号码，若开奖数字与所选号码一致，则用户获得对应奖励：<br>-->
-                    <!--从11个号码中任选1个号码的投注为"任选一"，中奖概率5/11，中奖回报1.8倍；<br>-->
-                    <!--选2个号码的投注分为"任选二"，中奖概率1/5.5，中奖回报4.5倍；<br>-->
-                    <!--选3个号码的投注分为"任选三"，中奖概率1/16.5，中奖回报13.5倍；<br>-->
-                    <!--选4个号码的投注为"任选四"，中奖概率1/66，中奖回报54倍；<br>-->
-                    <!--选5个号码的投注为"任选五"，中奖概率1/462，中奖回报378倍；<br>-->
                 </p>
+                <table class="msgTable">
+                    <thead>
+                    <tr>
+                        <th><lang>Type</lang></th>
+                        <th><lang>Winning Probability</lang></th>
+                        <th><lang>Return</lang></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><lang>Pick 1</lang></td>
+                            <td>5/11</td>
+                            <td>1.8x</td>
+                        </tr>
+                        <tr>
+                            <td><lang>Pick 2</lang></td>
+                            <td>1/5.5</td>
+                            <td>4.5x</td>
+                        </tr>
+                        <tr>
+                            <td><lang>Pick 3</lang></td>
+                            <td>1/16.5</td>
+                            <td>13.5x</td>
+                        </tr>
+                        <tr>
+                            <td><lang>Pick 4</lang></td>
+                            <td>1/66</td>
+                            <td>54x</td>
+                        </tr>
+                        <tr>
+                            <td><lang>Pick 5</lang></td>
+                            <td>1/462</td>
+                            <td>378x</td>
+                        </tr>
+                    </tbody>
+                </table>
             </li>
             <li>
                 <p class="title">
@@ -76,5 +101,14 @@
         }
     }
 </script>
-<style scoped lang="less">
+<style scoped lang="less" type="text/less">
+    .msgTable{
+        margin: 14px ;
+        width: 400px !important;
+    }
+    .msgTable,.msgTable td,.msgTable th{
+        border: 1px solid #282828;
+        color: #282828;
+        height: 34px;
+    }
 </style>
