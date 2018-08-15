@@ -36,7 +36,7 @@
                 <lang>3. The amount of free ETH is limited. First come, first served.</lang>
             </p>
             <p>
-                <lang>4. The right of final interpretation of this activity reserved to Coinslot.com.</lang>
+                <lang>4. The right of final interpretation of this activity reserved to Coinsprize.com.</lang>
             </p>
         </div>
     </Pop>
