@@ -47,7 +47,7 @@
                         <div class="icon-box hot bet">
                             <i class="icon-hot" v-if="goodsinfo.ishot === '1'">H</i>
                             <i class="icon-youbet" v-if="betMoney !== 0">
-                                {{ _('You have been Bet {0} {1}', betMoney, coinText) }}
+                                <lang>Paid</lang>
                             </i>
                         </div>
                         <div class="item-prize">
@@ -109,7 +109,7 @@
                                         <lang>Draw expired.</lang>
                                     </span>
                                     <p>
-                                        {{_('Your {0} {1} has been refunded.', betMoney, coinText)}}
+                                        {{_('Draw expired. {0} {1} has been refunded.', betMoney, coinText)}}
                                     </p>
                                 </div>
                                 <div class="main-expired" v-else-if="goodsinfo.state === '5'">
@@ -117,7 +117,7 @@
                                         <lang>Draw expired.</lang>
                                     </span>
                                     <p>
-                                        <lang>User's payment has been refunded.</lang>
+                                        <lang>Draw expired. Your payment has been refunded.</lang>
                                     </p>
                                 </div>
                             </div>
@@ -169,7 +169,10 @@
                                 <lang>Bid Successful</lang>
                             </p>
                             <p class="bet-m">
-                                {{ _('You get five numbers obtained bonus {0}{1}. The more bets, the higher the probability of winning, I wish you good luck~ ', goodsinfo.goodsValue, coinText) }}
+                                {{ this.betNum === 1
+                                    ? _('You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.betData.goodsValue, this.coinText)
+                                    : _('You have bought {2} bids. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.betData.goodsValue, this.coinText, this.betNum)
+                                }}
                             </p>
                             <div class="btn-box">
                                 <a href="javascript:;" class="bet-btnV" @click="activeName = 'my', showSuccess = false">
@@ -229,7 +232,7 @@
                 >
                     <el-table-column
                         prop="crtime"
-                        :label="_('Bet Time')"
+                        :label="_('Time')"
                         sortable
                         width="137"
                     >
@@ -257,7 +260,7 @@
                     </el-table-column>
                     <el-table-column
                         prop="number"
-                        :label="_('Bet number')"
+                        :label="_('Number')"
                         width="274"
                     >
                          <template slot-scope="scope">
@@ -268,12 +271,12 @@
                     </el-table-column>
                 </el-table>
                 <div class="mybets" v-if="myNumbers.length > 0 && activeName === 'my'">
-                    <p class="msg1">
+                    <p class="msg1 hide">
                         {{ _('A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!', betMoney, coinText, myNumbers.length) }}
                     </p>
                     <div class="item-number">
                         <p>
-                            {{mybetTime}}   {{ _('You bet {0} {1} to get {2} numbers', betMoney, coinText, myNumbers.length) }}
+                            {{mybetTime}}   {{ _('{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!', betMoney, coinText, myNumbers.length) }}
                         </p>
                         <ul>
                             <li v-for="(item, index) in winSort(myNumbers)" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
@@ -357,6 +360,7 @@
                 betMoney: 0,
                 betValue: 0,
                 canBuyValue: 0,
+                betNum: 0,
                 isBlinking: false,
                 showSuccess: false,
                 showFail: false,
@@ -509,9 +513,10 @@
                 }
                 let value = this.betValue
                 value = (value === '' ? this.goodsinfo.bidValue : Number(value))
+                this.betNum = accDiv(value, this.goodsinfo.bidValue)
                 this.betNow({
                     cointype: this.coinType,
-                    codestr: `${this.number}|${this.coinType}|${accDiv(value, this.goodsinfo.bidValue)}|${this.goodsinfo.bidValue}`
+                    codestr: `${this.number}|${this.coinType}|${this.betNum}|${this.goodsinfo.bidValue}`
                 })
                     .then(() => {
                         this.refresh()
@@ -1493,7 +1498,6 @@
                 font-size: 16px;
                 color: #000000;
                 &.win{
-                    font-weight: bold;
                     color: #f1b545;
                 }
             }
@@ -1540,7 +1544,6 @@
                 line-height: 28px;
                 font-size: 16px;
                 &.win{
-                    font-weight: bold;
                     color: #f1b545;
                 }
             }

@@ -221,6 +221,10 @@ export default {
             type: String,
             required: true
         },
+        status: {
+            type: String,
+            required: true
+        },
         result: {
             type: Array,
             required: true
@@ -265,10 +269,11 @@ export default {
                 }).then(res => {
                     if (res.data.detail.expect_status === '4' || res.data.detail.expect_status === '5') {
                         this.renderCheckData(res.data.detail)
-                        return res
                     } else {
-                        return Promise.reject(new Error('waitting'))
+                        let thisStatus = 'wait'
+                        this.$emit('update:status', thisStatus)
                     }
+                    return res
                 })
             )
         },

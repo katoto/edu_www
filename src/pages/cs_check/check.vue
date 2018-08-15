@@ -27,9 +27,12 @@
                     <h3><lang>Draw Result</lang></h3>
                     <div class="result-view">
                         <!--lucky11-->
-                        <ul v-if="params.type === 'lucky11'">
+                        <ul v-if="params.type === 'lucky11' && lucky11Status !== 'wait'">
                             <li v-for="(item, index) in luck11Result" :key="index">{{item}}</li>
                         </ul>
+                        <div v-else-if="params.type === 'lucky11' && lucky11Status === 'wait'">
+                            <lang>waiting</lang>
+                        </div>
                         <!--LuckyCoin-->
                         <!--luckyCoinStatus: normal 已开奖，wait 未开奖，expired 过期 -->
                         <div v-if="params.type === 'luckycoin'" :class="[luckyCoinStatus]">
@@ -59,10 +62,10 @@
                 </div>
             </div>
             <!--输入前-->
-            <p class="before-input" :class="{ hide: isChecked }"><lang>Enter the issue number to view the verification details</lang></p>
+            <p class="before-input hide" :class="{ hide: isChecked }"><lang>Enter the issue number to view the verification details</lang></p>
             <!--输入后-->
             <div class="after-input" :class="{ hide: !isChecked }">
-                <lucky11 :number="number" :result.sync="luck11Result" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
+                <lucky11 :number="number" :result.sync="luck11Result" :status.sync="lucky11Status" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
                 <luckycoin :number="number" :result.sync="luckyCoinResult" :status.sync="luckyCoinStatus" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
                 <div class="relate-msg">
                     <p><lang>Notes</lang></p>
@@ -94,6 +97,7 @@
         data () {
             return {
                 luck11Result: [],
+                lucky11Status: '',
                 luckyCoinResult: '',
                 luckyCoinStatus: '',
                 issueNumber: '',
