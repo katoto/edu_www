@@ -414,7 +414,7 @@ module.exports = {
     'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
     '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票开奖结果|信息|公告|记录 - Coinsprize',
     '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11开奖结果,{0} 11开奖信息,{0} 11开奖公告,{0} 11开奖记录',
-    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of Lucky11 can be checked on this page.': '{0}高频彩票是Coinslot公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到lucky 11的最新开奖结果、信息、公告、和往期记录等。',
+    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of Lucky11 can be checked on this page.': '{0}高频彩票是coinsprize公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到lucky 11的最新开奖结果、信息、公告、和往期记录等。',
 
     /*  seo end */
 
@@ -443,7 +443,7 @@ module.exports = {
     '2. Top-Up Confirmation': '2. 充值到账时间',
     '3. Kind Reminder': '3. 充值注意事项',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, MyEtherWallet, MetaMask, imToken, huobi.com.': '建议您使用正规安全的ETH钱包或者交易平台，推荐： Mist，MyEtherWallet、MetaMask、IMToken、huobi.com 等。',
-    'It usually takes 5 minutes for transaction block to confirm your top-up. If your top-up fails, please contact us through email support@coinsprize.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@coinslot.com。',
+    'It usually takes 5 minutes for transaction block to confirm your top-up. If your top-up fails, please contact us through email support@coinsprize.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@coinsprize.com。',
     'Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.': '您充值至上述地址后，需要整个网络节点的确认，1次网络确认后到账，6次网络确认后可提币。',
     'Minimum top-up：0.0001 BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.': '建议最小充值金额：0.0001BTC ，小于最小金额的充值可能无法顺利到账且无法退回。',
     '1. How to Withdraw': '1. 提款方式',
@@ -506,7 +506,7 @@ module.exports = {
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
     'Free 0.0001 BTC': 'Free 0.0001 BTC',
     'Win {0} {1}': 'Win {0} {1}',
-    '4. The right of final interpretation of this activity reserved to Coinslot.com.': '4. The right of final interpretation of this activity reserved to Coinslot.com.',
+    '4. The right of final interpretation of this activity reserved to Coinsprize.com.': '4. The right of final interpretation of this activity reserved to Coinsprize.com.',
     'for free 0.0001 BTC': 'for free 0.0001 BTC',
     'Sign In': 'Sign In',
     'BTC': 'BTC',
@@ -517,7 +517,7 @@ module.exports = {
     /* 水龙头未翻译 end */
 
     /* 验证页面 start */
-    'Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.': '欢迎来到Coinslot，开启全新的博彩体验！Coinslot是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
+    'Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.': '欢迎来到coinsprize，开启全新的博彩体验！coinsprize是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
     'Games': '游戏',
     'Lucky 11': '幸运11',
     'Lucky11 issues:': 'Lucky11问题:',
@@ -587,7 +587,7 @@ module.exports = {
     'Currently,  popular coins ETH and BTC are supported on the platform to bid, top up and withdraw. More coins will be supported in the near future.': '当前游戏支持最受欢迎的比特币和以太币进行投注、存款和提款，未来还将接受更多加密数字货币，敬请期待',
     'Support Mobile APP': '支持移动端设备',
     'Enjoy conveniece and fun from quick bid and fair play at any time & any where.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。欢迎下载Android版本，iOS版本敬请期待',
-    'Finally! You found the wonderland---- Coinslot, a blockchain-based game platform with fairness and openness': '欢迎来区块链游戏平台',
+    'Finally! You found the wonderland---- Coinsprize, a blockchain-based game platform with fairness and openness': '欢迎来区块链游戏平台',
     'Unique play & transparent draw Only for your terrific experience in games': '公平透明的开奖算法，带您开启前所未有的游戏体验',
 
     'Bids:': '开奖进度:',

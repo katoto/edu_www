@@ -357,7 +357,7 @@
                 },
                 banner: [
                     {
-                        t1: _('Finally! You found the wonderland---- Coinslot, a blockchain-based game platform with fairness and openness'),
+                        t1: _('Finally! You found the wonderland---- Coinsprize, a blockchain-based game platform with fairness and openness'),
                         t2: _('Unique play & transparent draw Only for your terrific experience in games'),
                         href: '/check'
                     }
