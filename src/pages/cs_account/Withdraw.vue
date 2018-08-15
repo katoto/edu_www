@@ -20,7 +20,7 @@
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                 <div class="mark-view" :class="{on:ShowMarkView}">
                                     {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
-                                    &nbsp;<a href="javascript:;"><lang>Details</lang></a>
+                                    &nbsp;<a href="javascript:;" @click="jump2help"><lang>Details</lang></a>
                                 </div>
                             </i>
                         </p>
@@ -327,6 +327,9 @@
         methods: {
             formateBalance,
             formateCoinType,
+            jump2help () {
+                this.$router.push('/help/helpView/1/2')
+            },
             withdrawSizeChange (size) {
                 this.pageSize = size
                 this.handleCurrentChange()

@@ -385,7 +385,7 @@ module.exports = {
     'Copy Address': '复制链接',
     'Tip: This address is only for ETH top-up, do not choose another type of coins': '温馨提示：只支持ETH地址转账，请仔细检查地址是否正确',
     'Tip: This address is only for BTC top-up, do not choose another type of coins': '温馨提示：只支持BTC地址转账，请仔细检查地址是否正确',
-    'The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need {0}{1} water strip': '满足流水条件即可提取赠送金额,还需{0}{1}流水解锁',
+    'Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!': '满足流水条件即可提取赠送金额,还需{0}{1}流水解锁',
 
     'Only support {0} wallet': '仅支持{0}地址转账，请仔细检查地址是否正确',
 
