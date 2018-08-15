@@ -1,13 +1,13 @@
 <template>
     <div class="footer">
-        <div class=" container">
-            <div class="reserved col-xs-12 col-md-4">
+        <div class="main">
+            <div class="reserved">
                 <p>
                     <lang>Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.</lang>
                 </p>
             </div>
-            <div class="col-md-4 clearfix">
-                <div class="about col-xs-6 col-md-6">
+            <div class="foot-mid clearfix">
+                <div class="about">
                     <div class="title">
                         <lang>General</lang>
                     </div>
@@ -21,7 +21,7 @@
                         <lang>Help Center</lang>
                     </router-link>
                 </div>
-                <div class="game col-xs-6 col-md-6">
+                <div class="game">
                     <div class="title">
                         <lang>Games</lang>
                     </div>
@@ -39,7 +39,7 @@
                     </a>
                 </div>
             </div>
-            <div class="contact col-md-4">
+            <div class="contact">
                 <div class="title">
                     <lang>Contact Us</lang>
                 </div>
@@ -148,7 +148,6 @@
 </script>
 <style lang="less" scoped type="text/less">
     @import "../styles/lib-public.less";
-    @import "../styles/lib-media.less";
 
     .footer {
         position: relative;
@@ -183,16 +182,25 @@
             }
         }
         .reserved {
+            box-sizing: border-box;
+            float: left;
+            width: 460px;
             padding-right: 45px;
         }
-        .about,
-        .game {
-            overflow: hidden;
-            a {
-                display: block;
+        .foot-mid{
+            width: 390px;
+            float: left;
+            .about,
+            .game {
+                width: 50%;
+                float: left;
+                a {
+                    display: block;
+                }
             }
         }
         .contact {
+            overflow: hidden;
             a {
                 color: #6f88cb;
             }
@@ -263,25 +271,30 @@
     @media (max-width: @screen-tablet) {
         .footer{
             height: 620px;
-            padding: 0 4% 0;
+            padding: 0 percentage(30/750) 0;
             line-height: 20px;
             .title {
                 margin-top: 17/2px;
+                margin-bottom: 0;
                 line-height: 57/2px;
                 font-size: 18px;
             }
             .reserved {
+                width: 100%;
                 padding: 55/2px 0 0 0;
             }
-            .about,
-            .game {
-                a{
-                    line-height: 24px;
-                    font-size: 14px;
+            .foot-mid{
+                width: 100%;
+                .about,
+                .game {
+                    a{
+                        line-height: 24px;
+                        font-size: 14px;
+                    }
                 }
             }
-
             .contact {
+                width: 100%;
                 text-align: left;
                 p{
                     line-height: 24px;

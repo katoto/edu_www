@@ -37,7 +37,8 @@
                 <router-link to="/" title="Coinsprize" class="logo">
                     <img src="../assets/img/CoinsprizeLogo.png" alt="CoinsprizeLogo">
                 </router-link>
-                <div class="choose-play icon-Luckycoin icon-slot" >
+                <!-- icon-slot -->
+                <div class="choose-play icon-Luckycoin " >
                     <router-link :to="{path: '/lucky11'}">
                         <lang>Lucky 11</lang>
                     </router-link>
@@ -104,10 +105,10 @@
                                     </div>
                                 </div>
 
-                                <router-link :to="{path: '/account/myBets'}"  class="my-transaction">
+                                <router-link @click.native="changH5Msg('My Bets')" :to="{path: '/account/myBets'}"  class="my-transaction">
                                     <lang>My Bets</lang>
                                 </router-link>
-                                <router-link :to="{path: '/account/general'}" class="account-center">
+                                <router-link @click.native="changH5Msg('General')" :to="{path: '/account/general'}" class="account-center">
                                     <lang>Account Center</lang>
                                 </router-link>
                                 <div class="currency-select">
@@ -240,7 +241,6 @@
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
-
     Vue.use(vueClipboard)
 
     export default {
@@ -445,6 +445,9 @@
             },
             onLoginIn () {
                 this.$store.commit('showLoginPop')
+            },
+            changH5Msg (value) {
+                this.$store.commit('cs_account/setH5NavMsg', value)
             }
         },
         filters: {
@@ -481,83 +484,9 @@
         }
     }
 </script>
-<style scoped lang="less" rel="stylesheet/less">
+<style scoped lang="less" type="text/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
-    .btn-comeTom{
-        display: block;
-        width: 133px;
-        height: 35px;
-        overflow: hidden;
-        text-align: center;
-        line-height: 35px;
-        border-radius: 6px;
-        font-size: 14px;
-        cursor: default;
-        color: #263648;
-    }
-    .btn-signDay{
-        display: block;
-        width: 83px;
-        height: 35px;
-        overflow: hidden;
-        text-align: center;
-        line-height: 35px;
-        border-radius: 6px;
-        font-size: 14px;
-        cursor: default;
-        color: #263648;
-    }
-    .newFirst{
-        position: absolute;
-        top:26px;
-        left:39%;
-        margin-left:-118px;
-        z-index:99;
-        &:before{
-            content: '';
-            display: block;
-            width:0;
-            height:0;
-            margin:0 auto;
-            border-left:5px solid transparent;
-            border-right:5px solid transparent;
-            border-top:7px solid transparent;
-            border-bottom:7px solid #fff;
-        }
-        .msg{
-            box-sizing: border-box;
-            width:250px;
-            height: 52px;
-            overflow: hidden;
-            line-height:20px;
-            font-size:14px;
-            color: #263648;
-            box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
-            border-radius: 6px;
-            background: #fff;
-            p{
-                padding: 5px 0px 2px 8px;
-                text-align: center;
-            }
-            .btn-luck{
-                display: inline-block;
-                width: 100%;
-                text-align: center;
-            }
-        }
-    }
-    .light {
-       animation: brightness 1.5s;
-    }
-    @keyframes brightness {
-        0%,30%,50%,70%,100%{
-            filter:brightness(1);
-        }
-        20%,40%,60%,80%{
-            filter:brightness(1.8);
-        }
-    }
     .banner{
         display: none;
     }
@@ -1564,3 +1493,7 @@
     }
 </style>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> h5

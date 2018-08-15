@@ -1,39 +1,42 @@
 <template>
-    <div class="withdrawal">
-        <h2>
-            <lang>withdraw</lang>
-        </h2>
-        <a href="javascript:;" class="withdraw"><lang>How to withdraw ?</lang></a>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane :label="_('Request')" name="Request">
-                <li class="li-records">
-                    <div class="item chose-coin ">
+    <div>
+        <div class="withdrawal visible-lg">
+            <h2>
+                <lang>withdraw</lang>
+            </h2>
+            <router-link class="withdraw" :to="{path:'/help/helpView/1/1'}">
+                <lang>How to withdraw ?</lang>
+            </router-link>
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane :label="_('Request')" name="Request">
+                    <li class="li-records">
+                        <div class="item chose-coin ">
                         <div class="fl210 "><lang>Select Coin</lang></div>
-                        <p>
-                            <el-select v-model="tranOptionVal" @change="changeCoin">
-                                <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
-                                           :label="formateCoinType(item.cointype)" :value="item">
-                                </el-option>
-                            </el-select>
+                            <p>
+                                <el-select v-model="tranOptionVal" @change="changeCoin">
+                                    <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
+                                               :label="formateCoinType(item.cointype)" :value="item">
+                                    </el-option>
+                                </el-select>
                             <lang>Balance</lang>:{{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }} &nbsp;
                             <lang>Withdrawable Amount</lang>:{{ formateBalance_sub(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
-                                <div class="mark-view" :class="{on:ShowMarkView}">
+                                    <div class="mark-view" :class="{on:ShowMarkView}">
                                     {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
                                     &nbsp;<a href="javascript:;" @click="jump2help"><lang>Details</lang></a>
-                                </div>
-                            </i>
-                        </p>
-                    </div>
-                    <div class="wallet-add">
-                        <div class="fl210">
-                            <lang>Wallet Address</lang>
+                                    </div>
+                                </i>
+                            </p>
                         </div>
-                        <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
-                        <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
-                    </div>
-                    <div class="item pick-up">
-                        <div class="fl210">
+                        <div class="wallet-add">
+                            <div class="fl210">
+                                <lang>Wallet Address</lang>
+                            </div>
+                            <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
+                            <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
+                        </div>
+                        <div class="item pick-up">
+                            <div class="fl210">
                             <span class="css_withdraw_tips">
                                 <lang>Withdrawal Amount</lang>
                             </span>
@@ -44,97 +47,218 @@
                                 <span v-else class="css_withdraw_total">
                                 <lang>at least</lang> {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}
                             </span>
-                            </template>
-                        </div>
-                        <input v-model="withdrawAmount" autocomplete="off" type="text">
-                        <span @click="checkMaximum" class="css_withdraw_topMoney hide">
+                                </template>
+                            </div>
+                            <input v-model="withdrawAmount" autocomplete="off" type="text">
+                            <span @click="checkMaximum" class="css_withdraw_topMoney hide">
                             <lang>Maximum</lang>
                         </span>
-                    </div>
-                    <div class="item account-psw">
-                        <div class="fl210">
-                            <lang>Account Password</lang>
                         </div>
-                        <input v-model="withdrawPsw" autocomplete="new-password" type="password">
+                        <div class="item account-psw">
+                            <div class="fl210">
+                                <lang>Account Password</lang>
+                            </div>
+                            <input v-model="withdrawPsw" autocomplete="new-password" type="password">
+                        </div>
+                        <p class="fee">
+                            <lang>Fee</lang>&ensp;
+                            <i v-if="currBalance">{{ currBalance.fee }}</i><i>{{formateCoinType(currBalance.cointype) }}</i>
+                        </p>
+                        <button @click="sendDraw">
+                            <lang>Withdraw</lang>
+                        </button>
+                    </li>
+                </el-tab-pane>
+                <el-tab-pane :label="_('Records')" name="Records">
+                    <li class="li-request">
+                        <section class="cs-select">
+                            <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
+                                <el-option v-for="item in withdrawOptions" :key="item.value" :label="item.label"
+                                           :value="item.value">
+                                </el-option>
+                            </el-select>
+                            <el-select v-model="withdrawTimeOptionVal" @change="handleStatusChange">
+                                <el-option v-for="item in withdrawTimeOptions" :key="item.value" :label="item.label"
+                                           :value="item.value">
+                                </el-option>
+                            </el-select>
+
+                            <!-- btc -->
+                            <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                                <el-option v-for="item in ethOptions" :key="item.value" :label="item.label"
+                                           :value="item.value">
+                                </el-option>
+                            </el-select>
+
+                        </section>
+                        <template>
+                            <el-table :data="orderList" stripe size="small" highlight-current-row style="width: 100%">
+                                <el-table-column align="center" header-align="center" type="index" :label="_('No. ')">
+                                </el-table-column>
+                                <el-table-column align="center" header-align="center" prop="drawtime"
+                                                 :label="_('Transaction Time ')">
+                                </el-table-column>
+                                <el-table-column align="center" header-align="center" :label="_('Transaction Address')">
+                                    <template slot-scope="scope">
+                                        <div v-html="scope.row.to_addrHtml"></div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column align="center" header-align="center" prop="cointype" :label="_('Type ')">
+                                </el-table-column>
+                                <el-table-column align="center" header-align="center" prop="drawmoney" :label="_('Amount')">
+                                </el-table-column>
+                                <el-table-column align="center" header-align="center" prop="drawfee" :label="_('Fee')">
+                                </el-table-column>
+                                <el-table-column align="center" header-align="center" prop="drawstatus"
+                                                 :label="_('Status')">
+                                </el-table-column>
+                                <el-table-column align="center" header-align="center" prop="balance" :label="_('Balance')">
+                                </el-table-column>
+                            </el-table>
+                            <div class="pagination">
+                                <el-pagination @current-change="handleCurrentChange"
+                                               @size-change="withdrawSizeChange"
+                                               background :current-page.sync="pageno"
+                                               size="small"
+                                               :page-sizes="[10, 25, 50, 100]"
+                                               :page-size="pageSize"
+                                               layout="sizes,prev, pager, next,jumper"
+                                               :total="PageTotal"
+                                               :next-text="_('Next >')" :prev-text="_('< Front')">
+                                </el-pagination>
+                            </div>
+                        </template>
+                    </li>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
+        <div class="h5-withdrawal hidden-lg">
+            <div class="tab">
+                <ul>
+                    <li :class="{on:h5activeName == 'Request'}"  @click="h5activeName= 'Request'">
+                        <lang>Request</lang>
+                    </li>
+                    <li :class="{on:h5activeName == 'Records'}" @click="h5activeName= 'Records'">
+                        <lang>Records</lang>
+                    </li>
+                </ul>
+            </div>
+            <div class="div-records" v-if="h5activeName=='Request'">
+                <router-link class="btn-tohelp" :to="{path:'/help/helpView/1/1'}">
+                </router-link>
+                <div class="chose-coin">
+                    <div class="tips">
+                        <lang>Select Currency</lang>
                     </div>
-                    <p class="fee">
-                        <lang>Fee</lang>&ensp;
-                        <i v-if="currBalance">{{ currBalance.fee }}</i><i>{{formateCoinType(currBalance.cointype) }}</i>
+                    <el-select v-model="tranOptionVal" @change="changeCoin">
+                        <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
+                                   :label="formateCoinType(item.cointype)" :value="item">
+                        </el-option>
+                    </el-select>
+                    <p>
+                        <lang>Current balance</lang>
+                        <i>
+                            {{ formateBalance(currBalance.balance) }}
+                            {{formateCoinType(currBalance.cointype) }}
+                        </i>
                     </p>
-                    <button @click="sendDraw">
-                        <lang>Withdraw</lang>
-                    </button>
-                </li>
-            </el-tab-pane>
-            <el-tab-pane :label="_('Records')" name="Records">
-                <li class="li-request">
-                    <section class="cs-select">
-                        <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
-                            <el-option v-for="item in withdrawOptions" :key="item.value" :label="item.label"
-                                       :value="item.value">
-                            </el-option>
-                        </el-select>
-                        <el-select v-model="withdrawTimeOptionVal" @change="handleStatusChange">
-                            <el-option v-for="item in withdrawTimeOptions" :key="item.value" :label="item.label"
-                                       :value="item.value">
-                            </el-option>
-                        </el-select>
+                </div>
+                <div class="item wallet-add">
+                    <div class="tips">
+                        <p><lang>Wallet Address</lang></p>
+                        <p class="orange">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
+                    </div>
+                    <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
+                </div>
+                <div class="item pick-up ">
+                    <div class="tips">
+                        <p>
+                            <lang>Withdrawal Amount</lang>
+                        </p>
+                        <p v-if="currBalance" style="color: #778ca3;">
+                            <span v-if=" Number( currBalance.balance)> parseFloat(currBalance.draw_limit) ">
+                                {{ currBalance.draw_limit }} ~
+                            <span>{{ formateBalance( parseFloat(currBalance.balance)-parseFloat(currBalance.fee) ) }}</span>
+                                {{ formateCoinType( currBalance.cointype ) }}
+                            </span>
+                            <span v-else>
+                                <lang>at least {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}</lang>
+                            </span>
+                        </p>
+                    </div>
+                    <input v-model="withdrawAmount" autocomplete="off" type="text">
+                </div>
+                <div class="item account-psw ">
+                    <div class="tips">
+                        <p>
+                            <lang>Account Password</lang>
+                        </p>
+                        <p style="color: #778ca3;">
+                            <lang>Fee</lang>&ensp;
+                            <i v-if="currBalance">{{ currBalance.fee }}{{formateCoinType(currBalance.cointype) }}</i>
+                        </p>
+                    </div>
+                    <input v-model="withdrawPsw" autocomplete="new-password" type="password">
+                </div>
+                <button @click="sendDraw">
+                    <lang>Withdraw</lang>
+                </button>
+            </div>
+            <div class="div-request" v-else>
+                <section class="cs-select">
+                    <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
+                        <el-option v-for="item in withdrawOptions" :key="item.value" :label="item.label"
+                                   :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-model="withdrawTimeOptionVal" @change="handleStatusChange">
+                        <el-option v-for="item in withdrawTimeOptions" :key="item.value" :label="item.label"
+                                   :value="item.value">
+                        </el-option>
+                    </el-select>
 
-                        <!-- btc -->
-                        <el-select v-model="ethOptionVal" @change="handleStatusChange">
-                            <el-option v-for="item in ethOptions" :key="item.value" :label="item.label"
-                                       :value="item.value">
-                            </el-option>
-                        </el-select>
+                    <!-- btc -->
+                    <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                        <el-option v-for="item in ethOptions" :key="item.value" :label="item.label"
+                                   :value="item.value">
+                        </el-option>
+                    </el-select>
 
-                    </section>
-                    <template>
-                        <el-table :data="orderList" stripe size="small" highlight-current-row style="width: 100%">
-                            <el-table-column
-                                    align="center"
-                                    header-align="center"
-                                    width="50"
-                                    :label="_('# ')">
-                                <template slot-scope="scope">
-                                    {{ scope.row.index }}
-                                </template>
-                            </el-table-column>
-                            <el-table-column align="center" header-align="center" prop="drawtime"
-                                             :label="_('Transaction Time ')">
-                            </el-table-column>
-                            <el-table-column align="center" header-align="center" :label="_('Transaction Address')">
-                                <template slot-scope="scope">
-                                    <div v-html="scope.row.to_addrHtml"></div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column align="center" header-align="center" prop="cointype" :label="_('Type ')">
-                            </el-table-column>
-                            <el-table-column align="center" header-align="center" prop="drawmoney" :label="_('Amount')">
-                            </el-table-column>
-                            <el-table-column align="center" header-align="center" prop="drawfee" :label="_('Fee')">
-                            </el-table-column>
-                            <el-table-column align="center" header-align="center" prop="drawstatus"
-                                             :label="_('Status')">
-                            </el-table-column>
-                            <el-table-column align="center" header-align="center" prop="balance" :label="_('Balance')">
-                            </el-table-column>
-                        </el-table>
-                        <div class="pagination">
-                            <el-pagination @current-change="handleCurrentChange"
-                                           @size-change="withdrawSizeChange"
-                                           background :current-page.sync="pageno"
-                                           size="small"
-                                           :page-sizes="[10, 25, 50, 100]"
-                                           :page-size="pageSize"
-                                           layout="sizes,prev, pager, next,jumper"
-                                           :total="PageTotal"
-                                           :next-text="_('Next >')" :prev-text="_('< Privious')">
-                            </el-pagination>
-                        </div>
-                    </template>
-                </li>
-            </el-tab-pane>
-        </el-tabs>
+                </section>
+                <template v-if="orderList.length>0">
+                    <ul>
+                        <li v-for="item in orderList" :key="item.index">
+                            <div class="item-re item-re1">
+                                <p>
+                                    {{item.drawtime.substr(5)}}
+                                </p>
+                                <p>
+                                    {{item.drawstatus}}
+                                </p>
+                            </div>
+                            <div class="item-re item-re2">
+                                <a :title=item.to_addr :href="`https://etherscan.io/address/`+item.to_addr" target="_blank">
+                                    {{item.to_addr}}
+                                </a>
+                                <p>
+                                    {{item.drawmoney}} {{item.cointype}}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="javascript:;" class="btn-more" @click="handleCurrentChange(h5pageno)" v-if="isShowMoreBtn">
+                        <lang>Click to see more</lang>
+                    </a>
+                </template>
+                <div class="nomsg" v-else>
+                    <img src="@/assets/img/nomsg.png" alt="">
+                    <p>
+                        <lang>No Data</lang>
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- 转账确认-->
         <div class="pop pop-transfer" :class="{'hide':!showTransfer}">
             <div class="pop-body">
@@ -271,9 +395,12 @@
                 pageSize: 10,
                 PageTotal: 10,
                 orderList: [],
+                h5pageno: 1,
+                isShowMoreBtn: true,
+                h5orderList: [],
                 ethUrl,
                 activeName: 'Request',
-
+                h5activeName: 'Request',
                 withdrawOptionVal: '1',
                 withdrawOptions: [
                     {
@@ -379,6 +506,9 @@
                 this.withdrawAddr = ''
                 this.withdrawAmount = ''
                 this.withdrawPsw = ''
+
+                this.h5pageno = 1
+                this.h5orderList = []
             },
             closeTransferError () {
                 this.showTransferError = false
@@ -524,6 +654,11 @@
                 if (data) {
                     this.orderList = this.formatWithdrawList(data.list)
                     this.PageTotal = Number(data.counter)
+
+                    this.h5orderList = this.h5orderList.concat(this.orderList)
+                    if (data.list.length == 0 || data.list.length != 10) {
+                        this.isShowMoreBtn = false
+                    }
                 }
             },
             /*
@@ -630,6 +765,28 @@
             }
         }
     }
+    .h5-withdrawal{
+        .div-request{
+            .cs-select{
+                display: flex;
+                justify-content: space-around;
+                margin: 26px percentage(20/710) 0;
+                .el-select{
+                    margin: 0 2%;
+                    .el-input__inner{
+                        box-sizing: border-box;
+                        width: 100%;
+                        font-size: 14px;
+                    }
+                    .el-input{
+                        .el-select__caret{
+                            right: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 </style>
 
 <style scoped lang="less" type="text/less">
@@ -719,6 +876,7 @@
         width: 16px;
         height: 16px;
         background: url('../../assets/img/icon-mark.png') no-repeat center;
+        background-size: 16px;
         cursor: pointer;
         margin-left: 6px;
     }
@@ -832,16 +990,13 @@
     }
     }
     }
-
     .pagination {
         display: table;
         margin: 20px auto 30px;
     }
-
     .el-tabs {
         margin-top: 30px;
     }
-
     .el-tabs__item {
         float: left;
         line-height: 40px;
@@ -849,5 +1004,136 @@
         color: #6a89cc;
         padding: 0 20px;
         height: auto;
+    }
+
+
+    .h5-withdrawal{
+        .tab{
+            ul{
+                overflow: hidden;
+            }
+            li{
+                float: left;
+                box-sizing: border-box;
+                width: 50%;
+                height: 80/2px;
+                line-height: 80/2px;
+                text-align: center;
+                font-size: 16px;
+                border-bottom: 1px solid #f2f2f2;
+                background: #f7f9fe;
+                cursor: pointer;
+                transition: all 0.2s;
+                color: #6a89cc;
+                &.on{
+                    background: #fff;
+                    border-top: 2px solid #263648;
+                    border-bottom-color: #fff;
+                    color: #263648;
+                }
+            }
+        }
+        .div-records{
+            position: relative;
+            padding: 62/2px percentage(20/710) 25px;
+            background: #fff;
+            .btn-tohelp{
+                position: absolute;
+                z-index: 2;
+                right: 2.8%;
+                top: 8px;
+                display: block;
+                width: 34/2px;
+                height: 34/2px;
+                overflow: hidden;
+                padding: 10px 0 10px 10px;
+                background: url("../../assets/img/icon-mark.png") no-repeat right center;
+                background-size: 34/2px;
+            }
+            .chose-coin{
+                position: relative;
+                .tips{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    line-height: 25px;
+                    font-size: 12px;
+                }
+                .el-select{
+                    display: table;
+                    float: none;
+                    margin: 0 auto;
+                }
+                p{
+                    text-align: center;
+                    line-height: 72/2px;
+                    font-size: 28/2px;
+                    color: #778ca3;
+                    i{
+                        color: #263648;
+                    }
+                }
+            }
+            .item{
+                margin-top: 10px;
+                .tips{
+                    display: flex;
+                    justify-content: space-between;
+                    line-height: 52/2px;
+                    font-size: 14px;
+                }
+                input{
+                    width: 100%;
+                    height: 82/2px;
+                    line-height: 82/2px;
+                    text-indent: 10px;
+                    outline: none;
+                    background: #f7f9fe;
+                    border: 1px solid #d5d5d5;
+                    border-radius: 6px;
+                    font-size: 16px;
+                }
+            }
+            button{
+                margin-top: 30px;
+                background: #fd9644;
+                width: 100%;
+                color: #fff;
+                line-height: 90/2px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 6px;
+            }
+        }
+        .div-request{
+            padding:0 0 30/2px;
+            li{
+                padding: 16px 0 20px 0;
+                .item-re{
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 percentage(35/710);
+                    &.item-re1{
+                        line-height: 62/2px;
+                        font-size: 14px;
+                        color: #778ca3;
+                    }
+                    &.item-re2{
+                        line-height: 68/2px;
+                        font-size: 16px;
+                        a{
+                            display: block;
+                            width: percentage(220/650);
+                            color: #263648;
+                            text-decoration: underline;
+                            .text-overflow();
+                        }
+                    }
+                }
+                &+li{
+                    border-top: 1px solid #f2f2f2;
+                }
+            }
+        }
     }
 </style>

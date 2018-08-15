@@ -1,43 +1,44 @@
 <template>
-    <div class="capitalDetails">
-        <h2>
-            <lang>My Transactions</lang>
-        </h2>
-        <section class="cs-select">
-            <el-select v-model="tranOptionVal" @change="handleStatusChange">
-                <el-option
-                    v-for="item in tranOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="tranTimeOptionVal" @change="handleStatusChange">
-                <el-option
-                    v-for="item in tranTimeOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-            <!-- btc -->
-            <el-select v-model="ethOptionVal" @change="handleStatusChange">
-                <el-option
-                    v-for="item in ethOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
+    <div>
+        <div class="capitalDetails visible-lg">
+            <h2>
+                <lang>My Transactions</lang>
+            </h2>
+            <section class="cs-select">
+                <el-select v-model="tranOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in tranOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="tranTimeOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in tranTimeOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <!-- btc -->
+                <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in ethOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
 
-        </section>
-        <template>
-            <el-table
-                    :data="orderList"
-                    stripe
-                    size="small"
-                    highlight-current-row
-                    style="width: 100%">
+            </section>
+            <template>
+                <el-table
+                        :data="orderList"
+                        stripe
+                        size="small"
+                        highlight-current-row
+                        style="width: 100%">
                 <el-table-column
                         align="center"
                         header-align="center"
@@ -47,57 +48,124 @@
                         {{ scope.row.index }}
                     </template>
                 </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        prop="crtime"
-                        :label="_('Transaction Time')">
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        prop="inout"
-                        :label="_('Note')">
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        prop="cointype"
-                        :label="_('Coin')">
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        :label="_('Amount')">
-                    <template slot-scope="scope">
-                        <div v-html="scope.row.moneyVal"></div>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        align="center"
-                        header-align="center"
-                        prop="balance"
-                        :label="_('Balance')">
-                </el-table-column>
+                    <el-table-column
+                            type="index"
+                            align="center"
+                            header-align="center"
+                            :label="_('No. ')">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            prop="crtime"
+                            :label="_('Transaction Time')">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            prop="inout"
+                            :label="_('Note')">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            prop="cointype"
+                            :label="_('Coin')">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            :label="_('Amount')">
+                        <template slot-scope="scope">
+                            <div v-html="scope.row.moneyVal"></div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            header-align="center"
+                            prop="balance"
+                            :label="_('Balance')">
+                    </el-table-column>
 
-            </el-table>
-            <div class="pagination">
-                <el-pagination
-                        @current-change="handleCurrentChange"
-                        @size-change="myTranSizeChange"
-                        background
-                        :current-page.sync="pageno"
-                        size="small"
-                        :page-sizes="[10, 25, 50, 100]"
-                        :page-size="pageSize"
-                        layout="sizes,prev, pager, next,jumper"
-                        :page-count="pageCount"
-                        :next-text="_('Next >')"
-                        :prev-text="_('< Privious')"
-                >
-                </el-pagination>
+                </el-table>
+                <div class="pagination">
+                    <el-pagination
+                            @current-change="handleCurrentChange"
+                            @size-change="myTranSizeChange"
+                            background
+                            :current-page.sync="pageno"
+                            size="small"
+                            :page-sizes="[10, 25, 50, 100]"
+                            :page-size="pageSize"
+                            layout="sizes,prev, pager, next,jumper"
+                            :page-count="pageCount"
+                            :next-text="_('Next >')"
+                            :prev-text="_('< Privious')"
+                    >
+                    </el-pagination>
+                </div>
+            </template>
+        </div>
+        <div class="h5-capitalDetails hidden-lg">
+            <section class="cs-select">
+                <el-select v-model="tranOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in tranOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="tranTimeOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in tranTimeOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <!-- btc -->
+                <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in ethOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+
+            </section>
+            <template v-if="h5orderList.length>0">
+                <ul class="items-myTransactions">
+                    <li v-for="item in h5orderList" :key="item.index">
+                        <div class="item-re item-re1">
+                            <p>
+                                {{item.crtime.substr(5)}}
+                            </p>
+                            <p>
+                                {{item.cointype}}
+                            </p>
+                        </div>
+                        <div class="item-re item-re2">
+                           <p>
+                                {{item.inout}}
+                           </p>
+                            <div class="moneyVal" v-html="item.moneyVal">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <a href="javascript:;" class="btn-more" @click="handleCurrentChange(h5pageno)" v-if="isShowMoreBtn">
+                    <lang>Click to see more</lang>
+                </a>
+            </template>
+            <div class="nomsg " v-else>
+                <img src="@/assets/img/nomsg.png" alt="">
+                <p>
+                    <lang>No Data</lang>
+                </p>
             </div>
-        </template>
+        </div>
     </div>
 </template>
 
@@ -114,6 +182,9 @@ export default {
     data () {
         return {
             pageno: 1,
+            h5pageno: 1,
+            isShowMoreBtn: true,
+            h5orderList: [],
             pageSize: 10,
             pageCount: 10,
             orderList: [],
@@ -196,6 +267,8 @@ export default {
         },
         handleStatusChange () {
             this.pageno = 1
+            this.h5pageno = 1
+            this.h5orderList = []
             this.handleCurrentChange()
         },
         getList (params) {
@@ -233,6 +306,11 @@ export default {
             if (data) {
                 this.orderList = this.formatData(data.account_logs)
                 this.pageCount = parseInt(data.pages, 10)
+
+                this.h5orderList = this.h5orderList.concat(this.orderList)
+                if (data.account_logs.length == 0 || data.account_logs.length != 10) {
+                    this.isShowMoreBtn = false
+                }
             }
         },
         /*
@@ -265,15 +343,80 @@ export default {
     }
 }
 </script>
-<style scoped lang="less" type="text/less">
-h2 {
-  line-height: 30px;
-  font-size: 24px;
-  color: #263648;
-  text-transform: capitalize;
-}
-.pagination {
-  display: table;
-  margin: 20px auto 30px;
-}
+<style lang="less" type="text/less">
+    .h5-capitalDetails{
+        .cs-select{
+            margin:0;
+            display: flex;
+            justify-content: space-around;
+            .el-select{
+                width: 30%;
+                margin:0;
+                .el-input__inner{
+                    box-sizing: border-box;
+                    width: 100%;
+                }
+                .el-input{
+                    .el-select__caret{
+                        right: 5px;
+                    }
+                }
+            }
+        }
+        a.win{
+            display: block;
+            width: 100% !important;
+        }
+        a.fail{
+            display: block;
+            width: 100% !important;
+            text-align: right;
+        }
+    }
+</style>
+<style lang="less" type="text/less" scoped>
+    .capitalDetails{
+        h2 {
+            line-height: 30px;
+            font-size: 24px;
+            color: #263648;
+            text-transform: capitalize;
+        }
+        .pagination {
+            display: table;
+            margin: 20px auto 30px;
+        }
+    }
+    .h5-capitalDetails{
+        padding: 35/2px 0 50/2px 0;
+        background: #fff;
+        border-radius: 6px;
+        .items-myTransactions{
+            li{
+                padding: 8px 0;
+                .item-re{
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 percentage(35/710);
+                    &.item-re1{
+                        line-height: 62/2px;
+                        font-size: 14px;
+                        color: #778ca3;
+                    }
+                    &.item-re2{
+                        line-height: 68/2px;
+                        font-size: 16px;
+                    }
+                }
+                &+li{
+                    border-top: 1px solid #f2f2f2;
+                }
+                .moneyVal{
+                    width: 168/2px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
 </style>

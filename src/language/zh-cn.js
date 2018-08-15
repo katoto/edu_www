@@ -36,6 +36,7 @@ module.exports = {
 
     'Draw History': '开奖历史',
     'More >>': '更多 >>',
+    'Click to see more': '点击加载更多',
     'Time Left': '剩余时间',
     'JACKPOT': '奖池',
     'JackPot': '奖池',
@@ -383,11 +384,11 @@ module.exports = {
     'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '试一下<span class="winColor">97%+</span>',
     'Select Coin': '当前选择',
     'Copy Address': '复制链接',
-    'Tip: This address is only for ETH top-up, do not choose another type of coins': '温馨提示：只支持ETH地址转账，请仔细检查地址是否正确',
-    'Tip: This address is only for BTC top-up, do not choose another type of coins': '温馨提示：只支持BTC地址转账，请仔细检查地址是否正确',
+    'Tip: This address is only for ETH top-up, do not choose another type of coins': '温馨提示：只支持ETH地址转账',
+    'Tip: This address is only for BTC top-up, do not choose another type of coins': '温馨提示：只支持BTC地址转账',
     'Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!': '满足流水条件即可提取赠送金额,还需{0}{1}流水解锁',
 
-    'Only support {0} wallet': '仅支持{0}地址转账，请仔细检查地址是否正确',
+    'Only support {0} wallet': '仅支持{0}地址转账',
 
     'Kind Reminder': '温馨提示',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended.': '建议您使用正规安全的数字货币钱包或者交易平台.',

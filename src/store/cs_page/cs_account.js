@@ -6,7 +6,8 @@ import ajax from '~common/ajax'
 import {mapMutations, mapActions} from '~common/util'
 
 const state = {
-    navFix: false
+    navFix: false,
+    h5NavMsg: ''
 }
 
 const mutationsInfo = mapMutations({
@@ -15,6 +16,9 @@ const mutationsInfo = mapMutations({
     },
     setNavFix (state, data) {
         state.navFix = data
+    },
+    setH5NavMsg (state, data) {
+        state.h5NavMsg = data
     }
 }, 'cs_account')
 

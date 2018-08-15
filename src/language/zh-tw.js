@@ -37,6 +37,7 @@ module.exports = {
 
     'Draw History': '開獎歷史',
     'More >>': '更多 >>',
+    'Click to see more': '點擊加載更多',
     'Time Left': '剩餘時間',
     'JACKPOT': '獎池',
     'JackPot': '獎池',
@@ -384,11 +385,11 @@ module.exports = {
     'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '試一下<span class="winColor">97%+</span>',
     'Select Coin': '當前選擇',
     'copy Address': '複製連結',
-    'Tip: This address is only for ETH top-up, do not choose another type of coins': '溫馨提示：只支持ETH位址轉帳，請仔細檢查位址是否正確',
-    'Tip: This address is only for BTC top-up, do not choose another type of coins': '溫馨提示：只支持BTC位址轉帳，請仔細檢查位址是否正確',
+    'Tip: This address is only for ETH top-up, do not choose another type of coins': '溫馨提示：只支持ETH位址轉帳',
+    'Tip: This address is only for BTC top-up, do not choose another type of coins': '溫馨提示：只支持BTC位址轉帳',
     'Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!': '滿足劉水條件即可提取贈送金額,還需{0}{1}流水解鎖',
 
-    'Only support {0} wallet': '僅支持{0}位址轉帳，請仔細檢查位址是否正確',
+    'Only support {0} wallet': '僅支持{0}位址轉帳',
 
     'Kind Reminder': '溫馨提示',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended.': '建議您使用正規安全的數位貨幣錢包或者交易平臺.',
