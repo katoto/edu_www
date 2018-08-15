@@ -188,7 +188,6 @@
                                 No.{{item.expectid}}
                             </p>
                             <div class="num-box" v-html="item.betcodeVal">
-
                             </div>
                             <div class="staus" v-html="item.betprizeVal"></div>
                         </div>
