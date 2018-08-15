@@ -1,7 +1,7 @@
 <template>
     <div class="lucky11-page" v-if="state === '4'">
         <div class="step-title">
-            {{ _('Draw Details') }}&nbsp;&nbsp;&nbsp;&nbsp;{{ number }}
+            {{ _('Draw Details') }}&nbsp;&nbsp;&nbsp;&nbsp;No.{{number}}
         </div>
         <div>
             <!--用户信息-->
@@ -22,11 +22,11 @@
                                 <li :data-msg="_('(User ID)')">
                                     1000340
                                 </li>
-                                <li :data-msg="_('(Type)')">
-                                    1101
+                                <li :data-msg="_('(Coin)')">
+                                    2001
                                 </li>
                                 <li :data-msg="_('(Bid Numbers)')">
-                                    1,3
+                                    10001
                                 </li>
                                 <li :data-msg="_('(Amount)')">
                                     0.0008
@@ -71,7 +71,7 @@
                     <p class="p1">
                         <lang>Step 1. By using hexadecimal, the last 6 characters of the hash will convert into a decimal number.</lang>
                     </p>
-                    <div class="address">{{prehash}}<i class="special">{{last7Hash}}</i></div>
+                    <div class="address">{{prehash}}<i class="special">{{last7Hash}}</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="special">({{last7Hash}})16</i> = <i class="special">({{modNumber}})10</i></div>
                     <p class="p2">{{_('Step 2. Divide the number calculated from step 1 by total bids ({0} for this draw), then add 10,001. That is how lucky number comes from.', totalBids)}}
                     </p>
                     <div>

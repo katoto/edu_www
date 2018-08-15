@@ -30,7 +30,7 @@
         },
         watch: {},
         methods: {
-    // :to="{name: 'helpView',params:{a:index,b:index2}}"
+        // :to="{name: 'helpView',params:{a:index,b:index2}}"
             toCheck (index, index2) {
                 if (index === 3 && index2 === 0) {
                     this.$router.push('/check')
@@ -66,6 +66,7 @@
         font-family: sans-eb;
         font-weight: bold;
         color: #263648;
+        text-align: center;
     }
     .menu{
         display: flex;

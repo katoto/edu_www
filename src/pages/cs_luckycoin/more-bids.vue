@@ -1,8 +1,8 @@
 <template>
     <div class="main">
-            <BreadCrumbs :pageName="activeName === 'bids' ? _('More Bids') : _('Draw History')"></BreadCrumbs>
+            <BreadCrumbs :pageName="activeName === 'bids' ? _('More available Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
-                <el-tab-pane :label="_('More Bids')" name="bids"></el-tab-pane>
+                <el-tab-pane :label="_('More available Bids')" name="bids"></el-tab-pane>
                 <el-tab-pane :label="_('Draw History')" name="history"></el-tab-pane>
             </el-tabs>
             <div class="function-ct">
@@ -32,12 +32,12 @@
                 <div class="row clearfix">
                     <div class=" items">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in filterBets(betsList)" :key="Number(bets.pages.pageno + 1) * (index + 1) * Math.random()">
-                            <bet-box :bet="bet" type="list"></bet-box>
+                            <bet-box :bet="bet" type="list" @close="closeOtherBet" ref="betBoxList"></bet-box>
                         </div>
                     </div>
                     <div class="nomsg" v-if="filterBets(betsList).length === 0">
                         <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
-                        <p><lang>No record.</lang>
+                        <p><lang>No record yet.</lang>
                             <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
                                 <lang>Log in to view</lang>
                             </a>
@@ -47,7 +47,7 @@
                         </p>
                     </div>
                 </div>
-                <el-pagination v-if="filterBets(betsList).length != 0" @current-change="handleCurrentBetChange" background :current-page.sync="bets.pages.pageno" size="small" :page-size="bets.pages.pageSize" layout="prev, pager, next" :page-count="bets.pageCount" :next-text="_('Next >')" :prev-text="_('< Front')">
+                <el-pagination v-if="filterBets(betsList).length != 0" @current-change="handleCurrentBetChange" background :current-page.sync="bets.pages.pageno" size="small" :page-size="bets.pages.pageSize" layout="prev, pager, next" :page-count="bets.pageCount" :next-text="_('Next >')" :prev-text="_('< Privious')">
                 </el-pagination>
             </div>
             <div class="container" v-else>
@@ -60,7 +60,7 @@
                     <div class="nomsg" v-if="historyList.length === 0">
                         <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                         <p>
-                            <lang>No record.</lang>
+                            <lang>No record yet.</lang>
                             <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
                                 <lang>Log in to view</lang>
                             </a>
@@ -70,7 +70,7 @@
                         </p>
                     </div>
                 </div>
-                <el-pagination v-if="historyList.length != 0" @current-change="handleCurrentHistoryChange" background :current-page.sync="history.pages.pageno" size="small" :page-size="history.pages.pageSize" layout="prev, pager, next" :page-count="history.pageCount" :next-text="_('Next >')" :prev-text="_('< Front')">
+                <el-pagination v-if="historyList.length != 0" @current-change="handleCurrentHistoryChange" background :current-page.sync="history.pages.pageno" size="small" :page-size="history.pages.pageSize" layout="prev, pager, next" :page-count="history.pageCount" :next-text="_('Next >')" :prev-text="_('< Privious')">
                 </el-pagination>
             </div>
         </div>
@@ -112,6 +112,9 @@ export default {
             'getBetsPageList',
             'getBetsPageHistory'
         ]),
+        closeOtherBet () {
+            this.$refs.betBoxList.forEach(bet => bet.closeWindow())
+        },
         handleCurrentBetChange (pageno = this.bets.pages.pageno) {
             this.bets.pages.pageno = pageno
             this.getBetData()

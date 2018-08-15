@@ -12,10 +12,10 @@
                         <lang>General</lang>
                     </div>
                     <a href="javascript:;" @click="jump2Page">
-                        <lang>Privacy Policy</lang>
+                        <lang>Terms of Use</lang>
                     </a>
                     <router-link :to="{path: '/check'}" >
-                        <lang>Transparency</lang>
+                        <lang>Transparency checking</lang>
                     </router-link>
                     <router-link :to="{path: '/help'}" >
                         <lang>Help Center</lang>
@@ -170,7 +170,6 @@
             overflow: hidden;
         }
         .title {
-            margin-bottom: 12px;
             line-height: 32px;
             font-size: 20px;
         }

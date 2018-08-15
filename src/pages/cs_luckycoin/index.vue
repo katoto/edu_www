@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <bet-box :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box"></bet-box>
+                        <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box"></bet-box>
                         <div class="pop-mask" :class="[isShowNew ? '' : 'hide']"></div>
                         <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
                             <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
@@ -74,16 +74,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
-                                <bet-box :bet="betsList[1]"></bet-box>
-                                <bet-box :bet="betsList[4]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]"></bet-box>
                             </div>
                             <div class="col-md-6 col-lg-4 hidden-xs hidden-sm">
-                                <bet-box :bet="betsList[2]"></bet-box>
-                                <bet-box :bet="betsList[5]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]"></bet-box>
                             </div>
                             <div class="col-lg-4 hidden-xs hidden-xs hidden-sm hidden-md">
-                                <bet-box :bet="betsList[3]"></bet-box>
-                                <bet-box :bet="betsList[6]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]"></bet-box>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
     import betBox from './components/bet-box'
     import recentBets from './components/recent-bets'
     import historyBetBox from './components/history-bet-box'
-    import { structDom} from '~/common/util'
+    import { structDom } from '~/common/util'
     export default {
         data () {
             return {
@@ -157,6 +157,9 @@
                 this.isShowStep1 = true
                 this.isShowStep2 = false
                 this.isShowStep3 = false
+            },
+            closeOtherBet () {
+                ['betBoxList1', 'betBoxList2', 'betBoxList3', 'betBoxList4', 'betBoxList5', 'betBoxList6', 'betBoxList7'].forEach(bet => this.$refs[bet].closeWindow())
             }
         },
         components: { betBox, recentBets, historyBetBox },

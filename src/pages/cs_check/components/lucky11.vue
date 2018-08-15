@@ -1,11 +1,12 @@
 <template>
     <div class="lucky11-page">
         <div class="step-title">
-            {{ _('Draw Details') }}&nbsp;&nbsp;&nbsp;&nbsp;{{ issueNumber }}
+            {{ _('Draw Details') }}&nbsp;&nbsp;&nbsp;&nbsp;No.{{issueNumber}}
         </div>
         <!--用户信息-->
         <div class="item item1">
             <a href="javascript:;" class="btn-copy"
+                v-if="!noBid"
                 v-clipboard:copy="orderLists"
                 v-clipboard:success="copySucc"
                 v-clipboard:error="copyError">
@@ -251,7 +252,8 @@ export default {
             hashNumberA2: [],
             hashNumberA3: [],
             hashNumberA4: [],
-            hashNumberA5: []
+            hashNumberA5: [],
+            noBid: false
         }
     },
     methods: {
@@ -300,6 +302,7 @@ export default {
         renderCheckData (res) {
             if (res.merkel_hash === '') {
                 this.merkelValue = _('None')
+                this.noBid = true
             } else {
                 this.merkelValue = res.merkel_hash
             }

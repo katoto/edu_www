@@ -61,7 +61,7 @@ export default {
             this.showMyWin({
                 goodsValue: good.goodsValue,
                 goodsType: good.goodsType,
-                exceptId: good.exceptid,
+                exceptId: good.expectid,
                 callback: () => {
                     if (index < total - 1) {
                         this.showProfitPop(goods, index + 1, total)

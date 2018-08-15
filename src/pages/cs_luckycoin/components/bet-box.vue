@@ -8,7 +8,9 @@
         <!-- hot bet-->
         <div class="icon-box "  :class="[isHot? 'hot' : '', isBet? 'bet':'']">
             <i class="icon-hot">H</i>
-            <i class="icon-youbet">You Bet</i>
+            <i class="icon-youbet">
+                <lang>Paid</lang>
+            </i>
         </div>
         <!--match-eth/match-btc-->
         <div class="match-img" :class="[coin.boxClass]">
@@ -143,9 +145,11 @@
             <p class="bet-t">
                 <lang>Bid Failed</lang>
             </p>
-            <p class="bet-m">
-                <lang>Uh-oh~ network problems occured.</lang>
-            </p>
+            <center>
+                <p class="bet-m">
+                    <lang>Uh-oh~ network problems occured.</lang>
+                </p>
+            </center>
             <a href="javascript:;" class="btn-fail" @click="closeWindow">
                 <lang>Try Later</lang>
             </a>
@@ -156,9 +160,11 @@
             <p class="bet-t">
                 <lang>Insufficient Balance</lang>
             </p>
-            <p class="bet-m">
-                <lang>Please top up first.</lang>
-            </p>
+            <center>
+                <p class="bet-m">
+                    <lang>Please top up first.</lang>
+                </p>
+            </center>
             <router-link :to="{path: '/account/deposit'}" class="btn-balance">
                 <lang>Top Up</lang>
             </router-link>
@@ -225,8 +231,12 @@
                 // 触发最小按钮点击事件, 重置投注金额
                 // this.$refs.minBtn.click()
             },
+            clearOtherStatus () {
+                this.$emit('close')
+            },
             openBetWindow () {
                 this.clearBetStatus()
+                this.clearOtherStatus()
                 if (!this.isLogin) {
                     this.$store.commit('showLoginPop')
                     return

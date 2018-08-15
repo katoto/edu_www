@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <div class="main">
-            <BreadCrumbs></BreadCrumbs>
+            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Lucky11'), path: '/lucky11' }, { name: _('Draw Records'), path: '/drawNumber' }]"></BreadCrumbs>
             <div class="main-reward">
                 <h1>
                     <lang>Draw number</lang>
@@ -83,7 +83,7 @@
                         layout="prev, pager, next,jumper"
                         :total="PageTotal"
                         :next-text="_('Next >')"
-                        :prev-text="_('< Front')"
+                        :prev-text="_('< Privious')"
                     >
                     </el-pagination>
                 </div>

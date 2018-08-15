@@ -117,7 +117,7 @@
                                         <lang>Draw expired.</lang>
                                     </span>
                                     <p>
-                                        <lang>Draw expired. Your payment has been refunded.</lang>
+                                        <lang>User's payment has been refunded.</lang>
                                     </p>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                             <lang>Winner is coming</lang> {{ time }}
                         </div>
                         <div class="btn btn-expired">
-                            <lang>Draw expired. Your payment has been refunded.</lang>
+                            <lang>User's payment has been refunded.</lang>
                         </div>
                         <!--这里逻辑跟首页一样-->
                         <!--show-->
@@ -170,8 +170,8 @@
                             </p>
                             <p class="bet-m">
                                 {{ this.betNum === 1
-                                    ? _('You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.betData.goodsValue, this.coinText)
-                                    : _('You have bought {2} bids. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.betData.goodsValue, this.coinText, this.betNum)
+                                    ? _('You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.goodsinfo.goodsValue, this.coinText)
+                                    : _('You have bought {2} bids. Winner will get {0} {1} reward. Bid more, win more! Good Luck!', this.goodsinfo.goodsValue, this.coinText, this.betNum)
                                 }}
                             </p>
                             <div class="btn-box">
@@ -291,7 +291,7 @@
                 <div class="nomsg" v-show="(totalBids.length === 0 && activeName === 'all') || (myNumbers.length === 0 && activeName === 'my')">
                     <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                     <p>
-                        <lang>No record.</lang>
+                        <lang>No record yet.</lang>
                         <a href="javascript:;" @click="loginHandler" v-if="!this.isLogin && activeName === 'my'">
                             <lang>Log in to view</lang>
                         </a>
@@ -304,7 +304,7 @@
                     :page-count="PageTotal"
                     layout="prev, pager, next"
                     :next-text="_('Next >')"
-                    :prev-text="_('< Front')"
+                    :prev-text="_('< Privious')"
                     v-if="activeName === 'all' && PageTotal !== 0"
                 >
                 </el-pagination>

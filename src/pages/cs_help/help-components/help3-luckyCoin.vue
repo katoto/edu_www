@@ -6,38 +6,38 @@
         <ul>
             <li>
                 <p class="title">
-                    <lang>1. What is LuckyCoin?</lang>
+                    <lang>What is LuckyCoin?</lang>
                 </p>
                 <p class="msg">
-                    <lang>LuckyCoin is the global leading blockchain-based game. Players could use only 0.01 ETH to win 1 ETH or more. By using blockchain technology, all the information and process are transparent and fair. Don’t hesitate, play now!</lang>
+                    <lang>LuckyCoin is the global leading blockchain-based game. Players could use only 0.01 ETH to win 1 ETH or more. By using blockchain technology, all the information and process are transparent and fair. Don't hesitate, play now!</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    <lang>2. How to play the game?</lang>
+                    <lang>How to play the game?</lang>
                 </p>
                 <p class="msg">
-                    ① <lang>Choose one bidding type</lang><br/>
-                    ② <lang>Pay for your bid and get the bidding number</lang><br/>
-                    ③ <lang>Wait for draw (after all bids of one bidding type are sold out)</lang><br/>
-                    ④ <lang>If your bidding number matches draw number, you win the reward.</lang>
+                    1. <lang>Choose one bidding type</lang><br/>
+                    2. <lang>Pay for your bid and get the bidding number</lang><br/>
+                    3. <lang>Wait for draw (after all bids of one bidding type are sold out)</lang><br/>
+                    4. <lang>If your bidding number matches draw number, you win the reward.</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    <lang>3. Example</lang>
+                    <lang>Example</lang>
                 </p>
                 <p class="msg">
                     <span v-if="language!=='en'">以一场价值1ETH的场次举例子：<br/></span>
                     <span v-else>Example: <br/></span>
-                    ① <lang>For 1 ETH bidding type, players can bid 0.01 ETH to win 1 ETH, and the bidding times of "1 ETH" for all players are 100. Players will get a bid number after bidding.</lang><br/>
-                    ② <lang>Players can bid one or more times for each type.</lang><br/>
-                    ③ <lang>When there is no available bidding times, the system will calculated the "Lucky Number". If your bidding number matches lucky number, you are the winner!</lang>
+                    1. <lang>For 1 ETH bidding type, players can bid 0.01 ETH to win 1 ETH, and the bidding times of "1 ETH" for all players are 100. Players will get a bid number after bidding.</lang><br/>
+                    2. <lang>Players can bid one or more times for each type.</lang><br/>
+                    3. <lang>When there is no available bidding times, the system will calculated the "Lucky Number". If your bidding number matches lucky number, you are the winner!</lang>
                 </p>
             </li>
             <li>
                 <p class="title">
-                    <lang>4. Draw</lang>
+                    <lang>Draw</lang>
                 </p>
                 <p class="msg">
                     <lang>After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.</lang>
@@ -46,7 +46,7 @@
             </li>
             <li>
               <p class="title">
-                    <lang>5. Refund</lang>
+                    <lang>Refund</lang>
               </p>
                 <p class="msg">
                     <lang>If the bidding times did not sold out within 7 days, the draw won't proceed and the system will return your bidding payment to your wallet.</lang>

@@ -11,8 +11,9 @@
         </p>
         <template v-if="bet.state == 4">
             <p class="history-time">
-                <i><lang>Draw finished at</lang></i> {{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}
+                <i><lang>Draw finished at</lang></i>
             </p>
+            <div>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}</div>
             <div class="history-result">
                 {{ bet.winUserName }}
             </div>
@@ -23,7 +24,7 @@
             </p>
             <div class="isExpired-msg">
                 <p v-if="bet.betmoney === null || Number(bet.betmoney) === 0">
-                    <lang>Draw expired. Your payment has been refunded.</lang>
+                    <lang>User's payment has been refunded.</lang>
                 </p>
                 <p style="color: #3fc06f;" v-else>
                     {{ _('Draw expired. {0} {1} has been refunded.', Number(formateBalance( bet.betmoney )), coinText) }}

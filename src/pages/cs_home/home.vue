@@ -9,7 +9,7 @@
                         <!--banner-->
                         <el-carousel :interval="3000">
                             <el-carousel-item v-for="(item, index) in banner" :key="index">
-                                <div class="banner-t1">{{ item.t1 }}</div>
+                                <div class="banner-t1" v-html="item.t1"></div>
                                 <p class="banner-t2">{{ item.t2 }}</p>
                                 <router-link :to="{path: item.href}" class="banner-more">
                                     <lang>Details</lang>
@@ -137,7 +137,7 @@
                     </div>
                     <!--最近中奖-->
                     <div class="item-recent recent-win">
-                        <div class="recent-t"><lang>Recently won</lang></div>
+                        <div class="recent-t"><lang>Recently Wins</lang></div>
                         <div class="tab-t" :class="[activeClass1]">
                             <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'"><lang>Lucky11</lang></a>
                             <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'"><lang>Slot</lang></a>
@@ -275,10 +275,10 @@
                             <img class="img1" src="@/assets/img/home/safe-img2-1.png" alt="">
                         </div>
                         <div class="safe-t">
-                            <lang>Support ETH and BTC Bid</lang>
+                            <lang>Support ETH and BTC</lang>
                         </div>
                         <p>
-                            <lang>Currently,  popular coins ETH and BTC are supported on the platform to bid, top up and withdraw. More coins will be supported in the near future.</lang>
+                            <lang>Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.</lang>
                         </p>
                     </div>
                     <div class="col-lg-4">
@@ -292,8 +292,9 @@
                         <div class="safe-t">
                             <lang>Support Mobile APP</lang>
                         </div>
-                        <lang>Enjoy conveniece and fun from quick bid and fair play at any time & any where.</lang>
-                        <a href="javascript:;" class="btn-down"></a>
+                        <lang class="hide">Enjoy convenience and fun from quick and fair play at any time & any where.</lang>
+                        <p><lang>Mobile APP is coming soon.</lang></p>
+                        <a href="javascript:;" class="btn-down hide"></a>
                     </div>
                 </div>
             </div>
@@ -357,8 +358,8 @@
                 },
                 banner: [
                     {
-                        t1: _('Finally! You found the wonderland---- Coinsprize, a blockchain-based game platform with fairness and openness'),
-                        t2: _('Unique play & transparent draw Only for your terrific experience in games'),
+                        t1: _('Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness'),
+                        t2: _('Unique play & transparent draw, only for your terrific experience in games'),
                         href: '/check'
                     }
                 ]
@@ -377,7 +378,8 @@
             formateCoinType,
             formatNum,
             formatMoney (num) {
-                return formatNum(Number(num), 4).toFixed(5)
+                let money = formatNum(Number(num), 4).toFixed(5)
+                return money.length > 7 ? money.substring(0, 7) : money
             },
             initPop () {
                 /* head 弹窗 */
@@ -503,8 +505,8 @@
         }
         /*banner*/
         .el-carousel {
-            height: 300-58px;
-            margin-bottom: 58px;
+            height: 300-48px;
+            margin-bottom: 48px;
             color: #fff;
             text-align: center;
             /deep/ .el-carousel__indicators {
@@ -813,6 +815,14 @@
             background: url("../../assets/img/home/btn-down.png") no-repeat center;
             background-size: 127px 35px;
         }
+        .btn-down-comming {
+            display: block;
+            width: 196px;
+            height: 60px;
+            margin: 26px auto 0;
+            border: 1px solid #5e5c71;
+            border-radius: 6px;
+        }
         .img-box {
             position: relative;
             height: 338px;
@@ -962,7 +972,7 @@
         .home {
             /*banner*/
             .el-carousel {
-                height: 450-58px;
+                height: 450-48px;
             }
             .el-carousel__item {
                 .banner-t1 {
