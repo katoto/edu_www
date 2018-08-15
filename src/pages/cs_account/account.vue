@@ -2,7 +2,7 @@
     <div class="account">
         <Header></Header>
         <div class="main" @click="initPop">
-            <BreadCrumbs></BreadCrumbs>
+            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Account Center'), path: '/account' }]"></BreadCrumbs>
             <!--侧边栏-->
             <div class="slide-bar">
                 <ul class="account_Tab">

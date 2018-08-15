@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <div class="main">
-            <BreadCrumbs></BreadCrumbs>
+            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Privacy Policy'), path: '/policy' }]"></BreadCrumbs>
             <div id="main-policy" class="main-policy">
                 <h1>
                     Coinsprize平臺使用者服務協定

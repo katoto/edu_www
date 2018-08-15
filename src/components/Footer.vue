@@ -104,10 +104,8 @@
         },
         watch: {},
         methods: {
-            jump2Page (lan = 'en') {
-                if (this.language) {
-                    lan = this.language
-                }
+            jump2Page () {
+                let lan = this.$store.state.language
                 switch (lan) {
                 case 'en':
                     this.$router.push('/policy')
