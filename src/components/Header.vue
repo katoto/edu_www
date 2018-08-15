@@ -79,7 +79,7 @@
                 <div class="login">
                     <!-- 未登录 -->
                     <div class="act-sign" v-if="!isLog">
-                        <lang>Free 0.0001 BTC</lang>
+                        <lang>0.0001 BTC for free</lang>
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
                         <!--拉新活动提示-->

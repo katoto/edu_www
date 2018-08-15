@@ -293,7 +293,7 @@
                             <lang>Support Mobile APP</lang>
                         </div>
                         <lang>Enjoy convenience and fun from quick and fair play at any time & any where.</lang>
-                        <a href="javascript:;" class="btn-down"></a>
+                        <a href="javascript:;" class="btn-down hide"></a>
                     </div>
                 </div>
             </div>
@@ -790,6 +790,7 @@
             line-height: 24px;
             font-size: 14px;
             width: 80%;
+            margin: 0 auto;
         }
         .btn-check {
             display: block;

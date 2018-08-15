@@ -17,7 +17,7 @@
                     <p>
                         <lang>I'm 18+ years old and agree with</lang>&nbsp;
                         <a href="javascript:;" @click="jump2Page">
-                            <lang>Privacy policy</lang>
+                            <lang>Terms of Use</lang>
                         </a>
                     </p>
                 </div>
@@ -41,7 +41,7 @@
                 <lang>Import Wallet</lang>
             </a>
             <div class="act-sign">
-                <lang>for free 0.0001 BTC</lang>
+                <lang>0.0001 BTC for free</lang>
             </div>
         </div>
     </Pop>
