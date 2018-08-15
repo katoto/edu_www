@@ -514,7 +514,7 @@ module.exports = {
     /* 水龙头未翻译 end */
 
     /* 验证页面 start */
-    'Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.': '欢迎来到coinsprize，开启全新的博彩体验！coinsprize是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
+    'Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.': '欢迎来到Coinsprize，开启全新的博彩体验！Coinsprize是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
     'Games': '游戏',
     'Lucky 11': '幸运11',
     'Lucky11 issues:': 'Lucky11问题:',
@@ -649,7 +649,7 @@ module.exports = {
     'Click No. to see draw details': '点击期号查看开奖详情',
     'Click No. to see bid details': '点击期号查看场次详情',
     'Mobile APP is coming soon.': '敬请期待',
-    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，coinslot平台概不负责',
+    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，Coinsprize平台概不负责',
     '{0} {1} / Bid': '每注价格: {0} {1}'
     /* 验证页面 end */
 

@@ -4,7 +4,7 @@
         <div class="main" @click="initPop">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Account Center'), path: '/account' }]"></BreadCrumbs>
             <!--侧边栏-->
-            <div class="slide-bar visible-lg">
+            <div class="slide-bar visible-lg" data-msg="Free Bouns">
                 <ul class="account_Tab">
                     <router-link active-class="on" :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
@@ -19,13 +19,13 @@
             </div>
             <!--移动端-->
             <div class="pop-mask hidden-lg" @click="isShowH5SideBar = false" :class="{hide:!isShowH5SideBar}"></div>
-            <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}">
+            <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}" data-msg="Free Bouns">
                <p> {{_(h5NavMsg)}}</p>
                 <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
                     <span></span><span></span><span></span>
                 </div>
                 <ul>
-                    <router-link active-class="on" @click.native="changH5Msg(item.msg)"  :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
+                    <router-link active-class="on" @click.native="changH5Msg(item.msg)" :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
                             {{_(item.msg)}}
                         </a>
@@ -78,6 +78,7 @@ export default {
             this.$store.commit('initHeadState', new Date().getTime())
         },
         changH5Msg (value) {
+            this.isShowH5SideBar = false
             this.$store.commit('cs_account/setH5NavMsg', value)
         }
     },
@@ -88,6 +89,18 @@ export default {
     },
     mounted () {
         document.documentElement.className = 'flexhtml'
+        switch (this.$store.state.route.name) {
+        case 'MyBets':
+            this.$store.commit('cs_account/setH5NavMsg', 'My Bets')
+            return false
+        case 'deposit':
+            this.$store.commit('cs_account/setH5NavMsg', 'Top Up')
+            return false
+        case 'MyTransactions':
+            this.$store.commit('cs_account/setH5NavMsg', 'My Transactions')
+            return false
+        }
+        this.$store.commit('cs_account/setH5NavMsg', this.$store.state.route.name)
     },
     destroyed () {},
     beforeDestroy () {
@@ -106,12 +119,28 @@ export default {
         }
     }
     .slide-bar {
+        position: relative;
         float: left;
         width: 170px;
         padding: 14px 0 10px 20px;
         border-radius: 6px;
         background: #fff;
+        &::before{
+            content: attr(data-msg);
+            display: block;
+            position: absolute;
+            left: 70px;
+            bottom: 84px;
+            border-radius: 2px;
+            background: #36c57a;
+            line-height: 18px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            padding: 0 5px;
+        }
         li {
+            position: relative;
             height: 50px;
             line-height: 50px;
         }
@@ -161,6 +190,20 @@ export default {
         border-radius: 6px;
         color: #263648;
         font-size: 36/2px;
+        &::before{
+            content: attr(data-msg);
+            display: block;
+            position: absolute;
+            left: 85px;
+            bottom: 70px;
+            border-radius: 2px;
+            background: #36c57a;
+            line-height: 18px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            padding: 0 5px;
+        }
         >p{
             float: left;
         }

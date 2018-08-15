@@ -19,6 +19,9 @@
                     <lang>Current balance</lang>
                     <i class="bold">{{ formateBalance(currBalance.balance) }}</i> {{ formateCoinType(currBalance.cointype) }}
                 </div>
+                <p class="item1tips">
+                    Get 10 free spins of Slot  (Top-up reaches 0.001BTC 1 chance/day)
+                </p>
             </div>
             <div class="item2 clearfix">
                 <div class="fl150">
@@ -100,6 +103,9 @@
                     <lang>Current balance</lang>
                     <i class="bold">{{ formateBalance(currBalance.balance) }} </i>
                     <i>{{ formateCoinType(currBalance.cointype) }}</i>
+                </p>
+                <p class="item1tips">
+                    Get 10 free spins of Slot  (Top-up reaches 0.001BTC 1 chance/day)
                 </p>
             </div>
             <div class="item2 ">
@@ -255,8 +261,14 @@ export default {
         overflow: hidden;
     }
     .item1 {
-        margin-bottom: 30px;
         line-height: 25px;
+        .item1tips{
+            height: 30px;
+            line-height: 28px;
+            text-indent: 150px;
+            font-weight: bold;
+            color: #36c57a;
+        }
     }
     .item2 {
         .fl150 {
@@ -335,12 +347,18 @@ export default {
             }
             p{
                 text-align: center;
-                line-height: 84/2px;
+                line-height: 40/2px;
                 font-size: 28/2px;
                 color: #778ca3;
                 i{
                     color: #263648;
                 }
+            }
+            .item1tips{
+                font-size: 12px;
+                text-align: center;
+                font-weight: bold;
+                color: #36c57a;
             }
         }
         .item2{

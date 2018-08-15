@@ -50,7 +50,9 @@
                 <span>{{ formateCoinType (currBalance.cointype) }}</span>
             </p>
             <p>
-                <span class="jp_btn" v-if="!isSuperPick" @click="superInPage">Go</span>
+                <span class="jp_btn" v-if="!isSuperPick" @click="superInPage">
+                    Win Jackpot
+                </span>
                 <span class="jp_btn" v-else @click="superOutPage">Back</span>
             </p>
         </div>
@@ -382,7 +384,7 @@
 
     .jp_btn{
         display: inline-block;
-        width: 80px;
+        padding: 0 20px;
         height: 32px;
         text-align: center;
         color: #f4ba25;
@@ -413,24 +415,6 @@
             position: relative;
             padding-left: 26px;
             font-size: 36px;
-            &::before {
-                /*content: '';*/
-                /*position: absolute;*/
-                /*left:0;*/
-                /*top:20px;*/
-                /*background-image:url("../../assets/slice/logo-btc.png");*/
-                /*width: 20px;*/
-                /*height: 20px;*/
-            }
-            &::after {
-                content: '';
-                position: absolute;
-                top:-14px;
-                right: -64px;
-                background-image:url("../../assets/img/lucky11/icon-jackpot.png");
-                width: 70px;
-                height: 21px;
-            }
         }
     }
     .superActive .jp_btn{

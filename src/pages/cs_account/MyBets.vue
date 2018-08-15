@@ -39,7 +39,8 @@
                     </el-option>
                 </el-select>
                 <p class="tocheck">
-                    <lang>Click No. to see draw details</lang>
+                    <lang v-if="playOptionVal === '1'">Click No. to see draw details</lang>
+                    <lang v-else>Click No. to see bid details</lang>
                 </p>
             </section>
             <template>

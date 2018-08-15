@@ -656,6 +656,6 @@ module.exports = {
     'Click No. to see draw details': '點擊期號查看開獎詳情',
     'Click No. to see bid details': '點擊期號查看場次詳情',
     'Mobile APP is coming soon.': '敬請期待',
-    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用戶錯誤輸入無法轉賬錢包地址或他人錢包，coinslot平臺概不負責',
+    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用戶錯誤輸入無法轉賬錢包地址或他人錢包，Coinsprize平臺概不負責',
     '{0} {1} / Bid': '每注價格: {0} {1}'
 }

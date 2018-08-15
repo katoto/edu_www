@@ -8,7 +8,7 @@
             </div>
             <div class="foot-mid clearfix">
                 <div class="about">
-                    <div class="title">
+                    <div class="ftitle">
                         <lang>General</lang>
                     </div>
                     <a href="javascript:;" @click="jump2Page">
@@ -22,7 +22,7 @@
                     </router-link>
                 </div>
                 <div class="game">
-                    <div class="title">
+                    <div class="ftitle">
                         <lang>Games</lang>
                     </div>
                     <router-link :to="{path: '/lucky11'}">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="contact">
-                <div class="title">
+                <div class="ftitle">
                     <lang>Contact Us</lang>
                 </div>
                 <p>
@@ -168,7 +168,7 @@
             margin: 0 auto;
             overflow: hidden;
         }
-        .title {
+        .ftitle {
             line-height: 32px;
             font-size: 20px;
         }
@@ -268,12 +268,12 @@
         }
     }
 
-    @media (max-width: @screen-tablet) {
+    @media (max-width: @screen-lg-desktop) {
         .footer{
             height: 620px;
             padding: 0 percentage(30/750) 0;
             line-height: 20px;
-            .title {
+            .ftitle {
                 margin-top: 17/2px;
                 margin-bottom: 0;
                 line-height: 57/2px;
