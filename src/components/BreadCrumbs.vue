@@ -24,7 +24,6 @@ import Vue from 'vue'
 let bread = Vue.component('bread', {
     render (h, vm) {
         let links = this.$attrs.data.map((item, index) => {
-            console.log(this.$attrs.data.length - 1, index, item.name)
             return (
                 (this.$attrs.data.length - 1 === index)
                     ? (<a href="javascript:;" class="now">

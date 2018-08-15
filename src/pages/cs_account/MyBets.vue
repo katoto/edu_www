@@ -153,7 +153,8 @@ import {
     formatMatchAccount,
     formatTime,
     formateBalance,
-    formateCoinType
+    formateCoinType,
+    accMul
 } from '~common/util'
 
 export default {
@@ -286,7 +287,11 @@ export default {
                     }
 
                     if (val.betmoney) {
-                        val.betmoney = formateBalance(Number(val.betmoney)) + formateCoinType(val.cointype)
+                        if (val.lotid === '2') {
+                            val.betmoney = formateBalance(accMul(Number(val.betmoney), Number(val.betcode.split(',').length))) + formateCoinType(val.cointype)
+                        } else {
+                            val.betmoney = formateBalance(Number(val.betmoney)) + formateCoinType(val.cointype)
+                        }
                     }
 
                     // win state
