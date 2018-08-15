@@ -579,7 +579,7 @@ module.exports = {
 
     'Classic game with high reward': '經典高回報遊戲',
     'Win 97%+ Return Rate': '刺激好玩，高達 97%+ 的返獎率',
-    'Bid 0.01 ETH to win more': '用0.01Eth贏取百倍的回報',
+    'Bid 0.01 ETH to win more': '用0.01ETH贏取百倍的回報',
     'Instant Reward': '最大獎',
     'Recent Bids': '最近下註',
     'Date': '時間',
@@ -589,7 +589,7 @@ module.exports = {
     'Support ETH and BTC': 'ETH、BTC多幣種投註',
     'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '當前遊戲支持最受歡迎的比特幣和以太幣進行投註、存款和提款，未來還將接受更多加密數字貨幣，敬請期待',
     'Support Mobile APP': '支持移動端設備',
-    'Enjoy convenience and fun from quick and fair play at any time & any where.': '隨時隨地投註、充值、提款，做妳更貼心、更便捷的，更放心的平臺。歡迎下載Android版本，iOS版本敬請期待',
+    'Enjoy convenience and fun from quick and fair play at any time & any where.': '隨時隨地投註、充值、提款，做妳更貼心、更便捷的，更放心的平臺。敬請期待',
     'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的開獎算法，帶您開啟前所未有的遊戲體驗',
 
@@ -626,7 +626,7 @@ module.exports = {
     'Click here to see transparent information.': '點擊查看透明性',
     'No record yet.': '沒有數據.',
     'Log in to view': '請登錄查看',
-    'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.': '提示：每投註0.01ETH，即可獲得壹個號碼。投註越多，號碼越多，中獎概率越高。',
+    'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.': '提示：每購買壹註，將獲得壹個號碼。投註越多，中獎概率越大！',
     'Paid': '您已投註',
     'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!': 'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!',
     '{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!': '共投註{0} {1}，獲得{2}個號碼，投註越多，號碼越多，中獎概率越高哦！',

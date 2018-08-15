@@ -292,9 +292,8 @@
                         <div class="safe-t">
                             <lang>Support Mobile APP</lang>
                         </div>
-                        <lang class="hide">Enjoy convenience and fun from quick and fair play at any time & any where.</lang>
-                        <p><lang>Mobile APP is coming soon.</lang></p>
-                        <a href="javascript:;" class="btn-down hide"></a>
+                        <lang>Enjoy convenience and fun from quick and fair play at any time & any where.</lang>
+                        <a href="javascript:;" class="btn-down"></a>
                     </div>
                 </div>
             </div>
@@ -787,6 +786,7 @@
         p {
             line-height: 24px;
             font-size: 14px;
+            width: 80%;
         }
         .btn-check {
             display: block;

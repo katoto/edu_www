@@ -131,7 +131,7 @@
                                     <lang>Bids:</lang> {{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}} / {{Number(goodsinfo.totalBids)}}
                                 </div>
                                 <div class="item-price">
-                                    {{ _('{0} {1} / Bid', this.betData.bidValue, coinText ) }}
+                                    {{ _('{0} {1} / Bid', this.goodsinfo.bidValue, coinText ) }}
                                 </div>
                             </div>
                         </div>
