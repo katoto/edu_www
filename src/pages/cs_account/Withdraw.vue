@@ -477,6 +477,9 @@
                 this.withdrawAddr = ''
                 this.withdrawAmount = ''
                 this.withdrawPsw = ''
+
+                this.h5pageno = 1
+                this.h5orderList = []
             },
             closeTransferError () {
                 this.showTransferError = false

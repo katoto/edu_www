@@ -279,6 +279,8 @@ export default {
         },
         handleStatusChange () {
             this.pageno = 1
+            this.h5pageno = 1
+            this.h5orderList = []
             this.handleCurrentChange()
         },
 
@@ -393,7 +395,7 @@ export default {
             height: auto;
             .el-select{
                 width: 40%;
-                margin: 0 0 10px 0;
+                margin: 0 0 15px 0;
                 .el-input__inner{
                     box-sizing: border-box;
                     width: 100%;

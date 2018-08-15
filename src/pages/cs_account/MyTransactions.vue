@@ -254,6 +254,8 @@ export default {
         },
         handleStatusChange () {
             this.pageno = 1
+            this.h5pageno = 1
+            this.h5orderList = []
             this.handleCurrentChange()
         },
         getList (params) {
