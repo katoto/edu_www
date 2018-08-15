@@ -58,7 +58,7 @@
         </div>
         <!--奖金-->
         <p class="match-prize" v-if="isPopular">
-            {{ _('Play For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
+            {{ _('Bid For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
         </p>
         <p class="match-prize" v-else>
             {{ this.betData.goodsValue }}<i> {{ coinText }}</i>
@@ -130,10 +130,10 @@
             </p>
             <div class="btn-box">
                 <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}&go=mybets`}" class="bet-btnV">
-                    <lang>View Number</lang>
+                    <lang>See Details</lang>
                 </router-link>
                 <a href="javascript:;" class="bet-btnB" @click="handleBetMoreEvent">
-                    <lang>Bet More</lang>
+                    <lang>Bid More</lang>
                 </a>
             </div>
         </div>

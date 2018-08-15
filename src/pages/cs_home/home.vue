@@ -137,11 +137,11 @@
                     </div>
                     <!--最近中奖-->
                     <div class="item-recent recent-win">
-                        <div class="recent-t">Recently won</div>
+                        <div class="recent-t"><lang>Recently won</lang></div>
                         <div class="tab-t" :class="[activeClass1]">
-                            <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'">Lucky11</a>
-                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'">Slot</a>
-                            <a href="javascript:;" class="luckycoin" @click="activeClass1 = 'luckycoin'">LuckyCoin</a>
+                            <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'"><lang>Lucky11</lang></a>
+                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'"><lang>Slot</lang></a>
+                            <a href="javascript:;" class="luckycoin" @click="activeClass1 = 'luckycoin'"><lang>LuckyCoin</lang></a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
@@ -195,10 +195,10 @@
                     </div>
                     <!--最近流水-->
                     <div class="item-recent recent-water">
-                        <div class="recent-t">Recently Flowing Water</div>
+                        <div class="recent-t"><lang>Recent Transfer</lang></div>
                         <div class="tab-t" :class="activeClass2">
-                            <a href="javascript:;" class="recharge" @click="activeClass2 = 'recharge'">Recharge</a>
-                            <a href="javascript:;" class="withdraw" @click="activeClass2 = 'withdraw'">Withdrawal</a>
+                            <a href="javascript:;" class="recharge" @click="activeClass2 = 'recharge'"><lang>Top Up</lang></a>
+                            <a href="javascript:;" class="withdraw" @click="activeClass2 = 'withdraw'"><lang>Withdraw</lang></a>
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
@@ -358,7 +358,7 @@
                 banner: [
                     {
                         t1: _('Finally! You found the wonderland---- Coinslot, a blockchain-based game platform with fairness and openness'),
-                        t2: _('Only for your terrific experience in games'),
+                        t2: _('Unique play & transparent draw Only for your terrific experience in games'),
                         href: '/check'
                     }
                 ]

@@ -13,12 +13,11 @@
                     <h2><lang>Draw Result Checking</lang></h2>
                     <input type="text" :placeholder="_('Enter Draw No.')" v-model="issueNumber" @keyup.enter="issueInputEnterHandler">
                     <p>
-                        <lang>Find No. in </lang>
                         <a href="/luckycoin/drawHistory" target="_blank" v-if="params.type === 'luckycoin'">
-                            <lang>Draw Records</lang>
+                            <lang>Find No. in Draw Records</lang>
                         </a>
                         <a href="/drawNumber" target="_blank" v-if="params.type === 'lucky11'">
-                            <lang>Draw Records</lang>
+                            <lang>Find No. in Draw Records</lang>
                         </a>
                     </p>
                 </div>
