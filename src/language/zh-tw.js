@@ -615,7 +615,7 @@ module.exports = {
     'Time Up!': '已結束!',
     'Draw expired.': '已過期',
     'Detail >>': '查看詳情 >>',
-    'Winner is coming': 'Winner is coming',
+    'Winner is coming': '即將誕生贏家',
     'Winner takes all reward!': '投註號碼為系統隨機分配，當您的投註號碼與開獎號碼壹致時，您將贏得本場次獎金！開獎算法基於區塊鏈技術，無法預測，絕對公正公開哦！',
     'Click here to see transparent information.': '點擊查看透明性',
     'No record.': '沒有數據.',
@@ -646,13 +646,4 @@ module.exports = {
     'Reward↓': '獎金由高到低',
     'Reward↑': '獎金由低到高',
     'detailed': '場次詳情'
-    /* 驗證頁面 end */
-
-    /* 首頁 start */
-
-    /* 首頁 end */
-
-    /* 壹元奪幣 start */
-
-    /* 壹元奪幣 end */
 }
