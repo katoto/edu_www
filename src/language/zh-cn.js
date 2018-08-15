@@ -40,7 +40,7 @@ module.exports = {
     'Time Left': '剩余时间',
     'JACKPOT': '奖池',
     'JackPot': '奖池',
-
+    'Jackpot ': '超级奖池',
     'Home': '首页',
     'terms': '服务协议',
     'policy': '隐私政策',
@@ -124,6 +124,7 @@ module.exports = {
     'If there is no bet on this draw, the result will use the hash of the last block.': '本期无人投注，取就近区块开奖.',
     'Add Ticket': '增加一注',
     'Play Now': '立即投注',
+    'Play Now ': '立即参与',
     'Total Pay': '共计支付',
     'Transaction Time': '交易时间',
     'User ID': '用户ID',
@@ -295,7 +296,7 @@ module.exports = {
     'Type ': '币种',
     'waiting ': '审核中',
     'Transaction Time ': '申请时间',
-    'Congratulations!': '恭喜!',
+    'Congratulations!': '恭喜贺喜',
     'You Win + {0} {1}': '你贏得了 + {0} {1}',
     'Send': '发送',
     'wait': '待开奖',
@@ -402,6 +403,7 @@ module.exports = {
     'Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@Coinsprize.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@Coinsprize.com',
 
     'Details': '查看详情',
+    'Details ': '立即查验',
     'How to withdraw ?': '如何提款',
 
     'Place 0.00001 BTC per line, you can get 5% of the Jackpot': '每线投注0.00001 BTC,您将赢得5%的奖池',
@@ -568,7 +570,7 @@ module.exports = {
     'Waiting for sold out': '当前期次未开奖',
 
     'Classic game with high reward': '经典高回报游戏',
-    'Win 97%+ Return Rate': '高达 97%+ 的返奖率',
+    'Win 97%+ Return Rate': '刺激好玩，高达 97%+ 的返奖率',
     'Bid 0.01 ETH to win more': '用0.01Eth赢取百倍的回报',
     'Instant Reward': '最大奖',
     'Recent Bids': '最近下注',
@@ -645,7 +647,8 @@ module.exports = {
     'Click No. to see draw details': '点击期号查看开奖详情',
     'Click No. to see bid details': '点击期号查看场次详情',
     'Mobile APP is coming soon.': '敬请期待',
-    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，coinslot平台概不负责'
+    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，coinslot平台概不负责',
+    '{0} {1} / Bid': '每注价格: {0} {1}'
     /* 验证页面 end */
 
     /* 首页 start */

@@ -2,7 +2,7 @@
     <div>
         <div class="betting visible-lg">
             <h2>
-                <lang>Bet Record</lang>
+                <lang>My Bets</lang>
             </h2>
             <section class="cs-select">
                 <el-select v-model="playOptionVal" @change="handleStatusChange">
@@ -39,8 +39,7 @@
                     </el-option>
                 </el-select>
                 <p class="tocheck">
-                    <lang v-if="playOptionVal === '1'">Click No. to see draw details</lang>
-                    <lang v-else>Click No. to see bid details</lang>
+                    <lang>Click No. to see draw details</lang>
                 </p>
             </section>
             <template>

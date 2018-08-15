@@ -54,7 +54,7 @@ export default {
             uid: state => (state.userInfo && state.userInfo.uid) || ''
         }),
         goodsPrice () {
-            return `USD&ensp;${formatUSD(this.bet.coinprice.USD, this.bet.goodsValue)}` || '<br>'
+            return `${formatUSD(this.bet.coinprice.USD, this.bet.goodsValue)}&ensp;USD` || '<br>'
         },
         isWin () {
             return this.bet.state === '4'

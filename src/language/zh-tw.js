@@ -41,7 +41,7 @@ module.exports = {
     'Time Left': '剩餘時間',
     'JACKPOT': '獎池',
     'JackPot': '獎池',
-
+    'Jackpot ': '超級獎池',
     'Home': '首頁',
     'terms': '服務協議',
     'policy': '隱私政策',
@@ -126,6 +126,7 @@ module.exports = {
     'If there is no bet on this draw, the result will use the hash of the last block.': '本期無人投注，取就近區塊開獎.',
     'Add Ticket': '增加壹注',
     'Play Now': '立即投注',
+    'Play Now ': '立即参与',
     'Total Pay': '共計支付',
     'Transaction Time': '交易時間',
     'User ID': '用戶ID',
@@ -296,7 +297,7 @@ module.exports = {
     'Type ': '幣種',
     'waiting ': '審核中',
     'Transaction Time ': '申請時間',
-    'Congratulations!': '恭喜!',
+    'Congratulations!': '恭喜賀喜',
     'You Win + {0} {1}': '你贏得了 + {0} {1}',
     'Send': '發送',
     'wait': '待開獎',
@@ -403,6 +404,7 @@ module.exports = {
     'Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@Coinsprize.com.': '一般充值需要5分鐘到賬，請耐心等待，若充值持續未到賬，可郵件聯繫我們 support@Coinsprize.com',
 
     'Details': '查看詳情',
+    'Details ': '立即查驗',
     'How to withdraw ?': '如何提款',
     'Place 0.00001 BTC per line, you can get 5% of the Jackpot': '每條線投注0.00001BTC,您將贏得5%的獎池',
     'Place 0.0001 BTC per line, you can get 50% of the Jackpot': '每條線投注0.0001BTC,您將贏得50%的獎池',
@@ -574,7 +576,7 @@ module.exports = {
     'Waiting for sold out': '當前期次未開獎',
 
     'Classic game with high reward': '經典高回報遊戲',
-    'Win 97%+ Return Rate': '高達 97%+ 的返獎率',
+    'Win 97%+ Return Rate': '刺激好玩，高達 97%+ 的返獎率',
     'Bid 0.01 ETH to win more': '用0.01Eth贏取百倍的回報',
     'Instant Reward': '最大獎',
     'Recent Bids': '最近下註',
@@ -652,5 +654,6 @@ module.exports = {
     'Click No. to see draw details': '點擊期號查看開獎詳情',
     'Click No. to see bid details': '點擊期號查看場次詳情',
     'Mobile APP is coming soon.': '敬請期待',
-    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用戶錯誤輸入無法轉賬錢包地址或他人錢包，coinslot平臺概不負責'
+    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用戶錯誤輸入無法轉賬錢包地址或他人錢包，coinslot平臺概不負責',
+    '{0} {1} / Bid': '每注價格: {0} {1}'
 }
