@@ -271,15 +271,15 @@
                     </el-table-column>
                 </el-table>
                 <div class="mybets" v-if="myNumbers.length > 0 && activeName === 'my'">
-                    <p class="msg1 hide">
-                        {{ _('A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!', betMoney, coinText, myNumbers.length) }}
+                    <p class="msg1" v-if="orders.length !== 1">
+                        {{ _('{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!', betMoney, coinText, myNumbers.length) }}
                     </p>
-                    <div class="item-number">
+                    <div class="item-number" v-for="(orderItem, orderIndex) in winSort(orders)" :key="orderIndex">
                         <p>
-                            {{mybetTime}}   {{ _('{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!', betMoney, coinText, myNumbers.length) }}
+                            {{orderItem.crtime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ _('{0} {1} Bid Amount, {2} Bidding Numbers. ', Number(orderItem.betmoney), coinText, orderItem.list.length)}}<lang v-if="orders.length === 1">Bid more, win more!</lang>
                         </p>
                         <ul>
-                            <li v-for="(item, index) in winSort(myNumbers)" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
+                            <li v-for="(item, index) in winSort(orderItem.list)" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
                                 {{item}}
                             </li>
                         </ul>
@@ -355,6 +355,7 @@
                 isShowNumberPop: false,
                 numbers: [],
                 myNumbers: [],
+                orders: [],
                 goodsinfo: null,
                 infoName: '',
                 betMoney: 0,
@@ -536,6 +537,11 @@
                     .then(res => {
                         this.myNumbers = res.data.luckyNums.filter(item => {
                             return item !== ''
+                        })
+                        this.orders = [...res.data.orders].sort((a, b) => Number(a.crtime) > Number(b.crtime) ? 1 : -1)
+                        this.orders.forEach((item, index) => {
+                            this.orders[index].crtime = formatTime(item.crtime, 'yyyy-MM-dd HH:mm:ss')
+                            this.orders[index].list = item.betcode.split(',')
                         })
                     })
                 this.getMyBids({
@@ -1517,10 +1523,11 @@
             line-height: 52px;
         }
         .item-number{
-            padding: 26px 30px 0;
+            padding: 13px 30px 13px;
             background: #321740;
             border-radius: 6px;
             overflow: hidden;
+            margin: 10px 0;
             p{
                 line-height: 22px;
                 color: #798ca3;

@@ -625,6 +625,7 @@ module.exports = {
     'Paid': '您已投註',
     'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!': 'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!',
     '{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!': '共投註{0} {1}，獲得{2}個號碼，投註越多，號碼越多，中獎概率越高哦！',
+    '{0} {1} Bid Amount, {2} Bidding Numbers. ': '共投註{0} {1}，獲得{2}個號碼。',
     'You have {0} bidding numbers. Bid more, win more!': '共{0}個號碼，投註越多，號碼越多，中獎概率越高哦！',
     'Reward is here: Blockchain-based draw': '這裏是獎金：通過區塊鏈進行抽獎',
     'Available bid is here: Draw after all bids sold out': '這裏是剩余可投註金額：買滿即開獎',
