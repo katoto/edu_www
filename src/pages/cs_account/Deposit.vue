@@ -72,10 +72,10 @@
                             2. <lang>This address is only for ETH transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
                         </li>
                         <li v-if="currBalance.cointype==='1001'">
-                            3. <lang>Minimum top-up：0.0001BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
+                            3. <lang>Minimum top-up：0.0001 BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
                         </li>
                         <li v-if="currBalance.cointype==='2001'">
-                            3. <lang>Minimum top-up：0.001ETH. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
+                            3. <lang>Minimum top-up：0.001 ETH. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
                         </li>
                         <li>
                             4. <lang>Your wallet address may be changed sometimes, and Coinsprize team will inform you through notification or email as soon as possible.</lang>
