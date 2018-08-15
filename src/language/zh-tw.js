@@ -421,6 +421,8 @@ module.exports = {
     /*  seo end */
 
     /* help */
+    'Winning Probability': '中獎概率',
+    'Return': '回報',
     'About Account': '賬戶問題',
     'About Wallet': '錢包問題',
     'About Games': '玩法問題',
