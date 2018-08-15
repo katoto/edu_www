@@ -4,7 +4,7 @@
         <div class="main" @click="initPop">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Account Center'), path: '/account' }]"></BreadCrumbs>
             <!--侧边栏-->
-            <div class="slide-bar visible-lg">
+            <div class="slide-bar visible-lg" data-msg="Free Bouns">
                 <ul class="account_Tab">
                     <router-link active-class="on" :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
@@ -88,6 +88,18 @@ export default {
     },
     mounted () {
         document.documentElement.className = 'flexhtml'
+        switch (this.$store.state.route.name) {
+        case 'MyBets':
+            this.$store.commit('cs_account/setH5NavMsg', 'My Bets')
+            return false
+        case 'deposit':
+            this.$store.commit('cs_account/setH5NavMsg', 'Top Up')
+            return false
+        case 'MyTransactions':
+            this.$store.commit('cs_account/setH5NavMsg', 'My Transactions')
+            return false
+        }
+        this.$store.commit('cs_account/setH5NavMsg', this.$store.state.route.name)
     },
     destroyed () {},
     beforeDestroy () {
@@ -106,12 +118,28 @@ export default {
         }
     }
     .slide-bar {
+        position: relative;
         float: left;
         width: 170px;
         padding: 14px 0 10px 20px;
         border-radius: 6px;
         background: #fff;
+        &::before{
+            content: attr(data-msg);
+            display: block;
+            position: absolute;
+            left: 70px;
+            bottom: 84px;
+            border-radius: 2px;
+            background: #36c57a;
+            line-height: 18px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            padding: 0 5px;
+        }
         li {
+            position: relative;
             height: 50px;
             line-height: 50px;
         }

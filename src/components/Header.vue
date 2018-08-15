@@ -183,7 +183,7 @@
                             </li>
                             <li>
                                 <p><lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)</lang></p>
-                                <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Top Up</lang></a>
+                                <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Top Up</lang></a>
                                 <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" v-if="tasks_3==='0'" class="btn-comeTom"><lang>Come Tomorrow</lang></a>
@@ -193,7 +193,7 @@
                                 <p  v-else v-lang="'Get 0.0001BTC/ <b>0.001ETH</b> (Log in for 7 consecutive days)'"></p>
                                 <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</a>
+                                <div v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</div>
                             </li>
 
                         </ul>
@@ -873,6 +873,7 @@
             padding:0 10px;
             background: url("../assets/img/icon-water.png") no-repeat center;
             background-size: 19px;
+            animation: bri 2s infinite;
         }
         .faucet-detailed{
             display: none;
@@ -886,16 +887,17 @@
             border-radius: 6px;
             color: #263648;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 4px solid #36c57a;
             &::before{
                 content: '';
                 display: block;
                 position: absolute;
-                right: 34px;
-                top: -9px;
+                right: 28px;
+                top: -10px;
                 width: 18px;
                 height: 10px;
                 overflow: hidden;
-                background: url('../assets/img/icon-tri.png') no-repeat center;
+                background: url('../assets/img/icon-tri2.png') no-repeat center;
                 background-size: cover;
             }
             .faucet-title{
@@ -1383,7 +1385,7 @@
                 top: 46px;
                 right: 50%;
                 transform: translateX(50%);
-                padding: 5px 8px 0;
+                padding: 5px 8px 6px;
                 width: 250px;
                 .faucet-title{
                     line-height: 34px;
@@ -1409,11 +1411,10 @@
                 &::before{
                     right: 50%;
                     transform: translateX(50%);
-                    top: -3.5px;
-                    width: 16/2px;
-                    height: 8/2px;
+                    top: -10px;
+
                     overflow: hidden;
-                    background: url('../assets/img/icon-tri.png') no-repeat center;
+                    background: url('../assets/img/icon-tri2.png') no-repeat center;
                     background-size: cover;
                 }
             }
@@ -1488,12 +1489,15 @@
         12%,16%,20%{
             transform: rotate(30deg) translateY(2px);
         }
-
-
+    }
+    @keyframes bri {
+        0%,30%,80%,100%{
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        20%,40%{
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
     }
 </style>
-
-<<<<<<< HEAD
-=======
-
->>>>>>> h5

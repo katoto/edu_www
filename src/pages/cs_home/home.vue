@@ -22,7 +22,7 @@
                     <!--各种游戏宣传图-->
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <div class="game-11t5">
+                            <router-link :to="{path: '/lucky11'}" class="game-11t5">
                                 <p class="msg1"><lang>Lucky 11</lang></p>
                                 <p class="msg2"><lang>Classic game with high reward</lang></p>
                                 <p class="msg3"><lang>Jackpot</lang></p>
@@ -31,15 +31,15 @@
                                     <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
-                                <router-link :to="{path: '/lucky11'}" class="game-btn">
+                                <div class="game-btn">
                                     <lang>Play Now</lang>
-                                </router-link>
-                            </div>
+                                </div>
+                            </router-link>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <div class="game-slot">
+                            <router-link :to="{path: '/slot'}"  class="game-slot">
                                 <p class="msg1"><lang>Slot</lang></p>
                                 <p class="msg2"><lang>Win 97%+ Return Rate</lang></p>
                                 <p class="msg3"><lang>Jackpot</lang></p>
@@ -48,15 +48,15 @@
                                     <i> {{formateCoinType(entrance.slot.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
-                                <router-link :to="{path: '/slot'}" class="game-btn">
+                               <div class="game-btn">
                                     <lang>Play Now</lang>
-                                </router-link>
-                            </div>
+                               </div>
+                            </router-link>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <div class="game-onecoin">
+                            <router-link :to="{path: '/luckycoin'}" class="game-onecoin">
                                 <p class="msg1"><lang>LuckyCoin</lang></p>
                                 <p class="msg2"><lang>Bid 0.01 ETH to win more</lang></p>
                                 <p class="msg3"><lang>Instant Reward</lang></p>
@@ -65,10 +65,10 @@
                                     <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
-                                <router-link :to="{path: '/luckycoin'}" class="game-btn">
+                               <div class="game-btn">
                                     <lang>Play Now</lang>
-                                </router-link>
-                            </div>
+                               </div>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -554,6 +554,7 @@
         .game-11t5,
         .game-slot,
         .game-onecoin {
+            display: block;
             width: 92%;
             padding-top: 27px;
             height: 290px;
@@ -561,6 +562,7 @@
             margin: 0 auto;
             border-radius: 6px;
             text-align: center;
+            color: #fff;
             //text-indent:percentage(94/369);
             .msg1 {
                 line-height: 30px;
@@ -629,6 +631,7 @@
         background: #242240;
         .recent-win {
             background: #292748;
+            font-weight: bold;
         }
         .recent-bet,
         .recent-win {
@@ -972,7 +975,7 @@
                 .banner-t1 {
                     margin-top: 143px;
                     line-height: 57px;
-                    font-size: 46px;
+                    font-size: 35px;
                 }
                 .banner-t2 {
                     line-height: 28px;
