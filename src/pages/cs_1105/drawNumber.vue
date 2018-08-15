@@ -146,18 +146,18 @@
                             </div>
                             <div class="no">
                                 <p>
-                                    No:
+                                    <lang>No.</lang>:
                                 </p>
                                 <span>
                                     {{popRewardMsg.expectid}}
                                 </span>
                                 <a :href="`/check?number=${popRewardMsg.expectid}&type=lucky11`" class="btn-check" target="_blank">
-                                    Verify
+                                    <lang>Draw Process </lang>
                                 </a>
                             </div>
                             <div class="block">
                                 <p>
-                                    Block:
+                                    <lang>Block</lang>
                                 </p>
                                 <a target="_blank" :href="popRewardMsg.jumpEthUrl">
                                     #{{popRewardMsg.blocknum}}
@@ -165,7 +165,7 @@
                             </div>
                             <div class="araw">
                                 <p>
-                                    <lang>Hash on the block</lang>:
+                                    <lang>Draw Hash</lang>:
                                 </p>
                                 <span>
                                     <a target="_blank" :href="popRewardMsg.jumpEthUrl">
@@ -175,7 +175,7 @@
                             </div>
                             <div class="merkle" v-if="popRewardMsg.merkel_hash !== ''">
                                 <p>
-                                    <lang>Calculating Process</lang>: 
+                                    <lang>Merkel Hash</lang>: 
                                 </p>
                                 <span>
                                     <a target="_blank" :href="`/check?number=${popRewardMsg.expectid}&type=lucky11`">
@@ -184,12 +184,12 @@
                                     
                                 </span>
                             </div>
-                            <div class="note">
+                            <div class="note" v-else>
                                 <p>
-                                    Note:
+                                    <lang>Note:</lang>
                                 </p>
                                 <p>
-                                    If there is no bet on this draw, the result will use the hash of the last block.
+                                    <lang>If there is no bet on this draw, the result will use the hash of the last block.</lang>
                                 </p>
                             </div>
                         </div>
