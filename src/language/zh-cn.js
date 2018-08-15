@@ -25,6 +25,7 @@ module.exports = {
     'Lucky11': 'Lucky11',
     'Draw History': '开奖历史',
     'More >>': '更多 >>',
+    'Click to see more': '点击加载更多',
     'Time Left': '剩余时间',
     'JACKPOT': '奖池',
     'JackPot': '奖池',
@@ -371,11 +372,11 @@ module.exports = {
     'Select Currency': '当前选择',
     'Current balance': '当前余额',
     'copy Link': '复制链接',
-    'Tip: This address only supports ETH recharge, do not choose the wrong currency': '温馨提示：只支持ETH地址转账，请仔细检查地址是否正确',
-    'Tip: This address only supports BTC recharge, do not choose the wrong currency': '温馨提示：只支持BTC地址转账，请仔细检查地址是否正确',
+    'Tip: This address only supports ETH recharge, do not choose the wrong currency': '温馨提示：只支持ETH地址转账',
+    'Tip: This address only supports BTC recharge, do not choose the wrong currency': '温馨提示：只支持BTC地址转账',
     'The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip': 'eqwe',
 
-    'Only support {0} wallet': '仅支持{0}地址转账，请仔细检查地址是否正确',
+    'Only support {0} wallet': '仅支持{0}地址转账',
 
     'Kind Reminder': '温馨提示',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended.': '建议您使用正规安全的数字货币钱包或者交易平台.',

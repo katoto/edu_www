@@ -25,6 +25,7 @@ module.exports = {
     'Lucky11': 'Lucky11',
     'Draw History': '開獎歷史',
     'More >>': '更多 >>',
+    'Click to see more': '點擊加載更多',
     'Time Left': '剩餘時間',
     'JACKPOT': '獎池',
     'JackPot': '獎池',
@@ -371,11 +372,11 @@ module.exports = {
     'Select Currency': '當前選擇',
     'Current balance': '當前餘額',
     'copy Link': '複製連結',
-    'Tip: This address only supports ETH recharge, do not choose the wrong currency': '溫馨提示：只支持ETH位址轉帳，請仔細檢查位址是否正確',
-    'Tip: This address only supports BTC recharge, do not choose the wrong currency': '溫馨提示：只支持BTC位址轉帳，請仔細檢查位址是否正確',
+    'Tip: This address only supports ETH recharge, do not choose the wrong currency': '溫馨提示：只支持ETH位址轉帳',
+    'Tip: This address only supports BTC recharge, do not choose the wrong currency': '溫馨提示：只支持BTC位址轉帳',
     'The amount of the event, you need to meet the flow conditions to withdraw View detailed rules Also need 0.234ETH water strip': 'eqwe',
 
-    'Only support {0} wallet': '僅支持{0}位址轉帳，請仔細檢查位址是否正確',
+    'Only support {0} wallet': '僅支持{0}位址轉帳',
 
     'Kind Reminder': '溫馨提示',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended.': '建議您使用正規安全的數位貨幣錢包或者交易平臺.',

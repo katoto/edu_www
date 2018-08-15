@@ -102,10 +102,10 @@
                                     </div>
                                 </div>
 
-                                <router-link :to="{path: '/account/myBets'}"  class="my-transaction">
+                                <router-link @click.native="changH5Msg('My Bets')" :to="{path: '/account/myBets'}"  class="my-transaction" >
                                     <lang>My Bets</lang>
                                 </router-link>
-                                <router-link :to="{path: '/account/general'}" class="account-center">
+                                <router-link @click.native="changH5Msg('General')" :to="{path: '/account/general'}" class="account-center"  >
                                     <lang>Account Center</lang>
                                 </router-link>
                                 <div class="currency-select">
@@ -373,6 +373,9 @@
             },
             onLoginIn () {
                 this.$store.commit('showLoginPop')
+            },
+            changH5Msg (value) {
+                this.$store.commit('cs_account/setH5NavMsg', value)
             }
         },
         filters: {

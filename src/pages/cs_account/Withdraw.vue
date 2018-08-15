@@ -137,14 +137,10 @@
             <div class="tab">
                 <ul>
                     <li :class="{on:h5activeName == 'Request'}"  @click="h5activeName= 'Request'">
-                        <lang>
-                            Request
-                        </lang>
+                        <lang>Request</lang>
                     </li>
                     <li :class="{on:h5activeName == 'Records'}" @click="h5activeName= 'Records'">
-                        <lang>
-                            Records
-                        </lang>
+                        <lang>Records</lang>
                     </li>
                 </ul>
             </div>
@@ -210,27 +206,27 @@
                 </button>
             </div>
             <div class="div-request" v-else>
+                <section class="cs-select">
+                    <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
+                        <el-option v-for="item in withdrawOptions" :key="item.value" :label="item.label"
+                                   :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-model="withdrawTimeOptionVal" @change="handleStatusChange">
+                        <el-option v-for="item in withdrawTimeOptions" :key="item.value" :label="item.label"
+                                   :value="item.value">
+                        </el-option>
+                    </el-select>
+
+                    <!-- btc -->
+                    <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                        <el-option v-for="item in ethOptions" :key="item.value" :label="item.label"
+                                   :value="item.value">
+                        </el-option>
+                    </el-select>
+
+                </section>
                 <template v-if="orderList.length>0">
-                    <section class="cs-select">
-                        <el-select v-model="withdrawOptionVal" @change="handleStatusChange">
-                            <el-option v-for="item in withdrawOptions" :key="item.value" :label="item.label"
-                                       :value="item.value">
-                            </el-option>
-                        </el-select>
-                        <el-select v-model="withdrawTimeOptionVal" @change="handleStatusChange">
-                            <el-option v-for="item in withdrawTimeOptions" :key="item.value" :label="item.label"
-                                       :value="item.value">
-                            </el-option>
-                        </el-select>
-
-                        <!-- btc -->
-                        <el-select v-model="ethOptionVal" @change="handleStatusChange">
-                            <el-option v-for="item in ethOptions" :key="item.value" :label="item.label"
-                                       :value="item.value">
-                            </el-option>
-                        </el-select>
-
-                    </section>
                     <ul>
                         <li v-for="item in orderList" :key="item.index">
                             <div class="item-re item-re1">
@@ -251,14 +247,14 @@
                             </div>
                         </li>
                     </ul>
-                    <a href="javascript:;" class="btn-more">点击加载更多</a>
+                    <a href="javascript:;" class="btn-more" @click="handleCurrentChange(h5pageno)" v-if="isShowMoreBtn">
+                        <lang>Click to see more</lang>
+                    </a>
                 </template>
                 <div class="nomsg" v-else>
                     <img src="@/assets/img/nomsg.png" alt="">
                     <p>
-                        <lang>
-                            No Data
-                        </lang>
+                        <lang>No Data</lang>
                     </p>
                 </div>
             </div>
@@ -400,10 +396,12 @@
                 pageSize: 10,
                 PageTotal: 10,
                 orderList: [],
+                h5pageno: 1,
+                isShowMoreBtn: true,
+                h5orderList: [],
                 ethUrl,
                 activeName: 'Request',
                 h5activeName: 'Request',
-                h5orderList: [],
                 withdrawOptionVal: '1',
                 withdrawOptions: [
                     {
@@ -624,6 +622,11 @@
                 if (data) {
                     this.orderList = this.formatWithdrawList(data.list)
                     this.PageTotal = Number(data.counter)
+
+                    this.h5orderList = this.h5orderList.concat(this.orderList)
+                    if (data.list.length == 0 || data.list.length != 10) {
+                        this.isShowMoreBtn = false
+                    }
                 }
             },
             /*
@@ -1069,7 +1072,6 @@
         }
         .div-request{
             padding:0 0 30/2px;
-
             li{
                 padding: 16px 0 20px 0;
                 .item-re{

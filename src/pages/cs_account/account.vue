@@ -20,12 +20,12 @@
             <!--移动端-->
             <div class="pop-mask hidden-lg" @click="isShowH5SideBar = false" :class="{hide:!isShowH5SideBar}"></div>
             <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}">
-               <p> {{currenMsg}}</p>
+               <p> {{_(h5NavMsg)}}</p>
                 <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
                     <span></span><span></span><span></span>
                 </div>
                 <ul>
-                    <router-link active-class="on" @click.native="currenMsg=item.msg,isShowH5SideBar = false"  :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
+                    <router-link active-class="on" @click.native="changH5Msg(item.msg)"  :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
                             {{_(item.msg)}}
                         </a>
@@ -59,7 +59,6 @@ export default {
                 { msg: _('Deposit'), link: '/account/deposit' },
                 { msg: _('Withdraw'), link: '/account/withdraw' }
             ],
-            currenMsg: 'account',
             isShowH5SideBar: false
         }
     },
@@ -67,9 +66,17 @@ export default {
     computed: {
         isLog () {
             return this.$store.state.isLog
+        },
+        h5NavMsg () {
+            this.isShowH5SideBar = false
+            return this.$store.state.cs_account.h5NavMsg
         }
     },
-    methods: {},
+    methods: {
+        changH5Msg (value) {
+            this.$store.commit('cs_account/setH5NavMsg', value)
+        }
+    },
     components: {
         Footer,
         Header,

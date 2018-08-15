@@ -135,43 +135,43 @@
             </template>
         </div>
         <div class="h5-betting hidden-lg">
-            <template v-if="orderList.length>0">
-                <section class="cs-select">
-                    <el-select v-model="playOptionVal" @change="handleStatusChange">
-                        <el-option
-                            v-for="item in playOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                    <el-select v-model="betOptionVal" @change="handleStatusChange">
-                        <el-option
-                            v-for="item in betOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                    <el-select v-model="betTimeOptionVal" @change="handleStatusChange">
-                        <el-option
-                            v-for="item in betTimeOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                    <el-select v-model="ethOptionVal" @change="handleStatusChange">
-                        <el-option
-                            v-for="item in ethOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </section>
+            <section class="cs-select">
+                <el-select v-model="playOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in playOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="betOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in betOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="betTimeOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in betTimeOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-select v-model="ethOptionVal" @change="handleStatusChange">
+                    <el-option
+                        v-for="item in ethOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+            </section>
+            <template v-if="h5orderList.length>0">
                 <ul class="div-betting">
-                    <li v-for="item in orderList" :key="item.index">
+                    <li v-for="item in h5orderList" :key="item.index">
                         <div class="item-bet item-re1">
                             <p class="time">
                                 {{item.bettime.substr(5)}}
@@ -185,37 +185,23 @@
                         </div>
                         <div class="item-bet item-re2">
                             <p class="no">
-                                <lang>No.</lang>{{item.expectid}}
+                                No.{{item.expectid}}
                             </p>
-                            <ul class="num-box">
-                                <li class="bingo">
-                                    2
-                                </li>
-                                <li>
-                                    2
-                                </li>
-                                <li>
-                                    2
-                                </li>
-                                <li>
-                                    2
-                                </li>
-                                <li>
-                                    2
-                                </li>
-                            </ul>
+                            <div class="num-box" v-html="item.betcodeVal">
+
+                            </div>
                             <div class="staus" v-html="item.betprizeVal"></div>
                         </div>
                     </li>
                 </ul>
-                <a href="javascript:;" class="btn-more">点击加载更多</a>
+                <a href="javascript:;" class="btn-more" @click="handleCurrentChange(h5pageno)" v-if="isShowMoreBtn">
+                    <lang>Click to see more</lang>
+                </a>
             </template>
             <div class="nomsg " v-else>
                 <img src="@/assets/img/nomsg.png" alt="">
                 <p>
-                    <lang>
-                        No Data
-                    </lang>
+                    <lang>No Data</lang>
                 </p>
             </div>
         </div>
@@ -235,10 +221,12 @@ export default {
     data () {
         return {
             pageno: 1,
+            h5pageno: 1,
+            isShowMoreBtn: true,
             pageSize: 10,
             PageTotal: 10,
             orderList: [],
-            orderList1: [],
+            h5orderList: [],
             ethUrl,
             betOptions: [{
                 value: '1',
@@ -301,6 +289,7 @@ export default {
             })
         },
         async handleCurrentChange (pageno = this.pageno) {
+            this.h5pageno += 1
             let params = {
                 pageno,
                 day: this.betTimeOptionVal === '1' ? 30 : 7,
@@ -317,6 +306,11 @@ export default {
             if (data) {
                 this.orderList = this.formatData(data.orders)
                 this.PageTotal = parseInt(data.counter, 10)
+
+                this.h5orderList = this.h5orderList.concat(this.orderList)
+                if (data.orders.length == 0 || data.orders.length != 10) {
+                    this.isShowMoreBtn = false
+                }
             }
         },
         /*
