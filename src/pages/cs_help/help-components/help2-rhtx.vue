@@ -29,6 +29,14 @@ np<template>
                     <lang>It usually takes 12 hours to confirm your withdrawal before it is sent to your wallet.</lang>
                 </p>
             </li>
+            <li>
+                <p class="title">
+                    <lang>Kind Reminder</lang>
+                </p>
+                <p class="msg">
+                    <lang>Coinsprize assumes no liability for wrong / failed transfer caused by users.</lang>
+                </p>
+            </li>
         </ul>
     </div>
 </template>

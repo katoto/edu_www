@@ -27,6 +27,14 @@
                     <span v-if="languang==='en'">（* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)</span>
                 </p>
             </li>
+            <li>
+                <p class="title">
+                    <lang>Kind Reminder</lang>
+                </p>
+                <p class="msg">
+                    <lang>Coinsprize assumes no liability for wrong / failed transfer caused by users.</lang>
+                </p>
+            </li>
         </ul>
     </div>
 </template>

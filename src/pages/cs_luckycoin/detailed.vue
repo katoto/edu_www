@@ -109,7 +109,7 @@
                                         <lang>Draw expired.</lang>
                                     </span>
                                     <p>
-                                        {{_('Draw expired. {0} {1} has been refunded.', betMoney, coinText)}}
+                                        {{_('{0} {1} has been refunded.', betMoney, coinText)}}
                                     </p>
                                 </div>
                                 <div class="main-expired" v-else-if="goodsinfo.state === '5'">
@@ -157,7 +157,7 @@
                         <div class="btn btn-finished">
                             <lang>Winner is coming</lang> {{ time }}
                         </div>
-                        <div class="btn btn-expired">
+                        <div class="btn btn-expired hide">
                             <lang>User's payment has been refunded.</lang>
                         </div>
                         <!--这里逻辑跟首页一样-->
@@ -318,7 +318,7 @@
                         <div class="pop-main">
                             <h3>{{infoName}}</h3>
                             <p class="msg1">
-                                {{ _('You have {0} bidding numbers. Bid more, win more!', numbers.length) }}
+                                {{ numbers.length > 1 ? _('You have {0} bidding numbers. Bid more, win more!', numbers.length) : _('You have 1 bidding number1. Bid more, win more!') }}
                             </p>
                             <div class="item-number">
                                 <ul>
@@ -328,7 +328,7 @@
                                 </ul>
                             </div>
                             <p class="msg2">
-                                <lang>Winner takes all reward!</lang> <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click to view transparency</lang></router-link>
+                                <lang>Winner takes all reward!</lang> <router-link :to="`/check?number=${number}&type=luckycoin`"><lang>Click here to see transparent information.</lang></router-link>
                             </p>
                         </div>
                     </div>

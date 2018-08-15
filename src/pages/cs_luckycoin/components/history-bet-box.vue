@@ -27,7 +27,7 @@
                     <lang>User's payment has been refunded.</lang>
                 </p>
                 <p style="color: #3fc06f;" v-else>
-                    {{ _('Draw expired. {0} {1} has been refunded.', Number(formateBalance( bet.betmoney )), coinText) }}
+                    {{ _('{0} {1} has been refunded.', Number(formateBalance( bet.betmoney )), coinText) }}
                 </p>
             </div>
         </template>

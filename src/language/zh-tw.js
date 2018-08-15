@@ -609,8 +609,8 @@ module.exports = {
     'You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!': '您獲得1個號碼，若與開獎號碼相同就可獲得獎金{0} {1}。投註越多，中獎概率越高，祝妳好運~',
     'You have bought {2} bids. Winner will get {0} {1} reward. Bid more, win more! Good Luck!': '您獲得{2}個號碼，若與開獎號碼相同就可獲得獎金{0} {1}。投註越多，中獎概率越高，祝妳好運~',
     'Finished ': 'Finished ',
-    "User's payment has been refunded.": '場次已過期，用戶的投註金額已返還到用戶賬戶上',
-    'Draw expired. {0} {1} has been refunded.': '場次已過期，您的投註金額{0} {1}已返還到您的賬戶上',
+    "User's payment has been refunded.": '用戶的投註金額已返還到用戶賬戶上',
+    '{0} {1} has been refunded.': '您的投註金額{0} {1}已返還到您的賬戶上',
     'Max': '最大',
     'Draw finished at': '開獎時間',
     'Time Up!': '已結束!',
@@ -621,13 +621,13 @@ module.exports = {
     'Click here to see transparent information.': '點擊查看透明性',
     'No record yet.': '沒有數據.',
     'Log in to view': '請登錄查看',
-    'Click to view transparency': '點擊查看透明性',
     'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.': '提示：每投註0.01ETH，即可獲得壹個號碼。投註越多，號碼越多，中獎概率越高。',
     'Paid': '您已投註',
     'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!': 'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!',
     '{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!': '共投註{0} {1}，獲得{2}個號碼，投註越多，號碼越多，中獎概率越高哦！',
     '{0} {1} Bid Amount, {2} Bidding Numbers. ': '共投註{0} {1}，獲得{2}個號碼。',
     'You have {0} bidding numbers. Bid more, win more!': '共{0}個號碼，投註越多，號碼越多，中獎概率越高哦！',
+    'You have 1 bidding number. Bid more, win more!': '共1個號碼，投註越多，號碼越多，中獎概率越高哦！',
     'Reward is here: Blockchain-based draw': '這裏是獎金：通過區塊鏈進行抽獎',
     'Available bid is here: Draw after all bids sold out': '這裏是剩余可投註金額：買滿即開獎',
     'Click here to play: Bid more, win more': '點擊這裏投註：投註越多，中獎概率越高',
@@ -650,5 +650,6 @@ module.exports = {
     'detailed': '場次詳情',
     'Click No. to see draw details': '點擊期號查看開獎詳情',
     'Click No. to see bid details': '點擊期號查看場次詳情',
-    'Mobile APP is coming soon.': '敬請期待'
+    'Mobile APP is coming soon.': '敬請期待',
+    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用戶錯誤輸入無法轉賬錢包地址或他人錢包，coinslot平臺概不負責'
 }

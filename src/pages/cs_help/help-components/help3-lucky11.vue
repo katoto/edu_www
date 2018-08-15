@@ -11,13 +11,13 @@
                 <p class="msg">
                     <lang>Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain. Blockchain-based data are featured with its unchangeableness and recognized by the whole network, which means it can completely avoid black box operations. Thus, issues like information asymmetry or non-transparency could be addressed to give players a game platform with maximum fairness they have never enjoyed before.</lang>
                 </p>
-                <p class="msg">
-                    <lang>Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the Ethereum blockchain. One draw per minute. The result is determined by the last hash value uploaded in the minute. If the chosen numbers match the draw result, the player wins the reward (virtual currency) stipulated in smart</lang>
-                </p>
             </li>
             <li>
                 <p class="title">
                     <lang>How to play the game?</lang>
+                </p>
+                <p class="msg">
+                    <lang>Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the Ethereum blockchain. One draw per minute. The result is determined by the last hash value uploaded in the minute. If the chosen numbers match the draw result, the player wins the reward (virtual currency) stipulated in smart</lang>
                 </p>
                 <p class="msg">
                     <lang>Players will pick 1-5 numbers from 1 to 11. Players win the reward when the chosen numbers are in line with that of the draw result:</lang><br>
