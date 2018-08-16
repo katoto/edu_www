@@ -318,7 +318,7 @@
                         <div class="pop-main">
                             <h3>{{infoName}}</h3>
                             <p class="msg1">
-                                {{ numbers.length > 1 ? _('You have {0} bidding numbers. Bid more, win more!', numbers.length) : _('You have 1 bidding number1. Bid more, win more!') }}
+                                {{ numbers.length > 1 ? _('You have {0} bidding numbers. Bid more, win more!', numbers.length) : _('You have 1 bidding number. Bid more, win more!') }}
                             </p>
                             <div class="item-number">
                                 <ul>

@@ -15,7 +15,7 @@
                         <lang>Terms of Use</lang>
                     </a>
                     <router-link :to="{path: '/check'}" >
-                        <lang>Transparency checking</lang>
+                        <lang>Transparency Checking</lang>
                     </router-link>
                     <router-link :to="{path: '/help'}" >
                         <lang>Help Center</lang>
@@ -35,7 +35,7 @@
                         <lang>LuckyCoin</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                        <lang>F3d west</lang>
+                        <lang>F3d West</lang>
                     </a>
                 </div>
             </div>

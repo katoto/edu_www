@@ -26,7 +26,7 @@
                                 1101
                             </li>
                             <li :data-msg="_('(Bid Numbers)')">
-                                1,3
+                                1,2,3,4,5
                             </li>
                             <li :data-msg="_('(Amount)')">
                                 0.0008
