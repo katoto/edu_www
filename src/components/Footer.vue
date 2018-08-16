@@ -151,7 +151,7 @@
 
     .footer {
         position: relative;
-        min-height: 342px;
+        min-height: 310px;
         box-sizing: border-box;
         z-index: 5;
         background: #151515;
@@ -165,8 +165,10 @@
         }
         .main {
             max-width: 1190px;
+            height: 100%;
             margin: 0 auto;
             overflow: hidden;
+            background: transparent;
         }
         .ftitle {
             line-height: 32px;
@@ -200,6 +202,7 @@
             }
         }
         .contact {
+            position: relative;
             text-align: right;
             overflow: hidden;
             a {
@@ -207,9 +210,9 @@
             }
         }
         .language {
+            position: relative;
             float: right;
             margin-top: 27px;
-            position: relative;
             width: 130px;
             border: 1px solid #6f8198;
             line-height: 16px;

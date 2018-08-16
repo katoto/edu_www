@@ -37,7 +37,10 @@
                             </div>
                             <div class="step bounceIn animated step2" :class="[isShowStep2 ? '' : 'hide']">
                                 <p>
-                                    <lang>Available bid is here: Draw after all bids sold out</lang>
+                                    <lang>Available bid is here:</lang>
+                                </p>
+                                <p>
+                                   <lang>Draw after all bids sold out</lang>
                                 </p>
                                 <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
@@ -190,7 +193,11 @@
         }
     }
 </script>
-
+<style lang="less" type="text/less">
+    .banner .el-carousel__arrow{
+        display: none !important;
+    }
+</style>
 <style scope lang="less" type="text/less">
     #app .for-new, #app .pop-mask {
         display: none;
@@ -258,8 +265,9 @@
         }
         .step1{
             display: block;
+            width: 367px;
             position: absolute;
-            left: -170px;
+            left: -210px;
             top: -75px;
             img{
                 display: block;
@@ -270,8 +278,9 @@
         }
         .step2{
             position: absolute;
+            width: 255px;
             top: 60px;
-            left: -86%;
+            left: -255px;
             img{
                 display: block;
                 position: absolute;
