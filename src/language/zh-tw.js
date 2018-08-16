@@ -15,9 +15,9 @@ module.exports = {
     'Free Spin': '領取',
     'Play': '前往',
     'Come Tomorrow': '明日再來',
-    'Top Up': '去充值',
+    'Top Up': '充值',
     '{0}/7 Days': '已登錄{0}天',
-    'F3d west': '造夢西遊',
+    'F3d West': '造夢西遊',
     'Log In / Sign Up': '登錄 / 注冊',
     'Deposit': '充值',
     'Withdraw': '提款',
@@ -530,7 +530,6 @@ module.exports = {
     'Lucky 11': '幸運11',
     'Lucky11 issues:': 'Lucky11問題:',
     'LuckyCoin issues:': 'LuckyCoin問題:',
-    'Recently Wins': '最近開獎',
     'Recent Transfer': '最近流水',
     'Support service:': '技術支持:',
 
@@ -594,7 +593,7 @@ module.exports = {
     'Support ETH and BTC': 'ETH、BTC多幣種投註',
     'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '當前遊戲支持最受歡迎的比特幣和以太幣進行投註、存款和提款，未來還將接受更多加密數字貨幣，敬請期待',
     'Support Mobile APP': '支持移動端設備',
-    'Enjoy convenience and fun from quick and fair play at any time & any where.': '隨時隨地投註、充值、提款，做妳更貼心、更便捷的，更放心的平臺。敬請期待',
+    'Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.': '隨時隨地投註、充值、提款，做妳更貼心、更便捷的，更放心的平臺。敬請期待',
     'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的開獎算法，帶您開啟前所未有的遊戲體驗',
 
