@@ -649,7 +649,54 @@
                 } else {
                     this.baseAreaMsg.pickMoney = 0.0005
                 }
-            }
+            },
+            async indexRouter (query) {
+                /* 邮箱注册 找回密码  邀请等 */
+                if (query.sign) {
+                    if (query.from === 'reg') {
+                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
+                        console.log(mailBack)
+                        if (mailBack) {
+                            if (mailBack.status === '100') {
+                                if (parseFloat(mailBack.data.login_times) >= 0) {
+                                    // 显示第一次邀请
+                                    this.$store.commit('showFirstLogin', true)
+                                } else {
+                                    this.$store.commit('showFirstLogin', false)
+                                }
+                                this.$store.dispatch('getUserInfo')
+                                this.$store.commit('showRegSuccess')
+                            } else {
+                                Message({
+                                    message: mailBack.message,
+                                    type: 'error'
+                                })
+                            }
+                        }
+                        this.$router.push('')
+                    }
+                    if (query.from === 'resetPassword') {
+                        // 重置密码
+                        this.$store.commit('setResetObj', {
+                            email: query.email,
+                            sign: query.sign,
+                            showReset: true
+                        })
+                        this.$store.commit('showResetPwd')
+                        // 修改密码的时候，清楚ck
+                        removeCK()
+                        this.$store.commit('setIsLog', false)
+                        this.$store.commit('setUserInfo', {})
+                    }
+                    if (query.inviter) {
+                        // 邀请
+                        this.$store.commit('setInviterObj', {
+                            inviter: query.inviter,
+                            sign: query.sign
+                        })
+                    }
+                }
+            },
         },
         components: {
             Footer,
@@ -669,9 +716,10 @@
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav, true)
-            // if (this.$store.state.route.query) {
-            //     this.indexRouter(this.$store.state.route.query)
-            // }
+
+            if (this.$store.state.route.query) {
+                this.indexRouter(this.$store.state.route.query)
+            }
             // 首页 冒泡效果
             setTimeout(() => {
                 /* 订阅lucky11 sock */

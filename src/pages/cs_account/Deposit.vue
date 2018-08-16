@@ -42,7 +42,7 @@
                             <lang>Copy</lang>
                         </a>
                     </div>
-                    
+
                     <p class="item2-2" v-if="currBalance.cointype==='2001'">
                         <lang>Tips: This address only supports ETH top-up, do not choose another kind of coins</lang>
                     </p>
@@ -108,20 +108,23 @@
                     <i class="bold">{{ formateBalance(currBalance.balance) }} </i>
                     <i>{{ formateCoinType(currBalance.cointype) }}</i>
                 </p>
-                <p class="item1tips">
-                    Get 10 free spins of Slot  (Top-up reaches 0.001BTC 1 chance/day)
+                <p class="item1tips" v-if="currBalance.cointype==='2001'">
+                    <lang>Get 10 free spins of Slot (Top-up reaches 0.01ETH, 1 chance/day)</lang>
+                </p>
+                <p class="item1tips" v-else>
+                    <lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)</lang>
                 </p>
             </div>
             <div class="item2 ">
                 <div class="tips">
-                    <lang></lang>
+                    <lang>Select Coin</lang>
                 </div>
                 <template v-if="currBalance">
                     <p class="item2-2" v-if="currBalance.cointype==='2001'">
-                        <lang>Tip: This address is only for ETH top-up, do not choose another type of coins</lang>
+                        <lang>Tips: This address only supports ETH top-up, do not choose another kind of coins</lang>
                     </p>
                     <p class="item2-2" v-if="currBalance.cointype==='1001'">
-                        <lang>Tip: This address is only for BTC top-up, do not choose another type of coins</lang>
+                        <lang>Tips: This address only supports BTC top-up, do not choose another kind of coins</lang>
                     </p>
                     <div class="item2-1">
                         <a :href="'https://etherscan.io/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='2001'" class="address">{{ currBalance.address }}</a>

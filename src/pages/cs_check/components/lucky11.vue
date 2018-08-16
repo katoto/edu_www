@@ -99,7 +99,7 @@
                     </li>
                 </ul>
                 <p class="p2">
-                    <lang>Step 2. Each group will be calculated through an algorithm shows below to produce the draw numbers.</lang>
+                    <lang>Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.</lang>
                 </p>
                 <ul class="mod-5 clearfix">
                     <li>
