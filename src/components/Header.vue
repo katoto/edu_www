@@ -1317,14 +1317,19 @@
                     font-size: 12px;
                 }
                 .act-sign{
+                    position: absolute;
+                    width: 120px;
+                    right: 15px;
+                    bottom: -7px;
+                    margin: 0;
                     padding: 0 4px;
                     height: 15px;
-                    margin: 17.5px 7.5px 0 0;
                     line-height: 15px;
                     font-size: 11px;
                     &::before{
-                        top: 3px;
-                        right:-8px;
+                        top: -8px;
+                        right:20px;
+                        transform: rotateZ(-90deg);
                     }
                 }
                 .to-login{
