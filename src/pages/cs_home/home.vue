@@ -10,6 +10,7 @@
                         <el-carousel :interval="3000">
                             <el-carousel-item v-for="(item, index) in banner" :key="index">
                                 <div class="banner-t1" v-html="item.t1"></div>
+                                <p class="banner-t11 visible-md visible-lg">{{ item.t11 }}</p>
                                 <p class="banner-t2">{{ item.t2 }}</p>
                                 <router-link :to="{path: item.href}" class="banner-more">
                                     <lang>Details </lang>
@@ -357,7 +358,8 @@
                 },
                 banner: [
                     {
-                        t1: _('Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness'),
+                        t1: _('Finally! You found the wonderland---- Coinsprize'),
+                        t11:_('A blockchain-based game platform with fairness and openness'),
                         t2: _('Unique play & transparent draw, only for your terrific experience in games'),
                         href: '/check'
                     }
@@ -514,6 +516,12 @@
             }
             .banner-t1 {
                 margin-top: 70px;
+                line-height: 27px;
+                font-size: 23px;
+                overflow: hidden;
+                font-weight: bold;
+            }
+            .banner-t11{
                 line-height: 27px;
                 font-size: 23px;
                 overflow: hidden;
