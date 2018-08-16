@@ -63,7 +63,7 @@
                     <el-table-column
                             prop="bettime"
                             align="center"
-                            width="150"
+                            width="130"
                             header-align="center"
                             :label="_('Time')">
                     </el-table-column>
@@ -77,6 +77,7 @@
                             prop="txhash"
                             align="center"
                             header-align="center"
+                            width="80"
                             :label="_('Address')">
                         <template slot-scope="scope">
                             <a target='_blank'
@@ -92,6 +93,7 @@
                     <el-table-column
                             align="center"
                             header-align="center"
+                            width="150"
                             :label="_('No.')">
                             <template slot-scope="scope">
                                 <router-link :to="`/check?number=${scope.row.expectid}&type=lucky11}`" v-if="scope.row.lotid === '1'">
