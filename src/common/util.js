@@ -699,7 +699,7 @@ export function structDom (msg = 'home') {
                 "position": 3,
                 "item": {
                   "@id": "https://www.coinsprize.com/luckycoin",
-                  "name": "${_('Bet For The Prize')}",
+                  "name": "${_('Win Instant Reward')}",
                   "image": ""
                 }
             }

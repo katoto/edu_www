@@ -420,10 +420,10 @@ module.exports = {
 
     /*  seo */
     'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基於區塊鏈技術的賭場博彩高頻彩票遊戲平臺',
-    'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第壹批基於區塊鏈技術開發的賭場博彩高頻彩票遊戲平臺。我們提供了可證明地公平、分散式Ethereum,smart-contract等賭博賭場遊戲。妳可以在本平臺體驗、購買包括lucky 11等在內的區塊鏈高頻彩票，體驗不壹樣的刺激玩法。',
+    "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.": 'Coinsprize是世界上第壹批基於區塊鏈技術開發的賭場博彩高頻彩票遊戲平臺。我們提供了可證明地公平、分散式Ethereum,smart-contract等賭博賭場遊戲。妳可以在本平臺體驗、購買包括lucky 11等在內的區塊鏈高頻彩票，體驗不壹樣的刺激玩法。',
     '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票開獎結果|信息|公告|記錄 - Coinsprize',
     '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11開獎結果,{0} 11開獎信息,{0} 11開獎公告,{0} 11開獎記錄',
-    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of Lucky11 can be checked on this page.': '{0}高頻彩票是Coinsprize公司推出的壹款基於區塊鏈技術開發的賭場博彩高頻彩票遊戲。在該頁面妳可以查詢獲取到lucky 11的最新開獎結果、信息、公告、和往期記錄等。',
+    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of {0} can be checked on this page.': '{0}高頻彩票是Coinsprize公司推出的壹款基於區塊鏈技術開發的賭場博彩高頻彩票遊戲。在該頁面妳可以查詢獲取到{0}的最新開獎結果、信息、公告、和往期記錄等。',
 
     /*  seo end */
 
@@ -637,7 +637,8 @@ module.exports = {
     'You have {0} bidding numbers. Bid more, win more!': '共{0}個號碼，投註越多，號碼越多，中獎概率越高哦！',
     'You have 1 bidding number. Bid more, win more!': '共1個號碼，投註越多，號碼越多，中獎概率越高哦！',
     'Reward is here: Blockchain-based draw': '這裏是獎金：通過區塊鏈進行抽獎',
-    'Available bid is here: Draw after all bids sold out': '這裏是剩余可投註金額：買滿即開獎',
+    'Available bid is here:': '這裏是剩余可投註金額：',
+    'Draw after all bids sold out': '買滿即開獎',
     'Click here to play: Bid more, win more': '點擊這裏投註：投註越多，中獎概率越高',
     'Win Instant Reward': '立即贏取大獎',
     'Small cost, big profit!': '小投入，大回報！',
@@ -660,5 +661,9 @@ module.exports = {
     'Click No. to see bid details': '點擊期號查看場次詳情',
     'Mobile APP is coming soon.': '敬請期待',
     'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用戶錯誤輸入無法轉賬錢包地址或他人錢包，Coinsprize平臺概不負責',
-    '{0} {1} / Bid': '每註價格: {0} {1}'
+    '{0} {1} / Bid': '每註價格: {0} {1}',
+    'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.': '建議您使用正規安全的錢包或者交易平臺，推薦：Mist、imToken、huobi.com、Coinbase等平臺',
+    'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到賬時間取決於區塊鏈算力，ETH充值壹般需要5分鐘到賬，BTC充值壹般需要40分鐘到賬，若充值持續未到賬，可郵件聯系客服解決： support@coinsprize.com',
+    'Finally! You found the wonderland---- Coinsprize': '歡迎來區塊鏈遊戲平臺',
+    'A blockchain-based game platform with fairness and openness': ' '
 }

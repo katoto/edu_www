@@ -29,7 +29,7 @@
                         </li>
                         <li>
                             <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                                <lang>F3d west</lang>
+                                <lang>F3d West</lang>
                             </a>
                         </li>
                     </ul>
@@ -49,7 +49,7 @@
                         <lang>LuckyCoin</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                        <lang>F3d west</lang>
+                        <lang>F3d West</lang>
                     </a>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>

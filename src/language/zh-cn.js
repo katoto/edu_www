@@ -16,7 +16,7 @@ module.exports = {
     'Play': '前往',
     'Come Tomorrow': '明日再来',
     '{0}/7 Days': '已登录{0}天',
-    'F3d west': '造梦西游',
+    'F3d West': '造梦西游',
     'Log In / Sign Up': '登录 / 注册',
     'Deposit': '充值',
     'Withdraw': '提款',
@@ -419,10 +419,10 @@ module.exports = {
 
     /*  seo */
     'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基于区块链技术的赌场博彩高频彩票游戏平台',
-    'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
+    "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.": 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
     '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票开奖结果|信息|公告|记录 - Coinsprize',
     '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11开奖结果,{0} 11开奖信息,{0} 11开奖公告,{0} 11开奖记录',
-    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of Lucky11 can be checked on this page.': '{0}高频彩票是coinsprize公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到lucky 11的最新开奖结果、信息、公告、和往期记录等。',
+    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of {0} can be checked on this page.': '{0}高频彩票是coinsprize公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到{0}的最新开奖结果、信息、公告、和往期记录等。',
 
     /*  seo end */
 
@@ -588,7 +588,7 @@ module.exports = {
     'Support ETH and BTC': 'ETH、BTC多币种投注',
     'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '当前游戏支持最受欢迎的比特币和以太币进行投注、存款和提款，未来还将接受更多加密数字货币，敬请期待',
     'Support Mobile APP': '支持移动端设备',
-    'Enjoy convenience and fun from quick and fair play at any time & any where.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。敬请期待',
+    'Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。敬请期待',
     'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '欢迎来区块链游戏平台',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的开奖算法，带您开启前所未有的游戏体验',
     'Bids:': '开奖进度:',
@@ -632,7 +632,8 @@ module.exports = {
     'You have {0} bidding numbers. Bid more, win more!': '共{0}个号码，投注越多，号码越多，中奖概率越高哦！',
     'You have 1 bidding number. Bid more, win more!': '共1个号码，投注越多，号码越多，中奖概率越高哦！',
     'Reward is here: Blockchain-based draw': '这里是奖金：通过区块链进行抽奖',
-    'Available bid is here: Draw after all bids sold out': '这里是剩余可投注金额：买满即开奖',
+    'Available bid is here:': '这里是剩余可投注金额：',
+    'Draw after all bids sold out': '买满即开奖',
     'Click here to play: Bid more, win more': '点击这里投注：投注越多，中奖概率越高',
     'Win Instant Reward': '立即赢取大奖',
     'Small cost, big profit!': '小投入，大回报！',
@@ -655,7 +656,11 @@ module.exports = {
     'Click No. to see bid details': '点击期号查看场次详情',
     'Mobile APP is coming soon.': '敬请期待',
     'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，Coinsprize平台概不负责',
-    '{0} {1} / Bid': '每注价格: {0} {1}'
+    '{0} {1} / Bid': '每注价格: {0} {1}',
+    'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.': '建议您使用正规安全的钱包或者交易平台，推荐：Mist、imToken、huobi.com、Coinbase等平台',
+    'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到账时间取决于区块链算力，ETH充值一般需要5分钟到账，BTC充值一般需要40分钟到账，若充值持续未到账，可邮件联系客服解决： support@coinsprize.com',
+    'Finally! You found the wonderland---- Coinsprize': '欢迎来区块链游戏平台',
+    'A blockchain-based game platform with fairness and openness': ' '
     /* 验证页面 end */
 
     /* 首页 start */
