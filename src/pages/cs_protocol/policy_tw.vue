@@ -413,7 +413,7 @@
                 </div>
             </div>
         </div>
-        <Footer></Footer>
+        <Footer class="lucky11"></Footer>
     </div>
 </template>
 

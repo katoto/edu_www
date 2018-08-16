@@ -377,7 +377,7 @@
                 <p>Both Users and the Coinsprize operator unanimously agree to be governed by the judicial authority of the geographic region where Coinsprize operator is located if any dispute occurs.</p>
             </div>
         </div>
-        <Footer></Footer>
+        <Footer class="lucky11"></Footer>
     </div>
 </template>
 

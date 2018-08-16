@@ -166,6 +166,7 @@
             top: 0;
             transform: translateX(-50%);
             max-width: 1190px;
+            width: 100%;
             height: 100%;
             padding-top: 58px;
             overflow: hidden;
