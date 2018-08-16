@@ -766,12 +766,16 @@
                         text-align: left;
                         text-indent: 162px;
                     }
-                    &:nth-child(3),&:nth-child(4){
-                        text-align: right;
-                    }
                     &:nth-child(3){
                         div{
                             margin-right: 10px;
+                            text-align: right;
+                        }
+                    }
+                    &:nth-child(4){
+                        div{
+                            margin-right: 30px;
+                            text-align: right;
                         }
                     }
                 }

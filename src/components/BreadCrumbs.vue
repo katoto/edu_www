@@ -89,19 +89,32 @@ export default {
     cursor: default;
 }
 
-.page-luckycoin {
-  .b-nav {
-    a {
-      color: #aa85ff;
-        &:hover{
-            color: #7e5bcf;
+    .page-luckycoin {
+        .b-nav {
+            a {
+                color: #aa85ff;
+                &:hover{
+                    color: #7e5bcf;
+                }
+            }
+            a.now {
+                color: #a99acc;
+            }
         }
     }
-    a.now {
-      color: #a99acc;
+    .page-check {
+        .b-nav {
+            a {
+                color: #6a89cc;
+                &:hover{
+                    color: #6a89cc;
+                }
+            }
+            a.now {
+                color: #fff;
+            }
+        }
     }
-  }
-}
 
 @media (max-width: @screen-phone) {
 

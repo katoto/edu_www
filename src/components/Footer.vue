@@ -60,11 +60,9 @@
                     <a href="mailto:support@Coinsprize.com">support@Coinsprize.com</a>
                 </p>
                 <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
-                    <div class="language-choose">
-                        <div v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
-                            <img :src="item.lanLogo" alt="">
-                            <span>{{ item.label }}</span>
-                        </div>
+                    <div class="language-choose" v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
+                        <img :src="item.lanLogo" alt="">
+                        {{ item.label }}
                     </div>
                     <ul>
                         <li v-for="(item, index) in languageOptions" :key="index" v-if="item.value!==languageVal"
@@ -266,9 +264,8 @@
         .cs-copyright{
             position: absolute;
             left: 50%;
-            bottom: 0;
+            bottom: 50px;
             transform: translateX(-50%);
-            line-height: 90px;
         }
     }
 
@@ -309,10 +306,8 @@
             }
             .cs-copyright{
                 position: absolute;
-                bottom: 10px;
                 left: 4%;
                 transform: translateX(0);
-                line-height: 42/2px;
             }
 
         }

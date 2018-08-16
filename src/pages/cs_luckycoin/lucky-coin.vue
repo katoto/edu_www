@@ -1020,7 +1020,7 @@ export default {
                 .history-result{
                     background: #20bf6b;
                     color: #fff;
-                    &::before{
+                    &::after{
                         background: url("../../assets/img/luckyCoin/icon-champion-win.png") no-repeat center;
                         background-size: cover;
 
