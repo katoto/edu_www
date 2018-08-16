@@ -21,11 +21,11 @@
                                 <lang>Slot</lang>
                             </router-link>
                         </li>
-                        <li>
-                            <router-link :to="{path: '/luckycoin'}" active-class="on">
-                                <lang>LuckyCoin</lang>
-                            </router-link>
-                        </li>
+                        <!--<li>-->
+                            <!--<router-link :to="{path: '/luckycoin'}" active-class="on">-->
+                                <!--<lang>LuckyCoin</lang>-->
+                            <!--</router-link>-->
+                        <!--</li>-->
                         <li>
                             <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                                 <lang>F3d West</lang>
@@ -44,9 +44,9 @@
                     <router-link :to="{path: '/slot'}"  active-class="on">
                         <lang>Slot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin'}" active-class="on">
-                        <lang>LuckyCoin</lang>
-                    </router-link>
+                    <!--<router-link :to="{path: '/luckycoin'}" active-class="on">-->
+                        <!--<lang>LuckyCoin</lang>-->
+                    <!--</router-link>-->
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                         <lang>F3d West</lang>
                     </a>

@@ -14,9 +14,9 @@
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Terms of Use</lang>
                     </a>
-                    <router-link :to="{path: '/check'}" >
-                        <lang>Transparency Checking</lang>
-                    </router-link>
+                    <!--<router-link :to="{path: '/check'}" >-->
+                        <!--<lang>Transparency Checking</lang>-->
+                    <!--</router-link>-->
                     <router-link :to="{path: '/help'}" >
                         <lang>Help Center</lang>
                     </router-link>
@@ -31,9 +31,9 @@
                     <router-link :to="{path: '/slot'}" >
                         <lang>Slot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin'}" >
-                        <lang>LuckyCoin</lang>
-                    </router-link>
+                    <!--<router-link :to="{path: '/luckycoin'}" >-->
+                        <!--<lang>LuckyCoin</lang>-->
+                    <!--</router-link>-->
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                         <lang>F3d West</lang>
                     </a>
