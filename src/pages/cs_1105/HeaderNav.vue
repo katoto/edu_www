@@ -51,9 +51,9 @@
             </p>
             <p>
                 <span class="jp_btn" v-if="!isSuperPick" @click="superInPage">
-                    Win Jackpot
+                    <lang>Win Jackpot</lang>
                 </span>
-                <span class="jp_btn" v-else @click="superOutPage">Back</span>
+                <span class="jp_btn" v-else @click="superOutPage"><lang>Back</lang></span>
             </p>
         </div>
     </div>

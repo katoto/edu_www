@@ -54,7 +54,7 @@
                             {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
                         </div>
                         <div class="item-usd">
-                            USD {{formatUSD(goodsinfo.coinprice.USD, goodsinfo.goodsValue)}}
+                            {{formatUSD(goodsinfo.coinprice.USD, goodsinfo.goodsValue)}} USD
                         </div>
                         <div class="item-main">
                             <div class="main-left">
@@ -131,7 +131,7 @@
                                     <lang>Bids:</lang> {{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}} / {{Number(goodsinfo.totalBids)}}
                                 </div>
                                 <div class="item-price">
-                                    {{goodsinfo.bidValue}} {{coinText}} / <lang>Bid</lang>
+                                    {{ _('{0} {1} / Bid', this.goodsinfo.bidValue, coinText ) }}
                                 </div>
                             </div>
                         </div>

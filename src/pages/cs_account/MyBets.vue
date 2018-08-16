@@ -2,7 +2,7 @@
     <div>
         <div class="betting visible-lg">
             <h2>
-                <lang>Bet Record</lang>
+                <lang>My Bets</lang>
             </h2>
             <section class="cs-select">
                 <el-select v-model="playOptionVal" @change="handleStatusChange">

@@ -146,7 +146,7 @@ let routesArr = [
             },
             {
                 path: 'moreBids',
-                name: _('More available Bids'),
+                name: _('More Available Bids'),
                 component: luckcoinMoreBids
             },
             {

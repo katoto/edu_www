@@ -79,7 +79,7 @@
                 <div class="login">
                     <!-- 未登录 -->
                     <div class="act-sign" v-if="!isLog">
-                        <lang>Free 0.0001 BTC</lang>
+                        <lang>0.0001 BTC for free</lang>
                     </div>
                     <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
                         <!--拉新活动提示-->
@@ -175,14 +175,14 @@
                         </div>
                         <ul>
                             <li>
-                                <p><lang>Get daily free spin of Slot (Balance less than 0.00005BTC and/or 0.0005ETH)</lang></p>
+                                <p v-lang="'Get daily free spin of Slot (Balance less than <b>0.00005BTC</b> and/or <b>0.0005ETH</b>)'"></p>
                                 <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
-                                <p><lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)</lang></p>
+                                <p v-lang="'Get <b>10 free spins</b> of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)'"></p>
                                 <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Top Up</lang></a>
                                 <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>

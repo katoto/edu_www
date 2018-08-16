@@ -1,8 +1,8 @@
 <template>
     <div class="main">
-            <BreadCrumbs :pageName="activeName === 'bids' ? _('More available Bids') : _('Draw History')"></BreadCrumbs>
+            <BreadCrumbs :pageName="activeName === 'bids' ? _('More Available Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
-                <el-tab-pane :label="_('More available Bids')" name="bids"></el-tab-pane>
+                <el-tab-pane :label="_('More Available Bids')" name="bids"></el-tab-pane>
                 <el-tab-pane :label="_('Draw History')" name="history"></el-tab-pane>
             </el-tabs>
             <div class="function-ct">

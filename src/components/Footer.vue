@@ -9,7 +9,7 @@
             <div class="foot-mid clearfix">
                 <div class="about">
                     <div class="ftitle">
-                        <lang>General</lang>
+                        <lang>General </lang>
                     </div>
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Terms of Use</lang>

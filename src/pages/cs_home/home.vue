@@ -12,7 +12,7 @@
                                 <div class="banner-t1" v-html="item.t1"></div>
                                 <p class="banner-t2">{{ item.t2 }}</p>
                                 <router-link :to="{path: item.href}" class="banner-more">
-                                    <lang>Details</lang>
+                                    <lang>Details </lang>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
@@ -25,14 +25,14 @@
                             <router-link :to="{path: '/lucky11'}" class="game-11t5">
                                 <p class="msg1"><lang>Lucky 11</lang></p>
                                 <p class="msg2"><lang>Classic game with high reward</lang></p>
-                                <p class="msg3"><lang>Jackpot</lang></p>
+                                <p class="msg3"><lang>Jackpot </lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
                                     <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
                                 <div class="game-btn">
-                                    <lang>Play Now</lang>
+                                    <lang>Play Now </lang>
                                 </div>
                             </router-link>
                         </div>
@@ -49,7 +49,7 @@
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
                                <div class="game-btn">
-                                    <lang>Play Now</lang>
+                                    <lang>Play Now </lang>
                                </div>
                             </router-link>
                         </div>
@@ -66,7 +66,7 @@
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
                                <div class="game-btn">
-                                    <lang>Play Now</lang>
+                                    <lang>Play Now </lang>
                                </div>
                             </router-link>
                         </div>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
-                                <div class="is-left"><lang>User</lang></div>
+                                <div class="is-left"><lang>User ID</lang></div>
                                 <div><lang>Date</lang></div>
                                 <div class="is-right"><lang>Amount</lang></div>
                             </div>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="tab-c">
                             <div class="tab-t2">
-                                <div class="is-left"><lang>User</lang></div>
+                                <div class="is-left"><lang>User ID</lang></div>
                                 <div><lang>Date</lang></div>
                                 <div class="is-right"><lang>Amount</lang></div>
                             </div>
@@ -203,7 +203,7 @@
                         <div class="tab-c">
                             <div class="tab-t2">
                                 <div class="is-left"><lang>Address</lang></div>
-                                <div><lang>User</lang></div>
+                                <div><lang>User ID</lang></div>
                                 <div><lang>Date</lang></div>
                                 <div class="is-right"><lang>Amount</lang></div>
                             </div>
@@ -292,8 +292,7 @@
                         <div class="safe-t">
                             <lang>Support Mobile APP</lang>
                         </div>
-                        <lang class="hide">Enjoy convenience and fun from quick and fair play at any time & any where.</lang>
-                        <p><lang>Mobile APP is coming soon.</lang></p>
+                        <lang>Enjoy convenience and fun from quick and fair play at any time & any where.</lang>
                         <a href="javascript:;" class="btn-down hide"></a>
                     </div>
                 </div>
@@ -790,6 +789,8 @@
         p {
             line-height: 24px;
             font-size: 14px;
+            width: 80%;
+            margin: 0 auto;
         }
         .btn-check {
             display: block;

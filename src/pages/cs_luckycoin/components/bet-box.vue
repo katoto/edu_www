@@ -80,7 +80,7 @@
         </p>
         <!--价格-->
         <p class="match-price">
-            {{ this.betData.bidValue }}&nbsp;{{ coinText }} / <lang>Bid</lang>
+            {{ _('{0} {1} / Bid', this.betData.bidValue, coinText ) }}
         </p>
         <a href="javascript:;" class="match-btn waiting" v-if="isWaiting">
             <lang>Drawing</lang>
@@ -99,7 +99,7 @@
         <div class="bet- bet-normal " :class="{show:windowClass === 'normal'}">
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
             <div class="bet-t">
-                <span>Bid for</span> {{ this.betData.goodsValue }} <i>{{ coinText }}</i>
+                {{ _('Bid For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
             </div>
             <p class="bet-m1 hide">
                 Bet Amount
@@ -409,7 +409,7 @@
                 return this.betData.state === '5'
             },
             goodsPrice () {
-                return `USD&ensp;${formatUSD(this.betData.coinprice.USD, this.betData.goodsValue)}` || '<br>'
+                return `${formatUSD(this.betData.coinprice.USD, this.betData.goodsValue)}&ensp;USD` || '<br>'
             },
             coin () {
                 return {

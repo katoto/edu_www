@@ -3,7 +3,7 @@
         <Header></Header>
         <div class="main">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Help Center'), path: '/help' }]"></BreadCrumbs>
-            <router-view :dataMenu=dataMenu></router-view>
+            <router-view :dataMenu="dataMenu"></router-view>
         </div>
         <Footer class="lucky11"></Footer>
     </div>

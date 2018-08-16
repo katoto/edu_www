@@ -3,8 +3,13 @@ module.exports = {
     'Withdrawable Amount': '可提款金额',
     'Sign gift': '签到送',
     'Sign Up to Get 0.0001 BTC for Free': '注册即可领取免费0.0001BTC',
-    'Get daily free spin of Slot (Balance less than 0.00005BTC and/or 0.0005ETH)': '少于0.00005BTC且少于0.0005ETH的时候可每日免费领取老虎机次数',
-    'Get 10 free spins of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)': '充值0.001BTC或0.01ETH，立即赠送额外10次免费老虎机机会（每日仅可领取1次）',
+    'Get daily free spin of Slot (Balance less than <b>0.00005BTC</b> and/or <b>0.0005ETH</b>)': '少于<b>0.00005BTC</b>且少于<b>0.0005ETH</b>的时候可每日免费领取老虎机次数',
+    'Get <b>10 free spins</b> of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)': '充值0.001BTC或0.01ETH，立即赠送额外<b>10次免费</b>老虎机机会（每日仅可领取1次）',
+    'Get 10 free spins of Slot (Top-up reaches 0.01ETH 1 chance/day)': '',
+    'Get 10 free spins of Slot (Top-up reaches 0.001BTC 1 chance/day)': '',
+    'Free Bouns': '免费',
+    'Back': '返回',
+    'Win Jackpot': '奖池',
     'Get <b>0.0001BTC</b>/ 0.001ETH (Log in for 7 consecutive days)': '连续7天登录赠<b>0.0001BTC</b>/ 0.001ETH',
     'Get 0.0001BTC/ <b>0.001ETH</b> (Log in for 7 consecutive days)': '连续7天登录赠0.0001BTC/ <b>0.001ETH</b>',
     'Free Spin': '领取',
@@ -40,12 +45,13 @@ module.exports = {
     'Time Left': '剩余时间',
     'JACKPOT': '奖池',
     'JackPot': '奖池',
-
+    'Jackpot ': '超级奖池',
     'Home': '首页',
     'terms': '服务协议',
     'policy': '隐私政策',
     'Draw Number': '开奖号码',
     'General': '账户信息',
+    'General ': '通用',
     'MyBets': '投注记录',
     'MyTransactions': '资金流水',
 
@@ -124,6 +130,7 @@ module.exports = {
     'If there is no bet on this draw, the result will use the hash of the last block.': '本期无人投注，取就近区块开奖.',
     'Add Ticket': '增加一注',
     'Play Now': '立即投注',
+    'Play Now ': '立即参与',
     'Total Pay': '共计支付',
     'Transaction Time': '交易时间',
     'User ID': '用户ID',
@@ -295,7 +302,7 @@ module.exports = {
     'Type ': '币种',
     'waiting ': '审核中',
     'Transaction Time ': '申请时间',
-    'Congratulations!': '恭喜!',
+    'Congratulations!': '恭喜贺喜',
     'You Win + {0} {1}': '你贏得了 + {0} {1}',
     'Send': '发送',
     'wait': '待开奖',
@@ -402,6 +409,7 @@ module.exports = {
     'Usually, it takes about 5min to confirm your top-up. If your top-up fails, please contact us through email support@Coinsprize.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@Coinsprize.com',
 
     'Details': '查看详情',
+    'Details ': '立即查验',
     'How to withdraw ?': '如何提款',
 
     'Place 0.00001 BTC per line, you can get 5% of the Jackpot': '每线投注0.00001 BTC,您将赢得5%的奖池',
@@ -448,6 +456,7 @@ module.exports = {
     'It usually takes 5 minutes for transaction block to confirm your top-up. If your top-up fails, please contact us through email support@coinsprize.com.': '一般充值需要5分钟到账，请耐心等待，若充值持续未到账，可邮件联系我们 support@coinsprize.com。',
     'Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.': '您充值至上述地址后，需要整个网络节点的确认，1次网络确认后到账，6次网络确认后可提币。',
     'Minimum top-up：0.0001 BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.': '建议最小充值金额：0.0001BTC ，小于最小金额的充值可能无法顺利到账且无法退回。',
+    'Minimum top-up：0.001 ETH. Less than the minimum amount may cause the failed top-up and it cannot be returned.': '建议最小充值金额：0.001ETH ，小于最小金额的充值可能无法顺利到账且无法退回。',
     'How to Withdraw': '提款方式',
     'Withdrawal Confirmation': '提现到账时间',
     'Enter your wallet address.': '输入正确的钱包地址。',
@@ -500,9 +509,8 @@ module.exports = {
     'Sign Out': '注销',
     'Free 0.001ETH': '免费领取0.001ETH',
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
-    'Free 0.0001 BTC': 'Free 0.0001 BTC',
+    '0.0001 BTC for free': '免费领0.0001 BTC',
     'Win {0} {1}': 'Win {0} {1}',
-    'for free 0.0001 BTC': 'for free 0.0001 BTC',
     'Sign In': 'Sign In',
     'BTC': 'BTC',
     'ETH': 'ETH',
@@ -512,7 +520,7 @@ module.exports = {
     /* 水龙头未翻译 end */
 
     /* 验证页面 start */
-    'Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.': '欢迎来到coinsprize，开启全新的博彩体验！coinsprize是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
+    'Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.': '欢迎来到Coinsprize，开启全新的博彩体验！Coinsprize是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
     'Games': '游戏',
     'Lucky 11': '幸运11',
     'Lucky11 issues:': 'Lucky11问题:',
@@ -570,8 +578,8 @@ module.exports = {
     'Waiting for sold out': '当前期次未开奖',
 
     'Classic game with high reward': '经典高回报游戏',
-    'Win 97%+ Return Rate': '高达 97%+ 的返奖率',
-    'Bid 0.01 ETH to win more': '用0.01Eth赢取百倍的回报',
+    'Win 97%+ Return Rate': '刺激好玩，高达 97%+ 的返奖率',
+    'Bid 0.01 ETH to win more': '用0.01ETH赢取百倍的回报',
     'Instant Reward': '最大奖',
     'Recent Bids': '最近下注',
     'Date': '时间',
@@ -581,7 +589,7 @@ module.exports = {
     'Support ETH and BTC': 'ETH、BTC多币种投注',
     'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '当前游戏支持最受欢迎的比特币和以太币进行投注、存款和提款，未来还将接受更多加密数字货币，敬请期待',
     'Support Mobile APP': '支持移动端设备',
-    'Enjoy convenience and fun from quick and fair play at any time & any where.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。欢迎下载Android版本，iOS版本敬请期待',
+    'Enjoy convenience and fun from quick and fair play at any time & any where.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。敬请期待',
     'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '欢迎来区块链游戏平台',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的开奖算法，带您开启前所未有的游戏体验',
     'Bids:': '开奖进度:',
@@ -617,7 +625,7 @@ module.exports = {
     'Click here to see transparent information.': '点击查看透明性',
     'No record yet.': '没有数据.',
     'Log in to view': '请登录查看',
-    'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.': '提示：每投注0.01ETH，即可获得一个号码。投注越多，号码越多，中奖概率越高。',
+    'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.': '提示：每购买一注，将获得一个号码。投注越多，中奖概率越大！',
     'Paid': '您已投注',
     'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!': 'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!',
     '{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!': '共投注{0} {1}，获得{2}个号码，投注越多，号码越多，中奖概率越高哦！',
@@ -637,7 +645,7 @@ module.exports = {
     'You win {0} {1} in No.{2}': '祝贺您在第{2}期中奖{0} {1}',
     'My Bids': '我的投注',
     'Try a luck !': '快来投注吧!',
-    'More available Bids': '更多投注',
+    'More Available Bids': '更多投注',
     'Default': '默认',
     'Left Time↓': '进度由高到低',
     'Left Time↑': '进度由低到高',
@@ -647,7 +655,8 @@ module.exports = {
     'Click No. to see draw details': '点击期号查看开奖详情',
     'Click No. to see bid details': '点击期号查看场次详情',
     'Mobile APP is coming soon.': '敬请期待',
-    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，coinslot平台概不负责'
+    'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，Coinsprize平台概不负责',
+    '{0} {1} / Bid': '每注价格: {0} {1}'
     /* 验证页面 end */
 
     /* 首页 start */
