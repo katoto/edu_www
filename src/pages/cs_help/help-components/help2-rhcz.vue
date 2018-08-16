@@ -9,7 +9,7 @@
                     <lang>Channels</lang>
                 </p>
                 <p class="msg">
-                    <lang>Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, MyEtherWallet, MetaMask, imToken, huobi.com.</lang>
+                    <lang>Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.</lang>
                 </p>
             </li>
             <li>
@@ -17,7 +17,7 @@
                     <lang>Top-Up Confirmation</lang>
                 </p>
                 <p class="msg">
-                    <lang>It usually takes 5 minutes for transaction block to confirm your top-up. If your top-up fails, please contact us through email support@coinsprize.com.</lang>
+                    <lang>The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.</lang>
                 </p>
             </li>
             <li>

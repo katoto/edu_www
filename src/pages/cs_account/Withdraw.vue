@@ -124,7 +124,7 @@
                                                :page-size="pageSize"
                                                layout="sizes,prev, pager, next,jumper"
                                                :total="PageTotal"
-                                               :next-text="_('Next >')" :prev-text="_('< Front')">
+                                               :next-text="_('Next >')" :prev-text="_('< Privious')">
                                 </el-pagination>
                             </div>
                         </template>
@@ -148,7 +148,7 @@
                 </router-link>
                 <div class="chose-coin">
                     <div class="tips">
-                        <lang>Select Currency</lang>
+                        <lang>Select Coin</lang>
                     </div>
                     <el-select v-model="tranOptionVal" @change="changeCoin">
                         <el-option v-for="item in this.userInfo.accounts" :key="item.cointype"
@@ -182,7 +182,7 @@
                                 {{ formateCoinType( currBalance.cointype ) }}
                             </span>
                             <span v-else>
-                                <lang>at least {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}</lang>
+                                <lang>at least</lang>{{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}
                             </span>
                         </p>
                     </div>
