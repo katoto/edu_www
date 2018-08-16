@@ -493,7 +493,7 @@
     .home {
         position: relative;
         width: 100%;
-        background: #181633 url("../../assets/img/home/bg1.png") no-repeat top center;
+        background: #181633 url("../../assets/img/home/bg1.jpg") no-repeat top center;
         background-size: 1920px;
         .main {
             width: 100%;
