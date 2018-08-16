@@ -203,13 +203,6 @@
     }
 </style>
 <style scope lang="less" type="text/less">
-    #app .for-new, #app .pop-mask {
-        display: none;
-    }
-
-    #app.ready .for-new, #app.ready .pop-mask {
-        display: block;
-    }
 
     .main /deep/ .el-carousel__indicators {
         display: none;
@@ -218,6 +211,16 @@
     .page-luckycoin{
         .carousel__arrow{
             display: none;
+        }
+    }
+    #app{
+        .for-new,.pop-mask,.pop-new{
+            display: none;
+        }
+        &.ready{
+            .for-new,.pop-mask,.pop-new{
+                display: block;
+            }
         }
     }
     .for-new{
