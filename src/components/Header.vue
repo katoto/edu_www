@@ -21,11 +21,11 @@
                                 <lang>Slot</lang>
                             </router-link>
                         </li>
-                        <li>
-                            <router-link :to="{path: '/luckycoin'}" active-class="on">
-                                <lang>LuckyCoin</lang>
-                            </router-link>
-                        </li>
+                        <!--<li>-->
+                            <!--<router-link :to="{path: '/luckycoin'}" active-class="on">-->
+                                <!--<lang>LuckyCoin</lang>-->
+                            <!--</router-link>-->
+                        <!--</li>-->
                         <li>
                             <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                                 <lang>F3d West</lang>
@@ -44,9 +44,9 @@
                     <router-link :to="{path: '/slot'}"  active-class="on">
                         <lang>Slot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin'}" active-class="on">
-                        <lang>LuckyCoin</lang>
-                    </router-link>
+                    <!--<router-link :to="{path: '/luckycoin'}" active-class="on">-->
+                        <!--<lang>LuckyCoin</lang>-->
+                    <!--</router-link>-->
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
                         <lang>F3d West</lang>
                     </a>
@@ -1503,6 +1503,54 @@
         20%,40%{
             transform: scale(1.2);
             filter: brightness(1.2);
+        }
+    }
+    .newFirst{
+        position: absolute;
+        top: 26px;
+        left: 39%;
+        margin-left: -118px;
+        z-index: 99;
+        text-align: center;
+        &::before{
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            margin: 0 auto;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid #fff;
+        }
+        .msg{
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 250px;
+            height: 52px;
+            overflow: hidden;
+            line-height: 20px;
+            font-size: 14px;
+            color: #263648;
+            -webkit-box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
+            box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
+            border-radius: 6px;
+            background: #fff;
+        }
+        p{
+            padding: 5px 0px 2px 8px;
+            text-align: center;
+        }
+    }
+    .light{
+        animation: light 2s;
+    }
+    @keyframes light {
+        0%,40%,80%,100%{
+            filter:brightness(1);
+        }
+        20%,60%{
+            filter:brightness(1.5);
         }
     }
 </style>

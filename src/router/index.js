@@ -203,8 +203,9 @@ let routesArr = [
     },
     {
         path: '/*',
-        name: _('Home'),
-        component: Home
+        redirect: '/lucky11'
+        // name: _('Home'),
+        // component: Home
     }
 ]
 
