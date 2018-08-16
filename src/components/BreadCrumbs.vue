@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <!--面包屑-->
         <div class="b-nav" v-if="data.length === 0">
             <router-link to="/">
@@ -45,6 +45,12 @@ export default {
             default () {
                 return []
             }
+        },
+        methods: {
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
+            }
         }
     },
     components: { bread }
@@ -89,19 +95,32 @@ export default {
     cursor: default;
 }
 
-.page-luckycoin {
-  .b-nav {
-    a {
-      color: #aa85ff;
-        &:hover{
-            color: #7e5bcf;
+    .page-luckycoin {
+        .b-nav {
+            a {
+                color: #aa85ff;
+                &:hover{
+                    color: #7e5bcf;
+                }
+            }
+            a.now {
+                color: #a99acc;
+            }
         }
     }
-    a.now {
-      color: #a99acc;
+    .page-check {
+        .b-nav {
+            a {
+                color: #6a89cc;
+                &:hover{
+                    color: #6a89cc;
+                }
+            }
+            a.now {
+                color: #fff;
+            }
+        }
     }
-  }
-}
 
 @media (max-width: @screen-phone) {
 

@@ -1,7 +1,7 @@
 <template>
     <div class="page-luckycoin">
         <Header></Header>
-        <router-view ref="child"></router-view>
+        <router-view ref="child" ></router-view>
         <Footer></Footer>
         <!--show-->
         <div class="msg-winning" :class="{ show: otherWin.isShow }">
@@ -1020,7 +1020,7 @@ export default {
                 .history-result{
                     background: #20bf6b;
                     color: #fff;
-                    &::before{
+                    &::after{
                         background: url("../../assets/img/luckyCoin/icon-champion-win.png") no-repeat center;
                         background-size: cover;
 

@@ -1,7 +1,7 @@
 <template>
     <div class="page-help">
         <Header></Header>
-        <div class="main">
+        <div class="main" @click="initPop">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Help Center'), path: '/help' }]"></BreadCrumbs>
             <router-view :dataMenu="dataMenu"></router-view>
         </div>
@@ -26,7 +26,10 @@
         },
         watch: {},
         methods: {
-
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
+            },
         },
         computed: {
 

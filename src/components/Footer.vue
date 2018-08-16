@@ -60,11 +60,9 @@
                     <a href="mailto:support@Coinsprize.com">support@Coinsprize.com</a>
                 </p>
                 <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
-                    <div class="language-choose">
-                        <div v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
-                            <img :src="item.lanLogo" alt="">
-                            <span>{{ item.label }}</span>
-                        </div>
+                    <div class="language-choose" v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
+                        <img :src="item.lanLogo" alt="">
+                        {{ item.label }}
                     </div>
                     <ul>
                         <li v-for="(item, index) in languageOptions" :key="index" v-if="item.value!==languageVal"
@@ -152,10 +150,8 @@
     .footer {
         position: relative;
         min-height: 310px;
-        box-sizing: border-box;
         z-index: 5;
         background: #151515;
-        padding: 58px 0 0 0;
         color: rgba(255, 255, 255, 0.4);
         line-height: 24px;
         font-size: 14px;
@@ -164,9 +160,15 @@
             //用border代替margin挡住冒泡
         }
         .main {
+            box-sizing: border-box;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
             max-width: 1190px;
+            width: 100%;
             height: 100%;
-            margin: 0 auto;
+            padding-top: 58px;
             overflow: hidden;
             background: transparent;
         }
@@ -266,17 +268,18 @@
         .cs-copyright{
             position: absolute;
             left: 50%;
-            bottom: 0;
+            bottom: 50px;
             transform: translateX(-50%);
-            line-height: 90px;
         }
     }
 
     @media (max-width: @screen-lg-desktop) {
         .footer{
-            height: 620px;
-            padding: 0 percentage(30/750) 0;
+            height: 560px;
             line-height: 20px;
+            .main{
+                padding: 0 percentage(30/750) 0;
+            }
             .ftitle {
                 margin-top: 17/2px;
                 margin-bottom: 0;
@@ -309,10 +312,8 @@
             }
             .cs-copyright{
                 position: absolute;
-                bottom: 10px;
                 left: 4%;
                 transform: translateX(0);
-                line-height: 42/2px;
             }
 
         }

@@ -12,18 +12,17 @@
                     </div>
                     <ul>
                         <li>
-                            <router-link :to="{path: '/lucky11'}">
+                            <router-link :to="{path: '/lucky11'}" active-class="on">
                                 <lang>Lucky 11</lang>
                             </router-link>
                         </li>
-                        <li class="hide" ><a href="javascript:;">luckyCoin</a></li>
                         <li>
-                            <router-link :to="{path: '/slot'}">
+                            <router-link :to="{path: '/slot'}" active-class="on">
                                 <lang>Slot</lang>
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/luckycoin'}">
+                            <router-link :to="{path: '/luckycoin'}" active-class="on">
                                 <lang>LuckyCoin</lang>
                             </router-link>
                         </li>
@@ -39,13 +38,13 @@
                 </router-link>
                 <!-- icon-slot -->
                 <div class="choose-play icon-Luckycoin " >
-                    <router-link :to="{path: '/lucky11'}">
+                    <router-link :to="{path: '/lucky11'}" active-class="on">
                         <lang>Lucky 11</lang>
                     </router-link>
-                    <router-link :to="{path: '/slot'}" >
+                    <router-link :to="{path: '/slot'}"  active-class="on">
                         <lang>Slot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin'}">
+                    <router-link :to="{path: '/luckycoin'}" active-class="on">
                         <lang>LuckyCoin</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
@@ -528,8 +527,11 @@
                 padding:0 23px;
                 font-size:16px;
                 color: #fff;
-                &.on,&:hover{
+                &:hover{
                     background: rgba(0,0,0,0.3);
+                }
+                &.on{
+                    background: rgba(0,0,0,0.8);
                 }
             }
             &.icon-slot{
@@ -1275,6 +1277,9 @@
             }
             ul{
                 display: block;
+                a.on{
+                    color: #fff;
+                }
             }
 
         }

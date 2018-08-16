@@ -62,7 +62,7 @@
                 </div>
             </div>
             <!--输入前-->
-            <p class="before-input hide" :class="{ hide: isChecked }"><lang>Enter the issue number to view the verification details</lang></p>
+            <p class="before-input" :class="{ hide: isChecked }"></p>
             <!--输入后-->
             <div class="after-input" :class="{ hide: !isChecked || params.type === 'lucky11' && lucky11Status === 'wait' }">
                 <lucky11 :number="number" :result.sync="luck11Result" :status.sync="lucky11Status" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
@@ -764,7 +764,10 @@
          .el-tabs {
             width: 92%;
             .el-tabs__item {
-                color: #aa85ff;
+                &:hover{
+                    color: #6a89cc;
+                    filter: brightness(1.3);
+                }
                 &.is-active {
                     color: #fff;
                 }
