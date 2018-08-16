@@ -389,7 +389,6 @@ module.exports = {
     'only supports ETH': '當前仅有支持ETH',
     '=====================': '====',
 
-    'Try Slot & Win <span class="winColor">97%+</span> Return Rate': '試一下<span class="winColor">97%+</span>',
     'Select Coin': '當前選擇',
     'copy Address': '複製連結',
     'Tip: This address is only for ETH top-up, do not choose another type of coins': '溫馨提示：只支持ETH位址轉帳',

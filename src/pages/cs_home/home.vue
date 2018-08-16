@@ -379,7 +379,7 @@
             formateCoinType,
             formatNum,
             formatMoney (num) {
-                let money = formatNum(Number(num), 4).toFixed(5)
+                let money = formatNum(Number(num), 5).toFixed(5)
                 return money.length > 7 ? money.substring(0, 7) : money
             },
             initPop () {

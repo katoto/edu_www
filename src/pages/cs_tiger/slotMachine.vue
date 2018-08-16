@@ -397,10 +397,18 @@
                     <h3><lang>Recent</lang></h3>
                     <!-- 首次进入老虎机出现-->
                     <div class="tiger-firstBaxi" :class="{'show':showFirstBaxi}">
-                        <p class="firstp">Try Slot & Win <span class="winColor">97%+</span> Return Rate</p>
-                        <p>Up to <img width="16" height="16" src="@/assets/img/tiger/icon-baxi.png" alt="England">
-                            <span class="winColor">x 3 = 800</span> Times Return!
-                        </p>
+                        <section v-if="language==='en'">
+                            <p class="firstp">Try Slot & Win <span>97%+</span> Return Rate</p>
+                            <p class="firstp">Up to <img width="16" height="16" src="@/assets/img/tiger/icon-baxi.png" alt="England">
+                                <span>x 3 = 800</span> Times Return!
+                            </p>
+                        </section>
+                        <section v-if="language==='zhCn'">
+                            <p class="firstp">最新上线老虎机，<span>97%+</span>返奖率，最高<span>800倍</span>中奖收益</p>
+                        </section>
+                        <section v-if="language==='zhTw'">
+                            <p class="firstp">最新上線老虎機，<span>97%+</span>返獎率，最高<span>800倍</span>中獎收益</p>
+                        </section>
                         <i @click="showFirstBaxi=false"></i>
                     </div>
                     <div class="recent-win">
@@ -2121,8 +2129,12 @@
             height: 74px;
             border-radius: 2px;
             background-color: #19130f;
-            .winColor{
-                color: #f4dc01;
+            .firstp{
+                text-indent: 0px;
+                padding: 0 15px;
+                span{
+                    color: #f4dc01;
+                }
             }
             p{
                 color: #fff;
