@@ -28,10 +28,10 @@
                     ·  <lang>This address is only for BTC transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang> <br>
                 </p>
                 <p class="cicle">
-                    ·  <lang>Top-up needs to be confirmed by network node. Transfer is successful after one confirmation, and you can withdraw the balance after six confirmations.</lang>
+                    ·  <lang>Top-up needs to be confirmed by network node. Transfer will be successful after one confirmation, and you can withdraw the balance after six confirmations.</lang>
                 </p>
                 <p class="cicle">
-                    ·  <lang>Minimum top-up：0.0001 BTC. Less than the minimum amount may cause the failed top-up and it cannot be returned.</lang>
+                    ·  <lang>Minimum top-up：0.0001 BTC. Top-up less than the minimum amount may fail and it cannot be returned.</lang>
                 </p>
                 <p class="cicle">
                     ·  <lang>Your wallet address may be changed sometimes, and Coinsprize team will inform you through notification or email as soon as possible.</lang>

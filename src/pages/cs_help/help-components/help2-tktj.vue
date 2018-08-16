@@ -24,7 +24,7 @@
                 </p>
                 <p class="msg">
                     <lang>All bonus from activities on the platform is non-withdrawable</lang>
-                    <span v-if="languang==='en'">（* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)</span>
+                    <span><lang>(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)</lang></span>
                 </p>
             </li>
             <li>

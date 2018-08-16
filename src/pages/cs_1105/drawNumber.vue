@@ -83,7 +83,7 @@
                         layout="prev, pager, next,jumper"
                         :total="PageTotal"
                         :next-text="_('Next >')"
-                        :prev-text="_('< Privious')"
+                        :prev-text="_('< Previous')"
                     >
                     </el-pagination>
                 </div>

@@ -3,7 +3,7 @@
         <div class="main">
             <div class="reserved">
                 <p>
-                    <lang>Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent  information any time.</lang>
+                    <lang>Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent information at any time.</lang>
                 </p>
             </div>
             <div class="foot-mid clearfix">
@@ -26,7 +26,7 @@
                         <lang>Games</lang>
                     </div>
                     <router-link :to="{path: '/lucky11'}">
-                        <lang>Lucky 11</lang>
+                        <lang>Lucky11</lang>
                     </router-link>
                     <router-link :to="{path: '/slot'}" >
                         <lang>Slot</lang>

@@ -304,7 +304,7 @@
                     :page-count="PageTotal"
                     layout="prev, pager, next"
                     :next-text="_('Next >')"
-                    :prev-text="_('< Privious')"
+                    :prev-text="_('< Previous')"
                     v-if="activeName === 'all' && PageTotal !== 0"
                 >
                 </el-pagination>
