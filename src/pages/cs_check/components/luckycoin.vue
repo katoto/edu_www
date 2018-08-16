@@ -59,7 +59,7 @@
                 <div>
                     #{{blockid}}
                 </div>
-                <a href="javascript:;">
+                <a :href="`https://etherscan.io/block/${blockid}`" target="_blank" >
                     {{blockhash}}
                 </a>
             </div>
