@@ -200,6 +200,7 @@
             }
         }
         .contact {
+            text-align: right;
             overflow: hidden;
             a {
                 color: #6f88cb;
