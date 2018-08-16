@@ -137,7 +137,7 @@
                     </div>
                     <!--最近中奖-->
                     <div class="item-recent recent-win">
-                        <div class="recent-t"><lang>Recently Wins</lang></div>
+                        <div class="recent-t"><lang>Recent Wins</lang></div>
                         <div class="tab-t" :class="[activeClass1]">
                             <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'"><lang>Lucky11</lang></a>
                             <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'"><lang>Slot</lang></a>
@@ -292,7 +292,7 @@
                         <div class="safe-t">
                             <lang>Support Mobile APP</lang>
                         </div>
-                        <lang>Enjoy convenience and fun from quick and fair play at any time & any where.</lang>
+                        <lang>Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.</lang>
                         <a href="javascript:;" class="btn-down hide"></a>
                     </div>
                 </div>
@@ -630,7 +630,6 @@
         background: #242240;
         .recent-win {
             background: #292748;
-            font-weight: bold;
         }
         .recent-bet,
         .recent-win {
