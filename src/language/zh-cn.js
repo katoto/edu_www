@@ -8,6 +8,7 @@ module.exports = {
     'Get 10 free spins of Slot (Top-up reaches 0.01ETH, 1 chance/day)': '充值0.01ETH，立即赠送额外<b>10次免费</b>老虎机机会（每日仅可领取1次）',
     'Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)': '充值0.001BTC，立即赠送额外<b>10次免费</b>老虎机机会（每日仅可领取1次）',
     'Free Bouns': '领奖中心',
+    'Free Bouns ': '额外奖励',
     'Back': '返回',
     'Win Jackpot': '去赢奖池',
     'Get <b>0.0001BTC</b>/ 0.001ETH (Log in for 7 consecutive days)': '连续7天登录赠<b>0.0001BTC</b>/ 0.001ETH',
