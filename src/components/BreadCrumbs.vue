@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <!--面包屑-->
         <div class="b-nav" v-if="data.length === 0">
             <router-link to="/">
@@ -44,6 +44,12 @@ export default {
             type: Array,
             default () {
                 return []
+            }
+        },
+        methods: {
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
             }
         }
     },

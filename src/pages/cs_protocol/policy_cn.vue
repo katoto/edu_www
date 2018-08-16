@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <div class="main">
+        <div class="main" @click="initPop">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Privacy Policy'), path: '/policy' }]"></BreadCrumbs>
             <div id="main-policy" class="main-policy">
                 <h1>
@@ -402,6 +402,12 @@
         data () {
             return {
                 title: ''
+            }
+        },
+        methods: {
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
             }
         },
         components: {

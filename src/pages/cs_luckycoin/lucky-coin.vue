@@ -1,7 +1,7 @@
 <template>
     <div class="page-luckycoin">
         <Header></Header>
-        <router-view ref="child"></router-view>
+        <router-view ref="child" ></router-view>
         <Footer></Footer>
         <!--show-->
         <div class="msg-winning" :class="{ show: otherWin.isShow }">

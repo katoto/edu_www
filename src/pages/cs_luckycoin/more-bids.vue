@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="main" @click="initPop">
             <BreadCrumbs :pageName="activeName === 'bids' ? _('More Available Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                 <el-tab-pane :label="_('More Available Bids')" name="bids"></el-tab-pane>
@@ -112,6 +112,10 @@ export default {
             'getBetsPageList',
             'getBetsPageHistory'
         ]),
+        initPop () {
+            /* head 弹窗 */
+            this.$store.commit('initHeadState', new Date().getTime())
+        },
         closeOtherBet () {
             this.$refs.betBoxList.forEach(bet => bet.closeWindow())
         },
