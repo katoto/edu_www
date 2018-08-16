@@ -131,7 +131,7 @@
             </section>
             <template v-if="h5orderList.length>0">
                 <ul class="items-myTransactions">
-                    <li v-for="item in h5orderList" :key="item.index">
+                    <li v-for="item in h5orderList">
                         <div class="item-re item-re1">
                             <p>
                                 {{item.crtime.substr(5)}}

@@ -547,6 +547,10 @@
                 border-radius: 6px;
                 border: 1px solid #575763;
                 color: #fff;
+                transition: all 0.2s;
+                &:hover{
+                    border-color: #fff;
+                }
             }
         }
         /*banner*/
@@ -812,6 +816,10 @@
             line-height: 40px;
             border-radius: 6px;
             color: #fff;
+            transition: all 0.2s;
+            &:hover{
+                border-color: #fff;
+            }
         }
         .btn-down {
             display: block;

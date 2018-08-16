@@ -898,7 +898,7 @@
             top:37px;
             z-index: 20;
             right:-24px;
-            padding:10px 20px 54px;
+            padding:10px 20px 20px;
             width:455px;
             background: #fff;
             border-radius: 6px;

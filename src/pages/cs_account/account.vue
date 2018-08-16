@@ -168,6 +168,7 @@ export default {
 
 
     .pop-mask{
+        display: block;
         position: fixed;
         left: 0;
         top: 0;
