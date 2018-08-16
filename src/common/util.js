@@ -596,7 +596,7 @@ export function structDom (msg = 'home') {
           "@type": "BreadcrumbList", 
           "url": "https://www.coinsprize.com/",   
           "name": "${_('Coinsprize-the fair game platform for casino games,based on blockchain technology')}",
-          "image": "http://www.coinsprize.com/images/sprize/CoinsprizeLogo.png",    
+          "image": "http://www.coinsprize.com/images/sprize/CoinsprizeLogo.png",
           "description": "${_('Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.')}",
           "itemListElement": [
             {
@@ -636,7 +636,6 @@ export function structDom (msg = 'home') {
           "url": "https://www.coinsprize.com/",   
           "name": "${_('{0} Draw Result|Information|Announcements|Records -- Coinsprize', msg)}",
           "image": "http://www.coinsprize.com/images/sprize/CoinsprizeLogo.png",
-          "keyword":"${_('{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}', msg)}"
           "description": "${_('{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of {0} can be checked on this page.', msg)}",
           `
     }
