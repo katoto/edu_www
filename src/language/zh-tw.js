@@ -673,5 +673,6 @@ module.exports = {
     'Finally! You found the wonderland---- Coinsprize': '歡迎來區塊鏈遊戲平臺',
     'A blockchain-based game platform with fairness and openness': ' ',
     'We will contact you as soon as possible.': '我們會盡快與您聯系',
-    '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '滿足不可提現額度的10倍流水條件即可提取贈送金額'
+    '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '滿足不可提現額度的10倍流水條件即可提取贈送金額',
+    'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5這5個16進制數轉化為10進制數，然後分別求mod運算11、10、9、8、7，獲得5位開獎號碼'
 }
