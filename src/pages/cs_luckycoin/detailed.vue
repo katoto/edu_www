@@ -1476,6 +1476,7 @@
         h3{
             margin: 30px 0 0 0;
             height: 30px;
+            text-align: left;
             line-height: 30px;
             color: #000000;
             font-weight: normal;
