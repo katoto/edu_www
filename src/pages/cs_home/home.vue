@@ -359,7 +359,7 @@
                 banner: [
                     {
                         t1: _('Finally! You found the wonderland---- Coinsprize'),
-                        t11:_('A blockchain-based game platform with fairness and openness'),
+                        t11: _('A blockchain-based game platform with fairness and openness'),
                         t2: _('Unique play & transparent draw, only for your terrific experience in games'),
                         href: '/check'
                     }
@@ -473,6 +473,7 @@
         },
         components: {Header, Footer},
         mounted () {
+            setInterval(() => this.init(), 60000)
             this.init()
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
