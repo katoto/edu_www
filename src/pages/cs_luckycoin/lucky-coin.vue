@@ -266,7 +266,6 @@ export default {
             .t1{
                 margin-right: 20px;
                 font-size: 20px;
-                font-weight: bold;
             }
             .t2{
                 margin-right: 10px;
@@ -868,7 +867,7 @@ export default {
                 float: left;
                 width: 60%;
                 line-height: 50px;
-                font-size: 20px;
+                font-size: 16px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
