@@ -211,7 +211,8 @@
                             <ul v-if="activeClass2 === 'recharge'">
                                 <li v-for="(bet, index) in water.recharge_orders.slice(0, 5)" :key="index">
                                     <div class="add">
-                                        <a href="javascript:;">{{bet.address}}</a>
+                                        <a :href="`https://etherscan.io/address/${bet.address}`" :title="bet.address" target="_blank" v-if="bet.cointype === '2001'">{{bet.address}}</a>
+                                        <a :href="`https://www.blockchain.com/en/btc/address/${bet.address}`" :title="bet.address" target="_blank" v-else>{{bet.address}}</a>
                                     </div>
                                     <div class="id">
                                         {{bet.uid}}
@@ -228,7 +229,8 @@
                             <ul v-if="activeClass2 === 'withdraw'">
                                 <li v-for="(bet, index) in water.withdraw_orders.slice(0, 5)" :key="index">
                                     <div class="add">
-                                        <a href="javascript:;">{{bet.address}}</a>
+                                        <a :href="`https://etherscan.io/address/${bet.address}`" :title="bet.address" target="_blank" v-if="bet.cointype === '2001'">{{bet.address}}</a>
+                                        <a :href="`https://www.blockchain.com/en/btc/address/${bet.address}`" :title="bet.address" target="_blank" v-else>{{bet.address}}</a>
                                     </div>
                                     <div class="id">
                                         {{bet.uid}}

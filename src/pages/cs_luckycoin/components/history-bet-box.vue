@@ -13,7 +13,7 @@
             <p class="history-time">
                 <i><lang>Draw finished at</lang></i>
             </p>
-            <div>{{ formatTime(bet.drawtime, 'MM-dd HH:mm') }}</div>
+            <div>{{ $isEn() ? formatTime(bet.drawtime, 'HH:mm MM-dd') : formatTime(bet.drawtime, 'MM-dd HH:mm') }}</div>
             <div class="history-result">
                 {{ bet.winUserName }}
             </div>

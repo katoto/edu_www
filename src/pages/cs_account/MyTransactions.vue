@@ -49,12 +49,6 @@
                     </template>
                 </el-table-column>
                     <el-table-column
-                            type="index"
-                            align="center"
-                            header-align="center"
-                            :label="_('No. ')">
-                    </el-table-column>
-                    <el-table-column
                             align="center"
                             header-align="center"
                             prop="crtime"
@@ -100,7 +94,7 @@
                             layout="sizes,prev, pager, next,jumper"
                             :page-count="pageCount"
                             :next-text="_('Next >')"
-                            :prev-text="_('< Privious')"
+                            :prev-text="_('< Previous')"
                     >
                     </el-pagination>
                 </div>
@@ -193,15 +187,15 @@ export default {
             tranOptions: [
                 {
                     value: '1',
-                    label: _('All bets')
+                    label: _('All ')
                 },
                 {
                     value: '2',
-                    label: _('Deposit')
+                    label: _('Top Up')
                 },
                 {
                     value: '3',
-                    label: _('Bet')
+                    label: _('Bets')
                 },
                 {
                     value: '4',
@@ -213,7 +207,7 @@ export default {
                 },
                 {
                     value: '6',
-                    label: _('Activities')
+                    label: _('Bonus')
                 },
                 {
                     value: '7',
@@ -221,7 +215,7 @@ export default {
                 },
                 {
                     value: '8',
-                    label: _('Refound')
+                    label: _('Refund')
                 }
             ],
 

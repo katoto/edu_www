@@ -142,7 +142,7 @@
                             layout="sizes,prev, pager, next,jumper"
                             :total="PageTotal"
                             :next-text="_('Next >')"
-                            :prev-text="_('< Privious')"
+                            :prev-text="_('< Previous')"
                     >
                     </el-pagination>
                 </div>
@@ -244,10 +244,10 @@ export default {
             ethUrl,
             betOptions: [{
                 value: '1',
-                label: _('All bets')
+                label: _('All ')
             }, {
                 value: '2',
-                label: _('win bets')
+                label: _('Win ')
             }],
             betOptionVal: '1',
             betTimeOptions: [{

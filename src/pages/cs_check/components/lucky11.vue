@@ -54,7 +54,7 @@
         </div>
         <div class="item item3">
             <div class="title-1">
-                <lang>Blockchain hash value</lang>
+                <lang>Block Hash</lang>
             </div>
             <div>
                 #{{blockid}}

@@ -124,7 +124,7 @@
                                                :page-size="pageSize"
                                                layout="sizes,prev, pager, next,jumper"
                                                :total="PageTotal"
-                                               :next-text="_('Next >')" :prev-text="_('< Privious')">
+                                               :next-text="_('Next >')" :prev-text="_('< Previous')">
                                 </el-pagination>
                             </div>
                         </template>
@@ -409,15 +409,15 @@
                     },
                     {
                         value: '4',
-                        label: _('successful')
+                        label: _('Successful')
                     },
                     {
                         value: '-1',
-                        label: _('failed')
+                        label: _('Failed')
                     },
                     {
                         value: '0',
-                        label: _('waiting ')
+                        label: _('Waiting ')
                     }
                 ],
 

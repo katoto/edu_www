@@ -47,7 +47,7 @@
                         </p>
                     </div>
                 </div>
-                <el-pagination v-if="filterBets(betsList).length != 0" @current-change="handleCurrentBetChange" background :current-page.sync="bets.pages.pageno" size="small" :page-size="bets.pages.pageSize" layout="prev, pager, next" :page-count="bets.pageCount" :next-text="_('Next >')" :prev-text="_('< Privious')">
+                <el-pagination v-if="filterBets(betsList).length != 0" @current-change="handleCurrentBetChange" background :current-page.sync="bets.pages.pageno" size="small" :page-size="bets.pages.pageSize" layout="prev, pager, next" :page-count="bets.pageCount" :next-text="_('Next >')" :prev-text="_('< Previous')">
                 </el-pagination>
             </div>
             <div class="container" v-else>
@@ -70,7 +70,7 @@
                         </p>
                     </div>
                 </div>
-                <el-pagination v-if="historyList.length != 0" @current-change="handleCurrentHistoryChange" background :current-page.sync="history.pages.pageno" size="small" :page-size="history.pages.pageSize" layout="prev, pager, next" :page-count="history.pageCount" :next-text="_('Next >')" :prev-text="_('< Privious')">
+                <el-pagination v-if="historyList.length != 0" @current-change="handleCurrentHistoryChange" background :current-page.sync="history.pages.pageno" size="small" :page-size="history.pages.pageSize" layout="prev, pager, next" :page-count="history.pageCount" :next-text="_('Next >')" :prev-text="_('< Previous')">
                 </el-pagination>
             </div>
         </div>
