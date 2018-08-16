@@ -271,6 +271,8 @@ export default {
                 }).then(res => {
                     if (res.data.detail.expect_status === '4' || res.data.detail.expect_status === '5') {
                         this.renderCheckData(res.data.detail)
+                    } else if (res.data.detail.expect_status === undefined) {
+                        return Promise.reject(new Error('no number'))
                     } else {
                         let thisStatus = 'wait'
                         this.$emit('update:status', thisStatus)
