@@ -60,8 +60,8 @@
                             <div class="main-left">
                                 <!--正常投注-->
                                 <div class="main-normal">
-                                    <p class="hide">
-                                        <lang>Bet Amount</lang>
+                                    <p >
+                                        <lang>Bid Amount</lang>
                                     </p>
                                     <div class="input-box ">
                                         <input type="text" v-model="betValue" :placeholder="goodsinfo.bidValue">
@@ -1110,8 +1110,9 @@
                 padding-bottom: 20px;
                 line-height: 26px;
                 font-size: 16px;
+                color: #a999cb;
                 a{
-                    color: #fff;
+                    color: #a999cb;
                     &:hover{
                         filter:brightness(1.3);
                     }
@@ -1463,7 +1464,7 @@
         margin-left: 30px;
         line-height: 25px;
         font-size: 14px;
-        color: #fff;
+        color: #a999cb;
     }
     .pop-bet{
         .pop-body{

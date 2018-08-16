@@ -141,6 +141,7 @@ module.exports = {
     'Type': '玩法',
     'Bet Number': '投注方案',
     'Bet Amount': '投注金額',
+    'Bid Amount': '投注金額',
     'Prize Amount': '獎金金額',
     'Last 20 records': '最近20條記錄',
     'Your balance is insufficient, please top up': '你的餘額不足請充值',

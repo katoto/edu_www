@@ -77,13 +77,18 @@
                 <!-- 登录  -->
                 <div class="login">
                     <!-- 未登录 -->
+                    <!--拉新活动提示-->
                     <div class="act-sign" v-if="!isLog">
                         <lang>0.0001 BTC for free</lang>
                     </div>
-                    <a href="javascript:;" class="to-login" v-if="!isLog" @click="onLoginIn">
-                        <!--拉新活动提示-->
-                        <lang>Log In / Sign Up</lang>
-                    </a>
+                    <div class="to-login" v-if="!isLog" >
+                        <a href="javascript:;" @click="onLoginIn">
+                            <lang>Log In</lang>
+                        </a>
+                        <a href="javascript:;" @click="onSignUp">
+                            <lang>Sign Up</lang>
+                        </a>
+                    </div>
                     <!-- 登录 -->
                     <section v-else>
                         <div class="mycount" :class="{on:isShowMycount}" @click="headControlPop('showMycount')">
@@ -442,6 +447,9 @@
                 /* 退出登录 */
                 this.$store.dispatch('loginOut')
             },
+            onSignUp () {
+                this.$store.commit('showRegPop')
+            },
             onLoginIn () {
                 this.$store.commit('showLoginPop')
             },
@@ -688,17 +696,24 @@
             }
             .to-login{
                 float: right;
-                display: block;
                 overflow: hidden;
                 margin-top:20px;
                 height:28px;
                 border-radius: 6px;
                 border:1px solid rgba(255,255,255,0.3);
                 line-height:28px;
-                padding:0 20px;
-                color: #fff;
-                &:hover {
-                    background: rgba(255,255,255,0.3);
+                a{
+                    display: block;
+                    float: left;
+                    box-sizing: border-box;
+                    color: #fff;
+                    padding:0 20px;
+                    &+a{
+                        border-left:1px solid rgba(255,255,255,0.3);
+                    }
+                    &:hover {
+                        background: rgba(255,255,255,0.3);
+                    }
                 }
             }
             .hadlogin {
@@ -1313,13 +1328,10 @@
             .login{
                 margin:0;
                 height:100%;
-                .to-login{
-                    font-size: 12px;
-                }
                 .act-sign{
                     position: absolute;
                     width: 120px;
-                    right: 15px;
+                    right: 35px;
                     bottom: -7px;
                     margin: 0;
                     padding: 0 4px;
@@ -1339,6 +1351,12 @@
                     border-radius: 0;
                     padding:0 15px;
                     margin-top: 0;
+                    font-size: 12px;
+                    a{
+                        &+a{
+                            border: none;
+                        }
+                    }
                 }
             }
             .mycount{
