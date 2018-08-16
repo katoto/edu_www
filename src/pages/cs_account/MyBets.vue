@@ -185,7 +185,7 @@
             </section>
             <template v-if="h5orderList.length>0">
                 <ul class="div-betting">
-                    <li v-for="item in h5orderList" :key="item.index">
+                    <li v-for="(item, index) in h5orderList" :key="index">
                         <div class="item-bet item-re1">
                             <p class="time">
                                 {{item.bettime.substr(5)}}
