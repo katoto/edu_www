@@ -574,8 +574,8 @@ export function formatNum (num, bit = 5) {
 export function formatUSD (price, num) {
     price = Number(price)
     num = Number(num)
-    var total = parseInt(accMul(price, num), 10)
-    return numberComma(formatNum(total, 3))
+    var total = accMul(price, num)
+    return numberComma(formatNum(total, 1))
 }
 
 export function structDom (msg = 'home') {
