@@ -49,12 +49,6 @@
                     </template>
                 </el-table-column>
                     <el-table-column
-                            type="index"
-                            align="center"
-                            header-align="center"
-                            :label="_('No. ')">
-                    </el-table-column>
-                    <el-table-column
                             align="center"
                             header-align="center"
                             prop="crtime"
