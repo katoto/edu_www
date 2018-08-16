@@ -16,7 +16,7 @@ module.exports = {
     'Play': '前往',
     'Come Tomorrow': '明日再来',
     '{0}/7 Days': '已登录{0}天',
-    'F3d west': '造梦西游',
+    'F3d West': '造梦西游',
     'Log In / Sign Up': '登录 / 注册',
     'Deposit': '充值',
     'Withdraw': '提款',
@@ -589,7 +589,7 @@ module.exports = {
     'Support ETH and BTC': 'ETH、BTC多币种投注',
     'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '当前游戏支持最受欢迎的比特币和以太币进行投注、存款和提款，未来还将接受更多加密数字货币，敬请期待',
     'Support Mobile APP': '支持移动端设备',
-    'Enjoy convenience and fun from quick and fair play at any time & any where.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。敬请期待',
+    'Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。敬请期待',
     'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '欢迎来区块链游戏平台',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的开奖算法，带您开启前所未有的游戏体验',
     'Bids:': '开奖进度:',
@@ -656,7 +656,9 @@ module.exports = {
     'Click No. to see bid details': '点击期号查看场次详情',
     'Mobile APP is coming soon.': '敬请期待',
     'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，Coinsprize平台概不负责',
-    '{0} {1} / Bid': '每注价格: {0} {1}'
+    '{0} {1} / Bid': '每注价格: {0} {1}',
+    'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.': '建议您使用正规安全的钱包或者交易平台，推荐：Mist、imToken、huobi.com、Coinbase等平台',
+    'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到账时间取决于区块链算力，ETH充值一般需要5分钟到账，BTC充值一般需要40分钟到账，若充值持续未到账，可邮件联系客服解决： support@coinsprize.com'
     /* 验证页面 end */
 
     /* 首页 start */
