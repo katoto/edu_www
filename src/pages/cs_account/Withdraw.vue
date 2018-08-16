@@ -156,7 +156,7 @@
                         </el-option>
                     </el-select>
                     <p>
-                        <lang>Current balance</lang>
+                        <lang>Balance</lang>
                         <i>
                             {{ formateBalance(currBalance.balance) }}
                             {{formateCoinType(currBalance.cointype) }}

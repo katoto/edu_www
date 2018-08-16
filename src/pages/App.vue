@@ -42,7 +42,7 @@
                     break
                 }
                 document.title = _('Coinsprize-the fair game platform for casino games,based on blockchain technology')
-                document.getElementsByTagName('meta')['description'].setAttribute('content', _('Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.'))
+                document.getElementsByTagName('meta')['description'].setAttribute('content', _("Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games."))
             }
         },
         computed: {

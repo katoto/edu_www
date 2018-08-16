@@ -16,7 +16,7 @@
                         <el-option v-for="item in this.userInfo.accounts" :key="item.cointype" :label="formateCoinType(item.cointype)" :value="item">
                         </el-option>
                     </el-select>
-                    <lang>Current balance</lang>
+                    <lang>Balance</lang>
                     <i class="bold">{{ formateBalance(currBalance.balance) }}</i> {{ formateCoinType(currBalance.cointype) }}
                 </div>
                 <p class="item1tips" v-if="currBalance.cointype==='2001'">
@@ -28,7 +28,7 @@
             </div>
             <div class="item2 clearfix">
                 <div class="fl150">
-                    <lang>copy Link</lang>
+                    <lang>Copy Address</lang>
                 </div>
                 <div class="fr-box" v-if="currBalance">
                     <div class="item2-1">
@@ -43,10 +43,10 @@
                         </a>
                     </div>
                     <p class="item2-2" v-if="currBalance.cointype==='2001'">
-                        <lang>Tip: This address only supports ETH recharge, do not choose the wrong currency</lang>
+                        <lang>Tip: This address is only for ETH top-up, do not choose another type of coins</lang>
                     </p>
                     <p class="item2-2" v-if="currBalance.cointype==='1001'">
-                        <lang>Tip: This address only supports BTC recharge, do not choose the wrong currency</lang>
+                        <lang>Tip: This address is only for BTC top-up, do not choose another type of coins</lang>
                     </p>
                     <div class="item2-3">
                         <lang>or scan to get the address</lang>
@@ -103,7 +103,7 @@
                     </el-option>
                 </el-select>
                 <p class="">
-                    <lang>Current balance</lang>
+                    <lang>Balance</lang>
                     <i class="bold">{{ formateBalance(currBalance.balance) }} </i>
                     <i>{{ formateCoinType(currBalance.cointype) }}</i>
                 </p>
@@ -113,14 +113,14 @@
             </div>
             <div class="item2 ">
                 <div class="tips">
-                    <lang>copy Link</lang>
+                    <lang></lang>
                 </div>
                 <template v-if="currBalance">
                     <p class="item2-2" v-if="currBalance.cointype==='2001'">
-                        <lang>Tip: This address only supports ETH recharge, do not choose the wrong currency</lang>
+                        <lang>Tip: This address is only for ETH top-up, do not choose another type of coins</lang>
                     </p>
                     <p class="item2-2" v-if="currBalance.cointype==='1001'">
-                        <lang>Tip: This address only supports BTC recharge, do not choose the wrong currency</lang>
+                        <lang>Tip: This address is only for BTC top-up, do not choose another type of coins</lang>
                     </p>
                     <div class="item2-1">
                         <a :href="'https://etherscan.io/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='2001'" class="address">{{ currBalance.address }}</a>

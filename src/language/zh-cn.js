@@ -420,10 +420,10 @@ module.exports = {
 
     /*  seo */
     'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基于区块链技术的赌场博彩高频彩票游戏平台',
-    'Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.': 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
+    "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.": 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
     '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票开奖结果|信息|公告|记录 - Coinsprize',
     '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11开奖结果,{0} 11开奖信息,{0} 11开奖公告,{0} 11开奖记录',
-    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of Lucky11 can be checked on this page.': '{0}高频彩票是coinsprize公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到lucky 11的最新开奖结果、信息、公告、和往期记录等。',
+    '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of {0} can be checked on this page.': '{0}高频彩票是coinsprize公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到{0}的最新开奖结果、信息、公告、和往期记录等。',
 
     /*  seo end */
 
@@ -659,7 +659,9 @@ module.exports = {
     'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，Coinsprize平台概不负责',
     '{0} {1} / Bid': '每注价格: {0} {1}',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.': '建议您使用正规安全的钱包或者交易平台，推荐：Mist、imToken、huobi.com、Coinbase等平台',
-    'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到账时间取决于区块链算力，ETH充值一般需要5分钟到账，BTC充值一般需要40分钟到账，若充值持续未到账，可邮件联系客服解决： support@coinsprize.com'
+    'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到账时间取决于区块链算力，ETH充值一般需要5分钟到账，BTC充值一般需要40分钟到账，若充值持续未到账，可邮件联系客服解决： support@coinsprize.com',
+    'Finally! You found the wonderland---- Coinsprize': '欢迎来区块链游戏平台',
+    'A blockchain-based game platform with fairness and openness': ' '
     /* 验证页面 end */
 
     /* 首页 start */
