@@ -320,7 +320,7 @@
         formatNum,
         removeCK,
         formatUSD,
-        structDom,
+        structDom
     } from '~/common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
