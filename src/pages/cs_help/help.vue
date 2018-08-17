@@ -29,7 +29,7 @@
             initPop () {
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())
-            },
+            }
         },
         computed: {
 

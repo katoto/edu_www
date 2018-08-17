@@ -139,7 +139,7 @@
         },
         mounted () {
             console.log(window.devicePixelRatio)
-        if (!this.isLog) {
+            if (!this.isLog) {
                 this.$router.push('/home')
             }
         },

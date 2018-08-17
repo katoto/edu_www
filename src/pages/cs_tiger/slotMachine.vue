@@ -461,7 +461,7 @@
     import Footer from '~components/Footer.vue'
     import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
     import BannerScroll from '~components/BannerScroll.vue'
-    import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance,structDom} from '~common/util'
+    import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom} from '~common/util'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
@@ -1150,7 +1150,7 @@
             Header, Footer, BannerScroll
         },
         async mounted () {
-            document.documentElement.className = "flexhtml noscrolling"
+            document.documentElement.className = 'flexhtml noscrolling'
             await this.changePageState()
             if (!localStorage.getItem('firstJackpot')) {
                 this.showFirstBaxi = true
@@ -1169,7 +1169,7 @@
             }
         },
         beforeDestroy () {
-            document.documentElement.className = "";
+            document.documentElement.className = ''
             this.$store.dispatch('subOutTiger')
             this.stopAutoPlay()
         }

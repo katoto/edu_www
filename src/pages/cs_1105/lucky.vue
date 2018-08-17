@@ -316,7 +316,7 @@
     import Footer from '~components/Footer.vue'
     import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
     import { Message } from 'element-ui'
-    import {formateCoinType, formatMatch, formateBalance, removeCK, formatTime,structDom} from '~common/util'
+    import {formateCoinType, formatMatch, formateBalance, removeCK, formatTime, structDom} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
 
     export default {
@@ -696,7 +696,7 @@
                         })
                     }
                 }
-            },
+            }
         },
         components: {
             Footer,

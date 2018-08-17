@@ -670,11 +670,11 @@ module.exports = {
     'A blockchain-based game platform with fairness and openness': ' ',
     'We will contact you as soon as possible.': '我们会尽快与您联系',
     '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '满足不可提现额度的10倍流水条件即可提取赠送金额',
-    'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5这5个16进制数转化为10进制数，然后分别求mod运算11、10、9、8、7，获得5位开奖号码'
+    'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5这5个16进制数转化为10进制数，然后分别求mod运算11、10、9、8、7，获得5位开奖号码',
     /* 验证页面 end */
 
     /* 首页 start */
-
+    'Sign up now': '立马体验'
     /* 首页 end */
 
     /* 一元夺币 start */

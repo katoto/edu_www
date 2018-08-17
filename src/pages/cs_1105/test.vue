@@ -514,11 +514,11 @@
 </template>
 
 <script>
-    import Header from "~components/Header.vue";
-    import Footer from "~components/Footer.vue";
-    import { mTypes, aTypes } from "~/store/cs_page/cs_tiger";
-    import BannerScroll from "~components/BannerScroll.vue";
-    import {
+    import Header from '~components/Header.vue'
+import Footer from '~components/Footer.vue'
+import { mTypes, aTypes } from '~/store/cs_page/cs_tiger'
+import BannerScroll from '~components/BannerScroll.vue'
+import {
         formatFloat,
         copySucc,
         copyError,
@@ -528,14 +528,14 @@
         formateCoinType,
         wait,
         formateSlotBalance
-    } from "~common/util";
+    } from '~common/util'
 
-    import Vue from "vue";
-    import vueClipboard from "vue-clipboard2";
-    Vue.use(vueClipboard);
+import Vue from 'vue'
+import vueClipboard from 'vue-clipboard2'
+Vue.use(vueClipboard)
 
-    export default {
-        data() {
+export default {
+        data () {
             return {
                 showFirstBaxi: false, // 首次提示
                 showRecharge: false, // 显示充值弹窗
@@ -549,12 +549,12 @@
                 // 默认投注选项
                 lucky_values: [
                     {
-                        bet: "0.0001",
-                        lucky: "0"
+                        bet: '0.0001',
+                        lucky: '0'
                     },
                     {
-                        bet: "0.001",
-                        lucky: "0"
+                        bet: '0.001',
+                        lucky: '0'
                     }
                 ],
                 dft_bet: 0.001, // 默认投注项
@@ -568,9 +568,9 @@
                 dft_idx: null, // dft_idx 改变后的位置
                 hideInitLi: true,
                 computeHeight: 0,
-                slotItem1Tran: "translateY(0px)",
-                slotItem2Tran: "translateY(0px)",
-                slotItem3Tran: "translateY(0px)",
+                slotItem1Tran: 'translateY(0px)',
+                slotItem2Tran: 'translateY(0px)',
+                slotItem3Tran: 'translateY(0px)',
                 isShowHelp: false,
                 slotRun: false,
                 animateInterval: null, // 动画时间
@@ -597,7 +597,7 @@
                 },
                 playBack: null, // 下单接口返回的所有值
                 totalRadio: 0,
-                setRewardIcon: "lineWard",
+                setRewardIcon: 'lineWard',
                 jackPot: false,
                 slotOpening: false, // opening 类
                 tabTime: 0,
@@ -606,19 +606,19 @@
                 isAutoPlay: false, // 按钮双击样式
                 currBalance: 0,
                 winRadioObj: {}, // 显示大奖用的
-                winRadioHtml: "", // 处理成展示结构html
+                winRadioHtml: '', // 处理成展示结构html
                 fastClick: false
-            };
-        },
+            }
+    },
         watch: {
             // computeHeight (hei) {
             //     if (hei && this.dft_idx) {
             //         // this.setLacal()
             //     }
             // }
-            isLog(val) {
+            isLog (val) {
                 /* 切换登陆态之后改变状态 */
-                this.changePageState();
+                this.changePageState()
             }
         },
         methods: {
@@ -629,180 +629,180 @@
             formateSlotBalance,
             formateEmail,
             formateCoinType,
-            initPop() {
+            initPop () {
                 /* head 弹窗 */
-                this.$store.commit("initHeadState", new Date().getTime());
+                this.$store.commit('initHeadState', new Date().getTime())
             },
-            initLacal(head = false) {
+            initLacal (head = false) {
                 /* new  结果的走  */
                 // this.axes.forEach((val, index) => {
                 //     /* 打乱 */
                 //     // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
                 // })
                 this.axes.forEach((val, index) => {
-                    let dft = null;
+                    let dft = null
                     if (head) {
                         dft = val.slice(
                             parseFloat(this.dft_idx[index]) + 27,
                             parseFloat(this.dft_idx[index]) + 30
-                        );
-                        this.axes[index] = dft.concat(this.axes[index]);
+                        )
+                        this.axes[index] = dft.concat(this.axes[index])
                     } else {
                         /* 需要删掉最后三个 */
                         dft = val.slice(
                             parseFloat(this.dft_idx[index]) + 30,
                             parseFloat(this.dft_idx[index]) + 33
-                        );
+                        )
                         if (this.axes[index].length > 63) {
-                            this.axes[index].splice(-3);
+                            this.axes[index].splice(-3)
                         }
-                        this.axes[index] = this.axes[index].concat(dft);
+                        this.axes[index] = this.axes[index].concat(dft)
                     }
-                });
+                })
             },
-            setLacal() {
+            setLacal () {
                 this.dft_idx.forEach((val, index) => {
-                    val = parseFloat(val) + 30;
-                    this["slotItem" + (index + 1) + "Tran"] = `translateY(-${(val -
+                    val = parseFloat(val) + 30
+                    this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val -
                         3) *
-                    this.computeHeight}px)`;
-                });
+                    this.computeHeight}px)`
+                })
             },
-            resetLacal() {
-                this.tranitionTiming = false;
+            resetLacal () {
+                this.tranitionTiming = false
                 this.dft_idx.forEach((val, index) => {
-                    this["slotItem" + (index + 1) + "Tran"] = "translateY(0px)";
-                });
+                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0px)'
+                })
             },
-            touStart(evt) {
+            touStart (evt) {
                 if (!this.fastClick) {
-                    evt.preventDefault();
-                    this.tabTime = new Date().getTime();
-                    this.fastClick = true;
+                    evt.preventDefault()
+                    this.tabTime = new Date().getTime()
+                    this.fastClick = true
                 }
             },
-            touEnd(isFree = false) {
-                if (isFree && isFree === "isFree") {
+            touEnd (isFree = false) {
+                if (isFree && isFree === 'isFree') {
                     /* 认为是免费的停止 */
                     if (this.isAutoPlay) {
-                        this.stopAutoPlay();
-                        this.fastClick = false;
-                        return false;
+                        this.stopAutoPlay()
+                        this.fastClick = false
+                        return false
                     }
                 }
                 if (this.btnDisable) {
-                    this.fastClick = false;
-                    return false;
+                    this.fastClick = false
+                    return false
                 }
-                this.tabTime = new Date().getTime() - this.tabTime;
+                this.tabTime = new Date().getTime() - this.tabTime
                 if (this.tabTime > 500) {
                     /* 长按 */
                     if (!this.isLog) {
                         /* 是否登录 */
-                        this.$store.commit("showLoginPop");
-                        this.fastClick = false;
-                        return false;
+                        this.$store.commit('showLoginPop')
+                        this.fastClick = false
+                        return false
                     }
-                    this.startPlay();
-                    this.autoPlay();
-                    this.currRun = this.currRun - 1;
+                    this.startPlay()
+                    this.autoPlay()
+                    this.currRun = this.currRun - 1
                 } else if (this.tabTime > 40 && this.tabTime <= 500) {
                     /* 点击 */
-                    this.startPlay();
+                    this.startPlay()
                 }
-                this.fastClick = false;
+                this.fastClick = false
             },
-            autoPlay() {
-                this.currRun = this.auto_run;
-                this.isAutoPlay = true;
+            autoPlay () {
+                this.currRun = this.auto_run
+                this.isAutoPlay = true
             },
-            stopAutoPlay() {
-                this.currRun = this.auto_run;
-                this.isAutoPlay = false;
+            stopAutoPlay () {
+                this.currRun = this.auto_run
+                this.isAutoPlay = false
             },
-            async endInit() {
+            async endInit () {
                 /* 结束初始化 */
-                this.$store.dispatch("getUserInfo");
+                this.$store.dispatch('getUserInfo')
                 this.axes.forEach((val, index) => {
-                    this.tranitionTiming = false;
-                    this.resetLacal();
-                    let currAxes = val.slice(-3);
-                    this.axes[index].splice(0, 3, ...currAxes);
-                });
-                this.slotOpening = false; // 开奖结束
+                    this.tranitionTiming = false
+                    this.resetLacal()
+                    let currAxes = val.slice(-3)
+                    this.axes[index].splice(0, 3, ...currAxes)
+                })
+                this.slotOpening = false // 开奖结束
                 if (this.playBack) {
                     if (this.playBack.lucky_values) {
-                        this.formateLuckyVal(this.playBack.lucky_values);
+                        this.formateLuckyVal(this.playBack.lucky_values)
                     }
                     if (this.playBack.free_times !== undefined) {
-                        this.free_times = parseFloat(this.playBack.free_times);
+                        this.free_times = parseFloat(this.playBack.free_times)
                     }
                 }
-                await wait(300);
-                this.btnDisable = false;
-                await wait(1700);
+                await wait(300)
+                this.btnDisable = false
+                await wait(1700)
                 if (this.isAutoPlay) {
                     if (this.currRun > 0) {
-                        this.startPlay();
-                        this.currRun = this.currRun - 1;
+                        this.startPlay()
+                        this.currRun = this.currRun - 1
                     } else {
-                        this.stopAutoPlay();
+                        this.stopAutoPlay()
                     }
                 }
             },
-            stateInit() {
+            stateInit () {
                 // this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
             },
-            formateWindow(windowStr = ["S|C|D", "S|S|D", "S|C|S"]) {
+            formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
                 /* 获得口哨  坐标 */
                 // line9: ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10],
-                let nowWhis = null;
-                let baseLine9 = [];
+                let nowWhis = null
+                let baseLine9 = []
                 let baseLineFn = (nowWhis, localVal) => {
                     nowWhis.forEach((valS, index) => {
-                        if (valS === "S") {
+                        if (valS === 'S') {
                             switch (index) {
-                                case 0:
-                                    baseLine9.push("one" + localVal);
-                                    break;
-                                case 1:
-                                    baseLine9.push("two" + localVal);
-                                    break;
-                                case 2:
-                                    baseLine9.push("three" + localVal);
-                                    break;
+                            case 0:
+                                baseLine9.push('one' + localVal)
+                                break
+                            case 1:
+                                baseLine9.push('two' + localVal)
+                                break
+                            case 2:
+                                baseLine9.push('three' + localVal)
+                                break
                             }
                         }
-                    });
-                };
+                    })
+                }
                 windowStr.forEach((val, index) => {
-                    if (~val.indexOf("S")) {
-                        nowWhis = val.split("|");
+                    if (~val.indexOf('S')) {
+                        nowWhis = val.split('|')
                         if (index === 0) {
-                            baseLineFn(nowWhis, "-2");
+                            baseLineFn(nowWhis, '-2')
                         } else if (index === 1) {
-                            baseLineFn(nowWhis, "-1");
+                            baseLineFn(nowWhis, '-1')
                         } else if (index === 2) {
-                            baseLineFn(nowWhis, "0");
+                            baseLineFn(nowWhis, '0')
                         }
                     }
-                });
-                baseLine9.push(10);
-                this.baseMove.line9 = baseLine9;
+                })
+                baseLine9.push(10)
+                this.baseMove.line9 = baseLine9
             },
-            async startPlay() {
+            async startPlay () {
                 if (this.btnDisable) {
-                    return false;
+                    return false
                 }
                 /* 是否登录 */
                 if (!this.isLog) {
-                    this.$store.commit("showLoginPop");
-                    return false;
+                    this.$store.commit('showLoginPop')
+                    return false
                 }
                 /* 是否激活 */
-                if (this.userInfo && this.userInfo.status !== "1") {
-                    this.$store.commit("showNoVerify");
-                    return false;
+                if (this.userInfo && this.userInfo.status !== '1') {
+                    this.$store.commit('showNoVerify')
+                    return false
                 }
                 /* 余额是否充足 */
                 if (this.userInfo && this.userInfo.accounts[0]) {
@@ -814,339 +814,339 @@
                         parseFloat(this.free_times) <= 0
                     ) {
                         /* 显示余额不足 */
-                        this.showRecharge = true;
-                        return false;
+                        this.showRecharge = true
+                        return false
                     }
                 }
-                this.btnDisable = true;
+                this.btnDisable = true
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
                     cointype: 2001
-                };
+                }
                 let playBack = await this.$store.dispatch(
                     aTypes.startPlay,
                     orderMsg
-                );
+                )
                 // this.stateInit()
-                this.slotRun = true;
+                this.slotRun = true
                 if (playBack) {
                     if (parseFloat(this.free_times) <= 0) {
-                        this.reduceMoney();
+                        this.reduceMoney()
                     }
-                    this.playBack = playBack;
-                    this.initPage(playBack);
+                    this.playBack = playBack
+                    this.initPage(playBack)
                     if (playBack.idx) {
                         // 结果 位置
-                        this.dft_idx = playBack.idx;
-                        this.initLacal();
-                        this.dft_idx = [36, 36, 36];
-                        await wait(600);
-                        this.tranitionTiming = true;
-                        this.setLacal();
+                        this.dft_idx = playBack.idx
+                        this.initLacal()
+                        this.dft_idx = [36, 36, 36]
+                        await wait(600)
+                        this.tranitionTiming = true
+                        this.setLacal()
                     }
                     if (playBack.window) {
                         /*  处理口哨 的数组格式 */
-                        this.formateWindow(playBack.window);
+                        this.formateWindow(playBack.window)
                     }
                     if (playBack.results) {
-                        this.showResults(playBack.results);
-                        this.showRadioEnd(playBack.results);
+                        this.showResults(playBack.results)
+                        this.showRadioEnd(playBack.results)
                     }
                 } else {
-                    this.endInit();
+                    this.endInit()
                 }
             },
-            async showResults(res) {
+            async showResults (res) {
                 /* 结果展示 */
-                this.totalRadio = 0;
-                this.winRes = [];
+                this.totalRadio = 0
+                this.winRes = []
                 if (res && Array.isArray(res)) {
-                    if (res[10] === "1") {
+                    if (res[10] === '1') {
                         this.winRes.push({
-                            line: "line10",
-                            value: "1"
-                        });
+                            line: 'line10',
+                            value: '1'
+                        })
                     } else {
                         res.forEach((val, index) => {
-                            if (val.toString() !== "0") {
-                                this.totalRadio += parseFloat(val);
+                            if (val.toString() !== '0') {
+                                this.totalRadio += parseFloat(val)
                                 if (index === 9) {
                                     this.winRes.unshift({
-                                        line: "line" + index,
+                                        line: 'line' + index,
                                         value: val
-                                    });
+                                    })
                                 } else {
                                     this.winRes.push({
-                                        line: "line" + index,
+                                        line: 'line' + index,
                                         value: val
-                                    });
+                                    })
                                 }
                             }
-                        });
+                        })
                     }
                     /* 预留 转动的时间 */
-                    await wait(3000);
-                    this.slotRun = false; // 动画结束
-                    this.slotOpening = true;
+                    await wait(3000)
+                    this.slotRun = false // 动画结束
+                    this.slotOpening = true
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
-                        this.controlAnimate();
-                        clearInterval(this.animateInterval);
+                        this.controlAnimate()
+                        clearInterval(this.animateInterval)
                         this.animateInterval = setInterval(
                             this.controlAnimate,
                             this.allLinePopTime
-                        );
+                        )
                     } else {
                         /* 没中 */
-                        this.endInit();
+                        this.endInit()
                     }
                 }
             },
-            async controlAnimate() {
-                let popWinRes = null;
+            async controlAnimate () {
+                let popWinRes = null
                 if (this.winRes.length > 0) {
-                    let nowMove = null;
-                    popWinRes = this.winRes.shift();
-                    if (popWinRes.line === "line9") {
+                    let nowMove = null
+                    popWinRes = this.winRes.shift()
+                    if (popWinRes.line === 'line9') {
                         /* 口哨 */
-                        this.setRewardIcon = "whisWard";
-                        nowMove = this.baseMove[popWinRes.line];
-                        this.nowWhistMove(nowMove);
-                    } else if (popWinRes.line === "line10") {
-                        this.slotOpening = false;
+                        this.setRewardIcon = 'whisWard'
+                        nowMove = this.baseMove[popWinRes.line]
+                        this.nowWhistMove(nowMove)
+                    } else if (popWinRes.line === 'line10') {
+                        this.slotOpening = false
                         /* 奖池奖 */
-                        this.setRewardIcon = "jackPotWard";
+                        this.setRewardIcon = 'jackPotWard'
                     } else {
                         /* 0- 8 线 */
-                        this.setRewardIcon = "lineWard";
-                        nowMove = this.baseMove[popWinRes.line];
-                        this.nowLineMove(nowMove, this.dft_idx);
+                        this.setRewardIcon = 'lineWard'
+                        nowMove = this.baseMove[popWinRes.line]
+                        this.nowLineMove(nowMove, this.dft_idx)
                     }
                 } else {
-                    clearInterval(this.animateInterval);
-                    if (this.setRewardIcon === "lineWard") {
+                    clearInterval(this.animateInterval)
+                    if (this.setRewardIcon === 'lineWard') {
                         /* 显示大奖还是小奖 */
                         if (this.totalRadio >= 25) {
                             // 大奖
-                            this.rewardBig = true;
+                            this.rewardBig = true
                         } else {
-                            this.rewardSmall = true;
+                            this.rewardSmall = true
                         }
                         this.$store.commit(
                             mTypes.last_prizes,
                             parseFloat(this.playBack.line_prizes) +
                             parseFloat(this.playBack.pool_prizes)
-                        );
-                        await wait(2500);
+                        )
+                        await wait(2500)
                         // 隐藏奖池图标
-                        this.rewardBig = false;
-                        this.rewardSmall = false;
-                        this.endInit();
-                    } else if (this.setRewardIcon === "jackPotWard") {
-                        this.rewardBig = true;
-                        this.jackPot = true;
+                        this.rewardBig = false
+                        this.rewardSmall = false
+                        this.endInit()
+                    } else if (this.setRewardIcon === 'jackPotWard') {
+                        this.rewardBig = true
+                        this.jackPot = true
                         this.$store.commit(
                             mTypes.last_prizes,
                             parseFloat(this.playBack.line_prizes) +
                             parseFloat(this.playBack.pool_prizes)
-                        );
+                        )
 
                         //  todo 特殊烟花
-                        await wait(5000);
+                        await wait(5000)
 
-                        this.currRun = 0;
-                        this.rewardBig = false;
-                        this.endInit();
-                    } else if (this.setRewardIcon === "whisWard") {
-                        await wait(100);
-                        this.endInit();
+                        this.currRun = 0
+                        this.rewardBig = false
+                        this.endInit()
+                    } else if (this.setRewardIcon === 'whisWard') {
+                        await wait(100)
+                        this.endInit()
                     }
                     // 是否应该在结束时更新数据
                 }
             },
-            nowLineMove(nowMove = [-1, -2, -1, 10], endIdx = [3, 3, 3]) {
+            nowLineMove (nowMove = [-1, -2, -1, 10], endIdx = [3, 3, 3]) {
                 /* 执行的动画 */
                 for (let i = 0; i < 4; i++) {
                     setTimeout(() => {
-                        let lineLocal = null;
-                        let querySel = null;
+                        let lineLocal = null
+                        let querySel = null
                         if (nowMove[i] !== 10) {
                             lineLocal =
                                 parseFloat(endIdx[i]) +
                                 30 +
                                 parseFloat(nowMove[i]) -
-                                1;
-                            querySel = "#slotItem" + (i + 1) + " li";
+                                1
+                            querySel = '#slotItem' + (i + 1) + ' li'
                             if (document.querySelectorAll(querySel)[lineLocal]) {
                                 document.querySelectorAll(querySel)[
                                     lineLocal
-                                    ].className =
-                                    "yes";
+                                ].className =
+                                    'yes'
                             }
                         } else {
                             /* 所有初始化 */
-                            this.initAllLine();
+                            this.initAllLine()
                         }
-                    }, this.lineLightTime * (i + 1));
+                    }, this.lineLightTime * (i + 1))
                 }
             },
-            nowWhistMove(
-                whistMove = ["one0", "one-2", "two0", "three-1", "three-2", 10]
+            nowWhistMove (
+                whistMove = ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10]
             ) {
                 /* 口哨  通过replace 进行处理 */
                 if (whistMove && whistMove.length > 0) {
                     for (let i = 0; i < whistMove.length; i++) {
                         setTimeout(() => {
-                            let lineLocal = null;
-                            let querySel = null;
+                            let lineLocal = null
+                            let querySel = null
                             if (whistMove[i] !== 10) {
-                                if (~whistMove[i].indexOf("one")) {
+                                if (~whistMove[i].indexOf('one')) {
                                     lineLocal =
                                         parseFloat(this.dft_idx[0]) +
                                         30 +
                                         parseFloat(
-                                            whistMove[i].replace("one", "")
+                                            whistMove[i].replace('one', '')
                                         ) -
-                                        1;
-                                    querySel = "#slotItem1 li";
+                                        1
+                                    querySel = '#slotItem1 li'
                                     if (
                                         document.querySelectorAll(querySel)[
                                             lineLocal
-                                            ]
+                                        ]
                                     ) {
                                         document.querySelectorAll(querySel)[
                                             lineLocal
-                                            ].className =
-                                            "yes";
+                                        ].className =
+                                            'yes'
                                     }
                                 }
-                                if (~whistMove[i].indexOf("two")) {
+                                if (~whistMove[i].indexOf('two')) {
                                     lineLocal =
                                         parseFloat(this.dft_idx[1]) +
                                         30 +
                                         parseFloat(
-                                            whistMove[i].replace("two", "")
+                                            whistMove[i].replace('two', '')
                                         ) -
-                                        1;
-                                    querySel = "#slotItem2 li";
+                                        1
+                                    querySel = '#slotItem2 li'
                                     if (
                                         document.querySelectorAll(querySel)[
                                             lineLocal
-                                            ]
+                                        ]
                                     ) {
                                         document.querySelectorAll(querySel)[
                                             lineLocal
-                                            ].className =
-                                            "yes";
+                                        ].className =
+                                            'yes'
                                     }
                                 }
-                                if (~whistMove[i].indexOf("three")) {
+                                if (~whistMove[i].indexOf('three')) {
                                     lineLocal =
                                         parseFloat(this.dft_idx[2]) +
                                         30 +
                                         parseFloat(
-                                            whistMove[i].replace("three", "")
+                                            whistMove[i].replace('three', '')
                                         ) -
-                                        1;
-                                    querySel = "#slotItem3 li";
+                                        1
+                                    querySel = '#slotItem3 li'
                                     if (
                                         document.querySelectorAll(querySel)[
                                             lineLocal
-                                            ]
+                                        ]
                                     ) {
                                         document.querySelectorAll(querySel)[
                                             lineLocal
-                                            ].className =
-                                            "yes";
+                                        ].className =
+                                            'yes'
                                     }
                                 }
                             } else {
                                 /* 所有初始化 */
-                                this.initAllLine();
+                                this.initAllLine()
                             }
-                        }, this.lineLightTime * (i + 1));
+                        }, this.lineLightTime * (i + 1))
                     }
                 }
             },
-            async initAllLine() {
+            async initAllLine () {
                 /* 初始化 yes */
                 try {
-                    await wait(650);
+                    await wait(650)
                     Array.from(
-                        document.querySelectorAll("#js_slot-box li")
+                        document.querySelectorAll('#js_slot-box li')
                     ).forEach(val => {
-                        val.className = "";
-                    });
+                        val.className = ''
+                    })
                 } catch (e) {
-                    console.log(e);
+                    console.log(e)
                 }
             },
-            showBetSel() {
+            showBetSel () {
                 /* 控制投注项 */
                 if (this.isAutoPlay) {
-                    return false;
+                    return false
                 }
                 /* 有免费次数的时候 不给切换 */
                 if (parseFloat(this.free_times)) {
-                    return false;
+                    return false
                 }
-                this.showSingleBet = !this.showSingleBet;
+                this.showSingleBet = !this.showSingleBet
             },
-            betSelFn(currVal) {
+            betSelFn (currVal) {
                 if (currVal) {
-                    this.dft_bet = currVal.bet;
+                    this.dft_bet = currVal.bet
                     this.barProcess = (
                         parseFloat(currVal.lucky) *
                         (96 / 100)
-                    ).toFixed(0);
-                    this.beforeBarProcess = parseFloat(currVal.lucky);
+                    ).toFixed(0)
+                    this.beforeBarProcess = parseFloat(currVal.lucky)
                     if (parseFloat(currVal.lucky) >= 100) {
-                        this.hideBarLycky = false;
+                        this.hideBarLycky = false
                     } else {
-                        this.hideBarLycky = true;
+                        this.hideBarLycky = true
                     }
-                    this.showSingleBet = true;
+                    this.showSingleBet = true
                 }
             },
-            initPage(slotsHome, inPage = false) {
+            initPage (slotsHome, inPage = false) {
                 if (slotsHome.prizes_pool !== undefined) {
-                    this.$store.commit(mTypes.prizes_pool, slotsHome.prizes_pool);
+                    this.$store.commit(mTypes.prizes_pool, slotsHome.prizes_pool)
                 }
                 if (slotsHome.last_prizes !== undefined) {
-                    this.$store.commit(mTypes.last_prizes, slotsHome.last_prizes);
+                    this.$store.commit(mTypes.last_prizes, slotsHome.last_prizes)
                 }
                 if (inPage) {
                     if (slotsHome.free_times !== undefined) {
-                        this.free_times = parseFloat(slotsHome.free_times);
+                        this.free_times = parseFloat(slotsHome.free_times)
                     }
                 }
                 if (slotsHome.auto_run !== undefined) {
-                    this.auto_run = slotsHome.auto_run;
+                    this.auto_run = slotsHome.auto_run
                 }
                 /* 默认投注项 */
                 if (slotsHome.dft_bet !== undefined) {
-                    this.dft_bet = slotsHome.dft_bet;
+                    this.dft_bet = slotsHome.dft_bet
                 }
                 if (slotsHome.dft_line !== undefined) {
-                    this.dft_line = slotsHome.dft_line;
+                    this.dft_line = slotsHome.dft_line
                 }
                 if (slotsHome.prizes_pool_ratio) {
-                    this.prizes_pool_ratio = slotsHome.prizes_pool_ratio;
+                    this.prizes_pool_ratio = slotsHome.prizes_pool_ratio
                 }
                 if (slotsHome.axes) {
-                    this.axes = slotsHome.axes;
+                    this.axes = slotsHome.axes
                     this.axes.forEach((val, index) => {
-                        this.axes[index] = val.concat(val);
-                    });
+                        this.axes[index] = val.concat(val)
+                    })
                 }
                 if (slotsHome.dft_idx) {
-                    this.dft_idx = slotsHome.dft_idx;
+                    this.dft_idx = slotsHome.dft_idx
                 }
             },
-            formateLuckyVal(luckyValues = []) {
+            formateLuckyVal (luckyValues = []) {
                 /* 初始化 绿色 进度条 */
-                this.lucky_values = luckyValues;
+                this.lucky_values = luckyValues
                 if (this.lucky_values.length > 0) {
                     this.lucky_values.forEach(val => {
                         if (val.bet === this.dft_bet.toString()) {
@@ -1154,151 +1154,151 @@
                                 96 /
                                 100 *
                                 parseFloat(val.lucky)
-                            ).toFixed(0);
-                            this.beforeBarProcess = parseFloat(val.lucky);
+                            ).toFixed(0)
+                            this.beforeBarProcess = parseFloat(val.lucky)
                             if (parseFloat(val.lucky) >= 100) {
-                                this.hideBarLycky = false;
+                                this.hideBarLycky = false
                             } else {
-                                this.hideBarLycky = true;
+                                this.hideBarLycky = true
                             }
                         }
-                    });
+                    })
                 }
             },
-            reduceMoney() {
+            reduceMoney () {
                 if (this.userInfo && this.userInfo.accounts) {
-                    if (this.currCoinType.toString() === "2001") {
+                    if (this.currCoinType.toString() === '2001') {
                         this.userInfo.accounts[0].balance = Math.abs(
                             parseFloat(this.userInfo.accounts[0].balance) -
                             parseFloat(this.dft_bet) * parseFloat(this.dft_line)
-                        );
-                        this.$store.commit("setUserInfo", this.userInfo);
+                        )
+                        this.$store.commit('setUserInfo', this.userInfo)
                     }
                 }
             },
-            showRadioEnd(
-                winArr = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "120", "0"]
+            showRadioEnd (
+                winArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '120', '0']
             ) {
-                this.winRadioObj = {};
+                this.winRadioObj = {}
                 if (winArr) {
                     winArr.forEach((val, index) => {
                         if (index !== 9) {
-                            if (val !== "0") {
+                            if (val !== '0') {
                                 if (!this.winRadioObj[val]) {
-                                    this.winRadioObj[val] = [];
+                                    this.winRadioObj[val] = []
                                 }
-                                this.winRadioObj[val].push(val);
+                                this.winRadioObj[val].push(val)
                             }
                         }
-                    });
-                    let i = 0;
-                    this.winRadioHtml = "";
-                    let copyRadioArr = [];
+                    })
+                    let i = 0
+                    this.winRadioHtml = ''
+                    let copyRadioArr = []
                     for (let index in this.winRadioObj) {
-                        let o = {};
-                        o["key"] = index;
-                        o["value"] = this.winRadioObj[index];
-                        o[index] = this.winRadioObj[index];
-                        copyRadioArr.push(o);
+                        let o = {}
+                        o['key'] = index
+                        o['value'] = this.winRadioObj[index]
+                        o[index] = this.winRadioObj[index]
+                        copyRadioArr.push(o)
                     }
-                    copyRadioArr = copyRadioArr.reverse();
+                    copyRadioArr = copyRadioArr.reverse()
                     copyRadioArr.forEach((val, index) => {
                         if (i % 2 === 0) {
                             this.winRadioHtml += `
                                             <ul class="radioLi"><li>
                                                 <img src="../../../static/staticImg/_${this.radioBackImg(
-                                val["key"]
-                            )}.png" alt="">&ensp;
+            val['key']
+        )}.png" alt="">&ensp;
                                                 <span>x ${
-                                val["value"].length
-                                }</span>&ensp;
-                                                <span>${parseFloat(val["key"]) *
-                            val["value"]
+        val['value'].length
+    }</span>&ensp;
+                                                <span>${parseFloat(val['key']) *
+                            val['value']
                                 .length}</span>&ensp;
-                                                <span>Times</span>
-                                            </li>
-                                        `;
+                                            <span>Times</span>
+                                        </li>
+                                    `
                         } else {
                             this.winRadioHtml += `<li >
                                                 <img src="../../../static/staticImg/_${this.radioBackImg(
-                                val["key"]
-                            )}.png" alt="">&ensp;
+            val['key']
+        )}.png" alt="">&ensp;
                                                 <span>x ${
-                                val["value"].length
-                                }</span>&ensp;
-                                                <span>${parseFloat(val["key"]) *
-                            val["value"]
+        val['value'].length
+    }</span>&ensp;
+                                                <span>${parseFloat(val['key']) *
+                            val['value']
                                 .length}</span>&ensp;
-                                                <span>Times</span>
-                                            </li></ul>`;
+                                            <span>Times</span>
+                                        </li></ul>`
                         }
-                        i++;
-                    });
+                        i++
+                    })
                     if (i % 2 !== 0) {
-                        this.winRadioHtml += "</ul>";
+                        this.winRadioHtml += '</ul>'
                     }
-                    if (document.getElementById("radioHtmlDom")) {
+                    if (document.getElementById('radioHtmlDom')) {
                         document.getElementById(
-                            "radioHtmlDom"
-                        ).innerHTML = this.winRadioHtml;
+                            'radioHtmlDom'
+                        ).innerHTML = this.winRadioHtml
                     }
                 }
             },
-            radioBackImg(radio = "5") {
+            radioBackImg (radio = '5') {
                 switch (radio.toString()) {
-                    case "5":
-                        return "A";
-                    case "15":
-                        return "B";
-                    case "25":
-                        return "C";
-                    case "50":
-                        return "D";
-                    case "100":
-                        return "E";
-                    case "300":
-                        return "F";
-                    case "800":
-                        return "G";
-                    default:
-                        return "A";
+                case '5':
+                    return 'A'
+                case '15':
+                    return 'B'
+                case '25':
+                    return 'C'
+                case '50':
+                    return 'D'
+                case '100':
+                    return 'E'
+                case '300':
+                    return 'F'
+                case '800':
+                    return 'G'
+                default:
+                    return 'A'
                 }
             },
-            async changePageState() {
+            async changePageState () {
                 /* 登陆登出修改页面状态 */
-                let slotsHome = await this.$store.dispatch(aTypes.slotsHome);
+                let slotsHome = await this.$store.dispatch(aTypes.slotsHome)
                 if (slotsHome) {
                     /* 基础结构数据 */
-                    this.initPage(slotsHome, true);
+                    this.initPage(slotsHome, true)
                     if (slotsHome.lucky_values) {
                         /* 投注列表配置 */
-                        this.formateLuckyVal(slotsHome.lucky_values);
+                        this.formateLuckyVal(slotsHome.lucky_values)
                     }
                 }
-                this.initLacal(true);
+                this.initLacal(true)
             }
         },
         computed: {
-            language() {
-                return this.$store.state.language;
+            language () {
+                return this.$store.state.language
             },
-            currCoinType() {
-                return this.$store.state.currCoinType;
+            currCoinType () {
+                return this.$store.state.currCoinType
             },
-            last_prizes() {
-                return this.$store.state.cs_tiger.last_prizes;
+            last_prizes () {
+                return this.$store.state.cs_tiger.last_prizes
             },
-            prizes_pool() {
-                return this.$store.state.cs_tiger.prizes_pool;
+            prizes_pool () {
+                return this.$store.state.cs_tiger.prizes_pool
             },
-            recentList() {
-                return this.$store.state.cs_tiger.recentList;
+            recentList () {
+                return this.$store.state.cs_tiger.recentList
             },
-            isLog() {
-                return this.$store.state.isLog;
+            isLog () {
+                return this.$store.state.isLog
             },
-            userInfo() {
-                return this.$store.state.userInfo;
+            userInfo () {
+                return this.$store.state.userInfo
             }
         },
         components: {
@@ -1306,44 +1306,44 @@
             Footer,
             BannerScroll
         },
-        async mounted() {
+        async mounted () {
             // 移动端整屏
-            document.documentElement.className = "flexhtml noscrolling";
-            await this.changePageState();
-            if (!localStorage.getItem("firstJackpot")) {
-                this.showFirstBaxi = true;
-                localStorage.setItem("firstJackpot", true);
+            document.documentElement.className = 'flexhtml noscrolling'
+            await this.changePageState()
+            if (!localStorage.getItem('firstJackpot')) {
+                this.showFirstBaxi = true
+                localStorage.setItem('firstJackpot', true)
             }
-            this.$store.dispatch("subInTiger");
-        },
-        updated() {
-            if (document.getElementById("heiImg")) {
-                document.getElementById("heiImg").onload = () => {
-                    document.getElementById("js_slot-box").style.height =
+            this.$store.dispatch('subInTiger')
+    },
+        updated () {
+            if (document.getElementById('heiImg')) {
+                document.getElementById('heiImg').onload = () => {
+                    document.getElementById('js_slot-box').style.height =
                         parseFloat(
                             window
-                                .getComputedStyle(document.getElementById("hei"))
-                                .height.replace("px", "")
+                                .getComputedStyle(document.getElementById('hei'))
+                                .height.replace('px', '')
                         ) *
                         3 +
                         60 +
-                        "px";
+                        'px'
                     this.computeHeight =
                         parseFloat(
                             window
-                                .getComputedStyle(document.getElementById("hei"))
-                                .height.replace("px", "")
-                        ) + 15;
-                    this.hideInitLi = false;
-                };
+                                .getComputedStyle(document.getElementById('hei'))
+                                .height.replace('px', '')
+                        ) + 15
+                    this.hideInitLi = false
+                }
             }
         },
-        beforeDestroy() {
-            document.documentElement.className = "";
-            this.$store.dispatch("subOutTiger");
-            this.stopAutoPlay();
-        }
-    };
+        beforeDestroy () {
+            document.documentElement.className = ''
+            this.$store.dispatch('subOutTiger')
+            this.stopAutoPlay()
+    }
+    }
 </script>
 <style scoped="" lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";

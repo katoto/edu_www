@@ -12,7 +12,11 @@
                                 <div class="banner-t1" v-html="item.t1"></div>
                                 <p class="banner-t11 visible-md visible-lg">{{ item.t11 }}</p>
                                 <p class="banner-t2">{{ item.t2 }}</p>
-                                <router-link :to="{path: item.href}" class="banner-more">
+
+                                <a v-if="!isLog" href="javascript:;" class="banner-more" @click="onSignUp()">
+                                    <lang>Sign up now</lang>
+                                </a>
+                                <router-link v-else :to="{path: item.href}" class="banner-more">
                                     <lang>Details </lang>
                                 </router-link>
                             </el-carousel-item>
@@ -316,7 +320,7 @@
         formatNum,
         removeCK,
         formatUSD,
-        structDom
+        structDom,
     } from '~/common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
@@ -380,6 +384,9 @@
             formateBalance,
             formateCoinType,
             formatNum,
+            onSignUp () {
+                this.$store.commit('showRegPop')
+            },
             formatMoney (num) {
                 let money = formatNum(Number(num), 5).toFixed(5)
                 return money.length > 7 ? money.substring(0, 7) : money
@@ -474,6 +481,11 @@
             }
         },
         components: {Header, Footer},
+        computed: {
+            isLog () {
+                return this.$store.state.isLog
+            }
+        },
         mounted () {
             setInterval(() => this.init(), 60000)
             this.init()
