@@ -656,7 +656,7 @@
                     this.PageTotal = Number(data.counter)
 
                     this.h5orderList = this.h5orderList.concat(this.orderList)
-                    if (data.list.length == 0 || data.list.length != 10) {
+                    if (data.list.length === 0 || data.list.length !== 10) {
                         this.isShowMoreBtn = false
                     }
                 }

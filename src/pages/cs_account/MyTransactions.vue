@@ -302,7 +302,7 @@ export default {
                 this.pageCount = parseInt(data.pages, 10)
 
                 this.h5orderList = this.h5orderList.concat(this.orderList)
-                if (data.account_logs.length == 0 || data.account_logs.length != 10) {
+                if (data.account_logs.length === 0 || data.account_logs.length !== 10) {
                     this.isShowMoreBtn = false
                 }
             }

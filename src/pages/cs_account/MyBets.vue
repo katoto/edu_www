@@ -324,7 +324,7 @@ export default {
                 this.PageTotal = parseInt(data.counter, 10)
 
                 this.h5orderList = this.h5orderList.concat(this.orderList)
-                if (data.orders.length == 0 || data.orders.length != 10) {
+                if (data.orders.length === 0 || data.orders.length !== 10) {
                     this.isShowMoreBtn = false
                 }
             }

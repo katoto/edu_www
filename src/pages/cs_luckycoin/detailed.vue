@@ -1,7 +1,7 @@
 <template>
     <div class="luckyCoinDetailed">
         <div class="main" v-if="goodsinfo">
-            <BreadCrumbs>No.{{number}}</BreadCrumbs> 
+            <BreadCrumbs>No.{{number}}</BreadCrumbs>
             <div class="main-detailed flex">
                 <!--eth/btc  normal/win/fail/finished/expired -->
                 <div class="itemluck" :class="[betStatus, coinText.toLowerCase()]">
@@ -396,7 +396,6 @@
                 }
             },
             winSort (numbers) {
-                let vm = this
                 let tmp = [...numbers]
                 for (let index = 0; index < tmp.length; index++) {
                     let item = tmp[index]
@@ -552,7 +551,7 @@
                     .then(res => this.renderMyBet(res.data))
             },
             renderMyBet (res) {
-                let money = 0
+                // let money = 0
                 let price = accMul(Number(res.goodsinfo.bidValue), res.luckyNums.length)
                 this.betMoney = (price === 0 ? 0 : price)
             },
