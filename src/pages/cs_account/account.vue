@@ -4,7 +4,7 @@
         <div class="main" @click="initPop">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Account Center'), path: '/account' }]"></BreadCrumbs>
             <!--侧边栏-->
-            <div class="slide-bar visible-lg" :data-msg="_('Free Bouns ')">
+            <div class="slide-bar visible-lg" :data-msg="_('Free Bonus ')">
                 <ul class="account_Tab">
                     <router-link active-class="on" :to="item.link" tag="li" v-for="(item, index) in lists" :key="index">
                         <a href="javascript:;">
@@ -19,7 +19,7 @@
             </div>
             <!--移动端-->
             <div class="pop-mask hidden-lg" @click="isShowH5SideBar = false" :class="{hide:!isShowH5SideBar}"></div>
-            <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}" data-msg="Free Bouns">
+            <div class="h5-slide-bar hidden-lg" :class="{show:isShowH5SideBar}" data-msg="Free Bonus">
                <p> {{_(h5NavMsg)}}</p>
                 <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
                     <span></span><span></span><span></span>
