@@ -115,12 +115,19 @@
                                 <router-link @click.native="changH5Msg('General')" :to="{path: '/account/general'}" class="account-center">
                                     <lang>Account Center</lang>
                                 </router-link>
+                                <router-link @click.native="changH5Msg('Top Up')" :to="{path: '/account/deposit'}" class="account-deposit">
+                                    <lang>Top Up</lang>
+                                </router-link>
+                                <router-link @click.native="changH5Msg('Withdraw')" :to="{path: '/account/withdraw'}" class="account-withdraw">
+                                    <lang>Withdraw</lang>
+                                </router-link>
                                 <div class="currency-select">
                                     <p>
                                         <lang>Select Coin</lang>
                                     </p>
                                     <ul>
-                                        <li v-for="item in userInfo.accounts"
+                                        <li v-for="(item, index) in userInfo.accounts"
+                                            :key="index"
                                             :class="{'on': item.cointype === currBalance.cointype }"
                                             @click="changeAccounts( item )">
                                             <div class="currency-account">
@@ -773,7 +780,9 @@
             }
         }
         .my-transaction,
-        .account-center {
+        .account-center,
+        .account-deposit,
+        .account-withdraw {
             display: block;
             height: 28px;
             overflow: hidden;
@@ -785,6 +794,10 @@
             &:hover {
                 background: #eef1f9;
             }
+        }
+        .account-deposit,
+        .account-withdraw {
+            display: none;
         }
         .currency-select{
             margin:10px 0 0 0;
@@ -1461,8 +1474,11 @@
                     font-size: 12px;
                 }
             }
-            .my-transaction,.account-center{
-                margin-top: 5px;
+            .account-deposit,.account-withdraw {
+                display: block;
+            }
+            .my-transaction,.account-center,.account-deposit,.account-withdraw{
+                margin-top: 10px;
                 height: 24px;
                 line-height: 24px;
                 font-size: 12px;

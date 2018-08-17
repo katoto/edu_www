@@ -82,7 +82,7 @@
                                         {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
-                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
+                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'HH:mm yyyy.MM.dd')}}
                                     </span>
                                 </div>
                                 <!--失败-->
@@ -94,7 +94,7 @@
                                         {{goodsinfo.luckyNum}}
                                     </p>
                                     <span>
-                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'yyyy.MM.dd HH:mm')}}
+                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'HH:mm yyyy.MM.dd')}}
                                     </span>
                                 </div>
                                 <!--已结束待开奖-->
@@ -143,7 +143,7 @@
                                 {{goodsinfo.winUserName || ''}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
-                                <lang>Detail >></lang>
+                                <lang>Details >></lang>
                             </router-link>
                         </div>
                         <div class="btn btn-fail">
@@ -151,7 +151,7 @@
                                 {{goodsinfo.winUserName || ''}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
-                                <lang>Detail >></lang>
+                                <lang>Details >></lang>
                             </router-link>
                         </div>
                         <div class="btn btn-finished">
@@ -272,11 +272,11 @@
                 </el-table>
                 <div class="mybets" v-if="myNumbers.length > 0 && activeName === 'my'">
                     <p class="msg1" v-if="orders.length !== 1">
-                        {{ _('{0} {1} Bid Amount, {2} Bidding Numbers. Bid more, win more!', betMoney, coinText, myNumbers.length) }}
+                        {{ _('{0} {1} Bid Amount, {2} Bidding {3}. Bid more, win more!', betMoney, coinText, myNumbers.length, myNumbers.length === 1 ? 'Number' : 'Numbers') }}
                     </p>
                     <div class="item-number" v-for="(orderItem, orderIndex) in winSort(orders)" :key="orderIndex">
                         <p>
-                            {{orderItem.crtime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ _('{0} {1} Bid Amount, {2} Bidding Numbers. ', Number(orderItem.betmoney), coinText, orderItem.list.length)}}<lang v-if="orders.length === 1">Bid more, win more!</lang>
+                            {{orderItem.crtime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ _('{0} {1} Bid Amount, {2} Bidding {3}. ', Number(orderItem.betmoney), coinText, orderItem.list.length, orderItem.list.length === 1 ? 'Number' : 'Numbers')}}<lang v-if="orders.length === 1">Bid more, win more!</lang>
                         </p>
                         <ul>
                             <li v-for="(item, index) in winSort(orderItem.list)" :key="index" :class="[item === goodsinfo.luckyNum ? 'win' : '']">
