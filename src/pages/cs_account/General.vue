@@ -11,7 +11,7 @@
                 <p class="my-account "><span class="js_currEmail">{{ userInfo.email }}</span>
                     <span class="js_unverifyBox">
                     <a href="javascript:;" v-if="userInfo.status==='0'" @click="goVerify">
-                        <lang>go to verified</lang>
+                        <lang>Verify</lang>
                     </a>
                     <a href="javascript:;" v-if="userInfo.status==='1'" style="cursor: default">
                         <lang>Verified</lang>
@@ -63,7 +63,7 @@
                 <p class="my-account "><span class="js_currEmail">{{ userInfo.email }}</span>
                     <span class="js_unverifyBox">
                     <a href="javascript:;" v-if="userInfo.status==='0'" @click="goVerify">
-                        <lang>go to verified</lang>
+                        <lang>Verify</lang>
                     </a>
                     <a href="javascript:;" v-if="userInfo.status==='1'" >
                         <lang>Verified</lang>

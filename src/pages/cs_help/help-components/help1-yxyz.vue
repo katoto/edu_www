@@ -25,7 +25,7 @@
                     2. <lang>Manual Verification</lang>
                 </p>
                 <p class="msg">
-                    <lang>In case you did not timely verify email after sign up, you can manually verify it through Home > Account and click "Verify"</lang>
+                    <lang>In case you did not timely verify email after sign up, you can manually verify it through Home > General and click "Verify"</lang>
                     <img src="@/assets/img/help/img2.png" alt="">
                 </p>
             </li>

@@ -305,19 +305,19 @@ export function formateMoneyFlow (flowtype = '1') {
     case '2':
         return _('Prize') // 投注中奖
     case '3':
-        return _('Bet refund')// 投注退款
+        return _('Bet Refund')// 投注退款
     case '4':
-        return _('withdraw') // 提款扣除
+        return _('Withdrawal') // 提款扣除
     case '5':
         return _('fee')// 提款手续费
     case '6':
-        return _('withdrawal refund')// 提款失败退款
+        return _('Withdrawal Refund')// 提款失败退款
     case '7':
         return _('fee refund')// 提款失败手续退款
     case '8':
-        return _('deposit')// 充值
+        return _('Top-up')// 充值
     case '9':
-        return _('deposit refund')// 充值失败扣款
+        return _('Top-up Refund')// 充值失败扣款
     case '10':
         return _('Registration')// 注册送
     case '11':
@@ -327,9 +327,9 @@ export function formateMoneyFlow (flowtype = '1') {
     case '13':
         return _('World cup')// 世界杯中奖
     case '14':
-        return _('Slots Bet')// 老虎机投注
+        return _('Slot Bet')// 老虎机投注
     case '15':
-        return _('Slots Prize')// 老虎机中奖
+        return _('Slot Prize')// 老虎机中奖
     case '18':
         return _('Sign gift')// 连续七天送
     default:

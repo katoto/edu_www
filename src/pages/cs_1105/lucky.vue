@@ -1440,7 +1440,7 @@
     //alert-mybets
     .alert-mybets {
         position: absolute;
-        z-index: 10;
+        z-index: 8;
         right: 0;
         top: 40px;
         width: 200px;
