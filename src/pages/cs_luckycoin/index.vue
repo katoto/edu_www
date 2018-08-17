@@ -203,7 +203,6 @@
     }
 </style>
 <style scope lang="less" type="text/less">
-
     .main /deep/ .el-carousel__indicators {
         display: none;
     }
@@ -313,7 +312,7 @@
 
     @media (max-width: 1200px) {
         .pop-mask,.pop-new{
-            display: none;
+            display: none !important;
         }
     }
 </style>
