@@ -44,23 +44,6 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <router-link :to="{path: '/lucky11'}" class="game-11t5">
-                                <p class="msg1"><lang>Lucky 11</lang></p>
-                                <p class="msg2"><lang>Classic game with high reward</lang></p>
-                                <p class="msg3"><lang>Jackpot </lang></p>
-                                <p class="msg4">
-                                    <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
-                                    <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
-                                </p>
-                                <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
-                                <div class="game-btn">
-                                    <lang>Play Now </lang>
-                                </div>
-                            </router-link>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-4">
-                        <div class="for-full">
                             <router-link :to="{path: '/luckycoin'}" class="game-onecoin">
                                 <p class="msg1"><lang>LuckyCoin</lang></p>
                                 <p class="msg2"><lang>Bid 0.01 ETH to win more</lang></p>
@@ -73,6 +56,23 @@
                                <div class="game-btn">
                                     <lang>Play Now </lang>
                                </div>
+                            </router-link>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
+                            <router-link :to="{path: '/lucky11'}" class="game-11t5">
+                                <p class="msg1"><lang>Lucky 11</lang></p>
+                                <p class="msg2"><lang>Classic game with high reward</lang></p>
+                                <p class="msg3"><lang>Jackpot </lang></p>
+                                <p class="msg4">
+                                    <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
+                                    <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
+                                </p>
+                                <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
+                                <div class="game-btn">
+                                    <lang>Play Now </lang>
+                                </div>
                             </router-link>
                         </div>
                     </div>
