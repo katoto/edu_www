@@ -27,6 +27,23 @@
                     <!--各种游戏宣传图-->
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
+                            <router-link :to="{path: '/slot'}"  class="game-slot">
+                                <p class="msg1"><lang>Slot</lang></p>
+                                <p class="msg2"><lang>Win 97%+ Return Rate</lang></p>
+                                <p class="msg3"><lang>Jackpot</lang></p>
+                                <p class="msg4">
+                                    <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
+                                    <i> {{formateCoinType(entrance.slot.cointype)}}</i>
+                                </p>
+                                <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
+                                <div class="game-btn">
+                                    <lang>Play Now </lang>
+                                </div>
+                            </router-link>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
                             <router-link :to="{path: '/lucky11'}" class="game-11t5">
                                 <p class="msg1"><lang>Lucky 11</lang></p>
                                 <p class="msg2"><lang>Classic game with high reward</lang></p>
@@ -39,23 +56,6 @@
                                 <div class="game-btn">
                                     <lang>Play Now </lang>
                                 </div>
-                            </router-link>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-4">
-                        <div class="for-full">
-                            <router-link :to="{path: '/slot'}"  class="game-slot">
-                                <p class="msg1"><lang>Slot</lang></p>
-                                <p class="msg2"><lang>Win 97%+ Return Rate</lang></p>
-                                <p class="msg3"><lang>Jackpot</lang></p>
-                                <p class="msg4">
-                                    <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
-                                    <i> {{formateCoinType(entrance.slot.cointype)}}</i>
-                                </p>
-                                <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
-                               <div class="game-btn">
-                                    <lang>Play Now </lang>
-                               </div>
                             </router-link>
                         </div>
                     </div>

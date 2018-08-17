@@ -12,13 +12,13 @@
                     </div>
                     <ul>
                         <li>
-                            <router-link :to="{path: '/lucky11'}" active-class="on">
-                                <lang>Lucky 11</lang>
+                            <router-link :to="{path: '/slot'}" active-class="on">
+                                <lang>Slot</lang>
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/slot'}" active-class="on">
-                                <lang>Slot</lang>
+                            <router-link :to="{path: '/lucky11'}" active-class="on">
+                                <lang>Lucky 11</lang>
                             </router-link>
                         </li>
                         <!--<li>-->
@@ -38,11 +38,11 @@
                 </router-link>
                 <!-- icon-slot -->
                 <div class="choose-play icon-Luckycoin " >
-                    <router-link :to="{path: '/lucky11'}" active-class="on">
-                        <lang>Lucky 11</lang>
-                    </router-link>
                     <router-link :to="{path: '/slot'}"  active-class="on">
                         <lang>Slot</lang>
+                    </router-link>
+                    <router-link :to="{path: '/lucky11'}" active-class="on">
+                        <lang>Lucky 11</lang>
                     </router-link>
                     <!--<router-link :to="{path: '/luckycoin'}" active-class="on">-->
                         <!--<lang>LuckyCoin</lang>-->
