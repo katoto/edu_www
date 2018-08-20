@@ -14,7 +14,7 @@
                        :placeholder="_('Confirm Password')">
                 <div class="verCode">
                     <input type="text" :placeholder="_('Verification Code')" class="msg-ver" v-model="verifyCode">
-                    <img  width="137" height="50" alt="" class="img-ver" @click="reloadVerifyImg" :src="verifyImgPath">
+                    <img width="137" height="50" alt="" class="img-ver" @click="reloadVerifyImg" :src="verifyImgPath">
                 </div>
                 <div class="sure-old">
                     <input type="checkbox" v-model="log_checked" name="is18">
@@ -46,9 +46,9 @@
 
 <script>
     import Pop from './Pop'
-    import { Message } from 'element-ui'
-    import { tipsTime, setCK } from '~common/util'
-    import { baseURL } from '~common/ajax'
+    import {Message} from 'element-ui'
+    import {tipsTime, setCK} from '~common/util'
+    import {baseURL} from '~common/ajax'
 
     export default {
         data () {
@@ -226,22 +226,27 @@
     }
 </script>
 
+<<<<<<< HEAD
 <style lang="less" scoped type="text/less">
     .verCode{
+=======
+<style lang="less" scoped>
+    .verCode {
+>>>>>>> online
         position: relative;
-        width:334px;
-        margin:0 auto;
+        width: 334px;
+        margin: 0 auto;
         overflow: hidden;
-        .msg-ver{
-            width:178px !important;
+        .msg-ver {
+            width: 178px !important;
             float: left;
         }
-        .img-ver{
+        .img-ver {
             position: absolute;
-            right:0;
-            bottom:0;
-            width:137px;
-            height:50px;
+            right: 0;
+            bottom: 0;
+            width: 137px;
+            height: 50px;
             cursor: pointer;
         }
     }
