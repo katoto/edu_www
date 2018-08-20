@@ -124,8 +124,8 @@ const webpackConfig = merge(baseWebpackConfig, {
                 to: config.build.assetsSubDirectory,
                 ignore: ['.*']
             },{
-                from: path.resolve(__dirname, '../sitemap'),
-                to: 'sitemap/',
+                from: path.resolve(__dirname, '../sitemap.xml'),
+                to: '../dist',
                 ignore: ['.*']
             }
         ]),
