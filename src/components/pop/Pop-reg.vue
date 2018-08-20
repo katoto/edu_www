@@ -226,13 +226,8 @@
     }
 </script>
 
-<<<<<<< HEAD
 <style lang="less" scoped type="text/less">
-    .verCode{
-=======
-<style lang="less" scoped>
     .verCode {
->>>>>>> online
         position: relative;
         width: 334px;
         margin: 0 auto;
