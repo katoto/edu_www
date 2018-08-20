@@ -487,12 +487,12 @@ module.exports = {
     "LuckyCoin is the global leading blockchain-based game. Players could use only 0.01 ETH to win 1 ETH or more. By using blockchain technology, all the information and process are transparent and fair. Don't hesitate, play now!": 'LuckyCoin是世界上第一款基于区块链技术的类众筹玩法，在这里您可以使用如0.001ETH的小付出去赢得1个ETH甚至更多的数字货币奖励，通过使用区块链技术，开奖算法公平、透明、公开、玩法新颖，快来体验吧！',
     'Choose one bidding type': '选择一个场次',
     'Pay for your bid and get the bidding number': '支付该该场次并获得投注号码',
-    'Wait for draw (after all bids of one bidding type are sold out)': '等待系统开奖（场次筹齐人数时将开）',
+    "Wait for draw (after all bids of one bidding type are sold out or time's up)": '等待系统开奖（当开奖倒计时结束时或者场次筹齐人数时开奖）',
     'If your bidding number matches draw number, you win the reward.': '若号码匹配则获得该场次奖励',
 
     'For 1 ETH bidding type, players can bid 0.01 ETH to win 1 ETH, and the bidding times of "1 ETH" for all players are 100. Players will get a bid number after bidding.': '比如该1ETH场次被平分为100个幸运等份，每个用户仅需要出0.01ETH，即可获得一个投注号码',
     'Players can bid one or more times for each type.': '每个用户都可以在这个场次里购买一注或者多注投注号码',
-    'When there is no available bidding times, the system will calculated the "Lucky Number". If your bidding number matches lucky number, you are the winner!': '当该场次的100个幸运等份被均分后，系统将开始计算“幸运号码”，当你的投注号码和幸运号码数字一致时，你将赢得该场次的1个ETH奖励',
+    "When there is no available bids or time's up, the system will calculate the \"Lucky Number\". If your bidding number matches lucky number, you are the winner!": '当开奖倒计时结束时或者场次筹齐人数时，系统将开始计算“幸运号码”，当你的投注号码和幸运号码数字一致时，你将赢得该场次的1个ETH奖励',
 
     'After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.': '当一个场次筹齐人次时，游戏将所有本期投注信息进行Merkle Tree计算，得出Merkel number，并将Merkel number上传至以太链；',
     'By using hexadecimal, the last 6 characters of the hash value will convert into a number.Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.': '信息打包上链生成的Hash值，使用最后六个十六进制数转成十进制数，然后对该十进制数进行求余，将余数加上10001即得到最终的开奖结果。用户可以随时在etherscan.io里查验开奖哈希，它是十分透明公开和公平地。',
@@ -673,6 +673,7 @@ module.exports = {
     'We will contact you as soon as possible.': '我们会尽快与您联系',
     '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '满足不可提现额度的10倍流水条件即可提取赠送金额',
     'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5这5个16进制数转化为10进制数，然后分别求mod运算11、10、9、8、7，获得5位开奖号码',
+    '1. After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.<br>2. By using hexadecimal, the last 6 characters of the hash value will convert into a number.<br>3. Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.<br>You can check the information about hash value on etherscan.io at anytime, all information is completely transparent.': '当开奖倒计时结束时或者场次筹齐人数时，游戏将所有本期投注信息进行Merkle Tree计算，得出Merkel number，并将Merkel number上传至以太链； 信息打包上链生成的Hash值，使用最后六个十六进制数转成十进制数，然后对该十进制数进行求余，将余数加上10001即得到最终的开奖结果。用户可以随时在etherscan.io里查验开奖哈希，它是十分透明公开和公平的',
     /* 验证页面 end */
 
     /* 首页 start */
