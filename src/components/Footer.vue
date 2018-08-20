@@ -25,13 +25,13 @@
                     <div class="ftitle">
                         <lang>Games</lang>
                     </div>
-                    <router-link :to="{path: '/slot'}" >
+                    <router-link :to="{path: '/slot/'}" >
                         <lang>Slot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin'}" >
+                    <router-link :to="{path: '/luckycoin/'}" >
                         <lang>LuckyCoin</lang>
                     </router-link>
-                    <router-link :to="{path: '/lucky11'}">
+                    <router-link :to="{path: '/lucky11/'}">
                         <lang>Lucky11</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">

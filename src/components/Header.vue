@@ -12,17 +12,17 @@
                     </div>
                     <ul>
                         <li>
-                            <router-link :to="{path: '/slot'}" active-class="on">
+                            <router-link :to="{path: '/slot/'}" active-class="on">
                                 <lang>Slot</lang>
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/luckycoin'}" active-class="on">
+                            <router-link :to="{path: '/luckycoin/'}" active-class="on">
                                 <lang>LuckyCoin</lang>
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/lucky11'}" active-class="on">
+                            <router-link :to="{path: '/lucky11/'}" active-class="on">
                                 <lang>Lucky 11</lang>
                             </router-link>
                         </li>
@@ -38,13 +38,13 @@
                 </router-link>
                 <!-- icon-slot -->
                 <div class="choose-play icon-Luckycoin " >
-                    <router-link :to="{path: '/slot'}"  active-class="on">
+                    <router-link :to="{path: '/slot/'}"  active-class="on">
                         <lang>Slot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin'}" active-class="on">
+                    <router-link :to="{path: '/luckycoin/'}" active-class="on">
                         <lang>LuckyCoin</lang>
                     </router-link>
-                    <router-link :to="{path: '/lucky11'}" active-class="on">
+                    <router-link :to="{path: '/lucky11/'}" active-class="on">
                         <lang>Lucky 11</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
