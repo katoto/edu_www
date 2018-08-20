@@ -4,7 +4,7 @@ import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 import {actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
-import { stat } from 'fs'
+import {stat} from 'fs'
 
 function combimeStore (store, newStore) {
     return {
@@ -137,12 +137,16 @@ const actions = {
                     /* 防止刷地址 */
                     if (userMsg.data.accounts && !state.currBalance.address) {
                         let findEthSucc = false
+                        let bigItem = userMsg.data.accounts[0]
                         userMsg.data.accounts.forEach((item, index) => {
                             if (item.cointype === '1001') {
                                 findEthSucc = true
-                                commit('setCurrBalance', item)
+                            }
+                            if (parseFloat(bigItem.balance) < parseFloat(item.balance)) {
+                                bigItem = item
                             }
                         })
+                        commit('setCurrBalance', bigItem)
                         if (!findEthSucc) {
                             commit('setCurrBalance', userMsg.data.accounts[0])
                         }
@@ -241,8 +245,8 @@ const actions = {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
                             /*
-                                 *  处理 区块链阻塞
-                                 * */
+                                     *  处理 区块链阻塞
+                                     * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
@@ -516,7 +520,7 @@ const actions = {
             console.error(e.message + 'subOutLucky error')
         }
     },
-    subInLuckyCoin ({ dispatch }) {
+    subInLuckyCoin ({dispatch}) {
         let data = {
             action: 'sub',
             lotid: 2,
