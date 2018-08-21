@@ -134,7 +134,7 @@
                         </a>
                         <div class="btn btn-win" v-if="isDraw">
                             <p>
-                                <lang>Draw number</lang>  {{goodsinfo.luckyNum}}
+                                <lang>Draw number</lang>:  {{goodsinfo.luckyNum}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
                                 <lang>Details >></lang>
@@ -142,7 +142,7 @@
                         </div>
                         <div class="btn btn-fail">
                             <p>
-                                <lang>Draw number</lang>  {{goodsinfo.luckyNum}}
+                                <lang>Draw number</lang>:  {{goodsinfo.luckyNum}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
                                 <lang>Details >></lang>

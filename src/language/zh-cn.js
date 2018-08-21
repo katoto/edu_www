@@ -600,7 +600,7 @@ module.exports = {
     'Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.': '随时随地投注、充值、提款，做你更贴心、更便捷的，更放心的平台。敬请期待',
     'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '欢迎来区块链游戏平台',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的开奖算法，带您开启前所未有的游戏体验',
-    'Bids:': '开奖进度:',
+    'Bids:': '人次:',
     'Bid': '每注',
     'Drawing': '开奖中',
     'Paused': '暂停',

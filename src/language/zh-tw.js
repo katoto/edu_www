@@ -606,7 +606,7 @@ module.exports = {
     'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的開獎算法，帶您開啟前所未有的遊戲體驗',
 
-    'Bids:': '開獎進度:',
+    'Bids:': '人次:',
     'Bid': '每註',
     'Drawing': '開獎中',
     'Paused': '暫停',
