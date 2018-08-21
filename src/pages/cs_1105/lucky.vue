@@ -716,7 +716,6 @@
             this.updateBaseAreaMsg()
             this.addTicket()
             window.addEventListener('scroll', this.fixNav, true)
-
             if (this.$store.state.route.query) {
                 this.indexRouter(this.$store.state.route.query)
             }

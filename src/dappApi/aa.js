@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 // 合约addr
-let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
+let contractAddr = '0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0'
 let web3 = window.web3
 let contractAbi = [
     {

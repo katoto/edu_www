@@ -3,6 +3,7 @@
         <div>
             <p>基于区块链123</p>
         </div>
+        <p @click="jump2">lucky11</p>
     </div>
 </template>
 
@@ -35,6 +36,9 @@
             copySucc,
             copyError,
             formateBalance,
+            jump2 () {
+                this.$router.push('/lucky11')
+            },
             getBuyNum (bigNum) {
                 let buyNumArr = []
                 let startIndex = 1
@@ -83,14 +87,9 @@
             console.log(web3)
             console.log(web3.utils)
             console.log(web3.version)
-            web3.eth.getCoinbase().then(console.log);
-            luckyCoinApi.getTime().then((val)=>{
-                console.log(val);
-            })
-            console.log(luckyCoinApi.getTime());
             console.log(web3.givenProvider)
-            console.log(luckyCoinApi);
-        }
+            console.log(luckyCoinApi)
+    }
     }
 </script>
 <style scoped lang="less" type="text/less">
