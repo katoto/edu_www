@@ -2,6 +2,7 @@
     <div class="lucky-index"  @click="initPop">
         <div class="main">
             <div class="container">
+                <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="banner">
@@ -154,7 +155,8 @@
                 isShowStep1: true,
                 isShowStep2: false,
                 isShowStep3: false,
-                isShowStep4: false
+                isShowStep4: false,
+                isReady:false
             }
         },
         methods: {
