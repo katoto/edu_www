@@ -64,6 +64,12 @@ Vue.use(message, store)
 
 Vue.use(vueClipboard)
 
+router.beforeEach((to, from, next) => {
+    document.getElementById('canonicalLink').setAttribute('href', 'https://www.coinsprize.com' + to.path)
+    document.getElementById('canonicalMobileLink').setAttribute('href', 'https://www.coinsprize.com' + to.path)
+    next()
+})
+
 const app = new Vue(Object.assign({
     router,
     store
