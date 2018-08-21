@@ -12,17 +12,17 @@
                     </div>
                     <ul>
                         <li>
-                            <router-link :to="{path: '/slot'}" active-class="on">
+                            <router-link :to="{path: '/slot/'}" active-class="on">
                                 <lang>Slot</lang>
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/luckycoin'}" active-class="on">
+                            <router-link :to="{path: '/luckycoin/'}" active-class="on">
                                 <lang>LuckyCoin</lang>
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/lucky11'}" active-class="on">
+                            <router-link :to="{path: '/lucky11/'}" active-class="on">
                                 <lang>Lucky 11</lang>
                             </router-link>
                         </li>
@@ -38,13 +38,13 @@
                 </router-link>
                 <!-- icon-slot -->
                 <div class="choose-play icon-Luckycoin " >
-                    <router-link :to="{path: '/slot'}"  active-class="on">
+                    <router-link :to="{path: '/slot/'}"  active-class="on">
                         <lang>Slot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin'}" active-class="on">
+                    <router-link :to="{path: '/luckycoin/'}" active-class="on">
                         <lang>LuckyCoin</lang>
                     </router-link>
-                    <router-link :to="{path: '/lucky11'}" active-class="on">
+                    <router-link :to="{path: '/lucky11/'}" active-class="on">
                         <lang>Lucky 11</lang>
                     </router-link>
                     <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
@@ -430,7 +430,7 @@
                             if (item.task === '2' || item.task === '3' || item.task === '4') {
                                 if (item.info) {
                                     this['tasks_' + item.task] = item.info.status
-                                    if (item.info.free !== '0' && parseInt(item.info.free) > 0) {
+                                    if (item.info.free !== '0' && parseInt(item.info.free) > 0 && item.info.status.toString() !== '1') {
                                         this['tasks_' + item.task] = 2
                                     }
                                 }
