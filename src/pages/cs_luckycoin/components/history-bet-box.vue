@@ -17,7 +17,7 @@
                 {{ $isEn() ? formatTime(bet.drawtime, 'HH:mm MM-dd') : formatTime(bet.drawtime, 'MM-dd HH:mm') }}
             </p>
             <div class="history-result">
-                {{ bet.winUserName }}
+                <lang>Draw Number</lang>: {{ bet.luckyNum }}
             </div>
         </template>
         <template v-else>

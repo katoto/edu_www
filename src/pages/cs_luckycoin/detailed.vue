@@ -51,8 +51,12 @@
                             </i>
                         </div>
                         <!--day hour min-->
-                        <div class="item-time min">
-                            00:04:17
+                        <div class="item-time" :class="{
+                            min: leftTime < 600 * 1000 && leftTime !== 0,
+                            hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
+                            day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
+                        }">
+                            {{endTimeText}}
                         </div>
                         <div class="item-prize">
                             {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
@@ -332,7 +336,9 @@
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import { getURLParams, formatTime, formatNum, accMul, accDiv, formateCoinType, numberComma, formatUSD } from '~/common/util'
     import { mapActions, mapState } from 'vuex'
+    import timeMixin from './timeMixin'
     export default {
+        mixins: [ timeMixin ],
         data () {
             return {
                 number: '',
@@ -404,6 +410,7 @@
                 })
                     .then(res => {
                         this.renderDetailInfo(res)
+                        this.renderTime(res.data.goodsinfo.endtime)
                         return res
                     })
             },
@@ -421,17 +428,17 @@
                     this.timer = null
                 }
                 this._time = num
-                this.renderTime()
+                this.renderCommingTime()
                 this.timer = setInterval(() => {
                     this._time--
                     if (this._time === 0) {
                         clearInterval(this.timer)
                         this.refresh()
                     }
-                    this.renderTime()
+                    this.renderCommingTime()
                 }, 1000)
             },
-            renderTime () {
+            renderCommingTime () {
                 this.time = `${Math.floor(this._time / 60)}' ${this._time % 60}"`
             },
             getAllBidsInfo () {

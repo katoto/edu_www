@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box"></bet-box>
+                        <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box" :ind="0"></bet-box>
                         <div class="pop-mask hidden-md hidden-sm hidden-xs" :class="[isShowNew ? '' : 'hide']"></div>
                         <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
                             <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
@@ -82,16 +82,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
-                                <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]" :ind="2"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]" :ind="5"></bet-box>
                             </div>
                             <div class="col-md-6 col-lg-4 hidden-xs hidden-sm">
-                                <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]" :ind="3"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]" :ind="6"></bet-box>
                             </div>
                             <div class="col-lg-4 hidden-xs hidden-xs hidden-sm hidden-md">
-                                <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]" :ind="4"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]" :ind="7"></bet-box>
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                 isShowStep2: false,
                 isShowStep3: false,
                 isShowStep4: false,
-                isReady:false
+                isReady: true
             }
         },
         methods: {
