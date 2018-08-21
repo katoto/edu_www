@@ -648,7 +648,7 @@ module.exports = {
     'You have 1 bidding number. Bid more, win more!': '共1個號碼，投註越多，號碼越多，中獎概率越高哦！',
     'Reward is here: Blockchain-based draw': '這裏是獎金：通過區塊鏈進行抽獎',
     'Available bid is here: Draw will proceed after all bids are sold out': '這是剩余可投註人次',
-    'If bids are not sold out, draw will proceed after the countdown': '倒計時結束立即開獎',
+    'If bids are not sold out, draw will proceed after the countdown': '倒計時結束<br>立即開獎',
     'Available bid is here:': '這裏是剩余可投註金額：',
     'Draw after all bids sold out': '買滿即開獎',
     'Click here to play: Bid more, win more': '點擊這裏投註：投註越多，中獎概率越高',

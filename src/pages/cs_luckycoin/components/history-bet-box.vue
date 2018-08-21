@@ -11,9 +11,11 @@
         </p>
         <template v-if="bet.state == 4">
             <p class="history-time">
-                <i><lang>Draw finished at</lang></i>
+                <lang>Draw finished at</lang>
             </p>
-            <div>{{ $isEn() ? formatTime(bet.drawtime, 'HH:mm MM-dd') : formatTime(bet.drawtime, 'MM-dd HH:mm') }}</div>
+            <p class="history-time">
+                {{ $isEn() ? formatTime(bet.drawtime, 'HH:mm MM-dd') : formatTime(bet.drawtime, 'MM-dd HH:mm') }}
+            </p>
             <div class="history-result">
                 {{ bet.winUserName }}
             </div>

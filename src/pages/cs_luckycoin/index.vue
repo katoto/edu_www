@@ -35,18 +35,18 @@
                                 <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
-                            <div class="step bounceIn animated step2" :class="[isShowStep2 ? '' : 'hide']">
+                            <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
                                 <p>
                                     <lang>Available bid is here: Draw will proceed after all bids are sold out</lang>
                                 </p>
                                 <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
-                            <div class="step bounceIn animated step3" :class="[isShowStep3 ? '' : 'hide']">
-                                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
+                            <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
                                 <p>
                                     <lang>If bids are not sold out, draw will proceed after the countdown</lang>
                                 </p>
+                                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
                             <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
@@ -276,22 +276,21 @@
             animation: bounceIn 1s;
         }
         .step1{
-            display: block;
-            width: 367px;
             position: absolute;
+            width: 367px;
             left: -210px;
-            top: -75px;
+            top: -45px;
             img{
                 display: block;
                 position: absolute;
-                top: 86px;
+                top: 60px;
                 left: 50%;
             }
         }
         .step2{
             position: absolute;
             width: 255px;
-            top: 60px;
+            top: 75px;
             left: -255px;
             img{
                 display: block;
@@ -303,14 +302,15 @@
         }
         .step3{
             position: absolute;
-            width: 100%;
-            left: 90%;
-            margin-left: -220px;
-            bottom: 210px;
+            width: 400px;
+            top: -44px;
+            left: -60%;
+            line-height: 27px;
             img{
                 display: block;
-                margin: 0 auto 15px;
-                transform: rotateZ(0deg) scaleX(-1);
+                position: absolute;
+                bottom: -100%;
+                right: 33%;
             }
         }
         .step4{

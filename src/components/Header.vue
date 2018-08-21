@@ -903,7 +903,7 @@
             padding:0 10px;
             background: url("../assets/img/icon-water.png") no-repeat center;
             background-size: 19px;
-            animation: bri 2s infinite;
+            animation: heartbeat 2s infinite;
         }
         .faucet-detailed{
             display: none;
@@ -1534,7 +1534,7 @@
             transform: rotate(30deg) translateY(2px);
         }
     }
-    @keyframes bri {
+    @keyframes heartbeat {
         0%,30%,80%,100%{
             transform: scale(1);
             filter: brightness(1);

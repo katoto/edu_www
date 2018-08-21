@@ -119,6 +119,9 @@ export default {
     @import "../../styles/lib-media.less";
 
     .page-luckycoin{
+        .red{
+            color: #ff5b4a;
+        }
         .more-bids-page{
             flex: 1;
         }
@@ -345,7 +348,7 @@ export default {
                 .icon-youbet{
                     width: 18px;
                     height: 18px;
-                    background: url("../../assets/img/luckyCoin/icon-bet.png") no-repeat center;
+                    background:#f67c22 url("../../assets/img/luckyCoin/icon-bet.png") no-repeat center;
                 }
                 &.hot{
                     .icon-hot{
@@ -360,6 +363,9 @@ export default {
             }
             .match-time{
                 position: absolute;
+                &.min{
+                    animation: heartbeat 2s infinite;
+                }
             }
             .match-img{
                 position: absolute;
@@ -743,7 +749,7 @@ export default {
                     font-size: 20px;
                     color: #fff;
                 }
-                &.hour{
+                &.hour,&.min{
                     font-size: 24px;
                     color: #ff5b4a;
                     font-weight: bold;
@@ -855,6 +861,20 @@ export default {
                 font-size: 14px;
                 margin-bottom: 10px;
             }
+            .match-time{
+                right: 10px;
+                top: 30px;
+                &.day{
+                    line-height: 26px;
+                    font-size: 12px;
+                    color: #fff;
+                }
+                &.hour,&.min{
+                    font-size: 16px;
+                    color: #ff5b4a;
+                    font-weight: bold;
+                }
+            }
             .match-issue,.match-process,.match-price{
                 line-height: 20px;
                 font-size: 12px;
@@ -954,9 +974,12 @@ export default {
                 line-height: 18px;
                 font-size: 14px;
             }
-            .history-issue,.history-time,.isExpired{
+            .history-issue,.isExpired{
                 line-height: 20px;
                 font-size: 12px;
+            }
+            .history-time{
+                font-size: 16px;
             }
             .history-issue{
                 a{
@@ -964,12 +987,6 @@ export default {
                     &:hover{
                         color: #ffca28;
                     }
-                }
-            }
-            .history-time{
-                i{
-                    font-size: 16px;
-                    font-weight: bold;
                 }
             }
             .isExpired{
@@ -1093,6 +1110,16 @@ export default {
         }
     }
 
+    @keyframes heartbeat {
+        0%,30%,80%,100%{
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        20%,40%{
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
+    }
     /* xs超小屏幕（手机，大于 480） */
 
     @media (min-width: @screen-phone) {

@@ -4,9 +4,9 @@
                         isPopular? 'match-popular' : 'match-common',
                         isInit && !isCancel ? '' : 'unvisible',
           ]">
-        <router-link class="hide todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
+        <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
         <!--day hour min-->
-        <div class="match-time min">
+        <div class="match-time hour">
             00:04:17
         </div>
         <!-- hot bet-->
@@ -77,14 +77,14 @@
         <p class="match-issue">
             NO.{{betData.exceptId}}
         </p>
-        <!--进度-->
-        <p class="match-process">
-            <lang>Bids:</lang>
-            {{ this.betData.totalBids - this.betData.leftBids }}/{{ this.betData.totalBids }}
-        </p>
         <!--价格-->
         <p class="match-price">
             {{ _('{0} {1} / Bid', this.betData.bidValue, coinText ) }}
+        </p>
+        <!--进度-->
+        <p class="match-process">
+            <lang>Bids:</lang>
+            <i :class="[ this.betData.leftBids/this.betData.totalBids<=0.1?'red':'']">{{ this.betData.totalBids - this.betData.leftBids }}</i>/{{ this.betData.totalBids }}
         </p>
         <a href="javascript:;" class="match-btn waiting" v-if="isWaiting">
             <lang>Drawing</lang>
