@@ -5,7 +5,6 @@
         <PopIpLimit></PopIpLimit>
         <!-- 全局free -->
         <PopFreeplay></PopFreeplay>
-
         <!-- 全局该邮件无法激活 -->
         <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
             <p class="el-message__content">
@@ -30,14 +29,21 @@
             PopIpLimit,
             PopFreeplay
         },
+        watch: {
+        },
         methods: {
             handleInit () {
                 document.getElementById('app').style.visibility = 'visible'
                 switch (defaultLanguage) {
+                case 'en':
+                    document.getElementById('contentLanguange').setAttribute('content', 'en-us')
+                    break
                 case 'zhTw':
+                    document.getElementById('contentLanguange').setAttribute('content', 'zh-tw')
                     document.getElementsByTagName('meta')['keywords'].setAttribute('content', '高頻彩票,Coinslot,區塊鏈賭場,區塊鏈遊戲,區塊鏈彩票')
                     break
                 case 'zhCn':
+                    document.getElementById('contentLanguange').setAttribute('content', 'zh-cn')
                     document.getElementsByTagName('meta')['keywords'].setAttribute('content', '高频彩票,Coinslot,区块链赌场,区块链游戏,区块链彩票')
                     break
                 }
@@ -52,6 +58,7 @@
             isLog () {
                 return this.$store.state.isLog
             }
+
         },
         async mounted () {
             this.handleInit()

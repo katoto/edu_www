@@ -214,7 +214,6 @@ export default new Router({
     mode: 'history',
     routes: routesArr
 })
-
 if (location.search) {
     let queryObj = {}
     location.search.replace('?', '').split('&').forEach(item => {
