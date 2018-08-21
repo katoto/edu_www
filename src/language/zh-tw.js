@@ -641,6 +641,7 @@ module.exports = {
     'Log in to view': '請登錄查看',
     'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.': '提示：每購買壹註，將獲得壹個號碼。投註越多，中獎概率越大！',
     'Paid': '您已投註',
+    'You paid ': '您已投註',
     'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!': 'A total of {0}{1} bets are placed to get {2} numbers. The more bets, the more numbers, and the higher the probability of winning!',
     '{0} {1} Bid Amount, {2} Bidding {3}. Bid more, win more!': '共投註{0} {1}，獲得{2}個號碼，投註越多，號碼越多，中獎概率越高哦！',
     '{0} {1} Bid Amount, {2} Bidding {3}. ': '共投註{0} {1}，獲得{2}個號碼。',

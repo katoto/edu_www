@@ -47,7 +47,7 @@
                         <div class="icon-box hot bet">
                             <i class="icon-hot" v-if="goodsinfo.ishot === '1'">H</i>
                             <i class="icon-youbet" v-if="betMoney !== 0">
-                                Bet 0.00001 BTC
+                                <lang>You paid </lang>{{betMoney}} {{coinText}}
                             </i>
                         </div>
                         <!--day hour min-->
