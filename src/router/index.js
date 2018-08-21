@@ -73,6 +73,9 @@ const home = () =>
 const page404 = () =>
     import('~/pages/404.vue')
 
+/* Dapp 一元夺币 */
+const luckyCoinDapp = () => import('~/pages/dappCoin/dappCoin.vue')
+
 let routesArr = [
     {
         path: '/test',
@@ -101,6 +104,11 @@ let routesArr = [
         path: '/check',
         name: 'check',
         component: check
+    },
+    {
+        path: '/luckyCoinDapp',
+        name: 'luckyCoinDapp',
+        component: luckyCoinDapp
     },
     {
         path: '/lucky11',

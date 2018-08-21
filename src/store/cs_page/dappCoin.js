@@ -11,7 +11,7 @@ const mutationsInfo = mapMutations({
     bet_limit (state, data) {
         state.bet_limit = data
     }
-}, 'cs_1105')
+}, 'dappCoin')
 
 const actionsInfo = mapActions({
     /* 首次奖池播报 */
@@ -26,7 +26,7 @@ const actionsInfo = mapActions({
             })
         }
     }
-}, 'cs_1105')
+}, 'dappCoin')
 
 export const mTypes = mutationsInfo.mTypes
 const mutations = mutationsInfo.mutations
