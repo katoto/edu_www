@@ -157,7 +157,7 @@
                             </div>
                             <div class="block">
                                 <p>
-                                    <lang>Block</lang>
+                                    <lang>Block</lang>:
                                 </p>
                                 <a target="_blank" :href="popRewardMsg.jumpEthUrl">
                                     #{{popRewardMsg.blocknum}}
