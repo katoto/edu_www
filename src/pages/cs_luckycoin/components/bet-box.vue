@@ -4,12 +4,16 @@
                         isPopular? 'match-popular' : 'match-common',
                         isInit && !isCancel ? '' : 'unvisible',
           ]">
-        <router-link class="todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
+        <router-link class="hide todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
+        <!--day hour min-->
+        <div class="match-time min">
+            00:04:17
+        </div>
         <!-- hot bet-->
         <div class="icon-box "  :class="[isHot? 'hot' : '', isBet? 'bet':'']">
             <i class="icon-hot">H</i>
             <i class="icon-youbet">
-                <lang>Paid</lang>
+                <!--<lang>Paid</lang>-->
             </i>
         </div>
         <!--match-eth/match-btc-->

@@ -343,8 +343,9 @@ export default {
                     padding: 0 4px;
                 }
                 .icon-youbet{
-                    background: #7b4de4;
-                    padding: 0 10px;
+                    width: 18px;
+                    height: 18px;
+                    background: url("../../assets/img/luckyCoin/icon-bet.png") no-repeat center;
                 }
                 &.hot{
                     .icon-hot{
@@ -356,6 +357,9 @@ export default {
                         display: block;
                     }
                 }
+            }
+            .match-time{
+                position: absolute;
             }
             .match-img{
                 position: absolute;
@@ -727,14 +731,27 @@ export default {
                 }
             }
             .match-usd{
-                line-height: 34px;
-                font-size: 24px;
+                line-height: 20px;
+                font-size: 14px;
                 font-weight: bold;
-                margin-bottom: 12px;
+                margin-bottom: 44px;
+            }
+            .match-time{
+                left: 30px;
+                top: 110px;
+                &.day{
+                    font-size: 20px;
+                    color: #fff;
+                }
+                &.hour{
+                    font-size: 24px;
+                    color: #ff5b4a;
+                    font-weight: bold;
+                }
             }
             .match-issue,.match-process,.match-price{
-                line-height: 26px;
-                font-size: 16px;
+                line-height: 20px;
+                font-size: 12px;
             }
             .match-btn{
                 line-height: 50px;
@@ -812,7 +829,6 @@ export default {
                     font-size: 20px;
                 }
             }
-
         }
         .match.match-common{
             padding: 15px 25px 50px;
