@@ -63,7 +63,8 @@ module.exports = {
 			'~components': path.resolve(__dirname, '../src/components'),
 			'~store': path.resolve(__dirname, '../src/store'),
 			'~pages': path.resolve(__dirname, '../src/pages'),
-            '~router': path.resolve(__dirname, '../src/router')
+            '~router': path.resolve(__dirname, '../src/router'),
+            '~language': path.resolve(__dirname, '../src/language')
 		}
 	},
 	module: {
