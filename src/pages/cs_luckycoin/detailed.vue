@@ -404,6 +404,9 @@
                 }
                 return tmp
             },
+            triggerTimeout () {
+                this.getDetailInfo()
+            },
             getDetailInfo () {
                 return this.getDetailData({
                     expectId: this.number,

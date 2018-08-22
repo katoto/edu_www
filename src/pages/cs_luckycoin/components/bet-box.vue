@@ -272,6 +272,10 @@
             closeWindow () {
                 this.windowClass = ''
             },
+            triggerTimeout () {
+                this.closeWindow()
+                this.$emit('updateBets')
+            },
             chooseMin () {
                 this.betValue = this.minValue
             },
