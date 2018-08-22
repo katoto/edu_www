@@ -156,7 +156,7 @@
                 isShowStep2: false,
                 isShowStep3: false,
                 isShowStep4: false,
-                isReady: true
+                isReady: false
             }
         },
         methods: {
@@ -204,6 +204,9 @@
                 localStorage.setItem('firstLuckycoin', true)
             }
             this.updateLuckyCoinPage()
+                .then(() => {
+                    this.isReady = true
+                })
             structDom('luckycoin')
         }
     }

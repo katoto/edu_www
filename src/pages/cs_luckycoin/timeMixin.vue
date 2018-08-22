@@ -44,8 +44,8 @@ export default {
         },
         renderLastTime () {
             this.leftTimer = setInterval(() => {
-                if (this.leftTime > 40) {
-                    this.leftTime -= 40
+                if (this.leftTime > 10) {
+                    this.leftTime -= 10
                 } else {
                     if (this.leftTime !== 0) {
                         this.triggerTimeout && this.triggerTimeout()
@@ -53,7 +53,7 @@ export default {
                     this.leftTime = 0
                     this.clearTimer()
                 }
-            }, 40)
+            }, 10)
         },
         formatTimeNum (num) {
             return Number(num < 10) ? `0${num}` : num
