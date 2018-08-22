@@ -714,6 +714,9 @@
         watch: {
             isLogin () {
                 this.refresh()
+            },
+            showSuccess () {
+                this.isBlinking = false
             }
         },
         mounted () {
