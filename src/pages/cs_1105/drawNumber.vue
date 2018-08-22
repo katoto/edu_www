@@ -175,13 +175,13 @@
                             </div>
                             <div class="merkle" v-if="popRewardMsg.merkel_hash !== ''">
                                 <p>
-                                    <lang>Merkel Hash</lang>: 
+                                    <lang>Merkel Hash</lang>:
                                 </p>
                                 <span>
                                     <a target="_blank" :href="`/check?number=${popRewardMsg.expectid}&type=lucky11`">
                                         {{ popRewardMsg.merkel_hash }}
                                     </a>
-                                    
+
                                 </span>
                             </div>
                             <div class="note" v-else>

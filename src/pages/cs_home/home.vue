@@ -27,8 +27,8 @@
                     <!--各种游戏宣传图-->
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <router-link :to="{path: '/slot'}"  class="game-slot">
-                                <p class="msg1"><lang>Slot</lang></p>
+                            <router-link :to="{path: '/luckySlot'}"  class="game-slot">
+                                <p class="msg1"><lang>LuckySlot</lang></p>
                                 <p class="msg2"><lang>Win 97%+ Return Rate</lang></p>
                                 <p class="msg3"><lang>Jackpot</lang></p>
                                 <p class="msg4">
@@ -62,7 +62,7 @@
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
                             <router-link :to="{path: '/lucky11'}" class="game-11t5">
-                                <p class="msg1"><lang>Lucky 11</lang></p>
+                                <p class="msg1"><lang>Lucky11</lang></p>
                                 <p class="msg2"><lang>Classic game with high reward</lang></p>
                                 <p class="msg3"><lang>Jackpot </lang></p>
                                 <p class="msg4">
@@ -87,7 +87,7 @@
                         <div class="recent-t"><lang>Recent Bids</lang></div>
                         <div class="tab-t" :class="[activeClass]">
                             <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'"><lang>Lucky11</lang></a>
-                            <a href="javascript:;" class="slot" @click="activeClass = 'slot'"><lang>Slot</lang></a>
+                            <a href="javascript:;" class="slot" @click="activeClass = 'slot'"><lang>LuckySlot</lang></a>
                             <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'"><lang>LuckyCoin</lang></a>
                         </div>
                         <div class="tab-c">
@@ -145,7 +145,7 @@
                         <div class="recent-t"><lang>Recent Wins</lang></div>
                         <div class="tab-t" :class="[activeClass1]">
                             <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'"><lang>Lucky11</lang></a>
-                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'"><lang>Slot</lang></a>
+                            <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'"><lang>LuckySlot</lang></a>
                             <a href="javascript:;" class="luckycoin" @click="activeClass1 = 'luckycoin'"><lang>LuckyCoin</lang></a>
                         </div>
                         <div class="tab-c">

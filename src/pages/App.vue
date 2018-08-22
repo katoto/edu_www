@@ -40,15 +40,11 @@
                     break
                 case 'zhTw':
                     document.getElementById('contentLanguange').setAttribute('content', 'zh-tw')
-                    document.getElementsByTagName('meta')['keywords'].setAttribute('content', '高頻彩票,Coinslot,區塊鏈賭場,區塊鏈遊戲,區塊鏈彩票')
                     break
                 case 'zhCn':
                     document.getElementById('contentLanguange').setAttribute('content', 'zh-cn')
-                    document.getElementsByTagName('meta')['keywords'].setAttribute('content', '高频彩票,Coinslot,区块链赌场,区块链游戏,区块链彩票')
                     break
                 }
-                document.title = _('Coinsprize-the fair game platform for casino games,based on blockchain technology')
-                document.getElementsByTagName('meta')['description'].setAttribute('content', _("Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games."))
             }
         },
         computed: {
