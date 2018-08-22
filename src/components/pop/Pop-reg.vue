@@ -124,7 +124,7 @@
             },
             async checkEmail () {
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
-                if (this.reg_email !== '') {
+                if (this.reg_email !== '' && this.show) {
                     if (emailReg.test(this.reg_email)) {
                         // let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
                         this.$store.dispatch('beforeReg', this.reg_email)
