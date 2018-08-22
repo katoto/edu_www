@@ -12,7 +12,12 @@ export default {
                 let endTime = Number(endtime) * 1000
                 let thisTime = (new Date()).getTime()
                 // this.leftTime = [24 * 60 * 60 * 1000 + 10000, 48 * 60 * 60 * 1000, 160 * 60 * 60 * 1000, 48 * 60 * 60 * 1000, 23 * 60 * 60 * 1000, 10 * 60 * 60 * 1000, 500 * 1000, 20 * 60 * 1000, 20 * 1000][this.ind] || endTime - thisTime
-                this.leftTime = (endTime - thisTime) < 0 ? 0 : (endTime - thisTime)
+                this.leftTime = endTime - thisTime
+                if (this.leftTime < 0) {
+                    this.triggerWaitting && this.triggerWaitting()
+                    this.leftTime = 0
+                    return
+                }
                 this.clearTimer()
                 if (this.leftTime < 10 * 60 * 1000) {
                     this.renderLastTime()

@@ -407,6 +407,9 @@
             triggerTimeout () {
                 this.getDetailInfo()
             },
+            triggerWaitting () {
+                this.goodsinfo.state = '3'
+            },
             getDetailInfo () {
                 return this.getDetailData({
                     expectId: this.number,

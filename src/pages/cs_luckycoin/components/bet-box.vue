@@ -276,6 +276,9 @@
                 this.closeWindow()
                 this.$emit('updateBets')
             },
+            triggerWaitting () {
+                this.betData.state = '3'
+            },
             chooseMin () {
                 this.betValue = this.minValue
             },
