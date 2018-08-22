@@ -667,6 +667,9 @@
             isDraw () {
                 return this.goodsinfo.state === '4'
             },
+            isWaiting () {
+                return this.goodsinfo.state === '3'
+            },
             isYouWin () {
                 return this.isDraw && this.userInfo && this.goodsinfo.winUid === this.userInfo.uid
             },
