@@ -178,13 +178,10 @@
             <div class="winning" v-else>
                 <!-- 奖池 -->
                 <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot(
-                this.poolAmount[currBalance.cointype] , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat(
-                areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
+                this.poolAmount[currBalance.cointype] , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
-                    {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] *
-                    parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ),
-                    formateJackPot(areaMsg.pickMoney, this.poolAmount[currBalance.cointype], this.poolRatio)) +
-                    formateCoinType ( currBalance.cointype ) }}
+                    {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ),
+                    formateJackPot(areaMsg.pickMoney, this.poolAmount[currBalance.cointype], this.poolRatio)) + formateCoinType ( currBalance.cointype ) }}
                 </i>
             </div>
         </div>
@@ -234,6 +231,8 @@
             formateJackPot,
             formateCoinType,
             checkMoneyLen () {
+                console.log(this.areaMsg.pickMoney)
+                console.log(this.areaMsg.pickMoney)
                 if (this.areaMsg.pickMoney.toString().length > 8) {
                     this.areaMsg.pickMoney = this.areaMsg.pickMoney.toString().slice(0, 8)
                 }
