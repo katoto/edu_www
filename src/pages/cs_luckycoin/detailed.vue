@@ -1038,7 +1038,10 @@
                     height: 27px;
                     background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
                 }
-                &.hour,&.min{
+                &.hour{
+                    color: #fff;
+                }
+                &.min{
                     color: #ff5b4a;
                 }
                 &.min{
