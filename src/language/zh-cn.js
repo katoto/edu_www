@@ -394,7 +394,9 @@ module.exports = {
     'Lucky11': '幸运11',
     'slotmachine': '老虎机',
     'game': '游戏',
+    'LuckySlot': '老虎机',
     'Slot': '老虎机',
+    'luckySlot': '老虎机',
     'SlotMachine': '老虎机',
     'Copy the Ethereum wallet address': '复制钱包地址',
     'only supports ETH': '当前仅支持ETH',
@@ -431,11 +433,22 @@ module.exports = {
 
     /*  seo */
     'Coinsprize-the fair game platform for casino games,based on blockchain technology': 'Coinsprize-基于区块链技术的赌场博彩高频彩票游戏平台',
-    "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.": 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一样的刺激玩法。',
+    "Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.": 'Coinsprize是世界上第一批基于区块链技术开发的赌场博彩高频彩票游戏平台。我们提供了可证明地公平、分散式Ethereum,smart-contract等赌博赌场游戏。你可以在本平台体验、购买包括lucky 11等在内的区块链高频彩票，体验不一洋的刺激玩法。',
+    'Coinsprize-- A Blockchain-Based Gaming Platform for Bitcoin and Ethereum Play': 'coinsprize-基于以太坊区块链技术开发的以太币、比特币博彩游戏平台',
+    'Coinsprize, bitcoin game, Ethereum game, bitcoin lottery, bitcoin casino game, Ethereum lottery, Ethereum casino game, smart contract game, blockchain-based gaming, Ethereum gaming': 'coinsprize,比特币游戏,以太坊游戏,比特币彩票游戏,比特币赌场游戏，以太坊彩票游戏，以太坊赌场游戏，智能合约游戏，区块链博彩游戏,以太币博彩游戏',
+    'Coinsprize is a blockchain-based gaming platform with openness, transparency and checkable smart contracts. Players can get rewards from games. Bitcoin and Ethereum are supported by various games including high frequency Ether games, lotteries, poker games and bid games.': 'coinsprize是一个基于以太坊区块链技术开发的公开、透明、可追溯的智能合约博彩游戏平台。玩家们可以使用以太币和比特币进行游戏来赚取对应的奖品，公司旗下有多款使用以太币和比特币进行交易和体验的高频赌场、彩票、扑克和夺宝类游戏。',
+    'Lucky11-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize': 'lucky11-一款基于以太坊区块链技术开发的以太币、比特币高频彩票游戏-coinsprize',
+    'Lucky11, blockchain-based lottery, Ethereum lottery, bitcoin lottery, high frequency bitcoin play, token bet': 'lucky11,区块链彩票游戏,以太坊彩票游戏,比特币彩票游戏,比特币高频彩票游戏，token投注游戏',
+    'Lucky11 is a high frequency Ether game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!': 'lucky11是coinsprize公司旗下开发的一款基于以太坊区块链技术的高频彩票游戏。游戏玩法简单，玩家可以自主选择使用以太币或者比特币进行游戏来赚取对应的奖品。游戏开奖公开、透明并且可追溯，快来测测您的运气，赢取比特币和以太币，体验不一样的刺激玩法吧。',
+    'luckyslot-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize': 'slot-一款基于以太坊区块链技术开发的以太币、比特币高频赌场游戏-coinsprize',
+    'luckyslot, blockchain-based casino game, Ethereum casino game, bitcoin casino game, high frequency bitcoin play, token bet': 'slot,区块链赌场游戏,以太坊赌场游戏,比特币赌场游戏,比特币高频赌场游戏，token投注游戏',
+    'luckyslot is a blockchain-based high frequency casino game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!': 'slot是coinsprize公司旗下开发的一款基于以太坊区块链技术的高频赌场游戏。游戏玩法简单，玩家可以自主选择使用以太币或者比特币进行游戏来赚取对应的奖品。游戏开奖公开、透明并且可追溯，快来测测您的运气，赢取比特币和以太币，体验不一样的刺激玩法吧。',
+    'LuckyCoin-- A Blockchain-Based Bid Game Supports Bitcoin and Ethereum Play-- Coinsprize': 'luckycoin-一款基于以太坊区块链技术开发的以太币、比特币夺宝游戏-coinsprize',
+    'LuckyCoin, blockchain-based bid game, Ethereum bid game, bitcoin bid game, token bet': 'luckycoin,区块链夺宝游戏,以太坊夺宝游戏,比特币夺宝游戏,以太币夺宝游戏，token投注游戏',
+    'LuckyCoin is a blockchain-based bid game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!': 'luckycoin是coinsprize公司旗下开发的一款基于以太坊区块链技术的夺宝类游戏。游戏玩法简单，玩家可以自主选择使用以太币或者比特币进行游戏来赚取对应的奖品。游戏开奖公开、透明并且可追溯，快来测测您的运气，赢取比特币和以太币，体验不一样的刺激玩法吧。',
     '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票开奖结果|信息|公告|记录 - Coinsprize',
     '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11开奖结果,{0} 11开奖信息,{0} 11开奖公告,{0} 11开奖记录',
     '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of {0} can be checked on this page.': '{0}高频彩票是coinsprize公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到{0}的最新开奖结果、信息、公告、和往期记录等。',
-
     /*  seo end */
 
     /* help */
