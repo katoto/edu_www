@@ -27,8 +27,8 @@
                     <!--各种游戏宣传图-->
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <router-link :to="{path: '/slot'}"  class="game-slot">
-                                <p class="msg1"><lang>Slot</lang></p>
+                            <router-link :to="{path: '/luckySlot'}"  class="game-slot">
+                                <p class="msg1"><lang>LuckySlot</lang></p>
                                 <p class="msg2"><lang>Win 97%+ Return Rate</lang></p>
                                 <p class="msg3"><lang>Jackpot</lang></p>
                                 <p class="msg4">

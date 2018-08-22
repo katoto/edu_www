@@ -108,8 +108,8 @@ let routesArr = [
         component: lucky11
     },
     {
-        path: '/slot',
-        name: 'slot',
+        path: '/luckySlot',
+        name: 'luckySlot',
         component: slot
     },
     {

@@ -597,7 +597,7 @@ export function structDom (msg = 'home') {
           "url": "https://www.coinsprize.com/",   
           "name": "${_('Coinsprize-the fair game platform for casino games,based on blockchain technology')}",
           "image": "http://www.coinsprize.com/images/sprize/CoinsprizeLogo.png",
-          "description": "${_('Coinsprize is the world\'s first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games.')}",
+          "description": "${_('Coinsprize is a blockchain-based gaming platform with openness, transparency and checkable smart contracts. Players can get rewards from games. Bitcoin and Ethereum are supported by various games including high frequency Ether games, lotteries, poker games and bid games.')}",
           "itemListElement": [
             {
                 "@type": "ListItem", 
@@ -612,8 +612,8 @@ export function structDom (msg = 'home') {
                 "@type": "ListItem",
                 "position": 2,
                 "item": {
-                  "@id": "https://www.coinsprize.com/slot/",
-                  "name": "${_('Slot')}",
+                  "@id": "https://www.coinsprize.com/luckySlot/",
+                  "name": "${_('luckySlot')}",
                   "image": "http://www.coinsprize.com/images/sprize/logo-slot.png"
                 }
             },
@@ -705,7 +705,7 @@ export function structDom (msg = 'home') {
           ]
         }`
     }
-    if (msg === 'slot') {
+    if (msg === 'luckySlot') {
         createSci.innerHTML = `${baseDes}
         "itemListElement": [
             {
@@ -721,7 +721,7 @@ export function structDom (msg = 'home') {
                 "@type": "ListItem",
                 "position": 2,
                 "item": {
-                  "@id": "https://www.coinsprize.com/slot",
+                  "@id": "https://www.coinsprize.com/luckySlot",
                   "name": "${_('Recent')}",
                   "image": ""
                 }
@@ -730,8 +730,8 @@ export function structDom (msg = 'home') {
                 "@type": "ListItem",
                 "position": 3,
                 "item": {
-                  "@id": "https://www.coinsprize.com/slot",
-                  "name": "${_('Slot')}",
+                  "@id": "https://www.coinsprize.com/luckySlot",
+                  "name": "${_('luckySlot')}",
                   "image": ""
                 }
             }
