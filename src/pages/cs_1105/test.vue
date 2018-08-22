@@ -14,9 +14,7 @@
         computed: {},
         components: {},
         mounted () {
-            for (let x = 0; x < 50; x++) {
-                const y = Math.sin(x)
-            }
+
         }
     }
 </script>
