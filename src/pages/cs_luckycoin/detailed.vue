@@ -55,6 +55,7 @@
                             min: leftTime < 600 * 1000 && leftTime !== 0,
                             hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
                             day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
+                            hide: betStatus !== 'normal'
                         }">
                             {{endTimeText}}
                         </div>
