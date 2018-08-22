@@ -749,7 +749,12 @@ export default {
                     font-size: 20px;
                     color: #fff;
                 }
-                &.hour,&.min{
+                &.hour{
+                    font-size: 24px;
+                    color: #fff;
+                    font-weight: bold;
+                }
+                &.min{
                     font-size: 24px;
                     color: #ff5b4a;
                     font-weight: bold;
@@ -869,8 +874,13 @@ export default {
                     font-size: 12px;
                     color: #fff;
                 }
-                &.hour,&.min{
-                    font-size: 16px;
+                &.hour{
+                     font-size: 16px;
+                    color: #fff;
+                    font-weight: bold;
+                }
+                &.min{
+                     font-size: 16px;
                     color: #ff5b4a;
                     font-weight: bold;
                 }
