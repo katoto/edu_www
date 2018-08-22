@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position: relative">
         <div class="information visible-lg">
             <a href="javascript:;" @click="signOut" class="btn-logout">
                <lang>Log Out</lang>
