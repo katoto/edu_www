@@ -50,7 +50,7 @@
                                 <lang>You paid </lang>{{betMoney}} {{coinText}}
                             </i>
                         </div>
-                        <div class="match-time min" v-if="isWaiting">
+                        <div class="item-time min" v-if="isWaiting">
                             00:00:00
                         </div>
                         <!--day hour min-->
