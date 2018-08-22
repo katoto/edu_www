@@ -50,13 +50,15 @@
                                 <lang>You paid </lang>{{betMoney}} {{coinText}}
                             </i>
                         </div>
+                        <div class="match-time min" v-if="isWaiting">
+                            00:00:00
+                        </div>
                         <!--day hour min-->
                         <div class="item-time" :class="{
                             min: leftTime < 600 * 1000 && leftTime !== 0,
                             hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
-                            day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
-                            hide: betStatus !== 'normal'
-                        }">
+                            day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000
+                        }" v-else-if="betStatus === 'normal'">
                             {{endTimeText}}
                         </div>
                         <div class="item-prize">
