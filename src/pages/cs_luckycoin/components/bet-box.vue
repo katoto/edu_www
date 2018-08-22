@@ -553,6 +553,7 @@
         position: relative !important;
         right: 0 !important;
         top: 0 !important;
+        left: 0 !important;
         margin-bottom: 3px;
         transform-origin: left center;
     }
