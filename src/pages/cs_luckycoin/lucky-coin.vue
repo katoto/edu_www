@@ -119,6 +119,9 @@ export default {
     @import "../../styles/lib-media.less";
 
     .page-luckycoin{
+        .red{
+            color: #ff5b4a;
+        }
         .more-bids-page{
             flex: 1;
         }
@@ -343,8 +346,9 @@ export default {
                     padding: 0 4px;
                 }
                 .icon-youbet{
-                    background: #7b4de4;
-                    padding: 0 10px;
+                    width: 18px;
+                    height: 18px;
+                    background:#f67c22 url("../../assets/img/luckyCoin/icon-bet.png") no-repeat center;
                 }
                 &.hot{
                     .icon-hot{
@@ -355,6 +359,12 @@ export default {
                     .icon-youbet{
                         display: block;
                     }
+                }
+            }
+            .match-time{
+                position: absolute;
+                &.min{
+                    animation: heartbeat 2s infinite;
                 }
             }
             .match-img{
@@ -727,14 +737,32 @@ export default {
                 }
             }
             .match-usd{
-                line-height: 34px;
-                font-size: 24px;
+                line-height: 20px;
+                font-size: 14px;
                 font-weight: bold;
-                margin-bottom: 12px;
+                margin-bottom: 44px;
+            }
+            .match-time{
+                left: 30px;
+                top: 110px;
+                &.day{
+                    font-size: 20px;
+                    color: #fff;
+                }
+                &.hour{
+                    font-size: 24px;
+                    color: #fff;
+                    font-weight: bold;
+                }
+                &.min{
+                    font-size: 24px;
+                    color: #ff5b4a;
+                    font-weight: bold;
+                }
             }
             .match-issue,.match-process,.match-price{
-                line-height: 26px;
-                font-size: 16px;
+                line-height: 20px;
+                font-size: 12px;
             }
             .match-btn{
                 line-height: 50px;
@@ -812,7 +840,6 @@ export default {
                     font-size: 20px;
                 }
             }
-
         }
         .match.match-common{
             padding: 15px 25px 50px;
@@ -838,6 +865,25 @@ export default {
                 line-height: 22px;
                 font-size: 14px;
                 margin-bottom: 10px;
+            }
+            .match-time{
+                right: 10px;
+                top: 30px;
+                &.day{
+                    line-height: 26px;
+                    font-size: 12px;
+                    color: #fff;
+                }
+                &.hour{
+                     font-size: 16px;
+                    color: #fff;
+                    font-weight: bold;
+                }
+                &.min{
+                     font-size: 16px;
+                    color: #ff5b4a;
+                    font-weight: bold;
+                }
             }
             .match-issue,.match-process,.match-price{
                 line-height: 20px;
@@ -938,9 +984,12 @@ export default {
                 line-height: 18px;
                 font-size: 14px;
             }
-            .history-issue,.history-time,.isExpired{
+            .history-issue,.isExpired{
                 line-height: 20px;
                 font-size: 12px;
+            }
+            .history-time{
+                font-size: 16px;
             }
             .history-issue{
                 a{
@@ -948,12 +997,6 @@ export default {
                     &:hover{
                         color: #ffca28;
                     }
-                }
-            }
-            .history-time{
-                i{
-                    font-size: 16px;
-                    font-weight: bold;
                 }
             }
             .isExpired{
@@ -1077,6 +1120,16 @@ export default {
         }
     }
 
+    @keyframes heartbeat {
+        0%,30%,80%,100%{
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        20%,40%{
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
+    }
     /* xs超小屏幕（手机，大于 480） */
 
     @media (min-width: @screen-phone) {

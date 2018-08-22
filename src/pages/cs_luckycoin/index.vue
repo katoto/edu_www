@@ -2,6 +2,7 @@
     <div class="lucky-index"  @click="initPop">
         <div class="main">
             <div class="container">
+                <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="banner">
@@ -25,7 +26,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box"></bet-box>
+                        <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box" :ind="0"></bet-box>
                         <div class="pop-mask hidden-md hidden-sm hidden-xs" :class="[isShowNew ? '' : 'hide']"></div>
                         <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
                             <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
@@ -35,17 +36,21 @@
                                 <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
-                            <div class="step bounceIn animated step2" :class="[isShowStep2 ? '' : 'hide']">
+                            <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
                                 <p>
-                                    <lang>Available bid is here:</lang>
-                                </p>
-                                <p>
-                                   <lang>Draw after all bids sold out</lang>
+                                    <lang>Available bid is here: Draw will proceed after all bids are sold out</lang>
                                 </p>
                                 <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                             </div>
-                            <div class="step bounceIn animated step3" :class="[isShowStep3 ? '' : 'hide']">
+                            <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
+                                <p>
+                                    <lang>If bids are not sold out, draw will proceed after the countdown</lang>
+                                </p>
+                                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
+                                <img src="../../assets/img/luckyCoin/line.png" alt="">
+                            </div>
+                            <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
                                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                                 <p>
                                     <lang>Click here to play: Bid more, win more</lang>
@@ -77,16 +82,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
-                                <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]" :ind="2"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]" :ind="5"></bet-box>
                             </div>
                             <div class="col-md-6 col-lg-4 hidden-xs hidden-sm">
-                                <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]" :ind="3"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]" :ind="6"></bet-box>
                             </div>
                             <div class="col-lg-4 hidden-xs hidden-xs hidden-sm hidden-md">
-                                <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]" :ind="4"></bet-box>
+                                <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]" :ind="7"></bet-box>
                             </div>
                         </div>
                     </div>
@@ -149,7 +154,9 @@
                 isShowNew: false,
                 isShowStep1: true,
                 isShowStep2: false,
-                isShowStep3: false
+                isShowStep3: false,
+                isShowStep4: false,
+                isReady: true
             }
         },
         methods: {
@@ -164,6 +171,7 @@
                 this.isShowStep1 = true
                 this.isShowStep2 = false
                 this.isShowStep3 = false
+                this.isShowStep4 = false
             },
             closeOtherBet () {
                 ['betBoxList1', 'betBoxList2', 'betBoxList3', 'betBoxList4', 'betBoxList5', 'betBoxList6', 'betBoxList7'].forEach(bet => this.$refs[bet].closeWindow())
@@ -270,22 +278,21 @@
             animation: bounceIn 1s;
         }
         .step1{
-            display: block;
-            width: 367px;
             position: absolute;
+            width: 367px;
             left: -210px;
-            top: -75px;
+            top: -45px;
             img{
                 display: block;
                 position: absolute;
-                top: 86px;
+                top: 60px;
                 left: 50%;
             }
         }
         .step2{
             position: absolute;
             width: 255px;
-            top: 60px;
+            top: 75px;
             left: -255px;
             img{
                 display: block;
@@ -296,6 +303,19 @@
             }
         }
         .step3{
+            position: absolute;
+            width: 400px;
+            top: -44px;
+            left: -60%;
+            line-height: 27px;
+            img{
+                display: block;
+                position: absolute;
+                bottom: -100%;
+                right: 33%;
+            }
+        }
+        .step4{
             position: absolute;
             width: 100%;
             left: 50%;

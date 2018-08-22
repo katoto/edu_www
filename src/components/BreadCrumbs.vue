@@ -104,7 +104,7 @@ export default {
                 }
             }
             a.now {
-                color: #a99acc;
+                color: #fff;
             }
         }
     }
