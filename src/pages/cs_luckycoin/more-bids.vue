@@ -290,9 +290,16 @@ export default {
             return
         }
         this.$route.meta.history ? this.getHistoryData() : this.getBetData()
+        this.$store.commit('cs_luckycoin/bindPageListener', {
+            bids: () => {
+                this.refreshPage()
+            }
+        })
     },
     beforeDestroy () {
         document.documentElement.className = ''
+        this.unbindPageListener('bids')
+        this.$store.commit('cs_luckycoin/unbindPageListener', 'bids')
     }
 }
 </script>

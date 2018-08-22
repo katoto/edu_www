@@ -117,7 +117,9 @@ export default {
 <style scope  lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
-
+    .match-popular /deep/ .bet-normal .match-time {
+        margin-bottom: 10px !important;
+    }
     .page-luckycoin{
         .red{
             color: #ff5b4a;

@@ -20,7 +20,8 @@ const state = {
         isShow: false,
         callback: null
     },
-    listener: {}
+    listener: {},
+    pageListener: {}
 }
 
 const mutations = {
@@ -144,11 +145,19 @@ const mutations = {
     },
     unbindListener (state, expectid) {
         delete state.listener[expectid]
+    },
+    bindPageListener (state, params) {
+        state.pageListener = {
+            ...state.pageListener,
+            ...params
+        }
+    },
+    unbindPageListener (state, params) {
+        delete state.pageListener[params]
     }
 }
 
 const actions = {
-
     betNow ({ commit }, params = {}) {
         return ajax.get('/place/order', {
             lotid: '2',
@@ -271,6 +280,11 @@ const actions = {
     },
     getMyBids ({ commit }, params = {}) {
         return ajax.get('/get/personal/bids', params)
+    },
+    updateCurrentPage ({ commit }, params = {}) {
+        for (let name in this.state.cs_luckycoin.pageListener) {
+            this.state.cs_luckycoin.pageListener[name] && this.state.cs_luckycoin.pageListener[name]()
+        }
     }
 }
 

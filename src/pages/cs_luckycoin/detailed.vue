@@ -410,7 +410,9 @@
                 this.getDetailInfo()
             },
             triggerWaitting () {
-                this.goodsinfo.state = '3'
+                if (this.goodsinfo.state !== '4') {
+                    this.goodsinfo.state = '3'
+                }
             },
             getDetailInfo () {
                 return this.getDetailData({
@@ -731,6 +733,11 @@
                     this.refresh()
                 }
             })
+            this.$store.commit('cs_luckycoin/bindPageListener', {
+                detailed: () => {
+                    this.refresh()
+                }
+            })
         },
         beforeDestroy () {
             document.documentElement.className = ''
@@ -738,6 +745,7 @@
             if (this.timer) {
                 clearInterval(this.timer)
             }
+            this.$store.commit('cs_luckycoin/unbindPageListener', 'detailed')
         }
     }
 </script>

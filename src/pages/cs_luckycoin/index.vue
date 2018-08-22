@@ -208,6 +208,14 @@
                     this.isReady = true
                 })
             structDom('luckycoin')
+            this.$store.commit('cs_luckycoin/bindPageListener', {
+                index: () => {
+                    this.updateLuckyCoinPage()
+                }
+            })
+        },
+        destroyed () {
+            this.$store.commit('cs_luckycoin/unbindPageListener', 'index')
         }
     }
 </script>
