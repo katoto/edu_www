@@ -108,7 +108,7 @@ let routesArr = [
         component: lucky11
     },
     {
-        path: '/luckySlot',
+        path: '/luckyslot',
         name: 'luckySlot',
         component: slot
     },

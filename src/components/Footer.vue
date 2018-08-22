@@ -25,7 +25,7 @@
                     <div class="ftitle">
                         <lang>Games</lang>
                     </div>
-                    <router-link :to="{path: '/luckySlot/'}" >
+                    <router-link :to="{path: '/luckyslot/'}" >
                         <lang>LuckySlot</lang>
                     </router-link>
                     <router-link :to="{path: '/luckycoin/'}" >

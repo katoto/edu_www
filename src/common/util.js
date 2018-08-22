@@ -327,9 +327,9 @@ export function formateMoneyFlow (flowtype = '1') {
     case '13':
         return _('World cup')// 世界杯中奖
     case '14':
-        return _('Slot Bet')// 老虎机投注
+        return _('LuckySlot Bet')// 老虎机投注
     case '15':
-        return _('Slot Prize')// 老虎机中奖
+        return _('LuckySlot Prize')// 老虎机中奖
     case '18':
         return _('Sign gift')// 连续七天送
     default:

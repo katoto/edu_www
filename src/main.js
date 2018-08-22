@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Lucky11, blockchain-based lottery, Ethereum lottery, bitcoin lottery, high frequency bitcoin play, token bet'))
         document.title = _('Lucky11-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize')
         document.getElementsByTagName('meta')['description'].setAttribute('content', _('Lucky11 is a high frequency Ether game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!'))
-    } else if (to.path.indexOf('Slot') > -1) {
+    } else if (to.path.indexOf('luckyslot') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Slot, blockchain-based casino game, Ethereum casino game, bitcoin casino game, high frequency bitcoin play, token bet'))
         document.title = _('Slot-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize')
         document.getElementsByTagName('meta')['description'].setAttribute('content', _('Slot is a blockchain-based high frequency casino game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!'))
