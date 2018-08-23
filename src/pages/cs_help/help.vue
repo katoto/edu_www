@@ -2,7 +2,8 @@
     <div class="page-help">
         <Header></Header>
         <div class="main" @click="initPop">
-            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Help Center'), path: '/help' }]"></BreadCrumbs>
+            <BreadCrumbs
+                :data="[{ name: _('Home'), path: '/' }, { name: _('Help Center'), path: '/help' }]"></BreadCrumbs>
             <router-view :dataMenu="dataMenu"></router-view>
         </div>
         <Footer class="lucky11"></Footer>
@@ -13,12 +14,18 @@
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Header from '~/components/Header.vue'
     import Footer from '~/components/Footer.vue'
+
+    import {Howl, Howler} from 'howler'
+
     export default {
         data () {
             return {
                 dataMenu: [
                     {menu1: _('About Account'), menu2: [_('Email verification')]},
-                    {menu1: _('About Wallet'), menu2: [_('How to top up'), _('How to withdraw'), _('Withdrawal Conditions')]},
+                    {
+                        menu1: _('About Wallet'),
+                        menu2: [_('How to top up'), _('How to withdraw'), _('Withdrawal Conditions')]
+                    },
                     {menu1: _('About Games'), menu2: [_('Play Lucky11'), _('Play LuckyCoin')]},
                     {menu1: _('Others'), menu2: [_('Transparency checking'), _('Contact us')]}
                 ]
@@ -31,9 +38,7 @@
                 this.$store.commit('initHeadState', new Date().getTime())
             }
         },
-        computed: {
-
-        },
+        computed: {},
         components: {
             Header,
             BreadCrumbs,
@@ -41,16 +46,27 @@
         },
         mounted () {
             document.documentElement.className = 'flexhtml'
+            const sound = new Howl({
+                src: ['../../../../static/audio/output.mp3'],
+                sprite: {
+                    beep: [0, 4000],
+                    boop: [3000, 4000]
+                }
+            })
+            setTimeout(() => {
+                sound.play('boop')
+            }, 2000)
         },
-        destroyed () {},
+        destroyed () {
+        },
         beforeDestroy () {
             document.documentElement.className = ''
         }
     }
 </script>
 <style scoped lang="less" type="text/less">
-    .page-help{
-        .main{
+    .page-help {
+        .main {
             position: relative;
             max-width: 1190px;
             margin: 0 auto;
