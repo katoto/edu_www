@@ -532,13 +532,13 @@ module.exports = {
     'Free 0.001ETH': '免费领取0.001ETH',
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
     '0.0001 BTC for free': '免费领0.0001 BTC',
-    'Win {0} {1}': 'Win {0} {1}',
-    'Sign In': 'Sign In',
+    'Win {0} {1}': '恭喜你贏得 {0} {1}',
+    'Sign In': '登录',
     'BTC': 'BTC',
     'ETH': 'ETH',
-    'Please enter the correct BTC wallet address': 'Please enter the correct BTC wallet address',
-    'Please enter the correct ETH wallet address': 'Please enter the correct ETH wallet address',
-    'only supports BTC': 'only supports BTC',
+    'Please enter the correct BTC wallet address': '请输入正确的BTC钱包地址',
+    'Please enter the correct ETH wallet address': '请输入正确的ETH钱包地址',
+    'only supports BTC': '仅支持BTC',
     /* 水龙头未翻译 end */
 
     /* 验证页面 start */

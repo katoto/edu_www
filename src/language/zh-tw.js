@@ -538,13 +538,13 @@ module.exports = {
     'Free 0.001ETH': '免費領取0.001ETH',
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
     '0.0001 BTC for free': '免費領0.0001 BTC',
-    'Win {0} {1}': 'Win {0} {1}',
-    'Sign In': 'Sign In',
+    'Win {0} {1}': '恭喜你贏得 {0} {1}',
+    'Sign In': '登錄',
     'BTC': 'BTC',
     'ETH': 'ETH',
-    'Please enter the correct BTC wallet address': 'Please enter the correct BTC wallet address',
-    'Please enter the correct ETH wallet address': 'Please enter the correct ETH wallet address',
-    'only supports BTC': 'only supports BTC',
+    'Please enter the correct BTC wallet address': '請輸入正確的BTC錢包地址',
+    'Please enter the correct ETH wallet address': '請輸入正確的ETH錢包地址',
+    'only supports BTC': '僅支持BTC',
     /* 水龍頭未翻譯 end */
 
     /* 驗證頁面 start */
