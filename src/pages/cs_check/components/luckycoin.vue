@@ -197,7 +197,7 @@ export default {
                 thisStatus = 'expired'
             } else if (this.isNoBet && this.isTimeOver) {
                 thisResult = _('Draw cancelled because no buyers of this bid.')
-                thisStatus = 'wait'
+                thisStatus = 'expired'
             } else {
                 thisResult = _('Waiting for sold out')
                 thisStatus = 'wait'
