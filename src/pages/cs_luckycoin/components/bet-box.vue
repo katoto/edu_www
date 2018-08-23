@@ -6,11 +6,15 @@
           ]">
         <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
         <!--day hour min-->
+        
+        <div class="match-time min" v-if="isWaiting">
+            00:00:00
+        </div>
         <div class="match-time" :class="{
             min: leftTime < 600 * 1000 && leftTime !== 0,
             hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
             day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
-        }">
+        }" v-else>
             {{endTimeText}}
         </div>
         <!-- hot bet-->
@@ -108,6 +112,16 @@
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
             <div class="bet-t">
                 {{ _('Bid For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
+            </div>
+            <div class="match-time min" v-if="isWaiting">
+                00:00:00
+            </div>
+            <div class="match-time" :class="{
+                min: leftTime < 600 * 1000 && leftTime !== 0,
+                hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
+                day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
+            }" v-else>
+                {{endTimeText}}
             </div>
             <p class="bet-m1 hide">
                 Bet Amount
@@ -271,6 +285,13 @@
             },
             closeWindow () {
                 this.windowClass = ''
+            },
+            triggerTimeout () {
+                this.closeWindow()
+                this.$emit('updateBets')
+            },
+            triggerWaitting () {
+                this.betData.state = '3'
             },
             chooseMin () {
                 this.betValue = this.minValue
@@ -526,6 +547,15 @@
     .disabled {
         background-color: gray !important;
         cursor: default;
+    }
+
+    .bet-normal .match-time {
+        position: relative !important;
+        right: 0 !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-bottom: 3px;
+        transform-origin: left center;
     }
 
     @keyframes blinking {

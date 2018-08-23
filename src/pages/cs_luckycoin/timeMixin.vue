@@ -13,6 +13,11 @@ export default {
                 let thisTime = (new Date()).getTime()
                 // this.leftTime = [24 * 60 * 60 * 1000 + 10000, 48 * 60 * 60 * 1000, 160 * 60 * 60 * 1000, 48 * 60 * 60 * 1000, 23 * 60 * 60 * 1000, 10 * 60 * 60 * 1000, 500 * 1000, 20 * 60 * 1000, 20 * 1000][this.ind] || endTime - thisTime
                 this.leftTime = endTime - thisTime
+                if (this.leftTime < 0) {
+                    this.triggerWaitting && this.triggerWaitting()
+                    this.leftTime = 0
+                    return
+                }
                 this.clearTimer()
                 if (this.leftTime < 10 * 60 * 1000) {
                     this.renderLastTime()
@@ -29,6 +34,9 @@ export default {
                 } else if (this.leftTime > 1000) {
                     this.leftTime -= 1000
                 } else {
+                    if (this.leftTime !== 0) {
+                        this.triggerTimeout && this.triggerTimeout()
+                    }
                     this.leftTime = 0
                     this.clearTimer()
                 }
@@ -36,13 +44,16 @@ export default {
         },
         renderLastTime () {
             this.leftTimer = setInterval(() => {
-                if (this.leftTime > 40) {
-                    this.leftTime -= 40
+                if (this.leftTime > 10) {
+                    this.leftTime -= 10
                 } else {
+                    if (this.leftTime !== 0) {
+                        this.triggerTimeout && this.triggerTimeout()
+                    }
                     this.leftTime = 0
                     this.clearTimer()
                 }
-            }, 40)
+            }, 10)
         },
         formatTimeNum (num) {
             return Number(num < 10) ? `0${num}` : num

@@ -50,12 +50,15 @@
                                 <lang>You paid </lang>{{betMoney}} {{coinText}}
                             </i>
                         </div>
+                        <div class="item-time min" v-if="isWaiting">
+                            00:00:00
+                        </div>
                         <!--day hour min-->
                         <div class="item-time" :class="{
                             min: leftTime < 600 * 1000 && leftTime !== 0,
                             hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
-                            day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
-                        }">
+                            day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000
+                        }" v-else-if="betStatus === 'normal'">
                             {{endTimeText}}
                         </div>
                         <div class="item-prize">
@@ -403,6 +406,14 @@
                 }
                 return tmp
             },
+            triggerTimeout () {
+                this.getDetailInfo()
+            },
+            triggerWaitting () {
+                if (this.goodsinfo.state !== '4') {
+                    this.goodsinfo.state = '3'
+                }
+            },
             getDetailInfo () {
                 return this.getDetailData({
                     expectId: this.number,
@@ -658,6 +669,9 @@
             isDraw () {
                 return this.goodsinfo.state === '4'
             },
+            isWaiting () {
+                return this.goodsinfo.state === '3'
+            },
             isYouWin () {
                 return this.isDraw && this.userInfo && this.goodsinfo.winUid === this.userInfo.uid
             },
@@ -702,6 +716,9 @@
         watch: {
             isLogin () {
                 this.refresh()
+            },
+            showSuccess () {
+                this.isBlinking = false
             }
         },
         mounted () {
@@ -716,6 +733,11 @@
                     this.refresh()
                 }
             })
+            this.$store.commit('cs_luckycoin/bindPageListener', {
+                detailed: () => {
+                    this.refresh()
+                }
+            })
         },
         beforeDestroy () {
             document.documentElement.className = ''
@@ -723,6 +745,7 @@
             if (this.timer) {
                 clearInterval(this.timer)
             }
+            this.$store.commit('cs_luckycoin/unbindPageListener', 'detailed')
         }
     }
 </script>
@@ -1026,7 +1049,10 @@
                     height: 27px;
                     background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
                 }
-                &.hour,&.min{
+                &.hour{
+                    color: #fff;
+                }
+                &.min{
                     color: #ff5b4a;
                 }
                 &.min{
