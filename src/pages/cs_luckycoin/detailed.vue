@@ -1058,8 +1058,7 @@
                 &.min{
                     animation: heartbeat 2s infinite;
                     &::before{
-                        background: #ff5b4a;
-                        mask:url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
+                        background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
                     }
                 }
 
