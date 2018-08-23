@@ -690,6 +690,7 @@ module.exports = {
     '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '满足不可提现额度的10倍流水条件即可提取赠送金额',
     'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5这5个16进制数转化为10进制数，然后分别求mod运算11、10、9、8、7，获得5位开奖号码',
     '1. After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.<br>2. By using hexadecimal, the last 6 characters of the hash value will convert into a number.<br>3. Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.<br>You can check the information about hash value on etherscan.io at anytime, all information is completely transparent.': '当开奖倒计时结束时或者场次筹齐人数时，游戏将所有本期投注信息进行Merkle Tree计算，得出Merkel number，并将Merkel number上传至以太链； 信息打包上链生成的Hash值，使用最后六个十六进制数转成十进制数，然后对该十进制数进行求余，将余数加上10001即得到最终的开奖结果。用户可以随时在etherscan.io里查验开奖哈希，它是十分透明公开和公平的',
+    'Draw cancelled because no buyers of this bid.': '该期无人投注，已取消开奖',
     /* 验证页面 end */
 
     /* 首页 start */

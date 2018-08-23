@@ -123,7 +123,9 @@ export default {
             totalBids: '',
             modResult0: 0,
             modResult1: 0,
-            state: '0'
+            state: '0',
+            isTimeOver: false,
+            isNoBet: false
         }
     },
     methods: {
@@ -172,6 +174,8 @@ export default {
             this.modResult0 = parseInt(accDiv(this.modNumber, this.totalBids), 10)
             this.modResult1 = this.modNumber % this.totalBids
             this.state = res.state
+            this.isTimeOver = (Number(res.endtime) * 1000) < (new Date()).getTime()
+            this.isNoBet = (Number(res.leftBids) === Number(res.totalBids))
             this.renderResult()
         },
         renderOrderData (res) {
@@ -191,6 +195,9 @@ export default {
             } else if (this.state === '5') {
                 thisResult = _("Draw expired. User's payment has been refunded.")
                 thisStatus = 'expired'
+            } else if (this.isNoBet && this.isTimeOver) {
+                thisResult = _('Draw cancelled because no buyers of this bid.')
+                thisStatus = 'wait'
             } else {
                 thisResult = _('Waiting for sold out')
                 thisStatus = 'wait'
