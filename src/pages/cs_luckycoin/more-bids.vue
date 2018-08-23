@@ -298,7 +298,6 @@ export default {
     },
     beforeDestroy () {
         document.documentElement.className = ''
-        this.unbindPageListener('bids')
         this.$store.commit('cs_luckycoin/unbindPageListener', 'bids')
     }
 }
