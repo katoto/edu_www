@@ -49,13 +49,13 @@
             const sound = new Howl({
                 src: ['../../../../static/audio/output.mp3'],
                 sprite: {
-                    beep: [0, 4000],
-                    boop: [3000, 4000]
+                    beep: [0, 230],
+                    boop: [2000, 3021]
                 }
             })
-            setTimeout(() => {
+            setInterval(() => {
                 sound.play('boop')
-            }, 2000)
+            }, 3000)
         },
         destroyed () {
         },
