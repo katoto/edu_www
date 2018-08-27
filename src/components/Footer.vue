@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        <div class="main">
+        <div class="fmain">
             <div class="reserved">
                 <p>
                     <lang>Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent information at any time.</lang>
@@ -152,11 +152,12 @@
         color: rgba(255, 255, 255, 0.4);
         line-height: 24px;
         font-size: 14px;
+        overflow: hidden;
         &.lucky11{
             border-top: 50px solid #eef1f9;
             //用border代替margin挡住冒泡
         }
-        .main {
+        .fmain {
             box-sizing: border-box;
             position: absolute;
             left: 50%;
@@ -204,6 +205,7 @@
             position: relative;
             text-align: right;
             overflow: hidden;
+            z-index: 2;
             a {
                 color: #6f88cb;
             }
@@ -248,6 +250,7 @@
                     justify-content: flex-start;
                     padding: 6px;
                     cursor: pointer;
+                    background: #151515;
                     &.on {
                         background: #6683c5;
                         color: #fff;
@@ -274,7 +277,7 @@
         .footer{
             height: 560px;
             line-height: 20px;
-            .main{
+            .fmain{
                 padding: 0 percentage(30/750) 0;
             }
             .ftitle {

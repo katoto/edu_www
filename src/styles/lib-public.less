@@ -86,7 +86,7 @@ a.win{
     height:25px;
     overflow: hidden;
     line-height:25px;
-    background: #51c173;
+    background: #339933;
     font-weight:bold;
     color: #fff !important;
     text-decoration: none !important;
@@ -330,6 +330,58 @@ a.fail{
         margin-top:30px;
     }
 }
+//獎池
+.pop{
+    .bg-jackpot{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 645px;
+        height: 596px;
+        background: url("../assets/img/lucky11/img-jackpot.png") no-repeat center;
+        background-size: 100%;
+        text-align: center;
+        color: #fdb042;
+        font-family: sans-eb;
+        transition: all 0.2s;
+        .jack-msg1{
+            padding-top: 167px;
+            line-height: 50px;
+            font-size: 28px;
+            color: #fff;
+        }
+        .jack-msg2{
+            margin-top: 46px;
+            line-height: 70px;
+            font-size: 42px;
+        }
+        .jack-msg3{
+            line-height: 140px;
+            font-size: 90px;
+            i{
+                font-size: 54px;
+            }
+        }
+        a{
+            position: absolute;
+            width: 100%;
+            height: 90px;
+            bottom: 0;
+            left: 0;
+            display: block;
+            line-height: 90px;
+            font-size: 46px;
+            color: #fff;
+        }
+    }
+    &.hide{
+        .bg-jackpot{
+            top: -200%;
+        }
+    }
+}
+
 
 //@keyframes fadeDown{
 //    0%{
@@ -704,7 +756,6 @@ a.fail{
 }
 
 //限号弹窗
-//test
 .pop-limit{
     *{
         box-sizing: border-box;
@@ -758,7 +809,8 @@ a.fail{
         .limit-table-h3{
             text-align: left;
             text-indent:22px;
-            width:270px;
+            overflow: hidden;
+            float: none;
         }
     }
     .limit-item{
@@ -785,6 +837,7 @@ a.fail{
         }
     }
     .limit-item2{
+        width: 100%;
         display:table;
     }
     .limit-match{
@@ -796,13 +849,13 @@ a.fail{
         display:table-cell;
     }
     .limit-number{
-        float: right;
         min-height:42px;
-        width: 270px;
         padding:15px 6px 10px 12px;
         border-right:1px solid #bfc8d3;
         border-bottom:1px solid #bfc8d3;
         display: table;
+        width: 100%;
+        overflow: hidden;
         .num-box{
             overflow: hidden;
             vertical-align:middle;
@@ -941,6 +994,7 @@ table,table.dataTable{
         position: absolute;
         top:10px;
         background-image: url("../assets/slice/icon-jackpot.png");
+        background-size: cover;
         width: 35px;
         height: 19px;
     }
@@ -959,14 +1013,33 @@ table,table.dataTable{
         }
     }
 }
-.winner-list{
-    .icon-jackpot {
-        &::after {
-            top:15px;
-            right: -2px;
+.main{
+    .winner-list{
+        .icon-jackpot {
+            &::after {
+                top:15px;
+                right: -2px;
+            }
         }
     }
 }
+.h5main{11
+    .icon-jackpot{
+        &::after {
+            transform: scale(0.5);
+        }
+    }
+    .winner-list{
+        min-height: 100px;
+        .icon-jackpot {
+            &::after {
+                top: 10px;
+                right: -10px;
+            }
+        }
+    }
+}
+
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
     background: #eef1f9;
 }
@@ -1101,7 +1174,8 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
     }
     li.bingo{
         font-weight:bold;
-        color: #51c173;
+        color: #339933;
+        color: #339933;
     }
 }
 
@@ -1226,59 +1300,6 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
 
 
 
-//免费试玩
-.pop-freeplay{
-    .contain{
-        position: relative;
-        width:487px;
-        margin:194px auto 0;
-    }
-    .close{
-        position: absolute;
-        right:0;
-        top:0;
-        display: block;
-        width:34px;
-        height:34px;
-        overflow: hidden;
-        border:1px solid rgba(255,255,255,0.3);
-        border-radius: 50%;
-        font-size:0;
-        text-indent:-999px;
-        &::after{
-            content: '';
-            position: absolute;
-            left:10px;
-            top:10px;
-            background-image: url(../assets/slice/newAct/btn-close.png);
-            .transition();
-        }
-        &:hover{
-            &::after{
-                transform: rotate(90deg);
-            }
-        }
-    }
-    img{
-        display: block;
-        margin:0 auto;
-    }
-    .btn-sign{
-        position: relative;
-        display: block;
-        width: 289px;
-        height: 57px;
-        overflow: hidden;
-        border-radius: 28px;
-        background-color: #fae31d;
-        color: #371478;
-        margin:23px auto 0;
-        font:26px/57px sans-eb;
-        &:hover {
-           background: #fac31d;
-        }
-    }
-}
 
 
 //链接邀请
@@ -1525,7 +1546,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
 }
 
 
-#tabody-betlist tr.newRecord:first-child{
+.pre-number tr.newRecord:first-child,li.newRecord:first-child{
     animation: newRecord .5s both ;
 }
 @keyframes newRecord {
@@ -1569,59 +1590,6 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
     }
 }
 
-//免费试玩
-.pop-freeplay{
-    .contain{
-        position: relative;
-        width:487px;
-        margin:194px auto 0;
-    }
-    .close{
-        position: absolute;
-        right:0;
-        top:0;
-        display: block;
-        width:34px;
-        height:34px;
-        overflow: hidden;
-        border:1px solid rgba(255,255,255,0.3);
-        border-radius: 50%;
-        font-size:0;
-        text-indent:-999px;
-        &::after{
-            content: '';
-            position: absolute;
-            left:10px;
-            top:10px;
-            background-image: url(../assets/slice/newAct/btn-close.png);
-            .transition();
-        }
-        &:hover{
-            &::after{
-                transform: rotate(90deg);
-            }
-        }
-    }
-    img{
-        display: block;
-        margin:0 auto;
-    }
-    .btn-sign{
-        position: relative;
-        display: block;
-        width: 289px;
-        height: 57px;
-        overflow: hidden;
-        border-radius: 28px;
-        background-color: #fae31d;
-        color: #371478;
-        margin:23px auto 0;
-        font:26px/57px sans-eb;
-        &:hover {
-            background: #fac31d;
-        }
-    }
-}
 
 
 .act-sign{
@@ -1630,7 +1598,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
     height:20px;
     line-height:20px;
     background: #20bf6b;
-    font-size:14px;
+    font-size:12px;
     color: #fff;
     font-weight:bold;
     animation: actMove 5s 2s infinite;
@@ -1673,6 +1641,13 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
                 width:100%;
             }
         }
+        &.pop-limit{
+            .pop-body{
+                max-width: 483px;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+        }
     }
     /*.el-message*/
     .el-message{
@@ -1681,4 +1656,23 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
         max-width:100%;
         max-height:100%;
     }
+    .bg-jackpot{
+        transform:translate(-50%,-50%) scale(0.5);
+    }
+
+    .num-box{
+        height:22px;
+        line-height:22px;
+        li{
+            width:22px;
+            height:22px;
+            line-height:22px;
+        }
+        li+li{
+            margin-left:2px;
+        }
+    }
+
 }
+
+

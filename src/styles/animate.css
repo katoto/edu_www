@@ -3613,12 +3613,3 @@
 	-webkit-animation-duration: 3s;
 	animation-duration: 3s;
 }
-
-@media (prefers-reduced-motion) {
-	.animated {
-		-webkit-animation: unset !important;
-		animation: unset !important;
-		-webkit-transition: none !important;
-		transition: none !important;
-	}
-}
