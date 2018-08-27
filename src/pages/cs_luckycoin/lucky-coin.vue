@@ -127,9 +127,6 @@ export default {
         .more-bids-page{
             flex: 1;
         }
-        .main{
-            overflow: visible !important;
-        }
         .nomsg{
             margin: 30px auto;
             text-align: center;
@@ -292,11 +289,6 @@ export default {
         .for-full{
             margin: 0 -5px;
             width: 92%;
-            margin: 0 auto;
-        }
-        .main{
-            width: 100%;
-            max-width: 1200px;
             margin: 0 auto;
         }
         .banner{

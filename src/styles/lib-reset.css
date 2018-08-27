@@ -313,15 +313,16 @@ html.flexhtml, .flexhtml body{
     flex-direction: column;
     min-height: 100%;
 }
-.flexhtml #app > div:not(.pop) {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
 
-
+.flexhtml #app > div:not(.pop),.page-luckycoin {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*flex: 1;*/
+    height: 100%;
 }
 .flexhtml #app .main{
     flex: 1;
     width: 100%;
     max-width: 1200px;
+    margin: 0 auto;
 }

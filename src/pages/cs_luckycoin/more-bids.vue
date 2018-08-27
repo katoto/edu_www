@@ -397,7 +397,6 @@ export default {
     overflow: hidden;
     > div {
         margin-bottom: 10px;
-        box-sizing: border-box;
     }
 }
 .item-history {

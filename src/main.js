@@ -17,7 +17,6 @@ import { defaultLanguage } from '~common/util'
 // 全局 end
 import '@/styles/element.css'
 import '@/styles/animate.css'
-
 //  按需加载  有点小问题
 import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane, RadioButton, RadioGroup} from 'element-ui'
 
