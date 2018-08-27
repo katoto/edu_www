@@ -1,11 +1,10 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose" :class="{'super-active':areaMsg.pickType === '5J'}"
-                 @mouseover="slideDown = true" @mouseout="slideDown = false">
+            <div class="play-type-choose" :class="{'super-active':areaMsg.pickType === '5J','on':slideDown}" @mouseover="slideDown = true" @mouseout="slideDown = false">
                 <span v-if="areaMsg.pickType === '5J'" v-lang="'Super&ensp;5'"></span>
                 <span v-else><lang>Pick</lang> {{ areaMsg.pickType}}</span>
-                <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
+                <ul @click="chosePickType( $event )" class="slide " :class="{'slide-show':slideDown}">
                     <li data-index="1" v-lang="'Pick 1'"></li>
                     <li data-index="2" v-lang="'Pick 2'"></li>
                     <li data-index="3" v-lang="'Pick 3'"></li>
@@ -16,124 +15,129 @@
                     </li>
                 </ul>
             </div>
-            <p class="play-tips" v-if="areaMsg">
-                <span v-if="areaMsg.pickType === '5J'" class="js_choose_desc">
-                    <lang>Win extra prize pool reward if your picked 5 and its sequence match the draw result.</lang>
-                    <i class="position-msg">
-                        <lang>If only numbers match, you will get Pick 5 reward.</lang>
-                    </i>
-                </span>
-                <span v-if="areaMsg.pickType === '1'" class="js_choose_desc">
-                    <lang>Pick 1 number, if it hits the draw number, you'll win 1.8 times reward</lang>
-                </span>
-                <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">
-                    {{ _("Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward", areaMsg.pickType, syxw_bettype_odds['110'+( areaMsg.pickType )]) }}
-                </span>
-                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false" class="pop-reward-ct">
-                    <lang>Reward table</lang>
-                    <!-- Lucky 11 show -->
-                    <div class="pop pop-rewardTable" :class="{hide: !rewardTable}">
+            <a href="javascript:;" @click="rewardTable = !rewardTable" class="pop-reward-ct">
+                ?
+                <!-- Lucky 11 show -->
+                <div class="pop-mask" style="background:rgba(0,0,0,0.6);z-index: 13":class="{show: rewardTable}">
+                    <div class="pop pop-rewardTable"  v-if="areaMsg.pickType != '5J'">
                         <!-- <img src="../../assets/img/pop-rewardTable.png" alt=""> -->
                         <h3><lang>Lucky11</lang></h3>
                         <div class="pay-items">
                             <table>
                                 <thead>
-                                    <tr>
-                                        <td width="90px">
-                                            <lang>Match</lang>
-                                        </td>
-                                        <td>
-                                            <lang>Win Terms</lang>
-                                        </td>
-                                        <td width="90px">
-                                            <lang>Win Ratio</lang>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td width="45px">
+                                        <lang>Match</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Win Terms</lang>
+                                    </td>
+                                    <td width="60px">
+                                        <lang>Win Ratio</lang>
+                                    </td>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <lang>P1</lang>
-                                        </td>
-                                        <td>
-                                            <lang>Pick 1 number and hit 1/5 draw numbers</lang>
-                                        </td>
-                                        <td><i class="bold">1.8</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lang>P2</lang>
-                                        </td>
-                                        <td>
-                                            <lang>Pick 2 numbers and hit 2/5 draw numbers</lang>
-                                        </td>
-                                        <td><i class="bold">4.5</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lang>P3</lang>
-                                        </td>
-                                        <td>
-                                            <lang>Pick 3 numbers and hit 3/5 draw numbers</lang>
-                                        </td>
-                                        <td><i class="bold">13.5</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lang>P4</lang>
-                                        </td>
-                                        <td>
-                                            <lang>Pick 4 numbers and hit 4/5 draw numbers</lang>
-                                        </td>
-                                        <td><i class="bold">54</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lang>P5</lang>
-                                        </td>
-                                        <td>
-                                            <lang>Pick 5 numbers and hit 5/5 draw numbers</lang>
-                                        </td>
-                                        <td><i class="bold">378</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lang>Super5</lang>
-                                        </td>
-                                        <td class="reward-tip-box">
-                                            <p class="reward-pick-five-title">
-                                                <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
-                                            </p>
-                                            <p class="reward-table-tip">
-                                                <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <i class="bold">
-                                                <lang>jackpot</lang>
-                                            </i>
-                                        </td>
-                                    </tr>
-                                 </tbody>
+                                <tr>
+                                    <td>
+                                        <lang>P1</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 1 number and hit 1/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">1.8</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>P2</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 2 numbers and hit 2/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">4.5</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>P3</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 3 numbers and hit 3/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">13.5</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>P4</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 4 numbers and hit 4/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">54</i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <lang>P5</lang>
+                                    </td>
+                                    <td>
+                                        <lang>Pick 5 numbers and hit 5/5 draw numbers</lang>
+                                    </td>
+                                    <td><i class="bold">378</i></td>
+                                </tr>
+                                </tbody>
                             </table>
                         </div>
-                     </div>
-                </a>
-            </p>
-        <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">
-            <lang>Limit number list</lang>
-        </a>
+                    </div>
+                    <div class="pop pop-rewardTable pop-rewardTable2"  v-else>
+                        <!-- <img src="../../assets/img/pop-rewardTable.png" alt=""> -->
+                        <h3><lang>Jackpot</lang></h3>
+                        <div class="pay-items is-left">
+                            <div>
+                                1.<lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
+                            </div>
+                            <div>
+                                <p class="bold">
+                                    2.<lang>Pick 5 Reward:</lang>
+                                </p>
+                                <p>
+                                    <lang>Pick 5 Reward=(Bet Amount * 2/3) * 378</lang>
+                                </p>
+                            </div>
+                            <div>
+                                <p class="bold">
+                                    3.<lang>Jackpot Reward:</lang>
+                                </p>
+                                <p><lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang></p>
+                                <p><lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang></p>
+                                <p><lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang></p>
+                                <p><lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+            <a href="javascript:;" class="btn-delete" @click="clearNumber"></a>
+            <a href="javascript:;" @click="randomPickFn" class="btn-random-pick">
+                <lang>Quick Pick</lang>
+            </a>
         </div>
-        <span class="line js_line"><lang>Ticket</lang> {{ currIndex + 1 }}</span>
+        <div class="play-area-top" style="margin-top: 8px">
+            <div class="order-box" :class="{'hide': areaMsg.pickType !== '5J'}">
+                <p class="fl" v-lang="'Picking&ensp;Order'"></p>
+                <ul class="fl num-box js_num-box-5">
+                    <!--flipInY on-->
+                    <li v-for="(baseItem, index) in baseJackPot"
+                        class="flipInY on"
+                        :key="index"
+                        v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}
+                    </li>
+                    <li v-else>-</li>
+                </ul>
+            </div>
+            <a href="javascript:;" class="limit-tips" @click="showPopLimit">
+                <lang>Limit number list</lang>
+            </a>
+        </div>
         <ul class="number-box" v-if="areaMsg" @click="lineNumClick">
             <li v-for="(number,index) in playList"
                 :data-flag="(index+1)" class="on"
@@ -143,50 +147,21 @@
             </li>
             <li :data-flag="(index+1)" v-else>{{ number }}</li>
         </ul>
-        <a href="javascript:;" @click="randomPickFn" class="btn-random-pick">
-            <lang>Quick Pick</lang>
-        </a>
-        <a href="javascript:;" class="btn-delete" @click="clearNumber"></a>
-        <a href="javascript:;" :data-delIndex="currIndex" @click="delTicket" class="btn-close"></a>
         <div class="beting">
-            <span><lang>Bet</lang></span>
-            <div class="btn-beting">
-                <!-- 差额化 金额 -->
-                <input type="text" name="bet1" @input="checkMoneyLen" @blur="checkBetMoney" v-model="areaMsg.pickMoney"
-                       :placeholder="min_limit.toString()">
-                <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
-                <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
+            <div class="input-box">
+                <span class="tips"><lang>Bet</lang></span>
+                <a href="javascript:;" @click="js_beting_low" class="btn-beting-low" style="line-height: 34px;">-</a>
+                <div :class="[currBalance.cointype==2001?'icon-eth':'icon-btc']">
+                    <input type="text" name="bet1" @input="checkMoneyLen" @blur="checkBetMoney" v-model="areaMsg.pickMoney" :placeholder="min_limit.toString()">
+                </div>
+                <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">+</a>
             </div>
-            <span>{{ currBalance.cointype | formateCoinType }}</span>
-            <div class="winning" v-if="areaMsg.pickType !== '5J'">
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType)
-                )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType
-                }}</i>
-            </div>
-            <div class="winning" v-else>
-                <!-- 奖池 -->
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot(
-                this.poolAmount[currBalance.cointype] , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat(
-                areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
-                <i class="winjackport" v-if="areaMsg.pickType === '5J'">
-                    {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] *
-                    parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ),
-                    formateJackPot(areaMsg.pickMoney, this.poolAmount[currBalance.cointype], this.poolRatio)) +
-                    formateCoinType ( currBalance.cointype ) }}
+            <div class="winning">
+                <lang>Winning</lang>
+                <i class="winMoney">
+                    {{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType))] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}
                 </i>
             </div>
-        </div>
-        <div class="order-box js_choose_jackPot" :class="{'hide': areaMsg.pickType !== '5J'}">
-            <p v-lang="'Picking&ensp;Order'"></p>
-            <ul class="num-box js_num-box-5">
-                <!--flipInY on-->
-                <li v-for="(baseItem, index) in baseJackPot"
-                    class="flipInY on"
-                    :key="index"
-                    v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}
-                </li>
-                <li v-else>-</li>
-            </ul>
         </div>
     </li>
 </template>
@@ -368,6 +343,7 @@
                         pickType: $event.target.getAttribute('data-index')
                     })
                 }
+                this.slideDown = false
             }
 
         },
@@ -402,12 +378,6 @@
     }
 </script>
 <style scoped>
-
-    .pop-rewardTable {
-        overflow: hidden;
-        transition: all .2s;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2)
-    }
 
     .reward-table-tip {
         font-size: 12px;

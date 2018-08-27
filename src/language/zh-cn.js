@@ -1,4 +1,6 @@
 module.exports = {
+    'You Win For Jackpot':'中奖池啦',
+
     'Free Bonus': '领奖中心',
     'Withdrawable Amount': '可提款金额',
     'Sign gift': '签到送',
@@ -382,6 +384,7 @@ module.exports = {
     'Jackpot': '奖池',
     '2% of the player\'s bet amount is poured into Jackpot': '投注额的2%进入奖池',
     'You win if 9': '如果9线同时全中',
+
     'appear at the same time in 9-line slot': '那么将会赢得',
     'Place 0.001 ETH per line, you can get 5% of the Jackpot': '每线投注0.0001ETH,您将赢得5%的奖池',
     'Place 0.001 ETH per line, you can get 50% of the Jackpot': '每条线投注0.001ETH,您将赢得50%的奖池',
@@ -392,6 +395,9 @@ module.exports = {
     'placed a pattern as following': '从左到右计算',
     'You win if 3 identical icons': '如果连续3个图案一致即中奖',
     'Lucky11': '幸运11',
+    'Pick 5 Reward:':'任选5奖励:',
+    'Pick 5 Reward=(Bet Amount * 2/3) * 378':'任选5奖励=(投注金额*2/3)*378',
+    'Jackpot Reward:':'奖池奖励',
     'slotmachine': '老虎机',
     'game': '游戏',
     'LuckySlot': '老虎机',

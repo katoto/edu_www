@@ -884,7 +884,7 @@
         display: none;
         position: absolute;
         left: 50%;
-        top: -10px;
+        top: 12px;
         transform: translate(-50%, -100%);
         z-index: 3;
         background: #ffedbe;
@@ -893,23 +893,25 @@
         font-size: 12px;
         line-height: 15px;
         color: #000000;
-    &::after {
-         position: absolute;
-         left: 50%;
-         bottom: -7px;
-         margin-left: -7px;
-         content: '';
-         display: block;
-         width: 0;
-         height: 0;
-         border-bottom: 0;
-         border-left: 7px solid #fff;
-         border-top: 7px solid #ffedbe;
-         border-right: 7px solid #fff;
-     }
-    &.on {
-         display: block;
-     }
+        border-bottom: 20px solid transparent;
+        background-clip: padding-box;
+        &::after {
+             position: absolute;
+             left: 50%;
+             bottom: -7px;
+             margin-left: -7px;
+             content: '';
+             display: block;
+             width: 0;
+             height: 0;
+             border-bottom: 0;
+             border-left: 7px solid #fff;
+             border-top: 7px solid #ffedbe;
+             border-right: 7px solid #fff;
+         }
+        &.on {
+             display: block;
+         }
     }
     }
     input {

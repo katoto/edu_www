@@ -205,6 +205,7 @@
             position: relative;
             text-align: right;
             overflow: hidden;
+            z-index: 2;
             a {
                 color: #6f88cb;
             }
@@ -249,6 +250,7 @@
                     justify-content: flex-start;
                     padding: 6px;
                     cursor: pointer;
+                    background: #151515;
                     &.on {
                         background: #6683c5;
                         color: #fff;

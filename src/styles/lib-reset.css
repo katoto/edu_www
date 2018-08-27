@@ -290,18 +290,23 @@ h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
   float: right;
 }
 .is-center{
-    text-align: center;
+    text-align: center !important;
 }
 .is-left{
-    text-align: left;
+    text-align: left !important;
 }
 .is-right{
-    text-align: right;
+    text-align: right !important;
 }
 .bold{
   font-weight:bold;
 }
-
+.zIndex99{
+    z-index: 99 !important;
+}
+.zIndex98{
+    z-index: 98 !important;
+}
 
 /*移动端整屏*/
 html.flexhtml, .flexhtml body{
