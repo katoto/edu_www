@@ -48,7 +48,7 @@
     import Pop from './Pop'
     import {Message} from 'element-ui'
     import {tipsTime, setCK} from '~common/util'
-    import {baseURL} from '~common/ajax'
+    import {baseURL, isProduction} from '~common/ajax'
 
     export default {
         data () {
@@ -87,7 +87,7 @@
                 this.verifyCode = ''
             },
             reloadVerifyImg () {
-                this.verifyImgPath = baseURL.replace('http://', 'https://') + '/alert/verifycode/img?random=' + new Date().getTime()
+                this.verifyImgPath = isProduction ? baseURL.replace('http://', 'https://') : baseURL + '/alert/verifycode/img?random=' + new Date().getTime()
             },
             showSucc () {
                 // this.$store.commit('setRegVerifyEmail', '846359246@qq.com')

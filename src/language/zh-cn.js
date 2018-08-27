@@ -532,13 +532,13 @@ module.exports = {
     'Free 0.001ETH': '免费领取0.001ETH',
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
     '0.0001 BTC for free': '免费领0.0001 BTC',
-    'Win {0} {1}': 'Win {0} {1}',
-    'Sign In': 'Sign In',
+    'Win {0} {1}': '恭喜你贏得 {0} {1}',
+    'Sign In': '登录',
     'BTC': 'BTC',
     'ETH': 'ETH',
-    'Please enter the correct BTC wallet address': 'Please enter the correct BTC wallet address',
-    'Please enter the correct ETH wallet address': 'Please enter the correct ETH wallet address',
-    'only supports BTC': 'only supports BTC',
+    'Please enter the correct BTC wallet address': '请输入正确的BTC钱包地址',
+    'Please enter the correct ETH wallet address': '请输入正确的ETH钱包地址',
+    'only supports BTC': '仅支持BTC',
     /* 水龙头未翻译 end */
 
     /* 验证页面 start */
@@ -667,6 +667,7 @@ module.exports = {
     'Transparent blockchain-based draw': '基于区块链的开奖，公平公正',
     'Details Checking >': '查询开奖透明性 >',
     'WIN': '赢得',
+    'WINS': '赢得',
     'You win {0} {1} in No.{2}': '祝贺您在第{2}期中奖{0} {1}',
     'My Bids': '我的投注',
     'Try a luck !': '快来投注吧!',
@@ -681,7 +682,7 @@ module.exports = {
     'Click No. to see bid details': '点击期号查看场次详情',
     'Mobile APP is coming soon.': '敬请期待',
     'Coinsprize assumes no liability for wrong / failed transfer caused by users.': '因用户错误输入无法转账钱包地址或他人钱包，Coinsprize平台概不负责',
-    '{0} {1} / Bid': '每注价格: {0} {1}',
+    '{0} {1} / Bid': '每注: {0} {1}',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.': '建议您使用正规安全的钱包或者交易平台，推荐：Mist、imToken、huobi.com、Coinbase等平台',
     'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到账时间取决于区块链算力，ETH充值一般需要5分钟到账，BTC充值一般需要40分钟到账，若充值持续未到账，可邮件联系客服解决： support@coinsprize.com',
     'Finally! You found the wonderland---- Coinsprize': '欢迎来区块链游戏平台',
@@ -690,6 +691,7 @@ module.exports = {
     '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '满足不可提现额度的10倍流水条件即可提取赠送金额',
     'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5这5个16进制数转化为10进制数，然后分别求mod运算11、10、9、8、7，获得5位开奖号码',
     '1. After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.<br>2. By using hexadecimal, the last 6 characters of the hash value will convert into a number.<br>3. Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.<br>You can check the information about hash value on etherscan.io at anytime, all information is completely transparent.': '当开奖倒计时结束时或者场次筹齐人数时，游戏将所有本期投注信息进行Merkle Tree计算，得出Merkel number，并将Merkel number上传至以太链； 信息打包上链生成的Hash值，使用最后六个十六进制数转成十进制数，然后对该十进制数进行求余，将余数加上10001即得到最终的开奖结果。用户可以随时在etherscan.io里查验开奖哈希，它是十分透明公开和公平的',
+    'Draw cancelled because no buyers of this bid.': '该期无人投注，已取消开奖',
     /* 验证页面 end */
 
     /* 首页 start */

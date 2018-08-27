@@ -50,7 +50,7 @@
                                 <lang>You paid </lang>{{betMoney}} {{coinText}}
                             </i>
                         </div>
-                        <div class="item-time min" v-if="isWaiting">
+                        <div class="item-time open" v-if="isWaiting">
                             00:00:00
                         </div>
                         <!--day hour min-->
@@ -62,7 +62,7 @@
                             {{endTimeText}}
                         </div>
                         <div class="item-prize">
-                            {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
+                            {{goodsinfo.goodsValue}} <i>{{coinText}}</i>
                         </div>
                         <div class="item-usd">
                             {{formatUSD(goodsinfo.coinprice.USD, goodsinfo.goodsValue)}} USD
@@ -137,7 +137,7 @@
                         </a>
                         <div class="btn btn-win" v-if="isDraw">
                             <p>
-                                <lang>Draw number</lang>:  {{goodsinfo.luckyNum}}
+                                <lang>Draw Number</lang>:  {{goodsinfo.luckyNum}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
                                 <lang>Details >></lang>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="btn btn-fail">
                             <p>
-                                <lang>Draw number</lang>:  {{goodsinfo.luckyNum}}
+                                <lang>Draw Number</lang>:  {{goodsinfo.luckyNum}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
                                 <lang>Details >></lang>
@@ -1052,14 +1052,16 @@
                 &.hour{
                     color: #fff;
                 }
+                &.open{
+                    color: #ff5b4a;
+                }
                 &.min{
                     color: #ff5b4a;
                 }
                 &.min{
                     animation: heartbeat 2s infinite;
                     &::before{
-                        background: #ff5b4a;
-                        mask:url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
+                        background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
                     }
                 }
 

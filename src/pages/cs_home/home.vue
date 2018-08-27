@@ -354,12 +354,14 @@
                     slot: {
                         USD: '',
                         cointype: '2001',
-                        goodsvalue: ''
+                        goodsvalue: '',
+                        jackpot: 0
                     },
                     syxw: {
                         USD: '',
                         cointype: '2001',
-                        goodsvalue: ''
+                        goodsvalue: '',
+                        jackpot: 0
                     }
                 },
                 banner: [

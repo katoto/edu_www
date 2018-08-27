@@ -5,7 +5,7 @@
         <Footer></Footer>
         <!--show-->
         <div class="msg-winning" :class="{ show: otherWin.isShow }">
-            <lang>Congratulations!</lang> {{ otherWin.name }} <i><lang>WIN</lang> {{ otherWin.num }} {{ otherWin.type }}</i>
+            <lang>Congratulations!</lang> {{ otherWin.name }} <i><lang>WINS</lang> {{ otherWin.num }} {{ otherWin.type }}</i>
         </div>
         <!--:class="{show:selfWin.isShow}"-->
         <div class="self-winning " :class="{show: selfWin.isShow}">
@@ -748,6 +748,11 @@ export default {
                     color: #fff;
                     font-weight: bold;
                 }
+                &.open{
+                    font-size: 24px;
+                    color: #ff5b4a;
+                    font-weight: bold;
+                }
                 &.min{
                     font-size: 24px;
                     color: #ff5b4a;
@@ -871,6 +876,11 @@ export default {
                 &.hour{
                      font-size: 16px;
                     color: #fff;
+                    font-weight: bold;
+                }
+                &.open{
+                    font-size: 16px;
+                    color: #ff5b4a;
                     font-weight: bold;
                 }
                 &.min{

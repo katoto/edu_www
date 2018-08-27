@@ -7,7 +7,7 @@
         <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
         <!--day hour min-->
         
-        <div class="match-time min" v-if="isWaiting">
+        <div class="match-time open" v-if="isWaiting">
             00:00:00
         </div>
         <div class="match-time" :class="{

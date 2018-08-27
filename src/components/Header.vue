@@ -26,11 +26,6 @@
                                 <lang>Lucky11</lang>
                             </router-link>
                         </li>
-                        <li>
-                            <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                                <lang>F3d West</lang>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinsprize" class="logo">
@@ -47,9 +42,6 @@
                     <router-link :to="{path: '/lucky11/'}" active-class="on">
                         <lang>Lucky11</lang>
                     </router-link>
-                    <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                        <lang>F3d West</lang>
-                    </a>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>

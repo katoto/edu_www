@@ -154,6 +154,11 @@ const mutations = {
     },
     unbindPageListener (state, params) {
         delete state.pageListener[params]
+    },
+    updateCurrentPage (state) {
+        for (let name in state.pageListener) {
+            state.pageListener[name] && state.pageListener[name]()
+        }
     }
 }
 
@@ -235,7 +240,7 @@ const actions = {
             ) {
                 dispatch('getUserInfo')
                 commit('showMyWin', params)
-            } else {
+            } else if (params.winUid !== 0 && params.winUserName !== '') {
                 // 其他用户获奖
                 commit('showOtherWin', params)
             }
@@ -280,11 +285,6 @@ const actions = {
     },
     getMyBids ({ commit }, params = {}) {
         return ajax.get('/get/personal/bids', params)
-    },
-    updateCurrentPage ({ commit }, params = {}) {
-        for (let name in this.state.cs_luckycoin.pageListener) {
-            this.state.cs_luckycoin.pageListener[name] && this.state.cs_luckycoin.pageListener[name]()
-        }
     }
 }
 
