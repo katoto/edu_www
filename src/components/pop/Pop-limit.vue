@@ -29,12 +29,12 @@
                 <div class="limit-table-c">
                     <ul class="js_limit_total_ul">
                         <li v-for="(value, index) in dateLimit" class="limit-item" :key="index">
-                            <div class="fl limit-nper">
+                            <div class="limit-nper">
                                 <div>
                                     <span>{{value.expectid}}</span>
                                 </div>
                             </div>
-                            <div class="fr">
+                            <div style="margin-left: 111px">
                                 <ul>
                                     <li v-for="(value2, itemIndex) in value.restrict" class="limit-item2 clearfix" :key="itemIndex">
                                         <div class="limit-match">

@@ -226,16 +226,15 @@
                 </div>
             </div>
 
-            <div class="jackpot" v-show="jackPotMsg">
+            <div class="jackpot hide" v-show="jackPotMsg">
                 <div class="jackpot-box">
                     <el-carousel :interval="5000" arrow="never" height="72px">
                         <el-carousel-item v-for="(item,index) in jackPotMsg" :key="index"  v-if="item">
                             <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
-                            <span class="jackpot-money">{{ _('Win {0} {1}', formateBalance (  item.prize ) || '') ,  formateBalance (  item.cointype ) }}</span>
+                            <span class="jackpot-money">{{ _('Win {0} {1}', formateBalance (  item.prize ) || '') ,  formateCoinType (  item.cointype ) }}</span>
                         </el-carousel-item>
                     </el-carousel>
                 </div>
-                <canvas id="canvas" ref="canvas"></canvas>
             </div>
 
         </div>
@@ -328,6 +327,7 @@
         methods: {
             formateEmail,
             formateBalance,
+            formateCoinType,
             copySucc,
             copyError,
             async taskClick (type, val) {
@@ -465,27 +465,10 @@
             }
         },
         filters: {
-            formateCoinType
+            formateCoinType,formateBalance
         },
         async mounted () {
             this.showUserMsg()
-            // 获取首次中奖信息
-            if (~window.location.href.indexOf('/lucky11')) {
-                if (this.$refs.canvas) {
-                    startCanvas(this.$refs.canvas)()
-                }
-                let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
-                if (prizeMsg && prizeMsg.data) {
-                    if (prizeMsg.data.prize_list) {
-                        this.$store.commit(mTypes.setjackPotMsg, prizeMsg.data.prize_list)
-                    }
-                    if (prizeMsg.data.num) {
-                        setTimeout(() => {
-                            this.$store.commit(mTypes.setjackPotMsg, null)
-                        }, 5000 * parseFloat(prizeMsg.data.num))
-                    }
-                }
-            }
             setTimeout(() => {
                 if (this.isLog) {
                     this.faucetTask()
@@ -522,7 +505,7 @@
         .logo {
             display: block;
             float: left;
-            width: 137px;
+            width: 110px;
             height: 32px;
             margin:19px 27px 0 0;
             img{
@@ -1149,10 +1132,12 @@
         .jackpot-box{
             position: relative;
             z-index:2;
-            width: 947px;
+            width: 100%;
+            max-width: 947px;
             height: 112px;
             margin:0 auto;
             background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
+            background-size: cover;
             line-height:76px;
             font-size:22px;
             .el-carousel{
@@ -1328,6 +1313,9 @@
             .hadlogin{
                 display: none;
             }
+            .account-deposit,.account-withdraw {
+                display: block;
+            }
         }
     }
     @media (max-width: @screen-tablet) {
@@ -1473,9 +1461,6 @@
                     line-height: 17px;
                     font-size: 12px;
                 }
-            }
-            .account-deposit,.account-withdraw {
-                display: block;
             }
             .my-transaction,.account-center,.account-deposit,.account-withdraw{
                 margin-top: 10px;
