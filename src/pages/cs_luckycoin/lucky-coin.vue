@@ -739,6 +739,7 @@ export default {
             .match-time{
                 left: 30px;
                 top: 110px;
+                width: 50%;
                 &.day{
                     font-size: 20px;
                     color: #fff;

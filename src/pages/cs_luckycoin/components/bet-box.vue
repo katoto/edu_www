@@ -72,7 +72,7 @@
         </div>
         <!--奖金-->
         <p class="match-prize" v-if="isPopular">
-            {{ _('Bid For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
+            {{ _('Bid For {0}', this.betData.goodsValue) }}<i>{{ coinText }}</i>
         </p>
         <p class="match-prize" v-else>
             {{ this.betData.goodsValue }}<i> {{ coinText }}</i>

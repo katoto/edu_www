@@ -306,7 +306,6 @@
                 >
                 </el-pagination>
             </div>
-
             <!--投注记录弹窗-->
             <div class="pop pop-bet" :class="{ hide: !isShowNumberPop }">
                 <div class="pop-body">
@@ -1018,7 +1017,7 @@
                 }
                 .icon-youbet{
                     position: relative;
-                    background: #7b4de4;
+                    background: #f67c22;
                     padding: 0 10px 0 30px;
                     &::before{
                         content: '';
