@@ -472,7 +472,7 @@
         </div>
 
         <!--jackpot-->
-        <div class="pop pop-jackpot"  v-if="jackPotMsg">
+        <div class="pop pop-jackpot"  v-if="jackPotMsg && jackPotMsg.length > 0">
             <div class="bg-jackpot ">
                 <p class="jack-msg1">
                     <lang>Congratulates</lang>!
