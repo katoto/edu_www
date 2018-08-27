@@ -34,9 +34,6 @@
                     <router-link :to="{path: '/lucky11/'}">
                         <lang>Lucky11</lang>
                     </router-link>
-                    <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                        <lang>F3d West</lang>
-                    </a>
                 </div>
             </div>
             <div class="contact">
