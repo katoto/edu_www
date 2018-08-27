@@ -241,7 +241,7 @@
                                     {{item.to_addr}}
                                 </a>
                                 <p>
-                                    {{item.drawmoney}} {{item.cointype}}
+                                    {{item.drawmoney}}{{item.cointype}}
                                 </p>
                             </div>
                         </li>

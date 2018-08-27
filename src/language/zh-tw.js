@@ -541,7 +541,7 @@ module.exports = {
     'Sign Out': '註銷',
     'Free 0.001ETH': '免費領取0.001ETH',
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
-    '0.0001 BTC for free': '免費領0.0001 BTC',
+    '0.0001 BTC for free': '免費領0.0001BTC',
     'Win {0} {1}': '恭喜你贏得 {0} {1}',
     'Sign In': '登錄',
     'BTC': 'BTC',

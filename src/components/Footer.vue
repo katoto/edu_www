@@ -277,7 +277,7 @@
         .footer{
             height: 560px;
             line-height: 20px;
-            .main{
+            .fmain{
                 padding: 0 percentage(30/750) 0;
             }
             .ftitle {
