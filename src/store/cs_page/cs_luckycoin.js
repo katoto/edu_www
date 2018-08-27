@@ -240,7 +240,7 @@ const actions = {
             ) {
                 dispatch('getUserInfo')
                 commit('showMyWin', params)
-            } else {
+            } else if (params.winUid !== 0 && params.winUserName !== '') {
                 // 其他用户获奖
                 commit('showOtherWin', params)
             }
