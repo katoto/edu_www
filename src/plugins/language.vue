@@ -41,6 +41,12 @@ MyPlugin.install = function (Vue, store) {
         return store.state.language === 'en'
     }
 
+    let $lang = {}
+    for (let packName in store.state.langs) {
+        $lang[packName] = ((store.state.langs[packName])[store.state.language])
+    }
+    Vue.prototype.$lang = $lang
+
     // 注册全局lang翻译组件
     Vue.component('lang', {
         render: function (h) {

@@ -1,8 +1,18 @@
 import { getURLParams, defaultLanguage, setLocalStorageLanguage } from '~/common/util'
+let modules = {}
+
+const csPageModules = require.context('~language/varPack', true, /\.js$/)
+csPageModules.keys().forEach(function (modulesPath) {
+    const modulesName = modulesPath.replace(/(\.\/)|(\.js$)/g, '')
+    modules[modulesName] = csPageModules(modulesPath).default
+})
 
 let params = getURLParams()
 const state = {
-    language: defaultLanguage
+    language: defaultLanguage,
+    langs: {
+        ...modules
+    }
 }
 
 const mutations = {

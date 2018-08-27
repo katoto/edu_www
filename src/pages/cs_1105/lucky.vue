@@ -318,7 +318,6 @@
     import { Message } from 'element-ui'
     import {formateCoinType, formatMatch, formateBalance, removeCK, formatTime, structDom} from '~common/util'
     import LuckyMybet from './components/lucky-mybet'
-
     export default {
         data () {
             return {

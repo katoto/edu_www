@@ -4,12 +4,24 @@
                         isPopular? 'match-popular' : 'match-common',
                         isInit && !isCancel ? '' : 'unvisible',
           ]">
-        <router-link class="todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
+        <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
+        <!--day hour min-->
+        
+        <div class="match-time open" v-if="isWaiting">
+            00:00:00
+        </div>
+        <div class="match-time" :class="{
+            min: leftTime < 600 * 1000 && leftTime !== 0,
+            hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
+            day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
+        }" v-else>
+            {{endTimeText}}
+        </div>
         <!-- hot bet-->
         <div class="icon-box "  :class="[isHot? 'hot' : '', isBet? 'bet':'']">
             <i class="icon-hot">H</i>
             <i class="icon-youbet">
-                <lang>Paid</lang>
+                <!--<lang>Paid</lang>-->
             </i>
         </div>
         <!--match-eth/match-btc-->
@@ -73,14 +85,14 @@
         <p class="match-issue">
             NO.{{betData.exceptId}}
         </p>
-        <!--进度-->
-        <p class="match-process">
-            <lang>Bids:</lang>
-            {{ this.betData.totalBids - this.betData.leftBids }}/{{ this.betData.totalBids }}
-        </p>
         <!--价格-->
         <p class="match-price">
             {{ _('{0} {1} / Bid', this.betData.bidValue, coinText ) }}
+        </p>
+        <!--进度-->
+        <p class="match-process">
+            <lang>Bids:</lang>
+            <i :class="[ this.betData.leftBids/this.betData.totalBids<=0.1?'red':'']">{{ this.betData.totalBids - this.betData.leftBids }}</i>/{{ this.betData.totalBids }}
         </p>
         <a href="javascript:;" class="match-btn waiting" v-if="isWaiting">
             <lang>Drawing</lang>
@@ -100,6 +112,16 @@
             <a href="javascript:;" class="bet-close" @click="closeWindow"></a>
             <div class="bet-t">
                 {{ _('Bid For {0}', this.betData.goodsValue) }}<i> {{ coinText }}</i>
+            </div>
+            <div class="match-time min" v-if="isWaiting">
+                00:00:00
+            </div>
+            <div class="match-time" :class="{
+                min: leftTime < 600 * 1000 && leftTime !== 0,
+                hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
+                day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000,
+            }" v-else>
+                {{endTimeText}}
             </div>
             <p class="bet-m1 hide">
                 Bet Amount
@@ -175,7 +197,7 @@
 <script>
     import {formateCoinType, formatUSD, accDiv, accMul} from '~/common/util'
     import {mapActions, mapState} from 'vuex'
-
+    import timeMixin from '../timeMixin'
     let defaultValue = {
         state: '-1',
         image: '',
@@ -191,6 +213,7 @@
         ishot: '0'
     }
     export default {
+        mixins: [ timeMixin ],
         data () {
             return {
                 windowClass: '',
@@ -207,6 +230,9 @@
             }
         },
         props: {
+            ind: {
+                type: Number
+            },
             bet: {
                 type: Object,
                 default: function () {
@@ -259,6 +285,13 @@
             },
             closeWindow () {
                 this.windowClass = ''
+            },
+            triggerTimeout () {
+                this.closeWindow()
+                this.$emit('updateBets')
+            },
+            triggerWaitting () {
+                this.betData.state = '3'
             },
             chooseMin () {
                 this.betValue = this.minValue
@@ -460,6 +493,7 @@
         watch: {
             bet: function (newBet) {
                 this.betData = this.formatBetData(this.bet)
+                this.renderTime(this.betData.endtime)
                 if (this.isInit) {
                     this.isCancel = (this.bet.state === '-1')
                     // websocket 推送更新导致bet数据改变
@@ -486,6 +520,7 @@
         mounted () {
             // 组件默认数据
             this.betData = this.formatBetData(this.bet)
+            this.renderTime(this.betData.endtime)
             if (this.type === 'list') {
                 this.isInit = true
                 if (this.betValue === 0) {
@@ -512,6 +547,15 @@
     .disabled {
         background-color: gray !important;
         cursor: default;
+    }
+
+    .bet-normal .match-time {
+        position: relative !important;
+        right: 0 !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-bottom: 3px;
+        transform-origin: left center;
     }
 
     @keyframes blinking {
