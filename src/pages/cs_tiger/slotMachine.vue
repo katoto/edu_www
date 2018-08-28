@@ -642,11 +642,11 @@
                     this.startPlay()
                     this.autoPlay()
                     this.currRun = this.currRun - 1
-                     this.slotSound.play('beep')
+                     this.slotSound.play('button')
                 } else if (this.tabTime > 40 && this.tabTime <= 500) {
                     /* 点击 */
                     this.startPlay()
-                    this.slotSound.play('beep')
+                    this.slotSound.play('button')
                 }
                 this.fastClick = false
             },
@@ -760,6 +760,8 @@
                 // this.stateInit()
                 this.slotRun = true
                 console.log('===动画开始==')
+                this.slotSound.end()
+                this.slotSound.play('enterList')
                 if (playBack) {
                     if (parseFloat(this.free_times) <= 0) {
                         this.reduceMoney()
@@ -819,6 +821,7 @@
                     await wait(3000)
                     this.slotRun = false // 动画结束
                     console.log('===动画结束==')
+                    this.slotSound.end()
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
@@ -1171,9 +1174,13 @@
 
             this.slotSound = new Howl({
                 src: ['../../../../static/audio/output.mp3'],
+                volume: 0.5,
+                loop: true,
                 sprite: {
-                    beep: [0, 230],
-                    boop: [2000, 3021]
+                    button: [0, 390],
+                    enterList: [2000, 6589],
+                    gift_small: [8000, 8626],
+                    gift_big: [10000, 11002],
                 }
             })
         },
