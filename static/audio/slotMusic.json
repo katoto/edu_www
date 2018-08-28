@@ -11,19 +11,24 @@
       "end": 0.3902947845804989,
       "loop": false
     },
-    "enterList": {
+    "buttonHelp": {
       "start": 2,
-      "end": 6.5895691609977325,
-      "loop": false
-    },
-    "gift_small": {
-      "start": 8,
-      "end": 8.606507936507937,
+      "end": 2.230340136054422,
       "loop": false
     },
     "gift_big": {
-      "start": 10,
-      "end": 11.021859410430839,
+      "start": 4,
+      "end": 5.021859410430839,
+      "loop": false
+    },
+    "gift_small": {
+      "start": 7,
+      "end": 7.606507936507937,
+      "loop": false
+    },
+    "slot_rolling": {
+      "start": 9,
+      "end": 15.269387755102041,
       "loop": false
     }
   }

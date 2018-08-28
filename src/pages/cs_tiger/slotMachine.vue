@@ -6,8 +6,8 @@
                 <div class="tiger ">
                     <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                     <div class="tiger-wrap ">
-                        <!--规则icon-->
-                        <a href="javascript:;" class="btn-rule " @click="isShowHelp = true">
+                        <!--规则icon  -->
+                        <a href="javascript:;" class="btn-rule " @click="slotHelp">
                             ?
                         </a>
                         <!--低奖池-->
@@ -772,7 +772,7 @@
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
                         await wait(600)
-                        this.slotSound.play('enterList')
+                        this.slotSound.play('slot_rolling')
                         this.tranitionTiming = true
                         this.setLacal()
                     }
@@ -820,6 +820,7 @@
                     await wait(3000)
                     this.slotRun = false // 动画结束
                     console.log('===动画结束==')
+                    this.slotSound.stop()
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
@@ -1126,6 +1127,10 @@
                     }
                 }
                 this.initLacal(true)
+            },
+            slotHelp(){
+                this.slotSound.play('buttonHelp')
+                this.isShowHelp = true
             }
         },
         computed: {
@@ -1172,9 +1177,10 @@
                 volume: 0.7,
                 sprite: {
                     button: [0, 390],
-                    enterList: [2000, 4580],
-                    gift_small: [8000, 606],
-                    gift_big: [10000, 1020],
+                    buttonHelp: [2000, 230],
+                    gift_big: [4000, 1020],
+                    gift_small: [7000, 606],
+                    slot_rolling: [9000, 6269],
                 }
             })
         },
