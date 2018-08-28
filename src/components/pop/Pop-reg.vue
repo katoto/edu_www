@@ -87,7 +87,7 @@
                 this.verifyCode = ''
             },
             reloadVerifyImg () {
-                this.verifyImgPath = isProduction ? baseURL.replace('http://', 'https://') : baseURL + '/alert/verifycode/img?random=' + new Date().getTime()
+                this.verifyImgPath = (isProduction ? baseURL.replace('http://', 'https://') : baseURL) + '/alert/verifycode/img?random=' + new Date().getTime()
             },
             showSucc () {
                 // this.$store.commit('setRegVerifyEmail', '846359246@qq.com')

@@ -981,7 +981,7 @@
     .main {
         position: relative;
         width: 100%;
-        overflow: hidden !important;
+        // overflow: hidden !important;
         //玩法区
         .play-area {
             position: relative;
