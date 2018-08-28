@@ -760,8 +760,6 @@
                 // this.stateInit()
                 this.slotRun = true
                 console.log('===动画开始==')
-                this.slotSound.end()
-                this.slotSound.play('enterList')
                 if (playBack) {
                     if (parseFloat(this.free_times) <= 0) {
                         this.reduceMoney()
@@ -774,6 +772,7 @@
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
                         await wait(600)
+                        this.slotSound.play('enterList')
                         this.tranitionTiming = true
                         this.setLacal()
                     }
@@ -821,7 +820,6 @@
                     await wait(3000)
                     this.slotRun = false // 动画结束
                     console.log('===动画结束==')
-                    this.slotSound.end()
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
@@ -865,25 +863,22 @@
                             this.rewardSmall = true
                         }
                         console.log('=======大奖声音=====')
+                        this.slotSound.play('gift_small')
                         this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
                         await wait(2500)
                         // 隐藏奖池图标
                         this.rewardBig = false
                         this.rewardSmall = false
                         this.endInit()
-                         console.log('=======大奖声end音=====')
                     } else if (this.setRewardIcon === 'jackPotWard') {
                         this.rewardBig = true
                         this.jackPot = true
-                        console.log('=======奖池声音=====')
+                        this.slotSound.play('gift_big')
                         this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
-
-                        //  todo 特殊烟花
                         await wait(5000)
                         this.currRun = 0
                         this.rewardBig = false
                         this.endInit()
-                        console.log('=======奖池声音end=====')
                     } else if (this.setRewardIcon === 'whisWard') {
                         await wait(100)
                         this.endInit()
@@ -1173,14 +1168,13 @@
             this.$store.dispatch('subInTiger')
 
             this.slotSound = new Howl({
-                src: ['../../../../static/audio/output.mp3'],
-                volume: 0.5,
-                loop: true,
+                src: ['../../../../static/audio/slotMusic.mp3'],
+                volume: 0.7,
                 sprite: {
                     button: [0, 390],
-                    enterList: [2000, 6589],
-                    gift_small: [8000, 8626],
-                    gift_big: [10000, 11002],
+                    enterList: [2000, 4580],
+                    gift_small: [8000, 606],
+                    gift_big: [10000, 1020],
                 }
             })
         },
