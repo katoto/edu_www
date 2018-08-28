@@ -20,7 +20,8 @@ const state = {
         isShow: false,
         callback: null
     },
-    listener: {}
+    listener: {},
+    pageListener: {}
 }
 
 const mutations = {
@@ -91,7 +92,7 @@ const mutations = {
         }
         setTimeout(() => {
             this.commit('cs_luckycoin/hideOtherWin')
-        }, 6000)
+        }, 10000)
     },
 
     hideOtherWin (state) {
@@ -144,11 +145,24 @@ const mutations = {
     },
     unbindListener (state, expectid) {
         delete state.listener[expectid]
+    },
+    bindPageListener (state, params) {
+        state.pageListener = {
+            ...state.pageListener,
+            ...params
+        }
+    },
+    unbindPageListener (state, params) {
+        delete state.pageListener[params]
+    },
+    updateCurrentPage (state) {
+        for (let name in state.pageListener) {
+            state.pageListener[name] && state.pageListener[name]()
+        }
     }
 }
 
 const actions = {
-
     betNow ({ commit }, params = {}) {
         return ajax.get('/place/order', {
             lotid: '2',
@@ -157,34 +171,40 @@ const actions = {
     },
 
     // 加载最近投注
-    async getRecentBets ({ commit }, params = {}) {
-        let data = await ajax.get('/get/megacoin/orders', {
+    getRecentBets ({ commit }, params = {}) {
+        return ajax.get('/get/megacoin/orders', {
             ...params,
             pageno: '1',
             pagesize: '7',
             lotid: '2'
+        }).then(data => {
+            commit('updateRecentBets', data.data.orders)
+            return data
         })
-        commit('updateRecentBets', data.data.orders)
     },
 
     // 加载投注列表
-    async getBetsList ({ commit }, params = {}) {
-        let data = await ajax.get('/bid/goods/list', {
+    getBetsList ({ commit }, params = {}) {
+        return ajax.get('/bid/goods/list', {
             ...params,
             pageno: '1',
             pagesize: '7'
+        }).then(data => {
+            commit('updateBets', data.data.goods)
+            return data
         })
-        commit('updateBets', data.data.goods)
     },
 
     // 加载历史列表
-    async getDrawHistory ({ commit }, params = {}) {
-        let data = await ajax.get('/draw/records/list', {
+    getDrawHistory ({ commit }, params = {}) {
+        return ajax.get('/draw/records/list', {
             ...params,
             pageno: '1',
             pagesize: '6'
+        }).then(data => {
+            commit('updateDrawHistory', data.data.drawRecords)
+            return data
         })
-        commit('updateDrawHistory', data.data.drawRecords)
     },
 
     async getBetsPageList ({ commit }, params = {}) {
@@ -220,7 +240,7 @@ const actions = {
             ) {
                 dispatch('getUserInfo')
                 commit('showMyWin', params)
-            } else {
+            } else if (params.winUid !== 0 && params.winUserName !== '') {
                 // 其他用户获奖
                 commit('showOtherWin', params)
             }
@@ -232,13 +252,17 @@ const actions = {
         for (let name in this.state.cs_luckycoin.listener) {
             this.state.cs_luckycoin.listener[name] && this.state.cs_luckycoin.listener[name]()
         }
-        dispatch('getBetsList')
-        dispatch('getDrawHistory')
+        return Promise.all([
+            dispatch('getBetsList'),
+            dispatch('getDrawHistory')
+        ])
     },
 
     updateLuckyCoinPage ({ dispatch }) {
-        dispatch('updateBets')
-        dispatch('getRecentBets')
+        return Promise.all([
+            dispatch('updateBets'),
+            dispatch('getRecentBets')
+        ])
     },
 
     showMyWin ({ commit }, params) {

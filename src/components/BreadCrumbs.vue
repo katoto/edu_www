@@ -104,7 +104,7 @@ export default {
                 }
             }
             a.now {
-                color: #a99acc;
+                color: #fff;
             }
         }
     }
@@ -148,6 +148,7 @@ export default {
 
 @media (min-width: @screen-lg-desktop) {
     .b-nav {
+        max-width: 1190px;
         width: 100%;
     }
 }

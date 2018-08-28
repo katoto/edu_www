@@ -310,6 +310,9 @@ const actions = {
                             commit('cs_luckycoin/updateRecentBet', msg.data.orders)
                             commit('cs_luckycoin/handleMyBet', msg.data.orders)
                             break
+                        case '1009':
+                            commit('cs_luckycoin/updateCurrentPage')
+                            break
                         case '2001':
                             // 老虎机初始化
                             if (msg.data) {

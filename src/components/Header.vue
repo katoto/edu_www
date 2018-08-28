@@ -26,11 +26,6 @@
                                 <lang>Lucky11</lang>
                             </router-link>
                         </li>
-                        <li>
-                            <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                                <lang>F3d West</lang>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinsprize" class="logo">
@@ -47,9 +42,6 @@
                     <router-link :to="{path: '/lucky11/'}" active-class="on">
                         <lang>Lucky11</lang>
                     </router-link>
-                    <a target="_blank" href="http://www.exitedscam.me/?utm_source=coinsprize&utm_medium=dappradar">
-                        <lang>F3d West</lang>
-                    </a>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>
@@ -226,16 +218,15 @@
                 </div>
             </div>
 
-            <div class="jackpot" v-show="jackPotMsg">
+            <div class="jackpot hide" v-show="jackPotMsg">
                 <div class="jackpot-box">
                     <el-carousel :interval="5000" arrow="never" height="72px">
                         <el-carousel-item v-for="(item,index) in jackPotMsg" :key="index"  v-if="item">
                             <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
-                            <span class="jackpot-money">{{ _('Win {0} {1}', formateBalance (  item.prize ) || '') ,  formateBalance (  item.cointype ) }}</span>
+                            <span class="jackpot-money">{{ _('Win {0} {1}', formateBalance (  item.prize ) || '') ,  formateCoinType (  item.cointype ) }}</span>
                         </el-carousel-item>
                     </el-carousel>
                 </div>
-                <canvas id="canvas" ref="canvas"></canvas>
             </div>
 
         </div>
@@ -328,6 +319,7 @@
         methods: {
             formateEmail,
             formateBalance,
+            formateCoinType,
             copySucc,
             copyError,
             async taskClick (type, val) {
@@ -465,27 +457,10 @@
             }
         },
         filters: {
-            formateCoinType
+            formateCoinType,formateBalance
         },
         async mounted () {
             this.showUserMsg()
-            // 获取首次中奖信息
-            if (~window.location.href.indexOf('/lucky11')) {
-                if (this.$refs.canvas) {
-                    startCanvas(this.$refs.canvas)()
-                }
-                let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
-                if (prizeMsg && prizeMsg.data) {
-                    if (prizeMsg.data.prize_list) {
-                        this.$store.commit(mTypes.setjackPotMsg, prizeMsg.data.prize_list)
-                    }
-                    if (prizeMsg.data.num) {
-                        setTimeout(() => {
-                            this.$store.commit(mTypes.setjackPotMsg, null)
-                        }, 5000 * parseFloat(prizeMsg.data.num))
-                    }
-                }
-            }
             setTimeout(() => {
                 if (this.isLog) {
                     this.faucetTask()
@@ -522,7 +497,7 @@
         .logo {
             display: block;
             float: left;
-            width: 137px;
+            width: 110px;
             height: 32px;
             margin:19px 27px 0 0;
             img{
@@ -903,7 +878,7 @@
             padding:0 10px;
             background: url("../assets/img/icon-water.png") no-repeat center;
             background-size: 19px;
-            animation: bri 2s infinite;
+            animation: heartbeat 2s infinite;
         }
         .faucet-detailed{
             display: none;
@@ -1149,10 +1124,12 @@
         .jackpot-box{
             position: relative;
             z-index:2;
-            width: 947px;
+            width: 100%;
+            max-width: 947px;
             height: 112px;
             margin:0 auto;
             background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
+            background-size: cover;
             line-height:76px;
             font-size:22px;
             .el-carousel{
@@ -1328,6 +1305,9 @@
             .hadlogin{
                 display: none;
             }
+            .account-deposit,.account-withdraw {
+                display: block;
+            }
         }
     }
     @media (max-width: @screen-tablet) {
@@ -1474,9 +1454,6 @@
                     font-size: 12px;
                 }
             }
-            .account-deposit,.account-withdraw {
-                display: block;
-            }
             .my-transaction,.account-center,.account-deposit,.account-withdraw{
                 margin-top: 10px;
                 height: 24px;
@@ -1534,7 +1511,7 @@
             transform: rotate(30deg) translateY(2px);
         }
     }
-    @keyframes bri {
+    @keyframes heartbeat {
         0%,30%,80%,100%{
             transform: scale(1);
             filter: brightness(1);
