@@ -92,7 +92,7 @@ const mutations = {
         }
         setTimeout(() => {
             this.commit('cs_luckycoin/hideOtherWin')
-        }, 6000)
+        }, 10000)
     },
 
     hideOtherWin (state) {
