@@ -15,8 +15,6 @@
     import Header from '~/components/Header.vue'
     import Footer from '~/components/Footer.vue'
 
-    import {Howl, Howler} from 'howler'
-
     export default {
         data () {
             return {
@@ -46,16 +44,6 @@
         },
         mounted () {
             document.documentElement.className = 'flexhtml'
-            const sound = new Howl({
-                src: ['../../../../static/audio/output.mp3'],
-                sprite: {
-                    beep: [0, 230],
-                    boop: [2000, 3021]
-                }
-            })
-            setInterval(() => {
-                sound.play('boop')
-            }, 3000)
         },
         destroyed () {
         },
