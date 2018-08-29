@@ -1177,7 +1177,7 @@
                     buttonHelp: [2000, 230],
                     gift_big: [4000, 1020],
                     gift_small: [7000, 606],
-                    slot_rolling: [9000, 2168],
+                    slot_rolling: [9000, 2900],
                 }
             })
         },
