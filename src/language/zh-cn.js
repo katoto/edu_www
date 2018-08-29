@@ -1,5 +1,5 @@
 module.exports = {
-    'You Win For Jackpot':'中奖池啦',
+    'You Win For Jackpot': '中奖池啦',
 
     'Free Bonus': '领奖中心',
     'Withdrawable Amount': '可提款金额',
@@ -397,9 +397,9 @@ module.exports = {
     'placed a pattern as following': '从左到右计算',
     'You win if 3 identical icons': '如果连续3个图案一致即中奖',
     'Lucky11': '幸运11',
-    'Pick 5 Reward:':'任选5奖励:',
-    'Pick 5 Reward=(Bet Amount * 2/3) * 378':'任选5奖励=(投注金额*2/3)*378',
-    'Jackpot Reward:':'奖池奖励',
+    'Pick 5 Reward:': '任选5奖励:',
+    'Pick 5 Reward=(Bet Amount * 2/3) * 378': '任选5奖励=(投注金额*2/3)*378',
+    'Jackpot Reward:': '奖池奖励',
     'slotmachine': '老虎机',
     'game': '游戏',
     'LuckySlot': '老虎机',

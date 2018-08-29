@@ -458,21 +458,21 @@
 
 <script>
     import Header from '~components/Header.vue'
-    import Footer from '~components/Footer.vue'
-    import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
-    import BannerScroll from '~components/BannerScroll.vue'
-    import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom} from '~common/util'
+import Footer from '~components/Footer.vue'
+import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
+import BannerScroll from '~components/BannerScroll.vue'
+import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom} from '~common/util'
 
-    import Vue from 'vue'
-    import vueClipboard from 'vue-clipboard2'
-    Vue.use(vueClipboard)
+import Vue from 'vue'
+import vueClipboard from 'vue-clipboard2'
 
-    import {Howl, Howler} from 'howler'
+import {Howl, Howler} from 'howler'
+Vue.use(vueClipboard)
 
     export default {
         data () {
             return {
-                slotSound:null,
+                slotSound: null,
                 showFirstBaxi: false, // 首次提示
                 showRecharge: false, // 显示充值弹窗
                 hideBarLycky: true,
@@ -642,7 +642,7 @@
                     this.startPlay()
                     this.autoPlay()
                     this.currRun = this.currRun - 1
-                     this.slotSound.play('button')
+                    this.slotSound.play('button')
                 } else if (this.tabTime > 40 && this.tabTime <= 500) {
                     /* 点击 */
                     this.startPlay()
@@ -1126,7 +1126,7 @@
                 }
                 this.initLacal(true)
             },
-            slotHelp(){
+            slotHelp () {
                 this.slotSound.play('buttonHelp')
                 this.isShowHelp = true
             }
@@ -1178,7 +1178,7 @@
                     buttonHelp: [2000, 230],
                     gift_big: [4000, 1020],
                     gift_small: [7000, 606],
-                    slot_rolling: [9000, 2900],
+                    slot_rolling: [9000, 2900]
                 }
             })
         },
