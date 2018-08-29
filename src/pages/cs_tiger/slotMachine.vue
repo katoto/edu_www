@@ -960,6 +960,7 @@
                 if (parseFloat(this.free_times)) {
                     return false
                 }
+                this.slotSound.play('buttonHelp')
                 this.showSingleBet = !this.showSingleBet
             },
             betSelFn (currVal) {
