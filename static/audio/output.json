@@ -26,9 +26,9 @@
       "end": 7.606507936507937,
       "loop": false
     },
-    "slot_rolling": {
+    "rolling": {
       "start": 9,
-      "end": 15.269387755102041,
+      "end": 11.194285714285714,
       "loop": false
     }
   }

@@ -759,7 +759,6 @@
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 // this.stateInit()
                 this.slotRun = true
-                console.log('===动画开始==')
                 if (playBack) {
                     if (parseFloat(this.free_times) <= 0) {
                         this.reduceMoney()
@@ -819,7 +818,6 @@
                     /* 预留 转动的时间 */
                     await wait(3000)
                     this.slotRun = false // 动画结束
-                    console.log('===动画结束==')
                     this.slotSound.stop()
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
@@ -863,7 +861,6 @@
                         } else {
                             this.rewardSmall = true
                         }
-                        console.log('=======大奖声音=====')
                         this.slotSound.play('gift_small')
                         this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
                         await wait(2500)
@@ -1180,7 +1177,7 @@
                     buttonHelp: [2000, 230],
                     gift_big: [4000, 1020],
                     gift_small: [7000, 606],
-                    slot_rolling: [9000, 6269],
+                    slot_rolling: [9000, 2168],
                 }
             })
         },
