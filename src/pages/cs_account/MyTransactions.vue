@@ -316,7 +316,7 @@ export default {
                 // bettime
                 val.crtime = formatTime(val.crtime, 'yyyy-MM-dd HH:mm')
                 if (val.inout !== undefined) {
-                    val.inout = formateMoneyFlow(val.inout)
+                    val.inout = formateMoneyFlow(val.inout, val.lotid)
                 }
                 val.cointype = formateCoinType(val.cointype)
                 val.index = (index + 1) + Number(this.pageSize) * Number(this.pageno - 1)
