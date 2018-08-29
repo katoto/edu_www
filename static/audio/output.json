@@ -1,0 +1,35 @@
+{
+  "resources": [
+    "output.ogg",
+    "output.m4a",
+    "output.mp3",
+    "output.ac3"
+  ],
+  "spritemap": {
+    "button": {
+      "start": 0,
+      "end": 0.3902947845804989,
+      "loop": false
+    },
+    "buttonHelp": {
+      "start": 2,
+      "end": 2.230340136054422,
+      "loop": false
+    },
+    "gift_big": {
+      "start": 4,
+      "end": 5.021859410430839,
+      "loop": false
+    },
+    "gift_small": {
+      "start": 7,
+      "end": 7.606507936507937,
+      "loop": false
+    },
+    "rolling": {
+      "start": 9,
+      "end": 12.056326530612244,
+      "loop": false
+    }
+  }
+}

@@ -457,7 +457,7 @@
             }
         },
         filters: {
-            formateCoinType,formateBalance
+            formateCoinType, formateBalance
         },
         async mounted () {
             this.showUserMsg()

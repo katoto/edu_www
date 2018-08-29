@@ -6,8 +6,8 @@
                 <div class="tiger ">
                     <img class="bg-tiger" src="@/assets/img/tiger/bg-tiger.jpg" alt="">
                     <div class="tiger-wrap ">
-                        <!--规则icon-->
-                        <a href="javascript:;" class="btn-rule " @click="isShowHelp = true">
+                        <!--规则icon  -->
+                        <a href="javascript:;" class="btn-rule " @click="slotHelp">
                             ?
                         </a>
                         <!--低奖池-->
@@ -458,18 +458,21 @@
 
 <script>
     import Header from '~components/Header.vue'
-    import Footer from '~components/Footer.vue'
-    import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
-    import BannerScroll from '~components/BannerScroll.vue'
-    import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom} from '~common/util'
+import Footer from '~components/Footer.vue'
+import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
+import BannerScroll from '~components/BannerScroll.vue'
+import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom} from '~common/util'
 
-    import Vue from 'vue'
-    import vueClipboard from 'vue-clipboard2'
-    Vue.use(vueClipboard)
+import Vue from 'vue'
+import vueClipboard from 'vue-clipboard2'
+
+import {Howl, Howler} from 'howler'
+Vue.use(vueClipboard)
 
     export default {
         data () {
             return {
+                slotSound: null,
                 showFirstBaxi: false, // 首次提示
                 showRecharge: false, // 显示充值弹窗
                 hideBarLycky: true,
@@ -639,9 +642,11 @@
                     this.startPlay()
                     this.autoPlay()
                     this.currRun = this.currRun - 1
+                    this.slotSound.play('button')
                 } else if (this.tabTime > 40 && this.tabTime <= 500) {
                     /* 点击 */
                     this.startPlay()
+                    this.slotSound.play('button')
                 }
                 this.fastClick = false
             },
@@ -766,6 +771,7 @@
                         this.initLacal()
                         this.dft_idx = [36, 36, 36]
                         await wait(600)
+                        this.slotSound.play('slot_rolling')
                         this.tranitionTiming = true
                         this.setLacal()
                     }
@@ -812,6 +818,7 @@
                     /* 预留 转动的时间 */
                     await wait(3000)
                     this.slotRun = false // 动画结束
+                    this.slotSound.stop()
                     this.slotOpening = true
                     if (this.winRes.length > 0) {
                         /* 具体执行的动画 0 - 8 线 */
@@ -854,6 +861,7 @@
                         } else {
                             this.rewardSmall = true
                         }
+                        this.slotSound.play('gift_small')
                         this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
                         await wait(2500)
                         // 隐藏奖池图标
@@ -863,11 +871,9 @@
                     } else if (this.setRewardIcon === 'jackPotWard') {
                         this.rewardBig = true
                         this.jackPot = true
+                        this.slotSound.play('gift_big')
                         this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
-
-                        //  todo 特殊烟花
                         await wait(5000)
-
                         this.currRun = 0
                         this.rewardBig = false
                         this.endInit()
@@ -954,6 +960,7 @@
                 if (parseFloat(this.free_times)) {
                     return false
                 }
+                this.slotSound.play('buttonHelp')
                 this.showSingleBet = !this.showSingleBet
             },
             betSelFn (currVal) {
@@ -1118,6 +1125,10 @@
                     }
                 }
                 this.initLacal(true)
+            },
+            slotHelp () {
+                this.slotSound.play('buttonHelp')
+                this.isShowHelp = true
             }
         },
         computed: {
@@ -1158,6 +1169,18 @@
             }
             structDom('slot')
             this.$store.dispatch('subInTiger')
+
+            this.slotSound = new Howl({
+                src: ['../../../../static/audio/slotMusic.mp3'],
+                volume: 0.7,
+                sprite: {
+                    button: [0, 390],
+                    buttonHelp: [2000, 230],
+                    gift_big: [4000, 1020],
+                    gift_small: [7000, 606],
+                    slot_rolling: [9000, 2900]
+                }
+            })
         },
         updated () {
             if (document.getElementById('heiImg')) {
@@ -1175,7 +1198,7 @@
         }
     }
 </script>
-<style scoped="" lang="less" type="text/less">
+<style scoped="scoped" lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
     @import "../../styles/lib-font.less";
