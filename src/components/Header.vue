@@ -470,6 +470,10 @@
                     this.freeWaterPop = true
                 }
             }, 0)
+            // 为了显示恭喜的情况
+            setInterval(() => {
+                // this.$store.dispatch('cs_activity/getChargeState')
+            }, 5000)
         }
     }
 </script>

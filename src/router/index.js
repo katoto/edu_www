@@ -24,9 +24,9 @@ const csDrawNum = () =>
 /* 协议 */
 const csProtocolPolicy = () =>
     import('~/pages/cs_protocol/policy')
-const csProtocolPolicy_cn = () =>
+const csProtocolPolicyCn = () =>
     import('~/pages/cs_protocol/policy_cn')
-const csProtocolPolicy_tw = () =>
+const csProtocolPolicyTw = () =>
     import('~/pages/cs_protocol/policy_tw')
 
 /* 个人中心 */
@@ -73,11 +73,19 @@ const home = () =>
 const page404 = () =>
     import('~/pages/404.vue')
 
+// 充值送
+const actFirstCharge = () => import('~/pages/cs_activity/cs_actFirstCharge')
+
 let routesArr = [
     {
         path: '/test',
         name: 'test',
         component: test
+    },
+    {
+        path: '/firstCharge',
+        name: 'firstCharge',
+        component: actFirstCharge
     },
     {
         path: '/help',
@@ -120,12 +128,12 @@ let routesArr = [
     {
         path: '/policy_zhCn',
         name: _('policy'),
-        component: csProtocolPolicy_cn
+        component: csProtocolPolicyCn
     },
     {
         path: '/policy_zhTw',
         name: _('policy'),
-        component: csProtocolPolicy_tw
+        component: csProtocolPolicyTw
     },
     {
         path: '/drawNumber',
