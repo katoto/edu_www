@@ -26,6 +26,11 @@
                                 <lang>Lucky11</lang>
                             </router-link>
                         </li>
+                        <li>
+                            <router-link :to="{path: '/Dice/'}" active-class="on">
+                                <lang>Dice</lang>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinsprize" class="logo">
@@ -41,6 +46,9 @@
                     </router-link>
                     <router-link :to="{path: '/lucky11/'}" active-class="on">
                         <lang>Lucky11</lang>
+                    </router-link>
+                    <router-link :to="{path: '/dice/'}" active-class="on">
+                        <lang>Dice</lang>
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>

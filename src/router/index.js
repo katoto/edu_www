@@ -64,6 +64,8 @@ const luckcoinMoreBids = () =>
 const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
+const csDice = () => import('~/pages/cs_dice/index')
+
 /* 品牌首页 */
 const Home = () =>
     import('~/pages/cs_home/home')
@@ -160,6 +162,11 @@ let routesArr = [
                 component: luckcoinIndex
             }
         ]
+    },
+    {
+        path: '/dice',
+        name: _('Dice'),
+        component: csDice
     },
     {
         path: '/404',

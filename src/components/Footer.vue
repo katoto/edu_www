@@ -34,6 +34,9 @@
                     <router-link :to="{path: '/lucky11/'}">
                         <lang>Lucky11</lang>
                     </router-link>
+                    <router-link :to="{path: '/dice/'}">
+                        <lang>Dice</lang>
+                    </router-link>
                 </div>
             </div>
             <div class="contact">
