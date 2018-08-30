@@ -403,7 +403,12 @@
 
 <script>
 export default {
-
+    data () {
+        return {
+            currentCoin: '',
+            total: 0
+        }
+    }
 }
 </script>
 

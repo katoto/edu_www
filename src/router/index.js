@@ -64,7 +64,7 @@ const luckcoinMoreBids = () =>
 const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
-const csDice = () => import('~/pages/cs_dice/index')
+const csPoker = () => import('~/pages/cs_poker/index')
 
 /* 品牌首页 */
 const Home = () =>
@@ -164,9 +164,9 @@ let routesArr = [
         ]
     },
     {
-        path: '/dice',
-        name: _('Dice'),
-        component: csDice
+        path: '/poker',
+        name: _('Poker'),
+        component: csPoker
     },
     {
         path: '/404',
