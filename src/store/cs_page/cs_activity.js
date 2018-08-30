@@ -4,15 +4,14 @@ import ajax from '~common/ajax'
 import { mapMutations, mapActions, wait } from '~common/util'
 
 const state = {
-    // firstCharge: null
-    firstCharge: {
-        activity_status: '1',
-        reward_money: '123'
-    }
+    firstCharge: null
+    // firstCharge: {
+    //     activity_status: '1',
+    //     reward_money: '123'
+    // }
 }
 
 const mutationsInfo = mapMutations({
-
     firstCharge (state, data) {
         state.firstCharge = data
     }
@@ -24,7 +23,7 @@ const actionsInfo = mapActions({
         try {
             let chargeData = await ajax.get('/activity/firstrecharge')
             if (chargeData.status === '100') {
-                commit('firstCharge', chargeData)
+                commit(mTypes.firstCharge, chargeData.data)
                 return chargeData.data
             }
         } catch (e) {

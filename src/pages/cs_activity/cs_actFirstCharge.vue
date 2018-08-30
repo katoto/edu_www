@@ -18,7 +18,11 @@ export default {
       title: ""
     };
   },
-  watch: {},
+  watch: {
+      isLog(){
+          this.$store.dispatch('cs_activity/getChargeState')
+      }
+  },
   methods: {
     getFirstBtn() {
       // 0=未参与；1=已参与，未充值；2=已充值；-1=不符合活动参与条件
@@ -27,18 +31,17 @@ export default {
         this.$store.commit("showLoginPop");
       }
       if (this.firstChargeMsg) {
-        switch (this.firstChargeMsg.activity_status.toString()) {
-          case "0":
-            this.getChance();
+        switch (this.firstChargeMsg.activity_status) {
+            case "0":
+                this.getChance();
             break;
             case "1":
-            console.log(123)
-            this.$router.push("account/deposit");
+                this.$router.push("account/deposit");
             break;
-          case "-1":
-            alert("您不符合活动资格");
+            case "-1":
+                alert("您不符合活动资格");
             break;
-          case "2":
+            case "2":
             break;
         }
       }
@@ -70,6 +73,8 @@ export default {
       message: "msg",
       type: "success"
     });
+
+    this.$store.dispatch('cs_activity/getChargeState')
   },
   filters: {
     filterMsg(state) {
