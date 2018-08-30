@@ -16,7 +16,7 @@
                 <p><lang>2. The activity time is from 00:00 July 14, 2018 to 23:59 August, 2018 (GMT).</lang></p>
                 <p><lang>3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.</lang></p>
                 <p><lang>4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.</lang></p>
-                <p v-if="language==='en'">5.The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 10 times of the non-withdrawable amount. <span @click='jump2Help'>Help Center</span> Center to see details.</p>
+                <p v-if="language==='en'">5.The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 10 times of the non-withdrawable amount. <span @click='jump2Help'>Help Center</span> to see details.</p>
                 <p v-if="language==='zhCn'">5.充值金额全部进入可提现账户，赠送金额全部进入不可提现账户，满足不可提现额度的10倍流水条件即可提取赠送金额，详情请见<span @click='jump2Help'>帮助中心</span>。</p>
                 <p v-if="language==='zhTw'">5.充值金額全部進入可提現賬戶，贈送金額全部進入不可提現賬戶，滿足不可提現額度的10倍流水條件即可提取贈送金額，詳情請見<span @click='jump2Help'>幫助中心</span>。</p>
                 <p><lang>6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.</lang></p>
@@ -51,9 +51,11 @@ export default {
             // 0=未参与；1=已参与，未充值；2=已充值；-1=不符合活动参与条件
             if (!this.isLog) {
                 this.$store.commit('showLoginPop')
+                return false
             }
             if (this.userInfo && this.userInfo.status === '0') {
                 this.$store.commit('showNoVerify')
+                return false
             }
             if (this.firstChargeMsg) {
                 switch (this.firstChargeMsg.activity_status) {
@@ -125,6 +127,10 @@ export default {
 <style scoped lang="less" type="text/less">
     @import "../../styles/lib-media.less";
     
+
+
+
+
     @media (min-width: @screen-tablet) {
         // 平板
     }
@@ -180,7 +186,6 @@ export default {
                 }
             }
         }
-
     }
     @media (min-width: @screen-lg-desktop) {
 

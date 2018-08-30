@@ -489,8 +489,11 @@
         <Footer class="lucky11"></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-        <!--全局蒙层-->
-        <!--<div class="pop-mask" :class="{'show':popMask}" @click="closeHeadPop"></div>-->
+        <!-- 首次充值广告位 -->
+        <router-link class="icon-enterWorld" :to="{path: '/firstCharge'}">
+            <img src="../../assets/img/luckyCoin/banner2.png" />
+        </router-link>
+
     </div>
 </template>
 
@@ -965,6 +968,14 @@
 <style lang="less" type="text/less" >
     @import "../../styles/lib-mixins.less";
 
+    .icon-enterWorld{
+        position: fixed;
+        width: 120px;
+        top: 67%;
+        right: 17px;
+        z-index: 10;
+        cursor: pointer;
+    }
     .pop-mask{
         position: fixed;
         display: none;

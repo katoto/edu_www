@@ -17,11 +17,11 @@
                                         <img src="../../assets/img/luckyCoin/banner2.png" alt="">
                                     </a>
                                 </el-carousel-item>
-                                <!-- <el-carousel-item>
-                                    <a href="javascript:;" rel="nofollow">
+                                <el-carousel-item>
+                                    <router-link :to="{path: '/firstCharge'}" rel="nofollow">
                                         <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
-                                    </a>
-                                </el-carousel-item> -->
+                                    </router-link>
+                                </el-carousel-item>
                             </el-carousel>
                         </div>
                     </div>
