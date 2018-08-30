@@ -27,7 +27,7 @@
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/poker/'}" active-class="on">
+                            <router-link :to="{path: '/luckyPoker/'}" active-class="on">
                                 <lang>Poker</lang>
                             </router-link>
                         </li>

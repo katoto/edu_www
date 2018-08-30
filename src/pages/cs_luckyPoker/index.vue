@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
 @import "../../styles/lib-mixins.less";
 /deep/ .luckyPoker{
     *{
@@ -484,7 +484,7 @@ export default {
             p{
                 line-height: 22px;
                 font-size: 18px;
-                -webkit-text-stroke: 1px #2c7e77;
+                text-shadow: 0 1px #2b7b75, 1px 0 #2b7b75, -1px 0 #2b7b75, 0 -1px #2b7b75;
                 transition: all 0.2s;
             }
             i{
@@ -498,7 +498,7 @@ export default {
                 box-shadow: 0 2px 0 #2b7876;
                 p{
                     font-size: 15px;
-                    -webkit-text-stroke: 0;
+                    text-shadow:none;
                 }
                 i{
                     .hide-text();
