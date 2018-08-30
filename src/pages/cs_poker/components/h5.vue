@@ -141,19 +141,19 @@
                 <!--todo-->
                 <div class="area-btn clearfix">
                     <ul class="clearfix">
-                        <li>
+                        <li :class="{ on: currentCoin === 0.0001 }" @click="currentCoin = 0.0001; addCoin(0.0001);">
                             <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
                             <p>0.0001</p>
                         </li>
-                        <li>
+                        <li :class="{ on: currentCoin === 0.001 }" @click="currentCoin = 0.0001; addCoin(0.001);">
                             <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
                             <p>0.001</p>
                         </li>
-                        <li class="on">
+                        <li :class="{ on: currentCoin === 0.01 }" @click="currentCoin = 0.0001; addCoin(0.01);">
                             <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
                             <p>0.01</p>
                         </li>
-                        <li>
+                        <li :class="{ on: currentCoin === 0.1 }" @click="currentCoin = 0.0001; addCoin(0.1);">
                             <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
                             <p>0.1</p>
                         </li>
@@ -405,8 +405,14 @@
 export default {
     data () {
         return {
-            currentCoin: '',
+            coinsType: [0.0001, 0.001, 0.01, 0.1],
+            currentCoin: 0.0001,
             total: 0
+        }
+    },
+    methods: {
+        addCoin (money) {
+            this.total += money
         }
     }
 }
