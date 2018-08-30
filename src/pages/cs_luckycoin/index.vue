@@ -12,12 +12,12 @@
                                         <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
                                 </el-carousel-item>
-                                <!-- <el-carousel-item>
+                                <el-carousel-item>
                                     <a href="javascript:;" rel="nofollow">
-                                        <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
+                                        <img src="../../assets/img/luckyCoin/banner2.png" alt="">
                                     </a>
                                 </el-carousel-item>
-                                <el-carousel-item>
+                                <!-- <el-carousel-item>
                                     <a href="javascript:;" rel="nofollow">
                                         <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
                                     </a>
