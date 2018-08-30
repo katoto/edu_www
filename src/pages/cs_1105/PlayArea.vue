@@ -203,7 +203,7 @@
                 limitUnit: 0.0001, // 减去最小单位
                 slideDown: false,
                 rewardTable: false,
-                min_limit: 0.0001, // 限额
+                min_limit: 0.0002, // 限额
                 max_limit: 0.01 // 限额
             }
         },

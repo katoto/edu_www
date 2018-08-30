@@ -82,10 +82,6 @@ const actions = {
                 }
                 /* btc add */
                 if (homeMsg.data.bet_limit) {
-                    homeMsg.data.bet_limit = {
-                        1001: {max_limit: '0.01', min_limit: '0.0002'},
-                        2001: {max_limit: '0.1', min_limit: '0.001'}
-                    }
                     commit(mTypes.bet_limit, homeMsg.data.bet_limit)
                 }
             }
