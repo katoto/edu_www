@@ -370,7 +370,14 @@
                         t11: _('A blockchain-based game platform with fairness and openness'),
                         t2: _('Unique play & transparent draw, only for your terrific experience in games'),
                         href: '/check'
+                    },
+                    {
+                        t1: _('Finally! fist chaarge---- Coinsprize'),
+                        t11: _('A blockchain-based game platform with fairness and openness'),
+                        t2: _('Unique play & transparent draw, only for your terrific experience in games'),
+                        href: '/firstCharge'
                     }
+    
                 ]
             }
         },

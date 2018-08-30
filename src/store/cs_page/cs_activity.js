@@ -4,7 +4,7 @@ import { mapMutations, mapActions } from '~common/util'
 
 const state = {
     firstCharge: {
-        activity_status:'-1'
+        activity_status: '-1'
     },
     sockMsg: null
 }

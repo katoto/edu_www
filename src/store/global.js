@@ -468,11 +468,20 @@ const actions = {
     subInTiger ({commit, state, dispatch}) {
         /* 进入老虎机页面 订阅 */
         try {
-            let subTigerStr = {
-                action: 'sub',
-                lotid: 1,
-                cointype: 2001,
-                type: 'slots'
+            let subTigerStr = null
+            if (state.userInfo && state.userInfo.uid) {
+                subTigerStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    uid: state.userInfo.uid,
+                    type: 'slots'
+                }
+            } else {
+                subTigerStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    type: 'slots'
+                }
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
         } catch (e) {
@@ -488,7 +497,6 @@ const actions = {
             let unsubTigerStr = {
                 action: 'unsub',
                 lotid: 1,
-                cointype: 2001,
                 type: 'slots'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
@@ -499,11 +507,20 @@ const actions = {
     subInLucky ({commit, state, dispatch}) {
         /* 进入lucky11页面 订阅 */
         try {
-            let subLuckyStr = {
-                action: 'sub',
-                cointype: 2001,
-                lotid: 1,
-                type: 'lottery'
+            let subLuckyStr = null
+            if (state.userInfo && state.userInfo.uid) {
+                subLuckyStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    uid: state.userInfo.uid,
+                    type: 'lottery'
+                }
+            } else {
+                subLuckyStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    type: 'lottery'
+                }
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
         } catch (e) {
@@ -519,7 +536,6 @@ const actions = {
             let unsubLuckyStr = {
                 action: 'unsub',
                 lotid: 1,
-                cointype: 2001,
                 type: 'lottery'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
@@ -527,11 +543,21 @@ const actions = {
             console.error(e.message + 'subOutLucky error')
         }
     },
-    subInLuckyCoin ({dispatch}) {
-        let data = {
-            action: 'sub',
-            lotid: 2,
-            type: 'lottery'
+    subInLuckyCoin ({state, dispatch}) {
+        let data = null
+        if (state.userInfo && state.userInfo.uid) {
+            data = {
+                action: 'sub',
+                lotid: 2,
+                uid: state.userInfo.uid,
+                type: 'lottery'
+            }
+        } else {
+            data = {
+                action: 'sub',
+                lotid: 2,
+                type: 'lottery'
+            }
         }
         if (state.userInfo && state.userInfo.uid) {
             data.uid = state.userInfo.uid
