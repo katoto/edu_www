@@ -203,7 +203,7 @@
                 limitUnit: 0.0001, // 减去最小单位
                 slideDown: false,
                 rewardTable: false,
-                min_limit: 0.0001, // 限额
+                min_limit: 0.0002, // 限额
                 max_limit: 0.01 // 限额
             }
         },
@@ -240,7 +240,8 @@
                 if (Number(this.areaMsg.pickMoney) > parseFloat(this.max_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.max_limit)
                     Message({
-                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
+                        // message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
                         type: 'error'
                     })
                     return false
@@ -248,7 +249,7 @@
                 if (Number(this.areaMsg.pickMoney) < parseFloat(this.min_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                     return false
@@ -266,7 +267,7 @@
                 let currpickMoney = this.areaMsg.pickMoney
                 if (currpickMoney >= parseFloat(this.max_limit)) {
                     Message({
-                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                 } else {
@@ -282,7 +283,7 @@
                 if (currpickMoney <= parseFloat(this.min_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _(`The minimum bet is ${this.min_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('The minimum bet is {0} {1}',this.min_limit,formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                 } else {
@@ -292,7 +293,7 @@
                             pickMoney: parseFloat(this.min_limit)
                         })
                         Message({
-                            message: _(`The minimum bet is ${this.min_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                            message: _('The minimum bet is {0} {1}',this.min_limit,formateCoinType(this.currBalance.cointype)),
                             type: 'error'
                         })
                     } else {
