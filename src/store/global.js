@@ -245,8 +245,8 @@ const actions = {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
                             /*
-                                     *  处理 区块链阻塞
-                                     * */
+                            *  处理 区块链阻塞
+                            * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
@@ -318,6 +318,10 @@ const actions = {
                             if (msg.data) {
                                 dispatch(actionTypes.formateTiger, msg.data)
                             }
+                            break
+                        case '20011':
+                            //  首充充值奖励
+                            commit('cs_activity/sockMsg', msg.data)
                             break
                         case '2002':
                             // 老虎机初始化

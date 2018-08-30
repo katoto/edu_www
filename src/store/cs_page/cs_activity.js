@@ -1,19 +1,18 @@
 // 活动相关
-
 import ajax from '~common/ajax'
-import { mapMutations, mapActions, wait } from '~common/util'
+import { mapMutations, mapActions } from '~common/util'
 
 const state = {
-    firstCharge: null
-    // firstCharge: {
-    //     activity_status: '1',
-    //     reward_money: '123'
-    // }
+    firstCharge: null,
+    sockMsg: null
 }
 
 const mutationsInfo = mapMutations({
     firstCharge (state, data) {
         state.firstCharge = data
+    },
+    sockMsg (state, data) {
+        state.sockMsg = data
     }
 }, 'cs_activity')
 

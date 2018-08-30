@@ -229,6 +229,9 @@
                 </div>
             </div>
 
+            <div v-if="sockMsg && sockMsg.activity_status==='2'">
+                首充充值12333333
+            </div>
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
@@ -237,9 +240,7 @@
 
 <script>
     import PopList from '~components/Pop-list'
-    import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
     import {copySucc, copyError, formateBalance, formateCoinType, formateEmail} from '~common/util'
-    import startCanvas from '~/common/canvas'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
@@ -314,6 +315,9 @@
                 get () {
                     return this.$store.state.language
                 }
+            },
+            sockMsg () {
+                return this.$store.state.cs_activity.sockMsg
             }
         },
         methods: {
@@ -470,10 +474,6 @@
                     this.freeWaterPop = true
                 }
             }, 0)
-            // 为了显示恭喜的情况
-            setInterval(() => {
-                // this.$store.dispatch('cs_activity/getChargeState')
-            }, 5000)
         }
     }
 </script>

@@ -240,7 +240,7 @@
                 if (Number(this.areaMsg.pickMoney) > parseFloat(this.max_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.max_limit)
                     Message({
-                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
+                        message: _('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)),
                         // message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
                         type: 'error'
                     })
@@ -249,7 +249,7 @@
                 if (Number(this.areaMsg.pickMoney) < parseFloat(this.min_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
+                        message: _('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                     return false
@@ -267,7 +267,7 @@
                 let currpickMoney = this.areaMsg.pickMoney
                 if (currpickMoney >= parseFloat(this.max_limit)) {
                     Message({
-                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
+                        message: _('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                 } else {
@@ -283,7 +283,7 @@
                 if (currpickMoney <= parseFloat(this.min_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _('The minimum bet is {0} {1}',this.min_limit,formateCoinType(this.currBalance.cointype)),
+                        message: _('The minimum bet is {0} {1}', this.min_limit, formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                 } else {
@@ -293,7 +293,7 @@
                             pickMoney: parseFloat(this.min_limit)
                         })
                         Message({
-                            message: _('The minimum bet is {0} {1}',this.min_limit,formateCoinType(this.currBalance.cointype)),
+                            message: _('The minimum bet is {0} {1}', this.min_limit, formateCoinType(this.currBalance.cointype)),
                             type: 'error'
                         })
                     } else {
