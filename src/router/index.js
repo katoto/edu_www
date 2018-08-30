@@ -64,7 +64,7 @@ const luckcoinMoreBids = () =>
 const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
-const csPoker = () => import('~/pages/cs_poker/index')
+const csPoker = () => import('~/pages/cs_luckyPoker/index')
 
 /* 品牌首页 */
 const Home = () =>
@@ -164,8 +164,8 @@ let routesArr = [
         ]
     },
     {
-        path: '/poker',
-        name: _('Poker'),
+        path: '/luckyPoker',
+        name: _('luckyPoker'),
         component: csPoker
     },
     {
