@@ -11,7 +11,6 @@
             </div>
             <p class="cont_tips"><lang>1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC</lang></p>
             <div class="foot_rules">
-                <!--  -->
                 <h4><lang>Rules:</lang></h4>
                 <p><lang>1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.</lang></p>
                 <p><lang>2. The activity time is from 00:00 July 14, 2018 to 23:59 August, 2018 (GMT).</lang></p>
