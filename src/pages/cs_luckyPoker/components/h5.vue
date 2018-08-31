@@ -1,7 +1,8 @@
 <template>
     <div class="luckyPoker">
         <div class="main">
-            <div class="bg-esktop ">
+            <div class="bg-esktop " ref="container" style="position: relative">
+                <div style="position: absolute; transition: 2s;" ref="coin" :style="item" v-for="(item, index) in coins" :key="index">{{index}}</div>
                 <!--历史开奖记录-->
                 <div class="poker-history">
                     <a class="btn btn-left" href="javascript:;"></a>
@@ -115,7 +116,6 @@
                         </ul>
                         <ul class="item2">
                             <li v-for="(item, index) in ['Q', 'K', 'A']" :key="index" @click="addCoin(item)">{{item}}</li>
-                            <li>Q</li>
                         </ul>
                         <div class="btn-cls ">
                             <a href="javascript:;" @click="clearBet">
@@ -131,19 +131,19 @@
                 <!--todo-->
                 <div class="area-btn clearfix">
                     <ul class="clearfix">
-                        <li :class="{ on: currentCoin === 0.0001 }" @click="currentCoin = 0.0001">
+                        <li :class="{ on: currentCoin === 0.0001 }" @click="changeCoin('0.0001')" ref="0.0001">
                             <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
                             <p>0.0001</p>
                         </li>
-                        <li :class="{ on: currentCoin === 0.001 }" @click="currentCoin = 0.001">
+                        <li :class="{ on: currentCoin === 0.001 }" @click="changeCoin('0.001')" ref="0.001">
                             <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
                             <p>0.001</p>
                         </li>
-                        <li :class="{ on: currentCoin === 0.01 }" @click="currentCoin = 0.01">
+                        <li :class="{ on: currentCoin === 0.01 }" @click="changeCoin('0.01')" ref="0.01">
                             <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
                             <p>0.01</p>
                         </li>
-                        <li :class="{ on: currentCoin === 0.1 }" @click="currentCoin = 0.1">
+                        <li :class="{ on: currentCoin === 0.1 }" @click="changeCoin('0.1')" ref="0.1">
                             <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
                             <p>0.1</p>
                         </li>
