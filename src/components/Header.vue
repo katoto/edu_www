@@ -239,7 +239,7 @@
                         <a href="javascript:;" class="btn-close" @click="readyGetFirst"></a>
                         <div>
                             <span>+ {{ firstCharge.reward_money }} {{ firstCharge.cointype | formateCoinType }}</span>
-                            <p class="get_firstBot" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',firstCharge.reward_money,formateCoinType( firstCharge.cointype ))"></p>
+                            <p class="get_firstBot" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',formateBalance(firstCharge.recharge_money),formateCoinType( firstCharge.cointype ))"></p>
                         </div>
                     </div>
                 </div>

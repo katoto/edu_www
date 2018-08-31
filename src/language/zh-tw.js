@@ -720,6 +720,7 @@ module.exports = {
     'You are eligible now': '已領取資格',
     'First top-up {0} {1} Bonus has been sent to your wallet': '首次充值{0} {1}，獲得50%獎勵已到賬',
     'Top Up ': '前往充值',
+    'Top-Up Bonus': '首充送',
     'You\'ve participated': '您已參加此活動',
     'You are not eligible to participate': '您不符合活動資格',
     'For users who have not topped up only': '此活動僅限首次充值用戶參與',
@@ -737,5 +738,4 @@ module.exports = {
     '7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.': '7.該活動最終解釋權歸Coinsprize所有，Coinsprize有權索回因錯誤派發的優惠資金，可隨時對此優惠進行微改以更正筆誤、提高用語清晰度或提升客戶體驗，並且可能隨時因法律或法規要求取消此優惠。'
 
     /* activity end */
-
 }
