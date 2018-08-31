@@ -47,7 +47,7 @@
                             最高可中  0.002 ETH
                         </p>
                         <ul>
-                            <li class="bet-red">
+                            <li class="bet-red" @click="addCoin('red')">
                                 <i>
                                     <img class="icon-hongt" src="@assets/img/luckyPoker/icon-hongt.png" alt="">
                                 </i>
@@ -56,7 +56,7 @@
                                     <img class="icon-fk" src="@assets/img/luckyPoker/icon-fk.png" alt="">
                                 </i>
                             </li>
-                            <li class="bet-black">
+                            <li class="bet-black" @click="addCoin('black')">
                                 <i>
                                     <img src="@assets/img/luckyPoker/icon-heit.png" alt="">
                                 </i>
@@ -75,7 +75,7 @@
                             Winning  0.0002 ETH
                         </p>
                         <ul>
-                            <li>
+                            <li @click="addCoin('joker')">
                                 <p>JOKER</p>
                                 <img src="@assets/img/luckyPoker/icon-crown.png" alt="">
                             </li>
@@ -89,16 +89,16 @@
                             最高可中  0.002 ETH
                         </p>
                        <ul>
-                           <li>
+                           <li @click="addCoin('spade')">
                                <img src="@assets/img/luckyPoker/icon-heit.png" alt="">
                            </li>
-                           <li>
+                           <li @click="addCoin('heart')">
                                <img src="@assets/img/luckyPoker/icon-hongt.png" alt="">
                            </li>
-                           <li>
+                           <li @click="addCoin('clubs')">
                                <img src="@assets/img/luckyPoker/icon-mh.png" alt="">
                            </li>
-                           <li>
+                           <li @click="addCoin('dianmond')">
                                <img src="@assets/img/luckyPoker/icon-fk.png" alt="">
                            </li>
                        </ul>
@@ -111,24 +111,14 @@
                             最高可中  0.002 ETH
                         </p>
                         <ul class="item1">
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                            <li>5</li>
-                            <li>6</li>
-                            <li>7</li>
-                            <li>8</li>
-                            <li>9</li>
-                            <li>10</li>
-                            <li>J</li>
+                            <li v-for="(item, index) in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J']" :key="index" @click="addCoin(item)">{{item}}</li>
                         </ul>
                         <ul class="item2">
+                            <li v-for="(item, index) in ['Q', 'K', 'A']" :key="index" @click="addCoin(item)">{{item}}</li>
                             <li>Q</li>
-                            <li>K</li>
-                            <li>A</li>
                         </ul>
                         <div class="btn-cls ">
-                            <a href="javascript:;" >
+                            <a href="javascript:;" @click="clearBet">
                                 清除
                             </a>
                         </div>
@@ -141,28 +131,28 @@
                 <!--todo-->
                 <div class="area-btn clearfix">
                     <ul class="clearfix">
-                        <li :class="{ on: currentCoin === 0.0001 }" @click="currentCoin = 0.0001; addCoin(0.0001);">
+                        <li :class="{ on: currentCoin === 0.0001 }" @click="currentCoin = 0.0001">
                             <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
                             <p>0.0001</p>
                         </li>
-                        <li :class="{ on: currentCoin === 0.001 }" @click="currentCoin = 0.0001; addCoin(0.001);">
+                        <li :class="{ on: currentCoin === 0.001 }" @click="currentCoin = 0.001">
                             <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
                             <p>0.001</p>
                         </li>
-                        <li :class="{ on: currentCoin === 0.01 }" @click="currentCoin = 0.0001; addCoin(0.01);">
+                        <li :class="{ on: currentCoin === 0.01 }" @click="currentCoin = 0.01">
                             <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
                             <p>0.01</p>
                         </li>
-                        <li :class="{ on: currentCoin === 0.1 }" @click="currentCoin = 0.0001; addCoin(0.1);">
+                        <li :class="{ on: currentCoin === 0.1 }" @click="currentCoin = 0.1">
                             <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
                             <p>0.1</p>
                         </li>
                     </ul>
                     <!--wait/unable-->
-                    <div href="javascript:;" class="btn-main ">
+                    <div href="javascript:;" class="btn-main " @click="bet">
                         <p>PAY</p>
                         <!--<p>Please wait</p>-->
-                        <i>0.00001 ETH</i>
+                        <i>{{total}} ETH</i>
                     </div>
                 </div>
             </div>
@@ -402,19 +392,9 @@
 </template>
 
 <script>
+import betMixin from '../betMixin'
 export default {
-    data () {
-        return {
-            coinsType: [0.0001, 0.001, 0.01, 0.1],
-            currentCoin: 0.0001,
-            total: 0
-        }
-    },
-    methods: {
-        addCoin (money) {
-            this.total += money
-        }
-    }
+    mixins: [betMixin]
 }
 </script>
 
