@@ -263,7 +263,7 @@
         components: {PopList},
         data () {
             return {
-                showFirstGet:false,
+                showFirstGet: false,
                 showLight: false, // new 闪烁
                 freeWaterPop: false, // new水龙头
                 showDetail: false,
@@ -340,7 +340,7 @@
             formateCoinType,
             copySucc,
             copyError,
-            async readyGetFirst(){
+            async readyGetFirst () {
                 await this.$store.dispatch('cs_activity/rechargealert')
                 this.$store.dispatch('cs_activity/getChargeState')
             },
@@ -493,10 +493,10 @@
                 }
             }, 0)
             setInterval(() => {
-                if(this.isLog){
+                if (this.isLog) {
                     this.$store.dispatch('cs_activity/getChargeState')
                 }
-            }, 8000)
+            }, 10000)
         }
     }
 </script>

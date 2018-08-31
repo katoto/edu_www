@@ -35,14 +35,11 @@
                             </el-carousel-item>
                             <el-carousel-item>
                                 <div class="banner-t1" >
-                                    <lang>First recharge 50%</lang>
+                                    <lang>50% Top-Up Bonus</lang>
                                 </div>
-                                <p class="banner-t11 visible-md visible-lg"><lang>The more you top up, the more give away</lang></p>
-                                <a v-if="!isLog" href="javascript:;" class="banner-more" @click="onSignUp()">
-                                    <lang>Sign up now</lang>
-                                </a>
-                                <router-link v-else to="/firstCharge" class="banner-firstCharge" >
-                                    <lang>Eligibility for activities</lang>
+                                <p class="banner-t11 visible-md visible-lg"><lang>More top-up,more bonus</lang></p>
+                                <router-link to="/firstCharge" class="banner-firstCharge" >
+                                    <lang>Get Bonus</lang>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>

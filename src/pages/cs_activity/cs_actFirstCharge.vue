@@ -49,7 +49,7 @@ import { Message } from 'element-ui'
 export default {
     data () {
         return {
-            showEligible:false
+            showEligible: false
         }
     },
     watch: {
@@ -58,7 +58,7 @@ export default {
         }
     },
     methods: {
-        onClose(){
+        onClose () {
             this.showEligible = false
         },
         initPop () {
@@ -137,7 +137,6 @@ export default {
                 return _('Top Up ')
             case '2':
                 return _("You've participated")
-                break
             default:
                 return _('Get Bonus')
             }
