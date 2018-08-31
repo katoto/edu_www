@@ -520,7 +520,7 @@
                 baseAreaMsg: {
                     pickType: '1', // 玩法类型1,2,3,4,5,5J
                     pickNum: [],
-                    pickMoney: 0.0005,
+                    pickMoney: 0.001,
                     pickJackPot: [] // 奖池用
                 },
                 playArea: [], // 玩法区 数组,
@@ -811,9 +811,9 @@
                     switch (cointype) {
                     case '1001':
                         /* 比特币 */
-                        if (blance <= 0.0005) {
-                            this.baseAreaMsg.pickMoney = 0.0001
-                        } else if (blance < 0.005 && blance >= 0.0005) {
+                        if (blance <= 0.001) {
+                            this.baseAreaMsg.pickMoney = 0.0002
+                        } else if (blance < 0.005 && blance >= 0.001) {
                             this.baseAreaMsg.pickMoney = 0.0001
                         } else if (blance >= 0.005) {
                             this.baseAreaMsg.pickMoney = 0.001
@@ -821,9 +821,9 @@
                         ;break
                     case '2001':
                         /* 以太币 */
-                        if (blance <= 0.005) {
-                            this.baseAreaMsg.pickMoney = 0.0005
-                        } else if (blance < 0.05 && blance >= 0.005) {
+                        if (blance <= 0.01) {
+                            this.baseAreaMsg.pickMoney = 0.001
+                        } else if (blance < 0.05 && blance >= 0.01) {
                             this.baseAreaMsg.pickMoney = 0.001
                         } else if (blance >= 0.05) {
                             this.baseAreaMsg.pickMoney = 0.01
@@ -836,7 +836,7 @@
                         }
                     })
                 } else {
-                    this.baseAreaMsg.pickMoney = 0.0005
+                    this.baseAreaMsg.pickMoney = 0.001
                 }
             },
             async indexRouter (query) {
