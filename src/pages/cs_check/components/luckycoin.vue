@@ -57,11 +57,14 @@
                     <lang>Block Hash</lang>
                 </div>
                 <div>
-                    #{{blockid}}
+                    <a :href="`https://etherscan.io/tx/${tradeHash}`" target="_blank" >
+                        #{{blockid}}
+                    </a>
                 </div>
-                <a :href="`https://etherscan.io/block/${blockid}`" target="_blank" >
+                <p>
                     {{blockhash}}
-                </a>
+                </p>
+                
             </div>
             <div class="item item4">
                 <div class="title-1">
@@ -166,7 +169,8 @@ export default {
         renderCheckData (res) {
             this.merkelValue = res.merkelHash || _('None')
             this.blockid = res.blockNum
-            this.blockhash = res.tradeHash
+            this.blockhash = res.blockHash
+            this.tradeHash = res.tradeHash
             this.totalBids = Number(res.totalBids)
             this.last7Hash = this.blockhash.slice(this.blockhash.length - 6, this.blockhash.length)
             this.prehash = this.blockhash.slice(0, this.blockhash.length - 6)
