@@ -8,7 +8,7 @@
                     <div class="col-xs-12">
                         <!--banner-->
                         <el-carousel :interval="3000">
-                            <el-carousel-item v-for="(item, index) in banner" :key="index">
+                            <!-- <el-carousel-item v-for="(item, index) in banner" :key="index">
                                 <div class="banner-t1" v-html="item.t1"></div>
                                 <p class="banner-t11 visible-md visible-lg">{{ item.t11 }}</p>
                                 <p class="banner-t2">{{ item.t2 }}</p>
@@ -18,6 +18,31 @@
                                 </a>
                                 <router-link v-else :to="{path: item.href}" class="banner-more">
                                     <lang>Details </lang>
+                                </router-link>
+                            </el-carousel-item> -->
+                            <el-carousel-item>
+                                <div class="banner-t1" >
+                                    <lang>Finally! You found the wonderland---- Coinsprize</lang>
+                                </div>
+                                <p class="banner-t11 visible-md visible-lg"><lang>A blockchain-based game platform with fairness and openness</lang></p>
+                                <p class="banner-t2"><lang>Unique play & transparent draw, only for your terrific experience in games</lang></p>
+                                <a v-if="!isLog" href="javascript:;" class="banner-more" @click="onSignUp()">
+                                    <lang>Sign up now</lang>
+                                </a>
+                                <router-link v-else to="/check" class="banner-more">
+                                    <lang>Details </lang>
+                                </router-link>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <div class="banner-t1" >
+                                    <lang>First recharge 50%</lang>
+                                </div>
+                                <p class="banner-t11 visible-md visible-lg"><lang>The more you top up, the more give away</lang></p>
+                                <a v-if="!isLog" href="javascript:;" class="banner-more" @click="onSignUp()">
+                                    <lang>Sign up now</lang>
+                                </a>
+                                <router-link v-else to="/firstCharge" class="banner-firstCharge" >
+                                    <lang>Eligibility for activities</lang>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
@@ -372,9 +397,10 @@
                         href: '/check'
                     },
                     {
-                        t1: _('Finally! fist chaarge---- Coinsprize'),
-                        t11: _('A blockchain-based game platform with fairness and openness'),
-                        t2: _('Unique play & transparent draw, only for your terrific experience in games'),
+                        t1: _('First recharge 50%'),
+                        t11: _('The more you top up, the more give away'),
+                        t2: _(''),
+                        btnName: 'Eligibility for activities',
                         href: '/firstCharge'
                     }
     
@@ -560,6 +586,22 @@
             .banner-more {
                 display: block;
                 width: 150px;
+                height: 35px;
+                overflow: hidden;
+                margin: 25px auto 0;
+                line-height: 35px;
+                overflow: hidden;
+                border-radius: 6px;
+                border: 1px solid #575763;
+                color: #fff;
+                transition: all 0.2s;
+                &:hover{
+                    border-color: #fff;
+                }
+            }
+            .banner-firstCharge {
+                display: block;
+                width: 190px;
                 height: 35px;
                 overflow: hidden;
                 margin: 25px auto 0;

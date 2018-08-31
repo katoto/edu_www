@@ -1,7 +1,7 @@
 <template>
     <section>
         <Header></Header>
-        <div class="act_box">
+        <div class="act_box" @click="initPop">
             <div class="top_banner">
                 <h2><lang>50% Bonus for Your First Top-Up</lang></h2>
                 <h4><lang>More top-up,more bonus</lang></h4>
@@ -44,6 +44,9 @@ export default {
         }
     },
     methods: {
+        initPop () {
+            this.$store.commit('initHeadState', new Date().getTime())
+        },
         jump2Help () {
             this.$router.push('help')
         },
@@ -58,6 +61,9 @@ export default {
                 return false
             }
             if (this.firstChargeMsg) {
+                if (this.firstChargeMsg.activity_status === '2') {
+                    return false
+                }
                 switch (this.firstChargeMsg.activity_status) {
                 case '0':
                     this.getChance()
@@ -67,9 +73,6 @@ export default {
                     break
                 case '-1':
                     alert(_('You are not eligible to participate'))
-                    break
-                case '2':
-                    alert(_("You've participated"))
                     break
                 }
             }
@@ -126,8 +129,58 @@ export default {
 </script>
 <style scoped lang="less" type="text/less">
     @import "../../styles/lib-media.less";
-    
 
+    .act_box{
+        background-color: #595d9c;
+        color: #fff;
+        .foot_rules{
+            width: 950px;
+            font-size: 14px;
+            margin: 134px auto 0px;
+            padding-bottom: 176px;
+            p{
+                line-height: 22px;
+                span{
+                    cursor: pointer;
+                    color: #6a89cc;
+                }
+                span:hover{
+                    color:#fff;
+                }
+            }
+        }
+        .cont_tips{
+            text-align: center;
+            font-size: 12px;
+            margin-top: 22px;
+        }
+        .top_banner{
+            text-align: center;
+            padding-top: 103px; 
+            h2{
+                font-size: 68px;
+                line-height: 84px;  
+            }
+            h4{
+                font-size: 22px;
+                line-height: 40px;
+            }
+        }
+        .firstChargeBox {
+            margin-top:118px; 
+            .fir_p {
+                cursor: pointer;
+                height: 68px;
+                width: 538px;
+                border-radius: 5px;
+                background: linear-gradient(to right, #fd8144 , #fd9644,#fd8144);
+                line-height: 68px;
+                font-size: 22px;
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
+    }
 
 
 
@@ -183,6 +236,9 @@ export default {
                     font-size: 22px;
                     text-align: center;
                     margin: 0 auto;
+                }
+                .fir_p:hover{
+                    background: linear-gradient(to right, #fd6b44 , #fd8144,#fd6b44);
                 }
             }
         }

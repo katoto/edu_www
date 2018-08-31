@@ -228,9 +228,8 @@
                     </el-carousel>
                 </div>
             </div>
-
-            <div v-if="sockMsg && sockMsg.activity_status==='2'">
-                首充充值12333333
+            <div v-if="isShowBonus">
+                首充充值12333333{{ isShowBonus }}
             </div>
         </div>
         <!-- 公用的模态框列表 -->
@@ -316,8 +315,8 @@
                     return this.$store.state.language
                 }
             },
-            sockMsg () {
-                return this.$store.state.cs_activity.sockMsg
+            isShowBonus () {
+                return this.$store.state.cs_activity.isShowBonus
             }
         },
         methods: {
@@ -474,6 +473,9 @@
                     this.freeWaterPop = true
                 }
             }, 0)
+            setInterval(() => {
+                this.$store.dispatch('cs_activity/getChargeState')
+            }, 8000)
         }
     }
 </script>
