@@ -6,7 +6,7 @@
                 <h2><lang>50% Bonus for Your First Top-Up</lang></h2>
                 <h4><lang>More top-up,more bonus</lang></h4>
             </div>
-            <a href="javascript:;" class="btn" v-if="firstChargeMsg" @click="getFirstBtn">
+            <a href="javascript:;" v-if="firstChargeMsg" class="btn"   :class="{'unable':firstChargeMsg.activity_status==='2'}" @click="getFirstBtn">
                 {{ firstChargeMsg.activity_status | filterMsg }}
             </a>
             <p class="cont_tips"><lang>1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC</lang></p>
@@ -211,6 +211,10 @@ export default {
             /*background: linear-gradient(to right, #fd8144 , #fd9644,#fd8144);*/
             line-height: 68/1.5px;
             font-size: 22px;
+            &.unable{
+                filter: grayscale(1);
+                cursor: not-allowed;
+            }
         }
     }
     @media (min-width: @screen-desktop) {
