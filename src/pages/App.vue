@@ -1,5 +1,6 @@
 <template>
     <div id="app"  @scroll.native="test" :class="isReady ? 'ready' : ''">
+
         <router-view v-if="isReady"/>
         <!-- ip -->
         <PopIpLimit></PopIpLimit>
@@ -94,6 +95,8 @@
     @import "../styles/lib-reset.css";
     @import "../styles/lib-font.less";
     @import "../styles/lib-public.less";
+    @import "../styles/lib-media.less";
+    @import "../styles/lib-mixins.less";
     #app {
         position: relative;
         background: #eef1f9;

@@ -47,7 +47,7 @@
                     <router-link :to="{path: '/lucky11/'}" active-class="on">
                         <lang>Lucky11</lang>
                     </router-link>
-                    <router-link :to="{path: '/poker/'}" active-class="on">
+                    <router-link :to="{path: '/luckyPoker/'}" active-class="on">
                         <lang>Poker</lang>
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
