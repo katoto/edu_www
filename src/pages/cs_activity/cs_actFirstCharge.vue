@@ -6,9 +6,9 @@
                 <h2><lang>50% Bonus for Your First Top-Up</lang></h2>
                 <h4><lang>More top-up,more bonus</lang></h4>
             </div>
-            <div class="firstChargeBox" v-if="firstChargeMsg">
-                <p class="fir_p" @click="getFirstBtn">{{ firstChargeMsg.activity_status | filterMsg }}</p>
-            </div>
+            <a href="javascript:;" class="btn" v-if="firstChargeMsg" @click="getFirstBtn">
+                {{ firstChargeMsg.activity_status | filterMsg }}
+            </a>
             <p class="cont_tips"><lang>1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC</lang></p>
             <div class="foot_rules">
                 <h4><lang>Rules:</lang></h4>
@@ -16,9 +16,9 @@
                 <p><lang>2. The activity time is from 00:00 July 14, 2018 to 23:59 August, 2018 (GMT).</lang></p>
                 <p><lang>3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.</lang></p>
                 <p><lang>4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.</lang></p>
-                <p v-if="language==='en'">5.The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 10 times of the non-withdrawable amount. <span @click='jump2Help'>Help Center</span> Center to see details.</p>
-                <p v-if="language==='zhCn'">5.充值金额全部进入可提现账户，赠送金额全部进入不可提现账户，满足不可提现额度的10倍流水条件即可提取赠送金额，详情请见<span @click='jump2Help'>帮助中心</span>。</p>
-                <p v-if="language==='zhTw'">5.充值金額全部進入可提現賬戶，贈送金額全部進入不可提現賬戶，滿足不可提現額度的10倍流水條件即可提取贈送金額，詳情請見<span @click='jump2Help'>幫助中心</span>。</p>
+                <p v-if="language==='en'">5.The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 10 times of the non-withdrawable amount. <a href="javascript:;" @click='jump2Help'>Help Center</a> Center to see details.</p>
+                <p v-if="language==='zhCn'">5.充值金额全部进入可提现账户，赠送金额全部进入不可提现账户，满足不可提现额度的10倍流水条件即可提取赠送金额，详情请见 <a href="javascript:;"  @click='jump2Help'>帮助中心</a>。</p>
+                <p v-if="language==='zhTw'">5.充值金額全部進入可提現賬戶，贈送金額全部進入不可提現賬戶，滿足不可提現額度的10倍流水條件即可提取贈送金額，詳情請見 <a href="javascript:;"  @click='jump2Help'>幫助中心</a>。</p>
                 <p><lang>6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.</lang></p>
                 <p><lang>7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.</lang></p>
             </div>
@@ -124,65 +124,81 @@ export default {
 </script>
 <style scoped lang="less" type="text/less">
     @import "../../styles/lib-media.less";
-    
-    @media (min-width: @screen-tablet) {
-        // 平板
+    .act_box{
+        background-color: #595d9c;
+        color: #fff;
+        text-align: center;
+        a{
+            color: #fff;
+            &:hover{
+                filter: brightness(1.2);
+            }
+        }
+        .foot_rules{
+            width: 92%;
+            max-width: 950px;
+            font-size: 14px;
+            margin: 134/2px auto 0px;
+            padding-bottom: 176/2px;
+            text-align: left;
+            line-height: 22px;
+        }
+        .cont_tips{
+            width: 92%;
+            margin: 0 auto;
+            font-size: 12px;
+        }
+        .top_banner{
+            width: 92%;
+            margin: 0 auto;
+            padding-top: 163/2px;
+            h2{
+                font-size: 68/2px;
+                line-height: 84/2px;
+            }
+            h4{
+                font-size: 22/2px;
+                line-height: 40/2px;
+            }
+        }
+        .btn{
+            display: block;
+            margin:118/2px auto 22/2px;
+            max-width: 538px;
+            width: 60%;
+            height: 68px;
+            overflow: hidden;
+            border-radius: 5px;
+            background: #fd8144;
+            /*background: linear-gradient(to right, #fd8144 , #fd9644,#fd8144);*/
+            line-height: 68px;
+            font-size: 22px;
+        }
     }
     @media (min-width: @screen-desktop) {
         .act_box{
-            background-color: #595d9c;
-            color: #fff;
             .foot_rules{
-                width: 950px;
                 font-size: 14px;
                 margin: 134px auto 0px;
-                padding-bottom: 176px;
-                p{
-                    line-height: 22px;
-                    span{
-                        cursor: pointer;
-                        color: #6a89cc;
-                    }
-                    span:hover{
-                        color:#fff;
-                    }
-                }
-            }
-            .cont_tips{
-                text-align: center;
-                font-size: 12px;
-                margin-top: 22px;
+                line-height: 22px;
             }
             .top_banner{
-                text-align: center;
-                padding-top: 163px; 
+                padding-top: 163px;
                 h2{
-                font-size: 68px;
-                line-height: 84px;  
+                    font-size: 68px;
+                    line-height: 84px;
                 }
                 h4{
                     font-size: 22px;
                     line-height: 40px;
                 }
             }
-            .firstChargeBox {
-                margin-top:118px; 
-                .fir_p {
-                    cursor: pointer;
-                    height: 68px;
-                    width: 538px;
-                    border-radius: 5px;
-                    background: linear-gradient(to right, #fd8144 , #fd9644,#fd8144);
-                    line-height: 68px;
-                    font-size: 22px;
-                    text-align: center;
-                    margin: 0 auto;
-                }
+            .btn{
+                margin:118px auto 22px;
+                height: 68px;
+                line-height: 68px;
+                font-size: 22px;
             }
         }
-
-    }
-    @media (min-width: @screen-lg-desktop) {
-
     }
 </style>

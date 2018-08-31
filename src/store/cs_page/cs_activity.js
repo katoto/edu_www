@@ -3,7 +3,7 @@ import ajax from '~common/ajax'
 import { mapMutations, mapActions } from '~common/util'
 
 const state = {
-    firstCharge: null,
+    firstCharge: {activity_status:-1},
     sockMsg: null
 }
 
