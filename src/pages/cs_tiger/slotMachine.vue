@@ -466,7 +466,7 @@ import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalan
 import Vue from 'vue'
 import vueClipboard from 'vue-clipboard2'
 
-import {Howl, Howler} from 'howler'
+import {Howl} from 'howler'
 Vue.use(vueClipboard)
 
     export default {

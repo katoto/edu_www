@@ -7,7 +7,7 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
-                        <el-carousel :interval="3000">
+                        <el-carousel :interval="5000">
                             <!-- <el-carousel-item v-for="(item, index) in banner" :key="index">
                                 <div class="banner-t1" v-html="item.t1"></div>
                                 <p class="banner-t11 visible-md visible-lg">{{ item.t11 }}</p>
@@ -392,15 +392,7 @@
                         t11: _('A blockchain-based game platform with fairness and openness'),
                         t2: _('Unique play & transparent draw, only for your terrific experience in games'),
                         href: '/check'
-                    },
-                    {
-                        t1: _('First recharge 50%'),
-                        t11: _('The more you top up, the more give away'),
-                        t2: _(''),
-                        btnName: 'Eligibility for activities',
-                        href: '/firstCharge'
                     }
-    
                 ]
             }
         },

@@ -44,7 +44,6 @@
 <script>
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
-import { Message } from 'element-ui'
 
 export default {
     data () {
@@ -97,10 +96,6 @@ export default {
         async getChance () {
             let msg = await this.$store.dispatch('cs_activity/getChance')
             if (msg.status === '100') {
-                Message({
-                    message: '已领取资格',
-                    type: 'success'
-                })
                 this.$store.dispatch('cs_activity/getChargeState')
             }
         }
