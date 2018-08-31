@@ -180,6 +180,13 @@ export default {
             padding-bottom: 176/2px;
             text-align: left;
             line-height: 22px;
+            span{
+                cursor: pointer;
+                color: blue;
+                &:hover{
+                    color:#fff
+                }
+            }
         }
         .cont_tips{
             width: 92%;
