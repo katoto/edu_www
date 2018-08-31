@@ -20,7 +20,11 @@ export default {
 </script>
 
 <style lang="less" scoped type="text/less">
-@import "../../styles/lib-mixins.less";
+    @import "../../styles/lib-mixins.less";
+    @import "../../styles/lib-public.less";
+    @import "../../styles/lib-reset.css";
+    @import "../../styles/lib-font.less";
+
 /deep/ .luckyPoker{
     *{
         box-sizing: border-box;
@@ -99,7 +103,7 @@ export default {
         z-index: 2;
         display: flex;
         justify-content: space-between;
-        font-family: Lucida Bright;
+        font-family: Lucida Bright,LBRITE;
         text-align: center;
         .btn{
             width: percentage(30/750);
@@ -237,7 +241,7 @@ export default {
                     display: flex;
                     justify-content: center;
                     color: #ff3333;
-                    font-family: Lucida Bright;
+                    font-family: Lucida Bright,LBRITE;
                     p{
                         margin: 0 15/2px;
                     }
@@ -346,7 +350,7 @@ export default {
                     font-size: 46/7.5vw;
                     color: #fff;
                     font-weight: bold;
-                    font-family: Lucida Bright;
+                    font-family: Lucida Bright,LBRITE;
                 }
                 &.item1{
                     border-left: 1px solid #6faeae;
@@ -641,7 +645,7 @@ export default {
                         height: 68/2px;
                         line-height: 68/2px;
                         background: #546a79;
-                        font-family: Lucida Bright;
+                        font-family: Lucida Bright,LBRITE;
                         font-weight: bold;
                         text-transform: uppercase;
                         &.number{
@@ -699,7 +703,7 @@ export default {
                         overflow: hidden;
                         border-radius: 4px;
                         background: #fff;
-                        font-family: Lucida Bright;
+                        font-family: Lucida Bright,LBRITE;
                         p{
                             line-height: 30/2px;
                             font-size: 24/2px;
@@ -826,7 +830,7 @@ export default {
                 p{
                     line-height: 100/2px;
                     font-size: 84/2px;
-                    font-family: Lucida Bright;
+                    font-family: Lucida Bright,LBRITE;
                     text-transform: uppercase;
                 }
                 &::after{
