@@ -6,9 +6,9 @@
                 <h2><lang>50% Bonus for Your First Top-Up</lang></h2>
                 <h4><lang>More top-up,more bonus</lang></h4>
             </div>
-            <div class="firstChargeBox" v-if="firstChargeMsg">
-                <p class="fir_p" @click="getFirstBtn">{{ firstChargeMsg.activity_status | filterMsg }}</p>
-            </div>
+            <a href="javascript:;" class="btn" v-if="firstChargeMsg" @click="getFirstBtn">
+                {{ firstChargeMsg.activity_status | filterMsg }}
+            </a>
             <p class="cont_tips"><lang>1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC</lang></p>
             <div class="foot_rules">
                 <h4><lang>Rules:</lang></h4>
@@ -23,6 +23,20 @@
                 <p><lang>7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.</lang></p>
             </div>
         </div>
+
+        <!--  弹窗- 不符合资格弹窗  -->
+        <div class="pop pop-notEligible" :class="{'hide':!showEligible}" >
+            <div class="pop-body">
+                <div class="pop-ani">
+                    <a href="javascript:;" class="btn-close" @click="onClose"></a>
+                    <div>
+                        <p class="notEligible_p1"><lang>You are not eligible to participate</lang></p>
+                        <p class="notEligible_p2"><lang>For users who have not topped up only</lang></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <Footer></Footer>
     </section>
 </template>
@@ -35,7 +49,7 @@ import { Message } from 'element-ui'
 export default {
     data () {
         return {
-            title: ''
+            showEligible:false
         }
     },
     watch: {
@@ -44,6 +58,9 @@ export default {
         }
     },
     methods: {
+        onClose(){
+            this.showEligible = false
+        },
         initPop () {
             this.$store.commit('initHeadState', new Date().getTime())
         },
@@ -112,7 +129,6 @@ export default {
     filters: {
         filterMsg (state) {
             // 0=未参与；1=已参与，未充值；2=已充值；-1=不符合活动参与条件
-            state = state.toString()
             switch (state) {
             case '0':
             case '-1':
@@ -122,8 +138,106 @@ export default {
             case '2':
                 return _("You've participated")
                 break
+            default:
+                return _('Get Bonus')
             }
         }
     }
 }
 </script>
+<style scoped lang="less" type="text/less">
+    @import "../../styles/lib-media.less";
+
+    .pop-notEligible{
+        .notEligible_p1{
+            padding: 50px 0 20px;
+            font-size: 24px;
+        }
+        .notEligible_p2{
+            padding: 0 0 30px;
+            font-size: 14px;
+        }
+        .btn-close:hover{
+            transform:rotate(180deg);
+            transition: all 0.3s;
+        }
+    }
+
+    .act_box{
+        background-color: #595d9c;
+        color: #fff;
+        text-align: center;
+        a{
+            color: #fff;
+            &:hover{
+                filter: brightness(1.2);
+            }
+        }
+        .foot_rules{
+            width: 92%;
+            max-width: 950px;
+            font-size: 14px;
+            margin: 134/2px auto 0px;
+            padding-bottom: 176/2px;
+            text-align: left;
+            line-height: 22px;
+        }
+        .cont_tips{
+            width: 92%;
+            margin: 0 auto;
+            font-size: 12px;
+        }
+        .top_banner{
+            width: 92%;
+            margin: 0 auto;
+            padding-top: 163/2px;
+            h2{
+                font-size: 68/2px;
+                line-height: 84/2px;
+            }
+            h4{
+                font-size: 22/2px;
+                line-height: 40/2px;
+            }
+        }
+        .btn{
+            display: block;
+            margin:118/2px auto 22/2px;
+            max-width: 538px;
+            width: 60%;
+            height: 68/1.5px;
+            overflow: hidden;
+            border-radius: 5px;
+            background: #fd8144;
+            /*background: linear-gradient(to right, #fd8144 , #fd9644,#fd8144);*/
+            line-height: 68/1.5px;
+            font-size: 22px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        .act_box{
+            .foot_rules{
+                font-size: 14px;
+                margin: 134px auto 0px;
+                line-height: 22px;
+            }
+            .top_banner{
+                padding-top: 163px;
+                h2{
+                    font-size: 68px;
+                    line-height: 84px;
+                }
+                h4{
+                    font-size: 22px;
+                    line-height: 40px;
+                }
+            }
+            .btn{
+                margin:118px auto 22px;
+                height: 68px;
+                line-height: 68px;
+                font-size: 22px;
+            }
+        }
+    }
+</style>

@@ -16,9 +16,6 @@ const mutationsInfo = mapMutations({
     },
     sockMsg (state, data) {
         state.sockMsg = data
-    },
-    isShowBonus (state, data) {
-        state.isShowBonus = data
     }
 }, 'cs_activity')
 
@@ -28,12 +25,6 @@ const actionsInfo = mapActions({
         try {
             let chargeData = await ajax.get('/activity/firstrecharge')
             if (chargeData.status === '100') {
-                if (chargeData.data && chargeData.data.activity_status === '2') {
-                    if (localStorage.getItem('firstCharge') !== '1') {
-                        commit(mTypes.isShowBonus, true)
-                        localStorage.setItem('firstCharge', '1')
-                    }
-                }
                 commit(mTypes.firstCharge, chargeData.data)
                 return chargeData.data
             }
@@ -41,13 +32,22 @@ const actionsInfo = mapActions({
             console.error('getChargeState error at cs_activity.js ')
         }
     },
-    /* 首充充值 */
+    /* 机会领取 */
     async getChance ({ state, commit, dispatch }) {
         try {
             let chargeData = await ajax.get('/activity/firstrecharge_get')
             return chargeData
         } catch (e) {
             console.error('getChance error at cs_activity.js ')
+        }
+    },
+    /* 弹窗记录 */
+    async rechargealert ({ state, commit, dispatch }) {
+        try {
+            let chargeData = await ajax.get('/activity/rechargealert')
+            return chargeData
+        } catch (e) {
+            console.error('rechargealert error at cs_activity.js ')
         }
     }
 }, 'cs_activity')

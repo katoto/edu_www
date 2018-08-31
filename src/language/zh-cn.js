@@ -715,7 +715,7 @@ module.exports = {
     /* activity */
     'Get Bonus': '领取活动资格',
     'Congratulations': '恭喜获得',
-    'First top-up {0} Bonus has been sent to your wallet': '首次充值{0}，获得50%奖励已到账',
+    'First top-up {0} {1} Bonus has been sent to your wallet': '首次充值{0} {1}，获得50%奖励已到账',
     'Top Up ': '前往充值',
     'You\'ve participated': '您已参加此活动',
     'You are not eligible to participate': '您不符合活动资格',

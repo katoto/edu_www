@@ -228,9 +228,23 @@
                     </el-carousel>
                 </div>
             </div>
-            <div v-if="isShowBonus">
-                首充充值12333333{{ isShowBonus }}
+
+            <!--  弹窗- 充值到账弹窗  -->
+            <div class="pop pop-getFirstCharge" v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0'" >
+                <div class="pop-body">
+                    <div class="pop-ani">
+                        <h2 class="font26">
+                            <lang>Congratulations</lang>
+                        </h2>
+                        <a href="javascript:;" class="btn-close" @click="readyGetFirst"></a>
+                        <div>
+                            <span>+ {{ firstCharge.reward_money }} {{ firstCharge.cointype | formateCoinType }}</span>
+                            <p class="get_firstBot" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',firstCharge.reward_money,formateCoinType( firstCharge.cointype ))"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
@@ -249,6 +263,7 @@
         components: {PopList},
         data () {
             return {
+                showFirstGet:false,
                 showLight: false, // new 闪烁
                 freeWaterPop: false, // new水龙头
                 showDetail: false,
@@ -315,8 +330,8 @@
                     return this.$store.state.language
                 }
             },
-            isShowBonus () {
-                return this.$store.state.cs_activity.isShowBonus
+            firstCharge () {
+                return this.$store.state.cs_activity.firstCharge
             }
         },
         methods: {
@@ -325,6 +340,10 @@
             formateCoinType,
             copySucc,
             copyError,
+            async readyGetFirst(){
+                await this.$store.dispatch('cs_activity/rechargealert')
+                this.$store.dispatch('cs_activity/getChargeState')
+            },
             async taskClick (type, val) {
                 val = val.toString()
                 if (val === '2') {
@@ -474,7 +493,9 @@
                 }
             }, 0)
             setInterval(() => {
-                this.$store.dispatch('cs_activity/getChargeState')
+                if(this.isLog){
+                    this.$store.dispatch('cs_activity/getChargeState')
+                }
             }, 8000)
         }
     }
@@ -482,6 +503,27 @@
 <style scoped lang="less" type="text/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
+
+    .pop-getFirstCharge{
+        color: #263648;
+        h2{
+            line-height: 50px;
+            font-size: 20px;
+        }
+        span{
+            line-height: 50px;
+            font-size: 16px;
+        }
+        .get_firstBot{
+            padding: 0 0 30px;
+            font-size: 14px;
+        }
+        .btn-close:hover{
+            transform:rotate(180deg);
+            transition: all 0.3s;
+        }
+    }
+
     .banner{
         display: none;
     }
