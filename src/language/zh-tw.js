@@ -727,7 +727,7 @@ module.exports = {
     '50% Bonus for Your First Top-Up': '首次充值獎勵50%',
     '50% Top-Up Bonus': '首次充值獎勵50%',
     'More top-up,more bonus': '充值越多，贈送越多',
-    '1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC': '充值任意金額（最高獎勵0.05 ETH/0.005 BTC）即可獲得150%金額，祝您暢爽任玩！',
+    '1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC': '充值任意金額,即可獲得150%金額（最高獎勵0.05 ETH/0.005 BTC），祝您暢爽任玩！',
 
     'Rules:': '活動規則:',
     '1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.': '1.在Coinsprize未有過充值行為的用戶都可參與該活動，您必須由該頁面選擇加入以具備獎勵資格，且默認您遵守活動規則。',

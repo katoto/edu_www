@@ -492,11 +492,15 @@
                     this.freeWaterPop = true
                 }
             }, 0)
-            setInterval(() => {
-                if (this.isLog) {
-                    this.$store.dispatch('cs_activity/getChargeState')
+            let isReadyAlert = false
+            setInterval(async () => {
+                if (this.isLog && !isReadyAlert) {
+                    let msg = await this.$store.dispatch('cs_activity/getChargeState')
+                    if (msg && msg.is_alert === '1') {
+                        isReadyAlert = true
+                    }
                 }
-            }, 10000)
+            }, 20000)
         }
     }
 </script>

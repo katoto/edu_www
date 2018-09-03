@@ -89,7 +89,7 @@ export default {
                     this.$router.push('account/deposit')
                     break
                 case '-1':
-                    alert(_('You are not eligible to participate'))
+                    this.showEligible = true
                     break
                 }
             }
