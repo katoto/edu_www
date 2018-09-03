@@ -179,9 +179,9 @@ export default {
             line-height: 22px;
             a{
                 cursor: pointer;
-                color: #4b6cc7;
+                color: blue;
                 &:hover{
-                    filter: brightness(1.3);
+                    filter: brightness(1.4);
                 }
             }
         }
