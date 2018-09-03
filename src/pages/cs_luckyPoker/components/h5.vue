@@ -198,10 +198,10 @@
                     </li>
                     <li>
                         <p class="title">
-                            Client seed
+                            The Hash of Random Number
                         </p>
                         <div class="input-group">
-                            <input type="text">
+                            <input type="text" v-model="hashNumber">
                         </div>
                     </li>
                 </ul>
