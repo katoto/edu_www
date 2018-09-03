@@ -1,5 +1,5 @@
 <script>
-import { accAdd, getElementAbsolutePosition, getElementRelatePosition, getElementCenterPosition } from '~common/util'
+import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementRelatePosition, getElementCenterPosition } from '~common/util'
 export default {
     data () {
         return {
@@ -8,6 +8,10 @@ export default {
             currentCoinEl: null,
             betNums: {},
             total: 0,
+            downTime: 0,
+            upTime: 0,
+            autoTimer: null,
+            calTimer: null,
             coins: []
         }
     },
@@ -15,30 +19,62 @@ export default {
         getElementAbsolutePosition,
         getElementRelatePosition,
         getElementCenterPosition,
-        getPosition (element) {
-            let position = this.getElementAbsolutePosition(element, this.$refs.container)
-            let center = this.getElementCenterPosition(element, position)
+        getCenter ({left, top}) {
+            // 减去金币宽度高度
             return {
-                transform: `translate(${center.left}px, ${center.top}px)`,
+                left: accSub(left, 12),
+                top: accSub(top, 12)
+            }
+        },
+        getRandom (num) {
+            return num * Math.random()
+        },
+        getRandomPosition ({left, top}, width, height) {
+            let offsetLeft = Math.ceil(this.getRandom(accDiv(accSub(width, 20), 2)))
+            let offsetTop = Math.ceil(this.getRandom(accDiv(accSub(height, 20), 2)))
+            return { left: Math.random() > 0.5 ? accAdd(left, offsetLeft) : accSub(left, offsetLeft), top: Math.random() > 0.5 ? accAdd(top, offsetTop) : accSub(top, offsetTop) }
+        },
+        getPosition (element, isRandom) {
+            let position = this.getElementAbsolutePosition(element, this.$refs.container)
+            let center = this.getCenter(this.getElementCenterPosition(element, position))
+            let realPosition = isRandom ? this.getRandomPosition(center, element.clientWidth, element.clientHeight) : center
+            return {
+                transform: `translate(${realPosition.left}px, ${realPosition.top}px)`,
                 'z-index': '100000'
             }
         },
         addCoin (name) {
+            let lastCoin = this.coins[this.coins.length - 1]
             this.betNums[name] = accAdd(this.betNums[name] || 0, this.currentCoin)
             this.total = accAdd(this.total, this.currentCoin)
-            this.coins[this.coins.length - 1].display = 'block'
-            let position = this.getPosition(event.target)
+            lastCoin.style.display = 'block'
+            lastCoin.type = name
+            let position = this.getPosition(this.$refs[`coin_${name}`], true)
             this.$nextTick(() => {
-                this.coins[this.coins.length - 1] = {...this.coins[this.coins.length - 1], ...position}
+                lastCoin.style = {...lastCoin.style, ...position}
                 this.initCoin()
             })
         },
+        // getTargetElement (target, name) {
+        //     // 点到金币了
+        //     if (target.className.indexOf('fly-coin-el') > -1) {
+        //         console.log(`点到金币了${target}`)
+        //         return this.$refs[`coin_${name}`]
+        //     }
+        //     // 没有点到金币
+        //     console.log(`没有点到金币${target}`)
+        //     return target.tagName.toLocaleLowerCase() !== 'li' ? target.offsetParent : target
+        // },
         changeCoin (type) {
             this.currentCoin = Number(type)
             this.currentCoinEl = this.$refs[type]
-            let position = this.getPosition(this.currentCoinEl)
-            position.display = 'none'
-            this.coins[this.coins.length - 1] = position
+            this.coins[this.coins.length - 1] = {
+                coinType: this.currentCoin,
+                style: {
+                    display: 'none',
+                    ...this.getPosition(this.currentCoinEl)
+                }
+            }
         },
         clearBet () {
             this.betNums = {}
@@ -47,17 +83,50 @@ export default {
             this.initCoin()
         },
         initCoin () {
-            let position = this.getPosition(this.currentCoinEl)
-            position.display = 'none'
-            this.coins = [...this.coins, position]
+            this.coins = [...this.coins, {
+                coinType: this.currentCoin,
+                style: {
+                    display: 'none',
+                    ...this.getPosition(this.currentCoinEl)
+                }
+            }]
         },
         bet () {
             let data = {...this.betNums}
+        },
+        disableContext () {
+            document.oncontextmenu = function (e) {
+                return false
+            }
+        },
+        coinMouseDown (name) {
+            this.downTime = Date.now()
+            this.calTimer = setTimeout(() => {
+                if (this.upTime === 0) {
+                    this.autoTimer = setInterval(() => {
+                        this.addCoin(name)
+                    }, 500)
+                }
+            }, 300)
+            this.addCoin(name)
+        },
+        coinMouseUp () {
+            this.upTime = Date.now()
+            clearInterval(this.autoTimer)
+            clearTimeout(this.calTimer)
+            this.downTime = 0
+            this.upTime = 0
         }
     },
     mounted () {
         this.currentCoinEl = this.$refs[this.currentCoin.toString()]
         this.initCoin()
+    },
+    created () {
+        this.disableContext()
+    },
+    destroyed () {
+        document.oncontextmenu = null
     }
 }
 </script>

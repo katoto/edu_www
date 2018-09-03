@@ -2,7 +2,12 @@
     <div class="luckyPoker">
         <div class="main">
             <div class="bg-esktop " ref="container" style="position: relative">
-                <div style="position: absolute; transition: 2s;" ref="coin" :style="item" v-for="(item, index) in coins" :key="index">{{index}}</div>
+                <div class="fly-coin fly-coin-el" ref="coin" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
+                    <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.0001.png" alt="" v-if="item.coinType === 0.0001">
+                    <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.001.png" alt="" v-if="item.coinType === 0.001">
+                    <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.01.png" alt="" v-if="item.coinType === 0.01">
+                    <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.1.png" alt="" v-if="item.coinType === 0.1">
+                </div>
                 <!--历史开奖记录-->
                 <div class="poker-history">
                     <a class="btn btn-left" href="javascript:;"></a>
@@ -48,7 +53,7 @@
                             最高可中  0.002 ETH
                         </p>
                         <ul>
-                            <li class="bet-red" @click="addCoin('red')">
+                            <li class="bet-red" ref="coin_red" @click="addCoin('red')">
                                 <i>
                                     <img class="icon-hongt" src="@assets/img/luckyPoker/icon-hongt.png" alt="">
                                 </i>
@@ -57,7 +62,7 @@
                                     <img class="icon-fk" src="@assets/img/luckyPoker/icon-fk.png" alt="">
                                 </i>
                             </li>
-                            <li class="bet-black" @click="addCoin('black')">
+                            <li class="bet-black" @click="addCoin('black')" ref="coin_black">
                                 <i>
                                     <img src="@assets/img/luckyPoker/icon-heit.png" alt="">
                                 </i>
@@ -76,7 +81,7 @@
                             Winning  0.0002 ETH
                         </p>
                         <ul>
-                            <li @click="addCoin('joker')">
+                            <li @click="addCoin('joker')" ref="coin_joker">
                                 <p>JOKER</p>
                                 <img src="@assets/img/luckyPoker/icon-crown.png" alt="">
                             </li>
@@ -90,16 +95,16 @@
                             最高可中  0.002 ETH
                         </p>
                        <ul>
-                           <li @click="addCoin('spade')">
+                           <li @click="addCoin('spade')" ref="coin_spade">
                                <img src="@assets/img/luckyPoker/icon-heit.png" alt="">
                            </li>
-                           <li @click="addCoin('heart')">
+                           <li @click="addCoin('heart')" ref="coin_heart">
                                <img src="@assets/img/luckyPoker/icon-hongt.png" alt="">
                            </li>
-                           <li @click="addCoin('clubs')">
+                           <li @click="addCoin('clubs')" ref="coin_clubs">
                                <img src="@assets/img/luckyPoker/icon-mh.png" alt="">
                            </li>
-                           <li @click="addCoin('dianmond')">
+                           <li @click="addCoin('dianmond')" ref="coin_dianmond">
                                <img src="@assets/img/luckyPoker/icon-fk.png" alt="">
                            </li>
                        </ul>
@@ -112,10 +117,21 @@
                             最高可中  0.002 ETH
                         </p>
                         <ul class="item1">
-                            <li v-for="(item, index) in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J']" :key="index" @click="addCoin(item)">{{item}}</li>
+                            <li @click="addCoin('2')" ref="coin_2">2</li>
+                            <li @click="addCoin('3')" ref="coin_3">3</li>
+                            <li @click="addCoin('4')" ref="coin_4">4</li>
+                            <li @click="addCoin('5')" ref="coin_5">5</li>
+                            <li @click="addCoin('6')" ref="coin_6">6</li>
+                            <li @click="addCoin('7')" ref="coin_7">7</li>
+                            <li @click="addCoin('8')" ref="coin_8">8</li>
+                            <li @click="addCoin('9')" ref="coin_9">9</li>
+                            <li @click="addCoin('10')" ref="coin_10">10</li>
+                            <li @click="addCoin('J')" ref="coin_J">J</li>
                         </ul>
                         <ul class="item2">
-                            <li v-for="(item, index) in ['Q', 'K', 'A']" :key="index" @click="addCoin(item)">{{item}}</li>
+                            <li @click="addCoin('Q')" ref="coin_Q">Q</li>
+                            <li @click="addCoin('K')" ref="coin_K">K</li>
+                            <li @click="addCoin('A')" ref="coin_A">A</li>
                         </ul>
                         <div class="btn-cls ">
                             <a href="javascript:;" @click="clearBet">
@@ -399,4 +415,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fly-coin {
+    transition: .5s ease-in-out;
+    position: absolute;
+    img {
+        width: 24px;
+    }
+}
 </style>
