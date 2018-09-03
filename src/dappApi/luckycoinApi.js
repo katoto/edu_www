@@ -1058,8 +1058,6 @@ luckyCoinApi.getGasPrice = (fn) => {
     })
 }
 
-
-
 export {
     web3,
     luckyCoinApi
