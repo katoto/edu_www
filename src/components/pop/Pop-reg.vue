@@ -20,7 +20,7 @@
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
                         <lang>I'm 18+ years old and agree with</lang>
-                        <a href="javascript:;" @click="jump2Page">
+                        <a href="javascript:;" @click="jump2Page" >
                             <lang>Privacy policy</lang>
                         </a>
                     </p>

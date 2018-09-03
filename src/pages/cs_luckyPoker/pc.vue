@@ -394,9 +394,9 @@ export default {
 </script>
 
 <style lang="less" scoped type="text/less">
-    @import "../../../styles/lib-mixins.less";
+    @import "../../styles/lib-mixins.less";
     .luckyPoker{
-        background:#1b262c url("../../../assets/img/luckyPoker/bg-pc.jpg") no-repeat center top;
+        background:#1b262c url("../../assets/img/luckyPoker/bg-pc.jpg") no-repeat center top;
         background-size: 1920px;
         padding-top: 0;
         text-align: center;
@@ -419,7 +419,7 @@ export default {
             padding: 52px 85px 0;
             height: 826px;
             font-weight: bold;
-            background: url("../../../assets/img/luckyPoker/bg-pc-desktop.png") no-repeat center top;
+            background: url("../../assets/img/luckyPoker/bg-pc-desktop.png") no-repeat center top;
             background-size: 612px;
         }
         .flex-between{
@@ -637,7 +637,7 @@ export default {
                             width: 19px;
                             height: 23px;
                             padding-top: 0;
-                            background:url("../../../assets/img/luckyPoker/icon-cls.png") no-repeat center;
+                            background:url("../../assets/img/luckyPoker/icon-cls.png") no-repeat center;
                             background-size: 100%;
                             //todo
                         }
@@ -719,7 +719,7 @@ export default {
                 height: 70px;
                 margin: 10px auto 0;
                 border-radius: 8px;
-                background: url("../../../assets/img/luckyPoker/btn-main.png") no-repeat center ;
+                background: url("../../assets/img/luckyPoker/btn-main.png") no-repeat center ;
                 background-size: cover;
                 color: #fff;
                 font-weight: bold;
@@ -789,11 +789,11 @@ export default {
                 }
             }
             .btn-left{
-                background:url("../../../assets/img/luckyPoker/icon-left.png") no-repeat center;
+                background:url("../../assets/img/luckyPoker/icon-left.png") no-repeat center;
                 background-size: 16px;
             }
             .btn-right{
-                background:url("../../../assets/img/luckyPoker/icon-right.png") no-repeat center;
+                background:url("../../assets/img/luckyPoker/icon-right.png") no-repeat center;
                 background-size: 16px;
             }
             .poker-item{
@@ -833,7 +833,7 @@ export default {
                 &.icon-hongt{
                     color: #cc3333;
                     &::after{
-                        background:url("../../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
+                        background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
                         background-size: contain;
                     }
 
@@ -841,21 +841,21 @@ export default {
                 &.icon-fk{
                     color: #cc3333;
                     &::after{
-                        background:url("../../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
+                        background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
                         background-size: contain;
                     }
                 }
                 &.icon-mh{
                     color: #000000;
                     &::after{
-                        background:url("../../../assets/img/luckyPoker/icon-mh.png") no-repeat center top;
+                        background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center top;
                         background-size: contain;
                     }
                 }
                 &.icon-heit{
                     color: #000000;
                     &::after{
-                        background:url("../../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
+                        background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
                         background-size: contain;
                     }
                 }
@@ -863,7 +863,7 @@ export default {
                     &::after{
                         width: 100%;
                         height: 100%;
-                        background:url("../../../assets/img/luckyPoker/font-joker.png") no-repeat center top;
+                        background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center top;
                         background-size: cover;
                     }
                     p{
@@ -921,13 +921,13 @@ export default {
                         width: 21px;
                         height: 19px;
                         /*border: 1px solid #a2dede;*/
-                        background: url("../../../assets/img/luckyPoker/icon-all.png") no-repeat left top ;
+                        background: url("../../assets/img/luckyPoker/icon-all.png") no-repeat left top ;
                         background-size: 21px;
                         transition: all 0.2s;
                     }
                     &.on{
                         &::before{
-                            background: url("../../../assets/img/luckyPoker/icon-my.png") no-repeat left top ;
+                            background: url("../../assets/img/luckyPoker/icon-my.png") no-repeat left top ;
                             background-size: 21px;
                         }
                     }
@@ -986,19 +986,19 @@ export default {
                                 text-indent: -99999px;
                             }
                             &.fk{
-                                background-image:url("../../../assets/img/luckyPoker/icon-fk.png");
+                                background-image:url("../../assets/img/luckyPoker/icon-fk.png");
                             }
                             &.hongt{
-                                background-image:url("../../../assets/img/luckyPoker/icon-hongt.png");
+                                background-image:url("../../assets/img/luckyPoker/icon-hongt.png");
                             }
                             &.heit{
-                                background-image:url("../../../assets/img/luckyPoker/icon-heit.png");
+                                background-image:url("../../assets/img/luckyPoker/icon-heit.png");
                             }
                             &.mh{
-                                background-image:url("../../../assets/img/luckyPoker/icon-mh.png");
+                                background-image:url("../../assets/img/luckyPoker/icon-mh.png");
                             }
                             &.joker{
-                                background-image:url("../../../assets/img/luckyPoker/font-joker.png");
+                                background-image:url("../../assets/img/luckyPoker/font-joker.png");
                                 background-repeat: no-repeat;
                                 background-position: center;
                                 background-size: contain;
@@ -1040,7 +1040,7 @@ export default {
                             &.icon-hongt{
                                 color: #cc3333;
                                 &::after{
-                                    background:url("../../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
+                                    background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
                                     background-size: contain;
                                 }
 
@@ -1048,21 +1048,21 @@ export default {
                             &.icon-fk{
                                 color: #cc3333;
                                 &::after{
-                                    background:url("../../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
+                                    background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
                                     background-size: contain;
                                 }
                             }
                             &.icon-mh{
                                 color: #000000;
                                 &::after{
-                                    background:url("../../../assets/img/luckyPoker/icon-mh.png") no-repeat center top;
+                                    background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center top;
                                     background-size: contain;
                                 }
                             }
                             &.icon-heit{
                                 color: #000000;
                                 &::after{
-                                    background:url("../../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
+                                    background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
                                     background-size: contain;
                                 }
                             }
@@ -1070,7 +1070,7 @@ export default {
                                 &::after{
                                     width: 100%;
                                     height: 100%;
-                                    background:url("../../../assets/img/luckyPoker/font-joker.png") no-repeat center top;
+                                    background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center top;
                                     background-size: cover;
                                 }
                                 p{
@@ -1105,7 +1105,7 @@ export default {
                     height: 19px;
                     overflow: hidden;
                     margin-left: 12px;
-                    background: url("../../../assets/img/luckyPoker/icon-help.png") no-repeat center ;
+                    background: url("../../assets/img/luckyPoker/icon-help.png") no-repeat center ;
                     background-size: cover;
                 }
             }
