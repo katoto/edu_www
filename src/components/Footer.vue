@@ -103,13 +103,13 @@
                 let lan = this.$store.state.language
                 switch (lan) {
                 case 'en':
-                    this.$router.push('/policy')
+                    window.open('/policy','_blank')
                     break
                 case 'zhCn':
-                    this.$router.push('/policy_zhCn')
+                    window.open('/policy_zhCn','_blank')
                     break
                 case 'zhTw':
-                    this.$router.push('/policy_zhTw')
+                    window.open('/policy_zhTw','_blank')
                     break
                 }
                 this.$store.commit('hideLoginPop')
