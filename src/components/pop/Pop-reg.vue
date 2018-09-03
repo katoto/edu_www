@@ -69,13 +69,13 @@
                 }
                 switch (lan) {
                 case 'en':
-                    window.open('/policy','_blank')
+                    window.open('/policy', '_blank')
                     break
                 case 'zhCn':
-                    window.open('/policy_zhCn','_blank')
+                    window.open('/policy_zhCn', '_blank')
                     break
                 case 'zhTw':
-                    window.open('/policy_zhTw','_blank')
+                    window.open('/policy_zhTw', '_blank')
                     break
                 }
                 this.$store.commit('hideRegPop')

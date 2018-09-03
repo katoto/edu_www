@@ -712,6 +712,7 @@ module.exports = {
 
     /* 一元夺币 end */
 
+    'Copy the Bitcoin wallet address': '复制比特币钱包地址',
     /* activity */
     'Get Bonus': '领取活动资格',
     'Congratulations': '恭喜获得',
@@ -724,12 +725,12 @@ module.exports = {
     'For users who have not topped up only': '此活动仅限首次充值用户参与',
     '50% Bonus for Your First Top-Up': '首次充值奖励50%',
     '50% Top-Up Bonus': '首次充值奖励50%',
-    'More top-up,more bonus': '充值越多，赠送越多',
+    'More top-up, more bonus': '充值越多，赠送越多',
     '1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC': '充值任意金额,即可获得150%金额（最高奖励0.05 ETH/0.005 BTC），祝您畅爽任玩！',
 
     'Rules:': '活动规则:',
     '1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.': '1.在Coinsprize未有过充值行为的用户都可参与该活动，您必须由该页面选择加入以具备奖励资格，且默认您遵守活动规则。',
-    '2. The activity time is from 00:00 July 14, 2018 to 23:59 August, 2018 (GMT).': '2.活动有效期限为2018年7月14日00:00 GMT至8月14日23:59 GMT。',
+    '2. The activity time is from 00:00 July 14, 2018 to 23:59 August 14, 2018 (GMT).': '2.活动有效期限为2018年7月14日00:00 GMT至8月14日23:59 GMT。',
     '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用户在活动页指定入口充值任意金额，即可奖励50%（最高奖励0.05 ETH/0.005 BTC），奖励金额不允许玩lucky coin游戏。',
     '4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.': '4.参与充值优惠的用户可选择ETH或BTC充值方式，以首次到账充值方式为准，即两种充值方式不可兼得。由于虚拟代币充值到账时间慢，平台奖励依据以首次到账金额计算，并赠送对应奖励。',
     '6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.': '6.该活动每个用户仅可享受一次。如果Coinsprize有理由怀疑同一个客户、同一组客户不止一次申领奖金或优惠，Coinsprize可随时收回任何客户或客户组的任何或全部优惠，并/或取消任何使用奖金进行的投注和因这些投注而产生的彩金。',

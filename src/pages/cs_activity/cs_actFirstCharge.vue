@@ -4,19 +4,19 @@
         <div class="act_box" @click="initPop">
             <div class="top_banner">
                 <h2><lang>50% Bonus for Your First Top-Up</lang></h2>
-                <h4><lang>More top-up,more bonus</lang></h4>
+                <h4><lang>More top-up, more bonus</lang></h4>
             </div>
             <a href="javascript:;" v-if="firstChargeMsg" class="btn"   :class="{'unable':firstChargeMsg.activity_status==='2'}" @click="getFirstBtn">
                 {{ firstChargeMsg.activity_status | filterMsg }}
             </a>
-            <p class="cont_tips"><lang>1.5x Your Top-Up, Bonus up to 0.05ETH/ 0.005BTC</lang></p>
+            <p class="cont_tips"><lang>1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC</lang></p>
             <div class="foot_rules">
                 <h4><lang>Rules:</lang></h4>
                 <p><lang>1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.</lang></p>
-                <p><lang>2. The activity time is from 00:00 July 14, 2018 to 23:59 August, 2018 (GMT).</lang></p>
+                <p><lang>2. The activity time is from 00:00 July 14, 2018 to 23:59 August 14, 2018 (GMT).</lang></p>
                 <p><lang>3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.</lang></p>
                 <p><lang>4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.</lang></p>
-                <p v-if="language==='en'">5.The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 10 times of the non-withdrawable amount. <router-link :to="{path:'/help'}">Help Center</router-link> to see details.</p>
+                <p v-if="language==='en'">5. The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 10 times of the non-withdrawable amount. Check <router-link :to="{path:'/help'}">Help Center</router-link> to see details.</p>
                 <p v-if="language==='zhCn'">5.充值金额全部进入可提现账户，赠送金额全部进入不可提现账户，满足不可提现额度的10倍流水条件即可提取赠送金额，详情请见<router-link :to="{path:'/help'}">帮助中心</router-link>。</p>
                 <p v-if="language==='zhTw'">5.充值金額全部進入可提現賬戶，贈送金額全部進入不可提現賬戶，滿足不可提現額度的10倍流水條件即可提取贈送金額，詳情請見<router-link :to="{path:'/help'}">幫助中心</router-link>。</p>
                 <p><lang>6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.</lang></p>

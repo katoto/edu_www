@@ -370,11 +370,11 @@
                         <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                         <div class="title">
                             <div v-if="currBalance.cointype==='2001'">
-                                <p>Copy the Ethereum wallet address</p>
+                                <p><lang>Copy the Ethereum wallet address</lang></p>
                                 <p>(<lang>only supports ETH</lang>)</p>
                             </div>
                             <div v-if="currBalance.cointype==='1001'">
-                                <p >Copy the Bitcoin wallet address</p>
+                                <p ><lang>Copy the Bitcoin wallet address</lang></p>
                                 <p>(<lang>only supports BTC</lang>)</p>
                             </div>
                         </div>
