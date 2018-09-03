@@ -964,7 +964,7 @@ export default {
             }
         }
         /*pop*/
-        .pop-random{
+        .pop-random,.pop-poker{
             display: none;
         }
 
