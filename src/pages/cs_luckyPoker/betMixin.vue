@@ -12,7 +12,8 @@ export default {
             upTime: 0,
             autoTimer: null,
             calTimer: null,
-            coins: []
+            coins: [],
+            clientSeed: ''
         }
     },
     methods: {
@@ -55,16 +56,6 @@ export default {
                 this.initCoin()
             })
         },
-        // getTargetElement (target, name) {
-        //     // 点到金币了
-        //     if (target.className.indexOf('fly-coin-el') > -1) {
-        //         console.log(`点到金币了${target}`)
-        //         return this.$refs[`coin_${name}`]
-        //     }
-        //     // 没有点到金币
-        //     console.log(`没有点到金币${target}`)
-        //     return target.tagName.toLocaleLowerCase() !== 'li' ? target.offsetParent : target
-        // },
         changeCoin (type) {
             this.currentCoin = Number(type)
             this.currentCoinEl = this.$refs[type]
@@ -116,6 +107,18 @@ export default {
             clearTimeout(this.calTimer)
             this.downTime = 0
             this.upTime = 0
+        },
+        createRandomNum (num) {
+            return Math.floor(Math.random() * 3)
+        },
+        createClientSeed () {
+            let length = 16
+            let randomList = ['abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '0123456789']
+            this.clientSeed = ((new Array(length + 1)).join('*').split('').map(() => {
+                let index = this.createRandomNum(3)
+                let item = randomList[index]
+                return item[this.createRandomNum(item.length)]
+            }).join(''))
         }
     },
     mounted () {

@@ -187,8 +187,8 @@
                             Client seed
                         </p>
                         <div class="input-group">
-                            <input type="text">
-                            <a href="javascript:;" class="btn btn-random">
+                            <input type="text" v-model="clientSeed">
+                            <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
                                 RANDOMIZE
                             </a>
                             <a href="javascript:;"  class="btn btn-lock">
