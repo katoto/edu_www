@@ -22,7 +22,7 @@
                             <lang>Withdrawable Amount</lang>:{{ formateBalance_sub(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
                             <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
                                     <div class="mark-view" :class="{on:ShowMarkView}">
-                                    {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance( parseFloat( currBalance.balance )- parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
+                                    {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance( parseFloat( currBalance.balance ) - parseFloat(currBalance.checkout_balance)),formateCoinType(currBalance.cointype)) }}
                                     &nbsp;<a href="javascript:;" @click="jump2help"><lang>Details</lang></a>
                                     </div>
                                 </i>
@@ -159,6 +159,13 @@
                         <lang>Balance</lang>
                         <i>
                             {{ formateBalance(currBalance.balance) }}
+                            {{formateCoinType(currBalance.cointype) }}
+                        </i>
+                    </p>
+                    <p>
+                        <lang>Withdrawable Amount</lang>
+                        <i>
+                            {{ formateBalance_sub(currBalance.checkout_balance) }} 
                             {{formateCoinType(currBalance.cointype) }}
                         </i>
                     </p>
