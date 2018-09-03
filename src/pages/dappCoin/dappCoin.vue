@@ -84,10 +84,6 @@
         components: {
         },
         async mounted () {
-            console.log(web3)
-            console.log(web3.utils)
-            console.log(web3.version)
-            console.log(web3.givenProvider)
             console.log(luckyCoinApi)
     }
     }

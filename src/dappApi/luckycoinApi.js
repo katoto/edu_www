@@ -1,226 +1,86 @@
 import Web3 from 'web3'
 // 合约addr
-let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
+// let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
+// 合约addr 下
+let contractAddr = '0xfa73648d3a1156c0ed3fe4b0f77d7d75c7869195'
+
 let web3 = window.web3
 let contractAbi = [
     {
-        'constant': true,
-        'inputs': [],
-        'name': 'getBuyPrice',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'name',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'string'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': false,
+        'anonymous': false,
         'inputs': [
             {
-                'name': '_affCode',
+                'indexed': true,
+                'name': 'playerID',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'playerAddress',
+                'type': 'address'
+            },
+            {
+                'indexed': false,
+                'name': 'playerName',
                 'type': 'bytes32'
             },
             {
-                'name': '_team',
+                'indexed': false,
+                'name': 'ethOut',
                 'type': 'uint256'
             },
             {
-                'name': '_eth',
+                'indexed': false,
+                'name': 'timeStamp',
                 'type': 'uint256'
             }
         ],
-        'name': 'reLoadXname',
-        'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
+        'name': 'onWithdraw',
+        'type': 'event'
     },
     {
         'constant': false,
         'inputs': [],
         'name': 'activate',
         'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
+        'payable': true,
+        'stateMutability': 'payable',
         'type': 'function'
     },
     {
-        'constant': true,
+        'constant': false,
         'inputs': [
             {
-                'name': '',
+                'name': '_tickets',
+                'type': 'uint256'
+            },
+            {
+                'name': '_affCode',
                 'type': 'address'
             }
         ],
-        'name': 'pIDxAddr_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
+        'name': 'buyXaddr',
+        'outputs': [],
+        'payable': true,
+        'stateMutability': 'payable',
         'type': 'function'
     },
     {
-        'constant': true,
-        'inputs': [],
-        'name': 'airDropTracker_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
+        'constant': false,
         'inputs': [
             {
-                'name': '',
+                'name': '_tickets',
+                'type': 'uint256'
+            },
+            {
+                'name': '_affCode',
                 'type': 'uint256'
             }
         ],
-        'name': 'round_',
-        'outputs': [
-            {
-                'name': 'plyr',
-                'type': 'uint256'
-            },
-            {
-                'name': 'team',
-                'type': 'uint256'
-            },
-            {
-                'name': 'end',
-                'type': 'uint256'
-            },
-            {
-                'name': 'ended',
-                'type': 'bool'
-            },
-            {
-                'name': 'strt',
-                'type': 'uint256'
-            },
-            {
-                'name': 'keys',
-                'type': 'uint256'
-            },
-            {
-                'name': 'eth',
-                'type': 'uint256'
-            },
-            {
-                'name': 'pot',
-                'type': 'uint256'
-            },
-            {
-                'name': 'mask',
-                'type': 'uint256'
-            },
-            {
-                'name': 'ico',
-                'type': 'uint256'
-            },
-            {
-                'name': 'icoGen',
-                'type': 'uint256'
-            },
-            {
-                'name': 'icoAvg',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'bytes32'
-            }
-        ],
-        'name': 'plyrNames_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'bool'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'fees_',
-        'outputs': [
-            {
-                'name': 'gen',
-                'type': 'uint256'
-            },
-            {
-                'name': 'p3d',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '',
-                'type': 'bytes32'
-            }
-        ],
-        'name': 'pIDxName_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
+        'name': 'buyXid',
+        'outputs': [],
+        'payable': true,
+        'stateMutability': 'payable',
         'type': 'function'
     },
     {
@@ -228,49 +88,14 @@ let contractAbi = [
         'inputs': [
             {
                 'name': '_affCode',
-                'type': 'uint256'
+                'type': 'bytes32'
             },
             {
-                'name': '_team',
-                'type': 'uint256'
-            },
-            {
-                'name': '_eth',
+                'name': '_tickets',
                 'type': 'uint256'
             }
         ],
-        'name': 'reLoadXid',
-        'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [],
-        'name': 'withdraw',
-        'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_nameString',
-                'type': 'string'
-            },
-            {
-                'name': '_affCode',
-                'type': 'address'
-            },
-            {
-                'name': '_all',
-                'type': 'bool'
-            }
-        ],
-        'name': 'registerNameXaddr',
+        'name': 'buyXname',
         'outputs': [],
         'payable': true,
         'stateMutability': 'payable',
@@ -303,525 +128,31 @@ let contractAbi = [
         'type': 'function'
     },
     {
-        'constant': true,
+        'anonymous': false,
         'inputs': [
             {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'rndTmEth_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'rID_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '_pID',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'getPlayerVaults',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_nameString',
-                'type': 'string'
-            },
-            {
-                'name': '_affCode',
-                'type': 'bytes32'
-            },
-            {
-                'name': '_all',
-                'type': 'bool'
-            }
-        ],
-        'name': 'registerNameXname',
-        'outputs': [],
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'getCurrentRoundInfo',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
+                'indexed': false,
+                'name': 'playerAddress',
                 'type': 'address'
             },
             {
-                'name': '',
+                'indexed': false,
+                'name': 'playerName',
                 'type': 'bytes32'
             },
             {
-                'name': '',
+                'indexed': false,
+                'name': 'begin',
                 'type': 'uint256'
             },
             {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
+                'indexed': false,
+                'name': 'end',
                 'type': 'uint256'
             }
         ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_affCode',
-                'type': 'address'
-            },
-            {
-                'name': '_team',
-                'type': 'uint256'
-            },
-            {
-                'name': '_eth',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'reLoadXaddr',
-        'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_affCode',
-                'type': 'uint256'
-            },
-            {
-                'name': '_team',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'buyXid',
-        'outputs': [],
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_pID',
-                'type': 'uint256'
-            },
-            {
-                'name': '_name',
-                'type': 'bytes32'
-            }
-        ],
-        'name': 'receivePlayerNameList',
-        'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_nameString',
-                'type': 'string'
-            },
-            {
-                'name': '_affCode',
-                'type': 'uint256'
-            },
-            {
-                'name': '_all',
-                'type': 'bool'
-            }
-        ],
-        'name': 'registerNameXID',
-        'outputs': [],
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'symbol',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'string'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_affCode',
-                'type': 'address'
-            },
-            {
-                'name': '_team',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'buyXaddr',
-        'outputs': [],
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'plyrRnds_',
-        'outputs': [
-            {
-                'name': 'eth',
-                'type': 'uint256'
-            },
-            {
-                'name': 'keys',
-                'type': 'uint256'
-            },
-            {
-                'name': 'mask',
-                'type': 'uint256'
-            },
-            {
-                'name': 'ico',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_affCode',
-                'type': 'bytes32'
-            },
-            {
-                'name': '_team',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'buyXname',
-        'outputs': [],
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'potSplit_',
-        'outputs': [
-            {
-                'name': 'gen',
-                'type': 'uint256'
-            },
-            {
-                'name': 'p3d',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'getTimeLeft',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '_rID',
-                'type': 'uint256'
-            },
-            {
-                'name': '_eth',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'calcKeysReceived',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '_keys',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'iWantXKeys',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'activated_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'bool'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'airDropPot_',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'plyr_',
-        'outputs': [
-            {
-                'name': 'addr',
-                'type': 'address'
-            },
-            {
-                'name': 'name',
-                'type': 'bytes32'
-            },
-            {
-                'name': 'win',
-                'type': 'uint256'
-            },
-            {
-                'name': 'gen',
-                'type': 'uint256'
-            },
-            {
-                'name': 'aff',
-                'type': 'uint256'
-            },
-            {
-                'name': 'lrnd',
-                'type': 'uint256'
-            },
-            {
-                'name': 'laff',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '_addr',
-                'type': 'address'
-            }
-        ],
-        'name': 'getPlayerInfoByAddress',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'bytes32'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            },
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'inputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'constructor'
-    },
-    {
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'fallback'
+        'name': 'onBuy',
+        'type': 'event'
     },
     {
         'anonymous': false,
@@ -876,353 +207,661 @@ let contractAbi = [
         'type': 'event'
     },
     {
-        'anonymous': false,
+        'constant': false,
         'inputs': [
             {
-                'indexed': false,
-                'name': 'compressedData',
+                'name': '_pID',
                 'type': 'uint256'
             },
             {
-                'indexed': false,
-                'name': 'compressedIDs',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'playerName',
+                'name': '_name',
                 'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'playerAddress',
-                'type': 'address'
-            },
-            {
-                'indexed': false,
-                'name': 'ethIn',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'keysBought',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerAddr',
-                'type': 'address'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'amountWon',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'newPot',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'P3DAmount',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'genAmount',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'potAmount',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'airDropPot',
-                'type': 'uint256'
             }
         ],
-        'name': 'onEndTx',
-        'type': 'event'
-    },
-    {
-        'anonymous': false,
-        'inputs': [
-            {
-                'indexed': true,
-                'name': 'playerID',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'playerAddress',
-                'type': 'address'
-            },
-            {
-                'indexed': false,
-                'name': 'playerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'ethOut',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'timeStamp',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'onWithdraw',
-        'type': 'event'
+        'name': 'receivePlayerNameList',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
     },
     {
         'anonymous': false,
         'inputs': [
             {
                 'indexed': false,
-                'name': 'playerAddress',
+                'name': 'addr',
                 'type': 'address'
             },
             {
                 'indexed': false,
-                'name': 'playerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'ethOut',
+                'name': 'begin',
                 'type': 'uint256'
             },
             {
                 'indexed': false,
-                'name': 'compressedData',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'compressedIDs',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerAddr',
-                'type': 'address'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'amountWon',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'newPot',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'P3DAmount',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'genAmount',
+                'name': 'end',
                 'type': 'uint256'
             }
         ],
-        'name': 'onWithdrawAndDistribute',
+        'name': 'LogbuyNums',
         'type': 'event'
     },
     {
-        'anonymous': false,
+        'constant': false,
         'inputs': [
             {
-                'indexed': false,
-                'name': 'playerAddress',
+                'name': '_nameString',
+                'type': 'string'
+            },
+            {
+                'name': '_affCode',
                 'type': 'address'
             },
             {
-                'indexed': false,
-                'name': 'playerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'ethIn',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'compressedData',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'compressedIDs',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerAddr',
-                'type': 'address'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'amountWon',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'newPot',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'P3DAmount',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'genAmount',
-                'type': 'uint256'
+                'name': '_all',
+                'type': 'bool'
             }
         ],
-        'name': 'onBuyAndDistribute',
-        'type': 'event'
+        'name': 'registerNameXaddr',
+        'outputs': [],
+        'payable': true,
+        'stateMutability': 'payable',
+        'type': 'function'
     },
     {
-        'anonymous': false,
+        'constant': false,
         'inputs': [
             {
-                'indexed': false,
-                'name': 'playerAddress',
-                'type': 'address'
+                'name': '_nameString',
+                'type': 'string'
             },
             {
-                'indexed': false,
-                'name': 'playerName',
+                'name': '_affCode',
                 'type': 'bytes32'
             },
             {
-                'indexed': false,
-                'name': 'compressedData',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'compressedIDs',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerAddr',
-                'type': 'address'
-            },
-            {
-                'indexed': false,
-                'name': 'winnerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'amountWon',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'newPot',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'P3DAmount',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'genAmount',
-                'type': 'uint256'
+                'name': '_all',
+                'type': 'bool'
             }
         ],
-        'name': 'onReLoadAndDistribute',
-        'type': 'event'
+        'name': 'registerNameXname',
+        'outputs': [],
+        'payable': true,
+        'stateMutability': 'payable',
+        'type': 'function'
     },
     {
-        'anonymous': false,
+        'constant': false,
+        'inputs': [],
+        'name': 'setLuckyNum',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
+        'constant': false,
         'inputs': [
             {
-                'indexed': true,
-                'name': 'affiliateID',
+                'name': '_pID',
                 'type': 'uint256'
             },
             {
-                'indexed': false,
-                'name': 'affiliateAddress',
+                'name': '_rIDlast',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'updateTicketVault',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
+        'inputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'constructor'
+    },
+    {
+        'payable': true,
+        'stateMutability': 'payable',
+        'type': 'fallback'
+    },
+    {
+        'constant': false,
+        'inputs': [],
+        'name': 'withdraw',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'activated_',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'bool'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '_target',
+                'type': 'uint256'
+            },
+            {
+                'name': '_start',
+                'type': 'uint256'
+            },
+            {
+                'name': '_end',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'calulateXticket',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'pure',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'get_test_numer',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'getBuyPrice',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'getCurrentRoundInfo',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
                 'type': 'address'
             },
             {
-                'indexed': false,
-                'name': 'affiliateName',
+                'name': '',
+                'type': 'bool'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '_addr',
+                'type': 'address'
+            }
+        ],
+        'name': 'getPlayerInfoByAddress',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
                 'type': 'bytes32'
             },
             {
-                'indexed': true,
-                'name': 'roundID',
+                'name': '',
                 'type': 'uint256'
             },
             {
-                'indexed': true,
-                'name': 'buyerID',
+                'name': '',
                 'type': 'uint256'
             },
             {
-                'indexed': false,
-                'name': 'amount',
+                'name': '',
                 'type': 'uint256'
             },
             {
-                'indexed': false,
-                'name': 'timeStamp',
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
                 'type': 'uint256'
             }
         ],
-        'name': 'onAffiliatePayout',
-        'type': 'event'
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
     },
     {
-        'anonymous': false,
-        'inputs': [
+        'constant': true,
+        'inputs': [],
+        'name': 'getTimeLeft',
+        'outputs': [
             {
-                'indexed': false,
-                'name': 'roundID',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'amountAddedToPot',
+                'name': '',
                 'type': 'uint256'
             }
         ],
-        'name': 'onPotSwapDeposit',
-        'type': 'event'
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '_rid',
+                'type': 'uint256'
+            },
+            {
+                'name': '_pID',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'judgeWin',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'bool'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'name',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'string'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '',
+                'type': 'address'
+            }
+        ],
+        'name': 'pIDxAddr_',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '',
+                'type': 'bytes32'
+            }
+        ],
+        'name': 'pIDxName_',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'plyr_',
+        'outputs': [
+            {
+                'name': 'addr',
+                'type': 'address'
+            },
+            {
+                'name': 'name',
+                'type': 'bytes32'
+            },
+            {
+                'name': 'win',
+                'type': 'uint256'
+            },
+            {
+                'name': 'gen',
+                'type': 'uint256'
+            },
+            {
+                'name': 'aff',
+                'type': 'uint256'
+            },
+            {
+                'name': 'lrnd',
+                'type': 'uint256'
+            },
+            {
+                'name': 'laff',
+                'type': 'uint256'
+            },
+            {
+                'name': 'luckytickets',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'bytes32'
+            }
+        ],
+        'name': 'plyrNames_',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'bool'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'plyrRnds_',
+        'outputs': [
+            {
+                'name': 'eth',
+                'type': 'uint256'
+            },
+            {
+                'name': 'tickets',
+                'type': 'uint256'
+            },
+            {
+                'name': 'mask',
+                'type': 'uint256'
+            },
+            {
+                'name': 'luckytickets',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'randNums',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'rID_',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'round_',
+        'outputs': [
+            {
+                'name': 'tickets',
+                'type': 'uint256'
+            },
+            {
+                'name': 'ended',
+                'type': 'bool'
+            },
+            {
+                'name': 'jackpot',
+                'type': 'uint256'
+            },
+            {
+                'name': 'start',
+                'type': 'uint256'
+            },
+            {
+                'name': 'end',
+                'type': 'uint256'
+            },
+            {
+                'name': 'winner',
+                'type': 'address'
+            },
+            {
+                'name': 'mask',
+                'type': 'uint256'
+            },
+            {
+                'name': 'found',
+                'type': 'uint256'
+            },
+            {
+                'name': 'lucknum',
+                'type': 'uint256'
+            },
+            {
+                'name': 'nextpot',
+                'type': 'uint256'
+            },
+            {
+                'name': 'blocknum',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'searchtickets',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [
+            {
+                'name': 'addr',
+                'type': 'address'
+            }
+        ],
+        'name': 'searchTicketsXaddr',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
+    },
+    {
+        'constant': true,
+        'inputs': [],
+        'name': 'symbol',
+        'outputs': [
+            {
+                'name': '',
+                'type': 'string'
+            }
+        ],
+        'payable': false,
+        'stateMutability': 'view',
+        'type': 'function'
     }
 ]
 // or
@@ -1231,6 +870,7 @@ if (typeof web3 === 'undefined') {
     web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/WlvljmHqo75RhK1w1QJF'))
     // alertify.alert('You are not signed into metamask')
 }
+
 // 通过abi 和地址获取已部署的合约对象
 let contractNet = web3.eth.contract(contractAbi).at(contractAddr)
 console.log(contractNet)
@@ -1240,6 +880,10 @@ let luckyCoinApi = {}
 
 luckyCoinApi.getBalance = () => {
     console.log('getBlance')
+}
+
+luckyCoinApi.getTime = () => {
+
 }
 
 luckyCoinApi.getTime = () => {
