@@ -882,13 +882,150 @@ luckyCoinApi.getBalance = () => {
     console.log('getBlance')
 }
 
-luckyCoinApi.getTime = () => {
-
+luckyCoinApi.registerNameXname = (regName, _affCode, fn) => {
+    // * @param _nameString players desired name
+    // * @param _affCode affiliate ID, address, or name of who referred you
+    // * @param _all set to true if you want this to push your info to all games
+    if (typeof regName !== 'string') {
+        return 'need string regName !.'
+    }
+    if (typeof _affCode !== 'string') {
+        return 'need string _affCode name !.'
+    }
+    if (typeof fn !== 'function') {
+        return 'need async function !.'
+    }
+    if (contractNet) {
+        contractNet.registerNameXname(regName.toString(), _affCode, true, {value: web3.toWei('0.01', 'ether')}, function (err, res) {
+            if (!err) {
+                if (res) {
+                    fn(null, true)
+                }
+            } else {
+                fn(err, null)
+            }
+        })
+    } else {
+        fn('contractNet error at registerNameXname', null)
+    }
 }
 
-luckyCoinApi.getTime = () => {
-
+luckyCoinApi.registerNameXaddr = (regName, _affCode, fn) => {
+    if (typeof regName !== 'string') {
+        return 'need string regName !.'
+    }
+    if (typeof _affCode !== 'string') {
+        return 'need string _affCode addr !.'
+    }
+    if (typeof fn !== 'function') {
+        return 'need async function !.'
+    }
+    if (contractNet) {
+        contractNet.registerNameXaddr(regName.toString(), _affCode, true, {value: web3.toWei('0.01', 'ether')}, function (err, res) {
+            if (!err) {
+                if (res) {
+                    fn(null, true)
+                }
+            } else {
+                fn(err, null)
+            }
+        })
+    } else {
+        fn('contractNet error at registerNameXaddr', null)
+    }
 }
+
+luckyCoinApi.buyXaddr = (_affCode, _team, totalVal, fn) => {
+    /*
+    *
+        @param _affCode   the ID/address/name of the player who gets the affiliate fee
+        @param _team what team is the player playing for?
+    *
+    * */
+    if (typeof _affCode !== 'string') {
+        fn('_affCode param 1 need Sting ( addr )', null)
+        return '_affCode param 1 need Sting ( addr )'
+    }
+    if (typeof _team !== 'number') {
+        fn('_team param 2 need number (0,1,2,3)', null)
+        return '_team param 2 need number (0,1,2,3)'
+    }
+    if (typeof totalVal === 'string') {
+        totalVal = parseFloat(totalVal)
+    }
+    if (!totalVal) {
+        fn('totalVal param 3 error', null)
+        return 'totalVal param 3 error'
+    }
+    contractNet.buyXaddr(_affCode, parseInt(_team), {value: web3.toWei(totalVal, 'ether')}, function (err, res) {
+        if (!err) {
+            if (res) {
+                fn(null, res)
+            } else {
+                fn('buyXaddr error', null)
+            }
+        } else {
+            fn(err, null)
+        }
+    })
+}
+luckyCoinApi.buyXname = (_affCode, _team, totalVal, fn) => {
+    if (typeof _affCode !== 'string') {
+        fn('_affCode param 1 need Sting ( addr )', null)
+        return '_affCode param 1 need Sting ( addr )'
+    }
+    if (typeof _team !== 'number') {
+        fn('_team param 2 need number (0,1,2,3)', null)
+        return '_team param 2 need number (0,1,2,3)'
+    }
+    if (typeof totalVal === 'string') {
+        totalVal = parseFloat(totalVal)
+    }
+    if (!totalVal) {
+        fn('totalVal param 3 error', null)
+        return 'totalVal param 3 error'
+    }
+    contractNet.buyXname(_affCode, parseInt(_team), {value: web3.toWei(totalVal, 'ether')}, function (err, res) {
+        if (!err) {
+            if (res) {
+                fn(null, res)
+            } else {
+                fn('buyXname error', null)
+            }
+        } else {
+            fn(err, null)
+        }
+    })
+}
+luckyCoinApi.buyXid = (_affCode, _team, totalVal, fn) => {
+    if (typeof _affCode !== 'number') {
+        fn('_affCode param 1 need number ( id )', null)
+        return '_affCode param 1 need number ( id )'
+    }
+    if (typeof _team !== 'number') {
+        fn('_team param 2 need number (0,1,2,3)', null)
+        return '_team param 2 need number (0,1,2,3)'
+    }
+    if (typeof totalVal === 'string') {
+        totalVal = parseFloat(totalVal)
+    }
+    if (!totalVal) {
+        fn('totalVal param 3 error', null)
+        return 'totalVal param 3 error'
+    }
+    contractNet.buyXid(_affCode, parseInt(_team), {value: web3.toWei(totalVal, 'ether')}, function (err, res) {
+        if (!err) {
+            if (res) {
+                fn(null, res)
+            } else {
+                fn('buyXid error', null)
+            }
+        } else {
+            fn(err, null)
+        }
+    })
+}
+
 luckyCoinApi.getAccounts = (fn) => {
     /* 获取当前账号地址 */
     if (typeof fn !== 'function') {
@@ -904,6 +1041,7 @@ luckyCoinApi.getAccounts = (fn) => {
         }
     })
 }
+
 luckyCoinApi.getGasPrice = (fn) => {
     /* 获取当前gasPrice */
     if (typeof fn !== 'function') {
@@ -919,6 +1057,8 @@ luckyCoinApi.getGasPrice = (fn) => {
         }
     })
 }
+
+
 
 export {
     web3,
