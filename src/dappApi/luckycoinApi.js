@@ -883,7 +883,7 @@ luckyCoinApi.getBalance = () => {
 }
 
 luckyCoinApi.LogbuyNums = () => {
-    
+
 }
 
 luckyCoinApi.getTime = () => {
