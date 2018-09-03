@@ -462,7 +462,7 @@
                     </div>
                 </div>
             </div>
-            <div class="pop pop-poker ">
+            <div class="pop pop-poker show">
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
@@ -535,12 +535,14 @@ export default {
     .fly-coin {
         transition: .5s ease-in-out;
         position: absolute;
+        cursor: pointer;
         img {
             width: 24px;
         }
     }
     .bg-esktop {
         position: relative;
+        overflow: hidden;
     }
     .setPokerPosition( @count )when( @count > 0 ){
         li:nth-child(@{count}){
@@ -1771,6 +1773,7 @@ export default {
             background:#1b262c url("../../assets/img/luckyPoker/bg-pc.jpg") no-repeat center top;
             background-size: 1920px;
             .main{
+                position: relative;
                 width: 1107px;
                 padding-right: 31px;
                 margin: 0 auto;
@@ -1964,8 +1967,10 @@ export default {
             }
             /*投注记录*/
             .recording{
+                position: absolute;
+                right: 31px;
+                bottom: 130px;
                 max-width: 455px;
-                float: right;
                 padding-top: 2px;
                 margin: 25px auto 0;
                 border-radius: 8px;
@@ -2148,6 +2153,8 @@ export default {
                     background: #253e4e;
                     display: flex;
                     align-items: center;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
                     .btn-href{
                         font-size: 14px;
                         color: #fff;
@@ -2531,8 +2538,3 @@ export default {
         .setPokerPosition2((@count - 1));
     }
 </style>
-<!--
-background: url("../../assets/img/luckyPoker/bg.jpg") no-repeat center;
-background-size: cover;
-
--->

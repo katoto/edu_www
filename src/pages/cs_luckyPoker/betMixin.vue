@@ -42,7 +42,7 @@ export default {
             let realPosition = isRandom ? this.getRandomPosition(center, element.clientWidth, element.clientHeight) : center
             return {
                 transform: `translate(${realPosition.left}px, ${realPosition.top}px)`,
-                'z-index': '100000'
+                'z-index': '10'
             }
         },
         addCoin (name) {
