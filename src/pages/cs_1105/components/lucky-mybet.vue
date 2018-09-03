@@ -1,7 +1,7 @@
 <template>
     <!--首页右侧信息  close-->
-    <div id="js_alert-mybets" class="alert-mybets" :class="{ close: !mybetShow, hide: !isLogin}">
-        <div class="alert-mybets-head  js_chose-mybets-head">
+    <div class="alert-mybets" :class="{ close: !mybetShow, hide: !isLogin}">
+        <div class="alert-mybets-head">
             <section class="js_alert-mybets-head js_chose-mybets-head-open" :class="{ hide: mybetShow }" @click="mybetShow = true">
                 <p v-lang="'My<br>Bets'" class="my-bets-title"></p>
             </section>

@@ -57,11 +57,14 @@
                     <lang>Block Hash</lang>
                 </div>
                 <div>
-                    #{{blockid}}
+                    <a :href="`https://etherscan.io/tx/${tradeHash}`" target="_blank" >
+                        #{{blockid}}
+                    </a>
                 </div>
-                <a :href="`https://etherscan.io/block/${blockid}`" target="_blank" >
+                <p>
                     {{blockhash}}
-                </a>
+                </p>
+                
             </div>
             <div class="item item4">
                 <div class="title-1">
@@ -123,7 +126,9 @@ export default {
             totalBids: '',
             modResult0: 0,
             modResult1: 0,
-            state: '0'
+            state: '0',
+            isTimeOver: false,
+            isNoBet: false
         }
     },
     methods: {
@@ -164,7 +169,8 @@ export default {
         renderCheckData (res) {
             this.merkelValue = res.merkelHash || _('None')
             this.blockid = res.blockNum
-            this.blockhash = res.tradeHash
+            this.blockhash = res.blockHash
+            this.tradeHash = res.tradeHash
             this.totalBids = Number(res.totalBids)
             this.last7Hash = this.blockhash.slice(this.blockhash.length - 6, this.blockhash.length)
             this.prehash = this.blockhash.slice(0, this.blockhash.length - 6)
@@ -172,6 +178,8 @@ export default {
             this.modResult0 = parseInt(accDiv(this.modNumber, this.totalBids), 10)
             this.modResult1 = this.modNumber % this.totalBids
             this.state = res.state
+            this.isTimeOver = (Number(res.endtime) * 1000) < (new Date()).getTime()
+            this.isNoBet = (Number(res.leftBids) === Number(res.totalBids))
             this.renderResult()
         },
         renderOrderData (res) {
@@ -188,6 +196,9 @@ export default {
             if (this.state === '4') {
                 thisResult = (this.modResult1 + 10001).toString()
                 thisStatus = 'normal'
+            } else if (this.isNoBet && this.isTimeOver) {
+                thisResult = _('Draw cancelled because no buyers of this bid.')
+                thisStatus = 'expired'
             } else if (this.state === '5') {
                 thisResult = _("Draw expired. User's payment has been refunded.")
                 thisStatus = 'expired'

@@ -293,7 +293,7 @@ export function formateEmail (email, isFull) {
  *   formate_moneyFlow  格式化 流水类型
  *   // 明细状态 1：recharge   2：bet    3：prize    4:withdraw
  * */
-export function formateMoneyFlow (flowtype = '1') {
+export function formateMoneyFlow (flowtype, lotid) {
     if (isNaN(flowtype)) {
         console.error('formate_moneyFlow error' + flowtype)
         return false
@@ -301,8 +301,18 @@ export function formateMoneyFlow (flowtype = '1') {
     flowtype = flowtype.toString()
     switch (flowtype) {
     case '1':
+        if (lotid === '1') {
+            return _('Lucky11 Bet')
+        } else if (lotid === '2') {
+            return _('LuckyCoin Bet')
+        }
         return _('Bet') // 投注消费
     case '2':
+        if (lotid === '1') {
+            return _('Lucky11 Prize')
+        } else if (lotid === '2') {
+            return _('LuckyCoin Prize')
+        }
         return _('Prize') // 投注中奖
     case '3':
         return _('Bet Refund')// 投注退款

@@ -47,55 +47,65 @@
                         <div class="icon-box hot bet">
                             <i class="icon-hot" v-if="goodsinfo.ishot === '1'">H</i>
                             <i class="icon-youbet" v-if="betMoney !== 0">
-                                <lang>Paid</lang>
+                                <lang>You paid </lang>{{betMoney}} {{coinText}}
                             </i>
                         </div>
+                        <div class="item-time open" v-if="isWaiting">
+                            00:00:00
+                        </div>
+                        <!--day hour min-->
+                        <div class="item-time" :class="{
+                            min: leftTime < 600 * 1000 && leftTime !== 0,
+                            hour: leftTime === 0 || leftTime < 24 * 3600 * 1000,
+                            day: leftTime !== 0 && leftTime >= 24 * 3600 * 1000
+                        }" v-else-if="betStatus === 'normal'">
+                            {{endTimeText}}
+                        </div>
                         <div class="item-prize">
-                            {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
+                            {{goodsinfo.goodsValue}} <i>{{coinText}}</i>
                         </div>
                         <div class="item-usd">
                             {{formatUSD(goodsinfo.coinprice.USD, goodsinfo.goodsValue)}} USD
                         </div>
                         <div class="item-main">
+                            <div class="main-right">
+                                <div class="item-issue">
+                                    NO.<router-link :to="`/check?number=${number}&type=luckycoin`">
+                                        {{number}}
+                                    </router-link>
+                                </div>
+                                <div class="item-price">
+                                    {{ _('{0} {1} / Bid', this.goodsinfo.bidValue, coinText ) }}
+                                </div>
+                                <div class="item-process">
+                                    <lang>Bids:</lang> <i :class="[ Number(goodsinfo.leftBids)/Number(goodsinfo.totalBids)<=0.1?'red':'']">{{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}}</i> / {{Number(goodsinfo.totalBids)}}
+                                </div>
+                            </div>
                             <div class="main-left">
                                 <!--正常投注-->
                                 <div class="main-normal">
-                                    <p >
+                                    <p class="hide">
                                         <lang>Bid Amount</lang>
                                     </p>
                                     <div class="input-box ">
                                         <input type="text" v-model="betValue" :placeholder="goodsinfo.bidValue">
-                                        <a href="javascript:;" @click="chooseHalf">1/2</a>
-                                        <a href="javascript:;" @click="chooseDouble">2X</a>
                                         <a href="javascript:;" @click="chooseMax">
                                             <lang>Max</lang>
                                         </a>
+                                        <a href="javascript:;" @click="chooseDouble">2X</a>
+                                        <a href="javascript:;" @click="chooseHalf">1/2</a>
                                     </div>
 
                                 </div>
                                 <!--胜利-->
                                 <div class="main-win ">
-                                    <p>
-                                        <lang>Draw number</lang>
-                                    </p>
-                                    <p>
-                                        {{goodsinfo.luckyNum}}
-                                    </p>
-                                    <span>
-                                        <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'HH:mm yyyy.MM.dd')}}
-                                    </span>
+                                    <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'HH:mm yyyy.MM.dd')}}
                                 </div>
                                 <!--失败-->
                                 <div class="main-fail">
                                     <p>
-                                        <lang>Draw number</lang>
-                                    </p>
-                                    <p>
-                                        {{goodsinfo.luckyNum}}
-                                    </p>
-                                    <span>
                                         <lang>Draw finished at</lang>  {{formatTime(goodsinfo.drawtime, 'HH:mm yyyy.MM.dd')}}
-                                    </span>
+                                    </p>
                                 </div>
                                 <!--已结束待开奖-->
                                 <div class="main-finished">
@@ -121,26 +131,13 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="main-right">
-                                <div class="item-issue">
-                                    NO.<router-link :to="`/check?number=${number}&type=luckycoin`">
-                                        {{number}}
-                                    </router-link>
-                                </div>
-                                <div class="item-process">
-                                    <lang>Bids:</lang> {{Number(goodsinfo.totalBids) - Number(goodsinfo.leftBids)}} / {{Number(goodsinfo.totalBids)}}
-                                </div>
-                                <div class="item-price">
-                                    {{ _('{0} {1} / Bid', this.goodsinfo.bidValue, coinText ) }}
-                                </div>
-                            </div>
                         </div>
                         <a href="javascript:;" class="btn btn-normal"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
                             {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
                         </a>
                         <div class="btn btn-win" v-if="isDraw">
                             <p>
-                                {{goodsinfo.winUserName || ''}}
+                                <lang>Draw Number</lang>:  {{goodsinfo.luckyNum}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
                                 <lang>Details >></lang>
@@ -148,7 +145,7 @@
                         </div>
                         <div class="btn btn-fail">
                             <p>
-                                {{goodsinfo.winUserName || ''}}
+                                <lang>Draw Number</lang>:  {{goodsinfo.luckyNum}}
                             </p>
                             <router-link :to="`/check?number=${number}&type=luckycoin`">
                                 <lang>Details >></lang>
@@ -309,7 +306,6 @@
                 >
                 </el-pagination>
             </div>
-
             <!--投注记录弹窗-->
             <div class="pop pop-bet" :class="{ hide: !isShowNumberPop }">
                 <div class="pop-body">
@@ -342,7 +338,9 @@
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import { getURLParams, formatTime, formatNum, accMul, accDiv, formateCoinType, numberComma, formatUSD } from '~/common/util'
     import { mapActions, mapState } from 'vuex'
+    import timeMixin from './timeMixin'
     export default {
+        mixins: [ timeMixin ],
         data () {
             return {
                 number: '',
@@ -407,6 +405,14 @@
                 }
                 return tmp
             },
+            triggerTimeout () {
+                this.getDetailInfo()
+            },
+            triggerWaitting () {
+                if (this.goodsinfo.state !== '4') {
+                    this.goodsinfo.state = '3'
+                }
+            },
             getDetailInfo () {
                 return this.getDetailData({
                     expectId: this.number,
@@ -414,6 +420,7 @@
                 })
                     .then(res => {
                         this.renderDetailInfo(res)
+                        this.renderTime(res.data.goodsinfo.endtime)
                         return res
                     })
             },
@@ -431,17 +438,17 @@
                     this.timer = null
                 }
                 this._time = num
-                this.renderTime()
+                this.renderCommingTime()
                 this.timer = setInterval(() => {
                     this._time--
                     if (this._time === 0) {
                         clearInterval(this.timer)
                         this.refresh()
                     }
-                    this.renderTime()
+                    this.renderCommingTime()
                 }, 1000)
             },
-            renderTime () {
+            renderCommingTime () {
                 this.time = `${Math.floor(this._time / 60)}' ${this._time % 60}"`
             },
             getAllBidsInfo () {
@@ -661,6 +668,9 @@
             isDraw () {
                 return this.goodsinfo.state === '4'
             },
+            isWaiting () {
+                return this.goodsinfo.state === '3'
+            },
             isYouWin () {
                 return this.isDraw && this.userInfo && this.goodsinfo.winUid === this.userInfo.uid
             },
@@ -705,6 +715,9 @@
         watch: {
             isLogin () {
                 this.refresh()
+            },
+            showSuccess () {
+                this.isBlinking = false
             }
         },
         mounted () {
@@ -719,6 +732,11 @@
                     this.refresh()
                 }
             })
+            this.$store.commit('cs_luckycoin/bindPageListener', {
+                detailed: () => {
+                    this.refresh()
+                }
+            })
         },
         beforeDestroy () {
             document.documentElement.className = ''
@@ -726,6 +744,7 @@
             if (this.timer) {
                 clearInterval(this.timer)
             }
+            this.$store.commit('cs_luckycoin/unbindPageListener', 'detailed')
         }
     }
 </script>
@@ -997,9 +1016,54 @@
                     padding: 0 4px;
                 }
                 .icon-youbet{
-                    background: #7b4de4;
-                    padding: 0 20px;
+                    position: relative;
+                    background: #f67c22;
+                    padding: 0 10px 0 30px;
+                    &::before{
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        left: 6px;
+                        top: 3px;
+                        width: 11px;
+                        height: 13px;
+                        background: url("../../assets/img/luckyCoin/icon-bet.png") no-repeat center;
+                    }
                 }
+            }
+            .item-time{
+                position: absolute;
+                top: 53px;
+                right: 35px;
+                line-height: 27px;
+                font-size: 24px;
+                color: #ffffff;
+                font-weight: bold;
+                &::before{
+                    content: '';
+                    display: block;
+                    float: left;
+                    margin-right: 15px;
+                    width: 23px;
+                    height: 27px;
+                    background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
+                }
+                &.hour{
+                    color: #fff;
+                }
+                &.open{
+                    color: #ff5b4a;
+                }
+                &.min{
+                    color: #ff5b4a;
+                }
+                &.min{
+                    animation: heartbeat 2s infinite;
+                    &::before{
+                        background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
+                    }
+                }
+
             }
             .item-prize{
                 height: 71px;
@@ -1013,22 +1077,20 @@
             .item-usd{
                 height: 21px;
                 line-height: 21px;
-                font-size: 20px;
-                font-weight: bold;
+                font-size: 14px;
             }
         }
         .item-main{
-            display: flex;
-            margin-top: 14px;
             .main-left{
                 position: relative;
-                width: 330px;
+                height: 110px;
                 overflow: hidden;
                 >div{
                     position: absolute;
                     top: 0;
                     left: 0;
                     opacity: 0;
+                    width: 100%;
                     transform: translateY(200%);
                     transition: all 0.2s;
                 }
@@ -1040,45 +1102,48 @@
                 }
                 .input-box{
                     position: relative;
-                    width: 295px;
+                    width: 100%;
                     height: 48px;
                     overflow: hidden;
                     line-height: 46px;
-                    border: 1px solid #a99acc;
-                    border-radius: 6px;
-                    font-size: 20px;
-                    display: flex;
                     input{
-                        width: percentage(130/295);
+                        display: block;
+                        float: left;
+                        height: 46px;
+                        width: percentage(188/520);
                         outline: none;
-                        border: none;
-                        background: transparent;
+                        border: 2px solid #3c1e6e;
+                        border-radius: 6px;
+                        background: #3c1e6e;
                         text-indent: 50px;
+                        font-size: 24px;
+                        transition: all 0.2s;
+                        &:focus{
+                            border-color: #7b4de4;
+                        }
                     }
                     a{
-                        flex: 1;
                         display: block;
-                        width: percentage(53/260);
+                        float: right;
+                        margin-left: 5px;
+                        width: percentage(100/520);
                         text-align: center;
-                        border-left: 1px solid #a99acc;
                         color: #fff;
-                        font-size: 16px;
-                        background: #4b2688;
+                        font-size: 20px;
+                        font-weight: bold;
+                        background: #7b4de4;
+                        border-radius: 6px;
                         &:hover{
-                            background: #7b4de4;
+                            background: #3c1e6e;
+                            color: #f67c22;
                         }
                     }
                 }
             }
             .main-win,.main-fail{
-                p{
-                    line-height: 34px;
-                    font-size: 28px;
+                font-size: 24px;
+                em{
                     font-weight: bold;
-                }
-                span{
-                    line-height: 20px;
-                    font-size: 16px;
                 }
             }
             .main-finished{
@@ -1106,12 +1171,18 @@
                 }
             }
             .main-right{
-                padding-bottom: 20px;
+                margin: 10px 0;
                 line-height: 26px;
-                font-size: 16px;
-                color: #a999cb;
+                font-size: 14px;
+                color: #fff;
+                overflow: hidden;
+                >div{
+                    margin-right: 20px;
+                    float: left;
+                }
                 a{
-                    color: #a999cb;
+                    transition: none;
+                    color: #fff;
                     &:hover{
                         filter:brightness(1.3);
                     }
@@ -1133,8 +1204,8 @@
             transform: translateY(200%);
             .text-overflow();
             &.btn-normal{
-                width: 90%;
-                left: 5%;
+                width: 520px;
+                left: 40px;
                 bottom: 24px;
                 background: #f67c22;
                 border-radius: 6px;
@@ -1301,6 +1372,13 @@
                     .main-normal{
                         opacity: 1;
                         transform: translateY(0);
+
+                    }
+                }
+                .main-right{
+                    color: #a999cb;
+                    a{
+                        color: #a999cb;
                     }
                 }
             }

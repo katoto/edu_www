@@ -29,118 +29,106 @@
                 <span v-if="areaMsg.pickType !== '1' && areaMsg.pickType !== '5J'" class="js_choose_desc">
                     {{ _("Pick {0} numbers, if all the numbers hit the draw numbers, you'll win {1} times reward", areaMsg.pickType, syxw_bettype_odds['110'+( areaMsg.pickType )]) }}
                 </span>
-                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false"
-                   class="pop-reward-ct">
+                <a href="javascript:;" @mouseover="rewardTable = true" @mouseout="rewardTable = false" class="pop-reward-ct">
                     <lang>Reward table</lang>
                     <!-- Lucky 11 show -->
                     <div class="pop pop-rewardTable" :class="{hide: !rewardTable}">
                         <!-- <img src="../../assets/img/pop-rewardTable.png" alt=""> -->
-                        <h3>LUCKY 11</h3>
+                        <h3><lang>Lucky11</lang></h3>
                         <div class="pay-items">
                             <table>
                                 <thead>
-                                <tr>
-                                    <td width="90px">
-                                        <lang>Match</lang>
-                                    </td>
-                                    <td>
-                                        <lang>Win Terms</lang>
-                                    </td>
-                                    <td width="90px">
-                                        <lang>Win Ratio</lang>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td width="90px">
+                                            <lang>Match</lang>
+                                        </td>
+                                        <td>
+                                            <lang>Win Terms</lang>
+                                        </td>
+                                        <td width="90px">
+                                            <lang>Win Ratio</lang>
+                                        </td>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="hide">
-                                    <td>
-                                        C5<br>
-                                        <i>( jackpot )</i>
-                                    </td>
-                                    <td>
-                                        Pick 5 number according to the order number order exactly<br>
-                                        jackpot = 5 × (pool amount × wagering amount)
-                                    </td>
-                                    <td><i class="bold">jackpot</i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <lang>P1</lang>
-                                    </td>
-                                    <td>
-                                        <lang>Pick 1 number and hit 1/5 draw numbers</lang>
-                                    </td>
-                                    <td><i class="bold">1.8</i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <lang>P2</lang>
-                                    </td>
-                                    <td>
-                                        <lang>Pick 2 numbers and hit 2/5 draw numbers</lang>
-                                    </td>
-                                    <td><i class="bold">4.5</i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <lang>P3</lang>
-                                    </td>
-                                    <td>
-                                        <lang>Pick 3 numbers and hit 3/5 draw numbers</lang>
-                                    </td>
-                                    <td><i class="bold">13.5</i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <lang>P4</lang>
-                                    </td>
-                                    <td>
-                                        <lang>Pick 4 numbers and hit 4/5 draw numbers</lang>
-                                    </td>
-                                    <td><i class="bold">54</i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <lang>P5</lang>
-                                    </td>
-                                    <td>
-                                        <lang>Pick 5 numbers and hit 5/5 draw numbers</lang>
-                                    </td>
-                                    <td><i class="bold">378</i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <lang>Super5</lang>
-                                    </td>
-                                    <td class="reward-tip-box">
-            <p class="reward-pick-five-title">
-                <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
+                                    <tr>
+                                        <td>
+                                            <lang>P1</lang>
+                                        </td>
+                                        <td>
+                                            <lang>Pick 1 number and hit 1/5 draw numbers</lang>
+                                        </td>
+                                        <td><i class="bold">1.8</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <lang>P2</lang>
+                                        </td>
+                                        <td>
+                                            <lang>Pick 2 numbers and hit 2/5 draw numbers</lang>
+                                        </td>
+                                        <td><i class="bold">4.5</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <lang>P3</lang>
+                                        </td>
+                                        <td>
+                                            <lang>Pick 3 numbers and hit 3/5 draw numbers</lang>
+                                        </td>
+                                        <td><i class="bold">13.5</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <lang>P4</lang>
+                                        </td>
+                                        <td>
+                                            <lang>Pick 4 numbers and hit 4/5 draw numbers</lang>
+                                        </td>
+                                        <td><i class="bold">54</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <lang>P5</lang>
+                                        </td>
+                                        <td>
+                                            <lang>Pick 5 numbers and hit 5/5 draw numbers</lang>
+                                        </td>
+                                        <td><i class="bold">378</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <lang>Super5</lang>
+                                        </td>
+                                        <td class="reward-tip-box">
+                                            <p class="reward-pick-five-title">
+                                                <lang>Pick 5 numbers, if both numbers and the sequence on your ticket match the draw result</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
+                                            </p>
+                                            <p class="reward-table-tip">
+                                                <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <i class="bold">
+                                                <lang>jackpot</lang>
+                                            </i>
+                                        </td>
+                                    </tr>
+                                 </tbody>
+                            </table>
+                        </div>
+                     </div>
+                </a>
             </p>
-            <p class="reward-table-tip">
-                <lang>0.0001≤x＜0.001 get distribution from 0.5% of the current prize pool</lang>
-            </p>
-            <p class="reward-table-tip">
-                <lang>0.001≤x＜0.01 get distribution from 5% of the current prize pool</lang>
-            </p>
-            <p class="reward-table-tip">
-                <lang>0.01≤x＜0.05 get distribution from 25% of the current prize pool</lang>
-            </p>
-            <p class="reward-table-tip">
-                <lang>0.05≤x＜0.1 get distribution from 50% of the current prize pool</lang>
-            </p>
-            </td>
-            <td>
-                <i class="bold">
-                    <lang>jackpot</lang>
-                </i>
-            </td>
-            </tr>
-            </tbody>
-            </table>
-        </div>
-        </div>
-        </a>
-        </p>
         <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">
             <lang>Limit number list</lang>
         </a>
@@ -212,7 +200,7 @@
                 limitUnit: 0.0001, // 减去最小单位
                 slideDown: false,
                 rewardTable: false,
-                min_limit: 0.0001, // 限额
+                min_limit: 0.0002, // 限额
                 max_limit: 0.01 // 限额
             }
         },
@@ -251,7 +239,8 @@
                 if (Number(this.areaMsg.pickMoney) > parseFloat(this.max_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.max_limit)
                     Message({
-                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
+                        // message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
                         type: 'error'
                     })
                     return false
@@ -259,7 +248,7 @@
                 if (Number(this.areaMsg.pickMoney) < parseFloat(this.min_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                     return false
@@ -277,7 +266,7 @@
                 let currpickMoney = this.areaMsg.pickMoney
                 if (currpickMoney >= parseFloat(this.max_limit)) {
                     Message({
-                        message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('Bet amount is between {0} and {1} {2}',this.min_limit,this.max_limit,formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                 } else {
@@ -293,7 +282,7 @@
                 if (currpickMoney <= parseFloat(this.min_limit)) {
                     this.areaMsg.pickMoney = parseFloat(this.min_limit)
                     Message({
-                        message: _(`The minimum bet is ${this.min_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                        message: _('The minimum bet is {0} {1}',this.min_limit,formateCoinType(this.currBalance.cointype)),
                         type: 'error'
                     })
                 } else {
@@ -303,7 +292,7 @@
                             pickMoney: parseFloat(this.min_limit)
                         })
                         Message({
-                            message: _(`The minimum bet is ${this.min_limit} ${formateCoinType(this.currBalance.cointype)}`),
+                            message: _('The minimum bet is {0} {1}',this.min_limit,formateCoinType(this.currBalance.cointype)),
                             type: 'error'
                         })
                     } else {

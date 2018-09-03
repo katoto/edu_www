@@ -116,6 +116,7 @@ export default {
             position: relative;
             width: 94% !important;
             margin: 0 auto;
+            overflow: hidden;
         }
     }
     .slide-bar {

@@ -3,8 +3,7 @@
         <router-view v-if="isReady"/>
         <!-- ip -->
         <PopIpLimit></PopIpLimit>
-        <!-- 全局free -->
-        <PopFreeplay></PopFreeplay>
+
         <!-- 全局该邮件无法激活 -->
         <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
             <p class="el-message__content">
@@ -17,7 +16,6 @@
 
 <script>
     import PopIpLimit from '~components/Pop-ipLimit.vue'
-    import PopFreeplay from '~components/Pop-freeplay.vue'
     import {isLog, defaultLanguage} from '~common/util'
     export default {
         data () {
@@ -26,8 +24,7 @@
             }
         },
         components: {
-            PopIpLimit,
-            PopFreeplay
+            PopIpLimit
         },
         watch: {
         },
@@ -105,6 +102,7 @@
         font-family: sans-r,Microsoft Yahei;
         color: #263648;
         -webkit-overflow-scrolling: touch;
+        overflow: hidden;
     }
     .noscrolling{
         #app{

@@ -29,10 +29,10 @@
                     1.	Scope of the Agreement
                 </h2>
                 <p>
-                    Products on the Platform are gaming products. Thus, the Platform only accepts Users from countries and geographic regions where online gambling is allowed by law. And Users who regard the Platform as a tool of financial management or other investment businesses are not accepted. The Platform is excluded from any liability regarding User’s loss of money.
+                    Products on the Platform are gaming products. Thus, the Platform only accepts Users from countries and geographic regions where online gambling is allowed by law. And Users who regard the Platform as a tool of financial management or other investment businesses are not accepted. The Platform is excluded from any liability regarding User's loss of money.
                 </p>
                 <p>
-                    It is the User’s sole responsibility to inquire about the existing gambling laws and regulations of the given jurisdiction before placing bets on the website. The User guarantees at all times that he/she is not the resident of countries including the United States and its dependencies, and territories including but not limited to American Samoa, Guam, Marshall Islands, North Mariana Islands, Puerto Rico, and the Virgin Islands, Cuba, Iran, China, Hong Kong, Macau, Sudan, North Korea, United Kingdom or Syria, France or Spain.
+                    It is the User's sole responsibility to inquire about the existing gambling laws and regulations of the given jurisdiction before placing bets on the website. The User guarantees at all times that he/she is not the resident of countries including the United States and its dependencies, and territories including but not limited to American Samoa, Guam, Marshall Islands, North Mariana Islands, Puerto Rico, and the Virgin Islands, Cuba, Iran, China, Hong Kong, Macau, Sudan, North Korea, United Kingdom or Syria, France or Spain.
                 </p>
                 <p>
                     The User assures the Platform that he/she is over 18 years of age（or at least reach the minimum age for adults in the country). No person under the age of 18 or who do not meet the minimum age of the adult in their country can be registered as a User and any funds deposited or any money won by any such person shall be void. We are entitled to require User to provide proof of age and to refuse a User's access to the Service if we have reasons to believe that the minimum age requirement is not fulfilled.
@@ -72,7 +72,7 @@
                     If the Coinsprize operator suspects an account being theft, we reserve the right to terminate the account immediately. The User must prove that the account belongs to him/her before recover the account which was suspended because suspected of being stolen.
                 </p>
                 <p>
-                    The account on Platform corresponds to the account on blockchain. If the account or password is illegally used by another person due to the User's own reasons, the Coinsprize operator will not be liable for undertaking and dealing the issue. The User's own reasons include but not limited to: disclosing account and password and login information to a third party; sharing the same account with other persons; installing illegal or unsolicited programs; attempting malicious attacks to obtain the private key of the blockchain account, keystore and other information; User’s misuse of funds to transfer the digital currency in the account to a wrong address.
+                    The account on Platform corresponds to the account on blockchain. If the account or password is illegally used by another person due to the User's own reasons, the Coinsprize operator will not be liable for undertaking and dealing the issue. The User's own reasons include but not limited to: disclosing account and password and login information to a third party; sharing the same account with other persons; installing illegal or unsolicited programs; attempting malicious attacks to obtain the private key of the blockchain account, keystore and other information; User's misuse of funds to transfer the digital currency in the account to a wrong address.
                 </p>
                 <p>
                     If the Platform account is found with abnormal operations, funds in the account may be preferentially transferred to a securities account. The User may then attempt to recover funds in the account with a valid credential.
@@ -94,7 +94,7 @@
                     <p>d) Exceed the maximum trading amount specified by the regulatory authorities, Coinsprize, or laws and regulations;</p>
                     <p>e) The occurrence of technical failures (network, equipment and so forth);</p>
                     <p>f) Blockchain congestion, failures and other reasons that may terminate transactions;</p>
-                    <p>g) Your address or your counterpart’s is identified as an abnormal address, such as high-risky address, exchange address, ICO address, Token address and so forth.</p>
+                    <p>g) Your address or your counterpart's is identified as an abnormal address, such as high-risky address, exchange address, ICO address, Token address and so forth.</p>
                 </div>
                 <h3>
                     2.5 Rules for Account Data
@@ -105,14 +105,14 @@
                 <div>
                     <p>a) Right to Know: The Platform must open the details of use, and provide Users free check access. All checking records will be recorded on the Platform.</p>
                     <p>b) Access Right: Users can check specific information at any time whether the data has been modified or not.</p>
-                    <p>c) Right to Rectify: User reserves the right to modify the wrong data, if the modification is not adopted, the User has right to complain or require judicial remedy, and the Platform will respond to the User’s request in time.</p>
+                    <p>c) Right to Rectify: User reserves the right to modify the wrong data, if the modification is not adopted, the User has right to complain or require judicial remedy, and the Platform will respond to the User's request in time.</p>
                     <p>d) Right to Delete: When date on the Platform provided by User involves: data no longer needed, data required by the Platform but unclear about the purpose, data illegally used by others, and data related to the minor, User reserves the right to request the deletion of the data. The platform will actively cooperate with the issue</p>
                    <p>e) Right of Objection: User reserves the right to object to personal data being used for marketing</p>
                     <p>f) Automated individual decision-making and analysis: the User can agree that his/her personal data could be analyzed.</p>
 
                 </div>
                 <p>
-                    Coinsprize guarantees to completely keep Users’ information confidential except when:
+                    Coinsprize guarantees to completely keep Users' information confidential except when:
                 </p>
                 <div>
                     <p>a) It is required by government offices or judicial authorities;   </p>
@@ -126,7 +126,7 @@
                     If the User violates any of the following regulations, We will evaluate the consequential influence. The Platform reserves the right to restrict part or all of account services, or suspend the account;
                 </p>
                 <div>
-                    <p>a) The User provides incorrect or misleading information on his/her account or upon registration, including but not limited to stealing others’ email addresses. </p>
+                    <p>a) The User provides incorrect or misleading information on his/her account or upon registration, including but not limited to stealing others' email addresses. </p>
                     <p>b) The User is an individual under 18 years of age, or under legal age of majority in jurisdiction of where the User resides. </p>
                     <p>c) The User is under legal supervision or restricted in his/her business activities. </p>
                     <p>d) The User uses the account for commercial purposes. </p>
@@ -142,7 +142,7 @@
                     <p>b) Create and use an account by stealing information from others or against the will of others. </p>
                     <p>c) Use the Platform or services for massive commercial intentions, or cause damage to other Users. </p>
                     <p>d) The Platform account itself does not have any substantial value, any kinds of account selling, pledging, obtaining or transferring to other Users are prohibited by the Platform. </p>
-                    <p>e) For Users’ own reasons, Users are prohibited by their local laws from using this sort of product or Our Platform if it is explicitly restricted. </p>
+                    <p>e) For Users' own reasons, Users are prohibited by their local laws from using this sort of product or Our Platform if it is explicitly restricted. </p>
                     <p>f) Making profits from bugs or flaws of blockchain technology that may exist in the Platform. </p>
                     <p>g) Fraud, money laundering and anything forbidden by local laws or a broader applicable law. The fraudulent acts include:
                         <span>1) Participating in any type of collusion with other users; </span>
@@ -205,13 +205,13 @@
                     3.4.1 LuckyCoin Service
                 </h4>
                 <p>
-                    LuckyCoin is a game of chance raffle. After the User chooses to purchase 1 or more tickets, he/she will get a series of random numbers. If all chosen numbers match the draw numbers the User wins. The game is with 100% drawing rate and all draws have winners. Draw result is calculated from the hash of block on Ethernet.
+                    LuckyCoin is a game of chance raffle. After the User chooses to purchase 1 or more tickets, he/she will get a series of random numbers. If all chosen numbers match the draw numbers the User wins. The game is with 100% drawing rate. Draw result is calculated from the hash of block on Ethernet.
                 </p>
                 <h4>
                     3.4.2 LuckyCoin Game Cost
                 </h4>
                 <p>
-                    LuckyCoin has no fixed game cost, the User’s spending depends on his/her own circumstances. Theoretically, the more User costs, the higher winning chance will be.
+                    LuckyCoin has no fixed game cost, the User's spending depends on his/her own circumstances. Theoretically, the more User costs, the higher winning chance will be.
                 </p>
                 <h4>
                     3.4.3 Special Circumstances of LuckyCoin
@@ -256,7 +256,7 @@
 
                 </div>
                 <p>
-                    Once the behaviors above of Users are detected by Coinsprize operator through internal monitoring programs or reported by other Users, the Coinsprize operator reserves the right to  make judgments and take corresponding measures at its sole discretion, including but is not limited to restricting account login and activities on the Platform, terminate the authorization of the account, freezing all balance in the account, deducting the account balance to offset users’ debts on Platform or compensate for the loss of Coinsprize team, freezing the account and requesting the compensation to Coinsprize.
+                    Once the behaviors above of Users are detected by Coinsprize operator through internal monitoring programs or reported by other Users, the Coinsprize operator reserves the right to  make judgments and take corresponding measures at its sole discretion, including but is not limited to restricting account login and activities on the Platform, terminate the authorization of the account, freezing all balance in the account, deducting the account balance to offset users' debts on Platform or compensate for the loss of Coinsprize team, freezing the account and requesting the compensation to Coinsprize.
                 </p>
                 <h2>
                     5. Interruption and Ceasing of Services
@@ -309,10 +309,10 @@
                     The Platform will make every effort to help Users retrieve but not be liable for their losses caused by the blockchain problems.
                 </p>
                 <p>
-                    Since User’s account funds are all on the corresponding blockchain account, the Platform warrants that it can only be operated by User himself/herself. And the Platform is not liable for User’s pecuniary loss if the User intentionally or unintentionally leaks his/her account information to others.
+                    Since User's account funds are all on the corresponding blockchain account, the Platform warrants that it can only be operated by User himself/herself. And the Platform is not liable for User's pecuniary loss if the User intentionally or unintentionally leaks his/her account information to others.
                 </p>
                 <p>
-                    Coinsprize operator is not liable of any hardware or software, defects, unstable or lost Internet connections, or any other technical errors that may limit User’s access to the website or prevent User from an uninterrupted play.
+                    Coinsprize operator is not liable of any hardware or software, defects, unstable or lost Internet connections, or any other technical errors that may limit User's access to the website or prevent User from an uninterrupted play.
                 </p>
                 <p>
                     If we mistakenly credit your Account with winnings that do not belong to you, whether due to a technical, error in the pay-tables, or human error or otherwise, the amount will remain our property and will be deducted from your Account. If you have withdrawn funds that do not belong to you prior to us becoming aware of the error, the mistakenly paid amount will (without prejudice to other remedies and actions that may be available at law) constitute a debt owed by you to us. In the event of an incorrect crediting, you are obliged to notify us immediately by email.
@@ -339,7 +339,7 @@
                     9. Authorization
                 </h2>
                 <p>
-                    When User’s original works are provided to the Coinsprize official website by uploading, transmission, input or other methods, it is regarded that the User transfers all copyright to Coinsprize operator except for the reserved authorship. The Coinsprize operator reserves the right to use, modify, edit, copy, publicly broadcast or publish the works, or assign/distribute the aforementioned rights. User authorizes the Coinsprize operator to exercise all necessary rights above, including but not limited to copyright, portrait rights and so forth.
+                    When User's original works are provided to the Coinsprize official website by uploading, transmission, input or other methods, it is regarded that the User transfers all copyright to Coinsprize operator except for the reserved authorship. The Coinsprize operator reserves the right to use, modify, edit, copy, publicly broadcast or publish the works, or assign/distribute the aforementioned rights. User authorizes the Coinsprize operator to exercise all necessary rights above, including but not limited to copyright, portrait rights and so forth.
                 </p>
                 <h2>
                     10. Risk Notifications
@@ -355,7 +355,7 @@
                         b)	Regulatory risk: The User understands and accepts that the blockchain technology allows new forms of interaction and that it is possible that certain jurisdictions will apply existing regulations on, or introduce new regulations addressing blockchain technology based applications, which may be contrary to the current setup of the System and which may, inter alia, result in substantial modifications of the Service, including its termination and the loss of digital currencies.
                     </p>
                     <p>
-                        c)	Risk of loss of private key: Digital currencies in account wallet can only be accessed with a wallet seed or combination of private key and password. The private key is encrypted with a password. The User understands and accepts that if his wallet file or password respectively his private key got lost or stolen, the obtained digital currencies associated with the User’s Wallet or password will be unrecoverable and will be permanently lost with the wallet seed.
+                        c)	Risk of loss of private key: Digital currencies in account wallet can only be accessed with a wallet seed or combination of private key and password. The private key is encrypted with a password. The User understands and accepts that if his wallet file or password respectively his private key got lost or stolen, the obtained digital currencies associated with the User's Wallet or password will be unrecoverable and will be permanently lost with the wallet seed.
                     </p>
                     <p>
                         d)	Risk of theft: The User understands and accepts that the Service concept, the underlying software application and software platform may be exposed to attacks by hackers or other individuals that that could result in theft or loss of digital currencies, impacting the ability to develop the Services.

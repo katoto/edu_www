@@ -32,7 +32,7 @@
                 <div class="row clearfix">
                     <div class=" items">
                         <div class="col-md-6 col-lg-3" v-for="(bet, index) in filterBets(betsList)" :key="Number(bets.pages.pageno + 1) * (index + 1) * Math.random()">
-                            <bet-box :bet="bet" type="list" @close="closeOtherBet" ref="betBoxList"></bet-box>
+                            <bet-box :bet="bet" type="list" @close="closeOtherBet" ref="betBoxList" @updateBets="updateBets"></bet-box>
                         </div>
                     </div>
                     <div class="nomsg" v-if="filterBets(betsList).length === 0">
@@ -126,6 +126,9 @@ export default {
         handleCurrentHistoryChange (pageno = this.history.pages.pageno) {
             this.history.pages.pageno = pageno
             this.getHistoryData()
+        },
+        updateBets () {
+            this.refreshPage()
         },
         async getBetData () {
             let result = await this.getBetsPageList({
@@ -287,9 +290,15 @@ export default {
             return
         }
         this.$route.meta.history ? this.getHistoryData() : this.getBetData()
+        this.$store.commit('cs_luckycoin/bindPageListener', {
+            bids: () => {
+                this.refreshPage()
+            }
+        })
     },
     beforeDestroy () {
         document.documentElement.className = ''
+        this.$store.commit('cs_luckycoin/unbindPageListener', 'bids')
     }
 }
 </script>
@@ -387,7 +396,6 @@ export default {
     overflow: hidden;
     > div {
         margin-bottom: 10px;
-        box-sizing: border-box;
     }
 }
 .item-history {
