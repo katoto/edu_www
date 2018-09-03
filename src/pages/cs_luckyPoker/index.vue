@@ -3,7 +3,13 @@
         <Header></Header>
         <div class="luckyPoker">
             <div class="main">
-                <div class="bg-esktop">
+                <div class="bg-esktop" ref="container">
+                    <div class="fly-coin fly-coin-el" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.0001.png" alt="" v-if="item.coinType === 0.0001">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.001.png" alt="" v-if="item.coinType === 0.001">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.01.png" alt="" v-if="item.coinType === 0.01">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.1.png" alt="" v-if="item.coinType === 0.1">
+                    </div>
                     <!--历史开奖记录-->
                     <div class="poker-history">
                         <p class="title">Your history draw</p>
@@ -73,7 +79,7 @@
                                     最高可中  0.002 ETH
                                 </p>
                                 <ul>
-                                    <li class="bet-red">
+                                    <li class="bet-red" ref="coin_red" @click="addCoin('red')">
                                         <i>
                                             <img class="icon-hongt" src="@assets/img/luckyPoker/icon-hongt.png" alt="">
                                         </i>
@@ -82,7 +88,7 @@
                                             <img class="icon-fk" src="@assets/img/luckyPoker/icon-fk.png" alt="">
                                         </i>
                                     </li>
-                                    <li class="bet-black">
+                                    <li class="bet-black" @click="addCoin('black')" ref="coin_black">
                                         <i>
                                             <img src="@assets/img/luckyPoker/icon-heit.png" alt="">
                                         </i>
@@ -99,7 +105,7 @@
                             <div class="bet-joker">
                                 <p class="poker-prize">最高可中 0.00002 ETH</p>
                                 <ul>
-                                    <li>
+                                    <li @click="addCoin('joker')" ref="coin_joker">
                                         <p>JOKER</p>
                                         <img src="@assets/img/luckyPoker/icon-crown.png" alt="">
                                     </li>
@@ -113,16 +119,16 @@
                                     最高可中  0.002 ETH
                                 </p>
                                 <ul>
-                                    <li>
+                                <li @click="addCoin('spade')" ref="coin_spade">
                                         <img src="@assets/img/luckyPoker/icon-heit.png" alt="">
                                     </li>
-                                    <li>
+                                    <li @click="addCoin('heart')" ref="coin_heart">
                                         <img src="@assets/img/luckyPoker/icon-hongt.png" alt="">
                                     </li>
-                                    <li>
+                                    <li @click="addCoin('clubs')" ref="coin_clubs">
                                         <img src="@assets/img/luckyPoker/icon-mh.png" alt="">
                                     </li>
-                                    <li>
+                                    <li @click="addCoin('dianmond')" ref="coin_dianmond">
                                         <img src="@assets/img/luckyPoker/icon-fk.png" alt="">
                                     </li>
                                 </ul>
@@ -135,24 +141,24 @@
                                     最高可中  0.002 ETH
                                 </p>
                                 <ul class="item1">
-                                    <li>2</li>
-                                    <li>3</li>
-                                    <li>4</li>
-                                    <li>5</li>
-                                    <li>6</li>
-                                    <li>7</li>
-                                    <li>8</li>
-                                    <li>9</li>
-                                    <li>10</li>
-                                    <li>J</li>
+                                    <li @click="addCoin('2')" ref="coin_2">2</li>
+                                    <li @click="addCoin('3')" ref="coin_3">3</li>
+                                    <li @click="addCoin('4')" ref="coin_4">4</li>
+                                    <li @click="addCoin('5')" ref="coin_5">5</li>
+                                    <li @click="addCoin('6')" ref="coin_6">6</li>
+                                    <li @click="addCoin('7')" ref="coin_7">7</li>
+                                    <li @click="addCoin('8')" ref="coin_8">8</li>
+                                    <li @click="addCoin('9')" ref="coin_9">9</li>
+                                    <li @click="addCoin('10')" ref="coin_10">10</li>
+                                    <li @click="addCoin('J')" ref="coin_J">J</li>
                                 </ul>
                                 <ul class="item2">
-                                    <li>Q</li>
-                                    <li>K</li>
-                                    <li>A</li>
+                                    <li @click="addCoin('Q')" ref="coin_Q">Q</li>
+                                    <li @click="addCoin('K')" ref="coin_K">K</li>
+                                    <li @click="addCoin('A')" ref="coin_A">A</li>
                                 </ul>
                                 <div class="btn-cls ">
-                                    <a href="javascript:;" >
+                                    <a href="javascript:;" @click="clearBet">
                                         清除
                                     </a>
                                 </div>
@@ -164,28 +170,28 @@
                         <!--按钮区-->
                         <div class="area-btn clearfix">
                             <ul class="clearfix">
-                                <li>
+                                <li :class="{ on: currentCoin === 0.0001 }" @click="changeCoin('0.0001')" ref="0.0001">
                                     <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
                                     <p>0.0001</p>
                                 </li>
-                                <li>
+                                <li :class="{ on: currentCoin === 0.001 }" @click="changeCoin('0.001')" ref="0.001">
                                     <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
                                     <p>0.001</p>
                                 </li>
-                                <li class="on">
+                                <li :class="{ on: currentCoin === 0.01 }" @click="changeCoin('0.01')" ref="0.01">
                                     <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
                                     <p>0.01</p>
                                 </li>
-                                <li>
+                                <li :class="{ on: currentCoin === 0.1 }" @click="changeCoin('0.1')" ref="0.1">
                                     <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
                                     <p>0.1</p>
                                 </li>
                             </ul>
                             <!--wait/unable-->
-                            <div href="javascript:;" class="btn-main ">
+                            <div href="javascript:;" class="btn-main " @click="bet">
                                 <p>PAY</p>
                                 <!--<p>Please wait</p>-->
-                                <i>0.00001 ETH</i>
+                                <i>{{total}} ETH</i>
                             </div>
                         </div>
                     </div>
@@ -205,8 +211,8 @@
                                 Client seed
                             </p>
                             <div class="input-group">
-                                <input type="text">
-                                <a href="javascript:;" class="btn btn-random">
+                                <input type="text" v-model="clientSeed">
+                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
                                     RANDOMIZE
                                 </a>
                                 <a href="javascript:;"  class="btn btn-lock">
@@ -216,10 +222,10 @@
                         </li>
                         <li>
                             <p class="title">
-                                Client seed
+                                The Hash of Random Number
                             </p>
                             <div class="input-group">
-                                <input type="text">
+                                <input type="text" v-model="hashNumber">
                             </div>
                         </li>
                     </ul>
@@ -511,21 +517,31 @@
 <script>
 import Header from '~components/Header'
 import Footer from '~components/Footer'
-import h5Page from './components/h5'
-import pcPage from './components/pc'
+import betMixin from './betMixin'
 export default {
     data () {
         return {
-            showPopVer:false
+            showPopVer: false
         }
     },
-    components: { Header, Footer, h5Page, pcPage },
+    mixins: [betMixin],
+    components: { Header, Footer },
     mounted () {
     }
 }
 </script>
 <style lang="less" scoped type="text/less">
     @import "../../styles/lib-mixins.less";
+    .fly-coin {
+        transition: .5s ease-in-out;
+        position: absolute;
+        img {
+            width: 24px;
+        }
+    }
+    .bg-esktop {
+        position: relative;
+    }
     .setPokerPosition( @count )when( @count > 0 ){
         li:nth-child(@{count}){
             transform: translate(-50%,13px * @count);
