@@ -13,7 +13,8 @@ export default {
             autoTimer: null,
             calTimer: null,
             coins: [],
-            clientSeed: ''
+            clientSeed: '',
+            hashNumber: ''
         }
     },
     methods: {
