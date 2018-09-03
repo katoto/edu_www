@@ -28,7 +28,7 @@
                         </li>
                         <li>
                             <router-link :to="{path: '/luckyPoker/'}" active-class="on">
-                                <lang>Poker</lang>
+                                <lang>LuckyPoker</lang>
                             </router-link>
                         </li>
                     </ul>
@@ -48,7 +48,7 @@
                         <lang>Lucky11</lang>
                     </router-link>
                     <router-link :to="{path: '/luckyPoker/'}" active-class="on">
-                        <lang>Poker</lang>
+                        <lang>LuckyPoker</lang>
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>

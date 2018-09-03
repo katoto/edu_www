@@ -65,8 +65,7 @@ const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
 const csPoker = () => import('~/pages/cs_luckyPoker/index')
-const h5 = () => import('~/pages/cs_luckyPoker/h5')
-const pc = () => import('~/pages/cs_luckyPoker/pc')
+
 
 /* 品牌首页 */
 const Home = () =>
@@ -169,16 +168,6 @@ let routesArr = [
         path: '/luckyPoker',
         name: _('luckyPoker'),
         component: csPoker
-    },
-    {
-        path: '/h5',
-        name: _('h5'),
-        component: h5
-    },
-    {
-        path: '/pc',
-        name: _('pc'),
-        component: pc
     },
     {
         path: '/404',
