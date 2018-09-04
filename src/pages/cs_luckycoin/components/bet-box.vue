@@ -168,8 +168,11 @@
                 <lang>Bid Failed</lang>
             </p>
             <center>
-                <p class="bet-m">
+                <p class="bet-m" v-if="errorMessage ===''">
                     <lang>Uh-oh~ network problems occured.</lang>
+                </p>
+                <p class="bet-m" v-else>
+                    {{ errorMessage }}
                 </p>
             </center>
             <a href="javascript:;" class="btn-fail" @click="closeWindow">
