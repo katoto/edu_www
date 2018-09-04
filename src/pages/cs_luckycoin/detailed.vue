@@ -751,7 +751,11 @@
 <style lang="less" type="text/less">
     .luckyCoinDetailed{
         flex-grow: 1;
-        background: #2a1236;
+        background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat center top;
+        background-size: 1920px;
+        .main{
+            padding: 0;
+        }
         .el-table__empty-block {
             display: none;
         }
