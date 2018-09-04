@@ -2,13 +2,13 @@
     <div class="dapp-contain" v-if="roundInfo">
         <div>
             <p>期号： {{ roundInfo.roundIndex }} </p>
-            当前奖池
+            当前奖池 {{ roundInfo.jackpot }}
         </div>
         <div v-if="roundInfo">
             {{ roundInfo.tickets}}
             {{ roundInfo.startTime}}
             {{ roundInfo.endTime}}
-            {{ roundInfo.jackpot}}
+            
             {{ roundInfo.nextpot}}
             {{ roundInfo.luckNum}}
             {{ roundInfo.mask}}
