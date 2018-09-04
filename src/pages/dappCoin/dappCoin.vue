@@ -3,6 +3,18 @@
         <div>
             <p>基于区块链123</p>
         </div>
+        <div v-if="roundInfo">
+            {{ roundInfo.roundIndex }}
+            {{ roundInfo.tickets}}
+            {{ roundInfo.startTime}}
+            {{ roundInfo.endTime}}
+            {{ roundInfo.jackpot}}
+            {{ roundInfo.nextpot}}
+            {{ roundInfo.luckNum}}
+            {{ roundInfo.mask}}
+            {{ roundInfo.winner}}
+            {{ roundInfo.ended}}
+        </div>
         <router-link :to="{path:'/lucky11'}"></router-link>
 
         <button @click="buyNum" style="width:100px;height:50px">购买</button>
@@ -30,8 +42,9 @@
             return {
                 showFirstBaxi: false, // 首次提示
                 isFromFlag: false, // 是否是来自邀请
-                tickNum: 1,
-                regName: 'poi'
+                tickNum: 1, // 票数
+                regName: 'poi', // 注册的名字
+                roundInfo: null, // getcurrentRoundInfo msg
             }
         },
         watch: {
@@ -44,6 +57,11 @@
             copySucc,
             copyError,
             formateBalance,
+            async getCurrentRoundInfo () {
+                // 获取页面相关信息
+                this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+                console.log(roundInfo)
+            },
             async buyNum () {
                 // 购买号码
                 let buyBack = null
@@ -137,6 +155,7 @@
             }
             console.log(luckyCoinApi)
             console.log(coinAffAddr)
+            this.getCurrentRoundInfo()
     }
     }
 </script>

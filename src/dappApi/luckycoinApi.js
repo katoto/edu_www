@@ -929,7 +929,18 @@ luckyCoinApi.getCurrentRoundInfo = () => {
         contractNet.getCurrentRoundInfo(function (err, res) {
             if (!err) {
                 if (res) {
-                    console.log(res)
+                    resolve({
+                        roundIndex: res[0].toNumber(),
+                        tickets: res[1].toNumber(),
+                        startTime: res[2].toNumber(),
+                        endTime: res[3].toNumber(),
+                        jackpot: Number(web3.fromWei(res[4].toNumber())),
+                        nextpot: Number(web3.fromWei(res[5].toNumber())),
+                        luckNum: res[6].toNumber(),
+                        mask: res[7].toNumber(),
+                        winner: res[8].toString(),
+                        ended: res[9].toString()
+                    })
                 }
             } else {
                 reject(err)
