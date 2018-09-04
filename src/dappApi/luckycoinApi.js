@@ -878,151 +878,127 @@ console.log(contractNet)
 //  合约api
 let luckyCoinApi = {}
 
-luckyCoinApi.getBalance = () => {
-    console.log('getBlance')
-}
-
-luckyCoinApi.registerNameXname = (regName, _affCode, fn) => {
-    // * @param _nameString players desired name
-    // * @param _affCode affiliate ID, address, or name of who referred you
-    // * @param _all set to true if you want this to push your info to all games
-    if (typeof regName !== 'string') {
-        return 'need string regName !.'
-    }
-    if (typeof _affCode !== 'string') {
-        return 'need string _affCode name !.'
-    }
-    if (typeof fn !== 'function') {
-        return 'need async function !.'
-    }
-    if (contractNet) {
-        contractNet.registerNameXname(regName.toString(), _affCode, true, {value: web3.toWei('0.01', 'ether')}, function (err, res) {
-            if (!err) {
-                if (res) {
-                    fn(null, true)
+luckyCoinApi.testName = (regName) => {
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.pIDxName_(regName.toString(), function (err, res) {
+                if (!err) {
+                    if (res) {
+                        res.toString() === '0' ? resolve(true) : resolve(false)
+                    }
+                } else {
+                    reject(err)
                 }
-            } else {
-                fn(err, null)
-            }
-        })
-    } else {
-        fn('contractNet error at registerNameXname', null)
-    }
-}
-
-luckyCoinApi.registerNameXaddr = (regName, _affCode, fn) => {
-    if (typeof regName !== 'string') {
-        return 'need string regName !.'
-    }
-    if (typeof _affCode !== 'string') {
-        return 'need string _affCode addr !.'
-    }
-    if (typeof fn !== 'function') {
-        return 'need async function !.'
-    }
-    if (contractNet) {
-        contractNet.registerNameXaddr(regName.toString(), _affCode, true, {value: web3.toWei('0.01', 'ether')}, function (err, res) {
-            if (!err) {
-                if (res) {
-                    fn(null, true)
-                }
-            } else {
-                fn(err, null)
-            }
-        })
-    } else {
-        fn('contractNet error at registerNameXaddr', null)
-    }
-}
-
-luckyCoinApi.buyXaddr = (_affCode, _team, totalVal, fn) => {
-    /*
-    *
-        @param _affCode   the ID/address/name of the player who gets the affiliate fee
-        @param _team what team is the player playing for?
-    *
-    * */
-    if (typeof _affCode !== 'string') {
-        fn('_affCode param 1 need Sting ( addr )', null)
-        return '_affCode param 1 need Sting ( addr )'
-    }
-    if (typeof _team !== 'number') {
-        fn('_team param 2 need number (0,1,2,3)', null)
-        return '_team param 2 need number (0,1,2,3)'
-    }
-    if (typeof totalVal === 'string') {
-        totalVal = parseFloat(totalVal)
-    }
-    if (!totalVal) {
-        fn('totalVal param 3 error', null)
-        return 'totalVal param 3 error'
-    }
-    contractNet.buyXaddr(_affCode, parseInt(_team), {value: web3.toWei(totalVal, 'ether')}, function (err, res) {
-        if (!err) {
-            if (res) {
-                fn(null, res)
-            } else {
-                fn('buyXaddr error', null)
-            }
+            })
         } else {
-            fn(err, null)
+            reject(new Error('contractNet error at pIDxName_'))
         }
     })
 }
-luckyCoinApi.buyXname = (_affCode, _team, totalVal, fn) => {
+
+luckyCoinApi.registerNameXaddr = (regName, _affCode) => {
+    if (typeof regName !== 'string') {
+        return 'need string regName !'
+    }
     if (typeof _affCode !== 'string') {
-        fn('_affCode param 1 need Sting ( addr )', null)
-        return '_affCode param 1 need Sting ( addr )'
+        return 'need string _affCode addr !'
     }
-    if (typeof _team !== 'number') {
-        fn('_team param 2 need number (0,1,2,3)', null)
-        return '_team param 2 need number (0,1,2,3)'
-    }
-    if (typeof totalVal === 'string') {
-        totalVal = parseFloat(totalVal)
-    }
-    if (!totalVal) {
-        fn('totalVal param 3 error', null)
-        return 'totalVal param 3 error'
-    }
-    contractNet.buyXname(_affCode, parseInt(_team), {value: web3.toWei(totalVal, 'ether')}, function (err, res) {
-        if (!err) {
-            if (res) {
-                fn(null, res)
-            } else {
-                fn('buyXname error', null)
-            }
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.registerNameXaddr(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether')}, function (err, res) {
+                if (!err) {
+                    if (res) {
+                        resolve(true)
+                    }
+                } else {
+                    reject(err)
+                }
+            })
         } else {
-            fn(err, null)
+            reject(new Error('contractNet error at registerNameXaddr'))
         }
     })
 }
-luckyCoinApi.buyXid = (_affCode, _team, totalVal, fn) => {
-    if (typeof _affCode !== 'number') {
-        fn('_affCode param 1 need number ( id )', null)
-        return '_affCode param 1 need number ( id )'
+
+luckyCoinApi.buyXaddr = (_tickets, _affCode, _price) => {
+    if (typeof _tickets === 'string') {
+        _tickets = parseInt(_tickets)
     }
-    if (typeof _team !== 'number') {
-        fn('_team param 2 need number (0,1,2,3)', null)
-        return '_team param 2 need number (0,1,2,3)'
+    if (typeof _affCode !== 'string') {
+        _affCode = _affCode.toString()
     }
-    if (typeof totalVal === 'string') {
-        totalVal = parseFloat(totalVal)
+    if (typeof _price === 'string') {
+        _price = parseInt(_price)
     }
-    if (!totalVal) {
-        fn('totalVal param 3 error', null)
-        return 'totalVal param 3 error'
-    }
-    contractNet.buyXid(_affCode, parseInt(_team), {value: web3.toWei(totalVal, 'ether')}, function (err, res) {
-        if (!err) {
-            if (res) {
-                fn(null, res)
+    return new Promise((resolve, reject) => {
+        contractNet.buyXaddr(_tickets, _affCode, {value: web3.toWei(_price, 'ether')}, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res)
+                } else {
+                    reject(new Error('buyXaddr error'))
+                }
             } else {
-                fn('buyXid error', null)
+                reject(err)
             }
-        } else {
-            fn(err, null)
-        }
+        })
+    })
+}
+
+luckyCoinApi.buyXname = (_tickets, _name, _price) => {
+    if (typeof _tickets === 'string') {
+        _tickets = parseInt(_tickets)
+    }
+    if (typeof _name !== 'string') {
+        _name = _name.toString()
+    }
+    if (typeof _price === 'string') {
+        _price = parseInt(_price)
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.buyXname(_tickets, _name, {value: web3.toWei(_price, 'ether')}, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res)
+                } else {
+                    reject(new Error('buyXname error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.getBuyPrice = () => {
+    return new Promise((resolve, reject) => {
+        contractNet.getBuyPrice((err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res.toNumber())
+                } else {
+                    reject(new Error('getBuyPrice error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.withdraw = () => {
+    return new Promise((resolve, reject) => {
+        contractNet.withdraw((err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(true)
+                } else {
+                    reject(new Error('withdraw error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
     })
 }
 

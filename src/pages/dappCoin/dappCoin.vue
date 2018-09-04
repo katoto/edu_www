@@ -3,7 +3,11 @@
         <div>
             <p>基于区块链123</p>
         </div>
-        <p @click="jump2">lucky11</p>
+        <router-link :to="{path:'/lucky11'}"></router-link>
+
+        <button @click="buyNum" style="width:100px;height:50px">购买</button>
+        <button @click="registerName" style="width:100px;height:50px">买名字</button>
+
     </div>
 </template>
 
@@ -15,6 +19,7 @@
         formateBalance,
         formateCoinType
     } from '~common/util'
+    import {coinAffAddr} from '~common/dappConfig.js'
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
     import {web3, luckyCoinApi} from '~/dappApi/luckycoinApi'
@@ -23,7 +28,8 @@
     export default {
         data () {
             return {
-                showFirstBaxi: false // 首次提示
+                showFirstBaxi: false, // 首次提示
+                isFromFlag: false // 是否是来自邀请
             }
         },
         watch: {
@@ -36,10 +42,46 @@
             copySucc,
             copyError,
             formateBalance,
-            jump2 () {
-                this.$router.push('/lucky11')
+            async buyNum () {
+                // 购买号码
+                let buyBack = null
+                let currPrice = await luckyCoinApi.getBuyPrice()
+                // 判断是否用邀请购买
+                if (currPrice === 0) {
+                    console.error('getPrice 0')
+                    return false
+                }
+                console.log(currPrice)
+                if (0) {
+                    // export function wait (time) {
+                    //     return new Promise((resolve) => {
+                    //         setTimeout(() => resolve(), time)
+                    //     })
+                    // }
+                } else {
+                    buyBack = await luckyCoinApi.buyXaddr(1, coinAffAddr, currPrice)
+                }
+                console.log(buyBack)
             },
-            getBuyNum (bigNum) {
+            async registerName (regName) {
+                let buyNameBack = null
+                // 判断是否已经被购买
+                regName = regName.toString()
+                let checkName = await luckyCoinApi.testName(regName)
+                if (checkName) {
+                    buyNameBack = await luckyCoinApi.registerNameXaddr(regName, this.isFromFlag)
+                }
+                console.log(checkName)
+            },
+            async withdraw (){
+                let withdrawBack = await luckyCoinApi.withdraw()
+                if (withdrawBack) {
+                    console.log('提款成功')
+                }
+
+            },
+            analysisBuyNum (bigNum) {
+                //  解析数值
                 let buyNumArr = []
                 let startIndex = 1
                 let currReduce = null
@@ -84,7 +126,13 @@
         components: {
         },
         async mounted () {
+            if (0 && url) {
+
+            } else {
+                this.isFromFlag = coinAffAddr
+            }
             console.log(luckyCoinApi)
+            console.log(coinAffAddr)
     }
     }
 </script>
