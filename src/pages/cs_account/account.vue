@@ -1,7 +1,7 @@
 <template>
     <div class="account">
         <Header></Header>
-        <div class="main" @click="initPop">
+        <div class="main flex1" @click="initPop">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Account Center'), path: '/account' }]"></BreadCrumbs>
             <!--侧边栏-->
             <div class="slide-bar visible-lg" :data-msg="_('Free Bonus ')">
@@ -116,7 +116,6 @@ export default {
             position: relative;
             width: 94% !important;
             margin: 0 auto;
-            overflow: hidden;
         }
     }
     .slide-bar {

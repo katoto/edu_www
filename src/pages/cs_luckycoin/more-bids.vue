@@ -1,5 +1,5 @@
 <template>
-    <div class="main" @click="initPop">
+    <div class="main flex1" @click="initPop">
             <BreadCrumbs :pageName="activeName === 'bids' ? _('More Available Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                 <el-tab-pane :label="_('More Available Bids')" name="bids"></el-tab-pane>
@@ -305,7 +305,7 @@ export default {
 <style scoped lang="less" type="text/less">
 @import "../../styles/lib-media.less";
     .main {
-        padding-top: 0;
+       padding: 0;
     }
     .b-nav {
         max-width: 1190px;

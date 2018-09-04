@@ -1,21 +1,10 @@
 <template>
     <div id="app"  @scroll.native="test" :class="isReady ? 'ready' : ''">
         <router-view v-if="isReady"/>
-        <!-- ip -->
-        <PopIpLimit></PopIpLimit>
-
-        <!-- 全局该邮件无法激活 -->
-        <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
-            <p class="el-message__content">
-                <lang>Failed to activate, because of wrong email format</lang>
-            </p>
-        </div>
-
     </div>
 </template>
 
 <script>
-    import PopIpLimit from '~components/Pop-ipLimit.vue'
     import {isLog, defaultLanguage} from '~common/util'
     export default {
         data () {
@@ -24,7 +13,6 @@
             }
         },
         components: {
-            PopIpLimit
         },
         watch: {
         },
@@ -45,13 +33,6 @@
             }
         },
         computed: {
-            showEmailErr () {
-                return this.$store.state.showEmailErr
-            },
-            isLog () {
-                return this.$store.state.isLog
-            }
-
         },
         async mounted () {
             this.handleInit()
@@ -130,5 +111,4 @@
             height:22px;
         }
     }
-
 </style>

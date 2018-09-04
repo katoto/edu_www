@@ -543,9 +543,9 @@
             margin-bottom: 48px;
             color: #fff;
             text-align: center;
-            /deep/ .el-carousel__indicators {
-                display: none;
-            }
+            /*/deep/ .el-carousel__indicators {*/
+                /*display: none;*/
+            /*}*/
         }
         .el-carousel__item {
             img {

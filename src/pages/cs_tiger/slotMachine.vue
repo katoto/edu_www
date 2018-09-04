@@ -2349,6 +2349,7 @@ Vue.use(vueClipboard)
         .tiger-contain{
             background:#000 url("../../assets/img/tiger/bg-tiger-bak.png") no-repeat center top;
             background-size: 100%;
+            height: 100%;
         }
     }
     .footer{
