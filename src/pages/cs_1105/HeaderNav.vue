@@ -6,10 +6,12 @@
                     <lang>Lucky11</lang>
                 </h2>
                 <div class="lastdraw clearfix" @mouseover="isShowHistoryCode = true" @mouseout="isShowHistoryCode = false">
-                    <p>
-                        <lang>Draw History</lang>
-                    </p>
-                    <span>NO.{{ last_expectid }}</span>
+                    <div class="fl flex-align">
+                        <p>
+                            <lang>Draw History</lang>
+                        </p>
+                        <span>NO.{{ last_expectid }}</span>
+                    </div>
                     <i class="arrow"></i>
                     <ul id="js_lastDraw" class="last-numbox">
                         <li v-for="(item, index) in liveOpenCode" class="flipInY" :key="index">{{ item }}</li>
@@ -283,36 +285,37 @@
         //往期
         .lastdraw {
             float: right;
+            display: flex;
+            justify-content: center;
             position: relative;
             width: 300px;
             height: 60px;
             cursor: pointer;
             color: #263648;
             .transition();
-            > span,
-            > p {
-                display: block;
-                position: absolute;
-                width: 104px;
-                height: 18px;
-                overflow: hidden;
-                line-height: 14px;
-                text-align: left;
-                font-size: 14px;
-                color: #fff;
-                text-indent: 10px;
-            }
-            > span {
-                font-size: 12px;
-                top: 30px;
-            }
-            > p {
-                top: 13px;
+            .flex-align{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-right: 5px;
+                > span,
+                > p {
+                    display: block;
+                    overflow: hidden;
+                    line-height: 16px;
+                    text-align: left;
+                    font-size: 14px;
+                    color: #fff;
+                    text-indent: 10px;
+                }
+                > span {
+                    font-size: 12px;
+                }
             }
             .last-numbox {
                 float: left;
-                height: 100%;
-                margin: 0 0 0 115px;
+                width: 170px;
+                /*margin: 0 0 0 115px;*/
                 li {
                     float: left;
                     width: 28px;

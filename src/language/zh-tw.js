@@ -726,6 +726,8 @@ module.exports = {
     'For users who have not topped up only': '此活動僅限首次充值用戶參與',
     '50% Bonus for Your First Top-Up': '首次充值獎勵50%',
     '50% Top-Up Bonus': '首次充值獎勵50%',
+    '50% Bonus':'首次充值獎勵50%',
+    'for Your First Top-Up':' ',
     'More top-up, more bonus': '充值越多，贈送越多',
     '1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC': '充值任意金額,即可獲得150%金額（最高獎勵0.05 ETH/0.005 BTC），祝您暢爽任玩！',
 

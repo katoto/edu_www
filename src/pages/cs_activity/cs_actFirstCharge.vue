@@ -3,8 +3,8 @@
         <Header></Header>
         <div class="act_box" @click="initPop">
             <div class="top_banner">
-                <h2>50% Bonus</h2>
-                <h2 class="color">for Your First Top-Up</h2>
+                <h2><lang>50% Bonus</lang></h2>
+                <h2 class="color"><lang>for Your First Top-Up</lang></h2>
             </div>
             <a href="javascript:;" v-if="firstChargeMsg" class="btn"   :class="{'unable':firstChargeMsg.activity_status==='2'}" @click="getFirstBtn">
                 {{ firstChargeMsg.activity_status | filterMsg }}

@@ -318,6 +318,7 @@ html.flexhtml, .flexhtml body,.flexhtml #app{
 .flexhtml #app >div{
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     height: 100%;
 }
 .flex1{
