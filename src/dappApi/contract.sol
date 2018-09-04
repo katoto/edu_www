@@ -17,9 +17,10 @@ contract Coinevents {
     );
     event onBuy (
         address playerAddress,
-        bytes32 playerName,
-        uint begin,
-        uint end
+        uint256 begin,
+        uint256 end,
+        uint256 round,
+        uint256 eth
     );
     // fired whenever theres a withdraw
     event onWithdraw
@@ -29,6 +30,14 @@ contract Coinevents {
         bytes32 playerName,
         uint256 ethOut,
         uint256 timeStamp
+    );
+    // settle the contract
+    event onSettle(
+        uint256 rid,
+        uint256 ticketsout,
+        address winner,
+        uint256 luckynum,
+        uint256 jackpot
     );
 }
 
@@ -40,19 +49,19 @@ contract LuckyCoin is Coinevents{
     //**************** game settings ****************
      string constant public name = "LuckyCoin Super";
      string constant public symbol = "LuckyCoin";
-     uint256 constant private rndGap_ = 2 hours;                // round timer starts at this
+     uint256 constant private rndGap_ = 12 hours;                // round timer starts at this
 
      uint256 ticketstotal_ = 1500;       // ticket total amonuts
      uint256 grouptotal_ = 250;    // ticketstotal_ divend to six parts
      uint ticketprice_ = 0.005 ether;   // current ticket init price
-     uint256 public rID_= 1;      // current round id number / total rounds that have happened
+     uint256 public rID_= 0;      // current round id number / total rounds that have happened
      uint256 _headtickets = 500;  // head of 500, distributes valuet
      
      
-     address community_addr = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
-     address activate_addr1 = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
+     address community_addr = 0x5d07DD9FC10C2cb223dfa0F1ddaA889e4ceff2b5;
+     address activate_addr1 = 0x5d07DD9FC10C2cb223dfa0F1ddaA889e4ceff2b5;
      address activate_addr2 = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
-     PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0x692a70d2e424a56d2c6c27aa97d1a86395877b3a);
+     PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0xb214ec61f7ea299782ed4506b992236c96f29a3a);
 
     //**************** ROUND DATA ****************
     mapping (uint256 => Coindatasets.Round) public round_;   // (rID => data) round data
@@ -69,7 +78,7 @@ contract LuckyCoin is Coinevents{
     mapping (uint256=>mapping(uint=> mapping(uint=>uint))) orders;  // (rid=>pid=group=>ticketnum)
     
     constructor() public{
-        
+        //round_[rID_].jackpot = 10 ether;
     }
     
     // callback function
@@ -207,6 +216,49 @@ contract LuckyCoin is Coinevents{
         buyTicket(_pID, _affID, _tickets);
     }
     
+    function reLoadXaddr(address _affCode, uint _tickets)
+        public
+    {
+        // fetch player id
+        uint256 _pID = pIDxAddr_[msg.sender];
+        uint256 _affID;
+        if (_affCode == address(0) || _affCode == msg.sender){
+            _affID = plyr_[_pID].laff;
+        }
+        else{
+           // get affiliate ID from aff Code 
+            _affID = pIDxAddr_[_affCode];
+            // if affID is not the same as previously stored 
+            if (_affID != plyr_[_pID].laff)
+            {
+                // update last affiliate
+                plyr_[_pID].laff = _affID;
+            }
+        }
+        reloadTickets(_pID, _affID, _tickets);
+    }
+    
+    function reloadTickets(uint256 _pID, uint256 _affID, uint256 _tickets)
+        private
+    {
+        //************** ******************
+        // setup local rID
+        uint256 _rID = rID_;
+        // grab time
+        uint256 _now = now;
+        // if round is active
+        if (_now > round_[_rID].start && _now < round_[_rID].end){
+            // call ticket
+            uint256 _eth = getBuyPrice().mul(_tickets);
+            plyr_[_pID].gen = withdrawEarnings(_pID).sub(_eth);
+            ticket(_pID, _rID, _tickets, _affID, _eth);
+        }else if (_now > round_[_rID].end && round_[_rID].ended == false){
+            // end the round (distributes pot) & start new round
+            round_[_rID].ended = true;
+            endRound();
+        }
+    }
+    
     function withdraw() public{
         // setup local rID 
         //uint256 _rID = rID_;
@@ -271,12 +323,9 @@ contract LuckyCoin is Coinevents{
             // end the round (distributes pot) & start new round
             round_[_rID].ended = true;
             //_eventData_ = endRound(_eventData_);
+            endRound();
         }
         ticket(_pID, _rID, _tickets, _affID, msg.value);
-    }
-    uint256 test_number = 0 ;
-    function get_test_numer() public view returns(uint){
-        return test_number;
     }
     
     function ticket(uint256 _pID, uint256 _rID, uint256 _tickets, uint256 _affID, uint256 _eth)
@@ -327,15 +376,17 @@ contract LuckyCoin is Coinevents{
         round_[rID_].tickets = _tickets.add(round_[rID_].tickets);
         plyrRnds_[_pID][_rID].tickets = _tickets.add(plyrRnds_[_pID][_rID].tickets);
         plyrRnds_[_pID][_rID].eth = _eth.add(plyrRnds_[_pID][_rID].eth);
+        round_[rID_].blocknum = block.number;
        
         // distributes valuet
         distributeVault(_pID, rID_, _affID, _eth, _tickets);
+        // order event log
+        emit onBuy(msg.sender, tickets+1, tickets +_tickets,_rID, _eth);
     }
 
     function distributeVault(uint256 _pID, uint256 _rID, uint256 _affID, uint256 _eth, uint256 _tickets)
         private
     {    
-        
          // distributes gen
          uint256 _gen = 0;
          uint256 _genvault = 0;
@@ -351,7 +402,6 @@ contract LuckyCoin is Coinevents{
          if (_gen > 0){
              //_genvault = (((_gen / _tickets).mul(_eth)).mul(20)) / 100;   // 20 % to gen tickets
              _genvault = ((ticketprice_ * _gen).mul(20)) / 100;
-             test_number = 10;
              round_[_rID].mask = _genvault.add(round_[_rID].mask);   // update mask
          }
          
@@ -383,6 +433,7 @@ contract LuckyCoin is Coinevents{
     {
         // setup local rID
         uint256 _rID = rID_;
+        round_[_rID].lucknum = randNums();
         
         // 1. if win
         if (round_[_rID].tickets >= round_[_rID].lucknum){
@@ -391,6 +442,7 @@ contract LuckyCoin is Coinevents{
             if (round_[_rID].nextpot > 0) {
                 community_addr.transfer(round_[_rID].nextpot);
                 activated_ = false;   // need administrators to activate
+                emit onSettle(_rID, round_[_rID].tickets, address(0), round_[_rID].lucknum, round_[_rID].jackpot);
             }
         }else{ 
             // 2. if nobody win
@@ -400,7 +452,9 @@ contract LuckyCoin is Coinevents{
             round_[_rID].start = now;
             round_[_rID].end = now.add(rndGap_);
             round_[_rID].jackpot = round_[_rID].jackpot.add(round_[_rID-1].nextpot);
+            emit onSettle(_rID-1, round_[_rID-1].tickets, address(0), round_[_rID-1].lucknum, round_[_rID-1].jackpot);
         }
+
     }
  
      /**
@@ -442,7 +496,7 @@ contract LuckyCoin is Coinevents{
      * @dev calculates unmasked earnings (just calculates, does not update ticket)
      * @return earnings in wei format
      */
-     //¼ÆËãÃ¿ÂÖÖĞpidÇ°500ticketµÄ·Öºì
+     //è®¡ç®—æ¯è½®ä¸­pidå‰500ticketçš„åˆ†çº¢
     function calcTicketEarnings(uint256 _pID, uint256 _rIDlast)
         private
         view
@@ -466,14 +520,15 @@ contract LuckyCoin is Coinevents{
         
         require(activated_ == false, "LuckyCoin already activated");
         uint256 _jackpot = 10 ether;
-        require(msg.value == _jackpot, "activate game need 10 ether");
+        //require(msg.value == _jackpot, "activate game need 10 ether");
         //activate the contract 
         activated_ = true;
         //lets start first round
         rID_ ++;
         round_[rID_].start = now;
         round_[rID_].end = now + rndGap_;
-        round_[rID_].jackpot = msg.value;
+        //round_[rID_].jackpot = msg.value;
+        round_[rID_].jackpot = 10 ether;
     }
     
     /**
@@ -604,12 +659,13 @@ contract LuckyCoin is Coinevents{
     function getCurrentRoundInfo() 
         public
         view
-        returns(uint256, uint256, uint256, uint256, uint256, uint256, uint256, address, bool)
+        returns(uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256, address, bool)
     {
         // setup local rID
         uint256 _rID = rID_;
         return 
         (
+            rID_,
             round_[_rID].tickets,
             round_[_rID].start,
             round_[_rID].end,
@@ -651,8 +707,11 @@ contract LuckyCoin is Coinevents{
 
     // generate a number between 1-1500 
     function randNums() public view returns(uint256) {
-         uint256 random = uint256(keccak256(block.difficulty, now));
-         return  random % ticketstotal_;
+        return uint256(keccak256(block.difficulty, now, block.coinbase)) % ticketstotal_ + 1;
+        //  if (round_[rID_].blocknum + 3 < block.number) {
+        //  uint256 random = uint256(keccak256(block.difficulty, now));
+        //      return  random % ticketstotal_;
+        //  }
      }
     
     function setLuckyNum() public{

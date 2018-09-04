@@ -2,7 +2,7 @@ import Web3 from 'web3'
 // 合约addr
 // let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
 // 合约addr 下
-let contractAddr = '0xfa73648d3a1156c0ed3fe4b0f77d7d75c7869195'
+let contractAddr = '0x578ed8d2f28cce76517ba4cef9f44d9cfcc192c6'
 
 let web3 = window.web3
 let contractAbi = [
@@ -10,32 +10,32 @@ let contractAbi = [
         'anonymous': false,
         'inputs': [
             {
-                'indexed': true,
-                'name': 'playerID',
+                'indexed': false,
+                'name': 'rid',
                 'type': 'uint256'
             },
             {
                 'indexed': false,
-                'name': 'playerAddress',
+                'name': 'ticketsout',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'winner',
                 'type': 'address'
             },
             {
                 'indexed': false,
-                'name': 'playerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'ethOut',
+                'name': 'luckynum',
                 'type': 'uint256'
             },
             {
                 'indexed': false,
-                'name': 'timeStamp',
+                'name': 'jackpot',
                 'type': 'uint256'
             }
         ],
-        'name': 'onWithdraw',
+        'name': 'onSettle',
         'type': 'event'
     },
     {
@@ -128,31 +128,66 @@ let contractAbi = [
         'type': 'function'
     },
     {
-        'anonymous': false,
+        'constant': false,
         'inputs': [
             {
-                'indexed': false,
-                'name': 'playerAddress',
+                'name': '_pID',
+                'type': 'uint256'
+            },
+            {
+                'name': '_name',
+                'type': 'bytes32'
+            }
+        ],
+        'name': 'receivePlayerNameList',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
+        'constant': false,
+        'inputs': [
+            {
+                'name': '_nameString',
+                'type': 'string'
+            },
+            {
+                'name': '_affCode',
                 'type': 'address'
             },
             {
-                'indexed': false,
-                'name': 'playerName',
+                'name': '_all',
+                'type': 'bool'
+            }
+        ],
+        'name': 'registerNameXaddr',
+        'outputs': [],
+        'payable': true,
+        'stateMutability': 'payable',
+        'type': 'function'
+    },
+    {
+        'constant': false,
+        'inputs': [
+            {
+                'name': '_nameString',
+                'type': 'string'
+            },
+            {
+                'name': '_affCode',
                 'type': 'bytes32'
             },
             {
-                'indexed': false,
-                'name': 'begin',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'end',
-                'type': 'uint256'
+                'name': '_all',
+                'type': 'bool'
             }
         ],
-        'name': 'onBuy',
-        'type': 'event'
+        'name': 'registerNameXname',
+        'outputs': [],
+        'payable': true,
+        'stateMutability': 'payable',
+        'type': 'function'
     },
     {
         'anonymous': false,
@@ -210,15 +245,15 @@ let contractAbi = [
         'constant': false,
         'inputs': [
             {
-                'name': '_pID',
-                'type': 'uint256'
+                'name': '_affCode',
+                'type': 'address'
             },
             {
-                'name': '_name',
-                'type': 'bytes32'
+                'name': '_tickets',
+                'type': 'uint256'
             }
         ],
-        'name': 'receivePlayerNameList',
+        'name': 'reLoadXaddr',
         'outputs': [],
         'payable': false,
         'stateMutability': 'nonpayable',
@@ -247,48 +282,68 @@ let contractAbi = [
         'type': 'event'
     },
     {
-        'constant': false,
+        'anonymous': false,
         'inputs': [
             {
-                'name': '_nameString',
-                'type': 'string'
+                'indexed': true,
+                'name': 'playerID',
+                'type': 'uint256'
             },
             {
-                'name': '_affCode',
+                'indexed': false,
+                'name': 'playerAddress',
                 'type': 'address'
             },
             {
-                'name': '_all',
-                'type': 'bool'
-            }
-        ],
-        'name': 'registerNameXaddr',
-        'outputs': [],
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'function'
-    },
-    {
-        'constant': false,
-        'inputs': [
-            {
-                'name': '_nameString',
-                'type': 'string'
-            },
-            {
-                'name': '_affCode',
+                'indexed': false,
+                'name': 'playerName',
                 'type': 'bytes32'
             },
             {
-                'name': '_all',
-                'type': 'bool'
+                'indexed': false,
+                'name': 'ethOut',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'timeStamp',
+                'type': 'uint256'
             }
         ],
-        'name': 'registerNameXname',
-        'outputs': [],
-        'payable': true,
-        'stateMutability': 'payable',
-        'type': 'function'
+        'name': 'onWithdraw',
+        'type': 'event'
+    },
+    {
+        'anonymous': false,
+        'inputs': [
+            {
+                'indexed': false,
+                'name': 'playerAddress',
+                'type': 'address'
+            },
+            {
+                'indexed': false,
+                'name': 'begin',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'end',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'round',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'eth',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'onBuy',
+        'type': 'event'
     },
     {
         'constant': false,
@@ -318,6 +373,15 @@ let contractAbi = [
         'type': 'function'
     },
     {
+        'constant': false,
+        'inputs': [],
+        'name': 'withdraw',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
         'inputs': [],
         'payable': false,
         'stateMutability': 'nonpayable',
@@ -327,15 +391,6 @@ let contractAbi = [
         'payable': true,
         'stateMutability': 'payable',
         'type': 'fallback'
-    },
-    {
-        'constant': false,
-        'inputs': [],
-        'name': 'withdraw',
-        'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
     },
     {
         'constant': true,
@@ -381,20 +436,6 @@ let contractAbi = [
     {
         'constant': true,
         'inputs': [],
-        'name': 'get_test_numer',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
         'name': 'getBuyPrice',
         'outputs': [
             {
@@ -411,6 +452,10 @@ let contractAbi = [
         'inputs': [],
         'name': 'getCurrentRoundInfo',
         'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
             {
                 'name': '',
                 'type': 'uint256'
@@ -864,6 +909,7 @@ let contractAbi = [
         'type': 'function'
     }
 ]
+
 // or
 if (typeof web3 === 'undefined') {
     // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/WlvljmHqo75RhK1w1QJF"));
@@ -877,6 +923,20 @@ console.log(contractNet)
 
 //  合约api
 let luckyCoinApi = {}
+
+luckyCoinApi.getCurrentRoundInfo = () => {
+    return new Promise((resolve, reject) => {
+        contractNet.getCurrentRoundInfo(function (err, res) {
+            if (!err) {
+                if (res) {
+                    console.log(res)
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
 
 luckyCoinApi.testName = (regName) => {
     return new Promise((resolve, reject) => {
@@ -975,7 +1035,7 @@ luckyCoinApi.getBuyPrice = () => {
         contractNet.getBuyPrice((err, res) => {
             if (!err) {
                 if (res) {
-                    resolve(res.toNumber())
+                    resolve(Number(web3.fromWei(res.toNumber())))
                 } else {
                     reject(new Error('getBuyPrice error'))
                 }

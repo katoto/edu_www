@@ -29,7 +29,9 @@
         data () {
             return {
                 showFirstBaxi: false, // 首次提示
-                isFromFlag: false // 是否是来自邀请
+                isFromFlag: false, // 是否是来自邀请
+                tickNum: 1,
+                regName: 'poi'
             }
         },
         watch: {
@@ -46,39 +48,41 @@
                 // 购买号码
                 let buyBack = null
                 let currPrice = await luckyCoinApi.getBuyPrice()
-                // 判断是否用邀请购买
                 if (currPrice === 0) {
                     console.error('getPrice 0')
                     return false
                 }
-                console.log(currPrice)
-                if (0) {
-                    // export function wait (time) {
-                    //     return new Promise((resolve) => {
-                    //         setTimeout(() => resolve(), time)
-                    //     })
-                    // }
-                } else {
-                    buyBack = await luckyCoinApi.buyXaddr(1, coinAffAddr, currPrice)
+                if (typeof this.tickNum === 'string') {
+                    this.tickNum = Number(this.tickNum)
                 }
+                console.log(currPrice)
+                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, currPrice)
                 console.log(buyBack)
+                console.log('buyBack')
+                if (buyBack) {
+                    console.log('购买成功')
+                }
             },
-            async registerName (regName) {
+            async registerName () {
                 let buyNameBack = null
                 // 判断是否已经被购买
-                regName = regName.toString()
-                let checkName = await luckyCoinApi.testName(regName)
-                if (checkName) {
-                    buyNameBack = await luckyCoinApi.registerNameXaddr(regName, this.isFromFlag)
+                if (!this.regName) {
+                    console.error('regName error')
+                    return false
                 }
-                console.log(checkName)
+                this.regName = this.regName.toString()
+                let checkName = await luckyCoinApi.testName(this.regName)
+                if (checkName) {
+                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.regName, this.isFromFlag)
+                } else {
+                    console.error('名字已被注册')
+                }
             },
-            async withdraw (){
+            async withdraw () {
                 let withdrawBack = await luckyCoinApi.withdraw()
                 if (withdrawBack) {
                     console.log('提款成功')
                 }
-
             },
             analysisBuyNum (bigNum) {
                 //  解析数值
