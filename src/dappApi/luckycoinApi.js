@@ -2,7 +2,7 @@ import Web3 from 'web3'
 // 合约addr
 // let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
 // 合约addr 下
-let contractAddr = '0x8a0e6dfad3d0ad9ee7ea2a6a5aa58dac6d3b507d'
+let contractAddr = '0xde983bf739354252bb774d9d222b516995921e74'
 
 let web3 = window.web3
 let contractAbi = [
@@ -340,6 +340,24 @@ let contractAbi = [
             }
         ],
         'name': 'reLoadXaddr',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
+        'constant': false,
+        'inputs': [
+            {
+                'name': '_tickets',
+                'type': 'uint256'
+            },
+            {
+                'name': '_affCode',
+                'type': 'bytes32'
+            }
+        ],
+        'name': 'reLoadXname',
         'outputs': [],
         'payable': false,
         'stateMutability': 'nonpayable',
@@ -909,6 +927,7 @@ let contractAbi = [
         'type': 'function'
     }
 ]
+
 // or
 if (typeof web3 === 'undefined') {
     // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/WlvljmHqo75RhK1w1QJF"));

@@ -1,10 +1,10 @@
 <template>
-    <div class="dapp-contain">
+    <div class="dapp-contain" v-if="roundInfo">
         <div>
-            <p>基于区块链123{{ selfMsg }}</p>
+            <p>期号： {{ roundInfo.roundIndex }} </p>
+            当前奖池
         </div>
         <div v-if="roundInfo">
-            {{ roundInfo.roundIndex }}
             {{ roundInfo.tickets}}
             {{ roundInfo.startTime}}
             {{ roundInfo.endTime}}
@@ -41,12 +41,12 @@
         data () {
             return {
                 showFirstBaxi: false, // 首次提示
-                selfAddr:null,
+                selfAddr: null,
                 isFromFlag: false, // 是否是来自邀请
                 tickNum: 1, // 票数
                 regName: 'poi', // 注册的名字
                 roundInfo: null, // getcurrentRoundInfo msg
-                selfMsg: null,
+                selfMsg: null
             }
         },
         watch: {
@@ -59,14 +59,14 @@
             copySucc,
             copyError,
             formateBalance,
-            async getTimeLeft(){
+            async getTimeLeft () {
                 let timeLeft = await luckyCoinApi.getTimeLeft()
-                console.log( timeLeft )
+                console.log(timeLeft)
             },
-            async getPlayerInfoByAddress(){
-                if(this.selfAddr){
+            async getPlayerInfoByAddress () {
+                if (this.selfAddr) {
                     this.selfMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
-                }else{
+                } else {
                     console.warn('没有取得地址msg')
                 }
             },
