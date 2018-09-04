@@ -76,7 +76,7 @@
                             <!--red or balck-->
                             <div class="bet-rb">
                                 <p class="poker-prize">
-                                    最高可中  0.002 ETH
+                                    <i>Winning</i> 0.00002 <i>ETH</i>
                                 </p>
                                 <ul>
                                     <li class="bet-red" ref="coin_red" @click="addCoin('red')">
@@ -103,7 +103,9 @@
                                 </p>
                             </div>
                             <div class="bet-joker">
-                                <p class="poker-prize">最高可中 0.00002 ETH</p>
+                                <p class="poker-prize" style="padding:0 4px">
+                                    <i>可中</i> 0.00002 <i>ETH</i>
+                                </p>
                                 <ul>
                                     <li @click="addCoin('joker')" ref="coin_joker">
                                         <p>JOKER</p>
@@ -116,7 +118,7 @@
                             </div>
                             <div class="bet-color">
                                 <p class="poker-prize">
-                                    最高可中  0.002 ETH
+                                    <i>Winning</i> 0.00002 <i>ETH</i>
                                 </p>
                                 <ul>
                                 <li @click="addCoin('spade')" ref="coin_spade">
@@ -138,7 +140,7 @@
                             </div>
                             <div class="bet-number">
                                 <p class="poker-prize">
-                                    最高可中  0.002 ETH
+                                    <i>Winning</i> 0.00002 <i>ETH</i>
                                 </p>
                                 <ul class="item1">
                                     <li @click="addCoin('2')" ref="coin_2">2</li>
@@ -191,7 +193,7 @@
                             <div href="javascript:;" class="btn-main " @click="bet">
                                 <p>PAY</p>
                                 <!--<p>Please wait</p>-->
-                                <i>{{total}} ETH</i>
+                                <span>{{total}} <i>ETH</i></span>
                             </div>
                         </div>
                     </div>
@@ -215,7 +217,7 @@
                                 <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
                                     RANDOMIZE
                                 </a>
-                                <a href="javascript:;"  class="btn btn-lock">
+                                <a href="javascript:;"  class="btn btn-lock btn-unlock">
                                     LOCK
                                 </a>
                             </div>
@@ -285,13 +287,13 @@
                                     6
                                 </div>
                                 <p class="bet-count">
-                                    0.00000 ETH
+                                    0.00000<i> ETH</i>
                                 </p>
                                 <div class="bet-result icon-heit">
                                     <p>8</p>
                                 </div>
                                 <p class="bet-result-count">
-                                    0 ETH
+                                    0 <i>ETH</i>
                                 </p>
                             </li>
                             <li>
@@ -302,13 +304,13 @@
                                     balck
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result icon-hongt">
                                     <p>Q</p>
                                 </div>
                                 <p class="bet-result-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                             </li>
                             <li>
@@ -319,13 +321,13 @@
                                     RED
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result icon-fk">
                                     <p>Q</p>
                                 </div>
                                 <p class="bet-result-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                             </li>
                             <li>
@@ -336,13 +338,13 @@
                                     Q
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result icon-mh">
                                     <p>Q</p>
                                 </div>
                                 <p class="bet-result-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                             </li>
                             <li>
@@ -353,13 +355,13 @@
                                     J
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result joker">
                                     <p></p>
                                 </div>
                                 <p class="bet-result-count mywin">
-                                    0.00001 ETH
+                                    0.00001<i>ETH</i>
                                 </p>
                             </li>
                         </ul>
@@ -384,8 +386,12 @@
                     <div class="pop-ani">
                         <a href="javascript:;" class="btn-close"  @click="showPopVer=false">X</a>
                         <div class="pop-main">
-                            <h2>
+                            <h2 class="hide">
                                 Custom random number
+                            </h2>
+                            <!---->
+                            <h2>
+                                Check Random Number of Last Round
                             </h2>
                             <ul class="tab-h">
                                 <li>
@@ -411,6 +417,7 @@
                                                 <a href="javascript:;" class="btn btn-random">
                                                     RANDOMIZE
                                                 </a>
+                                                <!--btn-unlock-->
                                                 <a href="javascript:;"  class="btn btn-lock">
                                                     LOCK
                                                 </a>
@@ -462,11 +469,11 @@
                     </div>
                 </div>
             </div>
-            <div class="pop pop-poker show">
+            <div class="pop pop-poker">
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw ">
+                <div class="poker-draw scale0">
                     <ul class="poker-area animate1">
                         <li class="on">
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
@@ -492,8 +499,9 @@
                     </a>
                 </div>
                 <!--v-else-->
-                <!--heit/mh/hongt/fk+j/q/k  joker-->
-                <div class="result scale0">
+                <!--isWin-->
+                <div class="result ">
+                    <!--heit/mh/hongt/fk+j/q/k  joker-->
                     <div class="result-box fk k">
                         <div class="leftTop">
                             <p>J</p>
@@ -503,6 +511,11 @@
                             <p>j</p>
                         </div>
                     </div>
+                    <!--未中奖-->
+                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;">
+                        再接再厉~
+                    </div>
+                    <!--中奖-->
                     <div class="result-msg">
                         <p>Congratulations</p>
                         <div>+0.023<i>ETH</i></div>
@@ -543,19 +556,6 @@ export default {
     .bg-esktop {
         position: relative;
         overflow: hidden;
-    }
-    .setPokerPosition( @count )when( @count > 0 ){
-        li:nth-child(@{count}){
-            transform: translate(-50%,13px * @count);
-            z-index: 43-@count;
-        }
-        .setPokerPosition((@count - 1));
-    }
-    .setPokerPosition2( @count )when( @count > 0 ){
-        li:nth-child(@{count}){
-            transform: translate(@count*25%-125%);
-        }
-        .setPokerPosition2((@count - 1));
     }
     .luckyPoker{
         text-align: center;
@@ -607,7 +607,7 @@ export default {
                         i{
                             display: block;
                             position: relative;
-                            width: percentage(26/217);
+                            width: percentage(18/217);
                             img{
                                 position: absolute;
                                 width: 100%;
@@ -641,9 +641,9 @@ export default {
                     img{
                         display: block;
                         position: absolute;
-                        right: percentage(14/222);
-                        top: percentage(20/140);
-                        width: percentage(36/222);
+                        right: percentage(20/222);
+                        top: percentage(30/140);
+                        width: percentage(30/222);
                         max-width: 36px;
                     }
 
@@ -752,9 +752,10 @@ export default {
                     transition: all 0.2s;
                     img{
                         display: block;
-                        width: 100%;
+                        width: 80%;
+                        margin: 0 auto;
                         transition: all 0.2s;
-                        box-shadow: 0 7px 10px rgba(0,0,0,0.3);
+                        /*box-shadow: 0 7px 10px rgba(0,0,0,0.3);*/
                         border-radius: 50%;
                     }
                     p{
@@ -767,22 +768,25 @@ export default {
                         color: #ffcc00;
                         font-weight: bold;
                     }
-                }
-                li.on{
-                    img{
-                        transform: scale(1.2);
-                        box-shadow: none;
-                    }
                     &::before{
                         content: '';
                         display: block;
                         position: absolute;
                         width: 100%;
-                        height: 100%;
+                        /*height: 100%;*/
+                        padding-top: 100%;
                         left: 50%;
                         top: 50%;
-                        transform: translate(-50%,-50%);
+                        transform: translate(-50%,-50%) scale(0.8);
                         border-radius: 50%;
+                        box-shadow: 0 0 30px transparent;
+                        transition: all 0.2s;
+                    }
+                }
+                li.on{
+                    img{
+                        transform: scale(1.3);
+                        box-shadow: none;
                     }
                 }
             }
@@ -799,9 +803,12 @@ export default {
                 p{
                     transition: all 0.2s;
                 }
-                i{
+                span{
                     display: block;
                     transition: all 0.2s;
+                    i{
+
+                    }
                 }
                 &.wait{
                     filter:brightness(0.8);
@@ -986,6 +993,215 @@ export default {
             display: none;
         }
 
+        .pop-poker{
+            .poker-draw{
+                position: absolute;
+                left: 50%;
+                width: 100%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                transition: all 0.2s;
+            }
+            .poker-area{
+                position: relative;
+                transition: all 0.2s;
+                li{
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    transform: translateX(-50%);
+                    width: 100%;
+                    transition: all 0.2s;
+                    transform-origin: center bottom;
+                    img{
+                        display: block;
+                        width: 100%;
+                    }
+                }
+                &.animate1{
+                    .setPokerPosition(10);
+                }
+            }
+            .btn-open{
+                display: block;
+                max-width: 370px;
+                width: percentage(370/750);
+                overflow: hidden;
+                margin: 0 auto 0;
+                line-height: 98/2px;
+                border-radius: 4px;
+                background: #3e9999;
+                font-size: 18px;
+                color: #fff;
+                font-weight: bold;
+                &:hover{
+                    filter: brightness(1.3);
+                }
+            }
+            .result{
+                transition: all 0.2s;
+                position: absolute;
+                left: 50%;
+                width: 100%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                &.isWin{
+                    background: url("../../assets/img/luckyPoker/bg-win.png") no-repeat center bottom;
+                    background-size: 526px;
+                    .result-msg{
+                        color: #ffcf20;
+                    }
+                }
+            }
+            .result-box{
+                position: relative;
+                overflow: hidden;
+                background: #fff;
+                border-radius: 15px;
+                //padding:8/2px 0;
+                margin: 0 auto 0;
+                .leftTop,.rightBottom{
+                    position: absolute;
+                    width: 110/2px;
+                    p{
+                        line-height: 100/2px;
+                        font-size: 84/2px;
+                        font-family: Lucida Bright,LBRITE;
+                        text-transform: uppercase;
+                    }
+                    &::after{
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 40px;
+                        overflow: hidden;
+                    }
+                }
+                .leftTop{
+                    left: 0;
+                    top: 0;
+                }
+                .rightBottom{
+                    right: 0;
+                    bottom: 0;
+                    transform: rotate(180deg);
+                }
+                .img-poker{
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform:translate(-50%,-50%);
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+                &.heit{
+                    color: #000000;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
+                            background-size: percentage(50/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.mh{
+                    color: #000000;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
+                            background-size: percentage(65/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.hongt{
+                    color: #df2929;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
+                            background-size: percentage(65/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.fk{
+                    color: #df2929;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
+                            background-size: percentage(65/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.j{
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-J.png") no-repeat center;
+                        background-size: percentage(300/360);
+                    }
+                }
+                &.q{
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-Q.png") no-repeat center;
+                        background-size: percentage(300/360);
+                    }
+                }
+                &.k{
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-K.png") no-repeat center;
+                        background-size: percentage(300/360);
+                    }
+                }
+                &.joker{
+                    background:url("../../assets/img/luckyPoker/icon-Joker.png") no-repeat center;
+                    background-size: cover;
+                    *{
+                        display: none !important;
+                    }
+                }
+            }
+            .result-msg{
+                max-width: 300px;
+                width: percentage(500/750);
+                border-radius: 4px;
+                margin: 45/2px auto 0;
+                padding: 0 2px;
+                background-color: #050707;
+                color: #ffff;
+                font-weight: bold;
+                border: 1px solid #6bda7b;
+                p{
+                    line-height: 60/2px;
+                    font-size: 36/2px;
+                }
+                div{
+                    line-height: 90/2px;
+                    font-size: 72/2px;
+                    i{
+                        font-size: 36/2px;
+                    }
+                }
+            }
+            .scale0{
+                transform: scale(0);
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+        }
     }
     @media (max-width: 1106px) {
         .luckyPoker{
@@ -1033,6 +1249,9 @@ export default {
                 font-size: 22/2px;
                 //font-size: 22/7.5vw;
                 padding: 0 18/2px;
+                i{
+                    font-size: 8px;
+                }
             }
             .poker-time{
                 height: 68/2px;
@@ -1158,7 +1377,7 @@ export default {
                     li{
                         width: percentage(104/503);
                         p{
-                            bottom: percentage(20/104);
+                            bottom: 0;
                             min-width: percentage(110/104);
                             height: 38/2px;
                             border-radius: 38/4px;
@@ -1169,6 +1388,7 @@ export default {
                     }
                     li.on{
                         &::before{
+                            transform: translate(-50%,-50%) scale(1);
                             box-shadow: 0 0 10px rgba(0,255,234,1);
                         }
                     }
@@ -1186,9 +1406,12 @@ export default {
                         font-size: 18px;
                         text-shadow: 0 1px #2b7b75, 1px 0 #2b7b75, -1px 0 #2b7b75, 0 -1px #2b7b75;
                     }
-                    i{
+                    span{
                         line-height: 15px;
                         font-size: 12px;
+                        i{
+                            font-size: 10px;
+                        }
                     }
 
                 }
@@ -1272,7 +1495,7 @@ export default {
                         .btn{
                             display: block;
                             border-left: 1px solid #213746;
-                            background: #4a8282;
+                            background: #29c2bd;
                             font-size: 28/2px;
                             color: #fff;
                             font-weight: bold;
@@ -1291,6 +1514,7 @@ export default {
                 padding-top: 22/2px;
                 margin: 32/2px auto 0px;
                 border-radius: 6px;
+                overflow: hidden;
                 .recording-top{
                     padding: 0 percentage(25/690);
                     line-height: 70/2px;
@@ -1338,10 +1562,10 @@ export default {
                                 width: 68/2px;
                                 height: 68/2px;
                                 line-height: 68/2px;
-                                background: #546a79;
                                 font-family: Lucida Bright,LBRITE;
                                 font-weight: bold;
                                 text-transform: uppercase;
+                                text-align: center;
                                 &.number{
                                     font-size: 15px;
                                     color: #fff;
@@ -1380,13 +1604,18 @@ export default {
                                 }
                             }
                             .bet-count{
-
+                                i{
+                                    font-size: 10px;
+                                }
                             }
                             .bet-result-count{
                                 text-align: right;
-                                width: 76px;
+                                width: 78px;
                                 height: 100%;
                                 overflow: hidden;
+                                i{
+                                    font-size: 10px;
+                                }
                                 &.mywin{
                                     color: #20bf6b;
                                     font-weight: bold;
@@ -1475,12 +1704,11 @@ export default {
                 h2{
                     height: 70px;
                     line-height: 64px;
-                    font-size: 24px;
+                    font-size: 16px;
                     color: #fff;
                     font-weight: bold;
                 }
                 .tab-h{
-                    height: 52px;
                     line-height: 52px;
                     li{
                         float: left;
@@ -1488,6 +1716,7 @@ export default {
                         width: 100%;
                         overflow: hidden;
                         .text-overflow();
+                        display: none;
                         a{
                             display: block;
                             width: 100%;
@@ -1504,31 +1733,28 @@ export default {
                             }
                         }
                     }
-                    li:first-child{
-                        display: none;
-                    }
                 }
                 .tab-c{
                     padding: 0 26px 32px;
                     background: #294557;
                     color: #fff;
                     .title{
-                        padding-top: 8px;
-                        line-height: 20px;
+                        padding-top: 10px;
+                        line-height: 23px;
                         text-align: left;
                         font-size: 14px;
                         font-weight: bold;
                     }
                     .input-group{
                         display: flex;
-                        height: 30px;
-                        line-height: 30px;
+                        height: 42px;
+                        line-height: 42px;
                         border-radius: 6px;
                         overflow: hidden;
                         input{
                             padding: 0;
-                            height: 30px;
-                            line-height: 30px;
+                            height: 42px;
+                            line-height: 42px;
                             flex: 1;
                             background: #213746;
                             border: none;
@@ -1548,6 +1774,10 @@ export default {
                             }
                             &.btn-lock{
                                 width: percentage(140/640);
+                                filter: brightness(0.8);
+                            }
+                            &.btn-unlock{
+                                filter: brightness(1);
                             }
                         }
                     }
@@ -1566,204 +1796,16 @@ export default {
                     }
                 }
             }
-            .pop-poker{
-                .poker-draw{
-                    transition: all 0.2s;
-                }
-                .poker-area{
-                    position: relative;
+            .pop-poker {
+                .poker-area {
                     width: percentage(212/750);
-                    //height: 100px;
-                    padding-top: percentage(289/750);
-                    margin: 145px auto 110px;
-                    transition: all 0.2s;
-                    li{
-                        position: absolute;
-                        left: 50%;
-                        top: 0;
-                        transform: translateX(-50%);
-                        width: 100%;
-                        transition: all 0.2s;
-                        transform-origin: center bottom;
-                        img{
-                            display: block;
-                            width: 100%;
-                        }
-                    }
-                    &.animate1{
-                        .setPokerPosition(10);
-                    }
-                    &.animate2{
-                        .setPokerPosition2(10)
-                    }
+                    padding-top: 50%;
+                    /*margin: 145px auto 110px;*/
+                    margin: 0 auto 50px;
                 }
-                .btn-open{
-                    display: block;
-                    width: percentage(370/750);
-                    overflow: hidden;
-                    margin: 0 auto 0;
-                    line-height: 98/2px;
-                    border-radius: 4px;
-                    background: #3e9999;
-                    font-size: 18px;
-                    color: #fff;
-                    font-weight: bold;
-                }
-                .result{
-                    display: flex;
-                    height: 100%;
-                    flex-direction: column;
-                    justify-content: center;
-                    transition: all 0.2s;
-                }
-                .result-box{
-                    position: relative;
+                .result-box {
                     width: percentage(340/750);
-                    padding-top: percentage(506/750);
-                    overflow: hidden;
-                    background: #fff;
-                    border-radius: 15px;
-                    //padding:8/2px 0;
-                    margin: 0 auto 0;
-                    .leftTop,.rightBottom{
-                        position: absolute;
-                        width: 110/2px;
-                        p{
-                            line-height: 100/2px;
-                            font-size: 84/2px;
-                            font-family: Lucida Bright,LBRITE;
-                            text-transform: uppercase;
-                        }
-                        &::after{
-                            content: '';
-                            display: block;
-                            width: 100%;
-                            height: 40px;
-                            overflow: hidden;
-                        }
-                    }
-                    .leftTop{
-                        left: 0;
-                        top: 0;
-                    }
-                    .rightBottom{
-                        right: 0;
-                        bottom: 0;
-                        transform: rotate(180deg);
-                    }
-                    .img-poker{
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform:translate(-50%,-50%);
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                    }
-                    &.heit{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
-                                background-size: percentage(50/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.mh{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.hongt{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.fk{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.j{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-J.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.q{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-Q.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.k{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-K.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.joker{
-                        background:url("../../assets/img/luckyPoker/icon-Joker.png") no-repeat center;
-                        background-size: cover;
-                        *{
-                            display: none !important;
-                        }
-                    }
-                }
-                .result-msg{
-                    width: percentage(500/750);
-                    border-radius: 4px;
-                    margin: 45/2px auto 0;
-                    padding: 0 2px;
-                    border: 1px solid #6bda7b;
-                    background: #050707;
-                    color: #ffcf20;
-                    font-weight: bold;
-                    p{
-                        line-height: 60/2px;
-                        font-size: 36/2px;
-                    }
-                    div{
-                        line-height: 90/2px;
-                        font-size: 72/2px;
-                        i{
-                            font-size: 36/2px;
-                        }
-                    }
-                }
-                .scale0{
-                    transform: scale(0);
-                    width: 0;
-                    height: 0;
-                    overflow: hidden;
+                    padding-top: percentage(500/750);
                 }
             }
         }
@@ -1795,10 +1837,13 @@ export default {
                 top: -24/2px;
                 border: 2px solid #6faeae;
                 border-radius: 8px;
-                padding: 0 18px;
+                padding: 0 12px;
                 height: 24px;
                 line-height: 20px;
                 font-size: 14px;
+                i{
+                    font-size: 12px;
+                }
             }
             .poker-time{
                 height:33px;
@@ -1914,14 +1959,15 @@ export default {
                     }
                     li.on{
                         &::before{
+                            transform: translate(-50%,-50%) scale(1);
                             box-shadow: 0 0 30px rgba(0,255,234,1);
                         }
                     }
                 }
                 .btn-main{
                     width: 210px;
-                    height: 70px;
-                    margin: 10px auto 0;
+                    height: 63px;
+                    margin: 28px auto 0;
                     border-radius: 8px;
                     box-shadow: 0 7px 0 #2b7876;
                     p{
@@ -1929,9 +1975,12 @@ export default {
                         font-size: 26px;
                         text-shadow: 0 2px #2b7b75, 2px 0 #2b7b75, -2px 0 #2b7b75, 0 -2px #2b7b75;
                     }
-                    i{
+                    span{
                         line-height: 20px;
                         font-size: 18px;
+                        i{
+                            font-size: 14px;
+                        }
                     }
                 }
             }
@@ -1950,12 +1999,13 @@ export default {
                     text-indent: 23px;
                     text-align: left;
                     font-size: 16px;
+                    font-weight: bold;
                     color: #fff;
                 }
                 .btn{
                     width: 40px;
                     &:hover{
-                        filter: brightness(1.2);
+                        filter: brightness(1.3);
                     }
                 }
                 .btn-left{
@@ -2066,12 +2116,18 @@ export default {
                             }
                             .bet-count{
                                 width: 82px;
+                                i{
+                                    font-size: 12px;
+                                }
                             }
                             .bet-result-count{
                                 text-align: right;
                                 width: 83px;
                                 height: 100%;
                                 overflow: hidden;
+                                i{
+                                    font-size: 12px;
+                                }
                                 &.mywin{
                                     color: #20bf6b;
                                     font-weight: bold;
@@ -2214,7 +2270,9 @@ export default {
             /*pop*/
             .pop-random{
                 .btn-close{
-
+                    &:hover{
+                        background: rgba(245,245,245,0.1);
+                    }
                 }
                 .pop-body{
                     width: 727px;
@@ -2287,7 +2345,7 @@ export default {
                         .btn{
                             display: block;
                             border-left: 1px solid #213746;
-                            background: #4a8282;
+                            background: #3e9999;
                             font-size: 18px;
                             color: #fff;
                             font-weight: bold;
@@ -2296,6 +2354,10 @@ export default {
                             }
                             &.btn-lock{
                                 width: percentage(140/640);
+                                filter: brightness(0.8);
+                            }
+                            &.btn-unlock{
+                                filter: brightness(1);
                             }
                         }
                     }
@@ -2317,224 +2379,26 @@ export default {
                     }
                 }
             }
-            .pop-poker{
-                .poker-draw{
-                    transition: all 0.2s;
+            .pop-poker {
+                .poker-area {
+                    width: 140px;
+                    height: 280px;
+                    /*margin: 50px auto 30px;*/
+                    margin: 0 auto 30px;
                 }
-                .poker-area{
-                    position: relative;
-                    width: 212px;
-                    height: 350px;
-                    margin: 50px auto 30px;
-                    transition: all 0.2s;
-                    li{
-                        position: absolute;
-                        left: 50%;
-                        top: 0;
-                        transform: translateX(-50%);
-                        width: 100%;
-                        transition: all 0.2s;
-                        transform-origin: center bottom;
-                        img{
-                            display: block;
-                            width: 100%;
-                        }
-                    }
-                    &.animate1{
-                        .setPokerPosition(10);
-                    }
-                    &.animate2{
-                        .setPokerPosition2(10)
-                    }
-                }
-                .btn-open{
-                    display: block;
-                    max-width: 370px;
-                    width: percentage(370/750);
-                    overflow: hidden;
-                    margin: 0 auto 0;
-                    line-height: 98/2px;
-                    border-radius: 4px;
-                    background: #3e9999;
-                    font-size: 18px;
-                    color: #fff;
-                    font-weight: bold;
-                }
-                .result{
-                    display: flex;
-                    height: 100%;
-                    flex-direction: column;
-                    justify-content: center;
-                    transition: all 0.2s;
-                }
-                .result-box{
-                    position: relative;
-                    width: percentage(340/750);
-                    max-width: 340px;
+                .result-box {
+                    max-width: 210px;
                     padding-top: 0;
-                    height: 520px;
-                    overflow: hidden;
-                    background: #fff;
-                    border-radius: 15px;
-                    //padding:8/2px 0;
-                    margin: 0 auto 0;
-                    .leftTop,.rightBottom{
-                        position: absolute;
-                        width: 110/2px;
-                        p{
-                            line-height: 100/2px;
-                            font-size: 84/2px;
-                            font-family: Lucida Bright,LBRITE;
-                            text-transform: uppercase;
-                        }
-                        &::after{
-                            content: '';
-                            display: block;
-                            width: 100%;
-                            height: 40px;
-                            overflow: hidden;
-                        }
-                    }
-                    .leftTop{
-                        left: 0;
-                        top: 0;
-                    }
-                    .rightBottom{
-                        right: 0;
-                        bottom: 0;
-                        transform: rotate(180deg);
-                    }
-                    .img-poker{
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform:translate(-50%,-50%);
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                    }
-                    &.heit{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
-                                background-size: percentage(50/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.mh{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.hongt{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.fk{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.j{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-J.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.q{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-Q.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.k{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-K.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.joker{
-                        background:url("../../assets/img/luckyPoker/icon-Joker.png") no-repeat center;
-                        background-size: cover;
-                        *{
-                            display: none !important;
-                        }
-                    }
-                }
-                .result-msg{
-                    max-width: 500px;
-                    width: percentage(500/750);
-                    border-radius: 4px;
-                    margin: 45/2px auto 0;
-                    padding: 0 2px;
-                    border: 1px solid #6bda7b;
-                    background: #050707;
-                    color: #ffcf20;
-                    font-weight: bold;
-                    p{
-                        line-height: 60/2px;
-                        font-size: 36/2px;
-                    }
-                    div{
-                        line-height: 90/2px;
-                        font-size: 72/2px;
-                        i{
-                            font-size: 36/2px;
-                        }
-                    }
-                }
-                .scale0{
-                    transform: scale(0);
-                    width: 0;
-                    height: 0;
-                    overflow: hidden;
+                    height: 300px;
                 }
             }
         }
     }
-
-
     .setPokerPosition( @count )when( @count > 0 ){
         li:nth-child(@{count}){
             transform: translate(-50%,13px * @count);
             z-index: 43-@count;
         }
         .setPokerPosition((@count - 1));
-    }
-    .setPokerPosition2( @count )when( @count > 0 ){
-        li:nth-child(@{count}){
-            transform: translate(@count*25%-125%);
-        }
-        .setPokerPosition2((@count - 1));
     }
 </style>
