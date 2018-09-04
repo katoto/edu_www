@@ -326,11 +326,9 @@ html.flexhtml, .flexhtml body{
     flex-direction: column;
     flex: 1;
 }
-/*.flexhtml #app .main{*/
-    /*width: 100%;*/
-    /*max-width: 1200px;*/
-    /*margin: 0 auto;*/
-    /*flex-grow: 1;*/
-    /*flex-shrink: 1;*/
-    /*flex-basis: 0%;*/
-/*}*/
+.flexhtml #app .main{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+}
