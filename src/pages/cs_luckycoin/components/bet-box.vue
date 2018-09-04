@@ -540,7 +540,7 @@
     .blinking {
         transition: 0.5s all;
         animation: blinking 2s;
-        background-color: gray !important;
+        /*background-color: gray !important;*/
         cursor: default;
     }
 

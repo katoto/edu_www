@@ -321,5 +321,5 @@ html.flexhtml, .flexhtml body,.flexhtml #app{
     height: 100%;
 }
 .flex1{
-    flex-grow: 1/* NEW, Spec - Opera 12.1, Firefox 20+ */
+    flex-grow: 1;
 }
