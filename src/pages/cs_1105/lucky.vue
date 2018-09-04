@@ -973,7 +973,7 @@
         width: 120px;
         top: 67%;
         right: 17px;
-        z-index: 10;
+        z-index: 8;
         cursor: pointer;
     }
     .pop-mask{

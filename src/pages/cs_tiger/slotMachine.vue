@@ -2320,9 +2320,9 @@ Vue.use(vueClipboard)
     @media (min-width: @screen-phone) {
         .tiger-pc{
             position: relative;
-            top:0;
-            left:50%;
-            transform: translateX(-50%);
+            /*top:0;*/
+            /*left:50%;*/
+            /*transform: translateX(-50%);*/
             width: 100%;
             height: 586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;

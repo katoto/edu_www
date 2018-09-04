@@ -84,7 +84,7 @@
                     </p>
                 </div>
             </div>
-            <div class="pop-mask" @click="isShowHistoryCode=false" style="background: rgba(0, 0, 0, 0.8)" :class="[isShowHistoryCode?'show':'']"></div>
+            <div class="pop" @click="isShowHistoryCode=false" style="background: rgba(0, 0, 0, 0.8);z-index: 9;display: none" :class="[isShowHistoryCode?'show':'']"></div>
             <div class="lastdraw clearfix"  :class="{zIndex99:isShowHistoryCode}">
                 <div class="msg">
                     <p class="tips">
