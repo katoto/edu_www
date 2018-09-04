@@ -713,7 +713,7 @@ module.exports = {
     /* 一元夺币 start */
 
     /* 一元夺币 end */
-
+    'Copy the Bitcoin wallet address': '復制比特幣錢包地址',
     /* activity */
     'Get Bonus': '領取活動資格',
     'Congratulations': '恭喜獲得',
