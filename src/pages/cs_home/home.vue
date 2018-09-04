@@ -33,7 +33,7 @@
                                     <lang>Details </lang>
                                 </router-link>
                             </el-carousel-item>
-                            <el-carousel-item>
+                            <!-- <el-carousel-item>
                                 <div class="banner-t1" >
                                     <lang>50% Top-Up Bonus</lang>
                                 </div>
@@ -41,7 +41,7 @@
                                 <router-link to="/firstCharge" class="banner-firstCharge" >
                                     <lang>Get Bonus</lang>
                                 </router-link>
-                            </el-carousel-item>
+                            </el-carousel-item> -->
                         </el-carousel>
                     </div>
                 </div>

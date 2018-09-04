@@ -490,9 +490,9 @@
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
         <!-- 首次充值广告位 -->
-        <router-link class="icon-enterWorld" :to="{path: '/firstCharge'}">
+        <!-- <router-link class="icon-enterWorld" :to="{path: '/firstCharge'}">
             <img src="../../assets/img/luckyCoin/banner2.png" />
-        </router-link>
+        </router-link> -->
 
     </div>
 </template>
