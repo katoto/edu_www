@@ -977,7 +977,7 @@ luckyCoinApi.getPlayerInfoByAddress = (addr) => {
                 if (res) {
                     resolve({
                         uid: res[0].toString(),
-                        name: res[1].toString(),
+                        name: web3.toUtf8(res[1]),
                         tickets: res[2].toNumber(),
                         win: res[3].toString(),
                         calcTicketEarn: res[4].toString(),
