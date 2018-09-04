@@ -1,14 +1,30 @@
 <template>
-    <div class="dapp-contain" v-if="roundInfo">
+    <div class="dapp-contain" v-if="roundInfo && selfMsg">
         <div>
             <p>期号： {{ roundInfo.roundIndex }} </p>
-            当前奖池 {{ roundInfo.jackpot }}
+            当前奖池 {{ formateBalance(roundInfo.jackpot) }}
+            剩余时间 {{ nowFormateTime }} <br />
+            已有 {{ roundInfo.tickets }} 人次购买 <br />
+            剩 {{ 1500 - roundInfo.tickets }}
+            多少人参与 {{ playernums }}  ？？  <br />
+            当前价格 {{ currTicketPrice }}
+
+            当前拥有票数  {{ selfMsg.tickets }}
+            你有多少收益  {{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
+
+            分红收益：{{ selfMsg.calcTicketEarn }}
+            邀请收益： {{ selfMsg.aff_invite }}
+            中奖收益： {{ selfMsg.win }}
+            总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
+
+            {{ this.selfMsg }}
+
+
+
         </div>
         <div v-if="roundInfo">
-            {{ roundInfo.tickets}}
             {{ roundInfo.startTime}}
             {{ roundInfo.endTime}}
-            
             {{ roundInfo.nextpot}}
             {{ roundInfo.luckNum}}
             {{ roundInfo.mask}}
@@ -29,7 +45,8 @@
         copySucc,
         copyError,
         formateBalance,
-        formateCoinType
+        formateCoinType,
+        formatTime
     } from '~common/util'
     import {coinAffAddr} from '~common/dappConfig.js'
     import Vue from 'vue'
@@ -43,10 +60,15 @@
                 showFirstBaxi: false, // 首次提示
                 selfAddr: null,
                 isFromFlag: false, // 是否是来自邀请
-                tickNum: 1, // 票数
+                tickNum: 1, // 购买票数
                 regName: 'poi', // 注册的名字
                 roundInfo: null, // getcurrentRoundInfo msg
-                selfMsg: null
+                selfMsg: null,
+                timeLeft: null, // 剩余时间
+                nowFormateTime:null, // 格式化的时间
+                nowTimeInterval:null, 
+                currTicketPrice:null, // 单价
+                allTicketPrice:null,
             }
         },
         watch: {
@@ -59,9 +81,30 @@
             copySucc,
             copyError,
             formateBalance,
-            async getTimeLeft () {
-                let timeLeft = await luckyCoinApi.getTimeLeft()
-                console.log(timeLeft)
+            formatTime,
+            async pageInit(){
+                // 初始化页面
+                this.selfAddr = await luckyCoinApi.getAccounts()
+                this.getCurrentRoundInfo()
+                this.getPlayerInfoByAddress()
+                this.timeLeft  = await luckyCoinApi.getTimeLeft()
+                this.currTicketPrice = await luckyCoinApi.getBuyPrice()
+                this.startTimeLeft()
+                window.setInterval(async ()=>{
+                    this.timeLeft  = await luckyCoinApi.getTimeLeft()
+                },10000)
+            },
+            startTimeLeft () {
+                // 倒计时
+                this.nowTimeInterval = setInterval(()=>{
+                    if(this.timeLeft){
+                        if(this.timeLeft === 0){
+                            clearInterval(this.nowTimeInterval)
+                        }
+                        this.nowFormateTime = this.formatTime(this.timeLeft,'HH:mm:ss')
+                        this.timeLeft--
+                    }
+                },1000)
             },
             async getPlayerInfoByAddress () {
                 if (this.selfAddr) {
@@ -78,15 +121,15 @@
                 // 购买号码
                 let buyBack = null
                 let currPrice = await luckyCoinApi.getBuyPrice()
-                if (currPrice === 0) {
-                    console.error('getPrice 0')
+                if (this.currTicketPrice === 0) {
+                    console.error('this.currTicketPrice 0')
                     return false
                 }
                 if (typeof this.tickNum === 'string') {
                     this.tickNum = Number(this.tickNum)
                 }
                 console.log(currPrice)
-                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, currPrice)
+                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum )
                 console.log(buyBack)
                 console.log('buyBack')
                 if (buyBack) {
@@ -155,7 +198,6 @@
             language () {
                 return this.$store.state.language
             }
-
         },
         components: {
         },
@@ -165,13 +207,8 @@
             } else {
                 this.isFromFlag = coinAffAddr
             }
-            console.log(luckyCoinApi)
-            this.selfAddr = await luckyCoinApi.getAccounts()
-            console.log(this.selfAddr)
-            this.getCurrentRoundInfo()
-            this.getPlayerInfoByAddress()
-            this.getTimeLeft()
-    }
+            this.pageInit()
+        },
     }
 </script>
 <style scoped lang="less" type="text/less">
