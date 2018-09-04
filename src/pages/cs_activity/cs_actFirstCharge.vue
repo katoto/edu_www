@@ -3,8 +3,8 @@
         <Header></Header>
         <div class="act_box" @click="initPop">
             <div class="top_banner">
-                <h2><lang>50% Bonus for Your First Top-Up</lang></h2>
-                <h4><lang>More top-up, more bonus</lang></h4>
+                <h2>50% Bonus</h2>
+                <h2 class="color">for Your First Top-Up</h2>
             </div>
             <a href="javascript:;" v-if="firstChargeMsg" class="btn"   :class="{'unable':firstChargeMsg.activity_status==='2'}" @click="getFirstBtn">
                 {{ firstChargeMsg.activity_status | filterMsg }}
@@ -160,7 +160,8 @@ export default {
     }
 
     .act_box{
-        background-color: #595d9c;
+        background:#181b4d url("../../../src/assets/img/paysend/bg.jpg") no-repeat center top;
+        background-size: 1920px;
         color: #fff;
         text-align: center;
         a{
@@ -171,47 +172,60 @@ export default {
         }
         .foot_rules{
             width: 92%;
-            max-width: 950px;
-            font-size: 14px;
-            margin: 134/2px auto 0px;
+            max-width: 814px;
+            font-size: 16px;
+            margin: 0 auto;
             padding-bottom: 176/2px;
             text-align: left;
-            line-height: 22px;
+            line-height: 24px;
+            h4{
+                line-height: 72px;
+                font-size: 36px;
+            }
             a{
                 cursor: pointer;
-                color: blue;
+                color: #a1c5f2;
                 &:hover{
                     filter: brightness(1.4);
                 }
             }
+            p+p{
+                margin-top: 10px;
+            }
         }
         .cont_tips{
             width: 92%;
+            line-height: 33px;
             margin: 0 auto;
-            font-size: 12px;
+            font-size: 14px;
         }
         .top_banner{
             width: 92%;
             margin: 0 auto;
-            padding-top: 163/2px;
+            padding-top: 30px;
             h2{
                 font-size: 68/2px;
                 line-height: 84/2px;
+                font-family: sans-eb;
+                color: #ffe401;
+                &.color{
+                    background-image: -webkit-linear-gradient(top, #ffe401,#fff);
+                    -webkit-text-fill-color: transparent;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                }
             }
-            h4{
-                font-size: 22/2px;
-                line-height: 40/2px;
-            }
+
         }
         .btn{
             display: block;
-            margin:118/2px auto 22/2px;
-            max-width: 538px;
+            margin: 300px auto 0;
+            max-width: 396px;
             width: 60%;
             height: 68/1.5px;
             overflow: hidden;
             border-radius: 5px;
-            background: #fd8144;
+            background: #20bf6b;
             /*background: linear-gradient(to right, #fd8144 , #fd9644,#fd8144);*/
             line-height: 68/1.5px;
             font-size: 22px;
@@ -223,27 +237,19 @@ export default {
     }
     @media (min-width: @screen-desktop) {
         .act_box{
-            .foot_rules{
-                font-size: 14px;
-                margin: 134px auto 0px;
-                line-height: 22px;
-            }
             .top_banner{
-                padding-top: 163px;
                 h2{
-                    font-size: 68px;
-                    line-height: 84px;
-                }
-                h4{
-                    font-size: 22px;
-                    line-height: 40px;
+                    line-height: 70px;
+                    font-size: 72px;
                 }
             }
             .btn{
-                margin:118px auto 22px;
-                height: 68px;
-                line-height: 68px;
-                font-size: 22px;
+                margin:305px auto 0;
+                height: 60px;
+                line-height: 60px;
+                font-size: 30px;
+                font-weight: bold;
+                border-radius: 8px;
             }
         }
     }
