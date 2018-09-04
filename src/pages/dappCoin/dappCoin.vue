@@ -1,7 +1,7 @@
 <template>
     <div class="dapp-contain">
         <div>
-            <p>基于区块链123</p>
+            <p>基于区块链123{{ selfMsg }}</p>
         </div>
         <div v-if="roundInfo">
             {{ roundInfo.roundIndex }}
@@ -41,10 +41,12 @@
         data () {
             return {
                 showFirstBaxi: false, // 首次提示
+                selfAddr:null,
                 isFromFlag: false, // 是否是来自邀请
                 tickNum: 1, // 票数
                 regName: 'poi', // 注册的名字
                 roundInfo: null, // getcurrentRoundInfo msg
+                selfMsg: null,
             }
         },
         watch: {
@@ -57,10 +59,20 @@
             copySucc,
             copyError,
             formateBalance,
+            async getTimeLeft(){
+                let timeLeft = await luckyCoinApi.getTimeLeft()
+                console.log( timeLeft )
+            },
+            async getPlayerInfoByAddress(){
+                if(this.selfAddr){
+                    this.selfMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
+                }else{
+                    console.warn('没有取得地址msg')
+                }
+            },
             async getCurrentRoundInfo () {
                 // 获取页面相关信息
                 this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
-                console.log(roundInfo)
             },
             async buyNum () {
                 // 购买号码
@@ -154,8 +166,11 @@
                 this.isFromFlag = coinAffAddr
             }
             console.log(luckyCoinApi)
-            console.log(coinAffAddr)
+            this.selfAddr = await luckyCoinApi.getAccounts()
+            console.log(this.selfAddr)
             this.getCurrentRoundInfo()
+            this.getPlayerInfoByAddress()
+            this.getTimeLeft()
     }
     }
 </script>
