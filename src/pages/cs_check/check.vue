@@ -23,7 +23,7 @@
                 </div>
                 <a href="javascript:;" class="btn-verification" @click="verifyHandler"><lang>Check Now</lang></a>
                 <!--rollIn animated-->
-                <div class="checkout-result" :class="{ 'rollIn animated': isChecked }">
+                <div class="checkout-result rollIn animated" :class="{ 'rollIn animated': isChecked }">
                     <h3><lang>Draw Result</lang></h3>
                     <div class="result-view">
                         <!--lucky11-->
@@ -38,6 +38,21 @@
                         <div v-if="params.type === 'luckycoin'" :class="[luckyCoinStatus]">
                             {{luckyCoinResult}}
                         </div>
+                        <!--luckyPoker v-if="params.type === 'luckyPoker'"-->
+                        <div class="poker-check">
+                            <p>111</p>
+                            <p class="mark">>>></p>
+                            <!--icon-fk/icon-hongt/icon-mh/icon-heit/joker-->
+                            <div class="poker-item icon-hongt">
+                                <p>1</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="poker-t" style="margin-top: 33px">Synthetic random number :</h4>
+                    <p class="poker-m">Ab7a3e7e292b8af5c68afd727fbd6e43a5a2c22fd61f1ba9af65c32c6f5e051bd82a2374a31986dc8e008f37f60625a14a4bda702a1494bf316addf049f5f15f</p>
+                    <div style="line-height: 48px;">
+                        <h4 class="poker-t fl" >Generate decimal :</h4>
+                        <p class="poker-m fl">165863</p>
                     </div>
                 </div>
             </div>
@@ -220,7 +235,7 @@
        .check-input{
             width: 1190px;
             height: 385px;
-            overflow: hidden;
+            /*overflow: hidden;*/
             margin: 0 auto;
             background: url("../../assets/img/check/bg-check.png") no-repeat center;
             display: flex;
@@ -288,6 +303,8 @@
             }
             .checkout-result{
                 position: relative;
+                z-index: 2;
+                width: 342px;
                 padding: 7px 40px 68px;
                 border: 1px solid #6a89cc;
                 border-radius: 6px;
@@ -325,7 +342,7 @@
                         font-weight: bold;
                         color: #fff;
                     }
-                    div{
+                    >div{
                         text-align: center;
                         font-size: 20px;
                         font-weight: bold;
@@ -778,6 +795,92 @@
             .el-tabs__nav-wrap::after {
                 background-color: #412057;
             }
+        }
+        /*新增poker*/
+        .poker-check{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .mark{
+                margin: 0 25px;
+                font-size: 20px;
+                color: rgba(255,255,255,0.3);
+            }
+            .poker-item{
+                width: 20px;
+                height: 30px;
+                overflow: hidden;
+                float: left;
+                border-radius: 8/2px;
+                background-color: #fff;
+                p{
+                    line-height: 30/2px;
+                    font-size: 24/2px;
+                    font-weight: bold;
+                }
+                &::after{
+                    content: '';
+                    display: block;
+                    width: percentage(24/40);
+                    height: 30/2px;
+                    overflow: hidden;
+                    margin: 0 auto;
+                }
+                &.icon-hongt{
+                    color: #cc3333;
+                    &::after{
+                        background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
+                        background-size: contain;
+                    }
+
+                }
+                &.icon-fk{
+                    color: #cc3333;
+                    &::after{
+                        background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
+                        background-size: contain;
+                    }
+                }
+                &.icon-mh{
+                    color: #000000;
+                    &::after{
+                        background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center top;
+                        background-size: contain;
+                    }
+                }
+                &.icon-heit{
+                    color: #000000;
+                    &::after{
+                        background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
+                        background-size: contain;
+                    }
+                }
+                &.joker{
+                    &::after{
+                        width: 100%;
+                        height: 100%;
+                        background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center top;
+                        background-size: cover;
+                    }
+                    p{
+                        display: none;
+                    }
+                }
+                &+li{
+                    margin-left: 5px;
+                }
+            }
+        }
+        .poker-t{
+            line-height: 48px;
+            font-size: 14px;
+            color: #fff;
+            font-family: sans-eb;
+        }
+        .poker-m{
+            font-size: 14px;
+            color: #fff;
+            word-break: break-all;
         }
     }
 </style>

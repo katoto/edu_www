@@ -20,7 +20,7 @@ const actions = {
         return ajax.get('/dice/home', params)
     },
     bet ({commit}, params = {}) {
-        return ajax.post('/dice/post', params)
+        return ajax.post('/dice/bet', params)
     }
 }
 

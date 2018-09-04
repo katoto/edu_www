@@ -75,8 +75,7 @@
                         <div class="area-betting">
                             <!--red or balck-->
                             <div class="bet-rb">
-                                <p class="poker-prize" v-if="colorTotal !== 0">
-                                    {{_($lang.poker.a14, accMul(colorMost, colorTotal), coinText)}}
+                                <p class="poker-prize" v-if="colorTotal !== 0" v-lang="_($lang.poker.a14, accMul(colorMost, colorTotal), coinText)">
                                 </p>
                                 <ul>
                                     <li class="bet-red" ref="coin_red" @click="addCoin('red')">
@@ -103,7 +102,7 @@
                                 </p>
                             </div>
                             <div class="bet-joker">
-                                <p class="poker-prize" v-if="jokerTotal !== 0">{{_($lang.poker.a14, accMul(jokerMost, jokerTotal), coinText)}}</p>
+                                <p class="poker-prize" v-if="jokerTotal !== 0" v-lang="_($lang.poker.a14, accMul(jokerTotal, jokerMost), coinText)" style="padding:0 4px"></p>
                                 <ul>
                                     <li @click="addCoin('joker')" ref="coin_joker">
                                         <p>JOKER</p>
@@ -115,8 +114,7 @@
                                 </p>
                             </div>
                             <div class="bet-color">
-                                <p class="poker-prize" v-if="suitTotal !== 0">
-                                    {{_($lang.poker.a14, accMul(typeMost, suitTotal), coinText)}}
+                                <p class="poker-prize" v-if="suitTotal !== 0" v-lang="_($lang.poker.a14, accMul(suitMost, suitTotal), coinText)">
                                 </p>
                                 <ul>
                                 <li @click="addCoin('spade')" ref="coin_spade">
@@ -125,7 +123,7 @@
                                     <li @click="addCoin('heart')" ref="coin_heart">
                                         <img src="@assets/img/luckyPoker/icon-hongt.png" alt="">
                                     </li>
-                                    <li @click="addCoin('clubs')" ref="coin_clubs">
+                                    <li @click="addCoin('club')" ref="coin_club">
                                         <img src="@assets/img/luckyPoker/icon-mh.png" alt="">
                                     </li>
                                     <li @click="addCoin('diamond')" ref="coin_diamond">
@@ -133,12 +131,11 @@
                                     </li>
                                 </ul>
                                 <p class="poker-time">
-                                    {{_($lang.poker.a15, typeMost)}}
+                                    {{_($lang.poker.a15, suitMost)}}
                                 </p>
                             </div>
                             <div class="bet-number">
-                                <p class="poker-prize"  v-if="pointsTotal !== 0">
-                                    {{_($lang.poker.a14, accMul(numMost, pointsTotal), coinText)}}
+                                <p class="poker-prize"  v-if="pointsTotal !== 0" v-lang="_($lang.poker.a14, accMul(pointsMost, pointsTotal), coinText)">
                                 </p>
                                 <ul class="item1">
                                     <li @click="addCoin('2')" ref="coin_2">2</li>
@@ -163,7 +160,7 @@
                                     </a>
                                 </div>
                                 <p class="poker-time">
-                                    {{_($lang.poker.a15, numMost)}}
+                                    {{_($lang.poker.a15, pointsMost)}}
                                 </p>
                             </div>
                         </div>
@@ -191,7 +188,7 @@
                             <div href="javascript:;" class="btn-main " @click="onBet" :class="{ unable: total === 0, wait: isLoading }">
                                 <p>PAY</p>
                                 <!--<p>Please wait</p>-->
-                                <i>{{total}} ETH</i>
+                                <span>{{total}} <i>ETH</i></span>
                             </div>
                         </div>
                     </div>
@@ -202,7 +199,7 @@
                         <p class="title">
                             {{$lang.poker.a1}}
                         </p>
-                        <a href="javascript:;" class="btn-help" @click="showPopVer=true"></a>
+                        <a href="javascript:;" class="btn-help" @click="showPopVer=true; activeTabClass = 'upper'"></a>
                         <a href="javascript:;" class="btn-slideUp"></a>
                     </div>
                     <ul class="random-main ">
@@ -219,7 +216,7 @@
                                 <a href="javascript:;"  class="btn btn-lock" v-if="!isLock" @click="isLock = true">
                                     {{$lang.poker.a5}}
                                 </a>
-                                <a href="javascript:;"  class="btn btn-lock" v-if="isLock" @click="isLock = false">
+                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="isLock" @click="isLock = false">
                                     {{$lang.poker.a8}}
                                 </a>
                             </div>
@@ -289,13 +286,13 @@
                                     {{getDiceBetText(item.bettype)}}
                                 </div>
                                 <p class="bet-count">
-                                    {{Number(item.betmoney)}} {{formateCoinType(item.cointype)}}
+                                    {{Number(item.betmoney)}} <i>{{formateCoinType(item.cointype)}}</i>
                                 </p>
                                 <div class="bet-result icon-heit" :class="[getDiceClass(item.result)]">
                                     <p>{{getDiceText(item.result)}}</p>
                                 </div>
                                 <p class="bet-result-count" :class="{mywin: userInfo && userInfo.uid && userInfo.uid === item.uid.toString() && Number(item.result) > 0}">
-                                    {{Number(item.result)}} {{formateCoinType(item.cointype)}}
+                                    {{Number(item.result)}} <i>{{formateCoinType(item.cointype)}}</i>
                                 </p>
                             </li>
                             <!-- <li>
@@ -306,13 +303,13 @@
                                     balck
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result icon-hongt">
                                     <p>Q</p>
                                 </div>
                                 <p class="bet-result-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                             </li>
                             <li>
@@ -323,13 +320,13 @@
                                     RED
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result icon-fk">
                                     <p>Q</p>
                                 </div>
                                 <p class="bet-result-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                             </li>
                             <li>
@@ -340,13 +337,13 @@
                                     Q
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result icon-mh">
                                     <p>Q</p>
                                 </div>
                                 <p class="bet-result-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                             </li>
                             <li>
@@ -357,13 +354,13 @@
                                     J
                                 </div>
                                 <p class="bet-count">
-                                    0.00001 ETH
+                                    0.00001<i> ETH</i>
                                 </p>
                                 <div class="bet-result joker">
                                     <p></p>
                                 </div>
                                 <p class="bet-result-count mywin">
-                                    0.00001 ETH
+                                    0.00001<i>ETH</i>
                                 </p>
                             </li> -->
                         </ul>
@@ -394,6 +391,9 @@
                             <h2>
                                 {{$lang.poker.a1}}
                             </h2>
+                             <h2 class="hide">
+                                 {{$lang.poker.a7}}
+                            </h2>
                             <ul class="tab-h" >
                                 <li :class="{ on: activeTabClass === 'thisRound' }" @click="activeTabClass = 'thisRound'">
                                     <a href="javascript:;">
@@ -422,7 +422,7 @@
                                                 <a href="javascript:;"  class="btn btn-lock" v-if="!isLock" @click="isLock = true">
                                                     {{$lang.poker.a5}}
                                                 </a>
-                                                <a href="javascript:;"  class="btn btn-lock" v-if="isLock" @click="isLock = false">
+                                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="isLock" @click="isLock = false">
                                                     {{$lang.poker.a8}}
                                                 </a>
                                             </div>
@@ -473,11 +473,11 @@
                     </div>
                 </div>
             </div>
-            <div class="pop pop-poker ">
+            <div class="pop pop-poker">
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw ">
+                <div class="poker-draw scale0">
                     <ul class="poker-area animate1">
                         <li class="on">
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
@@ -503,8 +503,9 @@
                     </a>
                 </div>
                 <!--v-else-->
-                <!--heit/mh/hongt/fk+j/q/k  joker-->
-                <div class="result scale0">
+                <!--isWin-->
+                <div class="result ">
+                    <!--heit/mh/hongt/fk+j/q/k  joker-->
                     <div class="result-box fk k">
                         <div class="leftTop">
                             <p>J</p>
@@ -514,6 +515,11 @@
                             <p>j</p>
                         </div>
                     </div>
+                    <!--未中奖-->
+                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;">
+                        再接再厉~
+                    </div>
+                    <!--中奖-->
                     <div class="result-msg">
                         <p>Congratulations</p>
                         <div>+0.023<i>ETH</i></div>
@@ -534,10 +540,10 @@ export default {
     components: { Header, Footer },
     data () {
         return {
-            nameArr: ['red', 'black', 'joker', 'spade', 'heart', 'clubs', 'diamond', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
+            nameArr: ['red', 'black', 'joker', 'spade', 'heart', 'club', 'diamond', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
             points: ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
             color: ['red', 'black'],
-            suit: ['spade', 'heart', 'clubs', 'diamond'],
+            suit: ['spade', 'heart', 'club', 'diamond'],
             joker: ['joker'],
             pointsTotal: 0,
             colorTotal: 0,
@@ -559,8 +565,8 @@ export default {
             isLock: false,
             jokerMost: 27,
             colorMost: 2,
-            typeMost: 4,
-            numMost: 13,
+            suitMost: 4,
+            pointsMost: 13,
             isLoading: false
         }
     },
@@ -615,7 +621,7 @@ export default {
                 return {
                     spade: 'heit',
                     heart: 'hongt',
-                    clubs: 'mh',
+                    club: 'mh',
                     diamond: 'fk'
                 }[type]
             } else if (color.indexOf(type) > -1) {
@@ -721,7 +727,7 @@ export default {
             this.isLoading = true
             this.bet({
                 bet: {...this.betNums},
-                cointype: this.coinType,
+                cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
                 cur_server_hash: this.hashNumber
             }).then(res => {
@@ -776,8 +782,8 @@ export default {
             this.hashNumber = data.cur_server_hash
             this.colorMost = Number(data.odds.color)
             this.jokerMost = Number(data.odds.joker)
-            this.numMost = Number(data.odds.point)
-            this.typeMost = Number(data.odds.suit)
+            this.pointsMost = Number(data.odds.point)
+            this.suitMost = Number(data.odds.suit)
             this.recentResult = [...data.recent_results]
         }
     },
@@ -799,6 +805,9 @@ export default {
     watch: {
         isLogin () {
             this.refresh()
+        },
+        coinType () {
+            this.clearBet()
         }
     },
     mounted () {
@@ -819,25 +828,14 @@ export default {
     .fly-coin {
         transition: .5s ease-in-out;
         position: absolute;
+        cursor: pointer;
         img {
             width: 24px;
         }
     }
     .bg-esktop {
         position: relative;
-    }
-    .setPokerPosition( @count )when( @count > 0 ){
-        li:nth-child(@{count}){
-            transform: translate(-50%,13px * @count);
-            z-index: 43-@count;
-        }
-        .setPokerPosition((@count - 1));
-    }
-    .setPokerPosition2( @count )when( @count > 0 ){
-        li:nth-child(@{count}){
-            transform: translate(@count*25%-125%);
-        }
-        .setPokerPosition2((@count - 1));
+        overflow: hidden;
     }
     .luckyPoker{
         text-align: center;
@@ -889,7 +887,7 @@ export default {
                         i{
                             display: block;
                             position: relative;
-                            width: percentage(26/217);
+                            width: percentage(18/217);
                             img{
                                 position: absolute;
                                 width: 100%;
@@ -923,9 +921,9 @@ export default {
                     img{
                         display: block;
                         position: absolute;
-                        right: percentage(14/222);
-                        top: percentage(20/140);
-                        width: percentage(36/222);
+                        right: percentage(20/222);
+                        top: percentage(30/140);
+                        width: percentage(30/222);
                         max-width: 36px;
                     }
 
@@ -1034,9 +1032,10 @@ export default {
                     transition: all 0.2s;
                     img{
                         display: block;
-                        width: 100%;
+                        width: 80%;
+                        margin: 0 auto;
                         transition: all 0.2s;
-                        box-shadow: 0 7px 10px rgba(0,0,0,0.3);
+                        /*box-shadow: 0 7px 10px rgba(0,0,0,0.3);*/
                         border-radius: 50%;
                     }
                     p{
@@ -1049,22 +1048,25 @@ export default {
                         color: #ffcc00;
                         font-weight: bold;
                     }
-                }
-                li.on{
-                    img{
-                        transform: scale(1.2);
-                        box-shadow: none;
-                    }
                     &::before{
                         content: '';
                         display: block;
                         position: absolute;
                         width: 100%;
-                        height: 100%;
+                        /*height: 100%;*/
+                        padding-top: 100%;
                         left: 50%;
                         top: 50%;
-                        transform: translate(-50%,-50%);
+                        transform: translate(-50%,-50%) scale(0.8);
                         border-radius: 50%;
+                        box-shadow: 0 0 30px transparent;
+                        transition: all 0.2s;
+                    }
+                }
+                li.on{
+                    img{
+                        transform: scale(1.3);
+                        box-shadow: none;
                     }
                 }
             }
@@ -1081,9 +1083,12 @@ export default {
                 p{
                     transition: all 0.2s;
                 }
-                i{
+                span{
                     display: block;
                     transition: all 0.2s;
+                    i{
+
+                    }
                 }
                 &.wait{
                     filter:brightness(0.8);
@@ -1268,6 +1273,215 @@ export default {
             display: none;
         }
 
+        .pop-poker{
+            .poker-draw{
+                position: absolute;
+                left: 50%;
+                width: 100%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                transition: all 0.2s;
+            }
+            .poker-area{
+                position: relative;
+                transition: all 0.2s;
+                li{
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    transform: translateX(-50%);
+                    width: 100%;
+                    transition: all 0.2s;
+                    transform-origin: center bottom;
+                    img{
+                        display: block;
+                        width: 100%;
+                    }
+                }
+                &.animate1{
+                    .setPokerPosition(10);
+                }
+            }
+            .btn-open{
+                display: block;
+                max-width: 370px;
+                width: percentage(370/750);
+                overflow: hidden;
+                margin: 0 auto 0;
+                line-height: 98/2px;
+                border-radius: 4px;
+                background: #3e9999;
+                font-size: 18px;
+                color: #fff;
+                font-weight: bold;
+                &:hover{
+                    filter: brightness(1.3);
+                }
+            }
+            .result{
+                transition: all 0.2s;
+                position: absolute;
+                left: 50%;
+                width: 100%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                &.isWin{
+                    background: url("../../assets/img/luckyPoker/bg-win.png") no-repeat center bottom;
+                    background-size: 526px;
+                    .result-msg{
+                        color: #ffcf20;
+                    }
+                }
+            }
+            .result-box{
+                position: relative;
+                overflow: hidden;
+                background: #fff;
+                border-radius: 15px;
+                //padding:8/2px 0;
+                margin: 0 auto 0;
+                .leftTop,.rightBottom{
+                    position: absolute;
+                    width: 110/2px;
+                    p{
+                        line-height: 100/2px;
+                        font-size: 84/2px;
+                        font-family: Lucida Bright,LBRITE;
+                        text-transform: uppercase;
+                    }
+                    &::after{
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 40px;
+                        overflow: hidden;
+                    }
+                }
+                .leftTop{
+                    left: 0;
+                    top: 0;
+                }
+                .rightBottom{
+                    right: 0;
+                    bottom: 0;
+                    transform: rotate(180deg);
+                }
+                .img-poker{
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform:translate(-50%,-50%);
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+                &.heit{
+                    color: #000000;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
+                            background-size: percentage(50/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.mh{
+                    color: #000000;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
+                            background-size: percentage(65/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.hongt{
+                    color: #df2929;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
+                            background-size: percentage(65/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.fk{
+                    color: #df2929;
+                    .leftTop,.rightBottom{
+                        &::after{
+                            background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
+                            background-size: percentage(65/110);
+                        }
+                    }
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center;
+                        background-size: percentage(65/110);
+                    }
+                }
+                &.j{
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-J.png") no-repeat center;
+                        background-size: percentage(300/360);
+                    }
+                }
+                &.q{
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-Q.png") no-repeat center;
+                        background-size: percentage(300/360);
+                    }
+                }
+                &.k{
+                    .img-poker{
+                        background:url("../../assets/img/luckyPoker/icon-K.png") no-repeat center;
+                        background-size: percentage(300/360);
+                    }
+                }
+                &.joker{
+                    background:url("../../assets/img/luckyPoker/icon-Joker.png") no-repeat center;
+                    background-size: cover;
+                    *{
+                        display: none !important;
+                    }
+                }
+            }
+            .result-msg{
+                max-width: 300px;
+                width: percentage(500/750);
+                border-radius: 4px;
+                margin: 45/2px auto 0;
+                padding: 0 2px;
+                background-color: #050707;
+                color: #ffff;
+                font-weight: bold;
+                border: 1px solid #6bda7b;
+                p{
+                    line-height: 60/2px;
+                    font-size: 36/2px;
+                }
+                div{
+                    line-height: 90/2px;
+                    font-size: 72/2px;
+                    i{
+                        font-size: 36/2px;
+                    }
+                }
+            }
+            .scale0{
+                transform: scale(0);
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+        }
     }
     @media (max-width: 1106px) {
         .luckyPoker{
@@ -1315,6 +1529,9 @@ export default {
                 font-size: 22/2px;
                 //font-size: 22/7.5vw;
                 padding: 0 18/2px;
+                i{
+                    font-size: 8px;
+                }
             }
             .poker-time{
                 height: 68/2px;
@@ -1440,7 +1657,7 @@ export default {
                     li{
                         width: percentage(104/503);
                         p{
-                            bottom: percentage(20/104);
+                            bottom: 0;
                             min-width: percentage(110/104);
                             height: 38/2px;
                             border-radius: 38/4px;
@@ -1451,6 +1668,7 @@ export default {
                     }
                     li.on{
                         &::before{
+                            transform: translate(-50%,-50%) scale(1);
                             box-shadow: 0 0 10px rgba(0,255,234,1);
                         }
                     }
@@ -1468,9 +1686,12 @@ export default {
                         font-size: 18px;
                         text-shadow: 0 1px #2b7b75, 1px 0 #2b7b75, -1px 0 #2b7b75, 0 -1px #2b7b75;
                     }
-                    i{
+                    span{
                         line-height: 15px;
                         font-size: 12px;
+                        i{
+                            font-size: 10px;
+                        }
                     }
 
                 }
@@ -1554,7 +1775,7 @@ export default {
                         .btn{
                             display: block;
                             border-left: 1px solid #213746;
-                            background: #4a8282;
+                            background: #29c2bd;
                             font-size: 28/2px;
                             color: #fff;
                             font-weight: bold;
@@ -1573,6 +1794,7 @@ export default {
                 padding-top: 22/2px;
                 margin: 32/2px auto 0px;
                 border-radius: 6px;
+                overflow: hidden;
                 .recording-top{
                     padding: 0 percentage(25/690);
                     line-height: 70/2px;
@@ -1620,10 +1842,10 @@ export default {
                                 width: 68/2px;
                                 height: 68/2px;
                                 line-height: 68/2px;
-                                background: #546a79;
                                 font-family: Lucida Bright,LBRITE;
                                 font-weight: bold;
                                 text-transform: uppercase;
+                                text-align: center;
                                 &.number{
                                     font-size: 15px;
                                     color: #fff;
@@ -1662,13 +1884,18 @@ export default {
                                 }
                             }
                             .bet-count{
-
+                                i{
+                                    font-size: 10px;
+                                }
                             }
                             .bet-result-count{
                                 text-align: right;
-                                width: 76px;
+                                width: 78px;
                                 height: 100%;
                                 overflow: hidden;
+                                i{
+                                    font-size: 10px;
+                                }
                                 &.mywin{
                                     color: #20bf6b;
                                     font-weight: bold;
@@ -1757,12 +1984,11 @@ export default {
                 h2{
                     height: 70px;
                     line-height: 64px;
-                    font-size: 24px;
+                    font-size: 16px;
                     color: #fff;
                     font-weight: bold;
                 }
                 .tab-h{
-                    height: 52px;
                     line-height: 52px;
                     li{
                         float: left;
@@ -1770,6 +1996,7 @@ export default {
                         width: 100%;
                         overflow: hidden;
                         .text-overflow();
+                        display: none;
                         a{
                             display: block;
                             width: 100%;
@@ -1786,31 +2013,28 @@ export default {
                             }
                         }
                     }
-                    li:first-child{
-                        display: none;
-                    }
                 }
                 .tab-c{
                     padding: 0 26px 32px;
                     background: #294557;
                     color: #fff;
                     .title{
-                        padding-top: 8px;
-                        line-height: 20px;
+                        padding-top: 10px;
+                        line-height: 23px;
                         text-align: left;
                         font-size: 14px;
                         font-weight: bold;
                     }
                     .input-group{
                         display: flex;
-                        height: 30px;
-                        line-height: 30px;
+                        height: 42px;
+                        line-height: 42px;
                         border-radius: 6px;
                         overflow: hidden;
                         input{
                             padding: 0;
-                            height: 30px;
-                            line-height: 30px;
+                            height: 42px;
+                            line-height: 42px;
                             flex: 1;
                             background: #213746;
                             border: none;
@@ -1830,6 +2054,10 @@ export default {
                             }
                             &.btn-lock{
                                 width: percentage(140/640);
+                                filter: brightness(0.8);
+                            }
+                            &.btn-unlock{
+                                filter: brightness(1);
                             }
                         }
                     }
@@ -1848,204 +2076,16 @@ export default {
                     }
                 }
             }
-            .pop-poker{
-                .poker-draw{
-                    transition: all 0.2s;
-                }
-                .poker-area{
-                    position: relative;
+            .pop-poker {
+                .poker-area {
                     width: percentage(212/750);
-                    //height: 100px;
-                    padding-top: percentage(289/750);
-                    margin: 145px auto 110px;
-                    transition: all 0.2s;
-                    li{
-                        position: absolute;
-                        left: 50%;
-                        top: 0;
-                        transform: translateX(-50%);
-                        width: 100%;
-                        transition: all 0.2s;
-                        transform-origin: center bottom;
-                        img{
-                            display: block;
-                            width: 100%;
-                        }
-                    }
-                    &.animate1{
-                        .setPokerPosition(10);
-                    }
-                    &.animate2{
-                        .setPokerPosition2(10)
-                    }
+                    padding-top: 50%;
+                    /*margin: 145px auto 110px;*/
+                    margin: 0 auto 50px;
                 }
-                .btn-open{
-                    display: block;
-                    width: percentage(370/750);
-                    overflow: hidden;
-                    margin: 0 auto 0;
-                    line-height: 98/2px;
-                    border-radius: 4px;
-                    background: #3e9999;
-                    font-size: 18px;
-                    color: #fff;
-                    font-weight: bold;
-                }
-                .result{
-                    display: flex;
-                    height: 100%;
-                    flex-direction: column;
-                    justify-content: center;
-                    transition: all 0.2s;
-                }
-                .result-box{
-                    position: relative;
+                .result-box {
                     width: percentage(340/750);
-                    padding-top: percentage(506/750);
-                    overflow: hidden;
-                    background: #fff;
-                    border-radius: 15px;
-                    //padding:8/2px 0;
-                    margin: 0 auto 0;
-                    .leftTop,.rightBottom{
-                        position: absolute;
-                        width: 110/2px;
-                        p{
-                            line-height: 100/2px;
-                            font-size: 84/2px;
-                            font-family: Lucida Bright,LBRITE;
-                            text-transform: uppercase;
-                        }
-                        &::after{
-                            content: '';
-                            display: block;
-                            width: 100%;
-                            height: 40px;
-                            overflow: hidden;
-                        }
-                    }
-                    .leftTop{
-                        left: 0;
-                        top: 0;
-                    }
-                    .rightBottom{
-                        right: 0;
-                        bottom: 0;
-                        transform: rotate(180deg);
-                    }
-                    .img-poker{
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform:translate(-50%,-50%);
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                    }
-                    &.heit{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
-                                background-size: percentage(50/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.mh{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.hongt{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.fk{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.j{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-J.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.q{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-Q.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.k{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-K.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.joker{
-                        background:url("../../assets/img/luckyPoker/icon-Joker.png") no-repeat center;
-                        background-size: cover;
-                        *{
-                            display: none !important;
-                        }
-                    }
-                }
-                .result-msg{
-                    width: percentage(500/750);
-                    border-radius: 4px;
-                    margin: 45/2px auto 0;
-                    padding: 0 2px;
-                    border: 1px solid #6bda7b;
-                    background: #050707;
-                    color: #ffcf20;
-                    font-weight: bold;
-                    p{
-                        line-height: 60/2px;
-                        font-size: 36/2px;
-                    }
-                    div{
-                        line-height: 90/2px;
-                        font-size: 72/2px;
-                        i{
-                            font-size: 36/2px;
-                        }
-                    }
-                }
-                .scale0{
-                    transform: scale(0);
-                    width: 0;
-                    height: 0;
-                    overflow: hidden;
+                    padding-top: percentage(500/750);
                 }
             }
         }
@@ -2055,6 +2095,7 @@ export default {
             background:#1b262c url("../../assets/img/luckyPoker/bg-pc.jpg") no-repeat center top;
             background-size: 1920px;
             .main{
+                position: relative;
                 width: 1107px;
                 padding-right: 31px;
                 margin: 0 auto;
@@ -2076,10 +2117,13 @@ export default {
                 top: -24/2px;
                 border: 2px solid #6faeae;
                 border-radius: 8px;
-                padding: 0 18px;
+                padding: 0 12px;
                 height: 24px;
                 line-height: 20px;
                 font-size: 14px;
+                i{
+                    font-size: 12px;
+                }
             }
             .poker-time{
                 height:33px;
@@ -2195,14 +2239,15 @@ export default {
                     }
                     li.on{
                         &::before{
+                            transform: translate(-50%,-50%) scale(1);
                             box-shadow: 0 0 30px rgba(0,255,234,1);
                         }
                     }
                 }
                 .btn-main{
                     width: 210px;
-                    height: 70px;
-                    margin: 10px auto 0;
+                    height: 63px;
+                    margin: 28px auto 0;
                     border-radius: 8px;
                     box-shadow: 0 7px 0 #2b7876;
                     p{
@@ -2210,9 +2255,12 @@ export default {
                         font-size: 26px;
                         text-shadow: 0 2px #2b7b75, 2px 0 #2b7b75, -2px 0 #2b7b75, 0 -2px #2b7b75;
                     }
-                    i{
+                    span{
                         line-height: 20px;
                         font-size: 18px;
+                        i{
+                            font-size: 14px;
+                        }
                     }
                 }
             }
@@ -2231,12 +2279,13 @@ export default {
                     text-indent: 23px;
                     text-align: left;
                     font-size: 16px;
+                    font-weight: bold;
                     color: #fff;
                 }
                 .btn{
                     width: 40px;
                     &:hover{
-                        filter: brightness(1.2);
+                        filter: brightness(1.3);
                     }
                 }
                 .btn-left{
@@ -2248,8 +2297,10 @@ export default {
             }
             /*投注记录*/
             .recording{
+                position: absolute;
+                right: 31px;
+                bottom: 130px;
                 max-width: 455px;
-                float: right;
                 padding-top: 2px;
                 margin: 25px auto 0;
                 border-radius: 8px;
@@ -2345,12 +2396,18 @@ export default {
                             }
                             .bet-count{
                                 width: 82px;
+                                i{
+                                    font-size: 12px;
+                                }
                             }
                             .bet-result-count{
                                 text-align: right;
                                 width: 83px;
                                 height: 100%;
                                 overflow: hidden;
+                                i{
+                                    font-size: 12px;
+                                }
                                 &.mywin{
                                     color: #20bf6b;
                                     font-weight: bold;
@@ -2432,6 +2489,8 @@ export default {
                     background: #253e4e;
                     display: flex;
                     align-items: center;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
                     .btn-href{
                         font-size: 14px;
                         color: #fff;
@@ -2491,7 +2550,9 @@ export default {
             /*pop*/
             .pop-random{
                 .btn-close{
-
+                    &:hover{
+                        background: rgba(245,245,245,0.1);
+                    }
                 }
                 .pop-body{
                     width: 727px;
@@ -2564,7 +2625,7 @@ export default {
                         .btn{
                             display: block;
                             border-left: 1px solid #213746;
-                            background: #4a8282;
+                            background: #3e9999;
                             font-size: 18px;
                             color: #fff;
                             font-weight: bold;
@@ -2573,6 +2634,10 @@ export default {
                             }
                             &.btn-lock{
                                 width: percentage(140/640);
+                                filter: brightness(0.8);
+                            }
+                            &.btn-unlock{
+                                filter: brightness(1);
                             }
                         }
                     }
@@ -2594,213 +2659,21 @@ export default {
                     }
                 }
             }
-            .pop-poker{
-                .poker-draw{
-                    transition: all 0.2s;
+            .pop-poker {
+                .poker-area {
+                    width: 140px;
+                    height: 280px;
+                    /*margin: 50px auto 30px;*/
+                    margin: 0 auto 30px;
                 }
-                .poker-area{
-                    position: relative;
-                    width: 212px;
-                    height: 350px;
-                    margin: 50px auto 30px;
-                    transition: all 0.2s;
-                    li{
-                        position: absolute;
-                        left: 50%;
-                        top: 0;
-                        transform: translateX(-50%);
-                        width: 100%;
-                        transition: all 0.2s;
-                        transform-origin: center bottom;
-                        img{
-                            display: block;
-                            width: 100%;
-                        }
-                    }
-                    &.animate1{
-                        .setPokerPosition(10);
-                    }
-                    &.animate2{
-                        .setPokerPosition2(10)
-                    }
-                }
-                .btn-open{
-                    display: block;
-                    max-width: 370px;
-                    width: percentage(370/750);
-                    overflow: hidden;
-                    margin: 0 auto 0;
-                    line-height: 98/2px;
-                    border-radius: 4px;
-                    background: #3e9999;
-                    font-size: 18px;
-                    color: #fff;
-                    font-weight: bold;
-                }
-                .result{
-                    display: flex;
-                    height: 100%;
-                    flex-direction: column;
-                    justify-content: center;
-                    transition: all 0.2s;
-                }
-                .result-box{
-                    position: relative;
-                    width: percentage(340/750);
-                    max-width: 340px;
+                .result-box {
+                    max-width: 210px;
                     padding-top: 0;
-                    height: 520px;
-                    overflow: hidden;
-                    background: #fff;
-                    border-radius: 15px;
-                    //padding:8/2px 0;
-                    margin: 0 auto 0;
-                    .leftTop,.rightBottom{
-                        position: absolute;
-                        width: 110/2px;
-                        p{
-                            line-height: 100/2px;
-                            font-size: 84/2px;
-                            font-family: Lucida Bright,LBRITE;
-                            text-transform: uppercase;
-                        }
-                        &::after{
-                            content: '';
-                            display: block;
-                            width: 100%;
-                            height: 40px;
-                            overflow: hidden;
-                        }
-                    }
-                    .leftTop{
-                        left: 0;
-                        top: 0;
-                    }
-                    .rightBottom{
-                        right: 0;
-                        bottom: 0;
-                        transform: rotate(180deg);
-                    }
-                    .img-poker{
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform:translate(-50%,-50%);
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                    }
-                    &.heit{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center top;
-                                background-size: percentage(50/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-heit.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.mh{
-                        color: #000000;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-mh.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.hongt{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-hongt.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.fk{
-                        color: #df2929;
-                        .leftTop,.rightBottom{
-                            &::after{
-                                background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center top;
-                                background-size: percentage(65/110);
-                            }
-                        }
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-fk.png") no-repeat center;
-                            background-size: percentage(65/110);
-                        }
-                    }
-                    &.j{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-J.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.q{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-Q.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.k{
-                        .img-poker{
-                            background:url("../../assets/img/luckyPoker/icon-K.png") no-repeat center;
-                            background-size: percentage(300/360);
-                        }
-                    }
-                    &.joker{
-                        background:url("../../assets/img/luckyPoker/icon-Joker.png") no-repeat center;
-                        background-size: cover;
-                        *{
-                            display: none !important;
-                        }
-                    }
-                }
-                .result-msg{
-                    max-width: 500px;
-                    width: percentage(500/750);
-                    border-radius: 4px;
-                    margin: 45/2px auto 0;
-                    padding: 0 2px;
-                    border: 1px solid #6bda7b;
-                    background: #050707;
-                    color: #ffcf20;
-                    font-weight: bold;
-                    p{
-                        line-height: 60/2px;
-                        font-size: 36/2px;
-                    }
-                    div{
-                        line-height: 90/2px;
-                        font-size: 72/2px;
-                        i{
-                            font-size: 36/2px;
-                        }
-                    }
-                }
-                .scale0{
-                    transform: scale(0);
-                    width: 0;
-                    height: 0;
-                    overflow: hidden;
+                    height: 300px;
                 }
             }
         }
     }
-
-
     .setPokerPosition( @count )when( @count > 0 ){
         li:nth-child(@{count}){
             transform: translate(-50%,13px * @count);
@@ -2808,15 +2681,4 @@ export default {
         }
         .setPokerPosition((@count - 1));
     }
-    .setPokerPosition2( @count )when( @count > 0 ){
-        li:nth-child(@{count}){
-            transform: translate(@count*25%-125%);
-        }
-        .setPokerPosition2((@count - 1));
-    }
 </style>
-<!--
-background: url("../../assets/img/luckyPoker/bg.jpg") no-repeat center;
-background-size: cover;
-
--->
