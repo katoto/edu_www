@@ -5,8 +5,8 @@
             当前奖池 {{ formateBalance(roundInfo.jackpot) }}
             剩余时间 {{ nowFormateTime }} <br />
             已有 {{ roundInfo.tickets }} 人次购买 <br />
-            剩 {{ 1500 - roundInfo.tickets }}
-            多少人参与 {{ playernums }}  ？？  <br />
+            剩 {{ 1500 - roundInfo.tickets }} 票数
+            多少人参与 {{ playernums }}  <br />
             当前价格 {{ currTicketPrice }}
 
             当前拥有票数  {{ selfMsg.tickets }}
@@ -18,7 +18,6 @@
             总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
 
             {{ this.selfMsg }}
-
 
 
         </div>
