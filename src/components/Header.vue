@@ -248,11 +248,20 @@
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
+        <!-- ip -->
+        <PopIpLimit></PopIpLimit>
+        <!-- 全局该邮件无法激活 -->
+        <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
+            <p class="el-message__content">
+                <lang>Failed to activate, because of wrong email format</lang>
+            </p>
+        </div>
     </div>
 </template>
 
 <script>
     import PopList from '~components/Pop-list'
+    import PopIpLimit from '~components/Pop-ipLimit.vue'
     import {copySucc, copyError, formateBalance, formateCoinType, formateEmail} from '~common/util'
 
     import Vue from 'vue'
@@ -260,7 +269,7 @@
     Vue.use(vueClipboard)
 
     export default {
-        components: {PopList},
+        components: {PopList, PopIpLimit},
         data () {
             return {
                 showFirstGet: false,
@@ -332,6 +341,9 @@
             },
             firstCharge () {
                 return this.$store.state.cs_activity.firstCharge
+            },
+            showEmailErr () {
+                return this.$store.state.showEmailErr
             }
         },
         methods: {

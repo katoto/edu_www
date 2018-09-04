@@ -1,140 +1,138 @@
 <template>
-    <div class="lucky-index"  @click="initPop">
-        <div class="main">
-            <div class="container">
-                <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="banner">
-                            <el-carousel :interval="3000" arrow="always">
-                                <el-carousel-item>
-                                    <a href="javascript:;" rel="nofollow">
-                                        <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
-                                    </a>
-                                </el-carousel-item>
-                                <el-carousel-item>
-                                    <a href="javascript:;" rel="nofollow">
-                                        <img src="../../assets/img/luckyCoin/banner2.png" alt="">
-                                    </a>
-                                </el-carousel-item>
-                                <el-carousel-item>
-                                    <router-link :to="{path: '/firstCharge'}" rel="nofollow">
-                                        <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
-                                    </router-link>
-                                </el-carousel-item>
-                            </el-carousel>
-                        </div>
+    <div class="main"  @click="initPop">
+        <div class="container">
+            <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="banner">
+                        <el-carousel :interval="3000" arrow="always">
+                            <el-carousel-item>
+                                <a href="javascript:;" rel="nofollow">
+                                    <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
+                                </a>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <a href="javascript:;" rel="nofollow">
+                                    <img src="../../assets/img/luckyCoin/banner2.png" alt="">
+                                </a>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <router-link :to="{path: '/firstCharge'}" rel="nofollow">
+                                    <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
+                                </router-link>
+                            </el-carousel-item>
+                        </el-carousel>
                     </div>
-                    <div class="col-lg-4">
-                        <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box" :ind="0" @updateBets="updateBets"></bet-box>
-                        <div class="pop-mask hidden-md hidden-sm hidden-xs" :class="[isShowNew ? '' : 'hide']"></div>
-                        <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
-                            <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
-                                <p>
-                                    <lang>Reward is here: Blockchain-based draw</lang>
-                                </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
-                                <img src="../../assets/img/luckyCoin/line.png" alt="">
-                            </div>
-                            <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
-                                <p>
-                                    <lang>Available bid is here: Draw will proceed after all bids are sold out</lang>
-                                </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
-                                <img src="../../assets/img/luckyCoin/line.png" alt="">
-                            </div>
-                            <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
-                                <p>
-                                    <lang>If bids are not sold out, draw will proceed after the countdown</lang>
-                                </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
-                                <img src="../../assets/img/luckyCoin/line.png" alt="">
-                            </div>
-                            <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
-                                <img src="../../assets/img/luckyCoin/line.png" alt="">
-                                <p>
-                                    <lang>Click here to play: Bid more, win more</lang>
-                                </p>
-                                <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>OK</lang></a>
-                            </div>
+                </div>
+                <div class="col-lg-4">
+                    <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box" :ind="0" @updateBets="updateBets"></bet-box>
+                    <div class="pop-mask hidden-md hidden-sm hidden-xs" :class="[isShowNew ? '' : 'hide']"></div>
+                    <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
+                        <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
+                            <p>
+                                <lang>Reward is here: Blockchain-based draw</lang>
+                            </p>
+                            <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
+                            <img src="../../assets/img/luckyCoin/line.png" alt="">
+                        </div>
+                        <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
+                            <p>
+                                <lang>Available bid is here: Draw will proceed after all bids are sold out</lang>
+                            </p>
+                            <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
+                            <img src="../../assets/img/luckyCoin/line.png" alt="">
+                        </div>
+                        <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
+                            <p>
+                                <lang>If bids are not sold out, draw will proceed after the countdown</lang>
+                            </p>
+                            <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
+                            <img src="../../assets/img/luckyCoin/line.png" alt="">
+                        </div>
+                        <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
+                            <img src="../../assets/img/luckyCoin/line.png" alt="">
+                            <p>
+                                <lang>Click here to play: Bid more, win more</lang>
+                            </p>
+                            <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>OK</lang></a>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-xs-12 ">
-                                <div class="title">
-                                    <div class="left">
-                                        <p class="t1"><lang>Win Instant Reward</lang></p>
-                                        <p class="t2 hidden-xs hidden-sm"><lang>Small cost, big profit!</lang></p>
-                                        <router-link :to="{path:'/help/helpView/2/1'}" class="play">
-                                            <lang>How to play?</lang>
-                                        </router-link>
-                                    </div>
-                                    <div class="right">
-                                        <router-link :to="{path:'/luckycoin/moreBids'}" class="btn-more">
-                                            <lang>More ></lang>
-                                        </router-link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-lg-4">
-                                <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]" :ind="2" @updateBets="updateBets"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]" :ind="5" @updateBets="updateBets"></bet-box>
-                            </div>
-                            <div class="col-md-6 col-lg-4 hidden-xs hidden-sm">
-                                <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]" :ind="3" @updateBets="updateBets"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]" :ind="6" @updateBets="updateBets"></bet-box>
-                            </div>
-                            <div class="col-lg-4 hidden-xs hidden-xs hidden-sm hidden-md">
-                                <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]" :ind="4" @updateBets="updateBets"></bet-box>
-                                <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]" :ind="7" @updateBets="updateBets"></bet-box>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="recent-bets">
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-xs-12 ">
                             <div class="title">
                                 <div class="left">
-                                    <p class="t1"><lang>Recent Bids</lang></p>
+                                    <p class="t1"><lang>Win Instant Reward</lang></p>
+                                    <p class="t2 hidden-xs hidden-sm"><lang>Small cost, big profit!</lang></p>
+                                    <router-link :to="{path:'/help/helpView/2/1'}" class="play">
+                                        <lang>How to play?</lang>
+                                    </router-link>
+                                </div>
+                                <div class="right">
+                                    <router-link :to="{path:'/luckycoin/moreBids'}" class="btn-more">
+                                        <lang>More ></lang>
+                                    </router-link>
                                 </div>
                             </div>
-                            <recent-bets :data="recentBetsList"></recent-bets>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4">
+                            <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]" :ind="2" @updateBets="updateBets"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]" :ind="5" @updateBets="updateBets"></bet-box>
+                        </div>
+                        <div class="col-md-6 col-lg-4 hidden-xs hidden-sm">
+                            <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]" :ind="3" @updateBets="updateBets"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]" :ind="6" @updateBets="updateBets"></bet-box>
+                        </div>
+                        <div class="col-lg-4 hidden-xs hidden-xs hidden-sm hidden-md">
+                            <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]" :ind="4" @updateBets="updateBets"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]" :ind="7" @updateBets="updateBets"></bet-box>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12 ">
+                <div class="col-lg-3">
+                    <div class="recent-bets">
                         <div class="title">
                             <div class="left">
-                                <p class="t1"><lang>Draw History</lang></p>
-                                <p class="t2  hidden-xs hidden-sm"><lang>Transparent blockchain-based draw</lang></p>
-                                <router-link :to="{path:'/check'}" class="check">
-                                    <lang>Details Checking ></lang>
-                                </router-link>
-                            </div>
-                            <div class="right">
-                                <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
-                                    <lang>More >></lang>
-                                </router-link>
+                                <p class="t1"><lang>Recent Bids</lang></p>
                             </div>
                         </div>
+                        <recent-bets :data="recentBetsList"></recent-bets>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <history-bet-box :bet="drawHistoryList[0]"></history-bet-box>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="title">
+                        <div class="left">
+                            <p class="t1"><lang>Draw History</lang></p>
+                            <p class="t2  hidden-xs hidden-sm"><lang>Transparent blockchain-based draw</lang></p>
+                            <router-link :to="{path:'/check'}" class="check">
+                                <lang>Details Checking ></lang>
+                            </router-link>
+                        </div>
+                        <div class="right">
+                            <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
+                                <lang>More >></lang>
+                            </router-link>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <history-bet-box :bet="drawHistoryList[1]"></history-bet-box>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <history-bet-box :bet="drawHistoryList[2]"></history-bet-box>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <history-bet-box :bet="drawHistoryList[3]"></history-bet-box>
-                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[0]"></history-bet-box>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[1]"></history-bet-box>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[2]"></history-bet-box>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[3]"></history-bet-box>
                 </div>
             </div>
         </div>
@@ -225,9 +223,9 @@
     }
 </style>
 <style scope lang="less" type="text/less">
-    .main /deep/ .el-carousel__indicators {
-        display: none;
-    }
+    /*.main /deep/ .el-carousel__indicators {*/
+        /*display: none;*/
+    /*}*/
 
     .page-luckycoin{
         .carousel__arrow{

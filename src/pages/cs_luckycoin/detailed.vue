@@ -751,6 +751,7 @@
 <style lang="less" type="text/less">
     .luckyCoinDetailed{
         flex: 1;
+        background: #2a1236;
         .el-table__empty-block {
             display: none;
         }

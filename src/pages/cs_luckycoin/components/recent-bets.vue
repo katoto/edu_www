@@ -10,9 +10,9 @@
                 {{formateBalance(item.betmoney)}}
                 <!--{{ formateCoinType(item.cointype) }}-->
             </div>
-            <span class="time">
-                {{formatTime(item.crtime, 'MM-dd HH:mm')}}
-            </span>
+            <!--<span class="time">-->
+                <!--{{formatTime(item.crtime, 'MM-dd HH:mm')}}-->
+            <!--</span>-->
         </li>
     </ul>
 </template>
