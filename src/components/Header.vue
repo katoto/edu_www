@@ -528,10 +528,11 @@
             top: 45%;
             width:100%;
             max-width: 504px;
-            height: 250px;
+            height: 262px;
             transform: translate(-50%,-50%);
             border:6px solid #f1a501;
             border-radius: 6px;
+            box-sizing: border-box;
         }
         .pop-ani{
             width: 100%;
@@ -559,8 +560,7 @@
                 width: 100%;
                 max-width: 360px;
                 height: 63px;
-                background-image: url("../assets/img/paysend/fir_titlebg.png");
-                background-repeat: no-repeat;
+                background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
             }
         }
         .fir_content{
@@ -568,8 +568,8 @@
             span{
                 color: #fdca1b;
                 font-weight: bold;
-                line-height: 76px;
-                font-size: 76px;
+                line-height: 72px;
+                font-size: 60px;
                 font-family: sans-eb;
                 i{
                     line-height: 42px;
