@@ -979,10 +979,10 @@ luckyCoinApi.getPlayerInfoByAddress = (addr) => {
                         uid: res[0].toString(),
                         name: web3.toUtf8(res[1]),
                         tickets: res[2].toNumber(),
-                        win: res[3].toString(),
-                        calcTicketEarn: res[4].toString(),
-                        aff_invite: res[5].toString(),
-                        eth: res[6].toString()
+                        win: Number(web3.fromWei(res[3].toNumber())),
+                        calcTicketEarn: Number(web3.fromWei(res[4].toNumber())),
+                        aff_invite: Number(web3.fromWei(res[5].toNumber())),
+                        eth: Number(web3.fromWei(res[6].toNumber()))
                     })
                 }
             } else {

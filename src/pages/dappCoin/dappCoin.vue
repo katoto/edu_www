@@ -19,7 +19,6 @@
 
             {{ this.selfMsg }}
 
-
         </div>
         <div v-if="roundInfo">
             {{ roundInfo.startTime}}
