@@ -728,9 +728,9 @@ module.exports = {
     '50% Bonus':'首次充值奖励50%',
     'for Your First Top-Up':' ',
     'More top-up, more bonus': '充值越多，赠送越多',
-    '1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC': '充值任意金额,即可获得150%金额（最高奖励0.05 ETH/0.005 BTC），祝您畅爽任玩！',
+    '1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC': '首充即可获得150%金额(最高奖励0.05 ETH/0.005 BTC)',
 
-    'Rules:': '活动规则:',
+    'Rules': '活动规则',
     '1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.': '1.在Coinsprize未有过充值行为的用户都可参与该活动，您必须由该页面选择加入以具备奖励资格，且默认您遵守活动规则。',
     '2. The activity time is from 00:00 July 14, 2018 to 23:59 August 14, 2018 (GMT).': '2.活动有效期限为2018年7月14日00:00 GMT至8月14日23:59 GMT。',
     '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用户在活动页指定入口充值任意金额，即可奖励50%（最高奖励0.05 ETH/0.005 BTC），奖励金额不允许玩lucky coin游戏。',

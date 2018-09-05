@@ -11,7 +11,7 @@
             </a>
             <p class="cont_tips"><lang>1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC</lang></p>
             <div class="foot_rules">
-                <h4><lang>Rules:</lang></h4>
+                <h4><lang>Rules</lang></h4>
                 <p><lang>1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.</lang></p>
                 <p><lang>2. The activity time is from 00:00 July 14, 2018 to 23:59 August 14, 2018 (GMT).</lang></p>
                 <p><lang>3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.</lang></p>
@@ -173,14 +173,14 @@ export default {
         .foot_rules{
             width: 92%;
             max-width: 814px;
-            font-size: 16px;
-            margin: 0 auto;
+            font-size: 14px;
+            margin: 20px auto 0;
             padding-bottom: 176/2px;
             text-align: left;
             line-height: 24px;
             h4{
                 line-height: 72px;
-                font-size: 36px;
+                font-size: 30px;
             }
             a{
                 cursor: pointer;
@@ -208,6 +208,7 @@ export default {
                 line-height: 84/2px;
                 font-family: sans-eb;
                 color: #ffe401;
+                font-weight: bold;
                 &.color{
                     background-image: -webkit-linear-gradient(top, #ffe401,#fff);
                     -webkit-text-fill-color: transparent;

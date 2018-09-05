@@ -731,7 +731,7 @@ module.exports = {
     'More top-up, more bonus': '充值越多，贈送越多',
     '1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC': '充值任意金額,即可獲得150%金額（最高獎勵0.05 ETH/0.005 BTC），祝您暢爽任玩！',
 
-    'Rules:': '活動規則:',
+    'Rules': '活動規則',
     '1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.': '1.在Coinsprize未有過充值行為的用戶都可參與該活動，您必須由該頁面選擇加入以具備獎勵資格，且默認您遵守活動規則。',
     '2. The activity time is from 00:00 July 14, 2018 to 23:59 August 14, 2018 (GMT).': '2.活動有效期限為2018年7月14日00:00 GMT至8月14日23:59 GMT。',
     '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用戶在活動頁指定入口充值任意金額，即可獎勵50%（最高獎勵0.05 ETH/0.005 BTC），獎勵金額不允許玩lucky coin遊戲。',
