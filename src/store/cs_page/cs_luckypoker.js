@@ -3,15 +3,25 @@ import ajax from '~common/ajax'
 import { formateCoinType } from '~common/util'
 
 const state = {
-    betList: []
+    betList: [],
+    selfBetList: []
 }
 
 const mutations = {
     setBetList (state, data) {
         state.betList = [...data]
     },
+    setSelfBetList (state, data) {
+        state.selfBetList = [...data]
+    },
     addBetList (state, data) {
-        state.betList = [...state.betList, ...data]
+        data.forEach(bet => {
+            if (this.state.userInfo && this.state.userInfo.uid && this.state.userInfo.uid === bet.uid.toString()) {
+                state.selfBetList = [bet, ...state.selfBetList]
+            }
+        })
+
+        state.betList = [...data, ...state.betList]
     }
 }
 

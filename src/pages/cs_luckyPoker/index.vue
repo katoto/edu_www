@@ -14,16 +14,16 @@
                     <div class="poker-history">
                         <p class="title">Your history draw</p>
                         <div class="history-main">
-                            <a class="btn btn-left" href="javascript:;"></a>
+                            <a class="btn btn-left" href="javascript:;" @click="onLeft"></a>
                             <div class="poker-item">
-                                <ul>
-                                    <li class="poker-next">
+                                <ul :style="{ left: `${listLeft}px` }">
+                                    <li class="poker-next" ref="next">
                                         <p>?</p>
                                     </li>
-                                    <li class="icon-hongt">
-                                        <p>1</p>
+                                    <li v-for="(item, index) in recentResult" :key="index" :class="[getDiceClass(item)]">
+                                        <p>{{getDiceText(item)}}</p>
                                     </li>
-                                    <li class="icon-fk">
+                                    <!-- <li class="icon-fk">
                                         <p>4</p>
                                     </li>
                                     <li class="icon-mh">
@@ -64,10 +64,10 @@
                                     </li>
                                     <li class="joker">
                                         <p></p>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
-                            <a class="btn btn-right" href="javascript:;"></a>
+                            <a class="btn btn-right" href="javascript:;" @click="onRight"></a>
                         </div>
                     </div>
                     <div class="bg-pc-esktop ">
@@ -213,10 +213,10 @@
                                 <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
                                     {{$lang.poker.a4}}
                                 </a>
-                                <a href="javascript:;"  class="btn btn-lock" v-if="!isLock" @click="isLock = true">
+                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="!isLock" @click="isLock = true">
                                     {{$lang.poker.a5}}
                                 </a>
-                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="isLock" @click="isLock = false">
+                                <a href="javascript:;"  class="btn btn-lock" v-if="isLock" @click="isLock = false">
                                     {{$lang.poker.a8}}
                                 </a>
                             </div>
@@ -234,26 +234,26 @@
                     <ul class="random-main hide">
                         <li>
                             <p class="title">
-                                Client seed
+                                {{$lang.poker.a2}}
                             </p>
                             <div class="input-group">
-                                <input type="text">
+                                <input type="text" :value="preClientSeed" readonly>
                             </div>
                         </li>
                         <li>
                             <p class="title">
-                                Client seed
+                                {{$lang.poker.a3}}
                             </p>
                             <div class="input-group">
-                                <input type="text">
+                                <input type="text" :value="preServerHash" readonly>
                             </div>
                         </li>
                         <li>
                             <p class="title">
-                                Client seed
+                                {{$lang.poker.a9}}
                             </p>
                             <div class="input-group">
-                                <input type="text">
+                                <input type="text" :value="preServerSeed" readonly>
                             </div>
                         </li>
                     </ul>
@@ -266,7 +266,7 @@
                         </p>
                         <!--点击后文案变成back，类似11选5超级选5那个按钮-->
                         <!--on-->
-                        <a href="javascript:;" class="">
+                        <a href="javascript:;" :class="{on: isMyself}" @click="showMyself" v-if="recentResult.length !== 0">
                             Myself
                         </a>
                     </div>
@@ -277,8 +277,8 @@
                             <li>Result</li>
                         </ul>
                         <ul class="recoding-main">
-                            <li v-for="(item, index) in betList" :key="index">
-                                <p class="bet-user">
+                            <li v-for="(item, index) in (isMyself ? selfBetList : betList).filter((bet, index) => index < 5)" :key="index">
+                                <p class="bet-user" :title="item.username">
                                     {{item.username}}
                                 </p>
                                 <!--number black red fk mh hongt heit joker-->
@@ -288,31 +288,15 @@
                                 <p class="bet-count">
                                     {{Number(item.betmoney)}} <i>{{formateCoinType(item.cointype)}}</i>
                                 </p>
-                                <div class="bet-result icon-heit" :class="[getDiceClass(item.result)]">
+                                <div class="bet-result" :class="[getDiceClass(item.result)]">
                                     <p>{{getDiceText(item.result)}}</p>
                                 </div>
-                                <p class="bet-result-count" :class="{mywin: userInfo && userInfo.uid && userInfo.uid === item.uid.toString() && Number(item.result) > 0}">
-                                    {{Number(item.result)}} <i>{{formateCoinType(item.cointype)}}</i>
+                                <p class="bet-result-count" :class="{mywin: userInfo && userInfo.uid && userInfo.uid === item.uid.toString() && Number(item.prize_amount) > 0}">
+                                    {{Number(item.prize_amount)}} <i>{{formateCoinType(item.cointype)}}</i>
                                 </p>
                             </li>
+                            
                             <!-- <li>
-                                <p class="bet-user">
-                                    222222222222222@gmail.com
-                                </p>
-                                <div class="bet-expect black">
-                                    balck
-                                </div>
-                                <p class="bet-count">
-                                    0.00001<i> ETH</i>
-                                </p>
-                                <div class="bet-result icon-hongt">
-                                    <p>Q</p>
-                                </div>
-                                <p class="bet-result-count">
-                                    0.00001<i> ETH</i>
-                                </p>
-                            </li>
-                            <li>
                                 <p class="bet-user">
                                     222222222222222@gmail.com
                                 </p>
@@ -419,10 +403,10 @@
                                                 <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
                                                     {{$lang.poker.a4}}
                                                 </a>
-                                                <a href="javascript:;"  class="btn btn-lock" v-if="!isLock" @click="isLock = true">
+                                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="!isLock" @click="isLock = true">
                                                     {{$lang.poker.a5}}
                                                 </a>
-                                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="isLock" @click="isLock = false">
+                                                <a href="javascript:;"  class="btn btn-lock" v-if="isLock" @click="isLock = false">
                                                     {{$lang.poker.a8}}
                                                 </a>
                                             </div>
@@ -473,11 +457,11 @@
                     </div>
                 </div>
             </div>
-            <div class="pop pop-poker">
+            <div class="pop pop-poker" :class="{show: showOpen}">
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw scale0">
+                <div class="poker-draw" :class="{scale0: !isLoading}">
                     <ul class="poker-area animate1">
                         <li class="on">
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
@@ -498,31 +482,32 @@
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
                         </li>
                     </ul>
-                    <a href="javascript:;" class="btn-open ">
+                    <a href="javascript:;" class="btn-open" @click="openPoker">
                         Open card
                     </a>
                 </div>
                 <!--v-else-->
                 <!--isWin-->
-                <div class="result ">
+                <div class="result" :class="{isWin: open.isWin}" v-show="!isLoading">
                     <!--heit/mh/hongt/fk+j/q/k  joker-->
-                    <div class="result-box fk k">
+                    <div class="result-box" :class="getOpenClass(open.result)" ref="resultPoker">
                         <div class="leftTop">
-                            <p>J</p>
+                            <p>{{getDiceText(open.result)}}</p>
                         </div>
                         <div class="img-poker"></div>
                         <div class="rightBottom">
-                            <p>j</p>
+                            <p>{{getDiceText(open.result)}}</p>
                         </div>
                     </div>
                     <!--未中奖-->
-                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;">
-                        再接再厉~
-                    </div>
+                    
                     <!--中奖-->
-                    <div class="result-msg">
+                    <div class="result-msg" v-if="open.isWin">
                         <p>Congratulations</p>
-                        <div>+0.023<i>ETH</i></div>
+                        <div>+{{open.money}}<i>{{coinText}}</i></div>
+                    </div>
+                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;" v-else>
+                        再接再厉~
                     </div>
                 </div>
             </div>
@@ -534,8 +519,9 @@
 <script>
 import Header from '~components/Header'
 import Footer from '~components/Footer'
-import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementRelatePosition, getElementCenterPosition, formateCoinType, accMul } from '~common/util'
+import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul } from '~common/util'
 import { mapActions, mapState } from 'vuex'
+window.getElementAbsolutePosition = getElementAbsolutePosition
 export default {
     components: { Header, Footer },
     data () {
@@ -553,11 +539,9 @@ export default {
             currentCoinEl: null,
             betNums: {},
             total: 0,
-            downTime: 0,
-            upTime: 0,
-            autoTimer: null,
-            calTimer: null,
             coins: [],
+            recentResult: [],
+            restricts: {},
             clientSeed: '',
             hashNumber: '',
             activeTabClass: 'thisRound',
@@ -567,16 +551,56 @@ export default {
             colorMost: 2,
             suitMost: 4,
             pointsMost: 13,
-            isLoading: false
+            showOpen: false,
+            isLoading: false,
+            isMyself: false,
+            listLeft: 0,
+            preServerSeed: '',
+            preServerHash: '',
+            preClientSeed: '',
+            open: {
+                isWin: false,
+                money: 0,
+                result: 0
+            }
         }
     },
     methods: {
         ...mapActions('cs_luckypoker', ['getHome', 'bet']),
+        ...mapActions(['subInDice', 'subOutDice']),
         accMul,
         formateCoinType,
         getElementAbsolutePosition,
-        getElementRelatePosition,
         getElementCenterPosition,
+        showMyself () {
+            this.isMyself = !this.isMyself
+        },
+        getOpenClass (type) {
+            type = Number(type)
+            let typeClass = ''
+            if (type >= 0 && type <= 12) {
+                typeClass = 'hongt'
+            } else if (type >= 13 && type <= 25) {
+                typeClass = 'heit'
+                type -= 13
+            } else if (type >= 26 && type <= 38) {
+                typeClass = 'fk'
+                type -= 26
+            } else if (type >= 39 && type <= 51) {
+                typeClass = 'mh'
+                type -= 39
+            } else {
+                typeClass = 'joker'
+            }
+            if (type === '10') {
+                typeClass += ' j'
+            } else if (type === '11') {
+                typeClass += ' q'
+            } else if (type === '12') {
+                typeClass += ' k'
+            }
+            return typeClass
+        },
         getDiceClass (type) {
             type = Number(type)
             if (type >= 0 && type <= 12) {
@@ -608,7 +632,13 @@ export default {
         },
         getDiceBetText (type) {
             let points = [...this.points]
-            return points.indexOf(type) > -1 ? type : ''
+            let color = [...this.color]
+            if (points.indexOf(type) > -1) {
+                return type
+            } else if (color.indexOf(type) > -1) {
+                return type.toUpperCase()
+            }
+            return ''
         },
         getDiceBetClass (type) {
             let typeClass = ['number', 'black', 'red', 'fk', 'mh', 'hongt', 'heit', 'joker']
@@ -665,7 +695,14 @@ export default {
                 }
             })
         },
+        isRestricts (name) {
+            return accAdd(this.betNums[name], this.currentCoin) > Number(this.restricts[name])
+        },
         addCoin (name) {
+            if (this.isRestricts(name)) {
+                this.$error('超过投注上线')
+                return
+            }
             this.$nextTick(() => {
                 let lastCoin = this.coins[this.coins.length - 1]
                 this.calculate(name)
@@ -724,39 +761,44 @@ export default {
                 this.$error('客户端种子不合法')
                 return
             }
+            this.showOpen = true
             this.isLoading = true
             this.bet({
-                bet: {...this.betNums},
+                bets: {...this.betNums},
                 cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
                 cur_server_hash: this.hashNumber
             }).then(res => {
-                console.log(res)
-                this.isLoading = false
+                this.renderResult(res.data)
+                this.goto()
+                this.refresh()
+                this.clearBet()
             })
+                .catch(() => {
+                    this.isLoading = false
+                    this.showOpen = false
+                })
+        },
+        renderResult (data) {
+            this.open = {
+                isWin: Number(data.prize_amount) > 0,
+                money: Number(data.prize_amount),
+                result: data.result
+            }
+            this.preServerSeed = data.pre_server_seed
+            this.preServerHash = data.pre_server_hash
+            this.preClientSeed = data.pre_client_seed
+        },
+        openPoker () {
+            this.isLoading = false
+            setTimeout(() => {
+                this.showOpen = false
+            }, 5000)
         },
         disableContext () {
             document.oncontextmenu = function (e) {
                 return false
             }
-        },
-        coinMouseDown (name) {
-            this.downTime = Date.now()
-            this.calTimer = setTimeout(() => {
-                if (this.upTime === 0) {
-                    this.autoTimer = setInterval(() => {
-                        this.addCoin(name)
-                    }, 500)
-                }
-            }, 300)
-            this.addCoin(name)
-        },
-        coinMouseUp () {
-            this.upTime = Date.now()
-            clearInterval(this.autoTimer)
-            clearTimeout(this.calTimer)
-            this.downTime = 0
-            this.upTime = 0
         },
         createRandomNum (num) {
             return Math.floor(Math.random() * 3)
@@ -778,13 +820,31 @@ export default {
                 .then(data => this.render(data))
         },
         render ({data}) {
-            console.log(data)
             this.hashNumber = data.cur_server_hash
             this.colorMost = Number(data.odds.color)
             this.jokerMost = Number(data.odds.joker)
             this.pointsMost = Number(data.odds.point)
             this.suitMost = Number(data.odds.suit)
             this.recentResult = [...data.recent_results]
+            this.restricts = {...data.restricts}
+        },
+        onLeft () {
+            if (this.listLeft === 0) {
+                return
+            }
+            let nextEl = this.$refs.next
+            let width = nextEl.offsetWidth
+            this.listLeft = accAdd(this.listLeft, accAdd(width, 5))
+        },
+        onRight () {
+            let nextEl = this.$refs.next
+            let width = nextEl.offsetWidth
+            this.listLeft = accSub(this.listLeft, accAdd(width, 5))
+        },
+        goto (num = 0) {
+            let nextEl = this.$refs.next
+            let width = nextEl.offsetWidth
+            this.listLeft = accMul(num, accAdd(width, 5)) * -1
         }
     },
     computed: {
@@ -793,7 +853,8 @@ export default {
             account: state => state.currBalance,
             balance: state => state.currBalance.balance,
             userInfo: state => state.userInfo,
-            betList: state => state.cs_luckypoker.betList
+            betList: state => state.cs_luckypoker.betList,
+            selfBetList: state => state.cs_luckypoker.selfBetList
         }),
         coinType () {
             return this.account.cointype
@@ -814,12 +875,13 @@ export default {
         this.initCoin()
         this.clearBet()
         this.refresh()
-    },
-    created () {
+        this.createClientSeed()
         this.disableContext()
+        this.subInDice()
     },
     destroyed () {
         document.oncontextmenu = null
+        this.subOutDice()
     }
 }
 </script>
@@ -1114,6 +1176,9 @@ export default {
         }
         /*历史开奖*/
         .poker-history{
+            ul {
+                transition: .2s all ease-in-out;
+            }
             .history-main{
                 display: flex;
                 justify-content: space-between;

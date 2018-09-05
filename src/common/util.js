@@ -588,7 +588,7 @@ export function formatUSD (price, num) {
     return numberComma(formatNum(total, 1))
 }
 
-export function getElementAbsolutePosition (element, parentElement) {
+export function getElementAbsolutePosition (element, parentElement = window.document) {
     var parent = element.offsetParent
     let left = element.offsetLeft
     let top = element.offsetTop
@@ -600,16 +600,8 @@ export function getElementAbsolutePosition (element, parentElement) {
     return { left, top }
 }
 
-export function getElementRelatePosition (element) {
-    let absolutePosition = getElementAbsolutePosition(element)
-    return {
-        left: accSub(absolutePosition.left, document.documentElement.scrollLeft),
-        top: accSub(absolutePosition.top, document.documentElement.scrollTop)
-    }
-}
-
 export function getElementCenterPosition (element, offset) {
-    let relativePosition = offset || getElementRelatePosition(element)
+    let relativePosition = offset
     return {
         left: accAdd(relativePosition.left, accDiv(element.offsetWidth, 2)),
         top: accAdd(relativePosition.top, accDiv(element.offsetHeight, 2))
