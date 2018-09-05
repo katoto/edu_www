@@ -526,7 +526,7 @@
             position: absolute;
             left: 50%;
             top: 45%;
-            width:100%;
+            width:60%;
             max-width: 504px;
             height: 262px;
             transform: translate(-50%,-50%);
@@ -541,27 +541,12 @@
             background-color: #3f2c65;
         }
         .first_title{
-            line-height: 0;
             font-size: 28px;
             text-align: center;
             position: relative;
-            em{
-                position: relative;
-                color: #fff;
-                z-index: 1;
-            }
-            &:after{
-                content: '';
-                display: block;
-                position: absolute;
-                left: 50%;
-                top: -32px;
-                transform: translate(-50%,0%);
-                width: 100%;
-                max-width: 360px;
-                height: 63px;
-                background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
-            }
+            color: #3f2c65;
+            background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
+            background-size: cover
         }
         .fir_content{
             margin-top:80px; 
@@ -578,7 +563,7 @@
             }
         }
         .get_firstBot{
-            font-size: 16px;
+            font-size: 14px;
             padding: 45px 0 30px 0;
         }
         .btn-close{
