@@ -230,17 +230,13 @@
             </div>
 
             <!--  弹窗- 充值到账弹窗  -->
-            <div class="pop pop-getFirstCharge" v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0' || 1" >
-                <div class="pop-body2">
-                    <div class="pop-ani">
-                        <h2 class="first_title">
-                            <lang>Congratulations</lang>
-                        </h2>
-                        <a href="javascript:;" class="btn-close" @click="readyGetFirst"></a>
-                        <div class="fir_content">
-                            <span>+0.025{{ firstCharge.reward_money }}<i>{{ firstCharge.cointype | formateCoinType }}</i></span>
-                            <p class="get_firstBot" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',formateBalance(firstCharge.recharge_money),formateCoinType( firstCharge.cointype ))"></p>
-                        </div>
+            <div class="pop pop-getFirstCharge"  v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0' || 1">
+                <div class="cnt">
+                    <h2><lang>Congratulations</lang></h2>
+                    <div class="content ">
+                        <a href="javascript:;" class="btnclose" @click="readyGetFirst"></a>
+                        <p class="anount">+{{ firstCharge.reward_money }}<i>{{ firstCharge.cointype | formateCoinType }}</i></p>
+                        <p class="msg" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',formateBalance(firstCharge.recharge_money),formateCoinType( firstCharge.cointype ))"></p>
                     </div>
                 </div>
             </div>
@@ -520,76 +516,104 @@
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
 
+
     .pop-getFirstCharge{
-        color: #fff;
-        .pop-body2{
-            position: absolute;
-            left: 50%;
-            top: 45%;
-            width:60%;
-            max-width: 504px;
-            height: 262px;
-            transform: translate(-50%,-50%);
-            border:6px solid #f1a501;
-            border-radius: 6px;
+        *{
             box-sizing: border-box;
         }
-        .pop-ani{
-            width: 100%;
-            max-width: 504px;
-            height: 250px;
-            background-color: #3f2c65;
-        }
-        .first_title{
-            font-size: 28px;
-            text-align: center;
+        .cnt{
             position: relative;
-            color: #3f2c65;
-            background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
-            background-size: cover
-        }
-        .fir_content{
-            margin-top:80px; 
-            span{
-                color: #fdca1b;
-                font-weight: bold;
-                line-height: 72px;
-                font-size: 60px;
+            width: 80%;
+            max-width: 513px;
+            margin: 307px auto 0;
+            h2{
+                position: absolute;
+                left: 50%;
+                top: -34px;
+                transform: translate(-50%);
+                width: 360px;
+                height: 63px;
+                overflow: hidden;
+                line-height: 68px;
+                font-size: 28px;
+                color: #3f2c65;
                 font-family: sans-eb;
-                i{
-                    line-height: 42px;
-                    font-size: 42px;
+                font-weight: bold;
+                background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
+                background-size: cover;
+            }
+            .content{
+                border: 6px solid #f1a501;
+                border-radius: 8px;
+                background: #3f2c65;
+                padding: 28px 10px 26px;
+                .anount{
+                    line-height: 174px;
+                    color: #fdca1b;
+                    font-size: 76px;
+                    font-family: sans-eb;
+                    i{
+                        font-size: 42px;
+                    }
+                }
+                .msg{
+                    font-size: 16px;
+                    color: #ffffff;
                 }
             }
-        }
-        .get_firstBot{
-            font-size: 14px;
-            padding: 45px 0 30px 0;
-        }
-        .btn-close{
-            position: absolute;
-            right: 0px;
-            top: -60px;
-            width: 100%;
-            max-width: 41px;
-            height: 41px;
-            background: transparent;
-            &:hover{
-                transform:rotate(180deg);
-                transition: all 0.3s;
-            }
-            &:after{
-                content: '';
+            .btnclose{
+                position: absolute;
+                right: 0;
+                top: -63px;
                 display: block;
-                width: 100%;
-                max-width: 41px;
-                margin: 0 auto;
-                height: 41px;
-                background-image: url("../assets/img/paysend/fir_icon_close.png");
-                background-repeat: no-repeat;
+                width: 40px;
+                height: 40px;
+                overflow: hidden;
+                border-radius: 50%;
+                border: 1px solid rgba(255,255,255,0.3);
+                background: url("../assets/img/paysend/btn-close.png") no-repeat center;
+                background-size: 16px;
             }
         }
     }
+    @media(max-width:768px) {
+        .pop-getFirstCharge{
+            .cnt{
+                margin: 150px auto 0;
+                h2{
+                    top: -34/1.5px;
+                    width: 360/1.5px;
+                    height: 63/1.5px;
+                    line-height: 68/1.5px;
+                    font-size: 28/1.5px;
+                }
+                .content{
+                    border: 3px solid #f1a501;
+                    border-radius: 4px;
+                    padding: 28px 10px 26px;
+                    .anount{
+                        line-height: 174/2px;
+                        font-size: 30px;
+                        i{
+                            font-size: 16px;
+                        }
+                    }
+                    .msg{
+                        font-size: 16px;
+                    }
+                }
+                .btnclose{
+                    top: -63/1.5px;
+                    width: 30px;
+                    height: 30px;
+                    background-size: 10px;
+                }
+            }
+        }
+    }
+
+
+
 
     .banner{
         display: none;
