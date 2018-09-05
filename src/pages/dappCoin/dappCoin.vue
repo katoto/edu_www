@@ -20,7 +20,7 @@
             <input placeholder="输入邀请名字" v-model="beforeInviteName" /> 
             <hr>
             <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
-            <button @click="registerName" style="width:100px;height:50px">买名字{{ beforeInviteName }}</button>
+            <button @click="registerName" style="width:100px;height:50px">买名字</button>
 
 
         </div>
@@ -154,7 +154,7 @@
             async registerName () {
                 let buyNameBack = null
                 if (!this.beforeInviteName) {
-                    console.error('beforeInviteName error')
+                    alert('请输入名字')
                     return false
                 }
                 // 判断是否符合规则
