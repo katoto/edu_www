@@ -230,15 +230,15 @@
             </div>
 
             <!--  弹窗- 充值到账弹窗  -->
-            <div class="pop pop-getFirstCharge" v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0'" >
-                <div class="pop-body">
+            <div class="pop pop-getFirstCharge" v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0' || 1" >
+                <div class="pop-body2">
                     <div class="pop-ani">
-                        <h2 class="font26">
+                        <h2 class="first_title">
                             <lang>Congratulations</lang>
                         </h2>
                         <a href="javascript:;" class="btn-close" @click="readyGetFirst"></a>
-                        <div>
-                            <span>+ {{ firstCharge.reward_money }} {{ firstCharge.cointype | formateCoinType }}</span>
+                        <div class="fir_content">
+                            <span>+0.025{{ firstCharge.reward_money }}<i>{{ firstCharge.cointype | formateCoinType }}</i></span>
                             <p class="get_firstBot" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',formateBalance(firstCharge.recharge_money),formateCoinType( firstCharge.cointype ))"></p>
                         </div>
                     </div>
@@ -512,7 +512,7 @@
                         isReadyAlert = true
                     }
                 }
-            }, 20000)
+            }, 10000)
         }
     }
 </script>
@@ -521,22 +521,88 @@
     @import "../styles/lib-media.less";
 
     .pop-getFirstCharge{
-        color: #263648;
-        h2{
-            line-height: 50px;
-            font-size: 20px;
+        color: #fff;
+        .pop-body2{
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            width:100%;
+            max-width: 504px;
+            height: 250px;
+            transform: translate(-50%,-50%);
+            border:6px solid #f1a501;
+            border-radius: 6px;
         }
-        span{
-            line-height: 50px;
-            font-size: 16px;
+        .pop-ani{
+            width: 100%;
+            max-width: 504px;
+            height: 250px;
+            background-color: #3f2c65;
+        }
+        .first_title{
+            line-height: 0;
+            font-size: 28px;
+            text-align: center;
+            position: relative;
+            em{
+                position: relative;
+                color: #fff;
+                z-index: 1;
+            }
+            &:after{
+                content: '';
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: -32px;
+                transform: translate(-50%,0%);
+                width: 100%;
+                max-width: 360px;
+                height: 63px;
+                background-image: url("../assets/img/paysend/fir_titlebg.png");
+                background-repeat: no-repeat;
+            }
+        }
+        .fir_content{
+            margin-top:80px; 
+            span{
+                color: #fdca1b;
+                font-weight: bold;
+                line-height: 76px;
+                font-size: 76px;
+                font-family: sans-eb;
+                i{
+                    line-height: 42px;
+                    font-size: 42px;
+                }
+            }
         }
         .get_firstBot{
-            padding: 0 0 30px;
-            font-size: 14px;
+            font-size: 16px;
+            padding: 45px 0 30px 0;
         }
-        .btn-close:hover{
-            transform:rotate(180deg);
-            transition: all 0.3s;
+        .btn-close{
+            position: absolute;
+            right: 0px;
+            top: -60px;
+            width: 100%;
+            max-width: 41px;
+            height: 41px;
+            background: transparent;
+            &:hover{
+                transform:rotate(180deg);
+                transition: all 0.3s;
+            }
+            &:after{
+                content: '';
+                display: block;
+                width: 100%;
+                max-width: 41px;
+                margin: 0 auto;
+                height: 41px;
+                background-image: url("../assets/img/paysend/fir_icon_close.png");
+                background-repeat: no-repeat;
+            }
         }
     }
 
