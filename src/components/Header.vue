@@ -512,7 +512,7 @@
                         isReadyAlert = true
                     }
                 }
-            }, 20000)
+            }, 10000)
         }
     }
 </script>
