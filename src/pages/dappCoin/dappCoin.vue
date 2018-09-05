@@ -6,7 +6,7 @@
             剩余时间 {{ nowFormateTime }} <br />
             已有 {{ roundInfo.tickets }} 人次购买 <br />
             剩 {{ 1500 - roundInfo.tickets }} 票数
-            多少人参与 {{ playernums }}  <br />
+            <!-- 多少人参与 {{ playernums }}  <br /> -->
             当前价格 {{ currTicketPrice }}
 
             当前拥有票数  {{ selfMsg.tickets }}
@@ -17,7 +17,11 @@
             中奖收益： {{ selfMsg.win }}
             总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
 
-            {{ this.selfMsg }}
+            <input placeholder="输入邀请名字" v-model="beforeInviteName" /> 
+            <hr>
+            <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
+            <button @click="registerName" style="width:100px;height:50px">买名字{{ beforeInviteName }}</button>
+
 
         </div>
         <div v-if="roundInfo">
@@ -32,7 +36,6 @@
         <router-link :to="{path:'/lucky11'}"></router-link>
 
         <button @click="buyNum" style="width:100px;height:50px">购买</button>
-        <button @click="registerName" style="width:100px;height:50px">买名字</button>
 
     </div>
 </template>
@@ -55,11 +58,11 @@
     export default {
         data () {
             return {
+                beforeInviteName:null, // 准备邀请的名字  注册的名字
                 showFirstBaxi: false, // 首次提示
                 selfAddr: null,
                 isFromFlag: false, // 是否是来自邀请
                 tickNum: 1, // 购买票数
-                regName: 'poi', // 注册的名字
                 roundInfo: null, // getcurrentRoundInfo msg
                 selfMsg: null,
                 timeLeft: null, // 剩余时间
@@ -80,9 +83,23 @@
             copyError,
             formateBalance,
             formatTime,
+            isVerifyName(name){
+                let regaz = /^[a-z0-9\-\s]+$/;
+                let regonlyNum = /^[0-9]+$/;
+                return name.length <= 32 && regaz.test(name) && !regonlyNum.test(name);
+            },
+            getRandomName(){
+                let getRandomKey = (list)=>{
+                    return Math.floor(Math.random()*list.length)
+                }
+                let randomNameArr = ["ninja", "truce", "harj", "finney", "szabo", "gwei", "laser", "justo", "satoshi", "mantso", "3D", "inventor", "theShocker", "aritz", "sumpunk", "cryptoknight", "randazz", "kadaz", "daok", "shenron", "notreally", "thecrypt", "figures", "mermaid", "barnacles", "dragons", "jellybeans", "snakes", "dolls", "bushes", "cookies", "apples", "ice cream", "ukulele", "kazoo", "banjo", "singer", "circus", "trampoline", "carousel", "carnival", "locomotive", "balloon", "mantis", "animator", "artisan", "artist", "colorist", "inker", "coppersmith", "director", "designer", "flatter", "stylist", "leadman", "limner", "artist", "model", "musician", "penciller", "producer", "scenographer", "decorator", "silversmith", "teacher", "mechanic", "beader", "bobbin", "cchapel", "ttendant", "foreman", "engineering", "mechanic", "miller", "moldmaker", "panel beater", "patternmaker", "operator", "plumber", "sawfiler", "foreman", "soaper", "engineer", "wheelwright", "woodworkers"]
+                let randomNameArr2 = ["adamant", "adroit", "amatory", "animistic", "antic", "arcadian", "baleful", "bellicose", "bilious", "boorish", "calamitous", "caustic", "cerulean", "comely", "concomitant", "contumacious", "corpulent", "crapulous", "defamatory", "didactic", "dilatory", "dowdy", "efficacious", "effulgent", "egregious", "endemic", "equanimous", "execrable", "fastidious", "feckless", "fecund", "friable", "fulsome", "garrulous", "guileless", "gustatory", "harjd", "heuristic", "histrionic", "hubristic", "incendiary", "insidious", "insolent", "intransigent", "inveterate", "invidious", "irksome", "jejune", "jocular", "judicious", "lachrymose", "limpid", "loquacious", "luminous", "mannered", "mendacious", "meretricious", "minatory", "mordant", "munificent", "nefarious", "noxious", "obtuse", "parsimonious", "pendulous", "pernicious", "pervasive", "petulant", "platitudinous", "precipitate", "propitious", "puckish", "querulous", "quiescent", "rebarbative", "recalcitant", "redolent", "rhadamanthine", "risible", "ruminative", "sagacious", "salubrious", "sartorial", "sclerotic", "serpentine", "spasmodic", "strident", "taciturn", "tenacious", "tremulous", "trenchant", "turbulent", "turgid", "ubiquitous", "uxorious", "verdant", "voluble", "voracious", "wheedling", "withering", "zealous"]
+                let newRandom = randomNameArr.concat(randomNameArr2)
+                this.beforeInviteName = newRandom[getRandomKey(newRandom)]
+            },
             async pageInit () {
                 // 初始化页面
-                this.selfAddr = await luckyCoinApi.getAccounts()
+                this.selfAddr = await luckyCoinApi.getAccounts()        
                 this.getCurrentRoundInfo()
                 this.getPlayerInfoByAddress()
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
@@ -136,18 +153,23 @@
             },
             async registerName () {
                 let buyNameBack = null
-                // 判断是否已经被购买
-                if (!this.regName) {
-                    console.error('regName error')
+                if (!this.beforeInviteName) {
+                    console.error('beforeInviteName error')
                     return false
                 }
-                this.regName = this.regName.toString()
-                let checkName = await luckyCoinApi.testName(this.regName)
-                if (checkName) {
-                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.regName, this.isFromFlag)
-                } else {
-                    console.error('名字已被注册')
+                // 判断是否符合规则
+                if(!(this.isVerifyName(this.beforeInviteName))){
+                    alert('名字不符合规则')
+                    return false
                 }
+                // 判断是否已经被购买
+                // this.beforeInviteName = this.beforeInviteName.toString()
+                // let checkName = await luckyCoinApi.testName(this.beforeInviteName)
+                // if (checkName) {
+                //     buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
+                // } else {
+                //     console.error('名字已被注册')
+                // }
             },
             async withdraw () {
                 let withdrawBack = await luckyCoinApi.withdraw()
