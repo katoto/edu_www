@@ -17,6 +17,7 @@
             中奖收益： {{ selfMsg.win }}
             总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
 
+            {{ selfMsg }}
             <input placeholder="输入邀请名字" v-model="beforeInviteName" /> 
             <hr>
             <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
@@ -86,7 +87,7 @@
             isVerifyName(name){
                 let regaz = /^[a-z0-9\-\s]+$/;
                 let regonlyNum = /^[0-9]+$/;
-                return name.length <= 32 && regaz.test(name) && !regonlyNum.test(name);
+                return name.length <= 32 && regaz.test(name) && !regonlyNum.test(name) && name.indexOf(' ')===-1;
             },
             getRandomName(){
                 let getRandomKey = (list)=>{
@@ -163,13 +164,13 @@
                     return false
                 }
                 // 判断是否已经被购买
-                // this.beforeInviteName = this.beforeInviteName.toString()
-                // let checkName = await luckyCoinApi.testName(this.beforeInviteName)
-                // if (checkName) {
-                //     buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
-                // } else {
-                //     console.error('名字已被注册')
-                // }
+                this.beforeInviteName = this.beforeInviteName.toString()
+                let checkName = await luckyCoinApi.testName(this.beforeInviteName)
+                if (checkName) {
+                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
+                } else {
+                    alert('名字已被注册')
+                }
             },
             async withdraw () {
                 let withdrawBack = await luckyCoinApi.withdraw()
