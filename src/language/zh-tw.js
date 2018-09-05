@@ -535,7 +535,7 @@ module.exports = {
     'All bonus from activities on the platform is non-withdrawable': '贈送金額全部進入不可提現賬戶',
     'Withdrawal Limit': '提現額度',
     'Withdrawable Issues': '資金流水分配',
-    'Maximum Withdrawal = 1/10 * Effective Bet Amount + All Former Withdrawal Amount': '最大提現額度 = 1/10 * 平臺有效投註額+ 歷史提現總額',
+    'Maximum Withdrawal = 1/20 * Effective Bet Amount + All Former Withdrawal Amount': '最大提現額度 = 1/20 * 平臺有效投註額+ 歷史提現總額',
     '(* Effective Bet Amount = Bet Amount in Lucky11 + 1/5 Bet Amount in Slot)': '（*平臺有效投註額 = Lucky11遊戲投註額 + 1/5 slot遊戲投註額）',
 
     /* help end */
@@ -702,7 +702,7 @@ module.exports = {
     'Finally! You found the wonderland---- Coinsprize': '歡迎來區塊鏈遊戲平臺',
     'A blockchain-based game platform with fairness and openness': ' ',
     'We will contact you as soon as possible.': '我們會盡快與您聯系',
-    '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '滿足不可提現額度的10倍流水條件即可提取贈送金額',
+    '(* To unlock the non-withdrawable, you need to bid 20 times of the non-withdrawable amount.)': '滿足不可提現額度的20倍流水條件即可提取贈送金額',
     'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5這5個16進制數轉化為10進制數，然後分別求mod運算11、10、9、8、7，獲得5位開獎號碼',
     'Sign up now': '立馬體驗',
     '1. After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.<br>2. By using hexadecimal, the last 6 characters of the hash value will convert into a number.<br>3. Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.<br>You can check the information about hash value on etherscan.io at anytime, all information is completely transparent.': '當開獎倒計時結束時或者場次籌齊人數時，遊戲將所有本期投註信息進行Merkle Tree計算，得出Merkel number，並將Merkel number上傳至以太鏈； 信息打包上鏈生成的Hash值，使用最後六個十六進制數轉成十進制數，然後對該十進制數進行求余，將余數加上10001即得到最終的開獎結果。用戶可以隨時在etherscan.io裏查驗開獎哈希，它是十分透明公開和公平的',
@@ -733,7 +733,7 @@ module.exports = {
 
     'Rules:': '活動規則:',
     '1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.': '1.在Coinsprize未有過充值行為的用戶都可參與該活動，您必須由該頁面選擇加入以具備獎勵資格，且默認您遵守活動規則。',
-    '2. The activity time is from 00:00 July 14, 2018 to 23:59 August 14, 2018 (GMT).': '2.活動有效期限為2018年7月14日00:00 GMT至8月14日23:59 GMT。',
+    '2. The activity time is from 00:00 September 5, 2018 to 23:59 September 25, 2018 (GMT).': '2.活動有效期限為2018年9月05日00:00 GMT至9月25日23:59 GMT。',
     '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用戶在活動頁指定入口充值任意金額，即可獎勵50%（最高獎勵0.05 ETH/0.005 BTC），獎勵金額不允許玩lucky coin遊戲。',
     '4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.': '4.參與充值優惠的用戶可選擇ETH或BTC充值方式，以首次到賬充值方式為準，即兩種充值方式不可兼得。由於虛擬代幣充值到賬時間慢，平臺獎勵依據以首次到賬金額計算，並贈送對應獎勵。',
     '6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.': '6.該活動每個用戶僅可享受壹次。如果Coinsprize有理由懷疑同壹個客戶、同壹組客戶不止壹次申領獎金或優惠，Coinsprize可隨時收回任何客戶或客戶組的任何或全部優惠，並/或取消任何使用獎金進行的投註和因這些投註而產生的彩金。',
