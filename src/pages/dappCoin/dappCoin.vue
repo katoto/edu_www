@@ -64,10 +64,10 @@
                 roundInfo: null, // getcurrentRoundInfo msg
                 selfMsg: null,
                 timeLeft: null, // 剩余时间
-                nowFormateTime:null, // 格式化的时间
-                nowTimeInterval:null, 
-                currTicketPrice:null, // 单价
-                allTicketPrice:null,
+                nowFormateTime: null, // 格式化的时间
+                nowTimeInterval: null,
+                currTicketPrice: null, // 单价
+                allTicketPrice: null
             }
         },
         watch: {
@@ -81,29 +81,29 @@
             copyError,
             formateBalance,
             formatTime,
-            async pageInit(){
+            async pageInit () {
                 // 初始化页面
                 this.selfAddr = await luckyCoinApi.getAccounts()
                 this.getCurrentRoundInfo()
                 this.getPlayerInfoByAddress()
-                this.timeLeft  = await luckyCoinApi.getTimeLeft()
+                this.timeLeft = await luckyCoinApi.getTimeLeft()
                 this.currTicketPrice = await luckyCoinApi.getBuyPrice()
                 this.startTimeLeft()
-                window.setInterval(async ()=>{
-                    this.timeLeft  = await luckyCoinApi.getTimeLeft()
-                },10000)
+                window.setInterval(async () => {
+                    this.timeLeft = await luckyCoinApi.getTimeLeft()
+                }, 10000)
             },
             startTimeLeft () {
                 // 倒计时
-                this.nowTimeInterval = setInterval(()=>{
-                    if(this.timeLeft){
-                        if(this.timeLeft === 0){
+                this.nowTimeInterval = setInterval(() => {
+                    if (this.timeLeft) {
+                        if (this.timeLeft === 0) {
                             clearInterval(this.nowTimeInterval)
                         }
-                        this.nowFormateTime = this.formatTime(this.timeLeft,'HH:mm:ss')
+                        this.nowFormateTime = this.formatTime(this.timeLeft, 'HH:mm:ss')
                         this.timeLeft--
                     }
-                },1000)
+                }, 1000)
             },
             async getPlayerInfoByAddress () {
                 if (this.selfAddr) {
@@ -128,7 +128,7 @@
                     this.tickNum = Number(this.tickNum)
                 }
                 console.log(currPrice)
-                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum )
+                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
                 console.log(buyBack)
                 console.log('buyBack')
                 if (buyBack) {
@@ -207,7 +207,7 @@
                 this.isFromFlag = coinAffAddr
             }
             this.pageInit()
-        },
+        }
     }
 </script>
 <style scoped lang="less" type="text/less">
