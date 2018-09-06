@@ -5,7 +5,12 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="banner">
-                        <el-carousel :interval="3000" arrow="always">
+                        <el-carousel :interval="5000" arrow="always">
+                            <el-carousel-item>
+                                <router-link :to="{path: '/firstCharge'}" rel="nofollow">
+                                    <img src="../../assets/img/luckyCoin/banner3.png" alt="">
+                                </router-link>
+                            </el-carousel-item>
                             <el-carousel-item>
                                 <a href="javascript:;" rel="nofollow">
                                     <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
@@ -16,11 +21,7 @@
                                     <img src="../../assets/img/luckyCoin/banner2.png" alt="">
                                 </a>
                             </el-carousel-item>
-                            <el-carousel-item>
-                                <router-link :to="{path: '/firstCharge'}" rel="nofollow">
-                                    <img src="../../assets/img/luckyCoin/banner3.png" alt="">
-                                </router-link>
-                            </el-carousel-item>
+
                         </el-carousel>
                     </div>
                 </div>

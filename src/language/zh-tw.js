@@ -699,7 +699,7 @@ module.exports = {
     '{0} {1} / Bid': '每註: {0} {1}',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.': '建議您使用正規安全的錢包或者交易平臺，推薦：Mist、imToken、huobi.com、Coinbase等平臺',
     'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到賬時間取決於區塊鏈算力，ETH充值壹般需要5分鐘到賬，BTC充值壹般需要40分鐘到賬，若充值持續未到賬，可郵件聯系客服解決： support@coinsprize.com',
-    'Finally! You found the wonderland---- Coinsprize': '歡迎來區塊鏈遊戲平臺',
+    'Finally! You found the wonderland-- Coinsprize': '歡迎來區塊鏈遊戲平臺',
     'A blockchain-based game platform with fairness and openness': ' ',
     'We will contact you as soon as possible.': '我們會盡快與您聯系',
     '(* To unlock the non-withdrawable, you need to bid 20 times of the non-withdrawable amount.)': '滿足不可提現額度的20倍流水條件即可提取贈送金額',

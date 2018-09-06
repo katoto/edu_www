@@ -10,6 +10,15 @@
                         <el-carousel :interval="5000">
                             <el-carousel-item>
                                 <div class="banner-t1" >
+                                    <lang>50% Top-Up Bonus</lang>
+                                </div>
+                                <p class="banner-t11 visible-md visible-lg"><lang>More top-up, more bonus</lang></p>
+                                <router-link to="/firstCharge" class="banner-firstCharge" >
+                                    <lang>Get Bonus</lang>
+                                </router-link>
+                            </el-carousel-item>
+                            <el-carousel-item>
+                                <div class="banner-t1" >
                                     <lang>Finally! You found the wonderland-- Coinsprize</lang>
                                 </div>
                                 <p class="banner-t11 visible-md visible-lg"><lang>A blockchain-based game platform with fairness and openness</lang></p>
@@ -19,15 +28,6 @@
                                 </a>
                                 <router-link v-else to="/check" class="banner-more">
                                     <lang>Details </lang>
-                                </router-link>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <div class="banner-t1" >
-                                    <lang>50% Top-Up Bonus</lang>
-                                </div>
-                                <p class="banner-t11 visible-md visible-lg"><lang>More top-up,more bonus</lang></p>
-                                <router-link to="/firstCharge" class="banner-firstCharge" >
-                                    <lang>Get Bonus</lang>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
