@@ -16,10 +16,11 @@
             总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
             {{ selfMsg }}
 
+            当前余额：{{ balance }}
 
             <section>
                 <span>buy ticket</span>
-                <input type="number" >
+                <input v-model="tickNum" @input="checkTicket"><span>@number : {{ formateBalance(currTicketPrice * tickNum) }}</span>
                 <button style="width:100px;height:50px">Min</button>
                 <button style="width:100px;height:50px">*2</button>
                 <button style="width:100px;height:50px">/2</button>
@@ -103,6 +104,14 @@
             copyError,
             formateBalance,
             formatTime,
+            checkTicket(){
+                if(isNaN(Number(this.tickNum))){
+                    alert('isNaN 提示')
+                    this.tickNum = 0 ;
+                    return false
+                }
+                this.tickNum = this.tickNum > 1500 ? 1500 : this.tickNum
+            },
             chooseHalf () {
                 this.betValue = Number(this.betValue)
                 if (isNaN(this.betValue)) {
