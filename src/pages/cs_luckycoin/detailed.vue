@@ -653,7 +653,8 @@
                     for (let index = 0; index < accounts.length; index++) {
                         let account = accounts[index]
                         if (account.cointype === this.coinType) {
-                            return Number(account.balance)
+                            // return Number(account.balance) > 0 ? Number(account.balance) : 0
+                            return Number(account.checkout_balance)> 0 ? Number(account.checkout_balance) :  0
                         }
                     }
                 }

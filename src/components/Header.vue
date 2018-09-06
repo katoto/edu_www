@@ -230,7 +230,7 @@
             </div>
 
             <!--  弹窗- 充值到账弹窗  -->
-            <div class="pop pop-getFirstCharge"  v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0' || 1">
+            <div class="pop pop-getFirstCharge"  v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0'">
                 <div class="cnt">
                     <h2><lang>Congratulations</lang></h2>
                     <div class="content ">
