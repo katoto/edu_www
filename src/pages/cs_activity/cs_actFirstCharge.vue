@@ -10,7 +10,7 @@
                 {{ firstChargeMsg.activity_status | filterMsg }}
             </a>
             <p class="cont_tips"><lang>1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC</lang></p>
-            <div class="foot_rules">
+            <div class="foot_rules" :class="{'addMarge':language!=='en'}">
                 <h4><lang>Rules</lang></h4>
                 <p><lang>1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.</lang></p>
                 <p><lang>2. The activity time is from 00:00 September 5, 2018 to 23:59 September 25, 2018 (GMT).</lang></p>
@@ -192,6 +192,9 @@ export default {
             p+p{
                 margin-top: 10px;
             }
+        }
+        .addMarge{
+            margin-top: 100px;
         }
         .cont_tips{
             width: 92%;
