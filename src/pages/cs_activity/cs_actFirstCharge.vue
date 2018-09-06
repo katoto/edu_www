@@ -6,7 +6,7 @@
                 <h2><lang>50% Bonus</lang></h2>
                 <h2 class="color"><lang>for Your First Top-Up</lang></h2>
             </div>
-            <a href="javascript:;" v-if="firstChargeMsg" class="btn"   :class="{'unable':firstChargeMsg.activity_status==='2'}" @click="getFirstBtn">
+            <a href="javascript:;" v-if="firstChargeMsg" class="btn"   :class="{'unable':firstChargeMsg.activity_status==='2','btnAdd':language==='en'}" @click="getFirstBtn">
                 {{ firstChargeMsg.activity_status | filterMsg }}
             </a>
             <p class="cont_tips"><lang>1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC</lang></p>
@@ -194,7 +194,7 @@ export default {
             }
         }
         .addMarge{
-            margin-top: 100px;
+            margin-top: 50px;
         }
         .cont_tips{
             width: 92%;
@@ -223,7 +223,7 @@ export default {
         }
         .btn{
             display: block;
-            margin: 300px auto 0;
+            margin: 360px auto 0;
             max-width: 396px;
             width: 60%;
             height: 68/1.5px;
@@ -238,6 +238,9 @@ export default {
                 cursor: not-allowed;
             }
         }
+        .btnAdd{
+            margin-top:305px
+        }
     }
     @media (min-width: @screen-desktop) {
         .act_box{
@@ -248,12 +251,15 @@ export default {
                 }
             }
             .btn{
-                margin:305px auto 0;
+                margin:360px auto 0;
                 height: 60px;
                 line-height: 60px;
                 font-size: 30px;
                 font-weight: bold;
                 border-radius: 8px;
+            }
+            .btnAdd{
+                margin-top:305px
             }
         }
     }
