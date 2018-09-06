@@ -23,6 +23,7 @@
             <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
             <button @click="registerName" style="width:100px;height:50px">买名字</button>
 
+            <div>your promotion link  </div>
 
         </div>
         <div v-if="roundInfo">
@@ -59,7 +60,7 @@
     export default {
         data () {
             return {
-                beforeInviteName:null, // 准备邀请的名字  注册的名字
+                beforeInviteName: null, // 准备邀请的名字  注册的名字
                 showFirstBaxi: false, // 首次提示
                 selfAddr: null,
                 isFromFlag: false, // 是否是来自邀请
@@ -84,23 +85,23 @@
             copyError,
             formateBalance,
             formatTime,
-            isVerifyName(name){
-                let regaz = /^[a-z0-9\-\s]+$/;
-                let regonlyNum = /^[0-9]+$/;
-                return name.length <= 32 && regaz.test(name) && !regonlyNum.test(name) && name.indexOf(' ')===-1;
+            isVerifyName (name) {
+                let regaz = /^[a-z0-9\-\s]+$/
+                let regonlyNum = /^[0-9]+$/
+                return name.length <= 32 && regaz.test(name) && !regonlyNum.test(name) && name.indexOf(' ') === -1
             },
-            getRandomName(){
-                let getRandomKey = (list)=>{
-                    return Math.floor(Math.random()*list.length)
+            getRandomName () {
+                let getRandomKey = (list) => {
+                    return Math.floor(Math.random() * list.length)
                 }
-                let randomNameArr = ["ninja", "truce", "harj", "finney", "szabo", "gwei", "laser", "justo", "satoshi", "mantso", "3D", "inventor", "theShocker", "aritz", "sumpunk", "cryptoknight", "randazz", "kadaz", "daok", "shenron", "notreally", "thecrypt", "figures", "mermaid", "barnacles", "dragons", "jellybeans", "snakes", "dolls", "bushes", "cookies", "apples", "ice cream", "ukulele", "kazoo", "banjo", "singer", "circus", "trampoline", "carousel", "carnival", "locomotive", "balloon", "mantis", "animator", "artisan", "artist", "colorist", "inker", "coppersmith", "director", "designer", "flatter", "stylist", "leadman", "limner", "artist", "model", "musician", "penciller", "producer", "scenographer", "decorator", "silversmith", "teacher", "mechanic", "beader", "bobbin", "cchapel", "ttendant", "foreman", "engineering", "mechanic", "miller", "moldmaker", "panel beater", "patternmaker", "operator", "plumber", "sawfiler", "foreman", "soaper", "engineer", "wheelwright", "woodworkers"]
-                let randomNameArr2 = ["adamant", "adroit", "amatory", "animistic", "antic", "arcadian", "baleful", "bellicose", "bilious", "boorish", "calamitous", "caustic", "cerulean", "comely", "concomitant", "contumacious", "corpulent", "crapulous", "defamatory", "didactic", "dilatory", "dowdy", "efficacious", "effulgent", "egregious", "endemic", "equanimous", "execrable", "fastidious", "feckless", "fecund", "friable", "fulsome", "garrulous", "guileless", "gustatory", "harjd", "heuristic", "histrionic", "hubristic", "incendiary", "insidious", "insolent", "intransigent", "inveterate", "invidious", "irksome", "jejune", "jocular", "judicious", "lachrymose", "limpid", "loquacious", "luminous", "mannered", "mendacious", "meretricious", "minatory", "mordant", "munificent", "nefarious", "noxious", "obtuse", "parsimonious", "pendulous", "pernicious", "pervasive", "petulant", "platitudinous", "precipitate", "propitious", "puckish", "querulous", "quiescent", "rebarbative", "recalcitant", "redolent", "rhadamanthine", "risible", "ruminative", "sagacious", "salubrious", "sartorial", "sclerotic", "serpentine", "spasmodic", "strident", "taciturn", "tenacious", "tremulous", "trenchant", "turbulent", "turgid", "ubiquitous", "uxorious", "verdant", "voluble", "voracious", "wheedling", "withering", "zealous"]
+                let randomNameArr = ['ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'figures', 'mermaid', 'barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'ice cream', 'ukulele', 'kazoo', 'banjo', 'singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'balloon', 'mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'decorator', 'silversmith', 'teacher', 'mechanic', 'beader', 'bobbin', 'cchapel', 'ttendant', 'foreman', 'engineering', 'mechanic', 'miller', 'moldmaker', 'panel beater', 'patternmaker', 'operator', 'plumber', 'sawfiler', 'foreman', 'soaper', 'engineer', 'wheelwright', 'woodworkers']
+                let randomNameArr2 = ['adamant', 'adroit', 'amatory', 'animistic', 'antic', 'arcadian', 'baleful', 'bellicose', 'bilious', 'boorish', 'calamitous', 'caustic', 'cerulean', 'comely', 'concomitant', 'contumacious', 'corpulent', 'crapulous', 'defamatory', 'didactic', 'dilatory', 'dowdy', 'efficacious', 'effulgent', 'egregious', 'endemic', 'equanimous', 'execrable', 'fastidious', 'feckless', 'fecund', 'friable', 'fulsome', 'garrulous', 'guileless', 'gustatory', 'harjd', 'heuristic', 'histrionic', 'hubristic', 'incendiary', 'insidious', 'insolent', 'intransigent', 'inveterate', 'invidious', 'irksome', 'jejune', 'jocular', 'judicious', 'lachrymose', 'limpid', 'loquacious', 'luminous', 'mannered', 'mendacious', 'meretricious', 'minatory', 'mordant', 'munificent', 'nefarious', 'noxious', 'obtuse', 'parsimonious', 'pendulous', 'pernicious', 'pervasive', 'petulant', 'platitudinous', 'precipitate', 'propitious', 'puckish', 'querulous', 'quiescent', 'rebarbative', 'recalcitant', 'redolent', 'rhadamanthine', 'risible', 'ruminative', 'sagacious', 'salubrious', 'sartorial', 'sclerotic', 'serpentine', 'spasmodic', 'strident', 'taciturn', 'tenacious', 'tremulous', 'trenchant', 'turbulent', 'turgid', 'ubiquitous', 'uxorious', 'verdant', 'voluble', 'voracious', 'wheedling', 'withering', 'zealous']
                 let newRandom = randomNameArr.concat(randomNameArr2)
                 this.beforeInviteName = newRandom[getRandomKey(newRandom)]
             },
             async pageInit () {
                 // 初始化页面
-                this.selfAddr = await luckyCoinApi.getAccounts()        
+                this.selfAddr = await luckyCoinApi.getAccounts()
                 this.getCurrentRoundInfo()
                 this.getPlayerInfoByAddress()
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
@@ -159,7 +160,7 @@
                     return false
                 }
                 // 判断是否符合规则
-                if(!(this.isVerifyName(this.beforeInviteName))){
+                if (!(this.isVerifyName(this.beforeInviteName))) {
                     alert('名字不符合规则')
                     return false
                 }
@@ -223,8 +224,9 @@
         components: {
         },
         async mounted () {
-            if (0 && url) {
-
+            console.log(this.$route.params)
+            if (this.$route.params && this.$route.params.inviteName) {
+                this.isFromFlag = this.$route.params.inviteName
             } else {
                 this.isFromFlag = coinAffAddr
             }
