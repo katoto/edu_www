@@ -18,12 +18,24 @@
             总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
 
             {{ selfMsg }}
-            <input placeholder="输入邀请名字" v-model="beforeInviteName" /> 
-            <hr>
-            <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
-            <button @click="registerName" style="width:100px;height:50px">买名字</button>
 
-            <div>your promotion link  </div>
+            <div v-if="selfMsg.name === ''"> 请注册名字
+                <input placeholder="输入邀请名字" v-model="beforeInviteName" /> 
+                <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
+                <button @click="registerName" style="width:100px;height:50px">买名字</button>
+            </div>
+            <div v-else>
+                your promotion link 
+                <span>{{ selfMsg.name | linkMsg }}</span>
+
+                <a href="javascript:;"
+                    v-clipboard:copy="linkMsg( selfMsg.name ) "
+                    v-clipboard:success="copySucc"
+                    v-clipboard:error="copyError"
+                    class="btn-Copy ">
+                    <lang>Copy</lang>
+                </a>
+            </div>
 
         </div>
         <div v-if="roundInfo">
@@ -224,13 +236,18 @@
         components: {
         },
         async mounted () {
-            console.log(this.$route.params)
             if (this.$route.params && this.$route.params.inviteName) {
                 this.isFromFlag = this.$route.params.inviteName
             } else {
                 this.isFromFlag = coinAffAddr
             }
+            console.log(this.isFromFlag)
             this.pageInit()
+        },
+        filters:{
+            linkMsg(data){
+                return `${window.location.origin}/supercoin/${data}`
+            }
         }
     }
 </script>
