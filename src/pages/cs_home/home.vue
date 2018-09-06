@@ -559,10 +559,10 @@
                 height: 35px;
                 overflow: hidden;
                 margin: 25px auto 0;
-                line-height: 35px;
+                line-height: 33px;
                 overflow: hidden;
                 border-radius: 6px;
-                border: 1px solid #575763;
+                border: 1px solid #fff;
                 color: #fff;
                 transition: all 0.2s;
                 &:hover{
@@ -575,10 +575,10 @@
                 height: 35px;
                 overflow: hidden;
                 margin: 25px auto 0;
-                line-height: 35px;
+                line-height: 33px;
                 overflow: hidden;
                 border-radius: 6px;
-                border: 1px solid #575763;
+                border: 1px solid #fff;
                 color: #fff;
                 transition: all 0.2s;
                 &:hover{
