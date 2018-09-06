@@ -16,6 +16,15 @@
             总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
             {{ selfMsg }}
 
+
+            <section>
+                <span>buy ticket</span>
+                <input type="number" >
+                <button style="width:100px;height:50px">Min</button>
+                <button style="width:100px;height:50px">*2</button>
+                <button style="width:100px;height:50px">/2</button>
+                <button style="width:100px;height:50px">Max</button>
+            </section>
             <div v-if="selfMsg.inviteLink === ''"> 请注册名字
                 <input placeholder="输入邀请名字" v-model="beforeInviteName" /> 
                 <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
@@ -24,7 +33,6 @@
             <div v-else>
                 your promotion link 
                 <span>{{ selfMsg.inviteLink }}</span>
-
                 <a href="javascript:;"
                     v-clipboard:copy="selfMsg.inviteLink"
                     v-clipboard:success="copySucc"
@@ -69,6 +77,7 @@
     export default {
         data () {
             return {
+                balance:null,
                 beforeInviteName: null, // 准备邀请的名字  注册的名字
                 showFirstBaxi: false, // 首次提示
                 selfAddr: null,
@@ -94,6 +103,53 @@
             copyError,
             formateBalance,
             formatTime,
+            chooseHalf () {
+                this.betValue = Number(this.betValue)
+                if (isNaN(this.betValue)) {
+                    this.betValue = this.minValue
+                    return
+                }
+                if (this.betValue === 0) {
+                    this.betValue = this.minValue
+                    return
+                }
+                if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                    this.betValue = this.minValue
+                    return
+                }
+                if (this.betValue / 2 >= this.minValue) {
+                    this.betValue = this.formatBidValue(this.betValue / 2)
+                } else if (this.betValue > this.minValue) {
+                    this.betValue = this.minValue
+                }
+            },
+            chooseDouble () {
+                this.betValue = Number(this.betValue)
+                if (isNaN(this.betValue)) {
+                    this.betValue = this.minValue
+                    return
+                }
+                if (this.betValue === 0) {
+                    this.betValue = this.formatBidValue(this.minValue * 2)
+                    return
+                }
+                if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                    this.betValue = this.minValue
+                    return
+                }
+                if (this.betValue * 2 <= this.maxValue) {
+                    this.betValue = this.formatBidValue(this.betValue * 2)
+                } else if (this.betValue < this.maxValue) {
+                    this.betValue = this.maxValue
+                }
+            },
+            chooseMax () {
+                if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                    this.betValue = this.minValue
+                    return
+                }
+                this.betValue = this.maxValue
+            },
             isVerifyName (name) {
                 let regaz = /^[a-z0-9\-\s]+$/
                 let regonlyNum = /^[0-9]+$/
@@ -103,10 +159,10 @@
                 let getRandomKey = (list) => {
                     return Math.floor(Math.random() * list.length)
                 }
-                let randomNameArr = ['reward','moreMoney','fomo','index','quick','ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'figures', 'mermaid', 'barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'cream', 'ukulele', 'kazoo', 'banjo', 'singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'balloon', 'mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'decorator', 'silversmith', 'teacher', 'mechanic', 'beader', 'bobbin', 'cchapel', 'ttendant', 'foreman', 'engineering', 'mechanic', 'miller', 'moldmaker', 'beater', 'patternmaker', 'operator', 'plumber', 'sawfiler', 'foreman', 'soaper', 'engineer', 'wheelwright', 'woodworkers']
+                let randomNameArr = ['reward', 'moreMoney', 'fomo', 'index', 'quick', 'ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'figures', 'mermaid', 'barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'cream', 'ukulele', 'kazoo', 'banjo', 'singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'balloon', 'mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'decorator', 'silversmith', 'teacher', 'mechanic', 'beader', 'bobbin', 'cchapel', 'ttendant', 'foreman', 'engineering', 'mechanic', 'miller', 'moldmaker', 'beater', 'patternmaker', 'operator', 'plumber', 'sawfiler', 'foreman', 'soaper', 'engineer', 'wheelwright', 'woodworkers']
                 let randomNameArr2 = ['adamant', 'adroit', 'amatory', 'animistic', 'antic', 'arcadian', 'baleful', 'bellicose', 'bilious', 'boorish', 'calamitous', 'caustic', 'cerulean', 'comely', 'concomitant', 'contumacious', 'corpulent', 'crapulous', 'defamatory', 'didactic', 'dilatory', 'dowdy', 'efficacious', 'effulgent', 'egregious', 'endemic', 'equanimous', 'execrable', 'fastidious', 'feckless', 'fecund', 'friable', 'fulsome', 'garrulous', 'guileless', 'gustatory', 'harjd', 'heuristic', 'histrionic', 'hubristic', 'incendiary', 'insidious', 'insolent', 'intransigent', 'inveterate', 'invidious', 'irksome', 'jejune', 'jocular', 'judicious', 'lachrymose', 'limpid', 'loquacious', 'luminous', 'mannered', 'mendacious', 'meretricious', 'minatory', 'mordant', 'munificent', 'nefarious', 'noxious', 'obtuse', 'parsimonious', 'pendulous', 'pernicious', 'pervasive', 'petulant', 'platitudinous', 'precipitate', 'propitious', 'puckish', 'querulous', 'quiescent', 'rebarbative', 'recalcitant', 'redolent', 'rhadamanthine', 'risible', 'ruminative', 'sagacious', 'salubrious', 'sartorial', 'sclerotic', 'serpentine', 'spasmodic', 'strident', 'taciturn', 'tenacious', 'tremulous', 'trenchant', 'turbulent', 'turgid', 'ubiquitous', 'uxorious', 'verdant', 'voluble', 'voracious', 'wheedling', 'withering', 'zealous']
                 let newRandom = randomNameArr.concat(randomNameArr2)
-                let endPoint = [0,1,2,3,4,5,6,7,8,9,'']
+                let endPoint = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '']
                 this.beforeInviteName = newRandom[getRandomKey(newRandom)] + endPoint[getRandomKey(endPoint)]
             },
             async pageInit () {
@@ -135,9 +191,12 @@
             },
             async getPlayerInfoByAddress () {
                 if (this.selfAddr) {
-                    this.selfMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
+                    let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
+                    console.log(allMsg)
+                    this.selfMsg = allMsg[0]
+                    this.balance = allMsg[1]
+                    console.log(this.selfMsg)
                     this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
-
                 } else {
                     console.warn('没有取得地址msg')
                 }

@@ -969,9 +969,9 @@ luckyCoinApi.getCurrentRoundInfo = () => {
 }
 
 luckyCoinApi.getPlayerInfoByAddress = (addr) => {
-    // 页面整体信息
+    // 页面整体信息 & 余额
     addr = addr.toString()
-    return new Promise((resolve, reject) => {
+    let playerInfo = new Promise((resolve, reject) => {
         contractNet.getPlayerInfoByAddress(addr, function (err, res) {
             if (!err) {
                 if (res) {
@@ -990,6 +990,18 @@ luckyCoinApi.getPlayerInfoByAddress = (addr) => {
             }
         })
     })
+    let getBalance = new Promise((resolve, reject) => {
+        web3.eth.getBalance(addr,(err,res) => {
+            if (!err) {
+                if (res) {
+                    resolve(web3.fromWei(res.toNumber()))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+    return Promise.all([playerInfo, getBalance])
 }
 
 luckyCoinApi.testName = (regName) => {
@@ -1214,22 +1226,6 @@ luckyCoinApi.getTimeLeft = () => {
                 reject(err)
             }
         })
-    })
-}
-
-luckyCoinApi.getGasPrice = (fn) => {
-    /* 获取当前gasPrice */
-    if (typeof fn !== 'function') {
-        return 'need async function !.'
-    }
-    web3.eth.getGasPrice((err, res) => {
-        if (!err) {
-            if (res) {
-                fn(null, res.toNumber(10))
-            }
-        } else {
-            fn('getGasPrice err' + err, null)
-        }
     })
 }
 
