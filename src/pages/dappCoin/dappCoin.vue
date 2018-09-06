@@ -50,10 +50,6 @@
         <router-link :to="{path:'/lucky11'}"></router-link>
 
         <button @click="buyNum" style="width:100px;height:50px">购买</button>
-<<<<<<< HEAD
-=======
-        <button @click="registerName" style="width:100px;height:50px">买名字</button>
->>>>>>> online
 
     </div>
 </template>
@@ -76,18 +72,11 @@
     export default {
         data () {
             return {
-<<<<<<< HEAD
                 beforeInviteName: null, // 准备邀请的名字  注册的名字
-=======
->>>>>>> online
                 showFirstBaxi: false, // 首次提示
                 selfAddr: null,
                 isFromFlag: false, // 是否是来自邀请
                 tickNum: 1, // 购买票数
-<<<<<<< HEAD
-=======
-                regName: 'poi', // 注册的名字
->>>>>>> online
                 roundInfo: null, // getcurrentRoundInfo msg
                 selfMsg: null,
                 timeLeft: null, // 剩余时间
@@ -108,7 +97,6 @@
             copyError,
             formateBalance,
             formatTime,
-<<<<<<< HEAD
             isVerifyName (name) {
                 let regaz = /^[a-z0-9\-\s]+$/
                 let regonlyNum = /^[0-9]+$/
@@ -123,8 +111,6 @@
                 let newRandom = randomNameArr.concat(randomNameArr2)
                 this.beforeInviteName = newRandom[getRandomKey(newRandom)]
             },
-=======
->>>>>>> online
             async pageInit () {
                 // 初始化页面
                 this.selfAddr = await luckyCoinApi.getAccounts()
@@ -137,22 +123,6 @@
                     this.timeLeft = await luckyCoinApi.getTimeLeft()
                 }, 10000)
             },
-<<<<<<< HEAD
-=======
-            getRandomName () {
-    function getRandomName () {
-                    var getRandomKey = function (list) {
-                        return Math.floor(Math.random() * list.length)
-    }
-                    var nouns = ['ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'stick figures', 'mermaid eggs', 'sea barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'ice cream', 'ukulele', 'kazoo', 'banjo', 'opera singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'hot air balloon', 'praying mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'make-up artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'set decorator', 'silversmith', 'teacher', 'auto mechanic', 'beader', 'bobbin boy', 'clerk of the chapel', 'filling station attendant', 'foreman', 'maintenance engineering', 'mechanic', 'miller', 'moldmaker', 'panel beater', 'patternmaker', 'plant operator', 'plumber', 'sawfiler', 'shop foreman', 'soaper', 'stationary engineer', 'wheelwright', 'woodworkers']
-
-                    var adjectives = ['adamant', 'adroit', 'amatory', 'animistic', 'antic', 'arcadian', 'baleful', 'bellicose', 'bilious', 'boorish', 'calamitous', 'caustic', 'cerulean', 'comely', 'concomitant', 'contumacious', 'corpulent', 'crapulous', 'defamatory', 'didactic', 'dilatory', 'dowdy', 'efficacious', 'effulgent', 'egregious', 'endemic', 'equanimous', 'execrable', 'fastidious', 'feckless', 'fecund', 'friable', 'fulsome', 'garrulous', 'guileless', 'gustatory', 'harjd', 'heuristic', 'histrionic', 'hubristic', 'incendiary', 'insidious', 'insolent', 'intransigent', 'inveterate', 'invidious', 'irksome', 'jejune', 'jocular', 'judicious', 'lachrymose', 'limpid', 'loquacious', 'luminous', 'mannered', 'mendacious', 'meretricious', 'minatory', 'mordant', 'munificent', 'nefarious', 'noxious', 'obtuse', 'parsimonious', 'pendulous', 'pernicious', 'pervasive', 'petulant', 'platitudinous', 'precipitate', 'propitious', 'puckish', 'querulous', 'quiescent', 'rebarbative', 'recalcitant', 'redolent', 'rhadamanthine', 'risible', 'ruminative', 'sagacious', 'salubrious', 'sartorial', 'sclerotic', 'serpentine', 'spasmodic', 'strident', 'taciturn', 'tenacious', 'tremulous', 'trenchant', 'turbulent', 'turgid', 'ubiquitous', 'uxorious', 'verdant', 'voluble', 'voracious', 'wheedling', 'withering', 'zealous']
-
-                    return nouns[getRandomKey(nouns)] + ' ' + adjectives[getRandomKey(adjectives)]
-                }
-            },
-
->>>>>>> online
             startTimeLeft () {
                 // 倒计时
                 this.nowTimeInterval = setInterval(() => {
@@ -197,7 +167,6 @@
             },
             async registerName () {
                 let buyNameBack = null
-<<<<<<< HEAD
                 if (!this.beforeInviteName) {
                     alert('请输入名字')
                     return false
@@ -214,19 +183,6 @@
                     buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
                 } else {
                     alert('名字已被注册')
-=======
-                // 判断是否已经被购买
-                if (!this.regName) {
-                    console.error('regName error')
-                    return false
-                }
-                this.regName = this.regName.toString()
-                let checkName = await luckyCoinApi.testName(this.regName)
-                if (checkName) {
-                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.regName, this.isFromFlag)
-                } else {
-                    console.error('名字已被注册')
->>>>>>> online
                 }
             },
             async withdraw () {
@@ -280,7 +236,6 @@
         components: {
         },
         async mounted () {
-<<<<<<< HEAD
             if (this.$route.params && this.$route.params.inviteName) {
                 this.isFromFlag = this.$route.params.inviteName
             } else {
@@ -293,14 +248,6 @@
             linkMsg(data){
                 return `${window.location.origin}/supercoin/${data}`
             }
-=======
-            if (0 && url) {
-
-            } else {
-                this.isFromFlag = coinAffAddr
-            }
-            this.pageInit()
->>>>>>> online
         }
     }
 </script>
