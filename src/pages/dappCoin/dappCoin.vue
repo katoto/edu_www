@@ -8,28 +8,25 @@
             剩 {{ 1500 - roundInfo.tickets }} 票数
             <!-- 多少人参与 {{ playernums }}  <br /> -->
             当前价格 {{ currTicketPrice }}
-
             当前拥有票数  {{ selfMsg.tickets }}
             你有多少收益  {{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
-
             分红收益：{{ selfMsg.calcTicketEarn }}
             邀请收益： {{ selfMsg.aff_invite }}
             中奖收益： {{ selfMsg.win }}
             总收益：{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }}
-
             {{ selfMsg }}
 
-            <div v-if="selfMsg.name === ''"> 请注册名字
+            <div v-if="selfMsg.inviteLink === ''"> 请注册名字
                 <input placeholder="输入邀请名字" v-model="beforeInviteName" /> 
                 <button @click="getRandomName" style="width:100px;height:50px">随机名字</button>
                 <button @click="registerName" style="width:100px;height:50px">买名字</button>
             </div>
             <div v-else>
                 your promotion link 
-                <span>{{ selfMsg.name | linkMsg }}</span>
+                <span>{{ selfMsg.inviteLink }}</span>
 
                 <a href="javascript:;"
-                    v-clipboard:copy="linkMsg( selfMsg.name ) "
+                    v-clipboard:copy="selfMsg.inviteLink"
                     v-clipboard:success="copySucc"
                     v-clipboard:error="copyError"
                     class="btn-Copy ">
@@ -106,10 +103,11 @@
                 let getRandomKey = (list) => {
                     return Math.floor(Math.random() * list.length)
                 }
-                let randomNameArr = ['ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'figures', 'mermaid', 'barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'ice cream', 'ukulele', 'kazoo', 'banjo', 'singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'balloon', 'mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'decorator', 'silversmith', 'teacher', 'mechanic', 'beader', 'bobbin', 'cchapel', 'ttendant', 'foreman', 'engineering', 'mechanic', 'miller', 'moldmaker', 'panel beater', 'patternmaker', 'operator', 'plumber', 'sawfiler', 'foreman', 'soaper', 'engineer', 'wheelwright', 'woodworkers']
+                let randomNameArr = ['reward','moreMoney','fomo','index','quick','ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'figures', 'mermaid', 'barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'cream', 'ukulele', 'kazoo', 'banjo', 'singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'balloon', 'mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'decorator', 'silversmith', 'teacher', 'mechanic', 'beader', 'bobbin', 'cchapel', 'ttendant', 'foreman', 'engineering', 'mechanic', 'miller', 'moldmaker', 'beater', 'patternmaker', 'operator', 'plumber', 'sawfiler', 'foreman', 'soaper', 'engineer', 'wheelwright', 'woodworkers']
                 let randomNameArr2 = ['adamant', 'adroit', 'amatory', 'animistic', 'antic', 'arcadian', 'baleful', 'bellicose', 'bilious', 'boorish', 'calamitous', 'caustic', 'cerulean', 'comely', 'concomitant', 'contumacious', 'corpulent', 'crapulous', 'defamatory', 'didactic', 'dilatory', 'dowdy', 'efficacious', 'effulgent', 'egregious', 'endemic', 'equanimous', 'execrable', 'fastidious', 'feckless', 'fecund', 'friable', 'fulsome', 'garrulous', 'guileless', 'gustatory', 'harjd', 'heuristic', 'histrionic', 'hubristic', 'incendiary', 'insidious', 'insolent', 'intransigent', 'inveterate', 'invidious', 'irksome', 'jejune', 'jocular', 'judicious', 'lachrymose', 'limpid', 'loquacious', 'luminous', 'mannered', 'mendacious', 'meretricious', 'minatory', 'mordant', 'munificent', 'nefarious', 'noxious', 'obtuse', 'parsimonious', 'pendulous', 'pernicious', 'pervasive', 'petulant', 'platitudinous', 'precipitate', 'propitious', 'puckish', 'querulous', 'quiescent', 'rebarbative', 'recalcitant', 'redolent', 'rhadamanthine', 'risible', 'ruminative', 'sagacious', 'salubrious', 'sartorial', 'sclerotic', 'serpentine', 'spasmodic', 'strident', 'taciturn', 'tenacious', 'tremulous', 'trenchant', 'turbulent', 'turgid', 'ubiquitous', 'uxorious', 'verdant', 'voluble', 'voracious', 'wheedling', 'withering', 'zealous']
                 let newRandom = randomNameArr.concat(randomNameArr2)
-                this.beforeInviteName = newRandom[getRandomKey(newRandom)]
+                let endPoint = [0,1,2,3,4,5,6,7,8,9,'']
+                this.beforeInviteName = newRandom[getRandomKey(newRandom)] + endPoint[getRandomKey(endPoint)]
             },
             async pageInit () {
                 // 初始化页面
@@ -138,6 +136,8 @@
             async getPlayerInfoByAddress () {
                 if (this.selfAddr) {
                     this.selfMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
+                    this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
+
                 } else {
                     console.warn('没有取得地址msg')
                 }
@@ -245,9 +245,6 @@
             this.pageInit()
         },
         filters: {
-            linkMsg (data) {
-                return `${window.location.origin}/supercoin/${data}`
-            }
         }
     }
 </script>
