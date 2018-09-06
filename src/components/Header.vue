@@ -229,26 +229,46 @@
                 </div>
             </div>
 
+            <!--  弹窗- 充值到账弹窗  -->
+            <div class="pop pop-getFirstCharge"  v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0'">
+                <div class="cnt">
+                    <h2><lang>Congratulations</lang></h2>
+                    <div class="content ">
+                        <a href="javascript:;" class="btnclose" @click="readyGetFirst"></a>
+                        <p class="anount">+{{ firstCharge.reward_money }}<i>{{ firstCharge.cointype | formateCoinType }}</i></p>
+                        <p class="msg" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',formateBalance(firstCharge.recharge_money),formateCoinType( firstCharge.cointype ))"></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
+        <!-- ip -->
+        <PopIpLimit></PopIpLimit>
+        <!-- 全局该邮件无法激活 -->
+        <div role="alert" v-if="showEmailErr && isLog" class="el-message el-message--error" style="z-index: 2003;">
+            <p class="el-message__content">
+                <lang>Failed to activate, because of wrong email format</lang>
+            </p>
+        </div>
     </div>
 </template>
 
 <script>
     import PopList from '~components/Pop-list'
-    import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
+    import PopIpLimit from '~components/Pop-ipLimit.vue'
     import {copySucc, copyError, formateBalance, formateCoinType, formateEmail} from '~common/util'
-    import startCanvas from '~/common/canvas'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
     Vue.use(vueClipboard)
 
     export default {
-        components: {PopList},
+        components: {PopList, PopIpLimit},
         data () {
             return {
+                showFirstGet: false,
                 showLight: false, // new 闪烁
                 freeWaterPop: false, // new水龙头
                 showDetail: false,
@@ -314,6 +334,12 @@
                 get () {
                     return this.$store.state.language
                 }
+            },
+            firstCharge () {
+                return this.$store.state.cs_activity.firstCharge
+            },
+            showEmailErr () {
+                return this.$store.state.showEmailErr
             }
         },
         methods: {
@@ -322,6 +348,10 @@
             formateCoinType,
             copySucc,
             copyError,
+            async readyGetFirst () {
+                await this.$store.dispatch('cs_activity/rechargealert')
+                this.$store.dispatch('cs_activity/getChargeState')
+            },
             async taskClick (type, val) {
                 val = val.toString()
                 if (val === '2') {
@@ -470,12 +500,121 @@
                     this.freeWaterPop = true
                 }
             }, 0)
+            let isReadyAlert = false
+            setInterval(async () => {
+                if (this.isLog && !isReadyAlert) {
+                    let msg = await this.$store.dispatch('cs_activity/getChargeState')
+                    if (msg && msg.is_alert === '1') {
+                        isReadyAlert = true
+                    }
+                }
+            }, 10000)
         }
     }
 </script>
 <style scoped lang="less" type="text/less">
     @import "../styles/lib-mixins.less";
     @import "../styles/lib-media.less";
+
+
+    .pop-getFirstCharge{
+        *{
+            box-sizing: border-box;
+        }
+        .cnt{
+            position: relative;
+            width: 80%;
+            max-width: 513px;
+            margin: 307px auto 0;
+            h2{
+                position: absolute;
+                left: 50%;
+                top: -34px;
+                transform: translate(-50%);
+                width: 360px;
+                height: 63px;
+                overflow: hidden;
+                line-height: 68px;
+                font-size: 28px;
+                color: #3f2c65;
+                font-family: sans-eb;
+                font-weight: bold;
+                background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
+                background-size: cover;
+            }
+            .content{
+                border: 6px solid #f1a501;
+                border-radius: 8px;
+                background: #3f2c65;
+                padding: 28px 10px 26px;
+                .anount{
+                    line-height: 174px;
+                    color: #fdca1b;
+                    font-size: 76px;
+                    font-family: sans-eb;
+                    i{
+                        font-size: 42px;
+                    }
+                }
+                .msg{
+                    font-size: 16px;
+                    color: #ffffff;
+                }
+            }
+            .btnclose{
+                position: absolute;
+                right: 0;
+                top: -63px;
+                display: block;
+                width: 40px;
+                height: 40px;
+                overflow: hidden;
+                border-radius: 50%;
+                border: 1px solid rgba(255,255,255,0.3);
+                background: url("../assets/img/paysend/btn-close.png") no-repeat center;
+                background-size: 16px;
+            }
+        }
+    }
+    @media(max-width:768px) {
+        .pop-getFirstCharge{
+            .cnt{
+                margin: 150px auto 0;
+                h2{
+                    top: -34/1.5px;
+                    width: 360/1.5px;
+                    height: 63/1.5px;
+                    line-height: 68/1.5px;
+                    font-size: 28/1.5px;
+                }
+                .content{
+                    border: 3px solid #f1a501;
+                    border-radius: 4px;
+                    padding: 28px 10px 26px;
+                    .anount{
+                        line-height: 174/2px;
+                        font-size: 30px;
+                        i{
+                            font-size: 16px;
+                        }
+                    }
+                    .msg{
+                        font-size: 16px;
+                    }
+                }
+                .btnclose{
+                    top: -63/1.5px;
+                    width: 30px;
+                    height: 30px;
+                    background-size: 10px;
+                }
+            }
+        }
+    }
+
+
+
+
     .banner{
         display: none;
     }

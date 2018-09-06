@@ -653,7 +653,8 @@
                     for (let index = 0; index < accounts.length; index++) {
                         let account = accounts[index]
                         if (account.cointype === this.coinType) {
-                            return Number(account.balance)
+                            // return Number(account.balance) > 0 ? Number(account.balance) : 0
+                            return Number(account.checkout_balance) > 0 ? Number(account.checkout_balance) : 0
                         }
                     }
                 }
@@ -750,7 +751,12 @@
 </script>
 <style lang="less" type="text/less">
     .luckyCoinDetailed{
-        flex: 1;
+        flex-grow: 1;
+        background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat center top;
+        background-size: 1920px;
+        .main{
+            padding: 0;
+        }
         .el-table__empty-block {
             display: none;
         }

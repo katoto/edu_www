@@ -535,7 +535,7 @@ module.exports = {
     'All bonus from activities on the platform is non-withdrawable': '贈送金額全部進入不可提現賬戶',
     'Withdrawal Limit': '提現額度',
     'Withdrawable Issues': '資金流水分配',
-    'Maximum Withdrawal = 1/10 * Effective Bet Amount + All Former Withdrawal Amount': '最大提現額度 = 1/10 * 平臺有效投註額+ 歷史提現總額',
+    'Maximum Withdrawal = 1/20 * Effective Bet Amount + All Former Withdrawal Amount': '最大提現額度 = 1/20 * 平臺有效投註額+ 歷史提現總額',
     '(* Effective Bet Amount = Bet Amount in Lucky11 + 1/5 Bet Amount in Slot)': '（*平臺有效投註額 = Lucky11遊戲投註額 + 1/5 slot遊戲投註額）',
 
     /* help end */
@@ -624,7 +624,7 @@ module.exports = {
     'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '當前遊戲支持最受歡迎的比特幣和以太幣進行投註、存款和提款，未來還將接受更多加密數字貨幣，敬請期待',
     'Support Mobile APP': '支持移動端設備',
     'Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.': '隨時隨地投註、充值、提款，做妳更貼心、更便捷的，更放心的平臺。敬請期待',
-    'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
+    'Finally! You found the wonderland-- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的開獎算法，帶您開啟前所未有的遊戲體驗',
 
     'Bids:': '人次:',
@@ -699,12 +699,45 @@ module.exports = {
     '{0} {1} / Bid': '每註: {0} {1}',
     'Legal cryptocurrency wallets or trading platforms with high security are highly recommended, such as: Mist, imToken, huobi.com, Coinbase.': '建議您使用正規安全的錢包或者交易平臺，推薦：Mist、imToken、huobi.com、Coinbase等平臺',
     'The top-up time depends on the blockchain computing power. ETH top-up usually takes 5 minutes for transaction block to confirm your top-up. BTC top-up usually takes 5 minutes for transaction block to confirm. If your top-up fails, please contact us through email support@coinsprize.com.': '充值到賬時間取決於區塊鏈算力，ETH充值壹般需要5分鐘到賬，BTC充值壹般需要40分鐘到賬，若充值持續未到賬，可郵件聯系客服解決： support@coinsprize.com',
-    'Finally! You found the wonderland---- Coinsprize': '歡迎來區塊鏈遊戲平臺',
+    'Finally! You found the wonderland-- Coinsprize': '歡迎來區塊鏈遊戲平臺',
     'A blockchain-based game platform with fairness and openness': ' ',
     'We will contact you as soon as possible.': '我們會盡快與您聯系',
-    '(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)': '滿足不可提現額度的10倍流水條件即可提取贈送金額',
+    '(* To unlock the non-withdrawable, you need to bid 20 times of the non-withdrawable amount.)': '滿足不可提現額度的20倍流水條件即可提取贈送金額',
     'Step 2. Each group will be converted to decimal number, and then they will be calculated through an algorithm shows below to produce the draw numbers.': '第二步、先把A1-A5這5個16進制數轉化為10進制數，然後分別求mod運算11、10、9、8、7，獲得5位開獎號碼',
     'Sign up now': '立馬體驗',
     '1. After closing the bid, the bidding record will be uploaded to Ethereum through system, then the hash value will be calculated according to the uploaded data.<br>2. By using hexadecimal, the last 6 characters of the hash value will convert into a number.<br>3. Divide the number calculated from step 2 by total bids, then add 10,001. That is how lucky number comes from.<br>You can check the information about hash value on etherscan.io at anytime, all information is completely transparent.': '當開獎倒計時結束時或者場次籌齊人數時，遊戲將所有本期投註信息進行Merkle Tree計算，得出Merkel number，並將Merkel number上傳至以太鏈； 信息打包上鏈生成的Hash值，使用最後六個十六進制數轉成十進制數，然後對該十進制數進行求余，將余數加上10001即得到最終的開獎結果。用戶可以隨時在etherscan.io裏查驗開獎哈希，它是十分透明公開和公平的',
-    'Draw cancelled because no buyers of this bid.': '該期無人投註，已取消開獎'
+    'Draw cancelled because no buyers of this bid.': '該期無人投註，已取消開獎',
+
+    /* 验证页面 end */
+
+    /* 一元夺币 start */
+
+    /* 一元夺币 end */
+    'Copy the Bitcoin wallet address': '復制比特幣錢包地址',
+    /* activity */
+    'Get Bonus': '領取活動資格',
+    'Congratulations': '恭喜獲得',
+    'You are eligible now': '已領取資格',
+    'First top-up {0} {1} Bonus has been sent to your wallet': '首次充值{0} {1}，獲得50%獎勵已到賬',
+    'Top Up ': '前往充值',
+    'Top-Up Bonus': '首充送',
+    'You\'ve participated': '您已參加此活動',
+    'You are not eligible to participate': '您不符合活動資格',
+    'For users who have not topped up only': '此活動僅限首次充值用戶參與',
+    '50% Bonus for Your First Top-Up': '首次充值獎勵50%',
+    '50% Top-Up Bonus': '首次充值獎勵50%',
+    '50% Bonus': '首次充值獎勵50%',
+    'for Your First Top-Up': ' ',
+    'More top-up, more bonus': '充值越多，贈送越多',
+    '1.5x your top-up, bonus up to 0.05 ETH/ 0.005 BTC': '充值任意金額,即可獲得150%金額（最高獎勵0.05 ETH/0.005 BTC），祝您暢爽任玩！',
+
+    'Rules': '活動規則',
+    '1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.': '1.在Coinsprize未有過充值行為的用戶都可參與該活動，您必須由該頁面選擇加入以具備獎勵資格，且默認您遵守活動規則。',
+    '2. The activity time is from 00:00 September 5, 2018 to 23:59 September 25, 2018 (GMT).': '2.活動有效期限為2018年9月05日00:00 GMT至9月25日23:59 GMT。',
+    '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用戶在活動頁指定入口充值任意金額，即可獎勵50%（最高獎勵0.05 ETH/0.005 BTC），獎勵金額不允許玩lucky coin遊戲。',
+    '4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.': '4.參與充值優惠的用戶可選擇ETH或BTC充值方式，以首次到賬充值方式為準，即兩種充值方式不可兼得。由於虛擬代幣充值到賬時間慢，平臺獎勵依據以首次到賬金額計算，並贈送對應獎勵。',
+    '6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.': '6.該活動每個用戶僅可享受壹次。如果Coinsprize有理由懷疑同壹個客戶、同壹組客戶不止壹次申領獎金或優惠，Coinsprize可隨時收回任何客戶或客戶組的任何或全部優惠，並/或取消任何使用獎金進行的投註和因這些投註而產生的彩金。',
+    '7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.': '7.該活動最終解釋權歸Coinsprize所有，Coinsprize有權索回因錯誤派發的優惠資金，可隨時對此優惠進行微改以更正筆誤、提高用語清晰度或提升客戶體驗，並且可能隨時因法律或法規要求取消此優惠。'
+
+    /* activity end */
 }

@@ -4,7 +4,7 @@ import ajax from '~common/ajax'
 
 import router from '@/router'
 
-import {src, channel, getCK, removeCK, platform, tipsTime} from '~common/util'
+import {src, getCK, removeCK, platform, tipsTime} from '~common/util'
 
 const state = {
     pop: {
@@ -243,7 +243,6 @@ const actions = {
     async reg ({commit, dispatch}, params) {
         let data = {
             ...params,
-            channel,
             password: md5(md5(params.password))
         }
 

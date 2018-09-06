@@ -1,6 +1,7 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}" >
-        <Banner class="hide" v-on:superBannerChange="superChange"></Banner>
+        <!-- <Banner class="hide" v-on:superBannerChange="superChange"></Banner> -->
+        <Banner></Banner>
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
@@ -489,8 +490,9 @@
         <Footer class="lucky11"></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-        <!--全局蒙层-->
-        <!--<div class="pop-mask" :class="{'show':popMask}" @click="closeHeadPop"></div>-->
+        <a class="icon-enterWorld" @click="superChange('superIn')">
+            <img src="../../assets/img/lucky11/jackpot-left.png" />
+        </a>
     </div>
 </template>
 
@@ -964,6 +966,14 @@
 <style lang="less" type="text/less" >
     @import "../../styles/lib-mixins.less";
 
+    .icon-enterWorld{
+        position: fixed;
+        width: 120px;
+        top: 67%;
+        right: 17px;
+        z-index: 8;
+        cursor: pointer;
+    }
     .pop-mask{
         position: fixed;
         display: none;

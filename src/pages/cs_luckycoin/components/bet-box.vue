@@ -168,8 +168,11 @@
                 <lang>Bid Failed</lang>
             </p>
             <center>
-                <p class="bet-m">
+                <p class="bet-m" v-if="errorMessage ===''">
                     <lang>Uh-oh~ network problems occured.</lang>
+                </p>
+                <p class="bet-m" v-else>
+                    {{ errorMessage }}
                 </p>
             </center>
             <a href="javascript:;" class="btn-fail" @click="closeWindow">
@@ -540,7 +543,7 @@
     .blinking {
         transition: 0.5s all;
         animation: blinking 2s;
-        background-color: gray !important;
+        /*background-color: gray !important;*/
         cursor: default;
     }
 
