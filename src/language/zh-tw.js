@@ -624,7 +624,7 @@ module.exports = {
     'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '當前遊戲支持最受歡迎的比特幣和以太幣進行投註、存款和提款，未來還將接受更多加密數字貨幣，敬請期待',
     'Support Mobile APP': '支持移動端設備',
     'Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.': '隨時隨地投註、充值、提款，做妳更貼心、更便捷的，更放心的平臺。敬請期待',
-    'Finally! You found the wonderland---- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
+    'Finally! You found the wonderland-- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
     'Unique play & transparent draw, only for your terrific experience in games': '公平透明的開獎算法，帶您開啟前所未有的遊戲體驗',
 
     'Bids:': '人次:',

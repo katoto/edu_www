@@ -1,8 +1,9 @@
 <template>
     <div class="banner"  v-if="banner">
-        <a href="javascript:;" class="banner-main" @click="superInPage">
+        <link>
+        <router-link class="banner-main" to="/firstCharge">
             <img src="../assets/img/lucky11/banner-jackpot.png" alt="">
-        </a>
+        </router-link>
         <a href="javascript:;" class="banner-close" @click="closeBanner"></a>
     </div>
 </template>
@@ -19,10 +20,10 @@
             closeBanner () {
                 this.banner = false
             },
-            superInPage () {
-                /* 执行到父组件 */
-                this.$emit('superBannerChange', 'superIn')
-            }
+            // superInPage () {
+            //     /* 执行到父组件 */
+            //     this.$emit('superBannerChange', 'superIn')
+            // }
         },
         computed: {},
         mounted () {

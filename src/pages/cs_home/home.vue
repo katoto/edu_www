@@ -8,21 +8,9 @@
                     <div class="col-xs-12">
                         <!--banner-->
                         <el-carousel :interval="5000">
-                            <!-- <el-carousel-item v-for="(item, index) in banner" :key="index">
-                                <div class="banner-t1" v-html="item.t1"></div>
-                                <p class="banner-t11 visible-md visible-lg">{{ item.t11 }}</p>
-                                <p class="banner-t2">{{ item.t2 }}</p>
-
-                                <a v-if="!isLog" href="javascript:;" class="banner-more" @click="onSignUp()">
-                                    <lang>Sign up now</lang>
-                                </a>
-                                <router-link v-else :to="{path: item.href}" class="banner-more">
-                                    <lang>Details </lang>
-                                </router-link>
-                            </el-carousel-item> -->
                             <el-carousel-item>
                                 <div class="banner-t1" >
-                                    <lang>Finally! You found the wonderland---- Coinsprize</lang>
+                                    <lang>Finally! You found the wonderland-- Coinsprize</lang>
                                 </div>
                                 <p class="banner-t11 visible-md visible-lg"><lang>A blockchain-based game platform with fairness and openness</lang></p>
                                 <p class="banner-t2"><lang>Unique play & transparent draw, only for your terrific experience in games</lang></p>
@@ -33,7 +21,7 @@
                                     <lang>Details </lang>
                                 </router-link>
                             </el-carousel-item>
-                            <!-- <el-carousel-item>
+                            <el-carousel-item>
                                 <div class="banner-t1" >
                                     <lang>50% Top-Up Bonus</lang>
                                 </div>
@@ -41,7 +29,7 @@
                                 <router-link to="/firstCharge" class="banner-firstCharge" >
                                     <lang>Get Bonus</lang>
                                 </router-link>
-                            </el-carousel-item> -->
+                            </el-carousel-item>
                         </el-carousel>
                     </div>
                 </div>
@@ -386,14 +374,6 @@
                         jackpot: 0
                     }
                 },
-                banner: [
-                    {
-                        t1: _('Finally! You found the wonderland---- Coinsprize'),
-                        t11: _('A blockchain-based game platform with fairness and openness'),
-                        t2: _('Unique play & transparent draw, only for your terrific experience in games'),
-                        href: '/check'
-                    }
-                ]
             }
         },
         methods: {
@@ -557,6 +537,7 @@
                 margin-top: 70px;
                 line-height: 27px;
                 font-size: 23px;
+                // font-size: 56px;
                 overflow: hidden;
                 font-weight: bold;
             }
@@ -569,7 +550,7 @@
             .banner-t2 {
                 width: 90%;
                 margin: 0 auto;
-                line-height: 14px;
+                line-height: 18px;
                 font-size: 10px;
             }
             .banner-more {
@@ -1044,9 +1025,9 @@
             }
             .el-carousel__item {
                 .banner-t1 {
-                    margin-top: 143px;
-                    line-height: 57px;
-                    font-size: 35px;
+                    margin-top: 80px;
+                    line-height: 66px;
+                    font-size: 52px;
                 }
                 .banner-t2 {
                     line-height: 28px;

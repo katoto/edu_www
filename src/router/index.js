@@ -69,9 +69,6 @@ const Home = () =>
     import('~/pages/cs_home/home')
 const home = () =>
     import('~/pages/cs_home/home')
-// 404  history
-const page404 = () =>
-    import('~/pages/404.vue')
 
 // 充值送
 const actFirstCharge = () => import('~/pages/cs_activity/cs_actFirstCharge')
@@ -168,11 +165,6 @@ let routesArr = [
                 component: luckcoinIndex
             }
         ]
-    },
-    {
-        path: '/404',
-        component: page404,
-        hidden: true
     },
     {
         path: '/account',

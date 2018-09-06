@@ -1,6 +1,7 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}" >
-        <Banner class="hide" v-on:superBannerChange="superChange"></Banner>
+        <!-- <Banner class="hide" v-on:superBannerChange="superChange"></Banner> -->
+        <Banner></Banner>
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
@@ -489,11 +490,9 @@
         <Footer class="lucky11"></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-        <!-- 首次充值广告位 -->
-        <!-- <router-link class="icon-enterWorld" :to="{path: '/firstCharge'}">
-            <img src="../../assets/img/luckyCoin/banner2.png" />
-        </router-link> -->
-
+        <a class="icon-enterWorld" @click="superChange('superIn')">
+            <img src="../../assets/img/home/jackpot-left.png" />
+        </a>
     </div>
 </template>
 
