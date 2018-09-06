@@ -244,8 +244,8 @@
             console.log(this.isFromFlag)
             this.pageInit()
         },
-        filters:{
-            linkMsg(data){
+        filters: {
+            linkMsg (data) {
                 return `${window.location.origin}/supercoin/${data}`
             }
         }

@@ -968,7 +968,6 @@ luckyCoinApi.getCurrentRoundInfo = () => {
     })
 }
 
-<<<<<<< HEAD
 luckyCoinApi.getPlayerInfoByAddress = (addr) => {
     // 页面整体信息
     addr = addr.toString()
@@ -991,10 +990,6 @@ luckyCoinApi.getPlayerInfoByAddress = (addr) => {
             }
         })
     })
-=======
-luckyCoinApi.LogbuyNums = () => {
-
->>>>>>> online
 }
 
 luckyCoinApi.testName = (regName) => {
