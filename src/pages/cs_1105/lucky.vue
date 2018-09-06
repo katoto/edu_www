@@ -491,7 +491,7 @@
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
         <a class="icon-enterWorld" @click="superChange('superIn')">
-            <img src="../../assets/img/home/jackpot-left.png" />
+            <img src="../../assets/img/lucky11/jackpot-left.png" />
         </a>
     </div>
 </template>
