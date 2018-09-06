@@ -373,7 +373,7 @@
                         goodsvalue: '',
                         jackpot: 0
                     }
-                },
+                }
             }
         },
         methods: {

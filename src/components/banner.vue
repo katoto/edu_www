@@ -19,7 +19,7 @@
         methods: {
             closeBanner () {
                 this.banner = false
-            },
+            }
             // superInPage () {
             //     /* 执行到父组件 */
             //     this.$emit('superBannerChange', 'superIn')
