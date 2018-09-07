@@ -13,7 +13,7 @@
                                     </a>
                                 </el-carousel-item>
                             </template>
-                            <template>
+                            <template v-else>
                                 <el-carousel-item>
                                     <router-link :to="{path: '/firstCharge'}" rel="nofollow">
                                         <img src="../../assets/img/luckyCoin/banner3.png" alt="">
