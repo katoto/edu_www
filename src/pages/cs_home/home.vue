@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <router-link :to="{path: '/luckycoin'}" class="game-onecoin">
+                            <router-link :to="{path: '/luckycoin/detailed/'}" class="game-onecoin">
                                 <p class="msg1"><lang>LuckyCoin</lang></p>
                                 <p class="msg2"><lang>Bid 0.01 ETH to win more</lang></p>
                                 <p class="msg3"><lang>Instant Reward</lang></p>

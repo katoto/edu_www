@@ -28,7 +28,7 @@
                     <router-link :to="{path: '/luckyslot/'}" >
                         <lang>LuckySlot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin/'}" >
+                    <router-link :to="{path: '/luckycoin/detailed/'}" >
                         <lang>LuckyCoin</lang>
                     </router-link>
                     <router-link :to="{path: '/lucky11/'}">

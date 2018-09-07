@@ -373,20 +373,30 @@
         },
         methods: {
             ...mapActions(['getUserInfo']),
-            ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids', 'betNow']),
+            ...mapActions('cs_luckycoin', ['getDetailData', 'getAllBids', 'getMyBids', 'betNow', 'getBetsList']),
             formatTime,
             numberComma,
             formatUSD,
             accMul,
             init () {
                 let params = getURLParams()
-                if (params.number) {
-                    this.number = params.number
+                if (params.number || this.number !== '') {
+                    this.number = params.number || this.number
                     this.getDetailInfo()
                     this.getAllBidsInfo()
                     this.getMyBidsInfo()
                 } else {
-                    window.location.pathname = '/luckycoin'
+                    this.getBetsList({
+                        pagesize: 1
+                    })
+                        .then(res => {
+                            let data = res.data.goods
+                            if (data && data[0]) {
+                                this.number = data[0].exceptId
+                                this.$router.replace(`/luckycoin/detailed?number=${this.number}`)
+                                this.init()
+                            }
+                        })
                 }
 
                 if (params.go) {

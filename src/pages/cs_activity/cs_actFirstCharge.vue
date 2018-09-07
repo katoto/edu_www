@@ -239,7 +239,7 @@ export default {
             }
         }
         .btnAdd{
-            margin-top:305px
+            margin-top: 291px;
         }
     }
     @media (min-width: @screen-desktop) {
@@ -259,7 +259,7 @@ export default {
                 border-radius: 8px;
             }
             .btnAdd{
-                margin-top:305px
+                margin-top: 291px;
             }
         }
     }
