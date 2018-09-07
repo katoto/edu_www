@@ -93,7 +93,7 @@
                                 <div class="input-box">
                                     <input v-model="tickNum" type="text" @input="checkTicket">
                                     <p>
-                                        @ {{ formateBalance(currTicketPrice * tickNum) }} ETH
+                                        @ {{ formateBalance( currTicketPrice * tickNum) }} ETH
                                     </p>
                                 </div>
                                 <div class="btn-choose">
@@ -208,11 +208,11 @@
                     </li>
                 </ul>
                 <!--我的购买-->
-                <div class="ticket hide">
+                <div class="ticket ">
                     <template  v-if="selfMsg">
                         <div class="explain-msg">
                             <p>
-                                You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.
+                                <lang>You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.</lang>
                             </p>
                             <p>
                                 You have not purchased this issue yet,<a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
@@ -227,50 +227,6 @@
                                     </p>
                                     <p class="money">
                                         <!--win的时候才展示 删除-->
-                                        + 10.8197 ETH
-                                    </p>
-                                    <p class="amount">
-                                        10
-                                    </p>
-                                </li>
-                                <li>
-                                    <p class="issue">
-                                        Phase 13
-                                    </p>
-                                    <p class="money">
-                                        + 10.8197 ETH
-                                    </p>
-                                    <p class="amount">
-                                        10
-                                    </p>
-                                </li>
-                                <li>
-                                    <p class="issue">
-                                        Phase 13
-                                    </p>
-                                    <p class="money">
-                                        + 10.8197 ETH
-                                    </p>
-                                    <p class="amount">
-                                        10
-                                    </p>
-                                </li>
-                                <li>
-                                    <p class="issue">
-                                        Phase 13
-                                    </p>
-                                    <p class="money">
-                                        + 10.8197 ETH
-                                    </p>
-                                    <p class="amount">
-                                        10
-                                    </p>
-                                </li>
-                                <li>
-                                    <p class="issue">
-                                        Phase 13
-                                    </p>
-                                    <p class="money">
                                         + 10.8197 ETH
                                     </p>
                                     <p class="amount">
@@ -305,6 +261,25 @@
                                 </ul>
                             </div>
                         </div>
+
+                        <!-- 分页msg  -->
+                        <div class="pagination">
+                            <el-pagination
+                                    @current-change="orderCurrentChange"
+                                    @size-change="orderSizeChange"
+                                    background
+                                    :current-page.sync="orderPageno"
+                                    size="small"
+                                    :page-sizes="[10, 25, 50, 100]"
+                                    :page-size="orderpPgeSize"
+                                    layout="sizes,prev, pager, next,jumper"
+                                    :total="orderPageTotal"
+                                    :next-text="_('Next >')"
+                                    :prev-text="_('< Previous')"
+                            >
+                            </el-pagination>
+                        </div>
+
                     </template>
                     <!--未登陆 或者 信息为空-->
                     <div class="ticket-unlogin" v-else>
@@ -553,6 +528,24 @@
                     </div>
                 </div>
 
+                <!-- 分页msg  -->
+                <div class="pagination">
+                    <el-pagination
+                            @current-change="expectCurrentChange"
+                            @size-change="expectSizeChange"
+                            background
+                            :current-page.sync="expectPageno"
+                            size="small"
+                            :page-sizes="[10, 25, 50, 100]"
+                            :page-size="expectPageSize"
+                            layout="sizes,prev, pager, next,jumper"
+                            :total="expectPageTotal"
+                            :next-text="_('Next >')"
+                            :prev-text="_('< Previous')"
+                    >
+                    </el-pagination>
+                </div>
+
             </div>
             <!--邀请-->
             <div class="invite">
@@ -627,6 +620,7 @@ import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi} from '~/dappApi/luckycoinApi'
+import {Message} from 'element-ui'
 
 Vue.use(vueClipboard)
 export default {
@@ -646,6 +640,16 @@ export default {
             currTicketPrice: null, // 单价
             allTicketPrice: null,
             maxTicketNum: null, // 最大ticket 数量
+            expectsList: null,  // 期号历史数据
+            ordersList: null, // 订单历史数据
+
+            expectPageno: 1,
+            expectPageSize: 10,
+            expectPageTotal: 10,
+
+            orderPageno: 1,
+            orderpPgeSize: 10,
+            orderPageTotal: 10,
         }
     },
     watch: {
@@ -659,9 +663,40 @@ export default {
         copyError,
         formateBalance,
         formatTime,
+        async expectCurrentChange(pageno = this.expectPageno){
+            let params = {
+                pageno,
+            }
+            let data = await this.getSuperCoinExpects(params)
+            data = data.data
+            if (data) {
+                this.expectsList = this.formatData(data.orders)
+                this.expectPageTotal = parseInt(data.counter, 10)
+            }
+        },
+        expectSizeChange(){
+
+        },
+        async orderCurrentChange(pageno = this.orderPageno){
+            let params = {
+                pageno,
+            }
+            let data = await this.getSuperCoinOrder(params)
+            data = data.data
+            if (data) {
+                this.ordersList = this.formatData(data.orders)
+                this.orderPageTotal = parseInt(data.counter, 10)
+            }
+        },
+        orderSizeChange(){
+
+        },
         checkTicket () {
             if (isNaN(Number(this.tickNum))) {
-                alert('isNaN 提示')
+                Message({
+                    message: '请输入正确的数值',
+                    type: 'error'
+                })
                 this.tickNum = 0
                 return false
             }
@@ -728,6 +763,22 @@ export default {
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
             }, 10000)
+            //  请求历史数据
+            this.expectCurrentChange()
+            //  用户投注订单记录
+            this.orderCurrentChange()
+        },
+        getSuperCoinExpects (params) {
+            return this.$store.dispatch(aTypes.superCoinExpects , {
+                pagesize: this.pageSize,
+                ...params
+            })
+        },
+        getSuperCoinOrder (params) {
+            return this.$store.dispatch(aTypes.superCoinOrder , {
+                pagesize: this.pageSize,
+                ...params
+            })
         },
         startTimeLeft () {
             // 倒计时
@@ -780,12 +831,18 @@ export default {
         async registerName () {
             let buyNameBack = null
             if (!this.beforeInviteName) {
-                alert('请输入名字')
+                Message({
+                    message: '请输入名字',
+                    type: 'error'
+                })
                 return false
             }
             // 判断是否符合规则
             if (!(this.isVerifyName(this.beforeInviteName))) {
-                alert('名字不符合规则')
+                Message({
+                    message: '名字不符合规则',
+                    type: 'error'
+                })                
                 return false
             }
             // 判断是否已经被购买
@@ -794,7 +851,10 @@ export default {
             if (checkName) {
                 buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
             } else {
-                alert('名字已被注册')
+                Message({
+                    message: '名字已被注册',
+                    type: 'error'
+                })                         
             }
         },
         async withdraw () {

@@ -25,6 +25,31 @@ const actionsInfo = mapActions({
                 duration: tipsTime
             })
         }
+    },
+
+    /* 历史轮次开奖记录 */
+    async superCoinExpects ({commit, dispatch}, pageData) {
+        try {
+            return await ajax.get(`/luckycoin/expects`, pageData)
+        } catch (e) {
+            Message({
+                message: e.message,
+                type: 'error',
+                duration: tipsTime
+            })
+        }
+    },
+    /* 用户投注订单记录 */
+    async superCoinOrder ({commit, dispatch}, pageData) {
+        try {
+            return await ajax.get(`/luckycoin/user/orders`, pageData)
+        } catch (e) {
+            Message({
+                message: e.message,
+                type: 'error',
+                duration: tipsTime
+            })
+        }
     }
 }, 'dappCoin')
 
