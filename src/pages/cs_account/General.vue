@@ -10,12 +10,13 @@
             <template v-if="userInfo">
                 <p class="my-account "><span class="js_currEmail">{{ userInfo.email }}</span>
                     <span class="js_unverifyBox">
-                    <a href="javascript:;" v-if="userInfo.status==='0'" @click="goVerify">
-                        <lang>Verify</lang>
-                    </a>
                     <a href="javascript:;" v-if="userInfo.status==='1'" style="cursor: default">
                         <lang>Verified</lang>
                     </a>
+                    <a href="javascript:;" v-else @click="goVerify">
+                        <lang>Verify</lang>
+                    </a>
+                    
                 </span>
                 </p>
                 <span class="small-explain">
