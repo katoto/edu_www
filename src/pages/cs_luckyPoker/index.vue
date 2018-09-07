@@ -713,9 +713,28 @@ export default {
             })
         },
         isRestricts (name) {
-            return accAdd(this.betNums[name], this.currentCoin) > Number(this.restricts[name])
+            let most
+            let total
+            if (this.color.indexOf(name) > -1) {
+                most = this.colorMost
+                total = this.colorTotal
+            } else if (this.joker.indexOf(name) > -1) {
+                most = this.jokerMost
+                total = this.jokerTotal
+            } else if (this.points.indexOf(name) > -1) {
+                most = this.pointsMost
+                total = this.pointsTotal
+            } else if (this.suit.indexOf(name) > -1) {
+                most = this.suitMost
+                total = this.suitTotal
+            }
+            return accMul(accAdd(total, this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
         },
         addCoin (name) {
+            if (!this.isLogin) {
+                this.$store.commit('showLoginPop')
+                return
+            }
             if (this.isRestricts(name)) {
                 this.$error('当前选项已超过投注上限')
                 return
