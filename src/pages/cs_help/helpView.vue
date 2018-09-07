@@ -154,7 +154,7 @@ export default {
         overflow: hidden;
         background: #fff;
         border-radius: 6px;
-        padding: 0 40px 70px;
+        padding: 0 percentage(40/955) 70px;
         li+li{
             margin-top: 20px;
         }
@@ -178,5 +178,17 @@ export default {
             line-height: 16px;
             font-size: 14px;
         }
+    }
+
+
+    @media (max-width: 992px) {
+        .side-nav{
+            float: none;
+            margin-right: 0;
+            width: 100%;
+        }
+    }
+    @media (max-width: 480px) {
+
     }
 </style>

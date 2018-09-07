@@ -56,7 +56,8 @@
     .page-help {
         .main {
             position: relative;
-            width: 1190px;
+            width: 92%;
+            max-width: 1190px;
             margin: 0 auto;
         }
     }
