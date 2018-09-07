@@ -31,7 +31,7 @@
             <div class="container" v-if="activeName === 'bids'">
                 <div class="row clearfix">
                     <div class=" items">
-                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in filterBets(betsList)" :key="Number(bets.pages.pageno + 1) * (index + 1) * Math.random()">
+                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in filterBets(betsList)" :key="Number(bets.pages.pageno + 1) * (index + 1)">
                             <bet-box :bet="bet" type="list" @close="closeOtherBet" ref="betBoxList" @updateBets="updateBets"></bet-box>
                         </div>
                     </div>
