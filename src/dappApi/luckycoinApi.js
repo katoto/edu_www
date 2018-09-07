@@ -972,8 +972,9 @@ luckyCoinApi.getCurrentRoundInfo = () => {
                         nextpot: Number(web3.fromWei(res[5].toNumber())),
                         luckNum: res[6].toNumber(),
                         mask: res[7].toNumber(),
-                        winner: res[8].toString(),
-                        ended: res[9].toString()
+                        playernums: res[8].toNumber(),
+                        winner: res[9].toString(),
+                        ended: res[10].toString()
                     })
                 }
             } else {
@@ -997,7 +998,8 @@ luckyCoinApi.getPlayerInfoByAddress = (addr) => {
                         win: Number(web3.fromWei(res[3].toNumber())),
                         calcTicketEarn: Number(web3.fromWei(res[4].toNumber())),
                         aff_invite: Number(web3.fromWei(res[5].toNumber())),
-                        eth: Number(web3.fromWei(res[6].toNumber()))
+                        eth: Number(web3.fromWei(res[6].toNumber())),
+                        aff_invite_nums: res[7].toNumber()
                     })
                 }
             } else {

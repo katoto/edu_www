@@ -15,16 +15,24 @@
             </div>
         </div>
         <!--status2-->
-        当前余额：{{ balance }}
+        
         <div class="banner-dapp">
-            <!--公告-->
-            <div class="message">
-                <ul style="transform: translateY(-44px)">
-                    <li>For the first 500 tickets, you can get a bet bonus!For the first 500 tickets, you can get a bet bonus!For the first 500 tickets, you can get a bet bonus!</li>
-                    <li>For the first 600 tickets, you can get a bet bonus!</li>
-                    <li>For the first 700 tickets, you can get a bet bonus!</li>
-                </ul>
-            </div>
+            <!--公告 滚动  components-->
+            <banner-scroll class="message">
+                <div class="text-scroller" style="height:100%">
+                    <ul class="scroller-in">
+                        <li>For the first 600 tickets, 当前余额：{{ balance }} you can get a bet bonus!</li>
+                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
+                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
+                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
+                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
+                        <!-- <li class="msgLis" v-for="item in recentList" >
+                            Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateSlotBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
+                        </li> -->
+                    </ul>
+                </div>
+            </banner-scroll>
+ 
             <!--draw-->
             <template v-if="roundInfo && selfMsg">
                 <div class="issue">
@@ -71,7 +79,7 @@
                                 </div>
                             </div>
                             <p class="people-all">
-                                {{ roundInfo.tickets }}
+                                {{ roundInfo.playernums }}
                             </p>
                         </div>
                         <div class="buy-area">
@@ -574,7 +582,7 @@
                             <lang>Copy</lang>
                         </a>
                         <p>
-                            You have invited: 6 people
+                            You have invited: {{ selfMsg.aff_invite_nums }} people
                         </p>
                         <p>
                             Commission awarded: <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
@@ -615,6 +623,7 @@ import {
 } from '~common/util'
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
+import BannerScroll from '~components/BannerScroll.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi} from '~/dappApi/luckycoinApi'
 
@@ -846,6 +855,7 @@ export default {
         }
     },
     components: {
+        BannerScroll
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {
