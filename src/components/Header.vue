@@ -17,7 +17,7 @@
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/luckycoin/'}" active-class="on">
+                            <router-link :to="{path: '/luckycoin/detailed/'}" active-class="on">
                                 <lang>LuckyCoin</lang>
                             </router-link>
                         </li>
