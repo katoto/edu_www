@@ -14,9 +14,14 @@
         computed: {},
         components: {},
         mounted () {
-
+            console.log(window.devicePixelRatio)
         }
     }
 </script>
 <style scope lang="less" type="text/less">
+    #test{
+        width: 375px;
+        height: 300px;
+        background: #100;
+    }
 </style>
