@@ -186,9 +186,9 @@ const actions = {
     // 加载投注列表
     getBetsList ({ commit }, params = {}) {
         return ajax.get('/bid/goods/list', {
-            ...params,
             pageno: '1',
-            pagesize: '7'
+            pagesize: '7',
+            ...params
         }).then(data => {
             commit('updateBets', data.data.goods)
             return data
