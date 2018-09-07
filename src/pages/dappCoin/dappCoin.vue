@@ -14,6 +14,575 @@
                 </div>
             </div>
         </div>
+        <!--status2-->
+        <div class="banner-dapp status2 ">
+            <!--公告-->
+            <div class="message">
+                <ul style="transform: translateY(-44px)">
+                    <li>For the first 500 tickets, you can get a bet bonus!For the first 500 tickets, you can get a bet bonus!For the first 500 tickets, you can get a bet bonus!</li>
+                    <li>For the first 600 tickets, you can get a bet bonus!</li>
+                    <li>For the first 700 tickets, you can get a bet bonus!</li>
+                </ul>
+            </div>
+            <!--draw-->
+            <div class="issue draw">
+                <p class="hide">The Phase 1</p>
+                <p>
+                    August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
+                </p>
+            </div>
+            <!--时间到准备开奖-->
+            <!--on-->
+            <p class="timeup ">
+                TIME UP!
+            </p>
+            <!--未开奖投注区-->
+            <div class="betting-area hide">
+                <div class="fr betting">
+                    <div class="item-msg">
+                        <p class="title">
+                            Reward
+                        </p>
+                        <p class="jackpot-amount">
+                            10.8197
+                        </p>
+                        <i class="jackpot-unit">
+                            ETH
+                        </i>
+                    </div>
+                    <div class="item-msg">
+                        <p class="title">
+                            End of the draw
+                        </p>
+                        <p class="countdown">
+                            00 : 45 : 02
+                        </p>
+                    </div>
+                    <div class="item-msg">
+                        <p class="title">
+                            Voting progress
+                        </p>
+                        <div class="ticket">
+                            <div class="people-purchased" data-msg="Purchased">
+                                <p>18</p>
+                            </div>
+                            <div class="ticket-progress">
+                                <i style="transform: scaleX(0.5)"></i>
+                            </div>
+                            <div class="people-remaining" data-msg="Remaining">
+                                <p>1211</p>
+                            </div>
+                        </div>
+                        <p class="people-all">
+                            115
+                        </p>
+                    </div>
+                    <div class="buy-area">
+                        <div class="fl title">
+                            <p>
+                                Buy Ticket
+                            </p>
+                        </div>
+                        <div class="fl input-wrap">
+                            <div class="input-box">
+                                <input type="text">
+                                <p>
+                                    @ 0.0005 ETH
+                                </p>
+                            </div>
+                            <div class="btn-choose">
+                                <a href="javascript:;" style="padding: 0 12px;">Min</a>
+                                <a href="javascript:;" style="flex-grow: 1">1 / 2</a>
+                                <a href="javascript:;" style="flex-grow: 1">X 2</a>
+                                <a href="javascript:;" style="padding: 0 12px;">Max</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--登录前-->
+                    <div class="btn-box hide">
+                        <a href="javascript:;" class="btn-big">Login to Metamask</a>
+                        <a href="javascript:;" class="btn-small">使用收益支付</a>
+                    </div>
+                    <!--登陆后-->
+                    <div class="btn-box ">
+                        <a href="javascript:;" class="btn-big">
+                            立即支付
+                        </a>
+                        <a href="javascript:;" class="btn-small btn-hadlogin" >
+                            <p>
+                                使用收益支付
+                            </p>
+                            <p style="font-size: 14px;">
+                                您有0.12034 ETH
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--开奖-->
+            <div class="lottery">
+                <!--总奖池-->
+                <div class="dapp-amout">
+                    <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
+                    <p>
+                        10.8197<i>ETH</i>
+                    </p>
+                </div>
+                <!--未开奖-->
+                <div class="notDraw hide">
+                    <h5>
+                        Waiting for the draw
+                    </h5>
+                    <p>
+                        Background is counting data...
+                    </p>
+                </div>
+                <!--开奖-有人中-->
+                <p class="draw-someone ">
+                    Congratulations to “0x***923” for Winning
+                </p>
+                <p class="draw-none hide">
+                    No winner of this round.<br>
+                    Prize pool will accumulate in the next round.
+                </p>
+                <!--中奖号码-->
+                <!--on-->
+                <div class="dapp-number on">
+                    <ul>
+                        <li>
+                            ?
+                        </li>
+                        <li>
+                            ?
+                        </li>
+                        <li>
+                            ?
+                        </li>
+                        <li>
+                            ?
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!--信息展示区-->
+        <div class="information ">
+            <!--四个信息-->
+            <div class="merge-info">
+                <ul class="title">
+                    <li class="on">
+                        <a href="javascript:;">
+                            My Ticket
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Income
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            History Draw
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            How To Play
+                        </a>
+                    </li>
+                </ul>
+                <!--我的购买-->
+                <div class="ticket hide">
+                    <div class="explain-msg">
+                        <p>
+                            You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.
+                        </p>
+                        <p>
+                            You have not purchased this issue yet,<a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
+                        </p>
+                    </div>
+                    <!--未登陆 或者 信息为空-->
+                    <div class="ticket-unlogin hide">
+                        <!--未登陆-->
+                        <p>
+                            No record.  Please login to the <a href="javascript:;" style="color: #6a88cc;">Metamask</a>
+                        </p>
+                        <!--信息为空-->
+                        <p class="hide">
+                            No record.
+                        </p>
+                    </div>
+                    <!--已登录-->
+                    <div class="ticket-logined">
+                        <ul>
+                            <li class="win">
+                                <p class="issue">
+                                    Phase 13
+                                </p>
+                                <p class="money">
+                                    <!--win的时候才展示 删除-->
+                                    + 10.8197 ETH
+                                </p>
+                                <p class="amount">
+                                    10
+                                </p>
+                            </li>
+                            <li>
+                                <p class="issue">
+                                    Phase 13
+                                </p>
+                                <p class="money">
+                                    + 10.8197 ETH
+                                </p>
+                                <p class="amount">
+                                    10
+                                </p>
+                            </li>
+                            <li>
+                                <p class="issue">
+                                    Phase 13
+                                </p>
+                                <p class="money">
+                                    + 10.8197 ETH
+                                </p>
+                                <p class="amount">
+                                    10
+                                </p>
+                            </li>
+                            <li>
+                                <p class="issue">
+                                    Phase 13
+                                </p>
+                                <p class="money">
+                                    + 10.8197 ETH
+                                </p>
+                                <p class="amount">
+                                    10
+                                </p>
+                            </li>
+                            <li>
+                                <p class="issue">
+                                    Phase 13
+                                </p>
+                                <p class="money">
+                                    + 10.8197 ETH
+                                </p>
+                                <p class="amount">
+                                    10
+                                </p>
+                            </li>
+                            <li>
+                                <p class="issue">
+                                    Phase 13
+                                </p>
+                                <p class="money">
+                                    + 10.8197 ETH
+                                </p>
+                                <p class="amount">
+                                    10
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--我的购买详细展开-->
+                    <!--on-->
+                    <div class="open-ticket ">
+                        <p>The No.16 , You bought 12 tickets</p>
+                        <div class="ticket-box">
+                            <ul>
+                                <li style="color: #ffa200;">
+                                    0143
+                                </li>
+                                <li>
+                                    0143
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--我的收益-->
+                <div class="income">
+                    <p class="explain-msg">
+                        You can withdraw your dividends at any time, invite rewards and winning prizes.
+                    </p>
+                    <div class="income-item">
+                        <p>
+                            Dividend
+                        </p>
+                        <span>
+                            1.9837 ETH
+                        </span>
+                    </div>
+                    <div class="income-item">
+                        <p>
+                            Invitation
+                        </p>
+                        <span>
+                            1.9837 ETH
+                        </span>
+                    </div>
+                    <div class="income-item">
+                        <p>
+                            Winning
+                        </p>
+                        <span>
+                            1.9837 ETH
+                        </span>
+                    </div>
+                    <div class="income-item income-item-last">
+                        <p>
+                            Total revenue
+                        </p>
+                        <div>
+                            <span>
+                                1.9837 ETH
+                            </span>
+                            <span class="usd">
+                                ≈ 231,769USD
+                            </span>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="btn-withdrawal">
+                        Withdrawal
+                    </a>
+                </div>
+                <!--历史开奖-->
+                <div class="historyDraw hide">
+                    <ul class="historyDraw-head">
+                        <li class="issue">Phase</li>
+                        <li class="winningNumbers">Winning Numbers</li>
+                        <li class="bonus">Bonus</li>
+                        <li class="winner">Winner</li>
+                    </ul>
+                    <ul class="historyDraw-main">
+                        <li>
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                waitting...
+                            </p>
+                        </li>
+                        <li>
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                No Winner
+                            </p>
+                        </li>
+                        <li class="win">
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                0x23...233
+                            </p>
+                        </li>
+                        <li>
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                waitting...
+                            </p>
+                        </li>
+                        <li>
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                No Winner
+                            </p>
+                        </li>
+                        <li class="win">
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                0x23...233
+                            </p>
+                        </li>
+                        <li>
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                waitting...
+                            </p>
+                        </li>
+                        <li>
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                No Winner
+                            </p>
+                        </li>
+                        <li>
+                            <p class="issue">
+                                #100testtesttesttest
+                            </p>
+                            <p class="winningNumbers">
+                                0001testtestv
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETHtesttest
+                            </p>
+                            <p class="winner">
+                                No WinnertesttestWinnertesttestWinnertesttestWinnertesttest
+                            </p>
+                        </li>
+                        <li class="win">
+                            <p class="issue">
+                                #100
+                            </p>
+                            <p class="winningNumbers">
+                                0001
+                            </p>
+                            <p class="bonus">
+                                10.8197 ETH
+                            </p>
+                            <p class="winner">
+                                0x23...233
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <!--游戏教程-->
+                <div class="instructions hide">
+                    <div class="explain-msg">
+                        <p>
+                            Brief Introduction:
+                        </p>
+                        <p>
+                            LuckyCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!
+                        </p>
+                        <p>
+                            Gameplay:
+                        </p>
+                        <p>
+                            1. At the beginning of the game, there will be a 10 ETH-prize pool and 3000 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).
+                        </p>
+                        <p>
+                            2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy the dividend. More tickets bring more dividend.
+                        </p>
+                        <p>
+                            3. If there's no winner of the round, the prize pool will accumulate in next round, and the ticket price will be adjusted as well.
+                        </p>
+                        <p>
+                            Kind Reminder:
+                        </p>
+                        <p>
+                            Playing on PC: MetaMask is recommended to install (download from <a href="https://metamask.io/" target="_blank" style="color: #ff8a00;">https://metamask.io/</a>).
+                        </p>
+                        <p>
+                            Playing on mobile: Trust, Cipher, Jaxx and other mobile wallets are recommended to use.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--邀请-->
+            <div class="invite">
+                <ul class="title">
+                    <li class="on">
+                        <a href="javascript:;">
+                            Invite
+                        </a>
+                    </li>
+                </ul>
+                <p class="explain-msg">
+                    Buy a promotion link, invite friends to participate in the game through this link, you will get 10% commission on his bet
+                </p>
+                <!--邀请前-->
+                <div class="invite-before ">
+                    <div class="input-group">
+                        <input type="text" placeholder="Please enter your preferred name">
+                        <a href="javascript:;"></a>
+                    </div>
+                    <p>
+                        Name rule <br>
+                        1. Need is unique (database only)<br>
+                        2. within 32 characters<br>
+                        3. A-Z (letter lowercase)<br>
+                        4. Allow numbers, but not pure numbers<br>
+                        5. no special characters and spaces
+                    </p>
+                    <a href="javascript:;" class="btn-gobuy">
+                        Purchase with 0.001ETH
+                    </a>
+                </div>
+                <!--邀请后-->
+                <div class="invite-after hide">
+                    <div class="my-link">
+                        <p class="link-msg">
+                            Your promotion link
+                        </p>
+                        <p class="mydomain">
+                            http://coinsprize.com/money
+                        </p>
+                        <a href="javascript:;" class="btn-copy">
+                            Copy
+                        </a>
+                        <p>
+                            You have invited: 6 people
+                        </p>
+                        <p>
+                            Commission awarded: <i style="color: #53e864;">0.8888 ETH</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -742,4 +1311,35 @@
         }
     }
 </style>
-
+<style scoped lang="less" type="text/less">
+    @import "../../styles/lib-mixins.less";
+    @media (max-width: 480px) {
+        .head-dapp{
+            .head-dapp-wrap{
+                .px2rem(height,100);
+                .logo{
+                    p{
+                        display: none;
+                    }
+                }
+                .fr-msg{
+                    a{
+                        margin-left: 45px;
+                        font-size: 28px;
+                    }
+                    .btn-home{
+                        width: 32px;
+                        background-size: 32px;
+                    }
+                    .invite{
+                        &::before{
+                            width: 27px;
+                            background: url("../../assets/img/superCoin/icon-gift.png") no-repeat center;
+                            background-size: 27px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+</style>
