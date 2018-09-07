@@ -5,44 +5,44 @@
             <div class="main-detailed flex">
                 <!--eth/btc  normal/win/fail/finished/expired -->
                 <div class="itemluck" :class="[betStatus, coinText.toLowerCase()]">
-                    <div class="item-left">
-                        <div class="match-img">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="110" height="110">
-                                <defs>
-                                    <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
-                                        <stop offset="0%" stop-color="#f7aa17"></stop>
-                                        <stop offset="100%" stop-color="#f19221"></stop>
-                                    </linearGradient>
-                                    <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
-                                        <stop offset="0%" stop-color="#ef8a25"></stop>
-                                        <stop offset="100%" stop-color="#f19221"></stop>
-                                    </linearGradient>
-                                </defs>
-                                <g transform="matrix(0,-1,1,0,0,110)">
-                                    <circle cx="55" cy="55" r="50" stroke-width="10" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
-                                    <circle
-                                        cx="55"
-                                        cy="55"
-                                        r="50"
-                                        stroke="url(#yellowColor1)"
-                                        stroke-width="10"
-                                        fill="transparent"
-                                        :stroke-dasharray="`${rate > 157 ? rate : 0} 314`"
-                                    />
-                                    <circle
-                                        cx="55"
-                                        cy="55"
-                                        r="50"
-                                        stroke="url(#yellowColor2)"
-                                        stroke-width="10"
-                                        fill="transparent"
-                                        :stroke-dasharray="`${rate > 157 ? 157 : rate} 314`"
-                                    />
-                                </g>
-                            </svg>
-                        </div>
+                    <div class="match-img">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="110" height="110">
+                            <defs>
+                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor1">
+                                    <stop offset="0%" stop-color="#f7aa17"></stop>
+                                    <stop offset="100%" stop-color="#f19221"></stop>
+                                </linearGradient>
+                                <linearGradient x1="1" y1="0" x2="0" y2="0" id="yellowColor2">
+                                    <stop offset="0%" stop-color="#ef8a25"></stop>
+                                    <stop offset="100%" stop-color="#f19221"></stop>
+                                </linearGradient>
+                            </defs>
+                            <g transform="matrix(0,-1,1,0,0,110)">
+                                <circle cx="55" cy="55" r="50" stroke-width="10" stroke="rgba(255,255,255,0.05)" fill="transparent"/>
+                                <circle
+                                    cx="55"
+                                    cy="55"
+                                    r="50"
+                                    stroke="url(#yellowColor1)"
+                                    stroke-width="10"
+                                    fill="transparent"
+                                    :stroke-dasharray="`${rate > 157 ? rate : 0} 314`"
+                                />
+                                <circle
+                                    cx="55"
+                                    cy="55"
+                                    r="50"
+                                    stroke="url(#yellowColor2)"
+                                    stroke-width="10"
+                                    fill="transparent"
+                                    :stroke-dasharray="`${rate > 157 ? 157 : rate} 314`"
+                                />
+                            </g>
+                        </svg>
                     </div>
-                    <div class="item-right">
+                    <div class="item-left hidden-xs hidden-sm">
+                    </div>
+                    <div class="item-right ">
                         <!--hot/bet-->
                         <div class="icon-box hot bet">
                             <i class="icon-hot" v-if="goodsinfo.ishot === '1'">H</i>
@@ -62,7 +62,7 @@
                             {{endTimeText}}
                         </div>
                         <div class="item-prize">
-                            {{goodsinfo.goodsValue}} <i>{{coinText}}</i>
+                            {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
                         </div>
                         <div class="item-usd">
                             {{formatUSD(goodsinfo.coinprice.USD, goodsinfo.goodsValue)}} USD
@@ -193,7 +193,7 @@
                                 <lang>Try Later</lang>
                             </a>
                         </div>
-                        <div class="bet- bet-balance" :class="{ show: showDeposit }">
+                        <div class="bet- bet-balance " :class="{ show: showDeposit }">
                             <a href="javascript:;" class="bet-close" @click="showDeposit = false"></a>
                             <div class="bet-icon"></div>
                             <p class="bet-t">
@@ -208,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tips" v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'">
+                <div class="detailedtips hidden-xs hidden-sm" v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'">
                 </div>
             </div>
             <div class="main-detailed">
@@ -931,6 +931,80 @@
             }
         }
     }
+    @media (max-width: 768px) {
+        .luckyCoinDetailed{
+            .el-table{
+                thead{
+                    tr{
+                        display: flex;
+                        padding: 0 4%;
+                    }
+                    th{
+                        flex: 1;
+                        text-align: center;
+                        text-indent: 0;
+                        &:nth-child(2){
+                            text-align: center;
+                            text-indent: 0;
+                        }
+                        &:nth-child(3){
+                            div{
+                                margin-right: 0;
+                                text-align: center;
+                            }
+                        }
+                        &:nth-child(4){
+                            div{
+                                margin-right:0;
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+                tbody{
+                    tr{
+                        display: flex;
+                        padding: 0 4%;
+                        td{
+                            flex: 1;
+                            text-align: center;
+                        }
+                    }
+                    .selfwin{
+                        margin-left: 0;
+                        padding-left: 0;
+                        text-align: center;
+                        &::before{
+                            content: '';
+                            display: none;
+                        }
+                    }
+                    .allnum{
+                        padding-right: 0;
+                        text-align: center;
+                    }
+                    .icon-amount{
+                        padding-right: 0;
+                        text-align: center;
+                        &::after{
+                            content: '';
+                            display: none;
+                        }
+                    }
+                }
+                tr{
+                    &.mywin{
+                        .selfwin{
+                            color: #ffca28;
+                            &::before{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 </style>
 <style scope lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
@@ -979,7 +1053,7 @@
         box-sizing: border-box;
     }
     .main-detailed{
-        width: 100%;
+        width: 92%;
         max-width: 1000px;
         margin: 0 auto;
         &.flex{
@@ -993,23 +1067,26 @@
         color: #fff;
         transition: all 0.2s;
         overflow: hidden;
+        border-radius: 6px;
+        .match-img{
+            width: 110px;
+            height: 110px;
+            position: absolute;
+            z-index: 2;
+            left: (196-110)/2px;
+            top: 0;
+            transform: translate(0,38px);
+            transition: all 0.2s;
+        }
         .item-left{
             position: relative;
             width: 196px;
             height: 301px;
             overflow: hidden;
-            .match-img{
-                width: 110px;
-                height: 110px;
-                position: absolute;
-                left: 50%;
-                top: 0;
-                transform: translate(-50%,38px);
-            }
         }
         .item-right{
             flex: 1;
-            padding: 21px 40px 0;
+            padding: 21px percentage(40/600) 0;
             position: relative;
             background: #401f56;
             transition: all 0.2s;
@@ -1051,19 +1128,13 @@
                 position: absolute;
                 top: 53px;
                 right: 35px;
+                padding-left: 38px;
                 line-height: 27px;
                 font-size: 24px;
                 color: #ffffff;
                 font-weight: bold;
-                &::before{
-                    content: '';
-                    display: block;
-                    float: left;
-                    margin-right: 15px;
-                    width: 23px;
-                    height: 27px;
-                    background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
-                }
+                background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat left center;
+                background-size: 23px;
                 &.hour{
                     color: #fff;
                 }
@@ -1075,11 +1146,7 @@
                 }
                 &.min{
                     animation: heartbeat 2s infinite;
-                    &::before{
-                        background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat center;
-                    }
                 }
-
             }
             .item-prize{
                 height: 71px;
@@ -1220,8 +1287,8 @@
             transform: translateY(200%);
             .text-overflow();
             &.btn-normal{
-                width: 520px;
-                left: 40px;
+                max-width: percentage(520/600);
+                left: percentage(40/600);
                 bottom: 24px;
                 background: #f67c22;
                 border-radius: 6px;
@@ -1234,7 +1301,7 @@
                 left: 0;
                 bottom: 0;
                 background: #3fc06f;
-                padding: 0 30px;
+                padding: 0 percentage(30/600);
                 p{
                     position: relative;
                     float: left;
@@ -1244,17 +1311,8 @@
                     font-size: 20px;
                     font-weight: bold;
                     .text-overflow();
-                    &::before{
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        top: 15px;
-                        left: 10px;
-                        width: 28px;
-                        height: 25px;
-                        overflow: hidden;
-                        background: url("../../assets/img/luckyCoin/icon-champion-win.png") no-repeat center
-                    }
+                    background: url("../../assets/img/luckyCoin/icon-champion-win.png") no-repeat left center;
+                    background-size: 28px;
                 }
                 a{
                     display: block;
@@ -1282,18 +1340,9 @@
                     font-size: 20px;
                     font-weight: bold;
                     color: #755c35;
+                    background: url("../../assets/img/luckyCoin/icon-champion.png") no-repeat left center;
+                    background-size: 28px;
                     .text-overflow();
-                    &::before{
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        top: 15px;
-                        left: 10px;
-                        width: 28px;
-                        height: 25px;
-                        overflow: hidden;
-                        background: url("../../assets/img/luckyCoin/icon-champion.png") no-repeat center
-                    }
                 }
                 a{
                     display: block;
@@ -1342,16 +1391,9 @@
             }
             .main-normal{
                 .input-box {
-                    &::before {
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        left: 11px;
-                        top: 15px;
-                        width: 16px;
-                        height: 16px;
-                        background: url("../../assets/img/luckyCoin/icon-btc-sm.png") no-repeat center;
-                        background-size: cover;
+                    input{
+                        background:#3c1e6e url("../../assets/img/luckyCoin/icon-btc-sm.png") no-repeat 11px center;
+                        background-size: 16px;
                     }
                 }
             }
@@ -1365,16 +1407,9 @@
             }
             .main-normal{
                 .input-box{
-                    &::before{
-                        content: '';
-                        display: block;
-                        position: absolute;
-                        left: 11px;
-                        top: 15px;
-                        width: 16px;
-                        height: 16px;
-                        background: url("../../assets/img/luckyCoin/icon-eth-sm.png") no-repeat center;
-                        background-size: cover;
+                    input{
+                        background:#3c1e6e url("../../assets/img/luckyCoin/icon-eth-sm.png") no-repeat 11px center;
+                        background-size: 16px;
                     }
                 }
             }
@@ -1552,7 +1587,7 @@
             }
         }
     }
-    .tips{
+    .detailedtips{
         width: 204-30px;
         margin-left: 30px;
         line-height: 25px;
@@ -1622,7 +1657,7 @@
             line-height: 52px;
         }
         .item-number{
-            padding: 13px 30px 13px;
+            padding: 13px percentage(30/1000) 13px;
             background: #321740;
             border-radius: 6px;
             overflow: hidden;
@@ -1666,3 +1701,213 @@
         }
     }
 </style>
+<style scope lang="less" type="text/less">
+    @media (max-width: 992px) {
+        .itemluck{
+            .match-img{
+                right: 6.6667%;
+                left: auto;
+                top: 40%;
+                transform-origin: right center;
+                transform: translate(0, -50%) scale(0.5);
+                svg {
+                    -webkit-transform: rotate(-0.05deg);
+                    transform: rotate(-0.05deg);
+                }
+            }
+            .btn{
+                height: 40px;
+                line-height: 40px;
+                &.normal{
+                    font-size: 20px;
+                }
+                &.btn-win{
+                    p{
+                        padding-left: 0;
+                        font-size: 14px;
+                        background: none;
+                    }
+                    a{
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+                &.btn-fail{
+                    p{
+                        padding-left: 0;
+                        font-size: 14px;
+                        background: none;
+                    }
+                    a{
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .item-right{
+                .item-time{
+                    min-width: 70px;
+                    top: 38px;
+                    right: 6.667%;
+                    padding-left: 20px;
+                    background-size: 23/2px;
+                    font-size: 12px;
+                }
+                .item-prize{
+                    height: 44px;
+                    line-height: 44px;
+                    font-size: 40px;
+                    i{
+                        font-size: 20px;
+                    }
+                }
+            }
+            .item-main{
+                .main-left{
+                    >div{
+                    }
+                }
+                .main-right {
+                    >div{
+                        float: none;
+                    }
+                }
+                .main-normal{
+                    p{
+
+                    }
+                    .input-box{
+                        height: 40px;
+                        line-height: 38px;
+                        input{
+                            height: 38px;
+                            border-width: 1px;
+                            font-size: 18px;
+                            text-indent: 0;
+                            text-align: center;
+                            background-size: 14px;
+                        }
+                        a{
+                            font-size: 16px;
+                        }
+                    }
+                }
+                .main-win,.main-fail{
+                    font-size: 18px;
+                }
+                .main-finished{
+                    p{
+
+                    }
+                    span{
+
+                    }
+                }
+                .main-expired{
+                    span{
+
+                    }
+                    p{
+
+                    }
+                }
+                .main-right{
+
+                    >div{
+
+                    }
+                    a{
+
+                        &:hover{
+
+                        }
+                    }
+                }
+            }
+            &.win{
+                &::after{
+                    right: 25%;
+                    bottom: 20px;
+                    width: 91/2px;
+                    height: 91/2px;
+                }
+            }
+            .bet-success{
+                padding: 20px percentage(30/600) 0;
+                .bet-icon{
+                    width: 40px;
+                    height: 40px;
+                }
+                .bet-t{
+                    line-height: 45px;
+                    font-size: 20px;
+                }
+                .btn-box{
+                    width: 90%;
+                    height: 38px;
+                    left: 5%;
+                    bottom: 37px;
+                    a{
+                        height: 100%;
+                        line-height: 38px;
+                        font-size: 16px;
+                    }
+                }
+            }
+            .bet-fail{
+                padding: 20px percentage(30/600) 0;
+                .bet-icon{
+                    width: 40px;
+                    height: 40px;
+                }
+                .bet-t{
+                    line-height: 45px;
+                    font-size: 20px;
+                }
+                .bet-m{
+                    text-align: center;
+                    max-height: 60px;
+                    line-height: 20px;
+                    font-size: 16px;
+                }
+                .btn-fail{
+                    line-height: 43px;
+                    font-size: 20px;
+                }
+            }
+            .bet-balance{
+                padding: 20px percentage(30/600) 0;
+                .bet-icon{
+                    width: 63px;
+                    height: 60px;
+                }
+                .bet-t{
+                    line-height: 45px;
+                    font-size: 20px;
+                }
+                .bet-m{
+                    text-align: center;
+                    max-height: 60px;
+                    line-height: 20px;
+                    font-size: 16px;
+                }
+                .btn-balance{
+                    line-height: 43px;
+                    font-size: 20px;
+                }
+            }
+        }
+        .mybets .msg1{
+            line-height: 30px;
+        }
+        .pop-bet{
+            .pop-body{
+                width: 100%;
+            }
+        }
+    }
+    @media (max-width: 480px) {
+
+    }
+</style>
+

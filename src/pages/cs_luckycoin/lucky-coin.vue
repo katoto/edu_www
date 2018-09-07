@@ -8,7 +8,7 @@
             <lang>Congratulations!</lang> {{ otherWin.name }} <i><lang>WINS</lang> {{ otherWin.num }} {{ otherWin.type }}</i>
         </div>
         <!--:class="{show:selfWin.isShow}"-->
-        <div class="self-winning " :class="{show: selfWin.isShow}">
+        <div class="self-winning" :class="{show: selfWin.isShow}">
             <div class="main2">
                 <div class="bounceIn animated">
                     <a href="javascript:;" class="close" @click="hideMyWin"></a>
@@ -155,7 +155,7 @@ export default {
         z-index:100;
         transform: translate(-50%, 100%);
         background: url("../../assets/img/luckyCoin/bg-congratulate.jpg") no-repeat center;
-        background-size: cover;
+        background-size: 1190px;
         text-align: center;
         color: #fff;
         font-weight: bold;
@@ -712,7 +712,7 @@ export default {
         .match.match-popular{
             transform: translate3d(0,0,0);
             margin-top: 20px;
-            padding: 26px 30px 74px;
+            padding: 26px 0 74px 30px;
             .match-img{
                 width: 102px;
                 height: 102px;
@@ -727,7 +727,7 @@ export default {
             }
             .match-prize{
                 line-height: 46px;
-                font-size: 36px;
+                font-size: 32px;
                 .payfor{
                     display: inline-block;
                 }
@@ -1147,8 +1147,13 @@ export default {
 
     /* sm小屏幕（平板，大于等于 768px） */
 
-    @media (min-width: @screen-tablet) {
-
+    @media (max-width: @screen-tablet) {
+        .self-winning{
+            .main2{
+                top: 50px;
+                transform: translateX(-50%) scale(0.56);
+            }
+        }
     }
 
     /* md中等屏幕（桌面显示器，大于等于 992px） */

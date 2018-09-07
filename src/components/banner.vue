@@ -1,6 +1,5 @@
 <template>
     <div class="banner"  v-if="banner">
-        <link>
         <router-link class="banner-main" to="/firstCharge">
             <img src="../assets/img/lucky11/banner-jackpot.png" alt="">
         </router-link>
@@ -31,17 +30,22 @@
         }
     }
 </script>
-<style scoped lang="less">
+<style scoped lang="less" type="text/less">
     .banner{
         position: relative;
-        height:90px;
-        overflow: hidden;
+        width: 100%;
+        background: #2a1236;
         .banner-main{
             display: block;
-            position: absolute;
+            position: relative;
             left:50%;
-            margin-left:-960px;
-            height:90px;
+            transform:translate(-50%);
+            width: 100%;
+            min-width: 800px;
+            img{
+                display: block;
+                width: 100%;
+            }
         }
         .banner-close{
             display: block;
