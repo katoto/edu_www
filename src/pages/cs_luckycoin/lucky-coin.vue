@@ -121,6 +121,10 @@ export default {
         margin-bottom: 10px !important;
     }
     .page-luckycoin{
+        .main{
+            background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat center top;
+            background-size: 1920px;
+        }
         .red{
             color: #ff5b4a;
         }
@@ -247,9 +251,7 @@ export default {
         }
     }
     .page-luckycoin{
-        background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat center top;
-        background-size: 1920px;
-        .lucky-index{
+        .main{
             padding: 36px 0 50px 0;
         }
         .title{
@@ -911,13 +913,14 @@ export default {
             li{
                 position: relative;
                 height: 58px;
+                line-height: 58px;
                 border-top: 1px solid #412057;
                 overflow: hidden;
             }
             .email{
                 float: left;
                 width: 60%;
-                line-height: 50px;
+                /*line-height: 50px;*/
                 font-size: 16px;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -927,9 +930,9 @@ export default {
                 position: relative;
                 float: right;
                 padding-right: 26px;
-                margin-top: 12px;
+                /*margin-top: 12px;*/
                 width: 40%;
-                line-height: 16px;
+                /*line-height: 16px;*/
                 font-size: 14px;
                 text-align: right;
                 overflow: hidden;
@@ -940,7 +943,8 @@ export default {
                     display: block;
                     position: absolute;
                     right: 0;
-                    top: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
                     width: 16px;
                     height: 16px;
                 }

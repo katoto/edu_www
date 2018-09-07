@@ -9,7 +9,7 @@
                     <lang>Withdrawal Limit</lang>
                 </p>
                 <p class="msg">
-                    <lang>Maximum Withdrawal = 1/10 * Effective Bet Amount + All Former Withdrawal Amount</lang>
+                    <lang>Maximum Withdrawal = 1/20 * Effective Bet Amount + All Former Withdrawal Amount</lang>
                 </p>
                 <p class="msg">
                     <lang>(* Effective Bet Amount = Bet Amount in Lucky11 + 1/5 Bet Amount in Slot)</lang>
@@ -24,7 +24,7 @@
                 </p>
                 <p class="msg">
                     <lang>All bonus from activities on the platform is non-withdrawable</lang>
-                    <span><lang>(* To unlock the non-withdrawable, you need to bid 10 times of the non-withdrawable amount.)</lang></span>
+                    <span><lang>(* To unlock the non-withdrawable, you need to bid 20 times of the non-withdrawable amount.)</lang></span>
                 </p>
             </li>
             <li>

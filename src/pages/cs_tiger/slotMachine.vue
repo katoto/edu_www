@@ -370,11 +370,11 @@
                         <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                         <div class="title">
                             <div v-if="currBalance.cointype==='2001'">
-                                <p>Copy the Ethereum wallet address</p>
+                                <p><lang>Copy the Ethereum wallet address</lang></p>
                                 <p>(<lang>only supports ETH</lang>)</p>
                             </div>
                             <div v-if="currBalance.cointype==='1001'">
-                                <p >Copy the Bitcoin wallet address</p>
+                                <p ><lang>Copy the Bitcoin wallet address</lang></p>
                                 <p>(<lang>only supports BTC</lang>)</p>
                             </div>
                         </div>
@@ -466,7 +466,7 @@ import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalan
 import Vue from 'vue'
 import vueClipboard from 'vue-clipboard2'
 
-import {Howl, Howler} from 'howler'
+import {Howl} from 'howler'
 Vue.use(vueClipboard)
 
     export default {
@@ -2320,9 +2320,9 @@ Vue.use(vueClipboard)
     @media (min-width: @screen-phone) {
         .tiger-pc{
             position: relative;
-            top:0;
-            left:50%;
-            transform: translateX(-50%);
+            /*top:0;*/
+            /*left:50%;*/
+            /*transform: translateX(-50%);*/
             width: 100%;
             height: 586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
@@ -2349,6 +2349,7 @@ Vue.use(vueClipboard)
         .tiger-contain{
             background:#000 url("../../assets/img/tiger/bg-tiger-bak.png") no-repeat center top;
             background-size: 100%;
+            height: 100%;
         }
     }
     .footer{

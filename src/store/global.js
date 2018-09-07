@@ -160,33 +160,6 @@ const actions = {
                     })
                     commit('setCurrBalance', userMsg.data.accounts[findIndex])
                     commit('setUserInfo', userMsg.data)
-                    // 邀请 活动
-                    // userMsg.data.tasks = [{
-                    //     "tid": 1,
-                    //     "maintype": 1,
-                    //     "subtype": 2,
-                    //     "taskstatus": "0"
-                    // }];
-                    //  旧的
-                    // let newTask = []
-                    // userMsg.data.tasks.forEach((val, index) => {
-                    //     if (val.subtype.toString() === '2' && val.taskstatus.toString() === '0') {
-                    //         newTask.push(val)
-                    //     }
-                    // })
-                    // if (newTask.length > 0) {
-                    //     commit('inviteTips', true)
-                    // }
-                    // 取回之前数据
-                    // let newInvite = {
-                    //     status: userMsg.data.status
-                    // }
-                    // if (state && state.pop.loginSucc && state.pop.loginSucc.login_times) {
-                    //     Object.assign(newInvite, {
-                    //         login_times: state.pop.loginSucc.login_times
-                    //     })
-                    // }
-                    // commit('setLoginSucc', newInvite)
                 }
             }
             return userMsg
@@ -245,8 +218,8 @@ const actions = {
                                 dispatch(aTypes.formate_expectid, msg.data.expectid)
                             }
                             /*
-                                     *  处理 区块链阻塞
-                                     * */
+                            *  处理 区块链阻塞
+                            * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
                             // msg.data.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
@@ -318,6 +291,10 @@ const actions = {
                             if (msg.data) {
                                 dispatch(actionTypes.formateTiger, msg.data)
                             }
+                            break
+                        case '20011':
+                            //  首充充值奖励
+                            commit('cs_activity/sockMsg', msg.data)
                             break
                         case '2002':
                             // 老虎机初始化
@@ -464,11 +441,20 @@ const actions = {
     subInTiger ({commit, state, dispatch}) {
         /* 进入老虎机页面 订阅 */
         try {
-            let subTigerStr = {
-                action: 'sub',
-                lotid: 1,
-                cointype: 2001,
-                type: 'slots'
+            let subTigerStr = null
+            if (state.userInfo && state.userInfo.uid) {
+                subTigerStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    uid: state.userInfo.uid,
+                    type: 'slots'
+                }
+            } else {
+                subTigerStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    type: 'slots'
+                }
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
         } catch (e) {
@@ -484,7 +470,6 @@ const actions = {
             let unsubTigerStr = {
                 action: 'unsub',
                 lotid: 1,
-                cointype: 2001,
                 type: 'slots'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
@@ -495,11 +480,20 @@ const actions = {
     subInLucky ({commit, state, dispatch}) {
         /* 进入lucky11页面 订阅 */
         try {
-            let subLuckyStr = {
-                action: 'sub',
-                cointype: 2001,
-                lotid: 1,
-                type: 'lottery'
+            let subLuckyStr = null
+            if (state.userInfo && state.userInfo.uid) {
+                subLuckyStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    uid: state.userInfo.uid,
+                    type: 'lottery'
+                }
+            } else {
+                subLuckyStr = {
+                    action: 'sub',
+                    lotid: 1,
+                    type: 'lottery'
+                }
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
         } catch (e) {
@@ -515,7 +509,6 @@ const actions = {
             let unsubLuckyStr = {
                 action: 'unsub',
                 lotid: 1,
-                cointype: 2001,
                 type: 'lottery'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
@@ -523,11 +516,21 @@ const actions = {
             console.error(e.message + 'subOutLucky error')
         }
     },
-    subInLuckyCoin ({dispatch}) {
-        let data = {
-            action: 'sub',
-            lotid: 2,
-            type: 'lottery'
+    subInLuckyCoin ({state, dispatch}) {
+        let data = null
+        if (state.userInfo && state.userInfo.uid) {
+            data = {
+                action: 'sub',
+                lotid: 2,
+                uid: state.userInfo.uid,
+                type: 'lottery'
+            }
+        } else {
+            data = {
+                action: 'sub',
+                lotid: 2,
+                type: 'lottery'
+            }
         }
         if (state.userInfo && state.userInfo.uid) {
             data.uid = state.userInfo.uid

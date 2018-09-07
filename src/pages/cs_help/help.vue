@@ -1,7 +1,7 @@
 <template>
     <div class="page-help">
         <Header></Header>
-        <div class="main" @click="initPop">
+        <div class="main flex1" @click="initPop">
             <BreadCrumbs
                 :data="[{ name: _('Home'), path: '/' }, { name: _('Help Center'), path: '/help' }]"></BreadCrumbs>
             <router-view :dataMenu="dataMenu"></router-view>
@@ -56,9 +56,8 @@
     .page-help {
         .main {
             position: relative;
-            max-width: 1190px;
+            width: 1190px;
             margin: 0 auto;
-            overflow: hidden;
         }
     }
 </style>
