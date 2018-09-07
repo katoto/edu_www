@@ -7,11 +7,19 @@
             <el-tabs v-model="params.type" @tab-click="handleTabClick">
                 <el-tab-pane :label="_('Lucky11')" name="lucky11"></el-tab-pane>
                 <el-tab-pane :label="_('LuckyCoin')" name="luckycoin"></el-tab-pane>
+                <el-tab-pane :label="_('LuckyPoker')" name="luckyPoker"></el-tab-pane>
             </el-tabs>
             <div class="check-input">
                 <div class="check-enter">
                     <h2><lang>Draw Result Checking</lang></h2>
-                    <input type="text" :placeholder="_('Enter Draw No.')" v-model="issueNumber" @keyup.enter="issueInputEnterHandler">
+                    <div v-if="params.type === 'luckyPoker'" class="poker-form">
+                        <input type="text" :placeholder="$lang.poker.a28" v-model="params.luckyPoker.clientSeed" class="input-seed">
+                        <input type="text" :placeholder="$lang.poker.a29" v-model="params.luckyPoker.serverSeed">
+                        <p v-if="params.luckyPoker.serverHash !== ''">{{$lang.poker.a32}}</p>
+                        <input type="text" v-model="params.luckyPoker.serverHash" v-if="params.luckyPoker.serverHash !== ''" readonly>
+                    </div>
+                    <input type="text" :placeholder="_('Enter Draw No.')" v-model="issueNumber" @keyup.enter="issueInputEnterHandler" v-else>
+                    
                     <p>
                         <a href="/luckycoin/drawHistory" target="_blank" v-if="params.type === 'luckycoin'">
                             <lang>Find No. in Draw Records</lang>
@@ -23,7 +31,7 @@
                 </div>
                 <a href="javascript:;" class="btn-verification" @click="verifyHandler"><lang>Check Now</lang></a>
                 <!--rollIn animated-->
-                <div class="checkout-result rollIn animated" :class="{ 'rollIn animated': isChecked }">
+                <div class="checkout-result" :class="{ 'rollIn animated': isChecked }">
                     <h3><lang>Draw Result</lang></h3>
                     <div class="result-view">
                         <!--lucky11-->
@@ -40,24 +48,24 @@
                         </div>
                         <!--luckyPoker v-if="params.type === 'luckyPoker'"-->
                         <div class="poker-check">
-                            <p>111</p>
+                            <p>{{params.luckyPoker.shaModNumber}}</p>
                             <p class="mark">>>></p>
                             <!--icon-fk/icon-hongt/icon-mh/icon-heit/joker-->
-                            <div class="poker-item icon-hongt">
-                                <p>1</p>
+                            <div class="poker-item" :class="[getDiceClass()]">
+                                <p>{{getDiceText()}}</p>
                             </div>
                         </div>
                     </div>
-                    <h4 class="poker-t" style="margin-top: 33px">Synthetic random number :</h4>
-                    <p class="poker-m">Ab7a3e7e292b8af5c68afd727fbd6e43a5a2c22fd61f1ba9af65c32c6f5e051bd82a2374a31986dc8e008f37f60625a14a4bda702a1494bf316addf049f5f15f</p>
+                    <h4 class="poker-t" style="margin-top: 33px">{{$lang.poker.a30}} :</h4>
+                    <p class="poker-m">{{params.luckyPoker.shaResult}}</p>
                     <div style="line-height: 48px;">
-                        <h4 class="poker-t fl" >Generate decimal :</h4>
-                        <p class="poker-m fl">165863</p>
+                        <h4 class="poker-t fl" >{{$lang.poker.a31}} :</h4>
+                        <p class="poker-m fl">{{params.luckyPoker.shaNumber}}</p>
                     </div>
                 </div>
             </div>
             <!--步骤说明-->
-            <div class="check-explain">
+            <div class="check-explain" :class="{ hide: params.type === 'luckyPoker' }">
                 <div class="step-title">
                     <lang>Draw Process</lang>
                 </div>
@@ -79,9 +87,10 @@
             <!--输入前-->
             <p class="before-input" :class="{ hide: isChecked }"></p>
             <!--输入后-->
-            <div class="after-input" :class="{ hide: !isChecked || params.type === 'lucky11' && lucky11Status === 'wait' }">
+            <div class="after-input" :class="{ hide: !isChecked || (params.type === 'lucky11' && lucky11Status === 'wait') }" :style="{ visibility: params.type === 'luckyPoker' ? 'hidden': 'visible' }">
                 <lucky11 :number="number" :result.sync="luck11Result" :status.sync="lucky11Status" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
                 <luckycoin :number="number" :result.sync="luckyCoinResult" :status.sync="luckyCoinStatus" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
+                
                 <div class="relate-msg">
                     <p><lang>Notes</lang></p>
                     <p v-lang="'1. What is <a href=https://en.wikipedia.org/wiki/Hexadecimal target=_blank>hash</a>? <a href=https://www.tools4noobs.com/online_tools/hash/ target=_blank>How to calculate hash</a>?'">
@@ -107,7 +116,7 @@
     import Lucky11 from './components/lucky11'
     import Luckycoin from './components/luckycoin'
     import { getURLParams } from '~common/util'
-    
+    import { mapActions } from 'vuex'
     export default {
         data () {
             return {
@@ -116,7 +125,6 @@
                 luckyCoinResult: '',
                 luckyCoinStatus: '',
                 issueNumber: '',
-                type: 'lucky11',
                 params: {
                     lucky11: {
                         number: '',
@@ -126,26 +134,44 @@
                         number: '',
                         isChecked: false
                     },
+                    luckyPoker: {
+                        isChecked: false,
+                        result: 0,
+                        clientSeed: '',
+                        serverSeed: '',
+                        serverHash: '',
+                        shaResult: '0',
+                        shaNumber: '',
+                        shaModNumber: ''
+                    },
                     type: 'lucky11'
                 }
             }
         },
         methods: {
+            ...mapActions('cs_luckypoker', [
+                'check'
+            ]),
             getURLParams,
             init () {
                 var params = this.getURLParams()
                 if (params.type) {
                     let type = {
                         'lucky11': 1,
-                        'luckycoin': 2
+                        'luckycoin': 2,
+                        'luckypoker': 3
                     }[params.type.toLowerCase()] || 1
-                    this.params.type = ['lucky11', 'luckycoin'][type - 1]
-                    this.params.type = this.params.type
+                    this.params.type = ['lucky11', 'luckycoin', 'luckyPoker'][type - 1]
                 }
                 if (params.number) {
                     this.params[this.params.type].number = params.number
                     this.issueNumber = this.number
                     this.getData()
+                }
+                if (params.serverseed && params.clientseed) {
+                    this.params[this.params.type].serverSeed = params.serverseed
+                    this.params[this.params.type].clientSeed = params.clientseed
+                    this.getPokerData()
                 }
             },
             handleTabClick () {
@@ -160,7 +186,52 @@
             verifyHandler () {
                 this.getData()
             },
+            getPokerData () {
+                return this.check({
+                    server_seed: this.params.luckyPoker.serverSeed,
+                    client_seed: this.params.luckyPoker.clientSeed
+                })
+                    .then(res => {
+                        this.params.luckyPoker.serverHash = res.data.server_hash
+                        this.params.luckyPoker.shaResult = res.data.sha_result
+                        this.params.luckyPoker.shaNumber = res.data.raw_number
+                        this.params.luckyPoker.shaModNumber = res.data.result_number
+                        this.params.luckyPoker.isChecked = true
+                    })
+            },
+            getDiceClass (type = this.params.luckyPoker.shaModNumber) {
+                type = Number(type)
+                if (type >= 0 && type <= 12) {
+                    return 'icon-hongt'
+                } else if (type >= 13 && type <= 25) {
+                    return 'icon-heit'
+                } else if (type >= 26 && type <= 38) {
+                    return 'icon-fk'
+                } else if (type >= 39 && type <= 51) {
+                    return 'icon-mh'
+                } else {
+                    return 'joker'
+                }
+            },
+            getDiceText (type = this.params.luckyPoker.shaModNumber) {
+                type = Number(type)
+                let points = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+                if (type >= 0 && type <= 12) {
+                    return points[type]
+                } else if (type >= 13 && type <= 25) {
+                    return points[type - 13]
+                } else if (type >= 26 && type <= 38) {
+                    return points[type - 26]
+                } else if (type >= 39 && type <= 51) {
+                    return points[type - 39]
+                } else {
+                    return ''
+                }
+            },
             getData () {
+                if (this.params.type === 'luckyPoker') {
+                    return this.getPokerData()
+                }
                 if (!this.verifyNumber()) {
                     this.$error(_('No. should consist of 10 numbers. You can check No. from draw history.'))
                     return
@@ -203,7 +274,7 @@
                 }[this.params.type]
             },
             number () {
-                return this.params[this.params.type].number
+                return this.params[this.params.type].number || ''
             },
             isChecked () {
                 return this.params[this.params.type].isChecked
@@ -220,6 +291,19 @@
 <style scoped lang="less" type="text/less">
     .page-check{
         background: #242240;
+    }
+    .poker-form {
+        width: 400px;
+        p {
+            padding-bottom: 0 !important;
+        }
+        input {
+            text-indent: 0 !important;
+            padding: 0 10px;
+        }
+        .input-seed {
+            margin-bottom: 5px;
+        }
     }
     /deep/.main{
         position: relative;

@@ -31,6 +31,9 @@ const actions = {
     },
     bet ({commit}, params = {}) {
         return ajax.post('/dice/bet', params)
+    },
+    check ({commit}, params = {}) {
+        return ajax.get('/dice/provably_fair', params)
     }
 }
 
