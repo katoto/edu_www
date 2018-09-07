@@ -1,7 +1,9 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}" >
         <!-- <Banner class="hide" v-on:superBannerChange="superChange"></Banner> -->
-        <Banner></Banner>
+        <Banner v-if="adList.home_top_1 && adList.home_top_1.length>0" ></Banner>
+        <Banner v-else></Banner>
+
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
@@ -490,9 +492,17 @@
         <Footer class="lucky11"></Footer>
         <div style="z-index: 100" id="jsLoading" class="loading"></div>
 
-        <a class="icon-enterWorld" @click="superChange('superIn')">
-            <img src="../../assets/img/lucky11/jackpot-left.png" />
-        </a>
+        <template v-if="adList.lucky11_right_1 && adList.lucky11_right_1.length>0">
+            <a v-for="(item,index) in adList.lucky11_right_1" :key=index :href="item.ad_target" :title="item.ad_desc" class="icon-enterWorld">
+                <img :src="item.ad_img" />
+            </a>
+        </template>
+        <template v-else>
+            <a class="icon-enterWorld" @click="superChange('superIn')">
+                <img src="../../assets/img/lucky11/jackpot-left.png" />
+            </a>
+        </template>
+
     </div>
 </template>
 
@@ -586,6 +596,9 @@
             },
             bet_limit () {
                 return this.$store.state.cs_1105.bet_limit
+            },
+            adList () {
+                return this.$store.state.adList
             }
 
         },

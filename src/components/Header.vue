@@ -509,6 +509,7 @@
                     }
                 }
             }, 10000)
+            this.$store.dispatch('adList')
         }
     }
 </script>

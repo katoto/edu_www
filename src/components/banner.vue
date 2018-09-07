@@ -1,8 +1,15 @@
 <template>
-    <div class="banner"  v-if="banner">
-        <router-link class="banner-main" to="/firstCharge">
-            <img src="../assets/img/lucky11/banner-jackpot.png" alt="">
-        </router-link>
+    <div class="banner" v-if="banner">
+        <template v-if="adList.home_top_1 && adList.home_top_1.length>0">
+            <a v-for="(item,index) in adList.home_top_1" :key="index" :href="item.ad_target" :title="item.ad_desc" class="banner-main" >
+                <img :src="item.ad_img" alt="">
+            </a>
+        </template>
+        <template v-else>
+            <router-link class="banner-main" to="/firstCharge">
+                <img src="../assets/img/lucky11/banner-jackpot.png" alt="">
+            </router-link>
+        </template>
         <a href="javascript:;" class="banner-close" @click="closeBanner"></a>
     </div>
 </template>
@@ -24,7 +31,11 @@
             //     this.$emit('superBannerChange', 'superIn')
             // }
         },
-        computed: {},
+        computed: {
+            adList () {
+                return this.$store.state.adList
+            }
+        },
         mounted () {
 
         }
