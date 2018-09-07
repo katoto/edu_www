@@ -315,8 +315,8 @@
                     this.betValue = this.minValue
                     return
                 }
-                if (this.betValue / 2 >= this.minValue) {
-                    this.betValue = this.formatBidValue(this.betValue / 2)
+                if (accDiv(this.betValue, 2) >= this.minValue) {
+                    this.betValue = this.formatBidValue(accDiv(this.betValue, 2))
                 } else if (this.betValue > this.minValue) {
                     this.betValue = this.minValue
                 }
@@ -328,11 +328,11 @@
                     return
                 }
                 if (this.betValue === 0) {
-                    this.betValue = this.formatBidValue(this.minValue * 2)
+                    this.betValue = this.formatBidValue(accMul(this.minValue, 2))
                     return
                 }
-                if (this.betValue * 2 <= this.maxValue) {
-                    this.betValue = this.formatBidValue(this.betValue * 2)
+                if (accMul(this.betValue, 2) <= this.maxValue) {
+                    this.betValue = this.formatBidValue(accMul(this.betValue, 2))
                 } else if (this.betValue < this.maxValue) {
                     this.betValue = this.maxValue
                 }
