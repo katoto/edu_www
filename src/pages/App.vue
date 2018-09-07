@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import {isLog, defaultLanguage} from '~common/util'
+    import {isLog, defaultLanguage, isForbitPage} from '~common/util'
     export default {
         data () {
             return {
@@ -48,14 +48,21 @@
             this.isReady = true
 
             /* 老虎机和首页 */
-            if (!(this.socket && this.socket.sock)) {
-                this.$store.dispatch('initWebsocket', () => {
-                    this.$store.dispatch('homeInfo')
-                    setTimeout(function () {
-                        document.getElementById('csLoading').style.display = 'none'
-                    }, 0)
-                })
+            if(isForbitPage()){
+                setTimeout(function () {
+                    document.getElementById('csLoading').style.display = 'none'
+                }, 0)
+            }else{
+                if (!(this.socket && this.socket.sock)) {
+                    this.$store.dispatch('initWebsocket', () => {
+                        this.$store.dispatch('homeInfo')
+                        setTimeout(function () {
+                            document.getElementById('csLoading').style.display = 'none'
+                        }, 0)
+                    })
+                }
             }
+
             /* 禁止左右滚动 */
             let xStart, xEnd, yStart, yEnd
             document.addEventListener('touchstart', function (evt) {

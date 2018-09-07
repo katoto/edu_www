@@ -97,10 +97,10 @@
                                     </p>
                                 </div>
                                 <div class="btn-choose">
-                                    <a href="javascript:;" style="padding: 0 12px;">Min</a>
-                                    <a href="javascript:;" style="flex-grow: 1">1 / 2</a>
-                                    <a href="javascript:;" style="flex-grow: 1">X 2</a>
-                                    <a href="javascript:;" style="padding: 0 12px;">Max</a>
+                                    <a href="javascript:;" style="padding: 0 12px;" @click="chooseMin">Min</a>
+                                    <a href="javascript:;" style="flex-grow: 1" @click="chooseHalf">1 / 2</a>
+                                    <a href="javascript:;" style="flex-grow: 1" @click="chooseDouble">X 2</a>
+                                    <a href="javascript:;" style="padding: 0 12px;" @click="chooseMax">Max</a>
                                 </div>
                             </div>
                         </div>
@@ -644,7 +644,8 @@ export default {
             nowFormateTime: null, // 格式化的时间
             nowTimeInterval: null,
             currTicketPrice: null, // 单价
-            allTicketPrice: null
+            allTicketPrice: null,
+            maxTicketNum: null, // 最大ticket 数量
         }
     },
     watch: {
@@ -666,52 +667,35 @@ export default {
             }
             this.tickNum = this.tickNum > 1500 ? 1500 : this.tickNum
         },
+        chooseMin(){
+            this.tickNum = 1;
+        },
         chooseHalf () {
-            this.betValue = Number(this.betValue)
-            if (isNaN(this.betValue)) {
-                this.betValue = this.minValue
+            this.tickNum = Number(this.tickNum)
+            if (isNaN(this.tickNum)) {
+                this.tickNum = 1
                 return
             }
-            if (this.betValue === 0) {
-                this.betValue = this.minValue
+            if (this.tickNum === 0) {
+                this.tickNum = 1 * 2
                 return
             }
-            if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue
-                return
-            }
-            if (this.betValue / 2 >= this.minValue) {
-                this.betValue = this.formatBidValue(this.betValue / 2)
-            } else if (this.betValue > this.minValue) {
-                this.betValue = this.minValue
-            }
+            Math.ceil(this.tickNum / 2) >= 1 ? this.tickNum = Math.ceil(this.tickNum / 2) : this.tickNum = 1
         },
         chooseDouble () {
-            this.betValue = Number(this.betValue)
-            if (isNaN(this.betValue)) {
-                this.betValue = this.minValue
+            this.tickNum = Number(this.tickNum)
+            if (isNaN(this.tickNum)) {
+                this.tickNum = 1
                 return
             }
-            if (this.betValue === 0) {
-                this.betValue = this.formatBidValue(this.minValue * 2)
+            if (this.tickNum === 0) {
+                this.tickNum = 1 * 2
                 return
             }
-            if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue
-                return
-            }
-            if (this.betValue * 2 <= this.maxValue) {
-                this.betValue = this.formatBidValue(this.betValue * 2)
-            } else if (this.betValue < this.maxValue) {
-                this.betValue = this.maxValue
-            }
+            this.tickNum * 2 <= this.maxTicketNum ? this.tickNum = this.tickNum * 2 : this.tickNum = this.maxTicketNum
         },
         chooseMax () {
-            if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue
-                return
-            }
-            this.betValue = this.maxValue
+            this.tickNum = this.maxTicketNum
         },
         isVerifyName (name) {
             let regaz = /^[a-z0-9\-\s]+$/
@@ -732,10 +716,15 @@ export default {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
             this.getCurrentRoundInfo()
-            this.getPlayerInfoByAddress()
+            await this.getPlayerInfoByAddress()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             this.startTimeLeft()
+            if (this.balance && Number(this.balance) > 0) {
+                this.maxTicketNum = Math.floor( Number(this.balance ) / Number(this.currTicketPrice) ) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor( Number(this.balance ) / Number(this.currTicketPrice) )
+            }else{
+                this.maxTicketNum = 1500 - this.roundInfo.tickets
+            }
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
             }, 10000)

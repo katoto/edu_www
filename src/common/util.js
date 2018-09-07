@@ -20,9 +20,19 @@ export function mapActions (acts, ns) {
 }
 
 export const platform = 'pc'
-// export const platform = (function () {
-// return ~navigator.userAgent.indexOf('iPhone') ? 'ios' : 'android'
-// })()
+
+export function isForbitPage () {
+    // 无需要刷接口 (禁止请求页面接口、websocket)
+    let forbitName = ['/supercoin']
+    let isForbit = false
+    for (let i = 0, len = forbitName.length;i < len;i++) {
+        if (window.location.href.indexOf(forbitName[i]) > -1) {
+            isForbit = true
+            break
+        }
+    }
+    return isForbit
+}
 
 export function mapMutations (muts, ns) {
     const mTypes = {}

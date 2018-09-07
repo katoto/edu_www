@@ -21,7 +21,6 @@
                                     <img src="../../assets/img/luckyCoin/banner2.png" alt="">
                                 </a>
                             </el-carousel-item>
-
                         </el-carousel>
                     </div>
                 </div>
