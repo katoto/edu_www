@@ -767,7 +767,7 @@ export default {
         async getCurrentRoundInfo () {
             // 获取页面相关信息
             this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
-            this.calVotingLen = `transform: scaleX(${ this.roundInfo.tickets / 1500 })`
+            this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets / 1500})`
         },
         async buyNum () {
             // 购买号码
