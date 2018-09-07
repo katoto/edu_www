@@ -146,13 +146,14 @@
 
     .footer {
         position: relative;
-        min-height: 310px;
+        height: 310px;
         z-index: 5;
         background: #151515;
         color: rgba(255, 255, 255, 0.4);
         line-height: 24px;
         font-size: 14px;
         overflow: hidden;
+        flex-shrink: 0;
         &.lucky11{
             border-top: 50px solid #eef1f9;
             //用border代替margin挡住冒泡
