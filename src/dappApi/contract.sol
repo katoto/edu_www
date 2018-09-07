@@ -61,7 +61,7 @@ contract LuckyCoin is Coinevents{
      address community_addr = 0x5d07DD9FC10C2cb223dfa0F1ddaA889e4ceff2b5;
      address activate_addr1 = 0x5d07DD9FC10C2cb223dfa0F1ddaA889e4ceff2b5;
      address activate_addr2 = 0xca35b7d915458ef540ade6068dfe2f44e8fa733c;
-     PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0xb214ec61f7ea299782ed4506b992236c96f29a3a);
+     PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0x5a4dd5075b3ccbe60303df470d9be1cbb34264e0);
 
     //**************** ROUND DATA ****************
     mapping (uint256 => Coindatasets.Round) public round_;   // (rID => data) round data
@@ -181,7 +181,7 @@ contract LuckyCoin is Coinevents{
           
     }
     
-    function buyXname(bytes32 _affCode, uint _tickets)
+    function buyXname(uint _tickets, bytes32 _affCode)
           isWithinLimits(msg.value, _tickets)
           isTicketsLimits(_tickets)
           public 
@@ -216,7 +216,7 @@ contract LuckyCoin is Coinevents{
         buyTicket(_pID, _affID, _tickets);
     }
     
-    function reLoadXaddr(address _affCode, uint _tickets)
+    function reLoadXaddr(uint256 _tickets, address _affCode)
         public
     {
         // fetch player id
@@ -228,6 +228,29 @@ contract LuckyCoin is Coinevents{
         else{
            // get affiliate ID from aff Code 
             _affID = pIDxAddr_[_affCode];
+            // if affID is not the same as previously stored 
+            if (_affID != plyr_[_pID].laff)
+            {
+                // update last affiliate
+                plyr_[_pID].laff = _affID;
+            }
+        }
+        reloadTickets(_pID, _affID, _tickets);
+    }
+    
+        
+    function reLoadXname(uint256 _tickets, bytes32 _affCode)
+        public
+    {
+        // fetch player id
+        uint256 _pID = pIDxAddr_[msg.sender];
+        uint256 _affID;
+        if (_affCode == '' || _affCode == plyr_[_pID].name){
+            _affID = plyr_[_pID].laff;
+        }
+        else{
+           // get affiliate ID from aff Code 
+             _affID = pIDxName_[_affCode];
             // if affID is not the same as previously stored 
             if (_affID != plyr_[_pID].laff)
             {
@@ -334,6 +357,8 @@ contract LuckyCoin is Coinevents{
          // if player is new to round
         if (plyrRnds_[_pID][_rID].tickets == 0)
             managePlayer(_pID);
+            round_[rID_].playernums += 1;
+            plyrRnds_[_affID][_rID].affnums += 1;
 
         // ********** buy ticket *************
         uint tickets = round_[rID_].tickets;
@@ -659,7 +684,7 @@ contract LuckyCoin is Coinevents{
     function getCurrentRoundInfo() 
         public
         view
-        returns(uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256, address, bool)
+        returns(uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256, address, bool)
     {
         // setup local rID
         uint256 _rID = rID_;
@@ -673,6 +698,7 @@ contract LuckyCoin is Coinevents{
             round_[_rID].nextpot,
             round_[_rID].lucknum,
             round_[_rID].mask,
+            round_[_rID].playernums,
             round_[_rID].winner,
             round_[_rID].ended
         );
@@ -681,7 +707,7 @@ contract LuckyCoin is Coinevents{
     function getPlayerInfoByAddress(address _addr)
         public 
         view 
-        returns(uint256, bytes32, uint256, uint256, uint256, uint256, uint256)
+        returns(uint256, bytes32, uint256, uint256, uint256, uint256, uint256, uint256)
     {
         // setup local rID
         uint256 _rID = rID_;
@@ -701,7 +727,8 @@ contract LuckyCoin is Coinevents{
             plyr_[_pID].win,                    //3
             plyr_[_pID].gen.add(calcTicketEarnings(_pID, _lrnd)),  //4
             plyr_[_pID].aff,                    //5
-            plyrRnds_[_pID][_rID].eth           //6
+            plyrRnds_[_pID][_rID].eth,           //6
+            plyrRnds_[_pID][_rID].affnums        // 7
         );
     }
 
@@ -784,6 +811,7 @@ library Coindatasets {
         uint256 lucknum;  // win num
         uint256 nextpot;  // next pot
         uint256 blocknum; // current blocknum
+        uint256 playernums; // playernums
       }
       
     struct Player {
@@ -807,6 +835,7 @@ library Coindatasets {
         uint256 eth;    // eth player has added to round
         uint256 tickets;   // tickets
         uint256 mask;  // player mask,
+        uint256 affnums;
         uint256 luckytickets; // player luckytickets
     }
 }

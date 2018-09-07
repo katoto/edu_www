@@ -2,7 +2,7 @@ import Web3 from 'web3'
 // 合约addr
 // let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
 // 合约addr 下
-let contractAddr = '0xde983bf739354252bb774d9d222b516995921e74'
+let contractAddr = '0x77c73a4f9eb5a69e70abc378ff504eed58275d03'
 
 let web3 = window.web3
 let contractAbi = [
@@ -504,6 +504,10 @@ let contractAbi = [
             },
             {
                 'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
                 'type': 'address'
             },
             {
@@ -532,6 +536,10 @@ let contractAbi = [
             {
                 'name': '',
                 'type': 'bytes32'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
             },
             {
                 'name': '',
@@ -744,6 +752,10 @@ let contractAbi = [
                 'type': 'uint256'
             },
             {
+                'name': 'affnums',
+                'type': 'uint256'
+            },
+            {
                 'name': 'luckytickets',
                 'type': 'uint256'
             }
@@ -832,6 +844,10 @@ let contractAbi = [
             },
             {
                 'name': 'blocknum',
+                'type': 'uint256'
+            },
+            {
+                'name': 'playernums',
                 'type': 'uint256'
             }
         ],
@@ -927,7 +943,6 @@ let contractAbi = [
         'type': 'function'
     }
 ]
-
 // or
 if (typeof web3 === 'undefined') {
     // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/WlvljmHqo75RhK1w1QJF"));
@@ -991,7 +1006,7 @@ luckyCoinApi.getPlayerInfoByAddress = (addr) => {
         })
     })
     let getBalance = new Promise((resolve, reject) => {
-        web3.eth.getBalance(addr,(err,res) => {
+        web3.eth.getBalance(addr, (err, res) => {
             if (!err) {
                 if (res) {
                     resolve(web3.fromWei(res.toNumber()))

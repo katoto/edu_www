@@ -15,7 +15,8 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp status2 ">
+        当前余额：{{ balance }}
+        <div class="banner-dapp">
             <!--公告-->
             <div class="message">
                 <ul style="transform: translateY(-44px)">
@@ -25,102 +26,107 @@
                 </ul>
             </div>
             <!--draw-->
-            <div class="issue draw">
-                <p class="hide">The Phase 1</p>
-                <p>
-                    August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
-                </p>
-            </div>
+            <template v-if="roundInfo && selfMsg">
+                <div class="issue">
+                    <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
+                    <p class="hide">
+                        August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
+                    </p>
+                </div>
+                <!--未开奖投注区-->
+                <div class="betting-area ">
+                    <div class="fr betting">
+                        <div class="item-msg">
+                            <p class="title">
+                                Reward
+                            </p>
+                            <p class="jackpot-amount">
+                                 {{ formateBalance(roundInfo.jackpot) }}
+                            </p>
+                            <i class="jackpot-unit">
+                                ETH
+                            </i>
+                        </div>
+                        <div class="item-msg">
+                            <p class="title">
+                                End of the draw
+                            </p>
+                            <p class="countdown">
+                                {{ nowFormateTime }}
+                            </p>
+                        </div>
+                        <div class="item-msg">
+                            <p class="title">
+                                Voting progress
+                            </p>
+                            <div class="ticket">
+                                <div class="people-purchased" :data-msg="_('Purchased')">
+                                    <p>{{ selfMsg.tickets }}</p>
+                                </div>
+                                <div class="ticket-progress">
+                                    <i style="transform: scaleX(0.5)"></i>
+                                </div>
+                                <div class="people-remaining" :data-msg="_('Remaining')">
+                                    <p>{{ 1500 - roundInfo.tickets }}</p>
+                                </div>
+                            </div>
+                            <p class="people-all">
+                                {{ roundInfo.tickets }}
+                            </p>
+                        </div>
+                        <div class="buy-area">
+                            <div class="fl title">
+                                <p>
+                                    Buy Ticket
+                                </p>
+                            </div>
+                            <div class="fl input-wrap">
+                                <div class="input-box">
+                                    <input v-model="tickNum" type="text" @input="checkTicket">
+                                    <p>
+                                        @ {{ formateBalance(currTicketPrice * tickNum) }} ETH
+                                    </p>
+                                </div>
+                                <div class="btn-choose">
+                                    <a href="javascript:;" style="padding: 0 12px;">Min</a>
+                                    <a href="javascript:;" style="flex-grow: 1">1 / 2</a>
+                                    <a href="javascript:;" style="flex-grow: 1">X 2</a>
+                                    <a href="javascript:;" style="padding: 0 12px;">Max</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--登录前-->
+                        <div class="btn-box hide">
+                            <a href="javascript:;" class="btn-big">Login to Metamask</a>
+                            <a href="javascript:;" class="btn-small">使用收益支付</a>
+                        </div>
+                        <!--登陆后-->
+                        <div class="btn-box ">
+                            <a href="javascript:;" class="btn-big" @click="buyNum">
+                                立即支付
+                            </a>
+                            <a href="javascript:;" class="btn-small btn-hadlogin" >
+                                <p>
+                                    使用收益支付
+                                </p>
+                                <p style="font-size: 14px;">
+                                    您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </template>
+
             <!--时间到准备开奖-->
             <!--on-->
             <p class="timeup ">
                 TIME UP!
             </p>
-            <!--未开奖投注区-->
-            <div class="betting-area hide">
-                <div class="fr betting">
-                    <div class="item-msg">
-                        <p class="title">
-                            Reward
-                        </p>
-                        <p class="jackpot-amount">
-                            10.8197
-                        </p>
-                        <i class="jackpot-unit">
-                            ETH
-                        </i>
-                    </div>
-                    <div class="item-msg">
-                        <p class="title">
-                            End of the draw
-                        </p>
-                        <p class="countdown">
-                            00 : 45 : 02
-                        </p>
-                    </div>
-                    <div class="item-msg">
-                        <p class="title">
-                            Voting progress
-                        </p>
-                        <div class="ticket">
-                            <div class="people-purchased" data-msg="Purchased">
-                                <p>18</p>
-                            </div>
-                            <div class="ticket-progress">
-                                <i style="transform: scaleX(0.5)"></i>
-                            </div>
-                            <div class="people-remaining" data-msg="Remaining">
-                                <p>1211</p>
-                            </div>
-                        </div>
-                        <p class="people-all">
-                            115
-                        </p>
-                    </div>
-                    <div class="buy-area">
-                        <div class="fl title">
-                            <p>
-                                Buy Ticket
-                            </p>
-                        </div>
-                        <div class="fl input-wrap">
-                            <div class="input-box">
-                                <input type="text">
-                                <p>
-                                    @ 0.0005 ETH
-                                </p>
-                            </div>
-                            <div class="btn-choose">
-                                <a href="javascript:;" style="padding: 0 12px;">Min</a>
-                                <a href="javascript:;" style="flex-grow: 1">1 / 2</a>
-                                <a href="javascript:;" style="flex-grow: 1">X 2</a>
-                                <a href="javascript:;" style="padding: 0 12px;">Max</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!--登录前-->
-                    <div class="btn-box hide">
-                        <a href="javascript:;" class="btn-big">Login to Metamask</a>
-                        <a href="javascript:;" class="btn-small">使用收益支付</a>
-                    </div>
-                    <!--登陆后-->
-                    <div class="btn-box ">
-                        <a href="javascript:;" class="btn-big">
-                            立即支付
-                        </a>
-                        <a href="javascript:;" class="btn-small btn-hadlogin" >
-                            <p>
-                                使用收益支付
-                            </p>
-                            <p style="font-size: 14px;">
-                                您有0.12034 ETH
-                            </p>
-                        </a>
-                    </div>
-                </div>
-            </div>
+
             <!--开奖-->
-            <div class="lottery">
+            <div class="lottery hide">
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
@@ -167,7 +173,7 @@
 
         </div>
         <!--信息展示区-->
-        <div class="information ">
+        <div class="information">
             <!--四个信息-->
             <div class="merge-info">
                 <ul class="title">
@@ -194,16 +200,105 @@
                 </ul>
                 <!--我的购买-->
                 <div class="ticket hide">
-                    <div class="explain-msg">
-                        <p>
-                            You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.
-                        </p>
-                        <p>
-                            You have not purchased this issue yet,<a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
-                        </p>
-                    </div>
+                    <template  v-if="selfMsg">
+                        <div class="explain-msg">
+                            <p>
+                                You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.
+                            </p>
+                            <p>
+                                You have not purchased this issue yet,<a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
+                            </p>
+                        </div>
+                        <!--已登录-->
+                        <div class="ticket-logined">
+                            <ul>
+                                <li class="win">
+                                    <p class="issue">
+                                        Phase 13
+                                    </p>
+                                    <p class="money">
+                                        <!--win的时候才展示 删除-->
+                                        + 10.8197 ETH
+                                    </p>
+                                    <p class="amount">
+                                        10
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="issue">
+                                        Phase 13
+                                    </p>
+                                    <p class="money">
+                                        + 10.8197 ETH
+                                    </p>
+                                    <p class="amount">
+                                        10
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="issue">
+                                        Phase 13
+                                    </p>
+                                    <p class="money">
+                                        + 10.8197 ETH
+                                    </p>
+                                    <p class="amount">
+                                        10
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="issue">
+                                        Phase 13
+                                    </p>
+                                    <p class="money">
+                                        + 10.8197 ETH
+                                    </p>
+                                    <p class="amount">
+                                        10
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="issue">
+                                        Phase 13
+                                    </p>
+                                    <p class="money">
+                                        + 10.8197 ETH
+                                    </p>
+                                    <p class="amount">
+                                        10
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="issue">
+                                        Phase 13
+                                    </p>
+                                    <p class="money">
+                                        + 10.8197 ETH
+                                    </p>
+                                    <p class="amount">
+                                        10
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--我的购买详细展开-->
+                        <!--on-->
+                        <div class="open-ticket ">
+                            <p>The No.16 , You bought 12 tickets</p>
+                            <div class="ticket-box">
+                                <ul>
+                                    <li style="color: #ffa200;">
+                                        0143
+                                    </li>
+                                    <li>
+                                        0143
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
                     <!--未登陆 或者 信息为空-->
-                    <div class="ticket-unlogin hide">
+                    <div class="ticket-unlogin" v-else>
                         <!--未登陆-->
                         <p>
                             No record.  Please login to the <a href="javascript:;" style="color: #6a88cc;">Metamask</a>
@@ -213,139 +308,57 @@
                             No record.
                         </p>
                     </div>
-                    <!--已登录-->
-                    <div class="ticket-logined">
-                        <ul>
-                            <li class="win">
-                                <p class="issue">
-                                    Phase 13
-                                </p>
-                                <p class="money">
-                                    <!--win的时候才展示 删除-->
-                                    + 10.8197 ETH
-                                </p>
-                                <p class="amount">
-                                    10
-                                </p>
-                            </li>
-                            <li>
-                                <p class="issue">
-                                    Phase 13
-                                </p>
-                                <p class="money">
-                                    + 10.8197 ETH
-                                </p>
-                                <p class="amount">
-                                    10
-                                </p>
-                            </li>
-                            <li>
-                                <p class="issue">
-                                    Phase 13
-                                </p>
-                                <p class="money">
-                                    + 10.8197 ETH
-                                </p>
-                                <p class="amount">
-                                    10
-                                </p>
-                            </li>
-                            <li>
-                                <p class="issue">
-                                    Phase 13
-                                </p>
-                                <p class="money">
-                                    + 10.8197 ETH
-                                </p>
-                                <p class="amount">
-                                    10
-                                </p>
-                            </li>
-                            <li>
-                                <p class="issue">
-                                    Phase 13
-                                </p>
-                                <p class="money">
-                                    + 10.8197 ETH
-                                </p>
-                                <p class="amount">
-                                    10
-                                </p>
-                            </li>
-                            <li>
-                                <p class="issue">
-                                    Phase 13
-                                </p>
-                                <p class="money">
-                                    + 10.8197 ETH
-                                </p>
-                                <p class="amount">
-                                    10
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--我的购买详细展开-->
-                    <!--on-->
-                    <div class="open-ticket ">
-                        <p>The No.16 , You bought 12 tickets</p>
-                        <div class="ticket-box">
-                            <ul>
-                                <li style="color: #ffa200;">
-                                    0143
-                                </li>
-                                <li>
-                                    0143
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <!--我的收益-->
-                <div class="income">
-                    <p class="explain-msg">
-                        You can withdraw your dividends at any time, invite rewards and winning prizes.
-                    </p>
-                    <div class="income-item">
-                        <p>
-                            Dividend
+                <div class="income hide">
+                    <template v-if="selfMsg">
+                        <p class="explain-msg">
+                            You can withdraw your dividends at any time, invite rewards and winning prizes.
                         </p>
-                        <span>
-                            1.9837 ETH
-                        </span>
-                    </div>
-                    <div class="income-item">
-                        <p>
-                            Invitation
-                        </p>
-                        <span>
-                            1.9837 ETH
-                        </span>
-                    </div>
-                    <div class="income-item">
-                        <p>
-                            Winning
-                        </p>
-                        <span>
-                            1.9837 ETH
-                        </span>
-                    </div>
-                    <div class="income-item income-item-last">
-                        <p>
-                            Total revenue
-                        </p>
-                        <div>
+                        <div class="income-item">
+                            <p>
+                                Dividend
+                            </p>
                             <span>
-                                1.9837 ETH
-                            </span>
-                            <span class="usd">
-                                ≈ 231,769USD
+                                {{ selfMsg.calcTicketEarn }} ETH
                             </span>
                         </div>
+                        <div class="income-item">
+                            <p>
+                                Invitation
+                            </p>
+                            <span>
+                                {{ selfMsg.aff_invite }} ETH
+                            </span>
+                        </div>
+                        <div class="income-item">
+                            <p>
+                                Winning Prize
+                            </p>
+                            <span>
+                                {{ selfMsg.win }} ETH
+                            </span>
+                        </div>
+                        <div class="income-item income-item-last">
+                            <p>
+                                Total revenue
+                            </p>
+                            <div>
+                                <span>
+                                    {{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
+                                </span>
+                                <span class="usd">
+                                    ≈ 231,769USD
+                                </span>
+                            </div>
+                        </div>
+                        <a href="javascript:;" class="btn-withdrawal" @click="withdraw">
+                            Withdrawal
+                        </a>
+                    </template>
+                    <div v-else>
+                        <span>未登陆</span>
                     </div>
-                    <a href="javascript:;" class="btn-withdrawal">
-                        Withdrawal
-                    </a>
                 </div>
                 <!--历史开奖-->
                 <div class="historyDraw hide">
@@ -530,6 +543,7 @@
                         </p>
                     </div>
                 </div>
+
             </div>
             <!--邀请-->
             <div class="invite">
@@ -543,11 +557,35 @@
                 <p class="explain-msg">
                     Buy a promotion link, invite friends to participate in the game through this link, you will get 10% commission on his bet
                 </p>
+                                <!--邀请后-->
+                <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''">
+                    <div class="my-link">
+                        <p class="link-msg">
+                            Your promotion link
+                        </p>
+                        <p class="mydomain">
+                            {{ selfMsg.inviteLink }}
+                        </p>
+                        <a href="javascript:;"
+                            v-clipboard:copy="selfMsg.inviteLink"
+                            v-clipboard:success="copySucc"
+                            v-clipboard:error="copyError"
+                            class="btn-Copy ">
+                            <lang>Copy</lang>
+                        </a>
+                        <p>
+                            You have invited: 6 people
+                        </p>
+                        <p>
+                            Commission awarded: <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
+                        </p>
+                    </div>
+                </div>
                 <!--邀请前-->
-                <div class="invite-before ">
+                <div class="invite-before" v-else>
                     <div class="input-group">
-                        <input type="text" placeholder="Please enter your preferred name">
-                        <a href="javascript:;"></a>
+                        <input v-model="beforeInviteName" type="text" placeholder="Please enter your preferred name">
+                        <a href="javascript:;" @click="getRandomName"></a>
                     </div>
                     <p>
                         Name rule <br>
@@ -557,29 +595,9 @@
                         4. Allow numbers, but not pure numbers<br>
                         5. no special characters and spaces
                     </p>
-                    <a href="javascript:;" class="btn-gobuy">
+                    <a href="javascript:;" class="btn-gobuy" @click="registerName">
                         Purchase with 0.001ETH
                     </a>
-                </div>
-                <!--邀请后-->
-                <div class="invite-after hide">
-                    <div class="my-link">
-                        <p class="link-msg">
-                            Your promotion link
-                        </p>
-                        <p class="mydomain">
-                            http://coinsprize.com/money
-                        </p>
-                        <a href="javascript:;" class="btn-copy">
-                            Copy
-                        </a>
-                        <p>
-                            You have invited: 6 people
-                        </p>
-                        <p>
-                            Commission awarded: <i style="color: #53e864;">0.8888 ETH</i>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -587,7 +605,260 @@
 </template>
 
 <script>
+import {mTypes, aTypes} from '~/store/cs_page/dappCoin'
+import {
+    copySucc,
+    copyError,
+    formateBalance,
+    formateCoinType,
+    formatTime
+} from '~common/util'
+import {coinAffAddr} from '~common/dappConfig.js'
+import Vue from 'vue'
+import vueClipboard from 'vue-clipboard2'
+import {web3, luckyCoinApi} from '~/dappApi/luckycoinApi'
 
+Vue.use(vueClipboard)
+export default {
+    data () {
+        return {
+            balance: null,
+            beforeInviteName: null, // 准备邀请的名字  注册的名字
+            showFirstBaxi: false, // 首次提示
+            selfAddr: null,
+            isFromFlag: false, // 是否是来自邀请
+            tickNum: 1, // 购买票数
+            roundInfo: null, // getcurrentRoundInfo msg
+            selfMsg: null,
+            timeLeft: null, // 剩余时间
+            nowFormateTime: null, // 格式化的时间
+            nowTimeInterval: null,
+            currTicketPrice: null, // 单价
+            allTicketPrice: null
+        }
+    },
+    watch: {
+        isLog (val) {
+            /* 切换登陆态之后改变状态 */
+            this.changePageState()
+        }
+    },
+    methods: {
+        copySucc,
+        copyError,
+        formateBalance,
+        formatTime,
+        checkTicket () {
+            if (isNaN(Number(this.tickNum))) {
+                alert('isNaN 提示')
+                this.tickNum = 0
+                return false
+            }
+            this.tickNum = this.tickNum > 1500 ? 1500 : this.tickNum
+        },
+        chooseHalf () {
+            this.betValue = Number(this.betValue)
+            if (isNaN(this.betValue)) {
+                this.betValue = this.minValue
+                return
+            }
+            if (this.betValue === 0) {
+                this.betValue = this.minValue
+                return
+            }
+            if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                this.betValue = this.minValue
+                return
+            }
+            if (this.betValue / 2 >= this.minValue) {
+                this.betValue = this.formatBidValue(this.betValue / 2)
+            } else if (this.betValue > this.minValue) {
+                this.betValue = this.minValue
+            }
+        },
+        chooseDouble () {
+            this.betValue = Number(this.betValue)
+            if (isNaN(this.betValue)) {
+                this.betValue = this.minValue
+                return
+            }
+            if (this.betValue === 0) {
+                this.betValue = this.formatBidValue(this.minValue * 2)
+                return
+            }
+            if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                this.betValue = this.minValue
+                return
+            }
+            if (this.betValue * 2 <= this.maxValue) {
+                this.betValue = this.formatBidValue(this.betValue * 2)
+            } else if (this.betValue < this.maxValue) {
+                this.betValue = this.maxValue
+            }
+        },
+        chooseMax () {
+            if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
+                this.betValue = this.minValue
+                return
+            }
+            this.betValue = this.maxValue
+        },
+        isVerifyName (name) {
+            let regaz = /^[a-z0-9\-\s]+$/
+            let regonlyNum = /^[0-9]+$/
+            return name.length <= 32 && regaz.test(name) && !regonlyNum.test(name) && name.indexOf(' ') === -1
+        },
+        getRandomName () {
+            let getRandomKey = (list) => {
+                return Math.floor(Math.random() * list.length)
+            }
+            let randomNameArr = ['reward', 'moreMoney', 'fomo', 'index', 'quick', 'ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'figures', 'mermaid', 'barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'cream', 'ukulele', 'kazoo', 'banjo', 'singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'balloon', 'mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'decorator', 'silversmith', 'teacher', 'mechanic', 'beader', 'bobbin', 'cchapel', 'ttendant', 'foreman', 'engineering', 'mechanic', 'miller', 'moldmaker', 'beater', 'patternmaker', 'operator', 'plumber', 'sawfiler', 'foreman', 'soaper', 'engineer', 'wheelwright', 'woodworkers']
+            let randomNameArr2 = ['adamant', 'adroit', 'amatory', 'animistic', 'antic', 'arcadian', 'baleful', 'bellicose', 'bilious', 'boorish', 'calamitous', 'caustic', 'cerulean', 'comely', 'concomitant', 'contumacious', 'corpulent', 'crapulous', 'defamatory', 'didactic', 'dilatory', 'dowdy', 'efficacious', 'effulgent', 'egregious', 'endemic', 'equanimous', 'execrable', 'fastidious', 'feckless', 'fecund', 'friable', 'fulsome', 'garrulous', 'guileless', 'gustatory', 'harjd', 'heuristic', 'histrionic', 'hubristic', 'incendiary', 'insidious', 'insolent', 'intransigent', 'inveterate', 'invidious', 'irksome', 'jejune', 'jocular', 'judicious', 'lachrymose', 'limpid', 'loquacious', 'luminous', 'mannered', 'mendacious', 'meretricious', 'minatory', 'mordant', 'munificent', 'nefarious', 'noxious', 'obtuse', 'parsimonious', 'pendulous', 'pernicious', 'pervasive', 'petulant', 'platitudinous', 'precipitate', 'propitious', 'puckish', 'querulous', 'quiescent', 'rebarbative', 'recalcitant', 'redolent', 'rhadamanthine', 'risible', 'ruminative', 'sagacious', 'salubrious', 'sartorial', 'sclerotic', 'serpentine', 'spasmodic', 'strident', 'taciturn', 'tenacious', 'tremulous', 'trenchant', 'turbulent', 'turgid', 'ubiquitous', 'uxorious', 'verdant', 'voluble', 'voracious', 'wheedling', 'withering', 'zealous']
+            let newRandom = randomNameArr.concat(randomNameArr2)
+            let endPoint = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '']
+            this.beforeInviteName = newRandom[getRandomKey(newRandom)] + endPoint[getRandomKey(endPoint)]
+        },
+        async pageInit () {
+            // 初始化页面
+            this.selfAddr = await luckyCoinApi.getAccounts()
+            this.getCurrentRoundInfo()
+            this.getPlayerInfoByAddress()
+            this.timeLeft = await luckyCoinApi.getTimeLeft()
+            this.currTicketPrice = await luckyCoinApi.getBuyPrice()
+            this.startTimeLeft()
+            window.setInterval(async () => {
+                this.timeLeft = await luckyCoinApi.getTimeLeft()
+            }, 10000)
+        },
+        startTimeLeft () {
+            // 倒计时
+            this.nowTimeInterval = setInterval(() => {
+                if (this.timeLeft) {
+                    if (this.timeLeft === 0) {
+                        clearInterval(this.nowTimeInterval)
+                    }
+                    this.nowFormateTime = this.formatTime(this.timeLeft, 'HH:mm:ss')
+                    this.timeLeft--
+                }
+            }, 1000)
+        },
+        async getPlayerInfoByAddress () {
+            if (this.selfAddr) {
+                let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
+                console.log(allMsg)
+                this.selfMsg = allMsg[0]
+                this.balance = allMsg[1]
+                console.log(this.selfMsg)
+                this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
+            } else {
+                console.warn('没有取得地址msg')
+            }
+        },
+        async getCurrentRoundInfo () {
+            // 获取页面相关信息
+            this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+        },
+        async buyNum () {
+            // 购买号码
+            let buyBack = null
+            let currPrice = await luckyCoinApi.getBuyPrice()
+            if (this.currTicketPrice === 0) {
+                console.error('this.currTicketPrice 0')
+                return false
+            }
+            if (typeof this.tickNum === 'string') {
+                this.tickNum = Number(this.tickNum)
+            }
+            console.log(currPrice)
+            buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+            console.log(buyBack)
+            console.log('buyBack')
+            if (buyBack) {
+                console.log('购买成功')
+            }
+        },
+        async registerName () {
+            let buyNameBack = null
+            if (!this.beforeInviteName) {
+                alert('请输入名字')
+                return false
+            }
+            // 判断是否符合规则
+            if (!(this.isVerifyName(this.beforeInviteName))) {
+                alert('名字不符合规则')
+                return false
+            }
+            // 判断是否已经被购买
+            this.beforeInviteName = this.beforeInviteName.toString()
+            let checkName = await luckyCoinApi.testName(this.beforeInviteName)
+            if (checkName) {
+                buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
+            } else {
+                alert('名字已被注册')
+            }
+        },
+        async withdraw () {
+            let withdrawBack = await luckyCoinApi.withdraw()
+            if (withdrawBack) {
+                console.log('提款成功')
+            }
+        },
+        analysisBuyNum (bigNum) {
+            //  解析数值
+            let buyNumArr = []
+            let startIndex = 1
+            let currReduce = null
+            let betweenNum = bigNum
+            do {
+                currReduce = reduceBigNum(betweenNum)
+                if (!(currReduce.isZero)) {
+                    buyNumArr.push(startIndex)
+                }
+                betweenNum = currReduce.bigNum
+                startIndex++
+            } while (parseInt(betweenNum) !== 0)
+            return buyNumArr
+            function reduceBigNum (bigNum) {
+                bigNum = bigNum.toString()
+                let bigNumArr = bigNum.split('')
+                let endNumArr = []
+                let beforeNum = false
+                let currNum = null
+                for (let i = 0; i < bigNumArr.length; i++) {
+                    if (isNaN(Number(bigNumArr[i]))) {
+                        console.error('bigNum NaN')
+                        break
+                    }
+                    currNum = Number(bigNumArr[i])
+                    beforeNum ? endNumArr.push(Math.floor((currNum + 10) / 2)) : endNumArr.push(Math.floor((currNum) / 2))
+                    beforeNum = (currNum % 2 === 1)
+                }
+                return {
+                    bigNum: endNumArr.join(''),
+                    isZero: !beforeNum
+                }
+            }
+        }
+    },
+    computed: {
+        language () {
+            return this.$store.state.language
+        }
+    },
+    components: {
+    },
+    async mounted () {
+        if (this.$route.params && this.$route.params.inviteName) {
+            this.isFromFlag = this.$route.params.inviteName
+        } else {
+            this.isFromFlag = coinAffAddr
+        }
+        console.log(this.isFromFlag)
+        this.pageInit()
+    },
+    filters: {
+    }
+}
 </script>
 <style scoped lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
