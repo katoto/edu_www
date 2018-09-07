@@ -69,10 +69,11 @@
                             </p>
                             <div class="ticket">
                                 <div class="people-purchased" :data-msg="_('Purchased')">
-                                    <p>{{ selfMsg.tickets }}</p>
+                                    <p>{{ roundInfo.tickets }}</p>
                                 </div>
                                 <div class="ticket-progress">
-                                    <i style="transform: scaleX(0.5)"></i>
+                                    <!-- transform: scaleX(0.5) -->
+                                    <i :style="calVotingLen"></i>
                                 </div>
                                 <div class="people-remaining" :data-msg="_('Remaining')">
                                     <p>{{ 1500 - roundInfo.tickets }}</p>
@@ -756,6 +757,7 @@ export default {
                 let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
                 console.log(allMsg)
                 this.selfMsg = allMsg[0]
+                this.calVotingLen = `transform: scaleX(${ this.selfMsg.tickets / 1500 })`
                 this.balance = allMsg[1]
                 console.log(this.selfMsg)
                 this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
