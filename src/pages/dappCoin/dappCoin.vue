@@ -116,7 +116,7 @@
                             </a>
                             <!--  -->
                             <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
-                                <p>
+                                <p :class="{'buyEnough':(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
                                     使用收益支付
                                 </p>
                                 <p style="font-size: 14px;" v-if="selfMsg">
@@ -286,9 +286,9 @@
                         </div>
                     </template>
                     <!--未登陆 或者 信息为空-->
-                    <div class="ticket-unlogin">
+                    <div class="ticket-unlogin" v-if="!selfMsg">
                         <!--未登陆-->
-                        <p v-if="!selfMsg">
+                        <p>
                             No record.  Please login to the <a href="javascript:;" style="color: #6a88cc;" @click="loginMetamask">Metamask</a>
                         </p>
                         <!--信息为空 todo -->
@@ -1032,6 +1032,9 @@ export default {
         }
     }
     .banner-dapp{
+        .buyEnough{
+            color: #fff;
+        }
         position: relative;
         width: 100%;
         height: 585px;
