@@ -736,7 +736,7 @@ export default {
                 return
             }
             if (this.isRestricts(name)) {
-                this.$error('当前选项已超过投注上限')
+                this.$error(this.$lang.poker.a36)
                 return
             }
             this.$nextTick(() => {
@@ -786,15 +786,15 @@ export default {
                 return
             }
             if (this.balance < this.total) {
-                this.$error('账户余额不足')
+                this.$error(this.$lang.poker.a35)
                 return
             }
             if (this.total === 0) {
-                this.$error('请选择您认为会开出的扑克牌选项')
+                this.$error(this.$lang.poker.a34)
                 return
             }
             if (this.clientSeed === '' || this.clientSeed.length >= 128) {
-                this.$error('请输入128位以内字符客户端种子')
+                this.$error(this.$lang.poker.a33)
                 return
             }
             this.showOpen = true
@@ -808,8 +808,8 @@ export default {
                 client_seed: this.clientSeed,
                 cur_server_hash: this.hashNumber
             }).then(res => {
+                this.goto(1)
                 this.renderResult(res.data)
-                this.goto()
                 this.refresh()
                 this.clearBet()
                 this.getUserInfo()
@@ -841,9 +841,11 @@ export default {
             if (time) {
                 this.closeTimer = setTimeout(() => {
                     this.showOpen = false
+                    this.goto()
                 }, 5000)
             } else {
                 this.showOpen = false
+                this.goto()
             }
         },
         disableContext () {
