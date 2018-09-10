@@ -736,8 +736,15 @@ module.exports = {
     '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用户在活动页指定入口充值任意金额，即可奖励50%（最高奖励0.05 ETH/0.005 BTC），奖励金额不允许玩lucky coin游戏。',
     '4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.': '4.参与充值优惠的用户可选择ETH或BTC充值方式，以首次到账充值方式为准，即两种充值方式不可兼得。由于虚拟代币充值到账时间慢，平台奖励依据以首次到账金额计算，并赠送对应奖励。',
     '6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.': '6.该活动每个用户仅可享受一次。如果Coinsprize有理由怀疑同一个客户、同一组客户不止一次申领奖金或优惠，Coinsprize可随时收回任何客户或客户组的任何或全部优惠，并/或取消任何使用奖金进行的投注和因这些投注而产生的彩金。',
-    '7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.': '7.该活动最终解释权归Coinsprize所有，Coinsprize有权索回因错误派发的优惠资金，可随时对此优惠进行微改以更正笔误、提高用语清晰度或提升客户体验，并且可能随时因法律或法规要求取消此优惠。'
+    '7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.': '7.该活动最终解释权归Coinsprize所有，Coinsprize有权索回因错误派发的优惠资金，可随时对此优惠进行微改以更正笔误、提高用语清晰度或提升客户体验，并且可能随时因法律或法规要求取消此优惠。',
 
     /* activity end */
 
+    /* super coin start */
+    'Buyers who hold part/all of first 500 tickets enjoy the dividend.': '前500个Ticket可获得后面的投注分红！',
+    'Buy more tickets, get more dividend, and enjoy higher winning chance.': '购买越多，分红越多，中奖概率也越高',
+    'Click to learn easy play for starters.': '点击获取帮助，可以查看新手教程噢',
+    'Draw will proceed after tickets sold out or time\'s up.': '当倒计时结束，或凑齐人次时，游戏就开奖！',
+    'Buy the first ticket to start a new round.': '当一轮结束时，投注一笔，将开启新的一轮'
+    /* super coin end */
 }

@@ -20,14 +20,7 @@
             <banner-scroll class="message">
                 <div class="text-scroller" style="height:100%">
                     <ul class="scroller-in">
-                        <li>For the first 600 tickets, 当前余额：{{ balance }} you can get a bet bonus!</li>
-                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
-                        <li>推广宣传文案，包括奖励</li>                        
-                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
-                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
-                        <!-- <li class="msgLis" v-for="item in recentList" >
-                            Congratulate {{formateEmail( item.username , true ) }} on winning {{ formateSlotBalance ( item.prize ) }} {{ formateCoinType( item.cointype ) }}
-                        </li> -->
+                        <li v-for="(item,index) in scrollMsg" :key="index"><lang>{{ item }}</lang></li>
                     </ul>
                 </div>
             </banner-scroll>
@@ -213,15 +206,15 @@
                 </ul>
                 <!--我的购买-->
                 <div class="ticket " :class="{'hide':informationTab!=='myticket'}">
+                    <div class="explain-msg">
+                        <p>
+                            <lang>You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.</lang>
+                        </p>
+                        <p>
+                            You have not purchased this issue yet,<a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
+                        </p>
+                    </div>
                     <template  v-if="selfMsg">
-                        <div class="explain-msg">
-                            <p>
-                                <lang>You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.</lang>
-                            </p>
-                            <p>
-                                You have not purchased this issue yet,<a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
-                            </p>
-                        </div>
                         <!--已登录-->
                         <div class="ticket-logined">
                             <ul v-if="ordersList">
@@ -519,6 +512,11 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
+            scrollMsg: [
+                'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
+                'Buy more tickets, get more dividend, and enjoy higher winning chance.',
+                'Click to learn easy play for starters.'
+            ],
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
             waitWin: false, // 待开奖
@@ -561,6 +559,18 @@ export default {
         formateBalance,
         formateCoinType,
         formatTime,
+        scrollMsgChange (state) {
+            if (state === 'end') {
+                this.scrollMsg = ['Buy the first ticket to start a new round.', 'Buyers who hold part/all of first 500 tickets enjoy the dividend.']
+            } else {
+                this.scrollMsg = [
+                    'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
+                    'Buy more tickets, get more dividend, and enjoy higher winning chance.',
+                    'Click to learn easy play for starters.',
+                    'Draw will proceed after tickets sold out or time\'s up.'
+                ]
+            }
+        },
         tabEvt (evt) {
             if (evt.target.nodeName === 'A') {
                 let dataName = evt.target.getAttribute('data-name')
@@ -596,10 +606,10 @@ export default {
             this.expectPageSize = size
             this.expectCurrentChange()
         },
-        expectFormatData(list){
+        expectFormatData (list) {
             // 历史期号数据处理
-            if(list){
-                list.forEach((item,index)=>{
+            if (list) {
+                list.forEach((item, index) => {
 
                 })
             }
@@ -621,10 +631,10 @@ export default {
             this.orderpPgeSize = size
             this.orderCurrentChange()
         },
-        orderFormatData(list){
+        orderFormatData (list) {
             // 订单数据处理
-            if(list){
-                list.forEach((item,index)=>{
+            if (list) {
+                list.forEach((item, index) => {
 
                 })
             }
@@ -701,6 +711,7 @@ export default {
             if (this.timeLeft === 0) {
                 this.waitWin = true
                 this.nowFormateTime = '00:00:00'
+                this.scrollMsgChange('end')
             } else {
                 this.startTimeLeft()
             }
@@ -712,12 +723,11 @@ export default {
             }, 10000)
 
             //  用户投注订单记录  是否登录
-            if(this.selfMsg){
+            if (this.selfMsg) {
                 this.orderCurrentChange()
             }
             //  请求历史数据
             this.expectCurrentChange()
-
         },
         getSuperCoinExpects (params) {
             return this.$store.dispatch(aTypes.superCoinExpects, {
@@ -743,6 +753,8 @@ export default {
                             this.currTimeUp = flase
                             // 显示待开奖状态
                             this.waitWin = true
+                            // 更改 提示文案
+                            this.scrollMsgChange('end')
                         }, 5000)
                         clearInterval(this.nowTimeInterval)
                     }
@@ -770,7 +782,7 @@ export default {
             // 购买号码
             let buyBack = null
             let currPrice = await luckyCoinApi.getBuyPrice()
-            if(!this.selfMsg){
+            if (!this.selfMsg) {
                 this.loginMetamask()
                 return false
             }
@@ -788,7 +800,7 @@ export default {
             console.log('buyBack')
             if (buyBack) {
                 console.log('购买成功')
-            }else{
+            } else {
                 console.log('取消购买')
             }
         },
@@ -867,14 +879,14 @@ export default {
                 }
             }
         },
-        startAllevent(){
+        startAllevent () {
             // 合约事件
-            contractNet.allEvents(async (err,res)=>{
-                if(!err){
-                    if(res){
+            contractNet.allEvents(async (err, res) => {
+                if (!err) {
+                    if (res) {
                         var name = ''
                         if (res.args.playerName) {
-                            name = web3.toUtf8(res.args.playerName);
+                            name = web3.toUtf8(res.args.playerName)
                         }
                         console.log(res)
                         console.log('=====res==')
@@ -883,62 +895,61 @@ export default {
                         await this.getPlayerInfoByAddress()
                         this.timeLeft = await luckyCoinApi.getTimeLeft()
                         this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-                        
-                        if(res.event === 'onNewName'){
+
+                        if (res.event === 'onNewName') {
                             if (name === '') {
                                 Message({
-                                    message:_('有小伙伴已成功购买专属的推广代号'),
-                                    type:'success'
-                                })                                
+                                    message: _('有小伙伴已成功购买专属的推广代号'),
+                                    type: 'success'
+                                })
                             } else {
                                 Message({
-                                    message:_('全体起立，欢迎{0}成功购买专属的推广代号',name),
-                                    type:'success'
-                                })   
+                                    message: _('全体起立，欢迎{0}成功购买专属的推广代号', name),
+                                    type: 'success'
+                                })
                             }
-                        }else if(res.event === 'onBuy'){
-
+                        } else if (res.event === 'onBuy') {
                             if (this.selfAddr === res.args.playerAddress) {
                                 Message({
-                                    message:_('您已成功购买{0}张票', 23),
-                                    type:'success'
+                                    message: _('您已成功购买{0}张票', 23),
+                                    type: 'success'
                                 })
                             } else if (name !== '') {
                                 Message({
-                                    message:_('{0}已成功购买{1}张票', 'name' ,23),
-                                    type:'success'
+                                    message: _('{0}已成功购买{1}张票', 'name', 23),
+                                    type: 'success'
                                 })
                             } else if (name === '') {
                                 Message({
-                                    message:_('有小伙伴已成功购买{0}张票',23),
-                                    type:'success'
+                                    message: _('有小伙伴已成功购买{0}张票', 23),
+                                    type: 'success'
                                 })
                             }
-                        }else if(res.event === 'onWithdraw'){
+                        } else if (res.event === 'onWithdraw') {
                             // 提现
                             let withdrawNum = formateBalance(web3.fromWei(res.args.ethOut.toNumber()))
                             if (this.selfAddr === res.args.playerAddress) {
                                 Message({
-                                    message:_('您已成功提现{0}ETH!',withdrawNum),
-                                    type:'success'
-                                })                                
+                                    message: _('您已成功提现{0}ETH!', withdrawNum),
+                                    type: 'success'
+                                })
                             } else if (name === '') {
                                 Message({
-                                    message:_('有小伙伴已成功提现{0}ETH!',withdrawNum),
-                                    type:'success'
-                                })                                       
+                                    message: _('有小伙伴已成功提现{0}ETH!', withdrawNum),
+                                    type: 'success'
+                                })
                             } else {
                                 Message({
                                     message: name + _('已成功提现{0}ETH!', withdrawNum),
-                                    type:'success'
-                                })                                  
+                                    type: 'success'
+                                })
                             }
-                        }else if(res.event === 'onSettle'){
+                        } else if (res.event === 'onSettle') {
 
                         }
                     }
-                }else{
-                    console.error('allEvents' + err);
+                } else {
+                    console.error('allEvents' + err)
                 }
             })
         }
@@ -957,10 +968,8 @@ export default {
         } else {
             this.isFromFlag = coinAffAddr
         }
-        console.log(this.isFromFlag)
         this.pageInit()
         this.startAllevent()
-        // 
     },
     filters: {
     }
