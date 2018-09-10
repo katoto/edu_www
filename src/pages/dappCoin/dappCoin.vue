@@ -218,16 +218,16 @@
                         <!--已登录-->
                         <div class="ticket-logined">
                             <ul v-if="ordersList">
-                                <li v-for="(item,index) in ordersList" :key="index"  @click="ticketsNumber=item" :class="{'win':item.isWin}">
+                                <li v-for="(item,index) in ordersList" :key="index"  @click="ticketsNumber=item" :class="{'win':item.prizes!==0}">
                                     <p class="issue">
                                         Phase {{ item.round }}
                                     </p>
-                                    <p class="money" :class="{'hide':!item.isWin}">
+                                    <p class="money" :class="{'hide':item.prizes===0}">
                                         <!--win的时候才展示 删除-->
-                                        + 10.8197 ETH
+                                        + {{ item.prizes }} ETH
                                     </p>
-                                    <p class="amount">
-                                        10
+                                    <p class="amount" >
+                                        {{ item.buyNum && item.buyNum.length }}
                                     </p>
                                 </li>
                                 <!-- <li>
@@ -251,9 +251,9 @@
                                     <li style="color: #ffa200;">
                                         0143
                                     </li>
-                                    <li>
-                                        0143
-                                    </li>
+                                    <!-- <li v-for="(item,index) in item.buyNum" :key="index">
+                                        {{ item }}
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -633,9 +633,29 @@ export default {
         },
         orderFormatData (list) {
             // 订单数据处理
+            let currBeginArr = null;
+            let currEndArr = null;
+            let buyNum = [];
+            let flag = null;
+
             if (list) {
                 list.forEach((item, index) => {
-
+                    if(item.end){
+                        buyNum = [];
+                        flag = null;
+                        currBeginArr = item.begin.split(',')
+                        currEndArr = item.end.split(',')
+                        console.log(currEndArr)
+                        currEndArr.forEach((endItem,index)=>{
+                            flag = Number(endItem) - currBeginArr[index]
+                            if(flag >= 0 ){
+                                for(let i=0;i<=flag;i++){
+                                    buyNum.push(parseInt(currBeginArr[index]) + i)
+                                }
+                            }
+                        })
+                        item.buyNum = buyNum
+                    }
                 })
             }
             return list
