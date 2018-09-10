@@ -1117,6 +1117,8 @@ luckyCoinApi.buyXaddr = (_tickets, _affCode, _price) => {
     if (typeof _price === 'string') {
         _price = parseInt(_price)
     }
+    console.log(_price)
+    console.log(_tickets)
     return new Promise((resolve, reject) => {
         contractNet.buyXaddr(_tickets, _affCode, {value: web3.toWei(_price, 'ether')}, (err, res) => {
             if (!err) {

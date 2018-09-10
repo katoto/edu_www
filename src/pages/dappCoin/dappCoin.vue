@@ -115,7 +115,7 @@
                             </a>
                             <!--  -->
                             <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
-                                <p :class="{'buyEnough':(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
+                                <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
                                     使用收益支付
                                 </p>
                                 <p style="font-size: 14px;" v-if="selfMsg">
@@ -224,12 +224,12 @@
                         </div>
                         <!--已登录-->
                         <div class="ticket-logined">
-                            <ul>
-                                <li class="win">
+                            <ul v-if="ordersList">
+                                <li v-for="(item,index) in ordersList" :key="index"  @click="ticketsNumber=item" :class="{'win':item.isWin}">
                                     <p class="issue">
-                                        Phase 13
+                                        Phase {{ item.round }}
                                     </p>
-                                    <p class="money">
+                                    <p class="money" :class="{'hide':!item.isWin}">
                                         <!--win的时候才展示 删除-->
                                         + 10.8197 ETH
                                     </p>
@@ -237,23 +237,22 @@
                                         10
                                     </p>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <p class="issue">
                                         Phase 13
-                                    </p>
-                                    <p class="money">
-                                        + 10.8197 ETH
                                     </p>
                                     <p class="amount">
                                         10
                                     </p>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <!--我的购买详细展开-->
                         <!--on-->
-                        <div class="open-ticket ">
-                            <p>The No.16 , You bought 12 tickets</p>
+                        <div class="open-ticket" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
+                            <p>The No.{{ ticketsNumber.round }} , You bought 12 tickets</p>
+                            <!-- 关闭 -->
+                            <a href="javascript:;" @click="ticketsNumber=null">close</a>
                             <div class="ticket-box">
                                 <ul>
                                     <li style="color: #ffa200;">
@@ -625,13 +624,14 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
+            ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
-            waitWin: false, // 待开奖 
+            waitWin: false, // 待开奖
             currTimeUp: null,
             balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
             showFirstBaxi: false, // 首次提示
-            selfAddr: null,
+            selfAddr: null, // 当前addr
             isFromFlag: false, // 是否是来自邀请
             tickNum: 1, // 购买票数
             roundInfo: null, // getcurrentRoundInfo msg
@@ -643,7 +643,7 @@ export default {
             allTicketPrice: null,
             maxTicketNum: null, // 最大ticket 数量
             expectsList: null, // 期号历史数据
-            ordersList: null, // 订单历史数据
+            ordersList: null, // 个人订单数据
 
             expectPageno: 1,
             expectPageSize: 10,
@@ -665,53 +665,74 @@ export default {
         copyError,
         formateBalance,
         formatTime,
-        tabEvt(evt){
-            if(evt.target.nodeName === 'A'){
+        tabEvt (evt) {
+            if (evt.target.nodeName === 'A') {
                 let dataName = evt.target.getAttribute('data-name')
-                if(this.selfMsg){
+                if (this.selfMsg) {
                     this.informationTab = dataName
-                }else{
-                    if(dataName==='howToPlay'||dataName==='myticket'){
+                } else {
+                    if (dataName === 'howToPlay' || dataName === 'myticket') {
                         this.informationTab = dataName
-                    }else{
+                    } else {
                         this.loginMetamask()
                     }
                 }
             }
         },
-        loginMetamask(){
+        loginMetamask () {
             Message({
                 message: '点击又上角进行登录',
                 type: 'error'
             })
         },
-        async expectCurrentChange(pageno = this.expectPageno){
+        async expectCurrentChange (pageno = this.expectPageno) {
             let params = {
                 pageno
             }
             let data = await this.getSuperCoinExpects(params)
             data = data.data
             if (data) {
-                this.expectsList = this.formatData(data.orders)
-                this.expectPageTotal = parseInt(data.counter, 10)
+                this.expectsList = this.expectFormatData(data.orders)
+                this.expectPageTotal = parseInt(data.pagetotal, 10)
             }
         },
-        expectSizeChange () {
+        expectSizeChange (size) {
+            this.expectPageSize = size
+            this.expectCurrentChange()
+        },
+        expectFormatData(list){
+            // 历史期号数据处理
+            if(list){
+                list.forEach((item,index)=>{
 
+                })
+            }
+            return list
         },
         async orderCurrentChange (pageno = this.orderPageno) {
             let params = {
-                pageno
+                pageno,
+                address: this.selfAddr
             }
             let data = await this.getSuperCoinOrder(params)
             data = data.data
             if (data) {
-                this.ordersList = this.formatData(data.orders)
-                this.orderPageTotal = parseInt(data.counter, 10)
+                this.ordersList = this.orderFormatData(data.luckydata)
+                this.orderPageTotal = parseInt(data.pagetotal, 10)
             }
         },
-        orderSizeChange () {
+        orderSizeChange (size) {
+            this.orderpPgeSize = size
+            this.orderCurrentChange()
+        },
+        orderFormatData(list){
+            // 订单数据处理
+            if(list){
+                list.forEach((item,index)=>{
 
+                })
+            }
+            return list
         },
         checkTicket () {
             if (isNaN(Number(this.tickNum))) {
@@ -781,22 +802,26 @@ export default {
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
-            if(this.timeLeft === 0){
-                this.waitWin = true ;
+            if (this.timeLeft === 0) {
+                this.waitWin = true
                 this.nowFormateTime = '00:00:00'
-            }else{
+            } else {
                 this.startTimeLeft()
             }
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
-                if(this.timeLeft !== 0){
+                if (this.timeLeft !== 0) {
                     this.startTimeLeft()
                 }
             }, 10000)
+
+            //  用户投注订单记录  是否登录
+            if(this.selfMsg){
+                this.orderCurrentChange()
+            }
             //  请求历史数据
-            this.expectCurrentChange()
-            //  用户投注订单记录
-            this.orderCurrentChange()
+            // this.expectCurrentChange()
+
         },
         getSuperCoinExpects (params) {
             return this.$store.dispatch(aTypes.superCoinExpects, {
@@ -806,7 +831,7 @@ export default {
         },
         getSuperCoinOrder (params) {
             return this.$store.dispatch(aTypes.superCoinOrder, {
-                pagesize: this.pageSize,
+                pagesize: this.orderpPgeSize,
                 ...params
             })
         },
@@ -817,12 +842,12 @@ export default {
                 if (this.timeLeft !== undefined) {
                     if (this.timeLeft === 0) {
                         // 执行时间到动画
-                        this.currTimeUp = true;
-                        setTimeout(()=>{
-                            this.currTimeUp = flase;
+                        this.currTimeUp = true
+                        setTimeout(() => {
+                            this.currTimeUp = flase
                             // 显示待开奖状态
                             this.waitWin = true
-                        },5000)
+                        }, 5000)
                         clearInterval(this.nowTimeInterval)
                     }
                     this.nowFormateTime = this.formatTime(this.timeLeft, 'HH:mm:ss')
@@ -851,6 +876,10 @@ export default {
             // 购买号码
             let buyBack = null
             let currPrice = await luckyCoinApi.getBuyPrice()
+            if(!this.selfMsg){
+                this.loginMetamask()
+                return false
+            }
             if (this.currTicketPrice === 0) {
                 console.error('this.currTicketPrice 0')
                 return false
@@ -858,7 +887,8 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            console.log(currPrice)
+            console.log(this.currTicketPrice * this.tickNum)
+            console.log('=================')
             buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
             console.log(buyBack)
             console.log('buyBack')
@@ -868,8 +898,8 @@ export default {
         },
         async registerName () {
             let buyNameBack = null
-            if(!this.selfMsg){
-                this.loginMetamask();
+            if (!this.selfMsg) {
+                this.loginMetamask()
                 return false
             }
             if (!this.beforeInviteName) {
