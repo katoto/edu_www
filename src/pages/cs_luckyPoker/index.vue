@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <div class="luckyPoker">
+        <div class="luckyPoker" @click="initPop">
             <div class="main">
                 <div class="bg-esktop" ref="container">
                     <div class="fly-coin fly-coin-el" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
@@ -504,7 +504,7 @@
                     <!--中奖-->
                     <div class="result-msg" v-if="open.isWin">
                         <p>{{$lang.poker.a25}}</p>
-                        <div>+{{open.money}}<i>{{coinText}}</i></div>
+                        <div>+{{formatNum(Number(open.money), 4)}}<i>{{coinText}}</i></div>
                     </div>
                     <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;" @click="closePoker()" v-else>
                         {{$lang.poker.a24}}
@@ -519,7 +519,7 @@
 <script>
 import Header from '~components/Header'
 import Footer from '~components/Footer'
-import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul } from '~common/util'
+import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 window.getElementAbsolutePosition = getElementAbsolutePosition
 export default {
@@ -576,6 +576,11 @@ export default {
         formateCoinType,
         getElementAbsolutePosition,
         getElementCenterPosition,
+        formatNum,
+        initPop () {
+            /* head 弹窗 */
+            this.$store.commit('initHeadState', new Date().getTime())
+        },
         getBetsList () {
             if (this.isLoading || this.showOpen) {
                 if (this.isMyself) {
@@ -698,7 +703,7 @@ export default {
             let realPosition = isRandom ? this.getRandomPosition(center, element.clientWidth, element.clientHeight) : center
             return {
                 transform: `translate(${realPosition.left}px, ${realPosition.top}px)`,
-                'z-index': '98'
+                'z-index': '8'
             }
         },
         calculate (name) {
