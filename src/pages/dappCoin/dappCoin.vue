@@ -41,7 +41,7 @@
                                 Reward
                             </p>
                             <p class="jackpot-amount">
-                                 {{ formateBalance(roundInfo.jackpot) }}
+                                 {{ formatesuperCoin(roundInfo.jackpot) }}
                             </p>
                             <i class="jackpot-unit">
                                 ETH
@@ -85,7 +85,7 @@
                                 <div class="input-box">
                                     <input v-model="tickNum" type="text" @input="checkTicket">
                                     <p>
-                                        @ {{ formateBalance( currTicketPrice * tickNum) }} ETH
+                                        @ {{ formatesuperCoin( currTicketPrice * tickNum) }} ETH
                                     </p>
                                 </div>
                                 <div class="btn-choose">
@@ -351,7 +351,7 @@
                                 {{ item.luckynum }}
                             </p>
                             <p class="bonus">
-                                {{ formateBalance(item.prizes) }} {{ formateCoinType(item.cointype) }}
+                                {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                             </p>
                             <p class="winner" v-if="item.winner ===''">
                                 No Winner
@@ -497,7 +497,6 @@ import {mTypes, aTypes} from '~/store/cs_page/dappCoin'
 import {
     copySucc,
     copyError,
-    formateBalance,
     formateCoinType,
     formatTime
 } from '~common/util'
@@ -556,9 +555,25 @@ export default {
     methods: {
         copySucc,
         copyError,
-        formateBalance,
         formateCoinType,
         formatTime,
+        formatesuperCoin(val){
+            // 金额格式化
+            let newEth = null
+            if (isNaN(val) || isNaN(Number(val))) {
+                console.error('formatesuperCoin error' + val)
+                return 0
+            }
+            val = Number(val)
+            if (val > 1000) {
+                newEth = parseFloat((val).toFixed(0))
+            } else if (val > 100) {
+                newEth = (val).toFixed(3)
+            } else {
+                newEth = (val).toFixed(4)
+            }
+            return newEth
+        },
         scrollInvite(){
             document.getElementById("inviteView").scrollIntoView();
         },
@@ -950,7 +965,7 @@ export default {
                             }
                         } else if (res.event === 'onWithdraw') {
                             // 提现
-                            let withdrawNum = formateBalance(web3.fromWei(res.args.ethOut.toNumber()))
+                            let withdrawNum = formatesuperCoin(web3.fromWei(res.args.ethOut.toNumber()))
                             if (this.selfAddr === res.args.playerAddress) {
                                 Message({
                                     message: _('您已成功提现{0}ETH!', withdrawNum),
