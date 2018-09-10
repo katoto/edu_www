@@ -1702,33 +1702,5 @@ export default {
 </style>
 <style scoped lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
-    @media (max-width: 480px) {
-        .head-dapp{
-            .head-dapp-wrap{
-                .px2rem(height,100);
-                .logo{
-                    p{
-                        display: none;
-                    }
-                }
-                .fr-msg{
-                    a{
-                        margin-left: 45px;
-                        font-size: 28px;
-                    }
-                    .btn-home{
-                        width: 32px;
-                        background-size: 32px;
-                    }
-                    .invite{
-                        &::before{
-                            width: 27px;
-                            background: url("../../assets/img/superCoin/icon-gift.png") no-repeat center;
-                            background-size: 27px;
-                        }
-                    }
-                }
-            }
-        }
-    }
+
 </style>
