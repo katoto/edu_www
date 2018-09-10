@@ -276,7 +276,7 @@
                                     :page-sizes="[10, 25, 50, 100]"
                                     :page-size="orderpPgeSize"
                                     layout="sizes,prev, pager, next,jumper"
-                                    :total="orderPageTotal"
+                                    :page-count="orderPageTotal"
                                     :next-text="_('Next >')"
                                     :prev-text="_('< Previous')"
                             >
@@ -349,120 +349,27 @@
                         <li class="bonus">Bonus</li>
                         <li class="winner">Winner</li>
                     </ul>
-                    <ul class="historyDraw-main">
-                        <li>
+                    <ul class="historyDraw-main" v-if="expectsList">
+                        <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !==''}">
                             <p class="issue">
-                                #100
+                                #{{ item.round }}
                             </p>
                             <p class="winningNumbers">
-                                0001
+                                {{ item.luckynum }}
                             </p>
                             <p class="bonus">
-                                10.8197 ETH
+                                {{ formateBalance(item.prizes) }} {{ formateCoinType(item.cointype) }}
                             </p>
-                            <p class="winner">
-                                waitting...
-                            </p>
-                        </li>
-                        <li>
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
+                            <p class="winner" v-if="item.winner ===''">
                                 No Winner
                             </p>
-                        </li>
-                        <li class="win">
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
-                                0x23...233
+                            <p class="winner" v-else>
+                                <a target="_blank" :href="`https://etherscan.io/tx/${item.winner}`" >
+                                    {{ item.winner }}
+                                </a>
                             </p>
                         </li>
-                        <li>
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
-                                waitting...
-                            </p>
-                        </li>
-                        <li>
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
-                                No Winner
-                            </p>
-                        </li>
-                        <li class="win">
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
-                                0x23...233
-                            </p>
-                        </li>
-                        <li>
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
-                                waitting...
-                            </p>
-                        </li>
-                        <li>
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
-                                No Winner
-                            </p>
-                        </li>
-                        <li>
+                        <!-- <li>
                             <p class="issue">
                                 #100testtesttesttest
                             </p>
@@ -475,23 +382,11 @@
                             <p class="winner">
                                 No WinnertesttestWinnertesttestWinnertesttestWinnertesttest
                             </p>
-                        </li>
-                        <li class="win">
-                            <p class="issue">
-                                #100
-                            </p>
-                            <p class="winningNumbers">
-                                0001
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETH
-                            </p>
-                            <p class="winner">
-                                0x23...233
-                            </p>
-                        </li>
+                        </li> -->
                     </ul>
-
+                    <div v-else>
+                        期号为空的状态 todo
+                    </div>
                     <!-- 分页msg  -->
                     <div class="pagination">
                         <el-pagination
@@ -503,7 +398,7 @@
                                 :page-sizes="[10, 25, 50, 100]"
                                 :page-size="expectPageSize"
                                 layout="sizes,prev, pager, next,jumper"
-                                :total="expectPageTotal"
+                                :page-count="expectPageTotal"
                                 :next-text="_('Next >')"
                                 :prev-text="_('< Previous')"
                         >
@@ -646,12 +541,12 @@ export default {
             ordersList: null, // 个人订单数据
 
             expectPageno: 1,
-            expectPageSize: 10,
-            expectPageTotal: 10,
+            expectPageSize: 8,
+            expectPageTotal: 1,
 
             orderPageno: 1,
-            orderpPgeSize: 10,
-            orderPageTotal: 10
+            orderpPgeSize: 8,
+            orderPageTotal: 1
         }
     },
     watch: {
@@ -664,6 +559,7 @@ export default {
         copySucc,
         copyError,
         formateBalance,
+        formateCoinType,
         formatTime,
         tabEvt (evt) {
             if (evt.target.nodeName === 'A') {
@@ -692,7 +588,7 @@ export default {
             let data = await this.getSuperCoinExpects(params)
             data = data.data
             if (data) {
-                this.expectsList = this.expectFormatData(data.orders)
+                this.expectsList = this.expectFormatData(data.expects)
                 this.expectPageTotal = parseInt(data.pagetotal, 10)
             }
         },
@@ -820,12 +716,12 @@ export default {
                 this.orderCurrentChange()
             }
             //  请求历史数据
-            // this.expectCurrentChange()
+            this.expectCurrentChange()
 
         },
         getSuperCoinExpects (params) {
             return this.$store.dispatch(aTypes.superCoinExpects, {
-                pagesize: this.pageSize,
+                pagesize: this.expectPageSize,
                 ...params
             })
         },
