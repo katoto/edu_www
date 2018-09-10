@@ -7,7 +7,7 @@
                     <p>Super LuckyCoin</p>
                 </h1>
                 <div class="fr-msg">
-                    <a href="" class="invite">Invite</a>
+                    <a href="javascript:;" class="invite" @click="scrollInvite">Invite</a>
                     <a href="">Contract</a>
                     <a href="">Easy Play</a>
                     <a href="index.html" class="btn-home"></a>
@@ -243,7 +243,7 @@
                         <!--我的购买详细展开-->
                         <!--on-->
                         <div class="open-ticket" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
-                            <p>The No.{{ ticketsNumber.round }} , You bought 12 tickets</p>
+                            <p>The No.{{ ticketsNumber.round }} , You bought {{ ticketsNumber.buyNum && ticketsNumber.buyNum.length }} tickets</p>
                             <!-- 关闭 -->
                             <a href="javascript:;" @click="ticketsNumber=null">close</a>
                             <div class="ticket-box">
@@ -434,7 +434,7 @@
 
             </div>
             <!--邀请-->
-            <div class="invite">
+            <div class="invite" id="inviteView">
                 <ul class="title">
                     <li class="on">
                         <a href="javascript:;">
@@ -559,6 +559,9 @@ export default {
         formateBalance,
         formateCoinType,
         formatTime,
+        scrollInvite(){
+            document.getElementById("inviteView").scrollIntoView();
+        },
         scrollMsgChange (state) {
             if (state === 'end') {
                 this.scrollMsg = ['Buy the first ticket to start a new round.', 'Buyers who hold part/all of first 500 tickets enjoy the dividend.']
