@@ -690,8 +690,8 @@ export default {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
             this.getCurrentRoundInfo()
-            await this.getPlayerInfoByAddress()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
+            await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             if (this.balance && Number(this.balance) > 0) {
                 this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
@@ -754,10 +754,8 @@ export default {
         async getPlayerInfoByAddress () {
             if (this.selfAddr) {
                 let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
-                console.log(allMsg)
                 this.selfMsg = allMsg[0]
                 this.balance = allMsg[1]
-                console.log(this.selfMsg)
                 this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
             } else {
                 console.warn('没有取得地址msg')
@@ -871,7 +869,7 @@ export default {
         },
         startAllevent(){
             // 合约事件
-            contractNet.allEvents((err,res)=>{
+            contractNet.allEvents(async (err,res)=>{
                 if(!err){
                     if(res){
                         var name = ''
@@ -880,7 +878,12 @@ export default {
                         }
                         console.log(res)
                         console.log('=====res==')
-                        // 每次事件触发 更新数据 todo
+                        // 每次事件触发 更新数据
+                        this.getCurrentRoundInfo()
+                        await this.getPlayerInfoByAddress()
+                        this.timeLeft = await luckyCoinApi.getTimeLeft()
+                        this.currTicketPrice = await luckyCoinApi.getBuyPrice()
+                        
                         if(res.event === 'onNewName'){
                             if (name === '') {
                                 Message({
