@@ -249,11 +249,11 @@
                             <div class="ticket-box">
                                 <ul>
                                     <li style="color: #ffa200;">
-                                        0143
+                                        0143  todo
                                     </li>
-                                    <!-- <li v-for="(item,index) in item.buyNum" :key="index">
+                                    <li v-if="ticketsNumber.buyNum" v-for="(item,index) in ticketsNumber.buyNum" :key="index">
                                         {{ item }}
-                                    </li> -->
+                                    </li> 
                                 </ul>
                             </div>
                         </div>
