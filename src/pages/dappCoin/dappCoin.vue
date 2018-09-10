@@ -663,7 +663,6 @@ export default {
                         flag = null;
                         currBeginArr = item.begin.split(',')
                         currEndArr = item.end.split(',')
-                        console.log(currEndArr)
                         currEndArr.forEach((endItem,index)=>{
                             flag = Number(endItem) - currBeginArr[index]
                             if(flag >= 0 ){
@@ -947,12 +946,7 @@ export default {
                                 })
                             }
                         } else if (res.event === 'onBuy') {
-                            if (this.selfAddr === res.args.playerAddress) {
-                                Message({
-                                    message: _('您已成功购买{0}张票', 23),
-                                    type: 'success'
-                                })
-                            } else if (name !== '') {
+                            if (name !== '') {
                                 Message({
                                     message: _('{0}已成功购买{1}张票', 'name', 23),
                                     type: 'success'
