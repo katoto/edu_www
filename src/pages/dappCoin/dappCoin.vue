@@ -22,7 +22,7 @@
                     <ul class="scroller-in">
                         <li>For the first 600 tickets, 当前余额：{{ balance }} you can get a bet bonus!</li>
                         <li>For the first 700 tickets, you can get a bet bonus!</li>                        
-                        <li>For the first 700 tickets, you can get a bet bonus!</li>                        
+                        <li>推广宣传文案，包括奖励</li>                        
                         <li>For the first 700 tickets, you can get a bet bonus!</li>                        
                         <li>For the first 700 tickets, you can get a bet bonus!</li>                        
                         <!-- <li class="msgLis" v-for="item in recentList" >
@@ -541,11 +541,11 @@ export default {
             ordersList: null, // 个人订单数据
 
             expectPageno: 1,
-            expectPageSize: 8,
+            expectPageSize: 10,
             expectPageTotal: 1,
 
             orderPageno: 1,
-            orderpPgeSize: 8,
+            orderpPgeSize: 10,
             orderPageTotal: 1
         }
     },
