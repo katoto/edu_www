@@ -43,9 +43,6 @@
                             <p class="jackpot-amount">
                                  {{ formateBalance(roundInfo.jackpot) }}
                             </p>
-                            <i class="jackpot-unit">
-                                ETH
-                            </i>
                         </div>
                         <div class="item-msg">
                             <p class="title">
@@ -75,47 +72,47 @@
                                 {{ roundInfo.playernums }}
                             </p>
                         </div>
-                        <div class="buy-area">
-                            <div class="fl title">
+                    </div>
+                    <div class="buy-area">
+                        <div class=" title">
+                            <p>
+                                Buy Ticket
+                            </p>
+                        </div>
+                        <div class=" input-wrap">
+                            <div class="input-box">
+                                <input v-model="tickNum" type="text" @input="checkTicket">
                                 <p>
-                                    Buy Ticket
+                                    @ {{ formateBalance( currTicketPrice * tickNum) }} ETH
                                 </p>
                             </div>
-                            <div class="fl input-wrap">
-                                <div class="input-box">
-                                    <input v-model="tickNum" type="text" @input="checkTicket">
-                                    <p>
-                                        @ {{ formateBalance( currTicketPrice * tickNum) }} ETH
-                                    </p>
-                                </div>
-                                <div class="btn-choose">
-                                    <a href="javascript:;" style="padding: 0 12px;" @click="chooseMin">Min</a>
-                                    <a href="javascript:;" style="flex-grow: 1" @click="chooseHalf">1 / 2</a>
-                                    <a href="javascript:;" style="flex-grow: 1" @click="chooseDouble">X 2</a>
-                                    <a href="javascript:;" style="padding: 0 12px;" @click="chooseMax">Max</a>
-                                </div>
+                            <div class="btn-choose">
+                                <a href="javascript:;"  @click="chooseMin">Min</a>
+                                <a href="javascript:;"  @click="chooseHalf">1 / 2</a>
+                                <a href="javascript:;"  @click="chooseDouble">X 2</a>
+                                <a href="javascript:;"  @click="chooseMax">Max</a>
                             </div>
                         </div>
-                        <!--登录前-->
-                        <div class="btn-box hide">
-                            <a href="javascript:;" class="btn-big" @click="loginMetamask">Login to Metamask</a>
-                            <a href="javascript:;" class="btn-small">使用收益支付</a>
-                        </div>
-                        <!--登陆后-->
-                        <div class="btn-box ">
-                            <a href="javascript:;" class="btn-big" @click="buyNum">
-                                立即支付
-                            </a>
-                            <!--  -->
-                            <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
-                                <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
-                                    使用收益支付
-                                </p>
-                                <p style="font-size: 14px;" v-if="selfMsg">
-                                    您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
-                                </p>
-                            </a>
-                        </div>
+                    </div>
+                    <!--登录前-->
+                    <div class="btn-box hide">
+                        <a href="javascript:;" class="btn-big" @click="loginMetamask">Login to Metamask</a>
+                        <a href="javascript:;" class="btn-small">使用收益支付</a>
+                    </div>
+                    <!--登陆后-->
+                    <div class="btn-box ">
+                        <a href="javascript:;" class="btn-big" @click="buyNum">
+                            立即支付
+                        </a>
+                        <!--  -->
+                        <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
+                            <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
+                                使用收益支付
+                            </p>
+                            <p style="font-size: 14px;" v-if="selfMsg">
+                                您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
+                            </p>
+                        </a>
                     </div>
                 </div>
 
@@ -180,6 +177,61 @@
         </div>
         <!--信息展示区--> 
         <div class="information">
+            <!--邀请-->
+            <div class="invite">
+                <ul class="title">
+                    <li class="on">
+                        <a href="javascript:;">
+                            Invite
+                        </a>
+                    </li>
+                </ul>
+                <p class="explain-msg">
+                    Buy a promotion link, invite friends to participate in the game through this link, you will get 10% commission on his bet
+                </p>
+                <!--邀请后-->
+                <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''">
+                    <div class="my-link">
+                        <p class="link-msg">
+                            Your promotion link
+                        </p>
+                        <p class="mydomain">
+                            {{ selfMsg.inviteLink }}
+                        </p>
+                        <a href="javascript:;"
+                           v-clipboard:copy="selfMsg.inviteLink"
+                           v-clipboard:success="copySucc"
+                           v-clipboard:error="copyError"
+                           class="btn-Copy ">
+                            <lang>Copy</lang>
+                        </a>
+                        <p>
+                            You have invited: {{ selfMsg.aff_invite_nums }} people
+                        </p>
+                        <p>
+                            Commission awarded: <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
+                        </p>
+                    </div>
+                </div>
+                <!--邀请前-->
+                <div class="invite-before" v-else>
+                    <div class="input-group">
+                        <input v-model="beforeInviteName" type="text" placeholder="Please enter your preferred name">
+                        <a href="javascript:;" @click="getRandomName"></a>
+                    </div>
+                    <p>
+                        Name rule <br>
+                        1. Need is unique (database only)<br>
+                        2. within 32 characters<br>
+                        3. A-Z (letter lowercase)<br>
+                        4. Allow numbers, but not pure numbers<br>
+                        5. no special characters and spaces
+                    </p>
+                    <a href="javascript:;" class="btn-gobuy" @click="registerName">
+                        Purchase with 0.001ETH
+                    </a>
+                </div>
+            </div>
             <!--四个信息-->
             <div class="merge-info">
                 <ul class="title" @click="tabEvt">
@@ -432,61 +484,6 @@
                     </div>
                 </div>
 
-            </div>
-            <!--邀请-->
-            <div class="invite">
-                <ul class="title">
-                    <li class="on">
-                        <a href="javascript:;">
-                            Invite
-                        </a>
-                    </li>
-                </ul>
-                <p class="explain-msg">
-                    Buy a promotion link, invite friends to participate in the game through this link, you will get 10% commission on his bet
-                </p>
-                                <!--邀请后-->
-                <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''">
-                    <div class="my-link">
-                        <p class="link-msg">
-                            Your promotion link
-                        </p>
-                        <p class="mydomain">
-                            {{ selfMsg.inviteLink }}
-                        </p>
-                        <a href="javascript:;"
-                            v-clipboard:copy="selfMsg.inviteLink"
-                            v-clipboard:success="copySucc"
-                            v-clipboard:error="copyError"
-                            class="btn-Copy ">
-                            <lang>Copy</lang>
-                        </a>
-                        <p>
-                            You have invited: {{ selfMsg.aff_invite_nums }} people
-                        </p>
-                        <p>
-                            Commission awarded: <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
-                        </p>
-                    </div>
-                </div>
-                <!--邀请前-->
-                <div class="invite-before" v-else>
-                    <div class="input-group">
-                        <input v-model="beforeInviteName" type="text" placeholder="Please enter your preferred name">
-                        <a href="javascript:;" @click="getRandomName"></a>
-                    </div>
-                    <p>
-                        Name rule <br>
-                        1. Need is unique (database only)<br>
-                        2. within 32 characters<br>
-                        3. A-Z (letter lowercase)<br>
-                        4. Allow numbers, but not pure numbers<br>
-                        5. no special characters and spaces
-                    </p>
-                    <a href="javascript:;" class="btn-gobuy" @click="registerName">
-                        Purchase with 0.001ETH
-                    </a>
-                </div>
             </div>
         </div>
     </div>
@@ -989,7 +986,7 @@ export default {
         .head-dapp-wrap {
             position: relative;
             max-width: 1190px;
-            width: 92%;
+            width: percentage(710/750);
             height: 70px;
             overflow: hidden;
             margin: 0 auto;
@@ -1043,9 +1040,6 @@ export default {
         }
     }
     .banner-dapp{
-        .buyEnough{
-            color: #fff;
-        }
         position: relative;
         width: 100%;
         height: 585px;
@@ -1055,20 +1049,13 @@ export default {
         transition: all 0.2s ease-in-out;
         .message{
             position: relative;
-            width: 92%;
+            width: percentage(710/750);
             max-width: 1083px;
             height: 44px;
             overflow: hidden;
-            background: rgba(19,32,44,0.6);
             margin: 0 auto 17px;
-            &::before{
-                content: '';
-                display: block;
-                margin-left: 10px;
-                width: 16px;
-                height: 100%;
-                background: url("../../assets/img/superCoin/icon-msg.png") no-repeat center;
-            }
+            background:rgba(19,32,44,0.6) url("../../assets/img/superCoin/icon-msg.png") no-repeat 10px center;
+            background-size: 16px;
             ul{
                 position: absolute;
                 top: 0;
@@ -1089,7 +1076,7 @@ export default {
             top: 80px;
             left: 50%;
             transform: translate(-50%);
-            width: 92%;
+            width: percentage(710/750);
             max-width: 1083px;
             line-height: 24px;
             font-size: 20px;
@@ -1100,40 +1087,46 @@ export default {
         }
         .betting-area{
             position: relative;
-            width: 92%;
-            max-width: 1083px;
+            width: percentage(710/750);
+            max-width: 1190px;
             overflow: hidden;
             margin: 0 auto;
             .betting{
                 overflow: hidden;
+                margin-right: 40px;
                 .item-msg{
                     display: flex;
                     align-items: flex-start;
-                    width: 621px;
+                    width: 682px;
                     height: 84px;
-                    padding: 30px 0 0 0;
+                    padding: 30px 0 0 64px;
                     overflow: hidden;
+                    line-height: 1;
                     font-size: 20px;
                     color: #a5b1c2;
                     background: url("../../assets/img/superCoin/bg-line.png") no-repeat center bottom;
+                    background-size: 100%;
                     .title{
                         margin-right: 10px;
                     }
                     .jackpot-amount{
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: baseline;
                         font-size: 56px;
                         color: #ffa200;
                         font-weight: bold;
-                    }
-                    .jackpot-unit{
-                        font-size: 24px;
-                        color: #ffa200;
-                        font-weight: bold;
+                        &::after{
+                            content: 'ETH';
+                            font-size: 24px;
+                        }
                     }
                     .countdown{
                         position: relative;
                         text-indent: 32px;
                         color: #ffa200;
                         background: url("../../assets/img/superCoin/icon-countdown.png") no-repeat center left;
+                        background-size: 20px;
                     }
                     .ticket{
                         display: flex;
@@ -1156,6 +1149,7 @@ export default {
                                 width: 20px;
                                 height: 20px;
                                 background: url("../../assets/img/superCoin/icon-ticket.png") no-repeat center left;
+                                background-size: 20px;
                             }
                         }
                         &::after{
@@ -1194,91 +1188,115 @@ export default {
                         margin-left: 35px;
                         text-indent: 30px;
                         background: url("../../assets/img/superCoin/icon-people.png") no-repeat center left;
+                        background-size: 20px;
                     }
                     &:first-child{
                         padding-top: 0;
                         align-items: baseline;
                     }
                 }
-                .buy-area{
-                    padding: 23px 0 37px 0;
-                    line-height: 40px;
-                    font-size: 20px;
-                    color: #fff;
-                    overflow: hidden;
-                    .title{
-                        margin-right: 16px;
-                    }
-                    .input-box{
-                        position: relative;
-                        display: flex;
-                        align-items: center;
-                        height: 40px;
-                        padding:0 0 0 42px;
-                        background: #6258b7 url("../../assets/img/superCoin/icon-ticket-fff.png") no-repeat 10px center;
-                        border-radius: 6px;
-                        input{
-                            outline: none;
-                            border: none;
-                            width: 140px;
-                            height: 32px;
-                            text-align: center;
-                            line-height: 32px;
-                            color: #000;
-                            border-radius: 2px;
-                        }
-                        p{
-                            margin: 0 30px 0 16px;
-                        }
-                    }
-                    .btn-choose{
-                        margin: 14px 0 0 0;
-                        display: flex;
-                        text-align: center;
-                        border: 1px solid #ff8a00;
-                        border-radius: 6px;
-                        a{
-                            font-size: 16px;
-                            color: #ff8a00;
-                        }
-                        a+a{
-                            border-left: 1px solid #ff8a00;
-                        }
-                    }
+            }
+            .input-wrap{
+                float: left;
+            }
+            .buy-area{
+                float: right;
+                width: 682px;
+                margin-right: 40px;
+                padding: 23px 0 37px 64px;
+                line-height: 40px;
+                font-size: 20px;
+                color: #fff;
+                overflow: hidden;
+                .title{
+                    float: left;
+                    margin-right: 16px;
                 }
-                .btn-box{
+                .input-box{
+                    position: relative;
                     display: flex;
-                    justify-content: space-between;
-                    width: 540px;
-                    a{
-                        display: block;
+                    align-items: center;
+                    height: 40px;
+                    padding:0 0 0 42px;
+                    background: #6258b7 url("../../assets/img/superCoin/icon-ticket-fff.png") no-repeat 10px center;
+                    background-size: 20px;
+                    border-radius: 6px;
+                    input{
+                        outline: none;
+                        border: none;
+                        width: 140px;
+                        height: 32px;
                         text-align: center;
-                        height:62px;
-                        line-height: 62px;
-                        border-radius:6px;
-                        &:hover{
-                            filter: brightness(1.2);
-                        }
-                    }
-                    .btn-big{
-                        width:327px;
-                        background:rgba(255,138,0,1);
-                        font-size: 24px;
-                        color: #fff;
+                        line-height: 32px;
+                        color: #000;
+                        border-radius: 2px;
                         font-weight: bold;
                     }
-                    .btn-small{
-                        width:200px;
-                        border:1px solid #484b86;
-                        background: #312259;
+                    p{
+                        margin: 0 30px 0 16px;
+                    }
+                }
+                .btn-choose{
+                    margin: 14px 0 0 0;
+                    display: flex;
+                    text-align: center;
+                    border: 1px solid #ff8a00;
+                    border-radius: 6px;
+                    a{
                         font-size: 16px;
-                        color: rgba(95,122,184,0.4);
-                        &.btn-hadlogin{
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            p{
-                                line-height: 20px;
+                        color: #ff8a00;
+                        flex-grow: 1;
+                        &:first-child,&:last-child{
+                            flex-grow: 0;
+                            padding:0 12px;
+                        }
+                    }
+                    a+a{
+                        border-left: 1px solid #ff8a00;
+                    }
+
+                }
+            }
+            .btn-box{
+                clear: both;
+                float: right;
+                display: flex;
+                justify-content: flex-start;
+                width: 682px;
+                padding-left: 64px;
+                margin-right: 40px;
+                a{
+                    display: block;
+                    text-align: center;
+                    height:62px;
+                    line-height: 62px;
+                    border-radius:6px;
+                    &:hover{
+                        filter: brightness(1.2);
+                    }
+                }
+                .btn-big{
+                    width:327px;
+                    background:rgba(255,138,0,1);
+                    font-size: 24px;
+                    color: #fff;
+                    font-weight: bold;
+                    margin-right: 10px;
+                }
+                .btn-small{
+                    width:200px;
+                    border:1px solid #484b86;
+                    background: #312259;
+                    font-size: 16px;
+                    color: rgba(95,122,184,0.4);
+                    &.btn-hadlogin{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        p{
+                            line-height: 20px;
+                            &:last-child{
+                                font-size: 14px;
                             }
                         }
                     }
@@ -1359,6 +1377,7 @@ export default {
         }
         .timeup{
             position: absolute;
+            z-index: 2;
             left: 0;
             top: 50%;
             transform: translateY(-400px);
@@ -1398,7 +1417,7 @@ export default {
     }
     .information{
         padding: 24px 0 90px 0;
-        max-width: 1083px;
+        max-width: 1090px;
         width: percentage(710/750);
         margin: 0 auto;
         overflow: hidden;
@@ -1413,6 +1432,7 @@ export default {
             li{
                 float: left;
                 width: 25%;
+                overflow: hidden;
                 border-bottom: 4px solid #3a3953;
                 text-align: center;
                 a{
@@ -1432,13 +1452,11 @@ export default {
         }
         .merge-info{
             float: left;
-            width: 92%;
-            max-width: 650px;
+            width: 650px;
         }
         .invite{
             float: right;
-            max-width: 370px;
-            width: 100%;
+            width: 370px;
             .title{
                 li{
                     width: 100%;
@@ -1702,5 +1720,459 @@ export default {
 </style>
 <style scoped lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
+    @media (max-width: 768px) {
+        .head-dapp{
+            .head-dapp-wrap{
+                height: 100/75rem;
+                .logo{
+                    p{
+                        display: none;
+                    }
+                }
+                .fr-msg{
+                    a{
+                        margin-left: 45/75rem;
+                        font-size: 28/75rem;
+                    }
+                    .btn-home{
+                        width: 32/75rem;
+                        background-size: 32/75rem;
+                    }
+                    .invite{
+                        &::before{
+                            width: 27/75rem;
+                            background: url("../../assets/img/superCoin/icon-gift.png") no-repeat center;
+                            background-size: 27/75rem;
+                        }
+                    }
+                }
+            }
+        }
+        .banner-dapp{
+            height: auto;
+            padding: 20/75rem 0 70/75rem 0;
+            background: url("../../assets/img/superCoin/bg-h5.jpg") no-repeat center top, linear-gradient(#223541,#32215a);
+            .message{
+                height: 55/75rem;
+                margin: 0 auto 17/75rem;
+                background-size: 20/75rem;
+                ul{
+                    li{
+                        line-height: 55/75rem;
+                        font-size: 24/75rem;
+                    }
+                }
+            }
 
+            .betting-area{
+                .betting{
+                    margin-right: 0;
+                    .item-msg{
+                        width: 467/75rem;
+                        flex-direction: column;
+                        justify-content: center;
+                        height: 137/75rem;
+                        padding: 0 0 0 30/75rem;
+                        font-size: 30/75rem;
+                        .title{
+                            margin-right: 0;
+                        }
+                        .jackpot-amount{
+                            font-size: 76/75rem;
+                        }
+                        .countdown{
+                            text-indent: 42rem;
+                            background-size: 25/75rem;
+                            font-size: 32/75rem;
+                        }
+                        .ticket{
+                            display: flex;
+                            align-items: flex-start;
+                            text-align: center;
+                            margin: 15/75rem 0;
+                        }
+                        &:nth-child(3){
+                            height: 250/75rem;
+                            background: none;
+                        }
+                        .people-purchased{
+                            p{
+                                padding-left: 28/75rem;
+                                color: #ffa200;
+                                &::before{
+                                    width: 27/75rem;
+                                    height: 27/75rem;
+                                    background-size: 27/75rem;
+                                }
+                            }
+                            &::after{
+                                font-size: 20/75rem;
+                            }
+                        }
+                        .ticket-progress{
+                            width:200/75rem;
+                            height:22/75rem;
+                            margin: 10/75rem 10/75rem 0;
+                        }
+                        .people-remaining{
+                            &::after{
+                                font-size: 20/75rem;
+                            }
+                        }
+                        .people-all{
+                            margin-left: 0;
+                            text-indent: 40/75rem;
+                            background-size: 29/75rem;
+                        }
+
+                    }
+                }
+                .input-wrap{
+                    float: none;
+                }
+                .buy-area{
+                    float: none;
+                    width: percentage(640/710);
+                    margin: 0 auto 63/75rem;
+                    padding: 27/75rem 0 0 0;
+                    line-height: 90/75rem;
+                    font-size: 28/75rem;
+                    color: #fff;
+                    .title{
+                        float: none;
+                        margin-right: 0;
+                        line-height: 56/75rem;
+                    }
+                    .input-box{
+                        float: none;
+                        height: 65/75rem;
+                        padding:0 0 0 142/75rem;
+                        background: #6258b7 url("../../assets/img/superCoin/icon-ticket-fff.png") no-repeat 23/75rem center;
+                        background-size: 37/75rem;
+                        input{
+                            width: percentage(193/640);
+                            height: 46/75rem;
+                            text-align: center;
+                            line-height: 46/75rem;
+                        }
+                        p{
+                            margin: 0 0 0 28/75rem;
+                        }
+                    }
+                    .btn-choose{
+                        margin: 20/75rem 0 0 0;
+                        line-height: 68/75rem;
+                        a{
+                            font-size: 24/75rem;
+                            &:first-child,&:last-child{
+                                flex-grow: 0;
+                                padding:0 30/75rem;
+                            }
+                        }
+                        a+a{
+                            border-left: 1/75rem solid #ff8a00;
+                        }
+                    }
+                }
+                .btn-box{
+                    clear: both;
+                    float: none;
+                    display: block;
+                    width: percentage(640/710);
+                    padding-left: 0;
+                    margin: 0 auto 0;
+                    a{
+                        display: block;
+                        text-align: center;
+                        height:90/75rem;
+                        line-height: 90/75rem;
+                    }
+                    .btn-big{
+                        width:100%;
+                        font-size: 42/75rem;
+                        margin: 0 0 20/75rem 0;
+                    }
+                    .btn-small{
+                        width:100%;
+                        font-size: 28/75rem;
+                        color: #6a88cc;
+                        border-color: #6a88cc;
+                        &.btn-hadlogin{
+                            flex-direction: row;
+                            align-items: center;
+                            p{
+                                line-height: 1;
+                                &:last-child{
+                                    font-size: 28/75rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .lottery{
+                .dapp-amout{
+                    margin-top: 90/75rem;
+                    font-size: 96/75rem;
+                    img{
+                        margin-right: 24/75rem;
+                    }
+                    i{
+                        font-size: 48/75rem;
+                    }
+                }
+                .notDraw{
+                    margin: 18/75rem 0 30/75rem 0;
+                    h5{
+                        line-height: 70/75rem;
+                        font-size: 46/75rem;
+                    }
+                    p{
+                        line-height: 52/75rem;
+                        font-size: 28/75rem;
+                    }
+                }
+                /*todo*/
+                .draw-someone{
+                    width: 100%;
+                    height: 52/75rem;
+                    overflow: hidden;
+                    margin: 50/75rem 0 37/75rem 0;
+                    line-height: 52/75rem;
+                    font-size: 36/75rem;
+                    color: #ff8a00;
+                    font-weight: bold;
+                }
+                .draw-none{
+                    margin: 22/75rem 0;
+                    line-height: 48/75rem;
+                    font-size: 36/75rem;
+                }
+                /*todo*/
+                .dapp-number{
+                    li{
+                        width: 71/75rem;
+                        height: 79/75rem;
+                        margin: 0 5/75rem;
+                        font-size: 36/75rem;
+                    }
+                }
+            }
+
+            &.status2{
+                height: auto;
+                padding: 20/75rem 0 98/75rem 0;
+                background: url("../../assets/img/superCoin/bg2-h5.jpg") no-repeat center, linear-gradient(#223541,#32215a);
+                .issue{
+                    font-size: 24/75rem;
+                }
+            }
+        }
+        .information{
+            /*todo*/
+            padding: 24/75rem 0 90/75rem 0;
+            line-height: 30/75rem;
+            font-size: 24/75rem;
+            .title{
+                line-height: 64/75rem;
+                font-size: 24/75rem;
+                li{
+                    border-bottom: 4/75rem solid #3a3953;
+                    &.on{
+                        border-bottom: 4/75rem solid #a5b1c2;
+                    }
+                }
+            }
+            .explain-msg{
+                margin: 15/75rem 0;
+            }
+            .merge-info{
+                width: 100%;
+                margin-top: 115/75rem;
+                float: none;
+            }
+            .invite{
+                float: none;
+                width: 100%;
+                .title{
+                    li{
+                        &.on{
+                            border-bottom: 4/75rem solid #3a3953;
+                        }
+                    }
+                }
+                .invite-before{
+                    .input-group{
+                        width:percentage(490/710);
+                        height:66/75rem;
+                        margin-bottom: 10/75rem;
+                        padding: 3/75rem 0;
+                        border: 1/75rem solid #6a88cc;
+                        border-radius: 6/75rem;
+                        input{
+                            text-indent: 10/75rem;
+                            font-size: 22/75rem;
+                            &::-webkit-input-placeholder{
+                                font-size: 22/75rem;
+                            }
+                        }
+                        a{
+                            width: percentage(68/490);
+                            border-left: 1/75rem solid #6a88cc;
+                            background: url("../../assets/img/superCoin/btn-random.png") no-repeat center;
+                            background-size: 26/75rem;
+                        }
+                    }
+                    .btn-gobuy{
+                        width:percentage(365/710);
+                        height:51/75rem;
+                        margin: 20/75rem 0 0 0;
+                        font-size: 20/75rem;
+                        border-radius: 6/75rem;
+                        line-height: 51/75rem;
+                    }
+                }
+                /*todo*/
+                .invite-after{
+                    .link-msg{
+                        line-height: 20/75rem;
+                    }
+                    .mydomain{
+                        line-height: 25/75rem;
+                        color: #fefeff;
+                        font-size: 20/75rem;
+                    }
+                    .btn-copy{
+                        display: block;
+                        width:80/75rem;
+                        height:30/75rem;
+                        overflow: hidden;
+                        margin: 7/75rem 0 11/75rem 0;
+                        border: 1/75rem solid #53e864;
+                        line-height: 30/75rem;
+                        text-align: center;
+                        border-radius:6/75rem;
+                        color: #53e864;
+                    }
+                }
+
+            }
+            .ticket{
+                /*todo 未设计没登录*/
+                .ticket-unlogin{
+                    padding: 155/75rem 0 77/75rem 0;
+                    border: 1/75rem solid #3a3953;
+                    text-align: center;
+                    line-height: 47/75rem;
+                    font-size: 16/75rem;
+                    background: url("../../assets/img/superCoin/nomsg.png") no-repeat center 60/75rem;
+                    background-size: 107/75rem;
+                }
+                .ticket-logined{
+                    li{
+                        padding: 0 30/75rem;
+                        height: 80/75rem;
+                        margin-bottom: 10/75rem;
+                        font-size: 28/75rem;
+                        .money{
+                            font-size: 28/75rem;
+                        }
+                        .amount{
+                            padding-right: 48/75rem;
+                            background-size: 26/75rem;
+                        }
+                    }
+                }
+                .open-ticket{
+                    /*todo 位置*/
+                    position: absolute;
+                    left: 0;
+                    top: 85/75rem;
+                    padding: 23/75rem 22/75rem 15/75rem;
+                    p{
+                        line-height: 38/75rem;
+                        font-size: 32/75rem;
+                    }
+                    .ticket-box{
+                        max-height: 48*5/75rem;
+                        overflow: auto;
+                    }
+                    li{
+                        line-height: 48/75rem;
+                        font-size: 28/75rem;
+                        margin-right: 27/75rem;
+                    }
+                }
+            }
+            .historyDraw{
+                text-align: right;
+                .historyDraw-head{
+                    height: 64/75rem;
+                    border-bottom: 2/75rem solid #3a3953;
+                    padding: 0;
+                    font-size: 20/75rem;
+                }
+                .historyDraw-main{
+                    li{
+                        height: 82/75rem;
+                        padding: 0;
+                        border-bottom: 2/75rem solid #3a3953;
+                        font-size: 28/75rem;
+                    }
+                }
+                .issue{
+                    flex-basis: percentage(86/650);
+                    text-align: left;
+                }
+                .winningNumbers{
+                    flex-basis: percentage(238/650);
+                    text-align: center;
+                }
+                .bonus{
+                    flex-basis: percentage(136/650);
+                }
+                .winner{
+                    flex: 1;
+                }
+            }
+            .income{
+                .explain-msg{
+                    margin: 15/75rem 0;
+                }
+                .income-item{
+                    height: 82/75rem;
+                    border-top: 2/75rem solid #3a3953;
+                    p{
+                        font-size: 28/75rem;
+                    }
+                    span{
+                        font-size: 32/75rem;
+                        i{
+                            font-size: 24/75rem;
+                        }
+                    }
+                    &.income-item-last{
+                        align-items: flex-start;
+                        height: 114/75rem;
+                        padding-top: 22/75rem;
+                        border-bottom: 2/75rem solid #3a3953;
+                        .usd{
+                            font-size: 24/75rem;
+                        }
+                    }
+                }
+                .btn-withdrawal{
+                    width: 100%;
+                    line-height: 90/75rem;
+                    height: 90/75rem;
+                    margin: 40/75rem auto 0;
+                    font-size: 42/75rem;
+                    font-weight: bold;
+                }
+            }
+            .instructions{
+                line-height: 36/75rem;
+            }
+        }
+    }
 </style>
