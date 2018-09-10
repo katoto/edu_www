@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <div class="luckyPoker" @click="initPop">
+        <div class="luckyPoker" @click="initPop" @resize="onResize">
             <div class="main">
                 <div class="bg-esktop" ref="container">
                     <div class="fly-coin fly-coin-el" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
@@ -763,6 +763,19 @@ export default {
             this.coins.splice(this.coins.length - 1, 1)
             this.initCoin()
         },
+        resetCoinPosition () {
+            let tmpCoins = []
+            this.coins.forEach(coin => {
+                let thisCoin = {...coin}
+                if (thisCoin.type) {
+                    let position = this.getPosition(this.$refs[`coin_${thisCoin.type}`], true)
+                    thisCoin.style = {...thisCoin.style, ...position}
+                    tmpCoins.push(thisCoin)
+                }
+            })
+            this.coins = [...tmpCoins]
+            this.initCoin()
+        },
         clearBet () {
             this.nameArr.forEach(name => {
                 this.betNums[name] = 0
@@ -903,6 +916,9 @@ export default {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accMul(num, accAdd(width, 5)) * -1
+        },
+        onResize () {
+            this.resetCoinPosition()
         }
     },
     computed: {
@@ -936,9 +952,11 @@ export default {
         this.createClientSeed()
         this.disableContext()
         this.subInDice()
+        window.addEventListener('resize', this.onResize)
     },
     destroyed () {
         document.oncontextmenu = null
+        window.removeEventListener('resize', this.onResize)
         this.subOutDice()
     }
 }
