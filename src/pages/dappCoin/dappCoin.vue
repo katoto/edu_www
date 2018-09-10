@@ -512,7 +512,7 @@ import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
 import vueClipboard from 'vue-clipboard2'
-import {web3, luckyCoinApi} from '~/dappApi/luckycoinApi'
+import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message} from 'element-ui'
 
 Vue.use(vueClipboard)
@@ -790,6 +790,8 @@ export default {
             console.log('buyBack')
             if (buyBack) {
                 console.log('购买成功')
+            }else{
+                console.log('取消购买')
             }
         },
         async registerName () {
@@ -866,6 +868,76 @@ export default {
                     isZero: !beforeNum
                 }
             }
+        },
+        startAllevent(){
+            // 合约事件
+            contractNet.allEvents((err,res)=>{
+                if(!err){
+                    if(res){
+                        var name = ''
+                        if (res.args.playerName) {
+                            name = web3.toUtf8(res.args.playerName);
+                        }
+                        console.log(res)
+                        console.log('=====res==')
+                        // 每次事件触发 更新数据 todo
+                        if(res.event === 'onNewName'){
+                            if (name === '') {
+                                Message({
+                                    message:_('有小伙伴已成功购买专属的推广代号'),
+                                    type:'success'
+                                })                                
+                            } else {
+                                Message({
+                                    message:_('全体起立，欢迎{0}成功购买专属的推广代号',name),
+                                    type:'success'
+                                })   
+                            }
+                        }else if(res.event === 'onBuy'){
+
+                            if (this.selfAddr === res.args.playerAddress) {
+                                Message({
+                                    message:_('您已成功购买{0}张票', 23),
+                                    type:'success'
+                                })
+                            } else if (name !== '') {
+                                Message({
+                                    message:_('{0}已成功购买{1}张票', 'name' ,23),
+                                    type:'success'
+                                })
+                            } else if (name === '') {
+                                Message({
+                                    message:_('有小伙伴已成功购买{0}张票',23),
+                                    type:'success'
+                                })
+                            }
+                        }else if(res.event === 'onWithdraw'){
+                            // 提现
+                            let withdrawNum = formateBalance(web3.fromWei(res.args.ethOut.toNumber()))
+                            if (this.selfAddr === res.args.playerAddress) {
+                                Message({
+                                    message:_('您已成功提现{0}ETH!',withdrawNum),
+                                    type:'success'
+                                })                                
+                            } else if (name === '') {
+                                Message({
+                                    message:_('有小伙伴已成功提现{0}ETH!',withdrawNum),
+                                    type:'success'
+                                })                                       
+                            } else {
+                                Message({
+                                    message: name + _('已成功提现{0}ETH!', withdrawNum),
+                                    type:'success'
+                                })                                  
+                            }
+                        }else if(res.event === 'onSettle'){
+
+                        }
+                    }
+                }else{
+                    console.error('allEvents' + err);
+                }
+            })
         }
     },
     computed: {
@@ -884,6 +956,8 @@ export default {
         }
         console.log(this.isFromFlag)
         this.pageInit()
+        this.startAllevent()
+        // 
     },
     filters: {
     }

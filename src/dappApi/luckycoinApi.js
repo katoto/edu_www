@@ -2,7 +2,8 @@ import Web3 from 'web3'
 // 合约addr
 // let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
 // 合约addr 下
-let contractAddr = '0x77c73a4f9eb5a69e70abc378ff504eed58275d03'
+// let contractAddr = '0x77c73a4f9eb5a69e70abc378ff504eed58275d03'
+let contractAddr = '0x8122960d6192858bf80f87129037e123d8233bcf'
 
 let web3 = window.web3
 let contractAbi = [
@@ -1250,5 +1251,6 @@ luckyCoinApi.getTimeLeft = () => {
 
 export {
     web3,
+    contractNet,
     luckyCoinApi
 }
