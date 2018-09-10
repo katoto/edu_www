@@ -640,7 +640,7 @@ export default {
             currTicketPrice: null, // 单价
             allTicketPrice: null,
             maxTicketNum: null, // 最大ticket 数量
-            expectsList: null,  // 期号历史数据
+            expectsList: null, // 期号历史数据
             ordersList: null, // 订单历史数据
 
             expectPageno: 1,
@@ -649,7 +649,7 @@ export default {
 
             orderPageno: 1,
             orderpPgeSize: 10,
-            orderPageTotal: 10,
+            orderPageTotal: 10
         }
     },
     watch: {
@@ -663,9 +663,9 @@ export default {
         copyError,
         formateBalance,
         formatTime,
-        async expectCurrentChange(pageno = this.expectPageno){
+        async expectCurrentChange (pageno = this.expectPageno) {
             let params = {
-                pageno,
+                pageno
             }
             let data = await this.getSuperCoinExpects(params)
             data = data.data
@@ -674,12 +674,12 @@ export default {
                 this.expectPageTotal = parseInt(data.counter, 10)
             }
         },
-        expectSizeChange(){
+        expectSizeChange () {
 
         },
-        async orderCurrentChange(pageno = this.orderPageno){
+        async orderCurrentChange (pageno = this.orderPageno) {
             let params = {
-                pageno,
+                pageno
             }
             let data = await this.getSuperCoinOrder(params)
             data = data.data
@@ -688,7 +688,7 @@ export default {
                 this.orderPageTotal = parseInt(data.counter, 10)
             }
         },
-        orderSizeChange(){
+        orderSizeChange () {
 
         },
         checkTicket () {
@@ -702,8 +702,8 @@ export default {
             }
             this.tickNum = this.tickNum > 1500 ? 1500 : this.tickNum
         },
-        chooseMin(){
-            this.tickNum = 1;
+        chooseMin () {
+            this.tickNum = 1
         },
         chooseHalf () {
             this.tickNum = Number(this.tickNum)
@@ -756,8 +756,8 @@ export default {
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             this.startTimeLeft()
             if (this.balance && Number(this.balance) > 0) {
-                this.maxTicketNum = Math.floor( Number(this.balance ) / Number(this.currTicketPrice) ) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor( Number(this.balance ) / Number(this.currTicketPrice) )
-            }else{
+                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+            } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
             window.setInterval(async () => {
@@ -769,13 +769,13 @@ export default {
             this.orderCurrentChange()
         },
         getSuperCoinExpects (params) {
-            return this.$store.dispatch(aTypes.superCoinExpects , {
+            return this.$store.dispatch(aTypes.superCoinExpects, {
                 pagesize: this.pageSize,
                 ...params
             })
         },
         getSuperCoinOrder (params) {
-            return this.$store.dispatch(aTypes.superCoinOrder , {
+            return this.$store.dispatch(aTypes.superCoinOrder, {
                 pagesize: this.pageSize,
                 ...params
             })
@@ -842,7 +842,7 @@ export default {
                 Message({
                     message: '名字不符合规则',
                     type: 'error'
-                })                
+                })
                 return false
             }
             // 判断是否已经被购买
@@ -854,7 +854,7 @@ export default {
                 Message({
                     message: '名字已被注册',
                     type: 'error'
-                })                         
+                })
             }
         },
         async withdraw () {

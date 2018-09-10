@@ -48,11 +48,11 @@
             this.isReady = true
 
             /* 老虎机和首页 */
-            if(isForbitPage()){
+            if (isForbitPage()) {
                 setTimeout(function () {
                     document.getElementById('csLoading').style.display = 'none'
                 }, 0)
-            }else{
+            } else {
                 if (!(this.socket && this.socket.sock)) {
                     this.$store.dispatch('initWebsocket', () => {
                         this.$store.dispatch('homeInfo')
