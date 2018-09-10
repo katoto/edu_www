@@ -945,8 +945,8 @@ let contractAbi = [
 ]
 // or
 if (typeof web3 === 'undefined') {
-    // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/WlvljmHqo75RhK1w1QJF"));
-    web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/WlvljmHqo75RhK1w1QJF'))
+    web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/WlvljmHqo75RhK1w1QJF'))
+    // web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/WlvljmHqo75RhK1w1QJF'))
     // alertify.alert('You are not signed into metamask')
 }
 

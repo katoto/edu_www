@@ -15,7 +15,6 @@
             </div>
         </div>
         <!--status2-->
-        
         <div class="banner-dapp">
             <!--公告 滚动  components-->
             <banner-scroll class="message">
@@ -666,9 +665,6 @@ export default {
         copyError,
         formateBalance,
         formatTime,
-<<<<<<< HEAD
-        async expectCurrentChange (pageno = this.expectPageno) {
-=======
         tabEvt(evt){
             if(evt.target.nodeName === 'A'){
                 let dataName = evt.target.getAttribute('data-name')
@@ -690,7 +686,6 @@ export default {
             })
         },
         async expectCurrentChange(pageno = this.expectPageno){
->>>>>>> 883885c63901d096afb77e041d35fd3f41505532
             let params = {
                 pageno
             }
