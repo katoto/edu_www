@@ -34,7 +34,7 @@
             </banner-scroll>
  
             <!--draw-->
-            <template v-if="roundInfo && selfMsg">
+            <template v-if="roundInfo">
                 <div class="issue">
                     <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
                     <p class="hide">
@@ -59,7 +59,7 @@
                             <p class="title">
                                 End of the draw
                             </p>
-                            <p class="countdown">
+                            <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0}">
                                 {{ nowFormateTime }}
                             </p>
                         </div>
@@ -106,7 +106,7 @@
                         </div>
                         <!--登录前-->
                         <div class="btn-box hide">
-                            <a href="javascript:;" class="btn-big">Login to Metamask</a>
+                            <a href="javascript:;" class="btn-big" @click="loginMetamask">Login to Metamask</a>
                             <a href="javascript:;" class="btn-small">使用收益支付</a>
                         </div>
                         <!--登陆后-->
@@ -114,11 +114,12 @@
                             <a href="javascript:;" class="btn-big" @click="buyNum">
                                 立即支付
                             </a>
-                            <a href="javascript:;" class="btn-small btn-hadlogin" >
-                                <p>
+                            <!--  -->
+                            <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
+                                <p :class="{'buyEnough':(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
                                     使用收益支付
                                 </p>
-                                <p style="font-size: 14px;">
+                                <p style="font-size: 14px;" v-if="selfMsg">
                                     您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
                                 </p>
                             </a>
@@ -130,12 +131,16 @@
 
             <!--时间到准备开奖-->
             <!--on-->
-            <p class="timeup ">
+            <p class="timeup" :class="{'on': currTimeUp }">
                 TIME UP!
             </p>
+            <!-- 待开奖  todo -->
+            <p class="timeup" :class="{'on':waitWin}">
+                Drawing !
+            </p>
 
-            <!--开奖-->
-            <div class="lottery hide">
+            <!--开奖 -->
+            <div class="lottery hide" >
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
@@ -181,34 +186,34 @@
             </div>
 
         </div>
-        <!--信息展示区-->
+        <!--信息展示区--> 
         <div class="information">
             <!--四个信息-->
             <div class="merge-info">
-                <ul class="title">
-                    <li class="on">
-                        <a href="javascript:;">
+                <ul class="title" @click="tabEvt">
+                    <li :class="{'on':informationTab==='myticket'}">
+                        <a data-name="myticket" href="javascript:;">
                             My Ticket
                         </a>
                     </li>
-                    <li>
-                        <a href="javascript:;">
+                    <li :class="{'on':informationTab==='income'}">
+                        <a data-name="income" href="javascript:;">
                             Income
                         </a>
                     </li>
-                    <li>
-                        <a href="javascript:;">
+                    <li :class="{'on':informationTab==='historyDraw'}">
+                        <a data-name="historyDraw" href="javascript:;">
                             History Draw
                         </a>
                     </li>
-                    <li>
-                        <a href="javascript:;">
+                    <li :class="{'on':informationTab==='howToPlay'}">
+                        <a data-name="howToPlay" href="javascript:;">
                             How To Play
                         </a>
                     </li>
                 </ul>
                 <!--我的购买-->
-                <div class="ticket ">
+                <div class="ticket " :class="{'hide':informationTab!=='myticket'}">
                     <template  v-if="selfMsg">
                         <div class="explain-msg">
                             <p>
@@ -279,73 +284,67 @@
                             >
                             </el-pagination>
                         </div>
-
                     </template>
                     <!--未登陆 或者 信息为空-->
-                    <div class="ticket-unlogin" v-else>
+                    <div class="ticket-unlogin" v-if="!selfMsg">
                         <!--未登陆-->
                         <p>
-                            No record.  Please login to the <a href="javascript:;" style="color: #6a88cc;">Metamask</a>
+                            No record.  Please login to the <a href="javascript:;" style="color: #6a88cc;" @click="loginMetamask">Metamask</a>
                         </p>
-                        <!--信息为空-->
+                        <!--信息为空 todo -->
                         <p class="hide">
                             No record.
                         </p>
                     </div>
                 </div>
                 <!--我的收益-->
-                <div class="income hide">
-                    <template v-if="selfMsg">
-                        <p class="explain-msg">
-                            You can withdraw your dividends at any time, invite rewards and winning prizes.
+                <div class="income" v-if="selfMsg" :class="{'hide':informationTab!=='income'}">
+                    <p class="explain-msg">
+                        You can withdraw your dividends at any time, invite rewards and winning prizes.
+                    </p>
+                    <div class="income-item">
+                        <p>
+                            Dividend
                         </p>
-                        <div class="income-item">
-                            <p>
-                                Dividend
-                            </p>
-                            <span>
-                                {{ selfMsg.calcTicketEarn }} ETH
-                            </span>
-                        </div>
-                        <div class="income-item">
-                            <p>
-                                Invitation
-                            </p>
-                            <span>
-                                {{ selfMsg.aff_invite }} ETH
-                            </span>
-                        </div>
-                        <div class="income-item">
-                            <p>
-                                Winning Prize
-                            </p>
-                            <span>
-                                {{ selfMsg.win }} ETH
-                            </span>
-                        </div>
-                        <div class="income-item income-item-last">
-                            <p>
-                                Total revenue
-                            </p>
-                            <div>
-                                <span>
-                                    {{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
-                                </span>
-                                <span class="usd">
-                                    ≈ 231,769USD
-                                </span>
-                            </div>
-                        </div>
-                        <a href="javascript:;" class="btn-withdrawal" @click="withdraw">
-                            Withdrawal
-                        </a>
-                    </template>
-                    <div v-else>
-                        <span>未登陆</span>
+                        <span>
+                            {{ selfMsg.calcTicketEarn }} ETH
+                        </span>
                     </div>
+                    <div class="income-item">
+                        <p>
+                            Invitation
+                        </p>
+                        <span>
+                            {{ selfMsg.aff_invite }} ETH
+                        </span>
+                    </div>
+                    <div class="income-item">
+                        <p>
+                            Winning Prize
+                        </p>
+                        <span>
+                            {{ selfMsg.win }} ETH
+                        </span>
+                    </div>
+                    <div class="income-item income-item-last">
+                        <p>
+                            Total revenue
+                        </p>
+                        <div>
+                            <span>
+                                {{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
+                            </span>
+                            <span class="usd">
+                                ≈ 231,769USD
+                            </span>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="btn-withdrawal" @click="withdraw">
+                        Withdrawal
+                    </a>
                 </div>
-                <!--历史开奖-->
-                <div class="historyDraw hide">
+                <!--历史开奖 hide -->
+                <div class="historyDraw" :class="{'hide':informationTab!=='historyDraw'}">
                     <ul class="historyDraw-head">
                         <li class="issue">Phase</li>
                         <li class="winningNumbers">Winning Numbers</li>
@@ -494,9 +493,28 @@
                             </p>
                         </li>
                     </ul>
+
+                    <!-- 分页msg  -->
+                    <div class="pagination">
+                        <el-pagination
+                                @current-change="expectCurrentChange"
+                                @size-change="expectSizeChange"
+                                background
+                                :current-page.sync="expectPageno"
+                                size="small"
+                                :page-sizes="[10, 25, 50, 100]"
+                                :page-size="expectPageSize"
+                                layout="sizes,prev, pager, next,jumper"
+                                :total="expectPageTotal"
+                                :next-text="_('Next >')"
+                                :prev-text="_('< Previous')"
+                        >
+                        </el-pagination>
+                    </div>
+
                 </div>
                 <!--游戏教程-->
-                <div class="instructions hide">
+                <div class="instructions" :class="{'hide':informationTab!=='howToPlay'}">
                     <div class="explain-msg">
                         <p>
                             Brief Introduction:
@@ -526,24 +544,6 @@
                             Playing on mobile: Trust, Cipher, Jaxx and other mobile wallets are recommended to use.
                         </p>
                     </div>
-                </div>
-
-                <!-- 分页msg  -->
-                <div class="pagination">
-                    <el-pagination
-                            @current-change="expectCurrentChange"
-                            @size-change="expectSizeChange"
-                            background
-                            :current-page.sync="expectPageno"
-                            size="small"
-                            :page-sizes="[10, 25, 50, 100]"
-                            :page-size="expectPageSize"
-                            layout="sizes,prev, pager, next,jumper"
-                            :total="expectPageTotal"
-                            :next-text="_('Next >')"
-                            :prev-text="_('< Previous')"
-                    >
-                    </el-pagination>
                 </div>
 
             </div>
@@ -626,7 +626,10 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
-            balance: null,
+            informationTab: 'myticket', // 控制tab
+            waitWin: false, // 待开奖 
+            currTimeUp: null,
+            balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
             showFirstBaxi: false, // 首次提示
             selfAddr: null,
@@ -663,7 +666,31 @@ export default {
         copyError,
         formateBalance,
         formatTime,
+<<<<<<< HEAD
         async expectCurrentChange (pageno = this.expectPageno) {
+=======
+        tabEvt(evt){
+            if(evt.target.nodeName === 'A'){
+                let dataName = evt.target.getAttribute('data-name')
+                if(this.selfMsg){
+                    this.informationTab = dataName
+                }else{
+                    if(dataName==='howToPlay'||dataName==='myticket'){
+                        this.informationTab = dataName
+                    }else{
+                        this.loginMetamask()
+                    }
+                }
+            }
+        },
+        loginMetamask(){
+            Message({
+                message: '点击又上角进行登录',
+                type: 'error'
+            })
+        },
+        async expectCurrentChange(pageno = this.expectPageno){
+>>>>>>> 883885c63901d096afb77e041d35fd3f41505532
             let params = {
                 pageno
             }
@@ -754,14 +781,22 @@ export default {
             await this.getPlayerInfoByAddress()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-            this.startTimeLeft()
             if (this.balance && Number(this.balance) > 0) {
                 this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
+            if(this.timeLeft === 0){
+                this.waitWin = true ;
+                this.nowFormateTime = '00:00:00'
+            }else{
+                this.startTimeLeft()
+            }
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
+                if(this.timeLeft !== 0){
+                    this.startTimeLeft()
+                }
             }, 10000)
             //  请求历史数据
             this.expectCurrentChange()
@@ -782,9 +817,17 @@ export default {
         },
         startTimeLeft () {
             // 倒计时
+            clearInterval(this.nowTimeInterval)
             this.nowTimeInterval = setInterval(() => {
-                if (this.timeLeft) {
+                if (this.timeLeft !== undefined) {
                     if (this.timeLeft === 0) {
+                        // 执行时间到动画
+                        this.currTimeUp = true;
+                        setTimeout(()=>{
+                            this.currTimeUp = flase;
+                            // 显示待开奖状态
+                            this.waitWin = true
+                        },5000)
                         clearInterval(this.nowTimeInterval)
                     }
                     this.nowFormateTime = this.formatTime(this.timeLeft, 'HH:mm:ss')
@@ -830,6 +873,10 @@ export default {
         },
         async registerName () {
             let buyNameBack = null
+            if(!this.selfMsg){
+                this.loginMetamask();
+                return false
+            }
             if (!this.beforeInviteName) {
                 Message({
                     message: '请输入名字',
@@ -989,6 +1036,9 @@ export default {
         }
     }
     .banner-dapp{
+        .buyEnough{
+            color: #fff;
+        }
         position: relative;
         width: 100%;
         height: 585px;
