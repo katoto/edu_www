@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp status2">
+        <div class="banner-dapp">
             <!--公告 滚动  components-->
             <banner-scroll class="message">
                 <div class="text-scroller" style="height:100%">
@@ -35,7 +35,7 @@
                         </p>
                     </div>
                     <!--未开奖投注区-->
-                    <div class="betting-area hide ">
+                    <div class="betting-area  ">
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
@@ -110,7 +110,7 @@
                                 <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
                                     使用收益支付
                                 </p>
-                                <p style="font-size: 14px;" v-if="selfMsg">
+                                <p v-if="selfMsg">
                                     您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
                                 </p>
                             </a>
@@ -130,7 +130,7 @@
             </p>
 
             <!--开奖 -->
-            <div class="lottery " >
+            <div class="lottery hide" >
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
@@ -176,9 +176,9 @@
             </div>
 
             <!--狐狸提示-->
-            <div class="pop pop-metamask hide">
+            <div class="pop pop-metamask" :class="{hide:!showPopMask}">
                  <div class="mask-main">
-                     <a href="javascript:;" class="pop-close"></a>
+                     <a href="javascript:;" class="pop-close" @click="showPopMask=false"></a>
                      <h5>
                          游戏提示
                      </h5>
@@ -186,7 +186,7 @@
                          请先安装并登录Metamask钱包
                      </p>
                      <p class="p2">
-                         没有Metamask钱包，如何安装？ <a href="javascript:;"> 查看 </a>
+                         没有Metamask钱包，如何安装？ <a href="javascript:;"  @click="scrollInvite"> 查看 </a>
                      </p>
                  </div>
             </div>
@@ -207,7 +207,7 @@
                     Buy a promotion link, invite friends to participate in the game through this link, you will get 10% commission on his bet
                 </p>
                 <!--邀请后-->
-                <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''">
+                <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''||1">
                     <div class="my-link">
                         <p class="link-msg">
                             Your promotion link
@@ -334,7 +334,7 @@
                         </div>
 
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm" >
+                        <div class="pagination" >
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -572,7 +572,9 @@ export default {
 
             orderPageno: 1,
             orderpPgeSize: 10,
-            orderPageTotal: 1
+            orderPageTotal: 1,
+
+            showPopMask: false
         }
     },
     watch: {
@@ -604,6 +606,8 @@ export default {
             return newEth
         },
         scrollInvite () {
+            this.informationTab = 'howToPlay'
+            this.showPopMask = false
             document.getElementById('inviteView').scrollIntoView()
         },
         scrollMsgChange (state) {
@@ -633,10 +637,11 @@ export default {
             }
         },
         loginMetamask () {
-            Message({
-                message: '点击又上角进行登录',
-                type: 'error'
-            })
+            this.showPopMask = true
+            // Message({
+            //     message: '点击又上角进行登录',
+            //     type: 'error'
+            // })
         },
         async expectCurrentChange (pageno = this.expectPageno) {
             let params = {
@@ -1045,8 +1050,8 @@ export default {
             display: table;
             padding: 0;
             margin: 20px auto 30px;
-            height: 30px;
-            line-height: 30px;
+            height: 28px;
+            line-height: 28px;
             overflow: hidden;
             font-size: 14px;
             color: #6a88cc;
@@ -1054,8 +1059,8 @@ export default {
             li {
                 display: inline-block;
                 margin-left: 5px;
-                height: 28px;
-                line-height: 28px;
+                height: 26px;
+                line-height: 26px;
                 box-sizing: content-box;
                 outline: none;
                 border: 1px solid #6a88cc;
@@ -1124,6 +1129,15 @@ export default {
         .el-input__inner,.el-select-dropdown__list{
             border-color: #6a88cc;
             background: #211c38;
+        }
+    }
+    @media (max-width: 768px) {
+        .luckyDapp {
+            .pagination {
+                .el-pagination__sizes ,.el-pagination__jump{
+                    display: none;
+                }
+            }
         }
     }
 </style>
