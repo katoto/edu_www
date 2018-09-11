@@ -24,7 +24,7 @@
                         menu1: _('About Wallet'),
                         menu2: [_('How to top up'), _('How to withdraw'), _('Withdrawal Conditions')]
                     },
-                    {menu1: _('About Games'), menu2: [_('Play Lucky11'), _('Play LuckyCoin')]},
+                    {menu1: _('About Games'), menu2: [_('Play Lucky11'), _('Play LuckyCoin'), this.$lang.poker.a40]},
                     {menu1: _('Others'), menu2: [_('Transparency checking'), _('Contact us')]}
                 ]
             }
