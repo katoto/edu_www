@@ -521,11 +521,17 @@
                 return tmp
             },
             handleBetEvent () {
+                this.failMsg = ''
                 if (!this.isLogin) {
                     this.$store.commit('showLoginPop')
                     return
                 }
                 if (this.disableBet || this.isBlinking) {
+                    return
+                }
+                if (Number(this.betValue) < this.thisAccount.balance && Number(this.betValue) > this.thisAccount.checkout_balance) {
+                    this.failMsg = _('Top-up bonus cannot be used in LuckyCoin.')
+                    this.showFail = true
                     return
                 }
                 if (Number(this.betValue) > this.balance) {
@@ -666,18 +672,20 @@
                 isLogin: state => !!state.isLog
             }),
             ...mapState(['userInfo']),
-            balance () {
+            thisAccount () {
                 if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length > 0) {
                     let accounts = this.userInfo.accounts
                     for (let index = 0; index < accounts.length; index++) {
                         let account = accounts[index]
                         if (account.cointype === this.coinType) {
-                            // return Number(account.balance) > 0 ? Number(account.balance) : 0
-                            return Number(account.checkout_balance) > 0 ? Number(account.checkout_balance) : 0
+                            return account
                         }
                     }
                 }
-                return 0
+                return {}
+            },
+            balance () {
+                return Number(this.thisAccount.balance) > 0 ? Number(this.thisAccount.balance) : 0
             },
             coinType () {
                 return this.goodsinfo.goodsType || '2001'

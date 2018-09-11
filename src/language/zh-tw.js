@@ -737,7 +737,8 @@ module.exports = {
     '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用戶在活動頁指定入口充值任意金額，即可獎勵50%（最高獎勵0.05 ETH/0.005 BTC），獎勵金額不允許玩lucky coin遊戲。',
     '4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.': '4.參與充值優惠的用戶可選擇ETH或BTC充值方式，以首次到賬充值方式為準，即兩種充值方式不可兼得。由於虛擬代幣充值到賬時間慢，平臺獎勵依據以首次到賬金額計算，並贈送對應獎勵。',
     '6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.': '6.該活動每個用戶僅可享受壹次。如果Coinsprize有理由懷疑同壹個客戶、同壹組客戶不止壹次申領獎金或優惠，Coinsprize可隨時收回任何客戶或客戶組的任何或全部優惠，並/或取消任何使用獎金進行的投註和因這些投註而產生的彩金。',
-    '7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.': '7.該活動最終解釋權歸Coinsprize所有，Coinsprize有權索回因錯誤派發的優惠資金，可隨時對此優惠進行微改以更正筆誤、提高用語清晰度或提升客戶體驗，並且可能隨時因法律或法規要求取消此優惠。'
+    '7. Coinsprize reserves the right to withdraw bonus which has been sent under the wrong circumstances and make corrections of our diction to improve accuracy, and cancel certain services at its own discretion where the services are illegal to apply.': '7.該活動最終解釋權歸Coinsprize所有，Coinsprize有權索回因錯誤派發的優惠資金，可隨時對此優惠進行微改以更正筆誤、提高用語清晰度或提升客戶體驗，並且可能隨時因法律或法規要求取消此優惠。',
+    'Top-up bonus cannot be used in LuckyCoin.': '獎勵帳戶不允許投注LuckyCoin'
 
     /* activity end */
 }
