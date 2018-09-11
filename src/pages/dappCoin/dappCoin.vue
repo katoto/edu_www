@@ -7,10 +7,10 @@
                     <p>Super LuckyCoin</p>
                 </h1>
                 <div class="fr-msg">
-                    <a href="javascript:;" class="invite" @click="scrollInvite">Invite</a>
-                    <a href="">Contract</a>
-                    <a href="">Easy Play</a>
-                    <a href="index.html" class="btn-home"></a>
+                    <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
+                    <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code"><lang>Contract</lang></a>
+                    <a href=""><lang>Easy Play</lang></a>
+                    <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
             </div>
         </div>
@@ -234,25 +234,25 @@
             </div>
             <!--四个信息-->
             <div class="merge-info">
-                <ul class="title" @click="tabEvt">
-                    <li :class="{'on':informationTab==='myticket'}">
-                        <a data-name="myticket" href="javascript:;">
-                            My Ticket
+                <ul class="title">
+                    <li :class="{'on':informationTab==='myticket'}" @click="tabEvt('evt', 'myticket')">
+                        <a href="javascript:;">
+                            <lang>My Tickets</lang>
                         </a>
                     </li>
-                    <li :class="{'on':informationTab==='income'}">
-                        <a data-name="income" href="javascript:;">
-                            Income
+                    <li :class="{'on':informationTab==='income'}" @click="tabEvt('evt', 'income')">
+                        <a href="javascript:;">
+                            <lang>My Income</lang>
                         </a>
                     </li>
-                    <li :class="{'on':informationTab==='historyDraw'}">
-                        <a data-name="historyDraw" href="javascript:;">
-                            History Draw
+                    <li :class="{'on':informationTab==='historyDraw'}" @click="tabEvt('evt', 'historyDraw')">
+                        <a href="javascript:;">
+                            <lang>Draw History </lang>
                         </a>
                     </li>
-                    <li :class="{'on':informationTab==='howToPlay'}">
-                        <a data-name="howToPlay" href="javascript:;">
-                            How To Play
+                    <li :class="{'on':informationTab==='howToPlay'}" @click="tabEvt('evt', 'howToPlay')">
+                        <a href="javascript:;">
+                            <lang>Instructions </lang>
                         </a>
                     </li>
                 </ul>
@@ -493,6 +493,8 @@
 
             </div>
         </div>
+
+        <Footer></Footer>
     </div>
 </template>
 
@@ -507,6 +509,7 @@ import {
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
+import Footer from '~components/Footer.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message} from 'element-ui'
@@ -593,17 +596,14 @@ export default {
                 ]
             }
         },
-        tabEvt (evt) {
-            if (evt.target.nodeName === 'A') {
-                let dataName = evt.target.getAttribute('data-name')
-                if (this.selfMsg) {
+        tabEvt (evt, dataName) {
+            if (this.selfMsg) {
+                this.informationTab = dataName
+            } else {
+                if (dataName === 'howToPlay' || dataName === 'myticket') {
                     this.informationTab = dataName
                 } else {
-                    if (dataName === 'howToPlay' || dataName === 'myticket') {
-                        this.informationTab = dataName
-                    } else {
-                        this.loginMetamask()
-                    }
+                    this.loginMetamask()
                 }
             }
         },
@@ -996,7 +996,7 @@ export default {
         }
     },
     components: {
-        BannerScroll
+        BannerScroll, Footer
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {

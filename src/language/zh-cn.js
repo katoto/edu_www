@@ -741,6 +741,13 @@ module.exports = {
     /* activity end */
 
     /* super coin start */
+    'Referrals': '邀请好友',
+    'Contract': '智能合约',
+    'Easy Play': '新手教程',
+    'My Tickets': '我的购买',
+    'My Income': '我的收益',
+    'Draw History ': '历史开奖',
+    'Instructions ': '游戏教程',
     'Buyers who hold part/all of first 500 tickets enjoy the dividend.': '前500个Ticket可获得后面的投注分红！',
     'Buy more tickets, get more dividend, and enjoy higher winning chance.': '购买越多，分红越多，中奖概率也越高',
     'Click to learn easy play for starters.': '点击获取帮助，可以查看新手教程噢',
