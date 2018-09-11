@@ -208,9 +208,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="detailedtips hidden-xs hidden-sm" v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'">
+                <div class="detailedtips hidden-xs hidden-sm" >
+                    <p v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'"></p>
+                    <router-link :to="{path:'/help/helpView/2/1'}" style="color: #fff;text-decoration: underline">
+                        <lang>How to play?</lang>
+                    </router-link>
                 </div>
             </div>
+            <p class="main-detailed toplay hidden-lg hidden-md">
+                <router-link :to="{path:'/help/helpView/2/1#test'}" >
+                    <lang>How to play?</lang>
+                </router-link>
+            </p>
             <div class="main-detailed">
                 <el-tabs v-model="activeName" >
                     <el-tab-pane :label="_('All Bids')" name="all">
@@ -1702,6 +1711,16 @@
     }
 </style>
 <style scope lang="less" type="text/less">
+    .toplay{
+        margin-top: 20px;
+        font-size: 14px;
+        color: #fff;
+        a{
+            line-height: 24px;
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
     @media (max-width: 992px) {
         .itemluck{
             .match-img{

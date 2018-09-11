@@ -170,21 +170,9 @@ const actions = {
         try {
             let InfoData = null
             if (pageData) {
-                InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&src=${src}&platform=${platform}`)
+                InfoData = await ajax.get(`/user/login?email=${pageData.email}&password=${md5(md5(pageData.password))}&verify_code=${pageData.verify_code}`)
             }
-            console.log(InfoData)
             if (InfoData.status.toString() === '100') {
-                // if (InfoData.data.login_times === '1' && InfoData.data.status === '1') {
-                //     // 显示第一次邀请
-                //     commit('showFirstLogin', true)
-                // } else {
-                //     commit('showFirstLogin', false)
-                // }
-
-                // commit('setLoginSucc', {
-                //     status: InfoData.data.status,
-                //     login_times: InfoData.data.login_times
-                // })
                 return InfoData.data
             } else {
                 Message({

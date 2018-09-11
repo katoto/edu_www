@@ -1,6 +1,6 @@
 <template>
     <div class="">
-      <h1>
+      <h1 name="point">
           <lang>How to Play  (LuckyCoin)</lang>
       </h1>
         <ul>
@@ -59,7 +59,6 @@
         },
         components: {},
         mounted () {
-
         }
     }
 </script>
