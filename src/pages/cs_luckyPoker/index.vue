@@ -295,24 +295,9 @@
                                     {{Number(item.prize_amount)}} <i>{{formateCoinType(item.cointype)}}</i>
                                 </p>
                             </li>
-                            
-                            <!-- <li>
-                                <p class="bet-user">
-                                    222222222222222@gmail.com
-                                </p>
-                                <div class="bet-expect red">
-                                    RED
-                                </div>
-                                <p class="bet-count">
-                                    0.00001<i> ETH</i>
-                                </p>
-                                <div class="bet-result icon-fk">
-                                    <p>Q</p>
-                                </div>
-                                <p class="bet-result-count">
-                                    0.00001<i> ETH</i>
-                                </p>
+                            <li v-for="(item, index) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="index">
                             </li>
+                            <!-- 
                             <li>
                                 <p class="bet-user">
                                     222222222222222@gmail.com
@@ -577,6 +562,12 @@ export default {
         getElementAbsolutePosition,
         getElementCenterPosition,
         formatNum,
+        getEmptyList (num) {
+            if (num > 0) {
+                return new Array(num)
+            }
+            return []
+        },
         initPop () {
             /* head 弹窗 */
             this.$store.commit('initHeadState', new Date().getTime())
