@@ -182,12 +182,12 @@
                 <ul class="title">
                     <li class="on">
                         <a href="javascript:;">
-                            Invite
+                            <lang>Referrals</lang>
                         </a>
                     </li>
                 </ul>
                 <p class="explain-msg">
-                    Buy a promotion link, invite friends to participate in the game through this link, you will get 10% commission on his bet
+                    <lang>Buy a referral link to invite your friends, you can get 10% of your friends' investment as referral reward.</lang>
                 </p>
                 <!--邀请后-->
                 <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''">
@@ -216,16 +216,16 @@
                 <!--邀请前-->
                 <div class="invite-before" v-else>
                     <div class="input-group">
-                        <input v-model="beforeInviteName" type="text" placeholder="Please enter your preferred name">
+                        <input v-model="beforeInviteName" type="text" :placeholder="_('name your link')">
                         <a href="javascript:;" @click="getRandomName"></a>
                     </div>
                     <p>
-                        Name rule <br>
-                        1. Need is unique (database only)<br>
-                        2. within 32 characters<br>
-                        3. A-Z (letter lowercase)<br>
-                        4. Allow numbers, but not pure numbers<br>
-                        5. no special characters and spaces
+                        <lang>Rules </lang> :<br>
+                        1. <lang>The name should be one and only in the system</lang><br>
+                        2. <lang>The name contains at most 32 characters</lang><br>
+                        3. <lang>Use lowercase (a-z)</lang><br>
+                        4. <lang>You can combine with numbers in the name but only using numbers is not allowed</lang><br>
+                        5. <lang>Do not use special characters and space in the name</lang>
                     </p>
                     <a href="javascript:;" class="btn-gobuy" @click="registerName">
                         Purchase with 0.001ETH
