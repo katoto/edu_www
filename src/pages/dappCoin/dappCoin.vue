@@ -526,34 +526,37 @@
         <!--返回顶部-->
         <ScrollTop></ScrollTop>
         <!--新手引导-->
-        <div class="pop pop-new">
+        <div class="pop pop-new" :class="{on:isShowNew}">
             <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
                 <p>
-                    <lang>Reward is here: Blockchain-based draw</lang>
+                    <lang>1. This is the current prize pool</lang>
                 </p>
-                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
+                <p>
+                    <lang>, and the winner will receive most of the rewards.</lang>
+                </p>
+                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Okay</lang></a>
                 <img src="../../assets/img/luckyCoin/line.png" alt="">
             </div>
-            <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
+            <div class="hide step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
                 <p>
-                    <lang>Available bid is here: Draw will proceed after all bids are sold out</lang>
+                    <lang>2. This is the current prize pool, and the winner will receive most of the rewards.</lang>
                 </p>
-                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
+                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Okay</lang></a>
                 <img src="../../assets/img/luckyCoin/line.png" alt="">
             </div>
-            <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
+            <div class="hide step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
                 <p>
-                    <lang>If bids are not sold out, draw will proceed after the countdown</lang>
+                    <lang>3. This is the current prize pool, and the winner will receive most of the rewards.</lang>
                 </p>
-                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
+                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>Okay</lang></a>
                 <img src="../../assets/img/luckyCoin/line.png" alt="">
             </div>
-            <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
+            <div class="hide step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
                 <img src="../../assets/img/luckyCoin/line.png" alt="">
                 <p>
-                    <lang>Click here to play: Bid more, win more</lang>
+                    <lang>Click here to place a bet, try it now.</lang>
                 </p>
-                <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>OK</lang></a>
+                <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>Okay</lang></a>
             </div>
         </div>
         <Footer></Footer>
@@ -615,10 +618,11 @@ export default {
             orderPageTotal: 1,
 
             showPopMask: false,
-            isShowStep1: false,
-            isShowStep2: false,
-            isShowStep3: false,
-            isShowStep4: false,
+            isShowNew: false,
+            isShowStep1: true,
+            isShowStep2: true,
+            isShowStep3: true,
+            isShowStep4: true,
         }
     },
     watch: {
@@ -2014,6 +2018,29 @@ export default {
                     }
                 }
             }
+        }
+    }
+    .pop-new{
+        p{
+            line-height: 23px;
+            font-size: 20px;
+            color: #FEDC8E;
+        }
+        a{
+            display: block;
+            margin: 0 auto;
+            width:67px;
+            height:27px;
+            line-height: 27px;
+            background:rgba(32,191,107,1);
+            border-radius:6px;
+            font-size: 14px;
+            color: #fff;
+        }
+        .step{
+            position: absolute;
+            top: 0;
+            right: 0;
         }
     }
 
