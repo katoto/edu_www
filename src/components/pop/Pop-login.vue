@@ -130,6 +130,8 @@
                                 this.$store.commit('setUserInfo', {})
                             }
                         }
+                    }else{
+                        this.reloadVerifyImg()
                     }
                 } else {
                     Message({
