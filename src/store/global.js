@@ -328,6 +328,17 @@ const actions = {
                                 dispatch(actionTypes.addRecentList, msg.data)
                             }
                             break
+                        case 4001:
+                        case '4001':
+                            console.log(msg.data)
+                            commit('cs_luckypoker/setBetList', msg.data.top)
+                            commit('cs_luckypoker/setSelfBetList', msg.data.self_top)
+                            break
+                        case 4002:
+                        case '4002':
+                            console.log(msg.data)
+                            commit('cs_luckypoker/addBetList', msg.data.top)
+                            break
                         }
                     }
                 }
@@ -545,6 +556,32 @@ const actions = {
             action: 'unsub',
             lotid: 2,
             type: 'lottery'
+        }
+        if (state.userInfo && state.userInfo.uid) {
+            data.uid = state.userInfo.uid
+        }
+        state.socket.sock && state.socket.sock.send(JSON.stringify(data))
+    },
+    subInDice ({dispatch}) {
+        let data = {
+            action: 'sub',
+            type: 'dice'
+        }
+        if (state.userInfo && state.userInfo.uid) {
+            data.uid = state.userInfo.uid
+        }
+        try {
+            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
+        } catch (e) {
+            setTimeout(() => {
+                dispatch('subInDice')
+            }, 100)
+        }
+    },
+    subOutDice () {
+        let data = {
+            action: 'unsub',
+            type: 'dice'
         }
         if (state.userInfo && state.userInfo.uid) {
             data.uid = state.userInfo.uid

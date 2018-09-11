@@ -29,6 +29,7 @@ import help11 from './help-components/help2-rhtx'
 import help12 from './help-components/help2-tktj'
 import help20 from './help-components/help3-lucky11'
 import help21 from './help-components/help3-luckyCoin'
+import help22 from './help-components/help3-luckyPoker'
 import help30 from './help-components/help4-cxtmx'
 import help31 from './help-components/help4-contact'
 export default {
@@ -71,6 +72,7 @@ export default {
         help12,
         help20,
         help21,
+        help22,
         help30,
         help31
     },

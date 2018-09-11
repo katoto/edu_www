@@ -548,6 +548,7 @@ export default {
                     overflow: hidden;
                     background-color: #386363;
                     cursor: pointer;
+                    transition: all 0.2s;
                     img{
                         position: absolute;
                         left: 50%;
@@ -558,6 +559,9 @@ export default {
                     }
                     &:first-child,&:nth-child(3){
                         background-color: #4a8282;
+                    }
+                    &:hover{
+                        filter: brightness(1.1);
                     }
                 }
                 li+li{
