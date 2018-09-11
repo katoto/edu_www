@@ -504,7 +504,6 @@ import {
     copySucc,
     copyError,
     formateCoinType,
-    formatTime
 } from '~common/util'
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
@@ -563,7 +562,6 @@ export default {
         copySucc,
         copyError,
         formateCoinType,
-        formatTime,
         formatesuperCoin (val) {
             // 金额格式化
             let newEth = null
@@ -799,7 +797,9 @@ export default {
                         }, 5000)
                         clearInterval(this.nowTimeInterval)
                     }
-                    this.nowFormateTime = this.formatTime(this.timeLeft, 'HH:mm:ss')
+                    console.log(this.timeLeft)
+                    this.nowFormateTime = this.calcTime(this.timeLeft)
+                    console.log(this.nowFormateTime)
                     this.timeLeft--
                 }
             }, 1000)
@@ -988,6 +988,16 @@ export default {
                     console.error('allEvents' + err)
                 }
             })
+        },
+        calcTime (time) {
+            // 根据time计算小时 分钟 秒数
+            let tf = function (i) {
+                return (i < 10 ? '0' : '') + i
+            }
+            let hour = Math.floor(time / 3600);
+            let min = Math.floor((time - (hour * 3600)) / 60);
+            let second = (time - (hour * 3600)) % 60;
+            return tf(hour)+':'+tf(min)+':'+tf(second)
         }
     },
     computed: {

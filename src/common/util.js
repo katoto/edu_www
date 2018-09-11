@@ -131,10 +131,13 @@ export function formatTime (time, format) {
     if (isNaN(time)) {
         return false
     }
+    console.log(time)
+    console.log('==========')
     let t = new Date(+time * 1000)
     let tf = function (i) {
         return (i < 10 ? '0' : '') + i
     }
+    console.log(t.getHours())
     return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
         switch (a) {
         case 'yyyy':

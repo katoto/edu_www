@@ -3,7 +3,7 @@ import Web3 from 'web3'
 // let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
 // 合约addr 下
 // let contractAddr = '0x77c73a4f9eb5a69e70abc378ff504eed58275d03'
-let contractAddr = '0x8122960d6192858bf80f87129037e123d8233bcf'
+let contractAddr = '0x171caa3e1482f253cf26d9b32c286156c7c18e06'
 
 let web3 = window.web3
 let contractAbi = [
@@ -948,7 +948,6 @@ let contractAbi = [
 if (typeof web3 === 'undefined') {
     web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/WlvljmHqo75RhK1w1QJF'))
     // web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/WlvljmHqo75RhK1w1QJF'))
-    // alertify.alert('You are not signed into metamask')
 }
 
 // 通过abi 和地址获取已部署的合约对象
