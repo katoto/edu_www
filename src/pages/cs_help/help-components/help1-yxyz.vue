@@ -50,6 +50,7 @@
 <style scoped lang="less">
     img{
         display: block;
+        width: 90%;
         margin: 10px 0;
     }
 </style>

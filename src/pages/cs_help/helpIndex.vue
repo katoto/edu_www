@@ -69,9 +69,10 @@
         text-align: center;
     }
     .menu{
-        display: flex;
+        overflow: hidden;
         >li{
-            flex: 1;
+            float: left;
+            width: 25%;
             p{
                 line-height: 48px;
                 font-size: 24px;
@@ -85,4 +86,36 @@
             font-size: 16px;
         }
     }
+
+
+    @media (max-width: 992px) {
+        .help-cneter{
+            padding: 18px 20px 40px;
+        }
+        h1{
+            line-height: 60px;
+            font-size: 20px;
+        }
+        .menu{
+            >li{
+                width: 50%;
+                text-align: center;
+                margin-bottom: 10px;
+                p{
+                    line-height: 24px;
+                    font-size: 18px;
+                }
+            }
+        }
+        .sub-menu{
+            a{
+                line-height: 20px;
+                font-size: 14px;
+            }
+        }
+    }
+    @media (max-width: 480px) {
+
+    }
+
 </style>
