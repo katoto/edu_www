@@ -603,6 +603,26 @@ export function formatUSD (price, num) {
     return numberComma(formatNum(total, 1))
 }
 
+export function getElementAbsolutePosition (element, parentElement = window.document) {
+    var parent = element.offsetParent
+    let left = element.offsetLeft
+    let top = element.offsetTop
+    while (parent !== null && parentElement !== parent) {
+        left = accAdd(left, parent.offsetLeft)
+        top = accAdd(top, parent.offsetTop)
+        parent = parent.offsetParent
+    }
+    return { left, top }
+}
+
+export function getElementCenterPosition (element, offset) {
+    let relativePosition = offset
+    return {
+        left: accAdd(relativePosition.left, accDiv(element.offsetWidth, 2)),
+        top: accAdd(relativePosition.top, accDiv(element.offsetHeight, 2))
+    }
+}
+
 export function structDom (msg = 'home') {
     let createSci = null
     let baseDes = null

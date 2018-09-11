@@ -569,6 +569,8 @@ import {
     copySucc,
     copyError,
     formateCoinType,
+    getElementAbsolutePosition,
+    getElementRelatePosition
 } from '~common/util'
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
@@ -635,6 +637,8 @@ export default {
         copySucc,
         copyError,
         formateCoinType,
+        getElementAbsolutePosition,
+        getElementRelatePosition,
         formatesuperCoin (val) {
             // 金额格式化
             let newEth = null
