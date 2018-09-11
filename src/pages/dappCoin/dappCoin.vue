@@ -27,7 +27,6 @@
 
             <!--draw-->
             <template v-if="roundInfo">
-                <div>
                     <div class="issue">
                         <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
                         <p class="hide">
@@ -116,8 +115,6 @@
                             </a>
                         </div>
                     </div>
-                </div>
-
             </template>
 
             <!--时间到准备开奖-->
@@ -317,7 +314,7 @@
                         </div>
                         <!--我的购买详细展开-->
                         <!--on-->
-                        <div class="open-ticket" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
+                        <div class="open-ticket show" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
                             <p>The No.{{ ticketsNumber.round }} , You bought {{ ticketsNumber.buyNum && ticketsNumber.buyNum.length }} tickets</p>
                             <!-- 关闭 -->
                             <a href="javascript:;" @click="ticketsNumber=null">close</a>
@@ -528,6 +525,37 @@
         </div>
         <!--返回顶部-->
         <ScrollTop></ScrollTop>
+        <!--新手引导-->
+        <div class="pop pop-new">
+            <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
+                <p>
+                    <lang>Reward is here: Blockchain-based draw</lang>
+                </p>
+                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
+                <img src="../../assets/img/luckyCoin/line.png" alt="">
+            </div>
+            <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
+                <p>
+                    <lang>Available bid is here: Draw will proceed after all bids are sold out</lang>
+                </p>
+                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
+                <img src="../../assets/img/luckyCoin/line.png" alt="">
+            </div>
+            <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
+                <p>
+                    <lang>If bids are not sold out, draw will proceed after the countdown</lang>
+                </p>
+                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
+                <img src="../../assets/img/luckyCoin/line.png" alt="">
+            </div>
+            <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
+                <img src="../../assets/img/luckyCoin/line.png" alt="">
+                <p>
+                    <lang>Click here to play: Bid more, win more</lang>
+                </p>
+                <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>OK</lang></a>
+            </div>
+        </div>
         <Footer></Footer>
     </div>
 </template>
@@ -586,7 +614,11 @@ export default {
             orderpPgeSize: 10,
             orderPageTotal: 1,
 
-            showPopMask: false
+            showPopMask: false,
+            isShowStep1: false,
+            isShowStep2: false,
+            isShowStep3: false,
+            isShowStep4: false,
         }
     },
     watch: {
@@ -1063,6 +1095,9 @@ export default {
 </script>
 <style lang="less" type="text/less">
     .luckyDapp{
+        a:hover{
+            filter: brightness(1.2);
+        }
         .el-pager, .el-pagination__jump{
             color: #6a88cc;
         }
@@ -1336,6 +1371,9 @@ export default {
                         color: #ffa200;
                         background: url("../../assets/img/superCoin/icon-countdown.png") no-repeat center left;
                         background-size: 20px;
+                        &.on{
+                            animation: heartbeat 2s infinite;
+                        }
                     }
                     .ticket{
                         display: flex;
@@ -1482,9 +1520,6 @@ export default {
                     height:62px;
                     line-height: 62px;
                     border-radius:6px;
-                    &:hover{
-                        filter: brightness(1.2);
-                    }
                 }
                 .btn-big{
                     width:327px;
