@@ -12,6 +12,10 @@
             <form method="post">
                 <input v-model="login_email" type="text" name="email" :placeholder="_('Email')">
                 <input v-model="login_pass" type="text" onfocus="this.type='password'" :placeholder="_('Password')">
+                <div class="verCode">
+                    <input type="text" :placeholder="_('Verification Code')" class="msg-ver" v-model="verifyCode">
+                    <img width="137" height="50" alt="" class="img-ver" @click="reloadVerifyImg" :src="verifyImgPath">
+                </div>                
                 <div class="sure-old">
                     <input type="checkbox" v-model="log_checked" name="is18">
                     <p>
@@ -23,7 +27,7 @@
                 </div>
                 <!--no-->
                 <input type="submit" :value="_('Log In')" @click.stop.prevent="submitLogin"
-                       :class="{'no':!(log_checked) || login_email === '' || login_pass === '' }">
+                       :class="{'no':!(log_checked) || login_email === '' || login_pass === '' || verifyCode === '' }">
             </form>
             <a href="javascript:;" class="forgetpsw js_forgetPsw" @click="onReset">
                 <lang>Forgot your password?</lang>
@@ -51,17 +55,29 @@
     import Pop from './Pop'
     import {Message} from 'element-ui'
     import {tipsTime, setCK, removeCK, wait} from '~common/util'
+    import {baseURL, isProduction} from '~common/ajax'
 
     export default {
         data () {
             return {
                 login_email: '',
                 login_pass: '',
-                log_checked: false
+                log_checked: false,
+                verifyImgPath: '',
+                verifyCode: ''
             }
         },
         components: {Pop},
         methods: {
+            clearStatus () {
+                this.reg_email = ''
+                this.reg_pass = ''
+                this.reg_againPass = ''
+                this.verifyCode = ''
+            },
+            reloadVerifyImg () {
+                this.verifyImgPath = (isProduction ? baseURL.replace('http://', 'https://') : baseURL) + '/alert/verifycode/img?random=' + new Date().getTime()
+            },
             jump2Page (lan = 'en') {
                 if (this.language) {
                     lan = this.language
@@ -89,7 +105,8 @@
                 if (emailReg.test(this.login_email)) {
                     Object.assign(loginObj, {
                         email: this.login_email,
-                        password: this.login_pass
+                        password: this.login_pass,
+                        verify_code: this.verifyCode
                     })
                     let loginMsg = await this.$store.dispatch('userLogin', loginObj)
                     if (loginMsg) {
@@ -149,6 +166,8 @@
                     }
                 },
                 get: function () {
+                    this.reloadVerifyImg()
+                    this.clearStatus()
                     return this.$store.state.pop.showLoginPop
                 }
             }
@@ -161,6 +180,24 @@
         top: 20px;
         right: 50%;
         margin-right: 40px;
+    }
+    .verCode {
+        position: relative;
+        width: 334px;
+        margin: 0 auto;
+        overflow: hidden;
+        .msg-ver {
+            width: 178px !important;
+            float: left;
+        }
+        .img-ver {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 137px;
+            height: 50px;
+            cursor: pointer;
+        }
     }
 </style>
 
