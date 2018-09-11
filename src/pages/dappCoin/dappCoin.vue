@@ -151,7 +151,7 @@
                 </p>
                 <!--中奖号码-->
                 <!--on-->
-                <div class="dapp-number on">
+                <div class="dapp-number">
                     <ul>
                         <li v-for="(item,index) in openNumArr" :key="index">
                             {{ item }}
@@ -501,7 +501,7 @@ import {mTypes, aTypes} from '~/store/cs_page/dappCoin'
 import {
     copySucc,
     copyError,
-    formateCoinType,
+    formateCoinType
 } from '~common/util'
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
@@ -515,7 +515,8 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
-            openNumArr:['?','?','?','?'],
+            someGetWin: false,
+            openNumArr: ['?', '?', '?', '?'],
             scrollMsg: [
                 'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
                 'Buy more tickets, get more dividend, and enjoy higher winning chance.',
@@ -563,7 +564,7 @@ export default {
         copySucc,
         copyError,
         formateCoinType,
-        opening(){
+        opening () {
 
         },
         formatesuperCoin (val) {
@@ -991,18 +992,17 @@ export default {
                             // address winner,
                             // uint256 luckynum,
                             // uint256 jackpot
-                            console.log( res.args )
-                            if(res.args){
-                                if(Number( res.args.lucknum ) <= Number( res.args.ticketsout ) ){
+                            console.log(res.args)
+                            if (res.args) {
+                                if (Number(res.args.lucknum) <= Number(res.args.ticketsout)) {
                                     // 有人中奖
-
+                                    this.someGetWin = true
                                 } else {
                                     // 无人中奖
-
+                                    this.someGetWin = false
                                 }
+                                this.showOpenNumber(res.args.lucknum)
                             }
-                        
-                        
                         }
                     }
                 } else {
@@ -1010,15 +1010,24 @@ export default {
                 }
             })
         },
+        showOpenNumber (num = 10) {
+            num = num.toString()
+            let splitNum = []
+            splitNum = num.split('')
+            for (let i = 0, len = 4 - splitNum.length;i < len;i++) {
+                splitNum.unshift('0')
+            }
+            this.openNumArr = splitNum
+        },
         calcTime (time) {
             // 根据time计算小时 分钟 秒数
             let tf = function (i) {
                 return (i < 10 ? '0' : '') + i
             }
-            let hour = Math.floor(time / 3600);
-            let min = Math.floor((time - (hour * 3600)) / 60);
-            let second = (time - (hour * 3600)) % 60;
-            return tf(hour)+':'+tf(min)+':'+tf(second)
+            let hour = Math.floor(time / 3600)
+            let min = Math.floor((time - (hour * 3600)) / 60)
+            let second = (time - (hour * 3600)) % 60
+            return tf(hour) + ':' + tf(min) + ':' + tf(second)
         }
     },
     computed: {
