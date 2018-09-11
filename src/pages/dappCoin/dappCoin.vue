@@ -28,7 +28,7 @@
             <template v-if="roundInfo">
                 <div class="issue">
                     <p v-if="!waitWin">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
-                    <p v-if="1">
+                    <p v-if="someGetWin||1">
                         <!-- 当前时间 -->
                         August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
                     </p>
@@ -524,7 +524,7 @@ export default {
             ],
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
-            waitWin: true, // 待开奖
+            waitWin: false, // 待开奖
             currTimeUp: null,
             balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
@@ -996,10 +996,14 @@ export default {
                             if (res.args) {
                                 if (Number(res.args.lucknum) <= Number(res.args.ticketsout)) {
                                     // 有人中奖
-                                    this.someGetWin = true
+                                    this.someGetWin = true;
+                                    localStorage.setItem('openNextTime', new Date().getTime())
                                 } else {
                                     // 无人中奖
-                                    this.someGetWin = false
+                                    this.someGetWin = false;
+                                    setTimeout(()=>{
+                                        this.waitWin = false;
+                                    },5000)
                                 }
                                 this.showOpenNumber(res.args.lucknum)
                             }
@@ -1018,6 +1022,13 @@ export default {
                 splitNum.unshift('0')
             }
             this.openNumArr = splitNum
+        },
+        noWin(){
+            this.someGetWin = false;
+            setTimeout(()=>{
+                this.waitWin = false;
+            },5000)
+            this.showOpenNumber('1234')
         },
         calcTime (time) {
             // 根据time计算小时 分钟 秒数
@@ -1046,6 +1057,9 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
+        setTimeout(()=>{
+            this.noWin()
+        },2000)
     },
     filters: {
     }
