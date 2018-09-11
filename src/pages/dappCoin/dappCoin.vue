@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp">
+        <div class="banner-dapp" :class="{'status2':waitWin}">
             <!--公告 滚动  components-->
             <banner-scroll class="message">
                 <div class="text-scroller" style="height:100%">
@@ -24,18 +24,18 @@
                     </ul>
                 </div>
             </banner-scroll>
-
             <!--draw-->
             <template v-if="roundInfo">
-                <div>
-                    <div class="issue">
-                        <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
-                        <p class="hide">
-                            August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
-                        </p>
-                    </div>
+                <div class="issue">
+                    <p v-if="!waitWin">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
+                    <p v-if="1">
+                        <!-- 当前时间 -->
+                        August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
+                    </p>
+                </div>
+                <div :class="{'hide':waitWin}">
                     <!--未开奖投注区-->
-                    <div class="betting-area  ">
+                    <div class="betting-area">
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
@@ -117,29 +117,23 @@
                         </div>
                     </div>
                 </div>
-
             </template>
-
             <!--时间到准备开奖-->
             <!--on-->
-            <p class="timeup hide" :class="{'on': currTimeUp }">
+            <p class="timeup" :class="{'on': currTimeUp }">
                 TIME UP!
             </p>
-            <p class="timeup hide" :class="{'on':waitWin}">
-                Drawing !
-            </p>
-
             <!--开奖 -->
-            <div class="lottery hide" >
+            <div class="lottery" :class="{'hide':!waitWin}">
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
-                    <p>
-                        10.8197<i>ETH</i>
+                    <p >
+                        {{ formatesuperCoin(roundInfo.jackpot) }}<i>ETH</i>
                     </p>
                 </div>
                 <!--未开奖-->
-                <div class="notDraw hide">
+                <div class="notDraw">
                     <h5>
                         Waiting for the draw
                     </h5>
@@ -151,7 +145,7 @@
                 <p class="draw-someone hide">
                     Congratulations to “0x***923” for Winning
                 </p>
-                <p class="draw-none ">
+                <p class="draw-none hide">
                     No winner of this round.<br>
                     Prize pool will accumulate in the next round.
                 </p>
@@ -159,17 +153,8 @@
                 <!--on-->
                 <div class="dapp-number on">
                     <ul>
-                        <li>
-                            ?
-                        </li>
-                        <li>
-                            ?
-                        </li>
-                        <li>
-                            ?
-                        </li>
-                        <li>
-                            ?
+                        <li v-for="(item,index) in openNumArr" :key="index">
+                            {{ item }}
                         </li>
                     </ul>
                 </div>
@@ -180,20 +165,22 @@
                  <div class="mask-main">
                      <a href="javascript:;" class="pop-close" @click="showPopMask=false"></a>
                      <h5>
-                         游戏提示
+                         <lang>Game Tip</lang>
                      </h5>
                      <p class="p1">
-                         请先安装并登录Metamask钱包
+                         <lang>Please install and log in your Metamask</lang>
                      </p>
                      <p class="p2">
-                         没有Metamask钱包，如何安装？ <a href="javascript:;"  @click="scrollInvite"> 查看 </a>
+                        <lang>No Metamask, how to play?</lang>                         
+                        <a href="javascript:;"  @click="scrollInvite">查看</a>
+                        <a href="">install now</a>
                      </p>
                  </div>
             </div>
 
         </div>
         <!--信息展示区--> 
-        <div class="information ">
+        <div class="information">
             <!--邀请-->
             <div class="invite" id="inviteView">
                 <ul class="title">
@@ -324,7 +311,7 @@
                             <div class="ticket-box">
                                 <ul>
                                     <li style="color: #ffa200;">
-                                        0143  todo
+                                        0143
                                     </li>
                                     <li v-if="ticketsNumber.buyNum" v-for="(item,index) in ticketsNumber.buyNum" :key="index">
                                         {{ item }}
@@ -334,7 +321,7 @@
                         </div>
 
                         <!-- 分页msg  -->
-                        <div class="pagination" >
+                        <div class="pagination" v-if="ordersList&&ordersList.length>10">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -413,7 +400,7 @@
                             One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there's no winner of the round, the prize pool will accumulate in next round.
                         </p>
                     </div>
-                    <template v-if="expectsList">
+                    <template v-if="expectsList && expectsList.length > 0">
                         <ul class="historyDraw-head">
                             <li class="issue">Phase</li>
                             <li class="winningNumbers">Winning Numbers</li>
@@ -440,23 +427,9 @@
                                     </a>
                                 </p>
                             </li>
-                            <!-- <li>
-                                <p class="issue">
-                                    #100testtesttesttest
-                                </p>
-                                <p class="winningNumbers">
-                                    0001testtestv
-                                </p>
-                                <p class="bonus">
-                                    10.8197 ETHtesttest
-                                </p>
-                                <p class="winner">
-                                    No WinnertesttestWinnertesttestWinnertesttestWinnertesttest
-                                </p>
-                            </li> -->
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination">
+                        <div class="pagination" v-if="expectsList&&expectsList.length>10">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -542,6 +515,7 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
+            openNumArr:['?','?','?','?'],
             scrollMsg: [
                 'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
                 'Buy more tickets, get more dividend, and enjoy higher winning chance.',
@@ -549,7 +523,7 @@ export default {
             ],
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
-            waitWin: false, // 待开奖
+            waitWin: true, // 待开奖
             currTimeUp: null,
             balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
@@ -589,6 +563,9 @@ export default {
         copySucc,
         copyError,
         formateCoinType,
+        opening(){
+
+        },
         formatesuperCoin (val) {
             // 金额格式化
             let newEth = null
@@ -768,7 +745,7 @@ export default {
         async pageInit () {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
-            this.getCurrentRoundInfo()
+            await this.getCurrentRoundInfo()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
@@ -827,9 +804,7 @@ export default {
                         }, 5000)
                         clearInterval(this.nowTimeInterval)
                     }
-                    console.log(this.timeLeft)
                     this.nowFormateTime = this.calcTime(this.timeLeft)
-                    console.log(this.nowFormateTime)
                     this.timeLeft--
                 }
             }, 1000)
@@ -1011,7 +986,23 @@ export default {
                                 })
                             }
                         } else if (res.event === 'onSettle') {
+                            // uint256 rid,
+                            // uint256 ticketsout,
+                            // address winner,
+                            // uint256 luckynum,
+                            // uint256 jackpot
+                            console.log( res.args )
+                            if(res.args){
+                                if(Number( res.args.lucknum ) <= Number( res.args.ticketsout ) ){
+                                    // 有人中奖
 
+                                } else {
+                                    // 无人中奖
+
+                                }
+                            }
+                        
+                        
                         }
                     }
                 } else {

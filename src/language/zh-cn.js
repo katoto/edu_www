@@ -741,6 +741,9 @@ module.exports = {
     /* activity end */
 
     /* super coin start */
+    'Game Tip': '游戏提示',
+    'Please install and log in your Metamask': '请先安装并登录Metamask钱包',
+    '': '',
     'Referrals': '邀请好友',
     'Contract': '智能合约',
     'Easy Play': '新手教程',
