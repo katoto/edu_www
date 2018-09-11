@@ -1030,6 +1030,9 @@ export default {
                         color: #000000;
                         background: #4a8282;
                     }
+                    &:hover{
+                        filter: brightness(1.1);
+                    }
                 }
             }
             .bet-joker{
@@ -1055,7 +1058,9 @@ export default {
                         width: percentage(30/222);
                         max-width: 36px;
                     }
-
+                    &:hover{
+                        filter: brightness(1.1);
+                    }
                 }
             }
             .bet-color{
@@ -1081,6 +1086,9 @@ export default {
                     &:first-child,&:nth-child(3){
                         background-color: #4a8282;
                     }
+                    &:hover{
+                        filter: brightness(1.1);
+                    }
                 }
             }
             .bet-number{
@@ -1095,6 +1103,9 @@ export default {
                         font-weight: bold;
                         font-family: Lucida Bright,LBRITE;
                         cursor: pointer;
+                        &:hover{
+                            filter: brightness(1.1);
+                        }
                     }
                     &.item1{
                         li{
@@ -1623,6 +1634,7 @@ export default {
                 padding-bottom: 140/2px;
             }
             .bg-esktop{
+                width: 100%;
                 position: relative;
                 background: url("../../assets/img/luckyPoker/bg.jpg") repeat-y center bottom;
                 background-size: cover;
@@ -2650,8 +2662,8 @@ export default {
                         div{
                             display: none;
                             position: absolute;
-                            left: -119px;
-                            top: -185px;
+                            left: -140px;
+                            top: -248px;
                             width: 434px;
                             padding: 25px 18px 30px;
                             background: #fff;
@@ -2662,7 +2674,7 @@ export default {
                                 content: '';
                                 position: absolute;
                                 bottom: -10px;
-                                left: 118px;
+                                left: 140px;
                                 display: block;
                                 width: 0;
                                 height: 0;

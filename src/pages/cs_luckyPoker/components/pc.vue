@@ -586,6 +586,9 @@ export default {
                         font-weight: bold;
                         font-family: Lucida Bright,LBRITE;
                         cursor: pointer;
+                        &:hover{
+                            filter: brightness(1.1);
+                        }
                     }
                     &.item1{
                         border-left: 2px solid #6faeae;
