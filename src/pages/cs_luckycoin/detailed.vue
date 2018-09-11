@@ -216,7 +216,7 @@
                 </div>
             </div>
             <p class="main-detailed toplay hidden-lg hidden-md">
-                <router-link :to="{path:'/help/helpView/2/1#test'}" >
+                <router-link :to="{path:'/help/helpView/2/1'}"  style="display: block;text-align: center;">
                     <lang>How to play?</lang>
                 </router-link>
             </p>
