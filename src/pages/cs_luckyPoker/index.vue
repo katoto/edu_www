@@ -213,10 +213,10 @@
                                 <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
                                     {{$lang.poker.a4}}
                                 </a>
-                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="!isLock" @click="isLock = true">
+                                <a href="javascript:;"  class="btn btn-lock" v-if="!isLock" @click="isLock = true">
                                     {{$lang.poker.a5}}
                                 </a>
-                                <a href="javascript:;"  class="btn btn-lock" v-if="isLock" @click="isLock = false">
+                                <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="isLock" @click="isLock = false">
                                     {{$lang.poker.a8}}
                                 </a>
                             </div>
@@ -1916,6 +1916,9 @@ export default {
                             }
                             &.btn-lock{
                                 width: percentage(140/640);
+                                &.btn-unlock {
+                                    filter: brightness(0.8)
+                                }
                             }
                         }
                     }
