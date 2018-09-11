@@ -2,6 +2,7 @@
 @media (max-width: 768px) {
     .head-dapp{
         .head-dapp-wrap{
+            padding: 0;
             height: 100/75rem;
             .logo{
                 p{
@@ -30,7 +31,8 @@
     .banner-dapp{
         height: auto;
         padding: 20/75rem 0 70/75rem 0;
-        background: url("../assets/img/superCoin/bg-h5.jpg") no-repeat center top, linear-gradient(#223541,#32215a);
+        background:#211c38 url("../assets/img/superCoin/bg-h5.jpg") no-repeat left top;
+        background-size: 100%;
         .message{
             height: 55/75rem;
             margin: 0 auto 17/75rem;
@@ -42,29 +44,43 @@
                 }
             }
         }
-
+        .issue{
+            top: 75/75rem;
+            line-height: 90/75rem;
+            font-size: 24/75rem;
+            text-align: left;
+            color: #a5b1c2;
+            &.draw{
+                text-align: center;
+                color: #fff;
+                font-size: 24/75rem;
+            }
+        }
         .betting-area{
             .betting{
-                margin-right: 0;
+                margin:10px 0 0;
                 .item-msg{
                     width: 467/75rem;
                     flex-direction: column;
                     justify-content: center;
                     height: 137/75rem;
-                    padding: 0 0 0 30/75rem;
+                    line-height: 44/75rem;
+                    padding: 0 0 0 60/75rem;
                     font-size: 30/75rem;
                     .title{
                         margin-right: 0;
                     }
                     .jackpot-amount{
+                        line-height: 90/75rem;
                         font-size: 76/75rem;
                     }
                     .countdown{
-                        text-indent: 42rem;
+                        text-indent: 42/75rem;
                         background-size: 25/75rem;
                         font-size: 32/75rem;
                     }
                     .ticket{
+                        width: 100%;
                         display: flex;
                         align-items: flex-start;
                         text-align: center;
@@ -76,6 +92,7 @@
                     }
                     .people-purchased{
                         p{
+                            line-height: initial;
                             padding-left: 28/75rem;
                             color: #ffa200;
                             &::before{
@@ -85,16 +102,23 @@
                             }
                         }
                         &::after{
+                            line-height: initial;
+                            margin-top: 0;
                             font-size: 20/75rem;
                         }
                     }
                     .ticket-progress{
-                        width:200/75rem;
+                        width:180/75rem;
                         height:22/75rem;
-                        margin: 10/75rem 10/75rem 0;
+                        margin: 5/75rem 10/75rem 0;
                     }
                     .people-remaining{
+                        p{
+                            line-height: initial;
+                        }
                         &::after{
+                            line-height: initial;
+                            margin-top: 0;
                             font-size: 20/75rem;
                         }
                     }
@@ -111,8 +135,9 @@
             }
             .buy-area{
                 float: none;
+                clear: both;
                 width: percentage(640/710);
-                margin: 0 auto 63/75rem;
+                margin: 27/75rem auto 63/75rem;
                 padding: 27/75rem 0 0 0;
                 line-height: 90/75rem;
                 font-size: 28/75rem;
@@ -149,7 +174,7 @@
                         }
                     }
                     a+a{
-                        border-left: 1/75rem solid #ff8a00;
+                        border-left: 1px solid #ff8a00;
                     }
                 }
             }
@@ -176,6 +201,7 @@
                     font-size: 28/75rem;
                     color: #6a88cc;
                     border-color: #6a88cc;
+                    background-color: #211c38;
                     &.btn-hadlogin{
                         flex-direction: row;
                         align-items: center;
@@ -194,6 +220,7 @@
                 margin-top: 90/75rem;
                 font-size: 96/75rem;
                 img{
+                    height: 129/75rem;
                     margin-right: 24/75rem;
                 }
                 i{
@@ -211,21 +238,17 @@
                     font-size: 28/75rem;
                 }
             }
-            /*todo*/
             .draw-someone{
-                width: 100%;
-                height: 52/75rem;
-                overflow: hidden;
+                height: 60/75rem;
+                height: auto;
                 margin: 50/75rem 0 37/75rem 0;
-                line-height: 52/75rem;
-                font-size: 36/75rem;
-                color: #ff8a00;
-                font-weight: bold;
+                line-height: 60/75rem;
+                font-size: 46/75rem;
             }
             .draw-none{
                 margin: 22/75rem 0;
                 line-height: 48/75rem;
-                font-size: 36/75rem;
+                font-size: 46/75rem;
             }
             /*todo*/
             .dapp-number{
@@ -237,14 +260,22 @@
                 }
             }
         }
-
+        .timeup{
+            transform: translateY(-50%);
+            height: 200/75rem;
+            line-height: 200/75rem;
+            font-size: 100/75rem;
+            &::before{
+                top: 5/75rem;
+            }
+            &::after{
+                bottom: 5/75rem;
+            }
+        }
         &.status2{
             height: auto;
             padding: 20/75rem 0 98/75rem 0;
             background: url("../assets/img/superCoin/bg2-h5.jpg") no-repeat center, linear-gradient(#223541,#32215a);
-            .issue{
-                font-size: 24/75rem;
-            }
         }
     }
     .information{

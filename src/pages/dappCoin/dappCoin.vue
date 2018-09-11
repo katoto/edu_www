@@ -1,6 +1,6 @@
 <template>
     <div class="luckyDapp">
-        <div class="head-dapp">
+        <div class="head-dapp ">
             <div class="head-dapp-wrap">
                 <h1 class="logo">
                     <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp">
@@ -9,13 +9,13 @@
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite">Invite</a>
                     <a href="">Contract</a>
-                    <a href="">Easy Play</a>
+                    <a href="">Easy&nbsp;Play</a>
                     <a href="index.html" class="btn-home"></a>
                 </div>
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp">
+        <div class="banner-dapp status2">
             <!--公告 滚动  components-->
             <banner-scroll class="message">
                 <div class="text-scroller" style="height:100%">
@@ -24,95 +24,97 @@
                     </ul>
                 </div>
             </banner-scroll>
- 
+
             <!--draw-->
             <template v-if="roundInfo">
-                <div class="issue">
-                    <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
-                    <p class="hide">
-                        August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
-                    </p>
-                </div>
-                <!--未开奖投注区-->
-                <div class="betting-area ">
-                    <div class="fr betting">
-                        <div class="item-msg">
-                            <p class="title">
-                                Reward
-                            </p>
-                            <p class="jackpot-amount">
-                                 {{ formatesuperCoin(roundInfo.jackpot) }}
-                            </p>
-                        </div>
-                        <div class="item-msg">
-                            <p class="title">
-                                End of the draw
-                            </p>
-                            <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0}">
-                                {{ nowFormateTime }}
-                            </p>
-                        </div>
-                        <div class="item-msg">
-                            <p class="title">
-                                Voting progress
-                            </p>
-                            <div class="ticket">
-                                <div class="people-purchased" :data-msg="_('Purchased')">
-                                    <p>{{ roundInfo.tickets }}</p>
-                                </div>
-                                <div class="ticket-progress">
-                                    <!-- transform: scaleX(0.5) -->
-                                    <i :style="calVotingLen"></i>
-                                </div>
-                                <div class="people-remaining" :data-msg="_('Remaining')">
-                                    <p>{{ 1500 - roundInfo.tickets }}</p>
-                                </div>
-                            </div>
-                            <p class="people-all">
-                                {{ roundInfo.playernums }}
-                            </p>
-                        </div>
+                <div>
+                    <div class="issue">
+                        <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
+                        <p class="hide">
+                            August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
+                        </p>
                     </div>
-                    <div class="buy-area">
-                        <div class=" title">
-                            <p>
-                                Buy Ticket
-                            </p>
-                        </div>
-                        <div class=" input-wrap">
-                            <div class="input-box">
-                                <input v-model="tickNum" type="text" @input="checkTicket">
-                                <p>
-                                    @ {{ formatesuperCoin( currTicketPrice * tickNum) }} ETH
+                    <!--未开奖投注区-->
+                    <div class="betting-area hide ">
+                        <div class="fr betting">
+                            <div class="item-msg">
+                                <p class="title">
+                                    Reward
+                                </p>
+                                <p class="jackpot-amount">
+                                     {{ formatesuperCoin(roundInfo.jackpot) }}
                                 </p>
                             </div>
-                            <div class="btn-choose">
-                                <a href="javascript:;"  @click="chooseMin">Min</a>
-                                <a href="javascript:;"  @click="chooseHalf">1 / 2</a>
-                                <a href="javascript:;"  @click="chooseDouble">X 2</a>
-                                <a href="javascript:;"  @click="chooseMax">Max</a>
+                            <div class="item-msg">
+                                <p class="title">
+                                    End of the draw
+                                </p>
+                                <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0}">
+                                    {{ nowFormateTime }}
+                                </p>
+                            </div>
+                            <div class="item-msg">
+                                <p class="title">
+                                    Voting progress
+                                </p>
+                                <div class="ticket">
+                                    <div class="people-purchased" :data-msg="_('Purchased')">
+                                        <p>{{ roundInfo.tickets }}</p>
+                                    </div>
+                                    <div class="ticket-progress">
+                                        <!-- transform: scaleX(0.5) -->
+                                        <i :style="calVotingLen"></i>
+                                    </div>
+                                    <div class="people-remaining" :data-msg="_('Remaining')">
+                                        <p>{{ 1500 - roundInfo.tickets }}</p>
+                                    </div>
+                                </div>
+                                <p class="people-all">
+                                    {{ roundInfo.playernums }}
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <!--登录前-->
-                    <div class="btn-box hide">
-                        <a href="javascript:;" class="btn-big" @click="loginMetamask">Login to Metamask</a>
-                        <a href="javascript:;" class="btn-small">使用收益支付</a>
-                    </div>
-                    <!--登陆后-->
-                    <div class="btn-box ">
-                        <a href="javascript:;" class="btn-big" @click="buyNum">
-                            立即支付
-                        </a>
-                        <!--  -->
-                        <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
-                            <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
-                                使用收益支付
-                            </p>
-                            <p style="font-size: 14px;" v-if="selfMsg">
-                                您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
-                            </p>
-                        </a>
+                        <div class="buy-area">
+                            <div class=" title">
+                                <p>
+                                    Buy Ticket
+                                </p>
+                            </div>
+                            <div class=" input-wrap">
+                                <div class="input-box">
+                                    <input v-model="tickNum" type="text" @input="checkTicket">
+                                    <p>
+                                        @ {{ formatesuperCoin( currTicketPrice * tickNum) }} ETH
+                                    </p>
+                                </div>
+                                <div class="btn-choose">
+                                    <a href="javascript:;"  @click="chooseMin">Min</a>
+                                    <a href="javascript:;"  @click="chooseHalf">1 / 2</a>
+                                    <a href="javascript:;"  @click="chooseDouble">X 2</a>
+                                    <a href="javascript:;"  @click="chooseMax">Max</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--登录前-->
+                        <div class="btn-box hide">
+                            <a href="javascript:;" class="btn-big" @click="loginMetamask">Login to Metamask</a>
+                            <a href="javascript:;" class="btn-small">使用收益支付</a>
+                        </div>
+                        <!--登陆后-->
+                        <div class="btn-box ">
+                            <a href="javascript:;" class="btn-big" @click="buyNum">
+                                立即支付
+                            </a>
+                            <!--  -->
+                            <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
+                                <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
+                                    使用收益支付
+                                </p>
+                                <p style="font-size: 14px;" v-if="selfMsg">
+                                    您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
+                                </p>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -123,13 +125,12 @@
             <p class="timeup hide" :class="{'on': currTimeUp }">
                 TIME UP!
             </p>
-            <!-- 待开奖  todo -->
             <p class="timeup hide" :class="{'on':waitWin}">
                 Drawing !
             </p>
 
             <!--开奖 -->
-            <div class="lottery hide" >
+            <div class="lottery " >
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
@@ -147,10 +148,10 @@
                     </p>
                 </div>
                 <!--开奖-有人中-->
-                <p class="draw-someone ">
+                <p class="draw-someone hide">
                     Congratulations to “0x***923” for Winning
                 </p>
-                <p class="draw-none hide">
+                <p class="draw-none ">
                     No winner of this round.<br>
                     Prize pool will accumulate in the next round.
                 </p>
@@ -174,9 +175,25 @@
                 </div>
             </div>
 
+            <!--狐狸提示-->
+            <div class="pop pop-metamask hide">
+                 <div class="mask-main">
+                     <a href="javascript:;" class="pop-close"></a>
+                     <h5>
+                         游戏提示
+                     </h5>
+                     <p class="p1">
+                         请先安装并登录Metamask钱包
+                     </p>
+                     <p class="p2">
+                         没有Metamask钱包，如何安装？ <a href="javascript:;"> 查看 </a>
+                     </p>
+                 </div>
+            </div>
+
         </div>
         <!--信息展示区--> 
-        <div class="information">
+        <div class="information ">
             <!--邀请-->
             <div class="invite" id="inviteView">
                 <ul class="title">
@@ -268,8 +285,8 @@
                     </div>
                     <template  v-if="selfMsg">
                         <!--已登录-->
-                        <div class="ticket-logined">
-                            <ul v-if="ordersList">
+                        <div class="ticket-logined"  v-if="ordersList">
+                            <ul>
                                 <li v-for="(item,index) in ordersList" :key="index"  @click="ticketsNumber=item" :class="{'win':item.prizes!==0}">
                                     <p class="issue">
                                         Phase {{ item.round }}
@@ -292,6 +309,12 @@
                                 </li> -->
                             </ul>
                         </div>
+                        <!--已登录但是没信息-->
+                        <div class="nomsg" v-if="ordersList&&ordersList==0">
+                            <p>
+                                nomsg
+                            </p>
+                        </div>
                         <!--我的购买详细展开-->
                         <!--on-->
                         <div class="open-ticket" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
@@ -311,7 +334,7 @@
                         </div>
 
                         <!-- 分页msg  -->
-                        <div class="pagination">
+                        <div class="pagination hidden-xs hidden-sm" >
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -327,16 +350,13 @@
                             >
                             </el-pagination>
                         </div>
+
                     </template>
-                    <!--未登陆 或者 信息为空-->
+                    <!--未登陆 -->
                     <div class="ticket-unlogin" v-if="!selfMsg">
                         <!--未登陆-->
                         <p>
                             No record.  Please login to the <a href="javascript:;" style="color: #6a88cc;" @click="loginMetamask">Metamask</a>
-                        </p>
-                        <!--信息为空 todo -->
-                        <p class="hide">
-                            No record.
                         </p>
                     </div>
                 </div>
@@ -393,53 +413,51 @@
                             One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there's no winner of the round, the prize pool will accumulate in next round.
                         </p>
                     </div>
-                    <ul class="historyDraw-head">
-                        <li class="issue">Phase</li>
-                        <li class="winningNumbers">Winning Numbers</li>
-                        <li class="bonus">Bonus</li>
-                        <li class="winner">Winner</li>
-                    </ul>
-                    <ul class="historyDraw-main" v-if="expectsList">
-                        <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !==''}">
-                            <p class="issue">
-                                #{{ item.round }}
-                            </p>
-                            <p class="winningNumbers">
-                                {{ item.luckynum }}
-                            </p>
-                            <p class="bonus">
-                                {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
-                            </p>
-                            <p class="winner" v-if="item.winner ===''">
-                                No Winner
-                            </p>
-                            <p class="winner" v-else>
-                                <a target="_blank" :href="`https://etherscan.io/tx/${item.winner}`" >
-                                    {{ item.winner }}
-                                </a>
-                            </p>
-                        </li>
-                        <!-- <li>
-                            <p class="issue">
-                                #100testtesttesttest
-                            </p>
-                            <p class="winningNumbers">
-                                0001testtestv
-                            </p>
-                            <p class="bonus">
-                                10.8197 ETHtesttest
-                            </p>
-                            <p class="winner">
-                                No WinnertesttestWinnertesttestWinnertesttestWinnertesttest
-                            </p>
-                        </li> -->
-                    </ul>
-                    <div v-else>
-                        期号为空的状态 todo
-                    </div>
-                    <!-- 分页msg  -->
-                    <div class="pagination">
-                        <el-pagination
+                    <template v-if="expectsList">
+                        <ul class="historyDraw-head">
+                            <li class="issue">Phase</li>
+                            <li class="winningNumbers">Winning Numbers</li>
+                            <li class="bonus">Bonus</li>
+                            <li class="winner">Winner</li>
+                        </ul>
+                        <ul class="historyDraw-main">
+                            <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !==''}">
+                                <p class="issue">
+                                    #{{ item.round }}
+                                </p>
+                                <p class="winningNumbers">
+                                    {{ item.luckynum }}
+                                </p>
+                                <p class="bonus">
+                                    {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
+                                </p>
+                                <p class="winner" v-if="item.winner ===''">
+                                    No Winner
+                                </p>
+                                <p class="winner" v-else>
+                                    <a target="_blank" :href="`https://etherscan.io/tx/${item.winner}`" >
+                                        {{ item.winner }}
+                                    </a>
+                                </p>
+                            </li>
+                            <!-- <li>
+                                <p class="issue">
+                                    #100testtesttesttest
+                                </p>
+                                <p class="winningNumbers">
+                                    0001testtestv
+                                </p>
+                                <p class="bonus">
+                                    10.8197 ETHtesttest
+                                </p>
+                                <p class="winner">
+                                    No WinnertesttestWinnertesttestWinnertesttestWinnertesttest
+                                </p>
+                            </li> -->
+                        </ul>
+                        <!-- 分页msg  -->
+                        <div class="pagination">
+                            <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
                                 background
@@ -451,9 +469,16 @@
                                 :page-count="expectPageTotal"
                                 :next-text="_('Next >')"
                                 :prev-text="_('< Previous')"
-                        >
-                        </el-pagination>
+                            >
+                            </el-pagination>
+                        </div>
+                    </template>
+                    <div class="nomsg" v-else>
+                        <p>
+                            nomsg
+                        </p>
                     </div>
+
 
                 </div>
                 <!--游戏教程-->
@@ -1013,6 +1038,9 @@ export default {
 </script>
 <style lang="less" type="text/less">
     .luckyDapp{
+        .el-pager, .el-pagination__jump{
+            color: #6a88cc;
+        }
         .pagination {
             display: table;
             padding: 0;
@@ -1041,21 +1069,21 @@ export default {
             li.active {
                 border: none;
                 background: none;
-                color: #6a88cc !important;
+                color: #ffffff !important;
                 a {
                     cursor: default;
                 }
                 &:hover {
-                    color: #666 !important;
+                    color: #ffffff !important;
                     border: none;
                     background: transparent;
                     box-shadow: none;
                 }
             }
             li:hover {
-                color: #666 !important;
-                border: 1px solid #d5d5d5;
-                background: #f2f2f2;
+                color: #fff !important;
+                border: 1px solid #6a88cc;
+                background: #6a88cc;
                 box-shadow: none;
             }
             .prev {
@@ -1087,10 +1115,15 @@ export default {
             button{
                 border: 1px solid #6a88cc;
                 color: #6a88cc;
+                &:hover{
+                    background: #6a88cc;
+                    color: #fff;
+                }
             }
         }
-        .el-select-dropdown__list{
-            background: #6a88cc;
+        .el-input__inner,.el-select-dropdown__list{
+            border-color: #6a88cc;
+            background: #211c38;
         }
     }
 </style>
@@ -1100,6 +1133,15 @@ export default {
         background: #211c38;
         * {
             box-sizing: border-box;
+        }
+        .nomsg{
+            padding: 155px 0 77px 0;
+            border: 1px solid #3a3953;
+            text-align: center;
+            line-height: 47px;
+            font-size: 16px;
+            background: url("../../assets/img/superCoin/nomsg.png") no-repeat center 60px;
+            background-size: 107px;
         }
     }
     .head-dapp {
@@ -1182,7 +1224,7 @@ export default {
                 position: absolute;
                 top: 0;
                 left: 44px;
-                width:90%;
+                width:85%;
                 li{
                     width: 100%;
                     height: 100%;
@@ -1277,6 +1319,7 @@ export default {
                         &::after{
                             content: attr(data-msg);
                             display: block;
+                            margin-top: 8px;
                             font-size: 12px;
                             color: #a5b1c2;
                         }
@@ -1301,6 +1344,7 @@ export default {
                     .people-remaining{
                         &::after{
                             content: attr(data-msg);
+                            margin-top: 8px;
                             display: block;
                             font-size: 12px;
                             color: #a5b1c2;
@@ -1433,6 +1477,7 @@ export default {
                 justify-content: center;
                 /*外边距重叠*/
                 margin-top: 43px;
+                line-height: initial;
                 font-size: 86px;
                 color: #ff8a00;
                 font-weight: bold;
@@ -1498,7 +1543,7 @@ export default {
             }
         }
         .timeup{
-            position: absolute;
+            position: fixed;
             z-index: 2;
             left: 0;
             top: 50%;
@@ -1772,6 +1817,14 @@ export default {
                     font-size: 16px;
                     &.win{
                         color: #ff8a00;
+                        a{
+                            display: block;
+                            float: right;
+                            width: 82px;
+                            color: #ff8a00;
+                            text-decoration: underline;
+                            .text-overflow();
+                        }
                     }
                 }
             }
@@ -1787,7 +1840,7 @@ export default {
                 .text-overflow();
             }
             .bonus{
-                flex-basis: percentage(136/750);
+                flex-basis: percentage(136/650);
                 .text-overflow();
             }
             .winner{
@@ -1841,6 +1894,48 @@ export default {
             }
         }
     }
+    .pop-metamask{
+        .mask-main{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 450px;
+            width: 94%;
+            background: #211c38;
+            color: #fff;
+            border-radius: 6px;
+            .pop-close{
+                display: block;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+                background: url("../../assets/img/superCoin/pop-close.png") no-repeat center;
+                background-size: cover;
+            }
+            h5{
+                font-size: 20px;
+                line-height: 3;
+            }
+            .p1{
+                margin: 10px 0 40px 0;
+                font-size: 16px;
+            }
+            .p2{
+                line-height: 5;
+                font-size: 12px;
+                a{
+                    color: #fff;
+                    &:hover{
+                        color: rgba(255,255,255,0.8);
+                    }
+                }
+            }
+        }
+    }
+
 </style>
 <style scoped lang="less" type="text/less">
     @import "../../styles/dapph5.less";
