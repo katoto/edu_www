@@ -1,6 +1,6 @@
 <template>
     <div class="luckyDapp">
-        <div class="head-dapp ">
+        <div class="head-dapp" >
             <div class="head-dapp-wrap">
                 <h1 class="logo">
                     <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp">
@@ -17,7 +17,7 @@
         <!--status2-->
         <div class="banner-dapp">
             <!--公告 滚动  components-->
-            <banner-scroll class="message">
+            <banner-scroll class="message" >
                 <div class="text-scroller" style="height:100%">
                     <ul class="scroller-in">
                         <li v-for="(item,index) in scrollMsg" :key="index"><lang>{{ item }}</lang></li>
@@ -40,7 +40,7 @@
                                 <p class="title">
                                     Reward
                                 </p>
-                                <p class="jackpot-amount">
+                                <p class="jackpot-amount" ref="isNewSete1">
                                      {{ formatesuperCoin(roundInfo.jackpot) }}
                                 </p>
                             </div>
@@ -190,7 +190,7 @@
 
         </div>
         <!--信息展示区--> 
-        <div class="information ">
+        <div class="information " ref="isNewSete1">
             <!--邀请-->
             <div class="invite" id="inviteView">
                 <ul class="title">
@@ -568,9 +568,7 @@ import {mTypes, aTypes} from '~/store/cs_page/dappCoin'
 import {
     copySucc,
     copyError,
-    formateCoinType,
-    getElementAbsolutePosition,
-    getElementRelatePosition
+    formateCoinType
 } from '~common/util'
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
@@ -637,8 +635,6 @@ export default {
         copySucc,
         copyError,
         formateCoinType,
-        getElementAbsolutePosition,
-        getElementRelatePosition,
         formatesuperCoin (val) {
             // 金额格式化
             let newEth = null
@@ -877,9 +873,9 @@ export default {
                         }, 5000)
                         clearInterval(this.nowTimeInterval)
                     }
-                    console.log(this.timeLeft)
+                    // console.log(this.timeLeft)
                     this.nowFormateTime = this.calcTime(this.timeLeft)
-                    console.log(this.nowFormateTime)
+                    // console.log(this.nowFormateTime)
                     this.timeLeft--
                 }
             }, 1000)
@@ -1096,6 +1092,10 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
+
+        console.log(22)
+        console.log(this.$refs.isNewSete1.getBoundingClientRect().left)
+        console.log(this.$refs.isNewSete1.getBoundingClientRect().top)
     },
     filters: {
     }
