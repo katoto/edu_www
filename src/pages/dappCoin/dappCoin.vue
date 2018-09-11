@@ -554,7 +554,7 @@ export default {
         copyError,
         formateCoinType,
         formatTime,
-        formatesuperCoin(val){
+        formatesuperCoin (val) {
             // 金额格式化
             let newEth = null
             if (isNaN(val) || isNaN(Number(val))) {
@@ -571,8 +571,8 @@ export default {
             }
             return newEth
         },
-        scrollInvite(){
-            document.getElementById("inviteView").scrollIntoView();
+        scrollInvite () {
+            document.getElementById('inviteView').scrollIntoView()
         },
         scrollMsgChange (state) {
             if (state === 'end') {
@@ -648,22 +648,22 @@ export default {
         },
         orderFormatData (list) {
             // 订单数据处理
-            let currBeginArr = null;
-            let currEndArr = null;
-            let buyNum = [];
-            let flag = null;
+            let currBeginArr = null
+            let currEndArr = null
+            let buyNum = []
+            let flag = null
 
             if (list) {
                 list.forEach((item, index) => {
-                    if(item.end){
-                        buyNum = [];
-                        flag = null;
+                    if (item.end) {
+                        buyNum = []
+                        flag = null
                         currBeginArr = item.begin.split(',')
                         currEndArr = item.end.split(',')
-                        currEndArr.forEach((endItem,index)=>{
+                        currEndArr.forEach((endItem, index) => {
                             flag = Number(endItem) - currBeginArr[index]
-                            if(flag >= 0 ){
-                                for(let i=0;i<=flag;i++){
+                            if (flag >= 0) {
+                                for (let i = 0;i <= flag;i++) {
                                     buyNum.push(parseInt(currBeginArr[index]) + i)
                                 }
                             }
