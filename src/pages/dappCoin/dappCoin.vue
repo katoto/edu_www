@@ -34,13 +34,13 @@
                         </p>
                     </div>
                     <!--未开奖投注区-->
-                    <div class="betting-area  ">
+                    <div class="betting-area" :class="{'isNew':isNew}">
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
                                     Reward
                                 </p>
-                                <p class="jackpot-amount" ref="isNewSete1">
+                                <p class="jackpot-amount" :class="{'isNewShow': isShowStep1}">
                                      {{ formatesuperCoin(roundInfo.jackpot) }}
                                 </p>
                             </div>
@@ -48,12 +48,12 @@
                                 <p class="title">
                                     End of the draw
                                 </p>
-                                <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0}">
+                                <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0,'isNewShow': isShowStep2}">
                                     {{ nowFormateTime }}
                                 </p>
                             </div>
                             <div class="item-msg">
-                                <p class="title">
+                                <p class="title title-process" :class="{'isNewShow': isShowStep3}">
                                     Voting progress
                                 </p>
                                 <div class="ticket">
@@ -96,12 +96,12 @@
                         </div>
                         <!--登录前-->
                         <div class="btn-box hide">
-                            <a href="javascript:;" class="btn-big" @click="loginMetamask">Login to Metamask</a>
+                            <a href="javascript:;" class="btn-big" @click="loginMetamask" :class="{'isNewShow':isShowStep4}">Login to Metamask</a>
                             <a href="javascript:;" class="btn-small">使用收益支付</a>
                         </div>
                         <!--登陆后-->
                         <div class="btn-box ">
-                            <a href="javascript:;" class="btn-big" @click="buyNum">
+                            <a href="javascript:;" class="btn-big" @click="buyNum" :class="{'isNewShow':isShowStep4}">
                                 立即支付
                             </a>
                             <!--  -->
@@ -190,7 +190,7 @@
 
         </div>
         <!--信息展示区--> 
-        <div class="information " ref="isNewSete1">
+        <div class="information ">
             <!--邀请-->
             <div class="invite" id="inviteView">
                 <ul class="title">
@@ -526,7 +526,7 @@
         <!--返回顶部-->
         <ScrollTop></ScrollTop>
         <!--新手引导-->
-        <div class="pop pop-new" :class="{hide:isShowNew}">
+        <div class="pop pop-new" :class="{hide:!isNew}">
             <div class="new-main">
                 <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
                     <p>
@@ -559,7 +559,7 @@
                     <p>
                         <lang>Click here to try your luck!</lang>
                     </p>
-                    <a href="javascript:;" class="btn-next" @click="isShowNew = true"><lang>Okay</lang></a>
+                    <a href="javascript:;" class="btn-next" @click="isNew = false"><lang>Okay</lang></a>
                     <img src="../../assets/img/luckyCoin/line.png" alt="">
                 </div>
             </div>
@@ -623,6 +623,8 @@ export default {
             orderPageTotal: 1,
 
             showPopMask: false,
+            /* 新手引导 */
+            isNew: false,
             isShowNew: false,
             isShowStep1: true,
             isShowStep2: false,
@@ -1075,10 +1077,10 @@ export default {
             let tf = function (i) {
                 return (i < 10 ? '0' : '') + i
             }
-            let hour = Math.floor(time / 3600);
-            let min = Math.floor((time - (hour * 3600)) / 60);
-            let second = (time - (hour * 3600)) % 60;
-            return tf(hour)+':'+tf(min)+':'+tf(second)
+            let hour = Math.floor(time / 3600)
+            let min = Math.floor((time - (hour * 3600)) / 60)
+            let second = (time - (hour * 3600)) % 60
+            return tf(hour) + ':' + tf(min) + ':' + tf(second)
         }
     },
     computed: {
@@ -1087,7 +1089,7 @@ export default {
         }
     },
     components: {
-        BannerScroll, Footer , ScrollTop
+        BannerScroll, Footer, ScrollTop
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {
@@ -1098,9 +1100,12 @@ export default {
         this.pageInit()
         this.startAllevent()
 
-        console.log(22)
-        console.log(this.$refs.isNewSete1.getBoundingClientRect().left)
-        console.log(this.$refs.isNewSete1.getBoundingClientRect().top)
+        if (!localStorage.getItem('firstSuperCoin')) {
+            this.isNew = true
+            localStorage.setItem('firstSuperCoin', true)
+        }else{
+            this.isNew = false
+        }
     },
     filters: {
     }
@@ -1559,6 +1564,12 @@ export default {
                             }
                         }
                     }
+                }
+            }
+            &.isNew{
+                .isNewShow{
+                    position: relative;
+                    z-index: 11;
                 }
             }
         }
