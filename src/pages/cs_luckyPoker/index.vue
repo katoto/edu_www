@@ -1642,7 +1642,7 @@ export default {
                 margin: 45/2px auto 0;
                 padding: 0 2px;
                 background-color: #050707;
-                color: #ffff;
+                color: #fff;
                 font-weight: bold;
                 border: 1px solid #6bda7b;
                 p{
