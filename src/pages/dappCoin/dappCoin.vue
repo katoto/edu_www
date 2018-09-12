@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp" :class="{'status2':waitWin}">
+        <div class="banner-dapp" :class="{'status2':nextScreen}">
             <!--公告 滚动  components-->
             <banner-scroll class="message">
                 <div class="text-scroller" style="height:100%">
@@ -27,13 +27,13 @@
             <!--draw-->
             <template v-if="roundInfo">
                 <div class="issue">
-                    <p v-if="!waitWin">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
+                    <p v-if="!nextScreen">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
                     <p v-if="someGetWin||1">
                         <!-- 当前时间 -->
                         August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
                     </p>
                 </div>
-                <div :class="{'hide':waitWin}">
+                <div :class="{'hide':nextScreen}">
                     <!--未开奖投注区-->
                     <div class="betting-area">
                         <div class="fr betting">
@@ -124,7 +124,7 @@
                 TIME UP!
             </p>
             <!--开奖 -->
-            <div class="lottery" :class="{'hide':!waitWin}">
+            <div class="lottery" :class="{'hide':!nextScreen}">
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
@@ -133,25 +133,25 @@
                     </p>
                 </div>
                 <!--未开奖-->
-                <div class="notDraw">
+                <div class="notDraw" :class="{'hide':!waitWin}">
                     <h5>
-                        Waiting for the draw
+                        <lang>Waiting for the draw</lang>
                     </h5>
                     <p>
-                        Background is counting data...
+                        <lang>Background is counting data...</lang>
                     </p>
                 </div>
                 <!--开奖-有人中-->
-                <p class="draw-someone hide">
+                <p class="draw-someone" v-if="someGetWin">
                     Congratulations to “0x***923” for Winning
                 </p>
-                <p class="draw-none hide">
+                <p class="draw-none hide" v-else>
                     No winner of this round.<br>
                     Prize pool will accumulate in the next round.
                 </p>
                 <!--中奖号码-->
-                <!--on-->
-                <div class="dapp-number">
+                <!-- on -->
+                <div class="dapp-number" :class="{'on':openWinNumber}">
                     <ul>
                         <li v-for="(item,index) in openNumArr" :key="index">
                             {{ item }}
@@ -525,7 +525,8 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
-            someGetWin: false,
+            openWinNumber: false, // 出现开奖号码
+            someGetWin: false, // 是否有人中奖
             openNumArr: ['?', '?', '?', '?'],
             scrollMsg: [
                 'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
@@ -535,6 +536,7 @@ export default {
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
             waitWin: false, // 待开奖
+            nextScreen: false,  // 切换屏幕
             currTimeUp: null,
             balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
@@ -564,12 +566,7 @@ export default {
             showPopMask: false
         }
     },
-    watch: {
-        isLog (val) {
-            /* 切换登陆态之后改变状态 */
-            this.changePageState()
-        }
-    },
+
     methods: {
         copySucc,
         copyError,
@@ -766,7 +763,8 @@ export default {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
             if (this.timeLeft === 0) {
-                this.waitWin = true
+                this.waitWin = true;
+                this.nextScreen = true;
                 this.nowFormateTime = '00:00:00'
                 this.scrollMsgChange('end')
             } else {
@@ -807,12 +805,13 @@ export default {
                         // 执行时间到动画
                         this.currTimeUp = true
                         setTimeout(() => {
-                            this.currTimeUp = flase
+                            this.currTimeUp = false
                             // 显示待开奖状态
+                            this.nextScreen = true
                             this.waitWin = true
                             // 更改 提示文案
                             this.scrollMsgChange('end')
-                        }, 5000)
+                        }, 6000)
                         clearInterval(this.nowTimeInterval)
                     }
                     this.nowFormateTime = this.calcTime(this.timeLeft)
@@ -1003,20 +1002,31 @@ export default {
                             // uint256 luckynum,
                             // uint256 jackpot
                             console.log(res.args)
+                            console.log('=======onSettle=========')
                             if (res.args) {
-                                if (Number(res.args.lucknum) <= Number(res.args.ticketsout)) {
+                                this.waitWin = false
+                                if (res.args.lucknum.toNumber() <= res.args.ticketsout.toNumber()) {
                                     // 有人中奖
-                                    this.someGetWin = true;
+                                    this.someGetWin = true
                                     localStorage.setItem('openNextTime', new Date().getTime())
                                 } else {
                                     // 无人中奖
-                                    this.someGetWin = false;
-                                    setTimeout(()=>{
-                                        this.waitWin = false;
-                                    },5000)
+                                    this.someGetWin = false
+                                    setTimeout(() => {
+                                        this.nextScreen = false // 回到投注
+                                        this.openWinNumber = false
+                                    }, 10000)
                                 }
-                                this.showOpenNumber(res.args.lucknum)
+                                this.showOpenNumber(res.args.lucknum.toNumber())
                             }
+                        } else if(res.event === 'onActivate'){
+                            console.log(res.args)
+                            console.log('=======onActivate=========')
+                            // 有人中开奖  去除on
+                            this.openWinNumber = false;
+                            // 切换 重新开始
+                            this.nextScreen = false; // 回到投注
+                            this.waitWin = false
                         }
                     }
                 } else {
@@ -1025,20 +1035,22 @@ export default {
             })
         },
         showOpenNumber (num = 10) {
+            // 补齐开奖号码 0
+            this.openWinNumber = true
             num = num.toString()
             let splitNum = []
             splitNum = num.split('')
             for (let i = 0, len = 4 - splitNum.length;i < len;i++) {
                 splitNum.unshift('0')
             }
-            this.openNumArr = splitNum
+            this.openNumArr = splitNum;
         },
-        noWin(){
-            this.someGetWin = false;
-            setTimeout(()=>{
-                this.waitWin = false;
-            },5000)
-            this.showOpenNumber('1234')
+        noWin () {
+            // this.someGetWin = false
+            // setTimeout(() => {
+            //     this.waitWin = false
+            // }, 5000)
+            // this.showOpenNumber('1234')
         },
         calcTime (time) {
             // 根据time计算小时 分钟 秒数
@@ -1057,7 +1069,7 @@ export default {
         }
     },
     components: {
-        BannerScroll, Footer , ScrollTop
+        BannerScroll, Footer, ScrollTop
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {
@@ -1067,9 +1079,13 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
-        setTimeout(()=>{
-            this.noWin()
-        },2000)
+
+    },
+    watch: {
+        isLog (val) {
+            /* 切换登陆态之后改变状态 */
+            this.changePageState()
+        }
     },
     filters: {
     }
