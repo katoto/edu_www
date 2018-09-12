@@ -342,6 +342,10 @@ export function formateMoneyFlow (flowtype, lotid) {
         return _('LuckySlot Prize')// 老虎机中奖
     case '18':
         return _('Sign gift')// 连续七天送
+    case '20':
+        return _('LuckyPoker Bet')// 幸运扑克投注
+    case '21':
+        return _('LuckyPoker Prize')// 幸运扑克中奖
     default:
         return _('Bet')
     }
