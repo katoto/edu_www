@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp">
+        <div class="banner-dapp status2">
             <!--公告 滚动  components-->
             <banner-scroll class="message" >
                 <div class="text-scroller" style="height:100%">
@@ -26,7 +26,7 @@
             </banner-scroll>
 
             <!--draw-->
-            <template v-if="roundInfo">
+            <template v-if="!roundInfo">
                     <div class="issue">
                         <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
                         <p class="hide">
@@ -127,7 +127,7 @@
             </p>
 
             <!--开奖 -->
-            <div class="lottery hide" >
+            <div class="lottery " >
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
