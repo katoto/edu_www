@@ -128,7 +128,7 @@
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
-                    <p >
+                    <p v-if="roundInfo">
                         {{ formatesuperCoin(roundInfo.jackpot) }}<i>ETH</i>
                     </p>
                 </div>
