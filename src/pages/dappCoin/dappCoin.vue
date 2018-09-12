@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp status2">
+        <div class="banner-dapp" :class="{'status2':nextScreen}">
             <!--公告 滚动  components-->
             <banner-scroll class="message" >
                 <div class="text-scroller" style="height:100%">
@@ -24,17 +24,20 @@
                     </ul>
                 </div>
             </banner-scroll>
-
             <!--draw-->
             <template v-if="!roundInfo">
-                    <div class="issue">
-                        <p>{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
-                        <p class="hide">
-                            August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
-                        </p>
-                    </div>
+                <div class="issue">
+                    <p v-if="!nextScreen">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
+                    <p v-if="someGetWin && roundInfo">
+                        <!-- 当前时间 -->
+                        <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
+                        {{ forNextRoundStart(nextRoundStart) }}<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH
+                    </p>
+                </div>
+                <div :class="{'hide':nextScreen}">
                     <!--未开奖投注区-->
                     <div class="betting-area" :class="{'isNew':isNew}">
+
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
@@ -115,58 +118,49 @@
                             </a>
                         </div>
                     </div>
+                </div>
             </template>
-
             <!--时间到准备开奖-->
             <!--on-->
-            <p class="timeup hide" :class="{'on': currTimeUp }">
+            <p class="timeup" :class="{'on': currTimeUp }">
                 TIME UP!
             </p>
-            <p class="timeup hide" :class="{'on':waitWin}">
-                Drawing !
-            </p>
-
             <!--开奖 -->
-            <div class="lottery " >
+            <div class="lottery" :class="{'hide':!nextScreen}">
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
-                    <p>
-                        10.8197<i>ETH</i>
+                    <p v-if="roundInfo">
+                        {{ formatesuperCoin(roundInfo.jackpot) }}<i>ETH</i>
                     </p>
                 </div>
                 <!--未开奖-->
-                <div class="notDraw hide">
-                    <h5>
-                        Waiting for the draw
-                    </h5>
-                    <p>
-                        Background is counting data...
-                    </p>
-                </div>
-                <!--开奖-有人中-->
-                <p class="draw-someone hide">
-                    Congratulations to “0x***923” for Winning
-                </p>
-                <p class="draw-none ">
-                    No winner of this round.<br>
-                    Prize pool will accumulate in the next round.
-                </p>
-                <!--中奖号码-->
-                <!--on-->
-                <div class="dapp-number on">
+                <div class="notDraw" :class="{'hide':!waitWin}">
                     <ul>
                         <li>
-                            ?
+                            <h5>
+                                <lang>Waiting for the draw</lang>
+                            </h5>
+                            <p>
+                                <lang>Background is counting data...</lang>
+                            </p>
                         </li>
-                        <li>
-                            ?
-                        </li>
-                        <li>
-                            ?
-                        </li>
-                        <li>
-                            ?
+                    </ul>
+                </div>
+                <!--开奖-有人中-->
+                <p class="draw-someone" v-if="someGetWin">
+                    Congratulations to “0x***923” for Winning
+                </p>
+                <p class="draw-none" v-if="!someGetWin && !waitWin">
+                    <lang>No winner of this round.</lang><br>
+                    <lang>Prize pool will accumulate in the next round.</lang>
+                </p>
+                <!--中奖号码-->
+                <!-- on -->
+                <div class="dapp-number" :class="{'on':openWinNumber}">
+                    <ul>
+                        <li v-for="(item,index) in openNumArr" :key="index">
+                            {{ item }}
                         </li>
                     </ul>
                 </div>
@@ -177,20 +171,22 @@
                  <div class="mask-main">
                      <a href="javascript:;" class="pop-close" @click="showPopMask=false"></a>
                      <h5>
-                         游戏提示
+                         <lang>Game Tip</lang>
                      </h5>
                      <p class="p1">
-                         请先安装并登录Metamask钱包
+                         <lang>Please install and log in your Metamask</lang>
                      </p>
                      <p class="p2">
-                         没有Metamask钱包，如何安装？ <a href="javascript:;"  @click="scrollInvite"> 查看 </a>
+                        <lang>No Metamask, how to play?</lang>                         
+                        <a href="javascript:;"  @click="scrollInvite">查看</a>
+                        <a href="">install now</a>
                      </p>
                  </div>
             </div>
 
         </div>
         <!--信息展示区--> 
-        <div class="information ">
+        <div class="information">
             <!--邀请-->
             <div class="invite" id="inviteView">
                 <ul class="title">
@@ -317,11 +313,11 @@
                         <div class="open-ticket show" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
                             <p>The No.{{ ticketsNumber.round }} , You bought {{ ticketsNumber.buyNum && ticketsNumber.buyNum.length }} tickets</p>
                             <!-- 关闭 -->
-                            <a href="javascript:;" @click="ticketsNumber=null">close</a>
+                            <a href="javascript:;" @click="ticketsNumber=null" class="close"></a>
                             <div class="ticket-box">
                                 <ul>
                                     <li style="color: #ffa200;">
-                                        0143  todo
+                                        0143
                                     </li>
                                     <li v-if="ticketsNumber.buyNum" v-for="(item,index) in ticketsNumber.buyNum" :key="index">
                                         {{ item }}
@@ -331,7 +327,7 @@
                         </div>
 
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" >
+                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>10">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -414,7 +410,7 @@
                             One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there's no winner of the round, the prize pool will accumulate in next round.
                         </p>
                     </div>
-                    <template v-if="expectsList">
+                    <template v-if="expectsList && expectsList.length > 0">
                         <ul class="historyDraw-head">
                             <li class="issue">Phase</li>
                             <li class="winningNumbers">Winning Numbers</li>
@@ -441,23 +437,9 @@
                                     </a>
                                 </p>
                             </li>
-                            <!-- <li>
-                                <p class="issue">
-                                    #100testtesttesttest
-                                </p>
-                                <p class="winningNumbers">
-                                    0001testtestv
-                                </p>
-                                <p class="bonus">
-                                    10.8197 ETHtesttest
-                                </p>
-                                <p class="winner">
-                                    No WinnertesttestWinnertesttestWinnertesttestWinnertesttest
-                                </p>
-                            </li> -->
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm">
+                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>10">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -573,7 +555,9 @@ import {mTypes, aTypes} from '~/store/cs_page/dappCoin'
 import {
     copySucc,
     copyError,
-    formateCoinType
+    formateCoinType,
+    formatTime,
+    formateCoinAddr
 } from '~common/util'
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
@@ -583,11 +567,16 @@ import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message} from 'element-ui'
 import ScrollTop from '~/components/ScrollTop'
+import { Notification } from 'element-ui'
 
 Vue.use(vueClipboard)
 export default {
     data () {
         return {
+            nextRoundStart: null, // 下一期开启的时间
+            openWinNumber: false, // 出现开奖号码
+            someGetWin: false, // 是否有人中奖
+            openNumArr: ['?', '?', '?', '?'],
             scrollMsg: [
                 'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
                 'Buy more tickets, get more dividend, and enjoy higher winning chance.',
@@ -596,6 +585,7 @@ export default {
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
             waitWin: false, // 待开奖
+            nextScreen: false, // 切换屏幕
             currTimeUp: null,
             balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
@@ -632,16 +622,17 @@ export default {
             isShowStep4: false
         }
     },
-    watch: {
-        isLog (val) {
-            /* 切换登陆态之后改变状态 */
-            this.changePageState()
-        }
-    },
+
     methods: {
         copySucc,
         copyError,
         formateCoinType,
+        formatTime,
+        formateCoinAddr,
+        forNextRoundStart (time) {
+            // 格式化下一期的文案
+            return this.formatTime(time)
+        },
         formatesuperCoin (val) {
             // 金额格式化
             let newEth = null
@@ -821,7 +812,7 @@ export default {
         async pageInit () {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
-            this.getCurrentRoundInfo()
+            await this.getCurrentRoundInfo()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
@@ -831,14 +822,26 @@ export default {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
             if (this.timeLeft === 0) {
-                this.waitWin = true
+                if (this.roundInfo.luckNum === 0) {
+                    this.waitWin = true
+                } else {
+                    // 中奖页面
+                    this.someGetWin = true
+                    this.waitWin = false
+                }
+                this.nextScreen = true
                 this.nowFormateTime = '00:00:00'
-                this.scrollMsgChange('end')
+                this.scrollMsgChange('end') // 滚动信息改变
             } else {
                 this.startTimeLeft()
             }
+            console.log('roundinfo')
+            console.log(this.roundInfo)
+            this.nextRoundStart = localStorage.getItem('openNextTime')
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
+                console.log(this.timeLeft)
+                console.log('======timeleft=====')
                 if (this.timeLeft !== 0) {
                     this.startTimeLeft()
                 }
@@ -872,12 +875,13 @@ export default {
                         // 执行时间到动画
                         this.currTimeUp = true
                         setTimeout(() => {
-                            this.currTimeUp = flase
+                            this.currTimeUp = false
                             // 显示待开奖状态
+                            this.nextScreen = true
                             this.waitWin = true
                             // 更改 提示文案
                             this.scrollMsgChange('end')
-                        }, 5000)
+                        }, 6000)
                         clearInterval(this.nowTimeInterval)
                     }
                     // console.log(this.timeLeft)
@@ -917,13 +921,15 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            console.log(this.currTicketPrice * this.tickNum)
-            console.log('=================')
             buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
-            console.log(buyBack)
-            console.log('buyBack')
             if (buyBack) {
-                console.log('购买成功')
+                // Notification({
+                //     dangerouslyUseHTMLString: true,
+                //     message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()) , withdrawNum),
+                //     position: 'bottom-right',
+                //     duration: 5000
+                // })
+                console.log('下单成功')
             } else {
                 console.log('取消购买')
             }
@@ -1003,6 +1009,19 @@ export default {
                 }
             }
         },
+        async upAllMsg () {
+            // 每次事件 更新所有相关数据
+            this.getCurrentRoundInfo()
+            await this.getPlayerInfoByAddress()
+            this.timeLeft = await luckyCoinApi.getTimeLeft()
+            this.currTicketPrice = await luckyCoinApi.getBuyPrice()
+            //  用户投注订单记录  是否登录
+            if (this.selfMsg) {
+                this.orderCurrentChange()
+            }
+            //  请求历史数据
+            this.expectCurrentChange()
+        },
         startAllevent () {
             // 合约事件
             contractNet.allEvents(async (err, res) => {
@@ -1014,63 +1033,130 @@ export default {
                         }
                         console.log(res)
                         console.log('=====res==')
-                        // 每次事件触发 更新数据
-                        this.getCurrentRoundInfo()
-                        await this.getPlayerInfoByAddress()
-                        this.timeLeft = await luckyCoinApi.getTimeLeft()
-                        this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-
                         if (res.event === 'onNewName') {
                             if (name === '') {
-                                Message({
-                                    message: _('有小伙伴已成功购买专属的推广代号'),
-                                    type: 'success'
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('Welcome {0} joined the game', this.formateCoinAddr(res.args.playerAddress.toString())),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             } else {
-                                Message({
-                                    message: _('全体起立，欢迎{0}成功购买专属的推广代号', name),
-                                    type: 'success'
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('Welcome {0} joined the game', name),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             }
                         } else if (res.event === 'onBuy') {
+                            let nowTicketNum = res.args.end.toNumber() - res.args.begin.toNumber()
                             if (name !== '') {
-                                Message({
-                                    message: _('{0}已成功购买{1}张票', 'name', 23),
-                                    type: 'success'
-                                })
+                                if ((nowTicketNum) > 0) {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} tickets', name , nowTicketNum + 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                } else {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} ticket',name , 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                }
                             } else if (name === '') {
-                                Message({
-                                    message: _('有小伙伴已成功购买{0}张票', 23),
-                                    type: 'success'
-                                })
+                                if ((nowTicketNum) > 0) {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()) , nowTicketNum + 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                } else {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()) , 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                }
                             }
                         } else if (res.event === 'onWithdraw') {
                             // 提现
                             let withdrawNum = formatesuperCoin(web3.fromWei(res.args.ethOut.toNumber()))
-                            if (this.selfAddr === res.args.playerAddress) {
-                                Message({
-                                    message: _('您已成功提现{0}ETH!', withdrawNum),
-                                    type: 'success'
-                                })
-                            } else if (name === '') {
-                                Message({
-                                    message: _('有小伙伴已成功提现{0}ETH!', withdrawNum),
-                                    type: 'success'
+                            if (name === '') {
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()) , withdrawNum),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             } else {
-                                Message({
-                                    message: name + _('已成功提现{0}ETH!', withdrawNum),
-                                    type: 'success'
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('{0} has withdrawn {1} ETH', name , withdrawNum),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             }
                         } else if (res.event === 'onSettle') {
-
+                            // uint256 rid,
+                            // uint256 ticketsout,
+                            // address winner,
+                            // uint256 luckynum,
+                            // uint256 jackpot
+                            console.log(res.args)
+                            console.log('=======onSettle=========')
+                            if (res.args) {
+                                this.waitWin = false
+                                if (res.args.luckynum.toNumber() <= res.args.ticketsout.toNumber()) {
+                                    // 有人中奖
+                                    this.someGetWin = true
+                                    localStorage.setItem('openNextTime', new Date().getTime() + 120000)
+                                    this.nextRoundStart = localStorage.getItem('openNextTime')
+                                } else {
+                                    // 无人中奖
+                                    this.someGetWin = false
+                                    setTimeout(() => {
+                                        this.nextScreen = false // 回到投注
+                                        this.openWinNumber = false
+                                        this.openNumArr = ['?', '?', '?', '?']
+                                    }, 10000)
+                                }
+                                this.showOpenNumber(res.args.luckynum.toNumber())
+                            }
+                        } else if (res.event === 'onActivate') {
+                            console.log(res.args)
+                            console.log('=======onActivate=========')
+                            // 有人中开奖  去除on
+                            this.openWinNumber = false
+                            // 切换 重新开始
+                            this.nextScreen = false // 回到投注
+                            this.waitWin = false
+                            this.openNumArr = ['?', '?', '?', '?']
+                            localStorage.setItem('openNextTime', 0)
                         }
+                        // 每次事件触发 更新数据
+                        this.upAllMsg()
                     }
                 } else {
                     console.error('allEvents' + err)
                 }
             })
+        },
+        showOpenNumber (num = 10) {
+            // 补齐开奖号码 0
+            this.openWinNumber = true
+            num = num.toString()
+            let splitNum = []
+            splitNum = num.split('')
+            for (let i = 0, len = 4 - splitNum.length;i < len;i++) {
+                splitNum.unshift('0')
+            }
+            this.openNumArr = splitNum
         },
         calcTime (time) {
             // 根据time计算小时 分钟 秒数
@@ -1081,7 +1167,7 @@ export default {
             let min = Math.floor((time - (hour * 3600)) / 60)
             let second = (time - (hour * 3600)) % 60
             return tf(hour) + ':' + tf(min) + ':' + tf(second)
-        }
+        },
     },
     computed: {
         language () {
@@ -1105,6 +1191,12 @@ export default {
             localStorage.setItem('firstSuperCoin', true)
         }else{
             this.isNew = false
+        }
+    },
+    watch: {
+        isLog (val) {
+            /* 切换登陆态之后改变状态 */
+            this.changePageState()
         }
     },
     filters: {
@@ -1594,6 +1686,18 @@ export default {
             }
             .notDraw{
                 margin: 14px 0 37px 0;
+                height: 64px;
+                ul{
+                    position: relative;
+                    li{
+                        position: absolute;
+                        top:0;
+                        left:0;
+                        width: 100%;
+                        height: 64px;
+                        text-align:center;
+                    }
+                }
                 h5{
                     line-height: 44px;
                     font-size: 36px;
@@ -1868,6 +1972,16 @@ export default {
                 transform: translateY(-300px);
                 transition: all 0.5s ease-in-out;
                 opacity: 0;
+                .close{
+                    display: block;
+                    position: absolute;
+                    top:0;
+                    right:0;
+                    width:20px;
+                    height:20px;
+                    background: url("../../assets/img/superCoin/pop-close.png") no-repeat center;
+                    background-size: 10px;
+                }
                 p{
                     line-height: 38px;
                     font-size: 24px;

@@ -1,6 +1,6 @@
 <template>
     <div class="">
-      <h1 name="point">
+      <h1>
           <lang>How to Play  (LuckyCoin)</lang>
       </h1>
         <ul>
