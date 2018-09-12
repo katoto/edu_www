@@ -965,7 +965,6 @@ export default {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accMul(num, accAdd(width, 5)) * -1
-            this.getHistoryMostNum()
         },
         onResize () {
             this.resetCoinPosition()
