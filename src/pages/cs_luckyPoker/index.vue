@@ -187,8 +187,8 @@
                             <!--wait/unable-->
                             <div href="javascript:;" class="btn-main " @click="onBet" :class="{ unable: total === 0, wait: isLoading }">
                                 <p v-if="isLoading">Please wait</p>
-                                <p v-else-if="!isLoading">{{$lang.poker.a17}}</p>
-                                <span v-else-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
+                                <p v-if="!isLoading">{{$lang.poker.a17}}</p>
+                                <span v-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
                             </div>
                         </div>
                     </div>
@@ -210,7 +210,7 @@
                             <div class="input-group">
                                 <input type="text" :value="clientSeed" readonly v-if="isLock">
                                 <input type="text" v-model="clientSeed" v-else>
-                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
+                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed" v-if="!isLock">
                                     {{$lang.poker.a4}}
                                 </a>
                                 <a href="javascript:;"  class="btn btn-lock" v-if="!isLock" @click="isLock = true">
@@ -341,10 +341,8 @@
                             <div>
                                 <p>{{$lang.poker.a2}}:</p>
                                 <p>{{$lang.poker.a11}}</p>
-                                <p></p>
                                 <p>{{$lang.poker.a9}}:</p>
                                 <p>{{$lang.poker.a13}}</p>
-                                <p></p>
                                 <p>{{$lang.poker.a3}}:</p>
                                 <p>{{$lang.poker.a12}}</p>
                             </div>
@@ -385,7 +383,7 @@
                                             <div class="input-group">
                                                 <input type="text" :value="clientSeed" readonly v-if="isLock">
                                                 <input type="text" v-model="clientSeed" v-else>
-                                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
+                                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed" v-if="!isLock">
                                                     {{$lang.poker.a4}}
                                                 </a>
                                                 <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="!isLock" @click="isLock = true">
@@ -491,7 +489,7 @@
                         <p>{{$lang.poker.a25}}</p>
                         <div>+{{formatNum(Number(open.money), 4)}}<i>{{coinText}}</i></div>
                     </div>
-                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;" @click="closePoker()" v-else>
+                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" v-else>
                         {{$lang.poker.a24}}
                     </div>
                 </div>
@@ -786,7 +784,7 @@ export default {
             this.coins = [...tmpCoins]
             this.initCoin()
 
-            /*小屏幕缩小一下*/
+            /* 小屏幕缩小一下 */
             let width = window.innerWidth
             let height = window.innerHeight
             if (typeof width !== 'number') {
@@ -973,13 +971,13 @@ export default {
         this.clearBet()
         this.refresh()
         this.createClientSeed()
-        this.disableContext()
+        // this.disableContext()
         this.subInDice()
-        window.addEventListener('resize', this.onResize)
+        // window.addEventListener('resize', this.onResize)
     },
     destroyed () {
-        document.oncontextmenu = null
-        window.removeEventListener('resize', this.onResize)
+        // document.oncontextmenu = null
+        // window.removeEventListener('resize', this.onResize)
         this.subOutDice()
     }
 }
@@ -2704,7 +2702,7 @@ export default {
                             display: none;
                             position: absolute;
                             left: -140px;
-                            top: -248px;
+                            top: -226px;
                             width: 434px;
                             padding: 25px 18px 30px;
                             background: #fff;
@@ -2724,7 +2722,6 @@ export default {
                                 border-right: 10px solid transparent;
                             }
                             p{
-                                height: 22px;
                                 line-height: 22px;
                                 font-size: 14px;
                                 color: #72a1a8;
