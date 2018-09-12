@@ -186,9 +186,9 @@
                             </ul>
                             <!--wait/unable-->
                             <div href="javascript:;" class="btn-main " @click="onBet" :class="{ unable: total === 0, wait: isLoading }">
-                                <p>{{$lang.poker.a17}}</p>
-                                <!--<p>Please wait</p>-->
-                                <span>{{total}} <i>{{coinText}}</i></span>
+                                <p v-if="isLoading">Please wait</p>
+                                <p v-else-if="!isLoading">{{$lang.poker.a17}}</p>
+                                <span v-else-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
                             </div>
                         </div>
                     </div>
@@ -278,8 +278,8 @@
                         </ul>
                         <ul class="recoding-main">
                             <li v-for="(item, index) in (getBetsList()).filter((bet, index) => index < 5)" :key="index">
-                                <p class="bet-user" :title="item.username">
-                                    {{item.username}}
+                                <p class="bet-user" :title="formatEmail(item.username)">
+                                    {{formatEmail(item.username)}}
                                 </p>
                                 <!--number black red fk mh hongt heit joker-->
                                 <div class="bet-expect number" :class="[getDiceBetClass(item.bettype)]">
@@ -292,7 +292,7 @@
                                     <p>{{getDiceText(item.result)}}</p>
                                 </div>
                                 <p class="bet-result-count" :class="{mywin: userInfo && userInfo.uid && userInfo.uid === item.uid.toString() && Number(item.prize_amount) > 0}">
-                                    {{Number(item.prize_amount)}} <i>{{formateCoinType(item.cointype)}}</i>
+                                    {{Number(item.prize_amount) > 0 ? item.prize_amount : '-'}} <i v-if="Number(item.prize_amount) > 0">{{formateCoinType(item.cointype)}}</i>
                                 </p>
                             </li>
                             <li v-for="(item, index) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="index">
@@ -563,6 +563,20 @@ export default {
         getElementAbsolutePosition,
         getElementCenterPosition,
         formatNum,
+        formatEmail (email) {
+            let arr = email.split('@')
+            if (arr.length !== 2) {
+                return '**@***'
+            } else {
+                let pre = arr[0]
+                let len = pre.length
+                if (len <= 2) {
+                    return `${pre.replace(/./g, '*')}@${arr[1]}`
+                } else {
+                    return `${pre.substr(0, 2)}**@${arr[1]}`
+                }
+            }
+        },
         getEmptyList (num) {
             if (num > 0) {
                 return new Array(num)
@@ -705,7 +719,11 @@ export default {
             this.total = accAdd(this.total, this.currentCoin)
             tmp.forEach((arr, index) => {
                 if (arr.indexOf(name) > -1) {
-                    this[tmpName[index]] = accAdd(this[tmpName[index]], this.currentCoin)
+                    arr.forEach(item => {
+                        if (this[tmpName[index]] < this.betNums[item]) {
+                            this[tmpName[index]] = this.betNums[item]
+                        }
+                    })
                 }
             })
         },
