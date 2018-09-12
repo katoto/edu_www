@@ -793,7 +793,7 @@ export default {
                 width = document.documentElement.clientWidth
                 height = document.docuementElement.clientHeight
             }
-            if (width > 1200 && height < 800) {
+            if (width > 1200 && height < 700) {
                 this.is14 = true
             } else {
                 this.is14 = false
