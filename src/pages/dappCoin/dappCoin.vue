@@ -197,7 +197,7 @@
                 <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''">
                     <div class="my-link">
                         <p class="link-msg">
-                            Your promotion link
+                            Your promotion link:
                         </p>
                         <p class="mydomain">
                             {{ selfMsg.inviteLink }}
@@ -206,7 +206,7 @@
                            v-clipboard:copy="selfMsg.inviteLink"
                            v-clipboard:success="copySucc"
                            v-clipboard:error="copyError"
-                           class="btn-Copy ">
+                           class="btn-copy ">
                             <lang>Copy</lang>
                         </a>
                         <p>
@@ -321,7 +321,7 @@
                         </div>
 
                         <!-- 分页msg  -->
-                        <div class="pagination" v-if="ordersList&&ordersList.length>10">
+                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>10">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -337,6 +337,10 @@
                             >
                             </el-pagination>
                         </div>
+                        <!--分页h5-->
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md">
+                            <lang>Click to see more</lang>
+                        </a>
 
                     </template>
                     <!--未登陆 -->
@@ -429,7 +433,7 @@
                             </li>
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination" v-if="expectsList&&expectsList.length>10">
+                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>10">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -445,6 +449,10 @@
                             >
                             </el-pagination>
                         </div>
+                        <!--分页h5-->
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md">
+                            <lang>Click to see more</lang>
+                        </a>
                     </template>
                     <div class="nomsg" v-else>
                         <p>
@@ -491,7 +499,8 @@
 
             </div>
         </div>
-
+        <!--返回顶部-->
+        <ScrollTop></ScrollTop>
         <Footer></Footer>
     </div>
 </template>
@@ -510,6 +519,7 @@ import Footer from '~components/Footer.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message} from 'element-ui'
+import ScrollTop from '~/components/ScrollTop'
 
 Vue.use(vueClipboard)
 export default {
@@ -1047,7 +1057,7 @@ export default {
         }
     },
     components: {
-        BannerScroll, Footer
+        BannerScroll, Footer , ScrollTop
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {
@@ -1153,6 +1163,17 @@ export default {
         .el-input__inner,.el-select-dropdown__list{
             border-color: #6a88cc;
             background: #211c38;
+        }
+        .pagination-h5{
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 60/75rem;
+            border-radius: 6/75rem;
+            font-size: 24/75rem;
+            color: #778ca3;
+            border: 1/75rem solid #6a88cc;
         }
     }
     @media (max-width: 768px) {
@@ -1726,6 +1747,7 @@ export default {
             .invite-after{
                 color: #fefeff;
                 .link-msg{
+                    color: #a5b1c2;
                     line-height: 20px;
                 }
                 .mydomain{
