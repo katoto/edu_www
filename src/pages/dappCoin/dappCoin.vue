@@ -570,6 +570,7 @@ import ScrollTop from '~/components/ScrollTop'
 import { Notification } from 'element-ui'
 
 Vue.use(vueClipboard)
+
 export default {
     data () {
         return {
@@ -1055,14 +1056,14 @@ export default {
                                 if ((nowTicketNum) > 0) {
                                     Notification({
                                         dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} tickets', name , nowTicketNum + 1),
+                                        message: _('{0} has bought {1} tickets', name, nowTicketNum + 1),
                                         position: 'bottom-right',
                                         duration: 5000
                                     })
                                 } else {
                                     Notification({
                                         dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} ticket',name , 1),
+                                        message: _('{0} has bought {1} ticket', name, 1),
                                         position: 'bottom-right',
                                         duration: 5000
                                     })
@@ -1071,14 +1072,14 @@ export default {
                                 if ((nowTicketNum) > 0) {
                                     Notification({
                                         dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()) , nowTicketNum + 1),
+                                        message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()), nowTicketNum + 1),
                                         position: 'bottom-right',
                                         duration: 5000
                                     })
                                 } else {
                                     Notification({
                                         dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()) , 1),
+                                        message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()), 1),
                                         position: 'bottom-right',
                                         duration: 5000
                                     })
@@ -1090,14 +1091,14 @@ export default {
                             if (name === '') {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()) , withdrawNum),
+                                    message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()), withdrawNum),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })
                             } else {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('{0} has withdrawn {1} ETH', name , withdrawNum),
+                                    message: _('{0} has withdrawn {1} ETH', name, withdrawNum),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })
@@ -1167,7 +1168,7 @@ export default {
             let min = Math.floor((time - (hour * 3600)) / 60)
             let second = (time - (hour * 3600)) % 60
             return tf(hour) + ':' + tf(min) + ':' + tf(second)
-        },
+        }
     },
     computed: {
         language () {
@@ -1189,7 +1190,7 @@ export default {
         if (!localStorage.getItem('firstSuperCoin')) {
             this.isNew = true
             localStorage.setItem('firstSuperCoin', true)
-        }else{
+        } else {
             this.isNew = false
         }
     },

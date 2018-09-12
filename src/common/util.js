@@ -256,6 +256,10 @@ export function formateJackpot (val = 0) {
  *   金币类型
  * */
 export function formateCoinType (type = '2001') {
+    if (!type) {
+        console.error('formateCoinType type error')
+        return false
+    }
     type = type.toString()
     switch (type) {
     case '2001':
