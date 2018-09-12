@@ -44,8 +44,10 @@
                     var rem = ''
                     if (docEl.clientWidth > 1200) {
                         // rem = 1920 because px
+                        rem = 75
                     } else if (docEl.clientWidth > 768 && docEl.clientWidth < 1200) {
                         // rem = 768 because px
+                        rem = 75
                     } else if (docEl.clientWidth < 768) {
                         rem = docEl.clientWidth / 10
                     }
