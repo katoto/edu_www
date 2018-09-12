@@ -14,8 +14,8 @@
                     <div class="poker-history">
                         <p class="title">{{$lang.poker.a27}}</p>
                         <div class="history-main">
-                            <a class="btn btn-left" href="javascript:;" @click="onLeft"></a>
-                            <div class="poker-item">
+                            <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
+                            <div class="poker-item" ref="historyCt">
                                 <ul :style="{ left: `${listLeft}px` }">
                                     <li class="poker-next" ref="next">
                                         <p>?</p>
@@ -67,7 +67,7 @@
                                     </li> -->
                                 </ul>
                             </div>
-                            <a class="btn btn-right" href="javascript:;" @click="onRight"></a>
+                            <a class="btn btn-right" href="javascript:;" @click="onRight" :style="{visibility: !hideRight ? 'visible': 'hidden'}"></a>
                         </div>
                     </div>
                     <div class="bg-pc-esktop ">
@@ -542,6 +542,8 @@ export default {
             preServerHash: '',
             preClientSeed: '',
             closeTimer: null,
+            hideRight: false,
+            hideLeft: false,
             tmpHistoryList: [],
             tmpRecentLists: [],
             tmpMyselfBetsLists: [],
@@ -927,19 +929,47 @@ export default {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accAdd(this.listLeft, accAdd(width, 5))
+            this.getHistoryMostNum()
         },
         onRight () {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accSub(this.listLeft, accAdd(width, 5))
+            this.getHistoryMostNum()
+        },
+        getHistoryMostNum () {
+            let historyCt = this.$refs.historyCt
+            let next = this.$refs.next
+            let length = this.recentResult.length
+            let mostNum = Math.floor(historyCt.clientWidth / (next.clientWidth + 5))
+            let mostLength = length - mostNum + 1
+            if (length === 0) {
+                this.hideRight = true
+                this.hideLeft = true
+            } else if (this.listLeft === 0) {
+                this.hideLeft = true
+                if (length <= mostNum - 1) {
+                    this.hideRight = true
+                } else {
+                    this.hideRight = false
+                }
+            } else if (-1 * Number(this.listLeft) >= (mostLength + 1) * (next.clientWidth + 5)) {
+                this.hideRight = true
+                this.hideLeft = false
+            } else if (-1 * Number(this.listLeft) < (mostLength + 1) * (next.clientWidth + 5)) {
+                this.hideRight = false
+                this.hideLeft = false
+            }
         },
         goto (num = 0) {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accMul(num, accAdd(width, 5)) * -1
+            this.getHistoryMostNum()
         },
         onResize () {
             this.resetCoinPosition()
+            this.getHistoryMostNum()
         }
     },
     computed: {
@@ -964,6 +994,9 @@ export default {
         },
         coinType () {
             this.clearBet()
+        },
+        recentResult () {
+            this.getHistoryMostNum()
         }
     },
     mounted () {
@@ -971,13 +1004,14 @@ export default {
         this.clearBet()
         this.refresh()
         this.createClientSeed()
-        // this.disableContext()
+        this.getHistoryMostNum()
+        this.disableContext()
         this.subInDice()
-        // window.addEventListener('resize', this.onResize)
+        window.addEventListener('resize', this.onResize)
     },
     destroyed () {
-        // document.oncontextmenu = null
-        // window.removeEventListener('resize', this.onResize)
+        document.oncontextmenu = null
+        window.removeEventListener('resize', this.onResize)
         this.subOutDice()
     }
 }
