@@ -526,37 +526,42 @@
         <!--返回顶部-->
         <ScrollTop></ScrollTop>
         <!--新手引导-->
-        <div class="pop pop-new" :class="{on:isShowNew}">
-            <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
-                <p>
-                    <lang>1. This is the current prize pool</lang>
-                </p>
-                <p>
-                    <lang>, and the winner will receive most of the rewards.</lang>
-                </p>
-                <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Okay</lang></a>
-                <img src="../../assets/img/luckyCoin/line.png" alt="">
-            </div>
-            <div class="hide step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
-                <p>
-                    <lang>2. This is the current prize pool, and the winner will receive most of the rewards.</lang>
-                </p>
-                <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Okay</lang></a>
-                <img src="../../assets/img/luckyCoin/line.png" alt="">
-            </div>
-            <div class="hide step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
-                <p>
-                    <lang>3. This is the current prize pool, and the winner will receive most of the rewards.</lang>
-                </p>
-                <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>Okay</lang></a>
-                <img src="../../assets/img/luckyCoin/line.png" alt="">
-            </div>
-            <div class="hide step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
-                <img src="../../assets/img/luckyCoin/line.png" alt="">
-                <p>
-                    <lang>Click here to place a bet, try it now.</lang>
-                </p>
-                <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>Okay</lang></a>
+        <div class="pop pop-new" :class="{hide:isShowNew}">
+            <div class="new-main">
+                <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
+                    <p>
+                        <lang>1.The current amount of prize pool. </lang>
+                    </p>
+                    <p>
+                        <lang>Always ready for the winner!</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
+                <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
+                    <p>
+                        <lang>2. Draw proceeds when time's up.</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
+                <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
+                    <p>
+                        <lang>3. Here shows how many tickets have been sold.</lang>
+                    </p>
+                    <p>
+                        <lang>Buy more tickets, enjoy higher winning chance.</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
+                <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
+                    <p>
+                        <lang>Click here to try your luck!</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isShowNew = true"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
             </div>
         </div>
         <Footer></Footer>
@@ -620,9 +625,9 @@ export default {
             showPopMask: false,
             isShowNew: false,
             isShowStep1: true,
-            isShowStep2: true,
-            isShowStep3: true,
-            isShowStep4: true,
+            isShowStep2: false,
+            isShowStep3: false,
+            isShowStep4: false
         }
     },
     watch: {
@@ -2025,6 +2030,15 @@ export default {
         }
     }
     .pop-new{
+        position: absolute;
+        z-index: 10;
+        .new-main{
+            position: relative;
+            width: percentage(710/750);
+            max-width: 1190px;
+            height: 100%;
+            margin: 0 auto;
+        }
         p{
             line-height: 23px;
             font-size: 20px;
@@ -2032,7 +2046,7 @@ export default {
         }
         a{
             display: block;
-            margin: 0 auto;
+            margin: 5px auto;
             width:67px;
             height:27px;
             line-height: 27px;
@@ -2041,10 +2055,41 @@ export default {
             font-size: 14px;
             color: #fff;
         }
+        img{
+            display: block;
+            margin: 0 auto;
+        }
         .step{
             position: absolute;
-            top: 0;
-            right: 0;
+            width: 100%;
+        }
+        .step1{
+            top: 35px;
+            left: -45px;
+            img{
+                transform: rotateZ(-10deg) translate(29px);
+            }
+        }
+        .step2{
+            left: -180px;
+            top: 215px;
+            img{
+                transform: rotateZ(-20deg) translate(215px,14px);
+            }
+        }
+        .step3{
+            left: -358px;
+            top: 335px;
+            img{
+                transform: rotateZ(-35deg) translate(277px, 90px);
+            }
+        }
+        .step4{
+            left: -280px;
+            top: 550px;
+            img{
+                transform: rotateZ(-20deg) translate(186px, 0px);
+            }
         }
     }
 
