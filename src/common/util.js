@@ -131,8 +131,6 @@ export function formatTime (time, format) {
     if (isNaN(time)) {
         return false
     }
-    console.log(time)
-    console.log('==========')
     let t = new Date(+time * 1000)
     let tf = function (i) {
         return (i < 10 ? '0' : '') + i
@@ -267,6 +265,11 @@ export function formateCoinType (type = '2001') {
     default:
         return 'ETH'
     }
+}
+
+export function formateCoinAddr (addr) {
+    addr = addr.toString()
+    return addr.slice(0, 4) + '***' + addr.slice(-4)
 }
 
 export function formateEmail (email, isFull) {

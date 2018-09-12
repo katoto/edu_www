@@ -28,9 +28,10 @@
             <template v-if="roundInfo">
                 <div class="issue">
                     <p v-if="!nextScreen">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
-                    <p v-if="someGetWin||1">
+                    <p v-if="someGetWin && roundInfo">
                         <!-- 当前时间 -->
-                        August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus 10ETH
+                        <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
+                        {{ forNextRoundStart(nextRoundStart) }}<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH
                     </p>
                 </div>
                 <div :class="{'hide':nextScreen}">
@@ -134,20 +135,24 @@
                 </div>
                 <!--未开奖-->
                 <div class="notDraw" :class="{'hide':!waitWin}">
-                    <h5>
-                        <lang>Waiting for the draw</lang>
-                    </h5>
-                    <p>
-                        <lang>Background is counting data...</lang>
-                    </p>
+                    <ul>
+                        <li>
+                            <h5>
+                                <lang>Waiting for the draw</lang>
+                            </h5>
+                            <p>
+                                <lang>Background is counting data...</lang>
+                            </p>
+                        </li>
+                    </ul>
                 </div>
                 <!--开奖-有人中-->
                 <p class="draw-someone" v-if="someGetWin">
                     Congratulations to “0x***923” for Winning
                 </p>
-                <p class="draw-none hide" v-else>
-                    No winner of this round.<br>
-                    Prize pool will accumulate in the next round.
+                <p class="draw-none" v-if="!someGetWin && !waitWin">
+                    <lang>No winner of this round.</lang><br>
+                    <lang>Prize pool will accumulate in the next round.</lang>
                 </p>
                 <!--中奖号码-->
                 <!-- on -->
@@ -510,7 +515,9 @@ import {mTypes, aTypes} from '~/store/cs_page/dappCoin'
 import {
     copySucc,
     copyError,
-    formateCoinType
+    formateCoinType,
+    formatTime,
+    formateCoinAddr
 } from '~common/util'
 import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
@@ -520,11 +527,13 @@ import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message} from 'element-ui'
 import ScrollTop from '~/components/ScrollTop'
+import { Notification } from 'element-ui'
 
 Vue.use(vueClipboard)
 export default {
     data () {
         return {
+            nextRoundStart: null, // 下一期开启的时间
             openWinNumber: false, // 出现开奖号码
             someGetWin: false, // 是否有人中奖
             openNumArr: ['?', '?', '?', '?'],
@@ -536,7 +545,7 @@ export default {
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
             waitWin: false, // 待开奖
-            nextScreen: false,  // 切换屏幕
+            nextScreen: false, // 切换屏幕
             currTimeUp: null,
             balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
@@ -571,8 +580,11 @@ export default {
         copySucc,
         copyError,
         formateCoinType,
-        opening () {
-
+        formatTime,
+        formateCoinAddr,
+        forNextRoundStart (time) {
+            // 格式化下一期的文案
+            return this.formatTime(time)
         },
         formatesuperCoin (val) {
             // 金额格式化
@@ -763,15 +775,26 @@ export default {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
             if (this.timeLeft === 0) {
-                this.waitWin = true;
-                this.nextScreen = true;
+                if (this.roundInfo.luckNum === 0) {
+                    this.waitWin = true
+                } else {
+                    // 中奖页面
+                    this.someGetWin = true
+                    this.waitWin = false
+                }
+                this.nextScreen = true
                 this.nowFormateTime = '00:00:00'
-                this.scrollMsgChange('end')
+                this.scrollMsgChange('end') // 滚动信息改变
             } else {
                 this.startTimeLeft()
             }
+            console.log('roundinfo')
+            console.log(this.roundInfo)
+            this.nextRoundStart = localStorage.getItem('openNextTime')
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
+                console.log(this.timeLeft)
+                console.log('======timeleft=====')
                 if (this.timeLeft !== 0) {
                     this.startTimeLeft()
                 }
@@ -849,13 +872,15 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            console.log(this.currTicketPrice * this.tickNum)
-            console.log('=================')
             buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
-            console.log(buyBack)
-            console.log('buyBack')
             if (buyBack) {
-                console.log('购买成功')
+                // Notification({
+                //     dangerouslyUseHTMLString: true,
+                //     message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()) , withdrawNum),
+                //     position: 'bottom-right',
+                //     duration: 5000
+                // })
+                console.log('下单成功')
             } else {
                 console.log('取消购买')
             }
@@ -935,6 +960,19 @@ export default {
                 }
             }
         },
+        async upAllMsg () {
+            // 每次事件 更新所有相关数据
+            this.getCurrentRoundInfo()
+            await this.getPlayerInfoByAddress()
+            this.timeLeft = await luckyCoinApi.getTimeLeft()
+            this.currTicketPrice = await luckyCoinApi.getBuyPrice()
+            //  用户投注订单记录  是否登录
+            if (this.selfMsg) {
+                this.orderCurrentChange()
+            }
+            //  请求历史数据
+            this.expectCurrentChange()
+        },
         startAllevent () {
             // 合约事件
             contractNet.allEvents(async (err, res) => {
@@ -946,53 +984,73 @@ export default {
                         }
                         console.log(res)
                         console.log('=====res==')
-                        // 每次事件触发 更新数据
-                        this.getCurrentRoundInfo()
-                        await this.getPlayerInfoByAddress()
-                        this.timeLeft = await luckyCoinApi.getTimeLeft()
-                        this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-
                         if (res.event === 'onNewName') {
                             if (name === '') {
-                                Message({
-                                    message: _('有小伙伴已成功购买专属的推广代号'),
-                                    type: 'success'
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('Welcome {0} joined the game', this.formateCoinAddr(res.args.playerAddress.toString())),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             } else {
-                                Message({
-                                    message: _('全体起立，欢迎{0}成功购买专属的推广代号', name),
-                                    type: 'success'
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('Welcome {0} joined the game', name),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             }
                         } else if (res.event === 'onBuy') {
+                            let nowTicketNum = res.args.end.toNumber() - res.args.begin.toNumber()
                             if (name !== '') {
-                                Message({
-                                    message: _('{0}已成功购买{1}张票', 'name', 23),
-                                    type: 'success'
-                                })
+                                if ((nowTicketNum) > 0) {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} tickets', name , nowTicketNum + 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                } else {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} ticket',name , 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                }
                             } else if (name === '') {
-                                Message({
-                                    message: _('有小伙伴已成功购买{0}张票', 23),
-                                    type: 'success'
-                                })
+                                if ((nowTicketNum) > 0) {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()) , nowTicketNum + 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                } else {
+                                    Notification({
+                                        dangerouslyUseHTMLString: true,
+                                        message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()) , 1),
+                                        position: 'bottom-right',
+                                        duration: 5000
+                                    })
+                                }
                             }
                         } else if (res.event === 'onWithdraw') {
                             // 提现
                             let withdrawNum = formatesuperCoin(web3.fromWei(res.args.ethOut.toNumber()))
-                            if (this.selfAddr === res.args.playerAddress) {
-                                Message({
-                                    message: _('您已成功提现{0}ETH!', withdrawNum),
-                                    type: 'success'
-                                })
-                            } else if (name === '') {
-                                Message({
-                                    message: _('有小伙伴已成功提现{0}ETH!', withdrawNum),
-                                    type: 'success'
+                            if (name === '') {
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()) , withdrawNum),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             } else {
-                                Message({
-                                    message: name + _('已成功提现{0}ETH!', withdrawNum),
-                                    type: 'success'
+                                Notification({
+                                    dangerouslyUseHTMLString: true,
+                                    message: _('{0} has withdrawn {1} ETH', name , withdrawNum),
+                                    position: 'bottom-right',
+                                    duration: 5000
                                 })
                             }
                         } else if (res.event === 'onSettle') {
@@ -1005,29 +1063,35 @@ export default {
                             console.log('=======onSettle=========')
                             if (res.args) {
                                 this.waitWin = false
-                                if (res.args.lucknum.toNumber() <= res.args.ticketsout.toNumber()) {
+                                if (res.args.luckynum.toNumber() <= res.args.ticketsout.toNumber()) {
                                     // 有人中奖
                                     this.someGetWin = true
-                                    localStorage.setItem('openNextTime', new Date().getTime())
+                                    localStorage.setItem('openNextTime', new Date().getTime() + 120000)
+                                    this.nextRoundStart = localStorage.getItem('openNextTime')
                                 } else {
                                     // 无人中奖
                                     this.someGetWin = false
                                     setTimeout(() => {
                                         this.nextScreen = false // 回到投注
                                         this.openWinNumber = false
+                                        this.openNumArr = ['?', '?', '?', '?']
                                     }, 10000)
                                 }
-                                this.showOpenNumber(res.args.lucknum.toNumber())
+                                this.showOpenNumber(res.args.luckynum.toNumber())
                             }
-                        } else if(res.event === 'onActivate'){
+                        } else if (res.event === 'onActivate') {
                             console.log(res.args)
                             console.log('=======onActivate=========')
                             // 有人中开奖  去除on
-                            this.openWinNumber = false;
+                            this.openWinNumber = false
                             // 切换 重新开始
-                            this.nextScreen = false; // 回到投注
+                            this.nextScreen = false // 回到投注
                             this.waitWin = false
+                            this.openNumArr = ['?', '?', '?', '?']
+                            localStorage.setItem('openNextTime', 0)
                         }
+                        // 每次事件触发 更新数据
+                        this.upAllMsg()
                     }
                 } else {
                     console.error('allEvents' + err)
@@ -1043,14 +1107,7 @@ export default {
             for (let i = 0, len = 4 - splitNum.length;i < len;i++) {
                 splitNum.unshift('0')
             }
-            this.openNumArr = splitNum;
-        },
-        noWin () {
-            // this.someGetWin = false
-            // setTimeout(() => {
-            //     this.waitWin = false
-            // }, 5000)
-            // this.showOpenNumber('1234')
+            this.openNumArr = splitNum
         },
         calcTime (time) {
             // 根据time计算小时 分钟 秒数
@@ -1061,7 +1118,7 @@ export default {
             let min = Math.floor((time - (hour * 3600)) / 60)
             let second = (time - (hour * 3600)) % 60
             return tf(hour) + ':' + tf(min) + ':' + tf(second)
-        }
+        },
     },
     computed: {
         language () {
@@ -1079,7 +1136,6 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
-
     },
     watch: {
         isLog (val) {
@@ -1565,6 +1621,18 @@ export default {
             }
             .notDraw{
                 margin: 14px 0 37px 0;
+                height: 64px;
+                ul{
+                    position: relative;
+                    li{
+                        position: absolute;
+                        top:0;
+                        left:0;
+                        width: 100%;
+                        height: 64px;
+                        text-align:center;
+                    }
+                }
                 h5{
                     line-height: 44px;
                     font-size: 36px;
