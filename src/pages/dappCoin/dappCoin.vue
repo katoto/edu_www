@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp" :class="{'status2':nextScreen}">
+        <div class="banner-dapp status2" :class="{'status2':nextScreen}">
             <!--公告 滚动  components-->
             <banner-scroll class="message" >
                 <div class="text-scroller" style="height:100%">
@@ -25,7 +25,7 @@
                 </div>
             </banner-scroll>
             <!--draw-->
-            <template v-if="!roundInfo">
+            <template v-if="roundInfo">
                 <div class="issue">
                     <p v-if="!nextScreen">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
                     <p v-if="someGetWin && roundInfo">
@@ -126,7 +126,7 @@
                 TIME UP!
             </p>
             <!--开奖 -->
-            <div class="lottery" :class="{'hide':!nextScreen}">
+            <div class="lottery " :class="{'hide':nextScreen}">
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
@@ -1755,7 +1755,7 @@ export default {
             z-index: 2;
             left: 0;
             top: 50%;
-            transform: translateY(-400px);
+            transform: translateX(100%);
             width: 100%;
             height: 167px;
             background: rgba(21,21,21,0.8);
@@ -1784,7 +1784,7 @@ export default {
             }
             &.on{
                 opacity: 1;
-                transform: translateY(-50%);
+                transform: translateX(0);
             }
         }
         &.status2{
@@ -2217,7 +2217,6 @@ export default {
             }
         }
     }
-
 </style>
 <style scoped lang="less" type="text/less">
     @import "../../styles/dapph5.less";
