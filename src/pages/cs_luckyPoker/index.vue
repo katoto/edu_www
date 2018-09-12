@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <div class="luckyPoker" @click="initPop" @resize="onResize">
+        <div class="luckyPoker " @click="initPop" @resize="onResize" :class="{'small':is14}">
             <div class="main">
                 <div class="bg-esktop" ref="container">
                     <div class="fly-coin fly-coin-el" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
@@ -551,7 +551,8 @@ export default {
                 isWin: false,
                 money: 0,
                 result: 0
-            }
+            },
+            is14: true
         }
     },
     methods: {
@@ -766,6 +767,19 @@ export default {
             })
             this.coins = [...tmpCoins]
             this.initCoin()
+
+            /*小屏幕缩小一下*/
+            let width = window.innerWidth
+            let height = window.innerHeight
+            if (typeof width !== 'number') {
+                width = document.documentElement.clientWidth
+                height = document.docuementElement.clientHeight
+            }
+            if (width > 1200 && height < 800) {
+                this.is14 = true
+            } else {
+                this.is14 = false
+            }
         },
         clearBet () {
             this.nameArr.forEach(name => {
@@ -1205,7 +1219,13 @@ export default {
                 }
                 li.on{
                     img{
-                        transform: scale(1.3);
+                        transform: scale(1.3) !important;
+                        box-shadow: none;
+                    }
+                }
+                li:hover{
+                    img{
+                        transform: scale(1.1);
                         box-shadow: none;
                     }
                 }
@@ -1249,6 +1269,9 @@ export default {
                         .hide-text();
                         transform: scale(0);
                     }
+                }
+                &:not(.unable):hover{
+                    filter: brightness(1.1);
                 }
             }
         }
@@ -1837,7 +1860,6 @@ export default {
                             font-size: 10px;
                         }
                     }
-
                 }
             }
             /*历史开奖*/
@@ -2492,6 +2514,7 @@ export default {
                             padding: 0 10px;
                             background: #253e4e;
                             font-size: 14px;
+                            color: #72a1a8;
                             .bet-user{
                                 /*小手机看不到缩小这里*/
                                 width: 62px;
@@ -2817,6 +2840,16 @@ export default {
                     max-width: 210px;
                     padding-top: 0;
                     height: 300px;
+                }
+            }
+            /*14寸pc*/
+            &.small{
+                .main{
+                    transform-origin: top;
+                    transform: scale(0.85);
+                    .bg-pc-esktop{
+                        padding-top: 40px;
+                    }
                 }
             }
         }
