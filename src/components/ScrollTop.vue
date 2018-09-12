@@ -1,5 +1,5 @@
 <template>
-    <a href="javascript:;" class="scrollTop" :class="[scrollTop<500?'hide':'']" @click="toTop">
+    <a href="javascript:;" class="scrollTop" :class="[scrollTop<200?'hide':'']" @click="toTop">
         ScrollTop
     </a>
 </template>

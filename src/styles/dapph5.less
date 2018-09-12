@@ -1,4 +1,17 @@
 //../assets/img/superCoin/icon-gift.png
+@media (max-width: 1200px) {
+    .information{
+        .merge-info{
+            float: none;
+            width: 100%;
+            margin-top: 115/75rem;
+        }
+        .invite{
+            float: none;
+            width: 100%;
+        }
+    }
+}
 @media (max-width: 768px) {
     .luckyDapp{
         .nomsg,.information .ticket .ticket-unlogin{
@@ -79,6 +92,7 @@
                     padding: 0 0 0 60/75rem;
                     font-size: 30/75rem;
                     .title{
+                        width: 100%;
                         margin-right: 0;
                     }
                     .jackpot-amount{
@@ -121,7 +135,7 @@
                     .ticket-progress{
                         width:180/75rem;
                         height:22/75rem;
-                        margin: 5/75rem 10/75rem 0;
+                        margin: 10/75rem 10/75rem 0;
                     }
                     .people-remaining{
                         p{
@@ -290,7 +304,6 @@
         }
     }
     .information{
-        /*todo*/
         padding: 24/75rem 0 90/75rem 0;
         line-height: 30/75rem;
         font-size: 24/75rem;
@@ -307,14 +320,7 @@
         .explain-msg{
             margin: 15/75rem 0;
         }
-        .merge-info{
-            width: 100%;
-            margin-top: 115/75rem;
-            float: none;
-        }
         .invite{
-            float: none;
-            width: 100%;
             .title{
                 li{
                     &.on{
@@ -480,6 +486,52 @@
         }
         .instructions{
             line-height: 36/75rem;
+        }
+    }
+    .pop-new{
+        p{
+            line-height: 23px;
+            font-size: 28/75rem;
+        }
+        a{
+            display: block;
+            margin: 5px auto;
+            width:148/75rem;
+            height:53/rem;
+            line-height: 53/rem;
+            border-radius:6/75rem;
+            font-size: 28/75rem;
+        }
+        img{
+            width: 63/75rem;
+        }
+        .step1{
+            top: 100/75rem;
+            left: -140/75rem;
+            img{
+                transform: rotateZ(-10deg) translate(29/75rem);
+            }
+        }
+        .step2{
+            left: -130/75rem;
+            top: 280/75rem;
+            img{
+                transform: rotateZ(-10deg) translate(29/75rem);
+            }
+        }
+        .step3{
+            left: -25/75rem;
+            top: 320/75rem;
+            img{
+                transform: rotateZ(-10deg) translate(29/75rem);
+            }
+        }
+        .step4{
+            left: 0;
+            top: 850/75rem;
+            img{
+                transform: rotateZ(-10deg) translate(29/75rem);
+            }
         }
     }
 }

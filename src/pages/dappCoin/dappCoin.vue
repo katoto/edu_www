@@ -1,6 +1,6 @@
 <template>
     <div class="luckyDapp">
-        <div class="head-dapp ">
+        <div class="head-dapp" >
             <div class="head-dapp-wrap">
                 <h1 class="logo">
                     <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp">
@@ -17,7 +17,7 @@
         <!--status2-->
         <div class="banner-dapp" :class="{'status2':nextScreen}">
             <!--公告 滚动  components-->
-            <banner-scroll class="message">
+            <banner-scroll class="message" >
                 <div class="text-scroller" style="height:100%">
                     <ul class="scroller-in">
                         <li v-for="(item,index) in scrollMsg" :key="index"><lang>{{ item }}</lang></li>
@@ -36,13 +36,14 @@
                 </div>
                 <div :class="{'hide':nextScreen}">
                     <!--未开奖投注区-->
-                    <div class="betting-area">
+                    <div class="betting-area" :class="{'isNew':isNew}">
+
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
                                     Reward
                                 </p>
-                                <p class="jackpot-amount">
+                                <p class="jackpot-amount" :class="{'isNewShow': isShowStep1}">
                                      {{ formatesuperCoin(roundInfo.jackpot) }}
                                 </p>
                             </div>
@@ -50,12 +51,12 @@
                                 <p class="title">
                                     End of the draw
                                 </p>
-                                <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0}">
+                                <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0,'isNewShow': isShowStep2}">
                                     {{ nowFormateTime }}
                                 </p>
                             </div>
                             <div class="item-msg">
-                                <p class="title">
+                                <p class="title title-process" :class="{'isNewShow': isShowStep3}">
                                     Voting progress
                                 </p>
                                 <div class="ticket">
@@ -98,12 +99,12 @@
                         </div>
                         <!--登录前-->
                         <div class="btn-box hide">
-                            <a href="javascript:;" class="btn-big" @click="loginMetamask">Login to Metamask</a>
+                            <a href="javascript:;" class="btn-big" @click="loginMetamask" :class="{'isNewShow':isShowStep4}">Login to Metamask</a>
                             <a href="javascript:;" class="btn-small">使用收益支付</a>
                         </div>
                         <!--登陆后-->
                         <div class="btn-box ">
-                            <a href="javascript:;" class="btn-big" @click="buyNum">
+                            <a href="javascript:;" class="btn-big" @click="buyNum" :class="{'isNewShow':isShowStep4}">
                                 立即支付
                             </a>
                             <!--  -->
@@ -117,7 +118,10 @@
                             </a>
                         </div>
                     </div>
+<<<<<<< HEAD
                 </div>
+=======
+>>>>>>> d02e89b71e6f9873795f2cf2a863f220d483d9d1
             </template>
             <!--时间到准备开奖-->
             <!--on-->
@@ -309,10 +313,10 @@
                         </div>
                         <!--我的购买详细展开-->
                         <!--on-->
-                        <div class="open-ticket" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
+                        <div class="open-ticket show" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
                             <p>The No.{{ ticketsNumber.round }} , You bought {{ ticketsNumber.buyNum && ticketsNumber.buyNum.length }} tickets</p>
                             <!-- 关闭 -->
-                            <a href="javascript:;" @click="ticketsNumber=null">close</a>
+                            <a href="javascript:;" @click="ticketsNumber=null" class="close"></a>
                             <div class="ticket-box">
                                 <ul>
                                     <li style="color: #ffa200;">
@@ -506,6 +510,45 @@
         </div>
         <!--返回顶部-->
         <ScrollTop></ScrollTop>
+        <!--新手引导-->
+        <div class="pop pop-new" :class="{hide:!isNew}">
+            <div class="new-main">
+                <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
+                    <p>
+                        <lang>1.The current amount of prize pool. </lang>
+                    </p>
+                    <p>
+                        <lang>Always ready for the winner!</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
+                <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
+                    <p>
+                        <lang>2. Draw proceeds when time's up.</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
+                <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
+                    <p>
+                        <lang>3. Here shows how many tickets have been sold.</lang>
+                    </p>
+                    <p>
+                        <lang>Buy more tickets, enjoy higher winning chance.</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
+                <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
+                    <p>
+                        <lang>Click here to try your luck!</lang>
+                    </p>
+                    <a href="javascript:;" class="btn-next" @click="isNew = false"><lang>Okay</lang></a>
+                    <img src="../../assets/img/luckyCoin/line.png" alt="">
+                </div>
+            </div>
+        </div>
         <Footer></Footer>
     </div>
 </template>
@@ -572,7 +615,14 @@ export default {
             orderpPgeSize: 10,
             orderPageTotal: 1,
 
-            showPopMask: false
+            showPopMask: false,
+            /* 新手引导 */
+            isNew: false,
+            isShowNew: false,
+            isShowStep1: true,
+            isShowStep2: false,
+            isShowStep3: false,
+            isShowStep4: false
         }
     },
 
@@ -837,7 +887,9 @@ export default {
                         }, 6000)
                         clearInterval(this.nowTimeInterval)
                     }
+                    // console.log(this.timeLeft)
                     this.nowFormateTime = this.calcTime(this.timeLeft)
+                    // console.log(this.nowFormateTime)
                     this.timeLeft--
                 }
             }, 1000)
@@ -1136,6 +1188,13 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
+
+        if (!localStorage.getItem('firstSuperCoin')) {
+            this.isNew = true
+            localStorage.setItem('firstSuperCoin', true)
+        }else{
+            this.isNew = false
+        }
     },
     watch: {
         isLog (val) {
@@ -1149,6 +1208,9 @@ export default {
 </script>
 <style lang="less" type="text/less">
     .luckyDapp{
+        a:hover{
+            filter: brightness(1.2);
+        }
         .el-pager, .el-pagination__jump{
             color: #6a88cc;
         }
@@ -1422,6 +1484,9 @@ export default {
                         color: #ffa200;
                         background: url("../../assets/img/superCoin/icon-countdown.png") no-repeat center left;
                         background-size: 20px;
+                        &.on{
+                            animation: heartbeat 2s infinite;
+                        }
                     }
                     .ticket{
                         display: flex;
@@ -1568,9 +1633,6 @@ export default {
                     height:62px;
                     line-height: 62px;
                     border-radius:6px;
-                    &:hover{
-                        filter: brightness(1.2);
-                    }
                 }
                 .btn-big{
                     width:327px;
@@ -1597,6 +1659,12 @@ export default {
                             }
                         }
                     }
+                }
+            }
+            &.isNew{
+                .isNewShow{
+                    position: relative;
+                    z-index: 11;
                 }
             }
         }
@@ -1907,6 +1975,16 @@ export default {
                 transform: translateY(-300px);
                 transition: all 0.5s ease-in-out;
                 opacity: 0;
+                .close{
+                    display: block;
+                    position: absolute;
+                    top:0;
+                    right:0;
+                    width:20px;
+                    height:20px;
+                    background: url("../../assets/img/superCoin/pop-close.png") no-repeat center;
+                    background-size: 10px;
+                }
                 p{
                     line-height: 38px;
                     font-size: 24px;
@@ -2076,6 +2154,69 @@ export default {
                         color: rgba(255,255,255,0.8);
                     }
                 }
+            }
+        }
+    }
+    .pop-new{
+        position: absolute;
+        z-index: 10;
+        .new-main{
+            position: relative;
+            width: percentage(710/750);
+            max-width: 1190px;
+            height: 100%;
+            margin: 0 auto;
+        }
+        p{
+            line-height: 23px;
+            font-size: 20px;
+            color: #FEDC8E;
+        }
+        a{
+            display: block;
+            margin: 5px auto;
+            width:67px;
+            height:27px;
+            line-height: 27px;
+            background:rgba(32,191,107,1);
+            border-radius:6px;
+            font-size: 14px;
+            color: #fff;
+        }
+        img{
+            display: block;
+            margin: 0 auto;
+        }
+        .step{
+            position: absolute;
+            width: 100%;
+        }
+        .step1{
+            top: 35px;
+            left: -45px;
+            img{
+                transform: rotateZ(-10deg) translate(29px);
+            }
+        }
+        .step2{
+            left: -180px;
+            top: 215px;
+            img{
+                transform: rotateZ(-20deg) translate(215px,14px);
+            }
+        }
+        .step3{
+            left: -358px;
+            top: 335px;
+            img{
+                transform: rotateZ(-35deg) translate(277px, 90px);
+            }
+        }
+        .step4{
+            left: -280px;
+            top: 550px;
+            img{
+                transform: rotateZ(-20deg) translate(186px, 0px);
             }
         }
     }
