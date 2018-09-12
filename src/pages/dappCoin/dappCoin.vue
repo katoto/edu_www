@@ -126,7 +126,7 @@
                 TIME UP!
             </p>
             <!--开奖 -->
-            <div class="lottery " :class="{'hide':nextScreen}">
+            <div class="lottery" :class="{'hide':!nextScreen}">
                 <!--总奖池-->
                 <div class="dapp-amout">
                     <img src="../../assets/img/superCoin/img-eth.png" alt="eth">
@@ -630,6 +630,55 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
+        async searchTicketsXaddr () {
+            let buyNum = [] ;
+            if (this.selfAddr) {
+                let buyTick = await luckyCoinApi.searchTicketsXaddr(this.selfAddr)
+                if(buyTick.orders0 !== '0'){
+                    buyNum = buyNum.concat(this.analysisBuyNum(buyTick.orders0))
+                }
+                if(buyTick.orders1 !== '0'){
+                    this.analysisBuyNum(buyTick.orders1).forEach((item,index)=>{
+                        buyNum.push( Number(item) + 250 )
+                    })
+                }
+                if(buyTick.orders2 !== '0'){
+                    this.analysisBuyNum(buyTick.orders2).forEach((item,index)=>{
+                        buyNum.push( Number(item) + 500 )
+                    })                    
+                }
+                if(buyTick.orders3 !== '0'){
+                    this.analysisBuyNum(buyTick.orders3).forEach((item,index)=>{
+                        buyNum.push( Number(item) + 750 )
+                    })                    
+                }
+                if(buyTick.orders4 !== '0'){
+                    this.analysisBuyNum(buyTick.orders4).forEach((item,index)=>{
+                        buyNum.push( Number(item) + 1000 )
+                    })                    
+                }  
+                if(buyTick.orders5 !== '0'){
+                    this.analysisBuyNum(buyTick.orders5).forEach((item,index)=>{
+                        buyNum.push( Number(item) + 1250 )
+                    })                    
+                }
+                console.log(buyNum)
+                console.log(buyTick)
+                console.log('=====buyTick======')
+                if(this.ordersList){
+                    let baseObj = {
+                        buyNum: buyNum,
+                        prizes: 0,
+                        round: this.roundInfo.roundIndex,
+                    }
+                    if(this.ordersList[0].round === this.roundInfo.roundIndex){
+                        this.ordersList.shift()
+                    }
+                    this.ordersList.unshift(baseObj)
+                    console.log(this.ordersList)
+                }
+            }
+        },
         forNextRoundStart (time) {
             // 格式化下一期的文案
             return this.formatTime(time)
@@ -720,6 +769,7 @@ export default {
             if (data) {
                 this.ordersList = this.orderFormatData(data.luckydata)
                 this.orderPageTotal = parseInt(data.pagetotal, 10)
+                this.searchTicketsXaddr()
             }
         },
         orderSizeChange (size) {
@@ -814,6 +864,7 @@ export default {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
             await this.getCurrentRoundInfo()
+            console.log(this.roundInfo)
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()

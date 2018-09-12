@@ -1034,6 +1034,30 @@ luckyCoinApi.getPlayerInfoByAddress = (addr) => {
     return Promise.all([playerInfo, getBalance])
 }
 
+luckyCoinApi.searchTicketsXaddr = (addr) => {
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.searchTicketsXaddr(addr, (err, res) => {
+                if (!err) {
+                    if (res) {
+                        console.log(res[0].toString(10))
+                        resolve({
+                            orders0: res[0].toString(10),
+                            orders1: res[1].toString(10),
+                            orders2: res[2].toString(10),
+                            orders3: res[3].toString(10),
+                            orders4: res[4].toString(10),
+                            orders5: res[5].toString(10)
+                        })
+                    }
+                } else {
+                    reject(err)
+                }
+            })
+        }
+    })
+}
+
 luckyCoinApi.testName = (regName) => {
     return new Promise((resolve, reject) => {
         if (contractNet) {
