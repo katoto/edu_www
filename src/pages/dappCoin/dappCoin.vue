@@ -369,7 +369,7 @@
                             <lang>Dividend:</lang>
                         </p>
                         <span>
-                            {{ selfMsg.calcTicketEarn }} ETH
+                            {{ formatesuperCoin(selfMsg.calcTicketEarn) }} ETH
                         </span>
                     </div>
                     <div class="income-item">
@@ -377,7 +377,7 @@
                             <lang>Referral Reward:</lang>
                         </p>
                         <span>
-                            {{ selfMsg.aff_invite }} ETH
+                            {{ formatesuperCoin(selfMsg.aff_invite) }} ETH
                         </span>
                     </div>
                     <div class="income-item">
@@ -385,7 +385,7 @@
                             <lang>Winning Prize:</lang>
                         </p>
                         <span>
-                            {{ selfMsg.win }} ETH
+                            {{ formatesuperCoin(selfMsg.win) }} ETH
                         </span>
                     </div>
                     <div class="income-item income-item-last">
@@ -394,10 +394,10 @@
                         </p>
                         <div>
                             <span>
-                                {{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
+                                {{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH
                             </span>
                             <span class="usd">
-                                ≈ {{ (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) * usdPrice }} USD
+                                ≈ {{ formatesuperCoin((parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) * usdPrice) }} USD
                             </span>
                         </div>
                     </div>
@@ -641,12 +641,7 @@ export default {
         formatTime,
         formateCoinAddr,
         showNewguide(){
-            if (this.timeLeft===0) {
-                this.isNew = false
-            } else {
-                this.isNew = true
-                localStorage.setItem('firstSuperCoin', true)
-            }             
+            this.timeLeft === 0 ? this.isNew = false : this.isNew = true
         },
         async searchTicketsXaddr () {
             let buyNum = []
@@ -655,30 +650,12 @@ export default {
                 if (buyTick.orders0 !== '0') {
                     buyNum = buyNum.concat(this.analysisBuyNum(buyTick.orders0))
                 }
-                if (buyTick.orders1 !== '0') {
-                    this.analysisBuyNum(buyTick.orders1).forEach((item, index) => {
-                        buyNum.push(Number(item) + 250)
-                    })
-                }
-                if (buyTick.orders2 !== '0') {
-                    this.analysisBuyNum(buyTick.orders2).forEach((item, index) => {
-                        buyNum.push(Number(item) + 500)
-                    })
-                }
-                if (buyTick.orders3 !== '0') {
-                    this.analysisBuyNum(buyTick.orders3).forEach((item, index) => {
-                        buyNum.push(Number(item) + 750)
-                    })
-                }
-                if (buyTick.orders4 !== '0') {
-                    this.analysisBuyNum(buyTick.orders4).forEach((item, index) => {
-                        buyNum.push(Number(item) + 1000)
-                    })
-                }
-                if (buyTick.orders5 !== '0') {
-                    this.analysisBuyNum(buyTick.orders5).forEach((item, index) => {
-                        buyNum.push(Number(item) + 1250)
-                    })
+                for(let i=1;i<=5;i++){
+                    if (buyTick['orders'+i] !== '0') {
+                        this.analysisBuyNum(buyTick['orders'+i]).forEach((item, index) => {
+                            buyNum.push(Number(item) + 250 * i)
+                        })
+                    }                    
                 }
                 console.log(buyNum)
                 console.log(buyTick)
@@ -693,7 +670,6 @@ export default {
                         this.ordersList.shift()
                     }
                     this.ordersList.unshift(baseObj)
-                    console.log(this.ordersList)
                 }
             }
         },
@@ -748,10 +724,6 @@ export default {
         },
         loginMetamask () {
             this.showPopMask = true
-            // Message({
-            //     message: '点击又上角进行登录',
-            //     type: 'error'
-            // })
         },
         async expectCurrentChange (pageno = this.expectPageno) {
             let params = {
@@ -773,7 +745,6 @@ export default {
             // 历史期号数据处理
             if (list) {
                 list.forEach((item, index) => {
-
                 })
             }
             return list
