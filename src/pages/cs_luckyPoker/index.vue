@@ -17,7 +17,7 @@
                             {{$lang.poker.a34}}
                         </div>
                         <div class="history-empty visible-xs visible-sm " v-if="recentResult.length === 0">
-                            请在下方选择您认为会开出的选项
+                            {{$lang.poker.a34}}
                         </div>
                         <div class="history-main" v-show="recentResult.length !== 0">
                             <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
@@ -283,7 +283,7 @@
                             <li>{{$lang.poker.a23}}</li>
                         </ul>
                         <!--nomsg-->
-                        <ul class="recoding-main nomsg">
+                        <ul class="recoding-main" :class="{nomsg: getBetsList().length === 0}">
                             <li v-for="(item, index) in (getBetsList()).filter((bet, index) => index < 5)" :key="index">
                                 <p class="bet-user" :title="formatEmail(item.username)">
                                     {{formatEmail(item.username)}}
@@ -302,7 +302,7 @@
                                     {{Number(item.prize_amount) > 0 ? item.prize_amount : '-'}} <i v-if="Number(item.prize_amount) > 0">{{formateCoinType(item.cointype)}}</i>
                                 </p>
                             </li>
-                            <li v-for="(item, index) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="index">
+                            <li v-for="(item) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="item">
                             </li>
                             <!--
                             <li>
@@ -340,8 +340,8 @@
                                 </p>
                             </li> -->
                         </ul>
-                        <div class="no-msg">
-                            暂无信息
+                        <div class="no-msg" v-show="getBetsList().length === 0">
+                            {{$lang.poker.a62}} 
                         </div>
                     </div>
                     <!--pc random area-->
@@ -603,14 +603,14 @@ export default {
         getBetsList () {
             if (this.isLoading || this.showOpen) {
                 if (this.isMyself) {
-                    return this.tmpMyselfBetsLists
+                    return [...this.tmpMyselfBetsLists]
                 }
-                return this.tmpRecentLists
+                return [...this.tmpRecentLists]
             } else {
                 if (this.isMyself) {
-                    return this.selfBetList
+                    return [...this.selfBetList]
                 }
-                return this.betList
+                return [...this.betList]
             }
         },
         showMyself () {
@@ -742,21 +742,16 @@ export default {
         },
         isRestricts (name) {
             let most
-            let total
             if (this.color.indexOf(name) > -1) {
                 most = this.colorMost
-                total = this.colorTotal
             } else if (this.joker.indexOf(name) > -1) {
                 most = this.jokerMost
-                total = this.jokerTotal
             } else if (this.points.indexOf(name) > -1) {
                 most = this.pointsMost
-                total = this.pointsTotal
             } else if (this.suit.indexOf(name) > -1) {
                 most = this.suitMost
-                total = this.suitTotal
             }
-            return accMul(accAdd(total, this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
+            return accMul(accAdd(this.betNums[name], this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
         },
         addCoin (name) {
             if (!this.isLogin) {
@@ -2829,19 +2824,20 @@ export default {
                         div{
                             display: none;
                             position: absolute;
-                            left: -140px;
-                            top: -226px;
-                            width: 434px;
-                            height: 210px;
+                            left: -254px;
+                            top: -203px;
+                            min-width: 434px;
                             padding: 25px 18px 30px;
                             background: #fff;
                             border-radius: 8px;
+                            white-space: nowrap;
+                            z-index: 100;
                             /*background-clip: padding-box;*/
                             &::before{
                                 content: '';
                                 position: absolute;
                                 bottom: -8px;
-                                left: 140px;
+                                left: 254px;
                                 display: block;
                                 width: 0;
                                 height: 0;

@@ -330,13 +330,11 @@ const actions = {
                             break
                         case 4001:
                         case '4001':
-                            console.log(msg.data)
                             commit('cs_luckypoker/setBetList', msg.data.top)
                             commit('cs_luckypoker/setSelfBetList', msg.data.self_top)
                             break
                         case 4002:
                         case '4002':
-                            console.log(msg.data)
                             commit('cs_luckypoker/addBetList', msg.data.top)
                             break
                         }
