@@ -175,19 +175,19 @@
                             <ul class="clearfix">
                                 <li :class="{ on: currentCoin === 0.0001 }" @click="changeCoin('0.0001')" ref="0.0001">
                                     <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
-                                    <p>0.0001</p>
+                                    <p>0.00001</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.001 }" @click="changeCoin('0.001')" ref="0.001">
                                     <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
-                                    <p>0.001</p>
+                                    <p>0.0001</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.01 }" @click="changeCoin('0.01')" ref="0.01">
                                     <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
-                                    <p>0.01</p>
+                                    <p>0.001</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.1 }" @click="changeCoin('0.1')" ref="0.1">
                                     <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
-                                    <p>0.1</p>
+                                    <p>0.01</p>
                                 </li>
                             </ul>
                             <!--wait/unable-->
@@ -455,7 +455,8 @@
                 <!--v-if-->
                 <!--scale0-->
                 <div class="poker-draw" :class="{scale0: !isLoading}">
-                    <ul class="poker-area animate1">
+                    <!--animate1-->
+                    <ul class="poker-area " :class="{animate1:pokerAnimate1}">
                         <li class="on">
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
                         </li>
@@ -481,7 +482,7 @@
                 </div>
                 <!--v-else-->
                 <!--isWin-->
-                <div class="result" :class="{isWin: open.isWin}" v-show="!isLoading">
+                <div class="result " :class="{isWin: open.isWin,scale0:isLoading}" >
                     <!--heit/mh/hongt/fk+j/q/k  joker-->
                     <div class="result-box" :class="getOpenClass(open.result)" ref="resultPoker">
                         <div class="leftTop">
@@ -499,7 +500,7 @@
                         <p>{{$lang.poker.a25}}</p>
                         <div>+{{formatNum(Number(open.money), 4)}}<i>{{coinText}}</i></div>
                     </div>
-                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" v-else>
+                    <div class="result-msg" v-else style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" >
                         {{$lang.poker.a24}}
                     </div>
                 </div>
@@ -563,7 +564,8 @@ export default {
                 result: 0
             },
             is14: true,
-            isShowRandom: false
+            isShowRandom: false,
+            pokerAnimate1: false
         }
     },
     methods: {
@@ -882,8 +884,13 @@ export default {
             this.preClientSeed = data.pre_client_seed
         },
         openPoker () {
-            this.isLoading = false
-            this.closePoker(5000)
+            this.pokerAnimate1 = true
+            let that = this
+            setTimeout(function () {
+                that.isLoading = false
+                that.closePoker(5000)
+                that.pokerAnimate1 = false
+            }, 1000)
         },
         closePoker (time) {
             if (this.closeTimer) {
@@ -894,7 +901,7 @@ export default {
                 this.closeTimer = setTimeout(() => {
                     this.showOpen = false
                     this.goto()
-                }, 5000)
+                }, time)
             } else {
                 this.showOpen = false
                 this.goto()
@@ -902,7 +909,7 @@ export default {
         },
         disableContext () {
             document.oncontextmenu = function (e) {
-                return false
+                // return false
             }
         },
         createRandomNum (num) {
@@ -1338,7 +1345,7 @@ export default {
                     }
                 }
                 &:not(.unable):hover{
-                    filter: brightness(1.1);
+                   filter: saturate(2);
                 }
             }
         }
@@ -1531,7 +1538,7 @@ export default {
                 width: 100%;
                 top: 50%;
                 transform: translate(-50%,-50%);
-                transition: all 0.2s;
+                transition: all 0.5s ease-in-out;
             }
             .poker-area{
                 position: relative;
@@ -1727,9 +1734,9 @@ export default {
                 }
             }
             .scale0{
-                transform: scale(0);
+                transform:translate(0) scale(0);
                 width: 0;
-                height: 0;
+                /*height: 0;*/
                 overflow: hidden;
             }
         }
@@ -1914,7 +1921,7 @@ export default {
                             height: 38/2px;
                             border-radius: 38/4px;
                             line-height: 38/2px;
-                            font-size: 30/2px;
+                            font-size: 12px;
 
                         }
                     }
@@ -3004,7 +3011,7 @@ export default {
     .setPokerPosition( @count )when( @count > 0 ){
         li:nth-child(@{count}){
             transform: translate(-50%,13px * @count);
-            z-index: 43-@count;
+            z-index: 10-@count;
         }
         .setPokerPosition((@count - 1));
     }
