@@ -42,7 +42,7 @@
                     {{$lang.poker.a54}}
                 </p>
                 <p class="msg">
-                    {{$lang.poker.a55}}<br/>{{$lang.poker.a56}}<br>{{$lang.poker.a57}}
+                    {{$lang.poker.a55}}<br/>{{$lang.poker.a56}}<br>{{$lang.poker.a63}}<br>{{$lang.poker.a57}}
                 </p>
             </li>
             <li>
