@@ -419,9 +419,9 @@
                     <template v-if="expectsList && expectsList.length > 0">
                         <ul class="historyDraw-head">
                             <li class="issue"><lang>Round No.</lang></li>
-                            <li class="winningNumbers">Winning Numbers</li>
-                            <li class="bonus">Bonus</li>
-                            <li class="winner">Winner</li>
+                            <li class="winningNumbers"><lang>Draw Number </lang></li>
+                            <li class="bonus"><lang>Prize Pool</lang></li>
+                            <li class="winner"><lang>Winner</lang></li>
                         </ul>
                         <ul class="historyDraw-main">
                             <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !==''}">
@@ -435,7 +435,7 @@
                                     {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                                 </p>
                                 <p class="winner" v-if="item.winner ===''">
-                                    No Winner
+                                    <lang>None </lang>
                                 </p>
                                 <p class="winner" v-else>
                                     <a target="_blank" :href="`https://etherscan.io/tx/${item.winner}`" >
