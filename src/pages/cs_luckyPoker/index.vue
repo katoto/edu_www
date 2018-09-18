@@ -13,7 +13,10 @@
                     <!--历史开奖记录-->
                     <div class="poker-history">
                         <p class="title">{{$lang.poker.a27}}</p>
-                        <div class="history-main">
+                        <div class="history-empty" v-if="recentResult.length === 0">
+                            {{$lang.poker.a34}}
+                        </div>
+                        <div class="history-main" v-else>
                             <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
                             <div class="poker-item" ref="historyCt">
                                 <ul :style="{ left: `${listLeft}px` }">
@@ -919,7 +922,7 @@ export default {
             this.jokerMost = Number(data.odds.joker)
             this.pointsMost = Number(data.odds.point)
             this.suitMost = Number(data.odds.suit)
-            this.recentResult = [...data.recent_results]
+            // this.recentResult = [...data.recent_results]
             this.restricts = {...data.restricts}
         },
         onLeft () {
@@ -1025,6 +1028,13 @@ export default {
         img {
             width: 24px;
         }
+    }
+    .history-empty {
+        color: #FFF;
+        border: solid 1px #72a1a8;
+        padding: 10px 0;
+        margin: 0 30px;
+        border-radius: 3px;
     }
     .bg-esktop {
         position: relative;
