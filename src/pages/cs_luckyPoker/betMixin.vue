@@ -32,8 +32,8 @@ export default {
             return num * Math.random()
         },
         getRandomPosition ({left, top}, width, height) {
-            let offsetLeft = Math.ceil(this.getRandom(accDiv(accSub(width, 20), 3)))
-            let offsetTop = Math.ceil(this.getRandom(accDiv(accSub(height, 20), 3)))
+            let offsetLeft = Math.ceil(this.getRandom(accDiv(accSub(width, 90), 2)))
+            let offsetTop = Math.ceil(this.getRandom(accDiv(accSub(height, 90), 2)))
             return { left: Math.random() > 0.5 ? accAdd(left, offsetLeft) : accSub(left, offsetLeft), top: Math.random() > 0.5 ? accAdd(top, offsetTop) : accSub(top, offsetTop) }
         },
         getPosition (element, isRandom) {

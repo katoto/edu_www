@@ -212,10 +212,10 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-div, a, img, p, span, i ,input{
+div, a, img, p, span, i{
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;*/
     -webkit-appearance: none;
 }
 /**
