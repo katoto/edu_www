@@ -100,20 +100,25 @@
                         <!--登录前-->
                         <div class="btn-box hide">
                             <a href="javascript:;" class="btn-big" @click="loginMetamask" :class="{'isNewShow':isShowStep4}">Login to Metamask</a>
-                            <a href="javascript:;" class="btn-small">使用收益支付</a>
+                            <a href="javascript:;" class="btn-small"><lang>Pay by Income</lang></a>
                         </div>
                         <!--登陆后-->
-                        <div class="btn-box ">
+                        <div class="btn-box">
                             <a href="javascript:;" class="btn-big" @click="buyNum" :class="{'isNewShow':isShowStep4}">
-                                立即支付
+                                <lang>Pay</lang>
                             </a>
                             <!--  -->
                             <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
                                 <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
-                                    使用收益支付
+                                    <lang>Pay by Income</lang>
                                 </p>
                                 <p v-if="selfMsg">
-                                    您有{{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
+                                    <template v-if="language==='en'">
+                                        {{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH Balance
+                                    </template>
+                                    <template v-else>
+                                        您有{{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH
+                                    </template>
                                 </p>
                             </a>
                         </div>
@@ -976,16 +981,19 @@ export default {
             }
             buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
             if (buyBack) {
-                // Notification({
-                //     dangerouslyUseHTMLString: true,
-                //     message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()) , withdrawNum),
-                //     position: 'bottom-right',
-                //     duration: 5000
-                // })
-                console.log('下单成功')
+                this.selfNotify( 'Order Successful')
             } else {
-                console.log('取消购买')
+                this.selfNotify( 'Purchase Cancelled' , 'error' )
             }
+        },
+        selfNotify(val,typeVal='success'){
+            Notification({
+                dangerouslyUseHTMLString: true,
+                type: typeVal,
+                message: _(val),
+                position: 'bottom-right',
+                duration: 5000,
+            }) 
         },
         async registerName () {
             let buyNameBack = null
@@ -1022,9 +1030,7 @@ export default {
         },
         async withdraw () {
             let withdrawBack = await luckyCoinApi.withdraw()
-            if (withdrawBack) {
-                console.log('提款成功')
-            }
+            withdrawBack ? this.selfNotify( 'Order Successful' ) : this.selfNotify( 'Withdrawal Cancelled', 'error' )  
         },
         checkTicketPoint () {
             this.tickNum = Math.ceil(this.tickNum)

@@ -1163,7 +1163,7 @@ luckyCoinApi.buyXaddr = (_tickets, _affCode, _price) => {
                     reject(new Error('buyXaddr error'))
                 }
             } else {
-                reject(err)
+                resolve(null)
             }
         })
     })
