@@ -8,7 +8,7 @@
                 </h1>
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
-                    <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code"><lang>Contract</lang></a>
+                    <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank"><lang>Contract</lang></a>
                     <a href=""><lang>Easy&nbsp;Play</lang></a>
                     <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
@@ -136,16 +136,17 @@
                 </div>
                 <!--未开奖-->
                 <div class="notDraw" :class="{'hide':!waitWin}">
+                    <!-- 等待开奖文案  components  -->
+                    <h5>
+                        <lang>Waiting for the draw</lang>
+                    </h5>
                     <ul>
                         <li>
-                            <h5>
-                                <lang>Waiting for the draw</lang>
-                            </h5>
                             <p>
                                 <lang>Background is counting data...</lang>
                             </p>
                         </li>
-                    </ul>
+                    </ul> 
                 </div>
                 <!--开奖-有人中-->
                 <p class="draw-someone" v-if="someGetWin">
@@ -178,8 +179,9 @@
                      </p>
                      <p class="p2">
                         <lang>No Metamask, how to play?</lang>                         
-                        <a href="javascript:;"  @click="scrollInvite">查看</a>
-                        <a href="">install now</a>
+                        <a v-if="language==='zhCn'" href="javascript:;"  @click="scrollInvite">查看</a>
+                        <a v-if="language==='zhTw'" href="javascript:;"  @click="scrollInvite">查看</a>
+                        <a v-if="language==='en'" href="javascript:;"  @click="scrollInvite" >install now</a>
                      </p>
                  </div>
             </div>
@@ -238,7 +240,7 @@
                         5. <lang>Do not use special characters and space in the name</lang>
                     </p>
                     <a href="javascript:;" class="btn-gobuy" @click="registerName">
-                        Purchase with 0.001ETH
+                        <lang>Pay 0.001 ETH</lang>
                     </a>
                 </div>
             </div>
@@ -268,12 +270,14 @@
                 </ul>
                 <!--我的购买-->
                 <div class="ticket " :class="{'hide':informationTab!=='myticket'}">
+                    <!-- 当期是否购买 -->
                     <div class="explain-msg">
                         <p>
-                            <lang>You can get 1 number for every purchase of 1 person. If you get the same number as the lottery number, you can get the prize pool reward.</lang>
+                            <lang>One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.</lang>
                         </p>
                         <p>
-                            You have not purchased this issue yet,<a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
+                            <lang>Why not buy a ticket now? </lang>
+                            <a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
                         </p>
                     </div>
                     <template  v-if="selfMsg">
@@ -347,13 +351,13 @@
                         <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md">
                             <lang>Click to see more</lang>
                         </a>
-
                     </template>
                     <!--未登陆 -->
                     <div class="ticket-unlogin" v-if="!selfMsg">
                         <!--未登陆-->
                         <p>
-                            No record.  Please login to the <a href="javascript:;" style="color: #6a88cc;" @click="loginMetamask">Metamask</a>
+                            <lang>No record.  Please login to the </lang>
+                            <a href="javascript:;" style="color: #6a88cc;" @click="loginMetamask">Metamask</a>
                         </p>
                     </div>
                 </div>
@@ -466,43 +470,43 @@
                         </p>
                     </div>
 
-
                 </div>
                 <!--游戏教程-->
                 <div class="instructions" :class="{'hide':informationTab!=='howToPlay'}">
                     <div class="explain-msg">
                         <p>
-                            Brief Introduction:
+                            <lang>Brief Introduction:</lang>
                         </p>
                         <p>
-                            LuckyCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!
-                        </p>
-                        <br>
-                        <p>
-                            Gameplay:
-                        </p>
-                        <p>
-                            1. At the beginning of the game, there will be a 10 ETH-prize pool and 3000 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).
-                        </p>
-                        <p>
-                            2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy the dividend. More tickets bring more dividend.
-                        </p>
-                        <p>
-                            3. If there's no winner of the round, the prize pool will accumulate in next round, and the ticket price will be adjusted as well.
+                            <lang>LuckyCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!</lang>
                         </p>
                         <br>
                         <p>
-                            Kind Reminder:
+                            <lang>Gameplay:</lang>
                         </p>
                         <p>
-                            Playing on PC: MetaMask is recommended to install (download from <a href="https://metamask.io/" target="_blank" style="color: #ff8a00;">https://metamask.io/</a>).
+                            <lang>1. At the beginning of the game, there will be a 10 ETH-prize pool and 3000 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).</lang>
                         </p>
                         <p>
-                            Playing on mobile: Trust, Cipher, Jaxx and other mobile wallets are recommended to use.
+                            <lang>2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy the dividend. More tickets bring more dividend.</lang>
+                        </p>
+                        <p>
+                            <lang>3. If there's no winner of the round, the prize pool will accumulate in next round, and the ticket price will be adjusted as well.</lang>
+                        </p>
+                        <br>
+                        <p>
+                            <lang>Kind Reminder: </lang>
+                        </p>
+                        <p>
+                            <lang>Playing on PC: MetaMask is recommended to install (download from</lang> 
+                            <a href="https://metamask.io/" target="_blank" style="color: #ff8a00;">https://metamask.io/</a>
+                            ).
+                        </p>
+                        <p>
+                            <lang>Playing on mobile: Trust, Cipher, Jaxx and other mobile wallets are recommended to use.</lang>
                         </p>
                     </div>
                 </div>
-
             </div>
         </div>
         <!--返回顶部-->
@@ -574,14 +578,20 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
+            bindwaitingMsg: null,
+            waitingMsgArr:[
+                _('Who will be the winner?'),
+                _('Background is counting data...'),
+                _('Background is 2222 counting data...')
+            ],  // 等待开奖文案 todo
             nextRoundStart: null, // 下一期开启的时间
             openWinNumber: false, // 出现开奖号码
             someGetWin: false, // 是否有人中奖
             openNumArr: ['?', '?', '?', '?'],
             scrollMsg: [
-                'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
-                'Buy more tickets, get more dividend, and enjoy higher winning chance.',
-                'Click to learn easy play for starters.'
+                _('Buyers who hold part/all of first 500 tickets enjoy the dividend.'),
+                _('Buy more tickets, get more dividend, and enjoy higher winning chance.'),
+                _('Click to learn easy play for starters.')
             ],
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
@@ -707,13 +717,13 @@ export default {
         },
         scrollMsgChange (state) {
             if (state === 'end') {
-                this.scrollMsg = ['Buy the first ticket to start a new round.', 'Buyers who hold part/all of first 500 tickets enjoy the dividend.']
+                this.scrollMsg = [_('Buy the first ticket to start a new round.'), _('Buyers who hold part/all of first 500 tickets enjoy the dividend.')]
             } else {
                 this.scrollMsg = [
-                    'Buyers who hold part/all of first 500 tickets enjoy the dividend.',
-                    'Buy more tickets, get more dividend, and enjoy higher winning chance.',
-                    'Click to learn easy play for starters.',
-                    'Draw will proceed after tickets sold out or time\'s up.'
+                    _('Buyers who hold part/all of first 500 tickets enjoy the dividend.'),
+                    _('Buy more tickets, get more dividend, and enjoy higher winning chance.'),
+                    _('Click to learn easy play for starters.'),
+                    _('Draw will proceed after tickets sold out or time\'s up.')
                 ]
             }
         },
