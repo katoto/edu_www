@@ -41,7 +41,7 @@
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
-                                    Reward
+                                    <lang>Reward</lang>
                                 </p>
                                 <p class="jackpot-amount" :class="{'isNewShow': isShowStep1}">
                                      {{ formatesuperCoin(roundInfo.jackpot) }}
@@ -49,7 +49,7 @@
                             </div>
                             <div class="item-msg">
                                 <p class="title">
-                                    End of the draw
+                                    <lang>End of the draw</lang>
                                 </p>
                                 <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0,'isNewShow': isShowStep2}">
                                     {{ nowFormateTime }}
@@ -57,7 +57,7 @@
                             </div>
                             <div class="item-msg">
                                 <p class="title title-process" :class="{'isNewShow': isShowStep3}">
-                                    Voting progress
+                                    <lang>Voting progress</lang>
                                 </p>
                                 <div class="ticket">
                                     <div class="people-purchased" :data-msg="_('Purchased')">
@@ -79,7 +79,7 @@
                         <div class="buy-area">
                             <div class=" title">
                                 <p>
-                                    Buy Ticket
+                                    <lang>Buy Ticket</lang>
                                 </p>
                             </div>
                             <div class=" input-wrap">
@@ -90,10 +90,10 @@
                                     </p>
                                 </div>
                                 <div class="btn-choose">
-                                    <a href="javascript:;"  @click="chooseMin">Min</a>
+                                    <a href="javascript:;"  @click="chooseMin"><lang>Min</lang></a>
                                     <a href="javascript:;"  @click="chooseHalf">1 / 2</a>
                                     <a href="javascript:;"  @click="chooseDouble">X 2</a>
-                                    <a href="javascript:;"  @click="chooseMax">Max</a>
+                                    <a href="javascript:;"  @click="chooseMax"><lang>Max</lang></a>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
             <!--时间到准备开奖-->
             <!--on-->
             <p class="timeup" :class="{'on': currTimeUp }">
-                TIME UP!
+                <lang>TIME UP!</lang>
             </p>
             <!--开奖 -->
             <div class="lottery" :class="{'hide':!nextScreen}">
@@ -148,7 +148,7 @@
                         </li>
                     </ul> 
                 </div>
-                <!--开奖-有人中-->
+                <!--开奖-有人中 todo -->
                 <p class="draw-someone" v-if="someGetWin">
                     Congratulations to “0x***923” for Winning
                 </p>
