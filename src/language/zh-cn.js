@@ -803,10 +803,10 @@ module.exports = {
     'Buy Ticket': '立即购买',
     'TIME UP!': '时间到!',
     'Min': '最小',
-    'Max': '最大',
+    'The No.{0} , You bought {1} ticket': '第{0}期，您已购买{1}人次',
+    'The No.{0} , You bought {1} tickets': '第{0}期，您已购买{1}人次',
     'No winner of this round.': '本次无人中奖,',
     'Prize pool will accumulate in the next round.': '奖金滚入下一轮',
-
     'One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there\'s no winner of the round, the prize pool will accumulate in next round.': '每隔2小时开一次奖，若用户号码与开奖号码相同，即可获得奖池奖励；若无人与开奖号码相同，则奖池滚入下一轮。',
     'Who will be the winner?': '谁是最后的赢家...',
     'Background is counting data...': '后台正在统计数据...',

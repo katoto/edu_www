@@ -84,7 +84,7 @@
                             </div>
                             <div class=" input-wrap">
                                 <div class="input-box">
-                                    <input v-model="tickNum" type="text" @input="checkTicket">
+                                    <input v-model="tickNum" @blur="checkTicketPoint" type="text" @input="checkTicket">
                                     <p>
                                         @ {{ formatesuperCoin( currTicketPrice * tickNum) }} ETH
                                     </p>
@@ -275,7 +275,7 @@
                         <p>
                             <lang>One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.</lang>
                         </p>
-                        <p>
+                        <p v-if="ordersList&&ordersList.length===0">
                             <lang>Why not buy a ticket now? </lang>
                             <a v-if="language==='en'" @click="buyNum"  href="javascript:;" style="color: #ff8a00;">Try Now!</a>
                             <a v-if="language==='zhCn'" @click="buyNum" href="javascript:;" style="color: #ff8a00;">立即购买!</a>
@@ -288,7 +288,7 @@
                             <ul>
                                 <li v-for="(item,index) in ordersList" :key="index"  @click="ticketsNumber=item" :class="{'win':item.prizes!==0}">
                                     <p class="issue">
-                                        Phase {{ item.round }}
+                                        <lang>Round No.</lang> {{ item.round }}
                                     </p>
                                     <p class="money" :class="{'hide':item.prizes===0}">
                                         <!--win的时候才展示 删除-->
@@ -298,18 +298,10 @@
                                         {{ item.buyNum && item.buyNum.length }}
                                     </p>
                                 </li>
-                                <!-- <li>
-                                    <p class="issue">
-                                        Phase 13
-                                    </p>
-                                    <p class="amount">
-                                        10
-                                    </p>
-                                </li> -->
                             </ul>
                         </div>
                         <!--已登录但是没信息-->
-                        <div class="nomsg" v-if="ordersList&&ordersList==0">
+                        <div class="nomsg" v-if="ordersList&&ordersList.length===0">
                             <p>
                                 nomsg
                             </p>
@@ -317,13 +309,15 @@
                         <!--我的购买详细展开-->
                         <!--on-->
                         <div class="open-ticket show" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
-                            <p>The No.{{ ticketsNumber.round }} , You bought {{ ticketsNumber.buyNum && ticketsNumber.buyNum.length }} tickets</p>
+                            <!-- <p v-if="ticketsNumber.buyNum && ticketsNumber.buyNum.length>1">The No.{{ ticketsNumber.round }} , You bought {{ ticketsNumber.buyNum.length }} tickets</p> -->
+                            <p v-if="ticketsNumber.buyNum && ticketsNumber.buyNum.length>1">{{ _('The No.{0} , You bought {1} tickets', ticketsNumber.round , ticketsNumber.buyNum.length ) }}</p>
+                            <p v-else>{{ _('The No.{0} , You bought {1} ticket', ticketsNumber.round , ticketsNumber.buyNum.length ) }}</p>
                             <!-- 关闭 -->
                             <a href="javascript:;" @click="ticketsNumber=null" class="close"></a>
                             <div class="ticket-box">
                                 <ul>
-                                    <li style="color: #ffa200;">
-                                        0143
+                                    <li style="color: #ffa200;" v-if="ticketsNumber.luckynum!==0">
+                                        {{ ticketsNumber.luckynum }}
                                     </li>
                                     <li v-if="ticketsNumber.buyNum" v-for="(item,index) in ticketsNumber.buyNum" :key="index">
                                         {{ item }}
@@ -1038,6 +1032,9 @@ export default {
             if (withdrawBack) {
                 console.log('提款成功')
             }
+        },
+        checkTicketPoint(){
+            this.tickNum = Math.ceil( this.tickNum )
         },
         analysisBuyNum (bigNum) {
             //  解析数值
