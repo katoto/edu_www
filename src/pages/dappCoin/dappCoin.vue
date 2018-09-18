@@ -15,7 +15,7 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp status2" :class="{'status2':nextScreen}">
+        <div class="banner-dapp" :class="{'status2':nextScreen}">
             <!--公告 滚动  components-->
             <banner-scroll class="message" >
                 <div class="text-scroller" style="height:100%">
@@ -295,7 +295,7 @@
                                     </p>
                                     <p class="money" :class="{'hide':item.prizes===0}">
                                         <!--win的时候才展示 删除-->
-                                        + {{ item.prizes }} ETH
+                                        + {{ formatesuperCoin(item.prizes) }} ETH
                                     </p>
                                     <p class="amount" >
                                         {{ item.buyNum && item.buyNum.length }}
@@ -888,6 +888,7 @@ export default {
             if (this.timeLeft === 0) {
                 if (this.roundInfo.luckNum === 0) {
                     this.waitWin = true
+                    this.someGetWin = false
                 } else {
                     // 中奖页面
                     this.someGetWin = true
@@ -960,6 +961,8 @@ export default {
             if (this.selfAddr) {
                 let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
                 this.selfMsg = allMsg[0]
+                console.log(this.selfMsg)
+                console.log('=========this.this.selfMsg======')
                 this.balance = allMsg[1]
                 this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
             } else {
