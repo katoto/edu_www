@@ -150,7 +150,7 @@
                 </div>
                 <!--开奖-有人中 todo -->
                 <p class="draw-someone" v-if="someGetWin && roundInfo">
-                    {{ _('Congratulations to "{0}" for Winning', formateCoinAddr( roundInfo.winner ) ) }}
+                    {{ _('Congratulations to "{0}" for Winning', formateCoinAddr( getWInAddr ) ) }}
                 </p>
                 <p class="draw-none" v-if="!someGetWin && !waitWin">
                     <lang>No winner of this round.</lang><br>
@@ -576,6 +576,7 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
+            getWInAddr:'0x0000000000000000',
             usdPrice: 0,
             bindwaitingMsg: _('Who will be the winner?'),
             waitingMsgArr:[
@@ -752,6 +753,7 @@ export default {
             data = data.data
             if (data) {
                 this.expectsList = this.expectFormatData(data.expects)
+                this.getWInAddr = data.expects[0].winner
                 this.expectPageTotal = parseInt(data.pagetotal, 10)
             }
         },
@@ -890,7 +892,7 @@ export default {
                     // 中奖页面
                     this.someGetWin = true
                     this.waitWin = false
-                    this.showOpenNumber(this.roundInfo.luckNum)
+                    this.showOpenNumber( this.roundInfo.luckNum )
                 }
                 this.nextScreen = true
                 this.nowFormateTime = '00:00:00'
