@@ -803,7 +803,7 @@ export default {
         checkTicket () {
             if (isNaN(Number(this.tickNum))) {
                 Message({
-                    message: '请输入正确的数值',
+                    message: _('Please enter the correct number '),
                     type: 'error'
                 })
                 this.tickNum = 0
@@ -1001,17 +1001,10 @@ export default {
                 this.loginMetamask()
                 return false
             }
-            if (!this.beforeInviteName) {
-                Message({
-                    message: '请输入名字',
-                    type: 'error'
-                })
-                return false
-            }
             // 判断是否符合规则
-            if (!(this.isVerifyName(this.beforeInviteName))) {
+            if (!(this.isVerifyName(this.beforeInviteName)) || !this.beforeInviteName) {
                 Message({
-                    message: '名字不符合规则',
+                    message: _('Please enter the correct referral link'),
                     type: 'error'
                 })
                 return false

@@ -821,5 +821,7 @@ module.exports = {
     'Pay by Income': '使用收益购买',
     'Purchase Cancelled': '取消购买',
     'Order Successful': '下单成功',
+    'Please enter the correct number ': '请输入正确的数值'
+    'Please enter the correct referral link': '输入的推广名称不符合规则'
     /* super coin end */
 }
