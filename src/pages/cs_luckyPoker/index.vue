@@ -2758,18 +2758,20 @@ export default {
                         div{
                             display: none;
                             position: absolute;
-                            left: -140px;
-                            top: -226px;
-                            width: 434px;
+                            left: -254px;
+                            top: -203px;
+                            min-width: 434px;
                             padding: 25px 18px 30px;
                             background: #fff;
                             border-radius: 8px;
+                            white-space: nowrap;
+                            z-index: 100;
                             /*background-clip: padding-box;*/
                             &::before{
                                 content: '';
                                 position: absolute;
                                 bottom: -8px;
-                                left: 140px;
+                                left: 254px;
                                 display: block;
                                 width: 0;
                                 height: 0;
