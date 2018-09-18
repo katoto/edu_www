@@ -344,6 +344,10 @@ export function formateMoneyFlow (flowtype, lotid) {
         return _('Sign gift')// 连续七天送
     case '19':
         return _('Top-Up Bonus')// 首充送
+    case '20':
+        return _('LuckyPoker Bet')// 幸运扑克投注
+    case '21':
+        return _('LuckyPoker Prize')// 幸运扑克中奖
     default:
         return _('Bet')
     }
@@ -588,6 +592,26 @@ export function formatUSD (price, num) {
     num = Number(num)
     var total = accMul(price, num)
     return numberComma(formatNum(total, 1))
+}
+
+export function getElementAbsolutePosition (element, parentElement = window.document) {
+    var parent = element.offsetParent
+    let left = element.offsetLeft
+    let top = element.offsetTop
+    while (parent !== null && parentElement !== parent) {
+        left = accAdd(left, parent.offsetLeft)
+        top = accAdd(top, parent.offsetTop)
+        parent = parent.offsetParent
+    }
+    return { left, top }
+}
+
+export function getElementCenterPosition (element, offset) {
+    let relativePosition = offset
+    return {
+        left: accAdd(relativePosition.left, accDiv(element.offsetWidth, 2)),
+        top: accAdd(relativePosition.top, accDiv(element.offsetHeight, 2))
+    }
 }
 
 export function structDom (msg = 'home') {

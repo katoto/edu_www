@@ -64,6 +64,8 @@ const luckcoinMoreBids = () =>
 const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
+const csPoker = () => import('~/pages/cs_luckyPoker/index')
+
 /* 品牌首页 */
 const Home = () =>
     import('~/pages/cs_home/home')
@@ -165,6 +167,11 @@ let routesArr = [
                 component: luckcoinIndex
             }
         ]
+    },
+    {
+        path: '/luckyPoker',
+        name: _('luckyPoker'),
+        component: csPoker
     },
     {
         path: '/account',

@@ -137,6 +137,6 @@ module.exports = {
 			jQuery: "jquery",
 			$: "jquery"
 		}),
-        // new vConsolePlugin({enable:!isDebug}),
+        new vConsolePlugin({enable:!isDebug}),
 	]
 }
