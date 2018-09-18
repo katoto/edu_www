@@ -329,7 +329,7 @@
                         </div>
 
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>10">
+                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>=10">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -441,7 +441,7 @@
                             </li>
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>10">
+                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>=10">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -576,14 +576,14 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
-            getWInAddr:'0x0000000000000000',
+            getWInAddr: '0x0000000000000000',
             usdPrice: 0,
             bindwaitingMsg: _('Who will be the winner?'),
-            waitingMsgArr:[
+            waitingMsgArr: [
                 _('Who will be the winner?'),
                 _('Background is counting data...'),
                 _('Background is 2222 counting data...')
-            ],  // 等待开奖文案 todo
+            ], // 等待开奖文案 todo
             nextRoundStart: null, // 下一期开启的时间
             openWinNumber: false, // 出现开奖号码
             someGetWin: false, // 是否有人中奖
@@ -616,11 +616,11 @@ export default {
             ordersList: null, // 个人订单数据
 
             expectPageno: 1,
-            expectPageSize: 10,
+            expectPageSize: 25,
             expectPageTotal: 1,
 
             orderPageno: 1,
-            orderpPgeSize: 10,
+            orderpPgeSize: 25,
             orderPageTotal: 1,
 
             showPopMask: false,
@@ -641,47 +641,47 @@ export default {
         formatTime,
         formateCoinAddr,
         async searchTicketsXaddr () {
-            let buyNum = [] ;
+            let buyNum = []
             if (this.selfAddr) {
                 let buyTick = await luckyCoinApi.searchTicketsXaddr(this.selfAddr)
-                if(buyTick.orders0 !== '0'){
+                if (buyTick.orders0 !== '0') {
                     buyNum = buyNum.concat(this.analysisBuyNum(buyTick.orders0))
                 }
-                if(buyTick.orders1 !== '0'){
-                    this.analysisBuyNum(buyTick.orders1).forEach((item,index)=>{
-                        buyNum.push( Number(item) + 250 )
+                if (buyTick.orders1 !== '0') {
+                    this.analysisBuyNum(buyTick.orders1).forEach((item, index) => {
+                        buyNum.push(Number(item) + 250)
                     })
                 }
-                if(buyTick.orders2 !== '0'){
-                    this.analysisBuyNum(buyTick.orders2).forEach((item,index)=>{
-                        buyNum.push( Number(item) + 500 )
-                    })                    
+                if (buyTick.orders2 !== '0') {
+                    this.analysisBuyNum(buyTick.orders2).forEach((item, index) => {
+                        buyNum.push(Number(item) + 500)
+                    })
                 }
-                if(buyTick.orders3 !== '0'){
-                    this.analysisBuyNum(buyTick.orders3).forEach((item,index)=>{
-                        buyNum.push( Number(item) + 750 )
-                    })                    
+                if (buyTick.orders3 !== '0') {
+                    this.analysisBuyNum(buyTick.orders3).forEach((item, index) => {
+                        buyNum.push(Number(item) + 750)
+                    })
                 }
-                if(buyTick.orders4 !== '0'){
-                    this.analysisBuyNum(buyTick.orders4).forEach((item,index)=>{
-                        buyNum.push( Number(item) + 1000 )
-                    })                    
-                }  
-                if(buyTick.orders5 !== '0'){
-                    this.analysisBuyNum(buyTick.orders5).forEach((item,index)=>{
-                        buyNum.push( Number(item) + 1250 )
-                    })                    
+                if (buyTick.orders4 !== '0') {
+                    this.analysisBuyNum(buyTick.orders4).forEach((item, index) => {
+                        buyNum.push(Number(item) + 1000)
+                    })
+                }
+                if (buyTick.orders5 !== '0') {
+                    this.analysisBuyNum(buyTick.orders5).forEach((item, index) => {
+                        buyNum.push(Number(item) + 1250)
+                    })
                 }
                 console.log(buyNum)
                 console.log(buyTick)
                 console.log('=====buyTick======')
-                if(this.ordersList){
+                if (this.ordersList) {
                     let baseObj = {
                         buyNum: buyNum,
                         prizes: 0,
-                        round: this.roundInfo.roundIndex,
+                        round: this.roundInfo.roundIndex
                     }
-                    if(this.ordersList[0].round === this.roundInfo.roundIndex){
+                    if (this.ordersList[0].round === this.roundInfo.roundIndex) {
                         this.ordersList.shift()
                     }
                     this.ordersList.unshift(baseObj)
@@ -893,17 +893,23 @@ export default {
                     // 中奖页面
                     this.someGetWin = true
                     this.waitWin = false
-                    this.showOpenNumber( this.roundInfo.luckNum )
+                    this.showOpenNumber(this.roundInfo.luckNum)
                 }
                 this.nextScreen = true
                 this.nowFormateTime = '00:00:00'
                 this.scrollMsgChange('end') // 滚动信息改变
             } else {
                 this.startTimeLeft()
+                if (!localStorage.getItem('firstSuperCoin')) {
+                    this.isNew = true
+                    localStorage.setItem('firstSuperCoin', true)
+                } else {
+                    this.isNew = false
+                }                
             }
             console.log('roundinfo')
             console.log(this.roundInfo)
-            this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime())/1000
+            this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime()) / 1000
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
                 console.log(this.timeLeft)
@@ -1041,8 +1047,8 @@ export default {
                 console.log('提款成功')
             }
         },
-        checkTicketPoint(){
-            this.tickNum = Math.ceil( this.tickNum )
+        checkTicketPoint () {
+            this.tickNum = Math.ceil(this.tickNum)
         },
         analysisBuyNum (bigNum) {
             //  解析数值
@@ -1257,12 +1263,7 @@ export default {
         this.pageInit()
         this.startAllevent()
 
-        if (!localStorage.getItem('firstSuperCoin')) {
-            this.isNew = true
-            localStorage.setItem('firstSuperCoin', true)
-        } else {
-            this.isNew = false
-        }
+
     },
     watch: {
         isLog (val) {

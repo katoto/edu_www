@@ -817,6 +817,6 @@ module.exports = {
     'One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there\'s no winner of the round, the prize pool will accumulate in next round.': '每隔2小时开一次奖，若用户号码与开奖号码相同，即可获得奖池奖励；若无人与开奖号码相同，则奖池滚入下一轮。',
     'Who will be the winner?': '谁是最后的赢家...',
     'Background is counting data...': '后台正在统计数据...',
-    'Background is 2222 counting data...': '计算正在开奖结果...',
+    'Background is 2222 counting data...': '计算正在开奖结果...'
     /* super coin end */
 }
