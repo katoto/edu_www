@@ -2,12 +2,12 @@
     <div class="page-view">
         <div class="side-nav">
             <ul class="menu">
-                <li v-for="(item,index) in dataMenu" :class="{on:isOn==index}" :key="index" @click="isOn=index">
+                <li v-for="(item,index) in dataMenu" :class="{on:isOn == index}" :key="index" @click="isOn=index; isOn2='1000'">
                     <p>
                         {{item.menu1}}
                     </p>
                     <ul class="sub-menu ">
-                        <li v-for="(subItem1,index2) in item.menu2"  :key="index2" @click="tabChange(index,index2)">
+                        <li v-for="(subItem1,index2) in item.menu2" :key="index2" @click.prevent.stop="tabChange(index,index2)" :class="{ on: isOn == index && isOn2 == index2}">
                             {{subItem1}}
                         </li>
                     </ul>
@@ -29,6 +29,7 @@ import help11 from './help-components/help2-rhtx'
 import help12 from './help-components/help2-tktj'
 import help20 from './help-components/help3-lucky11'
 import help21 from './help-components/help3-luckyCoin'
+import help22 from './help-components/help3-luckyPoker'
 import help30 from './help-components/help4-cxtmx'
 import help31 from './help-components/help4-contact'
 export default {
@@ -58,6 +59,8 @@ export default {
                     }
                 })
                 this.current = 'help' + index + index2
+                this.isOn = index
+                this.isOn2 = index2
             }
         }
     },
@@ -71,6 +74,7 @@ export default {
         help12,
         help20,
         help21,
+        help22,
         help30,
         help31
     },

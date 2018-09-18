@@ -1,6 +1,6 @@
 <template>
     <div id="test">
-
+2
     </div>
 </template>
 
@@ -14,7 +14,7 @@
         computed: {},
         components: {},
         mounted () {
-
+            console.log('UA:' + window.navigator.userAgent)
         }
     }
 </script>
