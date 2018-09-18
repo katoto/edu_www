@@ -300,7 +300,7 @@
                             </li>
                             <li v-for="(item, index) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="index">
                             </li>
-                            <!-- 
+                            <!--
                             <li>
                                 <p class="bet-user">
                                     222222222222222@gmail.com
@@ -486,7 +486,7 @@
                         </div>
                     </div>
                     <!--未中奖-->
-                    
+
                     <!--中奖-->
                     <div class="result-msg" v-if="open.isWin">
                         <p>{{$lang.poker.a25}}</p>
@@ -703,7 +703,7 @@ export default {
         },
         getRandomPosition ({left, top}, width, height) {
             let offsetLeft = Math.ceil(this.getRandom(accDiv(accSub(width, 20), 2)))
-            let offsetTop = Math.ceil(this.getRandom(accDiv(accSub(height, 20), 2)))
+            let offsetTop = Math.ceil(this.getRandom(accDiv(accSub(height, 90), 2)))
             return { left: Math.random() > 0.5 ? accAdd(left, offsetLeft) : accSub(left, offsetLeft), top: Math.random() > 0.5 ? accAdd(top, offsetTop) : accSub(top, offsetTop) }
         },
         getPosition (element, isRandom) {
@@ -1059,6 +1059,10 @@ export default {
             background: #003333;
             color: #33cc66;
             font-weight: bold;
+            i{
+                display: inline-block;
+                font-weight: normal;
+            }
         }
         .poker-time{
             color: #99cccc;
@@ -1104,9 +1108,6 @@ export default {
                         color: #000000;
                         background: #4a8282;
                     }
-                    &:hover{
-                        filter: brightness(1.1);
-                    }
                 }
             }
             .bet-joker{
@@ -1132,9 +1133,7 @@ export default {
                         width: percentage(30/222);
                         max-width: 36px;
                     }
-                    &:hover{
-                        filter: brightness(1.1);
-                    }
+
                 }
             }
             .bet-color{
@@ -1160,9 +1159,7 @@ export default {
                     &:first-child,&:nth-child(3){
                         background-color: #4a8282;
                     }
-                    &:hover{
-                        filter: brightness(1.1);
-                    }
+
                 }
             }
             .bet-number{
@@ -1177,9 +1174,6 @@ export default {
                         font-weight: bold;
                         font-family: Lucida Bright,LBRITE;
                         cursor: pointer;
-                        &:hover{
-                            filter: brightness(1.1);
-                        }
                     }
                     &.item1{
                         li{
@@ -1314,7 +1308,8 @@ export default {
                     filter:brightness(0.8);
                     box-shadow: 0 2px 0 #2b7876;
                     p{
-                        font-size: 15px;
+                        opacity: 1;
+                        font-size: 24px;
                         text-shadow:none;
                     }
                     i{
@@ -1324,8 +1319,11 @@ export default {
                 }
                 &.unable{
                     filter:brightness(0.8);
-                    box-shadow: 0 2px 0 #2b7876;
-                    i{
+                    box-shadow: 0 7px 0 #1d8885;
+                    p{
+                        opacity: 0.5;
+                    }
+                    span{
                         .hide-text();
                         transform: scale(0);
                     }
@@ -1920,6 +1918,9 @@ export default {
                             font-size: 10px;
                         }
                     }
+                    &.wait{
+                        font-size: 14px !important;
+                    }
                 }
             }
             /*历史开奖*/
@@ -2374,6 +2375,9 @@ export default {
                         &+li{
                             border-left: 2px solid #6faeae;
                         }
+                        &:hover{
+                            filter: brightness(1.1);
+                        }
                     }
                 }
                 .bet-joker{
@@ -2385,6 +2389,9 @@ export default {
                         border: 2px solid #6faeae;
                         p{
                             font-size: 24px;
+                        }
+                        &:hover{
+                            filter: brightness(1.1);
                         }
                     }
                 }
@@ -2399,6 +2406,9 @@ export default {
                         img{
                             width: percentage(53/170);
                         }
+                        &:hover{
+                            filter: brightness(1.1);
+                        }
                     }
                     li+li{
                         border-left: 2px solid #6faeae;
@@ -2412,6 +2422,9 @@ export default {
                             border-bottom: 2px solid #6faeae;
                             border-right: 2px solid #6faeae;
                             font-size: 26px;
+                            &:hover{
+                                filter: brightness(1.1);
+                            }
                         }
                         &.item1{
                             border-left: 2px solid #6faeae;
@@ -2751,12 +2764,11 @@ export default {
                             padding: 25px 18px 30px;
                             background: #fff;
                             border-radius: 8px;
-                            border-bottom: 30px solid transparent;
-                            background-clip: padding-box;
-                            &::after{
+                            /*background-clip: padding-box;*/
+                            &::before{
                                 content: '';
                                 position: absolute;
-                                bottom: -10px;
+                                bottom: -8px;
                                 left: 140px;
                                 display: block;
                                 width: 0;
@@ -2764,6 +2776,16 @@ export default {
                                 border-top: 10px solid #fff;
                                 border-left: 10px solid transparent;
                                 border-right: 10px solid transparent;
+                            }
+                            &::after{
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                left: 0;
+                                bottom: -30px;
+                                width: 100%;
+                                height: 30px;
+                                overflow: hidden;
                             }
                             p{
                                 line-height: 22px;
