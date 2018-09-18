@@ -922,7 +922,7 @@ export default {
             this.jokerMost = Number(data.odds.joker)
             this.pointsMost = Number(data.odds.point)
             this.suitMost = Number(data.odds.suit)
-            // this.recentResult = [...data.recent_results]
+            this.recentResult = [...data.recent_results]
             this.restricts = {...data.restricts}
         },
         onLeft () {
