@@ -14,8 +14,8 @@
                     <div class="poker-history">
                         <p class="title">{{$lang.poker.a27}}</p>
                         <div class="history-main">
-                            <a class="btn btn-left" href="javascript:;" @click="onLeft"></a>
-                            <div class="poker-item">
+                            <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
+                            <div class="poker-item" ref="historyCt">
                                 <ul :style="{ left: `${listLeft}px` }">
                                     <li class="poker-next" ref="next">
                                         <p>?</p>
@@ -67,7 +67,7 @@
                                     </li> -->
                                 </ul>
                             </div>
-                            <a class="btn btn-right" href="javascript:;" @click="onRight"></a>
+                            <a class="btn btn-right" href="javascript:;" @click="onRight" :style="{visibility: !hideRight ? 'visible': 'hidden'}"></a>
                         </div>
                     </div>
                     <div class="bg-pc-esktop ">
@@ -210,7 +210,7 @@
                             <div class="input-group">
                                 <input type="text" :value="clientSeed" readonly v-if="isLock">
                                 <input type="text" v-model="clientSeed" v-else>
-                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
+                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed" v-if="!isLock">
                                     {{$lang.poker.a4}}
                                 </a>
                                 <a href="javascript:;"  class="btn btn-lock" v-if="!isLock" @click="isLock = true">
@@ -341,10 +341,8 @@
                             <div>
                                 <p>{{$lang.poker.a2}}:</p>
                                 <p>{{$lang.poker.a11}}</p>
-                                <p></p>
                                 <p>{{$lang.poker.a9}}:</p>
                                 <p>{{$lang.poker.a13}}</p>
-                                <p></p>
                                 <p>{{$lang.poker.a3}}:</p>
                                 <p>{{$lang.poker.a12}}</p>
                             </div>
@@ -385,7 +383,7 @@
                                             <div class="input-group">
                                                 <input type="text" :value="clientSeed" readonly v-if="isLock">
                                                 <input type="text" v-model="clientSeed" v-else>
-                                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed">
+                                                <a href="javascript:;" class="btn btn-random" @click="createClientSeed" v-if="!isLock">
                                                     {{$lang.poker.a4}}
                                                 </a>
                                                 <a href="javascript:;"  class="btn btn-lock btn-unlock" v-if="!isLock" @click="isLock = true">
@@ -491,7 +489,7 @@
                         <p>{{$lang.poker.a25}}</p>
                         <div>+{{formatNum(Number(open.money), 4)}}<i>{{coinText}}</i></div>
                     </div>
-                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;" @click="closePoker()" v-else>
+                    <div class="result-msg" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" v-else>
                         {{$lang.poker.a24}}
                     </div>
                 </div>
@@ -544,6 +542,8 @@ export default {
             preServerHash: '',
             preClientSeed: '',
             closeTimer: null,
+            hideRight: false,
+            hideLeft: false,
             tmpHistoryList: [],
             tmpRecentLists: [],
             tmpMyselfBetsLists: [],
@@ -786,7 +786,7 @@ export default {
             this.coins = [...tmpCoins]
             this.initCoin()
 
-            /*小屏幕缩小一下*/
+            /* 小屏幕缩小一下 */
             let width = window.innerWidth
             let height = window.innerHeight
             if (typeof width !== 'number') {
@@ -929,19 +929,47 @@ export default {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accAdd(this.listLeft, accAdd(width, 5))
+            this.getHistoryMostNum()
         },
         onRight () {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accSub(this.listLeft, accAdd(width, 5))
+            this.getHistoryMostNum()
+        },
+        getHistoryMostNum () {
+            let historyCt = this.$refs.historyCt
+            let next = this.$refs.next
+            let length = this.recentResult.length
+            let mostNum = Math.floor(historyCt.clientWidth / (next.clientWidth + 5))
+            let mostLength = length - mostNum + 1
+            if (length === 0) {
+                this.hideRight = true
+                this.hideLeft = true
+            } else if (this.listLeft === 0) {
+                this.hideLeft = true
+                if (length <= mostNum - 1) {
+                    this.hideRight = true
+                } else {
+                    this.hideRight = false
+                }
+            } else if (-1 * Number(this.listLeft) >= (mostLength + 1) * (next.clientWidth + 5)) {
+                this.hideRight = true
+                this.hideLeft = false
+            } else if (-1 * Number(this.listLeft) < (mostLength + 1) * (next.clientWidth + 5)) {
+                this.hideRight = false
+                this.hideLeft = false
+            }
         },
         goto (num = 0) {
             let nextEl = this.$refs.next
             let width = nextEl.offsetWidth
             this.listLeft = accMul(num, accAdd(width, 5)) * -1
+            this.getHistoryMostNum()
         },
         onResize () {
             this.resetCoinPosition()
+            this.getHistoryMostNum()
         }
     },
     computed: {
@@ -966,6 +994,9 @@ export default {
         },
         coinType () {
             this.clearBet()
+        },
+        recentResult () {
+            this.getHistoryMostNum()
         }
     },
     mounted () {
@@ -973,6 +1004,7 @@ export default {
         this.clearBet()
         this.refresh()
         this.createClientSeed()
+        this.getHistoryMostNum()
         this.disableContext()
         this.subInDice()
         window.addEventListener('resize', this.onResize)
@@ -1642,7 +1674,7 @@ export default {
                 margin: 45/2px auto 0;
                 padding: 0 2px;
                 background-color: #050707;
-                color: #ffff;
+                color: #fff;
                 font-weight: bold;
                 border: 1px solid #6bda7b;
                 p{
@@ -2717,7 +2749,7 @@ export default {
                             display: none;
                             position: absolute;
                             left: -140px;
-                            top: -248px;
+                            top: -226px;
                             width: 434px;
                             padding: 25px 18px 30px;
                             background: #fff;
@@ -2746,7 +2778,6 @@ export default {
                                 overflow: hidden;
                             }
                             p{
-                                height: 22px;
                                 line-height: 22px;
                                 font-size: 14px;
                                 color: #72a1a8;
