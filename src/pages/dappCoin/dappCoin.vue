@@ -143,7 +143,7 @@
                     <ul>
                         <li>
                             <p>
-                                <lang>Background is counting data...</lang>
+                                {{ bindwaitingMsg }}
                             </p>
                         </li>
                     </ul> 
@@ -277,7 +277,9 @@
                         </p>
                         <p>
                             <lang>Why not buy a ticket now? </lang>
-                            <a href="javascript:;" style="color: #ff8a00;">Try Now!</a>
+                            <a v-if="language==='en'" @click="buyNum"  href="javascript:;" style="color: #ff8a00;">Try Now!</a>
+                            <a v-if="language==='zhCn'" @click="buyNum" href="javascript:;" style="color: #ff8a00;">立即购买!</a>
+                            <a v-if="language==='zhTw'" @click="buyNum" href="javascript:;" style="color: #ff8a00;">立即購買!</a>
                         </p>
                     </div>
                     <template  v-if="selfMsg">
@@ -364,11 +366,11 @@
                 <!--我的收益-->
                 <div class="income" v-if="selfMsg" :class="{'hide':informationTab!=='income'}">
                     <p class="explain-msg">
-                        You can withdraw your dividends at any time, invite rewards and winning prizes.
+                        <lang>Your dividend, referral reward and winning prize can be withdrawn at any time.</lang>
                     </p>
                     <div class="income-item">
                         <p>
-                            Dividend
+                            <lang>Dividend:</lang>
                         </p>
                         <span>
                             {{ selfMsg.calcTicketEarn }} ETH
@@ -376,7 +378,7 @@
                     </div>
                     <div class="income-item">
                         <p>
-                            Invitation
+                            <lang>Referral Reward:</lang>
                         </p>
                         <span>
                             {{ selfMsg.aff_invite }} ETH
@@ -384,7 +386,7 @@
                     </div>
                     <div class="income-item">
                         <p>
-                            Winning Prize
+                            <lang>Winning Prize:</lang>
                         </p>
                         <span>
                             {{ selfMsg.win }} ETH
@@ -392,31 +394,31 @@
                     </div>
                     <div class="income-item income-item-last">
                         <p>
-                            Total revenue
+                            <lang>Total Income:</lang>
                         </p>
                         <div>
                             <span>
                                 {{ parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite) }} ETH
                             </span>
                             <span class="usd">
-                                ≈ 231,769USD
+                                ≈ {{ (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) * usdPrice }} USD
                             </span>
                         </div>
                     </div>
                     <a href="javascript:;" class="btn-withdrawal" @click="withdraw">
-                        Withdrawal
+                        <lang>Withdrawal </lang>
                     </a>
                 </div>
                 <!--历史开奖 hide -->
                 <div class="historyDraw" :class="{'hide':informationTab!=='historyDraw'}">
                     <div class="explain-msg is-left">
                         <p>
-                            One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there's no winner of the round, the prize pool will accumulate in next round.
+                            <lang>One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there's no winner of the round, the prize pool will accumulate in next round.</lang>
                         </p>
                     </div>
                     <template v-if="expectsList && expectsList.length > 0">
                         <ul class="historyDraw-head">
-                            <li class="issue">Phase</li>
+                            <li class="issue"><lang>Round No.</lang></li>
                             <li class="winningNumbers">Winning Numbers</li>
                             <li class="bonus">Bonus</li>
                             <li class="winner">Winner</li>
@@ -578,7 +580,8 @@ Vue.use(vueClipboard)
 export default {
     data () {
         return {
-            bindwaitingMsg: null,
+            usdPrice: 0,
+            bindwaitingMsg: _('Who will be the winner?'),
             waitingMsgArr:[
                 _('Who will be the winner?'),
                 _('Background is counting data...'),
@@ -778,6 +781,7 @@ export default {
             data = data.data
             if (data) {
                 this.ordersList = this.orderFormatData(data.luckydata)
+                this.usdPrice = data.USD
                 this.orderPageTotal = parseInt(data.pagetotal, 10)
                 this.searchTicketsXaddr()
             }
