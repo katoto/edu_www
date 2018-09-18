@@ -13,7 +13,10 @@
                     <!--历史开奖记录-->
                     <div class="poker-history">
                         <p class="title">{{$lang.poker.a27}}</p>
-                        <div class="history-empty" v-show="recentResult.length === 0">
+                        <div class="history-empty  visible-md visible-lg " v-if="recentResult.length === 0">
+                            {{$lang.poker.a34}}
+                        </div>
+                        <div class="history-empty visible-xs visible-sm " v-if="recentResult.length === 0">
                             {{$lang.poker.a34}}
                         </div>
                         <div class="history-main" v-show="recentResult.length !== 0">
@@ -197,13 +200,13 @@
                     </div>
                 </div>
                 <!--随机数 h5-->
-                <div class="area-random">
+                <div class="area-random" :class="{on:isShowRandom}">
                     <div class="random-top">
                         <p class="title">
                             {{$lang.poker.a1}}
                         </p>
                         <a href="javascript:;" class="btn-help" @click="showPopVer=true; activeTabClass = 'upper'"></a>
-                        <a href="javascript:;" class="btn-slideUp"></a>
+                        <a href="javascript:;" class="btn-slideUp" @click="isShowRandom = !isShowRandom"></a>
                     </div>
                     <ul class="random-main ">
                         <li>
@@ -279,7 +282,8 @@
                             <li>{{$lang.poker.a22}}</li>
                             <li>{{$lang.poker.a23}}</li>
                         </ul>
-                        <ul class="recoding-main">
+                        <!--nomsg-->
+                        <ul class="recoding-main" :class="{nomsg: getBetsList().length === 0}">
                             <li v-for="(item, index) in (getBetsList()).filter((bet, index) => index < 5)" :key="index">
                                 <p class="bet-user" :title="formatEmail(item.username)">
                                     {{formatEmail(item.username)}}
@@ -298,7 +302,7 @@
                                     {{Number(item.prize_amount) > 0 ? item.prize_amount : '-'}} <i v-if="Number(item.prize_amount) > 0">{{formateCoinType(item.cointype)}}</i>
                                 </p>
                             </li>
-                            <li v-for="(item, index) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="index">
+                            <li v-for="(item) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="item">
                             </li>
                             <!--
                             <li>
@@ -336,6 +340,9 @@
                                 </p>
                             </li> -->
                         </ul>
+                        <div class="no-msg" v-show="getBetsList().length === 0">
+                            {{$lang.poker.a62}} 
+                        </div>
                     </div>
                     <!--pc random area-->
                     <div class="pc-verification">
@@ -555,7 +562,8 @@ export default {
                 money: 0,
                 result: 0
             },
-            is14: true
+            is14: true,
+            isShowRandom: false
         }
     },
     methods: {
@@ -593,14 +601,14 @@ export default {
         getBetsList () {
             if (this.isLoading || this.showOpen) {
                 if (this.isMyself) {
-                    return this.tmpMyselfBetsLists
+                    return [...this.tmpMyselfBetsLists]
                 }
-                return this.tmpRecentLists
+                return [...this.tmpRecentLists]
             } else {
                 if (this.isMyself) {
-                    return this.selfBetList
+                    return [...this.selfBetList]
                 }
-                return this.betList
+                return [...this.betList]
             }
         },
         showMyself () {
@@ -1031,10 +1039,11 @@ export default {
     }
     .history-empty {
         color: #FFF;
-        border: solid 1px #72a1a8;
+        /*border: solid 1px #72a1a8;*/
         padding: 10px 0;
         margin: 0 30px;
         border-radius: 3px;
+        color:#72a1a8;
     }
     .bg-esktop {
         position: relative;
@@ -1484,8 +1493,26 @@ export default {
                 }
             }
             .recording-table{
+                position: relative;
                 .top{
                     color: #72a1a8;
+                }
+                .no-msg{
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    color: #72a1a8;
+                    &::before{
+                        content: '';
+                        display: block;
+                        width: 107px;
+                        height: 89px;
+                        margin: 120px auto 10px;
+                        mask: url("../../assets/img/nomsg.png") no-repeat center;
+                        background: #72a1a8;
+                    }
                 }
             }
             .pc-verification{
@@ -1908,7 +1935,7 @@ export default {
                     box-shadow: 0 4px 0 #2b7876;
                     p{
                         line-height: 22px;
-                        font-size: 18px;
+                        font-size: 12px;
                         text-shadow: 0 1px #2b7b75, 1px 0 #2b7b75, -1px 0 #2b7b75, 0 -1px #2b7b75;
                     }
                     span{
@@ -1943,11 +1970,10 @@ export default {
             .area-random{
                 display: block;
                 width: 92%;
-                padding: 10/2px percentage(24/690) 50/2px;
+                padding: 10/2px percentage(24/690) 10/2px;
                 margin: 110/2px auto 0;
                 border-radius: 8px;
                 background: #294557;
-
                 color: #fff;
                 .random-top{
                     overflow: hidden;
@@ -1976,9 +2002,12 @@ export default {
                         overflow: hidden;
                         background:url("../../assets/img/luckyPoker/icon-bottom.png") no-repeat right center;
                         background-size: 36/2px;
+                        transition: all 0.2s;
+                        transform: rotate(-180deg) translateX(-18px);
                     }
                 }
                 .random-main{
+                    display: none;
                     .title{
                         padding-top: 20/2px;
                         line-height: 46/2px;
@@ -1998,6 +2027,7 @@ export default {
                             outline: none;
                             text-indent: 5px;
                             font-size: 11px;
+                            .text-overflow();
                         }
                         .btn{
                             display: block;
@@ -2016,6 +2046,17 @@ export default {
                                 }
                             }
                         }
+                    }
+                }
+                &.on{
+                    padding: 10/2px percentage(24/690) 50/2px;
+                    .random-top{
+                        .btn-slideUp{
+                            transform: rotate(0) translateX(0);
+                        }
+                    }
+                    .random-main{
+                        display: block;
                     }
                 }
             }
@@ -2050,6 +2091,15 @@ export default {
                         padding: 0 percentage(25/690);
                         line-height: 82/2px;
                         font-size: 24/2px;
+                    }
+                    .no-msg{
+                        &::before{
+                            width: 107/2px;
+                            height: 89/2px;
+                            margin: 100px auto 10/2px;
+                            mask: url("../../assets/img/nomsg.png") no-repeat center;
+                            mask-size: 107/2px;
+                        }
                     }
                     .recoding-main{
                         li{
@@ -2196,6 +2246,11 @@ export default {
                                 background: #294557;
                             }
                         }
+                        &.nomsg{
+                            li{
+                                background: #253e4e;
+                            }
+                        }
                     }
                 }
             }
@@ -2271,6 +2326,7 @@ export default {
                             outline: none;
                             text-indent: 12px;
                             font-size: 16px;
+                            .text-overflow();
                         }
                         .btn{
                             display: block;
@@ -2721,6 +2777,14 @@ export default {
                                 background: #294557;
                             }
                         }
+                        &.nomsg{
+                            li{
+                                background: #253e4e;
+                            }
+                        }
+                    }
+                    .no-msg{
+
                     }
                 }
                 /*pc----*/
@@ -2874,6 +2938,7 @@ export default {
                             outline: none;
                             text-indent: 12px;
                             font-size: 16px;
+                            .text-overflow();
                         }
                         .btn{
                             display: block;
