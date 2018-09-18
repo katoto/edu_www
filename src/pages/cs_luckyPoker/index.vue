@@ -19,7 +19,7 @@
                         <div class="history-empty visible-xs visible-sm " v-if="recentResult.length === 0">
                             请在下方选择您认为会开出的选项
                         </div>
-                        <div class="history-main" v-else>
+                        <div class="history-main" v-show="recentResult.length !== 0">
                             <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
                             <div class="poker-item" ref="historyCt">
                                 <ul :style="{ left: `${listLeft}px` }">
@@ -930,7 +930,7 @@ export default {
             this.jokerMost = Number(data.odds.joker)
             this.pointsMost = Number(data.odds.point)
             this.suitMost = Number(data.odds.suit)
-            // this.recentResult = [...data.recent_results]
+            this.recentResult = [...data.recent_results]
             this.restricts = {...data.restricts}
         },
         onLeft () {
