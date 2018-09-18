@@ -9,7 +9,7 @@
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
                     <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank"><lang>Contract</lang></a>
-                    <a href=""><lang>Easy&nbsp;Play</lang></a>
+                    <a href=""><lang>Easy Play</lang></a>
                     <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
             </div>
@@ -205,7 +205,7 @@
                 <div class="invite-after" v-if="selfMsg && selfMsg.inviteLink !== ''">
                     <div class="my-link">
                         <p class="link-msg">
-                            Your promotion link:
+                            <lang>Referral link:</lang>
                         </p>
                         <p class="mydomain">
                             {{ selfMsg.inviteLink }}
@@ -217,11 +217,14 @@
                            class="btn-copy ">
                             <lang>Copy</lang>
                         </a>
-                        <p>
-                            You have invited: {{ selfMsg.aff_invite_nums }} people
+                        <p v-if="selfMsg.aff_invite_nums==1||selfMsg.aff_invite_nums==0">
+                            {{ _('You\'ve invited: {0} friend',selfMsg.aff_invite_nums ) }}
+                        </p>
+                        <p v-else>
+                            {{ _('You\'ve invited: {0} friends',selfMsg.aff_invite_nums ) }}
                         </p>
                         <p>
-                            Commission awarded: <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
+                            <lang>Total referral reward:</lang> <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
                         </p>
                     </div>
                 </div>
@@ -309,7 +312,6 @@
                         <!--我的购买详细展开-->
                         <!--on-->
                         <div class="open-ticket show" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
-                            <!-- <p v-if="ticketsNumber.buyNum && ticketsNumber.buyNum.length>1">The No.{{ ticketsNumber.round }} , You bought {{ ticketsNumber.buyNum.length }} tickets</p> -->
                             <p v-if="ticketsNumber.buyNum && ticketsNumber.buyNum.length>1">{{ _('The No.{0} , You bought {1} tickets', ticketsNumber.round , ticketsNumber.buyNum.length ) }}</p>
                             <p v-else>{{ _('The No.{0} , You bought {1} ticket', ticketsNumber.round , ticketsNumber.buyNum.length ) }}</p>
                             <!-- 关闭 -->
