@@ -31,7 +31,7 @@
                     <p v-if="someGetWin && roundInfo">
                         <!-- 当前时间 -->
                         <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
-                        {{ forNextRoundStart(nextRoundStart) }}<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH
+                        {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
                     </p>
                 </div>
                 <div :class="{'hide':nextScreen}">
@@ -149,8 +149,8 @@
                     </ul> 
                 </div>
                 <!--开奖-有人中 todo -->
-                <p class="draw-someone" v-if="someGetWin">
-                    Congratulations to “0x***923” for Winning
+                <p class="draw-someone" v-if="someGetWin && roundInfo">
+                    {{ _('Congratulations to "{0}" for Winning', formateCoinAddr( roundInfo.winner ) ) }}
                 </p>
                 <p class="draw-none" v-if="!someGetWin && !waitWin">
                     <lang>No winner of this round.</lang><br>
@@ -890,6 +890,7 @@ export default {
                     // 中奖页面
                     this.someGetWin = true
                     this.waitWin = false
+                    this.showOpenNumber(this.roundInfo.luckNum)
                 }
                 this.nextScreen = true
                 this.nowFormateTime = '00:00:00'
@@ -899,7 +900,7 @@ export default {
             }
             console.log('roundinfo')
             console.log(this.roundInfo)
-            this.nextRoundStart = localStorage.getItem('openNextTime')
+            this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime())/1000
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
                 console.log(this.timeLeft)
@@ -1180,7 +1181,7 @@ export default {
                                 if (res.args.luckynum.toNumber() <= res.args.ticketsout.toNumber()) {
                                     // 有人中奖
                                     this.someGetWin = true
-                                    localStorage.setItem('openNextTime', new Date().getTime() + 120000)
+                                    localStorage.setItem('openNextTime', new Date().getTime() + 120)
                                     this.nextRoundStart = localStorage.getItem('openNextTime')
                                 } else {
                                     // 无人中奖
