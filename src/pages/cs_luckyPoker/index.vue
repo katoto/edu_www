@@ -754,7 +754,7 @@ export default {
                 most = this.suitMost
                 total = this.suitTotal
             }
-            return accMul(accAdd(total, this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
+            return accMul(accAdd(this.betNums[name], this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
         },
         addCoin (name) {
             if (!this.isLogin) {
