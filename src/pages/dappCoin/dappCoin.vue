@@ -9,7 +9,7 @@
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
                     <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank"><lang>Contract</lang></a>
-                    <a href=""><lang>Easy Play</lang></a>
+                    <a href="javascript:;" @click="showNewguide"><lang>Easy Play</lang></a>
                     <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
             </div>
@@ -640,6 +640,14 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
+        showNewguide(){
+            if (this.timeLeft===0) {
+                this.isNew = false
+            } else {
+                this.isNew = true
+                localStorage.setItem('firstSuperCoin', true)
+            }             
+        },
         async searchTicketsXaddr () {
             let buyNum = []
             if (this.selfAddr) {
