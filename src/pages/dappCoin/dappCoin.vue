@@ -645,7 +645,7 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
-        showNewguide(){
+        showNewguide () {
             this.timeLeft === 0 ? this.isNew = false : this.isNew = true
         },
         async searchTicketsXaddr () {
@@ -655,12 +655,12 @@ export default {
                 if (buyTick.orders0 !== '0') {
                     buyNum = buyNum.concat(this.analysisBuyNum(buyTick.orders0))
                 }
-                for(let i=1;i<=5;i++){
-                    if (buyTick['orders'+i] !== '0') {
-                        this.analysisBuyNum(buyTick['orders'+i]).forEach((item, index) => {
+                for (let i = 1;i <= 5;i++) {
+                    if (buyTick['orders' + i] !== '0') {
+                        this.analysisBuyNum(buyTick['orders' + i]).forEach((item, index) => {
                             buyNum.push(Number(item) + 250 * i)
                         })
-                    }                    
+                    }
                 }
                 console.log(buyNum)
                 console.log(buyTick)
@@ -889,7 +889,7 @@ export default {
                     localStorage.setItem('firstSuperCoin', true)
                 } else {
                     this.isNew = false
-                }                
+                }
             }
             console.log('roundinfo')
             console.log(this.roundInfo)
@@ -981,19 +981,19 @@ export default {
             }
             buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
             if (buyBack) {
-                this.selfNotify( 'Order Successful')
+                this.selfNotify('Order Successful')
             } else {
-                this.selfNotify( 'Purchase Cancelled' , 'error' )
+                this.selfNotify('Purchase Cancelled', 'error')
             }
         },
-        selfNotify(val,typeVal='success'){
+        selfNotify (val, typeVal = 'success') {
             Notification({
                 dangerouslyUseHTMLString: true,
                 type: typeVal,
                 message: _(val),
                 position: 'bottom-right',
-                duration: 5000,
-            }) 
+                duration: 5000
+            })
         },
         async registerName () {
             let buyNameBack = null
@@ -1023,7 +1023,7 @@ export default {
         },
         async withdraw () {
             let withdrawBack = await luckyCoinApi.withdraw()
-            withdrawBack ? this.selfNotify( 'Order Successful' ) : this.selfNotify( 'Withdrawal Cancelled', 'error' )  
+            withdrawBack ? this.selfNotify('Order Successful') : this.selfNotify('Withdrawal Cancelled', 'error')
         },
         checkTicketPoint () {
             this.tickNum = Math.ceil(this.tickNum)
@@ -1240,8 +1240,6 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
-
-
     },
     watch: {
         isLog (val) {
