@@ -37,7 +37,6 @@
                 <div :class="{'hide':nextScreen}">
                     <!--未开奖投注区-->
                     <div class="betting-area" :class="{'isNew':isNew}">
-
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
@@ -1065,7 +1064,7 @@ export default {
             withdrawBack ? this.selfNotify('Order Successful') : this.selfNotify('Withdrawal Cancelled', 'error')
         },
         checkTicketPoint () {
-            this.tickNum = Math.ceil(this.tickNum)
+            this.tickNum = Math.ceil(this.tickNum) <= 1 ? 1 : Math.ceil(this.tickNum)
         },
         analysisBuyNum (bigNum) {
             //  解析数值
