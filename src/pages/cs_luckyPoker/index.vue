@@ -192,7 +192,7 @@
                             </ul>
                             <!--wait/unable-->
                             <div href="javascript:;" class="btn-main " @click="onBet" :class="{ unable: total === 0, wait: isLoading }">
-                                <p v-if="isLoading">Please wait</p>
+                                <p v-if="isLoading">{{$lang.poker.a64}}</p>
                                 <p v-if="!isLoading">{{$lang.poker.a17}}</p>
                                 <span v-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
                             </div>
