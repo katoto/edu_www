@@ -14,10 +14,10 @@
                     <div class="poker-history">
                         <p class="title">{{$lang.poker.a27}}</p>
                         <div class="history-empty  visible-md visible-lg " v-if="recentResult.length === 0">
-                            {{$lang.poker.a34}}
+                            {{$lang.poker.a65}}
                         </div>
                         <div class="history-empty visible-xs visible-sm " v-if="recentResult.length === 0">
-                            {{$lang.poker.a34}}
+                            {{$lang.poker.a66}}
                         </div>
                         <div class="history-main" v-show="recentResult.length !== 0">
                             <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
@@ -175,24 +175,24 @@
                             <ul class="clearfix">
                                 <li :class="{ on: currentCoin === 0.0001 }" @click="changeCoin('0.0001')" ref="0.0001">
                                     <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
-                                    <p>0.00001</p>
+                                    <p>{{isETH ? 0.0001 : 0.00001}}</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.001 }" @click="changeCoin('0.001')" ref="0.001">
                                     <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
-                                    <p>0.0001</p>
+                                    <p>{{isETH ? 0.001 : 0.0001}}</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.01 }" @click="changeCoin('0.01')" ref="0.01">
                                     <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
-                                    <p>0.001</p>
+                                    <p>{{isETH ? 0.01 : 0.001}}</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.1 }" @click="changeCoin('0.1')" ref="0.1">
                                     <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
-                                    <p>0.01</p>
+                                    <p>{{isETH ? 0.1 : 0.01}}</p>
                                 </li>
                             </ul>
                             <!--wait/unable-->
-                            <div href="javascript:;" class="btn-main " @click="onBet" :class="{ unable: total === 0, wait: isLoading }">
-                                <p v-if="isLoading">Please wait</p>
+                            <div href="javascript:;" class="btn-main " @click="preBet" :class="{ unable: total === 0, wait: isLoading }">
+                                <p v-if="isLoading">{{$lang.poker.a64}}</p>
                                 <p v-if="!isLoading">{{$lang.poker.a17}}</p>
                                 <span v-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
                             </div>
@@ -267,19 +267,18 @@
                 <!--记录-->
                 <div class="recording ">
                     <div class="recording-top">
-                        <p>
-                            {{$lang.poker.a19}}
-                        </p>
+                        <p v-lang="_($lang.poker.a19)"></p>
                         <!--点击后文案变成back，类似11选5超级选5那个按钮-->
                         <!--on-->
-                        <a href="javascript:;" :class="{on: isMyself}" @click="showMyself" v-if="recentResult.length !== 0">
-                            {{$lang.poker.a20}}
+                        <a href="javascript:;" :class="{on: isMyself}" @click="showMyself" v-if="recentResult.length !== 0" v-lang="_($lang.poker.a20)">
                         </a>
                     </div>
                     <div class="recording-table">
                         <ul class="top flex-between">
                             <li>{{$lang.poker.a21}}</li>
+                            <li>{{$lang.poker.a67}}</li>
                             <li>{{$lang.poker.a22}}</li>
+                            <li>{{$lang.poker.a68}}</li>
                             <li>{{$lang.poker.a23}}</li>
                         </ul>
                         <!--nomsg-->
@@ -346,7 +345,7 @@
                     </div>
                     <!--pc random area-->
                     <div class="pc-verification">
-                        <a href="javascript:;" class="btn-href" @click="showPopVer=true">{{$lang.poker.a18}}</a>
+                        <a href="javascript:;" class="btn-href" @click="showPopVer=true" v-lang="$lang.poker.a18"></a>
                         <a href="javascript:;" class="btn-question">
                             <div>
                                 <p>{{$lang.poker.a2}}:</p>
@@ -454,7 +453,7 @@
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw" :class="{scale0: !isLoading}">
+                <div class="poker-draw" :class="{scale0: !isLoading}"  @click="openPoker">
                     <!--animate1-->
                     <ul class="poker-area " :class="{animate1:pokerAnimate1}">
                         <li class="on">
@@ -476,13 +475,13 @@
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
                         </li>
                     </ul>
-                    <a href="javascript:;" class="btn-open" @click="openPoker">
+                    <a href="javascript:;" class="btn-open">
                         {{$lang.poker.a26}}
                     </a>
                 </div>
                 <!--v-else-->
                 <!--isWin-->
-                <div class="result " :class="{isWin: open.isWin,scale0:isLoading}" >
+                <div class="result " :class="{isWin: open.isWin,scale0:isLoading}" @click="closePoker()" >
                     <!--heit/mh/hongt/fk+j/q/k  joker-->
                     <div class="result-box" :class="getOpenClass(open.result)" ref="resultPoker">
                         <div class="leftTop">
@@ -496,11 +495,11 @@
                     <!--未中奖-->
 
                     <!--中奖-->
-                    <div class="result-msg" v-if="open.isWin">
+                    <div class="result-msg" v-show="open.isWin">
                         <p>{{$lang.poker.a25}}</p>
-                        <div>+{{formatNum(Number(open.money), 4)}}<i>{{coinText}}</i></div>
+                        <div>+{{formatNum(Number(open.money), 5)}}<i>{{coinText}}</i></div>
                     </div>
-                    <div class="result-msg" v-else style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" >
+                    <div class="result-msg" v-show="!open.isWin" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;">
                         {{$lang.poker.a24}}
                     </div>
                 </div>
@@ -552,6 +551,7 @@ export default {
             preServerSeed: '',
             preServerHash: '',
             preClientSeed: '',
+            lastHash: '',
             closeTimer: null,
             hideRight: false,
             hideLeft: false,
@@ -728,8 +728,8 @@ export default {
         calculate (name) {
             let tmp = [this.points, this.suit, this.color, this.joker]
             let tmpName = ['pointsTotal', 'suitTotal', 'colorTotal', 'jokerTotal']
-            this.betNums[name] = accAdd(this.betNums[name], this.currentCoin)
-            this.total = accAdd(this.total, this.currentCoin)
+            this.betNums[name] = accAdd(this.betNums[name], (this.isETH ? this.currentCoin : accMul(this.currentCoin, 0.1)))
+            this.total = accAdd(this.total, (this.isETH ? this.currentCoin : accMul(this.currentCoin, 0.1)))
             tmp.forEach((arr, index) => {
                 if (arr.indexOf(name) > -1) {
                     arr.forEach(item => {
@@ -751,7 +751,7 @@ export default {
             } else if (this.suit.indexOf(name) > -1) {
                 most = this.suitMost
             }
-            return accMul(accAdd(this.betNums[name], this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
+            return accMul(accAdd(this.betNums[name], this.isETH ? this.currentCoin : accDiv(this.currentCoin, 10)), most) > Number(this.restricts[this.coinType.toString()][name])
         },
         addCoin (name) {
             if (!this.isLogin) {
@@ -829,7 +829,7 @@ export default {
                 }
             }]
         },
-        onBet () {
+        preBet () {
             if (!this.isLogin) {
                 this.$store.commit('showLoginPop')
                 return
@@ -846,24 +846,39 @@ export default {
                 this.$error(this.$lang.poker.a33)
                 return
             }
+            if (this.lastHash === this.hashNumber || this.hashNumber === '') {
+                this.refresh()
+                    .then(() => {
+                        this.onBet()
+                    })
+                    .catch(() => {
+                        this.$error(this._('Uh-oh~ network problems occured.'))
+                    })
+                return
+            }
+            this.onBet()
+        },
+        onBet () {
             this.showOpen = true
             this.isLoading = true
             this.tmpHistoryList = [...this.recentResult]
             this.tmpMyselfBetsLists = [...this.selfBetList]
             this.tmpRecentLists = [...this.betList]
+            this.lastHash = this.hashNumber
             this.bet({
                 bets: {...this.betNums},
                 cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
                 cur_server_hash: this.hashNumber
             }).then(res => {
-                this.goto(1)
                 this.renderResult(res.data)
                 this.refresh()
-                this.clearBet()
                 this.getUserInfo()
             })
                 .catch(() => {
+                    this.clearBet()
+                    this.refresh()
+                    this.getUserInfo()
                     this.isLoading = false
                     this.showOpen = false
                 })
@@ -895,11 +910,11 @@ export default {
             if (time) {
                 this.closeTimer = setTimeout(() => {
                     this.showOpen = false
-                    this.goto()
+                    this.clearBet()
                 }, time)
             } else {
                 this.showOpen = false
-                this.goto()
+                this.clearBet()
             }
         },
         disableContext () {
@@ -923,8 +938,11 @@ export default {
             }).join(''))
         },
         refresh () {
-            this.getHome()
-                .then(data => this.render(data))
+            return this.getHome()
+                .then(data => {
+                    this.render(data)
+                    return data
+                })
         },
         render ({data}) {
             this.hashNumber = data.cur_server_hash
@@ -999,6 +1017,9 @@ export default {
         },
         coinText () {
             return formateCoinType(this.coinType || '2001').toUpperCase()
+        },
+        isETH () {
+            return this.coinText === 'ETH'
         }
     },
     watch: {
@@ -1032,9 +1053,12 @@ export default {
 <style lang="less" scoped type="text/less">
     @import "../../styles/lib-mixins.less";
     .fly-coin {
-        transition: .5s ease-in-out;
         position: absolute;
+        left: 0;
+        top: 0;
         cursor: pointer;
+        transition: .5s ease-in-out;
+        transform: translate3d(0);
         img {
             width: 24px;
         }
@@ -1178,9 +1202,10 @@ export default {
                 ul{
                     overflow: hidden;
                     text-align: center;
-                    font-size: 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
                     li{
-                        display: inline-block;
                         color: #fff;
                         font-weight: bold;
                         font-family: Lucida Bright,LBRITE;
@@ -1243,6 +1268,7 @@ export default {
         .area-btn{
             position: relative;
             z-index: 2;
+            transform: translate3d(0);
             ul{
                 display: flex;
                 li{
@@ -1256,6 +1282,7 @@ export default {
                         transition: all 0.2s;
                         /*box-shadow: 0 7px 10px rgba(0,0,0,0.3);*/
                         border-radius: 50%;
+                        transform: scale(1);
                     }
                     p{
                         position: absolute;
@@ -1264,7 +1291,7 @@ export default {
                         background: rgba(0,0,0,0.8);
                         padding: 0 5px;
                         overflow: hidden;
-                        color: #ffcc00;
+                        color: #fff;
                         font-weight: bold;
                     }
                     &::before{
@@ -1283,6 +1310,9 @@ export default {
                     }
                 }
                 li.on{
+                    p{
+                        color: #ffcc00;
+                    }
                     img{
                         transform: scale(1.3) !important;
                         box-shadow: none;
@@ -1304,16 +1334,12 @@ export default {
                 background-size: cover;
                 color: #fff;
                 font-weight: bold;
-                transition: all 0.2s;
+
                 p{
-                    transition: all 0.2s;
+
                 }
                 span{
                     display: block;
-                    transition: all 0.2s;
-                    i{
-
-                    }
                 }
                 &.wait{
                     filter:brightness(0.8);
@@ -1330,7 +1356,7 @@ export default {
                 }
                 &.unable{
                     filter:brightness(0.8);
-                    box-shadow: 0 7px 0 #1d8885;
+                    //box-shadow: 0 7px 0 #1d8885;
                     p{
                         opacity: 0.5;
                     }
@@ -1340,7 +1366,8 @@ export default {
                     }
                 }
                 &:not(.unable):hover{
-                   filter: saturate(2);
+                    background: url("../../assets/img/luckyPoker/btn-bg.jpg") ;
+                    animation: masked-animation 1s infinite ease;
                 }
             }
         }
@@ -1471,6 +1498,7 @@ export default {
             .recording-top{
                 display: flex;
                 justify-content: space-between;
+                overflow: hidden;
                 p{
                     font-size: 16px;
                     font-weight: bold;
@@ -1534,6 +1562,7 @@ export default {
                 top: 50%;
                 transform: translate(-50%,-50%);
                 transition: all 0.5s ease-in-out;
+                transform-origin: center;
             }
             .poker-area{
                 position: relative;
@@ -1572,12 +1601,13 @@ export default {
                 }
             }
             .result{
-                transition: all 0.2s;
                 position: absolute;
                 left: 50%;
                 width: 100%;
                 top: 50%;
                 transform: translate(-50%,-50%);
+                transition: all 0.2s;
+                transform-origin: center;
                 &.isWin{
                     background: url("../../assets/img/luckyPoker/bg-win.png") no-repeat center bottom;
                     background-size: 526px;
@@ -1869,10 +1899,20 @@ export default {
                             border-left: 1px solid #6faeae;
                             border-top: 1px solid #6faeae;
                             border-radius: 6px;
+                            li{
+                                &:nth-child(5){
+                                    border-top-right-radius: 6px;
+                                }
+                                &:nth-child(6){
+                                    border-bottom-left-radius: 6px;
+                                }
+                                &:nth-child(10){
+                                    border-bottom-right-radius: 6px;
+                                }
+                            }
                         }
                         &.item2{
                             border-left: 1px solid transparent;
-                            border-bottom: 1px solid transparent;
                             li{
                                 &:first-child{
                                     border-bottom-left-radius: 6px;
@@ -1937,7 +1977,7 @@ export default {
                     box-shadow: 0 4px 0 #2b7876;
                     p{
                         line-height: 22px;
-                        font-size: 12px;
+                        font-size: 14px;
                         text-shadow: 0 1px #2b7b75, 1px 0 #2b7b75, -1px 0 #2b7b75, 0 -1px #2b7b75;
                     }
                     span{
@@ -1948,7 +1988,9 @@ export default {
                         }
                     }
                     &.wait{
-                        font-size: 14px !important;
+                       p{
+                           font-size: 14px;
+                       }
                     }
                 }
             }
@@ -2039,7 +2081,8 @@ export default {
                             color: #fff;
                             font-weight: bold;
                             &.btn-random{
-                                width: percentage(200/640);
+                                //width: percentage(200/640);
+                                padding: 0 10px;
                             }
                             &.btn-lock{
                                 width: percentage(140/640);
@@ -2093,6 +2136,9 @@ export default {
                         padding: 0 percentage(25/690);
                         line-height: 82/2px;
                         font-size: 24/2px;
+                        >*{
+                            width: 20%;
+                        }
                     }
                     .no-msg{
                         &::before{
@@ -2114,14 +2160,16 @@ export default {
                             padding: 15/2px percentage(25/690);
                             background: #253e4e;
                             font-size: 12px;
+                            >*{
+                                width: 20%;
+                            }
                             .bet-user{
-                                float: left;
                                 /*小手机看不到缩小这里*/
-                                width: percentage(100/690);
+                                //width: percentage(100/690);
                                 .text-overflow();
                             }
                             .bet-expect{
-                                width: 68/2px;
+                                //width: 68/2px;
                                 height: 68/2px;
                                 line-height: 68/2px;
                                 font-family: Lucida Bright,LBRITE;
@@ -2171,9 +2219,9 @@ export default {
                                 }
                             }
                             .bet-result-count{
-                                text-align: right;
-                                width: 78px;
+                                //width: 78px;
                                 height: 100%;
+                                //text-align: right;
                                 overflow: hidden;
                                 i{
                                     font-size: 10px;
@@ -2184,18 +2232,36 @@ export default {
                                 }
                             }
                             .bet-result{
-                                width: 40/2px;
+                               // width: 40/2px;
+                                position: relative;
                                 height: 60/2px;
                                 overflow: hidden;
                                 border-radius: 4px;
-                                background: #fff;
+                                /*background: #fff;*/
                                 font-family: Lucida Bright,LBRITE;
                                 p{
+                                    position: relative;
+                                    z-index: 2;
                                     line-height: 30/2px;
                                     font-size: 24/2px;
                                     font-weight: bold;
                                 }
+                                &::before{
+                                    content: '';
+                                    display: block;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%,-50%);
+                                    background: #fff;
+                                    width: 40/2px;
+                                    height: 60/2px;
+                                    border-radius: 4px;
+                                    z-index: 1;
+                                }
                                 &::after{
+                                    position: relative;
+                                    z-index: 2;
                                     content: '';
                                     display: block;
                                     width: percentage(24/40);
@@ -2338,10 +2404,12 @@ export default {
                             color: #fff;
                             font-weight: bold;
                             &.btn-random{
-                                width: percentage(200/640);
+                                //width: percentage(200/640);
+                                padding: 0 10px;
                             }
                             &.btn-lock{
-                                width: percentage(140/640);
+                                //width: percentage(140/640);
+                                padding: 0 10px;
                                 filter: brightness(0.8);
                             }
                             &.btn-unlock{
@@ -2430,11 +2498,12 @@ export default {
                     li{
                         line-height: 83px;
                         font-size: 24px;
+                        filter: brightness(100%);
                         &+li{
                             border-left: 2px solid #6faeae;
                         }
                         &:hover{
-                            filter: brightness(1.1);
+                            filter: brightness(110%);
                         }
                     }
                 }
@@ -2445,11 +2514,12 @@ export default {
                         border-radius: 8px;
                         line-height: 83px;
                         border: 2px solid #6faeae;
+                        filter: brightness(100%);
                         p{
                             font-size: 24px;
                         }
                         &:hover{
-                            filter: brightness(1.1);
+                            filter: brightness(110%);
                         }
                     }
                 }
@@ -2461,11 +2531,12 @@ export default {
                     li{
                         height: 87px;
                         cursor: pointer;
+                        filter: brightness(100%);
                         img{
                             width: percentage(53/170);
                         }
                         &:hover{
-                            filter: brightness(1.1);
+                            filter: brightness(110%);
                         }
                     }
                     li+li{
@@ -2480,8 +2551,9 @@ export default {
                             border-bottom: 2px solid #6faeae;
                             border-right: 2px solid #6faeae;
                             font-size: 26px;
+                            filter: brightness(100%);
                             &:hover{
-                                filter: brightness(1.1);
+                                filter: brightness(110%);
                             }
                         }
                         &.item1{
@@ -2632,6 +2704,9 @@ export default {
                         padding: 0 20px;
                         line-height: 46px;
                         font-size: 14px;
+                        li{
+                            width: 20%;
+                        }
                     }
                     .recoding-main{
                         margin: 0 10px;
@@ -2646,13 +2721,16 @@ export default {
                             background: #253e4e;
                             font-size: 14px;
                             color: #72a1a8;
+                            >*{
+                                flex-shrink: 0;
+                                width: 20%;
+                            }
                             .bet-user{
-                                /*小手机看不到缩小这里*/
-                                width: 62px;
+                               // width: 62px;
                                 .text-overflow();
                             }
                             .bet-expect{
-                                width: 42px;
+                                //width: 42px;
                                 height: 40px;
                                 line-height: 40px;
                                 font-family: Lucida Bright,LBRITE;
@@ -2673,7 +2751,7 @@ export default {
                                 &.fk,&.hongt,&.heit,&.mh{
                                     background-repeat: no-repeat;
                                     background-position: center;
-                                    background-size: percentage(30/68);
+                                    background-size: 20%;
                                     text-indent: -99999px;
                                 }
                                 &.fk{
@@ -2696,15 +2774,15 @@ export default {
                                 }
                             }
                             .bet-count{
-                                width: 82px;
+                                //width: 82px;
                                 i{
                                     font-size: 12px;
                                 }
                             }
                             .bet-result-count{
-                                text-align: right;
-                                width: 83px;
+                                //width: 83px;
                                 height: 100%;
+                                //text-align: right;
                                 overflow: hidden;
                                 i{
                                     font-size: 12px;
@@ -2715,18 +2793,35 @@ export default {
                                 }
                             }
                             .bet-result{
-                                width: 40/2px;
+                                position: relative;
+                                //width: 40/2px;
                                 height: 60/2px;
                                 overflow: hidden;
-                                border-radius: 4px;
-                                background: #fff;
+                                /*background: #fff;*/
                                 font-family: Lucida Bright,LBRITE;
                                 p{
+                                    position: relative;
+                                    z-index: 2;
                                     line-height: 30/2px;
                                     font-size: 24/2px;
                                     font-weight: bold;
                                 }
+                                &::before{
+                                    content: '';
+                                    display: block;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%,-50%);
+                                    background: #fff;
+                                    width: 40/2px;
+                                    height: 60/2px;
+                                    border-radius: 4px;
+                                    z-index: 1;
+                                }
                                 &::after{
+                                    position: relative;
+                                    z-index: 2;
                                     content: '';
                                     display: block;
                                     width: percentage(24/40);
@@ -2950,10 +3045,12 @@ export default {
                             color: #fff;
                             font-weight: bold;
                             &.btn-random{
-                                width: percentage(200/640);
+                                //width: percentage(200/640);
+                                padding: 0 20px;
                             }
                             &.btn-lock{
-                                width: percentage(140/640);
+                                //width: percentage(140/640);
+                                padding: 0 20px;
                                 filter: brightness(0.8);
                             }
                             &.btn-unlock{
