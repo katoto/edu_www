@@ -276,7 +276,9 @@
                     <div class="recording-table">
                         <ul class="top flex-between">
                             <li>{{$lang.poker.a21}}</li>
+                            <li>{{$lang.poker.a67}}</li>
                             <li>{{$lang.poker.a22}}</li>
+                            <li>{{$lang.poker.a68}}</li>
                             <li>{{$lang.poker.a23}}</li>
                         </ul>
                         <!--nomsg-->
