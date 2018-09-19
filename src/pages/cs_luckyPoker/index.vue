@@ -364,11 +364,8 @@
                     <div class="pop-ani">
                         <a href="javascript:;" class="btn-close"  @click="showPopVer=false">X</a>
                         <div class="pop-main">
-                            <h2 v-if="activeTabClass === 'thisRound'">
+                            <h2>
                                 {{$lang.poker.a1}}
-                            </h2>
-                             <h2 v-else>
-                                 {{$lang.poker.a7}}
                             </h2>
                             <ul class="tab-h" >
                                 <li :class="{ on: activeTabClass === 'thisRound' }" @click="activeTabClass = 'thisRound'">
@@ -555,6 +552,7 @@ export default {
             closeTimer: null,
             hideRight: false,
             hideLeft: false,
+            disableBet: false,
             tmpHistoryList: [],
             tmpRecentLists: [],
             tmpMyselfBetsLists: [],
@@ -834,6 +832,9 @@ export default {
                 this.$store.commit('showLoginPop')
                 return
             }
+            if (this.disableBet) {
+                return
+            }
             if (this.balance < this.total) {
                 this.$error(this.$lang.poker.a35)
                 return
@@ -863,6 +864,7 @@ export default {
             this.tmpMyselfBetsLists = [...this.selfBetList]
             this.tmpRecentLists = [...this.betList]
             this.lastHash = this.hashNumber
+            this.disableBet = true
             this.bet({
                 bets: {...this.betNums},
                 cointype: Number(this.coinType),
@@ -870,15 +872,19 @@ export default {
                 cur_server_hash: this.hashNumber
             }).then(res => {
                 this.renderResult(res.data)
-                this.showOpen = true
-                this.isLoading = true
                 this.refresh()
                 this.getUserInfo()
+                this.$nextTick(() => {
+                    this.showOpen = true
+                    this.isLoading = true
+                    this.disableBet = false
+                })
             })
                 .catch(() => {
                     this.clearBet()
                     this.refresh()
                     this.getUserInfo()
+                    this.disableBet = false
                     this.isLoading = false
                     this.showOpen = false
                 })
