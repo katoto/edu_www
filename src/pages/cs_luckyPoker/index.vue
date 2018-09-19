@@ -493,11 +493,11 @@
                     <!--未中奖-->
 
                     <!--中奖-->
-                    <div class="result-msg" v-if="open.isWin">
+                    <div class="result-msg" v-show="open.isWin">
                         <p>{{$lang.poker.a25}}</p>
                         <div>+{{formatNum(Number(open.money), 5)}}<i>{{coinText}}</i></div>
                     </div>
-                    <div class="result-msg" v-else style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" >
+                    <div class="result-msg" v-show="!open.isWin" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" >
                         {{$lang.poker.a24}}
                     </div>
                 </div>
