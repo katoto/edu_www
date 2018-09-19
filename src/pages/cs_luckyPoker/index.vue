@@ -919,7 +919,7 @@ export default {
         },
         disableContext () {
             document.oncontextmenu = function (e) {
-                // return false
+                return false
             }
         },
         createRandomNum (num) {
@@ -2302,8 +2302,8 @@ export default {
                                     &::after{
                                         width: 100%;
                                         height: 100%;
-                                        background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center top;
-                                        background-size: cover;
+                                        background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center;
+                                        background-size: 24%;
                                     }
                                     p{
                                         display: none;
@@ -2862,8 +2862,8 @@ export default {
                                     &::after{
                                         width: 100%;
                                         height: 100%;
-                                        background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center top;
-                                        background-size: cover;
+                                        background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center;
+                                        background-size: 24%;
                                     }
                                     p{
                                         display: none;
