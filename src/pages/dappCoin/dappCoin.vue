@@ -439,7 +439,7 @@
                                     <lang>None </lang>
                                 </p>
                                 <p class="winner" v-else>
-                                    <a target="_blank" :href="`https://etherscan.io/tx/${item.winner}`" >
+                                    <a target="_blank" :href="`https://etherscan.io/address/${item.winner}`" >
                                         {{ item.winner }}
                                     </a>
                                 </p>
@@ -671,7 +671,7 @@ export default {
                         prizes: 0,
                         round: this.roundInfo.roundIndex
                     }
-                    if (this.ordersList[0].round === this.roundInfo.roundIndex) {
+                    if (this.ordersList[0] && this.ordersList[0].round === this.roundInfo.roundIndex) {
                         this.ordersList.shift()
                     }
                     this.ordersList.unshift(baseObj)
@@ -738,7 +738,11 @@ export default {
             data = data.data
             if (data) {
                 this.expectsList = this.expectFormatData(data.expects)
-                this.getWInAddr = data.expects[0].winner
+                if(data.expects[0]){
+                    this.getWInAddr = data.expects[0].winner
+                }else{
+                    this.getWInAddr = 'someBody'
+                }
                 this.expectPageTotal = parseInt(data.pagetotal, 10)
             }
         },
@@ -979,7 +983,11 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+            if(this.isFromFlag.indexOf('0x')>-1 && this.isFromFlag.length === 42){
+                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+            }else{
+                buyBack = await luckyCoinApi.buyXname(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+            }
             if (buyBack) {
                 this.selfNotify('Order Successful')
             } else {
