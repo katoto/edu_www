@@ -977,6 +977,9 @@ export default {
                                 this.someGetWin = true
                                 this.waitWin = false
                                 this.showOpenNumber(this.roundInfo.luckNum)
+                                
+                                localStorage.setItem('openNextTime', new Date().getTime() + 120)
+                                this.nextRoundStart = localStorage.getItem('openNextTime')
                             }
                             this.scrollMsgChange('end')
                         }, 6000)
