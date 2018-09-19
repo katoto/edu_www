@@ -771,7 +771,7 @@ module.exports = {
     'Waiting for the draw': '等待开奖',
     'One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.': '每购买1人次，即可获得1个号码，若您获得的号码若与开奖号码相同，即可获得奖池奖励',
     'Why not buy a ticket now? ': '本期您还未购买，赶紧试一试吧~',
-    'No record.  Please login to the ': '没有个人信息，请登陆Metamask',
+    'No record.  Please login to the ': '没有个人信息，请登陆',
     'No Metamask, how to play?': '如何安装Metamask?',
     'Pay 0.001 ETH': '使用 0.001ETH 购买',
     'Brief Introduction:': '游戏介绍：',
@@ -822,6 +822,15 @@ module.exports = {
     'Purchase Cancelled': '取消购买',
     'Order Successful': '下单成功',
     'Please enter the correct number ': '请输入正确的数值',
-    'Please enter the correct referral link': '输入的推广名称不符合规则'
+    'Please enter the correct referral link': '输入的推广名称不符合规则',
+    'Insufficient Income': '收益不足支付',
+    'No income for now': '您暂无收益',
+    '2. Draw proceeds when time\'s up.': '2. 本轮倒计时结束即开奖',
+    '1.The current amount of prize pool.': '1. 这是本轮奖池，',
+    'Always ready for the winner!': '赢家将获得大部分奖励',
+    '3. Here shows how many tickets have been sold.': '3. 这是本轮剩余票数，',
+    'Buy more tickets, enjoy higher winning chance.': '购买越多，中奖概率越高',
+    'Click here to try your luck!': '点击这里进行投注，立即试试',
+    'Okay': '下一步'
     /* super coin end */
 }
