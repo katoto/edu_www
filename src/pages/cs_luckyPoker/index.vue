@@ -2136,6 +2136,9 @@ export default {
                         padding: 0 percentage(25/690);
                         line-height: 82/2px;
                         font-size: 24/2px;
+                        >*{
+                            width: 20%;
+                        }
                     }
                     .no-msg{
                         &::before{
@@ -2157,14 +2160,16 @@ export default {
                             padding: 15/2px percentage(25/690);
                             background: #253e4e;
                             font-size: 12px;
+                            >*{
+                                width: 20%;
+                            }
                             .bet-user{
-                                float: left;
                                 /*小手机看不到缩小这里*/
-                                width: percentage(100/690);
+                                //width: percentage(100/690);
                                 .text-overflow();
                             }
                             .bet-expect{
-                                width: 68/2px;
+                                //width: 68/2px;
                                 height: 68/2px;
                                 line-height: 68/2px;
                                 font-family: Lucida Bright,LBRITE;
@@ -2214,9 +2219,9 @@ export default {
                                 }
                             }
                             .bet-result-count{
-                                text-align: right;
-                                width: 78px;
+                                //width: 78px;
                                 height: 100%;
+                                //text-align: right;
                                 overflow: hidden;
                                 i{
                                     font-size: 10px;
@@ -2227,18 +2232,36 @@ export default {
                                 }
                             }
                             .bet-result{
-                                width: 40/2px;
+                               // width: 40/2px;
+                                position: relative;
                                 height: 60/2px;
                                 overflow: hidden;
                                 border-radius: 4px;
-                                background: #fff;
+                                /*background: #fff;*/
                                 font-family: Lucida Bright,LBRITE;
                                 p{
+                                    position: relative;
+                                    z-index: 2;
                                     line-height: 30/2px;
                                     font-size: 24/2px;
                                     font-weight: bold;
                                 }
+                                &::before{
+                                    content: '';
+                                    display: block;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%,-50%);
+                                    background: #fff;
+                                    width: 40/2px;
+                                    height: 60/2px;
+                                    border-radius: 4px;
+                                    z-index: 1;
+                                }
                                 &::after{
+                                    position: relative;
+                                    z-index: 2;
                                     content: '';
                                     display: block;
                                     width: percentage(24/40);
@@ -2681,6 +2704,9 @@ export default {
                         padding: 0 20px;
                         line-height: 46px;
                         font-size: 14px;
+                        li{
+                            width: 20%;
+                        }
                     }
                     .recoding-main{
                         margin: 0 10px;
@@ -2695,13 +2721,16 @@ export default {
                             background: #253e4e;
                             font-size: 14px;
                             color: #72a1a8;
+                            >*{
+                                flex-shrink: 0;
+                                width: 20%;
+                            }
                             .bet-user{
-                                /*小手机看不到缩小这里*/
-                                width: 62px;
+                               // width: 62px;
                                 .text-overflow();
                             }
                             .bet-expect{
-                                width: 42px;
+                                //width: 42px;
                                 height: 40px;
                                 line-height: 40px;
                                 font-family: Lucida Bright,LBRITE;
@@ -2745,15 +2774,15 @@ export default {
                                 }
                             }
                             .bet-count{
-                                width: 82px;
+                                //width: 82px;
                                 i{
                                     font-size: 12px;
                                 }
                             }
                             .bet-result-count{
-                                text-align: right;
-                                width: 83px;
+                                //width: 83px;
                                 height: 100%;
+                                //text-align: right;
                                 overflow: hidden;
                                 i{
                                     font-size: 12px;
@@ -2764,18 +2793,35 @@ export default {
                                 }
                             }
                             .bet-result{
-                                width: 40/2px;
+                                position: relative;
+                                //width: 40/2px;
                                 height: 60/2px;
                                 overflow: hidden;
-                                border-radius: 4px;
-                                background: #fff;
+                                /*background: #fff;*/
                                 font-family: Lucida Bright,LBRITE;
                                 p{
+                                    position: relative;
+                                    z-index: 2;
                                     line-height: 30/2px;
                                     font-size: 24/2px;
                                     font-weight: bold;
                                 }
+                                &::before{
+                                    content: '';
+                                    display: block;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%,-50%);
+                                    background: #fff;
+                                    width: 40/2px;
+                                    height: 60/2px;
+                                    border-radius: 4px;
+                                    z-index: 1;
+                                }
                                 &::after{
+                                    position: relative;
+                                    z-index: 2;
                                     content: '';
                                     display: block;
                                     width: percentage(24/40);
