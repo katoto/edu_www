@@ -451,7 +451,7 @@
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw" :class="{scale0: !isLoading}">
+                <div class="poker-draw" :class="{scale0: !isLoading}"  @click="openPoker">
                     <!--animate1-->
                     <ul class="poker-area " :class="{animate1:pokerAnimate1}">
                         <li class="on">
@@ -473,13 +473,13 @@
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
                         </li>
                     </ul>
-                    <a href="javascript:;" class="btn-open" @click="openPoker">
+                    <a href="javascript:;" class="btn-open">
                         {{$lang.poker.a26}}
                     </a>
                 </div>
                 <!--v-else-->
                 <!--isWin-->
-                <div class="result " :class="{isWin: open.isWin,scale0:isLoading}" >
+                <div class="result " :class="{isWin: open.isWin,scale0:isLoading}" @click="closePoker()" >
                     <!--heit/mh/hongt/fk+j/q/k  joker-->
                     <div class="result-box" :class="getOpenClass(open.result)" ref="resultPoker">
                         <div class="leftTop">
@@ -497,7 +497,7 @@
                         <p>{{$lang.poker.a25}}</p>
                         <div>+{{formatNum(Number(open.money), 5)}}<i>{{coinText}}</i></div>
                     </div>
-                    <div class="result-msg" v-show="!open.isWin" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" >
+                    <div class="result-msg" v-show="!open.isWin" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;">
                         {{$lang.poker.a24}}
                     </div>
                 </div>
@@ -1266,6 +1266,7 @@ export default {
         .area-btn{
             position: relative;
             z-index: 2;
+            transform: translate3d(0);
             ul{
                 display: flex;
                 li{
@@ -1279,6 +1280,7 @@ export default {
                         transition: all 0.2s;
                         /*box-shadow: 0 7px 10px rgba(0,0,0,0.3);*/
                         border-radius: 50%;
+                        transform: scale(1);
                     }
                     p{
                         position: absolute;
@@ -1287,7 +1289,7 @@ export default {
                         background: rgba(0,0,0,0.8);
                         padding: 0 5px;
                         overflow: hidden;
-                        color: #ffcc00;
+                        color: #fff;
                         font-weight: bold;
                     }
                     &::before{
@@ -1306,6 +1308,9 @@ export default {
                     }
                 }
                 li.on{
+                    p{
+                        color: #ffcc00;
+                    }
                     img{
                         transform: scale(1.3) !important;
                         box-shadow: none;
@@ -1327,16 +1332,12 @@ export default {
                 background-size: cover;
                 color: #fff;
                 font-weight: bold;
-                transition: all 0.2s;
+
                 p{
-                    transition: all 0.2s;
+
                 }
                 span{
                     display: block;
-                    transition: all 0.2s;
-                    i{
-
-                    }
                 }
                 &.wait{
                     filter:brightness(0.8);
@@ -1353,7 +1354,7 @@ export default {
                 }
                 &.unable{
                     filter:brightness(0.8);
-                    box-shadow: 0 7px 0 #1d8885;
+                    //box-shadow: 0 7px 0 #1d8885;
                     p{
                         opacity: 0.5;
                     }
@@ -1363,7 +1364,8 @@ export default {
                     }
                 }
                 &:not(.unable):hover{
-                   filter: saturate(2);
+                    background: url("../../assets/img/luckyPoker/btn-bg.jpg") ;
+                    animation: masked-animation 1s infinite ease;
                 }
             }
         }
