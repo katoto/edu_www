@@ -14,10 +14,10 @@
                     <div class="poker-history">
                         <p class="title">{{$lang.poker.a27}}</p>
                         <div class="history-empty  visible-md visible-lg " v-if="recentResult.length === 0">
-                            {{$lang.poker.a34}}
+                            {{$lang.poker.a65}}
                         </div>
                         <div class="history-empty visible-xs visible-sm " v-if="recentResult.length === 0">
-                            {{$lang.poker.a34}}
+                            {{$lang.poker.a66}}
                         </div>
                         <div class="history-main" v-show="recentResult.length !== 0">
                             <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
