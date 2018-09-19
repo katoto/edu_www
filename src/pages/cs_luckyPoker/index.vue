@@ -343,7 +343,7 @@
                     </div>
                     <!--pc random area-->
                     <div class="pc-verification">
-                        <a href="javascript:;" class="btn-href" @click="showPopVer=true">{{$lang.poker.a18}}</a>
+                        <a href="javascript:;" class="btn-href" @click="showPopVer=true" v-lang="$lang.poker.a18"></a>
                         <a href="javascript:;" class="btn-question">
                             <div>
                                 <p>{{$lang.poker.a2}}:</p>

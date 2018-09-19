@@ -16,7 +16,7 @@ let en = {
     a15: 'x{0}',
     a16: 'Delete',
     a17: 'Pay',
-    a18: 'Transparency Checking',
+    a18: 'Transparency&nbsp;Checking',
     a19: 'Recent&nbsp;Bets',
     a20: 'My&nbsp;Bets',
     a21: 'User',
