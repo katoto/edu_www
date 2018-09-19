@@ -267,13 +267,10 @@
                 <!--记录-->
                 <div class="recording ">
                     <div class="recording-top">
-                        <p>
-                            {{$lang.poker.a19}}
-                        </p>
+                        <p v-lang="_($lang.poker.a19)"></p>
                         <!--点击后文案变成back，类似11选5超级选5那个按钮-->
                         <!--on-->
-                        <a href="javascript:;" :class="{on: isMyself}" @click="showMyself" v-if="recentResult.length !== 0">
-                            {{$lang.poker.a20}}
+                        <a href="javascript:;" :class="{on: isMyself}" @click="showMyself" v-if="recentResult.length !== 0" v-lang="_($lang.poker.a20)">
                         </a>
                     </div>
                     <div class="recording-table">
@@ -1471,6 +1468,7 @@ export default {
             .recording-top{
                 display: flex;
                 justify-content: space-between;
+                overflow: hidden;
                 p{
                     font-size: 16px;
                     font-weight: bold;
@@ -1534,6 +1532,7 @@ export default {
                 top: 50%;
                 transform: translate(-50%,-50%);
                 transition: all 0.5s ease-in-out;
+                transform-origin: center;
             }
             .poker-area{
                 position: relative;
@@ -1572,12 +1571,13 @@ export default {
                 }
             }
             .result{
-                transition: all 0.2s;
                 position: absolute;
                 left: 50%;
                 width: 100%;
                 top: 50%;
                 transform: translate(-50%,-50%);
+                transition: all 0.2s;
+                transform-origin: center;
                 &.isWin{
                     background: url("../../assets/img/luckyPoker/bg-win.png") no-repeat center bottom;
                     background-size: 526px;
@@ -1937,7 +1937,7 @@ export default {
                     box-shadow: 0 4px 0 #2b7876;
                     p{
                         line-height: 22px;
-                        font-size: 12px;
+                        font-size: 14px;
                         text-shadow: 0 1px #2b7b75, 1px 0 #2b7b75, -1px 0 #2b7b75, 0 -1px #2b7b75;
                     }
                     span{
@@ -1948,7 +1948,9 @@ export default {
                         }
                     }
                     &.wait{
-                        font-size: 14px !important;
+                       p{
+                           font-size: 14px;
+                       }
                     }
                 }
             }
