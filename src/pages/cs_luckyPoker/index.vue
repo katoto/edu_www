@@ -859,8 +859,6 @@ export default {
             this.onBet()
         },
         onBet () {
-            this.showOpen = true
-            this.isLoading = true
             this.tmpHistoryList = [...this.recentResult]
             this.tmpMyselfBetsLists = [...this.selfBetList]
             this.tmpRecentLists = [...this.betList]
@@ -872,6 +870,8 @@ export default {
                 cur_server_hash: this.hashNumber
             }).then(res => {
                 this.renderResult(res.data)
+                this.showOpen = true
+                this.isLoading = true
                 this.refresh()
                 this.getUserInfo()
             })
