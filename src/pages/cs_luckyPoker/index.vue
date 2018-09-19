@@ -191,7 +191,7 @@
                                 </li>
                             </ul>
                             <!--wait/unable-->
-                            <div href="javascript:;" class="btn-main " @click="onBet" :class="{ unable: total === 0, wait: isLoading }">
+                            <div href="javascript:;" class="btn-main " @click="preBet" :class="{ unable: total === 0, wait: isLoading }">
                                 <p v-if="isLoading">{{$lang.poker.a64}}</p>
                                 <p v-if="!isLoading">{{$lang.poker.a17}}</p>
                                 <span v-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
@@ -549,6 +549,7 @@ export default {
             preServerSeed: '',
             preServerHash: '',
             preClientSeed: '',
+            lastHash: '',
             closeTimer: null,
             hideRight: false,
             hideLeft: false,
@@ -826,7 +827,7 @@ export default {
                 }
             }]
         },
-        onBet () {
+        preBet () {
             if (!this.isLogin) {
                 this.$store.commit('showLoginPop')
                 return
@@ -843,24 +844,39 @@ export default {
                 this.$error(this.$lang.poker.a33)
                 return
             }
+            if (this.lastHash === this.hashNumber || this.hashNumber === '') {
+                this.refresh()
+                    .then(() => {
+                        this.onBet()
+                    })
+                    .catch(() => {
+                        this.$error(this._('Uh-oh~ network problems occured.'))
+                    })
+                return
+            }
+            this.onBet()
+        },
+        onBet () {
             this.showOpen = true
             this.isLoading = true
             this.tmpHistoryList = [...this.recentResult]
             this.tmpMyselfBetsLists = [...this.selfBetList]
             this.tmpRecentLists = [...this.betList]
+            this.lastHash = this.hashNumber
             this.bet({
                 bets: {...this.betNums},
                 cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
                 cur_server_hash: this.hashNumber
             }).then(res => {
-                this.goto(1)
                 this.renderResult(res.data)
                 this.refresh()
-                this.clearBet()
                 this.getUserInfo()
             })
                 .catch(() => {
+                    this.clearBet()
+                    this.refresh()
+                    this.getUserInfo()
                     this.isLoading = false
                     this.showOpen = false
                 })
@@ -892,11 +908,11 @@ export default {
             if (time) {
                 this.closeTimer = setTimeout(() => {
                     this.showOpen = false
-                    this.goto()
+                    this.clearBet()
                 }, time)
             } else {
                 this.showOpen = false
-                this.goto()
+                this.clearBet()
             }
         },
         disableContext () {
@@ -920,8 +936,11 @@ export default {
             }).join(''))
         },
         refresh () {
-            this.getHome()
-                .then(data => this.render(data))
+            return this.getHome()
+                .then(data => {
+                    this.render(data)
+                    return data
+                })
         },
         render ({data}) {
             this.hashNumber = data.cur_server_hash
