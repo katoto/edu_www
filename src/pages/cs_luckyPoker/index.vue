@@ -1178,9 +1178,10 @@ export default {
                 ul{
                     overflow: hidden;
                     text-align: center;
-                    font-size: 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
                     li{
-                        display: inline-block;
                         color: #fff;
                         font-weight: bold;
                         font-family: Lucida Bright,LBRITE;
@@ -1872,10 +1873,20 @@ export default {
                             border-left: 1px solid #6faeae;
                             border-top: 1px solid #6faeae;
                             border-radius: 6px;
+                            li{
+                                &:nth-child(5){
+                                    border-top-right-radius: 6px;
+                                }
+                                &:nth-child(6){
+                                    border-bottom-left-radius: 6px;
+                                }
+                                &:nth-child(10){
+                                    border-bottom-right-radius: 6px;
+                                }
+                            }
                         }
                         &.item2{
                             border-left: 1px solid transparent;
-                            border-bottom: 1px solid transparent;
                             li{
                                 &:first-child{
                                     border-bottom-left-radius: 6px;
@@ -2044,7 +2055,8 @@ export default {
                             color: #fff;
                             font-weight: bold;
                             &.btn-random{
-                                width: percentage(200/640);
+                                //width: percentage(200/640);
+                                padding: 0 10px;
                             }
                             &.btn-lock{
                                 width: percentage(140/640);
@@ -2343,10 +2355,12 @@ export default {
                             color: #fff;
                             font-weight: bold;
                             &.btn-random{
-                                width: percentage(200/640);
+                                //width: percentage(200/640);
+                                padding: 0 10px;
                             }
                             &.btn-lock{
-                                width: percentage(140/640);
+                                //width: percentage(140/640);
+                                padding: 0 10px;
                                 filter: brightness(0.8);
                             }
                             &.btn-unlock{
@@ -2955,10 +2969,12 @@ export default {
                             color: #fff;
                             font-weight: bold;
                             &.btn-random{
-                                width: percentage(200/640);
+                                //width: percentage(200/640);
+                                padding: 0 20px;
                             }
                             &.btn-lock{
-                                width: percentage(140/640);
+                                //width: percentage(140/640);
+                                padding: 0 20px;
                                 filter: brightness(0.8);
                             }
                             &.btn-unlock{
