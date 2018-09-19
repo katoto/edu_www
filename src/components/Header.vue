@@ -508,7 +508,8 @@
                         isReadyAlert = true
                     }
                 }
-            }, 15000)
+            }, 10000)
+            this.$store.dispatch('adList')
         }
     }
 </script>

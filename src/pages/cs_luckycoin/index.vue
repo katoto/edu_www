@@ -6,22 +6,30 @@
                 <div class="col-lg-8">
                     <div class="banner">
                         <el-carousel :interval="5000" arrow="always">
-                            <el-carousel-item>
-                                <router-link :to="{path: '/firstCharge'}" rel="nofollow">
-                                    <img src="../../assets/img/luckyCoin/banner3.png" alt="">
-                                </router-link>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <a href="javascript:;" rel="nofollow">
-                                    <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
-                                </a>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <a href="javascript:;" rel="nofollow">
-                                    <img src="../../assets/img/luckyCoin/banner2.png" alt="">
-                                </a>
-                            </el-carousel-item>
-
+                            <template v-if="adList.luckycoin_banner_1 && adList.luckycoin_banner_1.length>0">
+                                <el-carousel-item>
+                                    <a v-for="(item,index) in adList.luckycoin_banner_1" :key="index" :href="item.ad_target" :title="item.ad_desc" rel="nofollow">
+                                        <img :src="item.ad_img" alt="">
+                                    </a>
+                                </el-carousel-item>
+                            </template>
+                            <template v-else>
+                                <el-carousel-item>
+                                    <router-link :to="{path: '/firstCharge'}" rel="nofollow">
+                                        <img src="../../assets/img/luckyCoin/banner3.png" alt="">
+                                    </router-link>
+                                </el-carousel-item>
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/luckyCoin/banner.jpg" alt="">
+                                    </a>
+                                </el-carousel-item>
+                                <el-carousel-item>
+                                    <a href="javascript:;" rel="nofollow">
+                                        <img src="../../assets/img/luckyCoin/banner2.png" alt="">
+                                    </a>
+                                </el-carousel-item>
+                            </template>
                         </el-carousel>
                     </div>
                 </div>
@@ -189,7 +197,8 @@
                 selfWin: state => state.selfWin
             }),
             ...mapState({
-                isLogin: state => !!state.isLog
+                isLogin: state => !!state.isLog,
+                adList: state => state.adList
             })
         },
         watch: {

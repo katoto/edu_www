@@ -37,10 +37,14 @@ const state = {
     currBalance: {
         cointype: '1001'
     }, // 当前币种  2001 eth  1001 btc
+    adList: {}, // 广告图配置
     ...common.state
 }
 
 const mutations = {
+    setAdList (state, data) {
+        state.adList = data
+    },
     initHeadState (state, data) {
         state.initHeadState = data
     },
@@ -69,6 +73,23 @@ const mutations = {
     ...common.mutations
 }
 const actions = {
+    // 广告图
+    async adList ({state, commit, dispatch}) {
+        try {
+            let adMsg = await ajax.get(`/ad/list`)
+            console.log(adMsg)
+            if (adMsg.status.toString() === '100') {
+                console.log(1234)
+                /* btc add */
+                if (adMsg.data) {
+                    commit('setAdList', adMsg.data)
+                }
+            }
+            return adMsg
+        } catch (e) {
+            console.error('adList error')
+        }
+    },
     /* home info */
     async homeInfo ({state, commit, dispatch}) {
         try {
