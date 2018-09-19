@@ -824,6 +824,13 @@ module.exports = {
     'Please enter the correct number ': '请输入正确的数值',
     'Please enter the correct referral link': '输入的推广名称不符合规则',
     'Insufficient Income': '收益不足支付',
-    'No income for now': '您暂无收益'
+    'No income for now': '您暂无收益',
+    '2. Draw proceeds when time\'s up.': '2. 本轮倒计时结束即开奖',
+    '1.The current amount of prize pool.': '1. 这是本轮奖池，',
+    'Always ready for the winner!': '赢家将获得大部分奖励',
+    '3. Here shows how many tickets have been sold.': '3. 这是本轮剩余票数，',
+    'Buy more tickets, enjoy higher winning chance.': '购买越多，中奖概率越高',
+    'Click here to try your luck!': '点击这里进行投注，立即试试',
+    'Okay': '下一步'
     /* super coin end */
 }

@@ -527,7 +527,7 @@
             <div class="new-main">
                 <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
                     <p>
-                        <lang>1.The current amount of prize pool. </lang>
+                        <lang>1.The current amount of prize pool.</lang>
                     </p>
                     <p>
                         <lang>Always ready for the winner!</lang>
@@ -653,7 +653,7 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
-        async useReloadBuy(){
+        async useReloadBuy () {
             // 使用收益购买
             let buyBack = null
             if (!this.selfMsg) {
@@ -667,9 +667,9 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            if(this.isFromFlag.indexOf('0x')>-1 && this.isFromFlag.length === 42){
+            if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
                 buyBack = await luckyCoinApi.reLoadXaddr(this.tickNum, this.isFromFlag)
-            }else{
+            } else {
                 buyBack = await luckyCoinApi.reLoadXname(this.tickNum, this.isFromFlag)
             }
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
@@ -691,9 +691,6 @@ export default {
                         })
                     }
                 }
-                console.log(buyNum)
-                console.log(buyTick)
-                console.log('=====buyTick======')
                 if (this.ordersList) {
                     let baseObj = {
                         buyNum: buyNum,
@@ -767,9 +764,9 @@ export default {
             data = data.data
             if (data) {
                 this.expectsList = this.expectFormatData(data.expects)
-                if(data.expects[0]){
+                if (data.expects[0]) {
                     this.getWInAddr = data.expects[0].winner
-                }else{
+                } else {
                     this.getWInAddr = 'someBody'
                 }
                 this.expectPageTotal = parseInt(data.pagetotal, 10)
@@ -943,9 +940,9 @@ export default {
             //  请求历史数据
             this.expectCurrentChange()
             // 开始待开奖的动画
-            setInterval(()=>{
-                this.bindwaitingMsg = this.waitingMsgArr[ parseInt(Math.random() * 2) ]          
-            },5000)
+            setInterval(() => {
+                this.bindwaitingMsg = this.waitingMsgArr[ parseInt(Math.random() * 2) ]
+            }, 5000)
         },
         getSuperCoinExpects (params) {
             return this.$store.dispatch(aTypes.superCoinExpects, {
@@ -1016,9 +1013,9 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            if(this.isFromFlag.indexOf('0x')>-1 && this.isFromFlag.length === 42){
+            if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
                 buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
-            }else{
+            } else {
                 buyBack = await luckyCoinApi.buyXname(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
             }
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
@@ -1050,13 +1047,12 @@ export default {
             this.beforeInviteName = this.beforeInviteName.toString()
             let checkName = await luckyCoinApi.testName(this.beforeInviteName)
             if (checkName) {
-                if(this.isFromFlag.indexOf('0x')>-1 && this.isFromFlag.length === 42){
+                if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
                     buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
-                }else{
+                } else {
                     buyNameBack = await luckyCoinApi.registerNameXname(this.beforeInviteName, this.isFromFlag)
                 }
                 buyNameBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
-
             } else {
                 Message({
                     message: '名字已被注册',
