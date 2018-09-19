@@ -1010,7 +1010,7 @@ export default {
                 return false
             }
             // 判断是否符合规则
-            if (!(this.isVerifyName(this.beforeInviteName)) || !this.beforeInviteName) {
+            if (!this.beforeInviteName || !(this.isVerifyName(this.beforeInviteName))) {
                 Message({
                     message: _('Please enter the correct referral link'),
                     type: 'error'
@@ -1021,7 +1021,12 @@ export default {
             this.beforeInviteName = this.beforeInviteName.toString()
             let checkName = await luckyCoinApi.testName(this.beforeInviteName)
             if (checkName) {
-                buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
+                console.log(this.isFromFlag)
+                if(this.isFromFlag.indexOf('0x')>-1 && this.isFromFlag.length === 42){
+                    buyNameBack = await luckyCoinApi.registerNameXaddr(checkName, this.isFromFlag)
+                }else{
+                    buyNameBack = await luckyCoinApi.registerNameXname(checkName, this.isFromFlag)
+                }                
             } else {
                 Message({
                     message: '名字已被注册',

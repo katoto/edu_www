@@ -1032,6 +1032,30 @@ luckyCoinApi.registerNameXaddr = (regName, _affCode) => {
     })
 }
 
+luckyCoinApi.registerNameXname = (regName, _affCode) => {
+    if (typeof regName !== 'string') {
+        return 'need string regName !'
+    }
+    if (typeof _affCode !== 'string') {
+        return 'need string _affCode addr !'
+    }
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.registerNameXname(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether')}, function (err, res) {
+                if (!err) {
+                    if (res) {
+                        resolve(true)
+                    }
+                } else {
+                    reject(err)
+                }
+            })
+        } else {
+            reject(new Error('contractNet error at registerNameXname'))
+        }
+    })
+}
+
 luckyCoinApi.reLoadXaddr = (_tickets, _affCode) => {
     if (typeof _tickets === 'string') {
         _tickets = parseInt(_tickets)
