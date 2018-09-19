@@ -1051,9 +1051,12 @@ export default {
 <style lang="less" scoped type="text/less">
     @import "../../styles/lib-mixins.less";
     .fly-coin {
-        transition: .5s ease-in-out;
         position: absolute;
+        left: 0;
+        top: 0;
         cursor: pointer;
+        transition: .5s ease-in-out;
+        transform: translate3d(0);
         img {
             width: 24px;
         }
@@ -2468,11 +2471,12 @@ export default {
                     li{
                         line-height: 83px;
                         font-size: 24px;
+                        filter: brightness(100%);
                         &+li{
                             border-left: 2px solid #6faeae;
                         }
                         &:hover{
-                            filter: brightness(1.1);
+                            filter: brightness(110%);
                         }
                     }
                 }
@@ -2483,11 +2487,12 @@ export default {
                         border-radius: 8px;
                         line-height: 83px;
                         border: 2px solid #6faeae;
+                        filter: brightness(100%);
                         p{
                             font-size: 24px;
                         }
                         &:hover{
-                            filter: brightness(1.1);
+                            filter: brightness(110%);
                         }
                     }
                 }
@@ -2499,11 +2504,12 @@ export default {
                     li{
                         height: 87px;
                         cursor: pointer;
+                        filter: brightness(100%);
                         img{
                             width: percentage(53/170);
                         }
                         &:hover{
-                            filter: brightness(1.1);
+                            filter: brightness(110%);
                         }
                     }
                     li+li{
@@ -2518,8 +2524,9 @@ export default {
                             border-bottom: 2px solid #6faeae;
                             border-right: 2px solid #6faeae;
                             font-size: 26px;
+                            filter: brightness(100%);
                             &:hover{
-                                filter: brightness(1.1);
+                                filter: brightness(110%);
                             }
                         }
                         &.item1{
