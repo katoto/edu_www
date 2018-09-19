@@ -1021,12 +1021,11 @@ export default {
             this.beforeInviteName = this.beforeInviteName.toString()
             let checkName = await luckyCoinApi.testName(this.beforeInviteName)
             if (checkName) {
-                console.log(this.isFromFlag)
                 if(this.isFromFlag.indexOf('0x')>-1 && this.isFromFlag.length === 42){
-                    buyNameBack = await luckyCoinApi.registerNameXaddr(checkName, this.isFromFlag)
+                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
                 }else{
-                    buyNameBack = await luckyCoinApi.registerNameXname(checkName, this.isFromFlag)
-                }                
+                    buyNameBack = await luckyCoinApi.registerNameXname(this.beforeInviteName, this.isFromFlag)
+                }
             } else {
                 Message({
                     message: '名字已被注册',
