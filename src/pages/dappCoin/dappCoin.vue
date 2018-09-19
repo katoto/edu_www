@@ -957,9 +957,6 @@ export default {
         },
         startTimeLeft () {
             // 倒计时
-            console.log('==========' )
-            console.log(this.timeLeft )
-            console.log('=========='  )
             clearInterval(this.nowTimeInterval)
             this.nowTimeInterval = setInterval(() => {
                 if (this.timeLeft !== undefined) {
@@ -970,8 +967,17 @@ export default {
                             this.currTimeUp = false
                             // 显示待开奖状态
                             this.nextScreen = true
-                            this.waitWin = true
+                            // this.waitWin = true
                             // 更改 提示文案
+                            if (this.roundInfo.luckNum === 0 || !this.roundInfo) {
+                                this.waitWin = true
+                                this.someGetWin = false
+                            } else {
+                                // 中奖页面
+                                this.someGetWin = true
+                                this.waitWin = false
+                                this.showOpenNumber(this.roundInfo.luckNum)
+                            }
                             this.scrollMsgChange('end')
                         }, 6000)
                         clearInterval(this.nowTimeInterval)
