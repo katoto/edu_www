@@ -1023,7 +1023,7 @@ luckyCoinApi.registerNameXaddr = (regName, _affCode) => {
                         resolve(true)
                     }
                 } else {
-                    reject(err)
+                    resolve(null)
                 }
             })
         } else {
@@ -1047,7 +1047,7 @@ luckyCoinApi.registerNameXname = (regName, _affCode) => {
                         resolve(true)
                     }
                 } else {
-                    reject(err)
+                    resolve(null)
                 }
             })
         } else {

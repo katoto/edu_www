@@ -108,16 +108,26 @@
                                 <lang>Pay</lang>
                             </a>
                             <!--  -->
-                            <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
-                                <p :class="{'buyEnough':selfMsg && (parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) >= currTicketPrice}">
-                                    <lang>Pay by Income</lang>
-                                </p>
+                            <a href="javascript:;" @click="useReloadBuy" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
+                                <template>
+                                    <p class="buyEnough" v-if="selfMsg && parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) >= (currTicketPrice * tickNum)" >
+                                        <lang>Pay by Income</lang>
+                                    </p>
+                                    <p v-else>
+                                        <lang>Insufficient Income</lang>
+                                    </p>
+                                </template>
                                 <p v-if="selfMsg">
-                                    <template v-if="language==='en'">
-                                        {{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH Balance
+                                    <template v-if="parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) !== 0">
+                                        <template v-if="language==='en'">
+                                            {{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH Balance
+                                        </template>
+                                        <template v-else>
+                                            您有{{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH
+                                        </template>
                                     </template>
                                     <template v-else>
-                                        您有{{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH
+                                        <lang>No income for now</lang>
                                     </template>
                                 </p>
                             </a>
@@ -171,7 +181,6 @@
                     </ul>
                 </div>
             </div>
-
             <!--狐狸提示-->
             <div class="pop pop-metamask" :class="{hide:!showPopMask}">
                  <div class="mask-main">
@@ -190,7 +199,6 @@
                      </p>
                  </div>
             </div>
-
         </div>
         <!--信息展示区--> 
         <div class="information">
@@ -645,6 +653,27 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
+        async useReloadBuy(){
+            // 使用收益购买
+            let buyBack = null
+            if (!this.selfMsg) {
+                this.loginMetamask()
+                return false
+            }
+            if (this.currTicketPrice === 0) {
+                console.error('this.currTicketPrice 0')
+                return false
+            }
+            if (typeof this.tickNum === 'string') {
+                this.tickNum = Number(this.tickNum)
+            }
+            if(this.isFromFlag.indexOf('0x')>-1 && this.isFromFlag.length === 42){
+                buyBack = await luckyCoinApi.reLoadXaddr(this.tickNum, this.isFromFlag)
+            }else{
+                buyBack = await luckyCoinApi.reLoadXname(this.tickNum, this.isFromFlag)
+            }
+            buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
+        },
         showNewguide () {
             this.timeLeft === 0 ? this.isNew = false : this.isNew = true
         },
@@ -913,6 +942,10 @@ export default {
             }
             //  请求历史数据
             this.expectCurrentChange()
+            // 开始待开奖的动画
+            setInterval(()=>{
+                this.bindwaitingMsg = this.waitingMsgArr[ parseInt(Math.random() * 2) ]          
+            },5000)
         },
         getSuperCoinExpects (params) {
             return this.$store.dispatch(aTypes.superCoinExpects, {
@@ -988,11 +1021,7 @@ export default {
             }else{
                 buyBack = await luckyCoinApi.buyXname(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
             }
-            if (buyBack) {
-                this.selfNotify('Order Successful')
-            } else {
-                this.selfNotify('Purchase Cancelled', 'error')
-            }
+            buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         selfNotify (val, typeVal = 'success') {
             Notification({
@@ -1026,6 +1055,8 @@ export default {
                 }else{
                     buyNameBack = await luckyCoinApi.registerNameXname(this.beforeInviteName, this.isFromFlag)
                 }
+                buyNameBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
+
             } else {
                 Message({
                     message: '名字已被注册',
@@ -1264,6 +1295,9 @@ export default {
 }
 </script>
 <style lang="less" type="text/less">
+    .buyEnough{
+        color: #fff !important; 
+    }
     .luckyDapp{
         a:hover{
             filter: brightness(1.2);
