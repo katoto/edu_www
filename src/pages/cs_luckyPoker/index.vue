@@ -2191,7 +2191,7 @@ export default {
                                 &.fk,&.hongt,&.heit,&.mh{
                                     background-repeat: no-repeat;
                                     background-position: center;
-                                    background-size: percentage(30/68);
+                                    background-size: 20%;
                                     text-indent: -99999px;
                                 }
                                 &.fk{
@@ -2303,7 +2303,7 @@ export default {
                                         width: 100%;
                                         height: 100%;
                                         background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center;
-                                        background-size: 24%;
+                                        background-size: 20px;
                                     }
                                     p{
                                         display: none;
@@ -2863,7 +2863,7 @@ export default {
                                         width: 100%;
                                         height: 100%;
                                         background:url("../../assets/img/luckyPoker/font-joker.png") no-repeat center;
-                                        background-size: 24%;
+                                        background-size: 20px;
                                     }
                                     p{
                                         display: none;
