@@ -358,7 +358,7 @@
                             </el-pagination>
                         </div>
                         <!--分页h5-->
-                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md">
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="ordersList&&ordersList.length>=10">
                             <lang>Click to see more</lang>
                         </a>
                     </template>
@@ -977,7 +977,7 @@ export default {
                                 this.someGetWin = true
                                 this.waitWin = false
                                 this.showOpenNumber(this.roundInfo.luckNum)
-                                
+
                                 localStorage.setItem('openNextTime', new Date().getTime() + 120)
                                 this.nextRoundStart = localStorage.getItem('openNextTime')
                             }
@@ -1241,6 +1241,7 @@ export default {
                             // 切换 重新开始
                             this.nextScreen = false // 回到投注
                             this.waitWin = false
+                            this.someGetWin = false
                             this.openNumArr = ['?', '?', '?', '?']
                             localStorage.setItem('openNextTime', 0)
                         }
