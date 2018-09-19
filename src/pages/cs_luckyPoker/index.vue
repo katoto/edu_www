@@ -175,19 +175,19 @@
                             <ul class="clearfix">
                                 <li :class="{ on: currentCoin === 0.0001 }" @click="changeCoin('0.0001')" ref="0.0001">
                                     <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
-                                    <p>0.00001</p>
+                                    <p>{{isETH ? 0.0001 : 0.00001}}</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.001 }" @click="changeCoin('0.001')" ref="0.001">
                                     <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
-                                    <p>0.0001</p>
+                                    <p>{{isETH ? 0.001 : 0.0001}}</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.01 }" @click="changeCoin('0.01')" ref="0.01">
                                     <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
-                                    <p>0.001</p>
+                                    <p>{{isETH ? 0.01 : 0.001}}</p>
                                 </li>
                                 <li :class="{ on: currentCoin === 0.1 }" @click="changeCoin('0.1')" ref="0.1">
                                     <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
-                                    <p>0.01</p>
+                                    <p>{{isETH ? 0.1 : 0.01}}</p>
                                 </li>
                             </ul>
                             <!--wait/unable-->
@@ -498,7 +498,7 @@
                     <!--中奖-->
                     <div class="result-msg" v-if="open.isWin">
                         <p>{{$lang.poker.a25}}</p>
-                        <div>+{{formatNum(Number(open.money), 4)}}<i>{{coinText}}</i></div>
+                        <div>+{{formatNum(Number(open.money), 5)}}<i>{{coinText}}</i></div>
                     </div>
                     <div class="result-msg" v-else style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;" @click="closePoker()" >
                         {{$lang.poker.a24}}
@@ -728,8 +728,8 @@ export default {
         calculate (name) {
             let tmp = [this.points, this.suit, this.color, this.joker]
             let tmpName = ['pointsTotal', 'suitTotal', 'colorTotal', 'jokerTotal']
-            this.betNums[name] = accAdd(this.betNums[name], this.currentCoin)
-            this.total = accAdd(this.total, this.currentCoin)
+            this.betNums[name] = accAdd(this.betNums[name], (this.isETH ? this.currentCoin : accMul(this.currentCoin, 0.1)))
+            this.total = accAdd(this.total, (this.isETH ? this.currentCoin : accMul(this.currentCoin, 0.1)))
             tmp.forEach((arr, index) => {
                 if (arr.indexOf(name) > -1) {
                     arr.forEach(item => {
@@ -751,7 +751,7 @@ export default {
             } else if (this.suit.indexOf(name) > -1) {
                 most = this.suitMost
             }
-            return accMul(accAdd(this.betNums[name], this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
+            return accMul(accAdd(this.betNums[name], this.isETH ? this.currentCoin : accDiv(this.currentCoin, 10)), most) > Number(this.restricts[this.coinType.toString()][name])
         },
         addCoin (name) {
             if (!this.isLogin) {
@@ -999,6 +999,9 @@ export default {
         },
         coinText () {
             return formateCoinType(this.coinType || '2001').toUpperCase()
+        },
+        isETH () {
+            return this.coinText === 'ETH'
         }
     },
     watch: {
