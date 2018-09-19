@@ -957,6 +957,9 @@ export default {
         },
         startTimeLeft () {
             // 倒计时
+            console.log('==========' )
+            console.log(this.timeLeft )
+            console.log('=========='  )
             clearInterval(this.nowTimeInterval)
             this.nowTimeInterval = setInterval(() => {
                 if (this.timeLeft !== undefined) {
