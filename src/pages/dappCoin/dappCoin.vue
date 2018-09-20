@@ -28,10 +28,13 @@
             <template v-if="roundInfo">
                 <div class="issue">
                     <p v-if="!nextScreen">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
-                    <p v-if="someGetWin && roundInfo">
+                    <p v-if="someGetWin && roundInfo" clsss="issue-pc">
                         <!-- 当前时间 -->
                         <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
                         {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
+                    </p>
+                    <p v-if="someGetWin && roundInfo" class="issue-h5">
+                        {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
                     </p>
                 </div>
                 <div :class="{'hide':nextScreen}">
@@ -580,9 +583,8 @@ import BannerScroll from '~components/BannerScroll.vue'
 import Footer from '~components/Footer.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
-import {Message} from 'element-ui'
+import {Message, Notification} from 'element-ui'
 import ScrollTop from '~/components/ScrollTop'
-import { Notification } from 'element-ui'
 
 Vue.use(vueClipboard)
 
@@ -1603,6 +1605,12 @@ export default {
             &.draw{
                 font-size: 16px;
             }
+            .issue-pc{
+                display: block;
+            }
+            .issue-h5{
+                display: none;
+            }
         }
         .betting-area{
             position: relative;
@@ -1960,6 +1968,9 @@ export default {
         &.status2{
             height: 580px;
             background: url("../../assets/img/superCoin/bg2.jpg") no-repeat center, linear-gradient(#223541,#32215a);
+            &::before{
+                display: none;
+            }
         }
     }
     .information{
