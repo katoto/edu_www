@@ -341,9 +341,8 @@
                                 </ul>
                             </div>
                         </div>
-
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>=10">
+                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&orderPageTotal!==1&&orderPageTotal!==0">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -360,7 +359,7 @@
                             </el-pagination>
                         </div>
                         <!--分页h5-->
-                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="ordersList&&ordersList.length>=10">
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="ordersList&&orderPageTotal!==1&&orderPageTotal!==0">
                             <lang>Click to see more</lang>
                         </a>
                     </template>
@@ -455,7 +454,7 @@
                             </li>
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>=10">
+                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectPageTotal!==1&&expectPageTotal!==0">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -472,7 +471,7 @@
                             </el-pagination>
                         </div>
                         <!--分页h5-->
-                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md">
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="expectsList&&expectPageTotal!==1&&expectPageTotal!==0">
                             <lang>Click to see more</lang>
                         </a>
                     </template>
@@ -692,7 +691,7 @@ export default {
                         })
                     }
                 }
-                if (this.ordersList) {
+                if (this.ordersList && buyNum.length>0) {
                     let baseObj = {
                         buyNum: buyNum,
                         prizes: 0,
@@ -915,11 +914,13 @@ export default {
                 this.scrollMsgChange('end') // 滚动信息改变
             } else {
                 this.startTimeLeft()
-                if (!localStorage.getItem('firstSuperCoin')) {
-                    this.isNew = true
-                    localStorage.setItem('firstSuperCoin', true)
-                } else {
-                    this.isNew = false
+                if(this.timeLeft > 15){
+                    if (!localStorage.getItem('firstSuperCoin')) {
+                        this.isNew = true
+                        localStorage.setItem('firstSuperCoin', true)
+                    } else {
+                        this.isNew = false
+                    }
                 }
             }
             console.log('roundinfo')

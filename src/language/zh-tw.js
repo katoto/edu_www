@@ -769,7 +769,7 @@ module.exports = {
     'Draw will proceed after tickets sold out or time\'s up.': '當倒計時結束，或湊齊人次時，遊戲就開獎！',
     'Buy the first ticket to start a new round.': '當壹輪結束時，投註壹筆，將開啟新的壹輪',
     'Waiting for the draw': '等待開獎',
-    'One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.': '每購買1人次，即可獲得1個號碼，若您獲得的號碼若與開獎號碼相同，即可獲得獎池獎勵',
+    'One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.': '每購買1人次，即可獲得1個號碼，若您獲得的號碼與開獎號碼相同，即可獲得獎池獎勵',
     'Why not buy a ticket now? ': '本期您還未購買，趕緊試壹試吧~',
     'No record.  Please login to the ': '沒有個人信息，請登陸',
     'No Metamask, how to play?': '如何安裝Metamask?',
@@ -831,6 +831,7 @@ module.exports = {
     '3. Here shows how many tickets have been sold.': '3. 這是本輪剩余票數，',
     'Buy more tickets, enjoy higher winning chance.': '購買越多，中獎概率越高',
     'Click here to try your luck!': '點擊這裏進行投註，立即試試',
-    'Okay': '下壹步'
+    'Okay': '下壹步',
+    'Round {0}': '期號 {0}'
     /* super coin end */
 }
