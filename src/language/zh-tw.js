@@ -750,7 +750,7 @@ module.exports = {
     'Welcome {0} joined the game': '恭喜{0}加入我們的陣營',
     'Referrals': '邀請好友',
     'Contract': '智能合約',
-    'Easy Play': '新手教程',
+    'Easy&nbsp;Play': '新手教程',
     'My Tickets': '我的購買',
     'My Income': '我的收益',
     'Draw History ': '歷史開獎',

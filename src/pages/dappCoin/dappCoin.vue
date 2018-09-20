@@ -9,7 +9,7 @@
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
                     <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank"><lang>Contract</lang></a>
-                    <a href="javascript:;" @click="showNewguide"><lang>Easy Play</lang></a>
+                    <a href="javascript:;" @click="showNewguide">{{_("Easy&nbsp;Play")}}</a>
                     <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
             </div>
@@ -136,9 +136,11 @@
             </template>
             <!--时间到准备开奖-->
             <!--on-->
-            <p class="timeup" :class="{'on': currTimeUp }">
-                <lang>TIME UP!</lang>
-            </p>
+            <div class="pop" :class="{'show': currTimeUp}" style="background: transparent; display: none">
+                <p class="timeup" :class="{'on': currTimeUp }">
+                    <lang>TIME UP!</lang>
+                </p>
+            </div>
             <!--开奖 -->
             <div class="lottery" :class="{'hide':!nextScreen}">
                 <!--总奖池-->
@@ -200,7 +202,7 @@
             </div>
         </div>
         <!--信息展示区--> 
-        <div class="information">
+        <div class="information clearfix">
             <!--邀请-->
             <div class="invite" id="inviteView">
                 <ul class="title">
@@ -1710,6 +1712,9 @@ export default {
                             flex-grow: 0;
                             padding:0 12px;
                         }
+                        &:hover{
+                            color: #fff;
+                        }
                     }
                     a+a{
                         border-left: 1px solid #ff8a00;
@@ -1779,6 +1784,8 @@ export default {
                 color: #ff8a00;
                 font-weight: bold;
                 img{
+                    position: relative;
+                    animation: shakeimg 10s infinite;
                     margin-right: 22px;
                 }
                 i{
@@ -1898,7 +1905,7 @@ export default {
         max-width: 1090px;
         width: percentage(710/750);
         margin: 0 auto;
-        overflow: hidden;
+        //overflow: hidden;
         line-height: 24px;
         font-size: 14px;
         color: #a5b1c2;
@@ -2016,6 +2023,9 @@ export default {
                     text-align: center;
                     border-radius:6px;
                     color: #53e864;
+                    &:hover{
+                        filter: brightness(1.1);
+                    }
                 }
             }
 
@@ -2063,6 +2073,7 @@ export default {
             }
             .open-ticket{
                 position: absolute;
+                z-index: 6;
                 left: 0;
                 top: 85px;
                 padding: 23px 22px 15px;
@@ -2078,8 +2089,8 @@ export default {
                     position: absolute;
                     top:0;
                     right:0;
-                    width:20px;
-                    height:20px;
+                    width:40px;
+                    height:40px;
                     background: url("../../assets/img/superCoin/pop-close.png") no-repeat center;
                     background-size: 10px;
                 }

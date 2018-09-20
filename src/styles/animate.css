@@ -3622,3 +3622,13 @@
 	-webkit-animation-duration: 3s;
 	animation-duration: 3s;
 }
+
+
+@keyframes shakeimg {
+	0%,100%{
+		transform: translateY(-10px);
+	}
+	50%{
+		transform: translateY(10px);
+	}
+}
