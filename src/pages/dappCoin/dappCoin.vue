@@ -123,27 +123,32 @@
                             </a>
                             <!--  -->
                             <a href="javascript:;" @click="useReloadBuy" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
-                                <template>
-                                    <p class="buyEnough" v-if="selfMsg && parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) >= (currTicketPrice * tickNum)" >
+                                <template v-if="selfMsg">
+                                    <p class="buyEnough" v-if="parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) >= (currTicketPrice * tickNum)" >
                                         <lang>Pay by Income</lang>
                                     </p>
                                     <p v-else>
                                         <lang>Insufficient Income</lang>
                                     </p>
-                                </template>
-                                <p v-if="selfMsg">
-                                    <template v-if="parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) !== 0">
-                                        <template v-if="language==='en'">
-                                            {{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH Balance
+                                    <p>
+                                        <template v-if="parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) !== 0">
+                                            <template v-if="language==='en'">
+                                                {{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH Balance
+                                            </template>
+                                            <template v-else>
+                                                您有{{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH
+                                            </template>
                                         </template>
                                         <template v-else>
-                                            您有{{ formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite)) }} ETH
+                                            <lang>No income for now</lang>
                                         </template>
-                                    </template>
-                                    <template v-else>
-                                        <lang>No income for now</lang>
-                                    </template>
-                                </p>
+                                    </p>                                    
+                                </template>
+                                <template v-else>
+                                    <p class="buyEnough">
+                                        <lang>Pay by Income</lang>
+                                    </p>
+                                </template>
                             </a>
                         </div>
                     </div>
