@@ -352,7 +352,7 @@
                             <a href="javascript:;" @click="ticketsNumber=null" class="close"></a>
                             <div class="ticket-box">
                                 <ul>
-                                    <li style="color: #ffa200;" v-if="ticketsNumber.luckynum!==0">
+                                    <li style="color: #ffa200;" v-if="parseFloat(ticketsNumber.luckynum)!==0">
                                         {{ ticketsNumber.luckynum }}
                                     </li>
                                     <li v-if="ticketsNumber.buyNum" v-for="(item,index) in ticketsNumber.buyNum" :key="index">
