@@ -20,7 +20,7 @@
                             {{$lang.poker.a66}}
                         </div>
                         <div class="history-main" v-show="recentResult.length !== 0">
-                            <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{visibility: !hideLeft ? 'visible': 'hidden'}"></a>
+                            <a class="btn btn-left" href="javascript:;" @click="onLeft" :style="{opacity: !hideLeft ? '1': '0.2'}"></a>
                             <div class="poker-item" ref="historyCt">
                                 <ul :style="{ left: `${listLeft}px` }">
                                     <li class="poker-next" ref="next">
@@ -73,7 +73,7 @@
                                     </li> -->
                                 </ul>
                             </div>
-                            <a class="btn btn-right" href="javascript:;" @click="onRight" :style="{visibility: !hideRight ? 'visible': 'hidden'}"></a>
+                            <a class="btn btn-right" href="javascript:;" @click="!hideRight && onRight()" :style="{opacity: !hideRight ? '1': '0.2'}"></a>
                         </div>
                     </div>
                     <div class="bg-pc-esktop ">
@@ -990,7 +990,7 @@ export default {
                 } else {
                     this.hideRight = false
                 }
-            } else if (-1 * Number(this.listLeft) >= (mostLength + 1) * (next.clientWidth + 5)) {
+            } else if (-1 * Number(this.listLeft) >= (mostLength ) * (next.clientWidth + 5)) {
                 this.hideRight = true
                 this.hideLeft = false
             } else if (-1 * Number(this.listLeft) < (mostLength + 1) * (next.clientWidth + 5)) {
