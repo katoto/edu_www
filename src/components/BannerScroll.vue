@@ -16,12 +16,12 @@
         methods: {
             hitListBroadcast () {
                 let BroadcastSlide, slideBoxs, clonedNode, slideHeight, hitListIndex
-                if (this.$el && this.$el.children[0] && this.$el.children[0].children[0] &&
-                this.$el.children[0].children[0].children && this.$el.children[0].children[0].children[0]) {
+                console.log(this.$el)
+                if (this.$el && this.$el.children[0] && this.$el.children[0].children[0] && this.$el.children[0].children[0].children && this.$el.children[0].children[0].children[0]) {
                     let $elChild0 = this.$el.children[0]
                     BroadcastSlide = $elChild0.children[0]
                     slideBoxs = $elChild0.children[0].children
-                    slideHeight = $elChild0.offsetHeight //   4px 的border
+                    slideHeight = $elChild0.offsetHeight
                     hitListIndex = 0
                     clonedNode = slideBoxs[0].cloneNode(true)
                     BroadcastSlide.appendChild(clonedNode)
