@@ -3,7 +3,7 @@
         <div class="head">
             <div class="top">
                 <!--展开 on-->
-                <div class="m-choose-play icon-slot" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
+                <div class="m-choose-play icon-new" :class="{isShowChoose:isShowChoose}" @click="headControlPop('showChoose')">
                     <div class="btn">
                         <span></span><span></span><span></span>
                     </div>
@@ -37,7 +37,7 @@
                     <img src="../assets/img/CoinsprizeLogo.png" alt="CoinsprizeLogo">
                 </router-link>
                 <!-- icon-slot -->
-                <div class="choose-play icon-Luckycoin " >
+                <div class="choose-play icon-new " >
                     <router-link :to="{path: '/luckyslot/'}"  active-class="on">
                         <lang>LuckySlot</lang>
                     </router-link>
@@ -672,18 +672,20 @@
                     background: rgba(0,0,0,0.8);
                 }
             }
-            &.icon-slot{
+            &.icon-new{
                 &::before{
-                    content: '';
+                    content: 'N';
                     display: block;
                     position: absolute;
                     top: 10px;
                     right:-2px;
-                    width:20px;
-                    height:20px;
-                    background: url("../assets/img/icon-new.png") no-repeat center;
-                    animation: icon-new 5s 2s infinite;
-                    transform-origin: left bottom;
+                    border-radius: 2px;
+                    padding: 0 4px;
+                    line-height: 18px;
+                    background: #36c57a;
+                    font-weight: bold;
+                    font-size: 14px;
+                    color: #fff;
                 }
             }
         }
@@ -1434,7 +1436,24 @@
                     color: #fff;
                 }
             }
-
+            &.icon-new{
+                ul{
+                    &::before{
+                        content: 'N';
+                        display: block;
+                        position: absolute;
+                        bottom: 28px;
+                        right:2px;
+                        border-radius: 2px;
+                        padding: 0 4px;
+                        line-height: 18px;
+                        background: #36c57a;
+                        font-weight: bold;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+                }
+            }
         }
     }
     /*开始适配*/
