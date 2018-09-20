@@ -455,7 +455,7 @@
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw" :class="{scale0: !isLoading}"  @click="openPoker">
+                <div class="poker-draw" :class="{scale0: !isLoading}">
                     <!--animate1-->
                     <ul class="poker-area " :class="{animate1: pokerAnimate1}">
                         <li class="on">
@@ -477,9 +477,6 @@
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
                         </li>
                     </ul>
-                    <a href="javascript:;" class="btn-open">
-                        {{$lang.poker.a26}}
-                    </a>
                 </div>
                 <!--v-else-->
                 <!--isWin-->
@@ -898,7 +895,7 @@ export default {
                 this.$refs.payMusic.play && this.$refs.payMusic.play()
             })
             this.bet({
-                bets: {...this.betNums},
+                bets: this.formatBetNum({...this.betNums}),
                 cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
                 cur_server_hash: this.hashNumber
@@ -909,6 +906,7 @@ export default {
                 this.$nextTick(() => {
                     this.showOpen = true
                     this.disableBet = false
+                    setTimeout(() => this.openPoker(), 200)
                 })
             })
                 .catch(() => {
@@ -919,6 +917,12 @@ export default {
                     this.isLoading = false
                     this.showOpen = false
                 })
+        },
+        formatBetNum (data) {
+            for (let name in data) {
+                data[name] = data[name].toString()
+            }
+            return data
         },
         renderResult (data) {
             this.open = {
