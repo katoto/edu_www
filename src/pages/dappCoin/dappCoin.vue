@@ -34,8 +34,6 @@
                         {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
                     </p>
                     <p v-if="someGetWin && roundInfo" class="issue-h5">
-                        <!-- 当前时间 -->
-                        <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
                         {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
                     </p>
                 </div>
@@ -1595,6 +1593,12 @@ export default {
             &.draw{
                 font-size: 16px;
             }
+            .issue-pc{
+                display: block;
+            }
+            .issue-h5{
+                display: none;
+            }
         }
         .betting-area{
             position: relative;
@@ -1952,6 +1956,9 @@ export default {
         &.status2{
             height: 580px;
             background: url("../../assets/img/superCoin/bg2.jpg") no-repeat center, linear-gradient(#223541,#32215a);
+            &::before{
+                display: none;
+            }
         }
     }
     .information{
