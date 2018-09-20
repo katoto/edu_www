@@ -714,10 +714,15 @@ export default {
                         prizes: 0,
                         round: this.roundInfo.roundIndex
                     }
-                    if (this.ordersList[0] && this.ordersList[0].luckynum > 0 && this.ordersList[0].round === this.roundInfo.roundIndex) {
-                        this.ordersList.shift()
+
+                    if (this.ordersList[0] && this.ordersList[0].round === this.roundInfo.roundIndex) {
+                        if( this.ordersList[0].luckynum === 0 ){
+                            this.ordersList.shift()
+                            this.ordersList.unshift(baseObj)
+                        }
+                    }else{
+                        this.ordersList.unshift(baseObj)
                     }
-                    this.ordersList.unshift(baseObj)
                 }
             }
         },
@@ -781,7 +786,7 @@ export default {
             data = data.data
             if (data) {
                 this.expectsList = this.expectFormatData(data.expects)
-                if (data.expects[0]) {
+                if (data.expects[0] && data.expects[0].round === this.roundInfo.roundIndex) {
                     this.getWInAddr = data.expects[0].winner
                 } else {
                     this.getWInAddr = 'someBody'
