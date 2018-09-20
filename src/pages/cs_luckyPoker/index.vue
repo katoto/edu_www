@@ -455,7 +455,7 @@
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw" :class="{scale0: !isLoading}"  @click="openPoker">
+                <div class="poker-draw" :class="{scale0: !isLoading}">
                     <!--animate1-->
                     <ul class="poker-area " :class="{animate1: pokerAnimate1}">
                         <li class="on">
@@ -477,9 +477,6 @@
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
                         </li>
                     </ul>
-                    <a href="javascript:;" class="btn-open">
-                        {{$lang.poker.a26}}
-                    </a>
                 </div>
                 <!--v-else-->
                 <!--isWin-->
@@ -516,8 +513,8 @@ import Header from '~components/Header'
 import Footer from '~components/Footer'
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
 import { mapActions, mapState } from 'vuex'
-import { setTimeout } from 'timers'
-const betMusic = () => import('~static/audio/dice/bet.ogg')
+import { setTimeout, clearTimeout } from 'timers'
+const betMusic = () => import('~static/audio/dice/bet.wav')
 const faPaiMusic = () => import('~static/audio/dice/fapai.ogg')
 const winMusic = () => import('~static/audio/dice/win.ogg')
 const payMusic = () => import('~static/audio/dice/pay.ogg')
@@ -898,7 +895,7 @@ export default {
                 this.$refs.payMusic.play && this.$refs.payMusic.play()
             })
             this.bet({
-                bets: {...this.betNums},
+                bets: this.formatBetNum({...this.betNums}),
                 cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
                 cur_server_hash: this.hashNumber
@@ -909,6 +906,7 @@ export default {
                 this.$nextTick(() => {
                     this.showOpen = true
                     this.disableBet = false
+                    setTimeout(() => this.openPoker(), 200)
                 })
             })
                 .catch(() => {
@@ -919,6 +917,12 @@ export default {
                     this.isLoading = false
                     this.showOpen = false
                 })
+        },
+        formatBetNum (data) {
+            for (let name in data) {
+                data[name] = data[name].toString()
+            }
+            return data
         },
         renderResult (data) {
             this.open = {
@@ -968,6 +972,10 @@ export default {
                         }
                     }, time)
                 } else {
+                    if (this.closeTimer) {
+                        clearTimeout(this.closeTimer)
+                        this.closeTimer = null
+                    }
                     this.openAnimate = false
                     this.showOpen = false
                     this.clearBet()
@@ -1041,7 +1049,7 @@ export default {
                 } else {
                     this.hideRight = false
                 }
-            } else if (-1 * Number(this.listLeft) >= (mostLength ) * (next.clientWidth + 5)) {
+            } else if (-1 * Number(this.listLeft) >= (mostLength) * (next.clientWidth + 5)) {
                 this.hideRight = true
                 this.hideLeft = false
             } else if (-1 * Number(this.listLeft) < (mostLength + 1) * (next.clientWidth + 5)) {
@@ -1062,22 +1070,27 @@ export default {
         loadMusicSrc () {
             this.loadMusic.bet = betMusic().then(res => {
                 this.music.bet = res
+                this.$refs.betMusic.volume = 0.5
                 return res
             })
             this.loadMusic.fapai = faPaiMusic().then(res => {
                 this.music.fapai = res
+                this.$refs.fapaiMusic.volume = 0.5
                 return res
             })
             this.loadMusic.win = winMusic().then(res => {
                 this.music.win = res
+                this.$refs.winMusic.volume = 0.5
                 return res
             })
             this.loadMusic.pay = payMusic().then(res => {
                 this.music.pay = res
+                this.$refs.payMusic.volume = 0.5
                 return res
             })
             this.loadMusic.lose = loseMusic().then(res => {
                 this.music.lose = res
+                this.$refs.loseMusic.volume = 0.5
                 return res
             })
         }
