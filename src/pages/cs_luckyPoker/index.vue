@@ -517,7 +517,7 @@ import Footer from '~components/Footer'
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout } from 'timers'
-const betMusic = () => import('~static/audio/dice/bet.ogg')
+const betMusic = () => import('~static/audio/dice/bet.wav')
 const faPaiMusic = () => import('~static/audio/dice/fapai.ogg')
 const winMusic = () => import('~static/audio/dice/win.ogg')
 const payMusic = () => import('~static/audio/dice/pay.ogg')
@@ -1062,22 +1062,27 @@ export default {
         loadMusicSrc () {
             this.loadMusic.bet = betMusic().then(res => {
                 this.music.bet = res
+                this.$refs.betMusic.volume = 0.5
                 return res
             })
             this.loadMusic.fapai = faPaiMusic().then(res => {
                 this.music.fapai = res
+                this.$refs.fapaiMusic.volume = 0.5
                 return res
             })
             this.loadMusic.win = winMusic().then(res => {
                 this.music.win = res
+                this.$refs.winMusic.volume = 0.5
                 return res
             })
             this.loadMusic.pay = payMusic().then(res => {
                 this.music.pay = res
+                this.$refs.payMusic.volume = 0.5
                 return res
             })
             this.loadMusic.lose = loseMusic().then(res => {
                 this.music.lose = res
+                this.$refs.loseMusic.volume = 0.5
                 return res
             })
         }
