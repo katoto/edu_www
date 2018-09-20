@@ -516,7 +516,7 @@ import Header from '~components/Header'
 import Footer from '~components/Footer'
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
 import { mapActions, mapState } from 'vuex'
-import { setTimeout } from 'timers'
+import { setTimeout, clearTimeout } from 'timers'
 const betMusic = () => import('~static/audio/dice/bet.wav')
 const faPaiMusic = () => import('~static/audio/dice/fapai.ogg')
 const winMusic = () => import('~static/audio/dice/win.ogg')
@@ -968,6 +968,10 @@ export default {
                         }
                     }, time)
                 } else {
+                    if (this.closeTimer) {
+                        clearTimeout(this.closeTimer)
+                        this.closeTimer = null
+                    }
                     this.openAnimate = false
                     this.showOpen = false
                     this.clearBet()
@@ -1041,7 +1045,7 @@ export default {
                 } else {
                     this.hideRight = false
                 }
-            } else if (-1 * Number(this.listLeft) >= (mostLength ) * (next.clientWidth + 5)) {
+            } else if (-1 * Number(this.listLeft) >= (mostLength) * (next.clientWidth + 5)) {
                 this.hideRight = true
                 this.hideLeft = false
             } else if (-1 * Number(this.listLeft) < (mostLength + 1) * (next.clientWidth + 5)) {
