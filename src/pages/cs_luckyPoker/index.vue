@@ -2,6 +2,8 @@
     <div>
         <Header></Header>
         <div class="luckyPoker " @click="initPop" @resize="onResize" :class="{'small':is14}">
+            <audio :src="fapaiMusic" class="poker-audio" ref="fapaiMusic"></audio>
+            <audio :src="betMusic" class="poker-audio" ref="betMusic"></audio>
             <div class="main">
                 <div class="bg-esktop" ref="container">
                     <div class="fly-coin fly-coin-el" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
@@ -511,7 +513,9 @@ import Header from '~components/Header'
 import Footer from '~components/Footer'
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
 import { mapActions, mapState } from 'vuex'
-window.getElementAbsolutePosition = getElementAbsolutePosition
+import { setTimeout } from 'timers'
+const betMusic = () => import('~static/audio/poker-bet.ogg')
+const faPaiMusic = () => import('~static/audio/poker-fapai.ogg')
 export default {
     components: { Header, Footer },
     data () {
@@ -563,7 +567,11 @@ export default {
             },
             is14: true,
             isShowRandom: false,
-            pokerAnimate1: false
+            pokerAnimate1: false,
+            fapaiMusic: '',
+            betMusic: '',
+            loadBetMusic: false,
+            loadFaPaiMusic: false
         }
     },
     methods: {
@@ -866,6 +874,9 @@ export default {
             this.lastHash = this.hashNumber
             this.disableBet = true
             this.isLoading = true
+            this.loadBetMusic && this.loadBetMusic.then(() => {
+                this.$refs.betMusic.play && this.$refs.betMusic.play()
+            })
             this.bet({
                 bets: {...this.betNums},
                 cointype: Number(this.coinType),
@@ -902,6 +913,9 @@ export default {
         openPoker () {
             this.pokerAnimate1 = true
             let that = this
+            this.loadFaPaiMusic && this.loadFaPaiMusic.then(() => {
+                this.$refs.fapaiMusic.play && this.$refs.fapaiMusic.play()
+            })
             setTimeout(function () {
                 that.isLoading = false
                 that.closePoker(5000)
@@ -1007,6 +1021,16 @@ export default {
         onResize () {
             this.resetCoinPosition()
             this.getHistoryMostNum()
+        },
+        loadMusic () {
+            this.loadBetMusic = betMusic().then(res => {
+                this.betMusic = res
+                return res
+            })
+            this.loadFaPaiMusic = faPaiMusic().then(res => {
+                this.fapaiMusic = res
+                return res
+            })
         }
     },
     computed: {
@@ -1047,6 +1071,8 @@ export default {
         this.getHistoryMostNum()
         this.disableContext()
         this.subInDice()
+        this.loadMusic()
+
         window.addEventListener('resize', this.onResize)
     },
     destroyed () {
@@ -1058,6 +1084,10 @@ export default {
 </script>
 <style lang="less" scoped type="text/less">
     @import "../../styles/lib-mixins.less";
+    .poker-audio {
+        position: fixed;
+        visibility: hidden;
+    }
     .fly-coin {
         position: absolute;
         left: 0;
