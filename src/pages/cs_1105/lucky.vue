@@ -1936,23 +1936,7 @@
 
 
 
-    @-webkit-keyframes masked-animation {
-        0% {
-            background-position: 0 0;
-        }
-        100% {
-            background-position: -200% 0;
-        }
-    }
 
-    @keyframes masked-animation {
-        0% {
-            background-position: 0 0;
-        }
-        100% {
-            background-position: -200% 0;
-        }
-    }
 
     .pop-reward-ct:hover {
         &:before {

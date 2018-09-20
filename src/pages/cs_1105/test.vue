@@ -1,6 +1,5 @@
 <template>
     <div id="test">
-
     </div>
 </template>
 
@@ -14,7 +13,7 @@
         computed: {},
         components: {},
         mounted () {
-            console.log(window.devicePixelRatio)
+            console.log('UA:' + window.navigator.userAgent)
         }
     }
 </script>
