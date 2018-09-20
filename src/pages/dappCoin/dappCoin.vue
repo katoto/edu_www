@@ -876,6 +876,13 @@ export default {
                         })
                         item.buyNum = this.buildZero(buyNum)
                     }
+                    item.luckynum = item.luckynum.toString()
+                    if (item.luckynum.length < 4) {
+                        let currLen = 4 - item.luckynum.length
+                        for (let i = 0;i < currLen ;i++) {
+                            item.luckynum = '0' + item.luckynum
+                        }
+                    }
                 })
             }
             return list
@@ -1223,35 +1230,43 @@ export default {
                             let nowTicketNum = res.args.end.toNumber() - res.args.begin.toNumber()
                             if (name !== '') {
                                 if ((nowTicketNum) > 0) {
-                                    Notification({
-                                        dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} tickets', name, nowTicketNum + 1),
-                                        position: 'bottom-right',
-                                        duration: 5000
-                                    })
+                                    setTimeout(()=>{
+                                        Notification({
+                                            dangerouslyUseHTMLString: true,
+                                            message: _('{0} has bought {1} tickets', name, nowTicketNum + 1),
+                                            position: 'bottom-right',
+                                            duration: 5000
+                                        },0)
+                                    })                                    
                                 } else {
-                                    Notification({
-                                        dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} ticket', name, 1),
-                                        position: 'bottom-right',
-                                        duration: 5000
-                                    })
+                                    setTimeout(()=>{
+                                        Notification({
+                                            dangerouslyUseHTMLString: true,
+                                            message: _('{0} has bought {1} ticket', name, 1),
+                                            position: 'bottom-right',
+                                            duration: 5000
+                                        })
+                                    },0)                                    
                                 }
                             } else if (name === '') {
                                 if ((nowTicketNum) > 0) {
-                                    Notification({
-                                        dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()), nowTicketNum + 1),
-                                        position: 'bottom-right',
-                                        duration: 5000
-                                    })
+                                    setTimeout(()=>{
+                                        Notification({
+                                            dangerouslyUseHTMLString: true,
+                                            message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()), nowTicketNum + 1),
+                                            position: 'bottom-right',
+                                            duration: 5000
+                                        })
+                                    },0)                                    
                                 } else {
-                                    Notification({
-                                        dangerouslyUseHTMLString: true,
-                                        message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()), 1),
-                                        position: 'bottom-right',
-                                        duration: 5000
-                                    })
+                                    setTimeout(()=>{
+                                        Notification({
+                                            dangerouslyUseHTMLString: true,
+                                            message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()), 1),
+                                            position: 'bottom-right',
+                                            duration: 5000
+                                        })
+                                    },0)
                                 }
                             }
                         } else if (res.event === 'onWithdraw') {

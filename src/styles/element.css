@@ -5069,6 +5069,9 @@
     transition: opacity .3s,transform .3s,left .3s,right .3s,top .4s,bottom .3s;
     transition: opacity .3s,transform .3s,left .3s,right .3s,top .4s,bottom .3s,-webkit-transform .3s;
     overflow: hidden;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
     background: #20bf6b;
     color: #ffffff;
@@ -5085,7 +5088,7 @@
 
 .el-notification__group {
     /*margin-left: 13px*/
-    padding:18px 10px 18px;
+    /* padding:0 10px; */
     min-width:193px;
 }
 
@@ -5097,7 +5100,7 @@
 }
 
 .el-notification__content {
-    line-height:24px;
+    line-height:60px;
     font-size:18px;
 }
 
