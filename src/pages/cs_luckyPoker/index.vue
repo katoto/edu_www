@@ -1052,6 +1052,11 @@ export default {
 </script>
 <style lang="less" scoped type="text/less">
     @import "../../styles/lib-mixins.less";
+    .luckyPoker{
+        div, a, img, p, span, i{
+            -webkit-user-select: none;
+        }
+    }
     .fly-coin {
         position: absolute;
         left: 0;
