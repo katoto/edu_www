@@ -1011,9 +1011,7 @@ export default {
                         }, 6000)
                         clearInterval(this.nowTimeInterval)
                     }
-                    // console.log(this.timeLeft)
                     this.nowFormateTime = this.calcTime(this.timeLeft)
-                    // console.log(this.nowFormateTime)
                     this.timeLeft--
                 }
             }, 1000)
@@ -1023,7 +1021,7 @@ export default {
                 let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
                 this.selfMsg = allMsg[0]
                 console.log(this.selfMsg)
-                console.log('=========this.this.selfMsg======')
+                console.log('=========this.selfMsg======')
                 this.balance = allMsg[1]
                 this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
             } else {
@@ -1160,8 +1158,6 @@ export default {
             }
             //  请求历史数据
             this.expectCurrentChange()
-
-
         },
         startAllevent () {
             // 合约事件
