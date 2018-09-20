@@ -839,7 +839,7 @@ export default {
                                 }
                             }
                         })
-                        item.buyNum = this.buildZero(buyNum) 
+                        item.buyNum = this.buildZero(buyNum.sort()) 
                     }
                 })
             }
