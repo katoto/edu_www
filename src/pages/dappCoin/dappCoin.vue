@@ -675,6 +675,22 @@ export default {
         showNewguide () {
             this.timeLeft === 0 ? this.isNew = false : this.isNew = true
         },
+        buildZero(numArr){
+            if(Array.isArray(numArr)){
+                numArr.forEach((val,index)=>{
+                    val = val.toString()
+                    let currLen = 4 - val.length
+                    if(val.length < 4){
+                        for(let i=0;i< currLen ;i++){
+                            val = '0' + val
+                        }
+                    }
+                    numArr[index] = val
+                })
+                return numArr
+            }
+            return false
+        },
         async searchTicketsXaddr () {
             let buyNum = []
             if (this.selfAddr) {
@@ -689,6 +705,7 @@ export default {
                         })
                     }
                 }
+                buyNum = this.buildZero(buyNum) 
                 if (this.ordersList && buyNum.length>0) {
                     let baseObj = {
                         buyNum: buyNum,
@@ -822,7 +839,7 @@ export default {
                                 }
                             }
                         })
-                        item.buyNum = buyNum
+                        item.buyNum = this.buildZero(buyNum) 
                     }
                 })
             }
@@ -837,7 +854,14 @@ export default {
                 this.tickNum = 0
                 return false
             }
-            this.tickNum = this.tickNum > 1500 ? 1500 : this.tickNum
+
+            if (this.balance && Number(this.balance) > 0) {
+                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+            } else {
+                this.maxTicketNum = 1500 - this.roundInfo.tickets
+            }
+            this.tickNum = this.tickNum > this.maxTicketNum ? this.maxTicketNum : this.tickNum
+
         },
         chooseMin () {
             this.tickNum = 1
@@ -887,6 +911,7 @@ export default {
         async pageInit () {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
+            console.log(this.selfAddr)
             await this.getCurrentRoundInfo()
             console.log(this.roundInfo)
             this.timeLeft = await luckyCoinApi.getTimeLeft()
@@ -931,7 +956,7 @@ export default {
                 if (this.timeLeft !== 0) {
                     this.startTimeLeft()
                 }
-            }, 10000)
+            }, 30000)
 
             //  用户投注订单记录  是否登录
             if (this.selfMsg) {
@@ -1009,6 +1034,13 @@ export default {
             // 获取页面相关信息
             this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
             this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets / 1500})`
+
+            if (this.balance && Number(this.balance) > 0) {
+                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+            } else {
+                this.maxTicketNum = 1500 - this.roundInfo.tickets
+            }
+
         },
         async buyNum () {
             // 购买号码
@@ -1121,11 +1153,7 @@ export default {
             await this.getPlayerInfoByAddress()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-            if (this.balance && Number(this.balance) > 0) {
-                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-            } else {
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-            }
+
             //  用户投注订单记录  是否登录
             if (this.selfMsg) {
                 this.orderCurrentChange()
