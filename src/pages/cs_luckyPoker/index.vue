@@ -865,6 +865,7 @@ export default {
             this.tmpRecentLists = [...this.betList]
             this.lastHash = this.hashNumber
             this.disableBet = true
+            this.isLoading = true
             this.bet({
                 bets: {...this.betNums},
                 cointype: Number(this.coinType),
@@ -876,7 +877,6 @@ export default {
                 this.getUserInfo()
                 this.$nextTick(() => {
                     this.showOpen = true
-                    this.isLoading = true
                     this.disableBet = false
                 })
             })
