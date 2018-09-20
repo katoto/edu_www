@@ -769,7 +769,7 @@ module.exports = {
     'Draw will proceed after tickets sold out or time\'s up.': '当倒计时结束，或凑齐人次时，游戏就开奖！',
     'Buy the first ticket to start a new round.': '当一轮结束时，投注一笔，将开启新的一轮',
     'Waiting for the draw': '等待开奖',
-    'One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.': '每购买1人次，即可获得1个号码，若您获得的号码若与开奖号码相同，即可获得奖池奖励',
+    'One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.': '每购买1人次，即可获得1个号码，若您获得的号码与开奖号码相同，即可获得奖池奖励',
     'Why not buy a ticket now? ': '本期您还未购买，赶紧试一试吧~',
     'No record.  Please login to the ': '没有个人信息，请登陆',
     'No Metamask, how to play?': '如何安装Metamask?',

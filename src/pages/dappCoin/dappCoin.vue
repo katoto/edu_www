@@ -339,9 +339,8 @@
                                 </ul>
                             </div>
                         </div>
-
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>=10">
+                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&orderPageTotal!==1&&orderPageTotal!==0">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -358,7 +357,7 @@
                             </el-pagination>
                         </div>
                         <!--分页h5-->
-                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="ordersList&&ordersList.length>=10">
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="ordersList&&orderPageTotal!==1&&orderPageTotal!==0">
                             <lang>Click to see more</lang>
                         </a>
                     </template>
@@ -453,7 +452,7 @@
                             </li>
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>=10">
+                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectPageTotal!==1&&expectPageTotal!==0">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -470,7 +469,7 @@
                             </el-pagination>
                         </div>
                         <!--分页h5-->
-                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md">
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="expectsList&&expectPageTotal!==1&&expectPageTotal!==0">
                             <lang>Click to see more</lang>
                         </a>
                     </template>
