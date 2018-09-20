@@ -1709,7 +1709,7 @@ export default {
                 left: 50%;
                 width: 100%;
                 top: 50%;
-                transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%) scale(1);
                 transition: all 0.2s;
                 transform-origin: center;
                 &.isWin{
@@ -1863,8 +1863,8 @@ export default {
                 }
             }
             .scale0{
-                transform:translate(0) scale(0);
-                width: 0;
+                transform:translate(-50%,-50%) scale(0);
+                /*width: 0;*/
                 /*height: 0;*/
                 overflow: hidden;
             }
