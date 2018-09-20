@@ -677,13 +677,13 @@ export default {
         showNewguide () {
             this.timeLeft === 0 ? this.isNew = false : this.isNew = true
         },
-        buildZero(numArr){
-            if(Array.isArray(numArr)){
-                numArr.forEach((val,index)=>{
+        buildZero (numArr) {
+            if (Array.isArray(numArr)) {
+                numArr.forEach((val, index) => {
                     val = val.toString()
                     let currLen = 4 - val.length
-                    if(val.length < 4){
-                        for(let i=0;i< currLen ;i++){
+                    if (val.length < 4) {
+                        for (let i = 0;i < currLen ;i++) {
                             val = '0' + val
                         }
                     }
@@ -707,14 +707,14 @@ export default {
                         })
                     }
                 }
-                buyNum = this.buildZero(buyNum) 
-                if (this.ordersList && buyNum.length>0) {
+                buyNum = this.buildZero(buyNum)
+                if (this.ordersList && buyNum.length > 0) {
                     let baseObj = {
                         buyNum: buyNum,
                         prizes: 0,
                         round: this.roundInfo.roundIndex
                     }
-                    if (this.ordersList[0] && this.ordersList[0].round === this.roundInfo.roundIndex) {
+                    if (this.ordersList[0] && this.ordersList[0].luckynum > 0 && this.ordersList[0].round === this.roundInfo.roundIndex) {
                         this.ordersList.shift()
                     }
                     this.ordersList.unshift(baseObj)
@@ -841,7 +841,16 @@ export default {
                                 }
                             }
                         })
-                        item.buyNum = this.buildZero(buyNum.sort()) 
+                        buyNum = buyNum.sort(function compare (val1, val2) {
+                            if (val1 < val2) {
+                                return -1
+                            } else if (val1 > val2) {
+                                return 1
+                            } else {
+                                return 0
+                            }
+                        })
+                        item.buyNum = this.buildZero(buyNum)
                     }
                 })
             }
@@ -863,7 +872,6 @@ export default {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
             this.tickNum = this.tickNum > this.maxTicketNum ? this.maxTicketNum : this.tickNum
-
         },
         chooseMin () {
             this.tickNum = 1
@@ -939,7 +947,7 @@ export default {
                 this.scrollMsgChange('end') // 滚动信息改变
             } else {
                 this.startTimeLeft()
-                if(this.timeLeft > 15){
+                if (this.timeLeft > 15) {
                     if (!localStorage.getItem('firstSuperCoin')) {
                         this.isNew = true
                         localStorage.setItem('firstSuperCoin', true)
@@ -1040,7 +1048,6 @@ export default {
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
-
         },
         async buyNum () {
             // 购买号码

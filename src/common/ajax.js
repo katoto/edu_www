@@ -48,6 +48,7 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     // options.baseURL = 'http://10.0.0.171:8097'// 成哥web
     // options.baseURL = 'http://10.0.0.130:8000'// 建清web
     // options.baseURL = 'http://10.0.0.176:8000'// 建清web
+    // options.baseURL = 'http://10.0.1.41:50001'// 建清web
     // options.baseURL = 'http://10.0.0.171:8070'// 成哥web  superCoin Dapp
     options.baseURL = 'http://10.0.1.41:8075'// 成哥web  superCoin Dapp
     // options.baseURL = 'http://10.0.1.41:3333'// 线下测试web
@@ -55,6 +56,7 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.171:8098/betblock`// 成哥ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8001/betblock'`// 建清ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.176:8001/betblock`// 建清ws
+    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:50002/betblock`// 建清ws
     websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock`// 线下测试环境ws
     _isRelease = true
 } else {
