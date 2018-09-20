@@ -498,9 +498,9 @@
                         <p>{{$lang.poker.a25}}</p>
                         <div>+{{formatNum(Number(open.money), 5)}}<i>{{coinText}}</i></div>
                     </div>
-                    <div class="result-msg" v-show="!open.isWin" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;">
+                    <!-- <div class="result-msg" v-show="!open.isWin" style="line-height: 3;font-size: 24px;font-weight: normal;cursor: pointer;">
                         {{$lang.poker.a24}}
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -945,8 +945,8 @@ export default {
                 this.openAnimate = new Promise(resolve => {
                     setTimeout(() => {
                         that.isLoading = false
-                        that.closePoker(5000)
-                        that.pokerAnimate1 = false
+                        that.closePoker(1500)
+
                         if (this.open.isWin) {
                             this.loadMusic.win && this.loadMusic.win.then(() => {
                                 this.$refs.winMusic.play && this.$refs.winMusic.play()
@@ -957,7 +957,7 @@ export default {
                             })
                         }
                         resolve(true)
-                    }, 1000)
+                    }, 700)
                 })
             }
         },
@@ -968,6 +968,7 @@ export default {
                         if (this.openAnimate) {
                             this.openAnimate = false
                             this.showOpen = false
+                            this.pokerAnimate1 = false
                             this.clearBet()
                         }
                     }, time)
@@ -978,6 +979,7 @@ export default {
                     }
                     this.openAnimate = false
                     this.showOpen = false
+                    this.pokerAnimate1 = false
                     this.clearBet()
                 }
             })
