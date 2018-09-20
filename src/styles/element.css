@@ -5085,7 +5085,7 @@
 
 .el-notification__group {
     /*margin-left: 13px*/
-    padding:18px 10px 8px;
+    padding:18px 10px 18px;
     min-width:193px;
 }
 
@@ -5128,6 +5128,7 @@
 }
 
 .el-notification .el-icon-success {
+	display: none;
     color: #67c23a
 }
 

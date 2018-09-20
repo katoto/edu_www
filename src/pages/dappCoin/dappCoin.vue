@@ -136,7 +136,7 @@
             </template>
             <!--时间到准备开奖-->
             <!--on-->
-            <div class="pop" :class="{'show': currTimeUp}" style="background: transparent; display: none">
+            <div class="pop" :class="{'show': currTimeUp}" style="display: none">
                 <p class="timeup" :class="{'on': currTimeUp }">
                     <lang>TIME UP!</lang>
                 </p>
@@ -1515,6 +1515,20 @@ export default {
         padding: 10px 0 40px 0;
         background: url("../../assets/img/superCoin/bg.jpg") no-repeat center, linear-gradient(#223541,#32215a);
         transition: all 0.2s ease-in-out;
+        &::before{
+            content: '';
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 120px;
+            transform: translate(-50%,0);
+            width: 1920px;
+            height: 129px;
+            overflow: hidden;
+            background: url("../../assets/img/superCoin/img-eth2.png") no-repeat center;
+            background-size: cover;
+            animation: shakeimg2 10s infinite;
+        }
         .message{
             position: relative;
             width: percentage(710/750);
@@ -1529,6 +1543,7 @@ export default {
                 top: 0;
                 left: 44px;
                 width:85%;
+                -webkit-backface-visibility: hidden;
                 li{
                     width: 100%;
                     height: 100%;

@@ -3625,10 +3625,27 @@
 
 
 @keyframes shakeimg {
-	0%,100%{
+	0%, 100% {
 		transform: translateY(-10px);
 	}
-	50%{
+	50% {
 		transform: translateY(10px);
+	}
+}
+@keyframes shakeimg2 {
+	0%, 100% {
+		transform: translate(-50%,-10px);
+	}
+	50% {
+		transform: translate(-50%,10px);
+	}
+}
+
+@keyframes masked-animation {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: -200% 0;
 	}
 }

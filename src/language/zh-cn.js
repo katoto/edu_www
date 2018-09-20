@@ -274,6 +274,8 @@ module.exports = {
     'World cup': '世界杯',
     'LuckySlot Bet': '老虎机投注',
     'LuckySlot Prize': '老虎机中奖',
+    'LuckyPoker Bet': '幸运扑克投注',
+    'LuckyPoker Prize': '幸运扑克中奖',
     'Lucky11 Bet': '幸运 11投注',
     'Lucky11 Prize': '幸运 11中奖',
     'LuckyCoin Bet': '幸运代币投注',

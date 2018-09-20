@@ -364,6 +364,10 @@ export function formateMoneyFlow (flowtype, lotid) {
         return _('Sign gift')// 连续七天送
     case '19':
         return _('Top-Up Bonus')// 首充送
+    case '20':
+        return _('LuckyPoker Bet')// 幸运扑克投注
+    case '21':
+        return _('LuckyPoker Prize')// 幸运扑克中奖
     default:
         return _('Bet')
     }

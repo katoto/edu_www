@@ -1202,11 +1202,7 @@ export default {
     @import "../../styles/lib-mixins.less";
     @import "../../styles/lib-media.less";
     @import "../../styles/lib-font.less";
-    div, a, img, p, span, i {
-        -webkit-tap-highlight-color: transparent;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-    }
+
 
     .notice{
         height: 100%;
