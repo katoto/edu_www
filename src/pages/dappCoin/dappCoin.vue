@@ -28,14 +28,26 @@
             <template v-if="roundInfo">
                 <div class="issue">
                     <p v-if="!nextScreen">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
-                    <p v-if="someGetWin && roundInfo" clsss="issue-pc">
-                        <!-- 当前时间 -->
-                        <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
-                        {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
-                    </p>
-                    <p v-if="someGetWin && roundInfo" class="issue-h5">
-                        {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
-                    </p>
+                    <template v-if="someGetWin && roundInfo">
+                        <p clsss="issue-pc">
+                            <!-- 当前时间 -->
+                            <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
+                            {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>10 ETH
+                        </p>
+                        <p class="issue-h5">
+                            {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Bonus </lang>10 ETH
+                        </p>
+                    </template>
+                    <template v-if="!someGetWin && !waitWin && nextScreen">
+                        <p clsss="issue-pc">
+                            <!-- 当前时间 -->
+                            {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
+                        </p>
+                        <p class="issue-h5">
+                            {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
+                        </p>
+                    </template>
+
                 </div>
                 <div :class="{'hide':nextScreen}">
                     <!--未开奖投注区-->
@@ -718,11 +730,11 @@ export default {
                     }
 
                     if (this.ordersList[0] && this.ordersList[0].round === this.roundInfo.roundIndex) {
-                        if( this.ordersList[0].luckynum === 0 ){
+                        if (this.ordersList[0].luckynum === 0) {
                             this.ordersList.shift()
                             this.ordersList.unshift(baseObj)
                         }
-                    }else{
+                    } else {
                         this.ordersList.unshift(baseObj)
                     }
                 }
@@ -1021,7 +1033,7 @@ export default {
                                 this.waitWin = false
                                 this.showOpenNumber(this.roundInfo.luckNum)
 
-                                localStorage.setItem('openNextTime', new Date().getTime() + 120)
+                                localStorage.setItem('openNextTime', (new Date().getTime() + 300000) / 1000)
                                 this.nextRoundStart = localStorage.getItem('openNextTime')
                             }
                             this.scrollMsgChange('end')
@@ -1268,7 +1280,7 @@ export default {
                                 if (res.args.luckynum.toNumber() <= res.args.ticketsout.toNumber()) {
                                     // 有人中奖
                                     this.someGetWin = true
-                                    localStorage.setItem('openNextTime', new Date().getTime() + 120)
+                                    localStorage.setItem('openNextTime', (new Date().getTime() + 300000) / 1000)
                                     this.nextRoundStart = localStorage.getItem('openNextTime')
                                 } else {
                                     // 无人中奖
