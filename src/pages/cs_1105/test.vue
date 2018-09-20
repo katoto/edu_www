@@ -1,6 +1,5 @@
 <template>
     <div id="test">
-2
     </div>
 </template>
 

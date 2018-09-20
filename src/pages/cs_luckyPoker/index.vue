@@ -1088,6 +1088,11 @@ export default {
         position: fixed;
         visibility: hidden;
     }
+    .luckyPoker{
+        div, a, img, p, span, i{
+            -webkit-user-select: none;
+        }
+    }
     .fly-coin {
         position: absolute;
         left: 0;
