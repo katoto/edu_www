@@ -455,7 +455,7 @@
                 <!-- -->
                 <!--v-if-->
                 <!--scale0-->
-                <div class="poker-draw" :class="{scale0: !isLoading}">
+                <div class="poker-draw" :class="{scale0: !isLoading}" v-show="isLoading">
                     <!--animate1-->
                     <ul class="poker-area " :class="{animate1: pokerAnimate1}">
                         <li class="on">
