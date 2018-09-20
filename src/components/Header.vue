@@ -27,7 +27,7 @@
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{path: '/luckyPoker/'}" active-class="on" class="hide">
+                            <router-link :to="{path: '/luckyPoker/'}" active-class="on">
                                 {{$lang.poker.a39}}
                             </router-link>
                         </li>
@@ -47,7 +47,7 @@
                     <router-link :to="{path: '/lucky11/'}" active-class="on">
                         <lang>Lucky11</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckyPoker/'}" active-class="on" class="hide">
+                    <router-link :to="{path: '/luckyPoker/'}" active-class="on">
                         {{$lang.poker.a39}}
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->

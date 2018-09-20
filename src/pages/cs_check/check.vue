@@ -7,7 +7,7 @@
             <el-tabs v-model="params.type" @tab-click="handleTabClick">
                 <el-tab-pane :label="_('Lucky11')" name="lucky11"></el-tab-pane>
                 <el-tab-pane :label="_('LuckyCoin')" name="luckycoin"></el-tab-pane>
-                <!-- <el-tab-pane :label="_('LuckyPoker')" name="luckyPoker"></el-tab-pane> -->
+                <el-tab-pane :label="_('LuckyPoker')" name="luckyPoker"></el-tab-pane>
             </el-tabs>
             <div class="check-input">
                 <div class="check-enter">

@@ -2,8 +2,11 @@
     <div>
         <Header></Header>
         <div class="luckyPoker " @click="initPop" @resize="onResize" :class="{'small':is14}">
-            <audio :src="fapaiMusic" class="poker-audio" ref="fapaiMusic"></audio>
-            <audio :src="betMusic" class="poker-audio" ref="betMusic"></audio>
+            <audio :src="music.fapai" class="poker-audio" ref="fapaiMusic"></audio>
+            <audio :src="music.pay" class="poker-audio" ref="payMusic"></audio>
+            <audio :src="music.win" class="poker-audio" ref="winMusic"></audio>
+            <audio :src="music.lose" class="poker-audio" ref="loseMusic"></audio>
+            <audio :src="music.bet" class="poker-audio" ref="betMusic"></audio>
             <div class="main">
                 <div class="bg-esktop" ref="container">
                     <div class="fly-coin fly-coin-el" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
@@ -163,7 +166,7 @@
                                     <li @click="addCoin('A')" ref="coin_A">A</li>
                                 </ul>
                                 <div class="btn-cls ">
-                                    <a href="javascript:;" @click="clearBet">
+                                    <a href="javascript:;" @click="clearBet()">
                                         {{$lang.poker.a16}}
                                     </a>
                                 </div>
@@ -454,7 +457,7 @@
                 <!--scale0-->
                 <div class="poker-draw" :class="{scale0: !isLoading}"  @click="openPoker">
                     <!--animate1-->
-                    <ul class="poker-area " :class="{animate1:pokerAnimate1}">
+                    <ul class="poker-area " :class="{animate1: pokerAnimate1}">
                         <li class="on">
                             <img src="@assets/img/luckyPoker/img-poker.png" alt="">
                         </li>
@@ -514,8 +517,11 @@ import Footer from '~components/Footer'
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout } from 'timers'
-const betMusic = () => import('~static/audio/poker-bet.ogg')
-const faPaiMusic = () => import('~static/audio/poker-fapai.ogg')
+const betMusic = () => import('~static/audio/dice/bet.ogg')
+const faPaiMusic = () => import('~static/audio/dice/fapai.ogg')
+const winMusic = () => import('~static/audio/dice/win.ogg')
+const payMusic = () => import('~static/audio/dice/pay.ogg')
+const loseMusic = () => import('~static/audio/dice/lose.ogg')
 export default {
     components: { Header, Footer },
     data () {
@@ -568,10 +574,21 @@ export default {
             is14: true,
             isShowRandom: false,
             pokerAnimate1: false,
-            fapaiMusic: '',
-            betMusic: '',
-            loadBetMusic: false,
-            loadFaPaiMusic: false
+            music: {
+                fapai: '',
+                bet: '',
+                lose: '',
+                win: '',
+                pay: ''
+            },
+            loadMusic: {
+                fapai: false,
+                bet: false,
+                lose: false,
+                win: false,
+                pay: false
+            },
+            openAnimate: false
         }
     },
     methods: {
@@ -768,6 +785,9 @@ export default {
                 this.$error(this.$lang.poker.a36)
                 return
             }
+            this.loadMusic.bet && this.loadMusic.bet.then(() => {
+                this.$refs.betMusic.play && this.$refs.betMusic.play()
+            })
             this.$nextTick(() => {
                 let lastCoin = this.coins[this.coins.length - 1]
                 this.calculate(name)
@@ -874,8 +894,8 @@ export default {
             this.lastHash = this.hashNumber
             this.disableBet = true
             this.isLoading = true
-            this.loadBetMusic && this.loadBetMusic.then(() => {
-                this.$refs.betMusic.play && this.$refs.betMusic.play()
+            this.loadMusic.pay && this.loadMusic.pay.then(() => {
+                this.$refs.payMusic.play && this.$refs.payMusic.play()
             })
             this.bet({
                 bets: {...this.betNums},
@@ -913,29 +933,46 @@ export default {
         openPoker () {
             this.pokerAnimate1 = true
             let that = this
-            this.loadFaPaiMusic && this.loadFaPaiMusic.then(() => {
-                this.$refs.fapaiMusic.play && this.$refs.fapaiMusic.play()
-            })
-            setTimeout(function () {
-                that.isLoading = false
-                that.closePoker(5000)
-                that.pokerAnimate1 = false
-            }, 1000)
+
+            if (!this.openAnimate) {
+                this.loadMusic.fapai && this.loadMusic.fapai.then(() => {
+                    this.$refs.fapaiMusic.play && this.$refs.fapaiMusic.play()
+                })
+                this.openAnimate = new Promise(resolve => {
+                    setTimeout(() => {
+                        that.isLoading = false
+                        that.closePoker(5000)
+                        that.pokerAnimate1 = false
+                        if (this.open.isWin) {
+                            this.loadMusic.win && this.loadMusic.win.then(() => {
+                                this.$refs.winMusic.play && this.$refs.winMusic.play()
+                            })
+                        } else {
+                            this.loadMusic.lose && this.loadMusic.lose.then(() => {
+                                this.$refs.loseMusic.play && this.$refs.loseMusic.play()
+                            })
+                        }
+                        resolve(true)
+                    }, 1000)
+                })
+            }
         },
         closePoker (time) {
-            if (this.closeTimer) {
-                clearTimeout(this.closeTimer)
-                this.closeTimer = null
-            }
-            if (time) {
-                this.closeTimer = setTimeout(() => {
+            this.openAnimate && this.openAnimate.then(() => {
+                if (time) {
+                    this.closeTimer = setTimeout(() => {
+                        if (this.openAnimate) {
+                            this.openAnimate = false
+                            this.showOpen = false
+                            this.clearBet()
+                        }
+                    }, time)
+                } else {
+                    this.openAnimate = false
                     this.showOpen = false
                     this.clearBet()
-                }, time)
-            } else {
-                this.showOpen = false
-                this.clearBet()
-            }
+                }
+            })
         },
         disableContext () {
             document.oncontextmenu = function (e) {
@@ -1022,13 +1059,25 @@ export default {
             this.resetCoinPosition()
             this.getHistoryMostNum()
         },
-        loadMusic () {
-            this.loadBetMusic = betMusic().then(res => {
-                this.betMusic = res
+        loadMusicSrc () {
+            this.loadMusic.bet = betMusic().then(res => {
+                this.music.bet = res
                 return res
             })
-            this.loadFaPaiMusic = faPaiMusic().then(res => {
-                this.fapaiMusic = res
+            this.loadMusic.fapai = faPaiMusic().then(res => {
+                this.music.fapai = res
+                return res
+            })
+            this.loadMusic.win = winMusic().then(res => {
+                this.music.win = res
+                return res
+            })
+            this.loadMusic.pay = payMusic().then(res => {
+                this.music.pay = res
+                return res
+            })
+            this.loadMusic.lose = loseMusic().then(res => {
+                this.music.lose = res
                 return res
             })
         }
@@ -1071,8 +1120,7 @@ export default {
         this.getHistoryMostNum()
         this.disableContext()
         this.subInDice()
-        this.loadMusic()
-
+        this.loadMusicSrc()
         window.addEventListener('resize', this.onResize)
     },
     destroyed () {
