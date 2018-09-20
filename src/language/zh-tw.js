@@ -831,6 +831,7 @@ module.exports = {
     '3. Here shows how many tickets have been sold.': '3. 這是本輪剩余票數，',
     'Buy more tickets, enjoy higher winning chance.': '購買越多，中獎概率越高',
     'Click here to try your luck!': '點擊這裏進行投註，立即試試',
-    'Okay': '下壹步'
+    'Okay': '下壹步',
+    'Round {0}': '期號 {0}'
     /* super coin end */
 }

@@ -690,7 +690,7 @@ export default {
                         })
                     }
                 }
-                if (this.ordersList) {
+                if (this.ordersList && buyNum.length>0) {
                     let baseObj = {
                         buyNum: buyNum,
                         prizes: 0,
@@ -913,11 +913,13 @@ export default {
                 this.scrollMsgChange('end') // 滚动信息改变
             } else {
                 this.startTimeLeft()
-                if (!localStorage.getItem('firstSuperCoin')) {
-                    this.isNew = true
-                    localStorage.setItem('firstSuperCoin', true)
-                } else {
-                    this.isNew = false
+                if(this.timeLeft > 15){
+                    if (!localStorage.getItem('firstSuperCoin')) {
+                        this.isNew = true
+                        localStorage.setItem('firstSuperCoin', true)
+                    } else {
+                        this.isNew = false
+                    }
                 }
             }
             console.log('roundinfo')
