@@ -57,8 +57,8 @@ module.exports = {
 			'~common': path.resolve(__dirname, '../src/common'),
 			'@common': path.resolve(__dirname, '../src/common'),
 			'~assets': path.resolve(__dirname, '../src/assets'),
-			'@static': path.resolve(__dirname, '../src/static'),
-			'~static': path.resolve(__dirname, '../src/static'),
+			'@static': path.resolve(__dirname, '../static'),
+			'~static': path.resolve(__dirname, '../static'),
 			'@assets': path.resolve(__dirname, '../src/assets'),
 			'~components': path.resolve(__dirname, '../src/components'),
 			'~store': path.resolve(__dirname, '../src/store'),
@@ -105,7 +105,7 @@ module.exports = {
 				test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
 				loader: 'url-loader',
 				options: {
-					limit: 10000,
+					limit: 100000,
 					name: utils.assetsPath('media/[name].[hash:7].[ext]')
 				}
 			},
