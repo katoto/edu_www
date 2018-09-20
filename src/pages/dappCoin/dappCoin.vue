@@ -1121,12 +1121,19 @@ export default {
             await this.getPlayerInfoByAddress()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
+            if (this.balance && Number(this.balance) > 0) {
+                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+            } else {
+                this.maxTicketNum = 1500 - this.roundInfo.tickets
+            }
             //  用户投注订单记录  是否登录
             if (this.selfMsg) {
                 this.orderCurrentChange()
             }
             //  请求历史数据
             this.expectCurrentChange()
+
+
         },
         startAllevent () {
             // 合约事件
@@ -1292,6 +1299,8 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
+        console.log(this.isFromFlag)
+        console.log('=======this.isFromFlag======')
     },
     watch: {
         isLog (val) {
