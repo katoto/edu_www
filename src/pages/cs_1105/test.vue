@@ -1,6 +1,11 @@
 <template>
     <div id="test">
+        <div class="div div1">
 
+        </div>
+        <div class="div div2">
+
+        </div>
     </div>
 </template>
 
@@ -19,9 +24,16 @@
     }
 </script>
 <style scope lang="less" type="text/less">
-    #test{
-        width: 375px;
-        height: 300px;
-        background: #100;
+    .div{
+        width: 50px;
+        height: 100px;
+        margin: 50px auto 50px;
+        border-radius: 10px;
+    }
+    .div1{
+        border: 1/75rem solid #000;
+    }
+    .div2{
+        border: 1px solid #000;
     }
 </style>
