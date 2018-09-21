@@ -122,9 +122,9 @@
                                 <lang>Pay</lang>
                             </a>
                             <!--  -->
-                            <a href="javascript:;" @click="useReloadBuy" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
+                            <a href="javascript:;" class="btn-small" :class="{'btn-hadlogin':selfMsg}">
                                 <template v-if="selfMsg">
-                                    <p class="buyEnough" v-if="parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) >= (currTicketPrice * tickNum)" >
+                                    <p class="buyEnough" @click="useReloadBuy" v-if="parseFloat(formatesuperCoin(parseFloat(selfMsg.win) + parseFloat(selfMsg.calcTicketEarn) + parseFloat(selfMsg.aff_invite))) >= (currTicketPrice * tickNum)" >
                                         <lang>Pay by Income</lang>
                                     </p>
                                     <p v-else>
@@ -145,7 +145,7 @@
                                     </p>                                    
                                 </template>
                                 <template v-else>
-                                    <p class="buyEnough">
+                                    <p class="buyEnough" @click="useReloadBuy">
                                         <lang>Pay by Income</lang>
                                     </p>
                                 </template>
@@ -321,7 +321,7 @@
                     </div>
                     <template  v-if="selfMsg">
                         <!--已登录-->
-                        <div class="ticket-logined"  v-if="ordersList">
+                        <div class="ticket-logined hidden-sm hidden-xs"  v-if="ordersList">
                             <ul>
                                 <li v-for="(item,index) in ordersList" :key="index"  @click="ticketsNumber=item" :class="{'win':item.prizes!==0}">
                                     <p class="issue">
@@ -337,6 +337,24 @@
                                 </li>
                             </ul>
                         </div>
+                        <!-- order Buy mobile -->
+                        <div class="ticket-logined hidden-lg hidden-md"  v-if="ordersListMobile">
+                            <ul>
+                                <li v-for="(item,index) in ordersListMobile" :key="index"  @click="ticketsNumber=item" :class="{'win':item.prizes!==0}">
+                                    <p class="issue">
+                                        <lang>Round No.</lang> {{ item.round }}
+                                    </p>
+                                    <p class="money" :class="{'hide':item.prizes===0}">
+                                        <!--win的时候才展示 删除-->
+                                        + {{ formatesuperCoin(item.prizes) }} ETH
+                                    </p>
+                                    <p class="amount" >
+                                        {{ item.buyNum && item.buyNum.length }}
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
                         <!--已登录但是没信息-->
                         <div class="nomsg" v-if="ordersList&&ordersList.length===0">
                             <p>
@@ -362,7 +380,7 @@
                             </div>
                         </div>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&orderPageTotal!==1&&orderPageTotal!==0">
+                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>=1">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -379,7 +397,7 @@
                             </el-pagination>
                         </div>
                         <!--分页h5-->
-                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="ordersList&&orderPageTotal!==1&&orderPageTotal!==0">
+                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" @click="orderMoreMobile" v-if="ordersList&&ordersList.length>=1&&isShowOrderMore">
                             <lang>Click to see more</lang>
                         </a>
                     </template>
@@ -445,14 +463,14 @@
                             <lang>One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there's no winner of the round, the prize pool will accumulate in next round.</lang>
                         </p>
                     </div>
-                    <template v-if="expectsList && expectsList.length > 0">
+                    <template v-if="(expectsList && expectsList.length > 0)||(expectsListMobile && expectsListMobile.length > 0)">
                         <ul class="historyDraw-head">
                             <li class="issue"><lang>Round No.</lang></li>
                             <li class="winningNumbers"><lang>Draw Number </lang></li>
                             <li class="bonus"><lang>Prize Pool</lang></li>
                             <li class="winner"><lang>Winner</lang></li>
                         </ul>
-                        <ul class="historyDraw-main">
+                        <ul class="historyDraw-main hidden-xs hidden-sm">
                             <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !==''}">
                                 <p class="issue">
                                     #{{ item.round }}
@@ -473,8 +491,30 @@
                                 </p>
                             </li>
                         </ul>
+                        <!-- mobile -->
+                        <ul class="historyDraw-main hidden-lg hidden-md">
+                            <li v-for="(item,index) in expectsListMobile" :key="index" :class="{'win':item.winner !==''}">
+                                <p class="issue">
+                                    #{{ item.round }}
+                                </p>
+                                <p class="winningNumbers">
+                                    {{ item.luckynum }}
+                                </p>
+                                <p class="bonus">
+                                    {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
+                                </p>
+                                <p class="winner" v-if="item.winner ===''">
+                                    <lang>None </lang>
+                                </p>
+                                <p class="winner" v-else>
+                                    <a target="_blank" :href="`https://etherscan.io/address/${item.winner}`" >
+                                        {{ item.winner }}
+                                    </a>
+                                </p>
+                            </li>
+                        </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectPageTotal!==1&&expectPageTotal!==0">
+                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>=1">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -491,7 +531,7 @@
                             </el-pagination>
                         </div>
                         <!--分页h5-->
-                        <a href="javascript:;" class="pagination-h5 hidden-lg hidden-md" v-if="expectsList&&expectPageTotal!==1&&expectPageTotal!==0">
+                        <a href="javascript:;" @click="expectMoreMobile" class="pagination-h5 hidden-lg hidden-md" v-if="expectsListMobile&&expectsListMobile.length>=1&&isShowExpectMoreBtn">
                             <lang>Click to see more</lang>
                         </a>
                     </template>
@@ -576,7 +616,7 @@
                     <p>
                         <lang>Click here to try your luck!</lang>
                     </p>
-                    <a href="javascript:;" class="btn-next" @click="isNew = false"><lang>Okay</lang></a>
+                    <a href="javascript:;" class="btn-next" @click="initEasyPlay"><lang>Okay</lang></a>
                     <img src="../../assets/img/luckyCoin/line.png" alt="">
                 </div>
             </div>
@@ -645,7 +685,14 @@ export default {
             allTicketPrice: null,
             maxTicketNum: null, // 最大ticket 数量
             expectsList: null, // 期号历史数据
+            expectsListMobile: [], // 手机端展示
+            expectsMobileIndex: 1,
+            isShowExpectMoreBtn:true,
+
             ordersList: null, // 个人订单数据
+            ordersListMobile: [], 
+            isShowOrderMore:true,
+            ordersMobileIndex: 1,
 
             expectPageno: 1,
             expectPageSize: 25,
@@ -672,6 +719,13 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
+        initEasyPlay(){
+            this.isNew = false;
+            this.isShowStep1 = true;
+            this.isShowStep2 = false;
+            this.isShowStep3 = false;
+            this.isShowStep4 = false;
+        },
         async useReloadBuy () {
             // 使用收益购买
             let buyBack = null
@@ -787,7 +841,7 @@ export default {
             if (this.selfMsg) {
                 this.informationTab = dataName
             } else {
-                if (dataName === 'howToPlay' || dataName === 'myticket') {
+                if (dataName === 'howToPlay' || dataName === 'myticket' || dataName === 'historyDraw') {
                     this.informationTab = dataName
                 } else {
                     this.loginMetamask()
@@ -797,6 +851,10 @@ export default {
         loginMetamask () {
             this.showPopMask = true
         },
+        expectMoreMobile(){
+            //  mobile
+            this.expectCurrentChange(this.expectsMobileIndex)
+        },
         async expectCurrentChange (pageno = this.expectPageno) {
             let params = {
                 pageno
@@ -805,11 +863,19 @@ export default {
             data = data.data
             if (data) {
                 this.expectsList = this.expectFormatData(data.expects)
+                this.expectsMobileIndex++
+                if(this.expectsList.length>0){
+                    this.expectsListMobile = this.expectsListMobile.concat( this.expectsList )
+                }
                 if (data.expects[0] && data.expects[0].round === this.roundInfo.roundIndex) {
                     this.getWInAddr = data.expects[0].winner
                 } else {
                     this.getWInAddr = 'someBody'
                 }
+                if (data.expects.length === 0 || data.expects.length !== 25) {
+                    this.isShowExpectMoreBtn = false
+                }
+
                 this.expectPageTotal = parseInt(data.pagetotal, 10)
             }
         },
@@ -825,6 +891,10 @@ export default {
             }
             return list
         },
+        orderMoreMobile(){
+            //  mobile
+            this.expectCurrentChange(this.ordersMobileIndex)
+        },        
         async orderCurrentChange (pageno = this.orderPageno) {
             let params = {
                 pageno,
@@ -834,9 +904,19 @@ export default {
             data = data.data
             if (data) {
                 this.ordersList = this.orderFormatData(data.luckydata)
+
+                this.ordersMobileIndex++
+                if(this.ordersList.length>0){
+                    this.ordersListMobile = this.ordersListMobile.concat( this.ordersList )
+                }
+                console.log(this.ordersListMobile)
+                if (data.luckydata.length === 0 || data.luckydata.length !== 25) {
+                    this.isShowOrderMore = false
+                }                
                 this.usdPrice = data.USD
                 this.orderPageTotal = parseInt(data.pagetotal, 10)
                 this.searchTicketsXaddr()
+
             }
         },
         orderSizeChange (size) {
