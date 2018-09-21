@@ -9,7 +9,7 @@
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
                     <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank"><lang>Contract</lang></a>
-                    <a href="javascript:;" @click="showNewguide">{{_("Easy&nbsp;Play")}}</a>
+                    <a href="javascript:;" @click="showNewguide" v-lang="'Easy&nbsp;Play'"></a>
                     <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         <div class="fr betting">
                             <div class="item-msg">
                                 <p class="title">
-                                    <lang>Reward</lang>
+                                    <lang>Prize Pool </lang>
                                 </p>
                                 <p class="jackpot-amount" :class="{'isNewShow': isShowStep1}">
                                      {{ formatesuperCoin(roundInfo.jackpot) }}
@@ -63,7 +63,7 @@
                             </div>
                             <div class="item-msg">
                                 <p class="title">
-                                    <lang>End of the draw</lang>
+                                    <lang>Countdown</lang>
                                 </p>
                                 <p class="countdown" :class="{'on': timeLeft<= 600 && timeLeft > 0,'isNewShow': isShowStep2}">
                                     {{ nowFormateTime }}
@@ -71,17 +71,17 @@
                             </div>
                             <div class="item-msg">
                                 <p class="title title-process" :class="{'isNewShow': isShowStep3}">
-                                    <lang>Voting progress</lang>
+                                    <lang>Tickets</lang>
                                 </p>
                                 <div class="ticket">
-                                    <div class="people-purchased" :data-msg="_('Purchased')">
+                                    <div class="people-purchased" :data-msg="_('Bought')">
                                         <p>{{ roundInfo.tickets }}</p>
                                     </div>
                                     <div class="ticket-progress">
                                         <!-- transform: scaleX(0.5) -->
                                         <i :style="calVotingLen"></i>
                                     </div>
-                                    <div class="people-remaining" :data-msg="_('Remaining')">
+                                    <div class="people-remaining" :data-msg="_('Remain')">
                                         <p>{{ 1500 - roundInfo.tickets }}</p>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                         <div class="buy-area">
                             <div class=" title">
                                 <p>
-                                    <lang>Buy Ticket</lang>
+                                    <lang>Buy </lang>
                                 </p>
                             </div>
                             <div class=" input-wrap">
@@ -174,7 +174,7 @@
                 <div class="notDraw" :class="{'hide':!waitWin}">
                     <!-- 等待开奖文案  components  -->
                     <h5>
-                        <lang>Waiting for the draw</lang>
+                        <lang>Drawing </lang>
                     </h5>
                     <ul>
                         <li>
@@ -547,14 +547,14 @@
                             <lang>Brief Introduction:</lang>
                         </p>
                         <p>
-                            <lang>LuckyCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!</lang>
+                            <lang>SuperCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!</lang>
                         </p>
                         <br>
                         <p>
                             <lang>Gameplay:</lang>
                         </p>
                         <p>
-                            <lang>1. At the beginning of the game, there will be a 10 ETH-prize pool and 3000 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).</lang>
+                            <lang>1. At the beginning of the game, there will be a 10 ETH-prize pool and 1500 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).</lang>
                         </p>
                         <p>
                             <lang>2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy the dividend. More tickets bring more dividend.</lang>
