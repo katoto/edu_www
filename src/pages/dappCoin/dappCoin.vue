@@ -853,9 +853,9 @@ export default {
         },
         expectMoreMobile(){
             //  mobile
-            this.expectCurrentChange(this.expectsMobileIndex)
+            this.expectCurrentChange(this.expectsMobileIndex, true)
         },
-        async expectCurrentChange (pageno = this.expectPageno) {
+        async expectCurrentChange (pageno = this.expectPageno, isPush=false) {
             let params = {
                 pageno
             }
@@ -863,9 +863,14 @@ export default {
             data = data.data
             if (data) {
                 this.expectsList = this.expectFormatData(data.expects)
-                this.expectsMobileIndex++
-                if(this.expectsList.length>0){
-                    this.expectsListMobile = this.expectsListMobile.concat( this.expectsList )
+                if(pageno===1){
+                    this.expectsListMobile = this.expectsList
+                    this.expectsMobileIndex = 2
+                }else{
+                    if(this.expectsList.length>0 && isPush){
+                        this.expectsListMobile = this.expectsListMobile.concat( this.expectsList )
+                        this.expectsMobileIndex++
+                    }
                 }
                 if (data.expects[0] && data.expects[0].round === this.roundInfo.roundIndex) {
                     this.getWInAddr = data.expects[0].winner
@@ -893,9 +898,9 @@ export default {
         },
         orderMoreMobile(){
             //  mobile
-            this.expectCurrentChange(this.ordersMobileIndex)
+            this.expectCurrentChange(this.ordersMobileIndex ,true)
         },        
-        async orderCurrentChange (pageno = this.orderPageno) {
+        async orderCurrentChange (pageno = this.orderPageno, isPush=false) {
             let params = {
                 pageno,
                 address: this.selfAddr
@@ -904,15 +909,20 @@ export default {
             data = data.data
             if (data) {
                 this.ordersList = this.orderFormatData(data.luckydata)
-
-                this.ordersMobileIndex++
-                if(this.ordersList.length>0){
-                    this.ordersListMobile = this.ordersListMobile.concat( this.ordersList )
-                }
-                console.log(this.ordersListMobile)
+                if(pageno===1){
+                    this.ordersListMobile = this.ordersList
+                    this.ordersMobileIndex = 2
+                }else{
+                    if(this.ordersList.length>0 && isPush){
+                        this.ordersListMobile = this.ordersListMobile.concat( this.ordersList )
+                        this.ordersMobileIndex++
+                    }
+                }                
+                
                 if (data.luckydata.length === 0 || data.luckydata.length !== 25) {
                     this.isShowOrderMore = false
-                }                
+                }   
+
                 this.usdPrice = data.USD
                 this.orderPageTotal = parseInt(data.pagetotal, 10)
                 this.searchTicketsXaddr()
