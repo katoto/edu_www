@@ -39,7 +39,7 @@
                         </p>
                     </template>
                     <template v-if="!someGetWin && !waitWin && nextScreen">
-                        <p clsss="issue-pc">
+                        <p clsss="issue-pc ">
                             <!-- 当前时间 -->
                             {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
                         </p>
@@ -687,11 +687,11 @@ export default {
             expectsList: null, // 期号历史数据
             expectsListMobile: [], // 手机端展示
             expectsMobileIndex: 1,
-            isShowExpectMoreBtn:true,
+            isShowExpectMoreBtn: true,
 
             ordersList: null, // 个人订单数据
-            ordersListMobile: [], 
-            isShowOrderMore:true,
+            ordersListMobile: [],
+            isShowOrderMore: true,
             ordersMobileIndex: 1,
 
             expectPageno: 1,
@@ -719,12 +719,12 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
-        initEasyPlay(){
-            this.isNew = false;
-            this.isShowStep1 = true;
-            this.isShowStep2 = false;
-            this.isShowStep3 = false;
-            this.isShowStep4 = false;
+        initEasyPlay () {
+            this.isNew = false
+            this.isShowStep1 = true
+            this.isShowStep2 = false
+            this.isShowStep3 = false
+            this.isShowStep4 = false
         },
         async useReloadBuy () {
             // 使用收益购买
@@ -851,11 +851,11 @@ export default {
         loginMetamask () {
             this.showPopMask = true
         },
-        expectMoreMobile(){
+        expectMoreMobile () {
             //  mobile
             this.expectCurrentChange(this.expectsMobileIndex, true)
         },
-        async expectCurrentChange (pageno = this.expectPageno, isPush=false) {
+        async expectCurrentChange (pageno = this.expectPageno, isPush = false) {
             let params = {
                 pageno
             }
@@ -863,12 +863,12 @@ export default {
             data = data.data
             if (data) {
                 this.expectsList = this.expectFormatData(data.expects)
-                if(pageno===1){
+                if (pageno === 1) {
                     this.expectsListMobile = this.expectsList
                     this.expectsMobileIndex = 2
-                }else{
-                    if(this.expectsList.length>0 && isPush){
-                        this.expectsListMobile = this.expectsListMobile.concat( this.expectsList )
+                } else {
+                    if (this.expectsList.length > 0 && isPush) {
+                        this.expectsListMobile = this.expectsListMobile.concat(this.expectsList)
                         this.expectsMobileIndex++
                     }
                 }
@@ -896,11 +896,11 @@ export default {
             }
             return list
         },
-        orderMoreMobile(){
+        orderMoreMobile () {
             //  mobile
-            this.expectCurrentChange(this.ordersMobileIndex ,true)
-        },        
-        async orderCurrentChange (pageno = this.orderPageno, isPush=false) {
+            this.expectCurrentChange(this.ordersMobileIndex, true)
+        },
+        async orderCurrentChange (pageno = this.orderPageno, isPush = false) {
             let params = {
                 pageno,
                 address: this.selfAddr
@@ -909,24 +909,23 @@ export default {
             data = data.data
             if (data) {
                 this.ordersList = this.orderFormatData(data.luckydata)
-                if(pageno===1){
+                if (pageno === 1) {
                     this.ordersListMobile = this.ordersList
                     this.ordersMobileIndex = 2
-                }else{
-                    if(this.ordersList.length>0 && isPush){
-                        this.ordersListMobile = this.ordersListMobile.concat( this.ordersList )
+                } else {
+                    if (this.ordersList.length > 0 && isPush) {
+                        this.ordersListMobile = this.ordersListMobile.concat(this.ordersList)
                         this.ordersMobileIndex++
                     }
-                }                
-                
+                }
+
                 if (data.luckydata.length === 0 || data.luckydata.length !== 25) {
                     this.isShowOrderMore = false
-                }   
+                }
 
                 this.usdPrice = data.USD
                 this.orderPageTotal = parseInt(data.pagetotal, 10)
                 this.searchTicketsXaddr()
-
             }
         },
         orderSizeChange (size) {
