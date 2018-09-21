@@ -154,7 +154,7 @@
                     </div>
                 </div>
             </template>
-            <!--时间到准备开奖-->
+            <!-- 时间到准备开奖 -->
             <!--on-->
             <div class="pop" :class="{'show': currTimeUp}" style="display: none">
                 <p class="timeup" :class="{'on': currTimeUp }">
@@ -1230,43 +1230,43 @@ export default {
                             let nowTicketNum = res.args.end.toNumber() - res.args.begin.toNumber()
                             if (name !== '') {
                                 if ((nowTicketNum) > 0) {
-                                    setTimeout(()=>{
+                                    setTimeout(() => {
                                         Notification({
                                             dangerouslyUseHTMLString: true,
                                             message: _('{0} has bought {1} tickets', name, nowTicketNum + 1),
                                             position: 'bottom-right',
                                             duration: 5000
-                                        },0)
-                                    })                                    
+                                        }, 0)
+                                    })
                                 } else {
-                                    setTimeout(()=>{
+                                    setTimeout(() => {
                                         Notification({
                                             dangerouslyUseHTMLString: true,
                                             message: _('{0} has bought {1} ticket', name, 1),
                                             position: 'bottom-right',
                                             duration: 5000
                                         })
-                                    },0)                                    
+                                    }, 0)
                                 }
                             } else if (name === '') {
                                 if ((nowTicketNum) > 0) {
-                                    setTimeout(()=>{
+                                    setTimeout(() => {
                                         Notification({
                                             dangerouslyUseHTMLString: true,
                                             message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()), nowTicketNum + 1),
                                             position: 'bottom-right',
                                             duration: 5000
                                         })
-                                    },0)                                    
+                                    }, 0)
                                 } else {
-                                    setTimeout(()=>{
+                                    setTimeout(() => {
                                         Notification({
                                             dangerouslyUseHTMLString: true,
                                             message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()), 1),
                                             position: 'bottom-right',
                                             duration: 5000
                                         })
-                                    },0)
+                                    }, 0)
                                 }
                             }
                         } else if (res.event === 'onWithdraw') {
