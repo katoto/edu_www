@@ -1,7 +1,9 @@
 import Web3 from 'web3'
 // 合约addr
 // let contractAddr = '0x259761b8f7846a6c5e193d4ff8e4218daa394e3b' // ceshi
-let contractAddr = '0xe15bbf5e7b8d6df6503444009cd9b03c6d3161ae' // ceshi2
+// let contractAddr = '0xe15bbf5e7b8d6df6503444009cd9b03c6d3161ae' // ceshi2
+// let contractAddr = '0x1c671f9a43d985a591ea8f1cad4e57833c327c78' // ceshi2
+let contractAddr = '0xd52a7d0d30584d759a6571da569c3776c7d73acc' // ceshi3
 // let contractAddr = '0xfcdad74736f70b25d53501d4bf281b0f6910f18b'
 
 let web3 = window.web3

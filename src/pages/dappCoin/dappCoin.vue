@@ -312,12 +312,7 @@
                         <p>
                             <lang>One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.</lang>
                         </p>
-                        <p v-if="ordersList&&ordersList.length===0">
-                            <lang>Why not buy a ticket now? </lang>
-                            <a v-if="language==='en'" @click="buyNum"  href="javascript:;" style="color: #ff8a00;">Try Now!</a>
-                            <a v-if="language==='zhCn'" @click="buyNum" href="javascript:;" style="color: #ff8a00;">立即购买!</a>
-                            <a v-if="language==='zhTw'" @click="buyNum" href="javascript:;" style="color: #ff8a00;">立即購買!</a>
-                        </p>
+
                     </div>
                     <template  v-if="selfMsg">
                         <!--已登录-->
@@ -358,8 +353,11 @@
                         <!--已登录但是没信息-->
                         <div class="nomsg" v-if="ordersList&&ordersList.length===0">
                             <p>
-                                nomsg
-                            </p>
+                                <lang>Why not buy a ticket now? </lang>
+                                <a v-if="language==='en'" @click="buyNum"  href="javascript:;" style="color: #ff8a00;">Try Now!</a>
+                                <a v-if="language==='zhCn'" @click="buyNum" href="javascript:;" style="color: #ff8a00;">立即购买!</a>
+                                <a v-if="language==='zhTw'" @click="buyNum" href="javascript:;" style="color: #ff8a00;">立即購買!</a>
+                            </p>                            
                         </div>
                         <!--我的购买详细展开-->
                         <!--on-->
@@ -405,7 +403,7 @@
                     <div class="ticket-unlogin" v-if="!selfMsg">
                         <!--未登陆-->
                         <p>
-                            <lang>No record.  Please login to the </lang>
+                            <lang>Please login to the </lang>
                             <a href="javascript:;" style="color: #6a88cc;" @click="loginMetamask">Metamask</a>
                         </p>
                     </div>
@@ -482,7 +480,7 @@
                                     {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                                 </p>
                                 <p class="winner" v-if="item.winner ===''">
-                                    <lang>None </lang>
+                                    -
                                 </p>
                                 <p class="winner" v-else>
                                     <a target="_blank" :href="`https://etherscan.io/address/${item.winner}`" >
