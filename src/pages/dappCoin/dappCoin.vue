@@ -676,7 +676,7 @@ export default {
             informationTab: 'myticket', // 控制tab
             waitWin: false, // 待开奖
             nextScreen: false, // 切换屏幕
-            currTimeUp: null,
+            currTimeUp: false,
             balance: null, // 账户余额
             beforeInviteName: null, // 准备邀请的名字  注册的名字
             showFirstBaxi: false, // 首次提示
@@ -1565,6 +1565,9 @@ export default {
                     right: 10px;
                     background: url("../../assets/slice/arrow-right-778ca3.png");
                 }
+            }
+            .el-select--mini,.btn-prev,.btn-next{
+                display: none;
             }
         }
         .el-pagination {

@@ -802,7 +802,7 @@ module.exports = {
     'Bought': '当期票数',
     'Remain': '剩余数量',
     'Buy ': '立即购买',
-    'TIME UP!': '时间到!',
+    'TIME\'S UP!': '时间到!',
     'Min': '最小',
     'Next round will start at {0}': '预计{0}开始下一期',
     'Referral link:': '你的推广链接:',
