@@ -677,7 +677,7 @@
                     content: 'N';
                     display: block;
                     position: absolute;
-                    top: 10px;
+                    top: 24px;
                     right:-2px;
                     border-radius: 2px;
                     padding: 0 4px;
@@ -1442,7 +1442,7 @@
                         content: 'N';
                         display: block;
                         position: absolute;
-                        bottom: 28px;
+                        bottom: 30px;
                         right:2px;
                         border-radius: 2px;
                         padding: 0 4px;

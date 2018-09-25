@@ -389,8 +389,8 @@
                         <div class="msg">
                             <lang>or scan to get the address</lang>
                         </div>
-                        <img v-if="currBalance.cointype==='1001'" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address " alt="recharge">
-                        <img v-if="currBalance.cointype==='2001'" alt="" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address " alt="recharge">
+                        <img v-if="currBalance.cointype==='1001'" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address " alt="recharge">
+                        <img v-if="currBalance.cointype==='2001'" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address " alt="recharge">
                     </div>
                 </div>
                 <div class="tiger-pc-msg">
