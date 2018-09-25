@@ -15,17 +15,17 @@
             </div>
         </div>
         <!--status2-->
-        <div class="banner-dapp" :class="{'status2':nextScreen}">
+        <div class="banner-dapp" :class="{'status2':nextScreen && pageSucc}">
             <!--公告 滚动  components-->
-            <banner-scroll class="message" >
+            <banner-scroll v-if="scrollMsg" class="message">
                 <div class="text-scroller" style="height:100%">
                     <ul class="scroller-in">
-                        <li v-for="(item,index) in scrollMsg" :key="index"><lang>{{ item }}</lang></li>
+                        <li v-for="(item,index) in scrollMsg" :key="index">{{ item }}</li>
                     </ul>
                 </div>
             </banner-scroll>
             <!--draw-->
-            <template v-if="roundInfo">
+            <template v-if="roundInfo && pageSucc">
                 <div class="issue">
                     <p v-if="!nextScreen">{{ _('Round {0}', roundInfo.roundIndex ) }}</p>
                     <template v-if="someGetWin && roundInfo">
@@ -380,7 +380,7 @@
                             </div>
                         </div>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>=1">
+                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>=1" :class="{'lg7':orderPageTotal>=7}">
                             <el-pagination
                                     @current-change="orderCurrentChange"
                                     @size-change="orderSizeChange"
@@ -514,7 +514,7 @@
                             </li>
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>=1">
+                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>=1" :class="{'lg7':expectPageTotal>=7}">
                             <el-pagination
                                 @current-change="expectCurrentChange"
                                 @size-change="expectSizeChange"
@@ -656,6 +656,7 @@ export default {
     data () {
         return {
             getWInAddr: '0x0000000000000000',
+            pageSucc: false,
             usdPrice: 0,
             bindwaitingMsg: _('Who will be the winner?'),
             waitingMsgArr: [
@@ -1097,6 +1098,7 @@ export default {
                     }
                 }
             }
+            this.pageSucc = true
             console.log('roundinfo')
             console.log(this.roundInfo)
             this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime()) / 1000
@@ -1184,8 +1186,16 @@ export default {
             this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
             this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets / 1500})`
 
+            let earnNum = null
+            if (this.selfMsg) {
+                earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
+            }
             if (this.balance && Number(this.balance) > 0) {
-                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                if (earnNum && Number(this.balance) < earnNum) {
+                    this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
+                } else {
+                    this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                }
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
@@ -1574,8 +1584,10 @@ export default {
                     background: url("../../assets/slice/arrow-right-778ca3.png");
                 }
             }
-            .el-select--mini,.btn-prev,.btn-next{
-                display: none;
+            &.lg7{
+                .el-select--mini,.btn-prev,.btn-next{
+                    display: none;
+                }
             }
         }
         .el-pagination {
