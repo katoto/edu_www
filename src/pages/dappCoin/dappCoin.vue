@@ -749,11 +749,7 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
-                buyBack = await luckyCoinApi.reLoadXaddr(this.tickNum, this.isFromFlag)
-            } else {
-                buyBack = await luckyCoinApi.reLoadXname(this.tickNum, this.isFromFlag)
-            }
+            this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42 ? buyBack = await luckyCoinApi.reLoadXaddr(this.tickNum, this.isFromFlag) : buyBack = await luckyCoinApi.reLoadXname(this.tickNum, this.isFromFlag)
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         showNewguide () {
@@ -905,10 +901,6 @@ export default {
         },
         expectFormatData (list) {
             // 历史期号数据处理
-            if (list) {
-                list.forEach((item, index) => {
-                })
-            }
             return list
         },
         orderMoreMobile () {
