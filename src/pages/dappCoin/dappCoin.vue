@@ -1055,9 +1055,7 @@ export default {
         async pageInit () {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
-            console.log(this.selfAddr)
             await this.getCurrentRoundInfo()
-            console.log(this.roundInfo)
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
@@ -1174,7 +1172,7 @@ export default {
                 let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
                 this.selfMsg = allMsg[0]
                 console.log(this.selfMsg)
-                console.log('=========this.selfMsg======')
+                console.log('=========selfMsg======')
                 this.balance = allMsg[1]
                 this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
             } else {
@@ -1408,13 +1406,6 @@ export default {
                                 })
                             }
                         } else if (res.event === 'onSettle') {
-                            // uint256 rid,
-                            // uint256 ticketsout,
-                            // address winner,
-                            // uint256 luckynum,
-                            // uint256 jackpot
-                            console.log(res.args)
-                            console.log('=======onSettle=========')
                             if (res.args) {
                                 this.waitWin = false
                                 if (res.args.luckynum.toNumber() <= res.args.ticketsout.toNumber()) {
@@ -1434,8 +1425,6 @@ export default {
                                 this.showOpenNumber(res.args.luckynum.toNumber())
                             }
                         } else if (res.event === 'onActivate') {
-                            console.log(res.args)
-                            console.log('=======onActivate=========')
                             // 有人中开奖  去除on
                             this.openWinNumber = false
                             // 切换 重新开始
