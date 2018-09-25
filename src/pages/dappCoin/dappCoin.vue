@@ -504,7 +504,7 @@
                                     {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                                 </p>
                                 <p class="winner" v-if="item.winner ===''">
-                                    <lang>None </lang>
+                                    -
                                 </p>
                                 <p class="winner" v-else>
                                     <a target="_blank" :href="`https://etherscan.io/address/${item.winner}`" >
@@ -1061,7 +1061,15 @@ export default {
             await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             if (this.balance && Number(this.balance) > 0) {
-                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                let earnNum = null
+                if(this.selfMsg){
+                    earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
+                }
+                if( earnNum && Number(this.balance) < earnNum ){
+                    this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
+                }else{
+                    this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                }
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
