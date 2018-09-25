@@ -212,13 +212,13 @@
                          <lang>Tips</lang>
                      </h5>
                      <p class="p1">
-                         <lang>Please install and log in your Metamask</lang>
+                         <lang>Please install and log in to your MetaMask</lang>
                      </p>
                      <p class="p2">
                         <lang>No Metamask?</lang>                         
-                        <a v-if="language==='zhCn'" href="javascript:;"  @click="scrollInvite">查看</a>
-                        <a v-if="language==='zhTw'" href="javascript:;"  @click="scrollInvite">查看</a>
-                        <a v-if="language==='en'" href="javascript:;"  @click="scrollInvite" >install now</a>
+                        <a v-if="language==='zhCn'" href="javascript:;" style="text-decoration:underline" @click="scrollInvite">查看</a>
+                        <a v-if="language==='zhTw'" href="javascript:;" style="text-decoration:underline" @click="scrollInvite">查看</a>
+                        <a v-if="language==='en'" href="javascript:;" style="text-decoration:underline"  @click="scrollInvite" >install now</a>
                      </p>
                  </div>
             </div>
@@ -405,7 +405,7 @@
                     <div class="ticket-unlogin" v-if="!selfMsg">
                         <!--未登陆-->
                         <p>
-                            <lang>Please login to the </lang>
+                            <lang>Please log in to the </lang>
                             <a href="javascript:;" style="color: #6a88cc;" @click="loginMetamask">Metamask</a>
                         </p>
                     </div>
