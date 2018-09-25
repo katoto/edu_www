@@ -640,9 +640,9 @@ import {
     copyError,
     formateCoinType,
     formatTime,
-    formateCoinAddr
+    formateCoinAddr,
+    coinAffAddr
 } from '~common/util'
-import {coinAffAddr} from '~common/dappConfig.js'
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
 import Footer from '~components/Footer.vue'

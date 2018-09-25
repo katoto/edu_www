@@ -8,6 +8,11 @@ export const src = 'pc'
 export const tipsTime = 3000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
+//  社区地址 online
+export const coinAffAddr = '0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF'
+
+// 线下社区地址
+// export const coinAffAddr = '0xb0555F2389d9Bf1389C8e548c60a6DDc77F3A4eE'
 
 export function mapActions (acts, ns) {
     const aTypes = {}
