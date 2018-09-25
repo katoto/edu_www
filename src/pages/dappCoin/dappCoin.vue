@@ -4,7 +4,7 @@
             <div class="head-dapp-wrap">
                 <h1 class="logo">
                     <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp">
-                    <p>Super LuckyCoin</p>
+                    <p>SuperCoin</p>
                 </h1>
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
@@ -158,7 +158,7 @@
             <!--on-->
             <div class="pop" :class="{'show': currTimeUp}" style="display: none">
                 <p class="timeup" :class="{'on': currTimeUp }">
-                    <lang>TIME UP!</lang>
+                    <lang>TIME'S UP!</lang>
                 </p>
             </div>
             <!--开奖 -->
@@ -207,13 +207,13 @@
                  <div class="mask-main">
                      <a href="javascript:;" class="pop-close" @click="showPopMask=false"></a>
                      <h5>
-                         <lang>Game Tip</lang>
+                         <lang>Tips</lang>
                      </h5>
                      <p class="p1">
                          <lang>Please install and log in your Metamask</lang>
                      </p>
                      <p class="p2">
-                        <lang>No Metamask, how to play?</lang>                         
+                        <lang>No Metamask?</lang>                         
                         <a v-if="language==='zhCn'" href="javascript:;"  @click="scrollInvite">查看</a>
                         <a v-if="language==='zhTw'" href="javascript:;"  @click="scrollInvite">查看</a>
                         <a v-if="language==='en'" href="javascript:;"  @click="scrollInvite" >install now</a>
@@ -387,7 +387,7 @@
                                     size="small"
                                     :page-sizes="[10, 25, 50, 100]"
                                     :page-size="orderpPgeSize"
-                                    layout="sizes,prev, pager, next,jumper"
+                                    layout="sizes,prev, pager, next"
                                     :page-count="orderPageTotal"
                                     :next-text="_('Next >')"
                                     :prev-text="_('< Previous')"
@@ -521,7 +521,7 @@
                                 size="small"
                                 :page-sizes="[10, 25, 50, 100]"
                                 :page-size="expectPageSize"
-                                layout="sizes,prev, pager, next,jumper"
+                                layout="sizes,prev, pager, next"
                                 :page-count="expectPageTotal"
                                 :next-text="_('Next >')"
                                 :prev-text="_('< Previous')"
@@ -548,10 +548,17 @@
                         </p>
                         <p>
                             <lang>SuperCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!</lang>
+                            <span v-if="language==='en'">Check the <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank">smart contract</a> now.</span>
+                            <span v-if="language==='zhCn'">欢迎查看<a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank">智能合约。</a></span>
+                            <span v-if="language==='zhTw'">歡迎查看<a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank">智能合約。</a></span>
                         </p>
                         <br>
                         <p>
-                            <lang>Gameplay:</lang>
+                            <lang>Gameplay</lang>(
+                                <a href="javascript:;" @click="showNewguide" v-if="language==='en'">Easy Play</a>
+                                <a href="javascript:;" @click="showNewguide" v-if="language==='zhCn'">查看新手引导</a>
+                                <a href="javascript:;" @click="showNewguide" v-if="language==='zhTw'">新手引導</a>
+                                ) :
                         </p>
                         <p>
                             <lang>1. At the beginning of the game, there will be a 10 ETH-prize pool and 1500 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).</lang>
@@ -746,7 +753,13 @@ export default {
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         showNewguide () {
-            this.timeLeft === 0 ? this.isNew = false : this.isNew = true
+            if(this.timeLeft<7200){
+                // 滚到 local
+                this.informationTab = 'howToPlay'
+                document.getElementById('inviteView').scrollIntoView()
+            }else{
+                this.isNew = true
+            }
         },
         buildZero (numArr) {
             if (Array.isArray(numArr)) {
@@ -1301,14 +1314,14 @@ export default {
                             if (name === '') {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('Welcome {0} joined the game', this.formateCoinAddr(res.args.playerAddress.toString())),
+                                    message: _('Welcome {0} joins the game', this.formateCoinAddr(res.args.playerAddress.toString())),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })
                             } else {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('Welcome {0} joined the game', name),
+                                    message: _('Welcome {0} joins the game', name),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })

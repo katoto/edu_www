@@ -650,7 +650,7 @@ module.exports = {
     '{0} {1} has been refunded.': '您的投注金额{0} {1}已返还到您的账户上',
     'Max': '最大',
     'Draw finished at': '开奖时间',
-    'Time Up!': '已结束!',
+    'Time\'s Up!': '已结束!',
     'Draw expired.': '已过期',
     'Details >>': '查看详情 >>',
     'Winner is coming': '即将诞生赢家',
@@ -743,13 +743,13 @@ module.exports = {
     /* activity end */
 
     /* super coin start */
-    'Game Tip': '游戏提示',
+    'Tips': '游戏提示',
     'Please install and log in your Metamask': '请先安装并登录Metamask钱包',
     '': '没有Metamask钱包，如何安装？',
     '{0} has bought {1} tickets': '恭喜{0}成功购买{1}张票',
     '{0} has bought {1} ticket': '恭喜{0}成功购买{1}张票',
     '{0} has withdrawn {1} ETH': '恭喜{0}成功提现{1}ETH',
-    'Welcome {0} joined the game': '恭喜{0}加入我们的阵营',
+    'Welcome {0} joins the game': '恭喜{0}加入我们的阵营',
     'Referrals': '邀请好友',
     'Contract': '智能合约',
     'Easy&nbsp;Play': '新手教程',
@@ -774,7 +774,7 @@ module.exports = {
     'One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.': '每购买1人次，即可获得1个号码，若您获得的号码与开奖号码相同，即可获得奖池奖励',
     'Why not buy a ticket now? ': '本期您还未购买，赶紧试一试吧~',
     'Please login to the ': '没有个人信息，请登陆',
-    'No Metamask, how to play?': '如何安装Metamask?',
+    'No Metamask?': '如何安装Metamask?',
     'Pay 0.001 ETH': '使用 0.001ETH 购买',
     'Brief Introduction:': '游戏介绍：',
     'SuperCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!': 'SuperCoin是一款基于区块链技术的类众筹游戏，在这里您可以使用如0.005ETH的小付出去赢得10个ETH甚至更多的数字货币奖励！',
