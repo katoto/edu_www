@@ -409,6 +409,8 @@ module.exports = {
     'Slot': '老虎機',
     'luckySlot': '老虎機',
     'SlotMachine': '老虎機',
+    'LuckyPoker': '幸運撲克',
+    'Win <i class=bold>98%+</i> Return Rate':'高達<i class=bold>98%</i>返獎率',
     'Copy the Ethereum wallet address': '負制錢包地址',
     'only supports ETH': '當前仅有支持ETH',
     '=====================': '====',

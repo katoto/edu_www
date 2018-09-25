@@ -36,6 +36,24 @@
                 <div class="row clearfix items-game ">
                     <!--各种游戏宣传图-->
                     <div class="col-xs-12 col-md-4">
+                            <div class="for-full">
+                                <router-link :to="{path: '/luckyPoker'}" class="game-poker">
+                                    <p class="msg1">
+                                        <lang>LuckyPoker</lang>    
+                                    </p>
+                                    <p class="msg2">
+                                        <lang>Classic game with high reward</lang>
+                                    </p>
+                                    <p class="msg2" v-lang="'Win <i class=bold>98%+</i> Return Rate'">
+                                    </p>
+                                    <p style="height:101px"></p>
+                                    <div class="game-btn">
+                                        <lang>Play Now </lang>
+                                    </div>
+                                </router-link>
+                            </div>
+                        </div>
+                    <div class="col-xs-12 col-md-4">
                         <div class="for-full">
                             <router-link :to="{path: '/luckySlot'}"  class="game-slot">
                                 <p class="msg1"><lang>LuckySlot</lang></p>
@@ -69,7 +87,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-md-4">
+                    <div class="col-xs-12 col-md-4 hide">
                         <div class="for-full">
                             <router-link :to="{path: '/lucky11'}" class="game-11t5">
                                 <p class="msg1"><lang>Lucky11</lang></p>
@@ -598,6 +616,7 @@
         > div + div {
             margin-top: 20px;
         }
+        .game-poker,
         .game-11t5,
         .game-slot,
         .game-onecoin {
@@ -645,6 +664,10 @@
                 line-height: 20px;
                 font-size: 16px;
             }
+        }
+        .game-poker{
+            background: url("../../assets/img/home/game-poker.png") no-repeat center;
+            background-size: cover;
         }
         .game-11t5 {
             background: url("../../assets/img/home/game1.png") no-repeat left top;
@@ -992,6 +1015,7 @@
             > div + div {
                 margin-top: 0;
             }
+            .game-poker,
             .game-11t5,
             .game-slot,
             .game-onecoin {
