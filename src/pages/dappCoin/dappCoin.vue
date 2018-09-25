@@ -1004,12 +1004,12 @@ export default {
                 let earnNum = null
                 if (this.selfMsg) {
                     earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
-                }                
+                }
                 if (earnNum && Number(this.balance) < earnNum) {
                     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
                 } else {
                     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                }                
+                }
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
