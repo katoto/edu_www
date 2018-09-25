@@ -755,11 +755,11 @@ export default {
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         showNewguide () {
-            if(this.timeLeft<7200){
+            if (this.timeLeft < 7200) {
                 // 滚到 local
                 this.informationTab = 'howToPlay'
                 document.getElementById('inviteView').scrollIntoView()
-            }else{
+            } else {
                 this.isNew = true
             }
         },
@@ -1062,12 +1062,12 @@ export default {
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             if (this.balance && Number(this.balance) > 0) {
                 let earnNum = null
-                if(this.selfMsg){
+                if (this.selfMsg) {
                     earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
                 }
-                if( earnNum && Number(this.balance) < earnNum ){
+                if (earnNum && Number(this.balance) < earnNum) {
                     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                }else{
+                } else {
                     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
                 }
             } else {
