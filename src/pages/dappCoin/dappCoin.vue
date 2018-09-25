@@ -660,8 +660,8 @@ export default {
             bindwaitingMsg: _('Who will be the winner?'),
             waitingMsgArr: [
                 _('Who will be the winner?'),
-                _('Background is counting data...'),
-                _('Background is 2222 counting data...')
+                _('Data processing'),
+                _('Data uploading')
             ], // 等待开奖文案 todo
             nextRoundStart: null, // 下一期开启的时间
             openWinNumber: false, // 出现开奖号码
