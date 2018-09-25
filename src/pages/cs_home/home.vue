@@ -46,6 +46,28 @@
                         <!-- col-xs-12 col-md-4 -->
                         <div class="">
                             <div class="for-full">
+                                <router-link :to="{path: '/luckyPoker'}" class="game-poker">
+                                    <p class="msg1">
+                                     LuckyPoker
+                                     幸运扑克
+                                    </p>
+                                    <p class="msg2">
+                                        经典高回报游戏
+                                     Classic game with high reward
+                                    </p>
+                                    <p class="msg2">
+                                        高达98%返奖率
+                                       Win <i class="bold">98%+</i> Return Rate
+                                    </p>
+                                    <p style="height:101px"></p>
+                                    <div class="game-btn">
+                                        <lang>Play Now </lang>
+                                    </div>
+                                </router-link>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="for-full">
                                 <router-link :to="{path: '/luckySlot'}" class="game-slot">
                                     <p class="msg1">
                                         <lang>LuckySlot</lang>
@@ -91,29 +113,6 @@
                             </div>
                         </div>
                         <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/lucky11'}" class="game-11t5">
-                                    <p class="msg1">
-                                        <lang>Lucky11</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Classic game with high reward</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Jackpot </lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
-                                        <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
-                                    </p>
-                                    <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
-                            </div>
-                        </div>
-                         <div class="">
                             <div class="for-full">
                                 <router-link :to="{path: '/lucky11'}" class="game-11t5">
                                     <p class="msg1">
@@ -789,6 +788,7 @@ export default {
             margin-top: 20px;
         }
     }
+    .game-poker,
     .game-11t5,
     .game-slot,
     .game-onecoin {
@@ -813,6 +813,7 @@ export default {
         }
         .msg3 {
             margin-top: 28px;
+            height: 25px;
             line-height: 25px;
             font-size: 16px;
             font-weight: bold;
@@ -833,9 +834,14 @@ export default {
             }
         }
         .msg5 {
+            height: 20px;
             line-height: 20px;
             font-size: 16px;
         }
+    }
+    .game-poker{
+        background: url("../../assets/img/home/game-poker.png") no-repeat left top;
+        background-size: cover;
     }
     .game-11t5 {
         background: url("../../assets/img/home/game1.png") no-repeat left top;
@@ -1205,6 +1211,7 @@ export default {
                 margin-top: 0;
             }
         }
+        .game-poker,
         .game-11t5,
         .game-slot,
         .game-onecoin {
