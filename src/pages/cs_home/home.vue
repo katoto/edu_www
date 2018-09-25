@@ -48,16 +48,13 @@
                             <div class="for-full">
                                 <router-link :to="{path: '/luckyPoker'}" class="game-poker">
                                     <p class="msg1">
-                                     LuckyPoker
                                      幸运扑克
                                     </p>
                                     <p class="msg2">
                                         经典高回报游戏
-                                     Classic game with high reward
                                     </p>
                                     <p class="msg2">
                                         高达98%返奖率
-                                       Win <i class="bold">98%+</i> Return Rate
                                     </p>
                                     <p style="height:101px"></p>
                                     <div class="game-btn">
