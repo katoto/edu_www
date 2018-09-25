@@ -223,6 +223,7 @@
                  </div>
             </div>
         </div>
+
         <!--信息展示区--> 
         <div class="information clearfix">
             <!--邀请-->
@@ -322,7 +323,7 @@
                             <ul>
                                 <li v-for="(item,index) in ordersList" :key="index"  @click="ticketsNumber=item" :class="{'win':item.prizes!==0}">
                                     <p class="issue">
-                                        <lang>Round No.</lang> {{ item.round }}
+                                        <lang>Round</lang> {{ item.round }}
                                     </p>
                                     <p class="money" :class="{'hide':item.prizes===0}">
                                         <!--win的时候才展示 删除-->
@@ -339,7 +340,7 @@
                             <ul>
                                 <li v-for="(item,index) in ordersListMobile" :key="index"  @click="ticketsNumber=item" :class="{'win':item.prizes!==0}">
                                     <p class="issue">
-                                        <lang>Round No.</lang> {{ item.round }}
+                                        <lang>Round</lang> {{ item.round }}
                                     </p>
                                     <p class="money" :class="{'hide':item.prizes===0}">
                                         <!--win的时候才展示 删除-->
@@ -362,10 +363,10 @@
                             </p>                            
                         </div>
                         <!--我的购买详细展开-->
-                        <!--on-->
+                        <!--on The No.{0} -->
                         <div class="open-ticket show" :class="{'on':ticketsNumber}" v-if="ticketsNumber">
-                            <p v-if="ticketsNumber.buyNum && ticketsNumber.buyNum.length>1">{{ _('The No.{0} , You bought {1} tickets', ticketsNumber.round , ticketsNumber.buyNum.length ) }}</p>
-                            <p v-else>{{ _('The No.{0} , You bought {1} ticket', ticketsNumber.round , ticketsNumber.buyNum.length ) }}</p>
+                            <p v-if="ticketsNumber.buyNum && ticketsNumber.buyNum.length>1">{{ _('You bought {0} tickets in round {1}',  ticketsNumber.buyNum.length ,ticketsNumber.round) }}</p>
+                            <p v-else>{{ _('You bought {0} ticket in round {1}', ticketsNumber.buyNum.length, ticketsNumber.round) }}</p>
                             <!-- 关闭 -->
                             <a href="javascript:;" @click="ticketsNumber=null" class="close"></a>
                             <div class="ticket-box">
@@ -999,9 +1000,16 @@ export default {
                 this.tickNum = 0
                 return false
             }
-
             if (this.balance && Number(this.balance) > 0) {
-                this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                let earnNum = null
+                if (this.selfMsg) {
+                    earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
+                }                
+                if (earnNum && Number(this.balance) < earnNum) {
+                    this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
+                } else {
+                    this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                }                
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
