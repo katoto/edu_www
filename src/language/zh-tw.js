@@ -744,7 +744,7 @@ module.exports = {
 
     /* super coin start */
     'Tips': '遊戲提示',
-    'Please install and log in your Metamask': '請先安裝並登錄Metamask錢包',
+    'Please install and log in to your MetaMask': '請先安裝並登錄Metamask錢包',
     '': '沒有Metamask錢包，如何安裝？',
     '{0} has bought {1} tickets': '恭喜{0}成功購買{1}張票',
     '{0} has bought {1} ticket': '恭喜{0}成功購買{1}張票',
@@ -773,7 +773,7 @@ module.exports = {
     'Drawing ': '等待開獎',
     'One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.': '每購買1人次，即可獲得1個號碼，若您獲得的號碼與開獎號碼相同，即可獲得獎池獎勵',
     'Why not buy a ticket now? ': '本期您還未購買，趕緊試壹試吧~',
-    'Please login to the ': '沒有個人信息，請登陸',
+    'Please log in to the ': '沒有個人信息，請登陸',
     'No Metamask?': '如何安裝Metamask?',
     'Pay 0.001 ETH': '使用 0.001ETH 購買',
     'Brief Introduction:': '遊戲介紹：',
