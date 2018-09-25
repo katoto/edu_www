@@ -32,19 +32,21 @@
                         <p clsss="issue-pc">
                             <!-- 当前时间 -->
                             <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
-                            {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>10 ETH
+                            {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<br />
+                            <lang>Prize Pool</lang>: 10 ETH
                         </p>
                         <p class="issue-h5">
-                            {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Bonus </lang>10 ETH
+                            {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<lang>Prize Pool</lang>: 10 ETH
+                            <!-- {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Prize Pool</lang>10 ETH -->
                         </p>
                     </template>
                     <template v-if="!someGetWin && !waitWin && nextScreen">
                         <p clsss="issue-pc ">
                             <!-- 当前时间 -->
-                            {{ forNextRoundStart(nextRoundStart) }}<br><lang>Go to the next issue,</lang><br><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
+                            {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<br /><lang>Prize Pool</lang>: {{ formatesuperCoin(roundInfo.jackpot) }} ETH
                         </p>
                         <p class="issue-h5">
-                            {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Bonus </lang>{{ formatesuperCoin(roundInfo.jackpot) }} ETH
+                            {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<lang>Prize Pool</lang>: {{ formatesuperCoin(roundInfo.jackpot) }} ETH
                         </p>
                     </template>
 
@@ -186,7 +188,7 @@
                 </div>
                 <!--开奖-有人中 todo -->
                 <p class="draw-someone" v-if="someGetWin && roundInfo">
-                    {{ _('Congratulations to "{0}" for Winning', formateCoinAddr( getWInAddr ) ) }}
+                    {{ _('Congratulations! "{0}" Wins', formateCoinAddr( getWInAddr ) ) }}
                 </p>
                 <p class="draw-none" v-if="!someGetWin && !waitWin">
                     <lang>No winner of this round.</lang><br>
@@ -451,7 +453,7 @@
                         </div>
                     </div>
                     <a href="javascript:;" class="btn-withdrawal" @click="withdraw">
-                        <lang>Withdrawal </lang>
+                        <lang>Withdraw </lang>
                     </a>
                 </div>
                 <!--历史开奖 hide -->
@@ -812,7 +814,7 @@ export default {
         },
         forNextRoundStart (time) {
             // 格式化下一期的文案
-            return this.formatTime(time)
+            return this.formatTime(time, 'HH:mm')
         },
         formatesuperCoin (val) {
             // 金额格式化

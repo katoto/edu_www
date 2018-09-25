@@ -7,7 +7,7 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
-                        <el-carousel :interval="5000">
+                        <el-carousel :interval="5000" >
                             <el-carousel-item>
                                 <div class="banner-t1" >
                                     <lang>50% Top-Up Bonus</lang>
