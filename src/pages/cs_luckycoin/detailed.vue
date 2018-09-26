@@ -136,7 +136,7 @@
                             {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
                         </a>
                         <!-- 新增cc 20180926 -->
-                        <div class="cc-group cc-luckycoin">
+                        <div class="cc-group cc-luckycoin" v-if="coinType !== '2000'">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
                                 Using CC deduction
