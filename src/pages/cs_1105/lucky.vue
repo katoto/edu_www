@@ -39,9 +39,11 @@
                             <a href="javascript:;" class="btn-cc">
                                 ?
                                 <div>
+                                    <p>CC: {{getCCAcount()}}</p>
                                     <p>当选择CC抵扣后：</p>
                                     <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                    <p>每笔投注最多抵扣：XXX ETH</p>
+                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney()}} {{formateCoinType(currBalance.cointype)}}</p>
+                                    <p>1000 C币=1 ETH (20000 C币= 1 BTC)</p>
                                 </div>
                             </a>
                         </div>
@@ -286,10 +288,12 @@
                         </p>
                         <a href="javascript:;" class="btn-cc">
                             ?
-                                <div>
+                            <div>
+                                <p>CC: {{getCCAcount()}}</p>
                                 <p>当选择CC抵扣后：</p>
                                 <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                <p>每笔投注最多抵扣：XXX ETH</p>
+                                <p>每笔投注最多抵扣：{{getCCDeductionMoney()}} {{formateCoinType(currBalance.cointype)}}</p>
+                                <p>1000 C币=1 ETH (20000 C币= 1 BTC)</p>
                             </div>
                         </a>
                     </div>
@@ -546,7 +550,8 @@ import {
     formateBalance,
     removeCK,
     formatTime,
-    structDom
+    structDom,
+    accMul
 } from '~common/util'
 import LuckyMybet from './components/lucky-mybet'
 export default {
@@ -639,6 +644,23 @@ export default {
     methods: {
         formateBalance,
         formateCoinType,
+        getCCAcount () {
+            if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length >= 1) {
+                let accounts = this.userInfo.accounts
+                for (let index = 0; index < accounts.length; index++) {
+                    if (accounts[index].cointype === '2000') {
+                        return Number(accounts[index].balance)
+                    }
+                }
+            }
+            return 0
+        },
+        getCCDeductionMoney () {
+            if (this.playArea && this.playArea.length > 0) {
+                return accMul(this.playArea[0].pickMoney, 0.05)
+            }
+            return 0
+        },
         initPop () {
             /* head 弹窗 */
             this.$store.commit('initHeadState', new Date().getTime())
@@ -748,7 +770,8 @@ export default {
                     ).slice(0, -1)
                     let newSendBetStr = {
                         codestr: sendBetStr,
-                        cointype: this.currBalance.cointype
+                        cointype: this.currBalance.cointype,
+                        discount: this.isUseCC ? '1' : '0'
                     }
                     let orderMsg = await this.$store.dispatch(
                         aTypes.placeOrder,

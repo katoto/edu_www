@@ -318,6 +318,9 @@
                 this.isChooseCoin = false
                 this.isShowChoose = false
                 this.freeWaterPop = false
+            },
+            isLog () {
+                this.autoChangeDefaultAccount()
             }
         },
         computed: {
@@ -361,6 +364,29 @@
             formateCoinType,
             copySucc,
             copyError,
+            autoChangeDefaultAccount () {
+                setTimeout(() => {
+                    if (this.isLog) {
+                        this.changeDefaultAccount()
+                    }
+                }, 200)
+            },
+            changeDefaultAccount () {
+                let accounts = this.userInfo.accounts
+                let BTCAccount = accounts.filter(account => account.cointype === '1001')
+                let BTCHasBalance = (BTCAccount && BTCAccount[0] && Number(BTCAccount[0].balance) > 0)
+                let ETHAccount = accounts.filter(account => account.cointype === '2001')
+                let ETHHasBalance = (ETHAccount && ETHAccount[0] && Number(ETHAccount[0].balance) > 0)
+                let CCAccount = accounts.filter(account => account.cointype === '2000')
+                let CCHasBalance = (CCAccount && CCAccount[0] && Number(CCAccount[0].balance) > 0)
+                if (BTCHasBalance) {
+                    this.changeAccounts(BTCAccount[0])
+                } else if (ETHHasBalance) {
+                    this.changeAccounts(ETHAccount[0])
+                } else if (CCHasBalance) {
+                    this.changeAccounts(CCAccount[0])
+                }
+            },
             async readyGetFirst () {
                 await this.$store.dispatch('cs_activity/rechargealert')
                 this.$store.dispatch('cs_activity/getChargeState')
@@ -515,7 +541,7 @@
             }, 0)
             let isReadyAlert = false
             setInterval(async () => {
-                if (this.isLog && !isReadyAlert && false) {
+                if (this.isLog && !isReadyAlert) {
                     let msg = await this.$store.dispatch('cs_activity/getChargeState')
                     if (msg && msg.is_alert === '1') {
                         isReadyAlert = true
@@ -523,6 +549,7 @@
                 }
             }, 15000)
             this.$store.dispatch('adList')
+            this.autoChangeDefaultAccount()
         }
     }
 </script>

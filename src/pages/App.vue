@@ -1,6 +1,5 @@
 <template>
     <div id="app"  @scroll.native="test" :class="isReady ? 'ready' : ''">
-
         <router-view v-if="isReady"/>
     </div>
 </template>
