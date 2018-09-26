@@ -553,7 +553,8 @@ export default {
                 win: false,
                 pay: false
             },
-            openAnimate: false
+            openAnimate: false,
+            isUseCC: false
         }
     },
     methods: {
@@ -799,6 +800,10 @@ export default {
                 this.is14 = false
             }
         },
+        clearCoin () {
+            this.currentCoinType = 'purple'
+            this.currentCoin = this.thisCoin[this.currentCoinType].num
+        },
         clearBet () {
             this.nameArr.forEach(name => {
                 this.betNums[name] = 0
@@ -868,7 +873,8 @@ export default {
                 bets: this.formatBetNum({...this.betNums}),
                 cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
-                cur_server_hash: this.hashNumber
+                cur_server_hash: this.hashNumber,
+                discount: this.isUseCC && this.coinType !== '2000' ? '1' : '0'
             }).then(res => {
                 this.renderResult(res.data)
                 this.refresh()
@@ -1091,9 +1097,11 @@ export default {
     },
     watch: {
         isLogin () {
+            this.clearCoin()
             this.refresh()
         },
         coinType () {
+            this.clearCoin()
             this.clearBet()
         },
         recentResult () {
@@ -1101,6 +1109,7 @@ export default {
         }
     },
     mounted () {
+        this.clearCoin()
         this.initCoin()
         this.clearBet()
         this.refresh()
