@@ -771,7 +771,7 @@ export default {
                     let newSendBetStr = {
                         codestr: sendBetStr,
                         cointype: this.currBalance.cointype,
-                        discount: this.isUseCC ? '1' : '0'
+                        discount: this.isUseCC && this.currBalance.cointype !== '2000' ? '1' : '0'
                     }
                     let orderMsg = await this.$store.dispatch(
                         aTypes.placeOrder,

@@ -347,7 +347,8 @@
                     this.betNum = accDiv(value, this.betData.bidValue)
                     let data = await this.betNow({
                         cointype: this.coinType,
-                        codestr: `${this.betData.exceptId}|${this.coinType}|${this.betNum}|${this.betData.bidValue}`
+                        codestr: `${this.betData.exceptId}|${this.coinType}|${this.betNum}|${this.betData.bidValue}`,
+                        discount: this.isUseCC && this.coinType !== '2000' ? '1' : '0'
                     })
                     this.betValue = this.betData.bidValue
                     this.getUserInfo()
@@ -422,6 +423,14 @@
                     }
                 }
                 return 0
+            },
+            isUseCC: {
+                set (value) {
+                    this.$store.commit('cs_luckycoin/changeCC', value)
+                },
+                get () {
+                    return this.$store.state.cs_luckycoin.isUseCC
+                }
             },
             coinType () {
                 return this.betData.goodsType || '2001'

@@ -20,6 +20,7 @@ const state = {
         isShow: false,
         callback: null
     },
+    isUseCC: false,
     listener: {},
     pageListener: {}
 }
@@ -159,6 +160,9 @@ const mutations = {
         for (let name in state.pageListener) {
             state.pageListener[name] && state.pageListener[name]()
         }
+    },
+    changeCC (state, value) {
+        state.isUseCC = value
     }
 }
 
