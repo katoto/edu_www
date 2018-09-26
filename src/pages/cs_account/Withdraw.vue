@@ -33,7 +33,7 @@
                                 <lang>Wallet Address</lang>
                             </div>
                             <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
-                            <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
+                            <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype)) }}</p>
                         </div>
                         <div class="item pick-up">
                             <div class="fl210">
@@ -62,7 +62,7 @@
                         </div>
                         <p class="fee">
                             <lang>Fee</lang>&ensp;
-                            <i v-if="currBalance">{{ currBalance.fee }}</i><i>{{formateCoinType(currBalance.cointype) }}</i>
+                            <i v-if="currBalance">{{ currBalance.fee }}</i><i>{{formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype)}}</i>
                         </p>
                         <button @click="sendDraw">
                             <lang>Withdraw</lang>
@@ -173,7 +173,7 @@
                 <div class="item wallet-add">
                     <div class="tips">
                         <p><lang>Wallet Address</lang></p>
-                        <p class="orange">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
+                        <p class="orange">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype)) }}</p>
                     </div>
                     <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
                 </div>
@@ -202,7 +202,7 @@
                         </p>
                         <p style="color: #778ca3;">
                             <lang>Fee</lang>&ensp;
-                            <i v-if="currBalance">{{ currBalance.fee }}{{formateCoinType(currBalance.cointype) }}</i>
+                            <i v-if="currBalance">{{ currBalance.fee }}{{formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype) }}</i>
                         </p>
                     </div>
                     <input v-model="withdrawPsw" autocomplete="new-password" type="password">
@@ -287,15 +287,19 @@
                                 <span class="fl">
                                     <lang>Fee</lang>
                                 </span>
-                                <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
+                                <span class="fr">{{formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype) }}</span>
                                 <p v-if="currBalance" class="fr">{{ currBalance.fee }}</p>
                             </div>
                             <div class="trans-msg">
                                 <span class="fl">
                                     <lang>Total</lang>
                                 </span>
-                                <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
-                                <p class="fr">{{ formateBalance(Number( withdrawAmount) + Number(currBalance.fee)) }}</p>
+                                <p class="fr" v-if="currBalance.cointype !== '2000'">
+                                    {{ formateBalance(Number( withdrawAmount) + Number(currBalance.fee)) }} <span>{{formateCoinType(currBalance.cointype) }}</span>
+                                </p>
+                                <p class="fr" v-else>
+                                    {{ formateBalance(Number( withdrawAmount)) }} <span>CC</span> + {{ formateBalance(Number(currBalance.fee)) }} <span>ETH</span>
+                                </p>
                             </div>
                         </div>
                         <p class="trans-add1">
@@ -452,6 +456,10 @@
                     {
                         value: '2001',
                         label: _('ETH')
+                    },
+                    {
+                        value: '2000',
+                        label: _('CC')
                     }
                 ],
                 ethOptionVal: '1',

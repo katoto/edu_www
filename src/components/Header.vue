@@ -146,6 +146,11 @@
                                                v-clipboard:success="copySucc"
                                                v-clipboard:error="copyError"
                                             >{{ item.address }}</a>
+                                            <a v-if="currBalance.cointype==='2000'" class="address"
+                                               v-clipboard:copy="currBalance.address"
+                                               v-clipboard:success="copySucc"
+                                               v-clipboard:error="copyError"
+                                            >{{ item.address }}</a>
                                         </li>
                                         <!--<li>-->
                                             <!--<div class="currency-input"></div>-->
