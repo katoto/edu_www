@@ -219,8 +219,6 @@
             formateJackPot,
             formateCoinType,
             checkMoneyLen () {
-                console.log(this.areaMsg.pickMoney)
-                console.log(this.areaMsg.pickMoney)
                 if (this.areaMsg.pickMoney.toString().length > 8) {
                     this.areaMsg.pickMoney = this.areaMsg.pickMoney.toString().slice(0, 8)
                 }

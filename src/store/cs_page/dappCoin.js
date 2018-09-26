@@ -1,7 +1,6 @@
 import ajax from '~common/ajax'
-import {mapMutations, mapActions, formateBalance, tipsTime} from '~common/util'
+import {mapMutations, mapActions, tipsTime} from '~common/util'
 import {Message} from 'element-ui'
-import {formateCoinType} from '../../common/util'
 
 const state = {
     navFix: false

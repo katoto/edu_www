@@ -8,7 +8,7 @@
                 </h1>
                 <div class="fr-msg">
                     <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
-                    <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank"><lang>Contract</lang></a>
+                    <a href="https://etherscan.io/address/0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b#code" target="_blank"><lang>Contract</lang></a>
                     <a href="javascript:;" @click="showNewguide" v-lang="'Easy&nbsp;Play'"></a>
                     <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
@@ -551,9 +551,9 @@
                         </p>
                         <p>
                             <lang>SuperCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!</lang>
-                            <span v-if="language==='en'">Check the <a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank">smart contract</a> now.</span>
-                            <span v-if="language==='zhCn'">欢迎查看<a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank">智能合约。</a></span>
-                            <span v-if="language==='zhTw'">歡迎查看<a href="https://etherscan.io/address/0x4e71b5e47a7e4f8eaccff4ade0e3292f80780cf0#code" target="_blank">智能合約。</a></span>
+                            <span v-if="language==='en'">Check the <a href="https://etherscan.io/address/0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b#code" target="_blank">smart contract</a> now.</span>
+                            <span v-if="language==='zhCn'">欢迎查看<a href="https://etherscan.io/address/0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b#code" target="_blank">智能合约。</a></span>
+                            <span v-if="language==='zhTw'">歡迎查看<a href="https://etherscan.io/address/0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b#code" target="_blank">智能合約。</a></span>
                         </p>
                         <br>
                         <p>

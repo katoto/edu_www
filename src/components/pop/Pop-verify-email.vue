@@ -44,7 +44,6 @@
             async againVerify () {
                 let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
                 let sendObj = {}
-                console.log(this.regVerifyEmail)
                 if (this.regVerifyEmail !== '') {
                     if (emailReg.test(this.regVerifyEmail)) {
                         Object.assign(sendObj, {
