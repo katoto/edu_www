@@ -4,7 +4,7 @@ import Web3 from 'web3'
 // let contractAddr = '0xe15bbf5e7b8d6df6503444009cd9b03c6d3161ae' // ceshi2
 // let contractAddr = '0x1c671f9a43d985a591ea8f1cad4e57833c327c78' // ceshi2
 // let contractAddr = '0xd52a7d0d30584d759a6571da569c3776c7d73acc' // ceshi3
-let contractAddr = '0x9c4118584552d6144223a7f65b2c6ebb76b792e9'
+let contractAddr = '0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b' // online
 
 let web3 = window.web3
 let contractAbi = [
@@ -892,8 +892,8 @@ let contractAbi = [
 
 // or
 if (typeof web3 === 'undefined') {
-    web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/WlvljmHqo75RhK1w1QJF'))
-    // web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/WlvljmHqo75RhK1w1QJF'))
+    // web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/WlvljmHqo75RhK1w1QJF'))
+    web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/WlvljmHqo75RhK1w1QJF'))
 }
 
 // 通过abi 和地址获取已部署的合约对象
