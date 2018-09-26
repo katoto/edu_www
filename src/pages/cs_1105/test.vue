@@ -1,5 +1,6 @@
 <template>
     <div id="test">
+        test
     </div>
 </template>
 
@@ -13,9 +14,10 @@
         computed: {},
         components: {},
         mounted () {
-            console.log('UA:' + window.navigator.userAgent)
+        
         }
     }
 </script>
+
 <style scope lang="less" type="text/less">
 </style>

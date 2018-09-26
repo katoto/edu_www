@@ -132,9 +132,25 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="javascript:;" class="btn btn-normal"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
+                        <a href="javascript:;" class=" btn btn-normal"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
                             {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
                         </a>
+                        <!-- 新增cc 20180926 -->
+                        <div class="cc-group cc-luckycoin">
+
+                            <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                            <p>
+                                Using CC deduction
+                            </p>
+                            <a href="javascript:;" class="btn-cc">
+                                ?
+                                  <div>
+                                    <p>当选择CC抵扣后：</p>
+                                    <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
+                                    <p>每笔投注最多抵扣：XXX ETH</p>
+                                </div>
+                            </a>
+                        </div>
                         <div class="btn btn-win" v-if="isDraw">
                             <p>
                                 <lang>Draw Number</lang>:  {{goodsinfo.luckyNum}}
@@ -1090,15 +1106,15 @@
             height: 110px;
             position: absolute;
             z-index: 2;
-            left: (196-110)/2px;
+            left: 36px;
             top: 0;
-            transform: translate(0,38px);
+            transform: translate(0,20px);
             transition: all 0.2s;
         }
         .item-left{
             position: relative;
             width: 196px;
-            height: 301px;
+            height: 334px;
             overflow: hidden;
         }
         .item-right{
@@ -1306,7 +1322,7 @@
             &.btn-normal{
                 max-width: percentage(520/600);
                 left: percentage(40/600);
-                bottom: 24px;
+                bottom: 57px;
                 background: #f67c22;
                 border-radius: 6px;
                 font-size: 24px;
@@ -1376,7 +1392,7 @@
             &.btn-finished{
                 width: 90%;
                 left: 5%;
-                bottom: 24px;
+                bottom: 57px;
                 background: #4c2872;
                 border-radius: 6px;
                 font-weight: normal;
