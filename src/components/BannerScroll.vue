@@ -6,7 +6,6 @@
 </template>
 
 <script>
-    import {isMobile} from '~common/util'
     export default {
         data () {
             return {

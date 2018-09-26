@@ -7,7 +7,6 @@ import { sync } from 'vuex-router-sync'
 import lanaguage from './plugins/language'
 import message from './plugins/message'
 import vueClipboard from 'vue-clipboard2'
-import { defaultLanguage } from '~common/util'
 // 全局
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
