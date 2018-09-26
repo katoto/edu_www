@@ -6,7 +6,6 @@
 </template>
 
 <script>
-    import {isMobile} from '~common/util'
     export default {
         data () {
             return {
@@ -16,7 +15,6 @@
         methods: {
             hitListBroadcast () {
                 let BroadcastSlide, slideBoxs, clonedNode, slideHeight, hitListIndex
-                console.log(this.$el)
                 if (this.$el && this.$el.children[0] && this.$el.children[0].children[0] && this.$el.children[0].children[0].children && this.$el.children[0].children[0].children[0]) {
                     let $elChild0 = this.$el.children[0]
                     BroadcastSlide = $elChild0.children[0]

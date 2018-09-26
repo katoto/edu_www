@@ -266,7 +266,7 @@
 <script>
     import PopList from '~components/Pop-list'
     import PopIpLimit from '~components/Pop-ipLimit.vue'
-    import {copySucc, copyError, formateBalance, formateCoinType, formateEmail} from '~common/util'
+    import {copySucc, copyError, formateBalance, formateCoinType, formateEmail, isForbitPage} from '~common/util'
 
     import Vue from 'vue'
     import vueClipboard from 'vue-clipboard2'
@@ -510,7 +510,7 @@
             }, 0)
             let isReadyAlert = false
             setInterval(async () => {
-                if (this.isLog && !isReadyAlert) {
+                if (this.isLog && !isReadyAlert && !isForbitPage()) {
                     let msg = await this.$store.dispatch('cs_activity/getChargeState')
                     if (msg && msg.is_alert === '1') {
                         isReadyAlert = true
