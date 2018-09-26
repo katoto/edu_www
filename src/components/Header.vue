@@ -515,7 +515,7 @@
             }, 0)
             let isReadyAlert = false
             setInterval(async () => {
-                if (this.isLog && !isReadyAlert) {
+                if (this.isLog && !isReadyAlert && false) {
                     let msg = await this.$store.dispatch('cs_activity/getChargeState')
                     if (msg && msg.is_alert === '1') {
                         isReadyAlert = true

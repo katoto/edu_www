@@ -31,8 +31,8 @@
                             <p class="total-pay ">{{ totalPay }} {{ currBalance.cointype | formateCoinType }}</p>
                         </div>
                         <!-- 新增cc 20180926 -->
-                        <div class="cc-group cc-lucky1105pc">
-                            <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                        <div class="cc-group cc-lucky1105pc" v-if="currBalance.cointype !== '2000'">
+                            <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
                                 Using CC deduction
                             </p>
@@ -278,9 +278,9 @@
                         <p class="total-pay ">{{ totalPay }}{{ currBalance.cointype | formateCoinType }}</p>
                     </div>
                     <!-- 新增cc 20180926 -->
-                    <div class="cc-group cc-lucky1105h5">
+                    <div class="cc-group cc-lucky1105h5" v-if="currBalance.cointype !== '2000'">
 
-                        <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                        <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                         <p>
                             Using CC deduction
                         </p>
@@ -532,14 +532,14 @@
 </template>
 
 <script>
-import Header from "~components/Header.vue";
-import HeaderNav from "~pages/cs_1105/HeaderNav.vue";
-import Banner from "~components/banner";
-import PlayArea from "~pages/cs_1105/PlayArea.vue";
-import H5PlayArea from "~pages/cs_1105/H5PlayArea.vue";
-import Footer from "~components/Footer.vue";
-import { mTypes, aTypes } from "~/store/cs_page/cs_1105";
-import { Message } from "element-ui";
+import Header from '~components/Header.vue'
+import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
+import Banner from '~components/banner'
+import PlayArea from '~pages/cs_1105/PlayArea.vue'
+import H5PlayArea from '~pages/cs_1105/H5PlayArea.vue'
+import Footer from '~components/Footer.vue'
+import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
+import { Message } from 'element-ui'
 import {
     formateCoinType,
     formatMatch,
@@ -547,298 +547,299 @@ import {
     removeCK,
     formatTime,
     structDom
-} from "~common/util";
-import LuckyMybet from "./components/lucky-mybet";
+} from '~common/util'
+import LuckyMybet from './components/lucky-mybet'
 export default {
-    data() {
+    data () {
         return {
             showOrderSucc: false,
             showOrderFail: false,
-            failureMsg: "* *",
-            scroll: "",
-            activeName: "Bets",
+            failureMsg: '* *',
+            scroll: '',
+            activeName: 'Bets',
             DataWinnerList: [
                 // {uid:1,expectid:2,bettype:'C1',betcode:'5',betmoney:'0.00010ETH',betprize:'0.00018 ETH'},
             ],
             totalPay: 0.0001,
             baseAreaMsg: {
-                pickType: "1", // 玩法类型1,2,3,4,5,5J
+                pickType: '1', // 玩法类型1,2,3,4,5,5J
                 pickNum: [],
                 pickMoney: 0.001,
                 pickJackPot: [] // 奖池用
             },
             playArea: [], // 玩法区 数组,
             jackpot: false,
-            "icon-jackpot": false,
-            superClass: false
-        };
+            'icon-jackpot': false,
+            superClass: false,
+            isUseCC: false
+        }
     },
     watch: {
-        isLog(val) {
-            this.updateBaseAreaMsg();
+        isLog (val) {
+            this.updateBaseAreaMsg()
         },
-        currBalance(newVal, oldVal) {
+        currBalance (newVal, oldVal) {
             if (newVal.cointype !== oldVal.cointype) {
-                this.updateBaseAreaMsg();
+                this.updateBaseAreaMsg()
             }
         },
         playArea: {
-            handler() {
+            handler () {
                 /* 总金额 */
                 if (this.playArea) {
-                    let sum = 0;
-                    let hasPick5J = false;
+                    let sum = 0
+                    let hasPick5J = false
                     this.playArea.forEach((val, index) => {
                         if (val.pickMoney) {
                             sum += parseFloat(
                                 parseFloat(val.pickMoney).toFixed(5)
-                            );
+                            )
                         }
-                        if (val.pickType.toString() === "5J") {
+                        if (val.pickType.toString() === '5J') {
                             /* 更新 按钮状态 */
-                            hasPick5J = true;
+                            hasPick5J = true
                         }
-                    });
-                    this.superBtnState(hasPick5J);
-                    this.totalPay = parseFloat(sum.toFixed(5));
+                    })
+                    this.superBtnState(hasPick5J)
+                    this.totalPay = parseFloat(sum.toFixed(5))
                 }
             },
             deep: true
         }
     },
     computed: {
-        jackPotMsg() {
-            return this.$store.state.cs_1105.jackPotMsg;
+        jackPotMsg () {
+            return this.$store.state.cs_1105.jackPotMsg
         },
-        socket() {
-            return this.$store.state.socket;
+        socket () {
+            return this.$store.state.socket
         },
-        recentBet() {
-            return this.$store.state.cs_1105.recentBet;
+        recentBet () {
+            return this.$store.state.cs_1105.recentBet
         },
-        isLog() {
-            return this.$store.state.isLog;
+        isLog () {
+            return this.$store.state.isLog
         },
-        userInfo() {
-            return this.$store.state.userInfo;
+        userInfo () {
+            return this.$store.state.userInfo
         },
-        currExpectId() {
-            return this.$store.state.cs_1105.currExpectId;
+        currExpectId () {
+            return this.$store.state.cs_1105.currExpectId
         },
-        currBalance() {
-            return this.$store.state.currBalance;
+        currBalance () {
+            return this.$store.state.currBalance
         },
-        bet_limit() {
-            return this.$store.state.cs_1105.bet_limit;
+        bet_limit () {
+            return this.$store.state.cs_1105.bet_limit
         },
-        adList() {
-            return this.$store.state.adList;
+        adList () {
+            return this.$store.state.adList
         }
     },
     methods: {
         formateBalance,
         formateCoinType,
-        initPop() {
+        initPop () {
             /* head 弹窗 */
-            this.$store.commit("initHeadState", new Date().getTime());
+            this.$store.commit('initHeadState', new Date().getTime())
         },
-        superChange(msg = "superIn") {
+        superChange (msg = 'superIn') {
             /* headerNav 调的 */
-            if (msg === "superIn") {
+            if (msg === 'superIn') {
                 this.playArea.forEach((val, index) => {
-                    val.pickType = "5J";
-                    val.pickNum = [];
-                    val.pickJackPot = [];
-                });
-                this.superBtnState(true);
-            } else if (msg === "superOut") {
+                    val.pickType = '5J'
+                    val.pickNum = []
+                    val.pickJackPot = []
+                })
+                this.superBtnState(true)
+            } else if (msg === 'superOut') {
                 this.playArea.forEach((val, index) => {
-                    val.pickType = "1";
-                    val.pickNum = [];
-                    val.pickJackPot = [];
-                });
-                this.superBtnState(false);
+                    val.pickType = '1'
+                    val.pickNum = []
+                    val.pickJackPot = []
+                })
+                this.superBtnState(false)
             }
         },
-        superBtnState(msg) {
+        superBtnState (msg) {
             /* 调 headerNav 的方法  修改按钮状态 */
             if (this.$refs) {
-                this.superClass = msg;
-                this.$refs.headerNav.btnState(msg);
+                this.superClass = msg
+                this.$refs.headerNav.btnState(msg)
             }
         },
-        playType(val) {
+        playType (val) {
             // 玩法类型1,2,3,4,5,5J
-            val = val.toString();
+            val = val.toString()
             switch (val) {
-                case "1":
-                    return "1101";
-                case "2":
-                    return "1102";
-                case "3":
-                    return "1103";
-                case "4":
-                    return "1104";
-                case "5":
-                    return "1105";
-                case "5J":
-                    /* 奖池下单 */
-                    return "11051";
+            case '1':
+                return '1101'
+            case '2':
+                return '1102'
+            case '3':
+                return '1103'
+            case '4':
+                return '1104'
+            case '5':
+                return '1105'
+            case '5J':
+                /* 奖池下单 */
+                return '11051'
             }
         },
 
-        async playNow() {
+        async playNow () {
             // 区块链阻塞
-            let jsStartBetBtn = document.getElementById("js_startBetBtn");
-            if (~jsStartBetBtn.className.indexOf("unable")) {
-                return false;
+            let jsStartBetBtn = document.getElementById('js_startBetBtn')
+            if (~jsStartBetBtn.className.indexOf('unable')) {
+                return false
             }
 
             // 未登录 的情况
             if (!this.isLog) {
-                this.$store.commit("showLoginPop");
-                return false;
+                this.$store.commit('showLoginPop')
+                return false
             }
             /* 未激活的 */
-            if (this.userInfo && this.userInfo.status !== "1") {
-                this.$store.commit("showNoVerify");
-                return false;
+            if (this.userInfo && this.userInfo.status !== '1') {
+                this.$store.commit('showNoVerify')
+                return false
             }
             // 判断 余额是否足
             if (
                 parseFloat(this.currBalance.balance) < parseFloat(this.totalPay)
             ) {
                 Message({
-                    message: _("Your balance is insufficient, please top up"),
-                    type: "error"
-                });
+                    message: _('Your balance is insufficient, please top up'),
+                    type: 'error'
+                })
                 setTimeout(() => {
-                    this.$router.push("/account/deposit");
-                }, 3000);
-                return false;
+                    this.$router.push('/account/deposit')
+                }, 3000)
+                return false
             }
 
             // 出现loading
-            document.getElementById("jsLoading").style.display = "block";
+            document.getElementById('jsLoading').style.display = 'block'
 
             // 选号是否完成
             if (this.playArea) {
-                let noComplete = [];
-                let noCompleteIndex = [];
-                let beginBetStr = "";
+                let noComplete = []
+                let noCompleteIndex = []
+                let beginBetStr = ''
                 this.playArea.forEach((val, index) => {
                     if (parseFloat(val.pickType) !== val.pickNum.length) {
-                        noComplete.push(_("Ticket") + (index + 1));
-                        noCompleteIndex.push(index);
+                        noComplete.push(_('Ticket') + (index + 1))
+                        noCompleteIndex.push(index)
                     }
                     beginBetStr +=
-                        val.pickNum.join(",") +
-                        "#" +
+                        val.pickNum.join(',') +
+                        '#' +
                         this.playType(val.pickType) +
-                        "@" +
+                        '@' +
                         val.pickMoney +
-                        "$";
-                });
+                        '$'
+                })
                 if (noComplete.length === 0) {
                     let sendBetStr = (
                         this.currExpectId +
-                        "|" +
+                        '|' +
                         beginBetStr
-                    ).slice(0, -1);
+                    ).slice(0, -1)
                     let newSendBetStr = {
                         codestr: sendBetStr,
                         cointype: this.currBalance.cointype
-                    };
+                    }
                     let orderMsg = await this.$store.dispatch(
                         aTypes.placeOrder,
                         newSendBetStr
-                    );
-                    let errorResArr = [];
-                    if (orderMsg && orderMsg.status.toString() === "100") {
-                        this.$store.dispatch("cs_1105/updateMyBets");
-                        this.$store.dispatch("getUserInfo");
+                    )
+                    let errorResArr = []
+                    if (orderMsg && orderMsg.status.toString() === '100') {
+                        this.$store.dispatch('cs_1105/updateMyBets')
+                        this.$store.dispatch('getUserInfo')
                         if (orderMsg.data.restricts.length === 0) {
                             // 全部成功订单
                             setTimeout(() => {
                                 this.playArea.forEach((val, index) => {
-                                    val.pickNum = [];
-                                    val.pickJackPot = [];
-                                });
-                            }, 1000);
-                            this.showOrderSucc = true;
+                                    val.pickNum = []
+                                    val.pickJackPot = []
+                                })
+                            }, 1000)
+                            this.showOrderSucc = true
                         } else if (orderMsg.data.restricts.length > 0) {
                             // 部分成功订单
-                            orderMsg.data.restricts.forEach(function(
+                            orderMsg.data.restricts.forEach(function (
                                 val,
                                 index
                             ) {
-                                errorResArr.push(val.betcode);
-                            });
+                                errorResArr.push(val.betcode)
+                            })
                             this.failureMsg =
-                                _("Order limit#") + errorResArr.join("#");
-                            this.showOrderFail = true;
+                                _('Order limit#') + errorResArr.join('#')
+                            this.showOrderFail = true
                             setTimeout(() => {
                                 this.playArea.forEach((val, index) => {
-                                    val.pickNum = [];
-                                    val.pickJackPot = [];
-                                });
-                            }, 1000);
+                                    val.pickNum = []
+                                    val.pickJackPot = []
+                                })
+                            }, 1000)
                         } else {
                             //  全部失败订单  todo
-                            orderMsg.data.restricts.forEach(function(
+                            orderMsg.data.restricts.forEach(function (
                                 val,
                                 index
                             ) {
-                                errorResArr.push(val.betcode);
-                            });
+                                errorResArr.push(val.betcode)
+                            })
 
                             this.failureMsg =
-                                _("Order limit#") + errorResArr.join("#");
-                            this.showOrderFail = true;
+                                _('Order limit#') + errorResArr.join('#')
+                            this.showOrderFail = true
                         }
                     }
-                    document.getElementById("jsLoading").style.display = "none";
+                    document.getElementById('jsLoading').style.display = 'none'
                 } else {
                     Message({
                         message: _(
-                            "Please pick correct numbers in {0}",
-                            noComplete.join(" && ")
+                            'Please pick correct numbers in {0}',
+                            noComplete.join(' && ')
                         ),
-                        type: "error"
-                    });
+                        type: 'error'
+                    })
                     // 震动 报错
                     // js_playArea-li
                     noCompleteIndex.forEach((val, index) => {
                         if (
                             document.querySelectorAll(
-                                ".play-area-items .js_playArea-li"
+                                '.play-area-items .js_playArea-li'
                             )[val]
                         ) {
                             document.querySelectorAll(
-                                ".play-area-items .js_playArea-li"
+                                '.play-area-items .js_playArea-li'
                             )[val].className =
-                                "js_playArea-li";
+                                'js_playArea-li'
                             document.querySelectorAll(
-                                ".play-area-items .js_playArea-li"
+                                '.play-area-items .js_playArea-li'
                             )[val].className =
-                                "js_playArea-li error-shake";
+                                'js_playArea-li error-shake'
                         }
-                    });
-                    document.getElementById("jsLoading").style.display = "none";
+                    })
+                    document.getElementById('jsLoading').style.display = 'none'
                     setTimeout(() => {
                         noCompleteIndex.forEach((val, index) => {
                             if (
                                 document.querySelectorAll(
-                                    ".play-area-items .js_playArea-li"
+                                    '.play-area-items .js_playArea-li'
                                 )[val]
                             ) {
                                 document.querySelectorAll(
-                                    ".play-area-items .js_playArea-li"
+                                    '.play-area-items .js_playArea-li'
                                 )[val].className =
-                                    "js_playArea-li";
+                                    'js_playArea-li'
                             }
-                        });
-                    }, 800);
+                        })
+                    }, 800)
                 }
                 // 动画 socket
             }
@@ -847,147 +848,147 @@ export default {
             // this.$store.commit('emailBackTime', 0)
             // this.$store.commit('showVerifyEmail')
         },
-        addTicket() {
+        addTicket () {
             /* 添加 */
             if (this.playArea && this.playArea.length < 5) {
                 this.playArea.push({
                     ...this.baseAreaMsg
-                });
+                })
             } else {
                 Message({
-                    message: _("No more than 5 tickets"),
-                    type: "error"
-                });
+                    message: _('No more than 5 tickets'),
+                    type: 'error'
+                })
             }
         },
-        fixNav() {
-            this.scroll = document.getElementById("lucky11").scrollTop;
+        fixNav () {
+            this.scroll = document.getElementById('lucky11').scrollTop
             if (this.scroll >= 160) {
-                this.$store.commit(mTypes.setNavFix, true);
+                this.$store.commit(mTypes.setNavFix, true)
             } else {
-                this.$store.commit(mTypes.setNavFix, false);
+                this.$store.commit(mTypes.setNavFix, false)
             }
         },
 
-        format_betCode(betcode) {
-            let currLuckyNum = betcode.split(",");
-            let str = '<ul class="num-box">';
-            currLuckyNum.forEach(function(value, index) {
-                str += `<li class="bingo">${value}</li>`;
-            });
-            return str + "</ul>";
+        format_betCode (betcode) {
+            let currLuckyNum = betcode.split(',')
+            let str = '<ul class="num-box">'
+            currLuckyNum.forEach(function (value, index) {
+                str += `<li class="bingo">${value}</li>`
+            })
+            return str + '</ul>'
         },
-        format_recentWins(msg) {
+        format_recentWins (msg) {
             if (msg) {
                 msg.forEach((item, index) => {
-                    item.bettype = formatMatch(item.bettype);
-                    item.betcode = this.format_betCode(item.betcode);
+                    item.bettype = formatMatch(item.bettype)
+                    item.betcode = this.format_betCode(item.betcode)
                     item.betmoney =
                         formateBalance(parseFloat(item.betmoney)) +
-                        formateCoinType(item.cointype);
+                        formateCoinType(item.cointype)
                     item.betprize =
                         '<a class="win"><span>' +
                         formateBalance(parseFloat(item.betprize)) +
-                        "</span>" +
+                        '</span>' +
                         formateCoinType(item.cointype) +
-                        "</a>";
-                });
+                        '</a>'
+                })
             }
-            return msg;
+            return msg
         },
-        async handleRecentWin(tab) {
-            if (tab.name === "Wins") {
+        async handleRecentWin (tab) {
+            if (tab.name === 'Wins') {
                 let dataRecentWinsList = await this.$store.dispatch(
                     aTypes.getRecentWinsList
-                );
+                )
                 this.DataWinnerList = this.format_recentWins(
                     dataRecentWinsList
-                );
+                )
             }
         },
-        updateBaseAreaMsg() {
+        updateBaseAreaMsg () {
             if (this.isLog && this.currBalance) {
-                let blance = this.currBalance.balance;
-                let cointype = this.currBalance.cointype.toString();
+                let blance = this.currBalance.balance
+                let cointype = this.currBalance.cointype.toString()
 
                 switch (cointype) {
-                    case "1001":
-                        /* 比特币 */
-                        if (blance <= 0.001) {
-                            this.baseAreaMsg.pickMoney = 0.0002;
-                        } else if (blance < 0.005 && blance >= 0.001) {
-                            this.baseAreaMsg.pickMoney = 0.0001;
-                        } else if (blance >= 0.005) {
-                            this.baseAreaMsg.pickMoney = 0.001;
-                        }
-                        break;
-                    case "2001":
-                        /* 以太币 */
-                        if (blance <= 0.01) {
-                            this.baseAreaMsg.pickMoney = 0.001;
-                        } else if (blance < 0.05 && blance >= 0.01) {
-                            this.baseAreaMsg.pickMoney = 0.001;
-                        } else if (blance >= 0.05) {
-                            this.baseAreaMsg.pickMoney = 0.01;
-                        }
-                        break;
+                case '1001':
+                    /* 比特币 */
+                    if (blance <= 0.001) {
+                        this.baseAreaMsg.pickMoney = 0.0002
+                    } else if (blance < 0.005 && blance >= 0.001) {
+                        this.baseAreaMsg.pickMoney = 0.0001
+                    } else if (blance >= 0.005) {
+                        this.baseAreaMsg.pickMoney = 0.001
+                    }
+                    break
+                case '2001':
+                    /* 以太币 */
+                    if (blance <= 0.01) {
+                        this.baseAreaMsg.pickMoney = 0.001
+                    } else if (blance < 0.05 && blance >= 0.01) {
+                        this.baseAreaMsg.pickMoney = 0.001
+                    } else if (blance >= 0.05) {
+                        this.baseAreaMsg.pickMoney = 0.01
+                    }
+                    break
                 }
                 this.playArea.forEach((val, index) => {
                     if (val.pickMoney) {
-                        val.pickMoney = this.baseAreaMsg.pickMoney;
+                        val.pickMoney = this.baseAreaMsg.pickMoney
                     }
-                });
+                })
             } else {
-                this.baseAreaMsg.pickMoney = 0.001;
+                this.baseAreaMsg.pickMoney = 0.001
             }
         },
-        async indexRouter(query) {
+        async indexRouter (query) {
             /* 邮箱注册 找回密码  邀请等 */
             if (query.sign) {
-                if (query.from === "reg") {
+                if (query.from === 'reg') {
                     let mailBack = await this.$store.dispatch(
                         aTypes.mailActivate,
                         query.sign
-                    );
-                    console.log(mailBack);
+                    )
+                    console.log(mailBack)
                     if (mailBack) {
-                        if (mailBack.status === "100") {
+                        if (mailBack.status === '100') {
                             if (parseFloat(mailBack.data.login_times) >= 0) {
                                 // 显示第一次邀请
-                                this.$store.commit("showFirstLogin", true);
+                                this.$store.commit('showFirstLogin', true)
                             } else {
-                                this.$store.commit("showFirstLogin", false);
+                                this.$store.commit('showFirstLogin', false)
                             }
-                            this.$store.dispatch("getUserInfo");
-                            this.$store.commit("showRegSuccess");
+                            this.$store.dispatch('getUserInfo')
+                            this.$store.commit('showRegSuccess')
                         } else {
                             Message({
                                 message: mailBack.message,
-                                type: "error"
-                            });
+                                type: 'error'
+                            })
                         }
                     }
-                    this.$router.push("");
+                    this.$router.push('')
                 }
-                if (query.from === "resetPassword") {
+                if (query.from === 'resetPassword') {
                     // 重置密码
-                    this.$store.commit("setResetObj", {
+                    this.$store.commit('setResetObj', {
                         email: query.email,
                         sign: query.sign,
                         showReset: true
-                    });
-                    this.$store.commit("showResetPwd");
+                    })
+                    this.$store.commit('showResetPwd')
                     // 修改密码的时候，清楚ck
-                    removeCK();
-                    this.$store.commit("setIsLog", false);
-                    this.$store.commit("setUserInfo", {});
+                    removeCK()
+                    this.$store.commit('setIsLog', false)
+                    this.$store.commit('setUserInfo', {})
                 }
                 if (query.inviter) {
                     // 邀请
-                    this.$store.commit("setInviterObj", {
+                    this.$store.commit('setInviterObj', {
                         inviter: query.inviter,
                         sign: query.sign
-                    });
+                    })
                 }
             }
         }
@@ -1007,67 +1008,67 @@ export default {
         formateBalance,
         formatTime
     },
-    async mounted() {
+    async mounted () {
         // 获取首次中奖信息
-        if (~window.location.href.indexOf("/lucky11")) {
-            let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage);
+        if (~window.location.href.indexOf('/lucky11')) {
+            let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
             if (prizeMsg && prizeMsg.data) {
                 if (prizeMsg.data.prize_list) {
                     this.$store.commit(
                         mTypes.setjackPotMsg,
                         prizeMsg.data.prize_list
-                    );
+                    )
                 }
                 if (prizeMsg.data.num) {
                     setTimeout(() => {
-                        this.$store.commit(mTypes.setjackPotMsg, null);
-                    }, 5000 * parseFloat(prizeMsg.data.num));
+                        this.$store.commit(mTypes.setjackPotMsg, null)
+                    }, 5000 * parseFloat(prizeMsg.data.num))
                 }
             }
         }
-        this.updateBaseAreaMsg();
-        this.addTicket();
-        window.addEventListener("scroll", this.fixNav, true);
+        this.updateBaseAreaMsg()
+        this.addTicket()
+        window.addEventListener('scroll', this.fixNav, true)
 
         if (this.$store.state.route.query) {
-            this.indexRouter(this.$store.state.route.query);
+            this.indexRouter(this.$store.state.route.query)
         }
         // 首页 冒泡效果
         setTimeout(() => {
             /* 订阅lucky11 sock */
-            this.$store.dispatch("subInLucky");
+            this.$store.dispatch('subInLucky')
             /* 开启动态数据定时器 */
-            this.$store.dispatch(aTypes.recentBetAdd);
+            this.$store.dispatch(aTypes.recentBetAdd)
             /* 动态结构化 */
-            structDom("lucky11");
-        }, 0);
-        bgStarBox();
-        function bgStarBox() {
-            bgstar("stars1", 30, "#7063c9");
-            bgstar("stars2", 10, "#fff");
+            structDom('lucky11')
+        }, 0)
+        bgStarBox()
+        function bgStarBox () {
+            bgstar('stars1', 30, '#7063c9')
+            bgstar('stars2', 10, '#fff')
         }
-        function bgstar(id, num, color) {
-            let _width = window.innerWidth;
-            let _height = document.getElementById("play-area").clientHeight * 5;
-            let count = num;
-            let str = "";
-            let str1 = "";
+        function bgstar (id, num, color) {
+            let _width = window.innerWidth
+            let _height = document.getElementById('play-area').clientHeight * 5
+            let count = num
+            let str = ''
+            let str1 = ''
             for (var i = 0; i < count; i++) {
-                str += parseInt(Math.random() * _width) + "px ";
-                str += parseInt(Math.random() * _height) + "px ";
-                str += color + ",";
+                str += parseInt(Math.random() * _width) + 'px '
+                str += parseInt(Math.random() * _height) + 'px '
+                str += color + ','
             }
-            str1 = str.slice(0, -1);
-            document.getElementById(id).style.boxShadow = str1;
+            str1 = str.slice(0, -1)
+            document.getElementById(id).style.boxShadow = str1
         }
     },
-    beforeDestroy() {
-        this.$store.dispatch("subOutLucky");
+    beforeDestroy () {
+        this.$store.dispatch('subOutLucky')
     },
-    destroyed() {
-        window.removeEventListener("scroll", this.fixNav, true);
+    destroyed () {
+        window.removeEventListener('scroll', this.fixNav, true)
     }
-};
+}
 </script>
 <style lang="less" type="text/less" >
 @import "../../styles/lib-mixins.less";
