@@ -248,6 +248,9 @@ export default {
             }, {
                 value: '2001',
                 label: _('ETH')
+            }, {
+                value: '2000',
+                label: _('CC')
             }],
             ethOptionVal: '1'
 

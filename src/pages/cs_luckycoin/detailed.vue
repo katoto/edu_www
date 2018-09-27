@@ -136,18 +136,19 @@
                             {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
                         </a>
                         <!-- 新增cc 20180926 -->
-                        <div class="cc-group cc-luckycoin">
-
-                            <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                        <div class="cc-group cc-luckycoin" v-if="coinType !== '2000'">
+                            <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
                                 Using CC deduction
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
                                   <div>
+                                    <p>CC: {{getCCAcount()}}</p>
                                     <p>当选择CC抵扣后：</p>
                                     <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                    <p>每笔投注最多抵扣：XXX ETH</p>
+                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney()}} {{coinText}}</p>
+                                    <p>1000 C币=1 ETH (20000 C币= 1 BTC)</p>
                                 </div>
                             </a>
                         </div>
@@ -403,6 +404,25 @@
             numberComma,
             formatUSD,
             accMul,
+            formateCoinType,
+            getCCAcount () {
+                if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length >= 1) {
+                    let accounts = this.userInfo.accounts
+                    for (let index = 0; index < accounts.length; index++) {
+                        if (accounts[index].cointype === '2000') {
+                            return Number(accounts[index].balance)
+                        }
+                    }
+                }
+                return 0
+            },
+            getCCDeductionMoney () {
+                let value = Number(this.betValue)
+                if (value && !isNaN(value) && value > 0) {
+                    return this.accMul(value, 0.05)
+                }
+                return 0
+            },
             init () {
                 let params = getURLParams()
                 if (params.number || this.number !== '') {
@@ -564,7 +584,8 @@
                 this.betNum = accDiv(value, this.goodsinfo.bidValue)
                 this.betNow({
                     cointype: this.coinType,
-                    codestr: `${this.number}|${this.coinType}|${this.betNum}|${this.goodsinfo.bidValue}`
+                    codestr: `${this.number}|${this.coinType}|${this.betNum}|${this.goodsinfo.bidValue}`,
+                    discount: this.isUseCC && this.coinType !== '2000' ? '1' : '0'
                 })
                     .then(() => {
                         this.refresh()
@@ -688,6 +709,17 @@
                 isLogin: state => !!state.isLog
             }),
             ...mapState(['userInfo']),
+            isUseCC: {
+                set (value) {
+                    this.$store.commit('cs_luckycoin/changeCC', value)
+                },
+                get () {
+                    return this.$store.state.cs_luckycoin.isUseCC
+                }
+            },
+            currBalance () {
+                return this.$store.state.currBalance
+            },
             thisAccount () {
                 if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length > 0) {
                     let accounts = this.userInfo.accounts

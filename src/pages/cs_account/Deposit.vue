@@ -19,7 +19,7 @@
                     <lang>Balance</lang>
                     <i class="bold">{{ formateBalance(currBalance.balance) }}</i> {{ formateCoinType(currBalance.cointype) }}
                 </div>
-                <p class="item1tips" v-if="currBalance.cointype==='2001'">
+                <p class="item1tips" v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                     <lang>Get 10 free spins of Slot (Top-up reaches 0.01ETH, 1 chance/day)</lang>
                 </p>
                 <p class="item1tips" v-else>
@@ -32,8 +32,8 @@
                 </div>
                 <div class="fr-box" v-if="currBalance">
                     <div class="item2-1">
-                        <a :href="'https://etherscan.io/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='2001'" class="address">{{ currBalance.address }}</a>
-                        <a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='1001'" class="address">{{ currBalance.address }}</a>
+                        <a :href="'https://etherscan.io/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'" class="address">{{ currBalance.address }}</a>
+                        <a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype === '1001'" class="address">{{ currBalance.address }}</a>
                         <a href="javascript:;"
                            v-clipboard:copy="currBalance.address"
                            v-clipboard:success="copySucc"
@@ -43,17 +43,17 @@
                         </a>
                     </div>
 
-                    <p class="item2-2" v-if="currBalance.cointype==='2001'">
+                    <p class="item2-2" v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                         <lang>Tips: This address only supports ETH top-up, do not choose another kind of coins</lang>
                     </p>
-                    <p class="item2-2" v-if="currBalance.cointype==='1001'">
+                    <p class="item2-2" v-if="currBalance.cointype === '1001'">
                         <lang>Tips: This address only supports BTC top-up, do not choose another kind of coins</lang>
                     </p>
                     <div class="item2-3">
                         <lang>or scan to get the address</lang>
                     </div>
-                    <img v-if="currBalance.cointype==='1001'" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address ">
-                    <img v-if="currBalance.cointype==='2001'" alt="" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address ">
+                    <img v-if="currBalance.cointype === '1001'" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address ">
+                    <img v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'" alt="" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address ">
                     <!--<img src="@/assets/img/code.png" alt="" width="98" height="98">-->
                 </div>
             </div>
@@ -66,16 +66,16 @@
                         <li>
                             1. <lang>Legal cryptocurrency wallets or trading platforms with high security are highly recommended.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='1001'">
+                        <li v-if="currBalance.cointype === '1001'">
                             2. <lang>This address is only for BTC transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='2001'">
+                        <li v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                             2. <lang>This address is only for ETH transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='1001'">
+                        <li v-if="currBalance.cointype === '1001'">
                             3. <lang>Minimum top-up：0.0001 BTC. Top-up less than the minimum amount may fail and it cannot be returned.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='2001'">
+                        <li v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                             3. <lang>Minimum top-up：0.001 ETH. Top-up less than the minimum amount may fail and it cannot be returned.</lang>
                         </li>
                         <li>
@@ -108,7 +108,7 @@
                     <i class="bold">{{ formateBalance(currBalance.balance) }} </i>
                     <i>{{ formateCoinType(currBalance.cointype) }}</i>
                 </p>
-                <p class="item1tips" v-if="currBalance.cointype==='2001'">
+                <p class="item1tips" v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                     <lang>Get 10 free spins of Slot (Top-up reaches 0.01ETH, 1 chance/day)</lang>
                 </p>
                 <p class="item1tips" v-else>
@@ -120,15 +120,15 @@
                     <lang>Select Coin</lang>
                 </div>
                 <template v-if="currBalance">
-                    <p class="item2-2" v-if="currBalance.cointype==='2001'">
+                    <p class="item2-2" v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                         <lang>Tips: This address only supports ETH top-up, do not choose another kind of coins</lang>
                     </p>
-                    <p class="item2-2" v-if="currBalance.cointype==='1001'">
+                    <p class="item2-2" v-if="currBalance.cointype === '1001'">
                         <lang>Tips: This address only supports BTC top-up, do not choose another kind of coins</lang>
                     </p>
                     <div class="item2-1">
-                        <a :href="'https://etherscan.io/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='2001'" class="address">{{ currBalance.address }}</a>
-                        <a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='1001'" class="address">{{ currBalance.address }}</a>
+                        <a :href="'https://etherscan.io/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'" class="address">{{ currBalance.address }}</a>
+                        <a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype === '1001'" class="address">{{ currBalance.address }}</a>
                     </div>
                     <a href="javascript:;"
                        v-clipboard:copy="currBalance.address"
@@ -140,8 +140,8 @@
                     <div class="item2-3">
                         <lang>or scan to get the address</lang>
                     </div>
-                    <img v-if="currBalance.cointype==='1001'" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address ">
-                    <img v-if="currBalance.cointype==='2001'" alt="" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address ">
+                    <img v-if="currBalance.cointype === '1001'" alt="" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address ">
+                    <img v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'" alt="" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address ">
                     <!--<img src="@/assets/img/code.png" alt="" width="98" height="98">-->
                 </template>
             </div>
@@ -153,16 +153,16 @@
                         <li>
                             1. <lang>Legal cryptocurrency wallets or trading platforms with high security are highly recommended.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='1001'">
+                        <li v-if="currBalance.cointype === '1001'">
                             2. <lang>This address is only for BTC transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='2001'">
+                        <li v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                             2. <lang>This address is only for ETH transfer, any other kinds of cryptocurrency transfer may lead to the loss of money.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='1001'">
+                        <li v-if="currBalance.cointype === '1001'">
                             3. <lang>Minimum top-up：0.0001BTC. Top-up less than the minimum amount may fail and it cannot be returned.</lang>
                         </li>
-                        <li v-if="currBalance.cointype==='2001'">
+                        <li v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
                             3. <lang>Minimum top-up：0.001ETH. Top-up less than the minimum amount may fail and it cannot be returned.</lang>
                         </li>
                         <li>

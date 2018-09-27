@@ -47,7 +47,7 @@
                             {{luckyCoinResult}}
                         </div>
                         <!--luckyPoker v-if="params.type === 'luckyPoker'"-->
-                        <div class="poker-check">
+                        <div class="poker-check" v-if="params.type === 'luckyPoker'">
                             <p>{{params.luckyPoker.shaModNumber}}</p>
                             <p class="mark">>>></p>
                             <!--icon-fk/icon-hongt/icon-mh/icon-heit/joker-->
@@ -56,11 +56,13 @@
                             </div>
                         </div>
                     </div>
-                    <h4 class="poker-t" style="margin-top: 33px">{{$lang.poker.a30}} :</h4>
-                    <p class="poker-m">{{params.luckyPoker.shaResult}}</p>
-                    <div style="line-height: 48px;">
-                        <h4 class="poker-t fl" >{{$lang.poker.a31}} :</h4>
-                        <p class="poker-m fl">{{params.luckyPoker.shaNumber}}</p>
+                    <div v-if="params.type === 'luckyPoker'">
+                        <h4 class="poker-t" style="margin-top: 33px">{{$lang.poker.a30}} :</h4>
+                        <p class="poker-m">{{params.luckyPoker.shaResult}}</p>
+                        <div style="line-height: 48px;">
+                            <h4 class="poker-t fl" >{{$lang.poker.a31}} :</h4>
+                            <p class="poker-m fl">{{params.luckyPoker.shaNumber}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
