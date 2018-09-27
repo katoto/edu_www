@@ -155,7 +155,7 @@
                         <div class="cc-group cc-luckySlot">
                             <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
                             <p>
-                                Using CC deduction
+                                Using&nbsp;CC&nbsp;deduction
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
@@ -1546,7 +1546,7 @@ Vue.use(vueClipboard)
         z-index: 3;
         left: 0;
         // bottom: percentage(146/1173);
-        bottom: 25%;
+        bottom: 27%;
         width: 100%;
         height: 28px;
         overflow: hidden;
@@ -1563,6 +1563,7 @@ Vue.use(vueClipboard)
         width: percentage(595/750);
         left: 50%;
         bottom: percentage(200/1173);
+        bottom: percentage(230/1173);
         transform: translateX(-50%);
         display: flex;
         justify-content: space-between;

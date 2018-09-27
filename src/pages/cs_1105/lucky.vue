@@ -34,7 +34,7 @@
                         <div class="cc-group cc-lucky1105pc" v-if="currBalance.cointype !== '2000'">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
-                                Using CC deduction
+                                Using&nbsp;CC&nbsp;deduction
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
@@ -284,7 +284,7 @@
 
                         <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                         <p>
-                            Using CC deduction
+                            Using&nbsp;CC&nbsp;deduction
                         </p>
                         <a href="javascript:;" class="btn-cc">
                             ?

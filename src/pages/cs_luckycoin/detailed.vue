@@ -139,7 +139,7 @@
                         <div class="cc-group cc-luckycoin" v-if="coinType !== '2000'">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
-                                Using CC deduction
+                                Using&nbsp;CC&nbsp;deduction
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
@@ -1354,6 +1354,7 @@
             &.btn-normal{
                 max-width: percentage(520/600);
                 left: percentage(40/600);
+                bottom: 24px;
                 bottom: 57px;
                 background: #f67c22;
                 border-radius: 6px;
@@ -1485,6 +1486,7 @@
             }
             .item-main{
                 .main-left{
+                    height: 150px;
                     .main-normal{
                         opacity: 1;
                         transform: translateY(0);
@@ -1907,6 +1909,9 @@
                     height: 91/2px;
                 }
             }
+            .btn.btn-normal{
+               
+            }
             .bet-success{
                 padding: 20px percentage(30/600) 0;
                 .bet-icon{
@@ -1979,6 +1984,9 @@
             .pop-body{
                 width: 100%;
             }
+        }
+        .cc-group.cc-luckycoin{
+            left:6.66666667%;
         }
     }
     @media (max-width: 480px) {
