@@ -136,19 +136,19 @@
                             {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
                         </a>
                         <!-- 新增cc 20180926 -->
-                        <div class="cc-group cc-luckycoin" v-if="coinType !== '2000'">
+                        <div class="cc-group cc-luckycoin" v-if="coinType !== '2000' && isLogin">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
                                 Using&nbsp;CC&nbsp;deduction
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
-                                  <div>
-                                    <p>CC: {{getCCAcount()}}</p>
+                                <div>
+                                    <p>CC: {{getCCAcount(userInfo)}}</p>
                                     <p>当选择CC抵扣后：</p>
                                     <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney()}} {{coinText}}</p>
-                                    <p>1000 C币=1 ETH (20000 C币= 1 BTC)</p>
+                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney(betValue, userInfo.discount_cfg.limit_rate['2'])}} {{coinText}}</p>
+                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
                                 </div>
                             </a>
                         </div>
@@ -362,7 +362,7 @@
 
 <script>
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
-    import { getURLParams, formatTime, formatNum, accMul, accDiv, formateCoinType, numberComma, formatUSD } from '~/common/util'
+    import { getURLParams, formatTime, formatNum, accMul, accDiv, formateCoinType, numberComma, formatUSD, getCCAcount, getCCDeductionMoney } from '~/common/util'
     import { mapActions, mapState } from 'vuex'
     import timeMixin from './timeMixin'
     export default {
@@ -405,24 +405,8 @@
             formatUSD,
             accMul,
             formateCoinType,
-            getCCAcount () {
-                if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length >= 1) {
-                    let accounts = this.userInfo.accounts
-                    for (let index = 0; index < accounts.length; index++) {
-                        if (accounts[index].cointype === '2000') {
-                            return Number(accounts[index].balance)
-                        }
-                    }
-                }
-                return 0
-            },
-            getCCDeductionMoney () {
-                let value = Number(this.betValue)
-                if (value && !isNaN(value) && value > 0) {
-                    return this.accMul(value, 0.05)
-                }
-                return 0
-            },
+            getCCAcount,
+            getCCDeductionMoney,
             init () {
                 let params = getURLParams()
                 if (params.number || this.number !== '') {

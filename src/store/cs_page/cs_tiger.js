@@ -98,7 +98,8 @@ const actionsInfo = mapActions({
             let InfoData = await ajax.post(`/slots/bingo`, {
                 line: orderObj.dft_line,
                 single_bet: orderObj.single_bet,
-                cointype: orderObj.cointype
+                cointype: orderObj.cointype,
+                discount: orderObj.discount
             })
             return InfoData.data
         } catch (e) {

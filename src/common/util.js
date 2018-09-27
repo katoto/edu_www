@@ -781,3 +781,23 @@ export function structDom (msg = 'home') {
         document.body.appendChild(createSci)
     }
 }
+
+export function getCCAcount (userInfo) {
+    if (userInfo && userInfo.accounts && userInfo.accounts.length >= 1) {
+        let accounts = this.userInfo.accounts
+        for (let index = 0; index < accounts.length; index++) {
+            if (accounts[index].cointype === '2000') {
+                return Number(accounts[index].balance)
+            }
+        }
+    }
+    return 0
+}
+
+export function getCCDeductionMoney (total, rate) {
+    let value = Number(total)
+    if (value && !isNaN(value) && value > 0) {
+        return accMul(value, rate).toFixed(18).replace(/\.?0+$/, '')
+    }
+    return 0
+}

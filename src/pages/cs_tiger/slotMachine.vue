@@ -152,17 +152,19 @@
                             <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} {{ formateCoinType(currBalance.cointype) }}
                         </div>
                         <!-- 新增cc 20180926 -->
-                        <div class="cc-group cc-luckySlot">
-                            <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                        <div class="cc-group cc-luckySlot" v-if="coinType !== '2000' && isLog">
+                            <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
                                 Using&nbsp;CC&nbsp;deduction
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
-                                    <div>
+                                <div>
+                                    <p>CC: {{getCCAcount(userInfo)}}</p>
                                     <p>当选择CC抵扣后：</p>
                                     <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                    <p>每笔投注最多抵扣：XXX ETH</p>
+                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney(accMul(dft_bet, 9), userInfo.discount_cfg.limit_rate['3'])}} {{formateCoinType(coinType)}}</p>
+                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
                                 </div>
                             </a>
                         </div>
@@ -476,7 +478,7 @@
 import Footer from '~components/Footer.vue'
 import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
 import BannerScroll from '~components/BannerScroll.vue'
-import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom} from '~common/util'
+import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom, getCCDeductionMoney, getCCAcount, accMul} from '~common/util'
 
 import Vue from 'vue'
 import vueClipboard from 'vue-clipboard2'
@@ -555,7 +557,8 @@ Vue.use(vueClipboard)
                 winRadioObj: {
                 }, // 显示大奖用的
                 winRadioHtml: '', // 处理成展示结构html
-                fastClick: false
+                fastClick: false,
+                isUseCC: false
             }
         },
         watch: {
@@ -581,6 +584,9 @@ Vue.use(vueClipboard)
             }
         },
         methods: {
+            accMul,
+            getCCAcount,
+            getCCDeductionMoney,
             copySucc,
             copyError,
             formatTime,
@@ -769,7 +775,8 @@ Vue.use(vueClipboard)
                 let orderMsg = {
                     dft_line: this.dft_line,
                     single_bet: this.dft_bet,
-                    cointype: this.currBalance.cointype
+                    cointype: this.currBalance.cointype,
+                    discount: this.isUseCC && this.currBalance.cointype !== '2000' ? '1' : '0'
                 }
                 let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
                 // this.stateInit()
@@ -1168,6 +1175,9 @@ Vue.use(vueClipboard)
             currBalance () {
                 return this.$store.state.currBalance
             },
+            coinType () {
+                return (this.currBalance && this.currBalance.cointype) || '2001'
+            },
             updataPools () {
                 return this.$store.state.cs_tiger.updataPools
             }
@@ -1559,7 +1569,7 @@ Vue.use(vueClipboard)
 
     .operating {
         position: absolute;
-        z-index: 3;
+        z-index: 4;
         width: percentage(595/750);
         left: 50%;
         bottom: percentage(200/1173);
