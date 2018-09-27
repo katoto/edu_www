@@ -1563,7 +1563,7 @@ Vue.use(vueClipboard)
         width: percentage(595/750);
         left: 50%;
         bottom: percentage(200/1173);
-        bottom: percentage(230/1173);
+        bottom: percentage(225/1173);
         transform: translateX(-50%);
         display: flex;
         justify-content: space-between;
