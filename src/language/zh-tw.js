@@ -326,7 +326,7 @@ module.exports = {
     'You Win + {0} {1}': '妳贏得了 + {0} {1}',
     'Send': '發送',
     'wait': '待開獎',
-    'No Data': '沒有數據',
+    'No Data': '暫無記錄',
 
     'What is Lucky 11?': '什麽是Lucky 11？',
     'Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain.': 'Lucky 11是壹款基於分布式賬本技術的去中心化的彩票產品。鑒於以太坊區塊鏈的性質，所有抽獎結果都是加密安全的且隨機可查。',

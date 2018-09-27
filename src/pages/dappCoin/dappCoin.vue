@@ -538,7 +538,7 @@
                     </template>
                     <div class="nomsg" v-else>
                         <p>
-                            nomsg
+                            <lang>No data</lang>
                         </p>
                     </div>
 
@@ -901,6 +901,17 @@ export default {
         },
         expectFormatData (list) {
             // 历史期号数据处理
+            if(list){
+                list.forEach((item,index)=>{
+                    item.luckynum = item.luckynum.toString()
+                    if (item.luckynum.length < 4) {
+                        let currLen = 4 - item.luckynum.length
+                        for (let i = 0;i < currLen ;i++) {
+                            item.luckynum = '0' + item.luckynum
+                        }
+                    }
+                })
+            }
             return list
         },
         orderMoreMobile () {

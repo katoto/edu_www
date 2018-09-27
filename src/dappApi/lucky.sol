@@ -54,12 +54,12 @@ contract LuckyCoin is Coinevents{
     //**************** game settings ****************
      string constant public name = "LuckyCoin Super";
      string constant public symbol = "LuckyCoin";
-     uint256 constant private rndGap_ = 10 minutes;                // round timer starts at this
+     uint256 constant private rndGap_ = 2 hours;                // round timer starts at this
 
      uint256 ticketstotal_ = 1500;       // ticket total amonuts
      uint256 grouptotal_ = 250;    // ticketstotal_ divend to six parts
      //uint ticketprice_ = 0.005 ether;   // current ticket init price
-     uint256 jackpot = 0.05 ether;
+     uint256 jackpot = 10 ether;
      uint256 public rID_= 0;      // current round id number / total rounds that have happened
      uint256 _headtickets = 500;  // head of 500, distributes valuet
      bool public activated_ = false;
@@ -68,12 +68,12 @@ contract LuckyCoin is Coinevents{
      //address prize_addr = 0x2b5006d3dce09dafec33bfd08ebec9327f1612d8;        // prize addr
  
      
-     address community_addr = 0xb4C4D4284c378b7d129F548eD97bD042A389E41D;    // community addr
-     address prize_addr = 0xb4C4D4284c378b7d129F548eD97bD042A389E41D;        // prize addr
-     address activate_addr1 = 0xb4C4D4284c378b7d129F548eD97bD042A389E41D;    // activate addr1
-     address activate_addr2 = 0x5d07DD9FC10C2cb223dfa0F1ddaA889e4ceff2b5;    // activate addr2
+     address community_addr = 0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF;    // community addr
+     address prize_addr = 0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF;        // prize addr
+     address activate_addr1 = 0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF;    // activate addr1
+     address activate_addr2 = 0x6c7dfe3c255a098ea031f334436dd50345cfc737;    // activate addr2
      //address activate_addr2 = 0x2b5006d3dce09dafec33bfd08ebec9327f1612d8;    // activate addr2
-     PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0xa5e9edff860214d66b9752691147215a3da622a3);
+     PlayerBookInterface constant private PlayerBook = PlayerBookInterface(0x748286a6a4cead7e8115ed0c503d77202eeeac6b);
 
     //**************** ROUND DATA ****************
     mapping (uint256 => Coindatasets.Round) public round_;   // (rID => data) round data
@@ -630,7 +630,7 @@ contract LuckyCoin is Coinevents{
      * @dev calculates unmasked earnings (just calculates, does not update ticket)
      * @return earnings in wei format
      */
-     //����ÿ����pidǰ500ticket�ķֺ�
+     //计算每轮中pid前500ticket的分红
     function calcTicketEarnings(uint256 _pID, uint256 _rIDlast)
         private
         view
