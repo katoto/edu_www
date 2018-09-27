@@ -127,8 +127,6 @@ a.fail{
     height:100%;
     background: rgba(0,0,0,0.7);
     text-align: center;
-
-    //has bug
     h3{
         margin:40px 0 15px 0;
         height:20px;
@@ -378,6 +376,53 @@ a.fail{
     &.hide{
         .bg-jackpot{
             top: -200%;
+        }
+    }
+}
+//cc
+.pop_cc1{
+    .pop-body{
+        box-sizing: border-box;
+        width: 490px;
+        line-height: 20px;
+        font-size: 18px;
+        color: #263648;
+        .pop-ani{
+            padding: 48px 65px 26px;
+        }
+        .btn-box{
+            width: 100%;
+            height: 50px;
+            overflow: hidden;
+            margin-top: 20px;
+            line-height: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn{
+            display: block;
+            height: 100%;
+            border-radius:6px;
+            box-sizing: border-box;
+            &:hover{
+                filter: brightness(1.1)
+            }
+        }
+        .btn-get{
+            width: 100%;
+            background: #705ED6;
+            color:#fff;
+        }
+        .btn-topUp,.later-later{
+            width: percentage(176/360);
+        }
+        .btn-topUp{
+            background: #705ED6;
+            color:#fff;
+        }
+        .later-later{
+            border:1px solid #705ED6;
+            color:#705ED6;
         }
     }
 }
