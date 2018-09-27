@@ -279,7 +279,6 @@
                     </div>
                     <!-- 新增cc 20180926 -->
                     <div class="cc-group cc-lucky1105h5">
-
                         <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
                         <p>
                             Using CC deduction

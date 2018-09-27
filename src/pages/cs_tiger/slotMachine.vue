@@ -151,6 +151,21 @@
                         <div class="lastwin " v-if="last_prizes">
                             <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} {{ formateCoinType(currBalance.cointype) }}
                         </div>
+                        <!-- 新增cc 20180926 -->
+                        <div class="cc-group cc-luckySlot">
+                            <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                            <p>
+                                Using CC deduction
+                            </p>
+                            <a href="javascript:;" class="btn-cc">
+                                ?
+                                    <div>
+                                    <p>当选择CC抵扣后：</p>
+                                    <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
+                                    <p>每笔投注最多抵扣：XXX ETH</p>
+                                </div>
+                            </a>
+                        </div>
                         <!--主按钮-->
                         <a href="javascript:;" id="controlShowMsg" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
                             <img src="@/assets/img/tiger/btn-bg.png" alt="">
@@ -1530,7 +1545,8 @@ Vue.use(vueClipboard)
         position: absolute;
         z-index: 3;
         left: 0;
-        bottom: percentage(146/1173);
+        // bottom: percentage(146/1173);
+        bottom: 25%;
         width: 100%;
         height: 28px;
         overflow: hidden;

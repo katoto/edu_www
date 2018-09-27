@@ -1705,7 +1705,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
         border-radius: 50%;
         background: rgba(255,255,255,0.2);
         font-size: 12px;
-        font-weight: bold;
+        // font-weight: bold;
         text-align: center;
         line-height: 17px;
         color: #fff;
@@ -1716,6 +1716,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
         }
         div{
             display: none;
+            display: block;
             position: absolute;
             left: -256px;
             top: -130px;
@@ -1791,5 +1792,40 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
                 }
             }
         }
+    }
+    &.cc-luckyPokerPc,&.cc-luckyPokerh5{
+        margin-top: 20px;
+        justify-content: center;
+        font-weight: normal;
+        .btn-cc{
+            div{
+                p{
+                    color: #72a1a8;
+                }
+            }
+        }
+    }
+    &.cc-luckySlot{
+       position: absolute;
+       z-index: 10;
+       left: 50%;
+       transform: translateX(-50%);
+       bottom: 13%;
+       .btn-cc{
+          div{
+            background: #2f2a3d;
+            border: 1px solid #96825c;
+            &::before{
+                content: '';
+                width: 37px;
+                height: 20px;
+                bottom: -14px;
+                left: 245px;
+                border: none;
+                background: url("../assets/img/tiger/icon-cc.png") no-repeat center;
+                background-size: 18px;
+            }
+          }
+       }
     }
 }

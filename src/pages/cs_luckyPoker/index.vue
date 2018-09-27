@@ -201,8 +201,38 @@
                                 <p v-if="!isLoading">{{$lang.poker.a17}}</p>
                                 <span v-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
                             </div>
+                            <!-- 新增cc 20180926 -->
+                            <div class="cc-group cc-luckyPokerPc">
+                                <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                                <p>
+                                    Using CC deduction
+                                </p>
+                                <a href="javascript:;" class="btn-cc">
+                                    ?
+                                        <div>
+                                        <p>当选择CC抵扣后：</p>
+                                        <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
+                                        <p>每笔投注最多抵扣：XXX ETH</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
+                </div>
+                 <!-- 新增cc 20180926 -->
+                <div class="cc-group cc-luckyPokerh5">
+                    <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                    <p>
+                        Using CC deduction
+                    </p>
+                    <a href="javascript:;" class="btn-cc">
+                        ?
+                            <div>
+                            <p>当选择CC抵扣后：</p>
+                            <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
+                            <p>每笔投注最多抵扣：XXX ETH</p>
+                        </div>
+                    </a>
                 </div>
                 <!--随机数 h5-->
                 <div class="area-random" :class="{on:isShowRandom}">
@@ -2098,6 +2128,9 @@ export default {
                     }
                 }
             }
+            .cc-luckyPokerPc{
+                display: none;
+            }
             /*历史开奖*/
             .poker-history{
                 position: relative;
@@ -2119,7 +2152,7 @@ export default {
                 display: block;
                 width: 92%;
                 padding: 10/2px percentage(24/690) 10/2px;
-                margin: 110/2px auto 0;
+                margin: 25px auto 0;
                 border-radius: 8px;
                 background: #294557;
                 color: #fff;
@@ -2568,7 +2601,7 @@ export default {
                 width: 100%;
                 max-width: 612px;
                 padding: 52px 85px 0;
-                height: 826px;
+                height: 864px;
                 font-weight: bold;
                 background: url("../../assets/img/luckyPoker/bg-pc-desktop.png") no-repeat center top;
                 background-size: 612px;
@@ -2589,6 +2622,9 @@ export default {
                 height:33px;
                 line-height: 20px;
                 font-size: 16px;
+            }
+            .cc-luckyPokerh5{
+                display: none;
             }
             /*投注区*/
             .area-betting{
@@ -2775,10 +2811,10 @@ export default {
             .recording{
                 position: absolute;
                 right: 31px;
-                bottom: 130px;
+                bottom: 168px;
                 max-width: 455px;
                 padding-top: 2px;
-                margin: 25px auto 0;
+                // margin: 25px auto 0;
                 border-radius: 8px;
                 .recording-top{
                     padding: 0 27px;
