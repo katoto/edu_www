@@ -2104,7 +2104,7 @@ export default {
     position: absolute;
     right: 0;
     top: 160px;
-    width: 200px;
+    width: 240px;
     color: #778ca3;
     z-index: 10;
     .transition();
@@ -2168,6 +2168,9 @@ export default {
                     text-decoration: none;
                 }
             }
+            .count {
+                font-size: 13px;
+            }
         }
     }
     .alert-mybets-items {
@@ -2210,6 +2213,7 @@ export default {
         }
     }
     &.close {
+        right: -40px;
         transform: translateX(136px);
         .alert-mybets-head {
             padding: 5px 0;

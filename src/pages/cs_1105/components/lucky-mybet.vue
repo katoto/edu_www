@@ -30,43 +30,10 @@
                             </li>
                         </ul>
                         <div class="bottom">
-                            <span class="count fl bold">{{formateBalance(bet.betmoney)}}{{formateCoinType(bet.cointype)}}</span>
+                            <span class="count fl bold">{{getBetMoney(bet)}}</span>
                             <a class="add fr" :title="bet.txhash" target="blank" :href="`https://etherscan.io/block/${bet.blocknum}`">{{bet.txhash}}</a>
                         </div>
                     </li>
-                    <!--
-                    <li>
-                        <div class="top">
-                            <span class="date fl">
-                                NO.20338
-                            </span>
-                            <span class="type fr bold">
-                                transaction
-                            </span>
-                        </div>
-                        <ul class="number-box">
-                            <li class="on">
-                                1
-                            </li>
-                            <li>
-                                3
-                            </li>
-                            <li>
-                                4
-                            </li>
-                            <li>
-                                5
-                            </li>
-                            <li>
-                                6
-                            </li>
-                        </ul>
-                        <div class="bottom">
-                            <span class="count fl">0.123 ETH</span>
-                            <a href="javascript:;" class="add fr">012x2371f...</a>
-                        </div>
-                    </li>
-                    -->
                 </ul>
                 <div class="nomsg js_nomsg" v-if="myBetList.length === 0">
                     <lang>You don't have any records in 24 hours. Have a try ,and wish you luck~</lang>
@@ -93,7 +60,7 @@
 </template>
 
 <script>
-import { formateCoinType, formateBalance } from '~common/util'
+import { formateCoinType, formateBalance, accSub, accMul, accDiv } from '~common/util'
 import { Notification } from 'element-ui'
 export default {
     data () {
@@ -134,6 +101,15 @@ export default {
                 position: 'bottom-right',
                 duration: 5000
             })
+        },
+        getBetMoney (bet) {
+            let betmoney = Number(bet.betmoney)
+            let discountRate = Number(bet.discount_rate)
+            let cc = Number(bet.cc)
+            let isCCDiscount = (discountRate !== 1)
+            return !isCCDiscount
+                ? formateBalance(betmoney) + formateCoinType(bet.cointype)
+                : `${formateBalance(accSub(betmoney, accMul(accDiv(1, discountRate), cc))) + formateCoinType(bet.cointype)} + ${cc}CC`
         }
     },
     watch: {
