@@ -412,8 +412,8 @@ module.exports = {
     'SlotMachine': '老虎機',
     'LuckyPoker': '幸運撲克',
     'Win <i class=bold>98%+</i> Return Rate': '高達<i class=bold>98%</i>返獎率',
-    'Copy the Ethereum wallet address': '負制錢包地址',
-    'only supports ETH': '當前仅有支持ETH',
+    'Copy the Ethereum wallet address': '復制錢包地址',
+    'only supports ETH': '當前僅支持ETH',
     '=====================': '====',
 
     'Select Coin': '當前選擇',
@@ -834,6 +834,7 @@ module.exports = {
     'Buy more tickets, enjoy higher winning chance.': '購買越多，中獎概率越高',
     'Click here to try your luck!': '點擊這裏進行投註，立即試試',
     'Okay': '下壹步',
-    'Round {0}': '期號 {0}'
+    'Round {0}': '期號 {0}',
+    'Gameplay': '遊戲規則'
     /* super coin end */
 }

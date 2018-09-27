@@ -466,7 +466,7 @@
                     </div>
                     <template v-if="(expectsList && expectsList.length > 0)||(expectsListMobile && expectsListMobile.length > 0)">
                         <ul class="historyDraw-head">
-                            <li class="issue"><lang>Round No.</lang></li>
+                            <li class="issue"><lang>Round</lang></li>
                             <li class="winningNumbers"><lang>Draw Number </lang></li>
                             <li class="bonus"><lang>Prize Pool</lang></li>
                             <li class="winner"><lang>Winner</lang></li>
