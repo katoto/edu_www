@@ -167,7 +167,7 @@ export function formatMatch (match) {
     }
 }
 
-export function formateBalance (val = 0) {
+export function formateBalance (val = 0, type = '2001') {
     let newEth = null
     if (isNaN(val) || isNaN(Number(val))) {
         console.error('formateBalance error' + val)
@@ -188,6 +188,10 @@ export function formateBalance (val = 0) {
         newEth = (val).toFixed(5)
     } else {
         newEth = (val).toFixed(6)
+    }
+
+    if (type === '2000') {
+        return formatNum(newEth, 3).toFixed(3)
     }
     return newEth
 }

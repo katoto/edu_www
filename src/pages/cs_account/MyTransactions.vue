@@ -317,6 +317,7 @@ export default {
         formatData (Msg) {
             Msg.forEach((val, index) => {
                 // bettime
+                let cointype = val.cointype
                 val.crtime = formatTime(val.crtime, 'yyyy-MM-dd HH:mm')
                 if (val.inout !== undefined) {
                     val.inout = formateMoneyFlow(val.inout, val.lotid)
@@ -325,11 +326,11 @@ export default {
                 val.index = (index + 1) + Number(this.pageSize) * Number(this.pageno - 1)
                 val.moneyVal = (
                     parseFloat(val.money, 10) <= 0
-                        ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money)}</a>`
-                        : `<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money)}</a>`
+                        ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money, cointype)}</a>`
+                        : `<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money, cointype)}</a>`
                 )
                 if (val.balance) {
-                    val.balance = formateBalance(val.balance) + val.cointype
+                    val.balance = formateBalance(val.balance, cointype) + val.cointype
                 }
             })
             return Msg

@@ -531,6 +531,7 @@
                 <img src="../../assets/img/lucky11/jackpot-left.png" />
             </a>
         </template>
+<<<<<<< HEAD
 
 
         <div class="pop pop_cc1 hide">

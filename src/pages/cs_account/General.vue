@@ -26,7 +26,7 @@
                     <li v-for="(account, index) in userInfo.accounts" :key="index">
                         <div class="lf130">
                             <span class="coin-name">{{ account.cointype | formateCoinType }}</span>
-                            <span class="coin-num bold">{{ account.balance | formateBalance }}</span>
+                            <span class="coin-num bold">{{ formateBalance(account.balance, account.cointype) }}</span>
                         </div>
                     </li>
                     <!--<section class="hide">-->
@@ -77,7 +77,7 @@
                 <ul class="coin-detail" v-if="userInfo.accounts">
                     <li v-for="(account, index) in userInfo.accounts" :key="index">
                         <p class="coin-name">{{ account.cointype | formateCoinType }}</p>
-                        <p class="coin-num bold">{{ account.balance | formateBalance }}</p>
+                        <p class="coin-num bold">{{ formateBalance(account.balance, account.cointype) }}</p>
                     </li>
                 </ul>
             </template>
@@ -111,6 +111,7 @@
         },
         watch: {},
         methods: {
+            formateBalance,
             goVerify () {
                 /* 应该是一个新的 验证邮箱的界面 */
                 this.$store.commit('showNoVerify')
@@ -145,8 +146,7 @@
             }
         },
         filters: {
-            formateCoinType,
-            formateBalance
+            formateCoinType
         }
     }
 </script>

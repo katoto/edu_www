@@ -95,7 +95,7 @@
                             <!-- light  闪动特效 -->
                             <div class="countNum" v-if="currBalance" :class="{'light':showLight}">
                                 <span class="icon-user"></span>
-                                {{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}
+                                {{ formateBalance(currBalance.balance, currBalance.cointype) }} {{ currBalance.cointype |formateCoinType }}
                                 <i></i>
                             </div>
                             <div class="mycount-detailed ">
@@ -132,7 +132,7 @@
                                             @click="changeAccounts( item )">
                                             <div class="currency-account">
                                                 <i >{{ item.cointype | formateCoinType }}</i>
-                                                <span >{{ formateBalance( item.balance ) }}</span>
+                                                <span >{{ formateBalance(item.balance, item.cointype) }}</span>
                                             </div>
                                             <!--<a :href="'https://etherscan.io/address/'+currBalance.address" v-if="currBalance.cointype==='2001'" target="_blank" class="address">{{ item.address }}</a>-->
                                             <a v-if="currBalance.cointype==='2001'" class="address"
@@ -265,6 +265,55 @@
                 <lang>Failed to activate, because of wrong email format</lang>
             </p>
         </div>
+
+        <div class="pop pop_cc1" v-if="showCanGetCCTask">
+            <div class="pop-body">
+                <div class="pop-ani">
+                    <a href="javascript:;" class="btn-close" @click="showCanGetCCTask = false"></a>
+                    <div>
+                        <p>
+                            CC余额不足，领取水龙头再接再厉
+                        </p>
+                        <div class="btn-box ">
+                            <a href="javascript:;" class="btn btn-get" @click="showCanGetCCTask = false;taskClick('task_2',tasks_2);">Get</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop pop_cc1" v-if="showUseAllCCPop">
+            <div class="pop-body">
+                <div class="pop-ani">
+                    <a href="javascript:;" class="btn-close" @click="showUseAllCCPop = false"></a>
+                    <div>
+                        <p>CC使用完啦~~充值ETH/BTC继续游戏</p>
+                        <div class="btn-box">
+                            <router-link :to="{path: '/account/deposit'}" class="btn btn-topUp" @click="showUseAllCCPop = false">
+                                <lang>Top Up</lang>
+                            </router-link>
+                            <a href="javascript:;" class="btn later-later" @click="showUseAllCCPop = false">later</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop pop_cc1" v-if="showWinALotCCPop">
+            <div class="pop-body">
+                <div class="pop-ani">
+                    <a href="javascript:;" class="btn-close" @click="showWinALotCCPop = false"></a>
+                    <div>
+                        <p>喜运连连，赶紧充值ETH/BTC赢取更大奖励吧</p>
+                        <p>（CC可在ETH/BTC投注中抵扣部分金额）</p>
+                        <div class="btn-box">
+                            <router-link :to="{path: '/account/deposit'}" class="btn btn-topUp" @click="showWinALotCCPop = false">
+                                <lang>Top Up</lang>
+                            </router-link>
+                            <a href="javascript:;" class="btn later-later" @click="showWinALotCCPop = false">later</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -308,7 +357,10 @@
                 tasks_2: '-1',
                 tasks_3: '-1',
                 tasks_4: '-1',
-                tasks_day: '0'
+                tasks_day: '0',
+                showUseAllCCPop: false,
+                showWinALotCCPop: false,
+                showCanGetCCTask: false
             }
         },
         watch: {
@@ -321,6 +373,23 @@
             },
             isLog () {
                 this.autoChangeDefaultAccount()
+            },
+            CCNum (newVal, val) {
+                newVal = Number(newVal)
+                val = Number(val)
+                if (isNaN(newVal) || isNaN(val)) {
+                    return
+                }
+                let hasTask = this.tasks_2 === '1'
+                let isEmpty = (newVal < 0.1)
+                let winAlot = (newVal - val) > 10
+                if (hasTask && isEmpty) {
+                    this.showCanGetCCTask = true
+                } else if (!hasTask && isEmpty) {
+                    this.showUseAllCCPop = true
+                } else if (winAlot) {
+                    this.showWinALotCCPop = true
+                }
             }
         },
         computed: {
@@ -356,6 +425,17 @@
             },
             showEmailErr () {
                 return this.$store.state.showEmailErr
+            },
+            CCNum () {
+                let num = 0
+                if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length > 0) {
+                    this.userInfo.accounts.forEach(item => {
+                        if (item.cointype === '2000') {
+                            num = Number(item.balance)
+                        }
+                    })
+                }
+                return num
             }
         },
         methods: {

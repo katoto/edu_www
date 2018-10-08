@@ -48,7 +48,7 @@
                             <div class="for-full">
                                 <router-link :to="{path: '/luckyPoker'}" class="game-poker">
                                     <p class="msg1">
-                                     幸运扑克
+                                    {{$lang.poker.a39}}
                                     </p>
                                     <p class="msg2">
                                         经典高回报游戏
@@ -146,14 +146,17 @@
                             <lang>Recent Bids</lang>
                         </div>
                         <div class="tab-t" :class="[activeClass]">
-                            <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'">
-                                <lang>Lucky11</lang>
+                            <a href="javascript:;" class="luckypoker" @click="activeClass = 'luckypoker'" v-if="gameIndex === 0">
+                                {{$lang.poker.a39}}
                             </a>
                             <a href="javascript:;" class="slot" @click="activeClass = 'slot'">
                                 <lang>LuckySlot</lang>
                             </a>
                             <a href="javascript:;" class="luckycoin" @click="activeClass = 'luckycoin'">
                                 <lang>LuckyCoin</lang>
+                            </a>
+                            <a href="javascript:;" class="lucky11" @click="activeClass = 'lucky11'" v-if="gameIndex === 1">
+                                <lang>Lucky11</lang>
                             </a>
                         </div>
                         <div class="tab-c">
@@ -168,8 +171,8 @@
                                     <lang>Amount</lang>
                                 </div>
                             </div>
-                            <ul v-if="activeClass === 'lucky11'">
-                                <li v-for="(bet, index) in bets.syxw_orders.slice(0, 5)" :key="index">
+                            <ul v-if="activeClass === 'luckypoker'">
+                                <li v-for="(bet, index) in bets.dice_orders.slice(0, 5)" :key="index">
                                     <div class="user">
                                         {{bet.uid}}
                                     </div>
@@ -210,6 +213,20 @@
                                     </div>
                                 </li>
                             </ul>
+                            <ul v-if="activeClass === 'lucky11'">
+                                <li v-for="(bet, index) in bets.syxw_orders.slice(0, 5)" :key="index">
+                                    <div class="user">
+                                        {{bet.uid}}
+                                    </div>
+                                    <div class="time">
+                                        {{formatTime(bet.crtime, 'MM-dd HH:mm')}}
+                                    </div>
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
+                                        <i></i>
+                                        <span>{{formatMoney(bet.betmoney)}}</span>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <!--最近中奖-->
@@ -218,14 +235,17 @@
                             <lang>Recent Wins</lang>
                         </div>
                         <div class="tab-t" :class="[activeClass1]">
-                            <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'">
-                                <lang>Lucky11</lang>
+                            <a href="javascript:;" class="luckypoker" @click="activeClass1 = 'luckypoker'" v-if="gameIndex === 0">
+                                {{$lang.poker.a39}}
                             </a>
                             <a href="javascript:;" class="slot" @click="activeClass1 = 'slot'">
                                 <lang>LuckySlot</lang>
                             </a>
                             <a href="javascript:;" class="luckycoin" @click="activeClass1 = 'luckycoin'">
                                 <lang>LuckyCoin</lang>
+                            </a>
+                            <a href="javascript:;" class="lucky11" @click="activeClass1 = 'lucky11'" v-if="gameIndex === 1">
+                                <lang>Lucky11</lang>
                             </a>
                         </div>
                         <div class="tab-c">
@@ -240,6 +260,20 @@
                                     <lang>Amount</lang>
                                 </div>
                             </div>
+                            <ul v-if="activeClass1 === 'luckypoker'">
+                                <li v-for="(bet, index) in wins.dice_orders.slice(0, 5)" :key="index">
+                                    <div class="user">
+                                        {{bet.uid}}
+                                    </div>
+                                    <div class="time">
+                                        {{formatTime(bet.drawtime, 'MM-dd HH:mm')}}
+                                    </div>
+                                    <div class="amount" :class="[getCoinClass(bet.cointype)]">
+                                        <i></i>
+                                        <span>+{{formatMoney(bet.betprize)}}</span>
+                                    </div>
+                                </li>
+                            </ul>
                             <ul v-if="activeClass1 === 'lucky11'">
                                 <li v-for="(bet, index) in wins.syxw_orders.slice(0, 5)" :key="index">
                                     <div class="user">
@@ -435,18 +469,20 @@ export default {
             gameIndex: 0,
             gameLength: 0,
             gameWidth: 0,
-            activeClass: 'lucky11',
-            activeClass1: 'lucky11',
+            activeClass: 'luckypoker',
+            activeClass1: 'luckypoker',
             activeClass2: 'recharge',
             bets: {
                 syxw_orders: [],
                 slot_orders: [],
-                megacoin_orders: []
+                megacoin_orders: [],
+                dice_orders: []
             },
             wins: {
                 syxw_orders: [],
                 slot_orders: [],
-                megacoin_orders: []
+                megacoin_orders: [],
+                dice_orders: []
             },
             water: {
                 recharge_orders: [],
@@ -492,6 +528,8 @@ export default {
             }
             this.gameIndex--
             this.gameLeft = -this.gameWidth * this.gameIndex + 'px'
+            this.activeClass = 'luckypoker'
+            this.activeClass1 = 'luckypoker'
         },
         gameNext () {
             if (this.gameIndex >= (this.gameLength - 3)) {
@@ -499,6 +537,8 @@ export default {
             }
             this.gameIndex++
             this.gameLeft = -this.gameWidth * this.gameIndex + 'px'
+            this.activeClass = 'slot'
+            this.activeClass1 = 'slot'
         },
         formatUSD,
         ...mapActions('home', [
@@ -583,16 +623,18 @@ export default {
         },
         renderHomeBet () {
             this.getHomeBet().then(({ data }) => {
-                this.bets = {
-                    ...data
-                }
+                this.bets.syxw_orders = [...data.syxw_orders]
+                this.bets.slot_orders = [...data.slot_orders]
+                this.bets.megacoin_orders = [...data.megacoin_orders]
+                this.bets.dice_orders = [...data.dice_orders]
             })
         },
         renderHomeDraw () {
             this.getHomeDraw().then(({ data }) => {
-                this.wins = {
-                    ...data
-                }
+                this.wins.syxw_orders = [...data.syxw_orders]
+                this.wins.slot_orders = [...data.slot_orders]
+                this.wins.megacoin_orders = [...data.megacoin_orders]
+                this.wins.dice_orders = [...data.dice_orders]
             })
         },
         renderHomeWithdraw () {
@@ -641,7 +683,6 @@ export default {
                 this.timer = true
                 let that = this
                 setTimeout(function () {
-                    console.log(that.screenWidth)
                     that.initGamePreNext()
                     that.timer = false
                 }, 400)
@@ -894,6 +935,7 @@ export default {
             justify-content: space-between;
             height: 30px;
             line-height: 30px;
+            &.luckypoker .luckypoker,
             &.lucky11 .lucky11,
             &.slot .slot,
             &.luckycoin .luckycoin,
