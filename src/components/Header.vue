@@ -191,14 +191,14 @@
                         </div>
                         <ul>
                             <li>
-                                <p v-lang="'Get daily free spin of Slot (Balance less than <b>0.00005BTC</b> and/or <b>0.0005ETH</b>)'"></p>
+                                <p v-lang="'少于0.1CC的时候可每日免费领取1CC'"></p>
                                 <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow"><lang>Play</lang></a>
                                 <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
                             </li>
                             <li>
-                                <p v-lang="'Get <b>10 free spins</b> of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)'"></p>
+                                <p v-lang="'充值0.001BTC或0.01ETH，立即赠送10CC'"></p>
                                 <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Top Up</lang></a>
                                 <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>

@@ -72,6 +72,12 @@ const Home = () =>
 const home = () =>
     import('~/pages/cs_home/home')
 
+const adHome = () =>
+    import('~/pages/cs_home/ad-home')
+
+const adHomeDetail = () =>
+    import('~/pages/cs_home/ad-home-detail')
+
 // 充值送
 const actFirstCharge = () => import('~/pages/cs_activity/cs_actFirstCharge')
 
@@ -207,6 +213,16 @@ let routesArr = [
                 redirect: '/account/general'
             }
         ]
+    },
+    {
+        path: '/ad',
+        name: 'ad',
+        component: adHome
+    },
+    {
+        path: '/adDetail',
+        name: 'adDetail',
+        component: adHomeDetail
     },
     {
         path: '/*',

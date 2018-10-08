@@ -160,17 +160,19 @@
                                 <span v-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
                             </div>
                             <!-- 新增cc 20180926 -->
-                            <div class="cc-group cc-luckyPokerPc">
-                                <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                            <div class="cc-group cc-luckyPokerPc" v-if="coinType !== '2000' && isLogin">
+                                <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                                 <p>
                                    Using&nbsp;CC&nbsp;deduction
                                 </p>
                                 <a href="javascript:;" class="btn-cc">
                                     ?
                                     <div>
+                                        <p>CC: {{getCCAcount(userInfo)}}</p>
                                         <p>当选择CC抵扣后：</p>
                                         <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                        <p>每笔投注最多抵扣：XXX ETH</p>
+                                        <p>每笔投注最多抵扣：{{getCCDeductionMoney(total, userInfo.discount_cfg.limit_rate['4'])}} {{coinText}}</p>
+                                        <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
                                     </div>
                                 </a>
                             </div>
@@ -178,17 +180,19 @@
                     </div>
                 </div>
                  <!-- 新增cc 20180926 -->
-                <div class="cc-group cc-luckyPokerh5">
-                    <a href="javascript:;" class="cc-radio" :class="{'on':true}"></a>
+                <div class="cc-group cc-luckyPokerh5" v-if="coinType !== '2000' && isLogin">
+                    <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                     <p>
                         Using&nbsp;CC&nbsp;deduction
                     </p>
                     <a href="javascript:;" class="btn-cc">
                         ?
-                            <div>
+                        <div>
+                            <p>CC: {{getCCAcount(userInfo)}}</p>
                             <p>当选择CC抵扣后：</p>
                             <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                            <p>每笔投注最多抵扣：XXX ETH</p>
+                            <p>每笔投注最多抵扣：{{getCCDeductionMoney(total, userInfo.discount_cfg.limit_rate['4'])}} {{coinText}}</p>
+                            <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
                         </div>
                     </a>
                 </div>
@@ -464,7 +468,7 @@
 <script>
 import Header from '~components/Header'
 import Footer from '~components/Footer'
-import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
+import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum, getCCAcount, getCCDeductionMoney } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout, clearTimeout } from 'timers'
 const betMusic = () => import('~static/audio/dice/bet.wav')
@@ -595,6 +599,8 @@ export default {
         getElementAbsolutePosition,
         getElementCenterPosition,
         formatNum,
+        getCCAcount,
+        getCCDeductionMoney,
         formatEmail (email) {
             let arr = email.split('@')
             if (arr.length !== 2) {
@@ -1148,6 +1154,7 @@ export default {
         this.disableContext()
         this.subInDice()
         this.loadMusicSrc()
+        this.getUserInfo()
         window.addEventListener('resize', this.onResize)
     },
     destroyed () {

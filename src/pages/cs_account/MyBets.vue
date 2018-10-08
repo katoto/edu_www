@@ -197,7 +197,11 @@
                             <p class="type">
                                 {{item.bettype}}
                             </p>
-                            <p class="money">
+                            <p class="money" v-if="item.isCCDiscount" style="line-height: 20px;">
+                                {{item.betmoney}}<br>
+                                {{Number(item.cc)}} CC
+                            </p>
+                            <p class="money" v-else>
                                 {{item.betmoney}}
                             </p>
                         </div>

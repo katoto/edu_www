@@ -31,7 +31,7 @@
                             <p class="total-pay ">{{ totalPay }} {{ currBalance.cointype | formateCoinType }}</p>
                         </div>
                         <!-- 新增cc 20180926 -->
-                        <div class="cc-group cc-lucky1105pc" v-if="currBalance.cointype !== '2000'">
+                        <div class="cc-group cc-lucky1105pc" v-if="currBalance.cointype !== '2000' && isLog">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
                                 Using&nbsp;CC&nbsp;deduction
@@ -39,11 +39,11 @@
                             <a href="javascript:;" class="btn-cc">
                                 ?
                                 <div>
-                                    <p>CC: {{getCCAcount()}}</p>
+                                    <p>CC: {{getCCAcount(userInfo)}}</p>
                                     <p>当选择CC抵扣后：</p>
                                     <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney()}} {{formateCoinType(currBalance.cointype)}}</p>
-                                    <p>1000 C币=1 ETH (20000 C币= 1 BTC)</p>
+                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney(totalPay, userInfo.discount_cfg.limit_rate['1'])}} {{formateCoinType(coinType)}}</p>
+                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
                                 </div>
                             </a>
                         </div>
@@ -280,7 +280,7 @@
                         <p class="total-pay ">{{ totalPay }}{{ currBalance.cointype | formateCoinType }}</p>
                     </div>
                     <!-- 新增cc 20180926 -->
-                    <div class="cc-group cc-lucky1105h5" v-if="currBalance.cointype !== '2000'">
+                    <div class="cc-group cc-lucky1105h5" v-if="currBalance.cointype !== '2000' && isLog">
 
                         <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                         <p>
@@ -289,11 +289,11 @@
                         <a href="javascript:;" class="btn-cc">
                             ?
                             <div>
-                                <p>CC: {{getCCAcount()}}</p>
+                                <p>CC: {{getCCAcount(userInfo)}}</p>
                                 <p>当选择CC抵扣后：</p>
                                 <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                <p>每笔投注最多抵扣：{{getCCDeductionMoney()}} {{formateCoinType(currBalance.cointype)}}</p>
-                                <p>1000 C币=1 ETH (20000 C币= 1 BTC)</p>
+                                <p>每笔投注最多抵扣：{{getCCDeductionMoney(betValue, userInfo.discount_cfg.limit_rate['1'])}} {{formateCoinType(coinType)}}</p>
+                                <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
                             </div>
                         </a>
                     </div>
@@ -577,7 +577,8 @@ import {
     removeCK,
     formatTime,
     structDom,
-    accMul
+    getCCAcount,
+    getCCDeductionMoney
 } from '~common/util'
 import LuckyMybet from './components/lucky-mybet'
 export default {
@@ -670,23 +671,8 @@ export default {
     methods: {
         formateBalance,
         formateCoinType,
-        getCCAcount () {
-            if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length >= 1) {
-                let accounts = this.userInfo.accounts
-                for (let index = 0; index < accounts.length; index++) {
-                    if (accounts[index].cointype === '2000') {
-                        return Number(accounts[index].balance)
-                    }
-                }
-            }
-            return 0
-        },
-        getCCDeductionMoney () {
-            if (this.playArea && this.playArea.length > 0) {
-                return accMul(this.playArea[0].pickMoney, 0.05)
-            }
-            return 0
-        },
+        getCCAcount,
+        getCCDeductionMoney,
         initPop () {
             /* head 弹窗 */
             this.$store.commit('initHeadState', new Date().getTime())
@@ -2130,7 +2116,7 @@ export default {
     position: absolute;
     right: 0;
     top: 160px;
-    width: 200px;
+    width: 240px;
     color: #778ca3;
     z-index: 10;
     .transition();
@@ -2194,6 +2180,9 @@ export default {
                     text-decoration: none;
                 }
             }
+            .count {
+                font-size: 13px;
+            }
         }
     }
     .alert-mybets-items {
@@ -2236,6 +2225,7 @@ export default {
         }
     }
     &.close {
+        right: -40px;
         transform: translateX(136px);
         .alert-mybets-head {
             padding: 5px 0;
