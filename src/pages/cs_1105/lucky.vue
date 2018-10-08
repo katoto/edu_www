@@ -531,33 +531,6 @@
                 <img src="../../assets/img/lucky11/jackpot-left.png" />
             </a>
         </template>
-
-
-        <div class="pop pop_cc1 hide">
-            <div class="pop-body">
-                <div class="pop-ani">
-                    <a href="javascript:;" class="btn-close"></a>
-                    <template v-if="false">
-                        <p>
-                            CC insufficient balance, get the tap again
-                        </p>
-                        <div class="btn-box ">
-                            <a href="javascript:;" class="btn btn-get">Get</a>
-                        </div>
-                    </template>
-                    <template v-else>
-                        <p>
-                         CC run out ~~ recharge ETH/BTC continue the game
-                        </p>
-                        <div class="btn-box">
-                            <a href="javascript:;" class="btn btn-topUp">top up</a>
-                            <a href="javascript:;" class="btn later-later">later</a>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </div>
-
     </div>
 </template>
 
