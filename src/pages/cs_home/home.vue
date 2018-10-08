@@ -9,13 +9,14 @@
                         <!--banner-->
                         <el-carousel :interval="5000" >
                             <el-carousel-item>
-                                <div class="banner-superCoin-t1" >
-                                    <lang>SUPERCOIN</lang>
-                                </div>
-                                <p class="banner-superCoin-t2" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
-                                </p>
-                                <router-link to="/superCoin" class="btn-superCoin" v-lang="'Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher >>'">
-                                    <!--轮轮大奖池，先买先分红 >>-->
+                                <router-link to="/superCoin" class="btn-superCoin" style="display: block;">
+                                    <div class="banner-superCoin-t1" >
+                                        <lang>SUPERCOIN</lang>
+                                    </div>
+                                    <p class="banner-superCoin-t2" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
+                                    </p>
+                                    <p class="btn-superCoin" v-lang="'Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher >>'" >
+                                    </p>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
@@ -573,7 +574,9 @@
                 font-size: 30px;
                 line-height: 50px;
                 color: #d648ff;
-                font-style: italic;
+                em{
+                    font-style: italic;
+                }
             }
             .banner-superCoin-t2{
                 color: #ffde6b;
