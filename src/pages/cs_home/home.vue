@@ -60,6 +60,23 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
+                            <router-link :to="{path: '/supercoin'}" class="game-supercoin">
+                                <p class="msg1"><lang>SuperCoin</lang></p>
+                                <p class="msg2"><lang>Win 10 ETH Prize Pool Every 2 Hours</lang></p>
+                                <p class="msg3"><lang>Prize Pool</lang></p>
+                                <p class="msg4">
+                                    <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
+                                    <i> ETH</i>
+                                </p>
+                                <p class="msg5">{{formatUSD(entrance.megacoin.USD, 10)}} USD</p>
+                               <div class="game-btn">
+                                    <lang>Play Now </lang>
+                               </div>
+                            </router-link>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
                             <router-link :to="{path: '/luckycoin/'}" class="game-supercoin">
                                 <p class="msg1"><lang>SuperCoin</lang></p>
                                 <p class="msg2"><lang>Win 10 ETH Prize Pool Every 2 Hours</lang></p>
@@ -74,7 +91,7 @@
                                </div>
                             </router-link>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-xs-12 col-md-4 hide">
                         <div class="for-full">
                             <router-link :to="{path: '/lucky11'}" class="game-11t5">
