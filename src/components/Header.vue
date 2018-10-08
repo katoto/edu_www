@@ -95,7 +95,7 @@
                             <!-- light  闪动特效 -->
                             <div class="countNum" v-if="currBalance" :class="{'light':showLight}">
                                 <span class="icon-user"></span>
-                                {{ formateBalance( currBalance.balance ) }} {{ currBalance.cointype |formateCoinType }}
+                                {{ formateBalance(currBalance.balance, currBalance.cointype) }} {{ currBalance.cointype |formateCoinType }}
                                 <i></i>
                             </div>
                             <div class="mycount-detailed ">
@@ -132,7 +132,7 @@
                                             @click="changeAccounts( item )">
                                             <div class="currency-account">
                                                 <i >{{ item.cointype | formateCoinType }}</i>
-                                                <span >{{ formateBalance( item.balance ) }}</span>
+                                                <span >{{ formateBalance(item.balance, item.cointype) }}</span>
                                             </div>
                                             <!--<a :href="'https://etherscan.io/address/'+currBalance.address" v-if="currBalance.cointype==='2001'" target="_blank" class="address">{{ item.address }}</a>-->
                                             <a v-if="currBalance.cointype==='2001'" class="address"

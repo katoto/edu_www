@@ -122,7 +122,7 @@
                             :label="_('Bet')">
                             <template slot-scope="scope">
                                 <div :style="{lineHeight: scope.row.isCCDiscount ? '20px': '40px'}">{{scope.row.betmoney}}</div>
-                                <div v-if="scope.row.isCCDiscount" style="line-height: 20px;">{{Number(scope.row.cc)}} CC</div>
+                                <div v-if="scope.row.isCCDiscount" style="line-height: 20px;">{{formateBalance(Number(scope.row.cc), '2000')}}CC</div>
                             </template>
                     </el-table-column>
                     <el-table-column
@@ -199,7 +199,7 @@
                             </p>
                             <p class="money" v-if="item.isCCDiscount" style="line-height: 20px;">
                                 {{item.betmoney}}<br>
-                                {{Number(item.cc)}} CC
+                                {{formateBalance(Number(item.cc), '2000')}}CC
                             </p>
                             <p class="money" v-else>
                                 {{item.betmoney}}
@@ -295,6 +295,7 @@ export default {
     },
     methods: {
         accDiv,
+        formateBalance,
         myBetSizeChange (size) {
             this.pageSize = size
             this.handleCurrentChange()
@@ -392,12 +393,11 @@ export default {
                         if (val.lotid === '2') {
                             betmoney = accMul(betmoney, Number(val.betcode.split(',').length))
                             val.betmoney = !val.isCCDiscount
-                                ? formateBalance(betmoney) + formateCoinType(val.cointype)
+                                ? formateBalance(betmoney, val.cointype) + formateCoinType(val.cointype)
                                 : formateBalance(accSub(betmoney, accMul(accDiv(1, discountRate), cc))) + formateCoinType(val.cointype)
                         } else {
-                            console.log(accMul(accDiv(1, discountRate), cc))
                             val.betmoney = !val.isCCDiscount
-                                ? formateBalance(betmoney) + formateCoinType(val.cointype)
+                                ? formateBalance(betmoney, val.cointype) + formateCoinType(val.cointype)
                                 : formateBalance(accSub(betmoney, accMul(accDiv(1, discountRate), cc))) + formateCoinType(val.cointype)
                         }
                     }
@@ -407,7 +407,7 @@ export default {
                         // 结算 并且大于0
                         val.betprizeVal = (
                             parseFloat(val.betprize, 10) > 0
-                                ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize)}${formateCoinType(val.cointype)}</a>`
+                                ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize, val.cointype)}${formateCoinType(val.cointype)}</a>`
                                 : "<a href='javascript:;' class='fail'>0</a>"
                         )
                     } else {
