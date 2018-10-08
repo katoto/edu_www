@@ -16,7 +16,7 @@
                                     Win 10 ETH Prize Pool<br>Every 2 Hours
                                 </p>
                                 <router-link to="/superCoin" class="btn-superCoin" >
-                                    <lang>Attractive Prize Pool    Buy Sooner, Earn Higher  >> </lang>
+                                    <lang>Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher  >> </lang>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
@@ -542,10 +542,12 @@
             }
             .banner-superCoin-t1 {
                 color: #d648ff;
+                font-style: italic;
             }
             .banner-superCoin-t2{
                 color: #ffde6b;
                 font-weight: bold;
+                font-family: sans-eb;
             }
             .btn-superCoin {
                 color: #ffde6b;
@@ -1001,8 +1003,8 @@
             .el-carousel__item {
                 padding-left: 353px;
                 .banner-superCoin-t1 {
-                    margin-top: 40px;
-                    line-height: 113px;
+                    margin-top: 52px;
+                    line-height: 94px;
                     font-size: 56px;
                 }
                 .banner-superCoin-t2 {
