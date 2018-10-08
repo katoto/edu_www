@@ -131,7 +131,7 @@
             </section>
             <template v-if="h5orderList.length>0">
                 <ul class="items-myTransactions">
-                    <li v-for="item in h5orderList">
+                    <li v-for="(item,index) in h5orderList" :key="index">
                         <div class="item-re item-re1">
                             <p>
                                 {{item.crtime.substr(5)}}
@@ -179,7 +179,7 @@ export default {
             h5pageno: 1,
             isShowMoreBtn: true,
             h5orderList: [],
-            pageSize: 10,
+            pageSize: 25,
             pageCount: 10,
             orderList: [],
             ethUrl,
@@ -273,6 +273,7 @@ export default {
             })
         },
         async handleCurrentChange (pageno = this.pageno) {
+            this.h5pageno += 1
             let params = {
                 pageno,
                 day: {
@@ -302,7 +303,7 @@ export default {
                 this.pageCount = parseInt(data.pages, 10)
 
                 this.h5orderList = this.h5orderList.concat(this.orderList)
-                if (data.account_logs.length === 0 || data.account_logs.length !== 10) {
+                if (data.account_logs.length === 0 || data.account_logs.length !== 25) {
                     this.isShowMoreBtn = false
                 }
             }

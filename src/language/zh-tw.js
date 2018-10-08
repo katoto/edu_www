@@ -715,7 +715,7 @@ module.exports = {
     /* 壹元奪幣 start */
 
     /* 壹元奪幣 end */
-
+    'General：support@coinsprize.com': '咨詢郵箱：support@coinsprize.com',
     'Copy the Bitcoin wallet address': '復制比特幣錢包地址',
     /* activity */
     'Get Bonus': '領取活動資格',
