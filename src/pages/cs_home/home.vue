@@ -12,10 +12,11 @@
                                 <div class="banner-superCoin-t1" >
                                     <lang>SUPERCOIN</lang>
                                 </div>
-                                <p class="banner-superCoin-t2 visible-md visible-lg" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
+                                <p class="banner-superCoin-t2" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
                                 </p>
                                 <router-link to="/superCoin" class="btn-superCoin" >
-                                    <lang>Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher  >> </lang>
+                                    <lang>Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher  >></lang>
+                                    <!--轮轮大奖池，先买先分红 >>-->
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
@@ -540,15 +541,24 @@
                 margin: 70px auto 0;
             }
             .banner-superCoin-t1 {
+                margin-top: 25px;
+                font-size: 30px;
+                line-height: 50px;
                 color: #d648ff;
                 font-style: italic;
             }
             .banner-superCoin-t2{
                 color: #ffde6b;
+                font-size: 26px;
                 font-weight: bold;
                 font-family: sans-eb;
+                line-height: 30px;
             }
             .btn-superCoin {
+                display: block;
+                margin-top: 12px;
+                line-height: 22px;
+                font-size: 16px;
                 color: #ffde6b;
             }
         }
@@ -932,6 +942,9 @@
     }
 
     @media (max-width: @screen-tablet) {
+        .home{
+            background-size: 1190px;
+        }
         .items-msg {
             .recent-bet,
             .recent-win,
@@ -950,11 +963,20 @@
         .home {
             /*banner*/
             .el-carousel__item {
+                padding-left: 106px;
                 .banner-superCoin-t1 {
-
+                    margin-top: 24px;
+                    font-size: 41px;
+                    line-height: 72px;
                 }
-                .banner-superCoin-t2 {
-
+                .banner-superCoin-t2{
+                    font-size: 43px;
+                    line-height: 42px;
+                }
+                .btn-superCoin {
+                    margin-top: 12px;
+                    line-height: 22px;
+                    font-size: 20px;
                 }
             }
             /*banner*/
