@@ -10,13 +10,12 @@
                         <el-carousel :interval="5000" >
                             <el-carousel-item>
                                 <div class="banner-superCoin-t1" >
-                                    <lang> SUPERCOIN</lang>
+                                    <lang>SUPERCOIN</lang>
                                 </div>
-                                <p class="banner-superCoin-t2 visible-md visible-lg">
-                                    Win 10 ETH Prize Pool<br>Every 2 Hours
+                                <p class="banner-superCoin-t2 visible-md visible-lg" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
                                 </p>
                                 <router-link to="/superCoin" class="btn-superCoin" >
-                                    <lang>Attractive Prize Pool    Buy Sooner, Earn Higher  >> </lang>
+                                    <lang>Attractive Prize Pool Buy Sooner, Earn Higher >></lang>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
@@ -64,7 +63,7 @@
                             <router-link :to="{path: '/luckycoin/'}" class="game-supercoin">
                                 <p class="msg1"><lang>SuperCoin</lang></p>
                                 <p class="msg2"><lang>Win 10 ETH Prize Pool Every 2 Hours</lang></p>
-                                <p class="msg3"><lang>Prize Poo</lang></p>
+                                <p class="msg3"><lang>Prize Pool</lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
                                     <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>

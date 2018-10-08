@@ -835,6 +835,11 @@ module.exports = {
     'Click here to try your luck!': '点击这里进行投注，立即试试',
     'Okay': '下一步',
     'Round {0}': '期号 {0}',
-    'Gameplay': '游戏规则'
+    'Gameplay': '游戏规则',
+    'Attractive Prize Pool Buy Sooner, Earn Higher >>': '轮轮大奖池，先买先分红',
+    'Win 10 ETH Prize Pool<br>Every 2 Hours': '每2小时赢取10ETH',
+    'SUPERCOIN': '超级夺币',
+    'SuperCoin': '超级夺币',
+    'Win 10 ETH Prize Pool Every 2 Hours': '每2小时赢取10ETH'
     /* super coin end */
 }
