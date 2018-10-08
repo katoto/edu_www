@@ -7,7 +7,16 @@
  *
  * Copyright (c) 2018 Daniel Eden
  */
-
+@keyframes heartbeat {
+	0%,30%,80%,100%{
+		transform: scale(1);
+		filter: brightness(1);
+	}
+	20%,40%{
+		transform: scale(1.2);
+		filter: brightness(1.2);
+	}
+}
 @-webkit-keyframes bounce {
 	from,
 	20%,
@@ -3613,12 +3622,22 @@
 	-webkit-animation-duration: 3s;
 	animation-duration: 3s;
 }
-@-webkit-keyframes masked-animation {
-	0% {
-		background-position: 0 0;
+
+
+@keyframes shakeimg {
+	0%, 100% {
+		transform: translateY(-10px);
 	}
-	100% {
-		background-position: -200% 0;
+	50% {
+		transform: translateY(10px);
+	}
+}
+@keyframes shakeimg2 {
+	0%, 100% {
+		transform: translate(-50%,-10px);
+	}
+	50% {
+		transform: translate(-50%,10px);
 	}
 }
 

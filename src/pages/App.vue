@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import {isLog, defaultLanguage} from '~common/util'
+    import {isLog, defaultLanguage, isForbitPage} from '~common/util'
     export default {
         data () {
             return {
@@ -36,6 +36,36 @@
         computed: {
         },
         async mounted () {
+            (function flexible (window, document) {
+                var docEl = document.documentElement
+                var dpr = window.devicePixelRatio || 1
+
+                // set 1rem = viewWidth / 10
+                function setRemUnit () {
+                    var rem = ''
+                    if (docEl.clientWidth > 1200) {
+                        // rem = 1920 because px
+                        rem = 75
+                    } else if (docEl.clientWidth > 768 && docEl.clientWidth < 1200) {
+                        // rem = 768 because px
+                        rem = 75
+                    } else if (docEl.clientWidth < 768) {
+                        rem = docEl.clientWidth / 10
+                    }
+                    docEl.style.fontSize = rem + 'px'
+                }
+
+                setRemUnit()
+
+                // reset rem unit on page resize
+                window.addEventListener('resize', setRemUnit)
+                window.addEventListener('pageshow', function (e) {
+                    if (e.persisted) {
+                        setRemUnit()
+                    }
+                })
+            }(window, document))
+
             this.handleInit()
             if (isLog()) {
                 this.$store.commit('setIsLog', true)
@@ -49,14 +79,21 @@
             this.isReady = true
 
             /* 老虎机和首页 */
-            if (!(this.socket && this.socket.sock)) {
-                this.$store.dispatch('initWebsocket', () => {
-                    this.$store.dispatch('homeInfo')
-                    setTimeout(function () {
-                        document.getElementById('csLoading').style.display = 'none'
-                    }, 0)
-                })
+            if (isForbitPage()) {
+                setTimeout(function () {
+                    document.getElementById('csLoading').style.display = 'none'
+                }, 0)
+            } else {
+                if (!(this.socket && this.socket.sock)) {
+                    this.$store.dispatch('initWebsocket', () => {
+                        this.$store.dispatch('homeInfo')
+                        setTimeout(function () {
+                            document.getElementById('csLoading').style.display = 'none'
+                        }, 0)
+                    })
+                }
             }
+
             /* 禁止左右滚动 */
             let xStart, xEnd, yStart, yEnd
             document.addEventListener('touchstart', function (evt) {

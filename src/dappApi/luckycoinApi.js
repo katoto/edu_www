@@ -1,8 +1,11 @@
 import Web3 from 'web3'
 // 合约addr
-// let contractAddr = '0x07229c22297b443e8b10cf29eaf4a10969aea0a9'
-// 合约addr 下
-let contractAddr = '0xfa73648d3a1156c0ed3fe4b0f77d7d75c7869195'
+// let contractAddr = '0x259761b8f7846a6c5e193d4ff8e4218daa394e3b' // ceshi
+// let contractAddr = '0x1c671f9a43d985a591ea8f1cad4e57833c327c78' // ceshi2
+// let contractAddr = '0xd52a7d0d30584d759a6571da569c3776c7d73acc' // ceshi3
+
+// let contractAddr = '0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b' // online
+let contractAddr = '0x2119a3314c1d40704d816392a9e44da463688992' // online2  2h
 
 let web3 = window.web3
 let contractAbi = [
@@ -10,32 +13,12 @@ let contractAbi = [
         'anonymous': false,
         'inputs': [
             {
-                'indexed': true,
-                'name': 'playerID',
-                'type': 'uint256'
-            },
-            {
                 'indexed': false,
-                'name': 'playerAddress',
-                'type': 'address'
-            },
-            {
-                'indexed': false,
-                'name': 'playerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
-                'name': 'ethOut',
-                'type': 'uint256'
-            },
-            {
-                'indexed': false,
-                'name': 'timeStamp',
+                'name': 'rid',
                 'type': 'uint256'
             }
         ],
-        'name': 'onWithdraw',
+        'name': 'onActivate',
         'type': 'event'
     },
     {
@@ -87,12 +70,12 @@ let contractAbi = [
         'constant': false,
         'inputs': [
             {
-                'name': '_affCode',
-                'type': 'bytes32'
-            },
-            {
                 'name': '_tickets',
                 'type': 'uint256'
+            },
+            {
+                'name': '_affCode',
+                'type': 'bytes32'
             }
         ],
         'name': 'buyXname',
@@ -137,11 +120,6 @@ let contractAbi = [
             },
             {
                 'indexed': false,
-                'name': 'playerName',
-                'type': 'bytes32'
-            },
-            {
-                'indexed': false,
                 'name': 'begin',
                 'type': 'uint256'
             },
@@ -149,6 +127,16 @@ let contractAbi = [
                 'indexed': false,
                 'name': 'end',
                 'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'round',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'playerName',
+                'type': 'bytes32'
             }
         ],
         'name': 'onBuy',
@@ -207,6 +195,60 @@ let contractAbi = [
         'type': 'event'
     },
     {
+        'anonymous': false,
+        'inputs': [
+            {
+                'indexed': false,
+                'name': 'addr',
+                'type': 'address'
+            },
+            {
+                'indexed': false,
+                'name': 'begin',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'end',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'LogbuyNums',
+        'type': 'event'
+    },
+    {
+        'anonymous': false,
+        'inputs': [
+            {
+                'indexed': false,
+                'name': 'rid',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'ticketsout',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'winner',
+                'type': 'address'
+            },
+            {
+                'indexed': false,
+                'name': 'luckynum',
+                'type': 'uint256'
+            },
+            {
+                'indexed': false,
+                'name': 'jackpot',
+                'type': 'uint256'
+            }
+        ],
+        'name': 'onSettle',
+        'type': 'event'
+    },
+    {
         'constant': false,
         'inputs': [
             {
@@ -228,22 +270,32 @@ let contractAbi = [
         'anonymous': false,
         'inputs': [
             {
+                'indexed': true,
+                'name': 'playerID',
+                'type': 'uint256'
+            },
+            {
                 'indexed': false,
-                'name': 'addr',
+                'name': 'playerAddress',
                 'type': 'address'
             },
             {
                 'indexed': false,
-                'name': 'begin',
+                'name': 'playerName',
+                'type': 'bytes32'
+            },
+            {
+                'indexed': false,
+                'name': 'ethOut',
                 'type': 'uint256'
             },
             {
                 'indexed': false,
-                'name': 'end',
+                'name': 'timeStamp',
                 'type': 'uint256'
             }
         ],
-        'name': 'LogbuyNums',
+        'name': 'onWithdraw',
         'type': 'event'
     },
     {
@@ -292,8 +344,17 @@ let contractAbi = [
     },
     {
         'constant': false,
-        'inputs': [],
-        'name': 'setLuckyNum',
+        'inputs': [
+            {
+                'name': '_tickets',
+                'type': 'uint256'
+            },
+            {
+                'name': '_affCode',
+                'type': 'address'
+            }
+        ],
+        'name': 'reLoadXaddr',
         'outputs': [],
         'payable': false,
         'stateMutability': 'nonpayable',
@@ -303,15 +364,33 @@ let contractAbi = [
         'constant': false,
         'inputs': [
             {
-                'name': '_pID',
+                'name': '_tickets',
                 'type': 'uint256'
             },
             {
-                'name': '_rIDlast',
-                'type': 'uint256'
+                'name': '_affCode',
+                'type': 'bytes32'
             }
         ],
-        'name': 'updateTicketVault',
+        'name': 'reLoadXname',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
+        'constant': false,
+        'inputs': [],
+        'name': 'setLuckyNum',
+        'outputs': [],
+        'payable': false,
+        'stateMutability': 'nonpayable',
+        'type': 'function'
+    },
+    {
+        'constant': false,
+        'inputs': [],
+        'name': 'withdraw',
         'outputs': [],
         'payable': false,
         'stateMutability': 'nonpayable',
@@ -329,15 +408,6 @@ let contractAbi = [
         'type': 'fallback'
     },
     {
-        'constant': false,
-        'inputs': [],
-        'name': 'withdraw',
-        'outputs': [],
-        'payable': false,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
         'constant': true,
         'inputs': [],
         'name': 'activated_',
@@ -345,47 +415,6 @@ let contractAbi = [
             {
                 'name': '',
                 'type': 'bool'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '_target',
-                'type': 'uint256'
-            },
-            {
-                'name': '_start',
-                'type': 'uint256'
-            },
-            {
-                'name': '_end',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'calulateXticket',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'pure',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [],
-        'name': 'get_test_numer',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'uint256'
             }
         ],
         'payable': false,
@@ -411,6 +440,14 @@ let contractAbi = [
         'inputs': [],
         'name': 'getCurrentRoundInfo',
         'outputs': [
+            {
+                'name': '',
+                'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
+            },
             {
                 'name': '',
                 'type': 'uint256'
@@ -489,6 +526,10 @@ let contractAbi = [
             {
                 'name': '',
                 'type': 'uint256'
+            },
+            {
+                'name': '',
+                'type': 'uint256'
             }
         ],
         'payable': false,
@@ -503,29 +544,6 @@ let contractAbi = [
             {
                 'name': '',
                 'type': 'uint256'
-            }
-        ],
-        'payable': false,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': true,
-        'inputs': [
-            {
-                'name': '_rid',
-                'type': 'uint256'
-            },
-            {
-                'name': '_pID',
-                'type': 'uint256'
-            }
-        ],
-        'name': 'judgeWin',
-        'outputs': [
-            {
-                'name': '',
-                'type': 'bool'
             }
         ],
         'payable': false,
@@ -681,6 +699,10 @@ let contractAbi = [
                 'type': 'uint256'
             },
             {
+                'name': 'affnums',
+                'type': 'uint256'
+            },
+            {
                 'name': 'luckytickets',
                 'type': 'uint256'
             }
@@ -769,6 +791,10 @@ let contractAbi = [
             },
             {
                 'name': 'blocknum',
+                'type': 'uint256'
+            },
+            {
+                'name': 'playernums',
                 'type': 'uint256'
             }
         ],
@@ -864,11 +890,11 @@ let contractAbi = [
         'type': 'function'
     }
 ]
+
 // or
 if (typeof web3 === 'undefined') {
-    // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/WlvljmHqo75RhK1w1QJF"));
+    // web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/WlvljmHqo75RhK1w1QJF'))
     web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/WlvljmHqo75RhK1w1QJF'))
-    // alertify.alert('You are not signed into metamask')
 }
 
 // 通过abi 和地址获取已部署的合约对象
@@ -878,49 +904,344 @@ console.log(contractNet)
 //  合约api
 let luckyCoinApi = {}
 
-luckyCoinApi.getBalance = () => {
-    console.log('getBlance')
-}
-
-luckyCoinApi.LogbuyNums = () => {
-
-}
-
-luckyCoinApi.getTime = () => {
-
-}
-luckyCoinApi.getAccounts = (fn) => {
-    /* 获取当前账号地址 */
-    if (typeof fn !== 'function') {
-        return 'need async function !.'
-    }
-    web3.eth.getAccounts((err, res) => {
-        if (!err) {
-            if (res) {
-                fn(null, res.toString())
+luckyCoinApi.getCurrentRoundInfo = () => {
+    // 页面整体信息
+    return new Promise((resolve, reject) => {
+        contractNet.getCurrentRoundInfo(function (err, res) {
+            if (!err) {
+                if (res) {
+                    resolve({
+                        roundIndex: res[0].toNumber(),
+                        tickets: res[1].toNumber(),
+                        startTime: res[2].toNumber(),
+                        endTime: res[3].toNumber(),
+                        jackpot: Number(web3.fromWei(res[4].toNumber())),
+                        nextpot: Number(web3.fromWei(res[5].toNumber())),
+                        luckNum: res[6].toNumber(),
+                        mask: res[7].toNumber(),
+                        playernums: res[8].toNumber(),
+                        winner: res[9].toString(),
+                        ended: res[10].toString()
+                    })
+                }
+            } else {
+                reject(err)
             }
-        } else {
-            fn('getAccounts err' + err, null)
+        })
+    })
+}
+
+luckyCoinApi.getPlayerInfoByAddress = (addr) => {
+    // 页面整体信息 & 余额
+    addr = addr.toString()
+    let playerInfo = new Promise((resolve, reject) => {
+        contractNet.getPlayerInfoByAddress(addr, function (err, res) {
+            if (!err) {
+                if (res) {
+                    resolve({
+                        uid: res[0].toString(),
+                        name: web3.toUtf8(res[1]),
+                        tickets: res[2].toNumber(),
+                        win: Number(web3.fromWei(res[3].toNumber())),
+                        calcTicketEarn: Number(web3.fromWei(res[4].toNumber())),
+                        aff_invite: Number(web3.fromWei(res[5].toNumber())),
+                        eth: Number(web3.fromWei(res[6].toNumber())),
+                        aff_invite_nums: res[7].toNumber()
+                    })
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+    let getBalance = new Promise((resolve, reject) => {
+        web3.eth.getBalance(addr, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(web3.fromWei(res.toNumber()))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+    return Promise.all([playerInfo, getBalance])
+}
+
+luckyCoinApi.searchTicketsXaddr = (addr) => {
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.searchTicketsXaddr(addr, (err, res) => {
+                if (!err) {
+                    if (res) {
+                        resolve({
+                            orders0: res[0].toString(10),
+                            orders1: res[1].toString(10),
+                            orders2: res[2].toString(10),
+                            orders3: res[3].toString(10),
+                            orders4: res[4].toString(10),
+                            orders5: res[5].toString(10)
+                        })
+                    }
+                } else {
+                    reject(err)
+                }
+            })
         }
     })
 }
-luckyCoinApi.getGasPrice = (fn) => {
-    /* 获取当前gasPrice */
-    if (typeof fn !== 'function') {
-        return 'need async function !.'
-    }
-    web3.eth.getGasPrice((err, res) => {
-        if (!err) {
-            if (res) {
-                fn(null, res.toNumber(10))
-            }
+
+luckyCoinApi.testName = (regName) => {
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.pIDxName_(regName.toString(), function (err, res) {
+                if (!err) {
+                    if (res) {
+                        res.toString() === '0' ? resolve(true) : resolve(false)
+                    }
+                } else {
+                    reject(err)
+                }
+            })
         } else {
-            fn('getGasPrice err' + err, null)
+            reject(new Error('contractNet error at pIDxName_'))
         }
+    })
+}
+
+luckyCoinApi.registerNameXaddr = (regName, _affCode) => {
+    if (typeof regName !== 'string') {
+        return 'need string regName !'
+    }
+    if (typeof _affCode !== 'string') {
+        return 'need string _affCode addr !'
+    }
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.registerNameXaddr(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether')}, function (err, res) {
+                if (!err) {
+                    if (res) {
+                        resolve(true)
+                    }
+                } else {
+                    resolve(null)
+                }
+            })
+        } else {
+            reject(new Error('contractNet error at registerNameXaddr'))
+        }
+    })
+}
+
+luckyCoinApi.registerNameXname = (regName, _affCode) => {
+    if (typeof regName !== 'string') {
+        return 'need string regName !'
+    }
+    if (typeof _affCode !== 'string') {
+        return 'need string _affCode addr !'
+    }
+    return new Promise((resolve, reject) => {
+        if (contractNet) {
+            contractNet.registerNameXname(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether')}, function (err, res) {
+                if (!err) {
+                    if (res) {
+                        resolve(true)
+                    }
+                } else {
+                    resolve(null)
+                }
+            })
+        } else {
+            reject(new Error('contractNet error at registerNameXname'))
+        }
+    })
+}
+
+luckyCoinApi.reLoadXaddr = (_tickets, _affCode) => {
+    if (typeof _tickets === 'string') {
+        _tickets = parseInt(_tickets)
+    }
+    if (typeof _affCode !== 'string') {
+        _affCode = _affCode.toString()
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.reLoadXaddr(_tickets, _affCode, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res)
+                } else {
+                    reject(new Error('reLoadXaddr error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.reLoadXname = (_tickets, _affCode) => {
+    if (typeof _tickets === 'string') {
+        _tickets = parseInt(_tickets)
+    }
+    if (typeof _affCode !== 'string') {
+        _affCode = _affCode.toString()
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.reLoadXname(_tickets, _affCode, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res)
+                } else {
+                    reject(new Error('reLoadXname error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.buyXaddr = (_tickets, _affCode, _price) => {
+    if (typeof _tickets === 'string') {
+        _tickets = parseInt(_tickets)
+    }
+    if (typeof _affCode !== 'string') {
+        _affCode = _affCode.toString()
+    }
+    if (typeof _price === 'string') {
+        _price = parseInt(_price)
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.buyXaddr(_tickets, _affCode, {value: web3.toWei(_price, 'ether')}, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res)
+                } else {
+                    reject(new Error('buyXaddr error'))
+                }
+            } else {
+                resolve(null)
+            }
+        })
+    })
+}
+
+luckyCoinApi.buyXname = (_tickets, _name, _price) => {
+    if (typeof _tickets === 'string') {
+        _tickets = parseInt(_tickets)
+    }
+    if (typeof _name !== 'string') {
+        _name = _name.toString()
+    }
+    if (typeof _price === 'string') {
+        _price = parseInt(_price)
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.buyXname(_tickets, _name, {value: web3.toWei(_price, 'ether')}, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res)
+                } else {
+                    reject(new Error('buyXname error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.buyXid = (_tickets, _name, _price) => {
+    if (typeof _tickets === 'string') {
+        _tickets = parseInt(_tickets)
+    }
+    if (typeof _name !== 'string') {
+        _name = _name.toString()
+    }
+    if (typeof _price === 'string') {
+        _price = parseInt(_price)
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.buyXid(_tickets, _name, {value: web3.toWei(_price, 'ether')}, (err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res)
+                } else {
+                    reject(new Error('buyXid error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.getBuyPrice = () => {
+    return new Promise((resolve, reject) => {
+        contractNet.getBuyPrice((err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(Number(web3.fromWei(res.toNumber())))
+                } else {
+                    reject(new Error('getBuyPrice error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.withdraw = () => {
+    return new Promise((resolve, reject) => {
+        contractNet.withdraw((err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(true)
+                } else {
+                    reject(new Error('withdraw error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.getAccounts = () => {
+    /* 获取当前账号地址 */
+    return new Promise((resolve, reject) => {
+        web3.eth.getAccounts((err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res.toString())
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.getTimeLeft = () => {
+    /* 当前时间 */
+    return new Promise((resolve, reject) => {
+        contractNet.getTimeLeft((err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res.toNumber())
+                } else {
+                    reject(new Error('getTimeLeft error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
     })
 }
 
 export {
     web3,
+    contractNet,
     luckyCoinApi
 }

@@ -77,9 +77,7 @@ const actions = {
     async adList ({state, commit, dispatch}) {
         try {
             let adMsg = await ajax.get(`/ad/list`)
-            console.log(adMsg)
             if (adMsg.status.toString() === '100') {
-                console.log(1234)
                 /* btc add */
                 if (adMsg.data) {
                     commit('setAdList', adMsg.data)
