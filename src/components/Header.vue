@@ -44,7 +44,7 @@
                 <!-- icon-slot -->
                 <div class="choose-play icon-new " >
                     <router-link :to="{path: '/luckyslot/'}"  active-class="on">
-                        <lang>LuckySlot</lang>
+                        <lang>Slot</lang>
                     </router-link>
                     <router-link :to="{path: '/luckycoin/'}" active-class="on">
                         <lang>LuckyCoin</lang>
