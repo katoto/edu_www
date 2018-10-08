@@ -396,10 +396,10 @@
                         cointype: '2001',
                         goodsvalue: '',
                         jackpot: 0
-                    },
+                    }
                 },
-                roundInfo:{
-                    jackpot:10
+                roundInfo: {
+                    jackpot: 10
                 }
             }
         },
@@ -415,9 +415,9 @@
             formateBalance,
             formateCoinType,
             formatNum,
-            async getRoundInfo(){
+            async getRoundInfo () {
                 this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
-                if(this.roundInfo && parseInt(this.roundInfo.jackpot) < 10 ){
+                if (this.roundInfo && parseInt(this.roundInfo.jackpot) < 10) {
                     this.roundInfo.jackpot = 10
                 }
             },

@@ -37,6 +37,9 @@
                     <router-link :to="{path: '/luckypoker/'}">
                         {{$lang.poker.a39}}
                     </router-link>
+                    <router-link :to="{path: '/supercoin/'}">
+                        <lang>SuperCoin</lang>
+                    </router-link>                    
                 </div>
             </div>
             <div class="contact">
