@@ -35,6 +35,37 @@
         computed: {
         },
         async mounted () {
+            (function flexible (window, document) {
+                var docEl = document.documentElement
+                var dpr = window.devicePixelRatio || 1
+
+                // set 1rem = viewWidth / 10
+                function setRemUnit () {
+                    var rem = '75'
+                    if (docEl.clientWidth > 1200) {
+                        // rem = 1920 because px
+                        rem = 75
+                    } else if (docEl.clientWidth > 768 && docEl.clientWidth < 1200) {
+                        // rem = 768 because px
+                        rem = 75
+                    } else if (docEl.clientWidth < 768) {
+                        rem = docEl.clientWidth / 10
+                    }
+                    docEl.style.fontSize = rem + 'px'
+                }
+
+                setRemUnit()
+
+                // reset rem unit on page resize
+                window.addEventListener('resize', setRemUnit)
+                window.addEventListener('pageshow', function (e) {
+                    if (e.persisted) {
+                        setRemUnit()
+                    }
+                })
+            }(window, document))
+
+
             this.handleInit()
             if (isLog()) {
                 this.$store.commit('setIsLog', true)

@@ -1,8 +1,10 @@
 <template>
-    <div>
+    <div class="page_act_center">
         <Header></Header>
         <div class="main">
-
+            <ul class="act_items">
+                <li></li>
+            </ul>
         </div>
         <Footer></Footer>
     </div>
@@ -46,6 +48,19 @@ export default {
 
 
 <style lang="less" scoped  type="text/less">
-
+    .page_act_center{
+        background: #242240;
+        .main{
+            max-width: 1190px;
+            width: percentage(702/750);
+            margin: 57px auto 110px;
+            height: 1000px;
+        }
+    }
+    .act_items{
+        li+li{
+            margin-top: 38px;
+        }
+    }
 </style>
 
