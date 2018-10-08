@@ -65,7 +65,7 @@
                                 <p class="msg2"><lang>Win 10 ETH Prize Pool Every 2 Hours</lang></p>
                                 <p class="msg3"><lang>Prize Pool</lang></p>
                                 <p class="msg4">
-                                    <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
+                                    <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
                                     <i> ETH</i>
                                 </p>
                                 <p class="msg5">{{formatUSD(entrance.megacoin.USD, 10)}} USD</p>
@@ -357,6 +357,7 @@
     } from '~/common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
     import {Message} from 'element-ui'
+    import {luckyCoinApi} from '~/dappApi/luckycoinApi'
 
     export default {
         data () {
@@ -395,7 +396,10 @@
                         cointype: '2001',
                         goodsvalue: '',
                         jackpot: 0
-                    }
+                    },
+                },
+                roundInfo:{
+                    jackpot:10
                 }
             }
         },
@@ -411,6 +415,12 @@
             formateBalance,
             formateCoinType,
             formatNum,
+            async getRoundInfo(){
+                this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+                if(this.roundInfo && parseInt(this.roundInfo.jackpot) < 10 ){
+                    this.roundInfo.jackpot = 10
+                }
+            },
             onSignUp () {
                 this.$store.commit('showRegPop')
             },
@@ -520,6 +530,8 @@
             }
             /* 动态结构化 */
             structDom('home')
+            //  取supercoin 金额
+            this.getRoundInfo()
         }
     }
 </script>
