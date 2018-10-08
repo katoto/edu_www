@@ -533,11 +533,11 @@
         </template>
 
 
-        <div class="pop pop_cc1">
+        <div class="pop pop_cc1 hide">
             <div class="pop-body">
                 <div class="pop-ani">
                     <a href="javascript:;" class="btn-close"></a>
-                    <template v-if="false">
+                    <template v-if="true">
                         <p>
                             CC insufficient balance, get the tap again
                         </p>
