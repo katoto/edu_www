@@ -19,7 +19,7 @@
         data () {
             return {
                 dataMenu: [
-                    {menu1: _('About Account'), menu2: [_('Email verification'),'cc币介绍']},
+                    {menu1: _('About Account'), menu2: [_('Email verification'), this.$lang.risk.a1]},
                     {
                         menu1: _('About Wallet'),
                         menu2: [_('How to top up'), _('How to withdraw'), _('Withdrawal Conditions')]

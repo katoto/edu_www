@@ -155,16 +155,15 @@
                         <div class="cc-group cc-luckySlot" v-if="coinType !== '2000' && isLog">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
-                                Using&nbsp;CC&nbsp;deduction
+                                {{$lang.risk.a16}}
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
                                 <div>
                                     <p>CC: {{getCCAcount(userInfo)}}</p>
-                                    <p>当选择CC抵扣后：</p>
-                                    <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney(accMul(dft_bet, 9), userInfo.discount_cfg.limit_rate['3'])}} {{formateCoinType(coinType)}}</p>
-                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
+                                    <p v-html="$lang.risk.a17"></p>
+                                    <p v-html="_($lang.risk.a18, getCCDeductionMoney(accMul(dft_bet, 9), userInfo.discount_cfg.limit_rate['3']) + formateCoinType(coinType))"></p>
+                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C{{$lang.risk.a19}}=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C{{$lang.risk.a19}}= 1 BTC)</p>
                                 </div>
                             </a>
                         </div>

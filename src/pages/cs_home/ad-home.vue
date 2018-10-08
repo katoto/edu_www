@@ -3,7 +3,7 @@
         <Header></Header>
         <div class="main">
             <ul class="act_items">
-                <li  v-for="(item, index) in list" :key="index" style="background: #3b2860" class="icon_over" :datamsg=item.title_key>
+                <li v-for="(item, index) in list" :key="index" style="background: #3b2860" class="icon_over" :datamsg="item.title_key">
                     <img :src="item.img_url" alt="">
                     <div class="ad_view">
                         <h3 class="ad_t">

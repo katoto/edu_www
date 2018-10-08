@@ -801,7 +801,11 @@ export function getCCAcount (userInfo) {
 export function getCCDeductionMoney (total, rate) {
     let value = Number(total)
     if (value && !isNaN(value) && value > 0) {
-        return accMul(value, rate).toFixed(18).replace(/\.?0+$/, '')
+        if (value < 0.0001) {
+            return accMul(value, rate).toFixed(18).replace(/\.?0+$/, '')
+        } else {
+            return formatNum(accMul(value, rate), 18).toString().replace(/\.?0+$/, '')
+        }
     }
-    return 0
+    return '0'
 }

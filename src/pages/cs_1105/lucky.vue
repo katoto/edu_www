@@ -34,16 +34,15 @@
                         <div class="cc-group cc-lucky1105pc" v-if="currBalance.cointype !== '2000' && isLog">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                             <p>
-                                Using&nbsp;CC&nbsp;deduction
+                                {{$lang.risk.a16}}
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
                                 <div>
                                     <p>CC: {{getCCAcount(userInfo)}}</p>
-                                    <p>当选择CC抵扣后：</p>
-                                    <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                    <p>每笔投注最多抵扣：{{getCCDeductionMoney(totalPay, userInfo.discount_cfg.limit_rate['1'])}} {{formateCoinType(coinType)}}</p>
-                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
+                                    <p v-html="$lang.risk.a17"></p>
+                                    <p v-html="_($lang.risk.a18, getCCDeductionMoney(totalPay, userInfo.discount_cfg.limit_rate['1']) + formateCoinType(currBalance.cointype))"></p>
+                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C{{$lang.risk.a19}}=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C{{$lang.risk.a19}}= 1 BTC)</p>
                                 </div>
                             </a>
                         </div>
@@ -281,19 +280,17 @@
                     </div>
                     <!-- 新增cc 20180926 -->
                     <div class="cc-group cc-lucky1105h5" v-if="currBalance.cointype !== '2000' && isLog">
-
                         <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
                         <p>
-                            Using&nbsp;CC&nbsp;deduction
+                            {{$lang.risk.a16}}
                         </p>
                         <a href="javascript:;" class="btn-cc">
                             ?
                             <div>
                                 <p>CC: {{getCCAcount(userInfo)}}</p>
-                                <p>当选择CC抵扣后：</p>
-                                <p>用户支付时会使用CC抵扣部分ETH（BTC）</p>
-                                <p>每笔投注最多抵扣：{{getCCDeductionMoney(betValue, userInfo.discount_cfg.limit_rate['1'])}} {{formateCoinType(coinType)}}</p>
-                                <p>{{userInfo.discount_cfg.discount_rate['2001']}} C币=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C币= 1 BTC)</p>
+                                <p v-html="$lang.risk.a17"></p>
+                                <p v-html="_($lang.risk.a18, getCCDeductionMoney(totalPay, userInfo.discount_cfg.limit_rate['1']) + formateCoinType(currBalance.cointype))"></p>
+                                <p>{{userInfo.discount_cfg.discount_rate['2001']}} C{{$lang.risk.a19}}=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C{{$lang.risk.a19}}= 1 BTC)</p>
                             </div>
                         </a>
                     </div>
@@ -531,34 +528,6 @@
                 <img src="../../assets/img/lucky11/jackpot-left.png" />
             </a>
         </template>
-<<<<<<< HEAD
-
-
-        <div class="pop pop_cc1 hide">
-            <div class="pop-body">
-                <div class="pop-ani">
-                    <a href="javascript:;" class="btn-close"></a>
-                    <template v-if="true">
-                        <p>
-                            CC insufficient balance, get the tap again
-                        </p>
-                        <div class="btn-box ">
-                            <a href="javascript:;" class="btn btn-get">Get</a>
-                        </div>
-                    </template>
-                    <template v-else>
-                        <p>
-                         CC run out ~~ recharge ETH/BTC continue the game
-                        </p>
-                        <div class="btn-box">
-                            <a href="javascript:;" class="btn btn-topUp">top up</a>
-                            <a href="javascript:;" class="btn later-later">later</a>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </div>
-
     </div>
 </template>
 
