@@ -897,8 +897,6 @@ if (typeof web3 === 'undefined') {
 
 // 通过abi 和地址获取已部署的合约对象
 let contractNet = web3.eth.contract(contractAbi).at(contractAddr)
-console.log(contractNet)
-
 //  合约api
 let luckyCoinApi = {}
 

@@ -31,6 +31,11 @@
                                 {{$lang.poker.a39}}
                             </router-link>
                         </li>
+                        <li>
+                            <router-link :to="{path: '/supercoin'}" active-class="on">
+                                <lang>SuperCoin</lang>
+                            </router-link>
+                        </li>                        
                     </ul>
                 </div>
                 <router-link to="/" title="Coinsprize" class="logo">
@@ -39,7 +44,7 @@
                 <!-- icon-slot -->
                 <div class="choose-play icon-new " >
                     <router-link :to="{path: '/luckyslot/'}"  active-class="on">
-                        <lang>LuckySlot</lang>
+                        <lang>Slot</lang>
                     </router-link>
                     <router-link :to="{path: '/luckycoin/'}" active-class="on">
                         <lang>LuckyCoin</lang>
@@ -50,6 +55,9 @@
                     <router-link :to="{path: '/luckyPoker/'}" active-class="on">
                         {{$lang.poker.a39}}
                     </router-link>
+                    <router-link :to="{path: '/supercoin/'}" active-class="on">
+                        <lang>SuperCoin</lang>
+                    </router-link>                    
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide" >APP</a>
                 </div>

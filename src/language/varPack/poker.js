@@ -37,7 +37,7 @@ let en = {
     a36: 'Already reached to the upper limit',
     a37: 'RED',
     a38: 'BLACK',
-    a39: 'LuckyPoker',
+    a39: 'Poker',
     a40: 'Play LuckyPoker',
     a41: 'By playing on Coinsprize, you trust the 100% randomness of our games. And the randomness can be checked through "provably fair" tool which protects the game statistics not be modified by anyone, users can check it at any time.',
     a42: '',

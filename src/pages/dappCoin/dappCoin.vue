@@ -1491,8 +1491,6 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
-        console.log(this.isFromFlag)
-        console.log('=======this.isFromFlag======')
     },
     watch: {
         isLog (val) {
