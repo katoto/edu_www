@@ -9,25 +9,14 @@
                         <!--banner-->
                         <el-carousel :interval="5000">
                             <el-carousel-item>
-                                <div class="banner-t1" >
-                                    <lang>50% Top-Up Bonus</lang>
+                                <div class="banner-superCoin-t1" >
+                                    <lang> SUPERCOIN</lang>
                                 </div>
-                                <p class="banner-t11 visible-md visible-lg"><lang>More top-up, more bonus</lang></p>
-                                <router-link to="/firstCharge" class="banner-firstCharge" >
-                                    <lang>Get Bonus</lang>
-                                </router-link>
-                            </el-carousel-item>
-                            <el-carousel-item>
-                                <div class="banner-t1" >
-                                    <lang>Finally! You found the wonderland-- Coinsprize</lang>
-                                </div>
-                                <p class="banner-t11 visible-md visible-lg"><lang>A blockchain-based game platform with fairness and openness</lang></p>
-                                <p class="banner-t2"><lang>Unique play & transparent draw, only for your terrific experience in games</lang></p>
-                                <a v-if="!isLog" href="javascript:;" class="banner-more" @click="onSignUp()">
-                                    <lang>Sign up now</lang>
-                                </a>
-                                <router-link v-else to="/check" class="banner-more">
-                                    <lang>Details </lang>
+                                <p class="banner-superCoin-t2 visible-md visible-lg">
+                                    Win 10 ETH Prize Pool<br>Every 2 Hours
+                                </p>
+                                <router-link to="/superCoin" class="btn-superCoin" >
+                                    <lang>Attractive Prize Pool    Buy Sooner, Earn Higher  >> </lang>
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
@@ -72,10 +61,10 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="for-full">
-                            <router-link :to="{path: '/luckycoin/'}" class="game-onecoin">
-                                <p class="msg1"><lang>LuckyCoin</lang></p>
-                                <p class="msg2"><lang>Bid 0.01 ETH to win more</lang></p>
-                                <p class="msg3"><lang>Instant Reward</lang></p>
+                            <router-link :to="{path: '/luckycoin/'}" class="game-supercoin">
+                                <p class="msg1"><lang>SuperCoin</lang></p>
+                                <p class="msg2"><lang>Win 10 ETH Prize Pool Every 2 Hours</lang></p>
+                                <p class="msg3"><lang>Prize Poo</lang></p>
                                 <p class="msg4">
                                     <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
                                     <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
@@ -546,62 +535,21 @@
             /*}*/
         }
         .el-carousel__item {
+            text-align: left;
             img {
                 display: block;
                 width: 145px;
                 margin: 70px auto 0;
             }
-            .banner-t1 {
-                margin-top: 70px;
-                line-height: 27px;
-                font-size: 23px;
-                // font-size: 56px;
-                overflow: hidden;
+            .banner-superCoin-t1 {
+                color: #d648ff;
+            }
+            .banner-superCoin-t2{
+                color: #ffde6b;
                 font-weight: bold;
             }
-            .banner-t11{
-                line-height: 27px;
-                font-size: 23px;
-                overflow: hidden;
-                font-weight: bold;
-            }
-            .banner-t2 {
-                width: 90%;
-                margin: 0 auto;
-                line-height: 18px;
-                font-size: 10px;
-            }
-            .banner-more {
-                display: block;
-                width: 150px;
-                height: 35px;
-                overflow: hidden;
-                margin: 25px auto 0;
-                line-height: 33px;
-                overflow: hidden;
-                border-radius: 6px;
-                border: 1px solid #fff;
-                color: #fff;
-                transition: all 0.2s;
-                &:hover{
-                    border-color: #fff;
-                }
-            }
-            .banner-firstCharge {
-                display: block;
-                width: 190px;
-                height: 35px;
-                overflow: hidden;
-                margin: 25px auto 0;
-                line-height: 33px;
-                overflow: hidden;
-                border-radius: 6px;
-                border: 1px solid #fff;
-                color: #fff;
-                transition: all 0.2s;
-                &:hover{
-                    border-color: #fff;
-                }
+            .btn-superCoin {
+                color: #ffde6b;
             }
         }
         /*banner*/
@@ -619,7 +567,8 @@
         .game-poker,
         .game-11t5,
         .game-slot,
-        .game-onecoin {
+        .game-onecoin,
+        .game-supercoin {
             display: block;
             width: 92%;
             padding-top: 27px;
@@ -679,6 +628,10 @@
         }
         .game-onecoin {
             background: url("../../assets/img/home/game3.png") no-repeat left top;
+            background-size: cover;
+        }
+        .game-supercoin {
+            background: url("../../assets/img/home/game-superCoin.png") no-repeat left top;
             background-size: cover;
         }
         .game-btn {
@@ -969,7 +922,7 @@
                     animation-delay: 0.5s;
                 }
                 .circle3 {
-                    animation-delay: 0;
+                    animation-delay: 0s;
                 }
             }
         }
@@ -997,13 +950,11 @@
         .home {
             /*banner*/
             .el-carousel__item {
-                .banner-t1 {
-                    line-height: 54px;
-                    font-size: (4600)/1920vw;
+                .banner-superCoin-t1 {
+
                 }
-                .banner-t2 {
-                    line-height: 26px;
-                    font-size: (1600)/1920vw;
+                .banner-superCoin-t2 {
+
                 }
             }
             /*banner*/
@@ -1018,7 +969,8 @@
             .game-poker,
             .game-11t5,
             .game-slot,
-            .game-onecoin {
+            .game-onecoin,
+            .game-supercoin{
                 width: 100%;
                 transition: all 0.2s;
                 transform-origin: bottom;
@@ -1048,14 +1000,20 @@
                 height: 450-48px;
             }
             .el-carousel__item {
-                .banner-t1 {
-                    margin-top: 80px;
-                    line-height: 66px;
-                    font-size: 52px;
+                padding-left: 353px;
+                .banner-superCoin-t1 {
+                    margin-top: 40px;
+                    line-height: 113px;
+                    font-size: 56px;
                 }
-                .banner-t2 {
-                    line-height: 28px;
-                    font-size: 16px;
+                .banner-superCoin-t2 {
+                    line-height: 60px;
+                    font-size: 60px;
+                    font-weight: bold;
+                }
+                .btn-superCoin{
+                    line-height: 70px;
+                    font-size: 30px;
                 }
             }
             /*banner*/
