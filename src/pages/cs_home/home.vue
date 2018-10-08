@@ -623,16 +623,18 @@ export default {
         },
         renderHomeBet () {
             this.getHomeBet().then(({ data }) => {
-                this.bets = {
-                    ...data
-                }
+                this.bets.syxw_orders = [...data.syxw_orders]
+                this.bets.slot_orders = [...data.slot_orders]
+                this.bets.megacoin_orders = [...data.megacoin_orders]
+                this.bets.dice_orders = [...data.dice_orders]
             })
         },
         renderHomeDraw () {
             this.getHomeDraw().then(({ data }) => {
-                this.wins = {
-                    ...data
-                }
+                this.wins.syxw_orders = [...data.syxw_orders]
+                this.wins.slot_orders = [...data.slot_orders]
+                this.wins.megacoin_orders = [...data.megacoin_orders]
+                this.wins.dice_orders = [...data.dice_orders]
             })
         },
         renderHomeWithdraw () {
