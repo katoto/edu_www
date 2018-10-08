@@ -63,4 +63,7 @@ export default {
         }
     }
 </style>
+<style lang="less" scoped  type="text/less">
+@import "adHomeH5Less";
+</style>
 
