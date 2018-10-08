@@ -14,8 +14,7 @@
                                 </div>
                                 <p class="banner-superCoin-t2" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
                                 </p>
-                                <router-link to="/superCoin" class="btn-superCoin" >
-                                    <lang>Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher  >></lang>
+                                <router-link to="/superCoin" class="btn-superCoin" v-lang="'Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher >>'">
                                     <!--轮轮大奖池，先买先分红 >>-->
                                 </router-link>
                             </el-carousel-item>
