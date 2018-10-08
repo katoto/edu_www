@@ -215,8 +215,8 @@ let routesArr = [
         ]
     },
     {
-        path: '/ad',
-        name: 'ad',
+        path: '/Promotions',
+        name: 'Promotions',
         component: adHome
     },
     {
