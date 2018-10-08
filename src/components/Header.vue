@@ -191,14 +191,14 @@
                         </div>
                         <ul>
                             <li>
-                                <p v-lang="'少于0.1CC的时候可每日免费领取1CC'"></p>
-                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray"><lang>Free Spin</lang></a>
-                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green"><lang>Free Spin</lang></a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow"><lang>Play</lang></a>
-                                <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
+                                <p v-lang="$lang.risk.a26"></p>
+                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray">{{$lang.risk.a28}}</a>
+                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green">{{$lang.risk.a28}}</a>
+                                <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow">{{$lang.risk.a28}}</a>
+                                <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray">{{$lang.risk.a28}}</a>
                             </li>
                             <li>
-                                <p v-lang="'充值0.001BTC或0.01ETH，立即赠送10CC'"></p>
+                                <p v-lang="$lang.risk.a27"></p>
                                 <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Top Up</lang></a>
                                 <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
                                 <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>
@@ -271,11 +271,9 @@
                 <div class="pop-ani">
                     <a href="javascript:;" class="btn-close" @click="showCanGetCCTask = false"></a>
                     <div>
-                        <p>
-                            CC余额不足，领取水龙头再接再厉
-                        </p>
+                        <p v-html="$lang.risk.a20"></p>
                         <div class="btn-box ">
-                            <a href="javascript:;" class="btn btn-get" @click="showCanGetCCTask = false;taskClick('task_2',tasks_2);">Get</a>
+                            <a href="javascript:;" class="btn btn-get" @click="showCanGetCCTask = false;taskClick('task_2',tasks_2);">{{$lang.risk.a25}}</a>
                         </div>
                     </div>
                 </div>
@@ -286,12 +284,12 @@
                 <div class="pop-ani">
                     <a href="javascript:;" class="btn-close" @click="showUseAllCCPop = false"></a>
                     <div>
-                        <p>CC使用完啦~~充值ETH/BTC继续游戏</p>
+                        <p v-html="$lang.risk.a21"></p>
                         <div class="btn-box">
                             <router-link :to="{path: '/account/deposit'}" class="btn btn-topUp" @click="showUseAllCCPop = false">
                                 <lang>Top Up</lang>
                             </router-link>
-                            <a href="javascript:;" class="btn later-later" @click="showUseAllCCPop = false">later</a>
+                            <a href="javascript:;" class="btn later-later" @click="showUseAllCCPop = false">{{$lang.risk.a24}}</a>
                         </div>
                     </div>
                 </div>
@@ -302,13 +300,13 @@
                 <div class="pop-ani">
                     <a href="javascript:;" class="btn-close" @click="showWinALotCCPop = false"></a>
                     <div>
-                        <p>喜运连连，赶紧充值ETH/BTC赢取更大奖励吧</p>
-                        <p>（CC可在ETH/BTC投注中抵扣部分金额）</p>
+                        <p v-html="$lang.risk.a22"></p>
+                        <p v-html="$lang.risk.a23"></p>
                         <div class="btn-box">
                             <router-link :to="{path: '/account/deposit'}" class="btn btn-topUp" @click="showWinALotCCPop = false">
                                 <lang>Top Up</lang>
                             </router-link>
-                            <a href="javascript:;" class="btn later-later" @click="showWinALotCCPop = false">later</a>
+                            <a href="javascript:;" class="btn later-later" @click="showWinALotCCPop = false">{{$lang.risk.a24}}</a>
                         </div>
                     </div>
                 </div>
