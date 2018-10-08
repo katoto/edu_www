@@ -836,7 +836,7 @@ module.exports = {
     'Okay': '下壹步',
     'Round {0}': '期號 {0}',
     'Gameplay': '遊戲規則',
-    'Attractive Prize Pool&nbsp;&nbsp;Buy Sooner, Earn Higher >>': '輪輪大獎池，先買先分紅',
+    'Attractive Prize Pool.&nbsp;&nbsp;Buy Sooner, Earn Higher >>': '輪輪大獎池，先買先分紅 >>',
     'Win 10 ETH Prize Pool<br>Every 2 Hours': '每2小時贏取10ETH',
     'SUPERCOIN': '超級奪幣',
     'SuperCoin': '超級奪幣',
