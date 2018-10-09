@@ -9,6 +9,17 @@
                         <!--banner-->
                         <el-carousel :interval="5000" @change="bgchange">
                             <el-carousel-item>
+                                <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
+                                    <div class="banner-superCoin-t1">
+                                        <lang>SUPERCOIN</lang>
+                                    </div>
+                                    <p class="banner-superCoin-t2" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
+                                    </p>
+                                    <p class="btn-superCoin" v-lang="'Attractive Prize Pool.&nbsp;&nbsp;Buy Sooner, Earn Higher >>'">
+                                    </p>
+                                </router-link>
+                            </el-carousel-item>
+                            <el-carousel-item>
                                 <div class="banner-t1">
                                     <lang>50% Top-Up Bonus</lang>
                                 </div>
@@ -36,19 +47,45 @@
                                     <lang>Details </lang>
                                 </router-link>
                             </el-carousel-item>
+
                         </el-carousel>
                     </div>
                 </div>
                 <div class="row clearfix items-game ">
                     <a href="javascropt:;" class="game-change game-change-pre" @click="gamePre">pre</a>
                     <!--各种游戏宣传图-->
-                    <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}"  ref="gameList">
+                    <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}" ref="gameList">
                         <!-- col-xs-12 col-md-4 -->
+                        <div class="">
+                            <div class="for-full">
+                                <router-link :to="{path: '/supercoin'}" class="game-supercoin">
+                                    <p class="msg1">
+                                        <lang>SuperCoin</lang>
+                                    </p>
+                                    <p class="msg2">
+                                        <lang>Win 10 ETH Prize Pool Every 2 Hours</lang>
+                                    </p>
+                                    <p class="msg3">
+                                        <lang>Prize Pool</lang>
+                                    </p>
+                                    <p class="msg4">
+                                        <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
+                                        <i> ETH</i>
+                                    </p>
+                                    <p class="msg5">
+                                        {{formatUSD(entrance.megacoin.USD, Number(roundInfo.jackpot))}} USD
+                                    </p>
+                                    <div class="game-btn">
+                                        <lang>Play Now </lang>
+                                    </div>
+                                </router-link>
+                            </div>
+                        </div>
                         <div class="">
                             <div class="for-full">
                                 <router-link :to="{path: '/luckyPoker'}" class="game-poker">
                                     <p class="msg1">
-                                    {{$lang.poker.a39}}
+                                        {{$lang.poker.a39}}
                                     </p>
                                     <p class="msg2">
                                         经典高回报游戏
@@ -506,6 +543,9 @@ export default {
                     goodsvalue: '',
                     jackpot: 0
                 }
+            },
+            roundInfo: {
+                jackpot: 10
             }
         }
     },
@@ -513,6 +553,12 @@ export default {
         /* 背景图轮播 */
         bgchange (currenindex, index) {
             this.bghome = 'bghome' + currenindex
+        },
+        async getRoundInfo () {
+            this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+            if (this.roundInfo && parseInt(this.roundInfo.jackpot) < 10) {
+                this.roundInfo.jackpot = 10
+            }
         },
         onResize () {
             this.initGamePreNext()
@@ -523,7 +569,7 @@ export default {
             this.gameWidth = this.$refs.gameList.children[0].offsetWidth
         },
         gamePre () {
-            if (this.gameIndex < (this.gameLength - 3)) {
+            if (this.gameIndex < 1) {
                 return false
             }
             this.gameIndex--
@@ -532,7 +578,7 @@ export default {
             this.activeClass1 = 'luckypoker'
         },
         gameNext () {
-            if (this.gameIndex >= (this.gameLength - 3)) {
+            if (this.gameIndex >= this.gameLength - 3) {
                 return false
             }
             this.gameIndex++
@@ -675,6 +721,9 @@ export default {
         }
         /* 动态结构化 */
         structDom('home')
+
+        //  取supercoin 金额
+        this.getRoundInfo()
     },
     watch: {
         screenWidth (val) {
@@ -701,12 +750,16 @@ export default {
     width: 100%;
     background-size: 1920px;
     transition: all 0.5s ease-in-out;
-    &.bghome0 {
+    &.bghome2 {
         background: #181633 url("../../assets/img/home/bg0.jpg") no-repeat top
             center;
     }
     &.bghome1 {
         background: #181633 url("../../assets/img/home/bg1.jpg") no-repeat top
+            center;
+    }
+    &.bghome0 {
+        background: #181633 url("../../assets/img/home/bg2.jpg") no-repeat top
             center;
     }
     .main {
@@ -783,6 +836,33 @@ export default {
                 border-color: #fff;
             }
         }
+
+        .banner-superCoin {
+            text-align: left;
+        }
+        .banner-superCoin-t1 {
+            margin-top: 25px;
+            font-size: 30px;
+            line-height: 50px;
+            color: #d648ff;
+            em {
+                font-style: italic;
+            }
+        }
+        .banner-superCoin-t2 {
+            color: #ffde6b;
+            font-size: 26px;
+            font-weight: bold;
+            font-family: sans-eb;
+            line-height: 30px;
+        }
+        .btn-superCoin {
+            display: block;
+            margin-top: 12px;
+            line-height: 22px;
+            font-size: 16px;
+            color: #ffde6b;
+        }
     }
     /*banner*/
 }
@@ -797,29 +877,33 @@ export default {
     .game-change {
         position: absolute;
         top: 50%;
-        transform: translate(0, -50%);
         z-index: 2;
         display: block;
-        width: 50px;
-        height: 5   0px;
-        background: #000;
-
+        width: 26px;
+        height: 50px;
+        overflow: hidden;
+        background: url("../../assets/img/home/btn-change.png") no-repeat top
+            center;
+        font-size: 0;
+        text-indent: 999999px;
         &.game-change-pre {
             left: 0;
+            transform: translate(0, -50%) rotate(180deg);
         }
         &.game-change-next {
             right: 0;
+            transform: translate(0, -50%);
         }
     }
     .game_list {
         position: relative;
         overflow: hidden;
         transition: all 0.3s ease-in-out;
-         >div{
+        > div {
             float: none;
             padding: 0;
             width: 100%;
-            }
+        }
         > div + div {
             margin-top: 20px;
         }
@@ -827,7 +911,8 @@ export default {
     .game-poker,
     .game-11t5,
     .game-slot,
-    .game-onecoin {
+    .game-onecoin,
+    .game-supercoin {
         display: block;
         width: 92%;
         padding-top: 27px;
@@ -875,8 +960,9 @@ export default {
             font-size: 16px;
         }
     }
-    .game-poker{
-        background: url("../../assets/img/home/game-poker.png") no-repeat left top;
+    .game-poker {
+        background: url("../../assets/img/home/game-poker.png") no-repeat left
+            top;
         background-size: cover;
     }
     .game-11t5 {
@@ -889,6 +975,11 @@ export default {
     }
     .game-onecoin {
         background: url("../../assets/img/home/game3.png") no-repeat left top;
+        background-size: cover;
+    }
+    .game-supercoin {
+        background: url("../../assets/img/home/game-superCoin.png") no-repeat
+            left top;
         background-size: cover;
     }
     .game-btn {
@@ -1038,6 +1129,13 @@ export default {
         .icon-eth {
             i {
                 background: url("../../assets/img/home/table-eth.png") no-repeat
+                    center;
+                background-size: cover;
+            }
+        }
+        .icon-cc {
+            i {
+                background: url("../../assets/img/home/table-cc.png") no-repeat
                     center;
                 background-size: cover;
             }
@@ -1198,11 +1296,17 @@ export default {
         .recent-water {
             width: 100%;
             .icon-btc,
-            .icon-eth {
+            .icon-eth,
+            .icon-cc {
                 i {
                     display: none !important;
                 }
             }
+        }
+    }
+    .home {
+        &.bghome2 {
+            background-size: 1190px;
         }
     }
 }
@@ -1219,6 +1323,23 @@ export default {
                 line-height: 26px;
                 font-size: (1600)/1920vw;
             }
+            .banner-superCoin {
+                padding-left: 106px;
+            }
+            .banner-superCoin-t1 {
+                margin-top: 24px;
+                font-size: 41px;
+                line-height: 72px;
+            }
+            .banner-superCoin-t2 {
+                font-size: 43px;
+                line-height: 42px;
+            }
+            .btn-superCoin {
+                margin-top: 12px;
+                line-height: 22px;
+                font-size: 20px;
+            }
         }
         /*banner*/
     }
@@ -1229,7 +1350,7 @@ export default {
             width: 100% !important;
             left: 0 !important;
         }
-        .game-change{
+        .game-change {
             display: none;
         }
     }
@@ -1239,7 +1360,7 @@ export default {
         .game_list {
             width: 99999px;
             height: 290px;
-            >div{
+            > div {
                 float: left;
                 padding: 0 20px;
                 width: 410px;
@@ -1251,12 +1372,13 @@ export default {
         .game-poker,
         .game-11t5,
         .game-slot,
-        .game-onecoin {
+        .game-onecoin,
+        .game-supercoin {
             width: 100%;
             transition: all 0.2s;
             transform-origin: bottom;
             &:hover {
-               filter: brightness(1.1)
+                filter: brightness(1.1);
             }
         }
         .game-btn {
@@ -1289,6 +1411,24 @@ export default {
             .banner-t2 {
                 line-height: 28px;
                 font-size: 16px;
+            }
+
+            .banner-superCoin {
+                padding-left: 353px;
+            }
+            .banner-superCoin-t1 {
+                margin-top: 52px;
+                line-height: 94px;
+                font-size: 56px;
+            }
+            .banner-superCoin-t2 {
+                line-height: 60px;
+                font-size: 60px;
+                font-weight: bold;
+            }
+            .btn-superCoin {
+                line-height: 70px;
+                font-size: 30px;
             }
         }
         /*banner*/
