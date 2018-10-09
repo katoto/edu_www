@@ -57,8 +57,8 @@ export default {
             return (thisTime - startTime > 10 * 24 * 3600 * 1000) && thisTime < endTime
         },
         getMsgTab (data) {
-            let startTime = new Date(data.start_show).getTime()
-            let endTime = new Date(data.end_show).getTime()
+            let startTime = Number(data.start_show) * 1000
+            let endTime = Number(data.end_show) * 1000
             if (this.isNew(startTime, endTime)) {
                 return this.$lang.risk.a29
             } else if (this.isGoing(startTime, endTime)) {
