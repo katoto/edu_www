@@ -473,7 +473,7 @@
                             <li class="winner"><lang>Winner</lang></li>
                         </ul>
                         <ul class="historyDraw-main hidden-xs hidden-sm">
-                            <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !==''}">
+                            <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !=='' && item.winner !== '0x0000000000000000000000000000000000000000'}">
                                 <p class="issue">
                                     #{{ item.round }}
                                 </p>
@@ -483,7 +483,7 @@
                                 <p class="bonus">
                                     {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                                 </p>
-                                <p class="winner" v-if="item.winner ===''">
+                                <p class="winner" v-if="item.winner ==='' || item.winner === '0x0000000000000000000000000000000000000000'">
                                     -
                                 </p>
                                 <p class="winner" v-else>
@@ -495,7 +495,7 @@
                         </ul>
                         <!-- mobile -->
                         <ul class="historyDraw-main hidden-lg hidden-md">
-                            <li v-for="(item,index) in expectsListMobile" :key="index" :class="{'win':item.winner !==''}">
+                            <li v-for="(item,index) in expectsListMobile" :key="index" :class="{'win':item.winner !=='' && item.winner !== '0x0000000000000000000000000000000000000000'}">
                                 <p class="issue">
                                     #{{ item.round }}
                                 </p>
@@ -505,7 +505,7 @@
                                 <p class="bonus">
                                     {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                                 </p>
-                                <p class="winner" v-if="item.winner ===''">
+                                <p class="winner" v-if="item.winner ==='' || item.winner === '0x0000000000000000000000000000000000000000'">
                                     -
                                 </p>
                                 <p class="winner" v-else>
@@ -666,7 +666,7 @@ export default {
                 _('Who will be the winner?'),
                 _('Data processing'),
                 _('Data uploading')
-            ], // 等待开奖文案 todo
+            ], // 等待开奖文案
             nextRoundStart: null, // 下一期开启的时间
             openWinNumber: false, // 出现开奖号码
             someGetWin: false, // 是否有人中奖
@@ -853,10 +853,12 @@ export default {
         tabEvt (evt, dataName) {
             if (this.selfMsg) {
                 this.informationTab = dataName
-                //  请求历史数据
-                this.expectCurrentChange()
-                //  用户投注订单记录  是否登录
-                this.orderCurrentChange()
+                if(dataName === 'myticket' || dataName === 'historyDraw'){
+                    //  请求历史数据
+                    this.expectCurrentChange()
+                    //  用户投注订单记录  是否登录
+                    this.orderCurrentChange()
+                }
             } else {
                 if (dataName === 'howToPlay' || dataName === 'myticket' || dataName === 'historyDraw') {
                     this.informationTab = dataName
@@ -879,7 +881,14 @@ export default {
             let data = await this.getSuperCoinExpects(params)
             data = data.data
             if (data) {
+                if(pageno === 1){
+                    let insertData = await this.getRoundMsg()    
+                    if( insertData && data.expects[0].round !== insertData.round){
+                        data.expects.unshift(insertData)
+                    }
+                }
                 this.expectsList = this.expectFormatData(data.expects)
+
                 if (pageno === 1) {
                     this.expectsListMobile = this.expectsList
                     this.expectsMobileIndex = 2
@@ -1089,6 +1098,7 @@ export default {
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
+
             if (this.timeLeft === 0) {
                 if (this.roundInfo.luckNum === 0) {
                     this.waitWin = true
@@ -1114,13 +1124,9 @@ export default {
                 }
             }
             this.pageSucc = true
-            console.log('roundinfo')
-            console.log(this.roundInfo)
             this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime()) / 1000
             window.setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
-                console.log(this.timeLeft)
-                console.log('======timeleft=====')
                 if (this.timeLeft !== 0) {
                     this.startTimeLeft()
                 }
@@ -1136,6 +1142,17 @@ export default {
             setInterval(() => {
                 this.bindwaitingMsg = this.waitingMsgArr[ parseInt(Math.random() * 2) ]
             }, 5000)
+        },
+        async getRoundMsg(){
+            await this.getCurrentRoundInfo()
+            if(this.roundInfo && this.roundInfo.roundIndex){
+                let msgRound = await luckyCoinApi.round_( Number(this.roundInfo.roundIndex)-1 )
+                Object.assign(msgRound,{
+                    round: Number(this.roundInfo.roundIndex) -1
+                })
+                return msgRound
+            }
+            return 0
         },
         getSuperCoinExpects (params) {
             return this.$store.dispatch(aTypes.superCoinExpects, {
@@ -1199,6 +1216,8 @@ export default {
         async getCurrentRoundInfo () {
             // 获取页面相关信息
             this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+            
+            console.log(this.roundInfo)
             this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets / 1500})`
 
             let earnNum = null
@@ -1326,13 +1345,14 @@ export default {
             await this.getPlayerInfoByAddress()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-
             //  用户投注订单记录  是否登录
             if (this.selfMsg) {
                 this.orderCurrentChange()
             }
             //  请求历史数据
-            this.expectCurrentChange()
+            setTimeout(()=>{
+                this.expectCurrentChange()
+            },1000)
         },
         startAllevent () {
             // 合约事件
@@ -1497,6 +1517,8 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
+        this.getRoundMsg()
+
     },
     watch: {
         isLog (val) {

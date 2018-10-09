@@ -4,6 +4,7 @@ import Web3 from 'web3'
 
 // let contractAddr = '0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b' // online
 let contractAddr = '0x2119a3314c1d40704d816392a9e44da463688992' // online2  2h
+// let contractAddr = '0x9c4118584552d6144223a7f65b2c6ebb76b792e9' // online2  2h
 
 let web3 = window.web3
 let contractAbi = [
@@ -1226,6 +1227,32 @@ luckyCoinApi.getTimeLeft = () => {
             if (!err) {
                 if (res) {
                     resolve(res.toNumber())
+                } else {
+                    reject(new Error('getTimeLeft error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.round_ = (round) => {
+    /* 当前时间 */
+    if (typeof round === 'string') {
+        round = Number(round)
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.round_(round, (err, res) => {
+            if (!err) {
+                if (res) {
+                    let obj = {
+                        luckynum: res[8].toNumber(),
+                        winner: res[5].toString(),
+                        prizes: Number(web3.fromWei(res[2].toNumber())),
+                        cointype: '2001'
+                    }
+                    resolve(obj)
                 } else {
                     reject(new Error('getTimeLeft error'))
                 }
