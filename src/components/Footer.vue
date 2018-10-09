@@ -142,7 +142,19 @@
         },
         mounted () {
             if (~window.location.href.indexOf('policy')) {
-                this.jump2Page()
+                let lan = this.$store.state.language
+                switch (lan) {
+                case 'en':
+                    this.$router.push('/policy')
+                    break
+                case 'zhCn':
+                    this.$router.push('/policy_zhCn')
+                    break
+                case 'zhTw':
+                    this.$router.push('/policy_zhTw')
+                    break
+                }
+                this.$store.commit('hideLoginPop')
             }
         }
     }
