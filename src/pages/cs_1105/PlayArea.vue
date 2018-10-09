@@ -214,6 +214,7 @@
                 if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype) {
                     this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
                     this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
+                    this.areaMsg.pickMoney = Number(this.min_limit)
                 }
             }
         },
@@ -254,6 +255,7 @@
                     })
                     return false
                 }
+                return true
             },
             delTicket ($event) {
                 // 删除

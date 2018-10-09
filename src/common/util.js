@@ -191,7 +191,7 @@ export function formateBalance (val = 0, type = '2001') {
     }
 
     if (type === '2000') {
-        return formatNum(newEth, 3).toFixed(3)
+        return formatNum(newEth, 2).toFixed(2)
     }
     return newEth
 }
