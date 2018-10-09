@@ -1,6 +1,6 @@
 <template>
     <div class="luckyDapp">
-        <div class="head-dapp" >
+        <div class="head-dapp hide" >
             <div class="head-dapp-wrap">
                 <h1 class="logo">
                     <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp">
@@ -14,6 +14,7 @@
                 </div>
             </div>
         </div>
+        <HeaderCoin></HeaderCoin>
         <!--status2-->
         <div class="banner-dapp" :class="{'status2':nextScreen && pageSucc}">
             <!--公告 滚动  components-->
@@ -646,6 +647,7 @@ import {
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
 import Footer from '~components/Footer.vue'
+import HeaderCoin from '~components/HeaderCoin.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message, Notification} from 'element-ui'
@@ -1481,7 +1483,7 @@ export default {
         }
     },
     components: {
-        BannerScroll, Footer, ScrollTop
+        BannerScroll, Footer, ScrollTop, HeaderCoin
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {
