@@ -856,6 +856,12 @@ export default {
             } else {
                 if (dataName === 'howToPlay' || dataName === 'myticket' || dataName === 'historyDraw') {
                     this.informationTab = dataName
+                    //  请求历史数据
+                    this.expectCurrentChange()
+                    //  用户投注订单记录  是否登录
+                    if (this.selfMsg) {
+                        this.orderCurrentChange()
+                    }
                 } else {
                     this.loginMetamask()
                 }

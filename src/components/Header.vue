@@ -517,14 +517,14 @@
                 }
             }, 0)
             let isReadyAlert = false
-            setInterval(async () => {
-                if (this.isLog && !isReadyAlert && !isForbitPage()) {
-                    let msg = await this.$store.dispatch('cs_activity/getChargeState')
-                    if (msg && msg.is_alert === '1') {
-                        isReadyAlert = true
-                    }
-                }
-            }, 15000)
+            // setInterval(async () => {
+            //     if (this.isLog && !isReadyAlert && !isForbitPage()) {
+            //         let msg = await this.$store.dispatch('cs_activity/getChargeState')
+            //         if (msg && msg.is_alert === '1') {
+            //             isReadyAlert = true
+            //         }
+            //     }
+            // }, 15000)
             this.$store.dispatch('adList')
         }
     }

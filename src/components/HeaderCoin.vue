@@ -543,6 +543,7 @@
                     content: 'N';
                     display: block;
                     position: absolute;
+                    z-index: 100;
                     top: 24px;
                     right:-2px;
                     border-radius: 2px;
@@ -1308,6 +1309,7 @@
                         content: 'N';
                         display: block;
                         position: absolute;
+                        z-index: 100;
                         bottom: 30px;
                         right:2px;
                         border-radius: 2px;
