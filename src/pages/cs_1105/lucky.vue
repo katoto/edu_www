@@ -830,7 +830,6 @@ export default {
                                 'js_playArea-li error-shake'
                         }
                     })
-<<<<<<< HEAD
                     document.getElementById('jsLoading').style.display = 'none'
                     setTimeout(() => {
                         noCompleteIndex.forEach((val, index) => {
@@ -843,32 +842,6 @@ export default {
                                     '.play-area-items .js_playArea-li'
                                 )[val].className =
                                     'js_playArea-li'
-=======
-                } else {
-                    this.baseAreaMsg.pickMoney = 0.001
-                }
-            },
-            async indexRouter (query) {
-                /* 邮箱注册 找回密码  邀请等 */
-                if (query.sign) {
-                    if (query.from === 'reg') {
-                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
-                        if (mailBack) {
-                            if (mailBack.status === '100') {
-                                if (parseFloat(mailBack.data.login_times) >= 0) {
-                                    // 显示第一次邀请
-                                    this.$store.commit('showFirstLogin', true)
-                                } else {
-                                    this.$store.commit('showFirstLogin', false)
-                                }
-                                this.$store.dispatch('getUserInfo')
-                                this.$store.commit('showRegSuccess')
-                            } else {
-                                Message({
-                                    message: mailBack.message,
-                                    type: 'error'
-                                })
->>>>>>> online
                             }
                         })
                     }, 800)
@@ -973,7 +946,6 @@ export default {
             } else {
                 this.baseAreaMsg.pickMoney = 0.001
             }
-<<<<<<< HEAD
         },
         async indexRouter (query) {
             /* 邮箱注册 找回密码  邀请等 */
@@ -1056,38 +1028,6 @@ export default {
                     setTimeout(() => {
                         this.$store.commit(mTypes.setjackPotMsg, null)
                     }, 5000 * parseFloat(prizeMsg.data.num))
-=======
-            this.updateBaseAreaMsg()
-            this.addTicket()
-            window.addEventListener('scroll', this.fixNav, true)
-            if (this.$store.state.route.query) {
-                this.indexRouter(this.$store.state.route.query)
-            }
-            // 首页 冒泡效果
-            setTimeout(() => {
-                /* 订阅lucky11 sock */
-                this.$store.dispatch('subInLucky')
-                /* 开启动态数据定时器 */
-                this.$store.dispatch(aTypes.recentBetAdd)
-                /* 动态结构化 */
-                structDom('lucky11')
-            }, 0)
-            bgStarBox()
-            function bgStarBox () {
-                bgstar('stars1', 30, '#7063c9')
-                bgstar('stars2', 10, '#fff')
-            }
-            function bgstar (id, num, color) {
-                let _width = window.innerWidth
-                let _height = document.getElementById('play-area').clientHeight * 5
-                let count = num
-                let str = ''
-                let str1 = ''
-                for (var i = 0; i < count; i++) {
-                    str += parseInt(Math.random() * _width) + 'px '
-                    str += parseInt(Math.random() * _height) + 'px '
-                    str += color + ','
->>>>>>> online
                 }
             }
         }
