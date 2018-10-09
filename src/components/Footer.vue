@@ -141,7 +141,7 @@
             }
         },
         mounted () {
-           if (~window.location.href.indexOf('policy')) {
+            if (~window.location.href.indexOf('policy')) {
                 let lan = this.$store.state.language
                 switch (lan) {
                 case 'en':
@@ -155,7 +155,7 @@
                     break
                 }
                 this.$store.commit('hideLoginPop')
-            }            
+            }
         }
     }
 </script>
