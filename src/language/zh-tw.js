@@ -779,7 +779,7 @@ module.exports = {
     'No Metamask?': '如何安裝Metamask?',
     'Pay 0.001 ETH': '使用 0.001ETH 購買',
     'Brief Introduction:': '遊戲介紹：',
-    'SuperCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!': 'SuperCoin是壹款基於區塊鏈技術的類眾籌遊戲，在這裏您可以使用如0.005ETH的小付出去贏得10個ETH甚至更多的數字貨幣獎勵！',
+    'SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!': 'SuperCoin是壹款基於區塊鏈技術的類眾籌遊戲，在這裏您可以使用如0.0ETH的小付出去贏得10個ETH甚至更多的數字貨幣獎勵！',
     'Gameplay:': '遊戲規則：',
     '1. At the beginning of the game, there will be a 10 ETH-prize pool and 1500 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time\'s up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).': '1. 遊戲會在初始輪贈送出10ETH的初始獎金，並初始化1500個隨機號碼。每個用戶通過購買票可獲得壹個隨機派送的號碼，當每輪倒計時結束後（或者總份數銷售完畢時），本場次將進行開獎。當開獎號碼和您獲得的隨機號碼壹致時，妳將贏得獎池裏壹定比例的金額（大於或等於10ETH）。',
     '2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy the dividend. More tickets bring more dividend.': '2. 分紅優勢：每壹輪前500張票的購買，都可以獲得後面購買人的壹定比例傭金，購票越多，分紅越多。',

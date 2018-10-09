@@ -1,5 +1,7 @@
 <template>
     <div class="luckyDapp">
+
+        <Header2></Header2>
         <div class="head-dapp" >
             <div class="head-dapp-wrap">
                 <h1 class="logo">
@@ -14,6 +16,7 @@
                 </div>
             </div>
         </div>
+
         <!--status2-->
         <div class="banner-dapp" :class="{'status2':nextScreen && pageSucc}">
             <!--公告 滚动  components-->
@@ -538,7 +541,7 @@
                     </template>
                     <div class="nomsg" v-else>
                         <p>
-                            <lang>No data</lang>
+                            <lang>No Data</lang>
                         </p>
                     </div>
 
@@ -550,7 +553,7 @@
                             <lang>Brief Introduction:</lang>
                         </p>
                         <p>
-                            <lang>SuperCoin is a crowdfunding game based on blockchain technology. 0.005 ETH bet can win 10 ETH or more!</lang>
+                            <lang>SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!</lang>
                             <span v-if="language==='en'">Check the <a href="https://etherscan.io/address/0x2119a3314c1d40704d816392a9e44da463688992#code" target="_blank">smart contract</a> now.</span>
                             <span v-if="language==='zhCn'">欢迎查看<a href="https://etherscan.io/address/0x2119a3314c1d40704d816392a9e44da463688992#code" target="_blank">智能合约。</a></span>
                             <span v-if="language==='zhTw'">歡迎查看<a href="https://etherscan.io/address/0x2119a3314c1d40704d816392a9e44da463688992#code" target="_blank">智能合約。</a></span>
@@ -646,6 +649,7 @@ import {
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
 import Footer from '~components/Footer.vue'
+import Header2 from '~components/Header2.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message, Notification} from 'element-ui'
@@ -1008,11 +1012,11 @@ export default {
                 if (this.selfMsg) {
                     earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
                 }
-                if (earnNum && Number(this.balance) < earnNum) {
-                    this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                } else {
-                    this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                }
+                // if (earnNum && Number(this.balance) < earnNum) {
+                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
+                // } else {
+                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                // }
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
@@ -1075,11 +1079,11 @@ export default {
                 if (this.selfMsg) {
                     earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
                 }
-                if (earnNum && Number(this.balance) < earnNum) {
-                    this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                } else {
-                    this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                }
+                // if (earnNum && Number(this.balance) < earnNum) {
+                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
+                // } else {
+                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                // }
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
@@ -1200,11 +1204,11 @@ export default {
                 earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
             }
             if (this.balance && Number(this.balance) > 0) {
-                if (earnNum && Number(this.balance) < earnNum) {
-                    this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                } else {
-                    this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                }
+                // if (earnNum && Number(this.balance) < earnNum) {
+                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
+                // } else {
+                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+                // }
             } else {
                 this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
@@ -1481,7 +1485,7 @@ export default {
         }
     },
     components: {
-        BannerScroll, Footer, ScrollTop
+        BannerScroll, Footer, ScrollTop,Header2
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {
