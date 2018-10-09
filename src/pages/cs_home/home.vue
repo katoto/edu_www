@@ -801,7 +801,7 @@ export default {
         z-index: 2;
         display: block;
         width: 50px;
-        height: 5   0px;
+        height: 50px;
         background: #000;
 
         &.game-change-pre {
@@ -1045,7 +1045,14 @@ export default {
         .icon-btc {
             i {
                 background: url("../../assets/img/home/table-bth.png") no-repeat
-                    center;
+                center;
+                background-size: cover;
+            }
+        }
+        .icon-cc {
+            i {
+                background: url("../../assets/img/home/table-cc.png") no-repeat
+                center;
                 background-size: cover;
             }
         }
@@ -1182,7 +1189,7 @@ export default {
                 animation-delay: 0.5s;
             }
             .circle3 {
-                animation-delay: 0;
+                animation-delay: 0s;
             }
         }
     }
@@ -1198,7 +1205,8 @@ export default {
         .recent-water {
             width: 100%;
             .icon-btc,
-            .icon-eth {
+            .icon-eth,
+            .icon-cc{
                 i {
                     display: none !important;
                 }
