@@ -15,8 +15,10 @@ const helpView = () =>
 
 /* cs_1105 */
 /* cs_1105 首页 */
-const lucky11 = () => import('~/pages/cs_1105/lucky')
-const test = () => import('~/pages/cs_1105/test')
+const lucky11 = () =>
+    import('~/pages/cs_1105/lucky')
+const test = () =>
+    import('~/pages/cs_1105/test')
 /* cs_1105 开奖页 */
 const csDrawNum = () =>
     import('~/pages/cs_1105/drawNumber')
@@ -64,7 +66,8 @@ const luckcoinMoreBids = () =>
 const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
-const csPoker = () => import('~/pages/cs_luckyPoker/index')
+const csPoker = () =>
+    import('~/pages/cs_luckyPoker/index')
 
 /* 品牌首页 */
 const Home = () =>
@@ -79,13 +82,14 @@ const adHomeDetail = () =>
     import('~/pages/cs_home/ad-home-detail')
 
 // 充值送
-const actFirstCharge = () => import('~/pages/cs_activity/cs_actFirstCharge')
+const actFirstCharge = () =>
+    import('~/pages/cs_activity/cs_actFirstCharge')
 
 /* Dapp 一元夺币 */
-const supercoin = () => import('~/pages/dappCoin/dappCoin.vue')
+const supercoin = () =>
+    import('~/pages/dappCoin/dappCoin.vue')
 
-let routesArr = [
-    {
+let routesArr = [{
         path: '/test',
         name: 'test',
         component: test
@@ -156,8 +160,7 @@ let routesArr = [
     {
         path: '/luckycoin',
         component: luckycoin,
-        children: [
-            {
+        children: [{
                 path: 'drawHistory',
                 meta: {
                     history: true
@@ -190,8 +193,7 @@ let routesArr = [
     {
         path: '/account',
         component: account,
-        children: [
-            {
+        children: [{
                 path: 'general',
                 name: _('General'),
                 component: General
@@ -223,8 +225,8 @@ let routesArr = [
         ]
     },
     {
-        path: '/Promotions',
-        name: 'Promotions',
+        path: '/promotions',
+        name: 'promotions',
         component: adHome
     },
     {
