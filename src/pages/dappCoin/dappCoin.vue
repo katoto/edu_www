@@ -1,7 +1,6 @@
 <template>
     <div class="luckyDapp">
 
-        <Header2></Header2>
         <div class="head-dapp" >
             <div class="head-dapp-wrap">
                 <h1 class="logo">
@@ -649,7 +648,6 @@ import {
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
 import Footer from '~components/Footer.vue'
-import Header2 from '~components/Header2.vue'
 import vueClipboard from 'vue-clipboard2'
 import {web3, luckyCoinApi, contractNet} from '~/dappApi/luckycoinApi'
 import {Message, Notification} from 'element-ui'
