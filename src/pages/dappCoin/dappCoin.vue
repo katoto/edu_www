@@ -3,7 +3,7 @@
         <div class="head-dapp" >
             <div class="head-dapp-wrap">
                 <h1 class="logo">
-                    <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp">
+                    <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp" class="hide">
                     <p>SuperCoin</p>
                 </h1>
                 <div class="fr-msg">
