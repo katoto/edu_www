@@ -755,7 +755,7 @@ export default {
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         showNewguide () {
-            if (this.timeLeft < 7200) {
+            if (this.timeLeft < 600) {
                 // 滚到 local
                 this.informationTab = 'howToPlay'
                 document.getElementById('inviteView').scrollIntoView()
