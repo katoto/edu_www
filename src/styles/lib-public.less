@@ -1763,19 +1763,20 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
             display: none;
             // display: block;
             position: absolute;
-            left: -256px;
-            top: -175px;
+            left: -340px;
+            top: -160px;
             min-width: 312px;
             padding: 25px 18px 30px;
             background: #fff;
             border-radius: 8px;
             white-space: nowrap;
             z-index: 100;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             &::before{
                 content: '';
                 position: absolute;
                 bottom: -8px;
-                left: 254px;
+                left: 337px;
                 display: block;
                 width: 0;
                 height: 0;
@@ -1808,7 +1809,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
         .btn-cc{
             div{
                 p{
-                    color: #532998;
+                    color: #6a89cc;
                 }
             }
         }
@@ -1822,7 +1823,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
         .btn-cc{
             div{
                 p{
-                    color: #fd9644;
+                    color: #6a89cc;
                 }
             }
         }
@@ -1873,4 +1874,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
           }
        }
     }
+}
+@media (max-width: 768px) {
+
 }

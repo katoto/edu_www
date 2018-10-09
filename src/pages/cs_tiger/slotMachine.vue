@@ -1249,7 +1249,7 @@ Vue.use(vueClipboard)
     .tiger {
         position: relative;
         -webkit-overflow-scrolling: touch;
-        overflow: hidden;
+        /*overflow: hidden;*/
         .bg-tiger {
             display: block;
             width: 100%;
@@ -1258,7 +1258,7 @@ Vue.use(vueClipboard)
     }
 
     .tiger-wrap {
-        overflow: hidden;
+        /*overflow: hidden;*/
         position: absolute;
         left: 0;
         top: 0;
@@ -2359,7 +2359,6 @@ Vue.use(vueClipboard)
         }
         .tiger {
             width: 375px;
-            overflow: hidden;
             border-left: 25px solid #080603;
             border-right: 25px solid #080603;
         }
