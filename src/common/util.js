@@ -9,6 +9,11 @@ export const tipsTime = 3000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
 
+//  社区地址 online
+export const coinAffAddr = '0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF'
+// 线下社区地址
+// export const coinAffAddr = '0xb0555F2389d9Bf1389C8e548c60a6DDc77F3A4eE'
+
 export function mapActions (acts, ns) {
     const aTypes = {}
     const actions = {}
@@ -20,9 +25,19 @@ export function mapActions (acts, ns) {
 }
 
 export const platform = 'pc'
-// export const platform = (function () {
-// return ~navigator.userAgent.indexOf('iPhone') ? 'ios' : 'android'
-// })()
+
+export function isForbitPage () {
+    // 无需要刷接口 (禁止请求页面接口、websocket)
+    let forbitName = ['/supercoin']
+    let isForbit = false
+    for (let i = 0, len = forbitName.length;i < len;i++) {
+        if (window.location.href.indexOf(forbitName[i]) > -1) {
+            isForbit = true
+            break
+        }
+    }
+    return isForbit
+}
 
 export function mapMutations (muts, ns) {
     const mTypes = {}
@@ -249,6 +264,10 @@ export function formateJackpot (val = 0) {
  *   金币类型
  * */
 export function formateCoinType (type = '2001') {
+    if (!type) {
+        console.error('formateCoinType type error')
+        return false
+    }
     type = type.toString()
     switch (type) {
     case '2001':
@@ -260,6 +279,11 @@ export function formateCoinType (type = '2001') {
     default:
         return 'ETH'
     }
+}
+
+export function formateCoinAddr (addr) {
+    addr = addr.toString()
+    return addr.slice(0, 4) + '***' + addr.slice(-4)
 }
 
 export function formateEmail (email, isFull) {

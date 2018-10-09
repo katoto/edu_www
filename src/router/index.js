@@ -81,6 +81,9 @@ const adHomeDetail = () =>
 // 充值送
 const actFirstCharge = () => import('~/pages/cs_activity/cs_actFirstCharge')
 
+/* Dapp 一元夺币 */
+const supercoin = () => import('~/pages/dappCoin/dappCoin.vue')
+
 let routesArr = [
     {
         path: '/test',
@@ -114,6 +117,11 @@ let routesArr = [
         path: '/check',
         name: 'check',
         component: check
+    },
+    {
+        path: '/supercoin/:inviteName?',
+        name: 'supercoin',
+        component: supercoin
     },
     {
         path: '/lucky11',

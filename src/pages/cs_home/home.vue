@@ -7,6 +7,7 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
+<<<<<<< HEAD
                         <el-carousel :interval="5000" @change="bgchange">
                             <el-carousel-item>
                                 <div class="banner-t1">
@@ -34,12 +35,25 @@
                                 </a>
                                 <router-link v-else to="/check" class="banner-more">
                                     <lang>Details </lang>
+=======
+                        <el-carousel :interval="5000" >
+                            <el-carousel-item>
+                                <router-link to="/superCoin" class="btn-superCoin" style="display: block;">
+                                    <div class="banner-superCoin-t1" >
+                                        <lang>SUPERCOIN</lang>
+                                    </div>
+                                    <p class="banner-superCoin-t2" v-lang="'Win 10 ETH Prize Pool<br>Every 2 Hours'">
+                                    </p>
+                                    <p class="btn-superCoin" v-lang="'Attractive Prize Pool.&nbsp;&nbsp;Buy Sooner, Earn Higher >>'" >
+                                    </p>
+>>>>>>> online
                                 </router-link>
                             </el-carousel-item>
                         </el-carousel>
                     </div>
                 </div>
                 <div class="row clearfix items-game ">
+<<<<<<< HEAD
                     <a href="javascropt:;" class="game-change game-change-pre" @click="gamePre">pre</a>
                     <!--各种游戏宣传图-->
                     <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}"  ref="gameList">
@@ -55,6 +69,37 @@
                                     </p>
                                     <p class="msg2">
                                         高达98%返奖率
+=======
+
+                    <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
+                            <router-link :to="{path: '/supercoin'}" class="game-supercoin">
+                                <p class="msg1"><lang>SuperCoin</lang></p>
+                                <p class="msg2"><lang>Win 10 ETH Prize Pool Every 2 Hours</lang></p>
+                                <p class="msg3"><lang>Prize Pool</lang></p>
+                                <p class="msg4">
+                                    <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
+                                    <i> ETH</i>
+                                </p>
+                                <p class="msg5">{{formatUSD(entrance.megacoin.USD, 10)}} USD</p>
+                               <div class="game-btn">
+                                    <lang>Play Now </lang>
+                               </div>
+                            </router-link>
+                        </div>
+                    </div>
+                    <!--各种游戏宣传图-->
+                    <div class="col-xs-12 col-md-4">
+                            <div class="for-full">
+                                <router-link :to="{path: '/luckyPoker'}" class="game-poker">
+                                    <p class="msg1">
+                                        <lang>LuckyPoker</lang>    
+                                    </p>
+                                    <p class="msg2">
+                                        <lang>Classic game with high reward</lang>
+                                    </p>
+                                    <p class="msg2" v-lang="'Win <i class=bold>98%+</i> Return Rate'">
+>>>>>>> online
                                     </p>
                                     <p style="height:101px"></p>
                                     <div class="game-btn">
@@ -62,6 +107,7 @@
                                     </div>
                                 </router-link>
                             </div>
+<<<<<<< HEAD
                         </div>
                         <div class="">
                             <div class="for-full">
@@ -131,6 +177,59 @@
                                     </div>
                                 </router-link>
                             </div>
+=======
+                        </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
+                            <router-link :to="{path: '/luckySlot'}"  class="game-slot">
+                                <p class="msg1"><lang>LuckySlot</lang></p>
+                                <p class="msg2"><lang>Win 97%+ Return Rate</lang></p>
+                                <p class="msg3"><lang>Jackpot</lang></p>
+                                <p class="msg4">
+                                    <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
+                                    <i> {{formateCoinType(entrance.slot.cointype)}}</i>
+                                </p>
+                                <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
+                                <div class="game-btn">
+                                    <lang>Play Now </lang>
+                                </div>
+                            </router-link>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-xs-12 col-md-4">
+                        <div class="for-full">
+                            <router-link :to="{path: '/luckycoin/'}" class="game-supercoin">
+                                <p class="msg1"><lang>SuperCoin</lang></p>
+                                <p class="msg2"><lang>Win 10 ETH Prize Pool Every 2 Hours</lang></p>
+                                <p class="msg3"><lang>Prize Pool</lang></p>
+                                <p class="msg4">
+                                    <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
+                                    <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
+                                </p>
+                                <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
+                               <div class="game-btn">
+                                    <lang>Play Now </lang>
+                               </div>
+                            </router-link>
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-md-4 hide">
+                        <div class="for-full">
+                            <router-link :to="{path: '/lucky11'}" class="game-11t5">
+                                <p class="msg1"><lang>Lucky11</lang></p>
+                                <p class="msg2"><lang>Classic game with high reward</lang></p>
+                                <p class="msg3"><lang>Jackpot </lang></p>
+                                <p class="msg4">
+                                    <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
+                                    <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
+                                </p>
+                                <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
+                                <div class="game-btn">
+                                    <lang>Play Now </lang>
+                                </div>
+                            </router-link>
+>>>>>>> online
                         </div>
                     </div>
                     <a href="javascropt:;" class="game-change game-change-next" @click="gameNext">next</a>
@@ -444,6 +543,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { mapActions } from 'vuex'
@@ -458,6 +558,23 @@ import {
 } from '~/common/util'
 import { aTypes } from '~/store/cs_page/cs_1105'
 import { Message } from 'element-ui'
+=======
+    import Header from '~components/Header.vue'
+    import Footer from '~components/Footer.vue'
+    import {mapActions} from 'vuex'
+    import {
+        formatTime,
+        formateCoinType,
+        formateBalance,
+        formatNum,
+        removeCK,
+        formatUSD,
+        structDom
+    } from '~/common/util'
+    import {aTypes} from '~/store/cs_page/cs_1105'
+    import {Message} from 'element-ui'
+    import {luckyCoinApi} from '~/dappApi/luckycoinApi'
+>>>>>>> online
 
 export default {
     data () {
@@ -500,11 +617,35 @@ export default {
                     goodsvalue: '',
                     jackpot: 0
                 },
+<<<<<<< HEAD
                 syxw: {
                     USD: '',
                     cointype: '2001',
                     goodsvalue: '',
                     jackpot: 0
+=======
+                entrance: {
+                    megacoin: {
+                        USD: '',
+                        cointype: '2001',
+                        goodsvalue: ''
+                    },
+                    slot: {
+                        USD: '',
+                        cointype: '2001',
+                        goodsvalue: '',
+                        jackpot: 0
+                    },
+                    syxw: {
+                        USD: '',
+                        cointype: '2001',
+                        goodsvalue: '',
+                        jackpot: 0
+                    }
+                },
+                roundInfo: {
+                    jackpot: 10
+>>>>>>> online
                 }
             }
         }
@@ -514,6 +655,7 @@ export default {
         bgchange (currenindex, index) {
             this.bghome = 'bghome' + currenindex
         },
+<<<<<<< HEAD
         onResize () {
             this.initGamePreNext()
         },
@@ -576,6 +718,52 @@ export default {
                             if (parseFloat(mailBack.data.login_times) >= 0) {
                                 // 显示第一次邀请
                                 this.$store.commit('showFirstLogin', true)
+=======
+        methods: {
+            formatUSD,
+            ...mapActions('home', [
+                'getHomeBet',
+                'getHomeDraw',
+                'getHomeWithdraw',
+                'getHomeEntrance'
+            ]),
+            formatTime,
+            formateBalance,
+            formateCoinType,
+            formatNum,
+            async getRoundInfo () {
+                this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+                if (this.roundInfo && parseInt(this.roundInfo.jackpot) < 10) {
+                    this.roundInfo.jackpot = 10
+                }
+            },
+            onSignUp () {
+                this.$store.commit('showRegPop')
+            },
+            formatMoney (num) {
+                let money = formatNum(Number(num), 5).toFixed(5)
+                return money.length > 7 ? money.substring(0, 7) : money
+            },
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
+            },
+            async indexRouter (query) {
+                /* 邮箱注册 找回密码  邀请等 */
+                if (query.sign) {
+                    if (query.from === 'reg') {
+                        let mailBack = await this.$store.dispatch(aTypes.mailActivate, query.sign)
+                        if (mailBack) {
+                            if (mailBack.status === '100') {
+                                if (parseFloat(mailBack.data.login_times) >= 0) {
+                                    // 显示第一次邀请
+                                    this.$store.commit('showFirstLogin', true)
+                                } else {
+                                    this.$store.commit('showFirstLogin', false)
+                                }
+                                this.$store.dispatch('getUserInfo')
+                                this.$store.commit('showRegSuccess')
+>>>>>>> online
                             } else {
                                 this.$store.commit('showFirstLogin', false)
                             }
@@ -687,6 +875,13 @@ export default {
                     that.timer = false
                 }, 400)
             }
+<<<<<<< HEAD
+=======
+            /* 动态结构化 */
+            structDom('home')
+            //  取supercoin 金额
+            this.getRoundInfo()
+>>>>>>> online
         }
     }
 }
@@ -739,11 +934,44 @@ export default {
             overflow: hidden;
             font-weight: bold;
         }
+<<<<<<< HEAD
         .banner-t11 {
             line-height: 27px;
             font-size: 23px;
             overflow: hidden;
             font-weight: bold;
+=======
+        .el-carousel__item {
+            text-align: left;
+            img {
+                display: block;
+                width: 145px;
+                margin: 70px auto 0;
+            }
+            .banner-superCoin-t1 {
+                margin-top: 25px;
+                font-size: 30px;
+                line-height: 50px;
+                color: #d648ff;
+                em{
+                    font-style: italic;
+                }
+            }
+            .banner-superCoin-t2{
+                color: #ffde6b;
+                font-size: 26px;
+                font-weight: bold;
+                font-family: sans-eb;
+                line-height: 30px;
+            }
+            .btn-superCoin {
+                display: block;
+                margin-top: 12px;
+                line-height: 22px;
+                font-size: 16px;
+                color: #ffde6b;
+            }
+>>>>>>> online
         }
         .banner-t2 {
             width: 90%;
@@ -751,7 +979,15 @@ export default {
             line-height: 18px;
             font-size: 10px;
         }
+<<<<<<< HEAD
         .banner-more {
+=======
+        .game-poker,
+        .game-11t5,
+        .game-slot,
+        .game-onecoin,
+        .game-supercoin {
+>>>>>>> online
             display: block;
             width: 150px;
             height: 35px;
@@ -767,7 +1003,31 @@ export default {
                 border-color: #fff;
             }
         }
+<<<<<<< HEAD
         .banner-firstCharge {
+=======
+        .game-poker{
+            background: url("../../assets/img/home/game-poker.png") no-repeat center;
+            background-size: cover;
+        }
+        .game-11t5 {
+            background: url("../../assets/img/home/game1.png") no-repeat left top;
+            background-size: cover;
+        }
+        .game-slot {
+            background: url("../../assets/img/home/game2.png") no-repeat left top;
+            background-size: cover;
+        }
+        .game-onecoin {
+            background: url("../../assets/img/home/game3.png") no-repeat left top;
+            background-size: cover;
+        }
+        .game-supercoin {
+            background: url("../../assets/img/home/game-superCoin.png") no-repeat left top;
+            background-size: cover;
+        }
+        .game-btn {
+>>>>>>> online
             display: block;
             width: 190px;
             height: 35px;
@@ -1176,6 +1436,7 @@ export default {
                 left: 0;
                 width: 18px;
                 height: 18px;
+<<<<<<< HEAD
                 border: 1px solid #68a4ff;
                 border-radius: 50%;
                 animation-name: animate-img3;
@@ -1190,6 +1451,30 @@ export default {
             }
             .circle3 {
                 animation-delay: 0s;
+=======
+                transform: rotateX(50deg);
+                .circle {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 18px;
+                    height: 18px;
+                    border: 1px solid #68a4ff;
+                    border-radius: 50%;
+                    animation-name: animate-img3;
+                    animation-duration: 3s;
+                    animation-iteration-count: infinite;
+                }
+                .circle1 {
+                    animation-delay: 1s;
+                }
+                .circle2 {
+                    animation-delay: 0.5s;
+                }
+                .circle3 {
+                    animation-delay: 0s;
+                }
+>>>>>>> online
             }
         }
     }
@@ -1198,6 +1483,7 @@ export default {
 @media (max-width: @screen-phone) {
 }
 
+<<<<<<< HEAD
 @media (max-width: @screen-tablet) {
     .items-msg {
         .recent-bet,
@@ -1209,12 +1495,28 @@ export default {
             .icon-cc{
                 i {
                     display: none !important;
+=======
+    @media (max-width: @screen-tablet) {
+        .home{
+            background-size: 1190px;
+        }
+        .items-msg {
+            .recent-bet,
+            .recent-win,
+            .recent-water {
+                width: 100%;
+                .icon-btc,.icon-eth{
+                    i{
+                        display: none !important;
+                    }
+>>>>>>> online
                 }
             }
         }
     }
 }
 
+<<<<<<< HEAD
 @media (min-width: @screen-tablet) {
     .home {
         /*banner*/
@@ -1226,6 +1528,27 @@ export default {
             .banner-t2 {
                 line-height: 26px;
                 font-size: (1600)/1920vw;
+=======
+    @media (min-width: @screen-tablet) {
+        .home {
+            /*banner*/
+            .el-carousel__item {
+                padding-left: 106px;
+                .banner-superCoin-t1 {
+                    margin-top: 24px;
+                    font-size: 41px;
+                    line-height: 72px;
+                }
+                .banner-superCoin-t2{
+                    font-size: 43px;
+                    line-height: 42px;
+                }
+                .btn-superCoin {
+                    margin-top: 12px;
+                    line-height: 22px;
+                    font-size: 20px;
+                }
+>>>>>>> online
             }
         }
         /*banner*/
@@ -1255,6 +1578,7 @@ export default {
             > div + div {
                 margin-top: 0;
             }
+<<<<<<< HEAD
         }
         .game-poker,
         .game-11t5,
@@ -1265,6 +1589,19 @@ export default {
             transform-origin: bottom;
             &:hover {
                filter: brightness(1.1)
+=======
+            .game-poker,
+            .game-11t5,
+            .game-slot,
+            .game-onecoin,
+            .game-supercoin{
+                width: 100%;
+                transition: all 0.2s;
+                transform-origin: bottom;
+                &:hover {
+                    transform: scale(1.08);
+                }
+>>>>>>> online
             }
         }
         .game-btn {
@@ -1294,9 +1631,28 @@ export default {
                 line-height: 66px;
                 font-size: 52px;
             }
+<<<<<<< HEAD
             .banner-t2 {
                 line-height: 28px;
                 font-size: 16px;
+=======
+            .el-carousel__item {
+                padding-left: 353px;
+                .banner-superCoin-t1 {
+                    margin-top: 52px;
+                    line-height: 94px;
+                    font-size: 56px;
+                }
+                .banner-superCoin-t2 {
+                    line-height: 60px;
+                    font-size: 60px;
+                    font-weight: bold;
+                }
+                .btn-superCoin{
+                    line-height: 70px;
+                    font-size: 30px;
+                }
+>>>>>>> online
             }
         }
         /*banner*/

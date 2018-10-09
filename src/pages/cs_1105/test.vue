@@ -3,7 +3,6 @@
         test
     </div>
 </template>
-
 <script>
     export default {
         data () {
@@ -14,10 +13,11 @@
         computed: {},
         components: {},
         mounted () {
-        
+    
         }
     }
 </script>
 
 <style scope lang="less" type="text/less">
+
 </style>

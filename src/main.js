@@ -7,7 +7,6 @@ import { sync } from 'vuex-router-sync'
 import lanaguage from './plugins/language'
 import message from './plugins/message'
 import vueClipboard from 'vue-clipboard2'
-import { defaultLanguage } from '~common/util'
 // 全局
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
@@ -74,6 +73,10 @@ router.beforeEach((to, from, next) => {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('luckyslot, blockchain-based casino game, Ethereum casino game, bitcoin casino game, high frequency bitcoin play, token bet'))
         document.title = _('luckyslot-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize')
         document.getElementsByTagName('meta')['description'].setAttribute('content', _('luckyslot is a blockchain-based high frequency casino game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!'))
+    } else if (to.path.indexOf('supercoin') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!'))
+        document.title = _('SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!')
+        document.getElementsByTagName('meta')['description'].setAttribute('content', _('SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!'))
     } else if (to.path.indexOf('coin') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('LuckyCoin, blockchain-based bid game, Ethereum bid game, bitcoin bid game, token bet'))
         document.title = _('LuckyCoin-- A Blockchain-Based Bid Game Supports Bitcoin and Ethereum Play-- Coinsprize')

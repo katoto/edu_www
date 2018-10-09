@@ -82,160 +82,9 @@
                         <!--</li>-->
                     </ul>
                 </div>
-                <!-- 登录  -->
-                <div class="login">
-                    <!-- 未登录 -->
-                    <!--拉新活动提示-->
-                    <div class="act-sign" v-if="!isLog">
-                        <lang>0.0001 BTC for free</lang>
-                    </div>
-                    <div class="to-login" v-if="!isLog" >
-                        <a href="javascript:;" @click="onLoginIn">
-                            <lang>Log In</lang>
-                        </a>
-                        <a href="javascript:;" @click="onSignUp">
-                            <lang>Sign Up</lang>
-                        </a>
-                    </div>
-                    <!-- 登录 -->
-                    <section v-else>
-                        <div class="mycount" :class="{on:isShowMycount}" @click="headControlPop('showMycount')">
-                            <!-- light  闪动特效 -->
-                            <div class="countNum" v-if="currBalance" :class="{'light':showLight}">
-                                <span class="icon-user"></span>
-                                {{ formateBalance(currBalance.balance, currBalance.cointype) }} {{ currBalance.cointype |formateCoinType }}
-                                <i></i>
-                            </div>
-                            <div class="mycount-detailed ">
-                                <div class="account-info">
-                                    <div class="email js_email-account" :title="userInfo.email">
-                                        {{ userInfo.email }}
-                                    </div>
-                                    <div class="uid">
-                                        <lang>UserID</lang>
-                                        :<i class="js_user_uid">{{ userInfo.uid }}</i>
-                                    </div>
-                                </div>
-
-                                <router-link @click.native="changH5Msg('My Bets')" :to="{path: '/account/myBets'}"  class="my-transaction">
-                                    <lang>My Bets</lang>
-                                </router-link>
-                                <router-link @click.native="changH5Msg('General')" :to="{path: '/account/general'}" class="account-center">
-                                    <lang>Account Center</lang>
-                                </router-link>
-                                <router-link @click.native="changH5Msg('Top Up')" :to="{path: '/account/deposit'}" class="account-deposit">
-                                    <lang>Top Up</lang>
-                                </router-link>
-                                <router-link @click.native="changH5Msg('Withdraw')" :to="{path: '/account/withdraw'}" class="account-withdraw">
-                                    <lang>Withdraw</lang>
-                                </router-link>
-                                <div class="currency-select">
-                                    <p>
-                                        <lang>Select Coin</lang>
-                                    </p>
-                                    <ul>
-                                        <li v-for="(item, index) in userInfo.accounts"
-                                            :key="index"
-                                            :class="{'on': item.cointype === currBalance.cointype }"
-                                            @click="changeAccounts( item )">
-                                            <div class="currency-account">
-                                                <i >{{ item.cointype | formateCoinType }}</i>
-                                                <span >{{ formateBalance(item.balance, item.cointype) }}</span>
-                                            </div>
-                                            <!--<a :href="'https://etherscan.io/address/'+currBalance.address" v-if="currBalance.cointype==='2001'" target="_blank" class="address">{{ item.address }}</a>-->
-                                            <a v-if="currBalance.cointype==='2001'" class="address"
-                                               v-clipboard:copy="currBalance.address"
-                                               v-clipboard:success="copySucc"
-                                               v-clipboard:error="copyError"
-                                            >{{ item.address }}</a>
-                                            <!--<a :href="'https://www.blockchain.com/btc/address/'+currBalance.address" target="_blank" v-if="currBalance.cointype==='1001'" class="address">{{ item.address }}</a>-->
-                                            <a v-if="currBalance.cointype==='1001'" class="address"
-                                               v-clipboard:copy="currBalance.address"
-                                               v-clipboard:success="copySucc"
-                                               v-clipboard:error="copyError"
-                                            >{{ item.address }}</a>
-                                            <a v-if="currBalance.cointype==='2000'" class="address"
-                                               v-clipboard:copy="currBalance.address"
-                                               v-clipboard:success="copySucc"
-                                               v-clipboard:error="copyError"
-                                            >{{ item.address }}</a>
-                                        </li>
-                                        <!--<li>-->
-                                            <!--<div class="currency-input"></div>-->
-                                            <!--<div class="currency-account">-->
-                                                <!--<i >BTC</i>-->
-                                                <!--<span >107.894</span>-->
-                                            <!--</div>-->
-                                            <!--<a href="javascript:;" class="address">0xD6d93A11751694c20D3E4a3e684A6C877401CBe9</a>-->
-                                        <!--</li>-->
-                                    </ul>
-                                </div>
-                                <a href="javascript:;" @click="signOut" class="log-out">
-                                    <lang>Log Out</lang>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="hadlogin" >
-                            <router-link :to="{path: '/account/deposit'}" class="btn-rechrage">
-                                <lang>Top Up</lang>
-                            </router-link>
-                            <router-link :to="{path: '/account/withdraw'}" class="btn-cash">
-                                <lang>Withdraw</lang>
-                            </router-link>
-                        </div>
-                    </section>
-                </div>
-
-                <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet" v-if="isLog">
-                    <div>
-                        <a href="javascript:;" @click="showFaucet" class="btn-faucet" >
-                        </a>
-                        <p class="redPoint" style="" v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
-                    </div>
-                    <div class="faucet-detailed" :class="{'show':freeWaterPop}">
-                        <div class="faucet-title">
-                            <lang>Free Bonus</lang>
-                        </div>
-                        <ul>
-                            <li>
-                                <p v-lang="$lang.risk.a26"></p>
-                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray">{{$lang.risk.a28}}</a>
-                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green">{{$lang.risk.a28}}</a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow">{{$lang.risk.a28}}</a>
-                                <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray">{{$lang.risk.a28}}</a>
-                            </li>
-                            <li>
-                                <p v-lang="$lang.risk.a27"></p>
-                                <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Top Up</lang></a>
-                                <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green"><lang>Free Spin</lang></a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow"><lang>Play</lang></a>
-                                <a href="javascript:;" v-if="tasks_3==='0'" class="btn-comeTom"><lang>Come Tomorrow</lang></a>
-                            </li>
-                            <li v-if="userInfo">
-                                <p v-if="userInfo.last_recharge==='BTC'" v-lang="'Get <b>0.0001BTC</b>/ 0.001ETH (Log in for 7 consecutive days)'"></p>
-                                <p  v-else v-lang="'Get 0.0001BTC/ <b>0.001ETH</b> (Log in for 7 consecutive days)'"></p>
-                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green"><lang>Free Spin</lang></a>
-                                <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray"><lang>Come Tomorrow</lang></a>
-                                <div v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</div>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <!--浮层 -->
-                    <!--第一次登陆 -->
-                    <section v-if="showFirstLogin&&isLog">
-                        <div class="newFirst">
-                            <div class="msg">
-                                <p>
-                                    <lang>Sign Up to Get 0.0001 BTC for Free</lang>
-                                </p>
-                                <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
-                                    <lang>Get it !</lang>
-                                </a>
-                            </div>
-                        </div>
-                    </section>
+                <div class="fr-msg">
+                    <a class="contract" href="https://etherscan.io/address/0x2119a3314c1d40704d816392a9e44da463688992#code" target="_blank"><lang>Contract</lang></a>
+                    <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
                 </div>
             </div>
 
@@ -272,53 +121,6 @@
             <p class="el-message__content">
                 <lang>Failed to activate, because of wrong email format</lang>
             </p>
-        </div>
-
-        <div class="pop pop_cc1" v-if="showCanGetCCTask">
-            <div class="pop-body">
-                <div class="pop-ani">
-                    <a href="javascript:;" class="btn-close" @click="showCanGetCCTask = false"></a>
-                    <div>
-                        <p v-html="$lang.risk.a20"></p>
-                        <div class="btn-box ">
-                            <a href="javascript:;" class="btn btn-get" @click="showCanGetCCTask = false;taskClick('task_2',tasks_2);">{{$lang.risk.a25}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="pop pop_cc1" v-if="showUseAllCCPop">
-            <div class="pop-body">
-                <div class="pop-ani">
-                    <a href="javascript:;" class="btn-close" @click="showUseAllCCPop = false"></a>
-                    <div>
-                        <p v-html="$lang.risk.a21"></p>
-                        <div class="btn-box">
-                            <router-link :to="{path: '/account/deposit'}" class="btn btn-topUp" @click="showUseAllCCPop = false">
-                                <lang>Top Up</lang>
-                            </router-link>
-                            <a href="javascript:;" class="btn later-later" @click="showUseAllCCPop = false">{{$lang.risk.a24}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="pop pop_cc1" v-if="showWinALotCCPop">
-            <div class="pop-body">
-                <div class="pop-ani">
-                    <a href="javascript:;" class="btn-close" @click="showWinALotCCPop = false"></a>
-                    <div>
-                        <p v-html="$lang.risk.a22"></p>
-                        <p v-html="$lang.risk.a23"></p>
-                        <div class="btn-box">
-                            <router-link :to="{path: '/account/deposit'}" class="btn btn-topUp" @click="showWinALotCCPop = false">
-                                <lang>Top Up</lang>
-                            </router-link>
-                            <a href="javascript:;" class="btn later-later" @click="showWinALotCCPop = false">{{$lang.risk.a24}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -363,10 +165,7 @@
                 tasks_2: '-1',
                 tasks_3: '-1',
                 tasks_4: '-1',
-                tasks_day: '0',
-                showUseAllCCPop: false,
-                showWinALotCCPop: false,
-                showCanGetCCTask: false
+                tasks_day: '0'
             }
         },
         watch: {
@@ -376,26 +175,6 @@
                 this.isChooseCoin = false
                 this.isShowChoose = false
                 this.freeWaterPop = false
-            },
-            isLog () {
-                this.autoChangeDefaultAccount()
-            },
-            CCNum (newVal, val) {
-                newVal = Number(newVal)
-                val = Number(val)
-                if (isNaN(newVal) || isNaN(val)) {
-                    return
-                }
-                let hasTask = this.tasks_2 === '1'
-                let isEmpty = (newVal < 0.1)
-                let winAlot = (newVal - val) > 10
-                if (hasTask && isEmpty) {
-                    this.showCanGetCCTask = true
-                } else if (!hasTask && isEmpty) {
-                    this.showUseAllCCPop = true
-                } else if (winAlot) {
-                    this.showWinALotCCPop = true
-                }
             }
         },
         computed: {
@@ -431,17 +210,6 @@
             },
             showEmailErr () {
                 return this.$store.state.showEmailErr
-            },
-            CCNum () {
-                let num = 0
-                if (this.userInfo && this.userInfo.accounts && this.userInfo.accounts.length > 0) {
-                    this.userInfo.accounts.forEach(item => {
-                        if (item.cointype === '2000') {
-                            num = Number(item.balance)
-                        }
-                    })
-                }
-                return num
             }
         },
         methods: {
@@ -450,28 +218,9 @@
             formateCoinType,
             copySucc,
             copyError,
-            autoChangeDefaultAccount () {
-                setTimeout(() => {
-                    if (this.isLog) {
-                        this.changeDefaultAccount()
-                    }
-                }, 200)
-            },
-            changeDefaultAccount () {
-                let accounts = this.userInfo.accounts
-                let BTCAccount = accounts.filter(account => account.cointype === '1001')
-                let BTCHasBalance = (BTCAccount && BTCAccount[0] && Number(BTCAccount[0].balance) > 0)
-                let ETHAccount = accounts.filter(account => account.cointype === '2001')
-                let ETHHasBalance = (ETHAccount && ETHAccount[0] && Number(ETHAccount[0].balance) > 0)
-                let CCAccount = accounts.filter(account => account.cointype === '2000')
-                let CCHasBalance = (CCAccount && CCAccount[0] && Number(CCAccount[0].balance) > 0)
-                if (BTCHasBalance) {
-                    this.changeAccounts(BTCAccount[0])
-                } else if (ETHHasBalance) {
-                    this.changeAccounts(ETHAccount[0])
-                } else if (CCHasBalance) {
-                    this.changeAccounts(CCAccount[0])
-                }
+            scrollInvite () {
+                /* 执行到父组件 */
+                this.$emit('scrollInvite', 'scrollInvite')
             },
             async readyGetFirst () {
                 await this.$store.dispatch('cs_activity/rechargealert')
@@ -626,16 +375,15 @@
                 }
             }, 0)
             let isReadyAlert = false
-            // setInterval(async () => {
-            //     if (this.isLog && !isReadyAlert && !isForbitPage()) {
-            //         let msg = await this.$store.dispatch('cs_activity/getChargeState')
-            //         if (msg && msg.is_alert === '1') {
-            //             isReadyAlert = true
-            //         }
-            //     }
-            // }, 15000)
+            setInterval(async () => {
+                if (this.isLog && !isReadyAlert && !isForbitPage()) {
+                    let msg = await this.$store.dispatch('cs_activity/getChargeState')
+                    if (msg && msg.is_alert === '1') {
+                        isReadyAlert = true
+                    }
+                }
+            }, 15000)
             this.$store.dispatch('adList')
-            this.autoChangeDefaultAccount()
         }
     }
 </script>
@@ -795,6 +543,7 @@
                     content: 'N';
                     display: block;
                     position: absolute;
+                    z-index: 100;
                     top: 24px;
                     right:-2px;
                     border-radius: 2px;
@@ -1560,6 +1309,7 @@
                         content: 'N';
                         display: block;
                         position: absolute;
+                        z-index: 100;
                         bottom: 30px;
                         right:2px;
                         border-radius: 2px;
@@ -1852,6 +1602,43 @@
         }
         20%,60%{
             filter:brightness(1.5);
+        }
+    }
+
+    .fr-msg{
+        display: flex;
+        flex-direction: row-reverse;
+        height: 100%;
+        a{
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            height: 100%;
+            margin-left: 25px;
+            color: #fff;
+            font-size: 16px;
+        }
+        .btn-home{
+            width: 17px;
+            height: 100%;
+            background: url("../assets/img/superCoin/icon-home.png") no-repeat center;
+            background-size: 17px;
+        }
+        .contract{
+            margin-right: 13px;
+        }
+        .invite{
+            position: relative;
+            color: #53e864;
+            &::before{
+                content: '';
+                display: inline-block;
+                margin-right: 8px;
+                width: 19px;
+                height: 100%;
+                background: url("../assets/img/superCoin/icon-gift.png") no-repeat center;
+                background-size: 19px;
+            }
         }
     }
 </style>

@@ -276,6 +276,7 @@ export default {
             })
         },
         async handleCurrentChange (pageno = this.pageno) {
+            this.h5pageno += 1
             let params = {
                 pageno,
                 day: {

@@ -39,6 +39,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+            font-size: 16px;
         }
 
         #cs {
@@ -81,14 +82,14 @@
             img.onload = (function (name, img) {
                 return function () {
                     imgs[name] = img;
-                    (++n === names.length) && cb && cb(imgs)
+                    (++n === names.length) && cb && cb(imgs);
                 }
             })(name, img);
-            img.src = (prefix || '') + name
+            img.src = (prefix || '') + name;
         })
-    }
+    };
     preloadImage(['loading.png'], function () {
-        document.getElementById('cs').className += ' animation'
+        document.getElementById('cs').className += ' animation';
     }, '/static/')
 </script>
 </body>
@@ -97,7 +98,7 @@
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag () {
-        window.dataLayer.push(arguments);
+            window.dataLayer.push(arguments);
     }
     gtag('js', new Date());
     gtag('config', 'UA-123327740-1');

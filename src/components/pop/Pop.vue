@@ -29,7 +29,6 @@ export default {
             this.$emit('onClose')
         },
         onShow () {
-            console.log('pop show')
             this.$emit('onShow')
         }
     }
