@@ -383,12 +383,12 @@
             CCNum (newVal, val) {
                 newVal = Number(newVal)
                 val = Number(val)
-                if (isNaN(newVal) || isNaN(val)) {
+                if (isNaN(newVal) || isNaN(val) || !this.isLog) {
                     return
                 }
                 let hasTask = this.tasks_2 === '1'
                 let isEmpty = (newVal < 0.1)
-                let winAlot = (newVal - val) > 10
+                let winAlot = (newVal - val) > 10 && val !== 0
                 if (hasTask && isEmpty) {
                     this.showCanGetCCTask = true
                 } else if (!hasTask && isEmpty) {

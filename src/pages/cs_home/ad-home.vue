@@ -3,8 +3,8 @@
         <Header></Header>
         <div class="main">
             <ul class="act_items">
-                <li v-for="(item, index) in list" :key="index" style="background: #3b2860" class="icon_over" :datamsg="item.title_key">
-                    <img :src="item.img_url" alt="">
+                <li v-for="(item, index) in list" :key="index" :style="`background: ${item.bg_color || '#3b2860'}`" class="icon_over" :datamsg="getMsgTab(item)">
+                    <img :src="`https://www.coinsprize.com${item.img_url}`" alt="" class="img_ad">
                     <div class="ad_view">
                         <h3 class="ad_t">
                             {{item.label}}
@@ -13,14 +13,14 @@
                             {{item.description}}
                         </p>
                         <p class="ad_time">
-                            活动时间: {{item.start}} - {{item.end}}
+                            {{$lang.risk.a32}}: {{item.start}} - {{item.end}}
                         </p>
                         <div class="ad_btn_box">
-                            <a href="javascript:;" class="ad_btn ad_btn_join">
-                                立即参与
+                            <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)" v-if="!(item.title_key === 'register_gift' && isLogin)">
+                                {{$lang.risk.a33}}
                             </a>
                             <router-link :to="{path: '/adDetail', query: { id: item.id }}" v-if="item.target && item.target.length > 0"  class="ad_btn ad_btn_more">
-                                查看更多
+                                {{$lang.risk.a34}}
                             </router-link>
                         </div>
                     </div>
@@ -42,22 +42,43 @@ export default {
             list: []
         }
     },
+    computed: {
+        isLogin () {
+            return this.$store.state.isLog
+        }
+    },
     methods: {
+        isNew (startTime, endTime) {
+            let thisTime = (new Date()).getTime()
+            return (thisTime - startTime < 10 * 24 * 3600 * 1000) && thisTime < endTime
+        },
+        isGoing (startTime, endTime) {
+            let thisTime = (new Date()).getTime()
+            return (thisTime - startTime > 10 * 24 * 3600 * 1000) && thisTime < endTime
+        },
+        getMsgTab (data) {
+            let startTime = new Date(data.start_show).getTime()
+            let endTime = new Date(data.end_show).getTime()
+            if (this.isNew(startTime, endTime)) {
+                return this.$lang.risk.a29
+            } else if (this.isGoing(startTime, endTime)) {
+                return this.$lang.risk.a30
+            }
+            return this.$lang.risk.a31
+        },
         getList () {
             this.$store.dispatch('getAdListInfo')
                 .then(res => {
                     this.list = [...res.data]
                 })
-        }
-    },
-    computed: {
-        thisLang () {
-            if (this.$isZhCn) {
-                return 'cn'
-            } else if (this.$isZhTw) {
-                return 'tw'
-            } else {
-                return 'en'
+        },
+        join (data) {
+            if (this.getMsgTab(data) === this.$lang.risk.a31) {
+                this.$error(this.$lang.risk.a35)
+            } else if (data.title_key === 'first_recharge') {
+                this.$router.push('/firstCharge')
+            } else if (!this.isLogin && data.title_key === 'register_gift') {
+                this.$store.commit('showRegPop')
             }
         }
     },
