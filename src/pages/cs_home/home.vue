@@ -51,122 +51,124 @@
                         </el-carousel>
                     </div>
                 </div>
-                <div class="row clearfix items-game ">
+                <div class=" clearfix items-game ">
                     <a href="javascropt:;" class="game-change game-change-pre" @click="gamePre">pre</a>
                     <!--各种游戏宣传图-->
-                    <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}" ref="gameList">
-                        <!-- col-xs-12 col-md-4 -->
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/supercoin'}" class="game-supercoin">
-                                    <p class="msg1">
-                                        <lang>SuperCoin</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Win 10 ETH Prize Pool Every 2 Hours</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Prize Pool</lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
-                                        <i> ETH</i>
-                                    </p>
-                                    <p class="msg5">
-                                        {{formatUSD(entrance.megacoin.USD, Number(roundInfo.jackpot))}} USD
-                                    </p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                    <div class="game_list_pc">
+                        <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}" ref="gameList">
+                            <!-- col-xs-12 col-md-4 -->
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/supercoin'}" class="game-supercoin">
+                                        <p class="msg1">
+                                            <lang>SuperCoin</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Win 10 ETH Prize Pool Every 2 Hours</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Prize Pool</lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
+                                            <i> ETH</i>
+                                        </p>
+                                        <p class="msg5">
+                                            {{formatUSD(entrance.megacoin.USD, Number(roundInfo.jackpot))}} USD
+                                        </p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/luckyPoker'}" class="game-poker">
-                                    <p class="msg1">
-                                        {{$lang.poker.a39}}
-                                    </p>
-                                    <p class="msg2">
-                                        经典高回报游戏
-                                    </p>
-                                    <p class="msg2">
-                                        高达98%返奖率
-                                    </p>
-                                    <p style="height:101px"></p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/luckyPoker'}" class="game-poker">
+                                        <p class="msg1">
+                                            {{$lang.poker.a39}}
+                                        </p>
+                                        <p class="msg2">
+                                            经典高回报游戏
+                                        </p>
+                                        <p class="msg2">
+                                            高达98%返奖率
+                                        </p>
+                                        <p style="height:101px"></p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/luckySlot'}" class="game-slot">
-                                    <p class="msg1">
-                                        <lang>LuckySlot</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Win 97%+ Return Rate</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Jackpot</lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
-                                        <i> {{formateCoinType(entrance.slot.cointype)}}</i>
-                                    </p>
-                                    <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/luckySlot'}" class="game-slot">
+                                        <p class="msg1">
+                                            <lang>LuckySlot</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Win 97%+ Return Rate</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Jackpot</lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
+                                            <i> {{formateCoinType(entrance.slot.cointype)}}</i>
+                                        </p>
+                                        <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/luckycoin/'}" class="game-onecoin">
-                                    <p class="msg1">
-                                        <lang>LuckyCoin</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Bid 0.01 ETH to win more</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Instant Reward</lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
-                                        <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
-                                    </p>
-                                    <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/luckycoin/'}" class="game-onecoin">
+                                        <p class="msg1">
+                                            <lang>LuckyCoin</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Bid 0.01 ETH to win more</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Instant Reward</lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
+                                            <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
+                                        </p>
+                                        <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/lucky11'}" class="game-11t5">
-                                    <p class="msg1">
-                                        <lang>Lucky11</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Classic game with high reward</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Jackpot </lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
-                                        <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
-                                    </p>
-                                    <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/lucky11'}" class="game-11t5">
+                                        <p class="msg1">
+                                            <lang>Lucky11</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Classic game with high reward</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Jackpot </lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
+                                            <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
+                                        </p>
+                                        <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -481,9 +483,9 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
-import Footer from '~components/Footer.vue'
-import { mapActions } from 'vuex'
+import Header from "~components/Header.vue";
+import Footer from "~components/Footer.vue";
+import { mapActions } from "vuex";
 import {
     formatTime,
     formateCoinType,
@@ -492,23 +494,23 @@ import {
     removeCK,
     formatUSD,
     structDom
-} from '~/common/util'
-import { aTypes } from '~/store/cs_page/cs_1105'
-import { Message } from 'element-ui'
+} from "~/common/util";
+import { aTypes } from "~/store/cs_page/cs_1105";
+import { Message } from "element-ui";
 
 export default {
-    data () {
+    data() {
         return {
             timer: false,
             screenWidth: document.body.clientWidth,
-            bghome: 'bghome0',
+            bghome: "bghome0",
             gameLeft: 0,
             gameIndex: 0,
             gameLength: 0,
             gameWidth: 0,
-            activeClass: 'luckypoker',
-            activeClass1: 'luckypoker',
-            activeClass2: 'recharge',
+            activeClass: "luckypoker",
+            activeClass1: "luckypoker",
+            activeClass2: "recharge",
             bets: {
                 syxw_orders: [],
                 slot_orders: [],
@@ -527,218 +529,218 @@ export default {
             },
             entrance: {
                 megacoin: {
-                    USD: '',
-                    cointype: '2001',
-                    goodsvalue: ''
+                    USD: "",
+                    cointype: "2001",
+                    goodsvalue: ""
                 },
                 slot: {
-                    USD: '',
-                    cointype: '2001',
-                    goodsvalue: '',
+                    USD: "",
+                    cointype: "2001",
+                    goodsvalue: "",
                     jackpot: 0
                 },
                 syxw: {
-                    USD: '',
-                    cointype: '2001',
-                    goodsvalue: '',
+                    USD: "",
+                    cointype: "2001",
+                    goodsvalue: "",
                     jackpot: 0
                 }
             },
             roundInfo: {
                 jackpot: 10
             }
-        }
+        };
     },
     methods: {
         /* 背景图轮播 */
-        bgchange (currenindex, index) {
-            this.bghome = 'bghome' + currenindex
+        bgchange(currenindex, index) {
+            this.bghome = "bghome" + currenindex;
         },
-        async getRoundInfo () {
-            this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+        async getRoundInfo() {
+            this.roundInfo = await luckyCoinApi.getCurrentRoundInfo();
             if (this.roundInfo && parseInt(this.roundInfo.jackpot) < 10) {
-                this.roundInfo.jackpot = 10
+                this.roundInfo.jackpot = 10;
             }
         },
-        onResize () {
-            this.initGamePreNext()
+        onResize() {
+            this.initGamePreNext();
         },
         /* 左右按钮游戏轮播 */
-        initGamePreNext () {
-            this.gameLength = this.$refs.gameList.children.length
-            this.gameWidth = this.$refs.gameList.children[0].offsetWidth
+        initGamePreNext() {
+            this.gameLength = this.$refs.gameList.children.length;
+            this.gameWidth = this.$refs.gameList.children[0].offsetWidth;
         },
-        gamePre () {
+        gamePre() {
             if (this.gameIndex < 1) {
-                return false
+                return false;
             }
-            this.gameIndex--
-            this.gameLeft = -this.gameWidth * this.gameIndex + 'px'
-            this.activeClass = 'luckypoker'
-            this.activeClass1 = 'luckypoker'
+            this.gameIndex--;
+            this.gameLeft = -this.gameWidth * this.gameIndex + "px";
+            this.activeClass = "luckypoker";
+            this.activeClass1 = "luckypoker";
         },
-        gameNext () {
+        gameNext() {
             if (this.gameIndex >= this.gameLength - 3) {
-                return false
+                return false;
             }
-            this.gameIndex++
-            this.gameLeft = -this.gameWidth * this.gameIndex + 'px'
-            this.activeClass = 'slot'
-            this.activeClass1 = 'slot'
+            this.gameIndex++;
+            this.gameLeft = -this.gameWidth * this.gameIndex + "px";
+            this.activeClass = "slot";
+            this.activeClass1 = "slot";
         },
         formatUSD,
-        ...mapActions('home', [
-            'getHomeBet',
-            'getHomeDraw',
-            'getHomeWithdraw',
-            'getHomeEntrance'
+        ...mapActions("home", [
+            "getHomeBet",
+            "getHomeDraw",
+            "getHomeWithdraw",
+            "getHomeEntrance"
         ]),
         formatTime,
         formateBalance,
         formateCoinType,
         formatNum,
-        onSignUp () {
-            this.$store.commit('showRegPop')
+        onSignUp() {
+            this.$store.commit("showRegPop");
         },
-        formatMoney (num) {
-            let money = formatNum(Number(num), 5).toFixed(5)
-            return money.length > 7 ? money.substring(0, 7) : money
+        formatMoney(num) {
+            let money = formatNum(Number(num), 5).toFixed(5);
+            return money.length > 7 ? money.substring(0, 7) : money;
         },
-        initPop () {
+        initPop() {
             /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
+            this.$store.commit("initHeadState", new Date().getTime());
         },
-        async indexRouter (query) {
+        async indexRouter(query) {
             /* 邮箱注册 找回密码  邀请等 */
             if (query.sign) {
-                if (query.from === 'reg') {
+                if (query.from === "reg") {
                     let mailBack = await this.$store.dispatch(
                         aTypes.mailActivate,
                         query.sign
-                    )
-                    console.log(mailBack)
+                    );
+                    console.log(mailBack);
                     if (mailBack) {
-                        if (mailBack.status === '100') {
+                        if (mailBack.status === "100") {
                             if (parseFloat(mailBack.data.login_times) >= 0) {
                                 // 显示第一次邀请
-                                this.$store.commit('showFirstLogin', true)
+                                this.$store.commit("showFirstLogin", true);
                             } else {
-                                this.$store.commit('showFirstLogin', false)
+                                this.$store.commit("showFirstLogin", false);
                             }
-                            this.$store.dispatch('getUserInfo')
-                            this.$store.commit('showRegSuccess')
+                            this.$store.dispatch("getUserInfo");
+                            this.$store.commit("showRegSuccess");
                         } else {
                             Message({
                                 message: mailBack.message,
-                                type: 'error'
-                            })
+                                type: "error"
+                            });
                         }
                     }
-                    this.$router.push('')
+                    this.$router.push("");
                 }
-                if (query.from === 'resetPassword') {
+                if (query.from === "resetPassword") {
                     // 重置密码
-                    this.$store.commit('setResetObj', {
+                    this.$store.commit("setResetObj", {
                         email: query.email,
                         sign: query.sign,
                         showReset: true
-                    })
-                    this.$store.commit('showResetPwd')
+                    });
+                    this.$store.commit("showResetPwd");
                     // 修改密码的时候，清楚ck
-                    removeCK()
-                    this.$store.commit('setIsLog', false)
-                    this.$store.commit('setUserInfo', {})
+                    removeCK();
+                    this.$store.commit("setIsLog", false);
+                    this.$store.commit("setUserInfo", {});
                 }
                 if (query.inviter) {
                     // 邀请
-                    this.$store.commit('setInviterObj', {
+                    this.$store.commit("setInviterObj", {
                         inviter: query.inviter,
                         sign: query.sign
-                    })
+                    });
                 }
             }
         },
-        getCoinClass (type) {
-            return `icon-${formateCoinType(type).toLowerCase()}`
+        getCoinClass(type) {
+            return `icon-${formateCoinType(type).toLowerCase()}`;
         },
-        init () {
-            this.renderHomeBet()
-            this.renderHomeDraw()
-            this.renderHomeWithdraw()
-            this.renderHomeEntrance()
+        init() {
+            this.renderHomeBet();
+            this.renderHomeDraw();
+            this.renderHomeWithdraw();
+            this.renderHomeEntrance();
         },
-        renderHomeBet () {
+        renderHomeBet() {
             this.getHomeBet().then(({ data }) => {
-                this.bets.syxw_orders = [...data.syxw_orders]
-                this.bets.slot_orders = [...data.slot_orders]
-                this.bets.megacoin_orders = [...data.megacoin_orders]
-                this.bets.dice_orders = [...data.dice_orders]
-            })
+                this.bets.syxw_orders = [...data.syxw_orders];
+                this.bets.slot_orders = [...data.slot_orders];
+                this.bets.megacoin_orders = [...data.megacoin_orders];
+                this.bets.dice_orders = [...data.dice_orders];
+            });
         },
-        renderHomeDraw () {
+        renderHomeDraw() {
             this.getHomeDraw().then(({ data }) => {
-                this.wins.syxw_orders = [...data.syxw_orders]
-                this.wins.slot_orders = [...data.slot_orders]
-                this.wins.megacoin_orders = [...data.megacoin_orders]
-                this.wins.dice_orders = [...data.dice_orders]
-            })
+                this.wins.syxw_orders = [...data.syxw_orders];
+                this.wins.slot_orders = [...data.slot_orders];
+                this.wins.megacoin_orders = [...data.megacoin_orders];
+                this.wins.dice_orders = [...data.dice_orders];
+            });
         },
-        renderHomeWithdraw () {
+        renderHomeWithdraw() {
             this.getHomeWithdraw().then(({ data }) => {
                 this.water = {
                     ...data
-                }
-            })
+                };
+            });
         },
-        renderHomeEntrance () {
+        renderHomeEntrance() {
             this.getHomeEntrance().then(({ data }) => {
                 this.entrance = {
                     ...data
-                }
-            })
+                };
+            });
         }
     },
     components: { Header, Footer },
     computed: {
-        isLog () {
-            return this.$store.state.isLog
+        isLog() {
+            return this.$store.state.isLog;
         }
     },
-    mounted () {
-        const that = this
+    mounted() {
+        const that = this;
         window.onresize = () => {
             return (() => {
-                window.screenWidth = document.body.clientWidth
-                that.screenWidth = window.screenWidth
-            })()
-        }
+                window.screenWidth = document.body.clientWidth;
+                that.screenWidth = window.screenWidth;
+            })();
+        };
         /* 左右按钮游戏轮播 */
-        this.initGamePreNext()
-        setInterval(() => this.init(), 60000)
-        this.init()
+        this.initGamePreNext();
+        setInterval(() => this.init(), 60000);
+        this.init();
         if (this.$store.state.route.query) {
-            this.indexRouter(this.$store.state.route.query)
+            this.indexRouter(this.$store.state.route.query);
         }
         /* 动态结构化 */
-        structDom('home')
+        structDom("home");
 
         //  取supercoin 金额
-        this.getRoundInfo()
+        this.getRoundInfo();
     },
     watch: {
-        screenWidth (val) {
+        screenWidth(val) {
             if (!this.timer) {
-                this.screenWidth = val
-                this.timer = true
-                let that = this
-                setTimeout(function () {
-                    that.initGamePreNext()
-                    that.timer = false
-                }, 400)
+                this.screenWidth = val;
+                this.timer = true;
+                let that = this;
+                setTimeout(function() {
+                    that.initGamePreNext();
+                    that.timer = false;
+                }, 400);
             }
         }
     }
-}
+};
 </script>
 
 <style scoped lang="less" type="text/less">
@@ -886,6 +888,7 @@ export default {
             center;
         font-size: 0;
         text-indent: 999999px;
+        visibility: hidden;
         &.game-change-pre {
             left: 0;
             transform: translate(0, -50%) rotate(180deg);
@@ -938,6 +941,7 @@ export default {
             line-height: 25px;
             font-size: 16px;
             font-weight: bold;
+            color: #ffce5a;
         }
         .msg4 {
             display: flex;
@@ -947,6 +951,7 @@ export default {
             line-height: 50px;
             font-size: 48px;
             font-family: sans-eb;
+            color: #ffce5a;
             i {
                 text-indent: 0;
                 font-size: 24px;
@@ -958,6 +963,7 @@ export default {
             height: 20px;
             line-height: 20px;
             font-size: 16px;
+            color: #ffce5a;
         }
     }
     .game-poker {
@@ -984,17 +990,17 @@ export default {
     }
     .game-btn {
         display: block;
-        width: percentage(228/369);
+        width: percentage(190/340);
         height: 52px;
         overflow: hidden;
         margin: 26px auto 0;
         border-radius: 6px;
-        line-height: 50px;
+        line-height: 52px;
         text-align: center;
         font-size: 20px;
         color: #fff;
         font-weight: bold;
-        border: 2px solid #ffffff;
+        background-color: rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -1356,16 +1362,27 @@ export default {
     }
 }
 @media (min-width: @screen-desktop) {
+    .game_list_pc {
+        width: 1020px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
     .items-game {
+        padding: 0 40px;
+        .game_list_pc {
+            width: 1020px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
         .game_list {
             width: 99999px;
             height: 290px;
             > div {
                 float: left;
-                padding: 0 20px;
-                width: 410px;
+                width: 340px;
             }
             > div + div {
+                padding-left: 30px;
                 margin-top: 0;
             }
         }
@@ -1385,6 +1402,11 @@ export default {
             transition: all 0.2s;
             &:hover {
                 box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+            }
+        }
+        &:hover {
+            .game-change {
+                visibility: visible;
             }
         }
     }

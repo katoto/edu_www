@@ -141,7 +141,7 @@
                                         <lang>Select Coin</lang>
                                     </p>
                                     <ul>
-                                        <li v-for="(item, index) in userInfo.accounts" :key="index" :class="{'on': item.cointype === currBalance.cointype }" @click="changeAccounts( item )">
+                                        <li v-for="(item, index) in getAccounts()" :key="index" :class="{'on': item.cointype === currBalance.cointype }" @click="changeAccounts( item )">
                                             <div class="currency-account">
                                                 <i>{{ item.cointype | formateCoinType }}</i>
                                                 <span>{{ formateBalance(item.balance, item.cointype) }}</span>
@@ -470,6 +470,13 @@ export default {
         formateCoinType,
         copySucc,
         copyError,
+        getAccounts () {
+            // CC 排在最后
+            let accounts = [...this.userInfo.accounts]
+            return accounts.sort(account => {
+                return account.cointype === '2000' ? '1' : '-1'
+            })
+        },
         autoChangeDefaultAccount () {
             setTimeout(() => {
                 if (this.isLog) {

@@ -247,7 +247,7 @@ export default {
             pageno: 1,
             h5pageno: 1,
             isShowMoreBtn: true,
-            pageSize: 10,
+            pageSize: 25,
             PageTotal: 10,
             orderList: [],
             h5orderList: [],
@@ -339,7 +339,7 @@ export default {
                 this.PageTotal = parseInt(data.counter, 10)
 
                 this.h5orderList = this.h5orderList.concat(this.orderList)
-                if (data.orders.length === 0 || data.orders.length !== 10) {
+                if (data.orders.length === 0 || data.orders.length !== 25) {
                     this.isShowMoreBtn = false
                 }
             }

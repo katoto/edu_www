@@ -10,9 +10,9 @@
                 {{formateBalance(item.betmoney)}}
                 <!--{{ formateCoinType(item.cointype) }}-->
             </div>
-            <!--<span class="time">-->
-                <!--{{formatTime(item.crtime, 'MM-dd HH:mm')}}-->
-            <!--</span>-->
+            <span class="time">
+                {{formatTime(item.crtime, 'MM-dd HH:mm')}}
+            </span>
         </li>
     </ul>
 </template>
@@ -27,7 +27,8 @@ export default {
         formatCoinClass (coinText) {
             return {
                 'ETH': 'icon-eth',
-                'BTC': 'icon-btc'
+                'BTC': 'icon-btc',
+                'CC': 'icon-cc'
             }[coinText]
         }
     },
