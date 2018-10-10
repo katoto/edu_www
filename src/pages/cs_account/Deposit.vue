@@ -19,11 +19,8 @@
                     <lang>Balance</lang>
                     <i class="bold">{{ formateBalance(currBalance.balance) }}</i> {{ formateCoinType(currBalance.cointype) }}
                 </div>
-                <p class="item1tips" v-if="currBalance.cointype === '2001' || currBalance.cointype === '2000'">
-                    <lang>Get 10 free spins of Slot (Top-up reaches 0.01ETH, 1 chance/day)</lang>
-                </p>
-                <p class="item1tips" v-else>
-                    <lang>Get 10 free spins of Slot (Top-up reaches 0.001BTC, 1 chance/day)</lang>
+                <p class="item1tips">
+                    {{$lang.risk.a27}}
                 </p>
             </div>
             <div class="item2 clearfix">

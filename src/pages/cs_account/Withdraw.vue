@@ -43,7 +43,7 @@
                             <template v-if="currBalance">
                                 <span v-if=" Number( currBalance.checkout_balance)> parseFloat(currBalance.draw_limit) "
                                       class="css_withdraw_total">{{ currBalance.draw_limit }} ~
-                                <span>{{ formateBalance( parseFloat(currBalance.checkout_balance)-parseFloat(currBalance.fee) ) }}</span> {{ formateCoinType( currBalance.cointype ) }}</span>
+                                <span>{{ formateBalance( currBalance.cointype === '2000' ? parseFloat(currBalance.balance) : parseFloat(currBalance.balance) - parseFloat(currBalance.fee) ) }}</span> {{ formateCoinType( currBalance.cointype ) }}</span>
                                 <span v-else class="css_withdraw_total">
                                 <lang>at least</lang> {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}
                             </span>
@@ -185,7 +185,7 @@
                         <p v-if="currBalance" style="color: #778ca3;">
                             <span v-if=" Number( currBalance.balance)> parseFloat(currBalance.draw_limit) ">
                                 {{ currBalance.draw_limit }} ~
-                            <span>{{ formateBalance( parseFloat(currBalance.balance)-parseFloat(currBalance.fee) ) }}</span>
+                            <span>{{ formateBalance( currBalance.cointype === '2000' ? parseFloat(currBalance.balance) : parseFloat(currBalance.balance) - parseFloat(currBalance.fee) ) }}</span>
                                 {{ formateCoinType( currBalance.cointype ) }}
                             </span>
                             <span v-else>
