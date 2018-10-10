@@ -839,6 +839,6 @@ module.exports = {
     'Win 10 ETH Prize Pool<br>Every 2 Hours': '每2小时赢取10ETH',
     'SUPERCOIN': '超级夺币',
     'SuperCoin': '超级夺币',
-    'Win 10 ETH Prize Pool Every 2 Hours': '每2小时赢取10ETH',
+    'Win 10 ETH Prize Pool Every 2 Hours': '每2小时赢取10ETH'
     /* super coin end */
 }

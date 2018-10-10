@@ -367,7 +367,7 @@
                             </div>
                         </div>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="(ordersList&&ordersList.length>=1)||orderPageTotal>1" :class="{'lg7':orderPageTotal>=7}">
+                        <div class="pagination hidden-sm hidden-xs" v-if="(ordersList&&ordersList.length>=10)||orderPageTotal>1" :class="{'lg7':orderPageTotal>=7}">
                             <el-pagination @current-change="orderCurrentChange" @size-change="orderSizeChange" background :current-page.sync="orderPageno" size="small" :page-sizes="[10, 25, 50, 100]" :page-size="orderpPgeSize" layout="prev, pager, next, sizes" :page-count="orderPageTotal" :next-text="_('Next >')" :prev-text="_('< Previous')">
                             </el-pagination>
                         </div>
