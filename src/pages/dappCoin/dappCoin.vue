@@ -1053,6 +1053,7 @@ export default {
                         parseFloat(this.selfMsg.calcTicketEarn) +
                         parseFloat(this.selfMsg.aff_invite)
                 }
+                this.maxTicketNum = 1500 - this.roundInfo.tickets
                 // if (earnNum && Number(this.balance) < earnNum) {
                 //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
                 // } else {
@@ -1330,6 +1331,7 @@ export default {
                         parseFloat(this.selfMsg.calcTicketEarn) +
                         parseFloat(this.selfMsg.aff_invite)
                 }
+                this.maxTicketNum = 1500 - this.roundInfo.tickets
                 // if (earnNum && Number(this.balance) < earnNum) {
                 //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
                 // } else {
@@ -1491,15 +1493,16 @@ export default {
                     parseFloat(this.selfMsg.calcTicketEarn) +
                     parseFloat(this.selfMsg.aff_invite)
             }
-            if (this.balance && Number(this.balance) > 0) {
-                // if (earnNum && Number(this.balance) < earnNum) {
-                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                // } else {
-                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                // }
-            } else {
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-            }
+            this.maxTicketNum = 1500 - this.roundInfo.tickets
+            // if (this.balance && Number(this.balance) > 0) {
+            //     // if (earnNum && Number(this.balance) < earnNum) {
+            //     //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
+            //     // } else {
+            //     //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
+            //     // }
+            // } else {
+            //     this.maxTicketNum = 1500 - this.roundInfo.tickets
+            // }
         },
         async buyNum () {
             // 购买号码
