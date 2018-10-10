@@ -818,7 +818,6 @@ module.exports = {
     'Prize pool will accumulate in the next round.': '奖金滚入下一轮',
     'One draw per 2 hours. If your ticket number matches draw number, you win the prize pool. If there\'s no winner of the round, the prize pool will accumulate in next round.': '每隔2小时开一次奖，若用户号码与开奖号码相同，即可获得奖池奖励；若无人与开奖号码相同，则奖池滚入下一轮。',
     'Who will be the winner?': '谁将赢走大奖池？',
-    'Data processing': '后台正在统计数据',
     'Data uploading': '计算正在开奖结果',
     'Pay by Income': '使用收益购买',
     'Purchase Cancelled': '取消购买',
@@ -840,6 +839,6 @@ module.exports = {
     'Win 10 ETH Prize Pool<br>Every 2 Hours': '每2小时赢取10ETH',
     'SUPERCOIN': '超级夺币',
     'SuperCoin': '超级夺币',
-    'Win 10 ETH Prize Pool Every 2 Hours': '每2小时赢取10ETH'
+    'Win 10 ETH Prize Pool Every 2 Hours': '每2小时赢取10ETH',
     /* super coin end */
 }

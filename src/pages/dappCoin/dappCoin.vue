@@ -367,7 +367,7 @@
                             </div>
                         </div>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="(ordersList&&ordersList.length>=10)||orderPageTotal>1" :class="{'lg7':orderPageTotal>=7}">
+                        <div class="pagination hidden-sm hidden-xs" v-if="(ordersList&&ordersList.length>=1)||orderPageTotal>1" :class="{'lg7':orderPageTotal>=7}">
                             <el-pagination @current-change="orderCurrentChange" @size-change="orderSizeChange" background :current-page.sync="orderPageno" size="small" :page-sizes="[10, 25, 50, 100]" :page-size="orderpPgeSize" layout="prev, pager, next, sizes" :page-count="orderPageTotal" :next-text="_('Next >')" :prev-text="_('< Previous')">
                             </el-pagination>
                         </div>
@@ -641,7 +641,6 @@ export default {
             bindwaitingMsg: _('Who will be the winner?'),
             waitingMsgArr: [
                 _('Who will be the winner?'),
-                _('Data processing'),
                 _('Data uploading')
             ], // 等待开奖文案
             nextRoundStart: null, // 下一期开启的时间
@@ -1505,7 +1504,7 @@ export default {
         async buyNum () {
             // 购买号码
             let buyBack = null
-            let currPrice = await luckyCoinApi.getBuyPrice()
+            this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             if (!this.selfMsg) {
                 this.loginMetamask()
                 return false
