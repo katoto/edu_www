@@ -130,7 +130,7 @@
                 <lang>Bid more, win more!</lang>
             </p>
             <!--icon-eth/icon-btc-->
-            <div class="input-box" :class="[coinType === '2001' ? 'icon-eth': 'icon-btc']">
+            <div class="input-box" :class="`icon-${coinText.toLowerCase()}`">
                 <input type="text" v-model="betValue" :placeholder="betData.bidValue">
                 <a href="javascript:;" @click="chooseHalf">1/2</a>
                 <a href="javascript:;" @click="chooseDouble">2X</a>
@@ -463,6 +463,9 @@
                     },
                     'BTC': {
                         boxClass: 'match-btc'
+                    },
+                    'CC': {
+                        boxClass: 'match-cc'
                     }
                 }[this.coinText]
             },

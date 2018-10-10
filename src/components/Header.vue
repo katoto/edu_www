@@ -330,8 +330,8 @@
 </template>
 
 <script>
-import PopList from "~components/Pop-list";
-import PopIpLimit from "~components/Pop-ipLimit.vue";
+import PopList from '~components/Pop-list'
+import PopIpLimit from '~components/Pop-ipLimit.vue'
 import {
     copySucc,
     copyError,
@@ -339,15 +339,15 @@ import {
     formateCoinType,
     formateEmail,
     isForbitPage
-} from "~common/util";
+} from '~common/util'
 
-import Vue from "vue";
-import vueClipboard from "vue-clipboard2";
-Vue.use(vueClipboard);
+import Vue from 'vue'
+import vueClipboard from 'vue-clipboard2'
+Vue.use(vueClipboard)
 
 export default {
     components: { PopList, PopIpLimit },
-    data() {
+    data () {
         return {
             showFirstGet: false,
             showLight: false, // new 闪烁
@@ -356,19 +356,19 @@ export default {
             slideDown: false,
             languageOptions: [
                 {
-                    value: "en",
-                    label: "English",
-                    lanLogo: "../../../static/staticImg/lan-en.jpg"
+                    value: 'en',
+                    label: 'English',
+                    lanLogo: '../../../static/staticImg/lan-en.jpg'
                 },
                 {
-                    value: "zhCn",
-                    label: "中文简体",
-                    lanLogo: "../../../static/staticImg/lan-cn.jpg"
+                    value: 'zhCn',
+                    label: '中文简体',
+                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
                 },
                 {
-                    value: "zhTw",
-                    label: "中文繁體",
-                    lanLogo: "../../../static/staticImg/lan-cn.jpg"
+                    value: 'zhTw',
+                    label: '中文繁體',
+                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
                 }
             ],
             isShowLanguage: false,
@@ -376,92 +376,92 @@ export default {
             isChooseCoin: false,
             isShowChoose: false,
             received_counter: 0, // 已完成未领取数量
-            tasks_2: "-1",
-            tasks_3: "-1",
-            tasks_4: "-1",
-            tasks_day: "0",
+            tasks_2: '-1',
+            tasks_3: '-1',
+            tasks_4: '-1',
+            tasks_day: '0',
             showUseAllCCPop: false,
             showWinALotCCPop: false,
             showCanGetCCTask: false
-        };
+        }
     },
     watch: {
-        initHeadState() {
-            this.isShowLanguage = false;
-            this.isShowMycount = false;
-            this.isChooseCoin = false;
-            this.isShowChoose = false;
-            this.freeWaterPop = false;
+        initHeadState () {
+            this.isShowLanguage = false
+            this.isShowMycount = false
+            this.isChooseCoin = false
+            this.isShowChoose = false
+            this.freeWaterPop = false
         },
-        isLog() {
-            this.autoChangeDefaultAccount();
+        isLog () {
+            this.autoChangeDefaultAccount()
         },
-        CCNum(newVal, val) {
-            newVal = Number(newVal);
-            val = Number(val);
-            if (isNaN(newVal) || isNaN(val)) {
-                return;
+        CCNum (newVal, val) {
+            newVal = Number(newVal)
+            val = Number(val)
+            if (isNaN(newVal) || isNaN(val) || !this.isLog) {
+                return
             }
-            let hasTask = this.tasks_2 === "1";
-            let isEmpty = newVal < 0.1;
-            let winAlot = newVal - val > 10;
+            let hasTask = this.tasks_2 === '1'
+            let isEmpty = (newVal < 0.1)
+            let winAlot = (newVal - val) > 10 && val !== 0
             if (hasTask && isEmpty) {
-                this.showCanGetCCTask = true;
+                this.showCanGetCCTask = true
             } else if (!hasTask && isEmpty) {
-                this.showUseAllCCPop = true;
+                this.showUseAllCCPop = true
             } else if (winAlot) {
-                this.showWinALotCCPop = true;
+                this.showWinALotCCPop = true
             }
         }
     },
     computed: {
-        initHeadState() {
+        initHeadState () {
             /* 去除所有弹层 */
-            return this.$store.state.initHeadState;
+            return this.$store.state.initHeadState
         },
-        jackPotMsg() {
-            return this.$store.state.cs_1105.jackPotMsg;
+        jackPotMsg () {
+            return this.$store.state.cs_1105.jackPotMsg
         },
-        showFirstLogin() {
-            return this.$store.state.pop.showFirstLogin;
+        showFirstLogin () {
+            return this.$store.state.pop.showFirstLogin
         },
-        isLog() {
-            return this.$store.state.isLog;
+        isLog () {
+            return this.$store.state.isLog
         },
-        currBalance() {
-            return this.$store.state.currBalance;
+        currBalance () {
+            return this.$store.state.currBalance
         },
-        userInfo() {
-            return this.$store.state.userInfo;
+        userInfo () {
+            return this.$store.state.userInfo
         },
         languageVal: {
-            set(val) {
-                this.$store.commit("changeLanguage", val);
+            set (val) {
+                this.$store.commit('changeLanguage', val)
             },
-            get() {
-                return this.$store.state.language;
+            get () {
+                return this.$store.state.language
             }
         },
-        firstCharge() {
-            return this.$store.state.cs_activity.firstCharge;
+        firstCharge () {
+            return this.$store.state.cs_activity.firstCharge
         },
-        showEmailErr() {
-            return this.$store.state.showEmailErr;
+        showEmailErr () {
+            return this.$store.state.showEmailErr
         },
-        CCNum() {
-            let num = 0;
+        CCNum () {
+            let num = 0
             if (
                 this.userInfo &&
                 this.userInfo.accounts &&
                 this.userInfo.accounts.length > 0
             ) {
                 this.userInfo.accounts.forEach(item => {
-                    if (item.cointype === "2000") {
-                        num = Number(item.balance);
+                    if (item.cointype === '2000') {
+                        num = Number(item.balance)
                     }
-                });
+                })
             }
-            return num;
+            return num
         }
     },
     methods: {
@@ -470,211 +470,211 @@ export default {
         formateCoinType,
         copySucc,
         copyError,
-        autoChangeDefaultAccount() {
+        autoChangeDefaultAccount () {
             setTimeout(() => {
                 if (this.isLog) {
-                    this.changeDefaultAccount();
+                    this.changeDefaultAccount()
                 }
-            }, 200);
+            }, 200)
         },
-        changeDefaultAccount() {
-            let accounts = this.userInfo.accounts;
+        changeDefaultAccount () {
+            let accounts = this.userInfo.accounts
             let BTCAccount = accounts.filter(
-                account => account.cointype === "1001"
-            );
+                account => account.cointype === '1001'
+            )
             let BTCHasBalance =
                 BTCAccount &&
                 BTCAccount[0] &&
-                Number(BTCAccount[0].balance) > 0;
+                Number(BTCAccount[0].balance) > 0
             let ETHAccount = accounts.filter(
-                account => account.cointype === "2001"
-            );
+                account => account.cointype === '2001'
+            )
             let ETHHasBalance =
                 ETHAccount &&
                 ETHAccount[0] &&
-                Number(ETHAccount[0].balance) > 0;
+                Number(ETHAccount[0].balance) > 0
             let CCAccount = accounts.filter(
-                account => account.cointype === "2000"
-            );
+                account => account.cointype === '2000'
+            )
             let CCHasBalance =
-                CCAccount && CCAccount[0] && Number(CCAccount[0].balance) > 0;
+                CCAccount && CCAccount[0] && Number(CCAccount[0].balance) > 0
             if (BTCHasBalance) {
-                this.changeAccounts(BTCAccount[0]);
+                this.changeAccounts(BTCAccount[0])
             } else if (ETHHasBalance) {
-                this.changeAccounts(ETHAccount[0]);
+                this.changeAccounts(ETHAccount[0])
             } else if (CCHasBalance) {
-                this.changeAccounts(CCAccount[0]);
+                this.changeAccounts(CCAccount[0])
             }
         },
-        async readyGetFirst() {
-            await this.$store.dispatch("cs_activity/rechargealert");
-            this.$store.dispatch("cs_activity/getChargeState");
+        async readyGetFirst () {
+            await this.$store.dispatch('cs_activity/rechargealert')
+            this.$store.dispatch('cs_activity/getChargeState')
         },
-        async taskClick(type, val) {
-            val = val.toString();
-            if (val === "2") {
-                this.$router.push("/luckyslot");
-                return false;
+        async taskClick (type, val) {
+            val = val.toString()
+            if (val === '2') {
+                this.$router.push('/luckyslot')
+                return false
             }
-            if (val === "-1" && type === "task_3") {
-                this.$router.push("/account/deposit");
-                return false;
+            if (val === '-1' && type === 'task_3') {
+                this.$router.push('/account/deposit')
+                return false
             }
-            if (val === "1") {
+            if (val === '1') {
                 /* 领取 */
-                let taskid = null;
+                let taskid = null
                 switch (type) {
-                    case "task_2":
-                        taskid = 2;
-                        break;
-                    case "task_3":
-                        taskid = 3;
-                        break;
-                    case "task_4":
-                        taskid = 4;
-                        break;
+                case 'task_2':
+                    taskid = 2
+                    break
+                case 'task_3':
+                    taskid = 3
+                    break
+                case 'task_4':
+                    taskid = 4
+                    break
                 }
-                let faucetGet = await this.$store.dispatch("faucetGet", taskid);
-                if (faucetGet && faucetGet.status === "100") {
-                    this.faucetTask();
-                    this.showUserMsg();
-                    this.$emit("freshSlot", "");
+                let faucetGet = await this.$store.dispatch('faucetGet', taskid)
+                if (faucetGet && faucetGet.status === '100') {
+                    this.faucetTask()
+                    this.showUserMsg()
+                    this.$emit('freshSlot', '')
                 } else {
                     this.$message({
-                        message: "faucetGet error",
-                        type: "error",
+                        message: 'faucetGet error',
+                        type: 'error',
                         duration: 1500
-                    });
+                    })
                 }
             }
         },
-        handleLanguageChange(val) {
-            this.$store.commit("changeLanguage", val);
+        handleLanguageChange (val) {
+            this.$store.commit('changeLanguage', val)
         },
-        headControlPop(tab = "showChoose") {
-            let controlShowMsgDom = document.getElementById("controlShowMsg");
+        headControlPop (tab = 'showChoose') {
+            let controlShowMsgDom = document.getElementById('controlShowMsg')
             if (controlShowMsgDom) {
-                if (~controlShowMsgDom.className.indexOf("disable")) {
-                    return false;
+                if (~controlShowMsgDom.className.indexOf('disable')) {
+                    return false
                 }
             }
             switch (tab) {
-                case "showChoose":
-                    this.isShowLanguage = false;
-                    // this.isShowMycount = false
-                    this.isChooseCoin = false;
-                    this.isShowChoose = !this.isShowChoose;
-                    break;
-                case "chooseCoin":
-                    this.isShowLanguage = false;
-                    this.isShowMycount = false;
-                    this.isShowChoose = false;
-                    this.isChooseCoin = !this.isChooseCoin;
-                    break;
-                case "showMycount":
-                    this.isChooseCoin = false;
-                    this.isShowChoose = false;
-                    this.isShowLanguage = false;
-                    this.isShowMycount = !this.isShowMycount;
-                    break;
-                case "showLanguage":
-                    this.isShowMycount = false;
-                    this.isChooseCoin = false;
-                    this.isShowChoose = false;
-                    this.isShowLanguage = !this.isShowLanguage;
-                    break;
+            case 'showChoose':
+                this.isShowLanguage = false
+                // this.isShowMycount = false
+                this.isChooseCoin = false
+                this.isShowChoose = !this.isShowChoose
+                break
+            case 'chooseCoin':
+                this.isShowLanguage = false
+                this.isShowMycount = false
+                this.isShowChoose = false
+                this.isChooseCoin = !this.isChooseCoin
+                break
+            case 'showMycount':
+                this.isChooseCoin = false
+                this.isShowChoose = false
+                this.isShowLanguage = false
+                this.isShowMycount = !this.isShowMycount
+                break
+            case 'showLanguage':
+                this.isShowMycount = false
+                this.isChooseCoin = false
+                this.isShowChoose = false
+                this.isShowLanguage = !this.isShowLanguage
+                break
             }
         },
-        changeAccounts(item) {
+        changeAccounts (item) {
             if (item) {
-                this.$store.commit("setCurrBalance", item);
+                this.$store.commit('setCurrBalance', item)
             }
         },
-        showUserMsg() {
-            this.$store.dispatch("getUserInfo");
+        showUserMsg () {
+            this.$store.dispatch('getUserInfo')
         },
-        hideFirstLoginAll() {
+        hideFirstLoginAll () {
             // 关闭 0.0001 弹窗
-            this.$store.commit("showFirstLogin", false);
+            this.$store.commit('showFirstLogin', false)
             setTimeout(() => {
                 // 闪烁
-                this.showLight = true;
-            }, 800);
+                this.showLight = true
+            }, 800)
         },
-        async faucetTask() {
+        async faucetTask () {
             let taskMsg = await this.$store.dispatch(
-                "faucetTask",
+                'faucetTask',
                 this.currBalance.cointype
-            );
-            if (taskMsg && taskMsg.status === "100") {
-                this.received_counter = taskMsg.data.not_received_counter;
+            )
+            if (taskMsg && taskMsg.status === '100') {
+                this.received_counter = taskMsg.data.not_received_counter
                 if (taskMsg.data.tasks) {
                     taskMsg.data.tasks.forEach((item, index) => {
                         if (
-                            item.task === "2" ||
-                            item.task === "3" ||
-                            item.task === "4"
+                            item.task === '2' ||
+                            item.task === '3' ||
+                            item.task === '4'
                         ) {
                             if (item.info) {
-                                this["tasks_" + item.task] = item.info.status;
+                                this['tasks_' + item.task] = item.info.status
                                 if (
-                                    item.info.free !== "0" &&
+                                    item.info.free !== '0' &&
                                     parseInt(item.info.free) > 0 &&
-                                    item.info.status.toString() !== "1"
+                                    item.info.status.toString() !== '1'
                                 ) {
-                                    this["tasks_" + item.task] = 2;
+                                    this['tasks_' + item.task] = 2
                                 }
                             }
                         }
-                    });
+                    })
                 }
                 if (taskMsg.data.sign_days !== undefined) {
-                    this.tasks_day = taskMsg.data.sign_days;
+                    this.tasks_day = taskMsg.data.sign_days
                 }
             }
         },
-        showFaucet() {
+        showFaucet () {
             /* free water  请求列表接口 new */
             if (!this.freeWaterPop) {
-                this.faucetTask();
+                this.faucetTask()
             }
-            this.freeWaterPop = !this.freeWaterPop;
-            this.$emit("headPopChange", this.freeWaterPop);
+            this.freeWaterPop = !this.freeWaterPop
+            this.$emit('headPopChange', this.freeWaterPop)
         },
-        signOut() {
+        signOut () {
             /* 退出登录 */
-            this.$store.dispatch("loginOut");
+            this.$store.dispatch('loginOut')
         },
-        onSignUp() {
-            this.$store.commit("showRegPop");
+        onSignUp () {
+            this.$store.commit('showRegPop')
         },
-        onLoginIn() {
-            this.$store.commit("showLoginPop");
+        onLoginIn () {
+            this.$store.commit('showLoginPop')
         },
-        changH5Msg(value) {
-            this.$store.commit("cs_account/setH5NavMsg", value);
+        changH5Msg (value) {
+            this.$store.commit('cs_account/setH5NavMsg', value)
         }
     },
     filters: {
         formateCoinType,
         formateBalance
     },
-    async mounted() {
-        this.showUserMsg();
+    async mounted () {
+        this.showUserMsg()
         setTimeout(() => {
             if (this.isLog) {
-                this.faucetTask();
+                this.faucetTask()
             }
             if (
-                !localStorage.getItem("waterPop") ||
-                localStorage.getItem("waterPop") !==
+                !localStorage.getItem('waterPop') ||
+                localStorage.getItem('waterPop') !==
                     new Date().getDay().toString()
             ) {
-                localStorage.setItem("waterPop", new Date().getDay());
-                this.freeWaterPop = true;
+                localStorage.setItem('waterPop', new Date().getDay())
+                this.freeWaterPop = true
             }
-        }, 0);
-        let isReadyAlert = false;
+        }, 0)
+        let isReadyAlert = false
         // setInterval(async () => {
         //     if (this.isLog && !isReadyAlert && !isForbitPage()) {
         //         let msg = await this.$store.dispatch('cs_activity/getChargeState')
@@ -683,10 +683,10 @@ export default {
         //         }
         //     }
         // }, 15000)
-        this.$store.dispatch("adList");
-        this.autoChangeDefaultAccount();
+        this.$store.dispatch('adList')
+        this.autoChangeDefaultAccount()
     }
-};
+}
 </script>
 <style scoped lang="less" type="text/less">
 @import "../styles/lib-mixins.less";

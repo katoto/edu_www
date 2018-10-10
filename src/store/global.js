@@ -74,9 +74,7 @@ const mutations = {
 }
 const actions = {
     getAdListInfo () {
-        return ajax.get('/activity/lists').catch(() => {
-            return {'status': '100', 'message': 'ok', 'data': [{'id': '5bac8ed6ccf675586771794d', 'title_key': 'first_recharge', 'target': 'baidu.com', 'sort': '1000', 'start': '2018-09-27 16:30:27', 'end': '2018-10-04 16:30:27', 'start_show': '2018-09-15 00:00:00', 'end_show': '2018-10-25 00:00:00', 'img_url': '/upload/activity/ff.png', 'label': '标题标题标题标题', 'description': '150% of the first charge (maximum reward 0.05 ETH/0.005 BTC)', 'content': '注册送详细描述en=》充值送详细描述en'}, {'id': '5bac8ed6ccf675586771794d1', 'title_key': 'first_recharge', 'target': 'http://baidu.com=》http://soso.com', 'sort': '2000', 'start': '2018-09-27 16:02:54', 'end': '2018-10-04 16:02:54', 'start_show': '2018-10-01 00:00:00', 'end_show': '2018-11-01 00:00:00', 'img_url': '/upload/activity/ff.png', 'label': '充值送en=》注册送en', 'description': '充值送描述en=》充值送活动描述en', 'content': '充值送详细描述en=》充值送详细描述en'}], 'ip_status': 0}
-        })
+        return ajax.get('/activity/center')
     },
     // 广告图
     async adList ({state, commit, dispatch}) {
