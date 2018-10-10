@@ -1,19 +1,5 @@
 <template>
     <div class="luckyDapp">
-        <!-- <div class="head-dapp hide">
-            <div class="head-dapp-wrap">
-                <h1 class="logo">
-                    <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp" class="hide">
-                    <p>SuperCoin</p>
-                </h1>
-                <div class="fr-msg">
-                    <a href="javascript:;" class="invite" @click="scrollInvite"><lang>Referrals</lang></a>
-                    <a href="https://etherscan.io/address/0x2119a3314c1d40704d816392a9e44da463688992#code" target="_blank"><lang>Contract</lang></a>
-                    <a href="javascript:;" @click="showNewguide" v-lang="'Easy&nbsp;Play'"></a>
-                    <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
-                </div>
-            </div>
-        </div> -->
         <HeaderCoin v-on:scrollInvite="scrollInvite"></HeaderCoin>
         <!--status2-->
         <div class="banner-dapp" :class="{'status2':nextScreen && pageSucc}">
@@ -254,10 +240,10 @@
                             <lang>Copy</lang>
                         </a>
                         <p v-if="selfMsg.aff_invite_nums==1||selfMsg.aff_invite_nums==0">
-                            {{ _('You\'ve invited: {0} friend',selfMsg.aff_invite_nums ) }}
+                            {{ _('This round you\'ve invited: {0} friend',selfMsg.aff_invite_nums ) }}
                         </p>
                         <p v-else>
-                            {{ _('You\'ve invited: {0} friends',selfMsg.aff_invite_nums ) }}
+                            {{ _('This round you\'ve invited: {0} friends',selfMsg.aff_invite_nums ) }}
                         </p>
                         <p>
                             <lang>Total referral reward:</lang> <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
@@ -565,7 +551,7 @@
                             <lang>1. At the beginning of the game, there will be a 10 ETH-prize pool and 1500 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).</lang>
                         </p>
                         <p>
-                            <lang>2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy the dividend. More tickets bring more dividend.</lang>
+                            <lang>2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy 10% betting dividend. More tickets bring more dividend.</lang>
                         </p>
                         <p>
                             <lang>3. If there's no winner of the round, the prize pool will accumulate in next round, and the ticket price will be adjusted as well.</lang>
@@ -669,9 +655,9 @@ export default {
             someGetWin: false, // 是否有人中奖
             openNumArr: ['?', '?', '?', '?'],
             scrollMsg: [
-                _('Buyers who hold part/all of first 500 tickets enjoy the dividend.'),
+                _('Buyers who hold part/all of first 500 tickets enjoy 10% betting dividend.'),
                 _('Buy more tickets, get more dividend, and enjoy higher winning chance.'),
-                _('Click to learn easy play for starters.')
+                _('Click Instructions to learn easy play for starters')
             ],
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
@@ -837,12 +823,12 @@ export default {
         },
         scrollMsgChange (state) {
             if (state === 'end') {
-                this.scrollMsg = [_('Buy the first ticket to start a new round.'), _('Buyers who hold part/all of first 500 tickets enjoy the dividend.')]
+                this.scrollMsg = [_('Buy the first ticket to start a new round.'), _('Buyers who hold part/all of first 500 tickets enjoy 10% betting dividend.')]
             } else {
                 this.scrollMsg = [
-                    _('Buyers who hold part/all of first 500 tickets enjoy the dividend.'),
+                    _('Buyers who hold part/all of first 500 tickets enjoy 10% betting dividend.'),
                     _('Buy more tickets, get more dividend, and enjoy higher winning chance.'),
-                    _('Click to learn easy play for starters.'),
+                    _('Click Instructions to learn easy play for starters'),
                     _('Draw will proceed after tickets sold out or time\'s up.')
                 ]
             }
@@ -850,7 +836,7 @@ export default {
         tabEvt (evt, dataName) {
             if (this.selfMsg) {
                 this.informationTab = dataName
-                if(dataName === 'myticket' || dataName === 'historyDraw'){
+                if (dataName === 'myticket' || dataName === 'historyDraw') {
                     //  请求历史数据
                     this.expectCurrentChange()
                     //  用户投注订单记录  是否登录
@@ -878,9 +864,9 @@ export default {
             let data = await this.getSuperCoinExpects(params)
             data = data.data
             if (data) {
-                if(pageno === 1){
-                    let insertData = await this.getRoundMsg()    
-                    if( insertData && data.expects[0].round !== insertData.round){
+                if (pageno === 1) {
+                    let insertData = await this.getRoundMsg()
+                    if (insertData && data.expects[0].round !== insertData.round) {
                         data.expects.unshift(insertData)
                     }
                 }
@@ -1138,14 +1124,14 @@ export default {
             // 开始待开奖的动画
             setInterval(() => {
                 this.bindwaitingMsg = this.waitingMsgArr[ parseInt(Math.random() * 2) ]
-            }, 5000)
+            }, 4000)
         },
-        async getRoundMsg(){
+        async getRoundMsg () {
             await this.getCurrentRoundInfo()
-            if(this.roundInfo && this.roundInfo.roundIndex){
-                let msgRound = await luckyCoinApi.round_( Number(this.roundInfo.roundIndex)-1 )
-                Object.assign(msgRound,{
-                    round: Number(this.roundInfo.roundIndex) -1
+            if (this.roundInfo && this.roundInfo.roundIndex) {
+                let msgRound = await luckyCoinApi.round_(Number(this.roundInfo.roundIndex) - 1)
+                Object.assign(msgRound, {
+                    round: Number(this.roundInfo.roundIndex) - 1
                 })
                 return msgRound
             }
@@ -1213,7 +1199,7 @@ export default {
         async getCurrentRoundInfo () {
             // 获取页面相关信息
             this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
-            
+
             console.log(this.roundInfo)
             this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets / 1500})`
 
@@ -1246,10 +1232,11 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
+            let currGas = await luckyCoinApi.getgasPrice()
             if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
-                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum, currGas)
             } else {
-                buyBack = await luckyCoinApi.buyXname(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+                buyBack = await luckyCoinApi.buyXname(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum, currGas)
             }
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
@@ -1279,11 +1266,12 @@ export default {
             // 判断是否已经被购买
             this.beforeInviteName = this.beforeInviteName.toString()
             let checkName = await luckyCoinApi.testName(this.beforeInviteName)
+            let currGas = await luckyCoinApi.getgasPrice()
             if (checkName) {
                 if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
-                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
+                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag, currGas)
                 } else {
-                    buyNameBack = await luckyCoinApi.registerNameXname(this.beforeInviteName, this.isFromFlag)
+                    buyNameBack = await luckyCoinApi.registerNameXname(this.beforeInviteName, this.isFromFlag, currGas)
                 }
                 buyNameBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
             } else {
@@ -1347,9 +1335,9 @@ export default {
                 this.orderCurrentChange()
             }
             //  请求历史数据
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.expectCurrentChange()
-            },1000)
+            }, 1000)
         },
         startAllevent () {
             // 合约事件
@@ -1515,7 +1503,6 @@ export default {
         this.pageInit()
         this.startAllevent()
         this.getRoundMsg()
-
     },
     watch: {
         isLog (val) {
