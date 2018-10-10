@@ -689,11 +689,11 @@ export default {
             ordersMobileIndex: 1,
 
             expectPageno: 1,
-            expectPageSize: 25,
+            expectPageSize: 10,
             expectPageTotal: 1,
 
             orderPageno: 1,
-            orderpPgeSize: 25,
+            orderpPgeSize: 10,
             orderPageTotal: 1,
 
             showPopMask: false,
