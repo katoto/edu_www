@@ -102,35 +102,6 @@
                             <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]" :ind="7" @updateBets="updateBets"></bet-box>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12 ">
-                            <div class="title">
-                                <div class="left">
-                                    <p class="t1"><lang>Draw History</lang></p>
-                                    <p class="t2  hidden-xs hidden-sm"><lang>Transparent blockchain-based draw</lang></p>
-                                    <router-link :to="{path:'/check'}" class="check">
-                                        <lang>Details Checking ></lang>
-                                    </router-link>
-                                </div>
-                                <div class="right">
-                                    <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
-                                        <lang>More >></lang>
-                                    </router-link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4">
-                            <history-bet-box :bet="drawHistoryList[0]"></history-bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <history-bet-box :bet="drawHistoryList[1]"></history-bet-box>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <history-bet-box :bet="drawHistoryList[2]"></history-bet-box>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="recent-bets">
@@ -143,7 +114,36 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="title">
+                        <div class="left">
+                            <p class="t1"><lang>Draw History</lang></p>
+                            <p class="t2  hidden-xs hidden-sm"><lang>Transparent blockchain-based draw</lang></p>
+                            <router-link :to="{path:'/check'}" class="check">
+                                <lang>Details Checking ></lang>
+                            </router-link>
+                        </div>
+                        <div class="right">
+                            <router-link :to="{path: '/luckycoin/drawHistory'}" class="btn-more">
+                                <lang>More >></lang>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[0]"></history-bet-box>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[1]"></history-bet-box>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[2]"></history-bet-box>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <history-bet-box :bet="drawHistoryList[3]"></history-bet-box>
+                </div>
+            </div>
         </div>
     </div>
 </template>

@@ -909,11 +909,22 @@ export default {
                 clear: both;
                 color: #fff;
                 border-bottom: 1px solid #412057;
+                height: 660px;
+                overflow: auto;
+                &::-webkit-scrollbar {
+                    width: 1px;
+                }
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 1px;
+                }
+                &::-webkit-scrollbar-track{
+                    border-radius: 1px;
+                }                
             }
             li{
                 position: relative;
-                height: 58px;
-                line-height: 58px;
+                height: 64px;
+                line-height: 64px;
                 border-top: 1px solid #412057;
                 overflow: hidden;
             }
@@ -964,9 +975,9 @@ export default {
             .time{
                 position: absolute;
                 right: 26px;
-                bottom: 7px;
+                bottom: 1px;
                 line-height: 22px;
-                font-size: 14px;
+                font-size: 12px;
                 color: #a99acc;
             }
         }
