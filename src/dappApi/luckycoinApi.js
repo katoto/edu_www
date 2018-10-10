@@ -1043,7 +1043,7 @@ luckyCoinApi.registerNameXname = (regName, _affCode, _gas) => {
     }
     if (typeof _gas === 'string') {
         _gas = parseInt(_gas)
-    }    
+    }
     return new Promise((resolve, reject) => {
         if (contractNet) {
             contractNet.registerNameXname(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether'), gasPrice: _gas + 2000000000}, function (err, res) {
