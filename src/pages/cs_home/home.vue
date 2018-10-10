@@ -51,122 +51,124 @@
                         </el-carousel>
                     </div>
                 </div>
-                <div class="row clearfix items-game ">
+                <div class=" clearfix items-game ">
                     <a href="javascropt:;" class="game-change game-change-pre" @click="gamePre">pre</a>
                     <!--各种游戏宣传图-->
-                    <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}" ref="gameList">
-                        <!-- col-xs-12 col-md-4 -->
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/supercoin'}" class="game-supercoin">
-                                    <p class="msg1">
-                                        <lang>SuperCoin</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Win 10 ETH Prize Pool Every 2 Hours</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Prize Pool</lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
-                                        <i> ETH</i>
-                                    </p>
-                                    <p class="msg5">
-                                        {{formatUSD(entrance.megacoin.USD, Number(roundInfo.jackpot))}} USD
-                                    </p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                    <div class="game_list_pc">
+                        <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}" ref="gameList">
+                            <!-- col-xs-12 col-md-4 -->
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/supercoin'}" class="game-supercoin">
+                                        <p class="msg1">
+                                            <lang>SuperCoin</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Win 10 ETH Prize Pool Every 2 Hours</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Prize Pool</lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
+                                            <i> ETH</i>
+                                        </p>
+                                        <p class="msg5">
+                                            {{formatUSD(entrance.megacoin.USD, Number(roundInfo.jackpot))}} USD
+                                        </p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/luckyPoker'}" class="game-poker">
-                                    <p class="msg1">
-                                        {{$lang.poker.a39}}
-                                    </p>
-                                    <p class="msg2">
-                                        经典高回报游戏
-                                    </p>
-                                    <p class="msg2">
-                                        高达98%返奖率
-                                    </p>
-                                    <p style="height:101px"></p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/luckyPoker'}" class="game-poker">
+                                        <p class="msg1">
+                                            {{$lang.poker.a39}}
+                                        </p>
+                                        <p class="msg2">
+                                            经典高回报游戏
+                                        </p>
+                                        <p class="msg2">
+                                            高达98%返奖率
+                                        </p>
+                                        <p style="height:101px"></p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/luckySlot'}" class="game-slot">
-                                    <p class="msg1">
-                                        <lang>LuckySlot</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Win 97%+ Return Rate</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Jackpot</lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
-                                        <i> {{formateCoinType(entrance.slot.cointype)}}</i>
-                                    </p>
-                                    <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/luckySlot'}" class="game-slot">
+                                        <p class="msg1">
+                                            <lang>LuckySlot</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Win 97%+ Return Rate</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Jackpot</lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
+                                            <i> {{formateCoinType(entrance.slot.cointype)}}</i>
+                                        </p>
+                                        <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/luckycoin/'}" class="game-onecoin">
-                                    <p class="msg1">
-                                        <lang>LuckyCoin</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Bid 0.01 ETH to win more</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Instant Reward</lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
-                                        <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
-                                    </p>
-                                    <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/luckycoin/'}" class="game-onecoin">
+                                        <p class="msg1">
+                                            <lang>LuckyCoin</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Bid 0.01 ETH to win more</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Instant Reward</lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
+                                            <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
+                                        </p>
+                                        <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
-                        </div>
-                        <div class="">
-                            <div class="for-full">
-                                <router-link :to="{path: '/lucky11'}" class="game-11t5">
-                                    <p class="msg1">
-                                        <lang>Lucky11</lang>
-                                    </p>
-                                    <p class="msg2">
-                                        <lang>Classic game with high reward</lang>
-                                    </p>
-                                    <p class="msg3">
-                                        <lang>Jackpot </lang>
-                                    </p>
-                                    <p class="msg4">
-                                        <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
-                                        <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
-                                    </p>
-                                    <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
-                                    <div class="game-btn">
-                                        <lang>Play Now </lang>
-                                    </div>
-                                </router-link>
+                            <div class="">
+                                <div class="for-full">
+                                    <router-link :to="{path: '/lucky11'}" class="game-11t5">
+                                        <p class="msg1">
+                                            <lang>Lucky11</lang>
+                                        </p>
+                                        <p class="msg2">
+                                            <lang>Classic game with high reward</lang>
+                                        </p>
+                                        <p class="msg3">
+                                            <lang>Jackpot </lang>
+                                        </p>
+                                        <p class="msg4">
+                                            <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
+                                            <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
+                                        </p>
+                                        <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
+                                        <div class="game-btn">
+                                            <lang>Play Now </lang>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -938,6 +940,7 @@ export default {
             line-height: 25px;
             font-size: 16px;
             font-weight: bold;
+            color: #ffce5a;
         }
         .msg4 {
             display: flex;
@@ -947,6 +950,7 @@ export default {
             line-height: 50px;
             font-size: 48px;
             font-family: sans-eb;
+            color: #ffce5a;
             i {
                 text-indent: 0;
                 font-size: 24px;
@@ -958,6 +962,7 @@ export default {
             height: 20px;
             line-height: 20px;
             font-size: 16px;
+            color: #ffce5a;
         }
     }
     .game-poker {
@@ -984,17 +989,17 @@ export default {
     }
     .game-btn {
         display: block;
-        width: percentage(228/369);
+        width: percentage(190/340);
         height: 52px;
         overflow: hidden;
         margin: 26px auto 0;
         border-radius: 6px;
-        line-height: 50px;
+        line-height: 52px;
         text-align: center;
         font-size: 20px;
         color: #fff;
         font-weight: bold;
-        border: 2px solid #ffffff;
+        background-color: rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -1356,16 +1361,27 @@ export default {
     }
 }
 @media (min-width: @screen-desktop) {
+    .game_list_pc {
+        width: 1020px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
     .items-game {
+        padding: 0 40px;
+        .game_list_pc {
+            width: 1020px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
         .game_list {
             width: 99999px;
             height: 290px;
             > div {
                 float: left;
-                padding: 0 20px;
-                width: 410px;
+                width: 340px;
             }
             > div + div {
+                padding-left: 30px;
                 margin-top: 0;
             }
         }
