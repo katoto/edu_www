@@ -1,6 +1,6 @@
 <template>
     <div class="luckyDapp">
-        <div class="head-dapp hide" >
+        <!-- <div class="head-dapp hide">
             <div class="head-dapp-wrap">
                 <h1 class="logo">
                     <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp" class="hide">
@@ -13,7 +13,7 @@
                     <router-link :to="{path: '/home'}"  class="btn-home" ></router-link>
                 </div>
             </div>
-        </div>
+        </div> -->
         <HeaderCoin v-on:scrollInvite="scrollInvite"></HeaderCoin>
         <!--status2-->
         <div class="banner-dapp" :class="{'status2':nextScreen && pageSucc}">
@@ -32,13 +32,11 @@
                     <template v-if="someGetWin && roundInfo">
                         <p clsss="issue-pc">
                             <!-- 当前时间 -->
-                            <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
                             {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<br />
                             <lang>Prize Pool</lang>: 10 ETH
                         </p>
                         <p class="issue-h5">
                             {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<lang>Prize Pool</lang>: 10 ETH
-                            <!-- {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Prize Pool</lang>10 ETH -->
                         </p>
                     </template>
                     <template v-if="!someGetWin && !waitWin && nextScreen">
@@ -115,10 +113,10 @@
                             </div>
                         </div>
                         <!--登录前-->
-                        <div class="btn-box hide">
+                        <!-- <div class="btn-box hide">
                             <a href="javascript:;" class="btn-big" @click="loginMetamask" :class="{'isNewShow':isShowStep4}">Login to Metamask</a>
                             <a href="javascript:;" class="btn-small"><lang>Pay by Income</lang></a>
-                        </div>
+                        </div> -->
                         <!--登陆后-->
                         <div class="btn-box">
                             <a href="javascript:;" class="btn-big" @click="buyNum" :class="{'isNewShow':isShowStep4}">
@@ -316,7 +314,6 @@
                         <p>
                             <lang>One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.</lang>
                         </p>
-
                     </div>
                     <template  v-if="selfMsg">
                         <!--已登录-->
