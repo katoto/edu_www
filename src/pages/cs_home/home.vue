@@ -55,7 +55,7 @@
                     <a href="javascropt:;" class="game-change game-change-pre" @click="gamePre">pre</a>
                     <!--各种游戏宣传图-->
                     <div class="game_list_pc">
-                        <div class="game_list clearfix" :style="{width:gameLength*gameWidth+'px',left:gameLeft}" ref="gameList">
+                        <div class="game_list clearfix" :style="{width:gameLength*gameWidth+(gameLength-1)*30+'px',left:gameLeft}" ref="gameList">
                             <!-- col-xs-12 col-md-4 -->
                             <div class="">
                                 <div class="for-full">
@@ -575,7 +575,8 @@ export default {
                 return false;
             }
             this.gameIndex--;
-            this.gameLeft = -this.gameWidth * this.gameIndex + "px";
+            this.gameLeft =
+                -(this.gameWidth * this.gameIndex + this.gameIndex * 30) + "px";
             this.activeClass = "luckypoker";
             this.activeClass1 = "luckypoker";
         },
@@ -584,7 +585,8 @@ export default {
                 return false;
             }
             this.gameIndex++;
-            this.gameLeft = -this.gameWidth * this.gameIndex + "px";
+            this.gameLeft =
+                -(this.gameWidth * this.gameIndex + this.gameIndex * 30) + "px";
             this.activeClass = "slot";
             this.activeClass1 = "slot";
         },
@@ -1362,15 +1364,10 @@ export default {
     }
 }
 @media (min-width: @screen-desktop) {
-    .game_list_pc {
-        width: 1020px;
-        overflow: hidden;
-        margin: 0 auto;
-    }
     .items-game {
         padding: 0 40px;
         .game_list_pc {
-            width: 1020px;
+            width: 1080px;
             overflow: hidden;
             margin: 0 auto;
         }
@@ -1382,7 +1379,7 @@ export default {
                 width: 340px;
             }
             > div + div {
-                padding-left: 30px;
+                margin-left: 30px;
                 margin-top: 0;
             }
         }
