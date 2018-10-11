@@ -1037,7 +1037,7 @@ Vue.use(vueClipboard)
                 this.lucky_values = luckyValues
                 if (this.lucky_values.length > 0) {
                     this.lucky_values.forEach((val) => {
-                        if (val.bet === this.dft_bet.toString()) {
+                        if (val.bet === (this.dft_bet || '').toString()) {
                             this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(0)
                             this.beforeBarProcess = parseFloat(val.lucky)
                             if (parseFloat(val.lucky) >= 100) {

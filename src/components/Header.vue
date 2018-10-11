@@ -13,7 +13,7 @@
                     <ul>
                         <li>
                             <router-link :to="{path: '/promotions/'}" active-class="on">
-                                <lang>Gift</lang>
+                                {{$lang.risk.a36}}
                             </router-link>
                         </li>
                         <li>
@@ -28,17 +28,17 @@
                         </li>
                         <li>
                             <router-link :to="{path: '/luckycoin/'}" active-class="on">
-                                <lang>LuckyCoin</lang>
+                                {{$lang.risk.a37}}
                             </router-link>
                         </li>
                         <li>
                             <router-link :to="{path: '/lucky11/'}" active-class="on">
-                                <lang>Lotto</lang>
+                                {{$lang.risk.a38}}
                             </router-link>
                         </li>
                         <li>
                             <router-link :to="{path: '/supercoin/'}" active-class="on">
-                                <lang>SuperCoin</lang>
+                                {{$lang.risk.a39}}
                             </router-link>
                         </li>
                     </ul>
@@ -49,7 +49,7 @@
                 <!-- icon-slot -->
                 <div class="choose-play icon-new ">
                     <router-link :to="{path: '/promotions/'}" active-class="on" class="nav_gift">
-                        <lang>Gift</lang>
+                        {{$lang.risk.a36}}
                     </router-link>
                     <router-link :to="{path: '/luckyslot/'}" active-class="on" class="nav_slot">
                         <lang>Slot</lang>
@@ -58,13 +58,13 @@
                         {{$lang.poker.a39}}
                     </router-link>
                     <router-link :to="{path: '/luckycoin/'}" active-class="on" class="nav_coin">
-                        <lang>Coin</lang>
+                        {{$lang.risk.a37}}
                     </router-link>
                     <router-link :to="{path: '/lucky11/'}" active-class="on" class="nav_lotto">
-                        <lang>Lotto</lang>
+                        {{$lang.risk.a38}}
                     </router-link>
                     <router-link :to="{path: '/supercoin/'}" active-class="on" class="nav_dapp">
-                        <lang>Dapp</lang>
+                        {{$lang.risk.a39}}
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide">APP</a>
@@ -73,13 +73,13 @@
                 <div class="language hide" :class="{isLanguage:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <!--languageVal-->
                     <div class="language-choose">
-                        <template v-for="item in languageOptions" v-if="item.value===languageVal">
-                            <img :src="item.lanLogo" alt="">
+                        <div v-for="(item, index) in languageOptions" v-if="item.value===languageVal" :key="index">
+                            <img :src="item.lanLogo">
                             <span>{{ item.label }}</span>
-                        </template>
+                        </div>
                     </div>
                     <ul>
-                        <li v-for="item in languageOptions" v-if="item.value!==languageVal" @click="handleLanguageChange(item.value)">
+                        <li v-for="(item, index) in languageOptions" v-if="item.value!==languageVal" @click="handleLanguageChange(item.value)" :key="index">
                             <img :src="item.lanLogo" width="27" height="15" alt="">
                             <span>{{ item.label }}</span>
                         </li>
@@ -511,6 +511,8 @@ export default {
                 this.changeAccounts(ETHAccount[0])
             } else if (CCHasBalance) {
                 this.changeAccounts(CCAccount[0])
+            } else {
+                this.changeAccounts(BTCAccount[0])
             }
         },
         async readyGetFirst () {

@@ -106,7 +106,7 @@ export default {
             let betmoney = Number(bet.betmoney)
             let discountRate = Number(bet.discount_rate)
             let cc = Number(bet.cc)
-            let isCCDiscount = (discountRate !== 1)
+            let isCCDiscount = (discountRate !== 1) && cc !== 0
             return !isCCDiscount
                 ? formateBalance(betmoney) + formateCoinType(bet.cointype)
                 : `${formateBalance(accSub(betmoney, accMul(accDiv(1, discountRate), cc))) + formateCoinType(bet.cointype)} + ${cc}CC`

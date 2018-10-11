@@ -370,6 +370,8 @@ export function formateMoneyFlow (flowtype, lotid) {
         return _('LuckySlot Bet')// 老虎机投注
     case '15':
         return _('LuckySlot Prize')// 老虎机中奖
+    case '16':
+        return _('Bonus') // 每日送1CC
     case '18':
         return _('Sign gift')// 连续七天送
     case '19':

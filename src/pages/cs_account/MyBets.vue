@@ -389,7 +389,7 @@ export default {
                         let betmoney = Number(val.betmoney)
                         let discountRate = Number(val.discount_rate)
                         let cc = Number(val.cc)
-                        val.isCCDiscount = (discountRate !== 1)
+                        val.isCCDiscount = (discountRate !== 1) && cc !== 0
                         if (val.lotid === '2') {
                             betmoney = accMul(betmoney, Number(val.betcode.split(',').length))
                             val.betmoney = !val.isCCDiscount
