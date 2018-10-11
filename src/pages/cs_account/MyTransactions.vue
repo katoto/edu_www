@@ -291,7 +291,7 @@ export default {
                     '3': '1',
                     '4': '2',
                     '5': [4, 6].join('|'),
-                    '6': [10, 11, 12, 13, 19].join('|'),
+                    '6': [10, 11, 12, 13, 19, 16].join('|'),
                     '7': [7, 5].join('|'),
                     '8': '3'
                 }[this.tranOptionVal] || ''
@@ -320,6 +320,9 @@ export default {
                 // bettime
                 let cointype = val.cointype
                 val.crtime = formatTime(val.crtime, 'yyyy-MM-dd HH:mm')
+                if (this.tranOptionVal === '6' && val.inout === '16') {
+                    val.inout = '10'
+                }
                 if (val.inout !== undefined) {
                     val.inout = formateMoneyFlow(val.inout, val.lotid)
                 }
