@@ -49,7 +49,7 @@
                 <!-- icon-slot -->
                 <div class="choose-play icon-new ">
                     <router-link :to="{path: '/promotions/'}" active-class="on" class="nav_gift">
-                        <lang>Gift</lang>
+                        {{$lang.risk.a36}}
                     </router-link>
                     <router-link :to="{path: '/luckyslot/'}" active-class="on" class="nav_slot">
                         <lang>Slot</lang>
@@ -58,13 +58,13 @@
                         {{$lang.poker.a39}}
                     </router-link>
                     <router-link :to="{path: '/luckycoin/'}" active-class="on" class="nav_coin">
-                        <lang>Coin</lang>
+                        {{$lang.risk.a37}}
                     </router-link>
                     <router-link :to="{path: '/lucky11/'}" active-class="on" class="nav_lotto">
-                        <lang>Lotto</lang>
+                        {{$lang.risk.a38}}
                     </router-link>
                     <router-link :to="{path: '/supercoin/'}" active-class="on" class="nav_dapp">
-                        <lang>Dapp</lang>
+                        {{$lang.risk.a39}}
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide">APP</a>
