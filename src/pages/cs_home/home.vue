@@ -7,7 +7,7 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
-                        <el-carousel :interval="5000000" @change="bgchange">
+                        <el-carousel :interval="5000" @change="bgchange">
                             <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
