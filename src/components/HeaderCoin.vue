@@ -232,7 +232,7 @@
                         <div class="newFirst">
                             <div class="msg">
                                 <p>
-                                    <lang>Sign Up to Get 0.0001 BTC for Free</lang>
+                                    <lang>Sign Up to Get 1CC for Free</lang>
                                 </p>
                                 <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
                                     <lang>Get it !</lang>

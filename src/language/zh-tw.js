@@ -4,7 +4,7 @@ module.exports = {
     'Free Bonus': '領獎中心',
     'Withdrawable Amount': '可提款金額',
     'Sign gift': '簽到送',
-    'Sign Up to Get 0.0001 BTC for Free': '註冊即可領取免費0.0001BTC',
+    'Sign Up to Get 1CC for Free': '註冊即可領取免費1CC',
     'Get daily free spin of Slot (Balance less than <b>0.00005BTC</b> and/or <b>0.0005ETH</b>)': '少於<b>0.00005BTC</b>且少於<b>0.0005ETH</b>的時候可每日免費領取老虎機次數',
     'Get <b>10 free spins</b> of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)': '充值0.001BTC或0.01ETH，立即贈送額外<b>10次免費</b>老虎機機會（每日僅可領取1次）',
     'Get 10 free spins of Slot (Top-up reaches 0.01ETH, 1 chance/day)': '充值0.01ETH，立即贈送額外<b>10次免費</b>老虎機機會（每日僅可領取1次）',
