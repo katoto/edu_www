@@ -7,7 +7,7 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
-                        <el-carousel :interval="5000" @change="bgchange">
+                        <el-carousel :interval="5000000" @change="bgchange">
                             <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
@@ -23,7 +23,8 @@
                                 <div class="banner-t1">
                                     <lang>50% Top-Up Bonus</lang>
                                 </div>
-                                <p class="banner-t11 visible-md visible-lg">
+                                <!--visible-md visible-lg-->
+                                <p class="banner-t11 ">
                                     <lang>More top-up, more bonus</lang>
                                 </p>
                                 <router-link to="/firstCharge" class="banner-firstCharge">
@@ -32,13 +33,13 @@
                             </el-carousel-item>
                             <el-carousel-item>
                                 <div class="banner-t1">
-                                    <lang>Finally! You found the wonderland-- Coinsprize</lang>
+                                    <lang>The blockchain-based game platform </lang>
                                 </div>
-                                <p class="banner-t11 visible-md visible-lg">
-                                    <lang>A blockchain-based game platform with fairness and openness</lang>
+                                <p class="banner-t11">
+                                    <lang>Unique play & transparent draw, only for your terrific experience in games</lang>
+                                    <!--with fairness and openness-->
                                 </p>
                                 <p class="banner-t2">
-                                    <lang>Unique play & transparent draw, only for your terrific experience in games</lang>
                                 </p>
                                 <a v-if="!isLog" href="javascript:;" class="banner-more" @click="onSignUp()">
                                     <lang>Sign up now</lang>
@@ -71,7 +72,7 @@
                                         </p>
                                         <p class="msg4">
                                             <span>{{formatNum(Number(roundInfo.jackpot), 4)}}</span>
-                                            <i> ETH</i>
+                                            <i>&nbsp;ETH</i>
                                         </p>
                                         <p class="msg5">
                                             {{formatUSD(entrance.megacoin.USD, Number(roundInfo.jackpot))}} USD
@@ -115,7 +116,7 @@
                                         </p>
                                         <p class="msg4">
                                             <span>{{formatNum(Number(entrance.slot.jackpot), 4)}}</span>
-                                            <i> {{formateCoinType(entrance.slot.cointype)}}</i>
+                                            <i>&nbsp;{{formateCoinType(entrance.slot.cointype)}}</i>
                                         </p>
                                         <p class="msg5">{{formatUSD(entrance.slot.USD, entrance.slot.jackpot)}} USD</p>
                                         <div class="game-btn">
@@ -138,7 +139,7 @@
                                         </p>
                                         <p class="msg4">
                                             <span>{{formatNum(Number(entrance.megacoin.goodsvalue), 4)}}</span>
-                                            <i> {{formateCoinType(entrance.megacoin.cointype)}}</i>
+                                            <i>&nbsp;{{formateCoinType(entrance.megacoin.cointype)}}</i>
                                         </p>
                                         <p class="msg5">{{formatUSD(entrance.megacoin.USD, entrance.megacoin.goodsvalue)}} USD</p>
                                         <div class="game-btn">
@@ -161,7 +162,7 @@
                                         </p>
                                         <p class="msg4">
                                             <span>{{formatNum(Number(entrance.syxw.jackpot), 4)}}</span>
-                                            <i> {{formateCoinType(entrance.syxw.cointype)}}</i>
+                                            <i>&nbsp;{{formateCoinType(entrance.syxw.cointype)}}</i>
                                         </p>
                                         <p class="msg5">{{formatUSD(entrance.syxw.USD, entrance.syxw.jackpot)}} USD</p>
                                         <div class="game-btn">
@@ -1316,6 +1317,12 @@ export default {
         &.bghome2 {
             background-size: 1190px;
         }
+        .el-carousel__item{
+            .banner-t11 {
+                line-height: 26px;
+                font-size: (1600)/1920vw;
+            }
+        }
     }
 }
 
@@ -1327,7 +1334,7 @@ export default {
                 line-height: 54px;
                 font-size: (4600)/1920vw;
             }
-            .banner-t2 {
+            .banner-t2,.banner-t11{
                 line-height: 26px;
                 font-size: (1600)/1920vw;
             }
