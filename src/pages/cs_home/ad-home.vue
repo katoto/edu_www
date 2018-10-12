@@ -13,7 +13,7 @@
                             {{item.description}}
                         </p>
                         <p class="ad_time">
-                            {{$lang.risk.a32}}: {{item.start}} - {{item.end}}
+                            {{$lang.risk.a32}}: {{formatTime(Number(item.start), 'yyyy-MM-dd HH:mm:ss')}} - {{formatTime(Number(item.end), 'yyyy-MM-dd HH:mm:ss')}}
                         </p>
                         <div class="ad_btn_box">
                             <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)" v-if="!(item.title_key === 'register_gift' && isLogin)">
@@ -38,65 +38,66 @@
 </template>
 
 <script>
-import Header from "~components/Header.vue";
-import Footer from "~components/Footer.vue";
-
+import Header from '~components/Header.vue'
+import Footer from '~components/Footer.vue'
+import { formatTime } from '~/common/util'
 export default {
     components: { Header, Footer },
-    data() {
+    data () {
         return {
             list: []
-        };
+        }
     },
     computed: {
-        isLogin() {
-            return this.$store.state.isLog;
+        isLogin () {
+            return this.$store.state.isLog
         }
     },
     methods: {
-        isNew(startTime, endTime) {
-            let thisTime = new Date().getTime();
+        formatTime,
+        isNew (startTime, endTime) {
+            let thisTime = new Date().getTime()
             return (
                 thisTime - startTime < 10 * 24 * 3600 * 1000 &&
                 thisTime < endTime
-            );
+            )
         },
-        isGoing(startTime, endTime) {
-            let thisTime = new Date().getTime();
+        isGoing (startTime, endTime) {
+            let thisTime = new Date().getTime()
             return (
                 thisTime - startTime > 10 * 24 * 3600 * 1000 &&
                 thisTime < endTime
-            );
+            )
         },
-        getMsgTab(data) {
-            let startTime = Number(data.start_show) * 1000;
-            let endTime = Number(data.end_show) * 1000;
+        getMsgTab (data) {
+            let startTime = Number(data.start_show) * 1000
+            let endTime = Number(data.end_show) * 1000
             if (this.isNew(startTime, endTime)) {
-                return this.$lang.risk.a29;
+                return this.$lang.risk.a29
             } else if (this.isGoing(startTime, endTime)) {
-                return this.$lang.risk.a30;
+                return this.$lang.risk.a30
             }
-            return this.$lang.risk.a31;
+            return this.$lang.risk.a31
         },
-        getList() {
-            this.$store.dispatch("getAdListInfo").then(res => {
-                this.list = [...res.data];
-            });
+        getList () {
+            this.$store.dispatch('getAdListInfo').then(res => {
+                this.list = [...res.data]
+            })
         },
-        join(data) {
+        join (data) {
             if (this.getMsgTab(data) === this.$lang.risk.a31) {
-                this.$error(this.$lang.risk.a35);
-            } else if (data.title_key === "first_recharge") {
-                this.$router.push("/firstCharge");
-            } else if (!this.isLogin && data.title_key === "register_gift") {
-                this.$store.commit("showRegPop");
+                this.$error(this.$lang.risk.a35)
+            } else if (data.title_key === 'first_recharge') {
+                this.$router.push('/firstCharge')
+            } else if (!this.isLogin && data.title_key === 'register_gift') {
+                this.$store.commit('showRegPop')
             }
         }
     },
-    mounted() {
-        this.getList();
+    mounted () {
+        this.getList()
     }
-};
+}
 </script>
 
 
