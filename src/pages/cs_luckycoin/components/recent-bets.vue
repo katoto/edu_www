@@ -5,7 +5,7 @@
             <div class="email">
                 {{item.username}}
             </div>
-            <!--icon-eth/icon-btc-->
+            <!-- icon-eth/icon-btc -->
             <div class="amount" :class="formatCoinClass(formateCoinType(item.cointype))" >
                 {{formateBalance(item.betmoney)}}
                 <!--{{ formateCoinType(item.cointype) }}-->
@@ -30,14 +30,15 @@ export default {
                 'BTC': 'icon-btc',
                 'CC': 'icon-cc'
             }[coinText]
-        }
+        },
     },
     props: {
         data: {
             type: Array,
             default: []
         }
-    }
+    },
+   
 }
 </script>
 <style scoped lang="less" type="text/less">
