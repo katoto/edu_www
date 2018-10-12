@@ -70,8 +70,8 @@ export default {
             )
         },
         getMsgTab (data) {
-            let startTime = Number(data.start_show) * 1000
-            let endTime = Number(data.end_show) * 1000
+            let startTime = Number(data.start) * 1000
+            let endTime = Number(data.end) * 1000
             if (this.isNew(startTime, endTime)) {
                 return this.$lang.risk.a29
             } else if (this.isGoing(startTime, endTime)) {
