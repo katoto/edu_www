@@ -34,7 +34,7 @@ let en = {
     a33: 'Join Now',
     a34: 'More Info',
     a35: 'This Activity is Expired',
-    a36: 'Promotion',
+    a36: 'Promos',
     a37: 'LuckyCoin',
     a38: 'Lucky11',
     a39: 'SuperCoin',
