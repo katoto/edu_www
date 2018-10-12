@@ -381,7 +381,8 @@
         formatTime,
         ethUrl,
         formateBalance,
-        formateCoinType
+        formateCoinType,
+        accSub
     } from '~common/util'
 
     import PopList from '~components/Pop-list'
@@ -625,9 +626,22 @@
                 }
 
                 if (this.currBalance) {
-                    if (Number(this.withdrawAmount) > (parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee))) {
-                        if ((parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)) >= parseFloat(this.currBalance.draw_limit)) {
-                            this.withdrawAmount = parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)
+                    if (this.currBalance.cointype === '2000') {
+                        if (this.getEthBalance() < 0.0003) {
+                            this.error(_('Insufficient ETH'))
+                            return false
+                        } else if (Number(this.withdrawAmount) > Number(this.currBalance.balance)) {
+                            this.error(_(
+                                'The maximum withdrawal is {0} {1}',
+                                Number(this.currBalance.balance),
+                                this.formateCoinType(this.currBalance.cointype)
+                            ))
+                            this.withdrawAmount = this.currBalance.balance
+                            return false
+                        }
+                    } else if (Number(this.withdrawAmount) > accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee))) {
+                        if (accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee)) >= parseFloat(this.currBalance.draw_limit)) {
+                            this.withdrawAmount = accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee))
                             this.error(_(
                                 'The maximum withdrawal is {0} {1}',
                                 this.withdrawAmount,
@@ -643,6 +657,16 @@
                 }
                 //  显示弹窗
                 this.showTransfer = true
+            },
+            getEthBalance () {
+                let num = 0
+                this.userInfo.accounts && this.userInfo.accounts.forEach(account => {
+                    if (account.cointype === '2001') {
+                        console.log(num)
+                        num = Number(account.balance)
+                    }
+                })
+                return num
             },
             async handleClick (tab, msg) {
                 if (tab.label === _('Records')) {
@@ -714,7 +738,7 @@
                                 break
                             }
                         }
-                        val.balance = formateBalance(val.balance) + formateCoinType(val.cointype)
+                        val.balance = formateBalance(val.balance) + val.cointype
                         // win state
                         if (val.orderstatus === '2') {
                             // 结算 并且大于0
