@@ -182,58 +182,20 @@ export function formatMatch (match) {
     }
 }
 
-export function formateBalance (val = 0, type = '2001') {
+export function formateBalance (val = 0) {
     let newEth = null
     if (isNaN(val) || isNaN(Number(val))) {
         console.error('formateBalance error' + val)
         return 0
     }
-    val = Number(val)
-    if (val > 10000000) {
-        newEth = (val / 100000000).toFixed(1) + '亿'
-    } else if (val > 100000) {
-        newEth = (val / 10000).toFixed(1) + '万'
-    } else if (val > 1000) {
-        newEth = parseFloat((val).toFixed(0))
-    } else if (val > 100) {
-        newEth = (val).toFixed(3)
-    } else if (val > 10) {
-        newEth = (val).toFixed(4)
-    } else if (val > 1) {
-        newEth = (val).toFixed(5)
-    } else {
-        newEth = (val).toFixed(6)
-    }
-
-    if (type === '2000') {
-        return formatNum(newEth, 2).toFixed(2)
-    }
+    let num = Number(val).toFixed(6)
+    let index = num.indexOf('.')
+    newEth = num.substr(0, num.length - index)
     return newEth
 }
 
 export function formateSlotBalance (val = 0) {
-    let newEth = null
-    if (isNaN(val) || isNaN(Number(val))) {
-        console.error('formateSlotBalance error' + val)
-        return 0
-    }
-    val = Number(val)
-    if (val > 10000000) {
-        newEth = (val / 100000000).toFixed(1) + '亿'
-    } else if (val > 100000) {
-        newEth = (val / 10000).toFixed(1) + '万'
-    } else if (val > 1000) {
-        newEth = parseFloat((val).toFixed(0))
-    } else if (val > 100) {
-        newEth = parseFloat((val).toFixed(3))
-    } else if (val > 10) {
-        newEth = parseFloat((val).toFixed(4))
-    } else if (val > 1) {
-        newEth = parseFloat((val).toFixed(5))
-    } else {
-        newEth = parseFloat((val).toFixed(6))
-    }
-    return newEth
+    return this.formateBalance(val)
 }
 
 export function formateJackpot (val = 0) {
@@ -371,6 +333,7 @@ export function formateMoneyFlow (flowtype, lotid) {
     case '15':
         return _('LuckySlot Prize')// 老虎机中奖
     case '16':
+    case '17':
         return _('Bonus') // 每日送1CC
     case '18':
         return _('Sign gift')// 连续七天送

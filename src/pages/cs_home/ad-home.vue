@@ -2,7 +2,7 @@
     <div class="page_act_center">
         <Header></Header>
         <div class="main">
-            <ul class="act_items " v-if="this.list.length>0">
+            <ul class="act_items " v-if="this.list.length > 0">
                 <li v-for="(item, index) in list" :key="index" :style="`background: ${item.bg_color || '#3b2860'}`" class="icon_over" :datamsg="getMsgTab(item)">
                     <img :src="`https://www.coinsprize.com${item.img_url}`" alt="" class="img_ad">
                     <div class="ad_view">
@@ -29,7 +29,7 @@
             <div class="nomsg" v-else>
                 <img src="@/assets/img/nomsg.png" alt="">
                 <p>
-                    <lang>No Data</lang>
+                    {{$lang.risk.a40}}, <router-link :to="{path: '/'}"><lang>Try a luck !</lang></router-link>
                 </p>
             </div>
         </div>
