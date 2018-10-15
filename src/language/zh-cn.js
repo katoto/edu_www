@@ -842,6 +842,7 @@ module.exports = {
     'SUPERCOIN': '超级夺币',
     'SuperCoin': '超级夺币',
     'Win 10 ETH Prize Pool Every 2 Hours': '每2小时赢取10ETH',
-    'Insufficient ETH': 'ETH 余额不足'
+    'Insufficient ETH': 'ETH 余额不足',
+    'The blockchain-based gaming platform': '区块链博彩平台'
     /* super coin end */
 }

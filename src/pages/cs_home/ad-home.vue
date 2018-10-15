@@ -6,20 +6,18 @@
                 <li v-for="(item, index) in list" :key="index" :style="`background: ${item.bg_color || '#3b2860'}`" class="icon_over" :datamsg="getMsgTab(item)">
                     <img :src="`https://www.coinsprize.com${item.img_url}`" alt="" class="img_ad">
                     <div class="ad_view">
-                        <h3 class="ad_t">
-                            {{item.label}}
+                        <h3 class="ad_t" v-html="item.label">
                         </h3>
-                        <p class="ad_msg">
-                            {{item.description}}
+                        <p class="ad_msg" v-html="item.description">
                         </p>
                         <p class="ad_time">
                             {{$lang.risk.a32}}: {{formatTime(Number(item.start), 'yyyy-MM-dd HH:mm:ss')}} - {{formatTime(Number(item.end), 'yyyy-MM-dd HH:mm:ss')}}
                         </p>
-                        <div class="ad_btn_box">
-                            <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)" v-if="!(item.title_key === 'register_gift' && isLogin)">
+                        <div class="ad_btn_box" v-if="item.title_key !== 'register_gift'">
+                            <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)">
                                 {{$lang.risk.a33}}
                             </a>
-                            <router-link :to="{path: '/adDetail', query: { id: item.id }}" v-if="item.target && item.target.length > 0" class="ad_btn ad_btn_more">
+                            <router-link :to="{path: '/adDetail', query: { id: item.id }}" v-if="false" class="ad_btn ad_btn_more">
                                 {{$lang.risk.a34}}
                             </router-link>
                         </div>

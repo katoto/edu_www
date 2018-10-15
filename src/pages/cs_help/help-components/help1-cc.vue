@@ -53,6 +53,10 @@
                 <p class="msg">
                     {{$lang.risk.a13}}
                 </p>
+                <br>
+                <p class="msg">
+                    {{$lang.risk.a41}}
+                </p>
             </li>
         </ul>
     </div>
