@@ -17,14 +17,14 @@
         <!--移动端-->
         <div class="pop-mask hidden-md hidden-lg" :class="{hide:!isShowH5SideBar}"></div>
         <div class="h5-slide-bar hidden-md hidden-lg" :class="{show:isShowH5SideBar}">
-             <p> {{h5NavHelpMsg}}</p>
+             <p> {{_(h5NavHelpMsg)}}</p>
             <div class="btn" @click="isShowH5SideBar = !isShowH5SideBar">
                 <span></span><span></span><span></span>
             </div>
             <ul>
                 <li v-for="(item,index) in dataMenu" :key="index">
                     <ul>
-                        <li v-for="(item1,index1) in item.menu2" :key="index1" active-class="on"  @click.prevent.stop="tabChange(index,index1,item1)">
+                        <li v-for="(item1,index1) in item.menu2" :key="index1" @click.prevent.stop="tabChange(index,index1,item1)" :class="[index==3&&index1==0?'hide':'']">
                           <a href="javascript:;">
                               {{item1}}
                           </a>
@@ -37,9 +37,6 @@
             <keep-alive>
                 <component :is="current" ref="helpView"></component>
             </keep-alive>
-        </div>
-        <div>
-              {{ $route.params}}
         </div>
     </div>
 </template>
@@ -71,7 +68,6 @@ export default {
         tabChange (index, index2, item1) {
             if (index === 3 && index2 === 0) {
                 this.$router.push({ path: '/check' })
-                // window.open(this.$router.resolve({path: '/check'}).href, '_blank')
             } else {
                 this.$router.push({
                     path: '/helpView',
@@ -91,9 +87,6 @@ export default {
         }
     },
     computed: {
-        h5NavMsg () {
-            this.isShowH5SideBar = false
-        }
     },
     components: {
         help00,
@@ -190,7 +183,6 @@ export default {
   background: #fff;
   border-radius: 6px;
   padding: 0 percentage(40/955) 70px;
-  margin-top: 60px;
   li + li {
     margin-top: 20px;
   }
@@ -198,14 +190,15 @@ export default {
     margin-bottom: 10px;
     line-height: 84px;
     font-size: 26px;
+    font-weight: bold;
   }
   .title {
     line-height: 24px;
     font-size: 16px;
+    font-weight: bold;
   }
   .msg {
-    margin-left: 1.5em;
-    line-height: 16px;
+    line-height: 20px;
     font-size: 14px;
   }
   .cicle {
@@ -222,10 +215,22 @@ export default {
     margin-right: 0;
     width: 100%;
   }
+ /deep/ .main-cnt{
+    margin-top: 60px;
+    padding-top: 20px;
+    .title{
+        line-height: 32px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .msg{
+        line-height: 20px;
+        font-size: 14px;
+    }
+  }
 }
 @media (max-width: 480px) {
 }
-
 .pop-mask {
   display: block;
   position: fixed;
@@ -266,6 +271,7 @@ export default {
   }
   > p {
     float: left;
+    width: 90%;
   }
   .btn {
     float: right;
@@ -306,7 +312,7 @@ export default {
   }
   &.show {
     z-index: 11;
-    height: 500px;
+    height: 455px;
     ul {
       display: block;
     }

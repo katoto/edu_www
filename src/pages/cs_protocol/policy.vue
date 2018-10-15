@@ -52,9 +52,9 @@
                 <p>
                     You can log in to the Platform and use all application services provided on the Platform (self-excluded, sanctioned for violation and invalid accounts are not qualified for part or all of services).
                 </p>
-                <h2>
+                <h3>
                     2.2 Account Modification
-                </h2>
+                </h3>
                 <p>
                     To protect rights of Users and ensure the uniqueness of accounts, Users cannot modify part of the account information on their own;
                 </p>
@@ -377,6 +377,8 @@
                 <p>Both Users and the Coinsprize operator unanimously agree to be governed by the judicial authority of the geographic region where Coinsprize operator is located if any dispute occurs.</p>
             </div>
         </div>
+          <!--返回顶部-->
+            <ScrollTop></ScrollTop>
         <Footer class="lucky11"></Footer>
     </div>
 </template>
@@ -385,6 +387,7 @@
     import Header from '~/components/Header.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Footer from '~/components/Footer.vue'
+    import ScrollTop from '~/components/ScrollTop'
 
     export default {
         data () {
@@ -401,7 +404,8 @@
         components: {
             Footer,
             Header,
-            BreadCrumbs
+            BreadCrumbs,
+            ScrollTop
         }
     }
 </script>
@@ -473,12 +477,12 @@
         }
     }
 
-    @media (max-width: @screen-phone) {
+    @media (max-width: @screen-md) {
         .main-policy {
             padding: 15px 22px;
             h1 {
                 line-height: 40px;
-                font-size: 24px;
+                font-size: 20px;
                 margin-bottom: 26px;
                 text-align: center;
             }

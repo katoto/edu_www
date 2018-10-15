@@ -58,9 +58,9 @@
                 <p>
                     可以登录平台，并使用平台中提供的所有应用服务（自身进行限制、被违规制裁或无效账号将无法享受部分或全部服务）
                 </p>
-                <h2>
+                <h3>
                     2. 账号的修改
-                </h2>
+                </h3>
                 <p>
                     为保障用户的权益且账号的唯一性，部分信息用户无法自行修改；
                 </p>
@@ -389,6 +389,8 @@
                 </div>
             </div>
         </div>
+                  <!--返回顶部-->
+            <ScrollTop></ScrollTop>
         <Footer class="lucky11"></Footer>
     </div>
 </template>
@@ -397,6 +399,7 @@
     import Header from '~/components/Header.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Footer from '~/components/Footer.vue'
+    import ScrollTop from '~/components/ScrollTop'
 
     export default {
         data () {
@@ -413,7 +416,8 @@
         components: {
             Footer,
             Header,
-            BreadCrumbs
+            BreadCrumbs,
+            ScrollTop
         }
     }
 </script>
@@ -477,12 +481,12 @@
         }
     }
 
-    @media (max-width: @screen-phone) {
+    @media (max-width: @screen-md) {
         .main-policy {
             padding: 15px 22px;
             h1 {
                 line-height: 40px;
-                font-size: 24px;
+                font-size: 20px;
                 margin-bottom: 26px;
                 text-align: center;
             }

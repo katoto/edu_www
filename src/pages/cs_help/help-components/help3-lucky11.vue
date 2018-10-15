@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <h1>
+         <h1 class="hidden-sm hidden-xs">
             <lang>How to Play  (Lucky11)</lang>
         </h1>
         <ul>
@@ -103,12 +103,20 @@
 </script>
 <style scoped lang="less" type="text/less">
     .msgTable{
-        margin: 14px ;
-        width: 400px !important;
+        // margin: 1.5em ;
+        margin: 1.5em;
+        width: 100%;
+        max-width: 400px;
     }
     .msgTable,.msgTable td,.msgTable th{
         border: 1px solid #282828;
         color: #282828;
         height: 34px;
+    }
+    @media(max-width: 500px){
+        .msgTable{
+             margin: 1.5em auto;
+             max-width: 300px;
+        }
     }
 </style>
