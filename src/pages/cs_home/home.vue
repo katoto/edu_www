@@ -33,7 +33,7 @@
                             </el-carousel-item>
                             <el-carousel-item>
                                 <div class="banner-t1">
-                                    <lang>The blockchain-based game platform</lang>
+                                    <lang>Finally! You found the wonderland-- Coinsprize</lang>
                                 </div>
                                 <p class="banner-t11">
                                     <lang>Unique play & transparent draw, only for your terrific experience in games</lang>
