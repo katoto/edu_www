@@ -775,8 +775,8 @@ export default {
     }
     /*banner*/
     .el-carousel {
-        height: 300-48px;
-        margin-bottom: 48px;
+        height: 300-38px;
+        margin-bottom: 38px;
         color: #fff;
         text-align: center;
         /*/deep/ .el-carousel__indicators {*/
@@ -1317,7 +1317,7 @@ export default {
         &.bghome2 {
             background-size: 1190px;
         }
-        .el-carousel__item{
+        .el-carousel__item {
             .banner-t11 {
                 line-height: 26px;
                 font-size: (1600)/1920vw;
@@ -1334,7 +1334,8 @@ export default {
                 line-height: 54px;
                 font-size: (4600)/1920vw;
             }
-            .banner-t2,.banner-t11{
+            .banner-t2,
+            .banner-t11 {
                 line-height: 26px;
                 font-size: (1600)/1920vw;
             }
@@ -1380,7 +1381,8 @@ export default {
         }
         .game_list {
             width: 99999px;
-            height: 290px;
+            padding-top: 10px;
+            height: 300px;
             > div {
                 float: left;
                 width: 340px;
@@ -1399,7 +1401,8 @@ export default {
             transition: all 0.2s;
             transform-origin: bottom;
             &:hover {
-                filter: brightness(1.1);
+                // filter: brightness(1.1);
+                transform: translateY(-10px);
             }
         }
         .game-btn {
@@ -1433,6 +1436,10 @@ export default {
                 margin-top: 80px;
                 line-height: 66px;
                 font-size: 52px;
+            }
+            .banner-t11 {
+                line-height: 32px;
+                font-size: 23px;
             }
             .banner-t2 {
                 line-height: 28px;
