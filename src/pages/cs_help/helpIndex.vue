@@ -10,7 +10,7 @@
                 </p>
                 <ul class="sub-menu ">
                     <li v-for="(subItem1,index2) in item.menu2" :key="index2">
-                        <a href="javascript:;" @click="toCheck(index,index2)">
+                        <a href="javascript:;" @click="toCheck(index,index2,subItem1)">
                             {{subItem1}}
                         </a>
                     </li>
@@ -30,8 +30,7 @@
         },
         watch: {},
         methods: {
-        // :to="{name: 'helpView',params:{a:index,b:index2}}"
-            toCheck (index, index2) {
+            toCheck (index, index2, subItem1) {
                 if (index === 3 && index2 === 0) {
                     this.$router.push('/check')
                 } else {
@@ -40,7 +39,8 @@
                         name: 'helpView',
                         params: {
                             a: index,
-                            b: index2
+                            b: index2,
+                            c: subItem1
                         }
                     })
                 }
