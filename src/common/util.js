@@ -184,14 +184,23 @@ export function formatMatch (match) {
 
 export function formateBalance (val = 0) {
     let newEth = null
+    let isF = false
     if (isNaN(val) || isNaN(Number(val))) {
         console.error('formateBalance error' + val)
         return 0
     }
+    val = Number(val)
+    if (val < 0) {
+        isF = true
+        val = val * -1
+    }
+    if (val >= 100000) {
+        return val.toString()
+    }
     let num = Number(val).toFixed(6)
     let index = num.indexOf('.')
     newEth = num.substr(0, num.length - index)
-    return newEth
+    return `${isF ? '-' : ''}${newEth}`
 }
 
 export function formateSlotBalance (val = 0) {
