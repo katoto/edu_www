@@ -17,7 +17,7 @@
                             <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)">
                                 {{$lang.risk.a33}}
                             </a>
-                            <router-link :to="{path: '/adDetail', query: { id: item.id }}" v-if="false" class="ad_btn ad_btn_more">
+                            <router-link :to="{path: item.target, query: { id: item.id }}" v-if="item.target && item.target.length > 0" class="ad_btn ad_btn_more">
                                 {{$lang.risk.a34}}
                             </router-link>
                         </div>
@@ -39,8 +39,10 @@
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { formatTime } from '~/common/util'
+import FirstChargeMixin from '../cs_activity/cs_firstCharge_mixin'
 export default {
     components: { Header, Footer },
+    mixins: [FirstChargeMixin],
     data () {
         return {
             list: []
@@ -86,7 +88,7 @@ export default {
             if (this.getMsgTab(data) === this.$lang.risk.a31) {
                 this.$error(this.$lang.risk.a35)
             } else if (data.title_key === 'first_recharge') {
-                this.$router.push('/firstCharge')
+                this.getFirstBtn()
             } else if (!this.isLogin && data.title_key === 'register_gift') {
                 this.$store.commit('showRegPop')
             }
