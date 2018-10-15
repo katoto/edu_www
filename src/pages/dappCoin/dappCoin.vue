@@ -103,11 +103,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--登录前-->
-                        <!-- <div class="btn-box hide">
-                            <a href="javascript:;" class="btn-big" @click="loginMetamask" :class="{'isNewShow':isShowStep4}">Login to Metamask</a>
-                            <a href="javascript:;" class="btn-small"><lang>Pay by Income</lang></a>
-                        </div> -->
                         <!--登陆后-->
                         <div class="btn-box">
                             <a href="javascript:;" class="btn-big" @click="buyNum" :class="{'isNewShow':isShowStep4}">
@@ -700,7 +695,8 @@ export default {
             isShowStep1: true,
             isShowStep2: false,
             isShowStep3: false,
-            isShowStep4: false
+            isShowStep4: false,
+            autoLoginTime:null,
         }
     },
 
@@ -895,10 +891,7 @@ export default {
             if (data) {
                 if (pageno === 1) {
                     let insertData = await this.getRoundMsg()
-                    if (
-                        insertData &&
-                        data.expects[0].round !== insertData.round
-                    ) {
+                    if (insertData && data.expects[0].round !== insertData.round) {
                         data.expects.unshift(insertData)
                     }
                 }
@@ -1331,15 +1324,8 @@ export default {
                         parseFloat(this.selfMsg.calcTicketEarn) +
                         parseFloat(this.selfMsg.aff_invite)
                 }
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-                // if (earnNum && Number(this.balance) < earnNum) {
-                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                // } else {
-                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                // }
-            } else {
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
             }
+            this.maxTicketNum = 1500 - this.roundInfo.tickets
 
             if (this.timeLeft === 0) {
                 if (this.roundInfo.luckNum === 0) {
@@ -1390,10 +1376,12 @@ export default {
                     parseInt(Math.random() * 2)
                 ]
             }, 4000)
+
+
         },
         async getRoundMsg () {
             await this.getCurrentRoundInfo()
-            if (this.roundInfo && this.roundInfo.roundIndex) {
+            if (this.roundInfo && this.roundInfo.roundIndex && ( this.roundInfo.luckynum === 0 || !this.roundInfo ) ) {
                 let msgRound = await luckyCoinApi.round_(
                     Number(this.roundInfo.roundIndex) - 1
                 )
@@ -1454,6 +1442,7 @@ export default {
                         }, 6000)
                         clearInterval(this.nowTimeInterval)
                     }
+                    console.log(this.timeLeft + 'timeLeft')
                     this.nowFormateTime = this.calcTime(this.timeLeft)
                     this.timeLeft--
                 }
@@ -1494,15 +1483,6 @@ export default {
                     parseFloat(this.selfMsg.aff_invite)
             }
             this.maxTicketNum = 1500 - this.roundInfo.tickets
-            // if (this.balance && Number(this.balance) > 0) {
-            //     // if (earnNum && Number(this.balance) < earnNum) {
-            //     //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-            //     // } else {
-            //     //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-            //     // }
-            // } else {
-            //     this.maxTicketNum = 1500 - this.roundInfo.tickets
-            // }
         },
         async buyNum () {
             // 购买号码
@@ -1884,6 +1864,18 @@ export default {
         this.pageInit()
         this.startAllevent()
         this.getRoundMsg()
+
+        this.autoLoginTime = setInterval( async ()=>{
+            this.selfAddr = await luckyCoinApi.getAccounts()
+            console.log(this.selfAddr)
+            console.log('========this.selfAddr======')            
+            if(this.selfAddr){
+                clearInterval(this.autoLoginTime)
+                this.pageInit()
+                this.showPopMask = false
+            }
+        },1000)
+
     },
     watch: {
         isLog (val) {
