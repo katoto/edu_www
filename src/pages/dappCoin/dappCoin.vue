@@ -1454,8 +1454,6 @@ export default {
                     this.selfAddr
                 )
                 this.selfMsg = allMsg[0]
-                console.log(this.selfMsg)
-                console.log('=========selfMsg======')
                 this.balance = allMsg[1]
                 this.selfMsg.inviteLink =
                     this.selfMsg.name === ''
@@ -1867,8 +1865,6 @@ export default {
 
         this.autoLoginTime = setInterval( async ()=>{
             this.selfAddr = await luckyCoinApi.getAccounts()
-            console.log(this.selfAddr)
-            console.log('========this.selfAddr======')            
             if(this.selfAddr){
                 clearInterval(this.autoLoginTime)
                 this.pageInit()
