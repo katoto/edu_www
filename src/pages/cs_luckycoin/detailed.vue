@@ -319,7 +319,7 @@
 </template>
 
 <script>
-import BreadCrumbs from "~/components/BreadCrumbs.vue";
+import BreadCrumbs from '~/components/BreadCrumbs.vue'
 import {
     getURLParams,
     formatTime,
@@ -331,15 +331,15 @@ import {
     formatUSD,
     getCCAcount,
     getCCDeductionMoney
-} from "~/common/util";
-import { mapActions, mapState } from "vuex";
-import timeMixin from "./timeMixin";
+} from '~/common/util'
+import { mapActions, mapState } from 'vuex'
+import timeMixin from './timeMixin'
 export default {
     mixins: [timeMixin],
-    data() {
+    data () {
         return {
-            number: "",
-            activeName: "all",
+            number: '',
+            activeName: 'all',
             pageno: 1,
             pageSize: 10,
             PageTotal: 10,
@@ -350,7 +350,7 @@ export default {
             myNumbers: [],
             orders: [],
             goodsinfo: null,
-            infoName: "",
+            infoName: '',
             betMoney: 0,
             betValue: 0,
             canBuyValue: 0,
@@ -359,21 +359,21 @@ export default {
             showSuccess: false,
             showFail: false,
             showDeposit: false,
-            failMsg: "",
-            mybetTime: "",
+            failMsg: '',
+            mybetTime: '',
             time: "1' 30\"",
             _time: 90,
             timer: null
-        };
+        }
     },
     methods: {
-        ...mapActions(["getUserInfo"]),
-        ...mapActions("cs_luckycoin", [
-            "getDetailData",
-            "getAllBids",
-            "getMyBids",
-            "betNow",
-            "getBetsList"
+        ...mapActions(['getUserInfo']),
+        ...mapActions('cs_luckycoin', [
+            'getDetailData',
+            'getAllBids',
+            'getMyBids',
+            'betNow',
+            'getBetsList'
         ]),
         formatTime,
         numberComma,
@@ -382,93 +382,93 @@ export default {
         formateCoinType,
         getCCAcount,
         getCCDeductionMoney,
-        init() {
-            let params = getURLParams();
-            if (params.number || this.number !== "") {
-                this.number = params.number || this.number;
-                this.getDetailInfo();
-                this.getAllBidsInfo();
-                this.getMyBidsInfo();
+        init () {
+            let params = getURLParams()
+            if (params.number || this.number !== '') {
+                this.number = params.number || this.number
+                this.getDetailInfo()
+                this.getAllBidsInfo()
+                this.getMyBidsInfo()
             } else {
                 this.getBetsList({
                     pagesize: 1
                 }).then(res => {
-                    let data = res.data.goods;
+                    let data = res.data.goods
                     if (data && data[0]) {
-                        this.number = data[0].exceptId;
+                        this.number = data[0].exceptId
                         this.$router.replace(
                             `/luckycoin/detailed?number=${this.number}`
-                        );
-                        this.init();
+                        )
+                        this.init()
                     }
-                });
+                })
             }
 
             if (params.go) {
-                this.activeName = "my";
+                this.activeName = 'my'
             }
         },
-        winSort(numbers) {
-            let tmp = [...numbers];
+        winSort (numbers) {
+            let tmp = [...numbers]
             for (let index = 0; index < tmp.length; index++) {
-                let item = tmp[index];
+                let item = tmp[index]
                 if (item === this.goodsinfo.luckyNum) {
-                    tmp.splice(index, 1);
-                    tmp.unshift(item);
-                    break;
+                    tmp.splice(index, 1)
+                    tmp.unshift(item)
+                    break
                 }
             }
-            return tmp;
+            return tmp
         },
-        triggerTimeout() {
-            this.getDetailInfo();
+        triggerTimeout () {
+            this.getDetailInfo()
         },
-        triggerWaitting() {
-            if (this.goodsinfo.state !== "4") {
-                this.goodsinfo.state = "3";
+        triggerWaitting () {
+            if (this.goodsinfo.state !== '4') {
+                this.goodsinfo.state = '3'
             }
         },
-        getDetailInfo() {
+        getDetailInfo () {
             return this.getDetailData({
                 expectId: this.number,
-                lotid: "2"
+                lotid: '2'
             }).then(res => {
-                this.renderDetailInfo(res);
-                this.renderTime(res.data.goodsinfo.endtime);
-                return res;
-            });
+                this.renderDetailInfo(res)
+                this.renderTime(res.data.goodsinfo.endtime)
+                return res
+            })
         },
-        renderDetailInfo(res) {
-            this.goodsinfo = res.data.goodsinfo;
-            this.betValue = Number(this.goodsinfo.bidValue);
-            this.formatCommingTime(this.goodsinfo.lefttime);
+        renderDetailInfo (res) {
+            this.goodsinfo = res.data.goodsinfo
+            this.betValue = Number(this.goodsinfo.bidValue)
+            this.formatCommingTime(this.goodsinfo.lefttime)
         },
-        formatCommingTime(time) {
-            let num = Number(time);
-            num = num === 0 || num > 90 ? 90 : num;
+        formatCommingTime (time) {
+            let num = Number(time)
+            num = num === 0 || num > 90 ? 90 : num
 
             if (this.timer) {
-                clearInterval(this.timer);
-                this.timer = null;
+                clearInterval(this.timer)
+                this.timer = null
             }
-            this._time = num;
-            this.renderCommingTime();
+            this._time = num
+            this.renderCommingTime()
             this.timer = setInterval(() => {
-                this._time--;
+                this._time--
                 if (this._time === 0) {
-                    clearInterval(this.timer);
-                    this.refresh();
+                    clearInterval(this.timer)
+                    this.refresh()
                 }
-                this.renderCommingTime();
-            }, 1000);
+                this.renderCommingTime()
+            }, 1000)
         },
-        renderCommingTime() {
-            this.time = `${Math.floor(this._time / 60)}' ${this._time % 60}"`;
+        renderCommingTime () {
+            this.time = `${Math.floor(this._time / 60)}' ${this._time % 60}"`
         },
-        getAllBidsInfo() {
+        getAllBidsInfo () {
             this.getAllBids({
                 expectId: this.number,
-                lotid: "2",
+                lotid: '2',
                 pagesize: this.pageSize,
                 pageno: this.pageno
             }).then(res => {
@@ -477,348 +477,348 @@ export default {
                         res.data.totalBids,
                         res.data.goodsinfo
                     )
-                ];
-                this.PageTotal = Number(res.data.pages);
-            });
+                ]
+                this.PageTotal = Number(res.data.pages)
+            })
         },
-        showAllNumber(uid, infoName) {
+        showAllNumber (uid, infoName) {
             this.getNumberDetail(uid).then(res => {
-                this.infoName = infoName;
-                this.numbers = res.data.luckyNums;
-                this.isShowNumberPop = true;
-            });
+                this.infoName = infoName
+                this.numbers = res.data.luckyNums
+                this.isShowNumberPop = true
+            })
         },
-        getNumberDetail(uid) {
+        getNumberDetail (uid) {
             return this.getMyBids({
                 expectId: this.number,
-                lotid: "2",
+                lotid: '2',
                 uid
-            });
+            })
         },
-        formatTotalBids(data, goodsinfo) {
+        formatTotalBids (data, goodsinfo) {
             let tmp = data.map(item => {
                 if (item.uid === this.userInfo && this.userInfo.uid) {
-                    this.mybetTime = formatTime(item.crtime, "MM-dd HH:mm:ss");
+                    this.mybetTime = formatTime(item.crtime, 'MM-dd HH:mm:ss')
                 }
                 return {
                     ...item,
-                    crtime: formatTime(item.crtime, "MM-dd HH:mm:ss"),
-                    isWin: item.winstate === "1",
+                    crtime: formatTime(item.crtime, 'MM-dd HH:mm:ss'),
+                    isWin: item.winstate === '1',
                     type: formateCoinType(goodsinfo.goodsType).toLowerCase(),
                     amount: formatNum(
                         accMul(Number(goodsinfo.bidValue), Number(item.bids)),
                         5
                     )
-                };
-            });
+                }
+            })
             for (let index = 0; index < tmp.length; index++) {
-                let item = tmp[index];
+                let item = tmp[index]
                 if (item.isWin) {
-                    tmp.splice(index, 1);
-                    tmp.unshift(item);
-                    break;
+                    tmp.splice(index, 1)
+                    tmp.unshift(item)
+                    break
                 }
             }
-            return tmp;
+            return tmp
         },
-        handleBetEvent() {
-            this.failMsg = "";
+        handleBetEvent () {
+            this.failMsg = ''
             if (!this.isLogin) {
-                this.$store.commit("showLoginPop");
-                return;
+                this.$store.commit('showLoginPop')
+                return
             }
             if (this.disableBet || this.isBlinking) {
-                return;
+                return
             }
             if (
                 Number(this.betValue) < this.thisAccount.balance &&
                 Number(this.betValue) > this.thisAccount.checkout_balance
             ) {
-                this.failMsg = _("Top-up bonus cannot be used in LuckyCoin.");
-                this.showFail = true;
-                return;
+                this.failMsg = _('Top-up bonus cannot be used in LuckyCoin.')
+                this.showFail = true
+                return
             }
             if (Number(this.betValue) > this.balance) {
                 if (
                     this.balance &&
                     this.balance > Number(this.goodsinfo.bidValue)
                 ) {
-                    this.canBuyValue = this.formatBidValue(this.balance);
+                    this.canBuyValue = this.formatBidValue(this.balance)
                 } else {
-                    this.canBuyValue = 0;
+                    this.canBuyValue = 0
                 }
-                this.showDeposit = true;
-                return;
+                this.showDeposit = true
+                return
             }
-            let value = this.betValue;
-            value = value === "" ? this.goodsinfo.bidValue : Number(value);
-            this.betNum = accDiv(value, this.goodsinfo.bidValue);
+            let value = this.betValue
+            value = value === '' ? this.goodsinfo.bidValue : Number(value)
+            this.betNum = accDiv(value, this.goodsinfo.bidValue)
             this.betNow({
                 cointype: this.coinType,
                 codestr: `${this.number}|${this.coinType}|${this.betNum}|${
                     this.goodsinfo.bidValue
                 }`,
-                discount: this.isUseCC && this.coinType !== "2000" ? "1" : "0"
+                discount: this.isUseCC && this.coinType !== '2000' ? '1' : '0'
             })
                 .then(() => {
-                    this.refresh();
-                    this.getUserInfo();
-                    this.showSuccess = true;
+                    this.refresh()
+                    this.getUserInfo()
+                    this.showSuccess = true
                 })
                 .catch(errorData => {
-                    this.failMsg = errorData.message;
-                    this.showFail = true;
-                });
+                    this.failMsg = errorData.message
+                    this.showFail = true
+                })
         },
-        getMyBidsInfo() {
+        getMyBidsInfo () {
             if (!this.isLogin) {
-                return;
+                return
             }
             this.getNumberDetail(this.userInfo.uid).then(res => {
                 this.myNumbers = res.data.luckyNums.filter(item => {
-                    return item !== "";
-                });
+                    return item !== ''
+                })
                 this.orders = [...res.data.orders].sort(
                     (a, b) => (Number(a.crtime) > Number(b.crtime) ? 1 : -1)
-                );
+                )
                 this.orders.forEach((item, index) => {
                     this.orders[index].crtime = formatTime(
                         item.crtime,
-                        "yyyy-MM-dd HH:mm:ss"
-                    );
-                    this.orders[index].list = item.betcode.split(",");
-                });
-            });
+                        'yyyy-MM-dd HH:mm:ss'
+                    )
+                    this.orders[index].list = item.betcode.split(',')
+                })
+            })
             this.getMyBids({
                 expectId: this.number,
-                lotid: "2",
+                lotid: '2',
                 uid: this.userInfo.uid
-            }).then(res => this.renderMyBet(res.data));
+            }).then(res => this.renderMyBet(res.data))
         },
-        renderMyBet(res) {
+        renderMyBet (res) {
             // let money = 0
             let price = accMul(
                 Number(res.goodsinfo.bidValue),
                 res.luckyNums.length
-            );
-            this.betMoney = price === 0 ? 0 : price;
+            )
+            this.betMoney = price === 0 ? 0 : price
         },
-        handleAllBidsChange() {
-            this.getAllBidsInfo();
+        handleAllBidsChange () {
+            this.getAllBidsInfo()
         },
-        chooseHalf() {
-            this.betValue = Number(this.betValue);
+        chooseHalf () {
+            this.betValue = Number(this.betValue)
             if (isNaN(this.betValue)) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue === 0) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue / 2 >= this.minValue) {
-                this.betValue = this.formatBidValue(this.betValue / 2);
+                this.betValue = this.formatBidValue(this.betValue / 2)
             } else if (this.betValue > this.minValue) {
-                this.betValue = this.minValue;
+                this.betValue = this.minValue
             }
         },
-        chooseDouble() {
-            this.betValue = Number(this.betValue);
+        chooseDouble () {
+            this.betValue = Number(this.betValue)
             if (isNaN(this.betValue)) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue === 0) {
-                this.betValue = this.formatBidValue(this.minValue * 2);
-                return;
+                this.betValue = this.formatBidValue(this.minValue * 2)
+                return
             }
             if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue * 2 <= this.maxValue) {
-                this.betValue = this.formatBidValue(this.betValue * 2);
+                this.betValue = this.formatBidValue(this.betValue * 2)
             } else if (this.betValue < this.maxValue) {
-                this.betValue = this.maxValue;
+                this.betValue = this.maxValue
             }
         },
-        chooseMax() {
+        chooseMax () {
             if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
-            this.betValue = this.maxValue;
+            this.betValue = this.maxValue
         },
-        formatBidValue(value) {
-            let minValue = this.goodsinfo.bidValue;
+        formatBidValue (value) {
+            let minValue = this.goodsinfo.bidValue
             if (value && minValue && value >= 0 && minValue >= 0) {
                 return minValue >= value
                     ? minValue
-                    : accMul(Math.floor(accDiv(value, minValue)), minValue);
+                    : accMul(Math.floor(accDiv(value, minValue)), minValue)
             }
-            return value;
+            return value
         },
-        loginHandler() {
-            this.$store.commit("showLoginPop");
+        loginHandler () {
+            this.$store.commit('showLoginPop')
         },
-        getRowClass({ row }) {
-            return row.isWin ? "mywin" : "";
+        getRowClass ({ row }) {
+            return row.isWin ? 'mywin' : ''
         },
-        refresh() {
-            this.init();
+        refresh () {
+            this.init()
         },
-        blink() {
+        blink () {
             return new Promise(resolve => {
-                this.isBlinking = true;
+                this.isBlinking = true
                 setTimeout(() => {
-                    this.isBlinking = false;
-                    resolve(true);
-                }, 2300);
-            });
+                    this.isBlinking = false
+                    resolve(true)
+                }, 2300)
+            })
         }
     },
     computed: {
         ...mapState({
             isLogin: state => !!state.isLog
         }),
-        ...mapState(["userInfo"]),
+        ...mapState(['userInfo']),
         isUseCC: {
-            set(value) {
-                this.$store.commit("cs_luckycoin/changeCC", value);
+            set (value) {
+                this.$store.commit('cs_luckycoin/changeCC', value)
             },
-            get() {
-                return this.$store.state.cs_luckycoin.isUseCC;
+            get () {
+                return this.$store.state.cs_luckycoin.isUseCC
             }
         },
-        currBalance() {
-            return this.$store.state.currBalance;
+        currBalance () {
+            return this.$store.state.currBalance
         },
-        thisAccount() {
+        thisAccount () {
             if (
                 this.userInfo &&
                 this.userInfo.accounts &&
                 this.userInfo.accounts.length > 0
             ) {
-                let accounts = this.userInfo.accounts;
+                let accounts = this.userInfo.accounts
                 for (let index = 0; index < accounts.length; index++) {
-                    let account = accounts[index];
+                    let account = accounts[index]
                     if (account.cointype === this.coinType) {
-                        return account;
+                        return account
                     }
                 }
             }
-            return {};
+            return {}
         },
-        balance() {
+        balance () {
             return Number(this.thisAccount.balance) > 0
                 ? Number(this.thisAccount.balance)
-                : 0;
+                : 0
         },
-        coinType() {
-            return this.goodsinfo.goodsType || "2001";
+        coinType () {
+            return this.goodsinfo.goodsType || '2001'
         },
-        coinText() {
+        coinText () {
             return formateCoinType(
-                this.goodsinfo.goodsType || "2001"
-            ).toUpperCase();
+                this.goodsinfo.goodsType || '2001'
+            ).toUpperCase()
         },
-        isDraw() {
-            return this.goodsinfo.state === "4";
+        isDraw () {
+            return this.goodsinfo.state === '4'
         },
-        isWaiting() {
-            return this.goodsinfo.state === "3";
+        isWaiting () {
+            return this.goodsinfo.state === '3'
         },
-        isYouWin() {
+        isYouWin () {
             return (
                 this.isDraw &&
                 this.userInfo &&
                 this.goodsinfo.winUid === this.userInfo.uid
-            );
+            )
         },
-        betStatus() {
+        betStatus () {
             // normal/win/fail/finished/expired
             if (this.isYouWin) {
-                return "win";
+                return 'win'
             } else if (this.isDraw) {
-                return "fail";
-            } else if (this.goodsinfo.state === "3") {
-                return "finished";
-            } else if (this.goodsinfo.state === "5") {
-                return "expired";
+                return 'fail'
+            } else if (this.goodsinfo.state === '3') {
+                return 'finished'
+            } else if (this.goodsinfo.state === '5') {
+                return 'expired'
             }
-            return "normal";
+            return 'normal'
         },
-        minValue() {
-            return this.goodsinfo.bidValue || 0;
+        minValue () {
+            return this.goodsinfo.bidValue || 0
         },
-        maxValue() {
+        maxValue () {
             let maxBidNum = accMul(
                 this.goodsinfo.leftBids,
                 this.goodsinfo.bidValue
-            );
+            )
             return this.formatBidValue(
                 !this.isLogin || this.balance > maxBidNum
                     ? maxBidNum
                     : this.balance
-            );
+            )
         },
-        disableBet() {
+        disableBet () {
             return (
                 Number(this.betValue) !==
                     Number(this.formatBidValue(this.betValue)) ||
                 Number(this.betValue) > this.maxValue
-            );
+            )
         },
-        rate() {
-            let total = this.goodsinfo.totalBids;
-            let left = this.goodsinfo.leftBids;
+        rate () {
+            let total = this.goodsinfo.totalBids
+            let left = this.goodsinfo.leftBids
             return total === 0 && left === 0
                 ? 0
-                : parseInt(((total - left) / total) * 314);
+                : parseInt(((total - left) / total) * 314)
         }
     },
     components: {
         BreadCrumbs
     },
     watch: {
-        isLogin() {
-            this.refresh();
+        isLogin () {
+            this.refresh()
         },
-        showSuccess() {
-            this.isBlinking = false;
+        showSuccess () {
+            this.isBlinking = false
         }
     },
-    mounted() {
-        document.documentElement.className = "flexhtml";
-        this.refresh();
-        this.$store.commit("cs_luckycoin/bindListener", {
+    mounted () {
+        document.documentElement.className = 'flexhtml'
+        this.refresh()
+        this.$store.commit('cs_luckycoin/bindListener', {
             [this.number]: () => {
                 if (!this.showSuccess) {
-                    this.blink().then(() => this.refresh());
-                    return;
+                    this.blink().then(() => this.refresh())
+                    return
                 }
-                this.refresh();
+                this.refresh()
             }
-        });
-        this.$store.commit("cs_luckycoin/bindPageListener", {
+        })
+        this.$store.commit('cs_luckycoin/bindPageListener', {
             detailed: () => {
-                this.refresh();
+                this.refresh()
             }
-        });
+        })
     },
-    beforeDestroy() {
-        document.documentElement.className = "";
-        this.$store.commit("cs_luckycoin/unbindListener", this.number);
+    beforeDestroy () {
+        document.documentElement.className = ''
+        this.$store.commit('cs_luckycoin/unbindListener', this.number)
         if (this.timer) {
-            clearInterval(this.timer);
+            clearInterval(this.timer)
         }
-        this.$store.commit("cs_luckycoin/unbindPageListener", "detailed");
+        this.$store.commit('cs_luckycoin/unbindPageListener', 'detailed')
     }
-};
+}
 </script>
 <style lang="less" type="text/less">
 .luckyCoinDetailed {

@@ -2,7 +2,7 @@
     <div class="page_act_center">
         <Header></Header>
         <div class="main">
-            <ul class="act_items " v-if="this.list.length > 0 && false">
+            <ul class="act_items " v-if="this.list.length > 0">
                 <li v-for="(item, index) in list" :key="index" :style="`background: ${item.bg_color || '#3b2860'}`" class="icon_over" :datamsg="getMsgTab(item)">
                     <img :src="`https://www.coinsprize.com${item.img_url}`" alt="" class="img_ad">
                     <div class="ad_view">
