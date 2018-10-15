@@ -696,7 +696,7 @@ export default {
             isShowStep2: false,
             isShowStep3: false,
             isShowStep4: false,
-            autoLoginTime:null,
+            autoLoginTime: null
         }
     },
 
@@ -1376,12 +1376,10 @@ export default {
                     parseInt(Math.random() * 2)
                 ]
             }, 4000)
-
-
         },
         async getRoundMsg () {
             await this.getCurrentRoundInfo()
-            if (this.roundInfo && this.roundInfo.roundIndex && ( this.roundInfo.luckynum === 0 || !this.roundInfo ) ) {
+            if (this.roundInfo && this.roundInfo.roundIndex && (this.roundInfo.luckynum === 0 || !this.roundInfo)) {
                 let msgRound = await luckyCoinApi.round_(
                     Number(this.roundInfo.roundIndex) - 1
                 )
@@ -1863,15 +1861,14 @@ export default {
         this.startAllevent()
         this.getRoundMsg()
 
-        this.autoLoginTime = setInterval( async ()=>{
+        this.autoLoginTime = setInterval(async () => {
             this.selfAddr = await luckyCoinApi.getAccounts()
-            if(this.selfAddr){
+            if (this.selfAddr) {
                 clearInterval(this.autoLoginTime)
                 this.pageInit()
                 this.showPopMask = false
             }
-        },1000)
-
+        }, 1000)
     },
     watch: {
         isLog (val) {
