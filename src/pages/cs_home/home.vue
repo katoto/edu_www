@@ -7,7 +7,7 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
-                        <el-carousel :interval="5000" @change="bgchange">
+                        <el-carousel :interval="500000" @change="bgchange">
                             <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
@@ -483,9 +483,9 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
-import Footer from '~components/Footer.vue'
-import { mapActions } from 'vuex'
+import Header from "~components/Header.vue";
+import Footer from "~components/Footer.vue";
+import { mapActions } from "vuex";
 import {
     formatTime,
     formateCoinType,
@@ -494,23 +494,23 @@ import {
     removeCK,
     formatUSD,
     structDom
-} from '~/common/util'
-import { aTypes } from '~/store/cs_page/cs_1105'
-import { Message } from 'element-ui'
+} from "~/common/util";
+import { aTypes } from "~/store/cs_page/cs_1105";
+import { Message } from "element-ui";
 
 export default {
-    data () {
+    data() {
         return {
             timer: false,
             screenWidth: document.body.clientWidth,
-            bghome: 'bghome0',
+            bghome: "bghome0",
             gameLeft: 0,
             gameIndex: 0,
             gameLength: 0,
             gameWidth: 0,
-            activeClass: 'luckypoker',
-            activeClass1: 'luckypoker',
-            activeClass2: 'recharge',
+            activeClass: "luckypoker",
+            activeClass1: "luckypoker",
+            activeClass2: "recharge",
             bets: {
                 syxw_orders: [],
                 slot_orders: [],
@@ -529,228 +529,228 @@ export default {
             },
             entrance: {
                 megacoin: {
-                    USD: '',
-                    cointype: '2001',
-                    goodsvalue: ''
+                    USD: "",
+                    cointype: "2001",
+                    goodsvalue: ""
                 },
                 slot: {
-                    USD: '',
-                    cointype: '2001',
-                    goodsvalue: '',
+                    USD: "",
+                    cointype: "2001",
+                    goodsvalue: "",
                     jackpot: 0
                 },
                 syxw: {
-                    USD: '',
-                    cointype: '2001',
-                    goodsvalue: '',
+                    USD: "",
+                    cointype: "2001",
+                    goodsvalue: "",
                     jackpot: 0
                 }
             },
             roundInfo: {
                 jackpot: 10
             }
-        }
+        };
     },
     methods: {
         /* 背景图轮播 */
-        bgchange (currenindex, index) {
-            this.bghome = 'bghome' + currenindex
+        bgchange(currenindex, index) {
+            this.bghome = "bghome" + currenindex;
         },
-        async getRoundInfo () {
-            this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+        async getRoundInfo() {
+            this.roundInfo = await luckyCoinApi.getCurrentRoundInfo();
             if (this.roundInfo && parseInt(this.roundInfo.jackpot) < 10) {
-                this.roundInfo.jackpot = 10
+                this.roundInfo.jackpot = 10;
             }
         },
-        onResize () {
-            this.initGamePreNext()
+        onResize() {
+            this.initGamePreNext();
         },
         /* 左右按钮游戏轮播 */
-        initGamePreNext () {
-            this.gameLength = this.$refs.gameList.children.length
-            this.gameWidth = this.$refs.gameList.children[0].offsetWidth
+        initGamePreNext() {
+            this.gameLength = this.$refs.gameList.children.length;
+            this.gameWidth = this.$refs.gameList.children[0].offsetWidth;
         },
-        gamePre () {
+        gamePre() {
             if (this.gameIndex < 1) {
-                return false
+                return false;
             }
-            this.gameIndex--
+            this.gameIndex--;
             this.gameLeft =
-                -(this.gameWidth * this.gameIndex + this.gameIndex * 30) + 'px'
+                -(this.gameWidth * this.gameIndex + this.gameIndex * 30) + "px";
 
-            this.autoShowTab()
+            this.autoShowTab();
         },
-        gameNext () {
+        gameNext() {
             if (this.gameIndex >= this.gameLength - 3) {
-                return false
+                return false;
             }
-            this.gameIndex++
+            this.gameIndex++;
             this.gameLeft =
-                -(this.gameWidth * this.gameIndex + this.gameIndex * 30) + 'px'
-            this.autoShowTab()
+                -(this.gameWidth * this.gameIndex + this.gameIndex * 30) + "px";
+            this.autoShowTab();
         },
-        autoShowTab () {
+        autoShowTab() {
             if (this.gameIndex === 0) {
-                this.activeClass = this.activeClass1 = 'luckypoker'
+                this.activeClass = this.activeClass1 = "luckypoker";
             } else if (this.gameIndex === 1) {
-                this.activeClass = this.activeClass1 = 'slot'
+                this.activeClass = this.activeClass1 = "slot";
             } else if (this.gameIndex === 2) {
-                this.activeClass = this.activeClass1 = 'luckycoin'
+                this.activeClass = this.activeClass1 = "luckycoin";
             }
         },
         formatUSD,
-        ...mapActions('home', [
-            'getHomeBet',
-            'getHomeDraw',
-            'getHomeWithdraw',
-            'getHomeEntrance'
+        ...mapActions("home", [
+            "getHomeBet",
+            "getHomeDraw",
+            "getHomeWithdraw",
+            "getHomeEntrance"
         ]),
         formatTime,
         formateBalance,
         formateCoinType,
         formatNum,
-        onSignUp () {
-            this.$store.commit('showRegPop')
+        onSignUp() {
+            this.$store.commit("showRegPop");
         },
-        formatMoney (num) {
-            let money = formatNum(Number(num), 5).toFixed(5)
-            return money.length > 7 ? money.substring(0, 7) : money
+        formatMoney(num) {
+            let money = formatNum(Number(num), 5).toFixed(5);
+            return money.length > 7 ? money.substring(0, 7) : money;
         },
-        initPop () {
+        initPop() {
             /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
+            this.$store.commit("initHeadState", new Date().getTime());
         },
-        async indexRouter (query) {
+        async indexRouter(query) {
             /* 邮箱注册 找回密码  邀请等 */
             if (query.sign) {
-                if (query.from === 'reg') {
+                if (query.from === "reg") {
                     let mailBack = await this.$store.dispatch(
                         aTypes.mailActivate,
                         query.sign
-                    )
-                    console.log(mailBack)
+                    );
+                    console.log(mailBack);
                     if (mailBack) {
-                        if (mailBack.status === '100') {
+                        if (mailBack.status === "100") {
                             if (parseFloat(mailBack.data.login_times) >= 0) {
                                 // 显示第一次邀请
-                                this.$store.commit('showFirstLogin', true)
+                                this.$store.commit("showFirstLogin", true);
                             } else {
-                                this.$store.commit('showFirstLogin', false)
+                                this.$store.commit("showFirstLogin", false);
                             }
-                            this.$store.dispatch('getUserInfo')
-                            this.$store.commit('showRegSuccess')
+                            this.$store.dispatch("getUserInfo");
+                            this.$store.commit("showRegSuccess");
                         } else {
                             Message({
                                 message: mailBack.message,
-                                type: 'error'
-                            })
+                                type: "error"
+                            });
                         }
                     }
-                    this.$router.push('')
+                    this.$router.push("");
                 }
-                if (query.from === 'resetPassword') {
+                if (query.from === "resetPassword") {
                     // 重置密码
-                    this.$store.commit('setResetObj', {
+                    this.$store.commit("setResetObj", {
                         email: query.email,
                         sign: query.sign,
                         showReset: true
-                    })
-                    this.$store.commit('showResetPwd')
+                    });
+                    this.$store.commit("showResetPwd");
                     // 修改密码的时候，清楚ck
-                    removeCK()
-                    this.$store.commit('setIsLog', false)
-                    this.$store.commit('setUserInfo', {})
+                    removeCK();
+                    this.$store.commit("setIsLog", false);
+                    this.$store.commit("setUserInfo", {});
                 }
                 if (query.inviter) {
                     // 邀请
-                    this.$store.commit('setInviterObj', {
+                    this.$store.commit("setInviterObj", {
                         inviter: query.inviter,
                         sign: query.sign
-                    })
+                    });
                 }
             }
         },
-        getCoinClass (type) {
-            return `icon-${formateCoinType(type).toLowerCase()}`
+        getCoinClass(type) {
+            return `icon-${formateCoinType(type).toLowerCase()}`;
         },
-        init () {
-            this.renderHomeBet()
-            this.renderHomeDraw()
-            this.renderHomeWithdraw()
-            this.renderHomeEntrance()
+        init() {
+            this.renderHomeBet();
+            this.renderHomeDraw();
+            this.renderHomeWithdraw();
+            this.renderHomeEntrance();
         },
-        renderHomeBet () {
+        renderHomeBet() {
             this.getHomeBet().then(({ data }) => {
-                this.bets.syxw_orders = [...data.syxw_orders]
-                this.bets.slot_orders = [...data.slot_orders]
-                this.bets.megacoin_orders = [...data.megacoin_orders]
-                this.bets.dice_orders = [...data.dice_orders]
-            })
+                this.bets.syxw_orders = [...data.syxw_orders];
+                this.bets.slot_orders = [...data.slot_orders];
+                this.bets.megacoin_orders = [...data.megacoin_orders];
+                this.bets.dice_orders = [...data.dice_orders];
+            });
         },
-        renderHomeDraw () {
+        renderHomeDraw() {
             this.getHomeDraw().then(({ data }) => {
-                this.wins.syxw_orders = [...data.syxw_orders]
-                this.wins.slot_orders = [...data.slot_orders]
-                this.wins.megacoin_orders = [...data.megacoin_orders]
-                this.wins.dice_orders = [...data.dice_orders]
-            })
+                this.wins.syxw_orders = [...data.syxw_orders];
+                this.wins.slot_orders = [...data.slot_orders];
+                this.wins.megacoin_orders = [...data.megacoin_orders];
+                this.wins.dice_orders = [...data.dice_orders];
+            });
         },
-        renderHomeWithdraw () {
+        renderHomeWithdraw() {
             this.getHomeWithdraw().then(({ data }) => {
                 this.water = {
                     ...data
-                }
-            })
+                };
+            });
         },
-        renderHomeEntrance () {
+        renderHomeEntrance() {
             this.getHomeEntrance().then(({ data }) => {
                 this.entrance = {
                     ...data
-                }
-            })
+                };
+            });
         }
     },
     components: { Header, Footer },
     computed: {
-        isLog () {
-            return this.$store.state.isLog
+        isLog() {
+            return this.$store.state.isLog;
         }
     },
-    mounted () {
-        const that = this
+    mounted() {
+        const that = this;
         window.onresize = () => {
             return (() => {
-                window.screenWidth = document.body.clientWidth
-                that.screenWidth = window.screenWidth
-            })()
-        }
+                window.screenWidth = document.body.clientWidth;
+                that.screenWidth = window.screenWidth;
+            })();
+        };
         /* 左右按钮游戏轮播 */
-        this.initGamePreNext()
-        setInterval(() => this.init(), 60000)
-        this.init()
+        this.initGamePreNext();
+        setInterval(() => this.init(), 60000);
+        this.init();
         if (this.$store.state.route.query) {
-            this.indexRouter(this.$store.state.route.query)
+            this.indexRouter(this.$store.state.route.query);
         }
         /* 动态结构化 */
-        structDom('home')
+        structDom("home");
 
         //  取supercoin 金额
-        this.getRoundInfo()
+        this.getRoundInfo();
     },
     watch: {
-        screenWidth (val) {
+        screenWidth(val) {
             if (!this.timer) {
-                this.screenWidth = val
-                this.timer = true
-                let that = this
-                setTimeout(function () {
-                    that.initGamePreNext()
-                    that.timer = false
-                }, 400)
+                this.screenWidth = val;
+                this.timer = true;
+                let that = this;
+                setTimeout(function() {
+                    that.initGamePreNext();
+                    that.timer = false;
+                }, 400);
             }
         }
     }
-}
+};
 </script>
 
 <style scoped lang="less" type="text/less">
@@ -782,8 +782,8 @@ export default {
     }
     /*banner*/
     .el-carousel {
-        height: 300-48px;
-        margin-bottom: 48px;
+        height: 300-38px;
+        margin-bottom: 38px;
         color: #fff;
         text-align: center;
         /*/deep/ .el-carousel__indicators {*/
@@ -806,7 +806,7 @@ export default {
         }
         .banner-t11 {
             line-height: 27px;
-            font-size: 23px;
+            font-size: 16px;
             overflow: hidden;
             font-weight: bold;
         }
@@ -927,7 +927,7 @@ export default {
     .game-onecoin,
     .game-supercoin {
         display: block;
-        width: 92%;
+        // width: 92%;
         padding-top: 27px;
         height: 290px;
         overflow: hidden;
@@ -1324,10 +1324,10 @@ export default {
         &.bghome2 {
             background-size: 1190px;
         }
-        .el-carousel__item{
+        .el-carousel__item {
             .banner-t11 {
-                line-height: 26px;
-                font-size: (1600)/1920vw;
+                // line-height: 26px;
+                // font-size: (1600)/1920vw;
             }
         }
     }
@@ -1341,7 +1341,8 @@ export default {
                 line-height: 54px;
                 font-size: (4600)/1920vw;
             }
-            .banner-t2,.banner-t11{
+            .banner-t2,
+            .banner-t11 {
                 line-height: 26px;
                 font-size: (1600)/1920vw;
             }
@@ -1387,7 +1388,8 @@ export default {
         }
         .game_list {
             width: 99999px;
-            height: 290px;
+            padding-top: 10px;
+            height: 300px;
             > div {
                 float: left;
                 width: 340px;
@@ -1406,7 +1408,8 @@ export default {
             transition: all 0.2s;
             transform-origin: bottom;
             &:hover {
-                filter: brightness(1.1);
+                // filter: brightness(1.1);
+                transform: translateY(-10px);
             }
         }
         .game-btn {
@@ -1440,6 +1443,10 @@ export default {
                 margin-top: 80px;
                 line-height: 66px;
                 font-size: 52px;
+            }
+            .banner-t11 {
+                line-height: 32px;
+                font-size: 23px;
             }
             .banner-t2 {
                 line-height: 28px;
