@@ -90,156 +90,156 @@ const supercoin = () =>
     import('~/pages/dappCoin/dappCoin.vue')
 
 let routesArr = [{
-        path: '/test',
-        name: 'test',
-        component: test
+    path: '/test',
+    name: 'test',
+    component: test
+},
+{
+    path: '/firstCharge',
+    name: 'firstCharge',
+    component: actFirstCharge
+},
+{
+    path: '/help',
+    component: help,
+    children: [{
+        path: 'helpView/:a/:b',
+        name: 'helpView',
+        component: helpView
+    }, {
+        path: '',
+        name: 'helpIndex',
+        component: helpIndex
+    }]
+},
+{
+    path: '/home',
+    name: 'home',
+    component: home
+},
+{
+    path: '/check',
+    name: 'check',
+    component: check
+},
+{
+    path: '/supercoin/:inviteName?',
+    name: 'supercoin',
+    component: supercoin
+},
+{
+    path: '/lucky11',
+    name: 'lucky11',
+    component: lucky11
+},
+{
+    path: '/luckyslot',
+    name: 'luckySlot',
+    component: slot
+},
+{
+    path: '/policy',
+    name: _('policy'),
+    component: csProtocolPolicy
+},
+{
+    path: '/policy_zhCn',
+    name: _('policy'),
+    component: csProtocolPolicyCn
+},
+{
+    path: '/policy_zhTw',
+    name: _('policy'),
+    component: csProtocolPolicyTw
+},
+{
+    path: '/drawNumber',
+    name: _('Draw Number'),
+    component: csDrawNum
+},
+{
+    path: '/luckycoin',
+    component: luckycoin,
+    children: [{
+        path: 'drawHistory',
+        meta: {
+            history: true
+        },
+        name: _('Draw History'),
+        component: luckcoinMoreBids
     },
     {
-        path: '/firstCharge',
-        name: 'firstCharge',
-        component: actFirstCharge
+        path: 'moreBids',
+        name: _('More Available Bids'),
+        component: luckcoinMoreBids
     },
     {
-        path: '/help',
-        component: help,
-        children: [{
-            path: 'helpView/:a/:b',
-            name: 'helpView',
-            component: helpView
-        }, {
-            path: '',
-            name: 'helpIndex',
-            component: helpIndex
-        }]
+        path: 'detailed',
+        name: _('detailed'),
+        component: luckycoinDetailed
     },
     {
-        path: '/home',
-        name: 'home',
-        component: home
-    },
-    {
-        path: '/check',
-        name: 'check',
-        component: check
-    },
-    {
-        path: '/supercoin/:inviteName?',
-        name: 'supercoin',
-        component: supercoin
-    },
-    {
-        path: '/lucky11',
-        name: 'lucky11',
-        component: lucky11
-    },
-    {
-        path: '/luckyslot',
-        name: 'luckySlot',
-        component: slot
-    },
-    {
-        path: '/policy',
-        name: _('policy'),
-        component: csProtocolPolicy
-    },
-    {
-        path: '/policy_zhCn',
-        name: _('policy'),
-        component: csProtocolPolicyCn
-    },
-    {
-        path: '/policy_zhTw',
-        name: _('policy'),
-        component: csProtocolPolicyTw
-    },
-    {
-        path: '/drawNumber',
-        name: _('Draw Number'),
-        component: csDrawNum
-    },
-    {
-        path: '/luckycoin',
-        component: luckycoin,
-        children: [{
-                path: 'drawHistory',
-                meta: {
-                    history: true
-                },
-                name: _('Draw History'),
-                component: luckcoinMoreBids
-            },
-            {
-                path: 'moreBids',
-                name: _('More Available Bids'),
-                component: luckcoinMoreBids
-            },
-            {
-                path: 'detailed',
-                name: _('detailed'),
-                component: luckycoinDetailed
-            },
-            {
-                path: '',
-                name: _('Home'),
-                component: luckcoinIndex
-            }
-        ]
-    },
-    {
-        path: '/luckyPoker',
-        name: _('luckyPoker'),
-        component: csPoker
-    },
-    {
-        path: '/account',
-        component: account,
-        children: [{
-                path: 'general',
-                name: _('General'),
-                component: General
-            },
-            {
-                path: 'deposit',
-                name: _('Deposit'),
-                component: Deposit
-            },
-            {
-                path: 'myBets',
-                name: _('MyBets'),
-                component: MyBets
-            },
-            {
-                path: 'myTransactions',
-                name: _('MyTransactions'),
-                component: MyTransactions
-            },
-            {
-                path: 'withdraw',
-                name: _('Withdraw'),
-                component: Withdraw
-            },
-            {
-                path: '/',
-                redirect: '/account/general'
-            }
-        ]
-    },
-    {
-        path: '/promotions',
-        name: 'promotions',
-        component: adHome
-    },
-    {
-        path: '/adDetail',
-        name: 'adDetail',
-        component: adHomeDetail
-    },
-    {
-        path: '/*',
-        // redirect: '/lucky11'
+        path: '',
         name: _('Home'),
-        component: Home
+        component: luckcoinIndex
     }
+    ]
+},
+{
+    path: '/luckyPoker',
+    name: _('luckyPoker'),
+    component: csPoker
+},
+{
+    path: '/account',
+    component: account,
+    children: [{
+        path: 'general',
+        name: _('General'),
+        component: General
+    },
+    {
+        path: 'deposit',
+        name: _('Deposit'),
+        component: Deposit
+    },
+    {
+        path: 'myBets',
+        name: _('MyBets'),
+        component: MyBets
+    },
+    {
+        path: 'myTransactions',
+        name: _('MyTransactions'),
+        component: MyTransactions
+    },
+    {
+        path: 'withdraw',
+        name: _('Withdraw'),
+        component: Withdraw
+    },
+    {
+        path: '/',
+        redirect: '/account/general'
+    }
+    ]
+},
+{
+    path: '/promotions',
+    name: 'promotions',
+    component: adHome
+},
+{
+    path: '/adDetail',
+    name: 'adDetail',
+    component: adHomeDetail
+},
+{
+    path: '/*',
+    // redirect: '/lucky11'
+    name: _('Home'),
+    component: Home
+}
 ]
 
 //     linkActiveClass: 'on',

@@ -30,15 +30,15 @@ export default {
                 'BTC': 'icon-btc',
                 'CC': 'icon-cc'
             }[coinText]
-        },
+        }
     },
     props: {
         data: {
             type: Array,
             default: []
         }
-    },
-   
+    }
+
 }
 </script>
 <style scoped lang="less" type="text/less">

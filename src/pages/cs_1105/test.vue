@@ -5,15 +5,15 @@
 </template>
 <script>
 export default {
-    data() {
-        return {};
+    data () {
+        return {}
     },
     watch: {},
     methods: {},
     computed: {},
     components: {},
-    mounted() {}
-};
+    mounted () {}
+}
 </script>
 
 <style scope lang="less" type="text/less">
