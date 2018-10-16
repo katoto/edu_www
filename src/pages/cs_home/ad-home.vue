@@ -250,7 +250,7 @@ export default {
             &.ad_btn_join {
                 background: #fb8221;
                 &.disabled {
-                    background: gray;
+                    background: #9e6f49;
                 }
             }
             &.ad_btn_more {
