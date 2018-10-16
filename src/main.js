@@ -22,6 +22,12 @@ import {Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 
+import scroll from 'katoto-scroll'
+Vue.use(scroll)
+
+// or you can set componentName default componentName is vue-seamless-scroll
+// Vue.use(scroll,{componentName: 'scroll-seamless'})
+
 // 设置语言
 locale.use(lang)
 // 特定國際化
