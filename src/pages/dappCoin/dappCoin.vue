@@ -699,7 +699,6 @@ export default {
             autoLoginTime: null
         }
     },
-
     methods: {
         copySucc,
         copyError,
@@ -1876,7 +1875,10 @@ export default {
             this.changePageState()
         }
     },
-    filters: {}
+    filters: {},
+    beforeDestroy () {
+        clearInterval(this.nowTimeInterval)
+    }
 }
 </script>
 <style lang="less" type="text/less">
