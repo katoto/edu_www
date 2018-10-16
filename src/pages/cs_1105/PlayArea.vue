@@ -207,15 +207,18 @@
         },
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
         watch: {
-            currBalance (balance) {
+            currBalance: {
+                deep: true,
+                handler (balance) {
                 /* 切换金额变化对应的选项 */
-                if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype !== this.curCoinType) {
-                    this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
-                    this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
-                    console.log(balance)
-                    this.areaMsg.pickMoney = Number(this.min_limit)
-                    this.setLimitUnit()
-                    this.curCoinType = balance.cointype
+                    if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype !== this.curCoinType) {
+                        this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
+                        this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
+                        console.log(balance)
+                        this.areaMsg.pickMoney = Number(this.min_limit)
+                        this.setLimitUnit()
+                        this.curCoinType = balance.cointype
+                    }
                 }
             }
         },
@@ -232,6 +235,10 @@
                 this.$store.commit('showPopLimit')
             },
             checkBetMoney () {
+                if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
+                    this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
+                    this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
+                }
                 if (isNaN(this.areaMsg.pickMoney)) {
                     Message({
                         message: _('Please enter the correct number'),
@@ -406,6 +413,8 @@
             if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
                 this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
                 this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
+                console.log(this.min_limit)
+                this.areaMsg.pickMoney = Number(this.min_limit)
             }
         },
         filters: {
