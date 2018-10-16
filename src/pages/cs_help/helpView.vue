@@ -24,6 +24,7 @@
 
 <script>
 import help00 from './help-components/help1-yxyz'
+import help01 from './help-components/help1-cc'
 import help10 from './help-components/help2-rhcz'
 import help11 from './help-components/help2-rhtx'
 import help12 from './help-components/help2-tktj'
@@ -69,6 +70,7 @@ export default {
     },
     components: {
         help00,
+        help01,
         help10,
         help11,
         help12,

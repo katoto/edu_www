@@ -50,14 +50,14 @@
                     <lang>Telegram:</lang>
                     <a href="https://t.me/Coinsprizeoffice" target="_blank">https://t.me/Coinsprizeoffice</a>
                 </p>
-                <p>
+                <!-- <p>
                     <lang>Lucky11 issues:</lang>
                     <a href="mailto:lucky11@Coinsprize.com">lucky11@Coinsprize.com</a>
                 </p>
                 <p>
                     <lang>LuckyCoin issues:</lang>
                     <a href="mailto:lucky11@Coinsprize.com">luckycoin@Coinsprize.com</a>
-                </p>
+                </p> -->
                 <p>
                     <lang>Support service:</lang>
                     <a href="mailto:support@Coinsprize.com">support@Coinsprize.com</a>

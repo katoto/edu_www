@@ -184,52 +184,27 @@ export function formatMatch (match) {
 
 export function formateBalance (val = 0) {
     let newEth = null
+    let isF = false
     if (isNaN(val) || isNaN(Number(val))) {
         console.error('formateBalance error' + val)
         return 0
     }
     val = Number(val)
-    if (val > 10000000) {
-        newEth = (val / 100000000).toFixed(1) + '亿'
-    } else if (val > 100000) {
-        newEth = (val / 10000).toFixed(1) + '万'
-    } else if (val > 1000) {
-        newEth = parseFloat((val).toFixed(0))
-    } else if (val > 100) {
-        newEth = (val).toFixed(3)
-    } else if (val > 10) {
-        newEth = (val).toFixed(4)
-    } else if (val > 1) {
-        newEth = (val).toFixed(5)
-    } else {
-        newEth = (val).toFixed(6)
+    if (val < 0) {
+        isF = true
+        val = val * -1
     }
-    return newEth
+    if (val >= 100000) {
+        return val.toString()
+    }
+    let num = Number(val).toFixed(6)
+    let index = num.indexOf('.')
+    newEth = num.substr(0, num.length - index)
+    return `${isF ? '-' : ''}${newEth}`
 }
 
 export function formateSlotBalance (val = 0) {
-    let newEth = null
-    if (isNaN(val) || isNaN(Number(val))) {
-        console.error('formateSlotBalance error' + val)
-        return 0
-    }
-    val = Number(val)
-    if (val > 10000000) {
-        newEth = (val / 100000000).toFixed(1) + '亿'
-    } else if (val > 100000) {
-        newEth = (val / 10000).toFixed(1) + '万'
-    } else if (val > 1000) {
-        newEth = parseFloat((val).toFixed(0))
-    } else if (val > 100) {
-        newEth = parseFloat((val).toFixed(3))
-    } else if (val > 10) {
-        newEth = parseFloat((val).toFixed(4))
-    } else if (val > 1) {
-        newEth = parseFloat((val).toFixed(5))
-    } else {
-        newEth = parseFloat((val).toFixed(6))
-    }
-    return newEth
+    return this.formateBalance(val)
 }
 
 export function formateJackpot (val = 0) {
@@ -270,6 +245,8 @@ export function formateCoinType (type = '2001') {
         return 'ETH'
     case '1001':
         return 'BTC'
+    case '2000':
+        return 'CC'
     default:
         return 'ETH'
     }
@@ -364,6 +341,9 @@ export function formateMoneyFlow (flowtype, lotid) {
         return _('LuckySlot Bet')// 老虎机投注
     case '15':
         return _('LuckySlot Prize')// 老虎机中奖
+    case '16':
+    case '17':
+        return _('Bonus') // 每日送1CC
     case '18':
         return _('Sign gift')// 连续七天送
     case '19':
@@ -802,4 +782,28 @@ export function structDom (msg = 'home') {
     if (!document.getElementById('js_struct')) {
         document.body.appendChild(createSci)
     }
+}
+
+export function getCCAcount (userInfo) {
+    if (userInfo && userInfo.accounts && userInfo.accounts.length >= 1) {
+        let accounts = this.userInfo.accounts
+        for (let index = 0; index < accounts.length; index++) {
+            if (accounts[index].cointype === '2000') {
+                return Number(accounts[index].balance)
+            }
+        }
+    }
+    return 0
+}
+
+export function getCCDeductionMoney (total, rate) {
+    let value = Number(total)
+    if (value && !isNaN(value) && value > 0) {
+        if (value < 0.0001) {
+            return accMul(value, rate).toFixed(18).replace(/\.?0+$/, '')
+        } else {
+            return formatNum(accMul(value, rate), 18).toString().replace(/\.?0+$/, '')
+        }
+    }
+    return '0'
 }

@@ -1,0 +1,112 @@
+@media (max-width: 768px) {
+    .page_act_center {
+        background: #242240;
+        .main {
+            max-width: 1190px;
+            width: percentage(702/750);
+            margin: 60/75rem auto 75/75rem;
+        }
+    }
+    .act_items {
+        li {
+            position: relative;
+            height: 540/75rem;
+            border-radius: 6/75rem;
+            overflow: hidden;
+            color: #fff;
+            &::before {
+                content: attr(datamsg);
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 0;
+                min-width: 150/75rem;
+                height: 34/75rem;
+                overflow: hidden;
+                background: rgba(255, 255, 255, 0.1);
+                font-size: 21/75rem;
+                text-align: center;
+                line-height: 34/75rem;
+                font-style: italic;
+                z-index: 3;
+                transition: all 0.2s;
+            }
+        }
+        li + li {
+            margin-top: 25/75rem;
+        }
+        .img_ad {
+            display: block;
+            height: 206/75rem;
+        }
+        .ad_view {
+            position: relative;
+            height: (540-206)/75rem;
+            margin: 0 45/75rem 0;
+            z-index: 2;
+            overflow: hidden;
+        }
+        .ad_t {
+            margin-top: 36/75rem;
+            height: 74/75rem;
+            line-height: 74/75rem;
+            overflow: hidden;
+            font-size: 36/75rem;
+            font-family: sans-eb;
+            font-style: italic;
+        }
+        .ad_msg,
+        .ad_time {
+            max-height: 36 * 2/75rem;
+            line-height: 30/75rem;
+            margin-top: 8/75rem;
+            font-size: 24/75rem;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .ad_btn_box {
+            display: flex;
+            position: absolute;
+            left: 0;
+            bottom: 42/75rem;
+        }
+        .ad_btn {
+            display: block;
+            box-sizing: border-box;
+            width: 150/75rem;
+            height: 50/75rem;
+            overflow: hidden;
+            margin-right: 26/75rem;
+            text-align: center;
+            line-height: 50/75rem;
+            border-radius: 6/75rem;
+            color: #fff;
+            font-size: 24/75rem;
+            font-weight: bold;
+            &.ad_btn_join {
+                background: #fb8221;
+            }
+            &.ad_btn_more {
+                border: 1px solid #fff;
+            }
+        }
+    }
+    .nomsg {
+        margin: 30px auto;
+        text-align: center;
+        color: #766490;
+        img {
+            margin: 0 auto;
+        }
+        a {
+            &:hover {
+                color: currentColor;
+                filter: brightness(1.3);
+            }
+        }
+    }
+}

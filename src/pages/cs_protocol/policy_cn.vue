@@ -418,13 +418,16 @@
     }
 </script>
 <style scoped lang="less">
+    /*重置media*/
+    @import "../../styles/lib-media2.less";
+
     .head-box{
         background: linear-gradient(to right, #4b6584, #655aae, #545f94);
     }
     .main {
-        position: relative;
-        width: 1190px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 1230px;
+        margin: 0 auto 10px;
         overflow: hidden;
     }
     .main-policy {
@@ -473,4 +476,33 @@
             }
         }
     }
+
+    @media (max-width: @screen-phone) {
+        .main-policy {
+            padding: 15px 22px;
+            h1 {
+                line-height: 40px;
+                font-size: 24px;
+                margin-bottom: 26px;
+                text-align: center;
+            }
+            h2 {
+                margin: 24px 0 14px;
+                font-size:18px;
+            }
+            h3 {
+                margin: 11px 0 11px;
+                font-size: 14px;
+            }
+            h4 {
+                margin: 4px 0 4px;
+                font-size: 14px;
+            }
+            div {
+                p {
+                    padding-left: 1em;
+                }
+            } 
+        }
+    }    
 </style>

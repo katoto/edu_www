@@ -14,10 +14,12 @@
                     2. <lang>Describe your problems in detail</lang><br>
                     3. <lang>The screenshot of the problem page</lang><br>
                     <lang>We will contact you as soon as possible.</lang><br><br>
-                    <span v-if="language!=='en'">通用咨询：support@coinsprize.com <br></span>
+                    <lang>General：support@coinsprize.com</lang>
+
+                    <!-- <span v-if="language!=='en'">通用咨询：support@coinsprize.com <br></span>
                     <span v-else>General：support@coinsprize.com <br></span>
                     <lang>Lucky11 Issues</lang>：lucky11@coinsprize.com<br>
-                    <lang>LuckyCoin Issues</lang>：luckycoin@coinsprize.com
+                    <lang>LuckyCoin Issues</lang>：luckycoin@coinsprize.com -->
                 </p>
             </li>
             <li>
@@ -26,7 +28,7 @@
                 </p>
                 <p class="msg">
                     Coinsprize: t.me/coinsprizeoffice<br>
-                    LuckyCoin: t.me/luckycoinofficial
+                    <!-- LuckyCoin: t.me/luckycoinofficial -->
                 </p>
             </li>
         </ul>

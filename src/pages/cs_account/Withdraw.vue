@@ -33,7 +33,7 @@
                                 <lang>Wallet Address</lang>
                             </div>
                             <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
-                            <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
+                            <p class="wallet_warn">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype)) }}</p>
                         </div>
                         <div class="item pick-up">
                             <div class="fl210">
@@ -43,7 +43,7 @@
                             <template v-if="currBalance">
                                 <span v-if=" Number( currBalance.checkout_balance)> parseFloat(currBalance.draw_limit) "
                                       class="css_withdraw_total">{{ currBalance.draw_limit }} ~
-                                <span>{{ formateBalance( parseFloat(currBalance.checkout_balance)-parseFloat(currBalance.fee) ) }}</span> {{ formateCoinType( currBalance.cointype ) }}</span>
+                                <span>{{ formateBalance( currBalance.cointype === '2000' ? parseFloat(currBalance.balance) : parseFloat(currBalance.balance) - parseFloat(currBalance.fee) ) }}</span> {{ formateCoinType( currBalance.cointype ) }}</span>
                                 <span v-else class="css_withdraw_total">
                                 <lang>at least</lang> {{ currBalance.draw_limit }} {{ formateCoinType( currBalance.cointype ) }}
                             </span>
@@ -62,7 +62,7 @@
                         </div>
                         <p class="fee">
                             <lang>Fee</lang>&ensp;
-                            <i v-if="currBalance">{{ currBalance.fee }}</i><i>{{formateCoinType(currBalance.cointype) }}</i>
+                            <i v-if="currBalance">{{ currBalance.fee }}</i><i>{{formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype)}}</i>
                         </p>
                         <button @click="sendDraw">
                             <lang>Withdraw</lang>
@@ -173,7 +173,7 @@
                 <div class="item wallet-add">
                     <div class="tips">
                         <p><lang>Wallet Address</lang></p>
-                        <p class="orange">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype)) }}</p>
+                        <p class="orange">{{_("Only support {0} wallet",formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype)) }}</p>
                     </div>
                     <input v-model="withdrawAddr" @input="checkAddrLen" name="wallet" type="text">
                 </div>
@@ -185,7 +185,7 @@
                         <p v-if="currBalance" style="color: #778ca3;">
                             <span v-if=" Number( currBalance.balance)> parseFloat(currBalance.draw_limit) ">
                                 {{ currBalance.draw_limit }} ~
-                            <span>{{ formateBalance( parseFloat(currBalance.balance)-parseFloat(currBalance.fee) ) }}</span>
+                            <span>{{ formateBalance( currBalance.cointype === '2000' ? parseFloat(currBalance.balance) : parseFloat(currBalance.balance) - parseFloat(currBalance.fee) ) }}</span>
                                 {{ formateCoinType( currBalance.cointype ) }}
                             </span>
                             <span v-else>
@@ -202,7 +202,7 @@
                         </p>
                         <p style="color: #778ca3;">
                             <lang>Fee</lang>&ensp;
-                            <i v-if="currBalance">{{ currBalance.fee }}{{formateCoinType(currBalance.cointype) }}</i>
+                            <i v-if="currBalance">{{ currBalance.fee }}{{formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype) }}</i>
                         </p>
                     </div>
                     <input v-model="withdrawPsw" autocomplete="new-password" type="password">
@@ -287,15 +287,19 @@
                                 <span class="fl">
                                     <lang>Fee</lang>
                                 </span>
-                                <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
+                                <span class="fr">{{formateCoinType(currBalance.cointype === '2000' ? '2001' : currBalance.cointype) }}</span>
                                 <p v-if="currBalance" class="fr">{{ currBalance.fee }}</p>
                             </div>
                             <div class="trans-msg">
                                 <span class="fl">
                                     <lang>Total</lang>
                                 </span>
-                                <span class="fr">{{formateCoinType(currBalance.cointype) }}</span>
-                                <p class="fr">{{ formateBalance(Number( withdrawAmount) + Number(currBalance.fee)) }}</p>
+                                <p class="fr" v-if="currBalance.cointype !== '2000'">
+                                    {{ formateBalance(Number( withdrawAmount) + Number(currBalance.fee)) }} <span>{{formateCoinType(currBalance.cointype) }}</span>
+                                </p>
+                                <p class="fr" v-else>
+                                    {{ formateBalance(Number( withdrawAmount)) }} <span>CC</span> + {{ formateBalance(Number(currBalance.fee)) }} <span>ETH</span>
+                                </p>
                             </div>
                         </div>
                         <p class="trans-add1">
@@ -377,7 +381,8 @@
         formatTime,
         ethUrl,
         formateBalance,
-        formateCoinType
+        formateCoinType,
+        accSub
     } from '~common/util'
 
     import PopList from '~components/Pop-list'
@@ -452,6 +457,10 @@
                     {
                         value: '2001',
                         label: _('ETH')
+                    },
+                    {
+                        value: '2000',
+                        label: _('CC')
                     }
                 ],
                 ethOptionVal: '1',
@@ -554,7 +563,7 @@
             checkMaximum () {
                 if (this.currBalance && this.currBalance.balance) {
                     if (Number(this.currBalance.balance) < parseFloat(this.currBalance.draw_limit)) {
-                        this.error(_('The minimum withdrawal is') + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
+                        this.error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
                         return false
                     }
                     this.withdrawAmount = formateBalance(parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee))
@@ -607,7 +616,7 @@
                     this.withdrawAmount.toString() === '0' ||
                     Number(this.withdrawAmount) < parseFloat(this.currBalance.draw_limit)
                 ) {
-                    this.error(_('The minimum withdrawal is') + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
+                    this.error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
                     return false
                 }
 
@@ -617,9 +626,22 @@
                 }
 
                 if (this.currBalance) {
-                    if (Number(this.withdrawAmount) > (parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee))) {
-                        if ((parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)) >= parseFloat(this.currBalance.draw_limit)) {
-                            this.withdrawAmount = parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee)
+                    if (this.currBalance.cointype === '2000') {
+                        if (this.getEthBalance() < 0.0003) {
+                            this.error(_('Insufficient ETH'))
+                            return false
+                        } else if (Number(this.withdrawAmount) > Number(this.currBalance.balance)) {
+                            this.error(_(
+                                'The maximum withdrawal is {0} {1}',
+                                Number(this.currBalance.balance),
+                                this.formateCoinType(this.currBalance.cointype)
+                            ))
+                            this.withdrawAmount = this.currBalance.balance
+                            return false
+                        }
+                    } else if (Number(this.withdrawAmount) > accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee))) {
+                        if (accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee)) >= parseFloat(this.currBalance.draw_limit)) {
+                            this.withdrawAmount = accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee))
                             this.error(_(
                                 'The maximum withdrawal is {0} {1}',
                                 this.withdrawAmount,
@@ -627,7 +649,7 @@
                             )
                             )
                         } else {
-                            this.error(_('The minimum withdrawal is') + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
+                            this.error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
                             this.withdrawAmount = ''
                         }
                         return false
@@ -635,6 +657,16 @@
                 }
                 //  显示弹窗
                 this.showTransfer = true
+            },
+            getEthBalance () {
+                let num = 0
+                this.userInfo.accounts && this.userInfo.accounts.forEach(account => {
+                    if (account.cointype === '2001') {
+                        console.log(num)
+                        num = Number(account.balance)
+                    }
+                })
+                return num
             },
             async handleClick (tab, msg) {
                 if (tab.label === _('Records')) {
@@ -706,7 +738,7 @@
                                 break
                             }
                         }
-                        val.balance = formateBalance(val.balance) + formateCoinType(val.cointype)
+                        val.balance = formateBalance(val.balance) + val.cointype
                         // win state
                         if (val.orderstatus === '2') {
                             // 结算 并且大于0

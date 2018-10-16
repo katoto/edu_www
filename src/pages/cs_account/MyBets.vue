@@ -120,6 +120,10 @@
                             header-align="center"
                             prop="betmoney"
                             :label="_('Bet')">
+                            <template slot-scope="scope">
+                                <div :style="{lineHeight: scope.row.isCCDiscount ? '20px': '40px'}">{{scope.row.betmoney}}</div>
+                                <div v-if="scope.row.isCCDiscount" style="line-height: 20px;">{{formateBalance(Number(scope.row.cc), '2000')}}CC</div>
+                            </template>
                     </el-table-column>
                     <el-table-column
                             align="center"
@@ -193,7 +197,11 @@
                             <p class="type">
                                 {{item.bettype}}
                             </p>
-                            <p class="money">
+                            <p class="money" v-if="item.isCCDiscount" style="line-height: 20px;">
+                                {{item.betmoney}}<br>
+                                {{formateBalance(Number(item.cc), '2000')}}CC
+                            </p>
+                            <p class="money" v-else>
                                 {{item.betmoney}}
                             </p>
                         </div>
@@ -228,7 +236,9 @@ import {
     formatTime,
     formateBalance,
     formateCoinType,
-    accMul
+    accMul,
+    accDiv,
+    accSub
 } from '~common/util'
 
 export default {
@@ -237,7 +247,7 @@ export default {
             pageno: 1,
             h5pageno: 1,
             isShowMoreBtn: true,
-            pageSize: 10,
+            pageSize: 25,
             PageTotal: 10,
             orderList: [],
             h5orderList: [],
@@ -268,6 +278,9 @@ export default {
             }, {
                 value: '2001',
                 label: _('ETH')
+            }, {
+                value: '2000',
+                label: _('CC')
             }],
             ethOptionVal: '1',
             playOptions: [{
@@ -281,6 +294,8 @@ export default {
         }
     },
     methods: {
+        accDiv,
+        formateBalance,
         myBetSizeChange (size) {
             this.pageSize = size
             this.handleCurrentChange()
@@ -324,7 +339,7 @@ export default {
                 this.PageTotal = parseInt(data.counter, 10)
 
                 this.h5orderList = this.h5orderList.concat(this.orderList)
-                if (data.orders.length === 0 || data.orders.length !== 10) {
+                if (data.orders.length === 0 || data.orders.length !== 25) {
                     this.isShowMoreBtn = false
                 }
             }
@@ -371,10 +386,19 @@ export default {
                     }
 
                     if (val.betmoney) {
+                        let betmoney = Number(val.betmoney)
+                        let discountRate = Number(val.discount_rate)
+                        let cc = Number(val.cc)
+                        val.isCCDiscount = (discountRate !== 1) && cc !== 0
                         if (val.lotid === '2') {
-                            val.betmoney = formateBalance(accMul(Number(val.betmoney), Number(val.betcode.split(',').length))) + formateCoinType(val.cointype)
+                            betmoney = accMul(betmoney, Number(val.betcode.split(',').length))
+                            val.betmoney = !val.isCCDiscount
+                                ? formateBalance(betmoney, val.cointype) + formateCoinType(val.cointype)
+                                : formateBalance(accSub(betmoney, accMul(accDiv(1, discountRate), cc))) + formateCoinType(val.cointype)
                         } else {
-                            val.betmoney = formateBalance(Number(val.betmoney)) + formateCoinType(val.cointype)
+                            val.betmoney = !val.isCCDiscount
+                                ? formateBalance(betmoney, val.cointype) + formateCoinType(val.cointype)
+                                : formateBalance(accSub(betmoney, accMul(accDiv(1, discountRate), cc))) + formateCoinType(val.cointype)
                         }
                     }
 
@@ -383,7 +407,7 @@ export default {
                         // 结算 并且大于0
                         val.betprizeVal = (
                             parseFloat(val.betprize, 10) > 0
-                                ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize)}${formateCoinType(val.cointype)}</a>`
+                                ? `<a href='javascript:;' class='win'>${formateBalance(val.betprize, val.cointype)}${formateCoinType(val.cointype)}</a>`
                                 : "<a href='javascript:;' class='fail'>0</a>"
                         )
                     } else {

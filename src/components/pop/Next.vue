@@ -36,7 +36,10 @@
     .pop-submitNext{
         .pop-body{
             box-sizing: border-box;
-            width:440px;
+            width: 100%;
+            max-width:440px;
+            left: 50%;
+            transform: translate(-50%,-50%);
             line-height:30px;
             color: #263648;
             font-size:20px;

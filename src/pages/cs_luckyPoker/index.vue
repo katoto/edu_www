@@ -10,10 +10,10 @@
             <div class="main">
                 <div class="bg-esktop" ref="container">
                     <div class="fly-coin fly-coin-el" :style="item.style" v-for="(item, index) in coins" :key="index" @click="addCoin(item.type)">
-                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.0001.png" alt="" v-if="item.coinType === 0.0001">
-                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.001.png" alt="" v-if="item.coinType === 0.001">
-                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.01.png" alt="" v-if="item.coinType === 0.01">
-                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.1.png" alt="" v-if="item.coinType === 0.1">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.0001.png" alt="" v-if="item.coinType === 'purple'">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.001.png" alt="" v-if="item.coinType ==='orange'">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.01.png" alt="" v-if="item.coinType === 'blue'">
+                        <img class="fly-coin-el" src="@assets/img/luckyPoker/coin-0.1.png" alt="" v-if="item.coinType === 'yellow'">
                     </div>
                     <!--历史开奖记录-->
                     <div class="poker-history">
@@ -34,48 +34,6 @@
                                     <li v-for="(item, index) in (isLoading || showOpen ? tmpHistoryList : recentResult)" :key="index" :class="[getDiceClass(item)]">
                                         <p>{{getDiceText(item)}}</p>
                                     </li>
-                                    <!-- <li class="icon-fk">
-                                        <p>4</p>
-                                    </li>
-                                    <li class="icon-mh">
-                                        <p>J</p>
-                                    </li>
-                                    <li class="icon-heit">
-                                        <p>A</p>
-                                    </li>
-                                    <li class="icon-hongt">
-                                        <p>J</p>
-                                    </li>
-                                    <li class="icon-fk">
-                                        <p>n</p>
-                                    </li>
-                                    <li class="icon-mh">
-                                        <p>J</p>
-                                    </li>
-                                    <li class="icon-heit">
-                                        <p>A</p>
-                                    </li>
-                                    <li class="joker">
-                                        <p></p>
-                                    </li>
-                                    <li class="icon-heit">
-                                        <p>A</p>
-                                    </li>
-                                    <li class="icon-hongt">
-                                        <p>J</p>
-                                    </li>
-                                    <li class="icon-fk">
-                                        <p>n</p>
-                                    </li>
-                                    <li class="icon-mh">
-                                        <p>J</p>
-                                    </li>
-                                    <li class="icon-heit">
-                                        <p>A</p>
-                                    </li>
-                                    <li class="joker">
-                                        <p></p>
-                                    </li> -->
                                 </ul>
                             </div>
                             <a class="btn btn-right" href="javascript:;" @click="!hideRight && onRight()" :style="{opacity: !hideRight ? '1': '0.2'}"></a>
@@ -178,21 +136,21 @@
                         <!--按钮区-->
                         <div class="area-btn clearfix">
                             <ul class="clearfix">
-                                <li :class="{ on: currentCoin === 0.0001 }" @click="changeCoin('0.0001')" ref="0.0001">
+                                <li :class="{ on: currentCoinType === 'purple' }" @click="changeCoin('purple')" ref="purple">
                                     <img src="@assets/img/luckyPoker/coin-0.0001.png" alt="">
-                                    <p>{{isETH ? 0.0001 : 0.00001}}</p>
+                                    <p>{{thisCoin['purple'].num}}</p>
                                 </li>
-                                <li :class="{ on: currentCoin === 0.001 }" @click="changeCoin('0.001')" ref="0.001">
+                                <li :class="{ on: currentCoinType === 'orange' }" @click="changeCoin('orange')" ref="orange">
                                     <img src="@assets/img/luckyPoker/coin-0.001.png" alt="">
-                                    <p>{{isETH ? 0.001 : 0.0001}}</p>
+                                    <p>{{thisCoin['orange'].num}}</p>
                                 </li>
-                                <li :class="{ on: currentCoin === 0.01 }" @click="changeCoin('0.01')" ref="0.01">
+                                <li :class="{ on: currentCoinType === 'blue' }" @click="changeCoin('blue')" ref="blue">
                                     <img src="@assets/img/luckyPoker/coin-0.01.png" alt="">
-                                    <p>{{isETH ? 0.01 : 0.001}}</p>
+                                    <p>{{thisCoin['blue'].num}}</p>
                                 </li>
-                                <li :class="{ on: currentCoin === 0.1 }" @click="changeCoin('0.1')" ref="0.1">
+                                <li :class="{ on: currentCoinType === 'yellow' }" @click="changeCoin('yellow')" ref="yellow">
                                     <img src="@assets/img/luckyPoker/coin-0.1.png" alt="">
-                                    <p>{{isETH ? 0.1 : 0.01}}</p>
+                                    <p>{{thisCoin['yellow'].num}}</p>
                                 </li>
                             </ul>
                             <!--wait/unable-->
@@ -201,8 +159,40 @@
                                 <p v-if="!isLoading">{{$lang.poker.a17}}</p>
                                 <span v-if="!isLoading">{{total}} <i>{{coinText}}</i></span>
                             </div>
+                            <!-- 新增cc 20180926 -->
+                            <div class="cc-group cc-luckyPokerPc" v-if="coinType !== '2000' && isLogin">
+                                <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
+                                <p>
+                                   {{$lang.risk.a16}}
+                                </p>
+                                <a href="javascript:;" class="btn-cc">
+                                    ?
+                                    <div>
+                                        <p>CC: {{getCCAcount(userInfo)}}</p>
+                                        <p v-html="$lang.risk.a17"></p>
+                                        <p v-html="_($lang.risk.a18, getCCDeductionMoney(total, userInfo.discount_cfg.limit_rate['4']) + coinText)"></p>
+                                        <p>{{userInfo.discount_cfg.discount_rate['2001']}} C{{$lang.risk.a19}}=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C{{$lang.risk.a19}}= 1 BTC)</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
+                </div>
+                 <!-- 新增cc 20180926 -->
+                <div class="cc-group cc-luckyPokerh5" v-if="coinType !== '2000' && isLogin">
+                    <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
+                    <p>
+                        {{$lang.risk.a16}}
+                    </p>
+                    <a href="javascript:;" class="btn-cc">
+                        ?
+                        <div>
+                            <p>CC: {{getCCAcount(userInfo)}}</p>
+                            <p v-html="$lang.risk.a17"></p>
+                            <p v-html="_($lang.risk.a18, getCCDeductionMoney(total, userInfo.discount_cfg.limit_rate['4']) + coinText)"></p>
+                            <p>{{userInfo.discount_cfg.discount_rate['2001']}} C{{$lang.risk.a19}}=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C{{$lang.risk.a19}}= 1 BTC)</p>
+                        </div>
+                    </a>
                 </div>
                 <!--随机数 h5-->
                 <div class="area-random" :class="{on:isShowRandom}">
@@ -308,41 +298,6 @@
                             </li>
                             <li v-for="(item) in getEmptyList(5 - getBetsList().length)" v-if="getBetsList().length < 5" :key="item">
                             </li>
-                            <!--
-                            <li>
-                                <p class="bet-user">
-                                    222222222222222@gmail.com
-                                </p>
-                                <div class="bet-expect fk">
-                                    Q
-                                </div>
-                                <p class="bet-count">
-                                    0.00001<i> ETH</i>
-                                </p>
-                                <div class="bet-result icon-mh">
-                                    <p>Q</p>
-                                </div>
-                                <p class="bet-result-count">
-                                    0.00001<i> ETH</i>
-                                </p>
-                            </li>
-                            <li>
-                                <p class="bet-user">
-                                    380482989@gmail.com
-                                </p>
-                                <div class="bet-expect mh">
-                                    J
-                                </div>
-                                <p class="bet-count">
-                                    0.00001<i> ETH</i>
-                                </p>
-                                <div class="bet-result joker">
-                                    <p></p>
-                                </div>
-                                <p class="bet-result-count mywin">
-                                    0.00001<i>ETH</i>
-                                </p>
-                            </li> -->
                         </ul>
                         <div class="no-msg" v-show="getBetsList().length === 0">
                             {{$lang.poker.a62}} 
@@ -511,7 +466,7 @@
 <script>
 import Header from '~components/Header'
 import Footer from '~components/Footer'
-import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum } from '~common/util'
+import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum, getCCAcount, getCCDeductionMoney } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout, clearTimeout } from 'timers'
 const betMusic = () => import('~static/audio/dice/bet.wav')
@@ -523,6 +478,50 @@ export default {
     components: { Header, Footer },
     data () {
         return {
+            coin: {
+                '1001': {
+                    purple: {
+                        num: 0.00001
+                    },
+                    orange: {
+                        num: 0.0001
+                    },
+                    blue: {
+                        num: 0.001
+                    },
+                    yellow: {
+                        num: 0.01
+                    }
+                },
+                '2001': {
+                    purple: {
+                        num: 0.0001
+                    },
+                    orange: {
+                        num: 0.001
+                    },
+                    blue: {
+                        num: 0.01
+                    },
+                    yellow: {
+                        num: 0.1
+                    }
+                },
+                '2000': {
+                    purple: {
+                        num: 0.1
+                    },
+                    orange: {
+                        num: 1
+                    },
+                    blue: {
+                        num: 10
+                    },
+                    yellow: {
+                        num: 20
+                    }
+                }
+            },
             nameArr: ['red', 'black', 'joker', 'spade', 'heart', 'club', 'diamond', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
             points: ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
             color: ['red', 'black'],
@@ -533,6 +532,7 @@ export default {
             jokerTotal: 0,
             suitTotal: 0,
             currentCoin: 0.0001,
+            currentCoinType: 'purple',
             currentCoinEl: null,
             betNums: {},
             total: 0,
@@ -585,7 +585,8 @@ export default {
                 win: false,
                 pay: false
             },
-            openAnimate: false
+            openAnimate: false,
+            isUseCC: false
         }
     },
     methods: {
@@ -596,6 +597,8 @@ export default {
         getElementAbsolutePosition,
         getElementCenterPosition,
         formatNum,
+        getCCAcount,
+        getCCDeductionMoney,
         formatEmail (email) {
             let arr = email.split('@')
             if (arr.length !== 2) {
@@ -748,8 +751,8 @@ export default {
         calculate (name) {
             let tmp = [this.points, this.suit, this.color, this.joker]
             let tmpName = ['pointsTotal', 'suitTotal', 'colorTotal', 'jokerTotal']
-            this.betNums[name] = accAdd(this.betNums[name], (this.isETH ? this.currentCoin : accMul(this.currentCoin, 0.1)))
-            this.total = accAdd(this.total, (this.isETH ? this.currentCoin : accMul(this.currentCoin, 0.1)))
+            this.betNums[name] = accAdd(this.betNums[name], this.currentCoin)
+            this.total = accAdd(this.total, this.currentCoin)
             tmp.forEach((arr, index) => {
                 if (arr.indexOf(name) > -1) {
                     arr.forEach(item => {
@@ -771,7 +774,7 @@ export default {
             } else if (this.suit.indexOf(name) > -1) {
                 most = this.suitMost
             }
-            return accMul(accAdd(this.betNums[name], this.isETH ? this.currentCoin : accDiv(this.currentCoin, 10)), most) > Number(this.restricts[this.coinType.toString()][name])
+            return accMul(accAdd(this.betNums[name], this.currentCoin), most) > Number(this.restricts[this.coinType.toString()][name])
         },
         addCoin (name) {
             if (!this.isLogin) {
@@ -799,7 +802,8 @@ export default {
             })
         },
         changeCoin (type) {
-            this.currentCoin = Number(type)
+            this.currentCoin = this.thisCoin[type].num
+            this.currentCoinType = type
             this.currentCoinEl = this.$refs[type]
             this.coins.splice(this.coins.length - 1, 1)
             this.initCoin()
@@ -830,6 +834,10 @@ export default {
                 this.is14 = false
             }
         },
+        clearCoin () {
+            this.currentCoinType = 'purple'
+            this.currentCoin = this.thisCoin[this.currentCoinType].num
+        },
         clearBet () {
             this.nameArr.forEach(name => {
                 this.betNums[name] = 0
@@ -843,9 +851,10 @@ export default {
             this.initCoin()
         },
         initCoin () {
-            this.currentCoinEl = this.$refs[this.currentCoin.toString()]
+            this.currentCoin = this.thisCoin[this.currentCoinType].num
+            this.currentCoinEl = this.$refs[this.currentCoinType]
             this.coins = [...this.coins, {
-                coinType: this.currentCoin,
+                coinType: this.currentCoinType,
                 style: {
                     display: 'none',
                     ...this.getPosition(this.currentCoinEl)
@@ -898,7 +907,8 @@ export default {
                 bets: this.formatBetNum({...this.betNums}),
                 cointype: Number(this.coinType),
                 client_seed: this.clientSeed,
-                cur_server_hash: this.hashNumber
+                cur_server_hash: this.hashNumber,
+                discount: this.isUseCC && this.coinType !== '2000' ? '1' : '0'
             }).then(res => {
                 this.renderResult(res.data)
                 this.refresh()
@@ -1112,15 +1122,20 @@ export default {
         coinText () {
             return formateCoinType(this.coinType || '2001').toUpperCase()
         },
+        thisCoin () {
+            return this.coin[this.coinType || '2001']
+        },
         isETH () {
             return this.coinText === 'ETH'
         }
     },
     watch: {
         isLogin () {
+            this.clearCoin()
             this.refresh()
         },
         coinType () {
+            this.clearCoin()
             this.clearBet()
         },
         recentResult () {
@@ -1128,6 +1143,7 @@ export default {
         }
     },
     mounted () {
+        this.clearCoin()
         this.initCoin()
         this.clearBet()
         this.refresh()
@@ -1136,6 +1152,7 @@ export default {
         this.disableContext()
         this.subInDice()
         this.loadMusicSrc()
+        this.getUserInfo()
         window.addEventListener('resize', this.onResize)
     },
     destroyed () {
@@ -2098,6 +2115,9 @@ export default {
                     }
                 }
             }
+            .cc-luckyPokerPc{
+                display: none;
+            }
             /*历史开奖*/
             .poker-history{
                 position: relative;
@@ -2119,7 +2139,7 @@ export default {
                 display: block;
                 width: 92%;
                 padding: 10/2px percentage(24/690) 10/2px;
-                margin: 110/2px auto 0;
+                margin: 25px auto 0;
                 border-radius: 8px;
                 background: #294557;
                 color: #fff;
@@ -2568,7 +2588,7 @@ export default {
                 width: 100%;
                 max-width: 612px;
                 padding: 52px 85px 0;
-                height: 826px;
+                height: 864px;
                 font-weight: bold;
                 background: url("../../assets/img/luckyPoker/bg-pc-desktop.png") no-repeat center top;
                 background-size: 612px;
@@ -2589,6 +2609,9 @@ export default {
                 height:33px;
                 line-height: 20px;
                 font-size: 16px;
+            }
+            .cc-luckyPokerh5{
+                display: none;
             }
             /*投注区*/
             .area-betting{
@@ -2775,10 +2798,10 @@ export default {
             .recording{
                 position: absolute;
                 right: 31px;
-                bottom: 130px;
+                bottom: 168px;
                 max-width: 455px;
                 padding-top: 2px;
-                margin: 25px auto 0;
+                // margin: 25px auto 0;
                 border-radius: 8px;
                 .recording-top{
                     padding: 0 27px;
