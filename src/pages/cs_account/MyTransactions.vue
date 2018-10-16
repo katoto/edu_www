@@ -131,7 +131,7 @@
             </section>
             <template v-if="h5orderList.length>0">
                 <ul class="items-myTransactions">
-                    <li v-for="item in h5orderList">
+                    <li v-for="(item,index) in h5orderList" :key="index">
                         <div class="item-re item-re1">
                             <p>
                                 {{item.crtime.substr(5)}}
@@ -179,7 +179,7 @@ export default {
             h5pageno: 1,
             isShowMoreBtn: true,
             h5orderList: [],
-            pageSize: 10,
+            pageSize: 25,
             pageCount: 10,
             orderList: [],
             ethUrl,
@@ -248,6 +248,9 @@ export default {
             }, {
                 value: '2001',
                 label: _('ETH')
+            }, {
+                value: '2000',
+                label: _('CC')
             }],
             ethOptionVal: '1'
 
@@ -288,7 +291,7 @@ export default {
                     '3': '1',
                     '4': '2',
                     '5': [4, 6].join('|'),
-                    '6': [10, 11, 12, 13, 19].join('|'),
+                    '6': [10, 11, 12, 13, 19, 16, 17, 18].join('|'),
                     '7': [7, 5].join('|'),
                     '8': '3'
                 }[this.tranOptionVal] || ''
@@ -303,7 +306,7 @@ export default {
                 this.pageCount = parseInt(data.pages, 10)
 
                 this.h5orderList = this.h5orderList.concat(this.orderList)
-                if (data.account_logs.length === 0 || data.account_logs.length !== 10) {
+                if (data.account_logs.length === 0 || data.account_logs.length !== 25) {
                     this.isShowMoreBtn = false
                 }
             }
@@ -315,7 +318,11 @@ export default {
         formatData (Msg) {
             Msg.forEach((val, index) => {
                 // bettime
+                let cointype = val.cointype
                 val.crtime = formatTime(val.crtime, 'yyyy-MM-dd HH:mm')
+                if (this.tranOptionVal === '6' && (val.inout === '16' || val.inout === '17')) {
+                    val.inout = '10'
+                }
                 if (val.inout !== undefined) {
                     val.inout = formateMoneyFlow(val.inout, val.lotid)
                 }
@@ -323,11 +330,11 @@ export default {
                 val.index = (index + 1) + Number(this.pageSize) * Number(this.pageno - 1)
                 val.moneyVal = (
                     parseFloat(val.money, 10) <= 0
-                        ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money)}</a>`
-                        : `<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money)}</a>`
+                        ? `<a href='javascript:;' class='fail' style='cursor: default'>${formateBalance(val.money, cointype)}</a>`
+                        : `<a href='javascript:;' class='win'  style='cursor: default'>${formateBalance(val.money, cointype)}</a>`
                 )
                 if (val.balance) {
-                    val.balance = formateBalance(val.balance) + val.cointype
+                    val.balance = formateBalance(val.balance, cointype) + val.cointype
                 }
             })
             return Msg

@@ -4,7 +4,7 @@ module.exports = {
     'Free Bonus': '領獎中心',
     'Withdrawable Amount': '可提款金額',
     'Sign gift': '簽到送',
-    'Sign Up to Get 0.0001 BTC for Free': '註冊即可領取免費0.0001BTC',
+    'Sign Up to Get 1CC for Free': '註冊即可領取免費1CC',
     'Get daily free spin of Slot (Balance less than <b>0.00005BTC</b> and/or <b>0.0005ETH</b>)': '少於<b>0.00005BTC</b>且少於<b>0.0005ETH</b>的時候可每日免費領取老虎機次數',
     'Get <b>10 free spins</b> of Slot (Top-up reaches 0.001BTC or 0.01ETH, 1 chance/day)': '充值0.001BTC或0.01ETH，立即贈送額外<b>10次免費</b>老虎機機會（每日僅可領取1次）',
     'Get 10 free spins of Slot (Top-up reaches 0.01ETH, 1 chance/day)': '充值0.01ETH，立即贈送額外<b>10次免費</b>老虎機機會（每日僅可領取1次）',
@@ -250,6 +250,7 @@ module.exports = {
     'Please enter the correct length wallet address': '錢包長度有誤，請重新輸入',
     'Please enter the correct amount': '請輸入正確的金額',
     'Please input wallet password': '請輸入錢包密碼',
+    'The maximum withdrawal is {0} {1}': '您當前最大可提款金額為{0} {1}',
     'The maximum withdrawal is': '您當前最大可提款金額為',
     'Request': '申請',
     'Records': '記錄',
@@ -622,7 +623,7 @@ module.exports = {
     'Blockchain-based draw is unpredictable': '開獎算法基於區塊鏈技術，任何人都無法預知',
     'Bid information on blockchain cannot be modified': '投註信息上傳到區塊鏈上，任何人都無法篡改',
     'Support ETH and BTC': 'ETH、BTC多幣種投註',
-    'Currently,  popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '當前遊戲支持最受歡迎的比特幣和以太幣進行投註、存款和提款，未來還將接受更多加密數字貨幣，敬請期待',
+    'Currently, popular coins ETH and BTC are supported on the platform to play, top up and withdraw. More coins will be supported in the near future.': '當前遊戲支持最受歡迎的比特幣和以太幣進行投註、存款和提款，未來還將接受更多加密數字貨幣，敬請期待',
     'Support Mobile APP': '支持移動端設備',
     'Enjoy convenience and fun from quick and fair play at any time & any where. Mobile APP is coming soon.': '隨時隨地投註、充值、提款，做妳更貼心、更便捷的，更放心的平臺。敬請期待',
     'Finally! You found the wonderland-- Coinsprize<br/>A blockchain-based game platform with fairness and openness': '歡迎來區塊鏈遊戲平臺',
@@ -715,7 +716,7 @@ module.exports = {
     /* 壹元奪幣 start */
 
     /* 壹元奪幣 end */
-
+    'General：support@coinsprize.com': '咨詢郵箱：support@coinsprize.com',
     'Copy the Bitcoin wallet address': '復制比特幣錢包地址',
     /* activity */
     'Get Bonus': '領取活動資格',
@@ -839,6 +840,8 @@ module.exports = {
     'Win 10 ETH Prize Pool<br>Every 2 Hours': '每2小時贏取10ETH',
     'SUPERCOIN': '超級奪幣',
     'SuperCoin': '超級奪幣',
-    'Win 10 ETH Prize Pool Every 2 Hours': '每2小時贏取10ETH'
+    'Win 10 ETH Prize Pool Every 2 Hours': '每2小時贏取10ETH',
+    'Insufficient ETH': 'ETH餘額不足',
+    'The blockchain-based gaming platform': '區塊鏈博彩平臺'
     /* super coin end */
 }

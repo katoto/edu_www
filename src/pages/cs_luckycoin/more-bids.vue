@@ -16,6 +16,9 @@
                     <el-radio-button label="BTC">
                         <lang>BTC</lang>
                     </el-radio-button>
+                    <el-radio-button label="CC">
+                        <lang>CC</lang>
+                    </el-radio-button>
                     <el-radio-button label="My Bets">
                         <lang>My Bids</lang>
                     </el-radio-button>
@@ -197,6 +200,8 @@ export default {
                 arr = [...bets]
             } else if (this.filter === 'ETH') {
                 arr = [...bets.filter(bet => bet.goodsType === '2001')]
+            } else if (this.filter === 'CC') {
+                arr = [...bets.filter(bet => bet.goodsType === '2000')]
             } else if (this.filter === 'BTC') {
                 arr = [...bets.filter(bet => bet.goodsType === '1001')]
             } else if (this.filter === 'My Bets') {
@@ -224,8 +229,8 @@ export default {
             )
         },
         getFilter () {
-            if (this.filter === 'ETH' || this.filter === 'BTC') {
-                let code = { ETH: 2001, BTC: 1001 }
+            if (this.filter === 'ETH' || this.filter === 'BTC' || this.filter === 'CC') {
+                let code = { ETH: 2001, BTC: 1001, CC: 2000 }
                 return {
                     goodsType: code[this.filter]
                 }

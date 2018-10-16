@@ -189,7 +189,7 @@
 </template>
 
 <script>
-    import {randomNumber, formateBalance, formateJackPot, formateCoinType} from '~common/util'
+    import {randomNumber, formateBalance, formateJackPot, formateCoinType, accDiv} from '~common/util'
     import {Message} from 'element-ui'
 
     export default {
@@ -201,16 +201,21 @@
                 slideDown: false,
                 rewardTable: false,
                 min_limit: 0.0002, // 限额
-                max_limit: 0.01 // 限额
+                max_limit: 0.01, // 限额
+                curCoinType: '1001'
             }
         },
         props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
         watch: {
             currBalance (balance) {
                 /* 切换金额变化对应的选项 */
-                if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype) {
+                if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype !== this.curCoinType) {
                     this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
                     this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
+                    console.log(balance)
+                    this.areaMsg.pickMoney = Number(this.min_limit)
+                    this.setLimitUnit()
+                    this.curCoinType = balance.cointype
                 }
             }
         },
@@ -251,12 +256,23 @@
                     })
                     return false
                 }
+                return true
             },
             delTicket ($event) {
                 // 删除
                 if ($event.target.tagName === 'A') {
                     this.allplayArea.splice(parseFloat($event.target.getAttribute('data-delIndex')), 1)
                     this.$emit('update:allplayArea', this.allplayArea)
+                }
+            },
+            setLimitUnit () {
+                let min = Number(this.min_limit)
+                if (this.min_limit >= 1) {
+                    this.limitUnit = 1
+                } else {
+                    let minString = min.toString()
+                    let num = accDiv(min, Number(minString[minString.length - 1]))
+                    this.limitUnit = num
                 }
             },
             js_beting_add () {

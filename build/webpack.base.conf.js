@@ -52,8 +52,6 @@ module.exports = {
 		extensions: ['.js', '.vue', '.json'],
 		alias: {
 			'vue$': 'vue/dist/vue.esm.js',
-			'@': resolve('src'),
-			'~': path.resolve(__dirname, '../src'),
 			'~common': path.resolve(__dirname, '../src/common'),
 			'@common': path.resolve(__dirname, '../src/common'),
 			'~assets': path.resolve(__dirname, '../src/assets'),
@@ -64,7 +62,9 @@ module.exports = {
 			'~store': path.resolve(__dirname, '../src/store'),
 			'~pages': path.resolve(__dirname, '../src/pages'),
             '~router': path.resolve(__dirname, '../src/router'),
-            '~language': path.resolve(__dirname, '../src/language')
+            '~language': path.resolve(__dirname, '../src/language'),
+            '~': path.resolve(__dirname, '../src'),
+            '@': resolve('src')
 		}
 	},
 	module: {

@@ -28,13 +28,16 @@
                                 <p>
                                     <lang>Hit to Win</lang>
                                     <span v-if="prizes_pool && prizes_pool_ratio">
-                                    <!-- hit WIn -->
-                                    <template v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
-                                       {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
-                                    </template>
-                                    <template v-else>
-                                        {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
-                                    </template>
+                                        <!-- hit WIn -->
+                                        <span v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0 && currBalance.cointype === '2000'">
+                                            {{Number(parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet])}}
+                                        </span>
+                                        <span v-else-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
+                                            {{formateSlotBalance(parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet])}}
+                                        </span>
+                                        <span v-else>
+                                            {{Math.abs(prizes_pool_ratio[dft_bet])}}
+                                        </span>
                                     </span>
                                 </p>
                                 <!--<span>-->
@@ -150,6 +153,22 @@
                         <!--  上次赢取  -->
                         <div class="lastwin " v-if="last_prizes">
                             <lang>Last time win</lang> {{ formateSlotBalance (last_prizes) }} {{ formateCoinType(currBalance.cointype) }}
+                        </div>
+                        <!-- 新增cc 20180926 -->
+                        <div class="cc-group cc-luckySlot" v-if="coinType !== '2000' && isLog">
+                            <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
+                            <p>
+                                {{$lang.risk.a16}}
+                            </p>
+                            <a href="javascript:;" class="btn-cc">
+                                ?
+                                <div>
+                                    <p>CC: {{getCCAcount(userInfo)}}</p>
+                                    <p v-html="$lang.risk.a17"></p>
+                                    <p v-html="_($lang.risk.a18, getCCDeductionMoney(accMul(dft_bet, 9), userInfo.discount_cfg.limit_rate['3']) + formateCoinType(coinType))"></p>
+                                    <p>{{userInfo.discount_cfg.discount_rate['2001']}} C{{$lang.risk.a19}}=1 ETH ({{userInfo.discount_cfg.discount_rate['1001']}} C{{$lang.risk.a19}}= 1 BTC)</p>
+                                </div>
+                            </a>
                         </div>
                         <!--主按钮-->
                         <a href="javascript:;" id="controlShowMsg" class="btn-main " :class="{disable:btnDisable && !isAutoPlay}">
@@ -457,11 +476,11 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
+    import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import {mTypes, aTypes} from '~/store/cs_page/cs_tiger'
 import BannerScroll from '~components/BannerScroll.vue'
-import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom} from '~common/util'
+import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom, getCCDeductionMoney, getCCAcount, accMul} from '~common/util'
 
 import Vue from 'vue'
 import vueClipboard from 'vue-clipboard2'
@@ -469,468 +488,437 @@ import vueClipboard from 'vue-clipboard2'
 import {Howl} from 'howler'
 Vue.use(vueClipboard)
 
-export default {
-    data () {
-        return {
-            slotSound: null,
-            showFirstBaxi: false, // 首次提示
-            showRecharge: false, // 显示充值弹窗
-            hideBarLycky: true,
-            tab_t: 1, // 规则
-            tranitionTiming: false, // 运动是否需要过程
-            btnDisable: false, // 按钮不可用
-            rewardBig: false, // 大奖
-            rewardSmall: false, // 小奖
-            free_times: 0, // 初始化免费次数
-            // 默认投注选项
-            lucky_values: [{
-                bet: '0.0001',
-                lucky: '0'
-            }, {
-                bet: '0.001',
-                lucky: '0'
-            }],
-            dft_bet: 0.001, // 默认投注项
-            isfree: 0, // 是否免费
-            dft_line: 9, // 默认9线
-            showSingleBet: false, // 投注项选择
-            barProcess: 20,
-            beforeBarProcess: 0,
-            prizes_pool_ratio: null, // hitWinRatio
-            axes: null, // axes
-            dft_idx: null, // dft_idx 改变后的位置
-            hideInitLi: true,
-            computeHeight: 0,
-            slotItem1Tran: 'translateY(0px)',
-            slotItem2Tran: 'translateY(0px)',
-            slotItem3Tran: 'translateY(0px)',
-            isShowHelp: false,
-            slotRun: false,
-            animateInterval: null, // 动画时间
-            lineLightTime: 240, // 结果展示时间
-            allLinePopTime: 2300, // 展示动画间隔
-            winRes: [],
-            baseMove: {
-                /*
+    export default {
+        data () {
+            return {
+                slotSound: null,
+                showFirstBaxi: false, // 首次提示
+                showRecharge: false, // 显示充值弹窗
+                hideBarLycky: true,
+                tab_t: 1, // 规则
+                tranitionTiming: false, // 运动是否需要过程
+                btnDisable: false, // 按钮不可用
+                rewardBig: false, // 大奖
+                rewardSmall: false, // 小奖
+                free_times: 0, // 初始化免费次数
+                // 默认投注选项
+                lucky_values: [{
+                    bet: '0.0001',
+                    lucky: '0'
+                }, {
+                    bet: '0.001',
+                    lucky: '0'
+                }],
+                dft_bet: 0.001, // 默认投注项
+                isfree: 0, // 是否免费
+                dft_line: 9, // 默认9线
+                showSingleBet: false, // 投注项选择
+                barProcess: 20,
+                beforeBarProcess: 0,
+                prizes_pool_ratio: null, // hitWinRatio
+                axes: null, // axes
+                dft_idx: null, // dft_idx 改变后的位置
+                hideInitLi: true,
+                computeHeight: 0,
+                slotItem1Tran: 'translateY(0px)',
+                slotItem2Tran: 'translateY(0px)',
+                slotItem3Tran: 'translateY(0px)',
+                isShowHelp: false,
+                slotRun: false,
+                animateInterval: null, // 动画时间
+                lineLightTime: 240, // 结果展示时间
+                allLinePopTime: 2300, // 展示动画间隔
+                winRes: [],
+                baseMove: {
+                    /*
                     *  10 停止
                     *  line9  是口哨  'one0', 'one-2', 'two0', 'three-1',
                     *  30 奖池
                     * */
-                line0: [-1, -1, -1, 10],
-                line1: [-2, -2, -2, 10],
-                line2: [0, 0, 0, 10],
-                line3: [-2, -1, 0, 10],
-                line4: [0, -1, -2, 10],
-                line5: [-1, -2, -1, 10],
-                line6: [-1, 0, -1, 10],
-                line7: [-2, -1, -2, 10],
-                line8: [0, -1, 0, 10],
-                line9: [],
-                line10: [30, 30, 30, 10]
-            },
-            playBack: null, // 下单接口返回的所有值
-            totalRadio: 0,
-            setRewardIcon: 'lineWard',
-            jackPot: false,
-            slotOpening: false, // opening 类
-            tabTime: 0,
-            auto_run: 10,
-            currRun: 0,
-            isAutoPlay: false, // 按钮双击样式
-            winRadioObj: {
-            }, // 显示大奖用的
-            winRadioHtml: '', // 处理成展示结构html
-            fastClick: false
-        }
-    },
-    watch: {
-        // computeHeight (hei) {
-        //     if (hei && this.dft_idx) {
-        //         // this.setLacal()
-        //     }
-        // }
-        updataPools (msg) {
-            if (msg && this.currBalance.cointype.toString() === msg.cointype) {
-                this.$store.commit(mTypes.prizes_pool, msg.prizes_pool)
+                    line0: [-1, -1, -1, 10],
+                    line1: [-2, -2, -2, 10],
+                    line2: [0, 0, 0, 10],
+                    line3: [-2, -1, 0, 10],
+                    line4: [0, -1, -2, 10],
+                    line5: [-1, -2, -1, 10],
+                    line6: [-1, 0, -1, 10],
+                    line7: [-2, -1, -2, 10],
+                    line8: [0, -1, 0, 10],
+                    line9: [],
+                    line10: [30, 30, 30, 10]
+                },
+                playBack: null, // 下单接口返回的所有值
+                totalRadio: 0,
+                setRewardIcon: 'lineWard',
+                jackPot: false,
+                slotOpening: false, // opening 类
+                tabTime: 0,
+                auto_run: 10,
+                currRun: 0,
+                isAutoPlay: false, // 按钮双击样式
+                winRadioObj: {
+                }, // 显示大奖用的
+                winRadioHtml: '', // 处理成展示结构html
+                fastClick: false,
+                isUseCC: false
             }
         },
-        currBalance (newVal, oldVal) {
-            /* 切换币种 */
-            if (oldVal.cointype !== newVal.cointype) {
+        watch: {
+            // computeHeight (hei) {
+            //     if (hei && this.dft_idx) {
+            //         // this.setLacal()
+            //     }
+            // }
+            updataPools (msg) {
+                if (msg && this.currBalance.cointype.toString() === msg.cointype) {
+                    this.$store.commit(mTypes.prizes_pool, msg.prizes_pool)
+                }
+            },
+            currBalance (newVal, oldVal) {
+                /* 切换币种 */
+                if (oldVal.cointype !== newVal.cointype) {
+                    this.changePageState()
+                }
+            },
+            isLog (val) {
+                /* 切换登陆态之后改变状态 */
                 this.changePageState()
             }
         },
-        isLog (val) {
-            /* 切换登陆态之后改变状态 */
-            this.changePageState()
-        }
-    },
-    methods: {
-        copySucc,
-        copyError,
-        formatTime,
-        formateBalance,
-        formateSlotBalance,
-        formateEmail,
-        formateCoinType,
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
-        initLacal (head = false) {
-            /* new  结果的走  */
-            // this.axes.forEach((val, index) => {
-            //     /* 打乱 */
-            //     // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
-            // })
-            this.axes.forEach((val, index) => {
-                let dft = null
-                if (head) {
-                    dft = val.slice(parseFloat(this.dft_idx[index]) + 27, parseFloat(this.dft_idx[index]) + 30)
-                    this.axes[index] = dft.concat(this.axes[index])
-                } else {
-                    /* 需要删掉最后三个 */
-                    dft = val.slice(parseFloat(this.dft_idx[index]) + 30, parseFloat(this.dft_idx[index]) + 33)
-                    if (this.axes[index].length > 63) {
-                        this.axes[index].splice(-3)
+        methods: {
+            accMul,
+            getCCAcount,
+            getCCDeductionMoney,
+            copySucc,
+            copyError,
+            formatTime,
+            formateBalance,
+            formateSlotBalance,
+            formateEmail,
+            formateCoinType,
+            initPop () {
+                /* head 弹窗 */
+                this.$store.commit('initHeadState', new Date().getTime())
+            },
+            initLacal (head = false) {
+                /* new  结果的走  */
+                // this.axes.forEach((val, index) => {
+                //     /* 打乱 */
+                //     // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
+                // })
+                this.axes.forEach((val, index) => {
+                    let dft = null
+                    if (head) {
+                        dft = val.slice(parseFloat(this.dft_idx[index]) + 27, parseFloat(this.dft_idx[index]) + 30)
+                        this.axes[index] = dft.concat(this.axes[index])
+                    } else {
+                        /* 需要删掉最后三个 */
+                        dft = val.slice(parseFloat(this.dft_idx[index]) + 30, parseFloat(this.dft_idx[index]) + 33)
+                        if (this.axes[index].length > 63) {
+                            this.axes[index].splice(-3)
+                        }
+                        this.axes[index] = this.axes[index].concat(dft)
                     }
-                    this.axes[index] = this.axes[index].concat(dft)
-                }
-            })
-        },
-        setLacal () {
-            this.dft_idx.forEach((val, index) => {
-                val = parseFloat(val) + 30
-                this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
-            })
-        },
-        resetLacal () {
-            this.tranitionTiming = false
-            this.dft_idx.forEach((val, index) => {
-                this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0px)'
-            })
-        },
-        touStart (evt) {
-            if (!this.fastClick) {
-                evt.preventDefault()
-                this.tabTime = new Date().getTime()
-                this.fastClick = true
-            }
-        },
-        touEnd (isFree = false) {
-            if (isFree && isFree === 'isFree') {
-                /* 认为是免费的停止 */
-                if (this.isAutoPlay) {
-                    this.stopAutoPlay()
-                    this.fastClick = false
-                    return false
-                }
-            }
-            if (this.btnDisable) {
-                this.fastClick = false
-                return false
-            }
-            this.tabTime = (new Date().getTime() - this.tabTime)
-            if (this.tabTime > 500) {
-                /* 长按 */
-                if (!this.isLog) {
-                    /* 是否登录 */
-                    this.$store.commit('showLoginPop')
-                    this.fastClick = false
-                    return false
-                }
-                this.startPlay()
-                this.autoPlay()
-                this.currRun = this.currRun - 1
-                this.slotSound.play('button')
-            } else if (this.tabTime > 40 && this.tabTime <= 500) {
-                /* 点击 */
-                this.startPlay()
-                this.slotSound.play('button')
-            }
-            this.fastClick = false
-        },
-        autoPlay () {
-            this.currRun = this.auto_run
-            this.isAutoPlay = true
-        },
-        stopAutoPlay () {
-            this.currRun = this.auto_run
-            this.isAutoPlay = false
-        },
-        async endInit () {
-            /* 结束初始化 */
-            this.$store.dispatch('getUserInfo')
-            this.axes.forEach((val, index) => {
+                })
+            },
+            setLacal () {
+                this.dft_idx.forEach((val, index) => {
+                    val = parseFloat(val) + 30
+                    this['slotItem' + (index + 1) + 'Tran'] = `translateY(-${(val - 3) * this.computeHeight}px)`
+                })
+            },
+            resetLacal () {
                 this.tranitionTiming = false
-                this.resetLacal()
-                let currAxes = val.slice(-3)
-                this.axes[index].splice(0, 3, ...currAxes)
-            })
-            this.slotOpening = false // 开奖结束
-            if (this.playBack) {
-                if (this.playBack.lucky_values) {
-                    this.formateLuckyVal(this.playBack.lucky_values)
+                this.dft_idx.forEach((val, index) => {
+                    this['slotItem' + (index + 1) + 'Tran'] = 'translateY(0px)'
+                })
+            },
+            touStart (evt) {
+                if (!this.fastClick) {
+                    evt.preventDefault()
+                    this.tabTime = new Date().getTime()
+                    this.fastClick = true
                 }
-                if (this.playBack.free_times !== undefined) {
-                    this.free_times = parseFloat(this.playBack.free_times)
+            },
+            touEnd (isFree = false) {
+                if (isFree && isFree === 'isFree') {
+                    /* 认为是免费的停止 */
+                    if (this.isAutoPlay) {
+                        this.stopAutoPlay()
+                        this.fastClick = false
+                        return false
+                    }
                 }
-            }
-            await wait(300)
-            this.btnDisable = false
-            await wait(1700)
-            if (this.isAutoPlay) {
-                if (this.currRun > 0) {
+                if (this.btnDisable) {
+                    this.fastClick = false
+                    return false
+                }
+                this.tabTime = (new Date().getTime() - this.tabTime)
+                if (this.tabTime > 500) {
+                    /* 长按 */
+                    if (!this.isLog) {
+                        /* 是否登录 */
+                        this.$store.commit('showLoginPop')
+                        this.fastClick = false
+                        return false
+                    }
                     this.startPlay()
+                    this.autoPlay()
                     this.currRun = this.currRun - 1
-                } else {
-                    this.stopAutoPlay()
+                    this.slotSound.play('button')
+                } else if (this.tabTime > 40 && this.tabTime <= 500) {
+                    /* 点击 */
+                    this.startPlay()
+                    this.slotSound.play('button')
                 }
-            }
-        },
-        stateInit () {
-            // this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
-        },
-        formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
-            /* 获得口哨  坐标 */
-            // line9: ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10],
-            let nowWhis = null
-            let baseLine9 = []
-            let baseLineFn = (nowWhis, localVal) => {
-                nowWhis.forEach((valS, index) => {
-                    if (valS === 'S') {
-                        switch (index) {
-                        case 0:
-                            baseLine9.push('one' + localVal)
-                            break
-                        case 1:
-                            baseLine9.push('two' + localVal)
-                            break
-                        case 2:
-                            baseLine9.push('three' + localVal)
-                            break
+                this.fastClick = false
+            },
+            autoPlay () {
+                this.currRun = this.auto_run
+                this.isAutoPlay = true
+            },
+            stopAutoPlay () {
+                this.currRun = this.auto_run
+                this.isAutoPlay = false
+            },
+            async endInit () {
+                /* 结束初始化 */
+                this.$store.dispatch('getUserInfo')
+                this.axes.forEach((val, index) => {
+                    this.tranitionTiming = false
+                    this.resetLacal()
+                    let currAxes = val.slice(-3)
+                    this.axes[index].splice(0, 3, ...currAxes)
+                })
+                this.slotOpening = false // 开奖结束
+                if (this.playBack) {
+                    if (this.playBack.lucky_values) {
+                        this.formateLuckyVal(this.playBack.lucky_values)
+                    }
+                    if (this.playBack.free_times !== undefined) {
+                        this.free_times = parseFloat(this.playBack.free_times)
+                    }
+                }
+                await wait(300)
+                this.btnDisable = false
+                await wait(1700)
+                if (this.isAutoPlay) {
+                    if (this.currRun > 0) {
+                        this.startPlay()
+                        this.currRun = this.currRun - 1
+                    } else {
+                        this.stopAutoPlay()
+                    }
+                }
+            },
+            stateInit () {
+                // this.isAutoPlay ? this.btnDisable = false : this.btnDisable = true
+            },
+            formateWindow (windowStr = ['S|C|D', 'S|S|D', 'S|C|S']) {
+                /* 获得口哨  坐标 */
+                // line9: ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10],
+                let nowWhis = null
+                let baseLine9 = []
+                let baseLineFn = (nowWhis, localVal) => {
+                    nowWhis.forEach((valS, index) => {
+                        if (valS === 'S') {
+                            switch (index) {
+                            case 0:
+                                baseLine9.push('one' + localVal)
+                                break
+                            case 1:
+                                baseLine9.push('two' + localVal)
+                                break
+                            case 2:
+                                baseLine9.push('three' + localVal)
+                                break
+                            }
+                        }
+                    })
+                }
+                windowStr.forEach((val, index) => {
+                    if (~val.indexOf('S')) {
+                        nowWhis = val.split('|')
+                        if (index === 0) {
+                            baseLineFn(nowWhis, '-2')
+                        } else if (index === 1) {
+                            baseLineFn(nowWhis, '-1')
+                        } else if (index === 2) {
+                            baseLineFn(nowWhis, '0')
                         }
                     }
                 })
-            }
-            windowStr.forEach((val, index) => {
-                if (~val.indexOf('S')) {
-                    nowWhis = val.split('|')
-                    if (index === 0) {
-                        baseLineFn(nowWhis, '-2')
-                    } else if (index === 1) {
-                        baseLineFn(nowWhis, '-1')
-                    } else if (index === 2) {
-                        baseLineFn(nowWhis, '0')
-                    }
-                }
-            })
-            baseLine9.push(10)
-            this.baseMove.line9 = baseLine9
-        },
-        async startPlay () {
-            if (this.btnDisable) {
-                return false
-            }
-            /* 是否登录 */
-            if (!this.isLog) {
-                this.$store.commit('showLoginPop')
-                return false
-            }
-            /* 是否激活 */
-            if (this.userInfo && this.userInfo.status !== '1') {
-                this.$store.commit('showNoVerify')
-                return false
-            }
-            /* 余额是否充足 */
-            if (this.currBalance && this.currBalance.balance) {
-                if ((parseFloat(this.currBalance.balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
-                    /* 显示余额不足 */
-                    this.showRecharge = true
+                baseLine9.push(10)
+                this.baseMove.line9 = baseLine9
+            },
+            async startPlay () {
+                if (this.btnDisable) {
                     return false
                 }
-            }
-            this.btnDisable = true
-            let orderMsg = {
-                dft_line: this.dft_line,
-                single_bet: this.dft_bet,
-                cointype: this.currBalance.cointype
-            }
-            let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
-            // this.stateInit()
-            this.slotRun = true
-            if (playBack) {
-                if (parseFloat(this.free_times) <= 0) {
-                    this.reduceMoney()
+                /* 是否登录 */
+                if (!this.isLog) {
+                    this.$store.commit('showLoginPop')
+                    return false
                 }
-                this.playBack = playBack
-                this.initPage(playBack)
-                if (playBack.idx) {
-                    // 结果 位置
-                    this.dft_idx = playBack.idx
-                    this.initLacal()
-                    this.dft_idx = [36, 36, 36]
-                    await wait(600)
-                    this.slotSound.play('slot_rolling')
-                    this.tranitionTiming = true
-                    this.setLacal()
+                /* 是否激活 */
+                if (this.userInfo && this.userInfo.status !== '1') {
+                    this.$store.commit('showNoVerify')
+                    return false
                 }
-                if (playBack.window) {
-                    /*  处理口哨 的数组格式 */
-                    this.formateWindow(playBack.window)
+                /* 余额是否充足 */
+                if (this.currBalance && this.currBalance.balance) {
+                    if ((parseFloat(this.currBalance.balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
+                        /* 显示余额不足 */
+                        this.showRecharge = true
+                        return false
+                    }
                 }
-                if (playBack.results) {
-                    this.showResults(playBack.results)
-                    this.showRadioEnd(playBack.results)
+                this.btnDisable = true
+                let orderMsg = {
+                    dft_line: this.dft_line,
+                    single_bet: this.dft_bet,
+                    cointype: this.currBalance.cointype,
+                    discount: this.isUseCC && this.currBalance.cointype !== '2000' ? '1' : '0'
                 }
-            } else {
-                this.endInit()
-            }
-        },
-        async showResults (res) {
-            /* 结果展示 */
-            this.totalRadio = 0
-            this.winRes = []
-            if (res && Array.isArray(res)) {
-                if (res[10] === '1') {
-                    this.winRes.push({
-                        line: 'line10',
-                        value: '1'
-                    })
+                let playBack = await this.$store.dispatch(aTypes.startPlay, orderMsg)
+                // this.stateInit()
+                this.slotRun = true
+                if (playBack) {
+                    if (parseFloat(this.free_times) <= 0) {
+                        this.reduceMoney()
+                    }
+                    this.playBack = playBack
+                    this.initPage(playBack)
+                    if (playBack.idx) {
+                        // 结果 位置
+                        this.dft_idx = playBack.idx
+                        this.initLacal()
+                        this.dft_idx = [36, 36, 36]
+                        await wait(600)
+                        this.slotSound.play('slot_rolling')
+                        this.tranitionTiming = true
+                        this.setLacal()
+                    }
+                    if (playBack.window) {
+                        /*  处理口哨 的数组格式 */
+                        this.formateWindow(playBack.window)
+                    }
+                    if (playBack.results) {
+                        this.showResults(playBack.results)
+                        this.showRadioEnd(playBack.results)
+                    }
                 } else {
-                    res.forEach((val, index) => {
-                        if (val.toString() !== '0') {
-                            this.totalRadio += parseFloat(val)
-                            if (index === 9) {
-                                this.winRes.unshift({
-                                    line: 'line' + index,
-                                    value: val
-                                })
-                            } else {
-                                this.winRes.push({
-                                    line: 'line' + index,
-                                    value: val
-                                })
+                    this.endInit()
+                }
+            },
+            async showResults (res) {
+                /* 结果展示 */
+                this.totalRadio = 0
+                this.winRes = []
+                if (res && Array.isArray(res)) {
+                    if (res[10] === '1') {
+                        this.winRes.push({
+                            line: 'line10',
+                            value: '1'
+                        })
+                    } else {
+                        res.forEach((val, index) => {
+                            if (val.toString() !== '0') {
+                                this.totalRadio += parseFloat(val)
+                                if (index === 9) {
+                                    this.winRes.unshift({
+                                        line: 'line' + index,
+                                        value: val
+                                    })
+                                } else {
+                                    this.winRes.push({
+                                        line: 'line' + index,
+                                        value: val
+                                    })
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
+                    /* 预留 转动的时间 */
+                    await wait(3000)
+                    this.slotRun = false // 动画结束
+                    this.slotSound.stop()
+                    this.slotOpening = true
+                    if (this.winRes.length > 0) {
+                        /* 具体执行的动画 0 - 8 线 */
+                        this.controlAnimate()
+                        clearInterval(this.animateInterval)
+                        this.animateInterval = setInterval(this.controlAnimate, this.allLinePopTime)
+                    } else {
+                        /* 没中 */
+                        this.endInit()
+                    }
                 }
-                /* 预留 转动的时间 */
-                await wait(3000)
-                this.slotRun = false // 动画结束
-                this.slotSound.stop()
-                this.slotOpening = true
+            },
+            async controlAnimate () {
+                let popWinRes = null
                 if (this.winRes.length > 0) {
-                    /* 具体执行的动画 0 - 8 线 */
-                    this.controlAnimate()
+                    let nowMove = null
+                    popWinRes = this.winRes.shift()
+                    if (popWinRes.line === 'line9') {
+                        /* 口哨 */
+                        this.setRewardIcon = 'whisWard'
+                        nowMove = this.baseMove[popWinRes.line]
+                        this.nowWhistMove(nowMove)
+                    } else if (popWinRes.line === 'line10') {
+                        this.slotOpening = false
+                        /* 奖池奖 */
+                        this.setRewardIcon = 'jackPotWard'
+                    } else {
+                        /* 0- 8 线 */
+                        this.setRewardIcon = 'lineWard'
+                        nowMove = this.baseMove[popWinRes.line]
+                        this.nowLineMove(nowMove, this.dft_idx)
+                    }
+                } else {
                     clearInterval(this.animateInterval)
-                    this.animateInterval = setInterval(this.controlAnimate, this.allLinePopTime)
-                } else {
-                    /* 没中 */
-                    this.endInit()
-                }
-            }
-        },
-        async controlAnimate () {
-            let popWinRes = null
-            if (this.winRes.length > 0) {
-                let nowMove = null
-                popWinRes = this.winRes.shift()
-                if (popWinRes.line === 'line9') {
-                    /* 口哨 */
-                    this.setRewardIcon = 'whisWard'
-                    nowMove = this.baseMove[popWinRes.line]
-                    this.nowWhistMove(nowMove)
-                } else if (popWinRes.line === 'line10') {
-                    this.slotOpening = false
-                    /* 奖池奖 */
-                    this.setRewardIcon = 'jackPotWard'
-                } else {
-                    /* 0- 8 线 */
-                    this.setRewardIcon = 'lineWard'
-                    nowMove = this.baseMove[popWinRes.line]
-                    this.nowLineMove(nowMove, this.dft_idx)
-                }
-            } else {
-                clearInterval(this.animateInterval)
-                if (this.setRewardIcon === 'lineWard') {
-                    /* 显示大奖还是小奖 */
-                    if (this.totalRadio >= 25) {
-                        // 大奖
-                        this.rewardBig = true
-                    } else {
-                        this.rewardSmall = true
-                    }
-                    this.slotSound.play('gift_small')
-                    this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
-                    await wait(2500)
-                    // 隐藏奖池图标
-                    this.rewardBig = false
-                    this.rewardSmall = false
-                    this.endInit()
-                } else if (this.setRewardIcon === 'jackPotWard') {
-                    this.rewardBig = true
-                    this.jackPot = true
-                    this.slotSound.play('gift_big')
-                    this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
-                    await wait(5000)
-                    this.currRun = 0
-                    this.rewardBig = false
-                    this.endInit()
-                } else if (this.setRewardIcon === 'whisWard') {
-                    await wait(100)
-                    this.endInit()
-                }
-                // 是否应该在结束时更新数据
-            }
-        },
-        nowLineMove (nowMove = [-1, -2, -1, 10], endIdx = [3, 3, 3]) {
-            /* 执行的动画 */
-            for (let i = 0;i < 4;i++) {
-                setTimeout(() => {
-                    let lineLocal = null
-                    let querySel = null
-                    if (nowMove[i] !== 10) {
-                        lineLocal = parseFloat(endIdx[i]) + 30 + parseFloat(nowMove[i]) - 1
-                        querySel = '#slotItem' + (i + 1) + ' li'
-                        if (document.querySelectorAll(querySel)[lineLocal]) {
-                            document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                    if (this.setRewardIcon === 'lineWard') {
+                        /* 显示大奖还是小奖 */
+                        if (this.totalRadio >= 25) {
+                            // 大奖
+                            this.rewardBig = true
+                        } else {
+                            this.rewardSmall = true
                         }
-                    } else {
-                        /* 所有初始化 */
-                        this.initAllLine()
+                        this.slotSound.play('gift_small')
+                        this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
+                        await wait(2500)
+                        // 隐藏奖池图标
+                        this.rewardBig = false
+                        this.rewardSmall = false
+                        this.endInit()
+                    } else if (this.setRewardIcon === 'jackPotWard') {
+                        this.rewardBig = true
+                        this.jackPot = true
+                        this.slotSound.play('gift_big')
+                        this.$store.commit(mTypes.last_prizes, parseFloat(this.playBack.line_prizes) + parseFloat(this.playBack.pool_prizes))
+                        await wait(5000)
+                        this.currRun = 0
+                        this.rewardBig = false
+                        this.endInit()
+                    } else if (this.setRewardIcon === 'whisWard') {
+                        await wait(100)
+                        this.endInit()
                     }
-                }, (this.lineLightTime * (i + 1)))
-            }
-        },
-        nowWhistMove (whistMove = ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10]) {
-            /* 口哨  通过replace 进行处理 */
-            if (whistMove && whistMove.length > 0) {
-                for (let i = 0;i < whistMove.length;i++) {
+                    // 是否应该在结束时更新数据
+                }
+            },
+            nowLineMove (nowMove = [-1, -2, -1, 10], endIdx = [3, 3, 3]) {
+                /* 执行的动画 */
+                for (let i = 0;i < 4;i++) {
                     setTimeout(() => {
                         let lineLocal = null
                         let querySel = null
-                        if (whistMove[i] !== 10) {
-                            if (~whistMove[i].indexOf('one')) {
-                                lineLocal = parseFloat(this.dft_idx[0]) + 30 + parseFloat(whistMove[i].replace('one', '')) - 1
-                                querySel = '#slotItem1 li'
-                                if (document.querySelectorAll(querySel)[lineLocal]) {
-                                    document.querySelectorAll(querySel)[lineLocal].className = 'yes'
-                                }
-                            }
-                            if (~whistMove[i].indexOf('two')) {
-                                lineLocal = parseFloat(this.dft_idx[1]) + 30 + parseFloat(whistMove[i].replace('two', '')) - 1
-                                querySel = '#slotItem2 li'
-                                if (document.querySelectorAll(querySel)[lineLocal]) {
-                                    document.querySelectorAll(querySel)[lineLocal].className = 'yes'
-                                }
-                            }
-                            if (~whistMove[i].indexOf('three')) {
-                                lineLocal = parseFloat(this.dft_idx[2]) + 30 + parseFloat(whistMove[i].replace('three', '')) - 1
-                                querySel = '#slotItem3 li'
-                                if (document.querySelectorAll(querySel)[lineLocal]) {
-                                    document.querySelectorAll(querySel)[lineLocal].className = 'yes'
-                                }
+                        if (nowMove[i] !== 10) {
+                            lineLocal = parseFloat(endIdx[i]) + 30 + parseFloat(nowMove[i]) - 1
+                            querySel = '#slotItem' + (i + 1) + ' li'
+                            if (document.querySelectorAll(querySel)[lineLocal]) {
+                                document.querySelectorAll(querySel)[lineLocal].className = 'yes'
                             }
                         } else {
                             /* 所有初始化 */
@@ -938,136 +926,172 @@ export default {
                         }
                     }, (this.lineLightTime * (i + 1)))
                 }
-            }
-        },
-        async initAllLine () {
-            /* 初始化 yes */
-            try {
-                await wait(650)
-                Array.from(document.querySelectorAll('#js_slot-box li')).forEach((val) => {
-                    val.className = ''
-                })
-            } catch (e) {
-                console.log(e)
-            }
-        },
-        showBetSel () {
-            /* 控制投注项 */
-            if (this.isAutoPlay) {
-                return false
-            }
-            /* 有免费次数的时候 不给切换 */
-            if (parseFloat(this.free_times)) {
-                return false
-            }
-            this.slotSound.play('buttonHelp')
-            this.showSingleBet = !this.showSingleBet
-        },
-        betSelFn (currVal) {
-            if (currVal) {
-                this.dft_bet = currVal.bet
-                this.barProcess = (parseFloat(currVal.lucky) * (96 / 100)).toFixed(0)
-                this.beforeBarProcess = parseFloat(currVal.lucky)
-                if (parseFloat(currVal.lucky) >= 100) {
-                    this.hideBarLycky = false
-                } else {
-                    this.hideBarLycky = true
-                }
-                this.showSingleBet = true
-            }
-        },
-        initPage (slotsHome, inPage = false) {
-            if (slotsHome.prizes_pool !== undefined) {
-                this.$store.commit(mTypes.prizes_pool, slotsHome.prizes_pool)
-            }
-            if (slotsHome.last_prizes !== undefined) {
-                this.$store.commit(mTypes.last_prizes, slotsHome.last_prizes)
-            }
-            if (inPage) {
-                if (slotsHome.free_times !== undefined) {
-                    this.free_times = parseFloat(slotsHome.free_times)
-                }
-            }
-            if (slotsHome.auto_run !== undefined) {
-                this.auto_run = slotsHome.auto_run
-            }
-            /* 默认投注项 */
-            if (slotsHome.dft_bet !== undefined) {
-                this.dft_bet = slotsHome.dft_bet
-            }
-            if (slotsHome.dft_line !== undefined) {
-                this.dft_line = slotsHome.dft_line
-            }
-            if (slotsHome.prizes_pool_ratio) {
-                this.prizes_pool_ratio = slotsHome.prizes_pool_ratio
-            }
-            if (slotsHome.axes) {
-                this.axes = slotsHome.axes
-                this.axes.forEach((val, index) => {
-                    this.axes[index] = val.concat(val)
-                })
-            }
-            if (slotsHome.dft_idx) {
-                this.dft_idx = slotsHome.dft_idx
-            }
-        },
-        formateLuckyVal (luckyValues = []) {
-            /* 初始化 绿色 进度条 */
-            this.lucky_values = luckyValues
-            if (this.lucky_values.length > 0) {
-                this.lucky_values.forEach((val) => {
-                    if (val.bet === this.dft_bet.toString()) {
-                        this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(0)
-                        this.beforeBarProcess = parseFloat(val.lucky)
-                        if (parseFloat(val.lucky) >= 100) {
-                            this.hideBarLycky = false
-                        } else {
-                            this.hideBarLycky = true
-                        }
-                    }
-                })
-            }
-        },
-        reduceMoney () {
-            if (this.userInfo && this.userInfo.accounts) {
-                let findIndex = 0
-                this.userInfo.accounts.forEach((val, index) => {
-                    if (val.cointype === this.currBalance.cointype) {
-                        findIndex = index
-                    }
-                })
-                this.userInfo.accounts[findIndex].balance = Math.abs(parseFloat(this.userInfo.accounts[findIndex].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
-                this.$store.commit('setUserInfo', this.userInfo)
-                this.$store.commit('setCurrBalance', this.userInfo.accounts[findIndex])
-            }
-        },
-        showRadioEnd (winArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '120', '0']) {
-            this.winRadioObj = {}
-            if (winArr) {
-                winArr.forEach((val, index) => {
-                    if (index !== 9) {
-                        if (val !== '0') {
-                            if (!this.winRadioObj[val]) {
-                                this.winRadioObj[val] = []
+            },
+            nowWhistMove (whistMove = ['one0', 'one-2', 'two0', 'three-1', 'three-2', 10]) {
+                /* 口哨  通过replace 进行处理 */
+                if (whistMove && whistMove.length > 0) {
+                    for (let i = 0;i < whistMove.length;i++) {
+                        setTimeout(() => {
+                            let lineLocal = null
+                            let querySel = null
+                            if (whistMove[i] !== 10) {
+                                if (~whistMove[i].indexOf('one')) {
+                                    lineLocal = parseFloat(this.dft_idx[0]) + 30 + parseFloat(whistMove[i].replace('one', '')) - 1
+                                    querySel = '#slotItem1 li'
+                                    if (document.querySelectorAll(querySel)[lineLocal]) {
+                                        document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                                    }
+                                }
+                                if (~whistMove[i].indexOf('two')) {
+                                    lineLocal = parseFloat(this.dft_idx[1]) + 30 + parseFloat(whistMove[i].replace('two', '')) - 1
+                                    querySel = '#slotItem2 li'
+                                    if (document.querySelectorAll(querySel)[lineLocal]) {
+                                        document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                                    }
+                                }
+                                if (~whistMove[i].indexOf('three')) {
+                                    lineLocal = parseFloat(this.dft_idx[2]) + 30 + parseFloat(whistMove[i].replace('three', '')) - 1
+                                    querySel = '#slotItem3 li'
+                                    if (document.querySelectorAll(querySel)[lineLocal]) {
+                                        document.querySelectorAll(querySel)[lineLocal].className = 'yes'
+                                    }
+                                }
+                            } else {
+                                /* 所有初始化 */
+                                this.initAllLine()
                             }
-                            this.winRadioObj[val].push(val)
-                        }
+                        }, (this.lineLightTime * (i + 1)))
                     }
-                })
-                let i = 0
-                this.winRadioHtml = ''
-                let copyRadioArr = []
-                for (let index in this.winRadioObj) {
-                    let o = {}
-                    o['key'] = index
-                    o['value'] = this.winRadioObj[index]
-                    o[index] = this.winRadioObj[index]
-                    copyRadioArr.push(o)
                 }
-                copyRadioArr = copyRadioArr.reverse()
-                copyRadioArr.forEach((val, index) => {
-                    if (i % 2 === 0) {
-                        this.winRadioHtml += `
+            },
+            async initAllLine () {
+                /* 初始化 yes */
+                try {
+                    await wait(650)
+                    Array.from(document.querySelectorAll('#js_slot-box li')).forEach((val) => {
+                        val.className = ''
+                    })
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            showBetSel () {
+                /* 控制投注项 */
+                if (this.isAutoPlay) {
+                    return false
+                }
+                /* 有免费次数的时候 不给切换 */
+                if (parseFloat(this.free_times)) {
+                    return false
+                }
+                this.slotSound.play('buttonHelp')
+                this.showSingleBet = !this.showSingleBet
+            },
+            betSelFn (currVal) {
+                if (currVal) {
+                    this.dft_bet = currVal.bet
+                    this.barProcess = (parseFloat(currVal.lucky) * (96 / 100)).toFixed(0)
+                    this.beforeBarProcess = parseFloat(currVal.lucky)
+                    if (parseFloat(currVal.lucky) >= 100) {
+                        this.hideBarLycky = false
+                    } else {
+                        this.hideBarLycky = true
+                    }
+                    this.showSingleBet = true
+                }
+            },
+            initPage (slotsHome, inPage = false) {
+                if (slotsHome.prizes_pool !== undefined) {
+                    this.$store.commit(mTypes.prizes_pool, slotsHome.prizes_pool)
+                }
+                if (slotsHome.last_prizes !== undefined) {
+                    this.$store.commit(mTypes.last_prizes, slotsHome.last_prizes)
+                }
+                if (inPage) {
+                    if (slotsHome.free_times !== undefined) {
+                        this.free_times = parseFloat(slotsHome.free_times)
+                    }
+                }
+                if (slotsHome.auto_run !== undefined) {
+                    this.auto_run = slotsHome.auto_run
+                }
+                /* 默认投注项 */
+                if (slotsHome.dft_bet !== undefined) {
+                    this.dft_bet = slotsHome.dft_bet
+                }
+                if (slotsHome.dft_line !== undefined) {
+                    this.dft_line = slotsHome.dft_line
+                }
+                if (slotsHome.prizes_pool_ratio) {
+                    this.prizes_pool_ratio = slotsHome.prizes_pool_ratio
+                }
+                if (slotsHome.axes) {
+                    this.axes = slotsHome.axes
+                    this.axes.forEach((val, index) => {
+                        this.axes[index] = val.concat(val)
+                    })
+                }
+                if (slotsHome.dft_idx) {
+                    this.dft_idx = slotsHome.dft_idx
+                }
+            },
+            formateLuckyVal (luckyValues = []) {
+                /* 初始化 绿色 进度条 */
+                this.lucky_values = luckyValues
+                if (this.lucky_values.length > 0) {
+                    this.lucky_values.forEach((val) => {
+                        if (val.bet === (this.dft_bet || '').toString()) {
+                            this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(0)
+                            this.beforeBarProcess = parseFloat(val.lucky)
+                            if (parseFloat(val.lucky) >= 100) {
+                                this.hideBarLycky = false
+                            } else {
+                                this.hideBarLycky = true
+                            }
+                        }
+                    })
+                }
+            },
+            reduceMoney () {
+                if (this.userInfo && this.userInfo.accounts) {
+                    let findIndex = 0
+                    this.userInfo.accounts.forEach((val, index) => {
+                        if (val.cointype === this.currBalance.cointype) {
+                            findIndex = index
+                        }
+                    })
+                    this.userInfo.accounts[findIndex].balance = Math.abs(parseFloat(this.userInfo.accounts[findIndex].balance) - (parseFloat(this.dft_bet) * parseFloat(this.dft_line)))
+                    this.$store.commit('setUserInfo', this.userInfo)
+                    this.$store.commit('setCurrBalance', this.userInfo.accounts[findIndex])
+                }
+            },
+            showRadioEnd (winArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '120', '0']) {
+                this.winRadioObj = {}
+                if (winArr) {
+                    winArr.forEach((val, index) => {
+                        if (index !== 9) {
+                            if (val !== '0') {
+                                if (!this.winRadioObj[val]) {
+                                    this.winRadioObj[val] = []
+                                }
+                                this.winRadioObj[val].push(val)
+                            }
+                        }
+                    })
+                    let i = 0
+                    this.winRadioHtml = ''
+                    let copyRadioArr = []
+                    for (let index in this.winRadioObj) {
+                        let o = {}
+                        o['key'] = index
+                        o['value'] = this.winRadioObj[index]
+                        o[index] = this.winRadioObj[index]
+                        copyRadioArr.push(o)
+                    }
+                    copyRadioArr = copyRadioArr.reverse()
+                    copyRadioArr.forEach((val, index) => {
+                        if (i % 2 === 0) {
+                            this.winRadioHtml += `
                                             <ul class="radioLi"><li>
                                                 <img src="../../../static/staticImg/_${this.radioBackImg(val['key'])}.png" alt="">&ensp;
                                                 <span>x ${val['value'].length}</span>&ensp;
@@ -1075,128 +1099,131 @@ export default {
                                                 <span>Times</span>
                                             </li>
                                         `
-                    } else {
-                        this.winRadioHtml += `<li >
+                        } else {
+                            this.winRadioHtml += `<li >
                                                 <img src="../../../static/staticImg/_${this.radioBackImg(val['key'])}.png" alt="">&ensp;
                                                 <span>x ${val['value'].length}</span>&ensp;
                                                 <span>${parseFloat(val['key']) * val['value'].length}</span>&ensp;
                                                 <span>Times</span>
                                             </li></ul>`
+                        }
+                        i++
+                    })
+                    if (i % 2 !== 0) {
+                        this.winRadioHtml += '</ul>'
                     }
-                    i++
-                })
-                if (i % 2 !== 0) {
-                    this.winRadioHtml += '</ul>'
+                    if (document.getElementById('radioHtmlDom')) {
+                        document.getElementById('radioHtmlDom').innerHTML = this.winRadioHtml
+                    }
                 }
-                if (document.getElementById('radioHtmlDom')) {
-                    document.getElementById('radioHtmlDom').innerHTML = this.winRadioHtml
+            },
+            radioBackImg (radio = '5') {
+                switch (radio.toString()) {
+                case '5':
+                    return 'A'
+                case '15':
+                    return 'B'
+                case '25':
+                    return 'C'
+                case '50':
+                    return 'D'
+                case '100':
+                    return 'E'
+                case '300':
+                    return 'F'
+                case '800':
+                    return 'G'
+                default:
+                    return 'A'
                 }
+            },
+            async changePageState () {
+                /* 登陆登出修改页面状态 */
+                let slotsHome = await this.$store.dispatch(aTypes.slotsHome, this.currBalance.cointype)
+                if (slotsHome) {
+                    /* 基础结构数据 */
+                    this.initPage(slotsHome, true)
+                    if (slotsHome.lucky_values) {
+                        /* 投注列表配置 */
+                        this.formateLuckyVal(slotsHome.lucky_values)
+                    }
+                }
+                this.initLacal(true)
+            },
+            slotHelp () {
+                this.slotSound.play('buttonHelp')
+                this.isShowHelp = true
             }
         },
-        radioBackImg (radio = '5') {
-            switch (radio.toString()) {
-            case '5':
-                return 'A'
-            case '15':
-                return 'B'
-            case '25':
-                return 'C'
-            case '50':
-                return 'D'
-            case '100':
-                return 'E'
-            case '300':
-                return 'F'
-            case '800':
-                return 'G'
-            default:
-                return 'A'
+        computed: {
+            language () {
+                return this.$store.state.language
+            },
+            last_prizes () {
+                return this.$store.state.cs_tiger.last_prizes
+            },
+            prizes_pool () {
+                return this.$store.state.cs_tiger.prizes_pool
+            },
+            recentList () {
+                return this.$store.state.cs_tiger.recentList
+            },
+            isLog () {
+                return this.$store.state.isLog
+            },
+            userInfo () {
+                return this.$store.state.userInfo
+            },
+            currBalance () {
+                return this.$store.state.currBalance
+            },
+            coinType () {
+                return (this.currBalance && this.currBalance.cointype) || '2001'
+            },
+            updataPools () {
+                return this.$store.state.cs_tiger.updataPools
             }
         },
-        async changePageState () {
-            /* 登陆登出修改页面状态 */
-            let slotsHome = await this.$store.dispatch(aTypes.slotsHome, this.currBalance.cointype)
-            if (slotsHome) {
-                /* 基础结构数据 */
-                this.initPage(slotsHome, true)
-                if (slotsHome.lucky_values) {
-                    /* 投注列表配置 */
-                    this.formateLuckyVal(slotsHome.lucky_values)
-                }
+        components: {
+            Header, Footer, BannerScroll
+        },
+        async mounted () {
+            document.documentElement.className = 'flexhtml noscrolling'
+            await this.changePageState()
+            if (!localStorage.getItem('firstJackpot')) {
+                this.showFirstBaxi = true
+                localStorage.setItem('firstJackpot', true)
             }
-            this.initLacal(true)
-        },
-        slotHelp () {
-            this.slotSound.play('buttonHelp')
-            this.isShowHelp = true
-        }
-    },
-    computed: {
-        language () {
-            return this.$store.state.language
-        },
-        last_prizes () {
-            return this.$store.state.cs_tiger.last_prizes
-        },
-        prizes_pool () {
-            return this.$store.state.cs_tiger.prizes_pool
-        },
-        recentList () {
-            return this.$store.state.cs_tiger.recentList
-        },
-        isLog () {
-            return this.$store.state.isLog
-        },
-        userInfo () {
-            return this.$store.state.userInfo
-        },
-        currBalance () {
-            return this.$store.state.currBalance
-        },
-        updataPools () {
-            return this.$store.state.cs_tiger.updataPools
-        }
-    },
-    components: {
-        Header, Footer, BannerScroll
-    },
-    async mounted () {
-        document.documentElement.className = 'flexhtml noscrolling'
-        await this.changePageState()
-        if (!localStorage.getItem('firstJackpot')) {
-            this.showFirstBaxi = true
-            localStorage.setItem('firstJackpot', true)
-        }
-        structDom('slot')
-        this.$store.dispatch('subInTiger')
+            structDom('slot')
+            this.$store.dispatch('subInTiger')
 
-        this.slotSound = new Howl({
-            src: ['../../../../static/audio/slotMusic.mp3'],
-            volume: 0.7,
-            sprite: {
-                button: [0, 390],
-                buttonHelp: [2000, 230],
-                gift_big: [4000, 1020],
-                gift_small: [7000, 606],
-                slot_rolling: [9000, 2900]
+            this.slotSound = new Howl({
+                src: ['../../../../static/audio/slotMusic.mp3'],
+                volume: 0.7,
+                sprite: {
+                    button: [0, 390],
+                    buttonHelp: [2000, 230],
+                    gift_big: [4000, 1020],
+                    gift_small: [7000, 606],
+                    slot_rolling: [9000, 2900]
+                }
+            })
+        },
+        updated () {
+            if (document.getElementById('heiImg')) {
+                document.getElementById('heiImg').onload = () => {
+                    document.getElementById('js_slot-box').style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 60 + 'px'
+                    this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
+                    this.hideInitLi = false
+                }
             }
-        })
-    },
-    updated () {
-        if (document.getElementById('heiImg')) {
-            document.getElementById('heiImg').onload = () => {
-                document.getElementById('js_slot-box').style.height = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) * 3 + 60 + 'px'
-                this.computeHeight = parseFloat(window.getComputedStyle(document.getElementById('hei')).height.replace('px', '')) + 15
-                this.hideInitLi = false
-            }
+        },
+        beforeDestroy () {
+            document.documentElement.className = ''
+            this.$store.dispatch('subOutTiger')
+            this.stopAutoPlay()
         }
-    },
-    beforeDestroy () {
-        document.documentElement.className = ''
-        this.$store.dispatch('subOutTiger')
-        this.stopAutoPlay()
     }
-}
 </script>
 <style scoped="scoped" lang="less" type="text/less">
     @import "../../styles/lib-mixins.less";
@@ -1225,7 +1252,7 @@ export default {
     .tiger {
         position: relative;
         -webkit-overflow-scrolling: touch;
-        overflow: hidden;
+        /*overflow: hidden;*/
         .bg-tiger {
             display: block;
             width: 100%;
@@ -1234,7 +1261,7 @@ export default {
     }
 
     .tiger-wrap {
-        overflow: hidden;
+        /*overflow: hidden;*/
         position: absolute;
         left: 0;
         top: 0;
@@ -1530,7 +1557,8 @@ export default {
         position: absolute;
         z-index: 3;
         left: 0;
-        bottom: percentage(146/1173);
+        // bottom: percentage(146/1173);
+        bottom: 27%;
         width: 100%;
         height: 28px;
         overflow: hidden;
@@ -1543,10 +1571,11 @@ export default {
 
     .operating {
         position: absolute;
-        z-index: 3;
+        z-index: 4;
         width: percentage(595/750);
         left: 50%;
         bottom: percentage(200/1173);
+        bottom: percentage(225/1173);
         transform: translateX(-50%);
         display: flex;
         justify-content: space-between;
@@ -2333,7 +2362,6 @@ export default {
         }
         .tiger {
             width: 375px;
-            overflow: hidden;
             border-left: 25px solid #080603;
             border-right: 25px solid #080603;
         }

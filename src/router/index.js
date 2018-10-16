@@ -15,8 +15,10 @@ const helpView = () =>
 
 /* cs_1105 */
 /* cs_1105 首页 */
-const lucky11 = () => import('~/pages/cs_1105/lucky')
-const test = () => import('~/pages/cs_1105/test')
+const lucky11 = () =>
+    import('~/pages/cs_1105/lucky')
+const test = () =>
+    import('~/pages/cs_1105/test')
 /* cs_1105 开奖页 */
 const csDrawNum = () =>
     import('~/pages/cs_1105/drawNumber')
@@ -64,7 +66,8 @@ const luckcoinMoreBids = () =>
 const luckycoinDetailed = () =>
     import('~/pages/cs_luckycoin/detailed')
 
-const csPoker = () => import('~/pages/cs_luckyPoker/index')
+const csPoker = () =>
+    import('~/pages/cs_luckyPoker/index')
 
 /* 品牌首页 */
 const Home = () =>
@@ -72,156 +75,171 @@ const Home = () =>
 const home = () =>
     import('~/pages/cs_home/home')
 
+const adHome = () =>
+    import('~/pages/cs_home/ad-home')
+
+const adHomeDetail = () =>
+    import('~/pages/cs_home/ad-home-detail')
+
 // 充值送
-const actFirstCharge = () => import('~/pages/cs_activity/cs_actFirstCharge')
+const actFirstCharge = () =>
+    import('~/pages/cs_activity/cs_actFirstCharge')
 
 /* Dapp 一元夺币 */
-const supercoin = () => import('~/pages/dappCoin/dappCoin.vue')
+const supercoin = () =>
+    import('~/pages/dappCoin/dappCoin.vue')
 
-let routesArr = [
-    {
-        path: '/test',
-        name: 'test',
-        component: test
+let routesArr = [{
+    path: '/test',
+    name: 'test',
+    component: test
+},
+{
+    path: '/firstCharge',
+    name: 'firstCharge',
+    component: actFirstCharge
+},
+{
+    path: '/help',
+    component: help,
+    children: [{
+        path: 'helpView/:a/:b',
+        name: 'helpView',
+        component: helpView
+    }, {
+        path: '',
+        name: 'helpIndex',
+        component: helpIndex
+    }]
+},
+{
+    path: '/home',
+    name: 'home',
+    component: home
+},
+{
+    path: '/check',
+    name: 'check',
+    component: check
+},
+{
+    path: '/supercoin/:inviteName?',
+    name: 'supercoin',
+    component: supercoin
+},
+{
+    path: '/lucky11',
+    name: 'lucky11',
+    component: lucky11
+},
+{
+    path: '/luckyslot',
+    name: 'luckySlot',
+    component: slot
+},
+{
+    path: '/policy',
+    name: _('policy'),
+    component: csProtocolPolicy
+},
+{
+    path: '/policy_zhCn',
+    name: _('policy'),
+    component: csProtocolPolicyCn
+},
+{
+    path: '/policy_zhTw',
+    name: _('policy'),
+    component: csProtocolPolicyTw
+},
+{
+    path: '/drawNumber',
+    name: _('Draw Number'),
+    component: csDrawNum
+},
+{
+    path: '/luckycoin',
+    component: luckycoin,
+    children: [{
+        path: 'drawHistory',
+        meta: {
+            history: true
+        },
+        name: _('Draw History'),
+        component: luckcoinMoreBids
     },
     {
-        path: '/firstCharge',
-        name: 'firstCharge',
-        component: actFirstCharge
+        path: 'moreBids',
+        name: _('More Available Bids'),
+        component: luckcoinMoreBids
     },
     {
-        path: '/help',
-        component: help,
-        children: [{
-            path: 'helpView/:a/:b',
-            name: 'helpView',
-            component: helpView
-        }, {
-            path: '',
-            name: 'helpIndex',
-            component: helpIndex
-        }]
+        path: 'detailed',
+        name: _('detailed'),
+        component: luckycoinDetailed
     },
     {
-        path: '/home',
-        name: 'home',
-        component: home
-    },
-    {
-        path: '/check',
-        name: 'check',
-        component: check
-    },
-    {
-        path: '/supercoin/:inviteName?',
-        name: 'supercoin',
-        component: supercoin
-    },
-    {
-        path: '/lucky11',
-        name: 'lucky11',
-        component: lucky11
-    },
-    {
-        path: '/luckyslot',
-        name: 'luckySlot',
-        component: slot
-    },
-    {
-        path: '/policy',
-        name: _('policy'),
-        component: csProtocolPolicy
-    },
-    {
-        path: '/policy_zhCn',
-        name: _('policy'),
-        component: csProtocolPolicyCn
-    },
-    {
-        path: '/policy_zhTw',
-        name: _('policy'),
-        component: csProtocolPolicyTw
-    },
-    {
-        path: '/drawNumber',
-        name: _('Draw Number'),
-        component: csDrawNum
-    },
-    {
-        path: '/luckycoin',
-        component: luckycoin,
-        children: [
-            {
-                path: 'drawHistory',
-                meta: {
-                    history: true
-                },
-                name: _('Draw History'),
-                component: luckcoinMoreBids
-            },
-            {
-                path: 'moreBids',
-                name: _('More Available Bids'),
-                component: luckcoinMoreBids
-            },
-            {
-                path: 'detailed',
-                name: _('detailed'),
-                component: luckycoinDetailed
-            },
-            {
-                path: '',
-                name: _('Home'),
-                component: luckcoinIndex
-            }
-        ]
-    },
-    {
-        path: '/luckyPoker',
-        name: _('luckyPoker'),
-        component: csPoker
-    },
-    {
-        path: '/account',
-        component: account,
-        children: [
-            {
-                path: 'general',
-                name: _('General'),
-                component: General
-            },
-            {
-                path: 'deposit',
-                name: _('Deposit'),
-                component: Deposit
-            },
-            {
-                path: 'myBets',
-                name: _('MyBets'),
-                component: MyBets
-            },
-            {
-                path: 'myTransactions',
-                name: _('MyTransactions'),
-                component: MyTransactions
-            },
-            {
-                path: 'withdraw',
-                name: _('Withdraw'),
-                component: Withdraw
-            },
-            {
-                path: '/',
-                redirect: '/account/general'
-            }
-        ]
-    },
-    {
-        path: '/*',
-        // redirect: '/lucky11'
+        path: '',
         name: _('Home'),
-        component: Home
+        component: luckcoinIndex
     }
+    ]
+},
+{
+    path: '/luckyPoker',
+    name: _('luckyPoker'),
+    component: csPoker
+},
+{
+    path: '/account',
+    component: account,
+    children: [{
+        path: 'general',
+        name: _('General'),
+        component: General
+    },
+    {
+        path: 'deposit',
+        name: _('Deposit'),
+        component: Deposit
+    },
+    {
+        path: 'myBets',
+        name: _('MyBets'),
+        component: MyBets
+    },
+    {
+        path: 'myTransactions',
+        name: _('MyTransactions'),
+        component: MyTransactions
+    },
+    {
+        path: 'withdraw',
+        name: _('Withdraw'),
+        component: Withdraw
+    },
+    {
+        path: '/',
+        redirect: '/account/general'
+    }
+    ]
+},
+{
+    path: '/promotions',
+    name: 'promotions',
+    component: adHome
+},
+{
+    path: '/adDetail',
+    name: 'adDetail',
+    component: adHomeDetail
+},
+{
+    path: '/*',
+    // redirect: '/lucky11'
+    name: _('Home'),
+    component: Home
+}
 ]
 
 //     linkActiveClass: 'on',

@@ -20,6 +20,7 @@ const state = {
         isShow: false,
         callback: null
     },
+    isUseCC: false,
     listener: {},
     pageListener: {}
 }
@@ -61,7 +62,7 @@ const mutations = {
                 }
                 return bet
             })
-            state.recentBetsList = [...bet.concat(newRecentBetList)].slice(0, 7)
+            state.recentBetsList = [...bet.concat(newRecentBetList)].slice(0, 20)
         }
         if (isMybet) {
             this.dispatch('getUserInfo')
@@ -159,6 +160,9 @@ const mutations = {
         for (let name in state.pageListener) {
             state.pageListener[name] && state.pageListener[name]()
         }
+    },
+    changeCC (state, value) {
+        state.isUseCC = value
     }
 }
 
@@ -175,7 +179,7 @@ const actions = {
         return ajax.get('/get/megacoin/orders', {
             ...params,
             pageno: '1',
-            pagesize: '7',
+            pagesize: '20',
             lotid: '2'
         }).then(data => {
             commit('updateRecentBets', data.data.orders)

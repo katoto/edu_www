@@ -5,14 +5,14 @@
             <div class="email">
                 {{item.username}}
             </div>
-            <!--icon-eth/icon-btc-->
+            <!-- icon-eth/icon-btc -->
             <div class="amount" :class="formatCoinClass(formateCoinType(item.cointype))" >
                 {{formateBalance(item.betmoney)}}
                 <!--{{ formateCoinType(item.cointype) }}-->
             </div>
-            <!--<span class="time">-->
-                <!--{{formatTime(item.crtime, 'MM-dd HH:mm')}}-->
-            <!--</span>-->
+            <span class="time">
+                {{formatTime(item.crtime, 'MM-dd HH:mm')}}
+            </span>
         </li>
     </ul>
 </template>
@@ -27,7 +27,8 @@ export default {
         formatCoinClass (coinText) {
             return {
                 'ETH': 'icon-eth',
-                'BTC': 'icon-btc'
+                'BTC': 'icon-btc',
+                'CC': 'icon-cc'
             }[coinText]
         }
     },
@@ -37,6 +38,7 @@ export default {
             default: []
         }
     }
+
 }
 </script>
 <style scoped lang="less" type="text/less">

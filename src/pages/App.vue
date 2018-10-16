@@ -1,6 +1,5 @@
 <template>
     <div id="app"  @scroll.native="test" :class="isReady ? 'ready' : ''">
-
         <router-view v-if="isReady"/>
     </div>
 </template>
@@ -42,7 +41,7 @@
 
                 // set 1rem = viewWidth / 10
                 function setRemUnit () {
-                    var rem = ''
+                    var rem = '75'
                     if (docEl.clientWidth > 1200) {
                         // rem = 1920 because px
                         rem = 75

@@ -130,7 +130,7 @@
                 <lang>Bid more, win more!</lang>
             </p>
             <!--icon-eth/icon-btc-->
-            <div class="input-box" :class="[coinType === '2001' ? 'icon-eth': 'icon-btc']">
+            <div class="input-box" :class="`icon-${coinText.toLowerCase()}`">
                 <input type="text" v-model="betValue" :placeholder="betData.bidValue">
                 <a href="javascript:;" @click="chooseHalf">1/2</a>
                 <a href="javascript:;" @click="chooseDouble">2X</a>
@@ -347,7 +347,8 @@
                     this.betNum = accDiv(value, this.betData.bidValue)
                     let data = await this.betNow({
                         cointype: this.coinType,
-                        codestr: `${this.betData.exceptId}|${this.coinType}|${this.betNum}|${this.betData.bidValue}`
+                        codestr: `${this.betData.exceptId}|${this.coinType}|${this.betNum}|${this.betData.bidValue}`,
+                        discount: this.isUseCC && this.coinType !== '2000' ? '1' : '0'
                     })
                     this.betValue = this.betData.bidValue
                     this.getUserInfo()
@@ -423,6 +424,14 @@
                 }
                 return 0
             },
+            isUseCC: {
+                set (value) {
+                    this.$store.commit('cs_luckycoin/changeCC', value)
+                },
+                get () {
+                    return this.$store.state.cs_luckycoin.isUseCC
+                }
+            },
             coinType () {
                 return this.betData.goodsType || '2001'
             },
@@ -454,6 +463,9 @@
                     },
                     'BTC': {
                         boxClass: 'match-btc'
+                    },
+                    'CC': {
+                        boxClass: 'match-cc'
                     }
                 }[this.coinText]
             },

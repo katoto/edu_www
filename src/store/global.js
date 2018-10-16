@@ -73,6 +73,9 @@ const mutations = {
     ...common.mutations
 }
 const actions = {
+    getAdListInfo () {
+        return ajax.get('/activity/center')
+    },
     // 广告图
     async adList ({state, commit, dispatch}) {
         try {
