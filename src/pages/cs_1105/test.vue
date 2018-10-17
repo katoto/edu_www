@@ -1,7 +1,7 @@
 <template>
     <div id="test">
         <h1>test</h1>
-        <vueScroll :data="listData" class="warp" :class-option="classOption" @ScrollEnd="end">
+        <katotoScroll :data="listData" class="warp" :class-option="classOption" @ScrollEnd="end">
             <ul class="item">
                 <li v-for="(item,index) in listData" :key="index">
                     <a target="_blank" href="http://www.baidu.com">
@@ -10,11 +10,11 @@
                     </a>
                 </li>
             </ul>
-        </vueScroll>        
+        </katotoScroll>        
     </div>
 </template>
 <script>
-import vueScroll from 'katoto-scroll'
+import katotoScroll from 'katoto-scroll'
 
 export default {
     data () {
@@ -67,29 +67,20 @@ export default {
             return {
                 step: 1,
                 limitMoveNum: 5,
-                singleHeight:10,
-                waitTime: 1000
+                singleHeight:30,
+                waitTime: 6000
             }
       },
     },
     components: {
-        vueScroll
+        katotoScroll
     },
     mounted () {
-        setTimeout(()=>{
-            console.log( this.classOption )
-            if( this.classOption ){
-                this.singleHeight = 50
-                console.log( this.classOption )
-            }
-        },3000)
-
     }
 }
 </script>
 
 <style scope lang="less" type="text/less">
-<<<<<<< HEAD
 .indexm,
 .asd {
     display: inline;
@@ -98,6 +89,4 @@ export default {
     height: 100px;
     overflow: hidden;
 }
-=======
->>>>>>> online
 </style>

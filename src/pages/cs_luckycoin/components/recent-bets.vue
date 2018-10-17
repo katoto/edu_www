@@ -1,23 +1,26 @@
 <template>
-    <ul>
-        <!--icon-eth icon-bth-->
-        <li  v-for="(item, index) in data" :key="index*Math.random()" :class="[item.current ? 'newData' : '']">
-            <div class="email">
-                {{item.username}}
-            </div>
-            <!-- icon-eth/icon-btc -->
-            <div class="amount" :class="formatCoinClass(formateCoinType(item.cointype))" >
-                {{formateBalance(item.betmoney)}}
-                <!--{{ formateCoinType(item.cointype) }}-->
-            </div>
-            <span class="time">
-                {{formatTime(item.crtime, 'MM-dd HH:mm')}}
-            </span>
-        </li>
-    </ul>
+        <ul>
+            <katotoScroll :data="data" class="warp" :class-option="classOption">            
+                <!--icon-eth icon-bth-->
+                <li  v-for="(item, index) in data" :key="index*Math.random()" :class="[item.current ? 'newData' : '']">
+                    <div class="email">
+                        {{item.username}}
+                    </div>
+                    <!-- icon-eth/icon-btc -->
+                    <div class="amount" :class="formatCoinClass(formateCoinType(item.cointype))" >
+                        {{formateBalance(item.betmoney)}}
+                        <!--{{ formateCoinType(item.cointype) }}-->
+                    </div>
+                    <span class="time">
+                        {{formatTime(item.crtime, 'MM-dd HH:mm')}}
+                    </span>
+                </li>
+            </katotoScroll>    
+        </ul>
 </template>
 
 <script>
+import katotoScroll from 'katoto-scroll'
 import { formatTime, formateCoinType, formateBalance } from '~/common/util'
 export default {
     methods: {
@@ -30,14 +33,24 @@ export default {
                 'BTC': 'icon-btc',
                 'CC': 'icon-cc'
             }[coinText]
-        }
+        },
+        classOption () {
+            return {
+                limitMoveNum: 20,
+                singleHeight: 64,
+                autoPlay: false,
+            }
+        },        
     },
     props: {
         data: {
             type: Array,
             default: []
         }
-    }
+    },
+    components: {
+        katotoScroll
+    },
 
 }
 </script>
