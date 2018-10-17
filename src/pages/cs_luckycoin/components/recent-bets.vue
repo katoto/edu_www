@@ -1,5 +1,5 @@
 <template>
-    <BannerScroll :isVerify="true" :scrollTime="1500">
+    <BannerScroll :isVerify="true" :scrollTime="2500" :stepScroll="2">
         <div class="text-scroller" style="overflow:hidden;height:660px;">
             <div class="scroller-in">
                 <ul>

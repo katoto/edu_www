@@ -32,9 +32,8 @@
                         slideHeight = $elChild0.offsetHeight
                     }
                     this.currLen = slideBoxs.length
-                    clearInterval(this.scrollInterval)
-                    this.scrollInterval = setInterval(() => {
-                        hitListIndex++
+                    let scrollFn = () => {
+                        hitListIndex = hitListIndex + this.stepScroll
                         if (hitListIndex > slideBoxs.length - 1) {
                             hitListIndex = 0
                             BroadcastSlide.style.transition = 'all 0s'
@@ -53,7 +52,10 @@
                         }
                         BroadcastSlide.style.transform = 'translateY(-' + hitListIndex * slideHeight + 'px)'
                         BroadcastSlide.style.webkitTransform = 'translateY(-' + hitListIndex * slideHeight + 'px)'
-                    }, 3500)
+                    }
+                    scrollFn()
+                    clearInterval(this.scrollInterval)
+                    this.scrollInterval = setInterval(scrollFn , this.scrollTime )
                 } else {
                     return false
                 }
@@ -80,12 +82,18 @@
                 default:()=>{
                     return 3500
                 }
+            },
+            stepScroll:{
+                type:Number,
+                default:()=>{
+                    return 1
+                }
             }
         },
         mounted () {
             setTimeout(() => {
                 this.hitListBroadcast()
-            }, 1800)
+            }, 1000)
         },
         watch: {
             data(newData,oldData){
