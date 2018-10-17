@@ -1,5 +1,5 @@
 <template>
-    <div class="tiger-contain">
+    <div class="tiger-contain" :class="{'cc-mode': currBalance.cointype === '2000'}">
         <div class="tiger-pc ">
             <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
@@ -769,7 +769,8 @@ Vue.use(vueClipboard)
                 if (this.currBalance && this.currBalance.balance) {
                     if ((parseFloat(this.currBalance.balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                         /* 显示余额不足 */
-                        this.showRecharge = true
+                        // this.showRecharge = true
+                        this.$error(_('Insufficient Balance'))
                         return false
                     }
                 }
