@@ -9,7 +9,8 @@
     export default {
         data () {
             return {
-                currLen: null
+                currLen: null,
+                scrollInterval: null
             }
         },
         methods: {
@@ -19,12 +20,20 @@
                     let $elChild0 = this.$el.children[0]
                     BroadcastSlide = $elChild0.children[0]
                     slideBoxs = $elChild0.children[0].children
-                    slideHeight = $elChild0.offsetHeight
-                    hitListIndex = 0
                     clonedNode = slideBoxs[0].cloneNode(true)
                     BroadcastSlide.appendChild(clonedNode)
+                    hitListIndex = 0
+                    if(this.isVerify){
+                        // 异步coin
+                        slideHeight = BroadcastSlide.querySelector('li').offsetHeight
+                        slideBoxs = BroadcastSlide.querySelectorAll('ul')[0].querySelectorAll('li')
+                    }else{
+                        slideBoxs = $elChild0.children[0].children
+                        slideHeight = $elChild0.offsetHeight
+                    }
                     this.currLen = slideBoxs.length
-                    setInterval(() => {
+                    clearInterval(this.scrollInterval)
+                    this.scrollInterval = setInterval(() => {
                         hitListIndex++
                         if (hitListIndex > slideBoxs.length - 1) {
                             hitListIndex = 0
@@ -35,7 +44,7 @@
                             BroadcastSlide.style.transition = 'all 1.2s'
                             BroadcastSlide.style.webkitTransition = 'all 1.2s'
                         }
-                        if (this.currLen !== $elChild0.children[0].children.length) {
+                        if (this.currLen !== $elChild0.children[0].children.length && !this.isVerify) {
                             hitListIndex = 0
                             BroadcastSlide.style.transition = 'all 0s'
                             BroadcastSlide.style.webkitTransition = 'all 0s'
@@ -48,12 +57,50 @@
                 } else {
                     return false
                 }
+            },
+            arrayEqual(arr1, arr2 ){
+                if(arr1 === arr2) return true;
+                if(arr1.length !== arr2.length) return false;
+                for(var i=0; i< arr1.length;++i){
+                    if(arr1[i] !== arr2[i]) return false
+                }
+                return true
+            },
+        },
+        props:{
+            // 
+            isVerify:{
+                type:Boolean,
+                default:()=>{
+                    return false
+                }
+            },
+            scrollTime:{
+                type:Number,
+                default:()=>{
+                    return 3500
+                }
             }
         },
         mounted () {
             setTimeout(() => {
                 this.hitListBroadcast()
             }, 1800)
+        },
+        watch: {
+            data(newData,oldData){
+                console.log(oldData)
+                console.log(oldData)
+                console.log(newData)
+                console.log(newData)
+                if(!this.arrayEqual(newData,oldData)){
+                    clearInterval( this.scrollInterval )
+                    this.hitListBroadcast()
+                }
+            }
+        },
+        beforeDestroy(){
+            clearInterval( this.scrollInterval )
         }
     }
 </script>

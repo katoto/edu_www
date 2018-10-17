@@ -1,7 +1,6 @@
 <template>
     <div id="test">
         <h1>test</h1>
-        <katotoScroll :data="listData" class="warp" :class-option="classOption" @ScrollEnd="end">
             <ul class="item">
                 <li v-for="(item,index) in listData" :key="index">
                     <a target="_blank" href="http://www.baidu.com">
@@ -9,12 +8,10 @@
                         <span class="date" v-text="item.date"></span>
                     </a>
                 </li>
-            </ul>
-        </katotoScroll>        
+            </ul>      
     </div>
 </template>
 <script>
-import katotoScroll from 'katoto-scroll'
 
 export default {
     data () {
@@ -26,54 +23,16 @@ export default {
                 { msg: _('Top Up'), link: '/account/deposit' },
                 { msg: _('Withdraw'), link: '/account/withdraw' }
             ],
-            listData: [{
-                'title': '无缝滚动第一行无缝滚动第一行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第二行无缝滚动第二行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第三行无缝滚动第三行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第四行无缝滚动第四行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第五行无缝滚动第五行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第六行无缝滚动第六行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第七行无缝滚动第七行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第八行无缝滚动第八行',
-                'date': '2017-12-16'
-                }, {
-                'title': '无缝滚动第九行无缝滚动第九行',
-                'date': '2017-12-16'
-            }],            
         }
     },
     watch: {},
     methods: {
-        end(){
-            console.log('end')
-        }
+
     },
     computed: {
-        classOption () {
-            return {
-                step: 1,
-                limitMoveNum: 5,
-                singleHeight:30,
-                waitTime: 6000
-            }
-      },
+
     },
     components: {
-        katotoScroll
     },
     mounted () {
     }

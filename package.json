@@ -26,7 +26,6 @@
         "element-ui": "^2.4.3",
         "es6-promise": "^4.2.4",
         "howler": "^2.0.14",
-        "katoto-scroll": "^1.0.5",
         "md5": "^2.2.1",
         "vue": "^2.5.16",
         "vue-clipboard2": "^0.1.1",
