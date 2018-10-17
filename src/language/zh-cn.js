@@ -464,6 +464,12 @@ module.exports = {
     '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票开奖结果|信息|公告|记录 - Coinsprize',
     '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11开奖结果,{0} 11开奖信息,{0} 11开奖公告,{0} 11开奖记录',
     '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of {0} can be checked on this page.': '{0}高频彩票是coinsprize公司推出的一款基于区块链技术开发的赌场博彩高频彩票游戏。在该页面你可以查询获取到{0}的最新开奖结果、信息、公告、和往期记录等。',
+    'SuperCoin-- an instant game supports bitcoin and Ethereum payment- Coinsprize': 'Supercoin-一款基于以太坊智能合约开发的抽奖游戏-coinsprize',
+    'SuperCoin, smart contract, Ethereum games, smart contract games, blockchain gaming': 'Supercoin，智能合约,以太币，以太坊游戏,智能合约游戏,区块链博彩',
+    'SuperCoin is one of the games on Coinsprize. This fresh easy game is developed based on Ethereum smart contract. Winners only need to pay 0.01 ETH to win prize pool with over 10 ETH. All process is transparent, players could check all the information from Ethereum.': 'Supercoin是coinsprize公司旗下开发的一款基于以太坊智能合约开发的概率游戏。游戏玩法简单，玩家只需投注0.01以太币就可能获取整个奖池，赢得超过10个以太币。游戏公正透明，玩家可以通过以太坊查询，获取交易信息和玩法规则。',
+    'Poker-- an instant game supports bitcoin and Ethereum payment- Coinsprize': 'Poker-一款支持以太币、比特币投注的抽奖游戏-coinsprize',
+    'Poker, dice, bitcoin, Ethereum, bitcoin poker games, Ethereum poker games, blockchain gaming, fair poker games': 'Poker,dice，比特币，以太币，比特币扑克游戏,以太币扑克游戏，区块链博彩，公平扑克游戏',
+    'Poker is one of the games on Coinsprize. This fresh easy game allows users to pay in bitcoin or Ethereum to play. Come to experience excitement! Try your luck to win more bitcoin and Ethereum!': 'Poker是coinsprize公司旗下开发的区块链扑克类游戏。游戏玩法简单，玩家可以自主选择使用以太币或者比特币进行游戏。快来测测您的运气，赢取比特币和以太币，体验不一样的刺激玩法。',
     /*  seo end */
 
     /* help */
