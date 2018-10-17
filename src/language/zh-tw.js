@@ -546,7 +546,7 @@ module.exports = {
     'Sign Out': '註銷',
     'Free 0.001ETH': '免費領取0.001ETH',
     'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.': 'Congrats! You have invited a friend sucessfully, <i class=bold>0.001 ETH</i> is awarding to you now.',
-    '0.0001 BTC for free': '免費領0.0001BTC',
+    '1 CC for free': '免費領1CC',
     'Win {0} {1}': '恭喜妳贏得 {0} {1}',
     'Sign In': '登錄',
     'BTC': 'BTC',
@@ -737,7 +737,7 @@ module.exports = {
 
     'Rules': '活動規則',
     '1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.': '1.在Coinsprize未有過充值行為的用戶都可參與該活動，您必須由該頁面選擇加入以具備獎勵資格，且默認您遵守活動規則。',
-    '2. The activity time is from 00:00 September 5, 2018 to 23:59 September 25, 2018 (GMT).': '2.活動有效期限為2018年9月05日00:00 GMT至9月25日23:59 GMT。',
+    '2. The activity time is from 00:00 September 5, 2018 to 00:00 November 5, 2018 (GMT).': '2.活動有效期限為2018年9月05日00:00 GMT至11月05日00:00 GMT。',
     '3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.': '3.新用戶在活動頁指定入口充值任意金額，即可獎勵50%（最高獎勵0.05 ETH/0.005 BTC），獎勵金額不允許玩lucky coin遊戲。',
     '4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.': '4.參與充值優惠的用戶可選擇ETH或BTC充值方式，以首次到賬充值方式為準，即兩種充值方式不可兼得。由於虛擬代幣充值到賬時間慢，平臺獎勵依據以首次到賬金額計算，並贈送對應獎勵。',
     '6. Each eligible user has only one chance to enjoy top-up bonus. Coinsprize reserves right to reasonably suspect user may enjoy the top-up bonus more than once. In this case, Coinsprize can withdraw the bonus and/ or the rewards paid by the bonus.': '6.該活動每個用戶僅可享受壹次。如果Coinsprize有理由懷疑同壹個客戶、同壹組客戶不止壹次申領獎金或優惠，Coinsprize可隨時收回任何客戶或客戶組的任何或全部優惠，並/或取消任何使用獎金進行的投註和因這些投註而產生的彩金。',

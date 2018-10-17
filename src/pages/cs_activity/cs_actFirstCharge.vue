@@ -13,7 +13,7 @@
             <div class="foot_rules" :class="{'addMarge':language!=='en'}">
                 <h4><lang>Rules</lang></h4>
                 <p><lang>1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.</lang></p>
-                <p><lang>2. The activity time is from 00:00 September 5, 2018 to 23:59 September 25, 2018 (GMT).</lang></p>
+                <p><lang>2. The activity time is from 00:00 September 5, 2018 to 00:00 November 5, 2018 (GMT).</lang></p>
                 <p><lang>3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.</lang></p>
                 <p><lang>4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.</lang></p>
                 <p v-if="language==='en'">5. The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 20 times of the non-withdrawable amount. Check <router-link :to="{path:'/help'}">Help Center</router-link> to see details.</p>

@@ -95,7 +95,7 @@
                     <!-- 未登录 -->
                     <!--拉新活动提示-->
                     <div class="act-sign" v-if="!isLog">
-                        <lang>0.0001 BTC for free</lang>
+                        <lang>1 CC for free</lang>
                     </div>
                     <div class="to-login" v-if="!isLog">
                         <a href="javascript:;" @click="onLoginIn">
@@ -395,7 +395,7 @@ export default {
             this.freeWaterPop = false
         },
         isLog () {
-            this.autoChangeDefaultAccount()
+            this.autoChangeDefaultAccount(true)
         },
         CCNum (newVal, val) {
             newVal = Number(newVal)
@@ -478,10 +478,17 @@ export default {
                 return account.cointype === '2000' ? '1' : '-1'
             })
         },
-        autoChangeDefaultAccount () {
+        autoChangeDefaultAccount (forceRefresh) {
             setTimeout(() => {
                 if (this.isLog) {
-                    this.changeDefaultAccount()
+                    if (forceRefresh) {
+                        this.changeDefaultAccount()
+                    } else {
+                        if (!this.$store.state.autoRefreshAccount) {
+                            this.$store.commit('setAotoRefresh', true)
+                            this.changeDefaultAccount()
+                        }
+                    }
                 }
             }, 200)
         },

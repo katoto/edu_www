@@ -28,6 +28,7 @@ const state = {
     initHeadState: null, // 初始化头部状态，用于收起弹层
     showEmailErr: false,
     userInfo: null,
+    autoRefreshAccount: false, // 自动切换有钱账号
     socket: {
         reconnect: 0,
         sock: null,
@@ -69,6 +70,9 @@ const mutations = {
     },
     addConnectNum (state) {
         state.socket.reconnect++
+    },
+    setAotoRefresh (state, param) {
+        state.autoRefreshAccount = param
     },
     ...common.mutations
 }

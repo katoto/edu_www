@@ -194,8 +194,8 @@ export function formateBalance (val = 0) {
         isF = true
         val = val * -1
     }
-    if (val >= 100000) {
-        return val.toString()
+    if (val >= 10000) {
+        return Number(val.toFixed(2))
     }
     let num = Number(val).toFixed(6)
     let index = num.indexOf('.')
