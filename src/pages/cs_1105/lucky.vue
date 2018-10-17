@@ -3,7 +3,6 @@
         <!-- <Banner class="hide" v-on:superBannerChange="superChange"></Banner> -->
         <Banner v-if="adList.home_top_1 && adList.home_top_1.length>0"></Banner>
         <Banner v-else></Banner>
-
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
@@ -20,7 +19,6 @@
                         </a>
                     </div>
                     <div class="btn-group">
-                        <!--js_startBetBtn 用的 -->
                         <div id="js_startBetBtn" class="btn-play-now">
                             <a href="javascript:;" @click="playNow">
                                 <lang>Play Now</lang>
