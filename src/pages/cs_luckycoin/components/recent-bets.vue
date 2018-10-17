@@ -54,7 +54,6 @@ export default {
     components: {
         BannerScroll
     },
-
 }
 </script>
 <style scoped lang="less" type="text/less">
