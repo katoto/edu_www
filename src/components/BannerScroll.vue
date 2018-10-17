@@ -23,7 +23,7 @@
                     clonedNode = slideBoxs[0].cloneNode(true)
                     BroadcastSlide.appendChild(clonedNode)
                     hitListIndex = 0
-                    if(this.isVerify){
+                    if(this.isVeritical){
                         // 异步coin
                         slideHeight = BroadcastSlide.querySelector('li').offsetHeight
                         slideBoxs = BroadcastSlide.querySelectorAll('ul')[0].querySelectorAll('li')
@@ -43,7 +43,7 @@
                             BroadcastSlide.style.transition = 'all 1.2s'
                             BroadcastSlide.style.webkitTransition = 'all 1.2s'
                         }
-                        if (this.currLen !== $elChild0.children[0].children.length && !this.isVerify) {
+                        if (this.currLen !== $elChild0.children[0].children.length && !this.isVeritical) {
                             hitListIndex = 0
                             BroadcastSlide.style.transition = 'all 0s'
                             BroadcastSlide.style.webkitTransition = 'all 0s'
@@ -71,7 +71,7 @@
         },
         props:{
             // 
-            isVerify:{
+            isVeritical:{
                 type:Boolean,
                 default:()=>{
                     return false
