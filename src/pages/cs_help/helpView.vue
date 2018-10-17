@@ -4,11 +4,11 @@
             <ul class="menu">
                 <li v-for="(item,index) in dataMenu" :class="{on:isOn == index}" :key="index" @click="isOn=index; isOn2='1000'">
                     <p>
-                        {{item.menu1}}
+                        {{_(item.menu1)}}
                     </p>
                     <ul class="sub-menu ">
                         <li v-for="(subItem1,index2) in item.menu2" :key="index2" @click.prevent.stop="tabChange(index,index2,subItem1)" :class="{ on: isOn == index && isOn2 == index2}">
-                            {{subItem1}}
+                            {{_(subItem1)}}
                         </li>
                     </ul>
                 </li>
@@ -26,7 +26,7 @@
                     <ul>
                         <li v-for="(item1,index1) in item.menu2" :key="index1" @click.prevent.stop="tabChange(index,index1,item1)" :class="[index==3&&index1==0?'hide':'']">
                           <a href="javascript:;">
-                              {{item1}}
+                              {{_(item1)}}
                           </a>
                         </li>
                     </ul>

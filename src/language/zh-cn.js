@@ -848,6 +848,8 @@ module.exports = {
     'SuperCoin': '超级夺币',
     'Win 10 ETH Prize Pool Every 2 Hours': '每2小时赢取10ETH',
     'Insufficient ETH': 'ETH 余额不足',
-    'The blockchain-based gaming platform': '区块链博彩平台'
+    'The blockchain-based gaming platform': '区块链博彩平台',
     /* super coin end */
+    'Coin-Coin(CC)': 'CC币介绍',
+    'Play LuckyPoker': '幸运扑克怎么玩'
 }
