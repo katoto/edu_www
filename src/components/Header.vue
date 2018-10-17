@@ -822,7 +822,7 @@ export default {
         float: left;
         width: 151px;
         height: 32px;
-        margin: 19px 27px 0 0;
+        margin: 19px 23px 0 0;
         img {
             display: block;
             height: 100%;
