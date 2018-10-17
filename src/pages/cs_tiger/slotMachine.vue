@@ -1558,7 +1558,6 @@ Vue.use(vueClipboard)
         position: absolute;
         z-index: 3;
         left: 0;
-        // bottom: percentage(146/1173);
         bottom: 27%;
         width: 100%;
         height: 28px;
@@ -1575,7 +1574,7 @@ Vue.use(vueClipboard)
         z-index: 4;
         width: percentage(595/750);
         left: 50%;
-        bottom: percentage(200/1173);
+
         bottom: percentage(225/1173);
         transform: translateX(-50%);
         display: flex;
@@ -1746,6 +1745,14 @@ Vue.use(vueClipboard)
             }
         }
 
+    }
+    .cc-mode{
+        .lastwin{
+             bottom: percentage(146/1173);
+        }
+        .operating{
+            bottom: percentage(200/1173);
+        }
     }
     /*pop*/
     .pop{

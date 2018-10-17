@@ -827,9 +827,9 @@ export default {
     .logo {
         display: block;
         float: left;
-        width: 110px;
+        width: 151px;
         height: 32px;
-        margin: 19px 27px 0 0;
+        margin: 19px 23px 0 0;
         img {
             display: block;
             height: 100%;
@@ -847,7 +847,7 @@ export default {
             box-sizing: border-box;
             width: 60px;
             height: 100%;
-            margin-right: 15px;
+            margin-right: 28px;
             padding-top: 40px;
             line-height: 30px;
             text-align: center;
