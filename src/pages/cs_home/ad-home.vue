@@ -1,25 +1,23 @@
 <template>
     <div class="page_act_center">
         <Header></Header>
-        <div class="main">
-            <ul class="act_items " v-if="this.list.length>0">
+        <div class="main" @click="initPop" :class="{en: $isEn()}">
+            <ul class="act_items " v-if="this.list.length > 0">
                 <li v-for="(item, index) in list" :key="index" :style="`background: ${item.bg_color || '#3b2860'}`" class="icon_over" :datamsg="getMsgTab(item)">
                     <img :src="`https://www.coinsprize.com${item.img_url}`" alt="" class="img_ad">
                     <div class="ad_view">
-                        <h3 class="ad_t">
-                            {{item.label}}
+                        <h3 class="ad_t" v-html="item.label">
                         </h3>
-                        <p class="ad_msg">
-                            {{item.description}}
+                        <p class="ad_msg" v-html="item.description">
                         </p>
                         <p class="ad_time">
                             {{$lang.risk.a32}}: {{formatTime(Number(item.start), 'yyyy-MM-dd HH:mm:ss')}} - {{formatTime(Number(item.end), 'yyyy-MM-dd HH:mm:ss')}}
                         </p>
-                        <div class="ad_btn_box">
-                            <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)" v-if="!(item.title_key === 'register_gift' && isLogin)">
-                                {{$lang.risk.a33}}
+                        <div class="ad_btn_box" v-if="item.title_key !== 'register_gift'">
+                            <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)" :class="{disabled: isDisableJoin(item)}">
+                                {{isDisableJoin(item) ? _('You are eligible now') :$lang.risk.a33}}
                             </a>
-                            <router-link :to="{path: '/adDetail', query: { id: item.id }}" v-if="item.target && item.target.length > 0" class="ad_btn ad_btn_more">
+                            <router-link :to="{path: item.target, query: { id: item.id }}" v-if="item.target && item.target.length > 0" class="ad_btn ad_btn_more">
                                 {{$lang.risk.a34}}
                             </router-link>
                         </div>
@@ -29,7 +27,7 @@
             <div class="nomsg" v-else>
                 <img src="@/assets/img/nomsg.png" alt="">
                 <p>
-                    <lang>No Data</lang>
+                    {{$lang.risk.a40}}, <router-link :to="{path: '/'}"><lang>Try a luck !</lang></router-link>
                 </p>
             </div>
         </div>
@@ -41,8 +39,10 @@
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { formatTime } from '~/common/util'
+import FirstChargeMixin from '../cs_activity/cs_firstCharge_mixin'
 export default {
     components: { Header, Footer },
+    mixins: [FirstChargeMixin],
     data () {
         return {
             list: []
@@ -55,6 +55,9 @@ export default {
     },
     methods: {
         formatTime,
+        initPop () {
+            this.$store.commit('initHeadState', new Date().getTime())
+        },
         isNew (startTime, endTime) {
             let thisTime = new Date().getTime()
             return (
@@ -84,11 +87,26 @@ export default {
                 this.list = [...res.data]
             })
         },
+        isDisableJoin (data) {
+            if (!this.isLog) {
+                return false
+            }
+            if (data.title_key === 'first_recharge') {
+                if (this.firstChargeMsg && this.firstChargeMsg.activity_status === '0') {
+                    return false
+                }
+                return true
+            }
+            return false
+        },
         join (data) {
+            if (this.isDisableJoin(data)) {
+                return
+            }
             if (this.getMsgTab(data) === this.$lang.risk.a31) {
                 this.$error(this.$lang.risk.a35)
             } else if (data.title_key === 'first_recharge') {
-                this.$router.push('/firstCharge')
+                this.getFirstBtn()
             } else if (!this.isLogin && data.title_key === 'register_gift') {
                 this.$store.commit('showRegPop')
             }
@@ -108,7 +126,8 @@ export default {
         .main {
             max-width: 1190px;
             width: percentage(702/750);
-            margin: 57px auto 110px;
+            margin: 0 auto;
+            padding: 57px 0 110px;
         }
         .nomsg {
             margin: 30px auto;
@@ -230,12 +249,18 @@ export default {
             }
             &.ad_btn_join {
                 background: #fb8221;
+                &.disabled {
+                    background: #9e6f49;
+                }
             }
             &.ad_btn_more {
                 border: 1px solid #fff;
             }
         }
     }
+}
+.en.main .ad_btn_join.disabled {
+    font-size: 14px;
 }
 </style>
 <style scoped lang="less" type="text/less">

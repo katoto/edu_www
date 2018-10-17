@@ -28,13 +28,16 @@
                                 <p>
                                     <lang>Hit to Win</lang>
                                     <span v-if="prizes_pool && prizes_pool_ratio">
-                                    <!-- hit WIn -->
-                                    <template v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
-                                       {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
-                                    </template>
-                                    <template v-else>
-                                        {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
-                                    </template>
+                                        <!-- hit WIn -->
+                                        <span v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0 && currBalance.cointype === '2000'">
+                                            {{Math.abs(Number(parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet]))}}
+                                        </span>
+                                        <span v-else-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
+                                            {{formateSlotBalance(parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet])}}
+                                        </span>
+                                        <span v-else>
+                                            {{Math.abs(prizes_pool_ratio[dft_bet])}}
+                                        </span>
                                     </span>
                                 </p>
                                 <!--<span>-->

@@ -89,6 +89,7 @@ export default {
 </script>
 
 <style scope lang="less" type="text/less">
+<<<<<<< HEAD
 .indexm,
 .asd {
     display: inline;
@@ -97,4 +98,6 @@ export default {
     height: 100px;
     overflow: hidden;
 }
+=======
+>>>>>>> online
 </style>

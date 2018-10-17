@@ -12,7 +12,7 @@
                 <!--玩法区-->
                 <div class="play-area" id="play-area">
                     <ul class="play-area-items">
-                        <PlayArea v-for="(item,index) in playArea" :key="index" :currIndex.sync="index" :allplayArea.sync="playArea" :areaMsg="item" :data.sync="playArea[index]"></PlayArea>
+                        <PlayArea v-for="(item,index) in playArea" :key="index * Date.now()" :currIndex.sync="index" :allplayArea.sync="playArea" :areaMsg="item" :data.sync="playArea[index]" ref="playarea"></PlayArea>
                     </ul>
                     <div class="btn-area">
                         <a href="javascript:;" @click="addTicket" class="addmore">
@@ -731,6 +731,15 @@ export default {
                 let noComplete = []
                 let noCompleteIndex = []
                 let beginBetStr = ''
+                let isError = false
+                this.$refs.playarea.forEach(area => {
+                    if (area.checkBetMoney() === false) {
+                        this.isError = true
+                    }
+                })
+                if (isError) {
+                    return false
+                }
                 this.playArea.forEach((val, index) => {
                     if (parseFloat(val.pickType) !== val.pickNum.length) {
                         noComplete.push(_('Ticket') + (index + 1))
@@ -937,6 +946,9 @@ export default {
                         this.baseAreaMsg.pickMoney = 0.01
                     }
                     break
+                case '2000':
+                    this.baseAreaMsg.pickMoney = 1
+                    break
                 }
                 this.playArea.forEach((val, index) => {
                     if (val.pickMoney) {
@@ -1015,6 +1027,7 @@ export default {
     },
     async mounted () {
         // 获取首次中奖信息
+
         if (~window.location.href.indexOf('/lucky11')) {
             let prizeMsg = await this.$store.dispatch(aTypes.prizeMessage)
             if (prizeMsg && prizeMsg.data) {

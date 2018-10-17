@@ -12,11 +12,6 @@
                     </div>
                     <ul>
                         <li>
-                            <router-link :to="{path: '/promotions/'}" active-class="on">
-                                {{$lang.risk.a36}}
-                            </router-link>
-                        </li>
-                        <li>
                             <router-link :to="{path: '/luckyslot/'}" active-class="on">
                                 <lang>Slot</lang>
                             </router-link>
@@ -41,6 +36,11 @@
                                 {{$lang.risk.a39}}
                             </router-link>
                         </li>
+                         <li>
+                            <router-link :to="{path: '/promotions/'}" active-class="on">
+                                {{$lang.risk.a36}}
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinsprize" class="logo">
@@ -48,9 +48,7 @@
                 </router-link>
                 <!-- icon-slot -->
                 <div class="choose-play icon-new ">
-                    <router-link :to="{path: '/promotions/'}" active-class="on" class="nav_gift">
-                        {{$lang.risk.a36}}
-                    </router-link>
+                  
                     <router-link :to="{path: '/luckyslot/'}" active-class="on" class="nav_slot">
                         <lang>Slot</lang>
                     </router-link>
@@ -65,6 +63,9 @@
                     </router-link>
                     <router-link :to="{path: '/supercoin/'}" active-class="on" class="nav_dapp">
                         {{$lang.risk.a39}}
+                    </router-link>
+                      <router-link :to="{path: '/promotions/'}" active-class="on" class="nav_gift">
+                        {{$lang.risk.a36}}
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide">APP</a>
@@ -232,7 +233,7 @@
                         <div class="newFirst">
                             <div class="msg">
                                 <p>
-                                    <lang>Sign Up to Get 0.0001 BTC for Free</lang>
+                                    <lang>Sign Up to Get 1CC for Free</lang>
                                 </p>
                                 <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
                                     <lang>Get it !</lang>
@@ -913,7 +914,7 @@ export default {
                 display: block;
                 position: absolute;
                 top: 10px;
-                right: 5px;
+                right: 83px;
                 border-radius: 2px;
                 padding: 0 4px;
                 line-height: 18px;
@@ -1685,7 +1686,7 @@ export default {
                     content: "N";
                     display: block;
                     position: absolute;
-                    bottom: 30px;
+                    bottom: 70px;
                     right: 2px;
                     border-radius: 2px;
                     padding: 0 4px;
