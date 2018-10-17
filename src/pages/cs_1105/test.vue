@@ -1,12 +1,14 @@
 <template>
     <div id="test">
-        test
+        <h1>test</h1>
         <vueScroll :data="listData" class="warp" :class-option="classOption" @ScrollEnd="end">
             <ul class="item">
-            <a target="_blank" href="http://www.baidu.com" v-for="item in listData">
-                <span class="title" v-text="item.title"></span>
-                <span class="date" v-text="item.date"></span>
-            </a>
+                <li v-for="(item,index) in listData" :key="index">
+                    <a target="_blank" href="http://www.baidu.com">
+                        <span class="title" v-text="item.title"></span>
+                        <span class="date" v-text="item.date"></span>
+                    </a>
+                </li>
             </ul>
         </vueScroll>        
     </div>
@@ -60,11 +62,29 @@ export default {
             console.log('end')
         }
     },
-    computed: {},
+    computed: {
+        classOption () {
+            return {
+                step: 1,
+                limitMoveNum: 5,
+                singleHeight:10,
+                waitTime: 1000
+            }
+      },
+    },
     components: {
         vueScroll
     },
-    mounted () {}
+    mounted () {
+        setTimeout(()=>{
+            console.log( this.classOption )
+            if( this.classOption ){
+                this.singleHeight = 50
+                console.log( this.classOption )
+            }
+        },3000)
+
+    }
 }
 </script>
 
@@ -72,5 +92,9 @@ export default {
 .indexm,
 .asd {
     display: inline;
+}
+.warp{
+    height: 100px;
+    overflow: hidden;
 }
 </style>
