@@ -1431,8 +1431,7 @@ export default {
             }
             let currGas = await luckyCoinApi.getgasPrice()
             if (
-                this.isFromFlag.indexOf('0x') > -1 &&
-                this.isFromFlag.length === 42
+                this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42
             ) {
                 buyBack = await luckyCoinApi.buyXaddr(
                     this.tickNum,
@@ -1709,7 +1708,7 @@ export default {
                                 if (res.args.luckynum.toNumber() <= res.args.ticketsout.toNumber()) {
                                     // 有人中奖
                                     this.someGetWin = true
-                                    localStorage.setItem('openNextTime',(new Date().getTime() + 300000) / 1000)
+                                    localStorage.setItem('openNextTime', (new Date().getTime() + 300000) / 1000)
                                     this.nextRoundStart = localStorage.getItem('openNextTime')
                                 } else {
                                     // 无人中奖

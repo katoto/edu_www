@@ -343,7 +343,7 @@ import {
     copyError,
     formateBalance,
     formateCoinType,
-    formateEmail,
+    formateEmail
     // isForbitPage
 } from '~common/util'
 
