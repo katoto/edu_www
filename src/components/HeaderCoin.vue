@@ -347,8 +347,8 @@ import {
     copyError,
     formateBalance,
     formateCoinType,
-    formateEmail,
-    isForbitPage
+    formateEmail
+    // isForbitPage
 } from '~common/util'
 
 import Vue from 'vue'
@@ -688,7 +688,7 @@ export default {
                 this.freeWaterPop = true
             }
         }, 0)
-        let isReadyAlert = false
+        // let isReadyAlert = false
         // setInterval(async () => {
         //     if (this.isLog && !isReadyAlert && !isForbitPage()) {
         //         let msg = await this.$store.dispatch('cs_activity/getChargeState')
