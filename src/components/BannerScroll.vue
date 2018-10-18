@@ -24,11 +24,11 @@
                     clonedNode = slideBoxs[0].cloneNode(true)
                     BroadcastSlide.appendChild(clonedNode)
                     hitListIndex = 0
-                    if(this.isVeritical){
+                    if (this.isVeritical) {
                         // 异步coin
                         slideHeight = BroadcastSlide.querySelector('li').offsetHeight
                         slideBoxs = BroadcastSlide.querySelectorAll('ul')[0].querySelectorAll('li')
-                    }else{
+                    } else {
                         slideBoxs = $elChild0.children[0].children
                         slideHeight = $elChild0.offsetHeight
                     }
@@ -56,44 +56,44 @@
                     }
                     this.scrollFn()
                     clearInterval(this.scrollInterval)
-                    this.scrollInterval = setInterval(this.scrollFn , this.scrollTime )
+                    this.scrollInterval = setInterval(this.scrollFn, this.scrollTime)
                 } else {
                     return false
                 }
             },
-            arrayEqual(arr1, arr2 ){
-                if(arr1 === arr2) return true;
-                if(arr1.length !== arr2.length) return false;
-                for(var i=0; i< arr1.length;++i){
-                    if(arr1[i] !== arr2[i]) return false
+            arrayEqual (arr1, arr2) {
+                if (arr1 === arr2) return true
+                if (arr1.length !== arr2.length) return false
+                for (var i = 0; i < arr1.length;++i) {
+                    if (arr1[i] !== arr2[i]) return false
                 }
                 return true
             },
-            leave(){
-                if(this.scrollInterval) clearInterval(this.scrollInterval)
-                this.scrollInterval = setInterval(this.scrollFn , this.scrollTime )
+            leave () {
+                if (this.scrollInterval) clearInterval(this.scrollInterval)
+                this.scrollInterval = setInterval(this.scrollFn, this.scrollTime)
             },
-            enter(){
-                if(this.scrollInterval) clearInterval(this.scrollInterval)
+            enter () {
+                if (this.scrollInterval) clearInterval(this.scrollInterval)
             }
         },
-        props:{
-            // 
-            isVeritical:{
-                type:Boolean,
-                default:()=>{
+        props: {
+            //
+            isVeritical: {
+                type: Boolean,
+                default: () => {
                     return false
                 }
             },
-            scrollTime:{
-                type:Number,
-                default:()=>{
+            scrollTime: {
+                type: Number,
+                default: () => {
                     return 3500
                 }
             },
-            stepScroll:{
-                type:Number,
-                default:()=>{
+            stepScroll: {
+                type: Number,
+                default: () => {
                     return 1
                 }
             }
@@ -104,19 +104,19 @@
             }, 1000)
         },
         watch: {
-            data(newData,oldData){
+            data (newData, oldData) {
                 console.log(oldData)
                 console.log(oldData)
                 console.log(newData)
                 console.log(newData)
-                if(!this.arrayEqual(newData,oldData)){
-                    clearInterval( this.scrollInterval )
+                if (!this.arrayEqual(newData, oldData)) {
+                    clearInterval(this.scrollInterval)
                     this.hitListBroadcast()
                 }
             }
         },
-        beforeDestroy(){
-            clearInterval( this.scrollInterval )
+        beforeDestroy () {
+            clearInterval(this.scrollInterval)
         }
     }
 </script>

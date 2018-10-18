@@ -22,7 +22,7 @@ export default {
                 { msg: _('My Transactions'), link: '/account/myTransactions' },
                 { msg: _('Top Up'), link: '/account/deposit' },
                 { msg: _('Withdraw'), link: '/account/withdraw' }
-            ],
+            ]
         }
     },
     watch: {},

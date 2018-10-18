@@ -80,10 +80,12 @@
                 ©Coinsprize 2018. All Rights Reserved
             </div>
         </div>
+        <CHAT></CHAT>
     </div>
 </template>
 
 <script>
+    import CHAT from '~components/Chat'
     export default {
         data () {
             return {
@@ -104,6 +106,9 @@
             }
         },
         watch: {},
+        components:{
+            CHAT
+        },
         methods: {
             jump2Page () {
                 let lan = this.$store.state.language

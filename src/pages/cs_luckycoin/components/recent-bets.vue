@@ -41,9 +41,9 @@ export default {
             return {
                 limitMoveNum: 20,
                 singleHeight: 64,
-                autoPlay: false,
+                autoPlay: false
             }
-        },        
+        }
     },
     props: {
         data: {
@@ -53,7 +53,7 @@ export default {
     },
     components: {
         BannerScroll
-    },
+    }
 }
 </script>
 <style scoped lang="less" type="text/less">
