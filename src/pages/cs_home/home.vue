@@ -485,7 +485,7 @@
 <script>
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
-import { web3, luckyCoinApi, contractNet } from '~/dappApi/luckycoinApi'
+import { luckyCoinApi} from '~/dappApi/luckycoinApi'
 import { mapActions } from 'vuex'
 import {
     formatTime,
