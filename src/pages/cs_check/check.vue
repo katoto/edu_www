@@ -34,7 +34,7 @@
                     <lang>Check Now</lang>
                 </a>
                 <!--rollIn animated-->
-                <div class="checkout-result" :class="{ 'rollIn animated': isChecked }">
+                <div class="checkout-result" :class="{ 'rollIn animated show': isChecked }">
                     <h3>
                         <lang>Draw Result</lang>
                     </h3>
@@ -326,7 +326,7 @@ export default {
 }
 @media (min-width: 1200px) {
   .poker-form {
-    width: 400px;
+    width: 376px;
     p {
       padding-bottom: 0 !important;
     }
