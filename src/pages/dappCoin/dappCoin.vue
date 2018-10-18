@@ -543,7 +543,7 @@
                         <p>
                             <lang>Playing on PC: MetaMask is recommended to install (download from</lang>
                             <a href="https://metamask.io/" target="_blank" style="color: #ff8a00;">https://metamask.io/</a>
-                            ).
+                            )
                         </p>
                         <p>
                             <lang>Playing on mobile: Trust, Cipher, Jaxx and other mobile wallets are recommended to use.</lang>
