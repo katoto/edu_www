@@ -4,7 +4,7 @@ import ajax from '~common/ajax'
 
 import router from '@/router'
 
-import {src, getCK, removeCK, platform, tipsTime} from '~common/util'
+import {removeCK, tipsTime} from '~common/util'
 
 const state = {
     pop: {

@@ -1,6 +1,5 @@
 // 一元夺币 modules
 import ajax from '~common/ajax'
-import { formateCoinType } from '~common/util'
 
 const state = {
     betList: [],

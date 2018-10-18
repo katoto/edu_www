@@ -4,7 +4,6 @@ import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 import {actionTypes} from '~/store/cs_page/cs_tiger'
 import {getCK} from '../common/util'
-import {stat} from 'fs'
 
 function combimeStore (store, newStore) {
     return {
