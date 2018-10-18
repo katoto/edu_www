@@ -1272,12 +1272,11 @@ export default {
         async pageInit () {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
+            await this.getPlayerInfoByAddress()
             await this.getCurrentRoundInfo()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
-            await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             this.maxTicketNum = 1500 - this.roundInfo.tickets
-
             if (this.timeLeft === 0) {
                 if (this.roundInfo.luckNum === 0) {
                     this.waitWin = true
@@ -1782,7 +1781,7 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
-        this.getRoundMsg()
+        // this.getRoundMsg()
         clearInterval(this.autoLoginTime)
         this.autoLoginTime = setInterval(async () => {
             this.selfAddr = await luckyCoinApi.getAccounts()
@@ -1794,7 +1793,11 @@ export default {
         }, 1000)
     },
     beforeDestroy () {
+        console.log('================')
         clearInterval(this.nowTimeInterval)
+        clearInterval(this.autoLoginTime)
+        clearInterval(this.upTimeInterval)
+        clearInterval(this.upMsgInterval)
     }
 }
 </script>
