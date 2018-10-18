@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @mouseenter="enter" @mouseleave="leave">
         <slot>
         </slot>
     </div>
@@ -10,7 +10,8 @@
         data () {
             return {
                 currLen: null,
-                scrollInterval: null
+                scrollInterval: null,
+                scrollFn: null
             }
         },
         methods: {
@@ -32,7 +33,7 @@
                         slideHeight = $elChild0.offsetHeight
                     }
                     this.currLen = slideBoxs.length
-                    let scrollFn = () => {
+                    this.scrollFn = () => {
                         hitListIndex = hitListIndex + this.stepScroll
                         if (hitListIndex > slideBoxs.length - 1) {
                             hitListIndex = 0
@@ -53,9 +54,9 @@
                         BroadcastSlide.style.transform = 'translateY(-' + hitListIndex * slideHeight + 'px)'
                         BroadcastSlide.style.webkitTransform = 'translateY(-' + hitListIndex * slideHeight + 'px)'
                     }
-                    scrollFn()
+                    this.scrollFn()
                     clearInterval(this.scrollInterval)
-                    this.scrollInterval = setInterval(scrollFn , this.scrollTime )
+                    this.scrollInterval = setInterval(this.scrollFn , this.scrollTime )
                 } else {
                     return false
                 }
@@ -68,6 +69,13 @@
                 }
                 return true
             },
+            leave(){
+                if(this.scrollInterval) clearInterval(this.scrollInterval)
+                this.scrollInterval = setInterval(this.scrollFn , this.scrollTime )
+            },
+            enter(){
+                if(this.scrollInterval) clearInterval(this.scrollInterval)
+            }
         },
         props:{
             // 
