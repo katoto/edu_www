@@ -89,6 +89,8 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.130:8001/betblock'`// 建清ws
     // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.176:8001/betblock'`// 建清ws
     websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock` // 线下测试环境ws
+    // options.baseURL = 'http://api.coinsprize.com'
+    // websocketUrl = `ws://ws.coinsprize.com/betblock`
     _isDev = true
 }
 

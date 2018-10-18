@@ -193,9 +193,6 @@ const actions = {
             pageno: '1',
             pagesize: '7',
             ...params
-        }).then(data => {
-            commit('updateBets', data.data.goods)
-            return data
         })
     },
 
@@ -205,9 +202,6 @@ const actions = {
             ...params,
             pageno: '1',
             pagesize: '6'
-        }).then(data => {
-            commit('updateDrawHistory', data.data.drawRecords)
-            return data
         })
     },
 
@@ -217,13 +211,11 @@ const actions = {
             pageno: '1',
             pagesize: '-1'
         })
-        commit('updateBets', data.data.goods)
         return data
     },
 
     async getBetsPageHistory ({ commit }, params = {}) {
         let data = await ajax.get('/draw/records/list', params)
-        commit('updateDrawHistory', data.data.drawRecords)
         return data
     },
 

@@ -96,7 +96,7 @@
                     <!-- 未登录 -->
                     <!--拉新活动提示-->
                     <div class="act-sign" v-if="!isLog">
-                        <lang>0.0001 BTC for free</lang>
+                        <lang>1 CC for free</lang>
                     </div>
                     <div class="to-login" v-if="!isLog">
                         <a href="javascript:;" @click="onLoginIn">

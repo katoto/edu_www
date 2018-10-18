@@ -1,5 +1,6 @@
 <template>
     <div class="luckyDapp">
+        <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
         <HeaderCoin v-on:scrollInvite="scrollInvite"></HeaderCoin>
         <!--status2-->
         <div class="banner-dapp" :class="{'status2':nextScreen && pageSucc}">
@@ -691,6 +692,7 @@ export default {
             isShowStep3: false,
             isShowStep4: false,
             autoLoginTime: null,
+            isReady: false,
             upTimeInterval: null,
             upMsgInterval: null
         }
@@ -1277,6 +1279,7 @@ export default {
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             this.maxTicketNum = 1500 - this.roundInfo.tickets
+            this.isReady = true
             if (this.timeLeft === 0) {
                 if (this.roundInfo.luckNum === 0) {
                     this.waitWin = true

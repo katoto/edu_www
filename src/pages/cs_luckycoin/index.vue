@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box" :ind="0" @updateBets="updateBets"></bet-box>
+                    <bet-box @close="closeOtherBet" ref="betBoxList1" :bet="betsList[0]" :is-popular="true" :class="[isShowNew? 'for-new':'']" id="popular-box" :ind="0" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
                     <div class="pop-mask hidden-md hidden-sm hidden-xs" :class="[isShowNew ? '' : 'hide']"></div>
                     <div class="pop-new" :class="[isShowNew ? '' : 'hide']">
                         <div class="step bounceIn animated step1" :class="[isShowStep1 ? '' : 'hide']">
@@ -90,16 +90,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-lg-4">
-                            <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]" :ind="2" @updateBets="updateBets"></bet-box>
-                            <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]" :ind="5" @updateBets="updateBets"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList2" :bet="betsList[1]" :ind="2" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList3" :bet="betsList[4]" :ind="5" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
                         </div>
                         <div class="col-md-6 col-lg-4 hidden-xs hidden-sm">
-                            <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]" :ind="3" @updateBets="updateBets"></bet-box>
-                            <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]" :ind="6" @updateBets="updateBets"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList4" :bet="betsList[2]" :ind="3" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList5" :bet="betsList[5]" :ind="6" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
                         </div>
                         <div class="col-lg-4 hidden-xs hidden-xs hidden-sm hidden-md">
-                            <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]" :ind="4" @updateBets="updateBets"></bet-box>
-                            <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]" :ind="7" @updateBets="updateBets"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList6" :bet="betsList[3]" :ind="4" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
+                            <bet-box @close="closeOtherBet" ref="betBoxList7" :bet="betsList[6]" :ind="7" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
                         </div>
                     </div>
                     <div class="row">
@@ -122,13 +122,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-lg-4">
-                            <history-bet-box :bet="drawHistoryList[0]"></history-bet-box>
+                            <history-bet-box :bet="drawHistoryList[0]" :priceData="priceData" :discountRate="discountRate"></history-bet-box>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <history-bet-box :bet="drawHistoryList[1]"></history-bet-box>
+                            <history-bet-box :bet="drawHistoryList[1]" :priceData="priceData" :discountRate="discountRate"></history-bet-box>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <history-bet-box :bet="drawHistoryList[2]"></history-bet-box>
+                            <history-bet-box :bet="drawHistoryList[2]" :priceData="priceData" :discountRate="discountRate"></history-bet-box>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,9 @@
                 isShowStep2: false,
                 isShowStep3: false,
                 isShowStep4: false,
-                isReady: false
+                isReady: false,
+                discountRate: {},
+                priceData: {}
             }
         },
         methods: {
@@ -212,8 +214,14 @@
                 localStorage.setItem('firstLuckycoin', true)
             }
             this.updateLuckyCoinPage()
-                .then(() => {
-                    this.isReady = true
+                .then((res) => {
+                    this.discountRate = res[0][0].data.discount_rate
+                    this.priceData = res[0][0].data.price_data
+                    this.$nextTick(() => {
+                        this.$store.commit('cs_luckycoin/updateBets', res[0][0].data.goods)
+                        this.$store.commit('cs_luckycoin/updateDrawHistory', res[0][1].data.drawRecords)
+                        this.isReady = true
+                    })
                 })
             structDom('luckycoin')
             this.$store.commit('cs_luckycoin/bindPageListener', {

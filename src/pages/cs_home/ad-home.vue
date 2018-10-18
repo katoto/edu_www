@@ -1,6 +1,7 @@
 <template>
     <div class="page_act_center">
         <Header></Header>
+        <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
         <div class="main" @click="initPop" :class="{en: $isEn()}">
             <ul class="act_items " v-if="this.list.length > 0">
                 <li v-for="(item, index) in list" :key="index" :style="`background: ${item.bg_color || '#3b2860'}`" class="icon_over" :datamsg="getMsgTab(item)">
@@ -45,7 +46,8 @@ export default {
     mixins: [FirstChargeMixin],
     data () {
         return {
-            list: []
+            list: [],
+            isReady: false
         }
     },
     computed: {
@@ -86,6 +88,9 @@ export default {
             this.$store.dispatch('getAdListInfo').then(res => {
                 this.list = [...res.data]
             })
+                .then(() => {
+                    this.isReady = true
+                })
         },
         isDisableJoin (data) {
             if (!this.isLog) {
