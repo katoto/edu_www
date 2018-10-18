@@ -49,7 +49,7 @@
                             {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
                         </div>
                         <div class="item-usd">
-                            {{formatUSD(goodsinfo.coinprice.USD, goodsinfo.goodsValue)}} USD
+                            {{formatUSDValue()}} USD
                         </div>
                         <div class="item-main">
                             <div class="main-right">
@@ -382,6 +382,20 @@ export default {
         formateCoinType,
         getCCAcount,
         getCCDeductionMoney,
+        formatUSDValue () {
+            if (!this.priceData['2001']) {
+                return '--'
+            }
+            let EthPrice = Number(this.priceData['2001'].USD)
+            let EthDiscount = Number(this.discountRate['2001'])
+            let goodsValue = Number(this.goodsinfo.goodsValue)
+            if (this.coinType === '2000') {
+                return formatUSD(EthPrice, accDiv(goodsValue, EthDiscount))
+            } else {
+                let thisPrice = Number(this.priceData[this.coinType].USD)
+                return formatUSD(thisPrice, goodsValue)
+            }
+        },
         init () {
             let params = getURLParams()
             if (params.number || this.number !== '') {
@@ -440,6 +454,8 @@ export default {
         },
         renderDetailInfo (res) {
             this.goodsinfo = res.data.goodsinfo
+            this.priceData = res.data.price_data
+            this.discountRate = res.data.discount_rate
             this.betValue = Number(this.goodsinfo.bidValue)
             this.formatCommingTime(this.goodsinfo.lefttime)
         },

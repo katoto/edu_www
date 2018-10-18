@@ -36,14 +36,28 @@
     </router-link>
 </template>
 <script>
-import { formatTime, formateCoinType, formateBalance, formatUSD } from '~/common/util'
+import { formatTime, formateCoinType, formateBalance, formatUSD, accDiv } from '~/common/util'
 import { mapState } from 'vuex'
 
 export default {
     methods: {
         formatTime,
         formateCoinType,
-        formateBalance
+        formateBalance,
+        formatUSDValue () {
+            if (!this.priceData['2001']) {
+                return '--'
+            }
+            let EthPrice = Number(this.priceData['2001'].USD)
+            let EthDiscount = Number(this.discountRate['2001'])
+            let goodsValue = Number(this.bet.goodsValue)
+            if (this.coinType === '2000') {
+                return formatUSD(EthPrice, accDiv(goodsValue, EthDiscount))
+            } else {
+                let thisPrice = Number(this.priceData[this.coinType].USD)
+                return formatUSD(thisPrice, goodsValue)
+            }
+        }
     },
     data () {
         return {
@@ -56,7 +70,7 @@ export default {
             uid: state => (state.userInfo && state.userInfo.uid) || ''
         }),
         goodsPrice () {
-            return `${formatUSD(this.bet.coinprice.USD, this.bet.goodsValue)}&ensp;USD` || '<br>'
+            return `${this.formatUSDValue()}&ensp;USD` || '<br>'
         },
         isWin () {
             return this.bet.state === '4'
@@ -111,7 +125,9 @@ export default {
         type: {
             type: String,
             default: ''
-        }
+        },
+        discountRate: Object,
+        priceData: Object
     },
     watch: {
         bet (val) {

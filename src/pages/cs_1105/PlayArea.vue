@@ -410,12 +410,16 @@
             }
         },
         mounted () {
-            if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
-                this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
-                this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
-                console.log(this.min_limit)
-                this.areaMsg.pickMoney = Number(this.min_limit)
-            }
+            this.$store.dispatch('homeInfo')
+                .then(res => {
+                    console.log(this.currBalance, this.bet_limit)
+                    if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
+                        this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
+                        this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
+                        console.log(this.min_limit)
+                        this.areaMsg.pickMoney = Number(this.min_limit)
+                    }
+                })
         },
         filters: {
             formateBalance,

@@ -36,7 +36,6 @@
                             {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<lang>Prize Pool</lang>: {{ formatesuperCoin(roundInfo.jackpot) }} ETH
                         </p>
                     </template>
-
                 </div>
                 <div :class="{'hide':nextScreen}">
                     <!--未开奖投注区-->
@@ -545,7 +544,7 @@
                         <p>
                             <lang>Playing on PC: MetaMask is recommended to install (download from</lang>
                             <a href="https://metamask.io/" target="_blank" style="color: #ff8a00;">https://metamask.io/</a>
-                            ).
+                            )
                         </p>
                         <p>
                             <lang>Playing on mobile: Trust, Cipher, Jaxx and other mobile wallets are recommended to use.</lang>
@@ -608,14 +607,9 @@
 </template>
 
 <script>
-import { mTypes, aTypes } from '~/store/cs_page/dappCoin'
+import {aTypes} from '~/store/cs_page/dappCoin'
 import {
-    copySucc,
-    copyError,
-    formateCoinType,
-    formatTime,
-    formateCoinAddr,
-    coinAffAddr
+    copySucc, copyError, formateCoinType, formatTime, formateCoinAddr, coinAffAddr
 } from '~common/util'
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
@@ -698,7 +692,9 @@ export default {
             isShowStep3: false,
             isShowStep4: false,
             autoLoginTime: null,
-            isReady: false
+            isReady: false,
+            upTimeInterval: null,
+            upMsgInterval: null
         }
     },
     methods: {
@@ -737,9 +733,7 @@ export default {
                     this.tickNum,
                     this.isFromFlag
                 ))
-            buyBack
-                ? this.selfNotify('Order Successful')
-                : this.selfNotify('Purchase Cancelled', 'error')
+            buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         showNewguide () {
             if (this.timeLeft < 600) {
@@ -794,10 +788,7 @@ export default {
                         round: this.roundInfo.roundIndex
                     }
 
-                    if (
-                        this.ordersList[0] &&
-                        this.ordersList[0].round === this.roundInfo.roundIndex
-                    ) {
+                    if (this.ordersList[0] && this.ordersList[0].round === this.roundInfo.roundIndex) {
                         if (this.ordersList[0].luckynum === 0) {
                             this.ordersList.shift()
                             this.ordersList.unshift(baseObj)
@@ -865,11 +856,7 @@ export default {
                     this.orderCurrentChange()
                 }
             } else {
-                if (
-                    dataName === 'howToPlay' ||
-                    dataName === 'myticket' ||
-                    dataName === 'historyDraw'
-                ) {
+                if (dataName === 'howToPlay' || dataName === 'myticket' || dataName === 'historyDraw') {
                     this.informationTab = dataName
                 } else {
                     this.loginMetamask()
@@ -903,16 +890,11 @@ export default {
                     this.expectsMobileIndex = 2
                 } else {
                     if (this.expectsList.length > 0 && isPush) {
-                        this.expectsListMobile = this.expectsListMobile.concat(
-                            this.expectsList
-                        )
+                        this.expectsListMobile = this.expectsListMobile.concat(this.expectsList)
                         this.expectsMobileIndex++
                     }
                 }
-                if (
-                    data.expects[0] &&
-                    data.expects[0].round === this.roundInfo.roundIndex
-                ) {
+                if (data.expects[0] && data.expects[0].round === this.roundInfo.roundIndex) {
                     this.getWInAddr = data.expects[0].winner
                 } else {
                     this.getWInAddr = 'someBody'
@@ -968,10 +950,7 @@ export default {
                     }
                 }
 
-                if (
-                    data.luckydata.length === 0 ||
-                    data.luckydata.length !== 10
-                ) {
+                if (data.luckydata.length === 0 || data.luckydata.length !== 10) {
                     this.isShowOrderMore = false
                 }
 
@@ -1039,23 +1018,7 @@ export default {
                 this.tickNum = 0
                 return false
             }
-            if (this.balance && Number(this.balance) > 0) {
-                let earnNum = null
-                if (this.selfMsg) {
-                    earnNum =
-                        parseFloat(this.selfMsg.win) +
-                        parseFloat(this.selfMsg.calcTicketEarn) +
-                        parseFloat(this.selfMsg.aff_invite)
-                }
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-                // if (earnNum && Number(this.balance) < earnNum) {
-                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                // } else {
-                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                // }
-            } else {
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-            }
+            this.maxTicketNum = 1500 - this.roundInfo.tickets
             this.tickNum =
                 this.tickNum > this.maxTicketNum
                     ? this.maxTicketNum
@@ -1306,26 +1269,15 @@ export default {
             ]
             let newRandom = randomNameArr.concat(randomNameArr2)
             let endPoint = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '']
-            this.beforeInviteName =
-                newRandom[getRandomKey(newRandom)] +
-                endPoint[getRandomKey(endPoint)]
+            this.beforeInviteName = newRandom[getRandomKey(newRandom)] + endPoint[getRandomKey(endPoint)]
         },
         async pageInit () {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
+            await this.getPlayerInfoByAddress()
             await this.getCurrentRoundInfo()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
-            await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-            if (this.balance && Number(this.balance) > 0) {
-                let earnNum = null
-                if (this.selfMsg) {
-                    earnNum =
-                        parseFloat(this.selfMsg.win) +
-                        parseFloat(this.selfMsg.calcTicketEarn) +
-                        parseFloat(this.selfMsg.aff_invite)
-                }
-            }
             this.maxTicketNum = 1500 - this.roundInfo.tickets
             this.isReady = true
             if (this.timeLeft === 0) {
@@ -1353,12 +1305,9 @@ export default {
                 }
             }
             this.pageSucc = true
-            this.nextRoundStart =
-                parseInt(localStorage.getItem('openNextTime')) >
-                new Date().getTime()
-                    ? parseInt(localStorage.getItem('openNextTime'))
-                    : new Date().getTime() / 1000
-            window.setInterval(async () => {
+            this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime() + 6000) / 1000
+            clearInterval(this.upTimeInterval)
+            this.upTimeInterval = setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
                 if (this.timeLeft !== 0) {
                     this.startTimeLeft()
@@ -1372,18 +1321,15 @@ export default {
             //  请求历史数据
             this.expectCurrentChange()
             // 开始待开奖的动画
-            setInterval(() => {
-                this.bindwaitingMsg = this.waitingMsgArr[
-                    parseInt(Math.random() * 2)
-                ]
+            clearInterval(this.upMsgInterval)
+            this.upMsgInterval = setInterval(() => {
+                this.bindwaitingMsg = this.waitingMsgArr[parseInt(Math.random() * 2)]
             }, 4000)
         },
         async getRoundMsg () {
             await this.getCurrentRoundInfo()
             if (this.roundInfo && this.roundInfo.roundIndex && (this.roundInfo.luckynum === 0 || !this.roundInfo)) {
-                let msgRound = await luckyCoinApi.round_(
-                    Number(this.roundInfo.roundIndex) - 1
-                )
+                let msgRound = await luckyCoinApi.round_(Number(this.roundInfo.roundIndex) - 1)
                 Object.assign(msgRound, {
                     round: Number(this.roundInfo.roundIndex) - 1
                 })
@@ -1467,18 +1413,8 @@ export default {
         async getCurrentRoundInfo () {
             // 获取页面相关信息
             this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
-
             console.log(this.roundInfo)
-            this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets /
-                1500})`
-
-            let earnNum = null
-            if (this.selfMsg) {
-                earnNum =
-                    parseFloat(this.selfMsg.win) +
-                    parseFloat(this.selfMsg.calcTicketEarn) +
-                    parseFloat(this.selfMsg.aff_invite)
-            }
+            this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets / 1500})`
             this.maxTicketNum = 1500 - this.roundInfo.tickets
         },
         async buyNum () {
@@ -1498,8 +1434,7 @@ export default {
             }
             let currGas = await luckyCoinApi.getgasPrice()
             if (
-                this.isFromFlag.indexOf('0x') > -1 &&
-                this.isFromFlag.length === 42
+                this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42
             ) {
                 buyBack = await luckyCoinApi.buyXaddr(
                     this.tickNum,
@@ -1571,7 +1506,7 @@ export default {
                     : this.selfNotify('Purchase Cancelled', 'error')
             } else {
                 Message({
-                    message: '名字已被注册',
+                    message: 'The name has been registered',
                     type: 'error'
                 })
             }
@@ -1648,8 +1583,6 @@ export default {
                         if (res.args.playerName) {
                             name = web3.toUtf8(res.args.playerName)
                         }
-                        console.log(res)
-                        console.log('=====res==')
                         if (res.event === 'onNewName') {
                             if (name === '') {
                                 Notification({
@@ -1775,19 +1708,11 @@ export default {
                         } else if (res.event === 'onSettle') {
                             if (res.args) {
                                 this.waitWin = false
-                                if (
-                                    res.args.luckynum.toNumber() <=
-                                    res.args.ticketsout.toNumber()
-                                ) {
+                                if (res.args.luckynum.toNumber() <= res.args.ticketsout.toNumber()) {
                                     // 有人中奖
                                     this.someGetWin = true
-                                    localStorage.setItem(
-                                        'openNextTime',
-                                        (new Date().getTime() + 300000) / 1000
-                                    )
-                                    this.nextRoundStart = localStorage.getItem(
-                                        'openNextTime'
-                                    )
+                                    localStorage.setItem('openNextTime', (new Date().getTime() + 300000) / 1000)
+                                    this.nextRoundStart = localStorage.getItem('openNextTime')
                                 } else {
                                     // 无人中奖
                                     this.someGetWin = false
@@ -1797,9 +1722,7 @@ export default {
                                         this.openNumArr = ['?', '?', '?', '?']
                                     }, 10000)
                                 }
-                                this.showOpenNumber(
-                                    res.args.luckynum.toNumber()
-                                )
+                                this.showOpenNumber(res.args.luckynum.toNumber())
                             }
                         } else if (res.event === 'onActivate') {
                             // 有人中开奖  去除on
@@ -1860,8 +1783,8 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
-        this.getRoundMsg()
-
+        // this.getRoundMsg()
+        clearInterval(this.autoLoginTime)
         this.autoLoginTime = setInterval(async () => {
             this.selfAddr = await luckyCoinApi.getAccounts()
             if (this.selfAddr) {
@@ -1871,15 +1794,12 @@ export default {
             }
         }, 1000)
     },
-    watch: {
-        isLog (val) {
-            /* 切换登陆态之后改变状态 */
-            this.changePageState()
-        }
-    },
-    filters: {},
     beforeDestroy () {
+        console.log('================')
         clearInterval(this.nowTimeInterval)
+        clearInterval(this.autoLoginTime)
+        clearInterval(this.upTimeInterval)
+        clearInterval(this.upMsgInterval)
     }
 }
 </script>

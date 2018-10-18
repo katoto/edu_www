@@ -37,8 +37,7 @@
         async mounted () {
             (function flexible (window, document) {
                 var docEl = document.documentElement
-                var dpr = window.devicePixelRatio || 1
-
+                // var dpr = window.devicePixelRatio || 1
                 // set 1rem = viewWidth / 10
                 function setRemUnit () {
                     var rem = '75'
