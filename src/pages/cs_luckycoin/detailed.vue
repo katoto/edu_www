@@ -50,7 +50,7 @@
                         </div>
                         <div class="item-usd" v-if="goodsinfo.goodsType==='2000'">
                             &nbsp;
-                        </div>                        
+                        </div>
                         <div class="item-usd" v-else>
                             {{formatUSDValue()}} USD
                         </div>
@@ -125,8 +125,7 @@
                         <!-- 新增cc 20180926 -->
                         <div class="cc-group cc-luckycoin" v-if="coinType !== '2000' && isLogin">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
-                            <p>
-                                {{$lang.risk.a16}}
+                            <p v-html="$lang.risk.a16">
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?

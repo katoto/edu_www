@@ -76,7 +76,8 @@
                 <div class="step-title">
                     <lang>Draw Process</lang>
                 </div>
-                <div class="step-view bounce animated delay-2s" ref="errorCt">
+                <!-- bounce animated delay-2s -->
+                <div class="step-view " ref="errorCt">
                     <ul>
                         <li v-lang="'Order <br/>Information'">
                         </li>

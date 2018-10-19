@@ -116,7 +116,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the first draw number.', hashNumber[0]) }}
+                            {{ _('The {0}th number is the first draw number.', hashNumber[0]) }}
                         </p>
                     </li>
                     <li>
@@ -135,7 +135,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the second draw number.', hashNumber[1]) }}
+                            {{ _('The {0}th number is the second draw number.', hashNumber[1]) }}
                         </p>
                     </li>
                     <li>
@@ -154,7 +154,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the third draw number.', hashNumber[2]) }}
+                            {{ _('The {0}th number is the third draw number.', hashNumber[2]) }}
                         </p>
                     </li>
                     <li>
@@ -173,7 +173,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the fourth draw number.', hashNumber[3]) }}
+                            {{ _('The {0}th number is the fourth draw number.', hashNumber[3]) }}
                         </p>
                     </li>
                     <li>
@@ -192,7 +192,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the fifth draw number.', hashNumber[4]) }}
+                            {{ _('The {0}th number is the fifth draw number.', hashNumber[4]) }}
                         </p>
                     </li>
                 </ul>
