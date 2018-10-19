@@ -48,7 +48,10 @@
                         <div class="item-prize">
                             {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
                         </div>
-                        <div class="item-usd">
+                        <div class="item-usd" v-if="goodsinfo.goodsType==='2000'">
+                            &nbsp;
+                        </div>                        
+                        <div class="item-usd" v-else>
                             {{formatUSDValue()}} USD
                         </div>
                         <div class="item-main">
