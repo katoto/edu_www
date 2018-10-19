@@ -3,7 +3,8 @@ import Web3 from 'web3'
 // let contractAddr = '0xd52a7d0d30584d759a6571da569c3776c7d73acc' // ceshi3
 
 // let contractAddr = '0xc9262cf88ffb919dc365b79b99ea9fe23b8e3a0b' // online
-let contractAddr = '0x2119a3314c1d40704d816392a9e44da463688992' // online2  2h
+// let contractAddr = '0x9c4118584552d6144223a7f65b2c6ebb76b792e9' // online2  2h
+let contractAddr = '0x2119a3314c1d40704d816392a9e44da463688992' // online2 new
 
 let web3 = window.web3
 let contractAbi = [
@@ -1005,16 +1006,19 @@ luckyCoinApi.testName = (regName) => {
     })
 }
 
-luckyCoinApi.registerNameXaddr = (regName, _affCode) => {
+luckyCoinApi.registerNameXaddr = (regName, _affCode, _gas) => {
     if (typeof regName !== 'string') {
         return 'need string regName !'
     }
     if (typeof _affCode !== 'string') {
         return 'need string _affCode addr !'
     }
+    if (typeof _gas === 'string') {
+        _gas = parseInt(_gas)
+    }
     return new Promise((resolve, reject) => {
         if (contractNet) {
-            contractNet.registerNameXaddr(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether')}, function (err, res) {
+            contractNet.registerNameXaddr(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether'), gasPrice: _gas + 2000000000}, function (err, res) {
                 if (!err) {
                     if (res) {
                         resolve(true)
@@ -1029,16 +1033,19 @@ luckyCoinApi.registerNameXaddr = (regName, _affCode) => {
     })
 }
 
-luckyCoinApi.registerNameXname = (regName, _affCode) => {
+luckyCoinApi.registerNameXname = (regName, _affCode, _gas) => {
     if (typeof regName !== 'string') {
         return 'need string regName !'
     }
     if (typeof _affCode !== 'string') {
         return 'need string _affCode addr !'
     }
+    if (typeof _gas === 'string') {
+        _gas = parseInt(_gas)
+    }
     return new Promise((resolve, reject) => {
         if (contractNet) {
-            contractNet.registerNameXname(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether')}, function (err, res) {
+            contractNet.registerNameXname(regName.toString(), _affCode, true, {value: web3.toWei('0.001', 'ether'), gasPrice: _gas + 2000000000}, function (err, res) {
                 if (!err) {
                     if (res) {
                         resolve(true)
@@ -1097,7 +1104,7 @@ luckyCoinApi.reLoadXname = (_tickets, _affCode) => {
     })
 }
 
-luckyCoinApi.buyXaddr = (_tickets, _affCode, _price) => {
+luckyCoinApi.buyXaddr = (_tickets, _affCode, _price, _gas) => {
     if (typeof _tickets === 'string') {
         _tickets = parseInt(_tickets)
     }
@@ -1107,8 +1114,11 @@ luckyCoinApi.buyXaddr = (_tickets, _affCode, _price) => {
     if (typeof _price === 'string') {
         _price = parseInt(_price)
     }
+    if (typeof _gas === 'string') {
+        _gas = parseInt(_gas)
+    }
     return new Promise((resolve, reject) => {
-        contractNet.buyXaddr(_tickets, _affCode, {value: web3.toWei(_price, 'ether')}, (err, res) => {
+        contractNet.buyXaddr(_tickets, _affCode, {value: web3.toWei(_price, 'ether'), gasPrice: _gas + 2000000000}, (err, res) => {
             if (!err) {
                 if (res) {
                     resolve(res)
@@ -1122,7 +1132,7 @@ luckyCoinApi.buyXaddr = (_tickets, _affCode, _price) => {
     })
 }
 
-luckyCoinApi.buyXname = (_tickets, _name, _price) => {
+luckyCoinApi.buyXname = (_tickets, _name, _price, _gas) => {
     if (typeof _tickets === 'string') {
         _tickets = parseInt(_tickets)
     }
@@ -1132,8 +1142,12 @@ luckyCoinApi.buyXname = (_tickets, _name, _price) => {
     if (typeof _price === 'string') {
         _price = parseInt(_price)
     }
+    if (typeof _gas === 'string') {
+        _gas = parseInt(_gas)
+    }
+
     return new Promise((resolve, reject) => {
-        contractNet.buyXname(_tickets, _name, {value: web3.toWei(_price, 'ether')}, (err, res) => {
+        contractNet.buyXname(_tickets, _name, {value: web3.toWei(_price, 'ether'), gasPrice: _gas + 2000000000}, (err, res) => {
             if (!err) {
                 if (res) {
                     resolve(res)
@@ -1147,37 +1161,12 @@ luckyCoinApi.buyXname = (_tickets, _name, _price) => {
     })
 }
 
-luckyCoinApi.buyXid = (_tickets, _name, _price) => {
-    if (typeof _tickets === 'string') {
-        _tickets = parseInt(_tickets)
-    }
-    if (typeof _name !== 'string') {
-        _name = _name.toString()
-    }
-    if (typeof _price === 'string') {
-        _price = parseInt(_price)
-    }
-    return new Promise((resolve, reject) => {
-        contractNet.buyXid(_tickets, _name, {value: web3.toWei(_price, 'ether')}, (err, res) => {
-            if (!err) {
-                if (res) {
-                    resolve(res)
-                } else {
-                    reject(new Error('buyXid error'))
-                }
-            } else {
-                reject(err)
-            }
-        })
-    })
-}
-
 luckyCoinApi.getBuyPrice = () => {
     return new Promise((resolve, reject) => {
         contractNet.getBuyPrice((err, res) => {
             if (!err) {
                 if (res) {
-                    resolve(Number(web3.fromWei(res.toNumber())))
+                    resolve(Number(web3.fromWei(res.toNumber() + 1000)))
                 } else {
                     reject(new Error('getBuyPrice error'))
                 }
@@ -1228,6 +1217,49 @@ luckyCoinApi.getTimeLeft = () => {
                     resolve(res.toNumber())
                 } else {
                     reject(new Error('getTimeLeft error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.round_ = (round) => {
+    /* 当前时间 */
+    if (typeof round === 'string') {
+        round = Number(round)
+    }
+    return new Promise((resolve, reject) => {
+        contractNet.round_(round, (err, res) => {
+            if (!err) {
+                if (res) {
+                    let obj = {
+                        luckynum: res[8].toNumber(),
+                        winner: res[5].toString(),
+                        prizes: Number(web3.fromWei(res[2].toNumber())),
+                        cointype: '2001'
+                    }
+                    resolve(obj)
+                } else {
+                    reject(new Error('getTimeLeft error'))
+                }
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+
+luckyCoinApi.getgasPrice = () => {
+    /* 当前时间 */
+    return new Promise((resolve, reject) => {
+        web3.eth.getGasPrice((err, res) => {
+            if (!err) {
+                if (res) {
+                    resolve(res.toNumber())
+                } else {
+                    reject(new Error('getGasPrice error'))
                 }
             } else {
                 reject(err)

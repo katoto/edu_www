@@ -12,11 +12,6 @@
                     </div>
                     <ul>
                         <li>
-                            <router-link :to="{path: '/promotions/'}" active-class="on">
-                                {{$lang.risk.a36}}
-                            </router-link>
-                        </li>
-                        <li>
                             <router-link :to="{path: '/luckyslot/'}" active-class="on">
                                 <lang>Slot</lang>
                             </router-link>
@@ -41,6 +36,11 @@
                                 {{$lang.risk.a39}}
                             </router-link>
                         </li>
+                        <li>
+                            <router-link :to="{path: '/promotions/'}" active-class="on">
+                                {{$lang.risk.a36}}
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
                 <router-link to="/" title="Coinsprize" class="logo">
@@ -48,9 +48,7 @@
                 </router-link>
                 <!-- icon-slot -->
                 <div class="choose-play icon-new ">
-                    <router-link :to="{path: '/promotions/'}" active-class="on" class="nav_gift">
-                        {{$lang.risk.a36}}
-                    </router-link>
+
                     <router-link :to="{path: '/luckyslot/'}" active-class="on" class="nav_slot">
                         <lang>Slot</lang>
                     </router-link>
@@ -65,6 +63,9 @@
                     </router-link>
                     <router-link :to="{path: '/supercoin/'}" active-class="on" class="nav_dapp">
                         {{$lang.risk.a39}}
+                    </router-link>
+                    <router-link :to="{path: '/promotions/'}" active-class="on" class="nav_gift">
+                        {{$lang.risk.a36}}
                     </router-link>
                     <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide">APP</a>
@@ -94,7 +95,7 @@
                     <!-- 未登录 -->
                     <!--拉新活动提示-->
                     <div class="act-sign" v-if="!isLog">
-                        <lang>0.0001 BTC for free</lang>
+                        <lang>1 CC for free</lang>
                     </div>
                     <div class="to-login" v-if="!isLog">
                         <a href="javascript:;" @click="onLoginIn">
@@ -232,7 +233,7 @@
                         <div class="newFirst">
                             <div class="msg">
                                 <p>
-                                    <lang>Sign Up to Get 0.0001 BTC for Free</lang>
+                                    <lang>Sign Up to Get 1CC for Free</lang>
                                 </p>
                                 <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
                                     <lang>Get it !</lang>
@@ -337,8 +338,8 @@ import {
     copyError,
     formateBalance,
     formateCoinType,
-    formateEmail,
-    isForbitPage
+    formateEmail
+    // isForbitPage
 } from '~common/util'
 
 import Vue from 'vue'
@@ -394,7 +395,7 @@ export default {
             this.freeWaterPop = false
         },
         isLog () {
-            this.autoChangeDefaultAccount()
+            this.autoChangeDefaultAccount(true)
         },
         CCNum (newVal, val) {
             newVal = Number(newVal)
@@ -477,10 +478,17 @@ export default {
                 return account.cointype === '2000' ? '1' : '-1'
             })
         },
-        autoChangeDefaultAccount () {
+        autoChangeDefaultAccount (forceRefresh) {
             setTimeout(() => {
                 if (this.isLog) {
-                    this.changeDefaultAccount()
+                    if (forceRefresh) {
+                        this.changeDefaultAccount()
+                    } else {
+                        if (!this.$store.state.autoRefreshAccount) {
+                            this.$store.commit('setAotoRefresh', true)
+                            this.changeDefaultAccount()
+                        }
+                    }
                 }
             }, 200)
         },
@@ -677,13 +685,13 @@ export default {
             if (
                 !localStorage.getItem('waterPop') ||
                 localStorage.getItem('waterPop') !==
-                    new Date().getDay().toString()
+                new Date().getDay().toString()
             ) {
                 localStorage.setItem('waterPop', new Date().getDay())
                 this.freeWaterPop = true
             }
         }, 0)
-        let isReadyAlert = false
+        // let isReadyAlert = false
         // setInterval(async () => {
         //     if (this.isLog && !isReadyAlert && !isForbitPage()) {
         //         let msg = await this.$store.dispatch('cs_activity/getChargeState')
@@ -702,1301 +710,1295 @@ export default {
 @import "../styles/lib-media.less";
 
 .pop-getFirstCharge {
-    * {
-        box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+  .cnt {
+    position: relative;
+    width: 80%;
+    max-width: 513px;
+    margin: 307px auto 0;
+    h2 {
+      position: absolute;
+      left: 50%;
+      top: -34px;
+      transform: translate(-50%);
+      width: 360px;
+      height: 63px;
+      overflow: hidden;
+      line-height: 68px;
+      font-size: 28px;
+      color: #3f2c65;
+      font-family: sans-eb;
+      font-weight: bold;
+      background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
+      background-size: cover;
     }
-    .cnt {
-        position: relative;
-        width: 80%;
-        max-width: 513px;
-        margin: 307px auto 0;
-        h2 {
-            position: absolute;
-            left: 50%;
-            top: -34px;
-            transform: translate(-50%);
-            width: 360px;
-            height: 63px;
-            overflow: hidden;
-            line-height: 68px;
-            font-size: 28px;
-            color: #3f2c65;
-            font-family: sans-eb;
-            font-weight: bold;
-            background: url("../assets/img/paysend/fir_titlebg.png") no-repeat
-                center;
-            background-size: cover;
+    .content {
+      border: 6px solid #f1a501;
+      border-radius: 8px;
+      background: #3f2c65;
+      padding: 28px 10px 26px;
+      .anount {
+        line-height: 174px;
+        color: #fdca1b;
+        font-size: 76px;
+        font-family: sans-eb;
+        i {
+          font-size: 42px;
         }
-        .content {
-            border: 6px solid #f1a501;
-            border-radius: 8px;
-            background: #3f2c65;
-            padding: 28px 10px 26px;
-            .anount {
-                line-height: 174px;
-                color: #fdca1b;
-                font-size: 76px;
-                font-family: sans-eb;
-                i {
-                    font-size: 42px;
-                }
-            }
-            .msg {
-                font-size: 16px;
-                color: #ffffff;
-            }
-        }
-        .btnclose {
-            position: absolute;
-            right: 0;
-            top: -63px;
-            display: block;
-            width: 40px;
-            height: 40px;
-            overflow: hidden;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: url("../assets/img/paysend/btn-close.png") no-repeat
-                center;
-            background-size: 16px;
-        }
+      }
+      .msg {
+        font-size: 16px;
+        color: #ffffff;
+      }
     }
+    .btnclose {
+      position: absolute;
+      right: 0;
+      top: -63px;
+      display: block;
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: url("../assets/img/paysend/btn-close.png") no-repeat center;
+      background-size: 16px;
+    }
+  }
 }
 @media (max-width: 768px) {
-    .pop-getFirstCharge {
-        .cnt {
-            margin: 150px auto 0;
-            h2 {
-                top: -34/1.5px;
-                width: 360/1.5px;
-                height: 63/1.5px;
-                line-height: 68/1.5px;
-                font-size: 28/1.5px;
-            }
-            .content {
-                border: 3px solid #f1a501;
-                border-radius: 4px;
-                padding: 28px 10px 26px;
-                .anount {
-                    line-height: 174/2px;
-                    font-size: 30px;
-                    i {
-                        font-size: 16px;
-                    }
-                }
-                .msg {
-                    font-size: 16px;
-                }
-            }
-            .btnclose {
-                top: -63/1.5px;
-                width: 30px;
-                height: 30px;
-                background-size: 10px;
-            }
+  .pop-getFirstCharge {
+    .cnt {
+      margin: 150px auto 0;
+      h2 {
+        top: -34/1.5px;
+        width: 360/1.5px;
+        height: 63/1.5px;
+        line-height: 68/1.5px;
+        font-size: 28/1.5px;
+      }
+      .content {
+        border: 3px solid #f1a501;
+        border-radius: 4px;
+        padding: 28px 10px 26px;
+        .anount {
+          line-height: 174/2px;
+          font-size: 30px;
+          i {
+            font-size: 16px;
+          }
         }
+        .msg {
+          font-size: 16px;
+        }
+      }
+      .btnclose {
+        top: -63/1.5px;
+        width: 30px;
+        height: 30px;
+        background-size: 10px;
+      }
     }
+  }
 }
 
 .banner {
-    display: none;
+  display: none;
 }
 .head {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.4);
+  background: #151515;
+  color: #fff;
+  .top {
     position: relative;
+    z-index: 9;
     width: 100%;
-    height: 70px;
-    background: rgba(0, 0, 0, 0.4);
-    background: #151515;
-    color: #fff;
-    .top {
-        position: relative;
-        z-index: 9;
-        width: 100%;
-        max-width: 1190px;
-        height: 100%;
-        margin: 0 auto;
+    max-width: 1190px;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .logo {
+    display: block;
+    float: left;
+    width: 151px;
+    height: 32px;
+    margin: 19px 23px 0 0;
+    img {
+      display: block;
+      height: 100%;
     }
-    .logo {
+  }
+  .choose-play {
+    position: relative;
+    display: flex;
+    float: left;
+    /*overflow: hidden;*/
+    height: 100%;
+    a {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+      width: 60px;
+      height: 100%;
+      margin-right: 28px;
+      padding-top: 40px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #fff;
+      transition: all 0.2s;
+      background-repeat: no-repeat;
+      background-position: center 10px;
+      &::after {
+        content: "";
         display: block;
-        float: left;
-        width: 110px;
-        height: 32px;
-        margin: 19px 27px 0 0;
-        img {
-            display: block;
-            height: 100%;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 2px;
+        transition: all 0.2s;
+        background-color: transparent;
+      }
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+      &.on {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #ffde6b;
+        &::after {
+          background: #ffde6b;
         }
+      }
     }
-    .choose-play {
-        position: relative;
-        display: flex;
-        float: left;
-        /*overflow: hidden;*/
-        height: 100%;
-        a {
-            position: relative;
-            display: block;
-            box-sizing: border-box;
-            width: 60px;
-            height: 100%;
-            margin-right: 15px;
-            padding-top: 40px;
-            line-height: 30px;
-            text-align: center;
-            font-size: 14px;
-            color: #fff;
-            transition: all 0.2s;
-            background-repeat: no-repeat;
-            background-position: center 10px;
-            &::after {
-                content: "";
-                display: block;
-                position: absolute;
-                left: 50%;
-                bottom: 0;
-                transform: translateX(-50%);
-                width: 24px;
-                height: 2px;
-                transition: all 0.2s;
-                background-color: transparent;
-            }
-            &:hover {
-                background-color: rgba(255, 255, 255, 0.05);
-            }
-            &.on {
-                background-color: rgba(255, 255, 255, 0.05);
-                color: #ffde6b;
-                &::after {
-                    background: #ffde6b;
-                }
-            }
-        }
-        .nav_gift {
-            background-image: url(" ../assets/img/icon-gift.png");
-            &.on {
-                background-image: url(" ../assets/img/icon-gift-on.png");
-            }
-        }
-        .nav_slot {
-            background-image: url(" ../assets/img/icon-slot.png");
-            &.on {
-                background-image: url(" ../assets/img/icon-slot-on.png");
-            }
-        }
-        .nav_poker {
-            background-image: url(" ../assets/img/icon-poker.png");
-            &.on {
-                background-image: url(" ../assets/img/icon-poker-on.png");
-            }
-        }
-        .nav_coin {
-            background-image: url(" ../assets/img/icon-coin.png");
-            &.on {
-                background-image: url(" ../assets/img/icon-coin-on.png");
-            }
-        }
-        .nav_lotto {
-            background-image: url(" ../assets/img/icon-lotto.png");
-            &.on {
-                background-image: url(" ../assets/img/icon-lotto-on.png");
-            }
-        }
-        .nav_dapp {
-            background-image: url(" ../assets/img/icon-dapp.png");
-            &.on {
-                background-image: url(" ../assets/img/icon-dapp-on.png");
-            }
-        }
-        &.icon-new {
-            &::before {
-                content: "N";
-                display: block;
-                position: absolute;
-                top: 10px;
-                right: 5px;
-                border-radius: 2px;
-                padding: 0 4px;
-                line-height: 18px;
-                background: #36c57a;
-                font-weight: bold;
-                font-size: 14px;
-                color: #fff;
-            }
-        }
+    .nav_gift {
+      background-image: url(" ../assets/img/icon-gift.png");
+      &.on {
+        background-image: url(" ../assets/img/icon-gift-on.png");
+      }
     }
-    .language {
+    .nav_slot {
+      background-image: url(" ../assets/img/icon-slot.png");
+      &.on {
+        background-image: url(" ../assets/img/icon-slot-on.png");
+      }
+    }
+    .nav_poker {
+      background-image: url(" ../assets/img/icon-poker.png");
+      &.on {
+        background-image: url(" ../assets/img/icon-poker-on.png");
+      }
+    }
+    .nav_coin {
+      background-image: url(" ../assets/img/icon-coin.png");
+      &.on {
+        background-image: url(" ../assets/img/icon-coin-on.png");
+      }
+    }
+    .nav_lotto {
+      background-image: url(" ../assets/img/icon-lotto.png");
+      &.on {
+        background-image: url(" ../assets/img/icon-lotto-on.png");
+      }
+    }
+    .nav_dapp {
+      background-image: url(" ../assets/img/icon-dapp.png");
+      &.on {
+        background-image: url(" ../assets/img/icon-dapp-on.png");
+      }
+    }
+    &.icon-new {
+      &::before {
+        content: "N";
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 108px;
+        border-radius: 2px;
+        padding: 0 4px;
+        line-height: 18px;
+        background: #36c57a;
+        font-weight: bold;
+        font-size: 14px;
+        color: #fff;
+      }
+    }
+  }
+  .language {
+    box-sizing: border-box;
+    position: relative;
+    width: 70px;
+    height: 70px;
+    float: right;
+    padding-top: 21px;
+    position: relative;
+    cursor: pointer;
+    .language-choose {
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+      span {
+        display: block;
+        margin-top: 4px;
+        line-height: 16px;
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+      }
+    }
+    ul {
+      display: none;
+      position: absolute;
+      width: 70px;
+      z-index: 2;
+      left: 0;
+      top: 57px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      font-size: 12px;
+      color: #263648;
+      li {
         box-sizing: border-box;
-        position: relative;
+        padding-top: 20px;
         width: 70px;
         height: 70px;
-        float: right;
-        padding-top: 21px;
-        position: relative;
-        cursor: pointer;
-        .language-choose {
-            img {
-                display: block;
-                margin: 0 auto;
-            }
-            span {
-                display: block;
-                margin-top: 4px;
-                line-height: 16px;
-                text-align: center;
-                font-size: 12px;
-                color: #fff;
-            }
+        background: #fff;
+        &:hover {
+          background: #eef1f9;
         }
-        ul {
-            display: none;
-            position: absolute;
-            width: 70px;
-            z-index: 2;
-            left: 0;
-            top: 57px;
-            border-radius: 6px;
-            overflow: hidden;
-            cursor: pointer;
-            font-size: 12px;
-            color: #263648;
-            li {
-                box-sizing: border-box;
-                padding-top: 20px;
-                width: 70px;
-                height: 70px;
-                background: #fff;
-                &:hover {
-                    background: #eef1f9;
-                }
-            }
-            li + li {
-                border-top: 1px solid #778ca3;
-            }
-            img {
-                display: block;
-                margin: 0 auto;
-            }
-            span {
-                display: block;
-                height: 20px;
-                line-height: 20px;
-                text-align: center;
-                .text-overflow();
-            }
-        }
-        &.isLanguage {
-            background: rgba(0, 0, 0, 0.5);
-            ul {
-                display: block;
-            }
-        }
-    }
-    .impor-wallet {
+      }
+      li + li {
+        border-top: 1px solid #778ca3;
+      }
+      img {
         display: block;
-        float: right;
-        margin: 26px 47px 0 0;
-        width: 198px;
-        height: 34px;
-        overflow: hidden;
+        margin: 0 auto;
+      }
+      span {
+        display: block;
+        height: 20px;
+        line-height: 20px;
         text-align: center;
-        line-height: 34px;
-        border: 1px solid #907eef;
-        border-radius: 6px;
-        color: #fff;
+        .text-overflow();
+      }
     }
-    .mycount {
-        position: relative;
-        float: left;
-        margin-right: 20px;
-        transform: translate3d(0, 0, 0);
-        padding: 20px;
+    &.isLanguage {
+      background: rgba(0, 0, 0, 0.5);
+      ul {
+        display: block;
+      }
+    }
+  }
+  .impor-wallet {
+    display: block;
+    float: right;
+    margin: 26px 47px 0 0;
+    width: 198px;
+    height: 34px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 34px;
+    border: 1px solid #907eef;
+    border-radius: 6px;
+    color: #fff;
+  }
+  .mycount {
+    position: relative;
+    float: left;
+    margin-right: 20px;
+    transform: translate3d(0, 0, 0);
+    padding: 20px;
+    .transition();
+    .countNum {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      padding: 0 25px 0 40px;
+      line-height: 30px;
+      font-size: 16px;
+      .icon-user {
+        display: block;
+        position: absolute;
+        width: 29px;
+        height: 30px;
+        left: 0;
+        top: 0;
+        background: url(" ../assets/img/icon-user.png") no-repeat center;
+        background-size: cover;
+      }
+      i {
+        display: block;
+        position: absolute;
+        width: 14px;
+        height: 8px;
+        right: 0;
+        top: 9px;
+        background: url(" ../assets/slice/arrow-down-fff.png") no-repeat center;
+        background-size: 14px;
+        transform-origin: 50%;
         .transition();
-        .countNum {
-            position: relative;
-            cursor: pointer;
-            display: block;
-            padding: 0 25px 0 40px;
-            line-height: 30px;
-            font-size: 16px;
-            .icon-user {
-                display: block;
-                position: absolute;
-                width: 29px;
-                height: 30px;
-                left: 0;
-                top: 0;
-                background: url(" ../assets/img/icon-user.png") no-repeat center;
-                background-size: cover;
-            }
-            i {
-                display: block;
-                position: absolute;
-                width: 14px;
-                height: 8px;
-                right: 0;
-                top: 9px;
-                background: url(" ../assets/slice/arrow-down-fff.png") no-repeat
-                    center;
-                background-size: 14px;
-                transform-origin: 50%;
-                .transition();
-            }
-        }
-        &.on {
-            .countNum {
-                > i {
-                    transform: rotate(180deg);
-                }
-            }
-            .mycount-detailed {
-                display: block;
-            }
-        }
+      }
     }
-    .login {
-        position: relative;
-        float: right;
-        text-align: center;
-        .act-sign {
-            position: relative;
-            margin: 25px 20px 0 0;
-            float: left;
+    &.on {
+      .countNum {
+        > i {
+          transform: rotate(180deg);
         }
-        .to-login {
-            float: right;
-            overflow: hidden;
-            margin-top: 20px;
-            height: 28px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            line-height: 28px;
-            a {
-                display: block;
-                float: left;
-                box-sizing: border-box;
-                color: #fff;
-                padding: 0 20px;
-                & + a {
-                    border-left: 1px solid rgba(255, 255, 255, 0.3);
-                }
-                &:hover {
-                    background: rgba(255, 255, 255, 0.3);
-                }
-            }
-        }
-        .hadlogin {
-            position: relative;
-            float: right;
-            margin-top: 20px;
-            text-align: center;
-            overflow: hidden;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .btn-rechrage,
-        .btn-cash {
-            display: block;
-            float: left;
-            height: 28px;
-            line-height: 28px;
-            padding: 0 20px;
-            color: #fff;
-            &:hover {
-                background: rgba(255, 255, 255, 0.3);
-            }
-        }
-        .btn-cash {
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
-        }
+      }
+      .mycount-detailed {
+        display: block;
+      }
     }
+  }
+  .login {
+    position: relative;
+    float: right;
+    text-align: center;
+    .act-sign {
+      position: relative;
+      margin: 25px 20px 0 0;
+      float: left;
+    }
+    .to-login {
+      float: right;
+      overflow: hidden;
+      margin-top: 20px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      line-height: 28px;
+      a {
+        display: block;
+        float: left;
+        box-sizing: border-box;
+        color: #fff;
+        padding: 0 20px;
+        & + a {
+          border-left: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+    .hadlogin {
+      position: relative;
+      float: right;
+      margin-top: 20px;
+      text-align: center;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .btn-rechrage,
+    .btn-cash {
+      display: block;
+      float: left;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 20px;
+      color: #fff;
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    }
+    .btn-cash {
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  }
 }
 
 .mycount-detailed {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 60px;
+  padding: 16px 16px 0;
+  width: 235px;
+  border-radius: 6px;
+  /*overflow: hidden;*/
+  background: #fff;
+  text-align: left;
+  transform: translateX(-50%);
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  .account-info {
+    color: #263648;
+    .email {
+      line-height: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .uid {
+      line-height: 20px;
+      font-size: 14px;
+    }
+  }
+  .my-transaction,
+  .account-center,
+  .account-deposit,
+  .account-withdraw {
+    display: block;
+    height: 28px;
+    overflow: hidden;
+    margin: 10px auto 0;
+    line-height: 28px;
+    text-align: center;
+    border: 1px solid #6a89cc;
+    border-radius: 6px;
+    &:hover {
+      background: #eef1f9;
+    }
+  }
+  .account-deposit,
+  .account-withdraw {
+    display: none;
+  }
+  .currency-select {
+    margin: 10px 0 0 0;
+    > p {
+      line-height: 38px;
+      color: #263648;
+    }
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      border-radius: 6px;
+      border: 2px solid #6f88cb;
+      height: 50px;
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #6f88cb;
+      cursor: pointer;
+      overflow: hidden;
+      a {
+        display: none;
+      }
+    }
+    li.on {
+      flex-direction: column;
+      background: #6f88cb;
+      color: #fff;
+      .currency-account {
+        height: 22px;
+      }
+      a {
+        display: block;
+        line-height: 16px;
+        text-decoration: underline;
+        font-size: 12px;
+        color: #fff;
+        width: 70px;
+        .text-overflow();
+        margin: 0 auto;
+      }
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 32px;
+        height: 30px;
+        background: url("../assets/img/icon-select.png") no-repeat center;
+        background-size: 32px;
+      }
+    }
+  }
+  .log-out {
+    display: block;
+    overflow: hidden;
+    margin-top: 22px;
+    line-height: 40px;
+    text-align: center;
+    border-top: 1px solid #ced6e0;
+    &:hover {
+      background: #eef1f9;
+    }
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -9px;
+    width: 18px;
+    height: 10px;
+    overflow: hidden;
+    background: url("../assets/img/icon-tri.png") no-repeat center;
+    background-size: cover;
+    transform: translateX(-50%);
+  }
+}
+/*20180720 newAct 拉新活动*/
+.cs-faucet {
+  position: relative;
+  float: right;
+  margin: 21px 22px 0 0;
+  .redPoint {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff1b0e;
+    border-radius: 50%;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+  }
+  .btn-faucet {
+    display: block;
+    width: 19px;
+    height: 26px;
+    overflow: hidden;
+    padding: 0 10px;
+    background: url("../assets/img/icon-water.png") no-repeat center;
+    background-size: 19px;
+    animation: heartbeat 2s infinite;
+  }
+  .faucet-detailed {
     display: none;
     position: absolute;
-    z-index: 10;
-    left: 50%;
-    top: 60px;
-    padding: 16px 16px 0;
-    width: 235px;
-    border-radius: 6px;
-    /*overflow: hidden;*/
+    top: 37px;
+    z-index: 20;
+    right: -24px;
+    padding: 10px 20px 20px;
+    width: 455px;
     background: #fff;
-    text-align: left;
-    transform: translateX(-50%);
-    -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    color: #263648;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border: 4px solid #36c57a;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 28px;
+      top: -10px;
+      width: 18px;
+      height: 10px;
+      overflow: hidden;
+      background: url("../assets/img/icon-tri2.png") no-repeat center;
+      background-size: cover;
+    }
+    .faucet-title {
+      line-height: 68px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      border-bottom: 1px solid #ced6e0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid #ced6e0;
+      padding: 14px 0;
+      p {
+        width: 295px;
+        line-height: 20px;
+      }
+      .btn {
+        display: block;
+        width: 83px;
+        height: 35px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 6px;
+        font-size: 16px;
+        color: #fff;
+        transition: all 0.2s;
+        &.btn-green {
+          background: #20bf6b;
+        }
+        &.btn-yellow {
+          background: #fd9644;
+        }
+        &.btn-gray {
+          background: #ced6e0;
+        }
+        &.btn-ok {
+          cursor: default;
+          background: url("../assets/img/btn-waterok.png") no-repeat center;
+          background-size: 24px;
+        }
+        &:not(.btn-ok):hover {
+          filter: brightness(1.1);
+        }
+      }
+    }
+  }
+  &.on {
+    .faucet-detailed {
+      display: block;
+    }
+  }
+}
+
+.opening {
+  position: absolute;
+  top: 0;
+  left: 160px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+}
+
+#cicle {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+}
+
+@keyframes rubberBand {
+  0% {
+    transform: scaleX(1);
+  }
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes bounceIn {
+  0%,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes freeDown {
+  0% {
+    transform: translateY(-50px) rotate(50deg);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(200px) rotate(-100deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(300px) rotate(-150deg);
+    opacity: 0;
+  }
+}
+
+.fresh_move {
+  animation: fresh_move 1s;
+}
+
+@keyframes fresh_move {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.deadlineMove {
+  animation: deadlineMove 1.3s;
+}
+
+@keyframes deadlineMove {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  65% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blinking {
+  animation: blinking 0.7s;
+}
+
+@keyframes blinking {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.jackpot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 150px;
+  //overflow: hidden;
+  animation: slideDownIn 1s;
+  .jackpot-box {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 947px;
+    height: 112px;
+    margin: 0 auto;
+    background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
+    background-size: cover;
+    line-height: 76px;
+    font-size: 22px;
+    .el-carousel {
+      padding-top: 25px;
+    }
+    .el-carousel__item {
+      text-align: center;
+    }
+    .jackpot-money {
+      font-size: 36px;
+      font-family: sans-eb;
+      line-height: 72px;
+    }
+  }
+  canvas {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+  }
+}
+
+@keyframes slideDownIn {
+  0%,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+/*移动端选择玩法*/
+.m-choose-play {
+  display: none;
+  position: relative;
+  float: left;
+  width: 104/2px;
+  height: 100%;
+  .btn {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 25px auto;
+    cursor: pointer;
+    span {
+      position: absolute;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      top: 7px;
+      .transition();
+      transform-origin: left center;
+    }
+    span:first-child {
+      top: 0;
+    }
+    span:last-child {
+      top: 15px;
+    }
+  }
+  .msg {
+    display: none;
+    float: right;
+    line-height: 70px;
+    font-size: 14px;
+    color: #444c55;
+    .transition();
+  }
+  ul {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    box-sizing: border-box;
+    padding: 0 25px 18px 0;
+    width: 100%;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    background: #000;
+    .transition();
+    li.on,
+    li:hover {
+      a {
+        color: #fff;
+      }
+    }
+    /*&::before{*/
+    /*content: '';*/
+    /*display: block;*/
+    /*position: absolute;*/
+    /*right:5px;*/
+    /*bottom:40px;*/
+    /*width: 10px;*/
+    /*height: 10px;*/
+    /*background: url(../assets/img/icon-new.png) no-repeat center;*/
+    /*background-size: cover;*/
+    /*transform-origin: center;*/
+    /*transform: rotate(30deg);*/
+    /*}*/
+  }
+  &.isShowChoose {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #000;
+    box-sizing: border-box;
+    width: 324/2px;
+    padding-right: 25px;
+    .btn {
+      float: left;
+      margin: 25px 0 25px 13px;
+      span {
+        opacity: 0;
+      }
+      span:first-child {
+        opacity: 1;
+        transform: rotateZ(40deg) scaleX(1.2);
+      }
+      span:last-child {
+        opacity: 1;
+        transform: rotateZ(-40deg) scaleX(1.2);
+      }
+    }
+    .msg {
+      display: block;
+    }
+    ul {
+      display: block;
+      a.on {
+        color: #fff;
+      }
+    }
+    &.icon-new {
+      ul {
+        &::before {
+          content: "N";
+          display: block;
+          position: absolute;
+          bottom: 70px;
+          right: 2px;
+          border-radius: 2px;
+          padding: 0 4px;
+          line-height: 18px;
+          background: #36c57a;
+          font-weight: bold;
+          font-size: 14px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+/*开始适配*/
+@media (max-width: @screen-lg-desktop) {
+  .head {
+    .choose-play {
+      display: none;
+    }
+    .m-choose-play {
+      display: block;
+    }
+  }
+}
+@media (max-width: @screen-desktop) {
+  .head {
+    .hadlogin {
+      display: none;
+    }
+    .account-deposit,
+    .account-withdraw {
+      display: block;
+    }
+  }
+}
+@media (max-width: @screen-tablet) {
+  .head {
+    height: 50px;
+    .logo {
+      width: auto;
+      height: 22px;
+      margin: 14px 0 0 0;
+    }
+    .login {
+      margin: 0;
+      height: 100%;
+      .act-sign {
+        position: absolute;
+        width: 120px;
+        right: 35px;
+        bottom: -7px;
+        margin: 0;
+        padding: 0 4px;
+        height: 15px;
+        line-height: 15px;
+        font-size: 11px;
+        &::before {
+          top: -8px;
+          right: 20px;
+          transform: rotateZ(-90deg);
+        }
+      }
+      .to-login {
+        height: 50px;
+        line-height: 50px;
+        border: none;
+        border-radius: 0;
+        padding: 0 15px;
+        margin-top: 0;
+        font-size: 12px;
+        a {
+          & + a {
+            border: none;
+          }
+        }
+      }
+    }
+    .mycount {
+      margin: 0 10px 0 0;
+      padding: 13.5px 10px;
+      .countNum {
+        padding: 0 12px 0 30px;
+        line-height: 47/2px;
+        font-size: 13px;
+        .icon-user {
+          width: 46/2px;
+          height: 47/2px;
+          background-size: cover;
+        }
+        i {
+          width: 14/2px;
+          height: 8/2px;
+          right: 0;
+          top: 10px;
+          background-size: 14/2px;
+          background-origin: 50%;
+        }
+      }
+    }
+  }
+  .m-choose-play {
+    .btn {
+      margin: 15px 0 15px 13px;
+    }
+    .msg {
+      line-height: 50px;
+    }
+    &.isShowChoose {
+      .btn {
+        margin: 15px 0 15px 13px;
+      }
+      ul {
+        top: 50px;
+      }
+    }
+  }
+  .cs-faucet {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 0;
+    .btn-faucet {
+      width: 33/2px;
+      height: 45/2px;
+      background-size: 33/2px;
+      padding: 13.75px 10px;
+    }
+    .faucet-detailed {
+      top: 46px;
+      right: 50%;
+      transform: translateX(50%);
+      padding: 5px 8px 6px;
+      width: 250px;
+      .faucet-title {
+        line-height: 34px;
+        font-size: 18px;
+      }
+      li {
+        padding: 12px 0;
+        p {
+          width: 170px;
+          line-height: 13px;
+          font-size: 12px;
+        }
+        .btn {
+          width: 128/2px;
+          height: 60/2px;
+          line-height: 60/2px;
+          font-size: 13px;
+          &.btn-ok {
+            background-size: 28px;
+          }
+        }
+      }
+      &::before {
+        right: 50%;
+        transform: translateX(50%);
+        top: -10px;
+
+        overflow: hidden;
+        background: url("../assets/img/icon-tri2.png") no-repeat center;
+        background-size: cover;
+      }
+    }
+  }
+  .mycount-detailed {
+    top: 46px;
+    padding: 13px 13px 0;
+    width: 275/2px;
     .account-info {
-        color: #263648;
-        .email {
-            line-height: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .uid {
-            line-height: 20px;
-            font-size: 14px;
-        }
+      .email {
+        line-height: 19px;
+        font-size: 14px;
+      }
+      .uid {
+        line-height: 17px;
+        font-size: 12px;
+      }
     }
     .my-transaction,
     .account-center,
     .account-deposit,
     .account-withdraw {
-        display: block;
-        height: 28px;
-        overflow: hidden;
-        margin: 10px auto 0;
-        line-height: 28px;
-        text-align: center;
-        border: 1px solid #6a89cc;
-        border-radius: 6px;
-        &:hover {
-            background: #eef1f9;
-        }
-    }
-    .account-deposit,
-    .account-withdraw {
-        display: none;
+      margin-top: 10px;
+      height: 24px;
+      line-height: 24px;
+      font-size: 12px;
     }
     .currency-select {
-        margin: 10px 0 0 0;
-        > p {
-            line-height: 38px;
-            color: #263648;
+      margin: 14px 0 0 0;
+      > p {
+        line-height: 25px;
+        font-size: 12px;
+      }
+      li {
+        height: 48px;
+        border-width: 1px;
+        font-size: 16px;
+      }
+      li.on {
+        a {
+          width: 60px;
+          font-size: 11px;
+          &::after {
+            width: 57/2px;
+            height: 53/2px;
+            background: url("../assets/img/icon-select.png") no-repeat center;
+            background-size: 57/2px;
+          }
         }
-        li {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            border-radius: 6px;
-            border: 2px solid #6f88cb;
-            height: 50px;
-            margin-bottom: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #6f88cb;
-            cursor: pointer;
-            overflow: hidden;
-            a {
-                display: none;
-            }
-        }
-        li.on {
-            flex-direction: column;
-            background: #6f88cb;
-            color: #fff;
-            .currency-account {
-                height: 22px;
-            }
-            a {
-                display: block;
-                line-height: 16px;
-                text-decoration: underline;
-                font-size: 12px;
-                color: #fff;
-                width: 70px;
-                .text-overflow();
-                margin: 0 auto;
-            }
-            &::after {
-                content: "";
-                display: block;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                width: 32px;
-                height: 30px;
-                background: url("../assets/img/icon-select.png") no-repeat
-                    center;
-                background-size: 32px;
-            }
-        }
+      }
     }
     .log-out {
-        display: block;
-        overflow: hidden;
-        margin-top: 22px;
-        line-height: 40px;
-        text-align: center;
-        border-top: 1px solid #ced6e0;
-        &:hover {
-            background: #eef1f9;
-        }
+      margin-top: 20px;
+      line-height: 31px;
+      font-size: 12px;
     }
     &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 50%;
-        top: -9px;
-        width: 18px;
-        height: 10px;
-        overflow: hidden;
-        background: url("../assets/img/icon-tri.png") no-repeat center;
-        background-size: cover;
-        transform: translateX(-50%);
+      right: 50%;
+      transform: translateX(50%);
+      top: -3.5px;
+      width: 8px;
+      height: 4px;
     }
-}
-/*20180720 newAct 拉新活动*/
-.cs-faucet {
-    position: relative;
-    float: right;
-    margin: 21px 22px 0 0;
-    .redPoint {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        background-color: #ff1b0e;
-        border-radius: 50%;
-        color: #fff;
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        text-align: center;
-    }
-    .btn-faucet {
-        display: block;
-        width: 19px;
-        height: 26px;
-        overflow: hidden;
-        padding: 0 10px;
-        background: url("../assets/img/icon-water.png") no-repeat center;
-        background-size: 19px;
-        animation: heartbeat 2s infinite;
-    }
-    .faucet-detailed {
-        display: none;
-        position: absolute;
-        top: 37px;
-        z-index: 20;
-        right: -24px;
-        padding: 10px 20px 20px;
-        width: 455px;
-        background: #fff;
-        border-radius: 6px;
-        color: #263648;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        border: 4px solid #36c57a;
-        &::before {
-            content: "";
-            display: block;
-            position: absolute;
-            right: 28px;
-            top: -10px;
-            width: 18px;
-            height: 10px;
-            overflow: hidden;
-            background: url("../assets/img/icon-tri2.png") no-repeat center;
-            background-size: cover;
-        }
-        .faucet-title {
-            line-height: 68px;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            border-bottom: 1px solid #ced6e0;
-        }
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            overflow: hidden;
-            border-bottom: 1px solid #ced6e0;
-            padding: 14px 0;
-            p {
-                width: 295px;
-                line-height: 20px;
-            }
-            .btn {
-                display: block;
-                width: 83px;
-                height: 35px;
-                overflow: hidden;
-                text-align: center;
-                line-height: 35px;
-                border-radius: 6px;
-                font-size: 16px;
-                color: #fff;
-                transition: all 0.2s;
-                &.btn-green {
-                    background: #20bf6b;
-                }
-                &.btn-yellow {
-                    background: #fd9644;
-                }
-                &.btn-gray {
-                    background: #ced6e0;
-                }
-                &.btn-ok {
-                    cursor: default;
-                    background: url("../assets/img/btn-waterok.png") no-repeat
-                        center;
-                    background-size: 24px;
-                }
-                &:not(.btn-ok):hover {
-                    filter: brightness(1.1);
-                }
-            }
-        }
-    }
-    &.on {
-        .faucet-detailed {
-            display: block;
-        }
-    }
-}
-
-.opening {
-    position: absolute;
-    top: 0;
-    left: 160px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #fff;
-    font-weight: bold;
-}
-
-#cicle {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translate(-50%);
-}
-
-@keyframes rubberBand {
-    0% {
-        transform: scaleX(1);
-    }
-    30% {
-        transform: scale3d(1.25, 0.75, 1);
-    }
-
-    40% {
-        transform: scale3d(0.75, 1.25, 1);
-    }
-
-    50% {
-        transform: scale3d(1.15, 0.85, 1);
-    }
-
-    65% {
-        transform: scale3d(0.95, 1.05, 1);
-    }
-
-    75% {
-        transform: scale3d(1.05, 0.95, 1);
-    }
-
-    to {
-        transform: scaleX(1);
-    }
-}
-
-@keyframes bounceIn {
-    0%,
-    60%,
-    75%,
-    90%,
-    to {
-        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-
-    0% {
-        opacity: 0;
-        transform: translate3d(0, -3000px, 0);
-    }
-
-    60% {
-        opacity: 1;
-        transform: translate3d(0, 25px, 0);
-    }
-
-    75% {
-        transform: translate3d(0, -10px, 0);
-    }
-
-    90% {
-        transform: translate3d(0, 5px, 0);
-    }
-
-    to {
-        transform: none;
-    }
-}
-
-@keyframes freeDown {
-    0% {
-        transform: translateY(-50px) rotate(50deg);
-        opacity: 1;
-    }
-    60% {
-        opacity: 1;
-    }
-    80% {
-        transform: translateY(200px) rotate(-100deg);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(300px) rotate(-150deg);
-        opacity: 0;
-    }
-}
-
-.fresh_move {
-    animation: fresh_move 1s;
-}
-
-@keyframes fresh_move {
-    0% {
-        transform: rotate(0);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.deadlineMove {
-    animation: deadlineMove 1.3s;
-}
-
-@keyframes deadlineMove {
-    0% {
-        transform: translateY(0);
-    }
-    35% {
-        opacity: 0;
-        transform: translateY(60px);
-    }
-    65% {
-        opacity: 0;
-        transform: translateY(-60px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.blinking {
-    animation: blinking 0.7s;
-}
-
-@keyframes blinking {
-    0% {
-        opacity: 1;
-    }
-    25% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    75% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-.jackpot {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    width: 100%;
-    height: 150px;
-    //overflow: hidden;
-    animation: slideDownIn 1s;
-    .jackpot-box {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        max-width: 947px;
-        height: 112px;
-        margin: 0 auto;
-        background: url("../assets/slice/jackpot-bg.png") top center no-repeat;
-        background-size: cover;
-        line-height: 76px;
-        font-size: 22px;
-        .el-carousel {
-            padding-top: 25px;
-        }
-        .el-carousel__item {
-            text-align: center;
-        }
-        .jackpot-money {
-            font-size: 36px;
-            font-family: sans-eb;
-            line-height: 72px;
-        }
-    }
-    canvas {
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-}
-
-@keyframes slideDownIn {
-    0%,
-    60%,
-    75%,
-    90%,
-    to {
-        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-
-    0% {
-        opacity: 0;
-        transform: translate3d(0, -3000px, 0);
-    }
-
-    60% {
-        opacity: 1;
-        transform: translate3d(0, 25px, 0);
-    }
-
-    75% {
-        transform: translate3d(0, -10px, 0);
-    }
-
-    90% {
-        transform: translate3d(0, 5px, 0);
-    }
-
-    to {
-        transform: none;
-    }
-}
-
-/*移动端选择玩法*/
-.m-choose-play {
-    display: none;
-    position: relative;
-    float: left;
-    width: 104/2px;
-    height: 100%;
-    .btn {
-        position: relative;
-        width: 20px;
-        height: 20px;
-        margin: 25px auto;
-        cursor: pointer;
-        span {
-            position: absolute;
-            left: 0;
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #fff;
-            border-radius: 2px;
-            top: 7px;
-            .transition();
-            transform-origin: left center;
-        }
-        span:first-child {
-            top: 0;
-        }
-        span:last-child {
-            top: 15px;
-        }
-    }
-    .msg {
-        display: none;
-        float: right;
-        line-height: 70px;
-        font-size: 14px;
-        color: #444c55;
-        .transition();
-    }
-    ul {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        box-sizing: border-box;
-        padding: 0 25px 18px 0;
-        width: 100%;
-        line-height: 40px;
-        font-size: 20px;
-        font-weight: bold;
-        text-align: right;
-        background: #000;
-        .transition();
-        li.on,
-        li:hover {
-            a {
-                color: #fff;
-            }
-        }
-        /*&::before{*/
-        /*content: '';*/
-        /*display: block;*/
-        /*position: absolute;*/
-        /*right:5px;*/
-        /*bottom:40px;*/
-        /*width: 10px;*/
-        /*height: 10px;*/
-        /*background: url(../assets/img/icon-new.png) no-repeat center;*/
-        /*background-size: cover;*/
-        /*transform-origin: center;*/
-        /*transform: rotate(30deg);*/
-        /*}*/
-    }
-    &.isShowChoose {
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: #000;
-        box-sizing: border-box;
-        width: 324/2px;
-        padding-right: 25px;
-        .btn {
-            float: left;
-            margin: 25px 0 25px 13px;
-            span {
-                opacity: 0;
-            }
-            span:first-child {
-                opacity: 1;
-                transform: rotateZ(40deg) scaleX(1.2);
-            }
-            span:last-child {
-                opacity: 1;
-                transform: rotateZ(-40deg) scaleX(1.2);
-            }
-        }
-        .msg {
-            display: block;
-        }
-        ul {
-            display: block;
-            a.on {
-                color: #fff;
-            }
-        }
-        &.icon-new {
-            ul {
-                &::before {
-                    content: "N";
-                    display: block;
-                    position: absolute;
-                    bottom: 30px;
-                    right: 2px;
-                    border-radius: 2px;
-                    padding: 0 4px;
-                    line-height: 18px;
-                    background: #36c57a;
-                    font-weight: bold;
-                    font-size: 14px;
-                    color: #fff;
-                }
-            }
-        }
-    }
-}
-/*开始适配*/
-@media (max-width: @screen-lg-desktop) {
-    .head {
-        .choose-play {
-            display: none;
-        }
-        .m-choose-play {
-            display: block;
-        }
-    }
-}
-@media (max-width: @screen-desktop) {
-    .head {
-        .hadlogin {
-            display: none;
-        }
-        .account-deposit,
-        .account-withdraw {
-            display: block;
-        }
-    }
-}
-@media (max-width: @screen-tablet) {
-    .head {
-        height: 50px;
-        .logo {
-            width: auto;
-            height: 22px;
-            margin: 14px 0 0 0;
-        }
-        .login {
-            margin: 0;
-            height: 100%;
-            .act-sign {
-                position: absolute;
-                width: 120px;
-                right: 35px;
-                bottom: -7px;
-                margin: 0;
-                padding: 0 4px;
-                height: 15px;
-                line-height: 15px;
-                font-size: 11px;
-                &::before {
-                    top: -8px;
-                    right: 20px;
-                    transform: rotateZ(-90deg);
-                }
-            }
-            .to-login {
-                height: 50px;
-                line-height: 50px;
-                border: none;
-                border-radius: 0;
-                padding: 0 15px;
-                margin-top: 0;
-                font-size: 12px;
-                a {
-                    & + a {
-                        border: none;
-                    }
-                }
-            }
-        }
-        .mycount {
-            margin: 0 10px 0 0;
-            padding: 13.5px 10px;
-            .countNum {
-                padding: 0 12px 0 30px;
-                line-height: 47/2px;
-                font-size: 13px;
-                .icon-user {
-                    width: 46/2px;
-                    height: 47/2px;
-                    background-size: cover;
-                }
-                i {
-                    width: 14/2px;
-                    height: 8/2px;
-                    right: 0;
-                    top: 10px;
-                    background-size: 14/2px;
-                    background-origin: 50%;
-                }
-            }
-        }
-    }
-    .m-choose-play {
-        .btn {
-            margin: 15px 0 15px 13px;
-        }
-        .msg {
-            line-height: 50px;
-        }
-        &.isShowChoose {
-            .btn {
-                margin: 15px 0 15px 13px;
-            }
-            ul {
-                top: 50px;
-            }
-        }
-    }
-    .cs-faucet {
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%);
-        margin: 0;
-        .btn-faucet {
-            width: 33/2px;
-            height: 45/2px;
-            background-size: 33/2px;
-            padding: 13.75px 10px;
-        }
-        .faucet-detailed {
-            top: 46px;
-            right: 50%;
-            transform: translateX(50%);
-            padding: 5px 8px 6px;
-            width: 250px;
-            .faucet-title {
-                line-height: 34px;
-                font-size: 18px;
-            }
-            li {
-                padding: 12px 0;
-                p {
-                    width: 170px;
-                    line-height: 13px;
-                    font-size: 12px;
-                }
-                .btn {
-                    width: 128/2px;
-                    height: 60/2px;
-                    line-height: 60/2px;
-                    font-size: 13px;
-                    &.btn-ok {
-                        background-size: 28px;
-                    }
-                }
-            }
-            &::before {
-                right: 50%;
-                transform: translateX(50%);
-                top: -10px;
-
-                overflow: hidden;
-                background: url("../assets/img/icon-tri2.png") no-repeat center;
-                background-size: cover;
-            }
-        }
-    }
-    .mycount-detailed {
-        top: 46px;
-        padding: 13px 13px 0;
-        width: 275/2px;
-        .account-info {
-            .email {
-                line-height: 19px;
-                font-size: 14px;
-            }
-            .uid {
-                line-height: 17px;
-                font-size: 12px;
-            }
-        }
-        .my-transaction,
-        .account-center,
-        .account-deposit,
-        .account-withdraw {
-            margin-top: 10px;
-            height: 24px;
-            line-height: 24px;
-            font-size: 12px;
-        }
-        .currency-select {
-            margin: 14px 0 0 0;
-            > p {
-                line-height: 25px;
-                font-size: 12px;
-            }
-            li {
-                height: 48px;
-                border-width: 1px;
-                font-size: 16px;
-            }
-            li.on {
-                a {
-                    width: 60px;
-                    font-size: 11px;
-                    &::after {
-                        width: 57/2px;
-                        height: 53/2px;
-                        background: url("../assets/img/icon-select.png")
-                            no-repeat center;
-                        background-size: 57/2px;
-                    }
-                }
-            }
-        }
-        .log-out {
-            margin-top: 20px;
-            line-height: 31px;
-            font-size: 12px;
-        }
-        &::before {
-            right: 50%;
-            transform: translateX(50%);
-            top: -3.5px;
-            width: 8px;
-            height: 4px;
-        }
-    }
+  }
 }
 @media (max-width: @screen-phone) {
 }
 @keyframes icon-new {
-    0%,
-    8%,
-    22%,
-    100% {
-        transform: rotate(0) translateX(0);
-    }
-    10%,
-    14%,
-    18% {
-        transform: rotate(30deg) translateY(4px);
-    }
-    12%,
-    16%,
-    20% {
-        transform: rotate(30deg) translateY(2px);
-    }
+  0%,
+  8%,
+  22%,
+  100% {
+    transform: rotate(0) translateX(0);
+  }
+  10%,
+  14%,
+  18% {
+    transform: rotate(30deg) translateY(4px);
+  }
+  12%,
+  16%,
+  20% {
+    transform: rotate(30deg) translateY(2px);
+  }
 }
 @keyframes heartbeat {
-    0%,
-    30%,
-    80%,
-    100% {
-        transform: scale(1);
-        filter: brightness(1);
-    }
-    20%,
-    40% {
-        transform: scale(1.2);
-        filter: brightness(1.2);
-    }
+  0%,
+  30%,
+  80%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  20%,
+  40% {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+  }
 }
 .newFirst {
-    position: absolute;
-    top: 26px;
-    left: 39%;
-    margin-left: -118px;
-    z-index: 99;
+  position: absolute;
+  top: 26px;
+  left: 39%;
+  margin-left: -118px;
+  z-index: 99;
+  text-align: center;
+  &::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid #fff;
+  }
+  .msg {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 250px;
+    height: 52px;
+    overflow: hidden;
+    line-height: 20px;
+    font-size: 14px;
+    color: #263648;
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
+    box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
+    border-radius: 6px;
+    background: #fff;
+  }
+  p {
+    padding: 5px 0px 2px 8px;
     text-align: center;
-    &::before {
-        content: "";
-        display: block;
-        width: 0;
-        height: 0;
-        margin: 0 auto;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 7px solid transparent;
-        border-bottom: 7px solid #fff;
-    }
-    .msg {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 250px;
-        height: 52px;
-        overflow: hidden;
-        line-height: 20px;
-        font-size: 14px;
-        color: #263648;
-        -webkit-box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
-        box-shadow: 0px 3px 10px 0px rgba(25, 39, 56, 0.4);
-        border-radius: 6px;
-        background: #fff;
-    }
-    p {
-        padding: 5px 0px 2px 8px;
-        text-align: center;
-    }
+  }
 }
 .light {
-    animation: light 2s;
+  animation: light 2s;
 }
 @keyframes light {
-    0%,
-    40%,
-    80%,
-    100% {
-        filter: brightness(1);
-    }
-    20%,
-    60% {
-        filter: brightness(1.5);
-    }
+  0%,
+  40%,
+  80%,
+  100% {
+    filter: brightness(1);
+  }
+  20%,
+  60% {
+    filter: brightness(1.5);
+  }
 }
 </style>

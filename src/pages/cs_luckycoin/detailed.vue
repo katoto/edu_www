@@ -49,7 +49,7 @@
                             {{goodsinfo.goodsValue}}<i>{{coinText}}</i>
                         </div>
                         <div class="item-usd">
-                            {{formatUSD(goodsinfo.coinprice.USD, goodsinfo.goodsValue)}} USD
+                            {{formatUSDValue()}} USD
                         </div>
                         <div class="item-main">
                             <div class="main-right">
@@ -210,13 +210,13 @@
                 </div>
                 <div class="detailedtips hidden-xs hidden-sm">
                     <p v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'"></p>
-                    <router-link :to="{path:'/help/helpView/2/1'}" style="color: #fff;text-decoration: underline">
+                    <router-link :to="{path:'help/helpView/2/1/Play LuckyCoin'}" style="color: #fff;text-decoration: underline">
                         <lang>How to play?</lang>
                     </router-link>
                 </div>
             </div>
             <p class="main-detailed toplay hidden-lg hidden-md">
-                <router-link :to="{path:'/help/helpView/2/1'}" style="display: block;text-align: center;">
+                <router-link :to="{path:'help/helpView/2/1/Play LuckyCoin'}" style="display: block;text-align: center;">
                     <lang>How to play?</lang>
                 </router-link>
             </p>
@@ -319,7 +319,7 @@
 </template>
 
 <script>
-import BreadCrumbs from "~/components/BreadCrumbs.vue";
+import BreadCrumbs from '~/components/BreadCrumbs.vue'
 import {
     getURLParams,
     formatTime,
@@ -331,15 +331,15 @@ import {
     formatUSD,
     getCCAcount,
     getCCDeductionMoney
-} from "~/common/util";
-import { mapActions, mapState } from "vuex";
-import timeMixin from "./timeMixin";
+} from '~/common/util'
+import { mapActions, mapState } from 'vuex'
+import timeMixin from './timeMixin'
 export default {
     mixins: [timeMixin],
-    data() {
+    data () {
         return {
-            number: "",
-            activeName: "all",
+            number: '',
+            activeName: 'all',
             pageno: 1,
             pageSize: 10,
             PageTotal: 10,
@@ -350,7 +350,7 @@ export default {
             myNumbers: [],
             orders: [],
             goodsinfo: null,
-            infoName: "",
+            infoName: '',
             betMoney: 0,
             betValue: 0,
             canBuyValue: 0,
@@ -359,21 +359,21 @@ export default {
             showSuccess: false,
             showFail: false,
             showDeposit: false,
-            failMsg: "",
-            mybetTime: "",
+            failMsg: '',
+            mybetTime: '',
             time: "1' 30\"",
             _time: 90,
             timer: null
-        };
+        }
     },
     methods: {
-        ...mapActions(["getUserInfo"]),
-        ...mapActions("cs_luckycoin", [
-            "getDetailData",
-            "getAllBids",
-            "getMyBids",
-            "betNow",
-            "getBetsList"
+        ...mapActions(['getUserInfo']),
+        ...mapActions('cs_luckycoin', [
+            'getDetailData',
+            'getAllBids',
+            'getMyBids',
+            'betNow',
+            'getBetsList'
         ]),
         formatTime,
         numberComma,
@@ -382,93 +382,109 @@ export default {
         formateCoinType,
         getCCAcount,
         getCCDeductionMoney,
-        init() {
-            let params = getURLParams();
-            if (params.number || this.number !== "") {
-                this.number = params.number || this.number;
-                this.getDetailInfo();
-                this.getAllBidsInfo();
-                this.getMyBidsInfo();
+        formatUSDValue () {
+            if (!this.priceData['2001']) {
+                return '--'
+            }
+            let EthPrice = Number(this.priceData['2001'].USD)
+            let EthDiscount = Number(this.discountRate['2001'])
+            let goodsValue = Number(this.goodsinfo.goodsValue)
+            if (this.coinType === '2000') {
+                return formatUSD(EthPrice, accDiv(goodsValue, EthDiscount))
+            } else {
+                let thisPrice = Number(this.priceData[this.coinType].USD)
+                return formatUSD(thisPrice, goodsValue)
+            }
+        },
+        init () {
+            let params = getURLParams()
+            if (params.number || this.number !== '') {
+                this.number = params.number || this.number
+                this.getDetailInfo()
+                this.getAllBidsInfo()
+                this.getMyBidsInfo()
             } else {
                 this.getBetsList({
                     pagesize: 1
                 }).then(res => {
-                    let data = res.data.goods;
+                    let data = res.data.goods
                     if (data && data[0]) {
-                        this.number = data[0].exceptId;
+                        this.number = data[0].exceptId
                         this.$router.replace(
                             `/luckycoin/detailed?number=${this.number}`
-                        );
-                        this.init();
+                        )
+                        this.init()
                     }
-                });
+                })
             }
 
             if (params.go) {
-                this.activeName = "my";
+                this.activeName = 'my'
             }
         },
-        winSort(numbers) {
-            let tmp = [...numbers];
+        winSort (numbers) {
+            let tmp = [...numbers]
             for (let index = 0; index < tmp.length; index++) {
-                let item = tmp[index];
+                let item = tmp[index]
                 if (item === this.goodsinfo.luckyNum) {
-                    tmp.splice(index, 1);
-                    tmp.unshift(item);
-                    break;
+                    tmp.splice(index, 1)
+                    tmp.unshift(item)
+                    break
                 }
             }
-            return tmp;
+            return tmp
         },
-        triggerTimeout() {
-            this.getDetailInfo();
+        triggerTimeout () {
+            this.getDetailInfo()
         },
-        triggerWaitting() {
-            if (this.goodsinfo.state !== "4") {
-                this.goodsinfo.state = "3";
+        triggerWaitting () {
+            if (this.goodsinfo.state !== '4') {
+                this.goodsinfo.state = '3'
             }
         },
-        getDetailInfo() {
+        getDetailInfo () {
             return this.getDetailData({
                 expectId: this.number,
-                lotid: "2"
+                lotid: '2'
             }).then(res => {
-                this.renderDetailInfo(res);
-                this.renderTime(res.data.goodsinfo.endtime);
-                return res;
-            });
+                this.renderDetailInfo(res)
+                this.renderTime(res.data.goodsinfo.endtime)
+                return res
+            })
         },
-        renderDetailInfo(res) {
-            this.goodsinfo = res.data.goodsinfo;
-            this.betValue = Number(this.goodsinfo.bidValue);
-            this.formatCommingTime(this.goodsinfo.lefttime);
+        renderDetailInfo (res) {
+            this.goodsinfo = res.data.goodsinfo
+            this.priceData = res.data.price_data
+            this.discountRate = res.data.discount_rate
+            this.betValue = Number(this.goodsinfo.bidValue)
+            this.formatCommingTime(this.goodsinfo.lefttime)
         },
-        formatCommingTime(time) {
-            let num = Number(time);
-            num = num === 0 || num > 90 ? 90 : num;
+        formatCommingTime (time) {
+            let num = Number(time)
+            num = num === 0 || num > 90 ? 90 : num
 
             if (this.timer) {
-                clearInterval(this.timer);
-                this.timer = null;
+                clearInterval(this.timer)
+                this.timer = null
             }
-            this._time = num;
-            this.renderCommingTime();
+            this._time = num
+            this.renderCommingTime()
             this.timer = setInterval(() => {
-                this._time--;
+                this._time--
                 if (this._time === 0) {
-                    clearInterval(this.timer);
-                    this.refresh();
+                    clearInterval(this.timer)
+                    this.refresh()
                 }
-                this.renderCommingTime();
-            }, 1000);
+                this.renderCommingTime()
+            }, 1000)
         },
-        renderCommingTime() {
-            this.time = `${Math.floor(this._time / 60)}' ${this._time % 60}"`;
+        renderCommingTime () {
+            this.time = `${Math.floor(this._time / 60)}' ${this._time % 60}"`
         },
-        getAllBidsInfo() {
+        getAllBidsInfo () {
             this.getAllBids({
                 expectId: this.number,
-                lotid: "2",
+                lotid: '2',
                 pagesize: this.pageSize,
                 pageno: this.pageno
             }).then(res => {
@@ -477,1551 +493,1544 @@ export default {
                         res.data.totalBids,
                         res.data.goodsinfo
                     )
-                ];
-                this.PageTotal = Number(res.data.pages);
-            });
+                ]
+                this.PageTotal = Number(res.data.pages)
+            })
         },
-        showAllNumber(uid, infoName) {
+        showAllNumber (uid, infoName) {
             this.getNumberDetail(uid).then(res => {
-                this.infoName = infoName;
-                this.numbers = res.data.luckyNums;
-                this.isShowNumberPop = true;
-            });
+                this.infoName = infoName
+                this.numbers = res.data.luckyNums
+                this.isShowNumberPop = true
+            })
         },
-        getNumberDetail(uid) {
+        getNumberDetail (uid) {
             return this.getMyBids({
                 expectId: this.number,
-                lotid: "2",
+                lotid: '2',
                 uid
-            });
+            })
         },
-        formatTotalBids(data, goodsinfo) {
+        formatTotalBids (data, goodsinfo) {
             let tmp = data.map(item => {
                 if (item.uid === this.userInfo && this.userInfo.uid) {
-                    this.mybetTime = formatTime(item.crtime, "MM-dd HH:mm:ss");
+                    this.mybetTime = formatTime(item.crtime, 'MM-dd HH:mm:ss')
                 }
                 return {
                     ...item,
-                    crtime: formatTime(item.crtime, "MM-dd HH:mm:ss"),
-                    isWin: item.winstate === "1",
+                    crtime: formatTime(item.crtime, 'MM-dd HH:mm:ss'),
+                    isWin: item.winstate === '1',
                     type: formateCoinType(goodsinfo.goodsType).toLowerCase(),
                     amount: formatNum(
                         accMul(Number(goodsinfo.bidValue), Number(item.bids)),
                         5
                     )
-                };
-            });
+                }
+            })
             for (let index = 0; index < tmp.length; index++) {
-                let item = tmp[index];
+                let item = tmp[index]
                 if (item.isWin) {
-                    tmp.splice(index, 1);
-                    tmp.unshift(item);
-                    break;
+                    tmp.splice(index, 1)
+                    tmp.unshift(item)
+                    break
                 }
             }
-            return tmp;
+            return tmp
         },
-        handleBetEvent() {
-            this.failMsg = "";
+        handleBetEvent () {
+            this.failMsg = ''
             if (!this.isLogin) {
-                this.$store.commit("showLoginPop");
-                return;
+                this.$store.commit('showLoginPop')
+                return
             }
             if (this.disableBet || this.isBlinking) {
-                return;
+                return
             }
             if (
                 Number(this.betValue) < this.thisAccount.balance &&
                 Number(this.betValue) > this.thisAccount.checkout_balance
             ) {
-                this.failMsg = _("Top-up bonus cannot be used in LuckyCoin.");
-                this.showFail = true;
-                return;
+                this.failMsg = _('Top-up bonus cannot be used in LuckyCoin.')
+                this.showFail = true
+                return
             }
             if (Number(this.betValue) > this.balance) {
                 if (
                     this.balance &&
                     this.balance > Number(this.goodsinfo.bidValue)
                 ) {
-                    this.canBuyValue = this.formatBidValue(this.balance);
+                    this.canBuyValue = this.formatBidValue(this.balance)
                 } else {
-                    this.canBuyValue = 0;
+                    this.canBuyValue = 0
                 }
-                this.showDeposit = true;
-                return;
+                this.showDeposit = true
+                return
             }
-            let value = this.betValue;
-            value = value === "" ? this.goodsinfo.bidValue : Number(value);
-            this.betNum = accDiv(value, this.goodsinfo.bidValue);
+            let value = this.betValue
+            value = value === '' ? this.goodsinfo.bidValue : Number(value)
+            this.betNum = accDiv(value, this.goodsinfo.bidValue)
             this.betNow({
                 cointype: this.coinType,
                 codestr: `${this.number}|${this.coinType}|${this.betNum}|${
                     this.goodsinfo.bidValue
                 }`,
-                discount: this.isUseCC && this.coinType !== "2000" ? "1" : "0"
+                discount: this.isUseCC && this.coinType !== '2000' ? '1' : '0'
             })
                 .then(() => {
-                    this.refresh();
-                    this.getUserInfo();
-                    this.showSuccess = true;
+                    this.refresh()
+                    this.getUserInfo()
+                    this.showSuccess = true
                 })
                 .catch(errorData => {
-                    this.failMsg = errorData.message;
-                    this.showFail = true;
-                });
+                    this.failMsg = errorData.message
+                    this.showFail = true
+                })
         },
-        getMyBidsInfo() {
+        getMyBidsInfo () {
             if (!this.isLogin) {
-                return;
+                return
             }
             this.getNumberDetail(this.userInfo.uid).then(res => {
                 this.myNumbers = res.data.luckyNums.filter(item => {
-                    return item !== "";
-                });
+                    return item !== ''
+                })
                 this.orders = [...res.data.orders].sort(
                     (a, b) => (Number(a.crtime) > Number(b.crtime) ? 1 : -1)
-                );
+                )
                 this.orders.forEach((item, index) => {
                     this.orders[index].crtime = formatTime(
                         item.crtime,
-                        "yyyy-MM-dd HH:mm:ss"
-                    );
-                    this.orders[index].list = item.betcode.split(",");
-                });
-            });
+                        'yyyy-MM-dd HH:mm:ss'
+                    )
+                    this.orders[index].list = item.betcode.split(',')
+                })
+            })
             this.getMyBids({
                 expectId: this.number,
-                lotid: "2",
+                lotid: '2',
                 uid: this.userInfo.uid
-            }).then(res => this.renderMyBet(res.data));
+            }).then(res => this.renderMyBet(res.data))
         },
-        renderMyBet(res) {
+        renderMyBet (res) {
             // let money = 0
             let price = accMul(
                 Number(res.goodsinfo.bidValue),
                 res.luckyNums.length
-            );
-            this.betMoney = price === 0 ? 0 : price;
+            )
+            this.betMoney = price === 0 ? 0 : price
         },
-        handleAllBidsChange() {
-            this.getAllBidsInfo();
+        handleAllBidsChange () {
+            this.getAllBidsInfo()
         },
-        chooseHalf() {
-            this.betValue = Number(this.betValue);
+        chooseHalf () {
+            this.betValue = Number(this.betValue)
             if (isNaN(this.betValue)) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue === 0) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue / 2 >= this.minValue) {
-                this.betValue = this.formatBidValue(this.betValue / 2);
+                this.betValue = this.formatBidValue(this.betValue / 2)
             } else if (this.betValue > this.minValue) {
-                this.betValue = this.minValue;
+                this.betValue = this.minValue
             }
         },
-        chooseDouble() {
-            this.betValue = Number(this.betValue);
+        chooseDouble () {
+            this.betValue = Number(this.betValue)
             if (isNaN(this.betValue)) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue === 0) {
-                this.betValue = this.formatBidValue(this.minValue * 2);
-                return;
+                this.betValue = this.formatBidValue(this.minValue * 2)
+                return
             }
             if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
             if (this.betValue * 2 <= this.maxValue) {
-                this.betValue = this.formatBidValue(this.betValue * 2);
+                this.betValue = this.formatBidValue(this.betValue * 2)
             } else if (this.betValue < this.maxValue) {
-                this.betValue = this.maxValue;
+                this.betValue = this.maxValue
             }
         },
-        chooseMax() {
+        chooseMax () {
             if (this.isLogin && this.balance < this.goodsinfo.bidValue) {
-                this.betValue = this.minValue;
-                return;
+                this.betValue = this.minValue
+                return
             }
-            this.betValue = this.maxValue;
+            this.betValue = this.maxValue
         },
-        formatBidValue(value) {
-            let minValue = this.goodsinfo.bidValue;
+        formatBidValue (value) {
+            let minValue = this.goodsinfo.bidValue
             if (value && minValue && value >= 0 && minValue >= 0) {
                 return minValue >= value
                     ? minValue
-                    : accMul(Math.floor(accDiv(value, minValue)), minValue);
+                    : accMul(Math.floor(accDiv(value, minValue)), minValue)
             }
-            return value;
+            return value
         },
-        loginHandler() {
-            this.$store.commit("showLoginPop");
+        loginHandler () {
+            this.$store.commit('showLoginPop')
         },
-        getRowClass({ row }) {
-            return row.isWin ? "mywin" : "";
+        getRowClass ({ row }) {
+            return row.isWin ? 'mywin' : ''
         },
-        refresh() {
-            this.init();
+        refresh () {
+            this.init()
         },
-        blink() {
+        blink () {
             return new Promise(resolve => {
-                this.isBlinking = true;
+                this.isBlinking = true
                 setTimeout(() => {
-                    this.isBlinking = false;
-                    resolve(true);
-                }, 2300);
-            });
+                    this.isBlinking = false
+                    resolve(true)
+                }, 2300)
+            })
         }
     },
     computed: {
         ...mapState({
             isLogin: state => !!state.isLog
         }),
-        ...mapState(["userInfo"]),
+        ...mapState(['userInfo']),
         isUseCC: {
-            set(value) {
-                this.$store.commit("cs_luckycoin/changeCC", value);
+            set (value) {
+                this.$store.commit('cs_luckycoin/changeCC', value)
             },
-            get() {
-                return this.$store.state.cs_luckycoin.isUseCC;
+            get () {
+                return this.$store.state.cs_luckycoin.isUseCC
             }
         },
-        currBalance() {
-            return this.$store.state.currBalance;
+        currBalance () {
+            return this.$store.state.currBalance
         },
-        thisAccount() {
+        thisAccount () {
             if (
                 this.userInfo &&
                 this.userInfo.accounts &&
                 this.userInfo.accounts.length > 0
             ) {
-                let accounts = this.userInfo.accounts;
+                let accounts = this.userInfo.accounts
                 for (let index = 0; index < accounts.length; index++) {
-                    let account = accounts[index];
+                    let account = accounts[index]
                     if (account.cointype === this.coinType) {
-                        return account;
+                        return account
                     }
                 }
             }
-            return {};
+            return {}
         },
-        balance() {
+        balance () {
             return Number(this.thisAccount.balance) > 0
                 ? Number(this.thisAccount.balance)
-                : 0;
+                : 0
         },
-        coinType() {
-            return this.goodsinfo.goodsType || "2001";
+        coinType () {
+            return this.goodsinfo.goodsType || '2001'
         },
-        coinText() {
+        coinText () {
             return formateCoinType(
-                this.goodsinfo.goodsType || "2001"
-            ).toUpperCase();
+                this.goodsinfo.goodsType || '2001'
+            ).toUpperCase()
         },
-        isDraw() {
-            return this.goodsinfo.state === "4";
+        isDraw () {
+            return this.goodsinfo.state === '4'
         },
-        isWaiting() {
-            return this.goodsinfo.state === "3";
+        isWaiting () {
+            return this.goodsinfo.state === '3'
         },
-        isYouWin() {
+        isYouWin () {
             return (
                 this.isDraw &&
                 this.userInfo &&
                 this.goodsinfo.winUid === this.userInfo.uid
-            );
+            )
         },
-        betStatus() {
+        betStatus () {
             // normal/win/fail/finished/expired
             if (this.isYouWin) {
-                return "win";
+                return 'win'
             } else if (this.isDraw) {
-                return "fail";
-            } else if (this.goodsinfo.state === "3") {
-                return "finished";
-            } else if (this.goodsinfo.state === "5") {
-                return "expired";
+                return 'fail'
+            } else if (this.goodsinfo.state === '3') {
+                return 'finished'
+            } else if (this.goodsinfo.state === '5') {
+                return 'expired'
             }
-            return "normal";
+            return 'normal'
         },
-        minValue() {
-            return this.goodsinfo.bidValue || 0;
+        minValue () {
+            return this.goodsinfo.bidValue || 0
         },
-        maxValue() {
+        maxValue () {
             let maxBidNum = accMul(
                 this.goodsinfo.leftBids,
                 this.goodsinfo.bidValue
-            );
+            )
             return this.formatBidValue(
                 !this.isLogin || this.balance > maxBidNum
                     ? maxBidNum
                     : this.balance
-            );
+            )
         },
-        disableBet() {
+        disableBet () {
             return (
                 Number(this.betValue) !==
-                    Number(this.formatBidValue(this.betValue)) ||
+                Number(this.formatBidValue(this.betValue)) ||
                 Number(this.betValue) > this.maxValue
-            );
+            )
         },
-        rate() {
-            let total = this.goodsinfo.totalBids;
-            let left = this.goodsinfo.leftBids;
+        rate () {
+            let total = this.goodsinfo.totalBids
+            let left = this.goodsinfo.leftBids
             return total === 0 && left === 0
                 ? 0
-                : parseInt(((total - left) / total) * 314);
+                : parseInt(((total - left) / total) * 314)
         }
     },
     components: {
         BreadCrumbs
     },
     watch: {
-        isLogin() {
-            this.refresh();
+        isLogin () {
+            this.refresh()
         },
-        showSuccess() {
-            this.isBlinking = false;
+        showSuccess () {
+            this.isBlinking = false
         }
     },
-    mounted() {
-        document.documentElement.className = "flexhtml";
-        this.refresh();
-        this.$store.commit("cs_luckycoin/bindListener", {
+    mounted () {
+        document.documentElement.className = 'flexhtml'
+        this.refresh()
+        this.$store.commit('cs_luckycoin/bindListener', {
             [this.number]: () => {
                 if (!this.showSuccess) {
-                    this.blink().then(() => this.refresh());
-                    return;
+                    this.blink().then(() => this.refresh())
+                    return
                 }
-                this.refresh();
+                this.refresh()
             }
-        });
-        this.$store.commit("cs_luckycoin/bindPageListener", {
+        })
+        this.$store.commit('cs_luckycoin/bindPageListener', {
             detailed: () => {
-                this.refresh();
+                this.refresh()
             }
-        });
+        })
     },
-    beforeDestroy() {
-        document.documentElement.className = "";
-        this.$store.commit("cs_luckycoin/unbindListener", this.number);
+    beforeDestroy () {
+        document.documentElement.className = ''
+        this.$store.commit('cs_luckycoin/unbindListener', this.number)
         if (this.timer) {
-            clearInterval(this.timer);
+            clearInterval(this.timer)
         }
-        this.$store.commit("cs_luckycoin/unbindPageListener", "detailed");
+        this.$store.commit('cs_luckycoin/unbindPageListener', 'detailed')
     }
-};
+}
 </script>
 <style lang="less" type="text/less">
 .luckyCoinDetailed {
-    flex-grow: 1;
-    background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat
-        center top;
-    background-size: 1920px;
-    .main {
-        padding: 0;
+  flex-grow: 1;
+  background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat
+    center top;
+  background-size: 1920px;
+  .main {
+    padding: 0;
+  }
+  .el-table__empty-block {
+    display: none;
+  }
+  .el-tabs {
+    margin-top: 40px;
+  }
+  .el-tabs__nav-wrap {
+    &::after {
+      background: #341f40;
     }
-    .el-table__empty-block {
-        display: none;
+  }
+  .el-tabs__item {
+    color: #6a88cc;
+    &.is-active {
+      color: #fff;
     }
-    .el-tabs {
-        margin-top: 40px;
+  }
+  .el-tabs__active-bar {
+    background: #fff;
+  }
+  .el-table {
+    background: transparent;
+    thead {
+      tr {
+        height: 50px;
+        line-height: 50px;
+      }
+      th {
+        color: #fff;
+        &:nth-child(2) {
+          text-align: left;
+          text-indent: 162px;
+        }
+        &:nth-child(3) {
+          div {
+            margin-right: 10px;
+            text-align: right;
+          }
+        }
+        &:nth-child(4) {
+          div {
+            margin-right: 30px;
+            text-align: right;
+          }
+        }
+      }
     }
-    .el-tabs__nav-wrap {
+    tbody {
+      tr:hover {
+        background: #311c3d;
+      }
+      td {
+        color: #fff;
+      }
+      .selfwin {
+        position: relative;
+        margin-left: 138px;
+        text-align: left;
+        padding-left: 24px;
+      }
+      .allnum {
+        display: block;
+        padding-right: 30px;
+        text-align: right;
+        color: #fff;
+        text-decoration: underline;
+        &:hover {
+          filter: brightness(1.1);
+          color: #fff;
+        }
+      }
+      .icon-amount {
+        position: relative;
+        padding-right: 26px;
+        text-align: right;
         &::after {
-            background: #341f40;
+          content: "";
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 16px;
+          height: 16px;
         }
+        &.eth {
+          &::after {
+            background: url("../../assets/img/luckyCoin/icon-eth-sm.png")
+              no-repeat center;
+          }
+        }
+        &.btc {
+          &::after {
+            background: url("../../assets/img/luckyCoin/icon-btc-sm.png")
+              no-repeat center;
+          }
+        }
+        &.cc {
+          &::after {
+            background: url("../../assets/img/luckyCoin/icon-cc-sm.png")
+              no-repeat center;
+          }
+        }
+      }
     }
-    .el-tabs__item {
-        color: #6a88cc;
-        &.is-active {
-            color: #fff;
-        }
-    }
-    .el-tabs__active-bar {
-        background: #fff;
-    }
-    .el-table {
-        background: transparent;
-        thead {
-            tr {
-                height: 50px;
-                line-height: 50px;
-            }
-            th {
-                color: #fff;
-                &:nth-child(2) {
-                    text-align: left;
-                    text-indent: 162px;
-                }
-                &:nth-child(3) {
-                    div {
-                        margin-right: 10px;
-                        text-align: right;
-                    }
-                }
-                &:nth-child(4) {
-                    div {
-                        margin-right: 30px;
-                        text-align: right;
-                    }
-                }
-            }
-        }
-        tbody {
-            tr:hover {
-                background: #311c3d;
-            }
-            td {
-                color: #fff;
-            }
-            .selfwin {
-                position: relative;
-                margin-left: 138px;
-                text-align: left;
-                padding-left: 24px;
-            }
-            .allnum {
-                display: block;
-                padding-right: 30px;
-                text-align: right;
-                color: #fff;
-                text-decoration: underline;
-                &:hover {
-                    filter: brightness(1.1);
-                    color: #fff;
-                }
-            }
-            .icon-amount {
-                position: relative;
-                padding-right: 26px;
-                text-align: right;
-                &::after {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    right: 0;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    width: 16px;
-                    height: 16px;
-                }
-                &.eth {
-                    &::after {
-                        background: url("../../assets/img/luckyCoin/icon-eth-sm.png")
-                            no-repeat center;
-                    }
-                }
-                &.btc {
-                    &::after {
-                        background: url("../../assets/img/luckyCoin/icon-btc-sm.png")
-                            no-repeat center;
-                    }
-                }
-                &.cc {
-                    &::after {
-                        background: url("../../assets/img/luckyCoin/icon-cc-sm.png")
-                            no-repeat center;
-                    }
-                }
-            }
-        }
-        tr {
-            border-color: #311c3d;
-            &.mywin {
-                background: #56432a;
-                .selfwin {
-                    color: #ffca28;
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        left: 0;
-                        top: 13px;
-                        display: block;
-                        width: 16px;
-                        height: 14px;
-                        overflow: hidden;
-                        background: url("../../assets/img/luckyCoin/icon-champion2.png")
-                            no-repeat center;
-                        background-size: cover;
-                    }
-                }
-                &:hover {
-                    background: #56432a;
-                    filter: brightness(1.1);
-                }
-            }
-        }
-        .caret-wrapper {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            height: 34px;
-            width: 24px;
-            vertical-align: middle;
-            cursor: pointer;
-            overflow: initial;
-            position: relative;
-        }
-        .sort-caret {
-            width: 0;
-            height: 0;
-            border: 5px solid transparent;
+    tr {
+      border-color: #311c3d;
+      &.mywin {
+        background: #56432a;
+        .selfwin {
+          color: #ffca28;
+          &::before {
+            content: "";
             position: absolute;
-            left: 7px;
-            &.ascending {
-                border-bottom-color: #c0c4cc;
-                top: 5px;
-            }
-            &.descending {
-                border-top-color: #c0c4cc;
-                bottom: 7px;
-            }
+            left: 0;
+            top: 13px;
+            display: block;
+            width: 16px;
+            height: 14px;
+            overflow: hidden;
+            background: url("../../assets/img/luckyCoin/icon-champion2.png")
+              no-repeat center;
+            background-size: cover;
+          }
         }
-        .ascending {
-            .sort-caret {
-                &.ascending {
-                    border-bottom-color: #6a88cc;
-                }
-            }
+        &:hover {
+          background: #56432a;
+          filter: brightness(1.1);
         }
-        .descending {
-            .sort-caret {
-                &.descending {
-                    border-top-color: #6a88cc;
-                }
-            }
-        }
+      }
     }
+    .caret-wrapper {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      height: 34px;
+      width: 24px;
+      vertical-align: middle;
+      cursor: pointer;
+      overflow: initial;
+      position: relative;
+    }
+    .sort-caret {
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      position: absolute;
+      left: 7px;
+      &.ascending {
+        border-bottom-color: #c0c4cc;
+        top: 5px;
+      }
+      &.descending {
+        border-top-color: #c0c4cc;
+        bottom: 7px;
+      }
+    }
+    .ascending {
+      .sort-caret {
+        &.ascending {
+          border-bottom-color: #6a88cc;
+        }
+      }
+    }
+    .descending {
+      .sort-caret {
+        &.descending {
+          border-top-color: #6a88cc;
+        }
+      }
+    }
+  }
 }
 @media (max-width: 768px) {
-    .luckyCoinDetailed {
-        .el-table {
-            thead {
-                tr {
-                    display: flex;
-                    padding: 0 4%;
-                }
-                th {
-                    flex: 1;
-                    text-align: center;
-                    text-indent: 0;
-                    &:nth-child(2) {
-                        text-align: center;
-                        text-indent: 0;
-                    }
-                    &:nth-child(3) {
-                        div {
-                            margin-right: 0;
-                            text-align: center;
-                        }
-                    }
-                    &:nth-child(4) {
-                        div {
-                            margin-right: 0;
-                            text-align: center;
-                        }
-                    }
-                }
-            }
-            tbody {
-                tr {
-                    display: flex;
-                    padding: 0 4%;
-                    td {
-                        flex: 1;
-                        text-align: center;
-                    }
-                }
-                .selfwin {
-                    margin-left: 0;
-                    padding-left: 0;
-                    text-align: center;
-                    &::before {
-                        content: "";
-                        display: none;
-                    }
-                }
-                .allnum {
-                    padding-right: 0;
-                    text-align: center;
-                }
-                .icon-amount {
-                    padding-right: 0;
-                    text-align: center;
-                    &::after {
-                        content: "";
-                        display: none;
-                    }
-                }
-            }
-            tr {
-                &.mywin {
-                    .selfwin {
-                        color: #ffca28;
-                        &::before {
-                            display: none;
-                        }
-                    }
-                }
-            }
+  .luckyCoinDetailed {
+    .el-table {
+      thead {
+        tr {
+          display: flex;
+          padding: 0 4%;
         }
+        th {
+          flex: 1;
+          text-align: center;
+          text-indent: 0;
+          &:nth-child(2) {
+            text-align: center;
+            text-indent: 0;
+          }
+          &:nth-child(3) {
+            div {
+              margin-right: 0;
+              text-align: center;
+            }
+          }
+          &:nth-child(4) {
+            div {
+              margin-right: 0;
+              text-align: center;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          display: flex;
+          padding: 0 4%;
+          td {
+            flex: 1;
+            text-align: center;
+          }
+        }
+        .selfwin {
+          margin-left: 0;
+          padding-left: 0;
+          text-align: center;
+          &::before {
+            content: "";
+            display: none;
+          }
+        }
+        .allnum {
+          padding-right: 0;
+          text-align: center;
+        }
+        .icon-amount {
+          padding-right: 0;
+          text-align: center;
+          &::after {
+            content: "";
+            display: none;
+          }
+        }
+      }
+      tr {
+        &.mywin {
+          .selfwin {
+            color: #ffca28;
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
     }
+  }
 }
 </style>
 <style scope lang="less" type="text/less">
 @import "../../styles/lib-mixins.less";
 .blinking {
-    transition: 0.5s all;
-    animation: blinking 2s;
-    /*background-color: gray !important;*/
-    cursor: default;
+  transition: 0.5s all;
+  animation: blinking 2s;
+  /*background-color: gray !important;*/
+  cursor: default;
 }
 
 .disabled {
-    background-color: gray !important;
-    cursor: default;
+  background-color: gray !important;
+  cursor: default;
 }
 
 @keyframes blinking {
-    0% {
-        opacity: 1;
-    }
-    12.5% {
-        opacity: 0;
-    }
-    25% {
-        opacity: 1;
-    }
-    37.5% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    62.5% {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-    }
-    87.5% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
+  12.5% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  37.5% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  62.5% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  87.5% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .luckyCoinDetailed * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 .main-detailed {
-    width: 92%;
-    max-width: 1000px;
-    margin: 0 auto;
-    &.flex {
-        display: flex;
-    }
+  width: 92%;
+  max-width: 1000px;
+  margin: 0 auto;
+  &.flex {
+    display: flex;
+  }
 }
 .itemluck {
-    position: relative;
-    display: flex;
-    flex: 1;
-    color: #fff;
+  position: relative;
+  display: flex;
+  flex: 1;
+  color: #fff;
+  transition: all 0.2s;
+  overflow: hidden;
+  border-radius: 6px;
+  .match-img {
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    z-index: 2;
+    left: 36px;
+    top: 0;
+    transform: translate(0, 20px);
     transition: all 0.2s;
+  }
+  .item-left {
+    position: relative;
+    width: 196px;
+    height: 334px;
     overflow: hidden;
-    border-radius: 6px;
-    .match-img {
-        width: 110px;
-        height: 110px;
+  }
+  .item-right {
+    flex: 1;
+    padding: 21px percentage(40/600) 0;
+    position: relative;
+    background: #401f56;
+    transition: all 0.2s;
+    .icon-box {
+      position: absolute;
+      top: 3px;
+      right: 1px;
+      i {
+        display: block;
+        border-radius: 2px;
+        float: right;
+        margin-right: 3px;
+        font-weight: bold;
+        font-size: 14px;
+        color: #fff;
+        line-height: 18px;
+      }
+      .icon-hot {
+        background: #f65555;
+        padding: 0 4px;
+      }
+      .icon-youbet {
+        position: relative;
+        background: #f67c22;
+        padding: 0 10px 0 30px;
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 6px;
+          top: 3px;
+          width: 11px;
+          height: 13px;
+          background: url("../../assets/img/luckyCoin/icon-bet.png") no-repeat
+            center;
+        }
+      }
+    }
+    .item-time {
+      position: absolute;
+      top: 53px;
+      right: 35px;
+      padding-left: 38px;
+      line-height: 27px;
+      font-size: 24px;
+      color: #ffffff;
+      font-weight: bold;
+      background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat
+        left center;
+      background-size: 23px;
+      &.hour {
+        color: #fff;
+      }
+      &.open {
+        color: #ff5b4a;
+      }
+      &.min {
+        color: #ff5b4a;
+      }
+      &.min {
+        animation: heartbeat 2s infinite;
+      }
+    }
+    .item-prize {
+      height: 71px;
+      line-height: 71px;
+      font-size: 70px;
+      font-weight: bold;
+      i {
+        font-size: 40px;
+      }
+    }
+    .item-usd {
+      height: 21px;
+      line-height: 21px;
+      font-size: 14px;
+    }
+  }
+  .item-main {
+    .main-left {
+      position: relative;
+      height: 110px;
+      overflow: hidden;
+      > div {
         position: absolute;
-        z-index: 2;
-        left: 36px;
         top: 0;
-        transform: translate(0, 20px);
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        transform: translateY(200%);
         transition: all 0.2s;
+      }
     }
-    .item-left {
+    .main-normal {
+      p {
+        line-height: 28px;
+        font-size: 16px;
+      }
+      .input-box {
         position: relative;
-        width: 196px;
-        height: 334px;
+        width: 100%;
+        height: 48px;
         overflow: hidden;
+        line-height: 46px;
+        input {
+          display: block;
+          float: left;
+          height: 46px;
+          width: percentage(188/520);
+          outline: none;
+          border: 2px solid #3c1e6e;
+          border-radius: 6px;
+          background: #3c1e6e;
+          text-indent: 50px;
+          font-size: 24px;
+          transition: all 0.2s;
+          &:focus {
+            border-color: #7b4de4;
+          }
+        }
+        a {
+          display: block;
+          float: right;
+          margin-left: 5px;
+          width: percentage(100/520);
+          text-align: center;
+          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+          background: #7b4de4;
+          border-radius: 6px;
+          &:hover {
+            background: #3c1e6e;
+            color: #f67c22;
+          }
+        }
+      }
     }
-    .item-right {
-        flex: 1;
-        padding: 21px percentage(40/600) 0;
+    .main-win,
+    .main-fail {
+      font-size: 24px;
+      em {
+        font-weight: bold;
+      }
+    }
+    .main-finished {
+      p {
+        line-height: 27px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      span {
+        line-height: 25px;
+        font-size: 16px;
+      }
+    }
+    .main-expired {
+      span {
+        line-height: 27px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      p {
+        line-height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #3fc06f;
+      }
+    }
+    .main-right {
+      margin: 10px 0;
+      line-height: 26px;
+      font-size: 14px;
+      color: #fff;
+      overflow: hidden;
+      > div {
+        margin-right: 20px;
+        float: left;
+      }
+      a {
+        transition: none;
+        color: #fff;
+        &:hover {
+          filter: brightness(1.3);
+        }
+      }
+    }
+  }
+  .btn {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: translateY(200%);
+    .text-overflow();
+    &.btn-normal {
+      max-width: percentage(520/600);
+      left: percentage(40/600);
+      bottom: 24px;
+      bottom: 57px;
+      background: #f67c22;
+      border-radius: 6px;
+      font-size: 24px;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+    &.btn-win {
+      left: 0;
+      bottom: 0;
+      background: #3fc06f;
+      padding: 0 percentage(30/600);
+      p {
         position: relative;
-        background: #401f56;
-        transition: all 0.2s;
-        .icon-box {
-            position: absolute;
-            top: 3px;
-            right: 1px;
-            i {
-                display: block;
-                border-radius: 2px;
-                float: right;
-                margin-right: 3px;
-                font-weight: bold;
-                font-size: 14px;
-                color: #fff;
-                line-height: 18px;
-            }
-            .icon-hot {
-                background: #f65555;
-                padding: 0 4px;
-            }
-            .icon-youbet {
-                position: relative;
-                background: #f67c22;
-                padding: 0 10px 0 30px;
-                &::before {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    left: 6px;
-                    top: 3px;
-                    width: 11px;
-                    height: 13px;
-                    background: url("../../assets/img/luckyCoin/icon-bet.png")
-                        no-repeat center;
-                }
-            }
+        float: left;
+        width: 60%;
+        padding-left: 54px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        .text-overflow();
+        background: url("../../assets/img/luckyCoin/icon-champion-win.png")
+          no-repeat left center;
+        background-size: 28px;
+      }
+      a {
+        display: block;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        .transition();
+        &:hover {
+          color: #f67c22;
         }
-        .item-time {
-            position: absolute;
-            top: 53px;
-            right: 35px;
-            padding-left: 38px;
-            line-height: 27px;
-            font-size: 24px;
-            color: #ffffff;
-            font-weight: bold;
-            background: url("../../assets/img/luckyCoin/icon-clock.png")
-                no-repeat left center;
-            background-size: 23px;
-            &.hour {
-                color: #fff;
-            }
-            &.open {
-                color: #ff5b4a;
-            }
-            &.min {
-                color: #ff5b4a;
-            }
-            &.min {
-                animation: heartbeat 2s infinite;
-            }
+      }
+    }
+    &.btn-fail {
+      left: 0;
+      bottom: 0;
+      background: #facb2f;
+      padding: 0 30px;
+      p {
+        position: relative;
+        float: left;
+        width: 60%;
+        padding-left: 54px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        color: #755c35;
+        background: url("../../assets/img/luckyCoin/icon-champion.png")
+          no-repeat left center;
+        background-size: 28px;
+        .text-overflow();
+      }
+      a {
+        display: block;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        color: #755c35;
+        .transition();
+        &:hover {
+          color: #f67c22;
         }
-        .item-prize {
-            height: 71px;
-            line-height: 71px;
-            font-size: 70px;
-            font-weight: bold;
-            i {
-                font-size: 40px;
-            }
+      }
+    }
+    &.btn-finished {
+      width: 90%;
+      left: 5%;
+      bottom: 57px;
+      background: #4c2872;
+      border-radius: 6px;
+      font-weight: normal;
+      font-size: 20px;
+      color: #b5abc1;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+    &.btn-expired {
+      width: 90%;
+      left: 5%;
+      bottom: 10px;
+      text-align: left;
+      font-weight: normal;
+      font-size: 16px;
+      color: #a999cb;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+  }
+  &.btc {
+    .item-left {
+      background: url("../../assets/img/luckyCoin/bg-btc.png") no-repeat center;
+    }
+    .match-img {
+      background: url("../../assets/img/luckyCoin/icon-btc.png") no-repeat
+        center;
+    }
+    .main-normal {
+      .input-box {
+        input {
+          background: #3c1e6e url("../../assets/img/luckyCoin/icon-btc-sm.png")
+            no-repeat 11px center;
+          background-size: 16px;
         }
-        .item-usd {
-            height: 21px;
-            line-height: 21px;
-            font-size: 14px;
+      }
+    }
+  }
+  &.eth {
+    .item-left {
+      background: url("../../assets/img/luckyCoin/bg-eth.png") no-repeat center;
+    }
+    .match-img {
+      background: url("../../assets/img/luckyCoin/icon-eth.png") no-repeat
+        center;
+    }
+    .main-normal {
+      .input-box {
+        input {
+          background: #3c1e6e url("../../assets/img/luckyCoin/icon-eth-sm.png")
+            no-repeat 11px center;
+          background-size: 16px;
         }
+      }
+    }
+  }
+  &.cc {
+    .item-left {
+      background: url("../../assets/img/luckyCoin/bg-cc.png") no-repeat center;
+    }
+    .match-img {
+      background: url("../../assets/img/luckyCoin/icon-cc.png") no-repeat center;
+    }
+    .main-normal {
+      .input-box {
+        input {
+          background: #3c1e6e url("../../assets/img/luckyCoin/icon-cc-sm.png")
+            no-repeat 11px center;
+          background-size: 16px;
+        }
+      }
+    }
+  }
+  &.normal {
+    .item-right {
+      background: #532998;
     }
     .item-main {
-        .main-left {
-            position: relative;
-            height: 110px;
-            overflow: hidden;
-            > div {
-                position: absolute;
-                top: 0;
-                left: 0;
-                opacity: 0;
-                width: 100%;
-                transform: translateY(200%);
-                transition: all 0.2s;
-            }
-        }
+      .main-left {
+        height: 150px;
         .main-normal {
-            p {
-                line-height: 28px;
-                font-size: 16px;
-            }
-            .input-box {
-                position: relative;
-                width: 100%;
-                height: 48px;
-                overflow: hidden;
-                line-height: 46px;
-                input {
-                    display: block;
-                    float: left;
-                    height: 46px;
-                    width: percentage(188/520);
-                    outline: none;
-                    border: 2px solid #3c1e6e;
-                    border-radius: 6px;
-                    background: #3c1e6e;
-                    text-indent: 50px;
-                    font-size: 24px;
-                    transition: all 0.2s;
-                    &:focus {
-                        border-color: #7b4de4;
-                    }
-                }
-                a {
-                    display: block;
-                    float: right;
-                    margin-left: 5px;
-                    width: percentage(100/520);
-                    text-align: center;
-                    color: #fff;
-                    font-size: 20px;
-                    font-weight: bold;
-                    background: #7b4de4;
-                    border-radius: 6px;
-                    &:hover {
-                        background: #3c1e6e;
-                        color: #f67c22;
-                    }
-                }
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
-        .main-win,
+      }
+      .main-right {
+        color: #a999cb;
+        a {
+          color: #a999cb;
+        }
+      }
+    }
+    .btn-normal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  &.win {
+    .item-right {
+      background: url("../../assets/img/luckyCoin/bg-success.png") no-repeat
+          right bottom,
+        linear-gradient(to right, #7c6238, #4e3c27);
+    }
+    .item-main {
+      .main-left {
+        .main-win {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+    .btn-win {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 178px;
+      bottom: 2px;
+      width: 91px;
+      height: 91px;
+      background: url("../../assets/img/luckyCoin/icon-win.png") no-repeat
+        center;
+      background-size: cover;
+    }
+  }
+  &.fail {
+    .item-right {
+      background: url("../../assets/img/luckyCoin/bg-success.png") no-repeat
+          right bottom,
+        linear-gradient(to right, #7c6238, #4e3c27);
+    }
+    .item-main {
+      .main-left {
         .main-fail {
-            font-size: 24px;
-            em {
-                font-weight: bold;
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+    }
+    .btn-fail {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  &.finished {
+    .item-main {
+      .main-right {
+        color: #a999cb;
+        a {
+          color: #a999cb;
+        }
+      }
+      .main-left {
         .main-finished {
-            p {
-                line-height: 27px;
-                font-size: 20px;
-                font-weight: bold;
-            }
-            span {
-                line-height: 25px;
-                font-size: 16px;
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+    }
+    .btn-finished {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  &.expired {
+    .item-main {
+      .main-left {
         .main-expired {
-            span {
-                line-height: 27px;
-                font-size: 20px;
-                font-weight: bold;
-            }
-            p {
-                line-height: 30px;
-                font-size: 20px;
-                font-weight: bold;
-                color: #3fc06f;
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
-        .main-right {
-            margin: 10px 0;
-            line-height: 26px;
-            font-size: 14px;
-            color: #fff;
-            overflow: hidden;
-            > div {
-                margin-right: 20px;
-                float: left;
-            }
-            a {
-                transition: none;
-                color: #fff;
-                &:hover {
-                    filter: brightness(1.3);
-                }
-            }
-        }
+      }
     }
-    .btn {
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 50px;
-        overflow: hidden;
-        text-align: center;
-        line-height: 50px;
-        color: #fff;
-        font-weight: bold;
-        transition: all 0.2s;
-        opacity: 0;
-        transform: translateY(200%);
-        .text-overflow();
-        &.btn-normal {
-            max-width: percentage(520/600);
-            left: percentage(40/600);
-            bottom: 24px;
-            bottom: 57px;
-            background: #f67c22;
-            border-radius: 6px;
-            font-size: 24px;
-            &:hover {
-                filter: brightness(1.3);
-            }
-        }
-        &.btn-win {
-            left: 0;
-            bottom: 0;
-            background: #3fc06f;
-            padding: 0 percentage(30/600);
-            p {
-                position: relative;
-                float: left;
-                width: 60%;
-                padding-left: 54px;
-                text-align: left;
-                font-size: 20px;
-                font-weight: bold;
-                .text-overflow();
-                background: url("../../assets/img/luckyCoin/icon-champion-win.png")
-                    no-repeat left center;
-                background-size: 28px;
-            }
-            a {
-                display: block;
-                float: right;
-                font-size: 20px;
-                font-weight: bold;
-                color: #fff;
-                .transition();
-                &:hover {
-                    color: #f67c22;
-                }
-            }
-        }
-        &.btn-fail {
-            left: 0;
-            bottom: 0;
-            background: #facb2f;
-            padding: 0 30px;
-            p {
-                position: relative;
-                float: left;
-                width: 60%;
-                padding-left: 54px;
-                text-align: left;
-                font-size: 20px;
-                font-weight: bold;
-                color: #755c35;
-                background: url("../../assets/img/luckyCoin/icon-champion.png")
-                    no-repeat left center;
-                background-size: 28px;
-                .text-overflow();
-            }
-            a {
-                display: block;
-                float: right;
-                font-size: 20px;
-                font-weight: bold;
-                color: #755c35;
-                .transition();
-                &:hover {
-                    color: #f67c22;
-                }
-            }
-        }
-        &.btn-finished {
-            width: 90%;
-            left: 5%;
-            bottom: 57px;
-            background: #4c2872;
-            border-radius: 6px;
-            font-weight: normal;
-            font-size: 20px;
-            color: #b5abc1;
-            &:hover {
-                filter: brightness(1.3);
-            }
-        }
-        &.btn-expired {
-            width: 90%;
-            left: 5%;
-            bottom: 10px;
-            text-align: left;
-            font-weight: normal;
-            font-size: 16px;
-            color: #a999cb;
-            &:hover {
-                filter: brightness(1.3);
-            }
-        }
+    .btn-expired {
+      opacity: 1;
+      transform: translateY(0);
     }
-    &.btc {
-        .item-left {
-            background: url("../../assets/img/luckyCoin/bg-btc.png") no-repeat
-                center;
-        }
-        .match-img {
-            background: url("../../assets/img/luckyCoin/icon-btc.png") no-repeat
-                center;
-        }
-        .main-normal {
-            .input-box {
-                input {
-                    background: #3c1e6e
-                        url("../../assets/img/luckyCoin/icon-btc-sm.png")
-                        no-repeat 11px center;
-                    background-size: 16px;
-                }
-            }
-        }
+  }
+  .bet-success {
+    padding: 40px percentage(30/600) 0;
+    .bet-icon {
+      width: 60px;
+      height: 60px;
     }
-    &.eth {
-        .item-left {
-            background: url("../../assets/img/luckyCoin/bg-eth.png") no-repeat
-                center;
-        }
-        .match-img {
-            background: url("../../assets/img/luckyCoin/icon-eth.png") no-repeat
-                center;
-        }
-        .main-normal {
-            .input-box {
-                input {
-                    background: #3c1e6e
-                        url("../../assets/img/luckyCoin/icon-eth-sm.png")
-                        no-repeat 11px center;
-                    background-size: 16px;
-                }
-            }
-        }
+    .bet-t {
+      line-height: 45px;
+      font-size: 28px;
     }
-    &.cc {
-        .item-left {
-            background: url("../../assets/img/luckyCoin/bg-cc.png") no-repeat
-                center;
-        }
-        .match-img {
-            background: url("../../assets/img/luckyCoin/icon-cc.png") no-repeat
-                center;
-        }
-        .main-normal {
-            .input-box {
-                input {
-                    background: #3c1e6e
-                        url("../../assets/img/luckyCoin/icon-cc-sm.png")
-                        no-repeat 11px center;
-                    background-size: 16px;
-                }
-            }
-        }
+    .bet-m {
+      max-height: 60px;
+      line-height: 20px;
+      font-size: 16px;
     }
-    &.normal {
-        .item-right {
-            background: #532998;
-        }
-        .item-main {
-            .main-left {
-                height: 150px;
-                .main-normal {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            .main-right {
-                color: #a999cb;
-                a {
-                    color: #a999cb;
-                }
-            }
-        }
-        .btn-normal {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .btn-box {
+      width: 90%;
+      height: 44px;
+      left: 5%;
+      bottom: 37px;
+      a {
+        height: 100%;
+        line-height: 44px;
+        font-size: 20px;
+      }
     }
-    &.win {
-        .item-right {
-            background: url("../../assets/img/luckyCoin/bg-success.png")
-                    no-repeat right bottom,
-                linear-gradient(to right, #7c6238, #4e3c27);
-        }
-        .item-main {
-            .main-left {
-                .main-win {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-win {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        &::after {
-            content: "";
-            display: block;
-            position: absolute;
-            right: 178px;
-            bottom: 2px;
-            width: 91px;
-            height: 91px;
-            background: url("../../assets/img/luckyCoin/icon-win.png") no-repeat
-                center;
-            background-size: cover;
-        }
+  }
+  .bet-fail {
+    padding: 40px percentage(30/600) 0;
+    .bet-icon {
+      width: 60px;
+      height: 60px;
     }
-    &.fail {
-        .item-right {
-            background: url("../../assets/img/luckyCoin/bg-success.png")
-                    no-repeat right bottom,
-                linear-gradient(to right, #7c6238, #4e3c27);
-        }
-        .item-main {
-            .main-left {
-                .main-fail {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-fail {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .bet-t {
+      line-height: 45px;
+      font-size: 28px;
     }
-    &.finished {
-        .item-main {
-            .main-right {
-                color: #a999cb;
-                a {
-                    color: #a999cb;
-                }
-            }
-            .main-left {
-                .main-finished {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-finished {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .bet-m {
+      text-align: center;
+      max-height: 60px;
+      line-height: 20px;
+      font-size: 16px;
     }
-    &.expired {
-        .item-main {
-            .main-left {
-                .main-expired {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-expired {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .btn-fail {
+      line-height: 43px;
+      font-size: 20px;
     }
-    .bet-success {
-        padding: 40px percentage(30/600) 0;
-        .bet-icon {
-            width: 60px;
-            height: 60px;
-        }
-        .bet-t {
-            line-height: 45px;
-            font-size: 28px;
-        }
-        .bet-m {
-            max-height: 60px;
-            line-height: 20px;
-            font-size: 16px;
-        }
-        .btn-box {
-            width: 90%;
-            height: 44px;
-            left: 5%;
-            bottom: 37px;
-            a {
-                height: 100%;
-                line-height: 44px;
-                font-size: 20px;
-            }
-        }
+  }
+  .bet-balance {
+    padding: 40px percentage(30/600) 0;
+    .bet-icon {
+      width: 63px;
+      height: 60px;
     }
-    .bet-fail {
-        padding: 40px percentage(30/600) 0;
-        .bet-icon {
-            width: 60px;
-            height: 60px;
-        }
-        .bet-t {
-            line-height: 45px;
-            font-size: 28px;
-        }
-        .bet-m {
-            text-align: center;
-            max-height: 60px;
-            line-height: 20px;
-            font-size: 16px;
-        }
-        .btn-fail {
-            line-height: 43px;
-            font-size: 20px;
-        }
+    .bet-t {
+      line-height: 45px;
+      font-size: 28px;
     }
-    .bet-balance {
-        padding: 40px percentage(30/600) 0;
-        .bet-icon {
-            width: 63px;
-            height: 60px;
-        }
-        .bet-t {
-            line-height: 45px;
-            font-size: 28px;
-        }
-        .bet-m {
-            text-align: center;
-            max-height: 60px;
-            line-height: 20px;
-            font-size: 16px;
-        }
-        .btn-balance {
-            line-height: 43px;
-            font-size: 20px;
-        }
+    .bet-m {
+      text-align: center;
+      max-height: 60px;
+      line-height: 20px;
+      font-size: 16px;
     }
+    .btn-balance {
+      line-height: 43px;
+      font-size: 20px;
+    }
+  }
 }
 .detailedtips {
-    width: 204-30px;
-    margin-left: 30px;
-    line-height: 25px;
-    font-size: 14px;
-    color: #a999cb;
+  width: 204-30px;
+  margin-left: 30px;
+  line-height: 25px;
+  font-size: 14px;
+  color: #a999cb;
 }
 .pop-bet {
-    .pop-body {
-        width: 727px;
+  .pop-body {
+    width: 727px;
+  }
+  .pop-main {
+    padding-bottom: 18px;
+  }
+  h3 {
+    margin: 30px 0 0 0;
+    height: 30px;
+    text-align: left;
+    line-height: 30px;
+    color: #000000;
+    font-weight: normal;
+  }
+  .msg1 {
+    margin-bottom: 7px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #293648;
+    text-align: left;
+  }
+  .item-number {
+    overflow: hidden;
+    ul {
+      overflow-y: auto;
+      max-height: 12 * 28px;
+      &::-webkit-scrollbar {
+        width: 16px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #798ca3;
+      }
+      &::-webkit-scrollbar-track {
+        background: #eff1f9;
+      }
     }
-    .pop-main {
-        padding-bottom: 18px;
+    li {
+      float: left;
+      margin-right: 15px;
+      line-height: 28px;
+      font-size: 16px;
+      color: #000000;
+      &.win {
+        color: #f1b545;
+      }
     }
-    h3 {
-        margin: 30px 0 0 0;
-        height: 30px;
-        text-align: left;
-        line-height: 30px;
-        color: #000000;
-        font-weight: normal;
-    }
-    .msg1 {
-        margin-bottom: 7px;
-        line-height: 20px;
-        font-size: 14px;
-        color: #293648;
-        text-align: left;
-    }
-    .item-number {
-        overflow: hidden;
-        ul {
-            overflow-y: auto;
-            max-height: 12 * 28px;
-            &::-webkit-scrollbar {
-                width: 16px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background: #798ca3;
-            }
-            &::-webkit-scrollbar-track {
-                background: #eff1f9;
-            }
-        }
-        li {
-            float: left;
-            margin-right: 15px;
-            line-height: 28px;
-            font-size: 16px;
-            color: #000000;
-            &.win {
-                color: #f1b545;
-            }
-        }
-    }
-    .msg2 {
-        margin-top: 20px;
-        line-height: 20px;
-        text-align: left;
-        font-size: 14px;
-        color: #798ca3;
-    }
+  }
+  .msg2 {
+    margin-top: 20px;
+    line-height: 20px;
+    text-align: left;
+    font-size: 14px;
+    color: #798ca3;
+  }
 }
 .mybets {
-    color: #fff;
-    .msg1 {
-        margin-top: 12px;
-        line-height: 52px;
+  color: #fff;
+  .msg1 {
+    margin-top: 12px;
+    line-height: 52px;
+  }
+  .item-number {
+    padding: 13px percentage(30/1000) 13px;
+    background: #321740;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px 0;
+    p {
+      line-height: 22px;
+      color: #798ca3;
     }
-    .item-number {
-        padding: 13px percentage(30/1000) 13px;
-        background: #321740;
-        border-radius: 6px;
-        overflow: hidden;
-        margin: 10px 0;
-        p {
-            line-height: 22px;
-            color: #798ca3;
-        }
-        ul {
-            overflow-y: auto;
-            max-height: 12 * 28px;
-            &::-webkit-scrollbar {
-                width: 16px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background: #798ca3;
-            }
-            &::-webkit-scrollbar-track {
-                background: #2b1237;
-            }
-        }
-        li {
-            float: left;
-            margin-right: 15px;
-            line-height: 28px;
-            font-size: 16px;
-            &.win {
-                color: #f1b545;
-            }
-        }
+    ul {
+      overflow-y: auto;
+      max-height: 12 * 28px;
+      &::-webkit-scrollbar {
+        width: 16px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #798ca3;
+      }
+      &::-webkit-scrollbar-track {
+        background: #2b1237;
+      }
     }
-    .msg2 {
-        margin: 34px 0;
-        line-height: 24px;
-        a {
-            color: #6a88cc;
-            &:hover {
-                color: currentColor;
-            }
-        }
+    li {
+      float: left;
+      margin-right: 15px;
+      line-height: 28px;
+      font-size: 16px;
+      &.win {
+        color: #f1b545;
+      }
     }
+  }
+  .msg2 {
+    margin: 34px 0;
+    line-height: 24px;
+    a {
+      color: #6a88cc;
+      &:hover {
+        color: currentColor;
+      }
+    }
+  }
 }
 </style>
 <style scope lang="less" type="text/less">
 .toplay {
-    margin-top: 20px;
-    font-size: 14px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #fff;
+  a {
+    line-height: 24px;
     color: #fff;
-    a {
-        line-height: 24px;
-        color: #fff;
-        text-decoration: underline;
-    }
+    text-decoration: underline;
+  }
 }
 @media (max-width: 992px) {
-    .itemluck {
-        .match-img {
-            right: 6.6667%;
-            left: auto;
-            top: 40%;
-            transform-origin: right center;
-            transform: translate(0, -50%) scale(0.5);
-            svg {
-                -webkit-transform: rotate(-0.05deg);
-                transform: rotate(-0.05deg);
-            }
-        }
-        .btn {
-            height: 40px;
-            line-height: 40px;
-            &.normal {
-                font-size: 20px;
-            }
-            &.btn-win {
-                p {
-                    padding-left: 0;
-                    font-size: 14px;
-                    background: none;
-                }
-                a {
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-            }
-            &.btn-fail {
-                p {
-                    padding-left: 0;
-                    font-size: 14px;
-                    background: none;
-                }
-                a {
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-            }
-        }
-        .item-right {
-            .item-time {
-                min-width: 70px;
-                top: 38px;
-                right: 6.667%;
-                padding-left: 20px;
-                background-size: 23/2px;
-                font-size: 12px;
-            }
-            .item-prize {
-                height: 44px;
-                line-height: 44px;
-                font-size: 40px;
-                i {
-                    font-size: 20px;
-                }
-            }
-        }
-        .item-main {
-            .main-left {
-                > div {
-                }
-            }
-            .main-right {
-                > div {
-                    float: none;
-                }
-            }
-            .main-normal {
-                p {
-                }
-                .input-box {
-                    height: 40px;
-                    line-height: 38px;
-                    input {
-                        height: 38px;
-                        border-width: 1px;
-                        font-size: 18px;
-                        text-indent: 0;
-                        text-align: center;
-                        background-size: 14px;
-                    }
-                    a {
-                        font-size: 16px;
-                    }
-                }
-            }
-            .main-win,
-            .main-fail {
-                font-size: 18px;
-            }
-            .main-finished {
-                p {
-                }
-                span {
-                }
-            }
-            .main-expired {
-                span {
-                }
-                p {
-                }
-            }
-            .main-right {
-                > div {
-                }
-                a {
-                    &:hover {
-                    }
-                }
-            }
-        }
-        &.win {
-            &::after {
-                right: 25%;
-                bottom: 20px;
-                width: 91/2px;
-                height: 91/2px;
-            }
-        }
-        .btn.btn-normal {
-        }
-        .bet-success {
-            padding: 20px percentage(30/600) 0;
-            .bet-icon {
-                width: 40px;
-                height: 40px;
-            }
-            .bet-t {
-                line-height: 45px;
-                font-size: 20px;
-            }
-            .btn-box {
-                width: 90%;
-                height: 38px;
-                left: 5%;
-                bottom: 37px;
-                a {
-                    height: 100%;
-                    line-height: 38px;
-                    font-size: 16px;
-                }
-            }
-        }
-        .bet-fail {
-            padding: 20px percentage(30/600) 0;
-            .bet-icon {
-                width: 40px;
-                height: 40px;
-            }
-            .bet-t {
-                line-height: 45px;
-                font-size: 20px;
-            }
-            .bet-m {
-                text-align: center;
-                max-height: 60px;
-                line-height: 20px;
-                font-size: 16px;
-            }
-            .btn-fail {
-                line-height: 43px;
-                font-size: 20px;
-            }
-        }
-        .bet-balance {
-            padding: 20px percentage(30/600) 0;
-            .bet-icon {
-                width: 63px;
-                height: 60px;
-            }
-            .bet-t {
-                line-height: 45px;
-                font-size: 20px;
-            }
-            .bet-m {
-                text-align: center;
-                max-height: 60px;
-                line-height: 20px;
-                font-size: 16px;
-            }
-            .btn-balance {
-                line-height: 43px;
-                font-size: 20px;
-            }
-        }
+  .itemluck {
+    .match-img {
+      right: 6.6667%;
+      left: auto;
+      top: 40%;
+      transform-origin: right center;
+      transform: translate(0, -50%) scale(0.5);
+      svg {
+        -webkit-transform: rotate(-0.05deg);
+        transform: rotate(-0.05deg);
+      }
     }
-    .mybets .msg1 {
-        line-height: 30px;
-    }
-    .pop-bet {
-        .pop-body {
-            width: 100%;
+    .btn {
+      height: 40px;
+      line-height: 40px;
+      &.normal {
+        font-size: 20px;
+      }
+      &.btn-win {
+        p {
+          padding-left: 0;
+          font-size: 14px;
+          background: none;
         }
+        a {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+      &.btn-fail {
+        p {
+          padding-left: 0;
+          font-size: 14px;
+          background: none;
+        }
+        a {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
     }
-    .cc-group.cc-luckycoin {
-        left: 6.66666667%;
+    .item-right {
+      .item-time {
+        min-width: 70px;
+        top: 38px;
+        right: 6.667%;
+        padding-left: 20px;
+        background-size: 23/2px;
+        font-size: 12px;
+      }
+      .item-prize {
+        height: 44px;
+        line-height: 44px;
+        font-size: 40px;
+        i {
+          font-size: 20px;
+        }
+      }
     }
+    .item-main {
+      .main-left {
+        > div {
+        }
+      }
+      .main-right {
+        > div {
+          float: none;
+        }
+      }
+      .main-normal {
+        p {
+        }
+        .input-box {
+          height: 40px;
+          line-height: 38px;
+          input {
+            height: 38px;
+            border-width: 1px;
+            font-size: 18px;
+            text-indent: 0;
+            text-align: center;
+            background-size: 14px;
+          }
+          a {
+            font-size: 16px;
+          }
+        }
+      }
+      .main-win,
+      .main-fail {
+        font-size: 18px;
+      }
+      .main-finished {
+        p {
+        }
+        span {
+        }
+      }
+      .main-expired {
+        span {
+        }
+        p {
+        }
+      }
+      .main-right {
+        > div {
+        }
+        a {
+          &:hover {
+          }
+        }
+      }
+    }
+    &.win {
+      &::after {
+        right: 25%;
+        bottom: 20px;
+        width: 91/2px;
+        height: 91/2px;
+      }
+    }
+    .btn.btn-normal {
+    }
+    .bet-success {
+      padding: 20px percentage(30/600) 0;
+      .bet-icon {
+        width: 40px;
+        height: 40px;
+      }
+      .bet-t {
+        line-height: 45px;
+        font-size: 20px;
+      }
+      .btn-box {
+        width: 90%;
+        height: 38px;
+        left: 5%;
+        bottom: 37px;
+        a {
+          height: 100%;
+          line-height: 38px;
+          font-size: 16px;
+        }
+      }
+    }
+    .bet-fail {
+      padding: 20px percentage(30/600) 0;
+      .bet-icon {
+        width: 40px;
+        height: 40px;
+      }
+      .bet-t {
+        line-height: 45px;
+        font-size: 20px;
+      }
+      .bet-m {
+        text-align: center;
+        max-height: 60px;
+        line-height: 20px;
+        font-size: 16px;
+      }
+      .btn-fail {
+        line-height: 43px;
+        font-size: 20px;
+      }
+    }
+    .bet-balance {
+      padding: 20px percentage(30/600) 0;
+      .bet-icon {
+        width: 63px;
+        height: 60px;
+      }
+      .bet-t {
+        line-height: 45px;
+        font-size: 20px;
+      }
+      .bet-m {
+        text-align: center;
+        max-height: 60px;
+        line-height: 20px;
+        font-size: 16px;
+      }
+      .btn-balance {
+        line-height: 43px;
+        font-size: 20px;
+      }
+    }
+  }
+  .mybets .msg1 {
+    line-height: 30px;
+  }
+  .pop-bet {
+    .pop-body {
+      width: 100%;
+    }
+  }
+  .cc-group.cc-luckycoin {
+    left: 6.66666667%;
+  }
 }
 @media (max-width: 480px) {
 }

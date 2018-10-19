@@ -34,11 +34,11 @@
             <div class="container" v-if="activeName === 'bids'">
                 <div class="row clearfix">
                     <div class=" items">
-                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in filterBets(betsList)" :key="Number(bets.pages.pageno) * 16 +  (index + 1)">
-                            <bet-box :bet="bet" type="list" @close="closeOtherBet" ref="betBoxList" @updateBets="updateBets"></bet-box>
+                        <div class="col-md-6 col-lg-3" v-for="bet in renderBets" :key="bet.exceptId" v-if="isReadyBets">
+                            <bet-box :bet="bet" type="list" @close="closeOtherBet" ref="betBoxList" @updateBets="updateBets" :priceData="priceData" :discountRate="discountRate"></bet-box>
                         </div>
                     </div>
-                    <div class="nomsg" v-if="filterBets(betsList).length === 0">
+                    <div class="nomsg" v-if="renderBets.length === 0 || !isReadyBets">
                         <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                         <p><lang>No record yet.</lang>
                             <a href="javascript:;" v-if="!isLogin && filter === 'My Bets'" @click="loginHandler">
@@ -50,17 +50,17 @@
                         </p>
                     </div>
                 </div>
-                <el-pagination v-if="filterBets(betsList).length != 0" @current-change="handleCurrentBetChange" background :current-page.sync="bets.pages.pageno" size="small" :page-size="bets.pages.pageSize" layout="prev, pager, next" :page-count="bets.pageCount" :next-text="_('Next >')" :prev-text="_('< Previous')">
+                <el-pagination v-if="renderBets.length !== 0" @current-change="handleCurrentBetChange" background :current-page.sync="bets.pages.pageno" size="small" :page-size="bets.pages.pageSize" layout="prev, pager, next" :page-count="bets.pageCount" :next-text="_('Next >')" :prev-text="_('< Previous')">
                 </el-pagination>
             </div>
             <div class="container" v-else>
                 <div class="row clearfix">
                     <div class="items ">
-                        <div class="col-md-6 col-lg-3" v-for="(bet, index) in historySort(historyList)" :key="Number(history.pages.pageno) * 16 +  (index + 1)">
-                            <history-bet-box :bet="bet" type="list"></history-bet-box>
+                        <div class="col-md-6 col-lg-3" v-for="(bet) in historySort(historyList)" :key="bet.exceptId" v-if="isReadyHistory">
+                            <history-bet-box :bet="bet" type="list" :priceData="priceData" :discountRate="discountRate"></history-bet-box>
                         </div>
                     </div>
-                    <div class="nomsg" v-if="historyList.length === 0">
+                    <div class="nomsg" v-if="historyList.length === 0 || !isReadyHistory">
                         <img src="@/assets/img/luckyCoin/nomsg.png" alt="">
                         <p>
                             <lang>No record yet.</lang>
@@ -107,7 +107,12 @@ export default {
             activeName: 'bids',
             filter: 'All Bets',
             bidsFilter: 'default',
-            list: []
+            list: [],
+            renderBets: [],
+            discountRate: {},
+            priceData: {},
+            isReadyBets: false,
+            isReadyHistory: false
         }
     },
     methods: {
@@ -124,7 +129,7 @@ export default {
         },
         handleCurrentBetChange (pageno = this.bets.pages.pageno) {
             this.bets.pages.pageno = pageno
-            this.getBetData()
+            this.changeBetsPage()
         },
         handleCurrentHistoryChange (pageno = this.history.pages.pageno) {
             this.history.pages.pageno = pageno
@@ -139,6 +144,11 @@ export default {
                 ...this.bets.pages
             })
             this.bets.pageCount = Math.ceil(result.data.goods.length / 16)
+            this.priceData = result.data.price_data
+            this.discountRate = result.data.discount_rate
+            this.$store.commit('cs_luckycoin/updateBets', result.data.goods)
+            this.onFilterChange()
+            this.isReadyBets = true
         },
         async getHistoryData () {
             let result = await this.getBetsPageHistory({
@@ -146,6 +156,10 @@ export default {
                 ...this.history.pages
             })
             this.history.pageCount = parseInt(result.data.pages, 10)
+            this.priceData = result.data.price_data
+            this.discountRate = result.data.discount_rate
+            this.$store.commit('cs_luckycoin/updateDrawHistory', result.data.drawRecords)
+            this.isReadyHistory = true
         },
         sortProgress (a, b) {
             let aProgress = Number(a.leftBids) / Number(a.totalBids)
@@ -194,8 +208,9 @@ export default {
             return arr
         },
 
-        filterBets (bets = []) {
+        filterBets () {
             let arr = []
+            let bets = [...this.betsList]
             if (this.filter === 'All Bets') {
                 arr = [...bets]
             } else if (this.filter === 'ETH') {
@@ -209,17 +224,16 @@ export default {
             }
 
             arr.sort(this.commonSort)
-
             if (this.bidsFilter === 'default') {
-                return this.slice(arr)
+                return arr
             } else if (this.bidsFilter === 'progress1') {
-                return this.slice(arr.sort((a, b) => this.sortProgress(a, b)))
+                return arr.sort((a, b) => this.sortProgress(a, b))
             } else if (this.bidsFilter === 'progress0') {
-                return this.slice(arr.sort((a, b) => this.sortProgress(b, a)))
+                return arr.sort((a, b) => this.sortProgress(b, a))
             } else if (this.bidsFilter === 'price1') {
-                return this.slice(arr.sort((a, b) => this.sortPrice(b, a)))
+                return arr.sort((a, b) => this.sortPrice(b, a))
             } else if (this.bidsFilter === 'price0') {
-                return this.slice(arr.sort((a, b) => this.sortPrice(a, b)))
+                return arr.sort((a, b) => this.sortPrice(a, b))
             }
         },
         slice (arr) {
@@ -251,12 +265,18 @@ export default {
             this.filter = 'All Bets'
             this.refreshPage()
         },
+        changeBetsPage () {
+            console.log(this.filterBets())
+            this.renderBets = this.slice([...this.filterBets()])
+            this.bets.pageCount = Math.ceil(this.filterBets().length / 16)
+            console.log(this.bets.pageCount)
+        },
         onFilterChange () {
             this.clearPageno()
             if (this.activeName === 'history') {
                 this.refreshPage()
             } else {
-                this.filterBets()
+                this.changeBetsPage()
             }
         },
         onBidsFilterChange () {

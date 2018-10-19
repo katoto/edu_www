@@ -14,10 +14,10 @@
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Terms of Use</lang>
                     </a>
-                    <router-link :to="{path: '/check'}" >
+                    <router-link :to="{path: '/check'}">
                         <lang>Transparency Checking</lang>
                     </router-link>
-                    <router-link :to="{path: '/help'}" >
+                    <router-link :to="{path: '/help'}">
                         <lang>Help Center</lang>
                     </router-link>
                 </div>
@@ -25,10 +25,10 @@
                     <div class="ftitle">
                         <lang>Games</lang>
                     </div>
-                    <router-link :to="{path: '/luckyslot/'}" >
+                    <router-link :to="{path: '/luckyslot/'}">
                         <lang>LuckySlot</lang>
                     </router-link>
-                    <router-link :to="{path: '/luckycoin/'}" >
+                    <router-link :to="{path: '/luckycoin/'}">
                         <lang>LuckyCoin</lang>
                     </router-link>
                     <router-link :to="{path: '/lucky11/'}">
@@ -39,7 +39,7 @@
                     </router-link>
                     <router-link :to="{path: '/supercoin/'}">
                         <lang>SuperCoin</lang>
-                    </router-link>                    
+                    </router-link>
                 </div>
             </div>
             <div class="contact">
@@ -68,8 +68,7 @@
                         {{ item.label }}
                     </div>
                     <ul>
-                        <li v-for="(item, index) in languageOptions" :key="index" v-if="item.value!==languageVal"
-                            @click="handleLanguageChange(item.value)">
+                        <li v-for="(item, index) in languageOptions" :key="index" v-if="item.value!==languageVal" @click="handleLanguageChange(item.value)">
                             <img :src="item.lanLogo" width="27" height="15" alt="">
                             <span>{{ item.label }}</span>
                         </li>
@@ -80,261 +79,265 @@
                 ©Coinsprize 2018. All Rights Reserved
             </div>
         </div>
+        <CHAT class="hide"></CHAT>
     </div>
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                languageOptions: [{
-                    value: 'en',
-                    label: 'English',
-                    lanLogo: '../../../static/staticImg/lan-en.jpg'
-                }, {
-                    value: 'zhCn',
-                    label: '中文简体',
-                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
-                }, {
-                    value: 'zhTw',
-                    label: '中文繁體',
-                    lanLogo: '../../../static/staticImg/lan-cn.jpg'
-                }],
-                isShowLanguage: false
+import CHAT from '~components/Chat'
+export default {
+    data () {
+        return {
+            languageOptions: [{
+                value: 'en',
+                label: 'English',
+                lanLogo: '../../../static/staticImg/lan-en.jpg'
+            }, {
+                value: 'zhCn',
+                label: '中文简体',
+                lanLogo: '../../../static/staticImg/lan-cn.jpg'
+            }, {
+                value: 'zhTw',
+                label: '中文繁體',
+                lanLogo: '../../../static/staticImg/lan-cn.jpg'
+            }],
+            isShowLanguage: false
+        }
+    },
+    watch: {},
+    components: {
+        CHAT
+    },
+    methods: {
+        jump2Page () {
+            let lan = this.$store.state.language
+            switch (lan) {
+            case 'en':
+                window.open('/policy', '_blank')
+                break
+            case 'zhCn':
+                window.open('/policy_zhCn', '_blank')
+                break
+            case 'zhTw':
+                window.open('/policy_zhTw', '_blank')
+                break
             }
+            this.$store.commit('hideLoginPop')
         },
-        watch: {},
-        methods: {
-            jump2Page () {
-                let lan = this.$store.state.language
-                switch (lan) {
-                case 'en':
-                    window.open('/policy', '_blank')
-                    break
-                case 'zhCn':
-                    window.open('/policy_zhCn', '_blank')
-                    break
-                case 'zhTw':
-                    window.open('/policy_zhTw', '_blank')
-                    break
-                }
-                this.$store.commit('hideLoginPop')
-            },
-            scroll () {
-                window.scrollTo(0, 0)
-            },
-            handleLanguageChange (val) {
+        scroll () {
+            window.scrollTo(0, 0)
+        },
+        handleLanguageChange (val) {
+            this.$store.commit('changeLanguage', val)
+        },
+        headControlPop () {
+            this.isShowLanguage = !this.isShowLanguage
+        }
+    },
+    computed: {
+        languageVal: {
+            set (val) {
                 this.$store.commit('changeLanguage', val)
             },
-            headControlPop () {
-                this.isShowLanguage = !this.isShowLanguage
-            }
-        },
-        computed: {
-            languageVal: {
-                set (val) {
-                    this.$store.commit('changeLanguage', val)
-                },
-                get () {
-                    return this.$store.state.language
-                }
-            }
-        },
-        mounted () {
-            if (~window.location.href.indexOf('policy')) {
-                let lan = this.$store.state.language
-                switch (lan) {
-                case 'en':
-                    this.$router.push('/policy')
-                    break
-                case 'zhCn':
-                    this.$router.push('/policy_zhCn')
-                    break
-                case 'zhTw':
-                    this.$router.push('/policy_zhTw')
-                    break
-                }
-                this.$store.commit('hideLoginPop')
+            get () {
+                return this.$store.state.language
             }
         }
+    },
+    mounted () {
+        if (~window.location.href.indexOf('policy')) {
+            let lan = this.$store.state.language
+            switch (lan) {
+            case 'en':
+                this.$router.push('/policy')
+                break
+            case 'zhCn':
+                this.$router.push('/policy_zhCn')
+                break
+            case 'zhTw':
+                this.$router.push('/policy_zhTw')
+                break
+            }
+            this.$store.commit('hideLoginPop')
+        }
     }
+}
 </script>
 <style lang="less" scoped type="text/less">
-    @import "../styles/lib-public.less";
+@import "../styles/lib-public.less";
 
-    .footer {
-        position: relative;
-        height: 310px;
-        z-index: 5;
+.footer {
+  position: relative;
+  height: 310px;
+  z-index: 5;
+  background: #151515;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 24px;
+  font-size: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+  &.lucky11 {
+    border-top: 50px solid #eef1f9;
+    //用border代替margin挡住冒泡
+  }
+  .fmain {
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    max-width: 1190px;
+    width: 100%;
+    height: 100%;
+    padding-top: 58px;
+    overflow: hidden;
+    background: transparent;
+  }
+  .ftitle {
+    line-height: 32px;
+    font-size: 20px;
+  }
+  a {
+    line-height: 24px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    transform: translate3d(0, 0, 0);
+    &:hover {
+      filter: brightness(1.3);
+    }
+  }
+  .reserved {
+    box-sizing: border-box;
+    float: left;
+    width: 460px;
+    padding-right: 45px;
+  }
+  .foot-mid {
+    width: 390px;
+    float: left;
+    .about,
+    .game {
+      width: 50%;
+      float: left;
+      a {
+        display: block;
+      }
+    }
+  }
+  .contact {
+    position: relative;
+    text-align: right;
+    overflow: hidden;
+    z-index: 2;
+    a {
+      color: #6f88cb;
+    }
+  }
+  .language {
+    position: relative;
+    float: right;
+    margin-top: 27px;
+    width: 130px;
+    border: 1px solid #6f8198;
+    line-height: 16px;
+    font-size: 14px;
+    color: #fff;
+    img {
+      width: 32px;
+      height: 16px;
+      margin-right: 6px;
+    }
+    .language-choose {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      padding: 6px;
+      cursor: pointer;
+      &::after {
+        position: absolute;
+        top: 11px;
+        right: 11px;
+        content: "";
+        display: block;
+        width: 13px;
+        height: 8px;
+        background: url(../assets/img/icon-arrow-down.png) no-repeat center;
+        background-size: 13px 8px;
+      }
+    }
+
+    ul {
+      display: none;
+      li {
+        display: flex;
+        justify-content: flex-start;
+        padding: 6px;
+        cursor: pointer;
         background: #151515;
-        color: rgba(255, 255, 255, 0.4);
-        line-height: 24px;
-        font-size: 14px;
-        overflow: hidden;
-        flex-shrink: 0;
-        &.lucky11{
-            border-top: 50px solid #eef1f9;
-            //用border代替margin挡住冒泡
+        &.on {
+          background: #6683c5;
+          color: #fff;
         }
-        .fmain {
-            box-sizing: border-box;
-            position: absolute;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%);
-            max-width: 1190px;
-            width: 100%;
-            height: 100%;
-            padding-top: 58px;
-            overflow: hidden;
-            background: transparent;
-        }
-        .ftitle {
-            line-height: 32px;
-            font-size: 20px;
-        }
+      }
+    }
+
+    &.on {
+      border-color: #698cdd;
+      ul {
+        display: block;
+      }
+    }
+  }
+  .cs-copyright {
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: @screen-lg-desktop) {
+  .footer {
+    height: 560px;
+    line-height: 20px;
+    .fmain {
+      padding: 0 percentage(30/750) 0;
+    }
+    .ftitle {
+      margin-top: 17/2px;
+      margin-bottom: 0;
+      line-height: 57/2px;
+      font-size: 18px;
+    }
+    .reserved {
+      width: 100%;
+      padding: 55/2px 0 0 0;
+    }
+    .foot-mid {
+      width: 100%;
+      .about,
+      .game {
         a {
-            line-height: 24px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.4);
-            transform: translate3d(0,0,0);
-            &:hover {
-                filter: brightness(1.3);
-            }
+          line-height: 24px;
+          font-size: 14px;
         }
-        .reserved {
-            box-sizing: border-box;
-            float: left;
-            width: 460px;
-            padding-right: 45px;
-        }
-        .foot-mid{
-            width: 390px;
-            float: left;
-            .about,
-            .game {
-                width: 50%;
-                float: left;
-                a {
-                    display: block;
-                }
-            }
-        }
-        .contact {
-            position: relative;
-            text-align: right;
-            overflow: hidden;
-            z-index: 2;
-            a {
-                color: #6f88cb;
-            }
-        }
-        .language {
-            position: relative;
-            float: right;
-            margin-top: 27px;
-            width: 130px;
-            border: 1px solid #6f8198;
-            line-height: 16px;
-            font-size: 14px;
-            color: #fff;
-            img {
-                width: 32px;
-                height: 16px;
-                margin-right: 6px;
-            }
-            .language-choose {
-                position: relative;
-                display: flex;
-                justify-content: flex-start;
-                padding: 6px;
-                cursor: pointer;
-                &::after {
-                    position: absolute;
-                    top: 11px;
-                    right: 11px;
-                    content: "";
-                    display: block;
-                    width: 13px;
-                    height: 8px;
-                    background: url(../assets/img/icon-arrow-down.png) no-repeat center;
-                    background-size: 13px 8px;
-                }
-            }
-
-            ul {
-                display: none;
-                li {
-                    display: flex;
-                    justify-content: flex-start;
-                    padding: 6px;
-                    cursor: pointer;
-                    background: #151515;
-                    &.on {
-                        background: #6683c5;
-                        color: #fff;
-                    }
-                }
-            }
-
-            &.on {
-                border-color: #698cdd;
-                ul {
-                    display: block;
-                }
-            }
-        }
-        .cs-copyright{
-            position: absolute;
-            left: 50%;
-            bottom: 50px;
-            transform: translateX(-50%);
-        }
+      }
     }
-
-    @media (max-width: @screen-lg-desktop) {
-        .footer{
-            height: 560px;
-            line-height: 20px;
-            .fmain{
-                padding: 0 percentage(30/750) 0;
-            }
-            .ftitle {
-                margin-top: 17/2px;
-                margin-bottom: 0;
-                line-height: 57/2px;
-                font-size: 18px;
-            }
-            .reserved {
-                width: 100%;
-                padding: 55/2px 0 0 0;
-            }
-            .foot-mid{
-                width: 100%;
-                .about,
-                .game {
-                    a{
-                        line-height: 24px;
-                        font-size: 14px;
-                    }
-                }
-            }
-            .contact {
-                width: 100%;
-                text-align: left;
-                p{
-                    line-height: 24px;
-                }
-                .language {
-                    float: left;
-                }
-            }
-            .cs-copyright{
-                position: absolute;
-                left: 4%;
-                transform: translateX(0);
-            }
-
-        }
+    .contact {
+      width: 100%;
+      text-align: left;
+      p {
+        line-height: 24px;
+      }
+      .language {
+        float: left;
+      }
     }
+    .cs-copyright {
+      position: absolute;
+      left: 4%;
+      transform: translateX(0);
+    }
+  }
+}
 </style>

@@ -98,7 +98,7 @@
                 <lucky11 :number="number" :result.sync="luck11Result" :status.sync="lucky11Status" :class="{ hide: lotid !== 1 }" ref="lucky11"></lucky11>
                 <luckycoin :number="number" :result.sync="luckyCoinResult" :status.sync="luckyCoinStatus" :class="{ hide: lotid !== 2 }" ref="luckycoin"></luckycoin>
 
-                <div class="relate-msg">
+                <div class="relate-msg" v-if="params.type != 'luckyPoker'">
                     <p>
                         <lang>Notes</lang>
                     </p>

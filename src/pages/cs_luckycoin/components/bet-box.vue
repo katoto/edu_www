@@ -251,11 +251,27 @@
             type: {
                 type: String,
                 default: ''
-            }
+            },
+            discountRate: Object,
+            priceData: Object
         },
         methods: {
             ...mapActions('cs_luckycoin', ['betNow']),
             ...mapActions(['getUserInfo']),
+            formatUSDValue () {
+                if (!this.priceData['2001']) {
+                    return '--'
+                }
+                let EthPrice = Number(this.priceData['2001'].USD)
+                let EthDiscount = Number(this.discountRate['2001'])
+                let goodsValue = Number(this.betData.goodsValue)
+                if (this.coinType === '2000') {
+                    return formatUSD(EthPrice, accDiv(goodsValue, EthDiscount))
+                } else {
+                    let thisPrice = Number(this.priceData[this.coinType].USD)
+                    return formatUSD(thisPrice, goodsValue)
+                }
+            },
             clearBetStatus () {
                 // 触发最小按钮点击事件, 重置投注金额
                 // this.$refs.minBtn.click()
@@ -454,7 +470,7 @@
                 return this.betData.state === '5'
             },
             goodsPrice () {
-                return `${formatUSD(this.betData.coinprice.USD, this.betData.goodsValue)}&ensp;USD` || '<br>'
+                return `${this.formatUSDValue()}&ensp;USD` || '<br>'
             },
             coin () {
                 return {

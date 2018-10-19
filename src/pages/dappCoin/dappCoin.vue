@@ -1,23 +1,6 @@
 <template>
     <div class="luckyDapp">
-        <div class="head-dapp hide">
-            <div class="head-dapp-wrap">
-                <h1 class="logo">
-                    <img src="@/assets/img/superCoin/logo-luckyDapp.png" alt="logo-dapp" title="logo-dapp" class="hide">
-                    <p>SuperCoin</p>
-                </h1>
-                <div class="fr-msg">
-                    <a href="javascript:;" class="invite" @click="scrollInvite">
-                        <lang>Referrals</lang>
-                    </a>
-                    <a href="https://etherscan.io/address/0x2119a3314c1d40704d816392a9e44da463688992#code" target="_blank">
-                        <lang>Contract</lang>
-                    </a>
-                    <a href="javascript:;" @click="showNewguide" v-lang="'Easy&nbsp;Play'"></a>
-                    <router-link :to="{path: '/home'}" class="btn-home"></router-link>
-                </div>
-            </div>
-        </div>
+        <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
         <HeaderCoin v-on:scrollInvite="scrollInvite"></HeaderCoin>
         <!--status2-->
         <div class="banner-dapp" :class="{'status2':nextScreen && pageSucc}">
@@ -36,13 +19,11 @@
                     <template v-if="someGetWin && roundInfo">
                         <p clsss="issue-pc">
                             <!-- 当前时间 -->
-                            <!-- August 29, 2018, 10:00<br>Go to the next issue,<br>Bonus {{ roundInfo.jackpot }} ETH -->
                             {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<br />
                             <lang>Prize Pool</lang>: 10 ETH
                         </p>
                         <p class="issue-h5">
                             {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<lang>Prize Pool</lang>: 10 ETH
-                            <!-- {{ forNextRoundStart(nextRoundStart) }}<lang>Go to the next issue,</lang><lang>Prize Pool</lang>10 ETH -->
                         </p>
                     </template>
                     <template v-if="!someGetWin && !waitWin && nextScreen">
@@ -55,7 +36,6 @@
                             {{ _('Next round will start at {0}', forNextRoundStart(nextRoundStart)) }}<lang>Prize Pool</lang>: {{ formatesuperCoin(roundInfo.jackpot) }} ETH
                         </p>
                     </template>
-
                 </div>
                 <div :class="{'hide':nextScreen}">
                     <!--未开奖投注区-->
@@ -123,13 +103,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--登录前-->
-                        <div class="btn-box hide">
-                            <a href="javascript:;" class="btn-big" @click="loginMetamask" :class="{'isNewShow':isShowStep4}">Login to Metamask</a>
-                            <a href="javascript:;" class="btn-small">
-                                <lang>Pay by Income</lang>
-                            </a>
-                        </div>
                         <!--登陆后-->
                         <div class="btn-box">
                             <a href="javascript:;" class="btn-big" @click="buyNum" :class="{'isNewShow':isShowStep4}">
@@ -188,6 +161,7 @@
                 <div class="notDraw" :class="{'hide':!waitWin}">
                     <!-- 等待开奖文案  components  -->
                     <h5>
+                        <img src="../../assets/img/loading.gif" alt="">
                         <lang>Drawing </lang>
                     </h5>
                     <ul>
@@ -263,10 +237,10 @@
                             <lang>Copy</lang>
                         </a>
                         <p v-if="selfMsg.aff_invite_nums==1||selfMsg.aff_invite_nums==0">
-                            {{ _('You\'ve invited: {0} friend',selfMsg.aff_invite_nums ) }}
+                            {{ _('This round you\'ve invited: {0} friend',selfMsg.aff_invite_nums ) }}
                         </p>
                         <p v-else>
-                            {{ _('You\'ve invited: {0} friends',selfMsg.aff_invite_nums ) }}
+                            {{ _('This round you\'ve invited: {0} friends',selfMsg.aff_invite_nums ) }}
                         </p>
                         <p>
                             <lang>Total referral reward:</lang> <i style="color: #53e864;">{{ selfMsg.aff_invite }} ETH</i>
@@ -323,7 +297,6 @@
                         <p>
                             <lang>One ticket corresponds to a number, if your ticket number matches draw number, you win the prize pool.</lang>
                         </p>
-
                     </div>
                     <template v-if="selfMsg">
                         <!--已登录-->
@@ -389,8 +362,8 @@
                             </div>
                         </div>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-sm hidden-xs" v-if="ordersList&&ordersList.length>=1" :class="{'lg7':orderPageTotal>=7}">
-                            <el-pagination @current-change="orderCurrentChange" @size-change="orderSizeChange" background :current-page.sync="orderPageno" size="small" :page-sizes="[10, 25, 50, 100]" :page-size="orderpPgeSize" layout="sizes,prev, pager, next" :page-count="orderPageTotal" :next-text="_('Next >')" :prev-text="_('< Previous')">
+                        <div class="pagination hidden-sm hidden-xs" v-if="(ordersList&&ordersList.length>=10)||orderPageTotal>1" :class="{'lg7':orderPageTotal>=7}">
+                            <el-pagination @current-change="orderCurrentChange" @size-change="orderSizeChange" background :current-page.sync="orderPageno" size="small" :page-sizes="[10, 25, 50, 100]" :page-size="orderpPgeSize" layout="prev, pager, next, sizes" :page-count="orderPageTotal" :next-text="_('Next >')" :prev-text="_('< Previous')">
                             </el-pagination>
                         </div>
                         <!--分页h5-->
@@ -476,7 +449,7 @@
                             </li>
                         </ul>
                         <ul class="historyDraw-main hidden-xs hidden-sm">
-                            <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !==''}">
+                            <li v-for="(item,index) in expectsList" :key="index" :class="{'win':item.winner !=='' && item.winner !== '0x0000000000000000000000000000000000000000'}">
                                 <p class="issue">
                                     #{{ item.round }}
                                 </p>
@@ -486,7 +459,7 @@
                                 <p class="bonus">
                                     {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                                 </p>
-                                <p class="winner" v-if="item.winner ===''">
+                                <p class="winner" v-if="item.winner ==='' || item.winner === '0x0000000000000000000000000000000000000000'">
                                     -
                                 </p>
                                 <p class="winner" v-else>
@@ -498,7 +471,7 @@
                         </ul>
                         <!-- mobile -->
                         <ul class="historyDraw-main hidden-lg hidden-md">
-                            <li v-for="(item,index) in expectsListMobile" :key="index" :class="{'win':item.winner !==''}">
+                            <li v-for="(item,index) in expectsListMobile" :key="index" :class="{'win':item.winner !=='' && item.winner !== '0x0000000000000000000000000000000000000000'}">
                                 <p class="issue">
                                     #{{ item.round }}
                                 </p>
@@ -508,7 +481,7 @@
                                 <p class="bonus">
                                     {{ formatesuperCoin(item.prizes) }} {{ formateCoinType(item.cointype) }}
                                 </p>
-                                <p class="winner" v-if="item.winner ===''">
+                                <p class="winner" v-if="item.winner ==='' || item.winner === '0x0000000000000000000000000000000000000000'">
                                     -
                                 </p>
                                 <p class="winner" v-else>
@@ -519,7 +492,7 @@
                             </li>
                         </ul>
                         <!-- 分页msg  -->
-                        <div class="pagination hidden-xs hidden-sm" v-if="expectsList&&expectsList.length>=1" :class="{'lg7':expectPageTotal>=7}">
+                        <div class="pagination hidden-xs hidden-sm" v-if="(expectsList&&expectsList.length>=10)||expectPageTotal>1" :class="{'lg7':expectPageTotal>=7}">
                             <el-pagination @current-change="expectCurrentChange" @size-change="expectSizeChange" background :current-page.sync="expectPageno" size="small" :page-sizes="[10, 25, 50, 100]" :page-size="expectPageSize" layout="sizes,prev, pager, next" :page-count="expectPageTotal" :next-text="_('Next >')" :prev-text="_('< Previous')">
                             </el-pagination>
                         </div>
@@ -559,7 +532,7 @@
                             <lang>1. At the beginning of the game, there will be a 10 ETH-prize pool and 1500 random numbers. And each ticket corresponds to a random number. After all tickets are sold out or time's up, the draw will proceed. If your ticket number matches draw number, you win the reward from prize pool (at least 10 ETH).</lang>
                         </p>
                         <p>
-                            <lang>2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy the dividend. More tickets bring more dividend.</lang>
+                            <lang>2. Share the dividend. Buyers who hold part/all of first 500 tickets of a round enjoy 10% betting dividend. More tickets bring more dividend.</lang>
                         </p>
                         <p>
                             <lang>3. If there's no winner of the round, the prize pool will accumulate in next round, and the ticket price will be adjusted as well.</lang>
@@ -571,7 +544,7 @@
                         <p>
                             <lang>Playing on PC: MetaMask is recommended to install (download from</lang>
                             <a href="https://metamask.io/" target="_blank" style="color: #ff8a00;">https://metamask.io/</a>
-                            ).
+                            )
                         </p>
                         <p>
                             <lang>Playing on mobile: Trust, Cipher, Jaxx and other mobile wallets are recommended to use.</lang>
@@ -634,14 +607,9 @@
 </template>
 
 <script>
-import { mTypes, aTypes } from '~/store/cs_page/dappCoin'
+import { aTypes } from '~/store/cs_page/dappCoin'
 import {
-    copySucc,
-    copyError,
-    formateCoinType,
-    formatTime,
-    formateCoinAddr,
-    coinAffAddr
+    copySucc, copyError, formateCoinType, formatTime, formateCoinAddr, coinAffAddr
 } from '~common/util'
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
@@ -663,17 +631,20 @@ export default {
             bindwaitingMsg: _('Who will be the winner?'),
             waitingMsgArr: [
                 _('Who will be the winner?'),
-                _('Data processing'),
                 _('Data uploading')
-            ], // 等待开奖文案 todo
+            ], // 等待开奖文案
             nextRoundStart: null, // 下一期开启的时间
             openWinNumber: false, // 出现开奖号码
             someGetWin: false, // 是否有人中奖
             openNumArr: ['?', '?', '?', '?'],
             scrollMsg: [
-                _('Buyers who hold part/all of first 500 tickets enjoy the dividend.'),
-                _('Buy more tickets, get more dividend, and enjoy higher winning chance.'),
-                _('Click to learn easy play for starters.')
+                _(
+                    'Buyers who hold part/all of first 500 tickets enjoy 10% betting dividend.'
+                ),
+                _(
+                    'Buy more tickets, get more dividend, and enjoy higher winning chance.'
+                ),
+                _('Click Instructions to learn easy play for starters')
             ],
             ticketsNumber: null, // 当前购买的ticket
             informationTab: 'myticket', // 控制tab
@@ -705,11 +676,11 @@ export default {
             ordersMobileIndex: 1,
 
             expectPageno: 1,
-            expectPageSize: 25,
+            expectPageSize: 10,
             expectPageTotal: 1,
 
             orderPageno: 1,
-            orderpPgeSize: 25,
+            orderpPgeSize: 10,
             orderPageTotal: 1,
 
             showPopMask: false,
@@ -719,10 +690,13 @@ export default {
             isShowStep1: true,
             isShowStep2: false,
             isShowStep3: false,
-            isShowStep4: false
+            isShowStep4: false,
+            autoLoginTime: null,
+            isReady: false,
+            upTimeInterval: null,
+            upMsgInterval: null
         }
     },
-
     methods: {
         copySucc,
         copyError,
@@ -750,11 +724,19 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42 ? buyBack = await luckyCoinApi.reLoadXaddr(this.tickNum, this.isFromFlag) : buyBack = await luckyCoinApi.reLoadXname(this.tickNum, this.isFromFlag)
+            this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42
+                ? (buyBack = await luckyCoinApi.reLoadXaddr(
+                    this.tickNum,
+                    this.isFromFlag
+                ))
+                : (buyBack = await luckyCoinApi.reLoadXname(
+                    this.tickNum,
+                    this.isFromFlag
+                ))
             buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         showNewguide () {
-            if (this.timeLeft < 7200) {
+            if (this.timeLeft < 600) {
                 // 滚到 local
                 this.informationTab = 'howToPlay'
                 document.getElementById('inviteView').scrollIntoView()
@@ -781,15 +763,21 @@ export default {
         async searchTicketsXaddr () {
             let buyNum = []
             if (this.selfAddr) {
-                let buyTick = await luckyCoinApi.searchTicketsXaddr(this.selfAddr)
+                let buyTick = await luckyCoinApi.searchTicketsXaddr(
+                    this.selfAddr
+                )
                 if (buyTick.orders0 !== '0') {
-                    buyNum = buyNum.concat(this.analysisBuyNum(buyTick.orders0))
+                    buyNum = buyNum.concat(
+                        this.analysisBuyNum(buyTick.orders0)
+                    )
                 }
                 for (let i = 1; i <= 5; i++) {
                     if (buyTick['orders' + i] !== '0') {
-                        this.analysisBuyNum(buyTick['orders' + i]).forEach((item, index) => {
-                            buyNum.push(Number(item) + 250 * i)
-                        })
+                        this.analysisBuyNum(buyTick['orders' + i]).forEach(
+                            (item, index) => {
+                                buyNum.push(Number(item) + 250 * i)
+                            }
+                        )
                     }
                 }
                 buyNum = this.buildZero(buyNum)
@@ -824,11 +812,11 @@ export default {
             }
             val = Number(val)
             if (val > 1000) {
-                newEth = parseFloat((val).toFixed(0))
+                newEth = parseFloat(val.toFixed(0))
             } else if (val > 100) {
-                newEth = (val).toFixed(3)
+                newEth = val.toFixed(3)
             } else {
-                newEth = (val).toFixed(4)
+                newEth = val.toFixed(4)
             }
             return newEth
         },
@@ -839,23 +827,34 @@ export default {
         },
         scrollMsgChange (state) {
             if (state === 'end') {
-                this.scrollMsg = [_('Buy the first ticket to start a new round.'), _('Buyers who hold part/all of first 500 tickets enjoy the dividend.')]
+                this.scrollMsg = [
+                    _('Buy the first ticket to start a new round.'),
+                    _(
+                        'Buyers who hold part/all of first 500 tickets enjoy 10% betting dividend.'
+                    )
+                ]
             } else {
                 this.scrollMsg = [
-                    _('Buyers who hold part/all of first 500 tickets enjoy the dividend.'),
-                    _('Buy more tickets, get more dividend, and enjoy higher winning chance.'),
-                    _('Click to learn easy play for starters.'),
-                    _('Draw will proceed after tickets sold out or time\'s up.')
+                    _(
+                        'Buyers who hold part/all of first 500 tickets enjoy 10% betting dividend.'
+                    ),
+                    _(
+                        'Buy more tickets, get more dividend, and enjoy higher winning chance.'
+                    ),
+                    _('Click Instructions to learn easy play for starters'),
+                    _("Draw will proceed after tickets sold out or time's up.")
                 ]
             }
         },
         tabEvt (evt, dataName) {
             if (this.selfMsg) {
                 this.informationTab = dataName
-                //  请求历史数据
-                this.expectCurrentChange()
-                //  用户投注订单记录  是否登录
-                this.orderCurrentChange()
+                if (dataName === 'myticket' || dataName === 'historyDraw') {
+                    //  请求历史数据
+                    this.expectCurrentChange()
+                    //  用户投注订单记录  是否登录
+                    this.orderCurrentChange()
+                }
             } else {
                 if (dataName === 'howToPlay' || dataName === 'myticket' || dataName === 'historyDraw') {
                     this.informationTab = dataName
@@ -878,7 +877,14 @@ export default {
             let data = await this.getSuperCoinExpects(params)
             data = data.data
             if (data) {
+                if (pageno === 1) {
+                    let insertData = await this.getRoundMsg()
+                    if (insertData && data.expects[0].round !== insertData.round) {
+                        data.expects.unshift(insertData)
+                    }
+                }
                 this.expectsList = this.expectFormatData(data.expects)
+
                 if (pageno === 1) {
                     this.expectsListMobile = this.expectsList
                     this.expectsMobileIndex = 2
@@ -893,7 +899,7 @@ export default {
                 } else {
                     this.getWInAddr = 'someBody'
                 }
-                if (data.expects.length === 0 || data.expects.length !== 25) {
+                if (data.expects.length === 0 || data.expects.length !== 10) {
                     this.isShowExpectMoreBtn = false
                 }
 
@@ -937,12 +943,14 @@ export default {
                     this.ordersMobileIndex = 2
                 } else {
                     if (this.ordersList.length > 0 && isPush) {
-                        this.ordersListMobile = this.ordersListMobile.concat(this.ordersList)
+                        this.ordersListMobile = this.ordersListMobile.concat(
+                            this.ordersList
+                        )
                         this.ordersMobileIndex++
                     }
                 }
 
-                if (data.luckydata.length === 0 || data.luckydata.length !== 25) {
+                if (data.luckydata.length === 0 || data.luckydata.length !== 10) {
                     this.isShowOrderMore = false
                 }
 
@@ -973,7 +981,9 @@ export default {
                             flag = Number(endItem) - currBeginArr[index]
                             if (flag >= 0) {
                                 for (let i = 0; i <= flag; i++) {
-                                    buyNum.push(parseInt(currBeginArr[index]) + i)
+                                    buyNum.push(
+                                        parseInt(currBeginArr[index]) + i
+                                    )
                                 }
                             }
                         })
@@ -1008,20 +1018,11 @@ export default {
                 this.tickNum = 0
                 return false
             }
-            if (this.balance && Number(this.balance) > 0) {
-                let earnNum = null
-                if (this.selfMsg) {
-                    earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
-                }
-                // if (earnNum && Number(this.balance) < earnNum) {
-                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                // } else {
-                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                // }
-            } else {
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-            }
-            this.tickNum = this.tickNum > this.maxTicketNum ? this.maxTicketNum : this.tickNum
+            this.maxTicketNum = 1500 - this.roundInfo.tickets
+            this.tickNum =
+                this.tickNum > this.maxTicketNum
+                    ? this.maxTicketNum
+                    : this.tickNum
         },
         chooseMin () {
             this.tickNum = 1
@@ -1036,7 +1037,9 @@ export default {
                 this.tickNum = 1 * 2
                 return
             }
-            Math.ceil(this.tickNum / 2) >= 1 ? this.tickNum = Math.ceil(this.tickNum / 2) : this.tickNum = 1
+            Math.ceil(this.tickNum / 2) >= 1
+                ? (this.tickNum = Math.ceil(this.tickNum / 2))
+                : (this.tickNum = 1)
         },
         chooseDouble () {
             this.tickNum = Number(this.tickNum)
@@ -1048,7 +1051,9 @@ export default {
                 this.tickNum = 1 * 2
                 return
             }
-            this.tickNum * 2 <= this.maxTicketNum ? this.tickNum = this.tickNum * 2 : this.tickNum = this.maxTicketNum
+            this.tickNum * 2 <= this.maxTicketNum
+                ? (this.tickNum = this.tickNum * 2)
+                : (this.tickNum = this.maxTicketNum)
         },
         chooseMax () {
             this.tickNum = this.maxTicketNum
@@ -1056,14 +1061,212 @@ export default {
         isVerifyName (name) {
             let regaz = /^[a-z0-9\-\s]+$/
             let regonlyNum = /^[0-9]+$/
-            return name.length <= 32 && regaz.test(name) && !regonlyNum.test(name) && name.indexOf(' ') === -1
+            return (
+                name.length <= 32 &&
+                regaz.test(name) &&
+                !regonlyNum.test(name) &&
+                name.indexOf(' ') === -1
+            )
         },
         getRandomName () {
-            let getRandomKey = (list) => {
+            let getRandomKey = list => {
                 return Math.floor(Math.random() * list.length)
             }
-            let randomNameArr = ['reward', 'moreMoney', 'fomo', 'index', 'quick', 'ninja', 'truce', 'harj', 'finney', 'szabo', 'gwei', 'laser', 'justo', 'satoshi', 'mantso', '3D', 'inventor', 'theShocker', 'aritz', 'sumpunk', 'cryptoknight', 'randazz', 'kadaz', 'daok', 'shenron', 'notreally', 'thecrypt', 'figures', 'mermaid', 'barnacles', 'dragons', 'jellybeans', 'snakes', 'dolls', 'bushes', 'cookies', 'apples', 'cream', 'ukulele', 'kazoo', 'banjo', 'singer', 'circus', 'trampoline', 'carousel', 'carnival', 'locomotive', 'balloon', 'mantis', 'animator', 'artisan', 'artist', 'colorist', 'inker', 'coppersmith', 'director', 'designer', 'flatter', 'stylist', 'leadman', 'limner', 'artist', 'model', 'musician', 'penciller', 'producer', 'scenographer', 'decorator', 'silversmith', 'teacher', 'mechanic', 'beader', 'bobbin', 'cchapel', 'ttendant', 'foreman', 'engineering', 'mechanic', 'miller', 'moldmaker', 'beater', 'patternmaker', 'operator', 'plumber', 'sawfiler', 'foreman', 'soaper', 'engineer', 'wheelwright', 'woodworkers']
-            let randomNameArr2 = ['adamant', 'adroit', 'amatory', 'animistic', 'antic', 'arcadian', 'baleful', 'bellicose', 'bilious', 'boorish', 'calamitous', 'caustic', 'cerulean', 'comely', 'concomitant', 'contumacious', 'corpulent', 'crapulous', 'defamatory', 'didactic', 'dilatory', 'dowdy', 'efficacious', 'effulgent', 'egregious', 'endemic', 'equanimous', 'execrable', 'fastidious', 'feckless', 'fecund', 'friable', 'fulsome', 'garrulous', 'guileless', 'gustatory', 'harjd', 'heuristic', 'histrionic', 'hubristic', 'incendiary', 'insidious', 'insolent', 'intransigent', 'inveterate', 'invidious', 'irksome', 'jejune', 'jocular', 'judicious', 'lachrymose', 'limpid', 'loquacious', 'luminous', 'mannered', 'mendacious', 'meretricious', 'minatory', 'mordant', 'munificent', 'nefarious', 'noxious', 'obtuse', 'parsimonious', 'pendulous', 'pernicious', 'pervasive', 'petulant', 'platitudinous', 'precipitate', 'propitious', 'puckish', 'querulous', 'quiescent', 'rebarbative', 'recalcitant', 'redolent', 'rhadamanthine', 'risible', 'ruminative', 'sagacious', 'salubrious', 'sartorial', 'sclerotic', 'serpentine', 'spasmodic', 'strident', 'taciturn', 'tenacious', 'tremulous', 'trenchant', 'turbulent', 'turgid', 'ubiquitous', 'uxorious', 'verdant', 'voluble', 'voracious', 'wheedling', 'withering', 'zealous']
+            let randomNameArr = [
+                'reward',
+                'moreMoney',
+                'fomo',
+                'index',
+                'quick',
+                'ninja',
+                'truce',
+                'harj',
+                'finney',
+                'szabo',
+                'gwei',
+                'laser',
+                'justo',
+                'satoshi',
+                'mantso',
+                '3D',
+                'inventor',
+                'theShocker',
+                'aritz',
+                'sumpunk',
+                'cryptoknight',
+                'randazz',
+                'kadaz',
+                'daok',
+                'shenron',
+                'notreally',
+                'thecrypt',
+                'figures',
+                'mermaid',
+                'barnacles',
+                'dragons',
+                'jellybeans',
+                'snakes',
+                'dolls',
+                'bushes',
+                'cookies',
+                'apples',
+                'cream',
+                'ukulele',
+                'kazoo',
+                'banjo',
+                'singer',
+                'circus',
+                'trampoline',
+                'carousel',
+                'carnival',
+                'locomotive',
+                'balloon',
+                'mantis',
+                'animator',
+                'artisan',
+                'artist',
+                'colorist',
+                'inker',
+                'coppersmith',
+                'director',
+                'designer',
+                'flatter',
+                'stylist',
+                'leadman',
+                'limner',
+                'artist',
+                'model',
+                'musician',
+                'penciller',
+                'producer',
+                'scenographer',
+                'decorator',
+                'silversmith',
+                'teacher',
+                'mechanic',
+                'beader',
+                'bobbin',
+                'cchapel',
+                'ttendant',
+                'foreman',
+                'engineering',
+                'mechanic',
+                'miller',
+                'moldmaker',
+                'beater',
+                'patternmaker',
+                'operator',
+                'plumber',
+                'sawfiler',
+                'foreman',
+                'soaper',
+                'engineer',
+                'wheelwright',
+                'woodworkers'
+            ]
+            let randomNameArr2 = [
+                'adamant',
+                'adroit',
+                'amatory',
+                'animistic',
+                'antic',
+                'arcadian',
+                'baleful',
+                'bellicose',
+                'bilious',
+                'boorish',
+                'calamitous',
+                'caustic',
+                'cerulean',
+                'comely',
+                'concomitant',
+                'contumacious',
+                'corpulent',
+                'crapulous',
+                'defamatory',
+                'didactic',
+                'dilatory',
+                'dowdy',
+                'efficacious',
+                'effulgent',
+                'egregious',
+                'endemic',
+                'equanimous',
+                'execrable',
+                'fastidious',
+                'feckless',
+                'fecund',
+                'friable',
+                'fulsome',
+                'garrulous',
+                'guileless',
+                'gustatory',
+                'harjd',
+                'heuristic',
+                'histrionic',
+                'hubristic',
+                'incendiary',
+                'insidious',
+                'insolent',
+                'intransigent',
+                'inveterate',
+                'invidious',
+                'irksome',
+                'jejune',
+                'jocular',
+                'judicious',
+                'lachrymose',
+                'limpid',
+                'loquacious',
+                'luminous',
+                'mannered',
+                'mendacious',
+                'meretricious',
+                'minatory',
+                'mordant',
+                'munificent',
+                'nefarious',
+                'noxious',
+                'obtuse',
+                'parsimonious',
+                'pendulous',
+                'pernicious',
+                'pervasive',
+                'petulant',
+                'platitudinous',
+                'precipitate',
+                'propitious',
+                'puckish',
+                'querulous',
+                'quiescent',
+                'rebarbative',
+                'recalcitant',
+                'redolent',
+                'rhadamanthine',
+                'risible',
+                'ruminative',
+                'sagacious',
+                'salubrious',
+                'sartorial',
+                'sclerotic',
+                'serpentine',
+                'spasmodic',
+                'strident',
+                'taciturn',
+                'tenacious',
+                'tremulous',
+                'trenchant',
+                'turbulent',
+                'turgid',
+                'ubiquitous',
+                'uxorious',
+                'verdant',
+                'voluble',
+                'voracious',
+                'wheedling',
+                'withering',
+                'zealous'
+            ]
             let newRandom = randomNameArr.concat(randomNameArr2)
             let endPoint = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '']
             this.beforeInviteName = newRandom[getRandomKey(newRandom)] + endPoint[getRandomKey(endPoint)]
@@ -1071,23 +1274,12 @@ export default {
         async pageInit () {
             // 初始化页面
             this.selfAddr = await luckyCoinApi.getAccounts()
+            await this.getPlayerInfoByAddress()
             await this.getCurrentRoundInfo()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
-            await this.getPlayerInfoByAddress()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-            if (this.balance && Number(this.balance) > 0) {
-                let earnNum = null
-                if (this.selfMsg) {
-                    earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
-                }
-                // if (earnNum && Number(this.balance) < earnNum) {
-                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                // } else {
-                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                // }
-            } else {
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-            }
+            this.maxTicketNum = 1500 - this.roundInfo.tickets
+            this.isReady = true
             if (this.timeLeft === 0) {
                 if (this.roundInfo.luckNum === 0) {
                     this.waitWin = true
@@ -1113,13 +1305,10 @@ export default {
                 }
             }
             this.pageSucc = true
-            console.log('roundinfo')
-            console.log(this.roundInfo)
-            this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime()) / 1000
-            window.setInterval(async () => {
+            this.nextRoundStart = parseInt(localStorage.getItem('openNextTime')) > new Date().getTime() ? parseInt(localStorage.getItem('openNextTime')) : (new Date().getTime() + 6000) / 1000
+            clearInterval(this.upTimeInterval)
+            this.upTimeInterval = setInterval(async () => {
                 this.timeLeft = await luckyCoinApi.getTimeLeft()
-                console.log(this.timeLeft)
-                console.log('======timeleft=====')
                 if (this.timeLeft !== 0) {
                     this.startTimeLeft()
                 }
@@ -1132,9 +1321,21 @@ export default {
             //  请求历史数据
             this.expectCurrentChange()
             // 开始待开奖的动画
-            setInterval(() => {
+            clearInterval(this.upMsgInterval)
+            this.upMsgInterval = setInterval(() => {
                 this.bindwaitingMsg = this.waitingMsgArr[parseInt(Math.random() * 2)]
-            }, 5000)
+            }, 4000)
+        },
+        async getRoundMsg () {
+            await this.getCurrentRoundInfo()
+            if (this.roundInfo && this.roundInfo.roundIndex && (this.roundInfo.luckynum === 0 || !this.roundInfo)) {
+                let msgRound = await luckyCoinApi.round_(Number(this.roundInfo.roundIndex) - 1)
+                Object.assign(msgRound, {
+                    round: Number(this.roundInfo.roundIndex) - 1
+                })
+                return msgRound
+            }
+            return 0
         },
         getSuperCoinExpects (params) {
             return this.$store.dispatch(aTypes.superCoinExpects, {
@@ -1162,7 +1363,10 @@ export default {
                             this.nextScreen = true
                             // this.waitWin = true
                             // 更改 提示文案
-                            if (this.roundInfo.luckNum === 0 || !this.roundInfo) {
+                            if (
+                                this.roundInfo.luckNum === 0 ||
+                                !this.roundInfo
+                            ) {
                                 this.waitWin = true
                                 this.someGetWin = false
                             } else {
@@ -1171,13 +1375,19 @@ export default {
                                 this.waitWin = false
                                 this.showOpenNumber(this.roundInfo.luckNum)
 
-                                localStorage.setItem('openNextTime', (new Date().getTime() + 300000) / 1000)
-                                this.nextRoundStart = localStorage.getItem('openNextTime')
+                                localStorage.setItem(
+                                    'openNextTime',
+                                    (new Date().getTime() + 300000) / 1000
+                                )
+                                this.nextRoundStart = localStorage.getItem(
+                                    'openNextTime'
+                                )
                             }
                             this.scrollMsgChange('end')
                         }, 6000)
                         clearInterval(this.nowTimeInterval)
                     }
+                    console.log(this.timeLeft + 'timeLeft')
                     this.nowFormateTime = this.calcTime(this.timeLeft)
                     this.timeLeft--
                 }
@@ -1185,12 +1395,17 @@ export default {
         },
         async getPlayerInfoByAddress () {
             if (this.selfAddr) {
-                let allMsg = await luckyCoinApi.getPlayerInfoByAddress(this.selfAddr)
+                let allMsg = await luckyCoinApi.getPlayerInfoByAddress(
+                    this.selfAddr
+                )
                 this.selfMsg = allMsg[0]
-                console.log(this.selfMsg)
-                console.log('=========selfMsg======')
                 this.balance = allMsg[1]
-                this.selfMsg.inviteLink = this.selfMsg.name === '' ? '' : `${window.location.origin}/supercoin/${this.selfMsg.name}`
+                this.selfMsg.inviteLink =
+                    this.selfMsg.name === ''
+                        ? ''
+                        : `${window.location.origin}/supercoin/${
+                            this.selfMsg.name
+                        }`
             } else {
                 console.warn('没有取得地址msg')
             }
@@ -1198,26 +1413,14 @@ export default {
         async getCurrentRoundInfo () {
             // 获取页面相关信息
             this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+            console.log(this.roundInfo)
             this.calVotingLen = `transform: scaleX(${this.roundInfo.tickets / 1500})`
-
-            let earnNum = null
-            if (this.selfMsg) {
-                earnNum = parseFloat(this.selfMsg.win) + parseFloat(this.selfMsg.calcTicketEarn) + parseFloat(this.selfMsg.aff_invite)
-            }
-            if (this.balance && Number(this.balance) > 0) {
-                // if (earnNum && Number(this.balance) < earnNum) {
-                //     this.maxTicketNum = Math.floor(earnNum / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(earnNum / Number(this.currTicketPrice))
-                // } else {
-                //     this.maxTicketNum = Math.floor(Number(this.balance) / Number(this.currTicketPrice)) > (1500 - this.roundInfo.tickets) ? (1500 - this.roundInfo.tickets) : Math.floor(Number(this.balance) / Number(this.currTicketPrice))
-                // }
-            } else {
-                this.maxTicketNum = 1500 - this.roundInfo.tickets
-            }
+            this.maxTicketNum = 1500 - this.roundInfo.tickets
         },
         async buyNum () {
             // 购买号码
             let buyBack = null
-            let currPrice = await luckyCoinApi.getBuyPrice()
+            this.currTicketPrice = await luckyCoinApi.getBuyPrice()
             if (!this.selfMsg) {
                 this.loginMetamask()
                 return false
@@ -1229,12 +1432,27 @@ export default {
             if (typeof this.tickNum === 'string') {
                 this.tickNum = Number(this.tickNum)
             }
-            if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
-                buyBack = await luckyCoinApi.buyXaddr(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+            let currGas = await luckyCoinApi.getgasPrice()
+            if (
+                this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42
+            ) {
+                buyBack = await luckyCoinApi.buyXaddr(
+                    this.tickNum,
+                    this.isFromFlag,
+                    this.currTicketPrice * this.tickNum,
+                    currGas
+                )
             } else {
-                buyBack = await luckyCoinApi.buyXname(this.tickNum, this.isFromFlag, this.currTicketPrice * this.tickNum)
+                buyBack = await luckyCoinApi.buyXname(
+                    this.tickNum,
+                    this.isFromFlag,
+                    this.currTicketPrice * this.tickNum,
+                    currGas
+                )
             }
-            buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
+            buyBack
+                ? this.selfNotify('Order Successful')
+                : this.selfNotify('Purchase Cancelled', 'error')
         },
         selfNotify (val, typeVal = 'success') {
             Notification({
@@ -1252,7 +1470,10 @@ export default {
                 return false
             }
             // 判断是否符合规则
-            if (!this.beforeInviteName || !(this.isVerifyName(this.beforeInviteName))) {
+            if (
+                !this.beforeInviteName ||
+                !this.isVerifyName(this.beforeInviteName)
+            ) {
                 Message({
                     message: _('Please enter the correct referral link'),
                     type: 'error'
@@ -1262,26 +1483,43 @@ export default {
             // 判断是否已经被购买
             this.beforeInviteName = this.beforeInviteName.toString()
             let checkName = await luckyCoinApi.testName(this.beforeInviteName)
+            let currGas = await luckyCoinApi.getgasPrice()
             if (checkName) {
-                if (this.isFromFlag.indexOf('0x') > -1 && this.isFromFlag.length === 42) {
-                    buyNameBack = await luckyCoinApi.registerNameXaddr(this.beforeInviteName, this.isFromFlag)
+                if (
+                    this.isFromFlag.indexOf('0x') > -1 &&
+                    this.isFromFlag.length === 42
+                ) {
+                    buyNameBack = await luckyCoinApi.registerNameXaddr(
+                        this.beforeInviteName,
+                        this.isFromFlag,
+                        currGas
+                    )
                 } else {
-                    buyNameBack = await luckyCoinApi.registerNameXname(this.beforeInviteName, this.isFromFlag)
+                    buyNameBack = await luckyCoinApi.registerNameXname(
+                        this.beforeInviteName,
+                        this.isFromFlag,
+                        currGas
+                    )
                 }
-                buyNameBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
+                buyNameBack
+                    ? this.selfNotify('Order Successful')
+                    : this.selfNotify('Purchase Cancelled', 'error')
             } else {
                 Message({
-                    message: '名字已被注册',
+                    message: 'The name has been registered',
                     type: 'error'
                 })
             }
         },
         async withdraw () {
             let withdrawBack = await luckyCoinApi.withdraw()
-            withdrawBack ? this.selfNotify('Order Successful') : this.selfNotify('Withdrawal Cancelled', 'error')
+            withdrawBack
+                ? this.selfNotify('Order Successful')
+                : this.selfNotify('Withdrawal Cancelled', 'error')
         },
         checkTicketPoint () {
-            this.tickNum = Math.ceil(this.tickNum) <= 1 ? 1 : Math.ceil(this.tickNum)
+            this.tickNum =
+                Math.ceil(this.tickNum) <= 1 ? 1 : Math.ceil(this.tickNum)
         },
         analysisBuyNum (bigNum) {
             //  解析数值
@@ -1291,7 +1529,7 @@ export default {
             let betweenNum = bigNum
             do {
                 currReduce = reduceBigNum(betweenNum)
-                if (!(currReduce.isZero)) {
+                if (!currReduce.isZero) {
                     buyNumArr.push(startIndex)
                 }
                 betweenNum = currReduce.bigNum
@@ -1310,8 +1548,10 @@ export default {
                         break
                     }
                     currNum = Number(bigNumArr[i])
-                    beforeNum ? endNumArr.push(Math.floor((currNum + 10) / 2)) : endNumArr.push(Math.floor((currNum) / 2))
-                    beforeNum = (currNum % 2 === 1)
+                    beforeNum
+                        ? endNumArr.push(Math.floor((currNum + 10) / 2))
+                        : endNumArr.push(Math.floor(currNum / 2))
+                    beforeNum = currNum % 2 === 1
                 }
                 return {
                     bigNum: endNumArr.join(''),
@@ -1325,13 +1565,14 @@ export default {
             await this.getPlayerInfoByAddress()
             this.timeLeft = await luckyCoinApi.getTimeLeft()
             this.currTicketPrice = await luckyCoinApi.getBuyPrice()
-
             //  用户投注订单记录  是否登录
             if (this.selfMsg) {
                 this.orderCurrentChange()
             }
             //  请求历史数据
-            this.expectCurrentChange()
+            setTimeout(() => {
+                this.expectCurrentChange()
+            }, 1000)
         },
         startAllevent () {
             // 合约事件
@@ -1342,52 +1583,77 @@ export default {
                         if (res.args.playerName) {
                             name = web3.toUtf8(res.args.playerName)
                         }
-                        console.log(res)
-                        console.log('=====res==')
                         if (res.event === 'onNewName') {
                             if (name === '') {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('Welcome {0} joins the game', this.formateCoinAddr(res.args.playerAddress.toString())),
+                                    message: _(
+                                        'Welcome {0} joins the game',
+                                        this.formateCoinAddr(
+                                            res.args.playerAddress.toString()
+                                        )
+                                    ),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })
                             } else {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('Welcome {0} joins the game', name),
+                                    message: _(
+                                        'Welcome {0} joins the game',
+                                        name
+                                    ),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })
                             }
                         } else if (res.event === 'onBuy') {
-                            let nowTicketNum = res.args.end.toNumber() - res.args.begin.toNumber()
+                            let nowTicketNum =
+                                res.args.end.toNumber() -
+                                res.args.begin.toNumber()
                             if (name !== '') {
-                                if ((nowTicketNum) > 0) {
+                                if (nowTicketNum > 0) {
                                     setTimeout(() => {
-                                        Notification({
-                                            dangerouslyUseHTMLString: true,
-                                            message: _('{0} has bought {1} tickets', name, nowTicketNum + 1),
-                                            position: 'bottom-right',
-                                            duration: 5000
-                                        }, 0)
+                                        Notification(
+                                            {
+                                                dangerouslyUseHTMLString: true,
+                                                message: _(
+                                                    '{0} has bought {1} tickets',
+                                                    name,
+                                                    nowTicketNum + 1
+                                                ),
+                                                position: 'bottom-right',
+                                                duration: 5000
+                                            },
+                                            0
+                                        )
                                     })
                                 } else {
                                     setTimeout(() => {
                                         Notification({
                                             dangerouslyUseHTMLString: true,
-                                            message: _('{0} has bought {1} ticket', name, 1),
+                                            message: _(
+                                                '{0} has bought {1} ticket',
+                                                name,
+                                                1
+                                            ),
                                             position: 'bottom-right',
                                             duration: 5000
                                         })
                                     }, 0)
                                 }
                             } else if (name === '') {
-                                if ((nowTicketNum) > 0) {
+                                if (nowTicketNum > 0) {
                                     setTimeout(() => {
                                         Notification({
                                             dangerouslyUseHTMLString: true,
-                                            message: _('{0} has bought {1} tickets', this.formateCoinAddr(res.args.playerAddress.toString()), nowTicketNum + 1),
+                                            message: _(
+                                                '{0} has bought {1} tickets',
+                                                this.formateCoinAddr(
+                                                    res.args.playerAddress.toString()
+                                                ),
+                                                nowTicketNum + 1
+                                            ),
                                             position: 'bottom-right',
                                             duration: 5000
                                         })
@@ -1396,7 +1662,13 @@ export default {
                                     setTimeout(() => {
                                         Notification({
                                             dangerouslyUseHTMLString: true,
-                                            message: _('{0} has bought {1} ticket', this.formateCoinAddr(res.args.playerAddress.toString()), 1),
+                                            message: _(
+                                                '{0} has bought {1} ticket',
+                                                this.formateCoinAddr(
+                                                    res.args.playerAddress.toString()
+                                                ),
+                                                1
+                                            ),
                                             position: 'bottom-right',
                                             duration: 5000
                                         })
@@ -1405,18 +1677,30 @@ export default {
                             }
                         } else if (res.event === 'onWithdraw') {
                             // 提现
-                            let withdrawNum = formatesuperCoin(web3.fromWei(res.args.ethOut.toNumber()))
+                            let withdrawNum = formatesuperCoin(
+                                web3.fromWei(res.args.ethOut.toNumber())
+                            )
                             if (name === '') {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('{0} has withdrawn {1} ETH', this.formateCoinAddr(res.args.playerAddress.toString()), withdrawNum),
+                                    message: _(
+                                        '{0} has withdrawn {1} ETH',
+                                        this.formateCoinAddr(
+                                            res.args.playerAddress.toString()
+                                        ),
+                                        withdrawNum
+                                    ),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })
                             } else {
                                 Notification({
                                     dangerouslyUseHTMLString: true,
-                                    message: _('{0} has withdrawn {1} ETH', name, withdrawNum),
+                                    message: _(
+                                        '{0} has withdrawn {1} ETH',
+                                        name,
+                                        withdrawNum
+                                    ),
                                     position: 'bottom-right',
                                     duration: 5000
                                 })
@@ -1475,8 +1759,8 @@ export default {
                 return (i < 10 ? '0' : '') + i
             }
             let hour = Math.floor(time / 3600)
-            let min = Math.floor((time - (hour * 3600)) / 60)
-            let second = (time - (hour * 3600)) % 60
+            let min = Math.floor((time - hour * 3600) / 60)
+            let second = (time - hour * 3600) % 60
             return tf(hour) + ':' + tf(min) + ':' + tf(second)
         }
     },
@@ -1486,7 +1770,10 @@ export default {
         }
     },
     components: {
-        BannerScroll, Footer, ScrollTop, HeaderCoin
+        BannerScroll,
+        Footer,
+        ScrollTop,
+        HeaderCoin
     },
     async mounted () {
         if (this.$route.params && this.$route.params.inviteName) {
@@ -1496,14 +1783,23 @@ export default {
         }
         this.pageInit()
         this.startAllevent()
+        // this.getRoundMsg()
+        clearInterval(this.autoLoginTime)
+        this.autoLoginTime = setInterval(async () => {
+            this.selfAddr = await luckyCoinApi.getAccounts()
+            if (this.selfAddr) {
+                clearInterval(this.autoLoginTime)
+                this.pageInit()
+                this.showPopMask = false
+            }
+        }, 1000)
     },
-    watch: {
-        isLog (val) {
-            /* 切换登陆态之后改变状态 */
-            this.changePageState()
-        }
-    },
-    filters: {
+    beforeDestroy () {
+        console.log('================')
+        clearInterval(this.nowTimeInterval)
+        clearInterval(this.autoLoginTime)
+        clearInterval(this.upTimeInterval)
+        clearInterval(this.upMsgInterval)
     }
 }
 </script>

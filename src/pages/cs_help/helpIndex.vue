@@ -6,12 +6,12 @@
         <ul class="menu">
             <li v-for="(item,index) in dataMenu" :key="index">
                 <p>
-                    {{item.menu1}}
+                    {{_(item.menu1)}}
                 </p>
                 <ul class="sub-menu ">
                     <li v-for="(subItem1,index2) in item.menu2" :key="index2" :class="[index==3&&index2==0?'hide':'']">
                         <a href="javascript:;" @click="toCheck(index,index2,subItem1)">
-                            {{subItem1}}
+                            {{_(subItem1)}}
                         </a>
                     </li>
                 </ul>

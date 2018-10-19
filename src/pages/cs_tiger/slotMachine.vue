@@ -1,5 +1,5 @@
 <template>
-    <div class="tiger-contain">
+    <div class="tiger-contain" :class="{'cc-mode': currBalance.cointype === '2000'}">
         <div class="tiger-pc ">
             <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
@@ -28,13 +28,16 @@
                                 <p>
                                     <lang>Hit to Win</lang>
                                     <span v-if="prizes_pool && prizes_pool_ratio">
-                                    <!-- hit WIn -->
-                                    <template v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
-                                       {{formateSlotBalance ( parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet] )  }}
-                                    </template>
-                                    <template v-else>
-                                        {{ Math.abs( prizes_pool_ratio[dft_bet]) }}
-                                    </template>
+                                        <!-- hit WIn -->
+                                        <span v-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0 && currBalance.cointype === '2000'">
+                                            {{Math.abs(Number(parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet]))}}
+                                        </span>
+                                        <span v-else-if="parseFloat(prizes_pool_ratio[dft_bet]) >= 0">
+                                            {{formateSlotBalance(parseFloat(prizes_pool) * prizes_pool_ratio[dft_bet])}}
+                                        </span>
+                                        <span v-else>
+                                            {{Math.abs(prizes_pool_ratio[dft_bet])}}
+                                        </span>
                                     </span>
                                 </p>
                                 <!--<span>-->
@@ -766,7 +769,8 @@ Vue.use(vueClipboard)
                 if (this.currBalance && this.currBalance.balance) {
                     if ((parseFloat(this.currBalance.balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                         /* 显示余额不足 */
-                        this.showRecharge = true
+                        // this.showRecharge = true
+                        this.$error(_('Insufficient Balance'))
                         return false
                     }
                 }
@@ -1554,7 +1558,6 @@ Vue.use(vueClipboard)
         position: absolute;
         z-index: 3;
         left: 0;
-        // bottom: percentage(146/1173);
         bottom: 27%;
         width: 100%;
         height: 28px;
@@ -1571,7 +1574,7 @@ Vue.use(vueClipboard)
         z-index: 4;
         width: percentage(595/750);
         left: 50%;
-        bottom: percentage(200/1173);
+
         bottom: percentage(225/1173);
         transform: translateX(-50%);
         display: flex;
@@ -1742,6 +1745,14 @@ Vue.use(vueClipboard)
             }
         }
 
+    }
+    .cc-mode{
+        .lastwin{
+             bottom: percentage(146/1173);
+        }
+        .operating{
+            bottom: percentage(200/1173);
+        }
     }
     /*pop*/
     .pop{

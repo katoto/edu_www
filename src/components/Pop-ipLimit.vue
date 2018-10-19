@@ -3,7 +3,7 @@
     <div class="pop pop-ip" :class="{'hide':!ip_status}">
         <div class="pop-body">
             <div class="pop-ani">
-                <img src="@assets/img/iplogo.png" alt="" width="174" height="64">
+                <img src="@assets/img/iplogo.png">
                 <h5>
                     <lang>Access Error</lang>
                 </h5>
@@ -32,6 +32,13 @@
     }
 </script>
 
-<style scoped>
 
+<style scope lang="less" type="text/less">
+    @media (max-width: 640px) {
+        .pop-ip{
+            .pop-ani>*{
+                transform: scale(0.7);
+            }
+        }
+    }
 </style>

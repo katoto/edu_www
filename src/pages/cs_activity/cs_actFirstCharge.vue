@@ -13,7 +13,7 @@
             <div class="foot_rules" :class="{'addMarge':language!=='en'}">
                 <h4><lang>Rules</lang></h4>
                 <p><lang>1. Users who have not topped up on Coinsprize are eligible to get top-up bonus. To participate this activity, users should confirm your qulification and learn the rules through this page.</lang></p>
-                <p><lang>2. The activity time is from 00:00 September 5, 2018 to 23:59 September 25, 2018 (GMT).</lang></p>
+                <p><lang>2. The activity time is from 00:00 September 5, 2018 to 00:00 November 5, 2018 (GMT).</lang></p>
                 <p><lang>3. Users with no top-up records can get 50% bonus (up to 0.05 ETH/ 0.005 BTC) by topping up for the first time via appointed entry. The bonus cannot be used in LuckyCoin.</lang></p>
                 <p><lang>4. Both ETH and BTC top-up are supported. However, it may take some time before the top-up is confirmed, if you top up both, only the first arrived top-up can be multiplied.</lang></p>
                 <p v-if="language==='en'">5. The amount you topped up is withdrawable, and the top-up bonus is non-withdrawable. To unlock the non-withdrawable, you need to bet 20 times of the non-withdrawable amount. Check <router-link :to="{path:'/help'}">Help Center</router-link> to see details.</p>
@@ -44,7 +44,7 @@
 <script>
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
-import { Message } from 'element-ui'
+import FirstChargeMixin from './cs_firstCharge_mixin'
 
 export default {
     data () {
@@ -52,76 +52,19 @@ export default {
             showEligible: false
         }
     },
-    watch: {
-        isLog () {
-            this.$store.dispatch('cs_activity/getChargeState')
-        }
-    },
+    mixins: [FirstChargeMixin],
     methods: {
         onClose () {
             this.showEligible = false
         },
         initPop () {
             this.$store.commit('initHeadState', new Date().getTime())
-        },
-        getFirstBtn () {
-            // 0=未参与；1=已参与，未充值；2=已充值；-1=不符合活动参与条件
-            if (!this.isLog) {
-                this.$store.commit('showLoginPop')
-                return false
-            }
-            if (this.userInfo && this.userInfo.status === '0') {
-                this.$store.commit('showNoVerify')
-                return false
-            }
-            if (this.firstChargeMsg) {
-                if (this.firstChargeMsg.activity_status === '2') {
-                    return false
-                }
-                switch (this.firstChargeMsg.activity_status) {
-                case '0':
-                    this.getChance()
-                    break
-                case '1':
-                    this.$router.push('account/deposit')
-                    break
-                case '-1':
-                    this.showEligible = true
-                    break
-                }
-            }
-        },
-        async getChance () {
-            let msg = await this.$store.dispatch('cs_activity/getChance')
-            if (msg.status === '100') {
-                Message({
-                    message: _('You are eligible now'),
-                    type: 'success'
-                })
-                this.$store.dispatch('cs_activity/getChargeState')
-            }
         }
     },
-    computed: {
-        firstChargeMsg () {
-            return this.$store.state.cs_activity.firstCharge
-        },
-        isLog () {
-            return this.$store.state.isLog
-        },
-        userInfo () {
-            return this.$store.state.userInfo
-        },
-        language () {
-            return this.$store.state.language
-        }
-    },
+
     components: {
         Header,
         Footer
-    },
-    mounted () {
-        this.$store.dispatch('cs_activity/getChargeState')
     },
     filters: {
         filterMsg (state) {
