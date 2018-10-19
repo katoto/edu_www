@@ -573,6 +573,7 @@ module.exports = {
     'Support service:': '技术支持:',
 
     'Draw Result Checking': '开奖验证',
+    'Draw&nbsp;Result&nbsp;Checking': '开奖验证',
     'Find No. in Draw Records': '可在开奖记录中查看期号',
     'Draw Records': '开奖记录',
     'Check Now': '立即验证',

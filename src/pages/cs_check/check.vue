@@ -11,8 +11,7 @@
             </el-tabs>
             <div class="check-input">
                 <div class="check-enter">
-                    <h2>
-                        <lang>Draw&nbsp;Result&nbsp;Checking</lang>
+                    <h2 v-lang="'Draw&nbsp;Result&nbsp;Checking'">
                     </h2>
                     <div v-if="params.type === 'luckyPoker'" class="poker-form">
                         <input type="text" :placeholder="$lang.poker.a28" v-model="params.luckyPoker.clientSeed" class="input-seed">
