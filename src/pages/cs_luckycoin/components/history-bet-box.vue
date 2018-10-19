@@ -4,7 +4,10 @@
         <p class="history-prize">
             {{ bet.goodsValue }}<i> {{ coinText }}</i>
         </p>
-        <p class="history-usd" v-html="goodsPrice">
+        <p class="history-usd" v-if="bet.goodsType==='2000'">
+            &nbsp;
+        </p>        
+        <p class="history-usd" v-html="goodsPrice" v-else>
         </p>
         <p class="history-issue">
             No.{{ bet.exceptId}}

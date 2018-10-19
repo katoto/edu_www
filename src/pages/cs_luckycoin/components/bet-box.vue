@@ -78,7 +78,10 @@
             {{ this.betData.goodsValue }}<i> {{ coinText }}</i>
         </p>
         <!--价值-->
-        <p class="match-usd" v-html="goodsPrice">
+        <p class="match-usd" v-if="this.betData.goodsType ==='2000'">
+            &nbsp;
+        </p>          
+        <p class="match-usd" v-html="goodsPrice" v-else>
             0
         </p>
         <!--期号-->
