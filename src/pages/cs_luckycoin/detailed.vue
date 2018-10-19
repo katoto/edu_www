@@ -210,13 +210,13 @@
                 </div>
                 <div class="detailedtips hidden-xs hidden-sm">
                     <p v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'"></p>
-                    <router-link :to="{path:'help/helpView/2/1/Play LuckyCoin'}" style="color: #fff;text-decoration: underline">
+                    <router-link :to="{path:'/help/helpView/2/1/Play LuckyCoin'}" style="color: #fff;text-decoration: underline">
                         <lang>How to play?</lang>
                     </router-link>
                 </div>
             </div>
             <p class="main-detailed toplay hidden-lg hidden-md">
-                <router-link :to="{path:'help/helpView/2/1/Play LuckyCoin'}" style="display: block;text-align: center;">
+                <router-link :to="{path:'/help/helpView/2/1/Play LuckyCoin'}" style="display: block;text-align: center;">
                     <lang>How to play?</lang>
                 </router-link>
             </p>
