@@ -1,5 +1,6 @@
 <template>
     <div class="tiger-contain" :class="{'cc-mode': currBalance.cointype === '2000'}">
+        <Helloween></Helloween>
         <div class="tiger-pc ">
             <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
@@ -484,7 +485,7 @@ import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalan
 
 import Vue from 'vue'
 import vueClipboard from 'vue-clipboard2'
-
+import Helloween from '../cs_helloween/game'
 import {Howl} from 'howler'
 Vue.use(vueClipboard)
 
@@ -1186,7 +1187,7 @@ Vue.use(vueClipboard)
             }
         },
         components: {
-            Header, Footer, BannerScroll
+            Header, Footer, BannerScroll, Helloween
         },
         async mounted () {
             document.documentElement.className = 'flexhtml noscrolling'
