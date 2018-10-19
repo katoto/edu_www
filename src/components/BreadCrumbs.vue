@@ -26,8 +26,7 @@ let bread = Vue.component('bread', {
         let links = this.$attrs.data.map((item, index) => {
             return (
                 (this.$attrs.data.length - 1 === index)
-                    ? (<a href="javascript:;" class="now">
-                        {item.name}
+                    ? (<a href="javascript:;" class="now" v-lang={item.name}>
                     </a>)
                     : (<router-link to={item.path}>
                         {item.name}

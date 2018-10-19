@@ -2,7 +2,7 @@
     <div class="page-check">
         <Header></Header>
         <div class="main">
-            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Transparency Checking'), path: '/check' }]"></BreadCrumbs>
+            <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Transparency&nbsp;Checking'), path: '/check' }]"></BreadCrumbs>
             <!--查询框-->
             <el-tabs v-model="params.type" @tab-click="handleTabClick">
                 <el-tab-pane :label="_('Lucky11')" name="lucky11"></el-tab-pane>

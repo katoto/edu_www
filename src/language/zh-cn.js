@@ -70,7 +70,7 @@ module.exports = {
     'About Us': '关于我们',
     'Privacy Policy': '用户协议',
     'Terms of Use': '用户协议',
-    'Help Center': '帮助中心',
+    'Help&nbsp;Center': '帮助中心',
     'Welcome to Coinsprize and start a new gaming experience! Coinsprize is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.': '欢迎来到Coinsprize，开启全新的博彩体验！Coinsprize是一个公平公正公开、开奖绝对透明的游戏平台，平台基于以太坊，使用区块链技术来保证开奖结果，开奖号码，投注记录不可篡改。',
 
     'You are not in our service area for more info': '当前我们无法向您所在地区的用户提供服务',
@@ -593,7 +593,7 @@ module.exports = {
     '1. What is <a href=https://en.wikipedia.org/wiki/Hexadecimal target=_blank>hash</a>? <a href=https://www.tools4noobs.com/online_tools/hash/ target=_blank>How to calculate hash</a>?': '1. 什么是<a href=https://en.wikipedia.org/wiki/Hexadecimal target=_blank>哈希值</a>? 以及<a href=https://www.tools4noobs.com/online_tools/hash/ target=_blank>在线哈希值计算</a>?',
     '2. What is <a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>Merkle value</a>?': '2. 什么是<a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>默克尔值</a>?',
     '3. Check from <a href=https://etherscan.io target=_blank>Etherscan.io</a>.': '3. <a href=https://etherscan.io target=_blank>以太坊交易查询入口</a>.',
-    'Transparency Checking': '查询透明性',
+    'Transparency&nbsp;Checking': '查询透明性',
     'Enter Draw No.': '输入期号',
     'No. should consist of 10 numbers. You can check No. from draw history.': '期号为10位数字，可点击下方开奖历史查看期号',
     'This No. is non-exist. You can check No. from draw history.': '此期号不存在，可点击下方开奖历史查看期号',

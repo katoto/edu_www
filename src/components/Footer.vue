@@ -14,11 +14,9 @@
                     <a href="javascript:;" @click="jump2Page">
                         <lang>Terms of Use</lang>
                     </a>
-                    <router-link :to="{path: '/check'}">
-                        <lang>Transparency Checking</lang>
+                    <router-link :to="{path: '/check'}" v-lang="'Transparency&nbsp;Checking'">
                     </router-link>
-                    <router-link :to="{path: '/help'}">
-                        <lang>Help Center</lang>
+                    <router-link :to="{path: '/help'}" v-lang="_('Help&nbsp;Center')">
                     </router-link>
                 </div>
                 <div class="game">
