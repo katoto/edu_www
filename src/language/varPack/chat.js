@@ -7,7 +7,7 @@ let en = {
     a6: 'You have been banned, please retry after 2 hours',
     a7: '【System Info】 {0} has been permanently banned',
     a8: '【System Info】 The ban on {0} has been cancelled',
-    a9: 'Send',
+    a9: 'Send'
 }
 
 let zhCn = {
@@ -19,7 +19,7 @@ let zhCn = {
     a6: '您已被禁言，2小时候可恢复',
     a7: '【系统消息】 用户 {0} 已被永久禁言',
     a8: '【系统消息】 用户 {0} 已被解除禁言',
-    a9: '发送',
+    a9: '发送'
 }
 
 let zhTw = {

@@ -819,3 +819,11 @@ export function getCCDeductionMoney (total, rate) {
     }
     return '0'
 }
+
+/*
+ *   正则 加入a
+ * */
+String.prototype.httpParse = function (){
+    let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g;
+    return this.replace (reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
+}
