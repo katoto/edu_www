@@ -398,21 +398,12 @@ export default {
         isLog (val) {
             this.autoChangeDefaultAccount(true)
             // 通知app 切换了登陆
-            if(window.coinsprize){
-                if(val){
-                    console.log(val)
-                    console.log(val)
-                    console.log('========islog===')
-                    console.log(val)
-                    if(window.coinsprize.logIn){
-                        window.coinsprize.logIn( getCK() )
-                    }
-                }else{
-                    if(window.coinsprize.logOut){
-                        window.coinsprize.logOut()
-                    }
-                }
-            }else{
+            if (window.coinsprize) {
+                console.log(val)
+                console.log('========islog===')
+                console.log(val)
+                val ? window.coinsprize.logIn(getCK()) : window.coinsprize.logOut()
+            } else {
                 console.error('none coinsprize inset')
             }
         },

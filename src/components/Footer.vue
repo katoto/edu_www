@@ -77,12 +77,10 @@
                 ©Coinsprize 2018. All Rights Reserved
             </div>
         </div>
-        <CHAT class="hide"></CHAT>
     </div>
 </template>
 
 <script>
-import CHAT from '~components/Chat'
 export default {
     data () {
         return {
@@ -104,7 +102,7 @@ export default {
     },
     watch: {},
     components: {
-        CHAT
+
     },
     methods: {
         jump2Page () {
