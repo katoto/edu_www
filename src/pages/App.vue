@@ -69,11 +69,15 @@ export default {
         this.handleInit()
         if (isLog()) {
             this.$store.commit('setIsLog', true)
+            let userMsg = await this.$store.dispatch('getUserInfo')
+            if (userMsg && userMsg.status.toString() === '100') {
+                this.$store.commit('setIsLog', true)
+            }
         } else {
             this.$store.commit('setIsLog', false)
         }
-        this.isReady = true
 
+        this.isReady = true
         /* 老虎机和首页 */
         if (isForbitPage()) {
             setTimeout(function () {
