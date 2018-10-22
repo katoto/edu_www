@@ -1,6 +1,7 @@
 <template>
     <div class="tiger-contain" :class="{'cc-mode': currBalance.cointype === '2000'}">
-        <Helloween></Helloween>
+        <Helloween :show.sync="showHelloween" scene="slot"></Helloween>
+        <i class="helloween-entry" @click="showHelloween = true"></i>
         <div class="tiger-pc ">
             <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
@@ -561,7 +562,8 @@ Vue.use(vueClipboard)
                 }, // 显示大奖用的
                 winRadioHtml: '', // 处理成展示结构html
                 fastClick: false,
-                isUseCC: false
+                isUseCC: false,
+                showHelloween: false
             }
         },
         watch: {
@@ -2390,5 +2392,16 @@ Vue.use(vueClipboard)
     }
     .head-box{
         background: transparent;
+    }
+    .helloween-entry {
+        position: fixed;
+        top: 50%;
+        right: 40px;
+        background: url("../../assets/img/helloween/pumpkin.png");
+        width: 50px;
+        height: 50px;
+        background-size: 100% 100%;
+        z-index: 10000;
+        cursor: pointer;
     }
 </style>
