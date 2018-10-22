@@ -7,7 +7,7 @@
 
 <script>
 import CHAT from '~components/Chat'
-import {isLog, defaultLanguage, isForbitPage, setCK} from '~common/util'
+import { isLog, defaultLanguage, isForbitPage, setCK } from '~common/util'
 export default {
     data () {
         return {
@@ -16,10 +16,10 @@ export default {
     },
     computed: {
     },
-    components:{
+    components: {
         CHAT
     },
-     methods: {
+    methods: {
         handleInit () {
             document.getElementById('app').style.visibility = 'visible'
             switch (defaultLanguage) {
