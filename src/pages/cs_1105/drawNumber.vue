@@ -50,7 +50,39 @@
                 </div>
             </div>
             <div class="main-reward-h5 hidden-lg">
-
+                <h2>
+                    <lang>Draw number</lang>
+                </h2>
+                <ul class="div-betting">
+                    <li v-for="(item, index) in drawNumList" :key="index">
+                        <div class="item-bet item-re1">
+                            <p class="time">
+                                {{item.opentime.substr(5)}}
+                            </p>
+                            <p class="type">
+                                {{item.sumbonus}}
+                            </p>
+                            <p class="money"></p>
+                        </div>
+                        <div class="item-bet item-re2">
+                            <p class="no">
+                                <a :href="`/check?number=${item.expectid}&type=lucky11`"> {{item.expectid}}</a>
+                            </p>
+                            <div class="num-box">
+                                <ul class="num-box" v-if="item.opencode !== '-1'">
+                                    <li v-for="(item, index) in item.opencode" :key="index">{{ item }}</li>
+                                </ul>
+                                <span v-else class="waiting">
+                                    waiting
+                                </span>
+                            </div>
+                            <a href="javascript:;" @click="showBlockMsg(item)" class="icon-reward staus"></a>
+                        </div>
+                    </li>
+                </ul>
+                <a href="javascript:;" class="btn-more">
+                    <lang>Click to see more</lang>
+                </a>
             </div>
 
             <!--开奖明细弹窗-->
@@ -279,6 +311,8 @@ export default {
         })
         if (drawData) {
             this.drawNumList = this.format_drawNum(drawData.expect_history)
+            console.log(this.drawNumList)
+
             this.PageTotal = Number(drawData.count)
         }
     }
@@ -455,7 +489,7 @@ export default {
     top: -(27-20)/2px;
     border: 1px solid #6a89cc;
     border-radius: 6px;
-    padding: 0 17px;
+    padding: 0 15px;
     line-height: 25px;
     &:hover {
       border-color: #263648;
@@ -470,7 +504,7 @@ export default {
     margin-bottom: 23px;
     line-height: 20px;
     p {
-      width: 115px;
+      width: 72px;
     }
     a {
       font-weight: bold;
