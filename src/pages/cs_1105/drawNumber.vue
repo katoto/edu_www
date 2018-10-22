@@ -51,10 +51,10 @@
             </div>
             <div class="main-reward-h5 hidden-lg">
                 <h2>
-                    <lang>Draw number</lang>
+                    <lang>Draw number111</lang>
                 </h2>
                 <ul class="div-betting">
-                    <li v-for="(item, index) in drawNumList" :key="index">
+                    <li v-for="(item, index) in drawNumListMobile" :key="index">
                         <div class="item-bet item-re1">
                             <p class="time">
                                 {{item.opentime.substr(5)}}
@@ -80,7 +80,7 @@
                         </div>
                     </li>
                 </ul>
-                <a href="javascript:;" class="btn-more">
+                <a href="javascript:;" class="btn-more" @click="handleCurrentChange(h5pageno)">
                     <lang>Click to see more</lang>
                 </a>
             </div>
@@ -208,9 +208,11 @@ export default {
         return {
             ethUrl: null,
             pageNumber: 1,
+            h5pageno: 1,
             pageSize: 10,
             PageTotal: 1,
             drawNumList: [],
+            drawNumListMobile: [],
             showPop_reward: false, // 开奖弹窗
             popRewardMsg: {
                 blocknum: 0,
@@ -241,6 +243,8 @@ export default {
             this.showPop_reward = true
         },
         async handleCurrentChange (val) {
+            this.h5pageno += 1
+            console.log(val)
             if (val !== undefined) {
                 let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
                     pageNumber: Number(val),
@@ -248,6 +252,7 @@ export default {
                 })
                 if (drawData) {
                     this.drawNumList = this.format_drawNum(drawData.expect_history)
+                    this.drawNumListMobile.push( ...this.drawNumList )
                     this.PageTotal = Number(drawData.count)
                 }
             }
@@ -305,14 +310,15 @@ export default {
     },
     computed: {},
     async mounted () {
+        this.h5pageno += 1
         let drawData = await this.$store.dispatch(aTypes.getDrawNumList, {
             pageNumber: 1,
             pageSize: this.pageSize
         })
         if (drawData) {
-            this.drawNumList = this.format_drawNum(drawData.expect_history)
+            this.drawNumListMobile = this.drawNumList = this.format_drawNum(drawData.expect_history)
             console.log(this.drawNumList)
-
+            console.log(this.drawNumListMobile)
             this.PageTotal = Number(drawData.count)
         }
     }
