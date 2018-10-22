@@ -90,22 +90,10 @@
                 this.verifyImgPath = (isProduction ? baseURL.replace('http://', 'https://') : baseURL) + '/alert/verifycode/img?random=' + new Date().getTime()
             },
             showSucc () {
-                // this.$store.commit('setRegVerifyEmail', '846359246@qq.com')
                 this.$store.commit('hideRegPop')
                 this.$store.commit('showVerifyEmail')
                 // 执行倒计时 todo
                 this.$store.dispatch('startBackTime')
-            },
-            checkagainPass () {
-                // if (this.reg_pass !== '' && this.reg_againPass !== '') {
-                //     if (this.reg_pass !== this.reg_againPass) {
-                //         Message({
-                //             message: 'Confirm password not match',
-                //             type: 'error',
-                //             duration: tipsTime
-                //         })
-                //     }
-                // }
             },
             checkPass () {
                 /* 检测密码 */

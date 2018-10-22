@@ -338,7 +338,8 @@ import {
     copyError,
     formateBalance,
     formateCoinType,
-    formateEmail
+    formateEmail,
+    getCK
     // isForbitPage
 } from '~common/util'
 
@@ -394,8 +395,22 @@ export default {
             this.isShowChoose = false
             this.freeWaterPop = false
         },
-        isLog () {
+        isLog (val) {
             this.autoChangeDefaultAccount(true)
+            // 通知app 切换了登陆
+            if(window.coinsprize){
+                if(val){
+                    if(window.coinsprize.logIn){
+                        window.coinsprize.logIn( getCK() )
+                    }
+                }else{
+                    if(window.coinsprize.logOut){
+                        window.coinsprize.logOut()
+                    }
+                }
+            }else{
+                console.error('none coinsprize inset')
+            }
         },
         CCNum (newVal, val) {
             newVal = Number(newVal)

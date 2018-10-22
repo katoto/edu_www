@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import {isLog, defaultLanguage, isForbitPage} from '~common/util'
+    import {isLog, defaultLanguage, isForbitPage, setCK} from '~common/util'
     export default {
         data () {
             return {
@@ -63,7 +63,10 @@
                     }
                 })
             }(window, document))
-
+            // 是否元素注入了 app_ck
+            if( window.app_ck && window.app_ck !== 'undefined' ){
+                setCK(window.app_ck)
+            }
             this.handleInit()
             if (isLog()) {
                 this.$store.commit('setIsLog', true)
