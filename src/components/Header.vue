@@ -400,6 +400,10 @@ export default {
             // 通知app 切换了登陆
             if(window.coinsprize){
                 if(val){
+                    console.log(val)
+                    console.log(val)
+                    console.log('========islog===')
+                    console.log(val)
                     if(window.coinsprize.logIn){
                         window.coinsprize.logIn( getCK() )
                     }

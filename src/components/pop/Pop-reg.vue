@@ -10,7 +10,7 @@
                 <input type="text" v-model="reg_email" @blur="checkEmail" name="email" :placeholder="_('Email')">
                 <input type="password" v-model="reg_pass" @blur="checkPass"
                        :placeholder="_('New Password(6-15 numbers and letters)')">
-                <input type="password" v-model="reg_againPass" @blur="checkagainPass"
+                <input type="password" v-model="reg_againPass"
                        :placeholder="_('Confirm Password')">
                 <div class="verCode">
                     <input type="text" :placeholder="_('Verification Code')" class="msg-ver" v-model="verifyCode">
