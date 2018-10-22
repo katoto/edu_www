@@ -50,7 +50,7 @@
                         </div>
                         <div class="item-usd" v-if="goodsinfo.goodsType==='2000'">
                             &nbsp;
-                        </div>                        
+                        </div>
                         <div class="item-usd" v-else>
                             {{formatUSDValue()}} USD
                         </div>
@@ -125,8 +125,7 @@
                         <!-- 新增cc 20180926 -->
                         <div class="cc-group cc-luckycoin" v-if="coinType !== '2000' && isLogin">
                             <a href="javascript:;" class="cc-radio" :class="{'on': isUseCC}" @click="isUseCC = !isUseCC"></a>
-                            <p>
-                                {{$lang.risk.a16}}
+                            <p v-html="$lang.risk.a16">
                             </p>
                             <a href="javascript:;" class="btn-cc">
                                 ?
@@ -213,13 +212,13 @@
                 </div>
                 <div class="detailedtips hidden-xs hidden-sm">
                     <p v-lang="'Note: <br/>You will get a bidding number after buying a bid. <br/>Bid more, win more! Winner takes all reward.'"></p>
-                    <router-link :to="{path:'/help/helpView/2/1'}" style="color: #fff;text-decoration: underline">
+                    <router-link :to="{path:'/help/helpView/2/1/Play LuckyCoin'}" style="color: #fff;text-decoration: underline">
                         <lang>How to play?</lang>
                     </router-link>
                 </div>
             </div>
             <p class="main-detailed toplay hidden-lg hidden-md">
-                <router-link :to="{path:'/help/helpView/2/1'}" style="display: block;text-align: center;">
+                <router-link :to="{path:'/help/helpView/2/1/Play LuckyCoin'}" style="display: block;text-align: center;">
                     <lang>How to play?</lang>
                 </router-link>
             </p>
@@ -788,7 +787,7 @@ export default {
         disableBet () {
             return (
                 Number(this.betValue) !==
-                    Number(this.formatBidValue(this.betValue)) ||
+                Number(this.formatBidValue(this.betValue)) ||
                 Number(this.betValue) > this.maxValue
             )
         },
@@ -841,1206 +840,1199 @@ export default {
 </script>
 <style lang="less" type="text/less">
 .luckyCoinDetailed {
-    flex-grow: 1;
-    background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat
-        center top;
-    background-size: 1920px;
-    .main {
-        padding: 0;
+  flex-grow: 1;
+  background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg") no-repeat
+    center top;
+  background-size: 1920px;
+  .main {
+    padding: 0;
+  }
+  .el-table__empty-block {
+    display: none;
+  }
+  .el-tabs {
+    margin-top: 40px;
+  }
+  .el-tabs__nav-wrap {
+    &::after {
+      background: #341f40;
     }
-    .el-table__empty-block {
-        display: none;
+  }
+  .el-tabs__item {
+    color: #6a88cc;
+    &.is-active {
+      color: #fff;
     }
-    .el-tabs {
-        margin-top: 40px;
+  }
+  .el-tabs__active-bar {
+    background: #fff;
+  }
+  .el-table {
+    background: transparent;
+    thead {
+      tr {
+        height: 50px;
+        line-height: 50px;
+      }
+      th {
+        color: #fff;
+        &:nth-child(2) {
+          text-align: left;
+          text-indent: 162px;
+        }
+        &:nth-child(3) {
+          div {
+            margin-right: 10px;
+            text-align: right;
+          }
+        }
+        &:nth-child(4) {
+          div {
+            margin-right: 30px;
+            text-align: right;
+          }
+        }
+      }
     }
-    .el-tabs__nav-wrap {
+    tbody {
+      tr:hover {
+        background: #311c3d;
+      }
+      td {
+        color: #fff;
+      }
+      .selfwin {
+        position: relative;
+        margin-left: 138px;
+        text-align: left;
+        padding-left: 24px;
+      }
+      .allnum {
+        display: block;
+        padding-right: 30px;
+        text-align: right;
+        color: #fff;
+        text-decoration: underline;
+        &:hover {
+          filter: brightness(1.1);
+          color: #fff;
+        }
+      }
+      .icon-amount {
+        position: relative;
+        padding-right: 26px;
+        text-align: right;
         &::after {
-            background: #341f40;
+          content: "";
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 16px;
+          height: 16px;
         }
+        &.eth {
+          &::after {
+            background: url("../../assets/img/luckyCoin/icon-eth-sm.png")
+              no-repeat center;
+          }
+        }
+        &.btc {
+          &::after {
+            background: url("../../assets/img/luckyCoin/icon-btc-sm.png")
+              no-repeat center;
+          }
+        }
+        &.cc {
+          &::after {
+            background: url("../../assets/img/luckyCoin/icon-cc-sm.png")
+              no-repeat center;
+          }
+        }
+      }
     }
-    .el-tabs__item {
-        color: #6a88cc;
-        &.is-active {
-            color: #fff;
-        }
-    }
-    .el-tabs__active-bar {
-        background: #fff;
-    }
-    .el-table {
-        background: transparent;
-        thead {
-            tr {
-                height: 50px;
-                line-height: 50px;
-            }
-            th {
-                color: #fff;
-                &:nth-child(2) {
-                    text-align: left;
-                    text-indent: 162px;
-                }
-                &:nth-child(3) {
-                    div {
-                        margin-right: 10px;
-                        text-align: right;
-                    }
-                }
-                &:nth-child(4) {
-                    div {
-                        margin-right: 30px;
-                        text-align: right;
-                    }
-                }
-            }
-        }
-        tbody {
-            tr:hover {
-                background: #311c3d;
-            }
-            td {
-                color: #fff;
-            }
-            .selfwin {
-                position: relative;
-                margin-left: 138px;
-                text-align: left;
-                padding-left: 24px;
-            }
-            .allnum {
-                display: block;
-                padding-right: 30px;
-                text-align: right;
-                color: #fff;
-                text-decoration: underline;
-                &:hover {
-                    filter: brightness(1.1);
-                    color: #fff;
-                }
-            }
-            .icon-amount {
-                position: relative;
-                padding-right: 26px;
-                text-align: right;
-                &::after {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    right: 0;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    width: 16px;
-                    height: 16px;
-                }
-                &.eth {
-                    &::after {
-                        background: url("../../assets/img/luckyCoin/icon-eth-sm.png")
-                            no-repeat center;
-                    }
-                }
-                &.btc {
-                    &::after {
-                        background: url("../../assets/img/luckyCoin/icon-btc-sm.png")
-                            no-repeat center;
-                    }
-                }
-                &.cc {
-                    &::after {
-                        background: url("../../assets/img/luckyCoin/icon-cc-sm.png")
-                            no-repeat center;
-                    }
-                }
-            }
-        }
-        tr {
-            border-color: #311c3d;
-            &.mywin {
-                background: #56432a;
-                .selfwin {
-                    color: #ffca28;
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        left: 0;
-                        top: 13px;
-                        display: block;
-                        width: 16px;
-                        height: 14px;
-                        overflow: hidden;
-                        background: url("../../assets/img/luckyCoin/icon-champion2.png")
-                            no-repeat center;
-                        background-size: cover;
-                    }
-                }
-                &:hover {
-                    background: #56432a;
-                    filter: brightness(1.1);
-                }
-            }
-        }
-        .caret-wrapper {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            height: 34px;
-            width: 24px;
-            vertical-align: middle;
-            cursor: pointer;
-            overflow: initial;
-            position: relative;
-        }
-        .sort-caret {
-            width: 0;
-            height: 0;
-            border: 5px solid transparent;
+    tr {
+      border-color: #311c3d;
+      &.mywin {
+        background: #56432a;
+        .selfwin {
+          color: #ffca28;
+          &::before {
+            content: "";
             position: absolute;
-            left: 7px;
-            &.ascending {
-                border-bottom-color: #c0c4cc;
-                top: 5px;
-            }
-            &.descending {
-                border-top-color: #c0c4cc;
-                bottom: 7px;
-            }
+            left: 0;
+            top: 13px;
+            display: block;
+            width: 16px;
+            height: 14px;
+            overflow: hidden;
+            background: url("../../assets/img/luckyCoin/icon-champion2.png")
+              no-repeat center;
+            background-size: cover;
+          }
         }
-        .ascending {
-            .sort-caret {
-                &.ascending {
-                    border-bottom-color: #6a88cc;
-                }
-            }
+        &:hover {
+          background: #56432a;
+          filter: brightness(1.1);
         }
-        .descending {
-            .sort-caret {
-                &.descending {
-                    border-top-color: #6a88cc;
-                }
-            }
-        }
+      }
     }
+    .caret-wrapper {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      height: 34px;
+      width: 24px;
+      vertical-align: middle;
+      cursor: pointer;
+      overflow: initial;
+      position: relative;
+    }
+    .sort-caret {
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      position: absolute;
+      left: 7px;
+      &.ascending {
+        border-bottom-color: #c0c4cc;
+        top: 5px;
+      }
+      &.descending {
+        border-top-color: #c0c4cc;
+        bottom: 7px;
+      }
+    }
+    .ascending {
+      .sort-caret {
+        &.ascending {
+          border-bottom-color: #6a88cc;
+        }
+      }
+    }
+    .descending {
+      .sort-caret {
+        &.descending {
+          border-top-color: #6a88cc;
+        }
+      }
+    }
+  }
 }
 @media (max-width: 768px) {
-    .luckyCoinDetailed {
-        .el-table {
-            thead {
-                tr {
-                    display: flex;
-                    padding: 0 4%;
-                }
-                th {
-                    flex: 1;
-                    text-align: center;
-                    text-indent: 0;
-                    &:nth-child(2) {
-                        text-align: center;
-                        text-indent: 0;
-                    }
-                    &:nth-child(3) {
-                        div {
-                            margin-right: 0;
-                            text-align: center;
-                        }
-                    }
-                    &:nth-child(4) {
-                        div {
-                            margin-right: 0;
-                            text-align: center;
-                        }
-                    }
-                }
-            }
-            tbody {
-                tr {
-                    display: flex;
-                    padding: 0 4%;
-                    td {
-                        flex: 1;
-                        text-align: center;
-                    }
-                }
-                .selfwin {
-                    margin-left: 0;
-                    padding-left: 0;
-                    text-align: center;
-                    &::before {
-                        content: "";
-                        display: none;
-                    }
-                }
-                .allnum {
-                    padding-right: 0;
-                    text-align: center;
-                }
-                .icon-amount {
-                    padding-right: 0;
-                    text-align: center;
-                    &::after {
-                        content: "";
-                        display: none;
-                    }
-                }
-            }
-            tr {
-                &.mywin {
-                    .selfwin {
-                        color: #ffca28;
-                        &::before {
-                            display: none;
-                        }
-                    }
-                }
-            }
+  .luckyCoinDetailed {
+    .el-table {
+      thead {
+        tr {
+          display: flex;
+          padding: 0 4%;
         }
+        th {
+          flex: 1;
+          text-align: center;
+          text-indent: 0;
+          &:nth-child(2) {
+            text-align: center;
+            text-indent: 0;
+          }
+          &:nth-child(3) {
+            div {
+              margin-right: 0;
+              text-align: center;
+            }
+          }
+          &:nth-child(4) {
+            div {
+              margin-right: 0;
+              text-align: center;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          display: flex;
+          padding: 0 4%;
+          td {
+            flex: 1;
+            text-align: center;
+          }
+        }
+        .selfwin {
+          margin-left: 0;
+          padding-left: 0;
+          text-align: center;
+          &::before {
+            content: "";
+            display: none;
+          }
+        }
+        .allnum {
+          padding-right: 0;
+          text-align: center;
+        }
+        .icon-amount {
+          padding-right: 0;
+          text-align: center;
+          &::after {
+            content: "";
+            display: none;
+          }
+        }
+      }
+      tr {
+        &.mywin {
+          .selfwin {
+            color: #ffca28;
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
     }
+  }
 }
 </style>
 <style scope lang="less" type="text/less">
 @import "../../styles/lib-mixins.less";
 .blinking {
-    transition: 0.5s all;
-    animation: blinking 2s;
-    /*background-color: gray !important;*/
-    cursor: default;
+  transition: 0.5s all;
+  animation: blinking 2s;
+  /*background-color: gray !important;*/
+  cursor: default;
 }
 
 .disabled {
-    background-color: gray !important;
-    cursor: default;
+  background-color: gray !important;
+  cursor: default;
 }
 
 @keyframes blinking {
-    0% {
-        opacity: 1;
-    }
-    12.5% {
-        opacity: 0;
-    }
-    25% {
-        opacity: 1;
-    }
-    37.5% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    62.5% {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-    }
-    87.5% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
+  12.5% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  37.5% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  62.5% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  87.5% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .luckyCoinDetailed * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 .main-detailed {
-    width: 92%;
-    max-width: 1000px;
-    margin: 0 auto;
-    &.flex {
-        display: flex;
-    }
+  width: 92%;
+  max-width: 1000px;
+  margin: 0 auto;
+  &.flex {
+    display: flex;
+  }
 }
 .itemluck {
-    position: relative;
-    display: flex;
-    flex: 1;
-    color: #fff;
+  position: relative;
+  display: flex;
+  flex: 1;
+  color: #fff;
+  transition: all 0.2s;
+  overflow: hidden;
+  border-radius: 6px;
+  .match-img {
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    z-index: 2;
+    left: 36px;
+    top: 0;
+    transform: translate(0, 20px);
     transition: all 0.2s;
+  }
+  .item-left {
+    position: relative;
+    width: 196px;
+    height: 334px;
     overflow: hidden;
-    border-radius: 6px;
-    .match-img {
-        width: 110px;
-        height: 110px;
+  }
+  .item-right {
+    flex: 1;
+    padding: 21px percentage(40/600) 0;
+    position: relative;
+    background: #401f56;
+    transition: all 0.2s;
+    .icon-box {
+      position: absolute;
+      top: 3px;
+      right: 1px;
+      i {
+        display: block;
+        border-radius: 2px;
+        float: right;
+        margin-right: 3px;
+        font-weight: bold;
+        font-size: 14px;
+        color: #fff;
+        line-height: 18px;
+      }
+      .icon-hot {
+        background: #f65555;
+        padding: 0 4px;
+      }
+      .icon-youbet {
+        position: relative;
+        background: #f67c22;
+        padding: 0 10px 0 30px;
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 6px;
+          top: 3px;
+          width: 11px;
+          height: 13px;
+          background: url("../../assets/img/luckyCoin/icon-bet.png") no-repeat
+            center;
+        }
+      }
+    }
+    .item-time {
+      position: absolute;
+      top: 53px;
+      right: 35px;
+      padding-left: 38px;
+      line-height: 27px;
+      font-size: 24px;
+      color: #ffffff;
+      font-weight: bold;
+      background: url("../../assets/img/luckyCoin/icon-clock.png") no-repeat
+        left center;
+      background-size: 23px;
+      &.hour {
+        color: #fff;
+      }
+      &.open {
+        color: #ff5b4a;
+      }
+      &.min {
+        color: #ff5b4a;
+      }
+      &.min {
+        animation: heartbeat 2s infinite;
+      }
+    }
+    .item-prize {
+      height: 71px;
+      line-height: 71px;
+      font-size: 70px;
+      font-weight: bold;
+      i {
+        font-size: 40px;
+      }
+    }
+    .item-usd {
+      height: 21px;
+      line-height: 21px;
+      font-size: 14px;
+    }
+  }
+  .item-main {
+    .main-left {
+      position: relative;
+      height: 110px;
+      overflow: hidden;
+      > div {
         position: absolute;
-        z-index: 2;
-        left: 36px;
         top: 0;
-        transform: translate(0, 20px);
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        transform: translateY(200%);
         transition: all 0.2s;
+      }
     }
-    .item-left {
+    .main-normal {
+      p {
+        line-height: 28px;
+        font-size: 16px;
+      }
+      .input-box {
         position: relative;
-        width: 196px;
-        height: 334px;
+        width: 100%;
+        height: 48px;
         overflow: hidden;
+        line-height: 46px;
+        input {
+          display: block;
+          float: left;
+          height: 46px;
+          width: percentage(188/520);
+          outline: none;
+          border: 2px solid #3c1e6e;
+          border-radius: 6px;
+          background: #3c1e6e;
+          text-indent: 50px;
+          font-size: 24px;
+          transition: all 0.2s;
+          &:focus {
+            border-color: #7b4de4;
+          }
+        }
+        a {
+          display: block;
+          float: right;
+          margin-left: 5px;
+          width: percentage(100/520);
+          text-align: center;
+          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+          background: #7b4de4;
+          border-radius: 6px;
+          &:hover {
+            background: #3c1e6e;
+            color: #f67c22;
+          }
+        }
+      }
     }
-    .item-right {
-        flex: 1;
-        padding: 21px percentage(40/600) 0;
+    .main-win,
+    .main-fail {
+      font-size: 24px;
+      em {
+        font-weight: bold;
+      }
+    }
+    .main-finished {
+      p {
+        line-height: 27px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      span {
+        line-height: 25px;
+        font-size: 16px;
+      }
+    }
+    .main-expired {
+      span {
+        line-height: 27px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      p {
+        line-height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #3fc06f;
+      }
+    }
+    .main-right {
+      margin: 10px 0;
+      line-height: 26px;
+      font-size: 14px;
+      color: #fff;
+      overflow: hidden;
+      > div {
+        margin-right: 20px;
+        float: left;
+      }
+      a {
+        transition: none;
+        color: #fff;
+        &:hover {
+          filter: brightness(1.3);
+        }
+      }
+    }
+  }
+  .btn {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: translateY(200%);
+    .text-overflow();
+    &.btn-normal {
+      max-width: percentage(520/600);
+      left: percentage(40/600);
+      bottom: 24px;
+      bottom: 57px;
+      background: #f67c22;
+      border-radius: 6px;
+      font-size: 24px;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+    &.btn-win {
+      left: 0;
+      bottom: 0;
+      background: #3fc06f;
+      padding: 0 percentage(30/600);
+      p {
         position: relative;
-        background: #401f56;
-        transition: all 0.2s;
-        .icon-box {
-            position: absolute;
-            top: 3px;
-            right: 1px;
-            i {
-                display: block;
-                border-radius: 2px;
-                float: right;
-                margin-right: 3px;
-                font-weight: bold;
-                font-size: 14px;
-                color: #fff;
-                line-height: 18px;
-            }
-            .icon-hot {
-                background: #f65555;
-                padding: 0 4px;
-            }
-            .icon-youbet {
-                position: relative;
-                background: #f67c22;
-                padding: 0 10px 0 30px;
-                &::before {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    left: 6px;
-                    top: 3px;
-                    width: 11px;
-                    height: 13px;
-                    background: url("../../assets/img/luckyCoin/icon-bet.png")
-                        no-repeat center;
-                }
-            }
+        float: left;
+        width: 60%;
+        padding-left: 54px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        .text-overflow();
+        background: url("../../assets/img/luckyCoin/icon-champion-win.png")
+          no-repeat left center;
+        background-size: 28px;
+      }
+      a {
+        display: block;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        .transition();
+        &:hover {
+          color: #f67c22;
         }
-        .item-time {
-            position: absolute;
-            top: 53px;
-            right: 35px;
-            padding-left: 38px;
-            line-height: 27px;
-            font-size: 24px;
-            color: #ffffff;
-            font-weight: bold;
-            background: url("../../assets/img/luckyCoin/icon-clock.png")
-                no-repeat left center;
-            background-size: 23px;
-            &.hour {
-                color: #fff;
-            }
-            &.open {
-                color: #ff5b4a;
-            }
-            &.min {
-                color: #ff5b4a;
-            }
-            &.min {
-                animation: heartbeat 2s infinite;
-            }
+      }
+    }
+    &.btn-fail {
+      left: 0;
+      bottom: 0;
+      background: #facb2f;
+      padding: 0 30px;
+      p {
+        position: relative;
+        float: left;
+        width: 60%;
+        padding-left: 54px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+        color: #755c35;
+        background: url("../../assets/img/luckyCoin/icon-champion.png")
+          no-repeat left center;
+        background-size: 28px;
+        .text-overflow();
+      }
+      a {
+        display: block;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        color: #755c35;
+        .transition();
+        &:hover {
+          color: #f67c22;
         }
-        .item-prize {
-            height: 71px;
-            line-height: 71px;
-            font-size: 70px;
-            font-weight: bold;
-            i {
-                font-size: 40px;
-            }
+      }
+    }
+    &.btn-finished {
+      width: 90%;
+      left: 5%;
+      bottom: 57px;
+      background: #4c2872;
+      border-radius: 6px;
+      font-weight: normal;
+      font-size: 20px;
+      color: #b5abc1;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+    &.btn-expired {
+      width: 90%;
+      left: 5%;
+      bottom: 10px;
+      text-align: left;
+      font-weight: normal;
+      font-size: 16px;
+      color: #a999cb;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+  }
+  &.btc {
+    .item-left {
+      background: url("../../assets/img/luckyCoin/bg-btc.png") no-repeat center;
+    }
+    .match-img {
+      background: url("../../assets/img/luckyCoin/icon-btc.png") no-repeat
+        center;
+    }
+    .main-normal {
+      .input-box {
+        input {
+          background: #3c1e6e url("../../assets/img/luckyCoin/icon-btc-sm.png")
+            no-repeat 11px center;
+          background-size: 16px;
         }
-        .item-usd {
-            height: 21px;
-            line-height: 21px;
-            font-size: 14px;
+      }
+    }
+  }
+  &.eth {
+    .item-left {
+      background: url("../../assets/img/luckyCoin/bg-eth.png") no-repeat center;
+    }
+    .match-img {
+      background: url("../../assets/img/luckyCoin/icon-eth.png") no-repeat
+        center;
+    }
+    .main-normal {
+      .input-box {
+        input {
+          background: #3c1e6e url("../../assets/img/luckyCoin/icon-eth-sm.png")
+            no-repeat 11px center;
+          background-size: 16px;
         }
+      }
+    }
+  }
+  &.cc {
+    .item-left {
+      background: url("../../assets/img/luckyCoin/bg-cc.png") no-repeat center;
+    }
+    .match-img {
+      background: url("../../assets/img/luckyCoin/icon-cc.png") no-repeat center;
+    }
+    .main-normal {
+      .input-box {
+        input {
+          background: #3c1e6e url("../../assets/img/luckyCoin/icon-cc-sm.png")
+            no-repeat 11px center;
+          background-size: 16px;
+        }
+      }
+    }
+  }
+  &.normal {
+    .item-right {
+      background: #532998;
     }
     .item-main {
-        .main-left {
-            position: relative;
-            height: 110px;
-            overflow: hidden;
-            > div {
-                position: absolute;
-                top: 0;
-                left: 0;
-                opacity: 0;
-                width: 100%;
-                transform: translateY(200%);
-                transition: all 0.2s;
-            }
-        }
+      .main-left {
+        height: 150px;
         .main-normal {
-            p {
-                line-height: 28px;
-                font-size: 16px;
-            }
-            .input-box {
-                position: relative;
-                width: 100%;
-                height: 48px;
-                overflow: hidden;
-                line-height: 46px;
-                input {
-                    display: block;
-                    float: left;
-                    height: 46px;
-                    width: percentage(188/520);
-                    outline: none;
-                    border: 2px solid #3c1e6e;
-                    border-radius: 6px;
-                    background: #3c1e6e;
-                    text-indent: 50px;
-                    font-size: 24px;
-                    transition: all 0.2s;
-                    &:focus {
-                        border-color: #7b4de4;
-                    }
-                }
-                a {
-                    display: block;
-                    float: right;
-                    margin-left: 5px;
-                    width: percentage(100/520);
-                    text-align: center;
-                    color: #fff;
-                    font-size: 20px;
-                    font-weight: bold;
-                    background: #7b4de4;
-                    border-radius: 6px;
-                    &:hover {
-                        background: #3c1e6e;
-                        color: #f67c22;
-                    }
-                }
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
-        .main-win,
+      }
+      .main-right {
+        color: #a999cb;
+        a {
+          color: #a999cb;
+        }
+      }
+    }
+    .btn-normal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  &.win {
+    .item-right {
+      background: url("../../assets/img/luckyCoin/bg-success.png") no-repeat
+          right bottom,
+        linear-gradient(to right, #7c6238, #4e3c27);
+    }
+    .item-main {
+      .main-left {
+        .main-win {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+    .btn-win {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      right: 178px;
+      bottom: 2px;
+      width: 91px;
+      height: 91px;
+      background: url("../../assets/img/luckyCoin/icon-win.png") no-repeat
+        center;
+      background-size: cover;
+    }
+  }
+  &.fail {
+    .item-right {
+      background: url("../../assets/img/luckyCoin/bg-success.png") no-repeat
+          right bottom,
+        linear-gradient(to right, #7c6238, #4e3c27);
+    }
+    .item-main {
+      .main-left {
         .main-fail {
-            font-size: 24px;
-            em {
-                font-weight: bold;
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+    }
+    .btn-fail {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  &.finished {
+    .item-main {
+      .main-right {
+        color: #a999cb;
+        a {
+          color: #a999cb;
+        }
+      }
+      .main-left {
         .main-finished {
-            p {
-                line-height: 27px;
-                font-size: 20px;
-                font-weight: bold;
-            }
-            span {
-                line-height: 25px;
-                font-size: 16px;
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+    }
+    .btn-finished {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  &.expired {
+    .item-main {
+      .main-left {
         .main-expired {
-            span {
-                line-height: 27px;
-                font-size: 20px;
-                font-weight: bold;
-            }
-            p {
-                line-height: 30px;
-                font-size: 20px;
-                font-weight: bold;
-                color: #3fc06f;
-            }
+          opacity: 1;
+          transform: translateY(0);
         }
-        .main-right {
-            margin: 10px 0;
-            line-height: 26px;
-            font-size: 14px;
-            color: #fff;
-            overflow: hidden;
-            > div {
-                margin-right: 20px;
-                float: left;
-            }
-            a {
-                transition: none;
-                color: #fff;
-                &:hover {
-                    filter: brightness(1.3);
-                }
-            }
-        }
+      }
     }
-    .btn {
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 50px;
-        overflow: hidden;
-        text-align: center;
-        line-height: 50px;
-        color: #fff;
-        font-weight: bold;
-        transition: all 0.2s;
-        opacity: 0;
-        transform: translateY(200%);
-        .text-overflow();
-        &.btn-normal {
-            max-width: percentage(520/600);
-            left: percentage(40/600);
-            bottom: 24px;
-            bottom: 57px;
-            background: #f67c22;
-            border-radius: 6px;
-            font-size: 24px;
-            &:hover {
-                filter: brightness(1.3);
-            }
-        }
-        &.btn-win {
-            left: 0;
-            bottom: 0;
-            background: #3fc06f;
-            padding: 0 percentage(30/600);
-            p {
-                position: relative;
-                float: left;
-                width: 60%;
-                padding-left: 54px;
-                text-align: left;
-                font-size: 20px;
-                font-weight: bold;
-                .text-overflow();
-                background: url("../../assets/img/luckyCoin/icon-champion-win.png")
-                    no-repeat left center;
-                background-size: 28px;
-            }
-            a {
-                display: block;
-                float: right;
-                font-size: 20px;
-                font-weight: bold;
-                color: #fff;
-                .transition();
-                &:hover {
-                    color: #f67c22;
-                }
-            }
-        }
-        &.btn-fail {
-            left: 0;
-            bottom: 0;
-            background: #facb2f;
-            padding: 0 30px;
-            p {
-                position: relative;
-                float: left;
-                width: 60%;
-                padding-left: 54px;
-                text-align: left;
-                font-size: 20px;
-                font-weight: bold;
-                color: #755c35;
-                background: url("../../assets/img/luckyCoin/icon-champion.png")
-                    no-repeat left center;
-                background-size: 28px;
-                .text-overflow();
-            }
-            a {
-                display: block;
-                float: right;
-                font-size: 20px;
-                font-weight: bold;
-                color: #755c35;
-                .transition();
-                &:hover {
-                    color: #f67c22;
-                }
-            }
-        }
-        &.btn-finished {
-            width: 90%;
-            left: 5%;
-            bottom: 57px;
-            background: #4c2872;
-            border-radius: 6px;
-            font-weight: normal;
-            font-size: 20px;
-            color: #b5abc1;
-            &:hover {
-                filter: brightness(1.3);
-            }
-        }
-        &.btn-expired {
-            width: 90%;
-            left: 5%;
-            bottom: 10px;
-            text-align: left;
-            font-weight: normal;
-            font-size: 16px;
-            color: #a999cb;
-            &:hover {
-                filter: brightness(1.3);
-            }
-        }
+    .btn-expired {
+      opacity: 1;
+      transform: translateY(0);
     }
-    &.btc {
-        .item-left {
-            background: url("../../assets/img/luckyCoin/bg-btc.png") no-repeat
-                center;
-        }
-        .match-img {
-            background: url("../../assets/img/luckyCoin/icon-btc.png") no-repeat
-                center;
-        }
-        .main-normal {
-            .input-box {
-                input {
-                    background: #3c1e6e
-                        url("../../assets/img/luckyCoin/icon-btc-sm.png")
-                        no-repeat 11px center;
-                    background-size: 16px;
-                }
-            }
-        }
+  }
+  .bet-success {
+    padding: 40px percentage(30/600) 0;
+    .bet-icon {
+      width: 60px;
+      height: 60px;
     }
-    &.eth {
-        .item-left {
-            background: url("../../assets/img/luckyCoin/bg-eth.png") no-repeat
-                center;
-        }
-        .match-img {
-            background: url("../../assets/img/luckyCoin/icon-eth.png") no-repeat
-                center;
-        }
-        .main-normal {
-            .input-box {
-                input {
-                    background: #3c1e6e
-                        url("../../assets/img/luckyCoin/icon-eth-sm.png")
-                        no-repeat 11px center;
-                    background-size: 16px;
-                }
-            }
-        }
+    .bet-t {
+      line-height: 45px;
+      font-size: 28px;
     }
-    &.cc {
-        .item-left {
-            background: url("../../assets/img/luckyCoin/bg-cc.png") no-repeat
-                center;
-        }
-        .match-img {
-            background: url("../../assets/img/luckyCoin/icon-cc.png") no-repeat
-                center;
-        }
-        .main-normal {
-            .input-box {
-                input {
-                    background: #3c1e6e
-                        url("../../assets/img/luckyCoin/icon-cc-sm.png")
-                        no-repeat 11px center;
-                    background-size: 16px;
-                }
-            }
-        }
+    .bet-m {
+      max-height: 60px;
+      line-height: 20px;
+      font-size: 16px;
     }
-    &.normal {
-        .item-right {
-            background: #532998;
-        }
-        .item-main {
-            .main-left {
-                height: 150px;
-                .main-normal {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            .main-right {
-                color: #a999cb;
-                a {
-                    color: #a999cb;
-                }
-            }
-        }
-        .btn-normal {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .btn-box {
+      width: 90%;
+      height: 44px;
+      left: 5%;
+      bottom: 37px;
+      a {
+        height: 100%;
+        line-height: 44px;
+        font-size: 20px;
+      }
     }
-    &.win {
-        .item-right {
-            background: url("../../assets/img/luckyCoin/bg-success.png")
-                    no-repeat right bottom,
-                linear-gradient(to right, #7c6238, #4e3c27);
-        }
-        .item-main {
-            .main-left {
-                .main-win {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-win {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        &::after {
-            content: "";
-            display: block;
-            position: absolute;
-            right: 178px;
-            bottom: 2px;
-            width: 91px;
-            height: 91px;
-            background: url("../../assets/img/luckyCoin/icon-win.png") no-repeat
-                center;
-            background-size: cover;
-        }
+  }
+  .bet-fail {
+    padding: 40px percentage(30/600) 0;
+    .bet-icon {
+      width: 60px;
+      height: 60px;
     }
-    &.fail {
-        .item-right {
-            background: url("../../assets/img/luckyCoin/bg-success.png")
-                    no-repeat right bottom,
-                linear-gradient(to right, #7c6238, #4e3c27);
-        }
-        .item-main {
-            .main-left {
-                .main-fail {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-fail {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .bet-t {
+      line-height: 45px;
+      font-size: 28px;
     }
-    &.finished {
-        .item-main {
-            .main-right {
-                color: #a999cb;
-                a {
-                    color: #a999cb;
-                }
-            }
-            .main-left {
-                .main-finished {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-finished {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .bet-m {
+      text-align: center;
+      max-height: 60px;
+      line-height: 20px;
+      font-size: 16px;
     }
-    &.expired {
-        .item-main {
-            .main-left {
-                .main-expired {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        }
-        .btn-expired {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .btn-fail {
+      line-height: 43px;
+      font-size: 20px;
     }
-    .bet-success {
-        padding: 40px percentage(30/600) 0;
-        .bet-icon {
-            width: 60px;
-            height: 60px;
-        }
-        .bet-t {
-            line-height: 45px;
-            font-size: 28px;
-        }
-        .bet-m {
-            max-height: 60px;
-            line-height: 20px;
-            font-size: 16px;
-        }
-        .btn-box {
-            width: 90%;
-            height: 44px;
-            left: 5%;
-            bottom: 37px;
-            a {
-                height: 100%;
-                line-height: 44px;
-                font-size: 20px;
-            }
-        }
+  }
+  .bet-balance {
+    padding: 40px percentage(30/600) 0;
+    .bet-icon {
+      width: 63px;
+      height: 60px;
     }
-    .bet-fail {
-        padding: 40px percentage(30/600) 0;
-        .bet-icon {
-            width: 60px;
-            height: 60px;
-        }
-        .bet-t {
-            line-height: 45px;
-            font-size: 28px;
-        }
-        .bet-m {
-            text-align: center;
-            max-height: 60px;
-            line-height: 20px;
-            font-size: 16px;
-        }
-        .btn-fail {
-            line-height: 43px;
-            font-size: 20px;
-        }
+    .bet-t {
+      line-height: 45px;
+      font-size: 28px;
     }
-    .bet-balance {
-        padding: 40px percentage(30/600) 0;
-        .bet-icon {
-            width: 63px;
-            height: 60px;
-        }
-        .bet-t {
-            line-height: 45px;
-            font-size: 28px;
-        }
-        .bet-m {
-            text-align: center;
-            max-height: 60px;
-            line-height: 20px;
-            font-size: 16px;
-        }
-        .btn-balance {
-            line-height: 43px;
-            font-size: 20px;
-        }
+    .bet-m {
+      text-align: center;
+      max-height: 60px;
+      line-height: 20px;
+      font-size: 16px;
     }
+    .btn-balance {
+      line-height: 43px;
+      font-size: 20px;
+    }
+  }
 }
 .detailedtips {
-    width: 204-30px;
-    margin-left: 30px;
-    line-height: 25px;
-    font-size: 14px;
-    color: #a999cb;
+  width: 204-30px;
+  margin-left: 30px;
+  line-height: 25px;
+  font-size: 14px;
+  color: #a999cb;
 }
 .pop-bet {
-    .pop-body {
-        width: 727px;
+  .pop-body {
+    width: 727px;
+  }
+  .pop-main {
+    padding-bottom: 18px;
+  }
+  h3 {
+    margin: 30px 0 0 0;
+    height: 30px;
+    text-align: left;
+    line-height: 30px;
+    color: #000000;
+    font-weight: normal;
+  }
+  .msg1 {
+    margin-bottom: 7px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #293648;
+    text-align: left;
+  }
+  .item-number {
+    overflow: hidden;
+    ul {
+      overflow-y: auto;
+      max-height: 12 * 28px;
+      &::-webkit-scrollbar {
+        width: 16px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #798ca3;
+      }
+      &::-webkit-scrollbar-track {
+        background: #eff1f9;
+      }
     }
-    .pop-main {
-        padding-bottom: 18px;
+    li {
+      float: left;
+      margin-right: 15px;
+      line-height: 28px;
+      font-size: 16px;
+      color: #000000;
+      &.win {
+        color: #f1b545;
+      }
     }
-    h3 {
-        margin: 30px 0 0 0;
-        height: 30px;
-        text-align: left;
-        line-height: 30px;
-        color: #000000;
-        font-weight: normal;
-    }
-    .msg1 {
-        margin-bottom: 7px;
-        line-height: 20px;
-        font-size: 14px;
-        color: #293648;
-        text-align: left;
-    }
-    .item-number {
-        overflow: hidden;
-        ul {
-            overflow-y: auto;
-            max-height: 12 * 28px;
-            &::-webkit-scrollbar {
-                width: 16px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background: #798ca3;
-            }
-            &::-webkit-scrollbar-track {
-                background: #eff1f9;
-            }
-        }
-        li {
-            float: left;
-            margin-right: 15px;
-            line-height: 28px;
-            font-size: 16px;
-            color: #000000;
-            &.win {
-                color: #f1b545;
-            }
-        }
-    }
-    .msg2 {
-        margin-top: 20px;
-        line-height: 20px;
-        text-align: left;
-        font-size: 14px;
-        color: #798ca3;
-    }
+  }
+  .msg2 {
+    margin-top: 20px;
+    line-height: 20px;
+    text-align: left;
+    font-size: 14px;
+    color: #798ca3;
+  }
 }
 .mybets {
-    color: #fff;
-    .msg1 {
-        margin-top: 12px;
-        line-height: 52px;
+  color: #fff;
+  .msg1 {
+    margin-top: 12px;
+    line-height: 52px;
+  }
+  .item-number {
+    padding: 13px percentage(30/1000) 13px;
+    background: #321740;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px 0;
+    p {
+      line-height: 22px;
+      color: #798ca3;
     }
-    .item-number {
-        padding: 13px percentage(30/1000) 13px;
-        background: #321740;
-        border-radius: 6px;
-        overflow: hidden;
-        margin: 10px 0;
-        p {
-            line-height: 22px;
-            color: #798ca3;
-        }
-        ul {
-            overflow-y: auto;
-            max-height: 12 * 28px;
-            &::-webkit-scrollbar {
-                width: 16px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background: #798ca3;
-            }
-            &::-webkit-scrollbar-track {
-                background: #2b1237;
-            }
-        }
-        li {
-            float: left;
-            margin-right: 15px;
-            line-height: 28px;
-            font-size: 16px;
-            &.win {
-                color: #f1b545;
-            }
-        }
+    ul {
+      overflow-y: auto;
+      max-height: 12 * 28px;
+      &::-webkit-scrollbar {
+        width: 16px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #798ca3;
+      }
+      &::-webkit-scrollbar-track {
+        background: #2b1237;
+      }
     }
-    .msg2 {
-        margin: 34px 0;
-        line-height: 24px;
-        a {
-            color: #6a88cc;
-            &:hover {
-                color: currentColor;
-            }
-        }
+    li {
+      float: left;
+      margin-right: 15px;
+      line-height: 28px;
+      font-size: 16px;
+      &.win {
+        color: #f1b545;
+      }
     }
+  }
+  .msg2 {
+    margin: 34px 0;
+    line-height: 24px;
+    a {
+      color: #6a88cc;
+      &:hover {
+        color: currentColor;
+      }
+    }
+  }
 }
 </style>
 <style scope lang="less" type="text/less">
 .toplay {
-    margin-top: 20px;
-    font-size: 14px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #fff;
+  a {
+    line-height: 24px;
     color: #fff;
-    a {
-        line-height: 24px;
-        color: #fff;
-        text-decoration: underline;
-    }
+    text-decoration: underline;
+  }
 }
 @media (max-width: 992px) {
-    .itemluck {
-        .match-img {
-            right: 6.6667%;
-            left: auto;
-            top: 40%;
-            transform-origin: right center;
-            transform: translate(0, -50%) scale(0.5);
-            svg {
-                -webkit-transform: rotate(-0.05deg);
-                transform: rotate(-0.05deg);
-            }
-        }
-        .btn {
-            height: 40px;
-            line-height: 40px;
-            &.normal {
-                font-size: 20px;
-            }
-            &.btn-win {
-                p {
-                    padding-left: 0;
-                    font-size: 14px;
-                    background: none;
-                }
-                a {
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-            }
-            &.btn-fail {
-                p {
-                    padding-left: 0;
-                    font-size: 14px;
-                    background: none;
-                }
-                a {
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-            }
-        }
-        .item-right {
-            .item-time {
-                min-width: 70px;
-                top: 38px;
-                right: 6.667%;
-                padding-left: 20px;
-                background-size: 23/2px;
-                font-size: 12px;
-            }
-            .item-prize {
-                height: 44px;
-                line-height: 44px;
-                font-size: 40px;
-                i {
-                    font-size: 20px;
-                }
-            }
-        }
-        .item-main {
-            .main-left {
-                > div {
-                }
-            }
-            .main-right {
-                > div {
-                    float: none;
-                }
-            }
-            .main-normal {
-                p {
-                }
-                .input-box {
-                    height: 40px;
-                    line-height: 38px;
-                    input {
-                        height: 38px;
-                        border-width: 1px;
-                        font-size: 18px;
-                        text-indent: 0;
-                        text-align: center;
-                        background-size: 14px;
-                    }
-                    a {
-                        font-size: 16px;
-                    }
-                }
-            }
-            .main-win,
-            .main-fail {
-                font-size: 18px;
-            }
-            .main-finished {
-                p {
-                }
-                span {
-                }
-            }
-            .main-expired {
-                span {
-                }
-                p {
-                }
-            }
-            .main-right {
-                > div {
-                }
-                a {
-                    &:hover {
-                    }
-                }
-            }
-        }
-        &.win {
-            &::after {
-                right: 25%;
-                bottom: 20px;
-                width: 91/2px;
-                height: 91/2px;
-            }
-        }
-        .btn.btn-normal {
-        }
-        .bet-success {
-            padding: 20px percentage(30/600) 0;
-            .bet-icon {
-                width: 40px;
-                height: 40px;
-            }
-            .bet-t {
-                line-height: 45px;
-                font-size: 20px;
-            }
-            .btn-box {
-                width: 90%;
-                height: 38px;
-                left: 5%;
-                bottom: 37px;
-                a {
-                    height: 100%;
-                    line-height: 38px;
-                    font-size: 16px;
-                }
-            }
-        }
-        .bet-fail {
-            padding: 20px percentage(30/600) 0;
-            .bet-icon {
-                width: 40px;
-                height: 40px;
-            }
-            .bet-t {
-                line-height: 45px;
-                font-size: 20px;
-            }
-            .bet-m {
-                text-align: center;
-                max-height: 60px;
-                line-height: 20px;
-                font-size: 16px;
-            }
-            .btn-fail {
-                line-height: 43px;
-                font-size: 20px;
-            }
-        }
-        .bet-balance {
-            padding: 20px percentage(30/600) 0;
-            .bet-icon {
-                width: 63px;
-                height: 60px;
-            }
-            .bet-t {
-                line-height: 45px;
-                font-size: 20px;
-            }
-            .bet-m {
-                text-align: center;
-                max-height: 60px;
-                line-height: 20px;
-                font-size: 16px;
-            }
-            .btn-balance {
-                line-height: 43px;
-                font-size: 20px;
-            }
-        }
+  .itemluck {
+    .match-img {
+      right: 6.6667%;
+      left: auto;
+      top: 40%;
+      transform-origin: right center;
+      transform: translate(0, -50%) scale(0.5);
+      svg {
+        -webkit-transform: rotate(-0.05deg);
+        transform: rotate(-0.05deg);
+      }
     }
-    .mybets .msg1 {
-        line-height: 30px;
-    }
-    .pop-bet {
-        .pop-body {
-            width: 100%;
+    .btn {
+      height: 40px;
+      line-height: 40px;
+      &.normal {
+        font-size: 20px;
+      }
+      &.btn-win {
+        p {
+          padding-left: 0;
+          font-size: 14px;
+          background: none;
         }
+        a {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+      &.btn-fail {
+        p {
+          padding-left: 0;
+          font-size: 14px;
+          background: none;
+        }
+        a {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
     }
-    .cc-group.cc-luckycoin {
-        left: 6.66666667%;
+    .item-right {
+      .item-time {
+        min-width: 70px;
+        top: 38px;
+        right: 6.667%;
+        padding-left: 20px;
+        background-size: 23/2px;
+        font-size: 12px;
+      }
+      .item-prize {
+        height: 44px;
+        line-height: 44px;
+        font-size: 40px;
+        i {
+          font-size: 20px;
+        }
+      }
     }
+    .item-main {
+      .main-left {
+        > div {
+        }
+      }
+      .main-right {
+        > div {
+          float: none;
+        }
+      }
+      .main-normal {
+        p {
+        }
+        .input-box {
+          height: 40px;
+          line-height: 38px;
+          input {
+            height: 38px;
+            border-width: 1px;
+            font-size: 18px;
+            text-indent: 0;
+            text-align: center;
+            background-size: 14px;
+          }
+          a {
+            font-size: 16px;
+          }
+        }
+      }
+      .main-win,
+      .main-fail {
+        font-size: 18px;
+      }
+      .main-finished {
+        p {
+        }
+        span {
+        }
+      }
+      .main-expired {
+        span {
+        }
+        p {
+        }
+      }
+      .main-right {
+        > div {
+        }
+        a {
+          &:hover {
+          }
+        }
+      }
+    }
+    &.win {
+      &::after {
+        right: 25%;
+        bottom: 20px;
+        width: 91/2px;
+        height: 91/2px;
+      }
+    }
+    .btn.btn-normal {
+    }
+    .bet-success {
+      padding: 20px percentage(30/600) 0;
+      .bet-icon {
+        width: 40px;
+        height: 40px;
+      }
+      .bet-t {
+        line-height: 45px;
+        font-size: 20px;
+      }
+      .btn-box {
+        width: 90%;
+        height: 38px;
+        left: 5%;
+        bottom: 37px;
+        a {
+          height: 100%;
+          line-height: 38px;
+          font-size: 16px;
+        }
+      }
+    }
+    .bet-fail {
+      padding: 20px percentage(30/600) 0;
+      .bet-icon {
+        width: 40px;
+        height: 40px;
+      }
+      .bet-t {
+        line-height: 45px;
+        font-size: 20px;
+      }
+      .bet-m {
+        text-align: center;
+        max-height: 60px;
+        line-height: 20px;
+        font-size: 16px;
+      }
+      .btn-fail {
+        line-height: 43px;
+        font-size: 20px;
+      }
+    }
+    .bet-balance {
+      padding: 20px percentage(30/600) 0;
+      .bet-icon {
+        width: 63px;
+        height: 60px;
+      }
+      .bet-t {
+        line-height: 45px;
+        font-size: 20px;
+      }
+      .bet-m {
+        text-align: center;
+        max-height: 60px;
+        line-height: 20px;
+        font-size: 16px;
+      }
+      .btn-balance {
+        line-height: 43px;
+        font-size: 20px;
+      }
+    }
+  }
+  .mybets .msg1 {
+    line-height: 30px;
+  }
+  .pop-bet {
+    .pop-body {
+      width: 100%;
+    }
+  }
+  .cc-group.cc-luckycoin {
+    left: 6.66666667%;
+  }
 }
 @media (max-width: 480px) {
 }

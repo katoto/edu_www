@@ -958,8 +958,6 @@ export default {
             clear: both;
             color: #fff;
             border-bottom: 1px solid #412057;
-            height: 660px;
-            overflow: auto;
             &::-webkit-scrollbar {
                 width: 1px;
             }

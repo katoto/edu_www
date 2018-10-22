@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <h1><lang>Email Verification</lang></h1>
+        <h1 class="hidden-xs hidden-sm"><lang>Email Verification</lang></h1>
         <ul>
             <li>
                 <p class="title">
@@ -48,9 +48,12 @@
     }
 </script>
 <style scoped lang="less">
+.page-help{
     img{
         display: block;
+        max-width: 400px;
         width: 90%;
-        margin: 10px 0;
+        margin: 10px 0; 
+    }
     }
 </style>

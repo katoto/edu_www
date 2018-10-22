@@ -76,7 +76,7 @@
                                 <div class="left">
                                     <p class="t1"><lang>Win Instant Reward</lang></p>
                                     <p class="t2 hidden-xs hidden-sm"><lang>Small cost, big profit!</lang></p>
-                                    <router-link :to="{path:'/help/helpView/2/1'}" class="play">
+                                    <router-link :to="{path:'/help/helpView/2/1/Play LuckyCoin'}" class="play">
                                         <lang>How to play?</lang>
                                     </router-link>
                                 </div>

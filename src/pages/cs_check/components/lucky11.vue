@@ -5,19 +5,17 @@
         </div>
         <!--用户信息-->
         <div class="item item1">
-            <a href="javascript:;" class="btn-copy"
-                v-if="!noBid"
-                v-clipboard:copy="orderLists"
-                v-clipboard:success="copySucc"
-                v-clipboard:error="copyError">
+            <a href="javascript:;" class="btn-copy" v-if="!noBid" v-clipboard:copy="orderLists" v-clipboard:success="copySucc" v-clipboard:error="copyError">
                 <lang>Copy Order Info</lang>
             </a>
             <div class="title-1">
                 <lang>Order Information</lang>
-                <i class="icon-mark" @mouseenter="showRuleView = true"  @mouseout="showRuleView = false">
+                <i class="icon-mark" @mouseenter="showRuleView = true" @mouseout="showRuleView = false">
                     <!--漂浮规则-->
                     <div class="rule-view" v-if="showRuleView">
-                        <p><lang>Order Information</lang></p>
+                        <p>
+                            <lang>Order Information</lang>
+                        </p>
                         <ul>
                             <li :data-msg="_('(User ID)')">
                                 1000340
@@ -59,7 +57,7 @@
             <div>
                 #{{blockid}}
             </div>
-            <a :href="`https://etherscan.io/block/${blockid}`" target="_blank" >
+            <a :href="`https://etherscan.io/block/${blockid}`" target="_blank">
                 {{blockhash}}
             </a>
         </div>
@@ -118,7 +116,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the first draw number.', hashNumber[0]) }}
+                            {{ _('The {0}th number is the first draw number.', hashNumber[0]) }}
                         </p>
                     </li>
                     <li>
@@ -137,7 +135,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the second draw number.', hashNumber[1]) }}
+                            {{ _('The {0}th number is the second draw number.', hashNumber[1]) }}
                         </p>
                     </li>
                     <li>
@@ -156,7 +154,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the third draw number.', hashNumber[2]) }}
+                            {{ _('The {0}th number is the third draw number.', hashNumber[2]) }}
                         </p>
                     </li>
                     <li>
@@ -175,7 +173,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the fourth draw number.', hashNumber[3]) }}
+                            {{ _('The {0}th number is the fourth draw number.', hashNumber[3]) }}
                         </p>
                     </li>
                     <li>
@@ -194,7 +192,7 @@
                             </li>
                         </ul>
                         <p class="p3">
-                            {{ _('The {0}th number of the sequence is the fifth draw number.', hashNumber[4]) }}
+                            {{ _('The {0}th number is the fifth draw number.', hashNumber[4]) }}
                         </p>
                     </li>
                 </ul>
@@ -257,49 +255,45 @@ export default {
         }
     },
     methods: {
-        ...mapActions('cs_check', [
-            'getDrawOrders',
-            'getDrawDetail'
-        ]),
+        ...mapActions('cs_check', ['getDrawOrders', 'getDrawDetail']),
         copySucc,
         copyError,
         getCheckData (number = this.number) {
-            return (
-                this.getDrawDetail({
-                    expectid: number,
-                    lotid: 1
-                }).then(res => {
-                    if (res.data.detail.expect_status === '4' || res.data.detail.expect_status === '5') {
-                        this.renderCheckData(res.data.detail)
-                    } else if (res.data.detail.expect_status === undefined) {
-                        return Promise.reject(new Error('no number'))
-                    } else {
-                        let thisStatus = 'wait'
-                        this.$emit('update:status', thisStatus)
-                    }
-                    return res
-                })
-            )
+            return this.getDrawDetail({
+                expectid: number,
+                lotid: 1
+            }).then(res => {
+                if (
+                    res.data.detail.expect_status === '4' ||
+                    res.data.detail.expect_status === '5'
+                ) {
+                    this.renderCheckData(res.data.detail)
+                } else if (res.data.detail.expect_status === undefined) {
+                    return Promise.reject(new Error('no number'))
+                } else {
+                    let thisStatus = 'wait'
+                    this.$emit('update:status', thisStatus)
+                }
+                return res
+            })
         },
         getData (number = this.number) {
             return Promise.all([
                 this.getCheckData(number),
                 this.getOrderData(number)
-            ]).then((res) => {
+            ]).then(res => {
                 this.issueNumber = number
                 return res
             })
         },
         getOrderData (number = this.number) {
-            return (
-                this.getDrawOrders({
-                    expectid: number,
-                    lotid: 1
-                }).then(res => {
-                    this.renderOrderData(res.data.orders)
-                    return res
-                })
-            )
+            return this.getDrawOrders({
+                expectid: number,
+                lotid: 1
+            }).then(res => {
+                this.renderOrderData(res.data.orders)
+                return res
+            })
         },
         renderCheckData (res) {
             if (res.merkel_hash === '') {
@@ -318,7 +312,11 @@ export default {
                 this.orderLists = [...this.formatDrawOrderList(res)]
             } else {
                 // TODO 没有订单数据以及默克尔值如何显示
-                this.orderLists = [_('If there is no bet on this draw, the result will use the hash of the last block.')]
+                this.orderLists = [
+                    _(
+                        'If there is no bet on this draw, the result will use the hash of the last block.'
+                    )
+                ]
             }
         },
         mod (hash, num) {
@@ -378,7 +376,9 @@ export default {
         },
         formatDrawOrderList (orders) {
             return orders.map(order => {
-                return `${order.uid}#${order.bettype}#${order.betcode}#${Number(order.betmoney)}#${order.cointype}`
+                return `${order.uid}#${order.bettype}#${order.betcode}#${Number(
+                    order.betmoney
+                )}#${order.cointype}`
             })
         }
     }

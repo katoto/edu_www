@@ -103,7 +103,7 @@ let routesArr = [{
     path: '/help',
     component: help,
     children: [{
-        path: 'helpView/:a/:b',
+        path: 'helpView/:a/:b/:c',
         name: 'helpView',
         component: helpView
     }, {
