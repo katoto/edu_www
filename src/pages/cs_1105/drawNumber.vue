@@ -252,7 +252,7 @@ export default {
                 })
                 if (drawData) {
                     this.drawNumList = this.format_drawNum(drawData.expect_history)
-                    this.drawNumListMobile.push( ...this.drawNumList )
+                    this.drawNumListMobile.push(...this.drawNumList)
                     this.PageTotal = Number(drawData.count)
                 }
             }
