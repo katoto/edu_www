@@ -1,223 +1,219 @@
 <template>
 
-    <div class="page_chat " :class="[isShowChat?'on':'close']">
-        <a href="javascript:;" class="enter_chat" v-if="!isShowChat" @click="isShowChat = !isShowChat">
+    <div class="page_chat" :class="[isShowChat?'on':'close']">
+        <a href="javascript:;" class="enter_chat" @click="isShowChat = !isShowChat">
             <img src="@/assets/img/enter_chat.png" alt="">
         </a>
-        <template v-else>
-            <div class="chat_admin" :class="{on:isShowChatAdmin}">
-                <a href="javascript:;" class="chat_admin_close" @click="isShowChatAdmin = !isShowChatAdmin"></a>
-                <div class="chat_admin_head">
-                    <p class="user_emain">
-                        Sauwyeye@gmail.com
-                    </p>
-                    <p class="user_id">
-                        ID: 1000394
-                    </p>
-                </div>
-                <div class="chat_admin_body">
-                    <ul class="choose_ban">
-                        <li :class="{'on':ban24}">
-                            <input type="checkbox" id="ban24" v-model="ban24">
-                            <label for="ban24">24 hours silence</label>
+        <div class="chat_admin" :class="{on:isShowChatAdmin}">
+            <a href="javascript:;" class="chat_admin_close" @click="isShowChatAdmin = !isShowChatAdmin"></a>
+            <div class="chat_admin_head">
+                <p class="user_emain">
+                    Sauwyeye@gmail.com
+                </p>
+                <p class="user_id">
+                    ID: 1000394
+                </p>
+            </div>
+            <div class="chat_admin_body">
+                <ul class="choose_ban">
+                    <li :class="{'on':ban24}">
+                        <input type="checkbox" id="ban24" v-model="ban24">
+                        <label for="ban24">24 hours silence</label>
+                    </li>
+                    <li :class="{'on':banforever}">
+                        <input type="checkbox" id="banforever" v-model="banforever">
+                        <label for="banforever">Permanently banned</label>
+                    </li>
+                </ul>
+                <div class="chat_admin_msg">
+                    <div>
+                        <span>
+                            Topics
+                        </span>
+                        <a href="javascript:;" class="remove">
+                            Remove&nbsp;All
+                        </a>
+                    </div>
+                    <ul class="admin_msg_items ">
+                        <li>
+                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
                         </li>
-                        <li :class="{'on':banforever}">
-                            <input type="checkbox" id="banforever" v-model="banforever">
-                            <label for="banforever">Permanently banned</label>
+                        <li>
+                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        </li>
+                        <li>
+                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
                         </li>
                     </ul>
-                    <div class="chat_admin_msg">
-                        <div>
-                            <span>
-                                Topics
-                            </span>
-                            <a href="javascript:;" class="remove">
-                                Remove&nbsp;All
-                            </a>
-                        </div>
-                        <ul class="admin_msg_items ">
-                            <li>
-                                system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                            <li>
-                                system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
-            <div class="chat_room ">
-                <div class="chat_room_head">
-                    <p>
-                        Chart&nbsp;Room
-                    </p>
-                    <a href="javascript:;" @click="isShowChat = !isShowChat"></a>
-                </div>
-                <div class="chat_room_main">
-                    <!-- admin self  -->
-                    <ul>
-                        <li v-for="(item,index) in newMsgArr" :key="index"
-                            :class="getUserColor(item.uid)"
-                        >
-                            <div class="user_shortName">
-                                {{ item.email.slice(0,2).toUpperCase() }}
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        {{ formateEmail(item.email,true) }}
-                                    </p>
-                                    <span class="user_time">
-                                        {{ item.msgTime }}
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    {{ item.chatMsg }}
+        </div>
+        <div class="chat_room ">
+            <div class="chat_room_head">
+                <p>
+                    ChartRoom
+                </p>
+                <a href="javascript:;" @click="isShowChat = !isShowChat,isShowChatAdmin = false"></a>
+            </div>
+            <div class="chat_room_main">
+                <!-- admin self  -->
+                <ul>
+                    <li v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)">
+                        <div class="user_shortName">
+                            {{ item.email.slice(0,2).toUpperCase() }}
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    {{ formateEmail(item.email,true) }}
                                 </p>
+                                <span class="user_time">
+                                    {{ item.msgTime }}
+                                </span>
                             </div>
-                        </li>                        
-                        <li :class="[isAdmin?'admin':'']">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        Dominator
-                                    </p>
-                                    <span class="user_isAdmin" v-if="isAdmin">
-                                        Admin
-                                    </span>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    system charge : Daniel is permanently banned.
-                                    Please speak in a civilized manner.
+                            <p class="user_msg">
+                                {{ item.chatMsg }}
+                            </p>
+                        </div>
+                    </li>
+                    <li :class="[isAdmin?'admin':'']">
+                        <div class="user_shortName">
+                            DO
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    Dominator
                                 </p>
+                                <span class="user_isAdmin" v-if="isAdmin">
+                                    Admin
+                                </span>
+                                <span class="user_time">
+                                    9:46 PM
+                                </span>
                             </div>
-                        </li>
-                        <li :class="getUserColor">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    this is my money <a href="http://www.coinsprize.com" target="_blank">http://www.coinsprize.com</a>
+                            <p class="user_msg">
+                                system charge : Daniel is permanently banned.
+                                Please speak in a civilized manner.
+                            </p>
+                        </div>
+                    </li>
+                    <li :class="getUserColor">
+                        <div class="user_shortName">
+                            DO
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    sa....6@gmail.com
                                 </p>
+                                <span class="user_time">
+                                    9:46 PM
+                                </span>
                             </div>
-                        </li>
-                        <li :class="getUserColor" class="self">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    HELLO, I have some questions, who can
-                                    help me ?
+                            <p class="user_msg">
+                                this is my money <a href="http://www.coinsprize.com" target="_blank">http://www.coinsprize.com</a>
+                            </p>
+                        </div>
+                    </li>
+                    <li :class="getUserColor" class="self">
+                        <div class="user_shortName">
+                            DO
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    sa....6@gmail.com
                                 </p>
+                                <span class="user_time">
+                                    9:46 PM
+                                </span>
                             </div>
-                        </li>
-                        <li :class="getUserColor">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    this is my money
+                            <p class="user_msg">
+                                HELLO, I have some questions, who can
+                                help me ?
+                            </p>
+                        </div>
+                    </li>
+                    <li :class="getUserColor">
+                        <div class="user_shortName">
+                            DO
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    sa....6@gmail.com
                                 </p>
+                                <span class="user_time">
+                                    9:46 PM
+                                </span>
                             </div>
-                        </li>
+                            <p class="user_msg">
+                                this is my money
+                            </p>
+                        </div>
+                    </li>
 
-                    </ul>
+                </ul>
+            </div>
+            <div class="chat_room_foot">
+                <div class="row0">
+                    <p class="system_t">
+                        system messages
+                    </p>
+                    <p class="system_m">
+                        Message sending failed, you are currently banned, 23 hours remaining
+                    </p>
                 </div>
-                <div class="chat_room_foot">
-                    <div class="row0">
-                        <p class="system_t">
-                            system messages
-                        </p>
-                        <p class="system_m">
-                            Message sending failed, you are currently banned, 23 hours remaining
-                        </p>
-                    </div>
-                    <div class="row1" :class="{'isOver100':isOver100}">
-                        <p>Maximum input&nbsp;0/100</p>
-                        <i v-if="isOver100">!</i>
-                    </div>
-                    <div class="row2">
-                        <div class="row2_left">
-                            <div class="placeholder">
-                                {{myMsg}}
-                            </div>
-                            <textarea @focus="checkUse" v-model="myMsg" placeholder="Say something...">
+                <div class="row1" :class="{'isOver100':isOver100}">
+                    <p>Maximum input&nbsp;0/100</p>
+                    <i v-if="isOver100">!</i>
+                </div>
+                <div class="row2">
+                    <div class="row2_left">
+                        <div class="placeholder">
+                            {{myMsg}}
+                        </div>
+                        <textarea @focus="checkUse" v-model="myMsg" placeholder="Say something...">
 
                         </textarea>
-                        </div>
-                        <a href="javascript:;" class="btn_send"></a>
                     </div>
+                    <a href="javascript:;" class="btn_send"></a>
                 </div>
             </div>
-        </template>
+        </div>
     </div>
 </template>
 
 <script>
-import {formatTime, formateEmail} from '~common/util'
+import { formatTime, formateEmail, isIOS } from '~common/util'
 export default {
     data () {
         return {
             scrollTop: 0,
             isShowChat: false,
-            isShowChatAdmin: true,
+            isShowChatAdmin: false,
             ban24: false,
             banforever: false,
             isAdmin: true,
@@ -248,21 +244,67 @@ export default {
                 'chatMsg': 'this is my money',
                 'msgTime': '1540265873'
             }, {
+                'uid': 123,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 123,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 123,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 123,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 123,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 123,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
                 'uid': 1234134,
                 'msgid': 5,
                 'email': 'qrewqr@qq.com',
                 'chatMsg': 'this is my money',
                 'msgTime': '1540265872'
             }],
-            newMsgArr:[]
+            newMsgArr: []
         }
     },
     watch: {
         isShowChat: function () {
-            if (this.isShowChat) {
-                document.getElementById('app').childNodes[0].addEventListener('touchmove', this.banScroll, { passive: false })
-            } else {
-                document.getElementById('app').childNodes[0].removeEventListener('touchmove', this.banScroll, { passive: false })
+            if (document.documentElement.offsetWidth <= 7.68) {
+                if (this.isShowChat) {
+                    // 顺序不能打乱
+                    document.getElementById('app').childNodes[0].addEventListener('touchmove', this.banScroll, { passive: false })
+                    this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+                    if (!isIOS) {
+                        // 只给安卓加
+                        document.querySelector('body').className = 'noscroll'
+                    }
+                } else {
+                    document.querySelector('body').setAttribute('class', '')
+                    document.scrollingElement.scrollTop = this.scrollTop
+                    document.getElementById('app').childNodes[0].removeEventListener('touchmove', this.banScroll, { passive: false })
+                }
             }
         }
     },
@@ -280,7 +322,7 @@ export default {
 
         formateMsgArr (list = []) {
             list.forEach((item, index) => {
-                item.msgTime = formatTime( item.msgTime )
+                item.msgTime = formatTime(item.msgTime)
             })
             return list
         },
@@ -290,12 +332,12 @@ export default {
         getUserColor (ind) {
             // return 'userColor' + (~~(Math.random() * 12) + 1)
             return 'userColor' + ind % 13
-        },
+        }
     },
     computed: {
         userInfo () {
             return this.$store.state.userInfo
-        },
+        }
     },
     components: {},
     mounted () {
@@ -338,6 +380,17 @@ export default {
       display: flex;
       align-items: flex-end;
       height: 686px;
+      .enter_chat {
+        transform: scale(0);
+      }
+    }
+    &.close {
+      width: 62px;
+      height: 62px;
+      .chat_admin,
+      .chat_room {
+        width: 0;
+      }
     }
     .chat_admin {
       display: flex;
@@ -445,6 +498,7 @@ export default {
       background: #36393e;
       border-radius: 6px;
       color: #fff;
+      transition: all 0.2s ease-in-out;
     }
     .chat_room_head {
       display: flex;
@@ -725,9 +779,23 @@ export default {
         background-size: 24px;
         border-radius: 6px;
         overflow: hidden;
+        &:hover {
+          filter: brightness(1.1);
+        }
       }
     }
   }
 }
 @import "chatH5.less";
+</style>
+<style lang="less" type="text/less">
+@media (max-width: 768px) {
+  //只在移动端处理，因为弹窗会挡住页面看不出变化
+  .noscroll {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
 </style>

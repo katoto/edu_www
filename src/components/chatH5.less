@@ -5,7 +5,6 @@
         right: 10/75rem;
         overflow: hidden;
         z-index: 11;
-        transition: all 0.2s ease-in-out;
         .remove {
             font-size: 24/75rem;
             color: #f91f1f;
@@ -31,24 +30,34 @@
             height: 100%;
             bottom: 0;
             right: 0;
+            .enter_chat {
+                display: none;
+            }
+            .chat_room {
+                transform: translate(0);
+            }
+        }
+        &.close {
+            width: 62/75rem;
+            height: 62/75rem;
         }
         .chat_admin {
             position: absolute;
             z-index: 2;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
-            width: 0;
+            width: percentage(510/750);
             height: percentage(1082/1120);
             background: #d2d2d2;
             border-radius: 6px;
             overflow: hidden;
             color: #292a2f;
+            transform: translate(-50%, -50%) scaleX(0);
             transition: all 0.5s ease-in-out;
             &.on {
-                width: percentage(510/750);
+                transform: translate(-50%, -50%) scaleX(1);
             }
         }
         .chat_admin_close {
@@ -100,6 +109,7 @@
         .chat_admin_msg {
             flex: 1;
             overflow: auto;
+            -webkit-touch-callout: touch;
             &::-webkit-scrollbar {
                 width: 6px;
             }
@@ -139,6 +149,8 @@
             background: #36393e;
             border-radius: 6/75rem;
             color: #fff;
+            transform: translate(100%);
+            transition: all 0.2s ease-out;
         }
         .chat_room_head {
             display: flex;
@@ -159,7 +171,9 @@
         }
         .chat_room_main {
             flex: 1;
+            min-height: 100px;
             overflow: auto;
+            -webkit-touch-callout: touch;
             padding: 25/75rem 25/75rem 0;
             &::-webkit-scrollbar {
                 width: 6/75rem;

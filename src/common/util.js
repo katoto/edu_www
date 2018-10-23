@@ -2,7 +2,9 @@
  *  相关的工具函数
  */
 
-import {Message} from 'element-ui'
+import {
+    Message
+} from 'element-ui'
 
 export const src = 'pc'
 export const tipsTime = 3000
@@ -21,7 +23,10 @@ export function mapActions (acts, ns) {
         aTypes[key] = [ns, key].join('/')
         actions[aTypes[key]] = acts[key]
     })
-    return {actions, aTypes}
+    return {
+        actions,
+        aTypes
+    }
 }
 
 export const platform = 'pc'
@@ -30,7 +35,7 @@ export function isForbitPage () {
     // 无需要刷接口 (禁止请求页面接口、websocket)
     let forbitName = ['/supercoin']
     let isForbit = false
-    for (let i = 0, len = forbitName.length;i < len;i++) {
+    for (let i = 0, len = forbitName.length; i < len; i++) {
         if (window.location.href.indexOf(forbitName[i]) > -1) {
             isForbit = true
             break
@@ -46,7 +51,10 @@ export function mapMutations (muts, ns) {
         mTypes[key] = [ns, key].join('/')
         mutations[mTypes[key]] = muts[key]
     })
-    return {mutations, mTypes}
+    return {
+        mutations,
+        mTypes
+    }
 }
 
 export function wait (time) {
@@ -58,6 +66,11 @@ export function wait (time) {
 export const isWeiX = (function () {
     let ua = navigator.userAgent.toLowerCase()
     return ~ua.indexOf('micromessenger')
+})()
+export const isIOS = (function () {
+    let ua = navigator.userAgent
+    let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+    return isiOS
 })()
 
 const CK = 'block_ck'
@@ -324,42 +337,42 @@ export function formateMoneyFlow (flowtype, lotid) {
         }
         return _('Prize') // 投注中奖
     case '3':
-        return _('Bet Refund')// 投注退款
+        return _('Bet Refund') // 投注退款
     case '4':
         return _('Withdrawal') // 提款扣除
     case '5':
-        return _('fee')// 提款手续费
+        return _('fee') // 提款手续费
     case '6':
-        return _('Withdrawal Refund')// 提款失败退款
+        return _('Withdrawal Refund') // 提款失败退款
     case '7':
-        return _('fee refund')// 提款失败手续退款
+        return _('fee refund') // 提款失败手续退款
     case '8':
-        return _('Top-up')// 充值
+        return _('Top-up') // 充值
     case '9':
-        return _('Top-up Refund')// 充值失败扣款
+        return _('Top-up Refund') // 充值失败扣款
     case '10':
-        return _('Registration')// 注册送
+        return _('Registration') // 注册送
     case '11':
-        return _('Inviting')// 邀请送
+        return _('Inviting') // 邀请送
     case '12':
-        return _('World cup')// 世界杯
+        return _('World cup') // 世界杯
     case '13':
-        return _('World cup')// 世界杯中奖
+        return _('World cup') // 世界杯中奖
     case '14':
-        return _('LuckySlot Bet')// 老虎机投注
+        return _('LuckySlot Bet') // 老虎机投注
     case '15':
-        return _('LuckySlot Prize')// 老虎机中奖
+        return _('LuckySlot Prize') // 老虎机中奖
     case '16':
     case '17':
         return _('Bonus') // 每日送1CC
     case '18':
-        return _('Sign gift')// 连续七天送
+        return _('Sign gift') // 连续七天送
     case '19':
-        return _('Top-Up Bonus')// 首充送
+        return _('Top-Up Bonus') // 首充送
     case '20':
-        return _('LuckyPoker Bet')// 幸运扑克投注
+        return _('LuckyPoker Bet') // 幸运扑克投注
     case '21':
-        return _('LuckyPoker Prize')// 幸运扑克中奖
+        return _('LuckyPoker Prize') // 幸运扑克中奖
     default:
         return _('Bet')
     }
@@ -503,12 +516,10 @@ export function accDiv (arg1, arg2) {
     let r2
     try {
         t1 = arg1.toString().split('.')[1].length
-    } catch (e) {
-    }
+    } catch (e) {}
     try {
         t2 = arg2.toString().split('.')[1].length
-    } catch (e) {
-    }
+    } catch (e) {}
     r1 = Number(arg1.toString().replace('.', ''))
     r2 = Number(arg2.toString().replace('.', ''))
     return (r1 / r2) * Math.pow(10, t2 - t1)
@@ -521,12 +532,10 @@ export function accMul (arg1, arg2) {
     let s2 = arg2.toString()
     try {
         m += s1.split('.')[1].length
-    } catch (e) {
-    }
+    } catch (e) {}
     try {
         m += s2.split('.')[1].length
-    } catch (e) {
-    }
+    } catch (e) {}
     return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
 }
 
@@ -615,7 +624,10 @@ export function getElementAbsolutePosition (element, parentElement = window.docu
         top = accAdd(top, parent.offsetTop)
         parent = parent.offsetParent
     }
-    return { left, top }
+    return {
+        left,
+        top
+    }
 }
 
 export function getElementCenterPosition (element, offset) {
