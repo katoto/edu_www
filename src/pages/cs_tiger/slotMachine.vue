@@ -1,8 +1,7 @@
 <template>
     <div class="tiger-contain" :class="{'cc-mode': currBalance.cointype === '2000'}">
-        <Helloween :show.sync="showHelloween" scene="slot"></Helloween>
-        <i class="helloween-entry" @click="showHelloween = true"></i>
-        <div class="tiger-pc ">
+        <Halloween scene="slot"></Halloween>
+        <div class="tiger-pc halloween">
             <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
                 <div class="tiger ">
@@ -486,7 +485,7 @@ import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalan
 
 import Vue from 'vue'
 import vueClipboard from 'vue-clipboard2'
-import Helloween from '../cs_helloween/game'
+import Halloween from '../cs_halloween/game'
 import {Howl} from 'howler'
 Vue.use(vueClipboard)
 
@@ -563,7 +562,7 @@ Vue.use(vueClipboard)
                 winRadioHtml: '', // 处理成展示结构html
                 fastClick: false,
                 isUseCC: false,
-                showHelloween: false
+                showHalloween: false
             }
         },
         watch: {
@@ -1189,7 +1188,7 @@ Vue.use(vueClipboard)
             }
         },
         components: {
-            Header, Footer, BannerScroll, Helloween
+            Header, Footer, BannerScroll, Halloween
         },
         async mounted () {
             document.documentElement.className = 'flexhtml noscrolling'
@@ -2363,6 +2362,10 @@ Vue.use(vueClipboard)
             height: 586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
             background-size: 1920px 586px;
+            &.halloween {
+                background: url("../../assets/img/halloween/bg1.jpg") no-repeat #162222;
+                background-position: 0 70px;
+            }
         }
         .tiger-main {
             height: 100%;
@@ -2392,16 +2395,5 @@ Vue.use(vueClipboard)
     }
     .head-box{
         background: transparent;
-    }
-    .helloween-entry {
-        position: fixed;
-        top: 50%;
-        right: 40px;
-        background: url("../../assets/img/helloween/pumpkin.png");
-        width: 50px;
-        height: 50px;
-        background-size: 100% 100%;
-        z-index: 10000;
-        cursor: pointer;
     }
 </style>

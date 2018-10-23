@@ -7,8 +7,9 @@
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
+        <Halloween scene="lucky11"></Halloween>
         <div>
-            <div class="main  visible-lg  " @click="initPop">
+            <div class="main visible-lg halloween" @click="initPop">
                 <!--玩法区-->
                 <div class="play-area" id="play-area">
                     <ul class="play-area-items">
@@ -540,6 +541,7 @@ import H5PlayArea from '~pages/cs_1105/H5PlayArea.vue'
 import Footer from '~components/Footer.vue'
 import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
 import { Message } from 'element-ui'
+import Halloween from '../cs_halloween/game'
 import {
     formateCoinType,
     formatMatch,
@@ -1017,7 +1019,8 @@ export default {
         PlayArea,
         H5PlayArea,
         LuckyMybet,
-        Banner
+        Banner,
+        Halloween
     },
     filters: {
         formateCoinType,
@@ -1116,6 +1119,9 @@ export default {
     width: 100%;
     // overflow: hidden !important;
     //玩法区
+    &.halloween .play-area {
+        background: url("../../assets/img/halloween/bg1.jpg") no-repeat #162222;
+    }
     .play-area {
         position: relative;
         z-index: 6;

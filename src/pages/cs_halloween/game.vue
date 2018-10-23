@@ -1,21 +1,22 @@
 <template>
-    <div class="main" :style="{ visibility: this.show ? 'visible': 'hidden' }" ref="game" @mousemove="mousemove" @click="beatGhost">
+    <div class="main" ref="game" >
         <audio :src="musicSrc" class="poker-audio" ref="musicObj"></audio>
-        <i v-for="item in ghosts" :key="item.monster_id" class="ghost" :style="{transform: `translate(${item.x}px,${item.y}px)`}">
-            <img draggable="false" src="@/assets/img/helloween/ghost-dead.png" v-if="isDead">
-            <img draggable="false" @click="hitIt" src="@/assets/img/helloween/ghost.png" v-else>
-        </i>
+        <!-- <i v-for="item in ghosts" :key="item.monster_id" class="ghost" :class="{beating: !!item.beating}" >
+            <img draggable="false" src="@/assets/img/halloween/ghost-dead.png" v-if="isDead">
+            <img draggable="false" src="@/assets/img/halloween/ghost.png">
+        </i> -->
         <i class="music-btn" @click="switchMusic" ref="musicBtn"></i>
-        <i class="close-btn" @click="closeGame" ref="closeBtn">X</i>
         <i class="hammer-btn" :style="{transform: `translate(${hammerX}px,${hammerY}px)`}" v-if="!hideHammer">
-            <img src="@/assets/img/helloween/hammer.ico" draggable="false" :class="{beat: isWaitingLastBeat}">
+            
         </i>
-        
+        <i class="ghost-ct" :style="{transform: `translate(${ghost.x}px,${ghost.y}px) rotateY(${ghost.direction ? '0deg' : '180deg'})`}" @click="beatIt" :class="{beating: ghost.beating}">
+            <img src="@/assets/img/halloween/ghost1.png" draggable="false" class="ghost1" >
+        </i>
     </div>
 </template>
 
 <script>
-const bgMusic = () => import('~static/audio/helloween/helloween.mp3')
+const bgMusic = () => import('~static/audio/halloween/halloween.mp3')
 export default {
     props: {
         show: {
@@ -24,19 +25,13 @@ export default {
         },
         scene: String
     },
-    watch: {
-        show (value) {
-            value ? this.playMusic() : this.closeGame()
-            this.isPause = false
-        }
-    },
     data () {
         return {
-            isDead: false,
             loadMusic: null,
             musicSrc: '',
             isPause: false,
             ghosts: [],
+            ghost: { x: 0, y: 0, direction: true, speed: 0.01 },
             currentData: null,
             gameWidth: null,
             gameHeight: null,
@@ -47,9 +42,6 @@ export default {
         }
     },
     methods: {
-        hitIt () {
-            this.isDead = true
-        },
         playMusic () {
             this.loadMusic.then(() => {
                 let musicObj = this.$refs.musicObj
@@ -130,11 +122,21 @@ export default {
 
         },
         renderNextFrame () {
-            this.ghosts.forEach(ghost => {
-                ghost.monster_type === '0' && this.move1(ghost)
-                ghost.monster_type === '1' && this.move2(ghost)
-                ghost.monster_type === '2' && this.move2(ghost)
-            })
+            if (this.ghost.direction) {
+                if (this.ghost.x >= (this.gameWidth + 200)) {
+                    this.ghost.direction = false
+                    return
+                }
+                this.ghost.x += 1.4
+            } else {
+                if (this.ghost.x <= -200) {
+                    this.ghost.direction = true
+                    return
+                }
+                this.ghost.x -= 1.4
+            }
+            this.ghost.y = Number(Math.cos(this.ghost.speed).toFixed(4)) * 50
+            this.ghost.speed += 0.01
         },
         initGhosts (ghosts) {
             ghosts.forEach(ghost => {
@@ -150,21 +152,49 @@ export default {
             this.startAnimate()
         },
         mousemove () {
-            if (event.target === this.$refs.musicBtn || event.target === this.$refs.closeBtn) {
-                console.log(1)
-                this.hideHammer = true
-            } else {
-                this.hammerX = event.layerX
-                this.hammerY = event.layerY
-                this.hideHammer = false
-            }
+            console.log(event)
+            this.hammerX = event.offsetX
+            this.hammerY = event.offsetY
         },
         beatGhost () {
+            if (event.target === this.$refs.musicBtn || event.target === this.$refs.closeBtn) {
+                return
+            }
             if (!this.isWaitingLastBeat) {
                 setTimeout(() => {
                     this.isWaitingLastBeat = false
                 }, 200)
                 this.isWaitingLastBeat = true
+
+                let ghost = this.getBeatGhost(event.layerX, event.layerY)
+                ghost.beating = true
+                setTimeout(() => {
+                    ghost.beating = false
+                }, 200)
+            }
+        },
+        getBeatGhost (x, y) {
+            let thisGhost
+            let distance = 0
+            this.ghosts.forEach(ghost => {
+                let thisDis = Math.pow(Math.floor(ghost.x) - Math.floor(x), 2) + Math.pow(Math.floor(ghost.y) - Math.floor(y), 2)
+                if (distance > thisDis || distance === 0) {
+                    thisGhost = ghost
+                    distance = thisDis
+                }
+            })
+            return distance > 1500 ? thisGhost : null
+        },
+        beatIt () {
+            if (!this.isWaitingLastBeat) {
+                setTimeout(() => {
+                    this.isWaitingLastBeat = false
+                }, 200)
+                this.isWaitingLastBeat = true
+                this.ghost.beating = true
+                setTimeout(() => {
+                    this.ghost.beating = false
+                }, 1000)
             }
         }
     },
@@ -174,15 +204,16 @@ export default {
             this.$refs.musicObj.volume = 0.5
             return res
         })
-        this.$store.dispatch('cs_helloween/getGhosts')
+        this.$store.dispatch('cs_halloween/getGhosts')
             .then(res => {
                 this.nextRefreshTime = res.data.last_time
                 this.ghosts = this.initGhosts(res.data[this.scene])
                 this.currentData = res.data
+                this.playMusic()
             })
         this.$nextTick(() => {
-            this.gameWidth = this.$refs.game.clientWidth - 30
-            this.gameHeight = this.$refs.game.clientHeight - 30
+            this.gameWidth = window.document.body.clientWidth
+            this.gameHeight = window.document.body.clientHeight
             this.startGame()
         })
     },
@@ -206,31 +237,11 @@ export default {
     }
     position: fixed;
     z-index: 100000000000000;
-    background-color: #FFF;
-    background: url(../../assets/img/helloween/bg.jpg);
-    width: 698px;
-    height: 500px;
-    top: 0;
+    top: 70px;
     left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    background-size: 100% 100%;
-    &:hover {
-        cursor: none;
-    }
-    *:hover {
-        cursor: none;
-    }
-    .ghost {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 30px;
-    }
     .music-btn {
         position: absolute;
-        top: 10px;
+        top: 80px;
         right: 70px;
         width: 23px;
         background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAWlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9ZMre9AAAAHXRSTlMAHfcFfGGv6dvWkYczKSIR4bihb1ZPQDkN686pR8NwSlAAAACQSURBVBjTfdFZEoMwDANQ4bATSNm76f7XLNCQpGGm+nzjD1vGmXt+U4jSVWQS2VrwgpPwiyrVp6WkxY5MD1IDHSIjx22qLOhRbSoJSHpsZUbOJkIWSvP5i+i5QiTCgcsFVSlGs4KEOLLBizWyvvRopn3R9ugnWH4WexIah4mwhk3mCqnfcFkeO/4r2ccE7/gAJV0Tm68GtGMAAAAASUVORK5CYII=) no-repeat;
@@ -248,20 +259,55 @@ export default {
             animation: beatIt .2s ease-in-out;
         }
     }
-    .close-btn {
-        color: #FFF;
-        font-size: 20px;
-        position: absolute;
-        cursor: pointer !important;
-        top: 10px;
-        right: 30px;
+    .ghost-ct {
+        position: fixed;
+        top: 90px;
+        left: 0%;
+        padding: 50px;
+        &:hover {
+            cursor: url(../../assets/img/halloween/1.png), auto;
+        }
+        &.beating :hover {
+            cursor: url(../../assets/img/halloween/2.png), auto;
+        }
     }
+    .ghost1 {
+        width: 100px;
+        // animation: ghost1Fly 40s infinite ease-in-out;
+    }
+
     @keyframes beatIt {
         from {
             transform: rotate(0deg)
         }
         to {
             transform: rotate(-50deg)
+        }
+    }
+
+    @keyframes ghost1Fly {
+        0% {
+            transform: translate(-200px, 0) rotateY(0deg);
+        }
+        20%, 40% {
+            transform: translate(0, 0) rotateY(0deg);
+        }
+        10%, 30% {
+            transform: translate(0, 50px) rotateY(0deg);
+        }
+        50% {
+            left: 100%;
+            transform: translate(200px, 50px) rotateY(0deg);
+        }
+        51%, 70%, 90% {
+            transform: translate(0, 0) rotateY(180deg);
+        }
+        60%, 80% {
+            transform: translate(0, 50px) rotateY(180deg);
+        }
+        100% {
+            left: 0%;
+            transform: translate(-200px, 0) rotateY(180deg);
         }
     }
 }
