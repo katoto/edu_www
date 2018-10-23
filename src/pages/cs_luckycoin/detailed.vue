@@ -232,7 +232,7 @@
 
                     </el-tab-pane>
                 </el-tabs>
-                <el-table :data="totalBids" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}" v-show="activeName === 'all' && totalBids.length > 0" :row-class-name="getRowClass">
+                <el-table :data="showTotalBids" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}" v-show="activeName === 'all' && showTotalBids.length > 0" :row-class-name="getRowClass">
                     <el-table-column prop="crtime" :label="_('Time')" sortable width="137">
                     </el-table-column>
                     <el-table-column prop="username" :label="_('User ID')" width="440">
@@ -348,6 +348,7 @@ export default {
             PageTotal: 10,
             betData: {},
             totalBids: [],
+            showTotalBids: [],
             isShowNumberPop: false,
             numbers: [],
             myNumbers: [],
@@ -488,7 +489,7 @@ export default {
             this.getAllBids({
                 expectId: this.number,
                 lotid: '2',
-                pagesize: this.pageSize,
+                pagesize: 10000000000,
                 pageno: this.pageno
             }).then(res => {
                 this.totalBids = [
@@ -497,7 +498,8 @@ export default {
                         res.data.goodsinfo
                     )
                 ]
-                this.PageTotal = Number(res.data.pages)
+                this.PageTotal = Number(Math.ceil(this.totalBids.length / 10))
+                this.showTotalBids = this.totalBids.filter((item, index) => index < 10)
             })
         },
         showAllNumber (uid, infoName) {
@@ -623,7 +625,15 @@ export default {
             this.betMoney = price === 0 ? 0 : price
         },
         handleAllBidsChange () {
-            this.getAllBidsInfo()
+            // this.getAllBidsInfo()
+            this.showTotalBids = this.totalBids.filter((item, index) => {
+                let size = (Number(this.pageno) - 1) * Number(this.pageSize)
+
+                if (size <= index && index <= size + 9) {
+                    return true
+                }
+                return false
+            })
         },
         chooseHalf () {
             this.betValue = Number(this.betValue)
