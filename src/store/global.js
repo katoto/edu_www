@@ -315,7 +315,8 @@ const actions = {
                                 dispatch(actionTypes.formateTiger, msg.content)
                             }
                             break
-                        case '20011':
+                        // case '20011':
+                        case 'first_recharge':
                             //  首充充值奖励
                             commit('cs_activity/sockMsg', msg.content)
                             break
@@ -328,13 +329,11 @@ const actions = {
                                 dispatch(actionTypes.addRecentList, msg.content)
                             }
                             break
-                        case 4001:
-                        case '4001':
+                        case 'dice.init':
                             commit('cs_luckypoker/setBetList', msg.content.top)
                             commit('cs_luckypoker/setSelfBetList', msg.content.self_top)
                             break
-                        case 4002:
-                        case '4002':
+                        case 'dice.bet':
                             commit('cs_luckypoker/addBetList', msg.content.top)
                             break
                         }
