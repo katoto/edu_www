@@ -81,7 +81,6 @@
                     <!-- admin self  -->
                     <ul>
                         <li v-for="(item,index) in newMsgArr" :key="index"
-                            :class="getUserColor(item.uid)"
                         >
                             <div class="user_shortName">
                                 {{ item.email.slice(0,2).toUpperCase() }}
@@ -223,6 +222,7 @@ export default {
             isAdmin: true,
             myMsg: '',
             isOver100: true,
+
             initMsgArr: [{
                 'uid': 123,
                 'msgid': 1,
@@ -254,7 +254,7 @@ export default {
                 'chatMsg': 'this is my money',
                 'msgTime': '1540265872'
             }],
-            newMsgArr:[]
+            newMsgArr: []
         }
     },
     watch: {
@@ -280,7 +280,7 @@ export default {
 
         formateMsgArr (list = []) {
             list.forEach((item, index) => {
-                item.msgTime = formatTime( item.msgTime )
+                item.msgTime = formatTime(item.msgTime)
             })
             return list
         },
@@ -289,13 +289,13 @@ export default {
         },
         getUserColor (ind) {
             // return 'userColor' + (~~(Math.random() * 12) + 1)
-            return 'userColor' + ind % 13
-        },
+            // return 'userColor' + ind % 13
+        }
     },
     computed: {
         userInfo () {
             return this.$store.state.userInfo
-        },
+        }
     },
     components: {},
     mounted () {
