@@ -78,7 +78,28 @@
                     <a href="javascript:;" @click="isShowChat = !isShowChat"></a>
                 </div>
                 <div class="chat_room_main">
+                    <!-- admin self  -->
                     <ul>
+                        <li v-for="(item,index) in newMsgArr" :key="index"
+                            :class="getUserColor(item.uid)"
+                        >
+                            <div class="user_shortName">
+                                {{ item.email.slice(0,2).toUpperCase() }}
+                            </div>
+                            <div class="user_view">
+                                <div class="user_row1">
+                                    <p class="user_name">
+                                        {{ formateEmail(item.email,true) }}
+                                    </p>
+                                    <span class="user_time">
+                                        {{ item.msgTime }}
+                                    </span>
+                                </div>
+                                <p class="user_msg">
+                                    {{ item.chatMsg }}
+                                </p>
+                            </div>
+                        </li>                        
                         <li :class="[isAdmin?'admin':'']">
                             <div class="user_shortName">
                                 DO
@@ -101,7 +122,7 @@
                                 </p>
                             </div>
                         </li>
-                        <li :class="getUserColor()">
+                        <li :class="getUserColor">
                             <div class="user_shortName">
                                 DO
                             </div>
@@ -119,7 +140,7 @@
                                 </p>
                             </div>
                         </li>
-                        <li :class="getUserColor()" class="self">
+                        <li :class="getUserColor" class="self">
                             <div class="user_shortName">
                                 DO
                             </div>
@@ -138,7 +159,7 @@
                                 </p>
                             </div>
                         </li>
-                        <li :class="getUserColor()">
+                        <li :class="getUserColor">
                             <div class="user_shortName">
                                 DO
                             </div>
@@ -156,96 +177,7 @@
                                 </p>
                             </div>
                         </li>
-                        <li :class="getUserColor()">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    this is my money
-                                </p>
-                            </div>
-                        </li>
-                        <li :class="getUserColor()">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    this is my money
-                                </p>
-                            </div>
-                        </li>
-                        <li :class="getUserColor()">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    this is my money
-                                </p>
-                            </div>
-                        </li>
-                        <li :class="getUserColor()">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    this is my money
-                                </p>
-                            </div>
-                        </li>
-                        <li :class="getUserColor()">
-                            <div class="user_shortName">
-                                DO
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        sa....6@gmail.com
-                                    </p>
-                                    <span class="user_time">
-                                        9:46 PM
-                                    </span>
-                                </div>
-                                <p class="user_msg">
-                                    this is my money
-                                </p>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="chat_room_foot">
@@ -279,6 +211,7 @@
 </template>
 
 <script>
+import {formatTime, formateEmail} from '~common/util'
 export default {
     data () {
         return {
@@ -290,61 +223,74 @@ export default {
             isAdmin: true,
             myMsg: '',
             isOver100: true,
-            initMsgArr:[{
-                'uid':123,
-                'msgid':1,
-                'email':'84fds9246@qq.com',
-                'chatMsg':'this is my money',
-                'msgTime':'1540265873362'
-            },{
-                'uid':1234,
-                'msgid':2,
-                'email':'asfd9246@qq.com',
-                'chatMsg':'this is my money',
-                'msgTime':'1540265873362'
-            },{
-                'uid':423,
-                'msgid':3,
-                'email':'qwerw39246@qq.com',
-                'chatMsg':'this is my money http://www.coinsprize.com',
-                'msgTime':'1540265873362'
-            },{
-                'uid':324,
-                'msgid':4,
-                'email':'11321321@qq.com',
-                'chatMsg':'this is my money',
-                'msgTime':'1540265873362'
-            },{
-                'uid':3123,
-                'msgid':5,
-                'email':'qrewqr@qq.com',
-                'chatMsg':'this is my money',
-                'msgTime':'1540265873362'
+            initMsgArr: [{
+                'uid': 123,
+                'msgid': 1,
+                'email': '84fds9246@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 1234,
+                'msgid': 2,
+                'email': 'asfd9246@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 1111,
+                'msgid': 3,
+                'email': 'qwerw39246@qq.com',
+                'chatMsg': 'this is my money http://www.coinsprize.com',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 123,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265873'
+            }, {
+                'uid': 1234134,
+                'msgid': 5,
+                'email': 'qrewqr@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540265872'
             }],
+            newMsgArr:[]
         }
     },
     watch: {
 
     },
     methods: {
+        formateEmail,
         checkUse (evt) {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
                 this.$store.commit('showLoginPop')
                 evt.target.blur()
             }
         },
-        getUserColor () {
-            return 'userColor' + (~~(Math.random() * 12) + 1)
-        }
+
+        formateMsgArr (list = []) {
+            list.forEach((item, index) => {
+                item.msgTime = formatTime( item.msgTime )
+            })
+            return list
+        },
+        initChat () {
+            this.newMsgArr = this.formateMsgArr(this.initMsgArr)
+        },
+        getUserColor (ind) {
+            // return 'userColor' + (~~(Math.random() * 12) + 1)
+            return 'userColor' + ind % 13
+        },
     },
     computed: {
         userInfo () {
             return this.$store.state.userInfo
-        }
+        },
     },
     components: {},
     mounted () {
-
+        this.initChat()
     },
     destroyed () {
 

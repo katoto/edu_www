@@ -129,10 +129,7 @@ export function formatMatchAccount (match) {
     }
 }
 
-export function formatTime (time, format) {
-    if (format === undefined || format == null) {
-        format = 'MM-dd HH:mm:ss'
-    }
+export function formatTime (time, format = 'MM-dd HH:mm:ss') {
     if (isNaN(time)) {
         return false
     }
@@ -140,7 +137,17 @@ export function formatTime (time, format) {
     let tf = function (i) {
         return (i < 10 ? '0' : '') + i
     }
-    return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+    let tfAMPM = function (i) {
+        if (~format.indexOf('AMPM')) {
+            i = i % 12
+            i = i || 12
+        }
+        return (i < 10 ? '0' : '') + i
+    }
+    let amName = function (hour) {
+        return hour >= 12 ? 'PM' : 'AM'
+    }
+    return format.replace(/yyyy|MM|dd|HH|mm|ss|AMPM/g, function (a) {
         switch (a) {
         case 'yyyy':
             return tf(t.getFullYear())
@@ -151,9 +158,11 @@ export function formatTime (time, format) {
         case 'dd':
             return tf(t.getDate())
         case 'HH':
-            return tf(t.getHours())
+            return tfAMPM(t.getHours())
         case 'ss':
             return tf(t.getSeconds())
+        case 'AMPM':
+            return amName(t.getHours())
         }
     })
 }
@@ -217,7 +226,6 @@ export function formateJackpot (val = 0) {
     if (val > 10000000) {
         newEth = (val / 100000000).toFixed(1) + '亿'
     } else if (val > 100000) {
-        // newEth = (val / 10000).toFixed(1) + '万'
         newEth = (val).toFixed(1)
     } else if (val > 100) {
         newEth = (val).toFixed(2)
