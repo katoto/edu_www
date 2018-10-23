@@ -81,6 +81,7 @@
                     <!-- admin self  -->
                     <ul>
                         <li v-for="(item,index) in newMsgArr" :key="index"
+                        :class="{'admin':true,'self':false}"
                         >
                             <div class="user_shortName">
                                 {{ item.email.slice(0,2).toUpperCase() }}
