@@ -1,9 +1,8 @@
 import ajax, {sockURL} from '~common/ajax'
-import {tipsTime, removeCK} from '~common/util'
+import {tipsTime, removeCK, isLog, getCK} from '~common/util'
 import {Message} from 'element-ui'
 import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
 import {actionTypes} from '~/store/cs_page/cs_tiger'
-import {getCK} from '../common/util'
 
 function combimeStore (store, newStore) {
     return {
@@ -66,9 +65,6 @@ const mutations = {
     initSocket (state, {sock, interval}) {
         state.socket.sock = sock
         state.socket.interval = interval
-    },
-    addConnectNum (state) {
-        state.socket.reconnect++
     },
     setAotoRefresh (state, param) {
         state.autoRefreshAccount = param
@@ -208,52 +204,54 @@ const actions = {
             let flag = 0
             let hasFinished = false
             sock.onmessage = function (e) {
-                if (!~e.data.indexOf('you said')) {
+                console.log(e.data)
+                console.log(e.data)
+                if (!~e.data.indexOf('you said') && !(e.data === 'pong')) {
                     let msg = JSON.parse(e.data)
 
                     // 总的分发
-                    if (msg && msg.data) {
-                        switch (msg.msg_code.toString()) {
-                        case '1001':
+                    if (msg && msg.content) {
+                        switch (msg.content.action) {
+                        case 'syxw.init':
                             // 初始化
                             //  初始化倒计时 o
-                            if (msg.data.timer !== undefined && msg.data.timer !== null) {
-                                dispatch(aTypes.formate_countDown, msg.data.timer)
+                            if (msg.content.timer !== undefined && msg.content.timer !== null) {
+                                dispatch(aTypes.formate_countDown, msg.content.timer)
                             }
                             // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
+                            dispatch(aTypes.formate_Result, msg.content)
                             // 当前期号
-                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.data.expectid)
+                            if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                dispatch(aTypes.formate_expectid, msg.content.expectid)
                             }
                             // recent bet
-                            if (msg.data.top) {
-                                dispatch(aTypes.formate_recentBet, msg.data.top)
+                            if (msg.content.top) {
+                                dispatch(aTypes.formate_recentBet, msg.content.top)
                             }
                             break
-                        case '1002':
+                        case 'syxw.count_down':
                             //  初始化倒计时
-                            if (msg.data.timer !== undefined && msg.data.timer !== null) {
-                                dispatch(aTypes.formate_countDown, msg.data.timer)
+                            if (msg.content.timer !== undefined && msg.content.timer !== null) {
+                                dispatch(aTypes.formate_countDown, msg.content.timer)
                             }
                             // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
+                            dispatch(aTypes.formate_Result, msg.content)
                             // 当前期号
-                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.data.expectid)
+                            if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                dispatch(aTypes.formate_expectid, msg.content.expectid)
                             }
                             /*
                             *  处理 区块链阻塞
                             * */
                             let jsStartBetBtn = document.getElementById('js_startBetBtn')
-                            // msg.data.block_status = '0' 报错错误
+                            // msg.content.block_status = '0' 报错错误
                             if (jsStartBetBtn) {
-                                if (msg.data.block_status.toString() === '1') {
+                                if (msg.content.block_status.toString() === '1') {
                                     //  健康
                                     if (~jsStartBetBtn.className.indexOf('unable')) {
                                         jsStartBetBtn.className = 'btn-play-now'
                                     }
-                                } else if (msg.data.block_status.toString() === '0') {
+                                } else if (msg.content.block_status.toString() === '0') {
                                     // 不健康  添加unable
                                     Message({
                                         message: _('The network is blocking, please retry later'),
@@ -264,17 +262,17 @@ const actions = {
                                 }
                             }
                             break
-                        case '1003':
+                        case 'syxw.expect_settle':
                             // 开奖结果消息  更新 my Bet  todo
-                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.data.expectid)
+                            if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                dispatch(aTypes.formate_expectid, msg.content.expectid)
                             }
                             // recent bet
-                            if (msg.data.top) {
-                                dispatch(aTypes.formate_recentBet, msg.data.top)
+                            if (msg.content.top) {
+                                dispatch(aTypes.formate_recentBet, msg.content.top)
                             }
                             // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
+                            dispatch(aTypes.formate_Result, msg.content)
 
                             if (~state.route.path.indexOf('lucky')) {
                                 // mybet 弹窗
@@ -286,58 +284,58 @@ const actions = {
                                 dispatch('getUserInfo')
                             }
                             break
-                        case '1004':
+                        case 'syxw.order_change':
                             /* 投注推送  和 更新 my bet todo  */
-                            if (msg.data && msg.data.orders) {
-                                dispatch(aTypes.formate_pushBetData, msg.data.orders)
+                            if (msg.content && msg.content.orders) {
+                                dispatch(aTypes.formate_pushBetData, msg.content.orders)
                             }
                             break
-                        case '1005':
+                        case 'syxw.expect_prize':
                             // 奖池中奖
-                            if (msg.data) {
-                                dispatch(aTypes.fomateJackPot, msg.data)
+                            if (msg.content) {
+                                dispatch(aTypes.fomateJackPot, msg.content)
                             }
                             ;
                             break
-                        case '1007':
-                            msg.data.state === '4' || msg.data.state === '5'
-                                ? dispatch('cs_luckycoin/updateBets', msg.data)
-                                : commit('cs_luckycoin/updateBet', msg.data)
+                        case 'megacoin.good':
+                            msg.content.state === '4' || msg.content.state === '5'
+                                ? dispatch('cs_luckycoin/updateBets', msg.content)
+                                : commit('cs_luckycoin/updateBet', msg.content)
                             break
-                        case '1008':
-                            commit('cs_luckycoin/updateRecentBet', msg.data.orders)
-                            commit('cs_luckycoin/handleMyBet', msg.data.orders)
+                        case 'megacoin.order':
+                            commit('cs_luckycoin/updateRecentBet', msg.content.orders)
+                            commit('cs_luckycoin/handleMyBet', msg.content.orders)
                             break
-                        case '1009':
+                        case 'megacoin.cancel':
                             commit('cs_luckycoin/updateCurrentPage')
                             break
-                        case '2001':
+                        case 'slots.init':
                             // 老虎机初始化
-                            if (msg.data) {
-                                dispatch(actionTypes.formateTiger, msg.data)
+                            if (msg.content) {
+                                dispatch(actionTypes.formateTiger, msg.content)
                             }
                             break
                         case '20011':
                             //  首充充值奖励
-                            commit('cs_activity/sockMsg', msg.data)
+                            commit('cs_activity/sockMsg', msg.content)
                             break
-                        case '2002':
+                        case 'slots.prize':
                             // 老虎机初始化
-                            if (msg.data) {
-                                Object.assign(msg.data, {
+                            if (msg.content) {
+                                Object.assign(msg.content, {
                                     addNewRecord: true
                                 })
-                                dispatch(actionTypes.addRecentList, msg.data)
+                                dispatch(actionTypes.addRecentList, msg.content)
                             }
                             break
                         case 4001:
                         case '4001':
-                            commit('cs_luckypoker/setBetList', msg.data.top)
-                            commit('cs_luckypoker/setSelfBetList', msg.data.self_top)
+                            commit('cs_luckypoker/setBetList', msg.content.top)
+                            commit('cs_luckypoker/setSelfBetList', msg.content.self_top)
                             break
                         case 4002:
                         case '4002':
-                            commit('cs_luckypoker/addBetList', msg.data.top)
+                            commit('cs_luckypoker/addBetList', msg.content.top)
                             break
                         }
                     }
@@ -345,35 +343,22 @@ const actions = {
             }
             sock.onopen = function () {
                 let webSockaction = null
-                let currUid = null
+                // let currUid = null
                 fn()
                 clearInterval(interval)
-                if (state.userInfo && state.userInfo.uid) {
-                    webSockaction = {
-                        action: 'sub',
-                        uid: state.userInfo.uid,
-                        lotid: 1
-                    }
-                    currUid = state.userInfo.uid
-                    interval = setInterval(() => {
-                        sock.send(JSON.stringify({
-                            action: 'ping',
-                            uid: currUid
-                        }))
-                    }, 5000)
-                } else {
-                    webSockaction = {
-                        action: 'sub',
-                        lotid: 1
-                    }
-                    interval = setInterval(() => {
-                        sock.send(JSON.stringify({
-                            action: 'ping'
-                        }))
-                    }, 5000)
-                }
-                sock.send(JSON.stringify(webSockaction))
-
+                // webSockaction = {
+                //     action: 'sub',
+                //     lotid: 1
+                // }
+                interval = setInterval(() => {
+                    sock.send(JSON.stringify({
+                        action: 'ping'
+                    }))
+                }, 5000)
+                sock.send(JSON.stringify({
+                    action: 'ping'
+                }))
+                // sock.send(JSON.stringify(webSockaction))
                 commit('initSocket', {sock, interval})
                 flag = 1
                 if (hasFinished) return
@@ -384,7 +369,6 @@ const actions = {
                 console.warn('websocket reconnect')
                 clearInterval(interval)
                 setTimeout(() => {
-                    commit('addConnectNum')
                     dispatch('initWebsocket', fn)
                 }, 5000)
             }
@@ -410,64 +394,67 @@ const actions = {
     sub2out ({commit, state}) {
         let sub2outStr = null
         try {
-            if (state.userInfo && state.userInfo.uid) {
-                sub2outStr = {
-                    action: 'unsub',
-                    uid: state.userInfo.uid,
-                    lotid: 1
-                }
-                state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
-            }
+            // if (isLog && isLog()) {
+            //     // sub2outStr = {
+            //     //     action: 'unsub',
+            //     //     ck: getCK(),
+            //     //     lotid: 1
+            //     // }
+            //     sub2outStr = {
+            //         action: 'unsync',
+            //         ck: getCK(),
+            //     }
+            //     state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
+            // }
             sub2outStr = {
-                action: 'sub',
-                lotid: 1
+                action: 'unsync',
+                ck: getCK()
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
-
-            if (state.socket.interval) {
-                clearInterval(state.socket.interval)
-                state.socket.interval = setInterval(function () {
-                    state.socket.sock.send(JSON.stringify({
-                        action: 'ping'
-                    }))
-                }, 5000)
-            }
+            // if (state.socket.interval) {
+            //     clearInterval(state.socket.interval)
+            //     state.socket.interval = setInterval(function () {
+            //         state.socket.sock.send(JSON.stringify({
+            //             action: 'ping'
+            //         }))
+            //     }, 5000)
+            // }
         } catch (e) {
             console.error(e.message)
         }
-        localStorage.setItem('block_ck', '')
-        localStorage.setItem('block_uid', '0')
-        removeCK('block_ck')
+        removeCK()
     },
     sub2In ({commit, state, dispatch}) {
         let sub2InStr = null
-        let currUid = null
+        // let currUid = null
         try {
-            sub2InStr = {
-                action: 'unsub',
-                lotid: 1
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
-            if (state.userInfo && state.userInfo.uid) {
+            // sub2InStr = {
+            //     action: 'unsub',
+            //     lotid: 1
+            // }
+            // state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
+            if (isLog && isLog()) {
+                // sub2InStr = {
+                //     action: 'sub',
+                //     ck: getCK(),
+                //     lotid: 1
+                // }
                 sub2InStr = {
-                    action: 'sub',
-                    uid: state.userInfo.uid,
-                    lotid: 1
+                    action: 'sync',
+                    ck: getCK()
                 }
-                currUid = state.userInfo.uid
+                // currUid = state.userInfo.uid
                 state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
-            } else {
-                currUid = null
             }
-            if (state.socket.interval) {
-                clearInterval(state.socket.interval)
-                state.socket.interval = setInterval(function () {
-                    state.socket.sock.send(JSON.stringify({
-                        action: 'ping',
-                        uid: currUid
-                    }))
-                }, 5000)
-            }
+            // if (state.socket.interval) {
+            //     clearInterval(state.socket.interval)
+            //     state.socket.interval = setInterval(function () {
+            //         state.socket.sock.send(JSON.stringify({
+            //             action: 'ping',
+            //             uid: currUid
+            //         }))
+            //     }, 5000)
+            // }
         } catch (e) {
             console.error(e.message)
         }
@@ -476,17 +463,15 @@ const actions = {
         /* 进入老虎机页面 订阅 */
         try {
             let subTigerStr = null
-            if (state.userInfo && state.userInfo.uid) {
+            if (isLog && isLog()) {
                 subTigerStr = {
                     action: 'sub',
-                    lotid: 1,
-                    uid: state.userInfo.uid,
+                    ck: getCK(),
                     type: 'slots'
                 }
             } else {
                 subTigerStr = {
                     action: 'sub',
-                    lotid: 1,
                     type: 'slots'
                 }
             }
@@ -503,7 +488,6 @@ const actions = {
         try {
             let unsubTigerStr = {
                 action: 'unsub',
-                lotid: 1,
                 type: 'slots'
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
@@ -515,11 +499,11 @@ const actions = {
         /* 进入lucky11页面 订阅 */
         try {
             let subLuckyStr = null
-            if (state.userInfo && state.userInfo.uid) {
+            if (isLog && isLog()) {
                 subLuckyStr = {
                     action: 'sub',
                     lotid: 1,
-                    uid: state.userInfo.uid,
+                    ck: getCK(),
                     type: 'lottery'
                 }
             } else {
@@ -552,11 +536,11 @@ const actions = {
     },
     subInLuckyCoin ({state, dispatch}) {
         let data = null
-        if (state.userInfo && state.userInfo.uid) {
+        if (isLog && isLog()) {
             data = {
                 action: 'sub',
                 lotid: 2,
-                uid: state.userInfo.uid,
+                ck: getCK(),
                 type: 'lottery'
             }
         } else {
@@ -566,8 +550,8 @@ const actions = {
                 type: 'lottery'
             }
         }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
+        if (isLog && isLog()) {
+            data.ck = getCK()
         }
         try {
             state.socket.sock && state.socket.sock.send(JSON.stringify(data))
@@ -583,8 +567,8 @@ const actions = {
             lotid: 2,
             type: 'lottery'
         }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
+        if (isLog && isLog()) {
+            data.ck = getCK()
         }
         state.socket.sock && state.socket.sock.send(JSON.stringify(data))
     },
@@ -593,8 +577,8 @@ const actions = {
             action: 'sub',
             type: 'dice'
         }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
+        if (isLog && isLog()) {
+            data.ck = getCK()
         }
         try {
             state.socket.sock && state.socket.sock.send(JSON.stringify(data))
@@ -609,8 +593,8 @@ const actions = {
             action: 'unsub',
             type: 'dice'
         }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
+        if (isLog && isLog()) {
+            data.ck = getCK()
         }
         state.socket.sock && state.socket.sock.send(JSON.stringify(data))
     },

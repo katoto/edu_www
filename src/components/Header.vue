@@ -402,7 +402,7 @@ export default {
                 console.log(val)
                 console.log('========islog===')
                 console.log(val)
-                val ? window.coinsprize.logIn(getCK()) : window.coinsprize.logOut()
+                val ? window.coinsprize.logIn(getCK(), this.userInfo.username) : window.coinsprize.logOut()
             } else {
                 console.error('none coinsprize inset')
             }
