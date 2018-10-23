@@ -289,7 +289,38 @@ export default {
             banforever: false,
             isAdmin: true,
             myMsg: '',
-            isOver100: true
+            isOver100: true,
+            initMsgArr:[{
+                'uid':123,
+                'msgid':1,
+                'email':'84fds9246@qq.com',
+                'chatMsg':'this is my money',
+                'msgTime':'1540265873362'
+            },{
+                'uid':1234,
+                'msgid':2,
+                'email':'asfd9246@qq.com',
+                'chatMsg':'this is my money',
+                'msgTime':'1540265873362'
+            },{
+                'uid':423,
+                'msgid':3,
+                'email':'qwerw39246@qq.com',
+                'chatMsg':'this is my money http://www.coinsprize.com',
+                'msgTime':'1540265873362'
+            },{
+                'uid':324,
+                'msgid':4,
+                'email':'11321321@qq.com',
+                'chatMsg':'this is my money',
+                'msgTime':'1540265873362'
+            },{
+                'uid':3123,
+                'msgid':5,
+                'email':'qrewqr@qq.com',
+                'chatMsg':'this is my money',
+                'msgTime':'1540265873362'
+            }],
         }
     },
     watch: {
