@@ -21,7 +21,7 @@
                     <p class="p3">
                         +{{selfWin.num}}<i>{{selfWin.type}}</i>
                     </p>
-                    <router-link :to="{path: `/luckycoin/detailed?number=${selfWin.exceptId}&go=mybets`}" class="btn-see" @click.native="hideMyWinHandler">
+                    <router-link :to="{path: `/luckycoin/detailed/${selfWin.exceptId}?go=mybets`}" class="btn-see" @click.native="hideMyWinHandler">
                         <lang>Details</lang>
                     </router-link>
                 </div>
@@ -958,8 +958,6 @@ export default {
             clear: both;
             color: #fff;
             border-bottom: 1px solid #412057;
-            height: 660px;
-            overflow: auto;
             &::-webkit-scrollbar {
                 width: 1px;
             }

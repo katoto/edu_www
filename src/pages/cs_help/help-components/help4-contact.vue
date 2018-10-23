@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <h1>
+         <h1 class="hidden-sm hidden-xs">
             <lang>Contact Us</lang>
         </h1>
         <ul>

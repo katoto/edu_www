@@ -784,6 +784,18 @@ export function structDom (msg = 'home') {
     }
 }
 
+/*
+ *      字节长度
+ *      @return 字节长度
+ * */
+export function getByteLen (str) {
+    if (!str) return 0
+    if (typeof str !== 'string') {
+        str += ''
+    }
+    return str.replace(/[^\x00-\xff]/g, '01').length
+}
+
 export function getCCAcount (userInfo) {
     if (userInfo && userInfo.accounts && userInfo.accounts.length >= 1) {
         let accounts = this.userInfo.accounts

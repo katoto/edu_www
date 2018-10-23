@@ -4,7 +4,8 @@
                         isPopular? 'match-popular' : 'match-common',
                         isInit && !isCancel ? '' : 'unvisible',
           ]">
-        <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
+        <!-- <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link> -->
+        <router-link class=" todetailed" :to="{path: `/luckycoin/detailed/${betData.exceptId}`}"></router-link>
         <!--day hour min-->
         
         <div class="match-time open" v-if="isWaiting">
@@ -140,7 +141,7 @@
                 <a href="javascript:;" ref="maxBtn" @click="chooseMax">Max</a>
             </div>
             <a href="javascript:;" class="btn-bet"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
+                {{ this.isBlinking ? _('Max Bids Change') : _('Pay') }}
             </a>
         </div>
         <div class="bet- bet-success " :class="{show:windowClass === 'success'}">
@@ -156,7 +157,7 @@
                  }}
             </p>
             <div class="btn-box">
-                <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}&go=mybets`}" class="bet-btnV">
+                <router-link :to="{path: `/luckycoin/detailed/${betData.exceptId}?go=mybets`}" class="bet-btnV">
                     <lang>See Details</lang>
                 </router-link>
                 <a href="javascript:;" class="bet-btnB" @click="handleBetMoreEvent">

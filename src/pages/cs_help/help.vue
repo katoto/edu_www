@@ -3,7 +3,7 @@
         <Header></Header>
         <div class="main flex1" @click="initPop">
             <BreadCrumbs
-                :data="[{ name: _('Home'), path: '/' }, { name: _('Help Center'), path: '/help' }]"></BreadCrumbs>
+                :data="[{ name: _('Home'), path: '/' }, { name: _('Help&nbsp;Center'), path: '/help' }]"></BreadCrumbs>
             <router-view :dataMenu="dataMenu"></router-view>
         </div>
         <Footer class="lucky11"></Footer>
@@ -19,13 +19,13 @@
         data () {
             return {
                 dataMenu: [
-                    {menu1: _('About Account'), menu2: [_('Email verification'), this.$lang.risk.a1]},
+                    {menu1: 'About Account', menu2: ['Email verification', 'Coin-Coin(CC)']},
                     {
-                        menu1: _('About Wallet'),
-                        menu2: [_('How to top up'), _('How to withdraw'), _('Withdrawal Conditions')]
+                        menu1: 'About Wallet',
+                        menu2: ['How to top up', 'How to withdraw', 'Withdrawal Conditions']
                     },
-                    {menu1: _('About Games'), menu2: [_('Play Lucky11'), _('Play LuckyCoin'), this.$lang.poker.a40]},
-                    {menu1: _('Others'), menu2: [_('Transparency checking'), _('Contact us')]}
+                    {menu1: 'About Games', menu2: ['Play Lucky11', 'Play LuckyCoin', 'Play LuckyPoker']},
+                    {menu1: 'Others', menu2: ['Transparency checking', 'Contact us']}
                 ]
             }
         },

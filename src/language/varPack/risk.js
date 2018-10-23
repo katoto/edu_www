@@ -14,7 +14,7 @@ let en = {
     a13: '3. No illegal profits (made by using technical bugs) : CC is issued by Coin platform based on the ERC20 contract of Ethereum, so certain technical risks and bugs of Ethereum or the platform may exist. It is strictly forbidden that users obtain illegal profits of CC by using these technical bugs.',
     a14: 'CC Play:',
     a15: 'Under CC Play mode, both game payment and winning reward apply CC.',
-    a16: 'CC Voucher',
+    a16: 'CC&nbsp;Voucher',
     a17: 'Under ETH/BTC Play mode, CC can be used as voucher.',
     a18: 'Save {0}/Bet',
     a19: 'C',
@@ -307,4 +307,8 @@ let zhTw = {
     a100: ''
 }
 
-export default { en, zhCn, zhTw }
+export default {
+    en,
+    zhCn,
+    zhTw
+}

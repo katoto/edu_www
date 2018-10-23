@@ -65,6 +65,11 @@ Vue.use(vueClipboard)
 router.beforeEach((to, from, next) => {
     document.getElementById('canonicalLink').setAttribute('href', 'https://www.coinsprize.com' + to.path)
     document.getElementById('canonicalMobileLink').setAttribute('href', 'https://www.coinsprize.com' + to.path)
+    document.getElementById('zhTwseo').setAttribute('href', 'https://www.coinsprize.com' + to.path + '?language=zhTw')
+    document.getElementById('zhCnseo').setAttribute('href', 'https://www.coinsprize.com' + to.path + '?language=zhCn')
+    document.getElementById('USseo').setAttribute('href', 'https://www.coinsprize.com' + to.path)
+    document.getElementById('UKseo').setAttribute('href', 'https://www.coinsprize.com' + to.path)
+
     if (to.path.indexOf('lucky11') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Lucky11, blockchain-based lottery, Ethereum lottery, bitcoin lottery, high frequency bitcoin play, token bet'))
         document.title = _('Lucky11-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize')
@@ -74,9 +79,13 @@ router.beforeEach((to, from, next) => {
         document.title = _('luckyslot-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize')
         document.getElementsByTagName('meta')['description'].setAttribute('content', _('luckyslot is a blockchain-based high frequency casino game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!'))
     } else if (to.path.indexOf('supercoin') > -1) {
-        document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!'))
-        document.title = _('SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!')
-        document.getElementsByTagName('meta')['description'].setAttribute('content', _('SuperCoin is a crowdfunding game based on blockchain technology. 0.01 ETH bet can win 10 ETH or more!'))
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('SuperCoin, smart contract, Ethereum games, smart contract games, blockchain gaming'))
+        document.title = _('SuperCoin-- an instant game supports bitcoin and Ethereum payment- Coinsprize')
+        document.getElementsByTagName('meta')['description'].setAttribute('content', _('SuperCoin is one of the games on Coinsprize. This fresh easy game is developed based on Ethereum smart contract. Winners only need to pay 0.01 ETH to win prize pool with over 10 ETH. All process is transparent, players could check all the information from Ethereum.'))
+    } else if (to.path.indexOf('luckyPoker') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Poker, dice, bitcoin, Ethereum, bitcoin poker games, Ethereum poker games, blockchain gaming, fair poker games'))
+        document.title = _('Poker-- an instant game supports bitcoin and Ethereum payment- Coinsprize')
+        document.getElementsByTagName('meta')['description'].setAttribute('content', _('Poker is one of the games on Coinsprize. This fresh easy game allows users to pay in bitcoin or Ethereum to play. Come to experience excitement! Try your luck to win more bitcoin and Ethereum!'))
     } else if (to.path.indexOf('coin') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('LuckyCoin, blockchain-based bid game, Ethereum bid game, bitcoin bid game, token bet'))
         document.title = _('LuckyCoin-- A Blockchain-Based Bid Game Supports Bitcoin and Ethereum Play-- Coinsprize')

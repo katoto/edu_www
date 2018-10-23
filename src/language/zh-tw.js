@@ -70,7 +70,7 @@ module.exports = {
     'About Us': '關於我們',
     'Privacy Policy': '用戶協議',
     'Terms of Use': '用戶協議',
-    'Help Center': '幫助中心',
+    'Help&nbsp;Center': '幫助中心',
     'Welcome to Coinsprize and start a new gaming experience! Coinsprize is a fair and fair, open and absolutely transparent game platform. The platform is based on Ethereum. Blockchain technology is used to guarantee the results of the lottery. The lottery number and betting record cannot be falsified.': '歡迎來到Coinsprize，開啟全新的博彩體驗！Coinsprize是壹個公平公正公開、開獎絕對透明的遊戲平臺，平臺基於以太坊，使用區塊鏈技術來保證開獎結果，開獎號碼，投註記錄不可篡改。',
 
     'You are not in our service area for more info': '當前我們無法向您所在地區的用戶提供服務',
@@ -464,6 +464,12 @@ module.exports = {
     '{0} Draw Result|Information|Announcements|Records -- Coinsprize': '{0} 彩票開獎結果|信息|公告|記錄 - Coinsprize',
     '{0}, draw result of {0}, draw details of {0}, {0} announcements, draw history of {0}': '{0} 11,{0} 11開獎結果,{0} 11開獎信息,{0} 11開獎公告,{0} 11開獎記錄',
     '{0}, released by Coinsprize, is a high frequency Ether game based on blockchain. Draw result, draw details, announcements and draw history of {0} can be checked on this page.': '{0}高頻彩票是coinsprize公司推出的壹款基於區塊鏈技術開發的賭場博彩高頻彩票遊戲。在該頁面妳可以查詢獲取到{0}的最新開獎結果、信息、公告、和往期記錄等。',
+    'SuperCoin-- an instant game supports bitcoin and Ethereum payment- Coinsprize': 'Supercoin-壹款基於以太坊智能合約開發的抽獎遊戲-coinsprize',
+    'SuperCoin, smart contract, Ethereum games, smart contract games, blockchain gaming': 'Supercoin，智能合約,以太幣，以太坊遊戲,智能合約遊戲,區塊鏈博彩',
+    'SuperCoin is one of the games on Coinsprize. This fresh easy game is developed based on Ethereum smart contract. Winners only need to pay 0.01 ETH to win prize pool with over 10 ETH. All process is transparent, players could check all the information from Ethereum.': 'Supercoin是coinsprize公司旗下開發的壹款基於以太坊智能合約開發的概率遊戲。遊戲玩法簡單，玩家只需投註0.01以太幣就可能獲取整個獎池，贏得超過10個以太幣。遊戲公正透明，玩家可以通過以太坊查詢，獲取交易信息和玩法規則。',
+    'Poker-- an instant game supports bitcoin and Ethereum payment- Coinsprize': 'Poker-壹款支持以太幣、比特幣投註的抽獎遊戲-coinsprize',
+    'Poker, dice, bitcoin, Ethereum, bitcoin poker games, Ethereum poker games, blockchain gaming, fair poker games': 'Poker,dice，比特幣，以太幣，比特幣撲克遊戲,以太幣撲克遊戲，區塊鏈博彩，公平撲克遊戲',
+    'Poker is one of the games on Coinsprize. This fresh easy game allows users to pay in bitcoin or Ethereum to play. Come to experience excitement! Try your luck to win more bitcoin and Ethereum!': 'Poker是coinsprize公司旗下開發的區塊鏈撲克類遊戲。遊戲玩法簡單，玩家可以自主選擇使用以太幣或者比特幣進行遊戲。快來測測您的運氣，贏取比特幣和以太幣，體驗不壹樣的刺激玩法。',
     /*  seo end */
 
     /* help */
@@ -500,7 +506,7 @@ module.exports = {
     'Enter your wallet address.': '輸入正確的錢包地址。',
     'Enter your withdrawal amount.': '輸入需要提款的金額（不得超過最大可提現金額，詳情可見與流水說明）',
     'Enter your account password.': '輸入正確的交易密碼，此密碼即為登錄密碼',
-    'It usually takes 12 hours to confirm your withdrawal before it is sent to your wallet.': '提款申請發出後通常需要12小時的等待確認，最終轉入您的賬戶錢包。',
+    'It usually takes 12 hours to confirm your withdrawal before it is sent to your wallet.': '提款申請發出後通常需要12小時的等待確認，最終轉入您的賬戶錢包',
     'How to Play  (Lucky11)': 'Lucky11怎麽玩',
     'Lucky 11 is a decentralized lottery product based on distributed ledger technology. Each draw is provably random and cryptographically secure thanks to the nature of the Ethereum blockchain. Blockchain-based data are featured with its unchangeableness and recognized by the whole network, which means it can completely avoid black box operations. Thus, issues like information asymmetry or non-transparency could be addressed to give players a game platform with maximum fairness they have never enjoyed before.': 'Lucky 11是壹款基於分布式賬本技術的去中心化的彩票產品。鑒於以太坊區塊鏈的性質，所有抽獎結果都是加密安全的且隨機可查。區塊鏈上資料具有全網共識，不可篡改的特點，使得Lucky11區別於傳統遊戲平臺，安全杜絕了傳統遊戲中存在的暗箱操作，以及用戶間不對等揮著遊戲規則與信息不透明等問題，從而為玩家提供壹個最為公平的遊戲平臺。',
     'Players could randomly pick 1 to 5 numbers from 1 to 11 and submit it to the Ethereum blockchain. One draw per minute. The result is determined by the last hash value uploaded in the minute. If the chosen numbers match the draw result, the player wins the reward (virtual currency) stipulated in smart': '玩家可以從1到11選擇1到5個數字並將其提交至以太坊區塊鏈。每分鐘進行壹次開獎，開獎結果由每分鐘上傳的最後壹個區塊的哈希值決定。如果所選數字與開獎結果相匹配，則玩家贏得智能合約中規定的獎勵（虛擬貨幣）。',
@@ -567,6 +573,7 @@ module.exports = {
     'Support service:': '技術支持:',
 
     'Draw Result Checking': '開獎驗證',
+    'Draw&nbsp;Result&nbsp;Checking': '開獎驗證',
     'Find No. in Draw Records': '可在開獎記錄中查看期號',
     'Draw Records': '開獎記錄',
     'Check Now': '立即驗證',
@@ -587,7 +594,7 @@ module.exports = {
     '1. What is <a href=https://en.wikipedia.org/wiki/Hexadecimal target=_blank>hash</a>? <a href=https://www.tools4noobs.com/online_tools/hash/ target=_blank>How to calculate hash</a>?': '1. 什麽是<a href=https://en.wikipedia.org/wiki/Hexadecimal target=_blank>哈希值</a>? 以及<a href=https://www.tools4noobs.com/online_tools/hash/ target=_blank>在線哈希值計算</a>?',
     '2. What is <a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>Merkle value</a>?': '2. 什麽是<a href=https://en.wikipedia.org/wiki/Merkle_tree target=_blank>默克爾值</a>?',
     '3. Check from <a href=https://etherscan.io target=_blank>Etherscan.io</a>.': '3. <a href=https://etherscan.io target=_blank>以太坊交易查詢入口</a>.',
-    'Transparency Checking': '查詢透明性',
+    'Transparency&nbsp;Checking': '查詢透明性',
     'Enter Draw No.': '輸入期號',
     'No. should consist of 10 numbers. You can check No. from draw history.': '期號為10位數字，可點擊下方開獎歷史查看期號',
     'This No. is non-exist. You can check No. from draw history.': '此期號不存在，可點擊下方開獎歷史查看期號',
@@ -602,11 +609,11 @@ module.exports = {
     '(Bid Numbers)': '(開獎號碼)',
     '(Amount)': '(金額)',
     '(Coin)': '(幣種)',
-    'The {0}th number of the sequence is the first draw number.': '第{0}位數字為第壹個開獎號碼',
-    'The {0}th number of the sequence is the second draw number.': '第{0}位數字為第二個開獎號碼',
-    'The {0}th number of the sequence is the third draw number.': '第{0}位數字為第三個開獎號碼',
-    'The {0}th number of the sequence is the fourth draw number.': '第{0}位數字為第四個開獎號碼',
-    'The {0}th number of the sequence is the fifth draw number.': '第{0}位數字為第五個開獎號碼',
+    'The {0}th number is the first draw number.': '第{0}位數字為第壹個開獎號碼',
+    'The {0}th number is the second draw number.': '第{0}位數字為第二個開獎號碼',
+    'The {0}th number is the third draw number.': '第{0}位數字為第三個開獎號碼',
+    'The {0}th number is the fourth draw number.': '第{0}位數字為第四個開獎號碼',
+    'The {0}th number is the fifth draw number.': '第{0}位數字為第五個開獎號碼',
     'None': '-',
     'Step 1. By using hexadecimal, the last 6 characters of the hash will convert into a decimal number.': '第壹步、取開獎Hash值後6位數字，將16進制轉換為10進制',
     'Step 2. Divide the number calculated from step 1 by total bids ({0} for this draw), then add 10,001. That is how lucky number comes from.': '第二步、對上述結果，除以本期號碼總數{0}，所得結果+10001，即為開獎結果',
@@ -643,7 +650,7 @@ module.exports = {
     'Insufficient Balance': '余額不足',
     'Please top up first.': '您的余額不足以投註，請先充值',
     'Bid For {0}': '贏取 {0}',
-    'Insufficient Available Bids': '註數有變化',
+    'Max Bids Change': '註數有變化',
     'Pay': '立即支付',
     'All Bids': '全部投註',
     'You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!': '您獲得1個號碼，若與開獎號碼相同就可獲得獎金{0} {1}。投註越多，中獎概率越高，祝妳好運~',
@@ -841,7 +848,9 @@ module.exports = {
     'SUPERCOIN': '超級奪幣',
     'SuperCoin': '超級奪幣',
     'Win 10 ETH Prize Pool Every 2 Hours': '每2小時贏取10ETH',
-    'Insufficient ETH': 'ETH餘額不足',
-    'The blockchain-based gaming platform': '區塊鏈博彩平臺'
+    'Insufficient ETH': 'ETH 余額不足',
+    'The blockchain-based gaming platform': '區塊鏈博彩平臺',
     /* super coin end */
+    'Coin-Coin(CC)': 'CC幣介紹',
+    'Play LuckyPoker': '幸運撲克怎麽玩'
 }
