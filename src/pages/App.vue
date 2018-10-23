@@ -62,9 +62,9 @@ export default {
                 }
             })
         }(window, document))
-        // 是否元素注入了 app_ck
+        // app是否元素注入了 app_ck
         if (window.app_ck && window.app_ck !== 'undefined') {
-            setCK(window.app_ck)
+            window.app_ck === '-1' ? setCK('') : setCK(window.app_ck)
         }
         this.handleInit()
         if (isLog()) {
