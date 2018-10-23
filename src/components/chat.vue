@@ -283,7 +283,7 @@ export default {
     data () {
         return {
             scrollTop: 0,
-            isShowChat: true,
+            isShowChat: false,
             isShowChatAdmin: true,
             ban24: false,
             banforever: false,
@@ -293,9 +293,18 @@ export default {
         }
     },
     watch: {
-
+        isShowChat: function () {
+            if (this.isShowChat) {
+                document.getElementById('app').childNodes[0].addEventListener('touchmove', this.banScroll, { passive: false })
+            } else {
+                document.getElementById('app').childNodes[0].removeEventListener('touchmove', this.banScroll, { passive: false })
+            }
+        }
     },
     methods: {
+        banScroll (evt) {
+            evt.preventDefault()
+        },
         checkUse (evt) {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
                 this.$store.commit('showLoginPop')
@@ -313,7 +322,6 @@ export default {
     },
     components: {},
     mounted () {
-
     },
     destroyed () {
 
