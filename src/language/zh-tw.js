@@ -650,7 +650,7 @@ module.exports = {
     'Insufficient Balance': '余額不足',
     'Please top up first.': '您的余額不足以投註，請先充值',
     'Bid For {0}': '贏取 {0}',
-    'Insufficient Available Bids': '註數有變化',
+    'Max Bids Change': '註數有變化',
     'Pay': '立即支付',
     'All Bids': '全部投註',
     'You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!': '您獲得1個號碼，若與開獎號碼相同就可獲得獎金{0} {1}。投註越多，中獎概率越高，祝妳好運~',

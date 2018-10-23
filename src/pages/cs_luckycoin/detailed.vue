@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <a href="javascript:;" class=" btn btn-normal" @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                            {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
+                            {{ this.isBlinking ? _('Max Bids Change') : _('Pay') }}
                         </a>
                         <!-- 新增cc 20180926 -->
                         <div class="cc-group cc-luckycoin" v-if="coinType !== '2000' && isLogin">

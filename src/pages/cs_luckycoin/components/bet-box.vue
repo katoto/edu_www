@@ -140,7 +140,7 @@
                 <a href="javascript:;" ref="maxBtn" @click="chooseMax">Max</a>
             </div>
             <a href="javascript:;" class="btn-bet"  @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
+                {{ this.isBlinking ? _('Max Bids Change') : _('Pay') }}
             </a>
         </div>
         <div class="bet- bet-success " :class="{show:windowClass === 'success'}">
