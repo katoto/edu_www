@@ -399,9 +399,8 @@ export default {
             }
         },
         init () {
-            let params = getURLParams()
-            if (params.number || this.number !== '') {
-                this.number = params.number || this.number
+            if ((this.$route.params && this.$route.params.number) || this.number !== '') {
+                this.number = this.$route.params.number || this.number
                 this.getDetailInfo()
                 this.getAllBidsInfo()
                 this.getMyBidsInfo()
@@ -413,7 +412,7 @@ export default {
                     if (data && data[0]) {
                         this.number = data[0].exceptId
                         this.$router.replace(
-                            `/luckycoin/detailed?number=${this.number}`
+                            `/luckycoin/detailed/${this.number}`
                         )
                         this.init()
                     }

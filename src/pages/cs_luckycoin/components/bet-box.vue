@@ -4,7 +4,8 @@
                         isPopular? 'match-popular' : 'match-common',
                         isInit && !isCancel ? '' : 'unvisible',
           ]">
-        <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link>
+        <!-- <router-link class=" todetailed" :to="{path: `/luckycoin/detailed?number=${betData.exceptId}`}"></router-link> -->
+        <router-link class=" todetailed" :to="{path: `/luckycoin/detailed/${betData.exceptId}`}"></router-link>
         <!--day hour min-->
         
         <div class="match-time open" v-if="isWaiting">
@@ -156,7 +157,7 @@
                  }}
             </p>
             <div class="btn-box">
-                <router-link :to="{path: `/luckycoin/detailed?number=${betData.exceptId}&go=mybets`}" class="bet-btnV">
+                <router-link :to="{path: `/luckycoin/detailed/${betData.exceptId}?go=mybets`}" class="bet-btnV">
                     <lang>See Details</lang>
                 </router-link>
                 <a href="javascript:;" class="bet-btnB" @click="handleBetMoreEvent">
