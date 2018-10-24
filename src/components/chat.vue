@@ -291,15 +291,15 @@ export default {
     },
     watch: {
         isShowChat: function () {
-            if (document.documentElement.offsetWidth <= 7.68) {
+            if (document.documentElement.offsetWidth <= 768) {
                 if (this.isShowChat) {
                     // 顺序不能打乱
                     document.getElementById('app').childNodes[0].addEventListener('touchmove', this.banScroll, { passive: false })
                     this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-                    if (!isIOS) {
-                        // 只给安卓加
-                        document.querySelector('body').className = 'noscroll'
-                    }
+                    // if (!isIOS) {
+                    // 只给安卓加
+                    document.querySelector('body').className = 'noscroll'
+                    // }
                 } else {
                     document.querySelector('body').setAttribute('class', '')
                     document.scrollingElement.scrollTop = this.scrollTop
@@ -315,8 +315,8 @@ export default {
         },
         checkUse (evt) {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
-                this.$store.commit('showLoginPop')
-                evt.target.blur()
+                // this.$store.commit('showLoginPop')
+                // evt.target.blur()
             }
         },
 
@@ -793,9 +793,13 @@ export default {
   //只在移动端处理，因为弹窗会挡住页面看不出变化
   .noscroll {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    #app > div:first-child {
+    }
   }
 }
 </style>
