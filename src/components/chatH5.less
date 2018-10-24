@@ -12,6 +12,10 @@
                 filter: brightness(1.1);
             }
         }
+        //兼容UC浏览器
+        // > * {
+        //     display: block;
+        // }
         * {
             box-sizing: border-box;
         }
@@ -48,7 +52,7 @@
             top: 50%;
             display: flex;
             flex-direction: column;
-            width: percentage(510/750);
+            width: 0;
             height: percentage(1082/1120);
             background: #d2d2d2;
             border-radius: 6px;
@@ -57,6 +61,7 @@
             transform: translate(-50%, -50%) scaleX(0);
             transition: all 0.5s ease-in-out;
             &.on {
+                width: percentage(510/750);
                 transform: translate(-50%, -50%) scaleX(1);
             }
         }
@@ -150,7 +155,7 @@
             border-radius: 6/75rem;
             color: #fff;
             transform: translate(100%);
-            transition: all 0.2s ease-out;
+            // transition: all 0.5s ease-out;
         }
         .chat_room_head {
             display: flex;
@@ -398,12 +403,17 @@
                 flex: 1;
                 position: relative;
                 min-height: 80/75rem;
+                overflow: hidden;
+                border-radius: 6/75rem;
             }
             .placeholder {
                 display: block;
                 visibility: hidden;
                 word-wrap: break-word;
                 word-break: break-all;
+                padding: 24/75rem 20/75rem;
+                line-height: 40/75rem;
+                font-size: 32/75rem;
             }
             textarea {
                 position: absolute;
@@ -413,21 +423,21 @@
                 height: 100%;
                 min-height: 80/75rem;
                 padding: 24/75rem 20/75rem;
-                line-height: 32/75rem;
+                line-height: 40/75rem;
                 font-size: 32/75rem;
                 color: #292a2f;
                 outline: none;
                 border: none;
-                border-radius: 6/75rem;
                 overflow: hidden;
                 resize: none;
                 word-wrap: break-word;
                 word-break: break-all;
+                border-radius: 6/75rem;
             }
             .btn_send {
                 display: block;
                 width: 146/75rem;
-                height: 85/75rem;
+                height: 80/75rem;
                 overflow: hidden;
                 margin-left: 13/75rem;
                 background: #fd9644 url(../assets/img/chat_btn.png) no-repeat
