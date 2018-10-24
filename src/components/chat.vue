@@ -6,22 +6,22 @@
         </a>
         <div class="chat_admin" :class="{on:isShowChatAdmin}">
             <a href="javascript:;" class="chat_admin_close" @click="isShowChatAdmin = !isShowChatAdmin"></a>
-            <div class="chat_admin_head">
+            <div class="chat_admin_head" v-if="controlRoomMsg">
                 <p class="user_emain">
-                    Sauwyeye@gmail.com
+                    {{ controlRoomMsg.email }}
                 </p>
                 <p class="user_id">
-                    ID: 1000394
+                    ID: {{ controlRoomMsg.uid }}
                 </p>
             </div>
             <div class="chat_admin_body">
-                <ul class="choose_ban">
+                <ul class="choose_ban" v-if="controlRoomMsg">
                     <li :class="{'on':ban24}">
-                        <input type="checkbox" id="ban24" v-model="ban24">
+                        <input type="checkbox" id="ban24" v-model="ban24" @change="controlSpeak('24')">
                         <label for="ban24">24 hours silence</label>
                     </li>
                     <li :class="{'on':banforever}">
-                        <input type="checkbox" id="banforever" v-model="banforever">
+                        <input type="checkbox" id="banforever" v-model="banforever" @change="controlSpeak('-1')">
                         <label for="banforever">Permanently banned</label>
                     </li>
                 </ul>
@@ -34,7 +34,11 @@
                             Remove&nbsp;All
                         </a>
                     </div>
-                    <ul class="admin_msg_items ">
+                    <ul class="admin_msg_items">
+                        <li v-for="(item,index) in initMsgArr" :key="index">
+                            {{ item.chatMsg }} 
+                            <a href="javascript:;" class="remove" @click="removeCurrMsg">Remove</a>
+                        </li>                        
                         <li>
                             system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
                         </li>
@@ -43,27 +47,6 @@
                         </li>
                         <li>
                             fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
                         </li>
                     </ul>
                 </div>
@@ -72,31 +55,54 @@
         <div class="chat_room ">
             <div class="chat_room_head">
                 <p>
+                    <!-- ,isShowChatAdmin = false -->
                     ChartRoom
                 </p>
-                <a href="javascript:;" @click="isShowChat = !isShowChat,isShowChatAdmin = false"></a>
+                <a href="javascript:;" @click="isShowChat = !isShowChat"></a>
             </div>
             <div class="chat_room_main">
                 <!-- admin self  -->
                 <ul>
-                    <li v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)">
-                        <div class="user_shortName">
-                            {{ item.email.slice(0,2).toUpperCase() }}
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    {{ formateEmail(item.email,true) }}
-                                </p>
-                                <span class="user_time">
-                                    {{ item.msgTime }}
-                                </span>
+                    <li v-if="isRootUser" v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)"
+                        @click="controlRoom(item)"
+                    >
+                        <div :class="{'admin':true,'slef':true}">
+                            <div class="user_shortName">
+                                {{ item.email.slice(0,2).toUpperCase() }}
                             </div>
-                            <p class="user_msg">
-                                {{ item.chatMsg }}
-                            </p>
+                            <div class="user_view">
+                                <div class="user_row1">
+                                    <p class="user_name">
+                                        {{ formateEmail(item.email,true) }}
+                                    </p>
+                                    <span class="user_time">
+                                        {{ item.msgTime }}
+                                    </span>
+                                </div>
+                                <p class="user_msg" v-html="item.chatMsg.httpParse()">
+                                </p>
+                            </div>                            
                         </div>
                     </li>
+                    <li v-else v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)">
+                        <div :class="{'admin':true,'slef':true}">
+                            <div class="user_shortName">
+                                {{ item.email.slice(0,2).toUpperCase() }}
+                            </div>
+                            <div class="user_view">
+                                <div class="user_row1">
+                                    <p class="user_name">
+                                        {{ formateEmail(item.email,true) }}
+                                    </p>
+                                    <span class="user_time">
+                                        {{ item.msgTime }}
+                                    </span>
+                                </div>
+                                <p class="user_msg" v-html="item.chatMsg.httpParse()">
+                                </p>
+                            </div>                            
+                        </div>
+                    </li>                    
                     <li :class="[isAdmin?'admin':'']">
                         <div class="user_shortName">
                             DO
@@ -156,25 +162,6 @@
                             </p>
                         </div>
                     </li>
-                    <li :class="getUserColor">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
-                                </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                this is my money
-                            </p>
-                        </div>
-                    </li>
-
                 </ul>
             </div>
             <div class="chat_room_foot">
@@ -196,7 +183,6 @@
                             {{myMsg}}
                         </div>
                         <textarea @focus="checkUse" v-model="myMsg" placeholder="Say something...">
-
                         </textarea>
                     </div>
                     <a href="javascript:;" class="btn_send"></a>
@@ -213,79 +199,93 @@ export default {
         return {
             scrollTop: 0,
             isShowChat: false,
-            isShowChatAdmin: false,
             ban24: false,
             banforever: false,
             isAdmin: true,
             myMsg: '',
             isOver100: true,
 
-            initMsgArr: [{
+            isShowChatAdmin: false, // admin 页面
+            isRootUser: true,
+            controlRoomMsg: null,  // 控制中心数据
+            initMsgArr: [
+            {
                 'uid': 123,
                 'msgid': 1,
                 'email': '84fds9246@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540245873',
+                'speakState':'-1',
             }, {
                 'uid': 1234,
                 'msgid': 2,
                 'email': 'asfd9246@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540165873',
+                'speakState':'-1',
             }, {
                 'uid': 1111,
                 'msgid': 3,
                 'email': 'qwerw39246@qq.com',
                 'chatMsg': 'this is my money http://www.coinsprize.com',
-                'msgTime': '1540265873'
+                'msgTime': '1542265873',
+                'speakState':'-1',
             }, {
                 'uid': 123,
                 'msgid': 4,
                 'email': '11321321@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540275833',
+                'speakState':'0',
             }, {
                 'uid': 123,
                 'msgid': 4,
                 'email': '11321321@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540269873',
+                'speakState':'1',
             }, {
                 'uid': 123,
                 'msgid': 4,
                 'email': '11321321@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540465873',
+                'speakState':'1',
+            }, {
+                'uid': 1414223,
+                'msgid': 4,
+                'email': '11321321@qq.com',
+                'chatMsg': 'this is my money',
+                'msgTime': '1540269873',
+                'speakState':'1',
             }, {
                 'uid': 123,
                 'msgid': 4,
                 'email': '11321321@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540266873',
+                'speakState':'1',
             }, {
                 'uid': 123,
                 'msgid': 4,
                 'email': '11321321@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540267873',
+                'speakState':'1',
             }, {
                 'uid': 123,
-                'msgid': 4,
+                'msgid': 4, 
                 'email': '11321321@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
+                'msgTime': '1540266873',
+                'speakState':'0',
             }, {
                 'uid': 1234134,
                 'msgid': 5,
                 'email': 'qrewqr@qq.com',
                 'chatMsg': 'this is my money',
-                'msgTime': '1540265872'
+                'msgTime': '1540265972',
+                'speakState':'-1',
             }],
             newMsgArr: []
         }
@@ -311,6 +311,42 @@ export default {
     },
     methods: {
         formateEmail,
+        controlSpeak(val='24'){
+            if(val === '24'){
+                this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
+            }else{
+                this.banforever ? this.noSpeak('-1') : this.breakSpeak('-1')
+            }
+        },
+        async noSpeak(){
+            let uid = this.controlRoomMsg.uid
+            // 禁言  24 or 永久
+            let data = await this.$store.dispatch('noSpeak',uid)
+        }, 
+        async breakSpeak(){
+            let uid = this.controlRoomMsg.uid
+            // 解除禁言
+            let data = await this.$store.dispatch('noSpeak',uid)
+        },     
+        async removeAllMsg(msgIdArr){
+            // 删除指定msg
+            let data = await this.$store.dispatch('delAllMsg',msgId)
+        },
+        async removeCurrMsg(msgId){
+            // 删除指定msg
+            let data = await this.$store.dispatch('delCurrMsg',msgId)
+        },
+        async controlRoom(item){
+            console.log(item)
+            this.controlRoomMsg = item;
+            // 0 -1 1  24 永久 无
+            this.ban24 = item.speakState === '0'
+            this.banforever = item.speakState === '-1'
+            this.isShowChatAdmin = true
+            // 请求用户信息 列表 removeAll 会用到
+            let msg = await this.$store.dispatch('getChatlist',item)
+
+        },
         banScroll (evt) {
             evt.preventDefault()
         },
@@ -323,7 +359,7 @@ export default {
 
         formateMsgArr (list = []) {
             list.forEach((item, index) => {
-                item.msgTime = formatTime(item.msgTime)
+                item.msgTime = formatTime(item.msgTime, "HH:mm AMPM")
             })
             return list
         },
@@ -799,5 +835,14 @@ export default {
     height: 100%;
     overflow: hidden;
   }
+  .chat_room_main{
+    .link{
+          color: #fd9644;
+          &:hover {
+            filter: brightness(1.2);
+            color: #fd9644;
+          }
+        }
+    }
 }
 </style>

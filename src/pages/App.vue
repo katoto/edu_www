@@ -63,6 +63,8 @@ export default {
             })
         }(window, document))
         // app是否元素注入了 app_ck
+        console.log(window.app_ck)
+        console.log('==========app_ck=========')
         if (window.app_ck && window.app_ck !== 'undefined') {
             window.app_ck === '-1' ? setCK('') : setCK(window.app_ck)
         }

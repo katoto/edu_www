@@ -157,6 +157,22 @@ const mutations = {
     }
 }
 const actions = {
+    async noSpeak ({commit, dispatch}, item) {
+        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    },
+    /* chat delAllMsg */
+    async delAllMsg ({commit, dispatch}, item) {
+        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    },
+    /* chat 聊天室msg 删除 */
+    async delCurrMsg ({commit, dispatch}, item) {
+        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    },
+    /* chat 聊天室个人信息获取 */
+    async getChatlist ({commit, dispatch}, item) {
+        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    },
+
     /* 水龙头邀请 */
     async faucetTask ({commit, dispatch}, coinType) {
         return ajax.get(`/faucet/tasks?cointype=${coinType}`)
