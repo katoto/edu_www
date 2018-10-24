@@ -650,7 +650,7 @@ module.exports = {
     'Insufficient Balance': '余额不足',
     'Please top up first.': '您的余额不足以投注，请先充值',
     'Bid For {0}': '赢取 {0}',
-    'Insufficient Available Bids': '注数有变化',
+    'Max Bids Change': '注数有变化',
     'Pay': '立即支付',
     'All Bids': '全部投注',
     'You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!': '您获得1个号码，若与开奖号码相同就可获得奖金{0} {1}。投注越多，中奖概率越高，祝你好运~',

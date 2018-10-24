@@ -99,7 +99,7 @@
                                 <router-link :to="`/check?number=${scope.row.expectid}&type=lucky11}`" v-if="scope.row.lotid === '1'">
                                     {{scope.row.expectid}}
                                 </router-link>
-                                <router-link :to="`/luckycoin/detailed?number=${scope.row.expectid}&go=mybets`" v-if="scope.row.lotid === '2'">
+                                <router-link :to="`/luckycoin/detailed/${scope.row.expectid}?go=mybets`" v-if="scope.row.lotid === '2'">
                                     {{scope.row.expectid}}
                                 </router-link>
                         </template>
