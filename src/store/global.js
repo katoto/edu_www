@@ -204,8 +204,6 @@ const actions = {
             let flag = 0
             let hasFinished = false
             sock.onmessage = function (e) {
-                console.log(e.data)
-                console.log(e.data)
                 if (!~e.data.indexOf('you said') && !(e.data === 'pong')) {
                     let msg = JSON.parse(e.data)
 
