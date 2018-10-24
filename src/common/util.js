@@ -816,6 +816,30 @@ export function getByteLen (str) {
     return str.replace(/[^\x00-\xff]/g, '01').length
 }
 
+/*
+ *      切割字节长度字符
+ *      @return 字节长度
+ * */
+export function cutStr (str, len) {
+    let result = ''
+    let strlen = str.length // 字符串长度
+    let chrlen = str.replace(/[^\x00-\xff]/g, '**').length // 字节长度
+    if (chrlen <= len) { return str }
+    for (var i = 0, j = 0;i < strlen;i++) {
+        var chr = str.charAt(i)
+        if (/[\x00-\xff]/.test(chr)) {
+            j++ // ascii码为0-255，一个字符就是一个字节的长度
+        } else {
+            j += 2 // ascii码为0-255以外，一个字符就是两个字节的长度
+        }
+        if (j <= len) { // 当加上当前字符以后，如果总字节长度小于等于L，则将当前字符真实的+在result后
+            result += chr
+        } else { // 反之则说明result已经是不拆分字符的情况下最接近L的值了，直接返回
+            return result
+        }
+    }
+}
+
 export function getCCAcount (userInfo) {
     if (userInfo && userInfo.accounts && userInfo.accounts.length >= 1) {
         let accounts = this.userInfo.accounts
