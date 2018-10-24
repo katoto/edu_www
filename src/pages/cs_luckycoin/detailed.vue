@@ -400,6 +400,7 @@ export default {
             }
         },
         init () {
+            let params = getURLParams()
             if ((this.$route.params && this.$route.params.number) || this.number !== '') {
                 this.number = this.$route.params.number || this.number
                 this.getDetailInfo()
