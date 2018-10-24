@@ -399,10 +399,7 @@ export default {
             this.autoChangeDefaultAccount(true)
             // 通知app 切换了登陆
             if (window.coinsprize) {
-                console.log(val)
-                console.log('========islog===')
-                console.log(val)
-                val ? window.coinsprize.logIn(getCK(), this.userInfo.username) : window.coinsprize.logOut()
+                val ? window.coinsprize.logIn(getCK(), this.userInfo.username, this.userInfo.uid) : window.coinsprize.logOut()
             } else {
                 console.error('none coinsprize inset')
             }
