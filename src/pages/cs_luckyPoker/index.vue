@@ -467,7 +467,6 @@ import Header from '~components/Header'
 import Footer from '~components/Footer'
 import PopCharge from '~components/Pop-charge.vue'
 
-
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum, getCCAcount, getCCDeductionMoney } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout, clearTimeout } from 'timers'
@@ -606,7 +605,7 @@ export default {
             if (this.$refs) {
                 this.$refs.popChargeDom.showPopCharge(true)
             }
-        },  
+        },
         formatEmail (email) {
             let arr = email.split('@')
             if (arr.length !== 2) {
@@ -878,7 +877,7 @@ export default {
                 return
             }
             if (this.balance < this.total) {
-                this.account.cointype==='2000' ? this.$error(this.$lang.poker.a35) : this.superPopCharge(true)
+                this.account.cointype === '2000' ? this.$error(this.$lang.poker.a35) : this.superPopCharge(true)
                 return
             }
             if (this.total === 0) {

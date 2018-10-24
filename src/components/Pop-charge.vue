@@ -32,9 +32,9 @@
 
 import { copySucc, copyError } from '~common/util'
 export default {
-    data(){
-        return{
-            showRecharge:false
+    data () {
+        return {
+            showRecharge: false
         }
     },
     computed: {
@@ -43,19 +43,18 @@ export default {
         },
         currBalance () {
             return this.$store.state.currBalance
-        },            
+        }
     },
-    methods:{
+    methods: {
         copySucc,
         copyError,
-        showPopCharge(){
+        showPopCharge () {
             // 父集调用
             this.showRecharge = true
         }
     },
     name: 'Pop-charge'
 }
-
 </script>
 
 <style scope lang="less" type="text/less">

@@ -672,7 +672,7 @@ export default {
             if (this.$refs) {
                 this.$refs.popChargeDom.showPopCharge(true)
             }
-        },        
+        },
         initPop () {
             /* head 弹窗 */
             this.$store.commit('initHeadState', new Date().getTime())
@@ -846,7 +846,7 @@ export default {
             if (this.currBalance && this.currBalance.balance) {
                 if ((parseFloat(this.currBalance.balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                     /* 显示余额不足 */
-                    this.currBalance.cointype==='2000' ? this.$error(_('Insufficient Balance')) : this.superPopCharge(true)
+                    this.currBalance.cointype === '2000' ? this.$error(_('Insufficient Balance')) : this.superPopCharge(true)
                     return false
                 }
             }
