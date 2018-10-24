@@ -1,6 +1,6 @@
 <template>
     <!--bg1 bg2 bg3-->
-    <div id="home" class="home" :class="bghome">
+    <div class="home" :class="bghome">
         <Header></Header>
         <div class="main" @click="initPop">
             <div class="container">
