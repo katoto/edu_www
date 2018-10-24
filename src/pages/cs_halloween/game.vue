@@ -341,7 +341,7 @@ export default {
     }
     .prize {
         text-align: center;
-        font-size: 36px;
+        font-size: 30px;
         color: #efb811;
         font-family: sans-eb;
         display: none;
