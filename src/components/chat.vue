@@ -350,20 +350,16 @@ export default {
             // 请求用户信息 列表 removeAll 会用到
             let msg = await this.$store.dispatch('getChatlist', item)
 
-            // 默认到最底部
-            document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
-
         },
         banScroll (evt) {
             evt.preventDefault()
         },
         checkUse (evt) {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
-                // this.$store.commit('showLoginPop')
-                // evt.target.blur()
+                this.$store.commit('showLoginPop')
+                evt.target.blur()
             }
         },
-
         formateMsgArr (list = []) {
             list.forEach((item, index) => {
                 item.msgTime = formatTime(item.msgTime, 'HH:mm AMPM')
@@ -372,6 +368,10 @@ export default {
         },
         initChat () {
             this.newMsgArr = this.formateMsgArr(this.initMsgArr)
+
+            // 默认到最底部
+            document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+
         },
         getUserColor (ind) {
             // return 'userColor' + (~~(Math.random() * 12) + 1)
