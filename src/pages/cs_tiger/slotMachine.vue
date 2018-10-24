@@ -449,8 +449,8 @@
                         </ul>
                     </div>
                     <!--充值-->
-                    <div class="pop pop-recharge" :class="{'show':showRecharge}">
-                        {{ showRecharge }}
+                    <PopCharge ref="popChargeDom"></PopCharge>
+                    <!-- <div class="pop pop-recharge" :class="{'show':showRecharge}">
                         <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
                         <div class="title">
                             <div v-if="currBalance.cointype==='2001'">
@@ -475,7 +475,7 @@
                         </div>
                         <img v-if="currBalance.cointype==='1001'" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address " alt="recharge">
                         <img v-if="currBalance.cointype==='2001'" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address " alt="recharge">
-                    </div>
+                    </div> -->
                 </div>
                 <div class="tiger-pc-msg">
                     <h3>
@@ -547,6 +547,8 @@
 <script>
 import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
+import PopCharge from '~components/Pop-charge.vue'
+
 import { mTypes, aTypes } from '~/store/cs_page/cs_tiger'
 import BannerScroll from '~components/BannerScroll.vue'
 import { formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalance, formateCoinType, wait, formateSlotBalance, structDom, getCCDeductionMoney, getCCAcount, accMul } from '~common/util'
@@ -562,7 +564,7 @@ export default {
         return {
             slotSound: null,
             showFirstBaxi: false, // 首次提示
-            showRecharge: false, // 显示充值弹窗
+            // showRecharge: false, // 显示充值弹窗
             hideBarLycky: true,
             tab_t: 1, // 规则
             tranitionTiming: false, // 运动是否需要过程
@@ -665,6 +667,12 @@ export default {
         formateSlotBalance,
         formateEmail,
         formateCoinType,
+        superPopCharge () {
+            /* 调 pop-charge 的方法  修改按钮状态 */
+            if (this.$refs) {
+                this.$refs.popChargeDom.showPopCharge(true)
+            }
+        },        
         initPop () {
             /* head 弹窗 */
             this.$store.commit('initHeadState', new Date().getTime())
@@ -838,8 +846,7 @@ export default {
             if (this.currBalance && this.currBalance.balance) {
                 if ((parseFloat(this.currBalance.balance) < formatFloat(parseFloat(this.dft_line) * parseFloat(this.dft_bet))) && parseFloat(this.free_times) <= 0) {
                     /* 显示余额不足 */
-                    // this.showRecharge = true
-                    this.$error(_('Insufficient Balance'))
+                    this.currBalance.cointype==='2000' ? this.$error(_('Insufficient Balance')) : this.superPopCharge(true)
                     return false
                 }
             }
@@ -1255,7 +1262,7 @@ export default {
         }
     },
     components: {
-        Header, Footer, BannerScroll
+        Header, Footer, BannerScroll, PopCharge
     },
     async mounted () {
         document.documentElement.className = 'flexhtml noscrolling'
