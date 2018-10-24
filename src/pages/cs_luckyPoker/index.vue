@@ -1,7 +1,6 @@
 <template>
     <div>
         <Header></Header>
-        <Halloween scene="luckycoin"></Halloween>
         <div class="luckyPoker halloween" @click="initPop" @resize="onResize" :class="{'small':is14}">
             <audio :src="music.fapai" class="poker-audio" ref="fapaiMusic"></audio>
             <audio :src="music.pay" class="poker-audio" ref="payMusic"></audio>
@@ -470,14 +469,14 @@ import Footer from '~components/Footer'
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum, getCCAcount, getCCDeductionMoney } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout, clearTimeout } from 'timers'
-import Halloween from '../cs_halloween/game'
+
 const betMusic = () => import('~static/audio/dice/bet.wav')
 const faPaiMusic = () => import('~static/audio/dice/fapai.ogg')
 const winMusic = () => import('~static/audio/dice/win.ogg')
 const payMusic = () => import('~static/audio/dice/pay.ogg')
 const loseMusic = () => import('~static/audio/dice/lose.ogg')
 export default {
-    components: { Header, Footer, Halloween },
+    components: { Header, Footer },
     data () {
         return {
             coin: {
@@ -2577,7 +2576,7 @@ export default {
             background:#1b262c url("../../assets/img/luckyPoker/bg-pc.jpg") no-repeat center top;
             background-size: 1920px;
             &.halloween {
-                background: url("../../assets/img/halloween/bg1.jpg") no-repeat #162222;
+                background: url("../../assets/img/halloween/bg.jpg") no-repeat #162222;
             }
             .main{
                 position: relative;

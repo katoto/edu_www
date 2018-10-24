@@ -1,6 +1,5 @@
 <template>
     <div class="main halloween"  @click="initPop">
-        <Halloween scene="luckycoin"></Halloween>
         <div class="container">
             <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
             <div class="row">
@@ -156,7 +155,6 @@
     import recentBets from './components/recent-bets'
     import historyBetBox from './components/history-bet-box'
     import { structDom } from '~/common/util'
-    import Halloween from '../cs_halloween/game'
     export default {
         data () {
             return {
@@ -191,7 +189,7 @@
                 this.updateLuckyCoinPage()
             }
         },
-        components: { betBox, recentBets, historyBetBox, Halloween },
+        components: { betBox, recentBets, historyBetBox },
         computed: {
             ...mapState('cs_luckycoin', {
                 betsList: state => state.betsList,

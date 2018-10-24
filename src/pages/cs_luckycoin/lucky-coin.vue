@@ -138,7 +138,7 @@ export default {
             no-repeat center top;
         background-size: 1920px;
         &.halloween {
-            background: url("../../assets/img/halloween/bg1.jpg") no-repeat #162222;
+            background: url("../../assets/img/halloween/bg.jpg") no-repeat #162222;
         }
     }
     .red {

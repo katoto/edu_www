@@ -159,6 +159,7 @@ let routesArr = [{
 },
 {
     path: '/luckycoin',
+    name: 'luckycoin',
     component: luckycoin,
     children: [{
         path: 'drawHistory',
@@ -180,14 +181,14 @@ let routesArr = [{
     },
     {
         path: '',
-        name: _('Home'),
+        name: 'luckycoin-home',
         component: luckcoinIndex
     }
     ]
 },
 {
     path: '/luckyPoker',
-    name: _('luckyPoker'),
+    name: 'luckyPoker',
     component: csPoker
 },
 {

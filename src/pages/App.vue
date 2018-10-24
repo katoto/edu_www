@@ -1,20 +1,23 @@
 <template>
     <div id="app"  @scroll.native="test" :class="isReady ? 'ready' : ''">
         <router-view v-if="isReady"/>
+        <Halloween scene="poker" :show.sync="isShowHalloween" v-if="isShowEntry"></Halloween>
+        <img class="halloween-entry" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
     </div>
 </template>
 
 <script>
     import {isLog, defaultLanguage, isForbitPage} from '~common/util'
+    import Halloween from './cs_halloween/game'
     export default {
         data () {
             return {
-                isReady: false
+                isReady: false,
+                isShowHalloween: false
             }
         },
         components: {
-        },
-        watch: {
+            Halloween
         },
         methods: {
             handleInit () {
@@ -30,9 +33,22 @@
                     document.getElementById('contentLanguange').setAttribute('content', 'zh-cn')
                     break
                 }
+            },
+            playHalloween () {
+                if (!this.isLogin) {
+                    this.$store.commit('showLoginPop')
+                    return
+                }
+                this.isShowHalloween = !this.isShowHalloween
             }
         },
         computed: {
+            isLogin () {
+                return this.$store.state.isLog
+            },
+            isShowEntry () {
+                return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
+            }
         },
         async mounted () {
             (function flexible (window, document) {
@@ -113,6 +129,13 @@
     @import "../styles/lib-public.less";
     @import "../styles/lib-media.less";
     @import "../styles/lib-mixins.less";
+    .halloween-entry {
+        position: fixed;
+        top: 50%;
+        left: 40px;
+        cursor: pointer;
+        z-index: 1000;
+    }
     #app {
         position: relative;
         background: #eef1f9;

@@ -1,6 +1,5 @@
 <template>
     <div class="tiger-contain" :class="{'cc-mode': currBalance.cointype === '2000'}">
-        <Halloween scene="slot"></Halloween>
         <div class="tiger-pc halloween">
             <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
@@ -485,7 +484,6 @@ import {formatFloat, copySucc, copyError, formateEmail, formatTime, formateBalan
 
 import Vue from 'vue'
 import vueClipboard from 'vue-clipboard2'
-import Halloween from '../cs_halloween/game'
 import {Howl} from 'howler'
 Vue.use(vueClipboard)
 
@@ -1188,7 +1186,7 @@ Vue.use(vueClipboard)
             }
         },
         components: {
-            Header, Footer, BannerScroll, Halloween
+            Header, Footer, BannerScroll
         },
         async mounted () {
             document.documentElement.className = 'flexhtml noscrolling'
@@ -2363,7 +2361,7 @@ Vue.use(vueClipboard)
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
             background-size: 1920px 586px;
             &.halloween {
-                background: url("../../assets/img/halloween/bg1.jpg") no-repeat #162222;
+                background: url("../../assets/img/halloween/bg.jpg") no-repeat #162222;
                 background-position: 0 70px;
             }
         }

@@ -9,7 +9,7 @@ const mutations = {
 
 const actions = {
     getGhosts ({commit}, params) {
-        return ajax.get('/getGhosts', params)
+        return ajax.get('/activity/halloween/lists', params)
             .catch(() => {
                 let arr = []
                 for (let i = 0; i < 10; i++) {
