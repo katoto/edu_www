@@ -176,12 +176,12 @@ const actions = {
         return ajax.post(`/im/chatroom/unblock`, msg)
     },
     /* chat delAllMsg */
-    async delAllMsg ({commit, dispatch}, item) {
-        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    async delAllMsg ({commit, dispatch}, msg) {
+        return ajax.post(`/im/chatroom/clear_record`, msg)
     },
     /* chat 聊天室msg 删除 */
     async delCurrMsg ({commit, dispatch}, item) {
-        return ajax.get(`/faucet/tasks?cointype=${item}`)
+        return ajax.post(`/im/chatroom/clear_record`, item)
     },
     /* chat 聊天室个人信息获取 */
     async getOneChatmsg ({commit, dispatch}, msg) {

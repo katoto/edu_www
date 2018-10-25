@@ -19,7 +19,6 @@
                     <li :class="{'on':ban24}">
                         <input type="checkbox" id="ban24" v-model="ban24" @change="controlSpeak('24')">
                         <label for="ban24">{{ $lang.chat.a1 }}</label>
-                        <!-- <label for="ban24" v-else>{{ $lang.chat.a4 }}</label> -->
                     </li>
                     <li :class="{'on':banforever}">
                         <input type="checkbox" id="banforever" v-model="banforever" @change="controlSpeak('-1')">
@@ -45,12 +44,10 @@
         <div class="chat_room">
             <div class="chat_room_head">
                 <p v-lang="$lang.chat.a16">
-                    <!-- ,isShowChatAdmin = false -->
                 </p>
                 <a href="javascript:;" @click="controlShowChat"></a>
             </div>
             <div class="chat_room_main">
-                <!-- admin self  -->
                 <ul>
                     <template v-if="userInfo && userInfo.is_im_admin === 'True'">
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
@@ -94,7 +91,6 @@
                             </div>
                         </li>
                     </template>
-
                     <li class="system">
                         <div class="user_shortName hide">
                         </div>
@@ -284,13 +280,33 @@ export default {
                 this.controlRoom(this.controlRoomMsg)
             }
         },
-        async removeAllMsg (msgIdArr) {
+        async removeAllMsg () {
             // 删除指定msg
-            let data = await this.$store.dispatch('delAllMsg', msgId)
+            let currObj = {
+                msg_id: '',
+                clear_uid: this.controlRoomMsg.content.uid,
+                chatroom_id: '1'
+            }
+            let data = await this.$store.dispatch('delAllMsg', currObj)
+            if (data && data.status === '100') {
+                this.$success(_('全部删除操作成功'))
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }            
         },
         async removeCurrMsg (msgId) {
             // 删除指定msg
-            let data = await this.$store.dispatch('delCurrMsg', msgId)
+            let currObj = {
+                msg_id: msgId,
+                clear_uid: this.controlRoomMsg.content.uid,
+                chatroom_id: '1'
+            }            
+            let data = await this.$store.dispatch('delCurrMsg', currObj)
+            if (data && data.status === '100') {
+                this.$success(_('删除指定消息成功'))
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }            
         },
         async controlRoom (item) {
             this.controlRoomMsg = item
