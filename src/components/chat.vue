@@ -94,6 +94,43 @@
                             </div>
                         </li>
                     </template>
+
+                    <li :class="getUserColor" class="self">
+                        <div class="user_shortName">
+                            DO
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    sa....6@gmail.com
+                                </p>
+                                <span class="user_time">
+                                    9:46 PM
+                                </span>
+                            </div>
+                            <p class="user_msg">
+                                HELLO, I have some questions, who can
+                                help me ?
+                            </p>
+                        </div>
+                    </li>
+                    <li class="system">
+                        <div class="user_shortName hide">
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    【系统消息】
+                                </p>
+                                <span class="user_time hide">
+
+                                </span>
+                            </div>
+                            <p class="user_msg">
+                                您已被永久禁言，消息不可发送
+                            </p>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div class="chat_room_foot">
@@ -122,7 +159,7 @@
                         <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">1</a>
+                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}"></a>
                 </div>
             </div>
         </div>
@@ -136,7 +173,7 @@ export default {
         return {
             vipChatLen: 100,
             scrollTop: 0,
-            isShowChat: false,
+            isShowChat: true,
             ban24: false,
             banforever: false,
             myMsg: '',
@@ -195,7 +232,7 @@ export default {
         sendMsg () {
             // 发送msg
             this.checkUse()
-            if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0 || !isBtnAble) {
+            if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0 || !this.isBtnAble) {
                 return false
             }
             let currObj = {
@@ -305,7 +342,7 @@ export default {
             }
         },
         getUserColor (item) {
-            // 处理类名
+            // 处理类名  system
             let classArr = []
             if (item.content.uid) {
                 classArr.push('userColor' + item.content.uid % 13)
@@ -623,6 +660,19 @@ export default {
             padding: 3px 10px 2px;
             background: #57595d;
             border-radius: 6px;
+          }
+        }
+        &.system {
+          .user_name {
+            line-height: 18px;
+            font-size: 12px;
+            color: #aaabad;
+          }
+          .user_msg {
+            line-height: 20px;
+            font-size: 14px;
+            color: #ef7e7e;
+            word-break: break-all;
           }
         }
         & + li {
