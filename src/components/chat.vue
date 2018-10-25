@@ -55,7 +55,7 @@
                     <template v-if="userInfo && userInfo.is_im_admin === 'True'">
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
                             <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
-                                <div class="user_shortName" @click="controlRoom(item)">
+                                <div class="user_shortName" @click="controlRoom(item)" v-if="item.content.username">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
                                 <div class="user_view">
@@ -63,7 +63,7 @@
                                         <p class="user_name">
                                             {{ formateEmail(item.content.username,true) }}
                                         </p>
-                                        <span class="user_time">
+                                        <span class="user_time" v-if="item.content.username">
                                             {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                         </span>
                                     </div>
@@ -76,7 +76,7 @@
                     <template v-else>
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
                             <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
-                                <div class="user_shortName">
+                                <div class="user_shortName" v-if="item.content.username">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
                                 <div class="user_view">
@@ -84,7 +84,7 @@
                                         <p class="user_name">
                                             {{ formateEmail(item.content.username,true) }}
                                         </p>
-                                        <span class="user_time">
+                                        <span class="user_time" v-if="item.content.username">
                                             {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                         </span>
                                     </div>
@@ -95,25 +95,6 @@
                         </li>
                     </template>
 
-                    <li :class="getUserColor" class="self">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
-                                </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                HELLO, I have some questions, who can
-                                help me ?
-                            </p>
-                        </div>
-                    </li>
                     <li class="system">
                         <div class="user_shortName hide">
                         </div>
