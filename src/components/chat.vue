@@ -35,9 +35,9 @@
                     </div>
                     <ul class="admin_msg_items">
                         <li v-for="(item,index) in checkOneMsgArr" :key="index">
-                            {{ item.content.msg }} 
+                            {{ item.content.msg }}
                             <a href="javascript:;" class="remove" @click="removeCurrMsg(item.content.msg_id)">{{ $lang.chat.a15 }}</a>
-                        </li>                 
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -69,9 +69,9 @@
                                     </div>
                                     <p class="user_msg" v-html="item.content.msg.httpParse()">
                                     </p>
-                                </div>                            
+                                </div>
                             </div>
-                        </li>                        
+                        </li>
                     </template>
                     <template v-else>
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
@@ -90,9 +90,9 @@
                                     </div>
                                     <p class="user_msg" v-html="item.content.msg.httpParse()">
                                     </p>
-                                </div>                            
+                                </div>
                             </div>
-                        </li>                       
+                        </li>
                     </template>
                 </ul>
             </div>
@@ -119,10 +119,10 @@
                         <div class="placeholder">
                             {{myMsg}}
                         </div>
-                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" >
+                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === ''}"></a>
+                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">1</a>
                 </div>
             </div>
         </div>
@@ -143,7 +143,9 @@ export default {
             isShowChatAdmin: false, // admin 页面
             controlRoomMsg: null, // 控制中心数据
             checkOneMsgArr: [], // admin 查询用户列表用
-            newMsgArr: []
+            newMsgArr: [],
+            sendTimeInterval: null, // 控制发消息频率
+            isBtnAble: true,
         }
     },
     watch: {
@@ -167,6 +169,7 @@ export default {
         chatmsg (data) {
             if (data.content.uid === this.userInfo.uid) {
                 this.myMsg = ''
+                this.controlInterval()
             }
             document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
         }
@@ -176,10 +179,23 @@ export default {
         getByteLen,
         cutStr,
         formatTime,
+        controlInterval () {
+            clearInterval( this.sendTimeInterval )
+            this.isBtnAble = false
+            let baseTime = this.vipChatLen === 200 ? 5 : 10
+            this.sendTimeInterval = setInterval(()=>{
+                console.log(baseTime)
+                baseTime--
+                if(!baseTime){
+                    clearInterval( this.sendTimeInterval )
+                    this.isBtnAble = true
+                }
+            },1000)
+        },
         sendMsg () {
             // 发送msg
             this.checkUse()
-            if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0) {
+            if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0 || !isBtnAble) {
                 return false
             }
             let currObj = {
@@ -778,14 +794,14 @@ export default {
     #app > div:first-child {
     }
   }
-  .chat_room_main{
-    .link{
-          color: #fd9644;
-          &:hover {
-            filter: brightness(1.2);
-            color: #fd9644;
-          }
-        }
+  .chat_room_main {
+    .link {
+      color: #fd9644;
+      &:hover {
+        filter: brightness(1.2);
+        color: #fd9644;
+      }
     }
+  }
 }
 </style>
