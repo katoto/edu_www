@@ -132,7 +132,7 @@
                         <div class="placeholder">
                             {{myMsg}}
                         </div>
-                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keypress="sendMsg">
+                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keyup.enter="sendMsg">
                         </textarea>
                     </div>
                     <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">{{ baseTime }}</a>
@@ -315,7 +315,10 @@ export default {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
                 this.$store.commit('showLoginPop')
                 evt.target.blur()
+            }else if(this.userInfo.status === '1'){
+                this.$store.commit('showNoVerify')
             }
+
         },
         getUserColor (item) {
             // 处理类名  system
