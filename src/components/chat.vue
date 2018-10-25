@@ -94,6 +94,7 @@
                             </div>
                         </li>
                     </template>
+
                     <li :class="getUserColor" class="self">
                         <div class="user_shortName">
                             DO
@@ -113,7 +114,24 @@
                             </p>
                         </div>
                     </li>
+                    <li class="system">
+                        <div class="user_shortName hide">
 
+                        </div>
+                        <div class="user_view">
+                            <div class="user_row1">
+                                <p class="user_name">
+                                    【系统消息】
+                                </p>
+                                <span class="user_time hide">
+
+                                </span>
+                            </div>
+                            <p class="user_msg">
+                                您已被永久禁言，消息不可发送
+                            </p>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div class="chat_room_foot">
@@ -156,7 +174,7 @@ export default {
         return {
             vipChatLen: 100,
             scrollTop: 0,
-            isShowChat: false,
+            isShowChat: true,
             ban24: false,
             banforever: false,
             myMsg: '',
@@ -618,6 +636,19 @@ export default {
             padding: 3px 10px 2px;
             background: #57595d;
             border-radius: 6px;
+          }
+        }
+        &.system {
+          .user_name {
+            line-height: 18px;
+            font-size: 12px;
+            color: #aaabad;
+          }
+          .user_msg {
+            line-height: 20px;
+            font-size: 14px;
+            color: #ef7e7e;
+            word-break: break-all;
           }
         }
         & + li {
