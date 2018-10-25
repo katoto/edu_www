@@ -22,7 +22,9 @@
     overflow: hidden;
     background: url("../assets/img/loading.gif") no-repeat center;
 }
-
+.zIndex0 {
+    z-index: 0;
+}
 .slide {
     overflow: hidden;
     max-height: 0;
@@ -146,10 +148,10 @@ a.fail {
     .pop-body {
         position: fixed;
         left: 50%;
-        top: 10px;
+        top: 50%;
         width: 440px;
         overflow: hidden;
-        transform: translate(-50%, 0);
+        transform: translate(-50%, -50%);
         border-radius: 6px;
     }
     .pop-main {
@@ -1854,7 +1856,7 @@ li.newRecord:first-child {
     }
     &.cc-luckySlot {
         position: absolute;
-        z-index: 10;
+        z-index: 5;
         left: 50%;
         transform: translateX(-50%);
         bottom: 14%;

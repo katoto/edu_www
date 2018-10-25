@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="chat_room ">
+        <div class="chat_room">
             <div class="chat_room_head">
                 <p v-lang="$lang.chat.a16">
                     <!-- ,isShowChatAdmin = false -->
