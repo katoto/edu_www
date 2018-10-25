@@ -36,9 +36,9 @@
                     </div>
                     <ul class="admin_msg_items">
                         <li v-for="(item,index) in initMsgArr" :key="index">
-                            {{ item.chatMsg }} 
+                            {{ item.chatMsg }}
                             <a href="javascript:;" class="remove" @click="removeCurrMsg">Remove</a>
-                        </li>                        
+                        </li>
                         <li>
                             system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
                         </li>
@@ -63,9 +63,7 @@
             <div class="chat_room_main">
                 <!-- admin self  -->
                 <ul>
-                    <li v-if="isRootUser" v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)"
-                        @click="controlRoom(item)"
-                    >
+                    <li v-if="isRootUser" v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)" @click="controlRoom(item)">
                         <div :class="{'admin':true,'slef':true}">
                             <div class="user_shortName">
                                 {{ item.email.slice(0,2).toUpperCase() }}
@@ -81,7 +79,7 @@
                                 </div>
                                 <p class="user_msg" v-html="item.chatMsg.httpParse()">
                                 </p>
-                            </div>                            
+                            </div>
                         </div>
                     </li>
                     <li v-else v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)">
@@ -100,9 +98,9 @@
                                 </div>
                                 <p class="user_msg" v-html="item.chatMsg.httpParse()">
                                 </p>
-                            </div>                            
+                            </div>
                         </div>
-                    </li>                    
+                    </li>
                     <li :class="[isAdmin?'admin':'']">
                         <div class="user_shortName">
                             DO
@@ -207,86 +205,86 @@ export default {
 
             isShowChatAdmin: false, // admin 页面
             isRootUser: true,
-            controlRoomMsg: null,  // 控制中心数据
+            controlRoomMsg: null, // 控制中心数据
             initMsgArr: [
-            {
-                'uid': 123,
-                'msgid': 1,
-                'email': '84fds9246@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540245873',
-                'speakState':'-1',
-            }, {
-                'uid': 1234,
-                'msgid': 2,
-                'email': 'asfd9246@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540165873',
-                'speakState':'-1',
-            }, {
-                'uid': 1111,
-                'msgid': 3,
-                'email': 'qwerw39246@qq.com',
-                'chatMsg': 'this is my money http://www.coinsprize.com',
-                'msgTime': '1542265873',
-                'speakState':'-1',
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540275833',
-                'speakState':'0',
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540269873',
-                'speakState':'1',
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540465873',
-                'speakState':'1',
-            }, {
-                'uid': 1414223,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540269873',
-                'speakState':'1',
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540266873',
-                'speakState':'1',
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540267873',
-                'speakState':'1',
-            }, {
-                'uid': 123,
-                'msgid': 4, 
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540266873',
-                'speakState':'0',
-            }, {
-                'uid': 1234134,
-                'msgid': 5,
-                'email': 'qrewqr@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265972',
-                'speakState':'-1',
-            }],
+                {
+                    'uid': 123,
+                    'msgid': 1,
+                    'email': '84fds9246@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540245873',
+                    'speakState': '-1'
+                }, {
+                    'uid': 1234,
+                    'msgid': 2,
+                    'email': 'asfd9246@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540165873',
+                    'speakState': '-1'
+                }, {
+                    'uid': 1111,
+                    'msgid': 3,
+                    'email': 'qwerw39246@qq.com',
+                    'chatMsg': 'this is my money http://www.coinsprize.com',
+                    'msgTime': '1542265873',
+                    'speakState': '-1'
+                }, {
+                    'uid': 123,
+                    'msgid': 4,
+                    'email': '11321321@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540275833',
+                    'speakState': '0'
+                }, {
+                    'uid': 123,
+                    'msgid': 4,
+                    'email': '11321321@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540269873',
+                    'speakState': '1'
+                }, {
+                    'uid': 123,
+                    'msgid': 4,
+                    'email': '11321321@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540465873',
+                    'speakState': '1'
+                }, {
+                    'uid': 1414223,
+                    'msgid': 4,
+                    'email': '11321321@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540269873',
+                    'speakState': '1'
+                }, {
+                    'uid': 123,
+                    'msgid': 4,
+                    'email': '11321321@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540266873',
+                    'speakState': '1'
+                }, {
+                    'uid': 123,
+                    'msgid': 4,
+                    'email': '11321321@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540267873',
+                    'speakState': '1'
+                }, {
+                    'uid': 123,
+                    'msgid': 4,
+                    'email': '11321321@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540266873',
+                    'speakState': '0'
+                }, {
+                    'uid': 1234134,
+                    'msgid': 5,
+                    'email': 'qrewqr@qq.com',
+                    'chatMsg': 'this is my money',
+                    'msgTime': '1540265972',
+                    'speakState': '-1'
+                }],
             newMsgArr: []
         }
     },
@@ -311,41 +309,40 @@ export default {
     },
     methods: {
         formateEmail,
-        controlSpeak(val='24'){
-            if(val === '24'){
+        controlSpeak (val = '24') {
+            if (val === '24') {
                 this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
-            }else{
+            } else {
                 this.banforever ? this.noSpeak('-1') : this.breakSpeak('-1')
             }
         },
-        async noSpeak(){
+        async noSpeak () {
             let uid = this.controlRoomMsg.uid
             // 禁言  24 or 永久
-            let data = await this.$store.dispatch('noSpeak',uid)
-        }, 
-        async breakSpeak(){
+            let data = await this.$store.dispatch('noSpeak', uid)
+        },
+        async breakSpeak () {
             let uid = this.controlRoomMsg.uid
             // 解除禁言
-            let data = await this.$store.dispatch('noSpeak',uid)
-        },     
-        async removeAllMsg(msgIdArr){
-            // 删除指定msg
-            let data = await this.$store.dispatch('delAllMsg',msgId)
+            let data = await this.$store.dispatch('noSpeak', uid)
         },
-        async removeCurrMsg(msgId){
+        async removeAllMsg (msgIdArr) {
             // 删除指定msg
-            let data = await this.$store.dispatch('delCurrMsg',msgId)
+            let data = await this.$store.dispatch('delAllMsg', msgId)
         },
-        async controlRoom(item){
+        async removeCurrMsg (msgId) {
+            // 删除指定msg
+            let data = await this.$store.dispatch('delCurrMsg', msgId)
+        },
+        async controlRoom (item) {
             console.log(item)
-            this.controlRoomMsg = item;
+            this.controlRoomMsg = item
             // 0 -1 1  24 永久 无
             this.ban24 = item.speakState === '0'
             this.banforever = item.speakState === '-1'
             this.isShowChatAdmin = true
             // 请求用户信息 列表 removeAll 会用到
-            let msg = await this.$store.dispatch('getChatlist',item)
-
+            let msg = await this.$store.dispatch('getChatlist', item)
         },
         banScroll (evt) {
             evt.preventDefault()
@@ -359,7 +356,7 @@ export default {
 
         formateMsgArr (list = []) {
             list.forEach((item, index) => {
-                item.msgTime = formatTime(item.msgTime, "HH:mm AMPM")
+                item.msgTime = formatTime(item.msgTime, 'HH:mm AMPM')
             })
             return list
         },
@@ -839,14 +836,14 @@ export default {
     #app > div:first-child {
     }
   }
-  .chat_room_main{
-    .link{
-          color: #fd9644;
-          &:hover {
-            filter: brightness(1.2);
-            color: #fd9644;
-          }
-        }
+  .chat_room_main {
+    .link {
+      color: #fd9644;
+      &:hover {
+        filter: brightness(1.2);
+        color: #fd9644;
+      }
     }
+  }
 }
 </style>
