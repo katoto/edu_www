@@ -12,7 +12,7 @@ const actions = {
         return ajax.get('/activity/halloween/lists', params)
     },
     beatGhost ({commit}, params) {
-        return ajax.post('/activity/helloween/hit', params)
+        return ajax.post('/activity/halloween/hit', params, true)
     }
 }
 

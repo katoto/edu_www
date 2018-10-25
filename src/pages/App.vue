@@ -1,8 +1,8 @@
 <template>
     <div id="app"  @scroll.native="test" :class="isReady ? 'ready' : ''">
         <router-view v-if="isReady"/>
-        <Halloween scene="poker" :show.sync="isShowHalloween" v-if="isShowEntry"></Halloween>
-        <img class="halloween-entry" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
+        <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
     </div>
 </template>
 
@@ -40,6 +40,13 @@
                     return
                 }
                 this.isShowHalloween = !this.isShowHalloween
+            }
+        },
+        watch: {
+            isLogin (value) {
+                if (!value) {
+                    this.isShowHalloween = false
+                }
             }
         },
         computed: {
