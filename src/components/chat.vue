@@ -94,7 +94,6 @@
                             </div>
                         </li>
                     </template>
-
                     <li :class="getUserColor" class="self">
                         <div class="user_shortName">
                             DO
@@ -131,9 +130,9 @@
                         {{$lang.chat.a6}}
                     </p>
                 </div>
-                <div class="row1" :class="{'isOver100':getByteLen(myMsg) >100}">
-                    <p>{{ getByteLen(myMsg) }}/100&nbsp;{{$lang.chat.a11}}</p>
-                    <i v-if="getByteLen(myMsg)>100">!</i>
+                <div class="row1" :class="{'isOver100':getByteLen(myMsg) > vipChatLen}">
+                    <p>{{ getByteLen(myMsg) }}/{{ vipChatLen }}&nbsp;{{$lang.chat.a11}}</p>
+                    <i v-if="getByteLen(myMsg)>vipChatLen">!</i>
                 </div>
                 <div class="row2">
                     <div class="row2_left">
@@ -143,7 +142,7 @@
                         <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > 100 || myMsg === ''}"></a>
+                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === ''}"></a>
                 </div>
             </div>
         </div>
@@ -155,13 +154,12 @@ import { formatTime, formateEmail, isIOS, getByteLen, cutStr, getCK } from '~com
 export default {
     data () {
         return {
+            vipChatLen: 100,
             scrollTop: 0,
             isShowChat: false,
             ban24: false,
             banforever: false,
-            isAdmin: true,
             myMsg: '',
-
             isShowChatAdmin: false, // admin 页面
             controlRoomMsg: null, // 控制中心数据
             checkOneMsgArr: [], // admin 查询用户列表用
@@ -201,7 +199,7 @@ export default {
         sendMsg () {
             // 发送msg
             this.checkUse()
-            if (this.getByteLen(this.myMsg) > 100 || this.getByteLen(this.myMsg) <= 0) {
+            if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0) {
                 return false
             }
             let currObj = {
@@ -229,11 +227,19 @@ export default {
             this.isShowChat = !this.isShowChat
         },
         myMsgInput () {
-            if (this.getByteLen(this.myMsg) > 100) {
-                this.myMsg = this.cutStr(this.myMsg, 101)
+            if (this.getByteLen(this.myMsg) > this.vipChatLen) {
+                this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 1)
             }
         },
         controlSpeak (val = '24') {
+            let confirmMsg = ''
+            if (val === '24') {
+                confirmMsg = this.ban24 ? '确定禁言24小时？' : '解除禁言24小时？'
+            } else {
+                confirmMsg = this.banforever ? '确定永久禁言？' : '解除永久禁言？'
+            }
+            let isconfirm = confirm(confirmMsg)
+            if (!isconfirm) return false
             if (val === '24') {
                 this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
             } else {
@@ -276,11 +282,8 @@ export default {
             let data = await this.$store.dispatch('delCurrMsg', msgId)
         },
         async controlRoom (item) {
-            // 直接请求数据
             this.controlRoomMsg = item
-            // // 0 -1 1  24 永久 无
-            // this.ban24 = item.speakState === '0'
-            // this.banforever = item.speakState === '-1'
+            // 0 -1 1  24 永久 无
             // 请求用户信息 列表 removeAll 会用到
             let sendObj = {
                 check_uid: item.content.uid,
@@ -288,13 +291,12 @@ export default {
             }
             let msgback = await this.$store.dispatch('getOneChatmsg', sendObj)
             if (msgback.data) {
+                // null 是无禁言状态
                 this.ban24 = msgback.data.block_24h !== null
                 this.banforever = msgback.data.block_permanent === 'True'
                 this.isShowChatAdmin = true
                 this.checkOneMsgArr = msgback.data.recent_message
             }
-            console.log(msgback)
-            console.log(msgback)
             console.log(msgback)
         },
         banScroll (evt) {
@@ -314,6 +316,9 @@ export default {
     },
     computed: {
         userInfo () {
+            if (this.$store.state.userInfo) {
+                this.vipChatLen = this.$store.state.userInfo.is_recharged_user === 'True' ? 200 : 100
+            }
             return this.$store.state.userInfo
         },
         recentChatmsg () {
