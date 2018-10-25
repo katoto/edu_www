@@ -164,12 +164,8 @@ const actions = {
         if (msg) {
             if (state.pop) {
                 if (!state.pop.recentChatmsg) state.pop.recentChatmsg = []
-                if (state.pop.recentChatmsg > 130) {
-                    state.pop.recentChatmsg = state.pop.recentChatmsg.slice(1)
-                }
-                Object.assign(msg, {
-                    isNew: true
-                })
+                if (state.pop.recentChatmsg > 130) state.pop.recentChatmsg = state.pop.recentChatmsg.slice(1)
+                Object.assign(msg, {isNew: true})
                 state.pop.recentChatmsg.push(msg)
                 commit('setrecentChatmsg', state.pop.recentChatmsg)
                 commit('getchatmsg', msg)

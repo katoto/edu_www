@@ -152,7 +152,6 @@ export default {
             isShowChatAdmin: false, // admin 页面
             controlRoomMsg: null, // 控制中心数据
             checkOneMsgArr: [], // admin 查询用户列表用
-            newMsgArr: [],
             sendTimeInterval: null, // 控制发消息频率
             isBtnAble: true,
             baseTime: 0 // 倒计时
@@ -234,9 +233,7 @@ export default {
             this.isShowChat = !this.isShowChat
         },
         myMsgInput () {
-            if (this.getByteLen(this.myMsg) > this.vipChatLen) {
-                this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 2)
-            }
+            if (this.getByteLen(this.myMsg) > this.vipChatLen) this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 2)
         },
         controlSpeak (val = '24') {
             let confirmMsg = ''
@@ -341,25 +338,17 @@ export default {
         getUserColor (item) {
             // 处理类名  system
             let classArr = []
-            if (item.content.uid) {
-                classArr.push('userColor' + item.content.uid % 13)
-            }
+            if (item.content.uid) classArr.push('userColor' + item.content.uid % 13)
             if (this.userInfo) {
-                if (this.userInfo.is_im_admin === 'True') {
-                    classArr.push('admin')
-                }
-                if (item.content.uid === this.userInfo.uid) {
-                    classArr.push('self')
-                }
+                if (this.userInfo.is_im_admin === 'True') classArr.push('admin')
+                if (item.content.uid === this.userInfo.uid) classArr.push('self')
             }
             return classArr
         }
     },
     computed: {
         userInfo () {
-            if (this.$store.state.userInfo) {
-                this.vipChatLen = this.$store.state.userInfo.is_recharged_user === 'True' ? 200 : 100
-            }
+            if (this.$store.state.userInfo) this.vipChatLen = this.$store.state.userInfo.is_recharged_user === 'True' ? 200 : 100
             return this.$store.state.userInfo
         },
         recentChatmsg () {
