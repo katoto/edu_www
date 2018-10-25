@@ -156,10 +156,10 @@
                         <div class="placeholder">
                             {{myMsg}}
                         </div>
-                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
+                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" @keyup="keyboardSend" :placeholder="$lang.chat.a12">
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}"></a>
+                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">{{ baseTime }}</a>
                 </div>
             </div>
         </div>
@@ -183,6 +183,7 @@ export default {
             newMsgArr: [],
             sendTimeInterval: null, // 控制发消息频率
             isBtnAble: true,
+            baseTime: null, // 倒计时
         }
     },
     watch: {
@@ -216,14 +217,21 @@ export default {
         getByteLen,
         cutStr,
         formatTime,
+        keyboardSend(evt){
+            let theEvt = evt || window.event
+            let code = theEvt.keyCode || theEvt.which || theEvt.charCode; 
+            if(code === 13){
+                this.sendMsg()
+                return false
+            }
+        },
         controlInterval () {
             clearInterval( this.sendTimeInterval )
             this.isBtnAble = false
-            let baseTime = this.vipChatLen === 200 ? 5 : 10
+            this.baseTime = this.vipChatLen === 200 ? 5 : 10
             this.sendTimeInterval = setInterval(()=>{
-                console.log(baseTime)
-                baseTime--
-                if(!baseTime){
+                this.baseTime--
+                if(!this.baseTime){
                     clearInterval( this.sendTimeInterval )
                     this.isBtnAble = true
                 }

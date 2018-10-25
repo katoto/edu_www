@@ -216,7 +216,7 @@ const actions = {
                             switch (msg.content.action) {
                             case 'syxw.init':
                                 // 初始化
-                                //  初始化倒计时 o
+                                //  初始化倒计时
                                 if (msg.content.timer !== undefined && msg.content.timer !== null) {
                                     dispatch(aTypes.formate_countDown, msg.content.timer)
                                 }
