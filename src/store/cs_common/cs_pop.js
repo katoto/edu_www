@@ -155,7 +155,8 @@ const actions = {
     /* 聊天消息 */
     fomateChatpush ({state, commit, dispatch}, msg) {
         if (msg) {
-            if (state.pop.recentChatmsg) {
+            if (state.pop) {
+                if (!state.pop.recentChatmsg) state.pop.recentChatmsg = []
                 if (state.pop.recentChatmsg > 130) {
                     state.pop.recentChatmsg = state.pop.recentChatmsg.slice(1)
                 }

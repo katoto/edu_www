@@ -14,7 +14,8 @@ let en = {
     a13: 'Recent&nbsp;Chats',
     a14: 'Delete&nbsp;All',
     a15: 'Delete',
-    a16: 'Chat&nbsp;Room'
+    a16: 'Chat&nbsp;Room',
+    a17: 'No more than {0} characters'
 }
 
 let zhCn = {
@@ -33,7 +34,8 @@ let zhCn = {
     a13: '近期聊天',
     a14: '全部删除',
     a15: '删除',
-    a16: '聊天室'
+    a16: '聊天室',
+    a17: '不可超过{0}字符'
 }
 
 let zhTw = {

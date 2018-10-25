@@ -115,17 +115,12 @@
                 </ul>
             </div>
             <div class="chat_room_foot">
-                <div class="row0">
-                    <p class="system_t">
+                <div class="row0" :class="{'hide': getByteLen(myMsg) <= vipChatLen}">
+                    <p class="system_t" >
                         {{$lang.chat.a10}}
                     </p>
-                    <p class="system_m">
-                        <!-- 永久禁言todo -->
-                        {{$lang.chat.a5}}
-                    </p>
-                    <p class="system_m hide">
-                        <!-- 永久2小时todo  -->                        
-                        {{$lang.chat.a6}}
+                    <p class="system_m" v-html="_($lang.chat.a17, vipChatLen )">
+                        <!-- 永久禁言todo {{$lang.chat.a5}} {{$lang.chat.a6}} -->
                     </p>
                 </div>
                 <div class="row1" :class="{'isOver100':getByteLen(myMsg) > vipChatLen}">
@@ -137,7 +132,7 @@
                         <div class="placeholder">
                             {{myMsg}}
                         </div>
-                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" @keyup="keyboardSend" :placeholder="$lang.chat.a12">
+                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
                         </textarea>
                     </div>
                     <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">{{ baseTime }}</a>
@@ -198,14 +193,6 @@ export default {
         getByteLen,
         cutStr,
         formatTime,
-        keyboardSend(evt){
-            let theEvt = evt || window.event
-            let code = theEvt.keyCode || theEvt.which || theEvt.charCode; 
-            if(code === 13){
-                this.sendMsg()
-                return false
-            }
-        },
         controlInterval () {
             clearInterval( this.sendTimeInterval )
             this.isBtnAble = false
@@ -250,7 +237,7 @@ export default {
         },
         myMsgInput () {
             if (this.getByteLen(this.myMsg) > this.vipChatLen) {
-                this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 1)
+                this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 2)
             }
         },
         controlSpeak (val = '24') {
