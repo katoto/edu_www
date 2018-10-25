@@ -10,16 +10,13 @@
             <p class="verify-tips">
                 <lang>Activate account now to start your lucky journey!</lang>
             </p>
-            <form>
-                <!--  no  -->
-                <input type="submit" @click.stop.prevent="againVerify" :value="_('Resent Email')" :class="{'no':emailBackTime!==0}">
-                <div style="height: 30px">
-                    <p v-if="emailBackTime !== 0"><span>{{ _('{0}s left', emailBackTime) }} </span></p>
-                </div>
-            </form>
-            <div class="forgetpsw"></div>
+            <input type="submit" @click.stop.prevent="againVerify" :value="_('Verify Now')" :class="{'no':emailBackTime!==0}">
+            <div class="pop_email_bottom">
+                <a href="javascript:;">Resent</a>
+                <p v-if="emailBackTime !== 0"><span>{{ _('{0}s left', emailBackTime) }} </span></p>
+            </div>
         </div>
-        <div class="pop-bottom" :class="{'hideVisibily':isLog}">
+        <div class="pop-bottom hide" :class="{'hideVisibily':isLog}">
             <p class="js_isLogOut">
                 <lang>Already Have Account？</lang>
                 <a href="javascript:;" class="js_signUp2SignIn" @click="showSignIn">
@@ -98,6 +95,15 @@ export default {
 .pop-verify-email .icon-email {
   width: 64px;
   height: 48px;
+}
+.pop_email_bottom {
+  display: flex;
+  justify-content: center;
+  height: 56px;
+  line-height: 46px;
+  > * {
+    margin: 0 20px;
+  }
 }
 .hideVisibily {
   visibility: hidden;
