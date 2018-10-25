@@ -135,7 +135,7 @@
                         <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keyup.enter="sendMsg">
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send " @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">{{ baseTime + 's'}}</a>
+                    <a href="javascript:;" class="btn_send " @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble, 'time_down':baseTime!==0}">{{ baseTime + 's'}}</a>
                 </div>
             </div>
         </div>
@@ -185,7 +185,9 @@ export default {
                 this.myMsg = ''
                 this.controlInterval()
             }
-            document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+            setTimeout(()=>{
+                document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+            },0)
         }
     },
     methods: {
@@ -315,9 +317,10 @@ export default {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
                 this.$store.commit('showLoginPop')
                 evt.target.blur()
-            }else if(this.userInfo.status === '1'){
+            }else if(this.userInfo.status === '0'){
                 this.$store.commit('showNoVerify')
             }
+            return false
 
         },
         getUserColor (item) {
@@ -326,11 +329,13 @@ export default {
             if (item.content.uid) {
                 classArr.push('userColor' + item.content.uid % 13)
             }
-            if (this.userInfo.is_im_admin === 'True') {
-                classArr.push('admin')
-            }
-            if (item.content.uid === this.userInfo.uid) {
-                classArr.push('self')
+            if (this.userInfo){
+                if ( this.userInfo.is_im_admin === 'True') {
+                    classArr.push('admin')
+                }
+                if ( item.content.uid === this.userInfo.uid) {
+                    classArr.push('self')
+                }
             }
             return classArr
         }
@@ -811,7 +816,7 @@ export default {
           line-height: 35px;
           color: #fff;
           background-image: none;
-          font-size: 16;
+          font-size: 16px;
           text-indent: 0;
         }
       }
