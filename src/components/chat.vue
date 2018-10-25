@@ -173,7 +173,7 @@ export default {
         return {
             vipChatLen: 100,
             scrollTop: 0,
-            isShowChat: true,
+            isShowChat: false,
             ban24: false,
             banforever: false,
             myMsg: '',
