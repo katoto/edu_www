@@ -42,7 +42,7 @@ export default {
     },
     components: { Header, Footer },
     mounted () {
-        this.$store.dispatch('subInMsg',{
+        this.$store.dispatch('subInMsg', {
             type: 'lottery',
             lotid: 2
         })
@@ -97,7 +97,7 @@ export default {
         })
     },
     beforeDestroy () {
-        this.$store.dispatch('subOutMsg',{
+        this.$store.dispatch('subOutMsg', {
             type: 'lottery',
             lotid: 2
         })

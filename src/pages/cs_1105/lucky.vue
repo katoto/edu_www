@@ -1051,7 +1051,7 @@ export default {
         setTimeout(() => {
             /* 订阅lucky11 sock */
             this.$store.dispatch('subInMsg', {
-                type:'lottery' ,
+                type: 'lottery',
                 lotid: 1
             })
             /* 开启动态数据定时器 */
@@ -1080,8 +1080,8 @@ export default {
         }
     },
     beforeDestroy () {
-        this.$store.dispatch('subOutMsg',{
-            type:'lottery' ,
+        this.$store.dispatch('subOutMsg', {
+            type: 'lottery',
             lotid: 1
         })
     },

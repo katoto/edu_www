@@ -34,19 +34,16 @@ const state = {
         faucetMsg: null, // 邀请的msg
         inviterObj: null, // 邀请接收
 
-        // loginSucc: null, // 登陆成功后的数据
-
-        showFirstLogin: false // 邀请用（激活处）
-        // loginSucc: { //  登陆
-        //     login_times: '0', // 用户信息的地方没有这个字段
-        //     invite_status: '0',
-        //     invite_prize_chances: 2,
-        //     tasks: []
-        // }
+        showFirstLogin: false, // 邀请用（激活处）
+        recentChatmsg: null // 近期投注记录
     }
 }
 
 const mutations = {
+    setrecentChatmsg (state, data) {
+        console.log(data)
+        state.pop.recentChatmsg = data
+    },
     setMailType (state, data) {
         state.pop.mailType = data
     },
@@ -68,10 +65,6 @@ const mutations = {
     showFirstLogin (state, data) {
         state.pop.showFirstLogin = data
     },
-    //  登陆回来的数据
-    // setLoginSucc (state, msg) {
-    //     state.pop.loginSucc = msg
-    // },
     // 邀请用
     setInviterObj (state, msg) {
         state.pop.inviterObj = msg

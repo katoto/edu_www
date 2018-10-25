@@ -1,7 +1,7 @@
 <template>
 
     <div class="page_chat" :class="[isShowChat?'on':'close']">
-        <a href="javascript:;" class="enter_chat" @click="isShowChat = !isShowChat">
+        <a href="javascript:;" class="enter_chat" @click="controlShowChat">
             <img src="@/assets/img/enter_chat.png" alt="">
         </a>
         <div class="chat_admin" :class="{on:isShowChatAdmin}">
@@ -47,54 +47,54 @@
                 <p v-lang="$lang.chat.a16">
                     <!-- ,isShowChatAdmin = false -->
                 </p>
-                <a href="javascript:;" @click="isShowChat = !isShowChat"></a>
+                <a href="javascript:;" @click="controlShowChat"></a>
             </div>
             <div class="chat_room_main">
                 <!-- admin self  -->
                 <ul>
                     <template v-if="isRootUser">
-                        <li  v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)"
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)"
                             @click="controlRoom(item)"
                         >
                             <div :class="{'admin':true,'slef':true}">
                                 <div class="user_shortName">
-                                    {{ item.email.slice(0,2).toUpperCase() }}
+                                    {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
                                 <div class="user_view">
                                     <div class="user_row1">
                                         <p class="user_name">
-                                            {{ formateEmail(item.email,true) }}
+                                            {{ formateEmail(item.content.username,true) }}
                                         </p>
                                         <span class="user_time">
-                                            {{ item.msgTime }}
+                                            {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                         </span>
                                     </div>
-                                    <p class="user_msg" v-html="item.chatMsg.httpParse()">
+                                    <p class="user_msg" v-html="item.content.msg.httpParse()">
                                     </p>
                                 </div>                            
                             </div>
                         </li>                        
                     </template>
                     <template v-else>
-                        <li v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)">
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)">
                             <div :class="{'admin':true,'slef':true}">
                                 <div class="user_shortName">
-                                    {{ item.email.slice(0,2).toUpperCase() }}
+                                    {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
                                 <div class="user_view">
                                     <div class="user_row1">
                                         <p class="user_name">
-                                            {{ formateEmail(item.email,true) }}
+                                            {{ formateEmail(item.content.username,true) }}
                                         </p>
                                         <span class="user_time">
-                                            {{ item.msgTime }}
+                                            {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                         </span>
                                     </div>
-                                    <p class="user_msg" v-html="item.chatMsg.httpParse()">
+                                    <p class="user_msg" v-html="item.content.msg.httpParse()">
                                     </p>
                                 </div>                            
                             </div>
-                        </li>                           
+                        </li>                       
                     </template>
                     <li :class="[isAdmin?'admin':'']">
                         <div class="user_shortName">
@@ -213,76 +213,6 @@ export default {
                     'chatMsg': 'this is my money',
                     'msgTime': '1540245873',
                     'speakState': '-1'
-                }, {
-                    'uid': 1234,
-                    'msgid': 2,
-                    'email': 'asfd9246@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540165873',
-                    'speakState': '-1'
-                }, {
-                    'uid': 1111,
-                    'msgid': 3,
-                    'email': 'qwerw39246@qq.com',
-                    'chatMsg': 'this is my money http://www.coinsprize.com',
-                    'msgTime': '1542265873',
-                    'speakState': '-1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540275833',
-                    'speakState': '0'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540269873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540465873',
-                    'speakState': '1'
-                }, {
-                    'uid': 1414223,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540269873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540266873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540267873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540266873',
-                    'speakState': '0'
-                }, {
-                    'uid': 1234134,
-                    'msgid': 5,
-                    'email': 'qrewqr@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540265972',
-                    'speakState': '-1'
                 }],
             newMsgArr: []
         }
@@ -310,9 +240,20 @@ export default {
         formateEmail,
         getByteLen,
         cutStr,
+        formatTime,
+        controlShowChat () {
+            if(this.isShowChat){
+                this.$store.dispatch('subOutMsg', { type: 'im', chatroomId: '1' })
+                // 默认到最底部
+                document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+            }else{
+                this.$store.dispatch('subInMsg', { type: 'im', chatroomId: '1' })
+            }
+            this.isShowChat = !this.isShowChat
+        },
         myMsgInput () {
             if (this.getByteLen(this.myMsg) > 100) {
-                this.myMsg = this.cutStr(this.myMsg,101)
+                this.myMsg = this.cutStr(this.myMsg, 101)
             }
         },
         controlSpeak (val = '24') {
@@ -349,7 +290,6 @@ export default {
             this.isShowChatAdmin = true
             // 请求用户信息 列表 removeAll 会用到
             let msg = await this.$store.dispatch('getChatlist', item)
-
         },
         banScroll (evt) {
             evt.preventDefault()
@@ -360,19 +300,6 @@ export default {
                 evt.target.blur()
             }
         },
-        formateMsgArr (list = []) {
-            list.forEach((item, index) => {
-                item.msgTime = formatTime(item.msgTime, 'HH:mm AMPM')
-            })
-            return list
-        },
-        initChat () {
-            this.newMsgArr = this.formateMsgArr(this.initMsgArr)
-
-            // 默认到最底部
-            document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
-
-        },
         getUserColor (ind) {
             // return 'userColor' + (~~(Math.random() * 12) + 1)
             // return 'userColor' + ind % 13
@@ -382,11 +309,13 @@ export default {
     computed: {
         userInfo () {
             return this.$store.state.userInfo
+        },
+        recentChatmsg () {
+            return this.$store.state.pop.recentChatmsg
         }
     },
     components: {},
     mounted () {
-        this.initChat()
     },
     destroyed () {
 

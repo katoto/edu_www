@@ -1298,7 +1298,7 @@ export default {
     },
     beforeDestroy () {
         document.documentElement.className = ''
-        this.$store.dispatch('subOutMsg',{
+        this.$store.dispatch('subOutMsg', {
             type: 'slots'
         })
         this.stopAutoPlay()

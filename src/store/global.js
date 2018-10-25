@@ -334,6 +334,9 @@ const actions = {
                         case 'dice.bet':
                             commit('cs_luckypoker/addBetList', msg.content.top)
                             break
+                        case 'chatroom.init':
+                            commit('setrecentChatmsg', msg.content.recent_msg)
+                            break
                         }
                     }
                 }
@@ -456,7 +459,7 @@ const actions = {
             console.error(e.message)
         }
     },
-    subInMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1}) {
+    subInMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1, chatroomId = '-1'}) {
         //  1 slots  老虎机  2 ( lottery lotdi 2 ) LuckyCoin  3 dice 4 ( lottery lotdi 1 ) lucky11
         let data = {
             action: 'sub',
@@ -468,6 +471,9 @@ const actions = {
         if (lotid !== -1) {
             data.lotid = lotid
         }
+        if (chatroomId !== '-1') {
+            data.chatroom_id = chatroomId
+        }
         try {
             state.socket.sock && state.socket.sock.send(JSON.stringify(data))
         } catch (e) {
@@ -476,7 +482,7 @@ const actions = {
             }, 100)
         }
     },
-    subOutMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1}) {
+    subOutMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1, chatroomId = '-1'}) {
         /* 页面 解订阅 */
         try {
             let unsubLuckyStr = {
@@ -485,6 +491,9 @@ const actions = {
             }
             if (lotid !== -1) {
                 unsubLuckyStr.lotid = lotid
+            }
+            if (chatroomId !== '-1') {
+                unsubLuckyStr.chatroom_id = chatroomId
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
         } catch (e) {
