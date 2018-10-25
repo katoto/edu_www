@@ -172,7 +172,7 @@ const actions = {
         return ajax.post(`/im/chatroom/block`, msg)
     },
     async breakSpeak ({commit, dispatch}, msg) {
-        return ajax.post(`/im/unblock`, msg)
+        return ajax.post(`/im/chatroom/unblock`, msg)
     },
     /* chat delAllMsg */
     async delAllMsg ({commit, dispatch}, item) {
