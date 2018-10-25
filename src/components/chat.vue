@@ -143,7 +143,7 @@
                         {{$lang.chat.a5}}
                     </p>
                     <p class="system_m hide">
-                        <!-- 永久2小时todo  -->                        
+                        <!-- 永久2小时todo  -->
                         {{$lang.chat.a6}}
                     </p>
                 </div>
@@ -156,7 +156,7 @@
                         <div class="placeholder">
                             {{myMsg}}
                         </div>
-                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
+                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keypress="sendMsg">
                         </textarea>
                     </div>
                     <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}"></a>
@@ -182,7 +182,7 @@ export default {
             checkOneMsgArr: [], // admin 查询用户列表用
             newMsgArr: [],
             sendTimeInterval: null, // 控制发消息频率
-            isBtnAble: true,
+            isBtnAble: true
         }
     },
     watch: {
@@ -217,17 +217,17 @@ export default {
         cutStr,
         formatTime,
         controlInterval () {
-            clearInterval( this.sendTimeInterval )
+            clearInterval(this.sendTimeInterval)
             this.isBtnAble = false
             let baseTime = this.vipChatLen === 200 ? 5 : 10
-            this.sendTimeInterval = setInterval(()=>{
+            this.sendTimeInterval = setInterval(() => {
                 console.log(baseTime)
                 baseTime--
-                if(!baseTime){
-                    clearInterval( this.sendTimeInterval )
+                if (!baseTime) {
+                    clearInterval(this.sendTimeInterval)
                     this.isBtnAble = true
                 }
-            },1000)
+            }, 1000)
         },
         sendMsg () {
             // 发送msg
