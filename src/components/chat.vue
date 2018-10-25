@@ -132,7 +132,7 @@
                         <div class="placeholder">
                             {{myMsg}}
                         </div>
-                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
+                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keypress="sendMsg">
                         </textarea>
                     </div>
                     <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">{{ baseTime }}</a>
@@ -194,7 +194,7 @@ export default {
         cutStr,
         formatTime,
         controlInterval () {
-            clearInterval( this.sendTimeInterval )
+            clearInterval(this.sendTimeInterval)
             this.isBtnAble = false
             this.baseTime = this.vipChatLen === 200 ? 5 : 10
             this.sendTimeInterval = setInterval(()=>{
@@ -203,7 +203,7 @@ export default {
                     clearInterval( this.sendTimeInterval )
                     this.isBtnAble = true
                 }
-            },1000)
+            }, 1000)
         },
         sendMsg () {
             // 发送msg
