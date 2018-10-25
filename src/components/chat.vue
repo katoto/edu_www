@@ -8,14 +8,14 @@
             <a href="javascript:;" class="chat_admin_close" @click="isShowChatAdmin = !isShowChatAdmin"></a>
             <div class="chat_admin_head" v-if="controlRoomMsg">
                 <p class="user_emain">
-                    {{ controlRoomMsg.email }}
+                    {{ controlRoomMsg.content.username }}
                 </p>
                 <p class="user_id">
-                    ID: {{ controlRoomMsg.uid }}
+                    ID: {{ controlRoomMsg.content.uid }}
                 </p>
             </div>
             <div class="chat_admin_body">
-                <ul class="choose_ban" v-if="controlRoomMsg">
+                <ul class="choose_ban">
                     <li :class="{'on':ban24}">
                         <input type="checkbox" id="ban24" v-model="ban24" @change="controlSpeak('24')">
                         <label for="ban24">{{ $lang.chat.a1 }}</label>
@@ -34,9 +34,9 @@
                         </a>
                     </div>
                     <ul class="admin_msg_items">
-                        <li v-for="(item,index) in initMsgArr" :key="index">
-                            {{ item.chatMsg }} 
-                            <a href="javascript:;" class="remove" @click="removeCurrMsg">{{ $lang.chat.a15 }}</a>
+                        <li v-for="(item,index) in checkOneMsgArr" :key="index">
+                            {{ item.content.msg }} 
+                            <a href="javascript:;" class="remove" @click="removeCurrMsg(item.content.msg_id)">{{ $lang.chat.a15 }}</a>
                         </li>                 
                     </ul>
                 </div>
@@ -52,11 +52,11 @@
             <div class="chat_room_main">
                 <!-- admin self  -->
                 <ul>
-                    <template v-if="isRootUser">
+                    <template v-if="userInfo && userInfo.is_im_admin === 'True'">
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)"
                             @click="controlRoom(item)"
                         >
-                            <div :class="{'admin':true,'slef':true}">
+                            <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
                                 <div class="user_shortName">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
@@ -77,7 +77,7 @@
                     </template>
                     <template v-else>
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)">
-                            <div :class="{'admin':true,'slef':true}">
+                            <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
                                 <div class="user_shortName">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
@@ -96,46 +96,7 @@
                             </div>
                         </li>                       
                     </template>
-                    <li :class="[isAdmin?'admin':'']">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    Dominator
-                                </p>
-                                <span class="user_isAdmin" v-if="isAdmin">
-                                    Admin
-                                </span>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                system charge : Daniel is permanently banned.
-                                Please speak in a civilized manner.
-                            </p>
-                        </div>
-                    </li>
-                    <li :class="getUserColor">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
-                                </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                this is my money <a href="http://www.coinsprize.com" target="_blank">http://www.coinsprize.com</a>
-                            </p>
-                        </div>
-                    </li>
+
                     <li :class="getUserColor" class="self">
                         <div class="user_shortName">
                             DO
@@ -183,7 +144,7 @@
                         <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" >
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send" :class="{'p_btn_disable':getByteLen(myMsg) > 100}"></a>
+                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > 100 || myMsg === ''}"></a>
                 </div>
             </div>
         </div>
@@ -191,7 +152,7 @@
 </template>
 
 <script>
-import { formatTime, formateEmail, isIOS, getByteLen, cutStr } from '~common/util'
+import { formatTime, formateEmail, isIOS, getByteLen, cutStr, getCK } from '~common/util'
 export default {
     data () {
         return {
@@ -203,17 +164,8 @@ export default {
             myMsg: '',
 
             isShowChatAdmin: false, // admin 页面
-            isRootUser: true,
             controlRoomMsg: null, // 控制中心数据
-            initMsgArr: [
-                {
-                    'uid': 123,
-                    'msgid': 1,
-                    'email': '84fds9246@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540245873',
-                    'speakState': '-1'
-                }],
+            checkOneMsgArr: [],  // admin 查询用户列表用
             newMsgArr: []
         }
     },
@@ -234,6 +186,12 @@ export default {
                     document.getElementById('app').childNodes[0].removeEventListener('touchmove', this.banScroll, { passive: false })
                 }
             }
+        },
+        chatmsg(data){
+            if(data.content.uid === this.userInfo.uid){
+                this.myMsg = ''
+            }
+            document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
         }
     },
     methods: {
@@ -241,13 +199,33 @@ export default {
         getByteLen,
         cutStr,
         formatTime,
+        sendMsg () {
+            // 发送msg
+            this.checkUse()
+            if (this.getByteLen(this.myMsg) > 100 || this.getByteLen(this.myMsg) <= 0) {
+                return false
+            }
+            let currObj = {
+                action: 'chatroom_send',
+                type: 'im',
+                chatroom_id: '1',
+                uid: this.userInfo.uid,
+                username: this.userInfo.username,
+                ck: getCK(),
+                msg_type: 'betblock.im.message.text',
+                msg: this.myMsg
+            }
+            this.$store.dispatch('sendchatMsg', currObj)
+        },
         controlShowChat () {
-            if(this.isShowChat){
+            if (this.isShowChat) {
                 this.$store.dispatch('subOutMsg', { type: 'im', chatroomId: '1' })
-                // 默认到最底部
-                document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
-            }else{
+            } else {
                 this.$store.dispatch('subInMsg', { type: 'im', chatroomId: '1' })
+                // 默认到最底部
+                setTimeout(()=>{
+                    document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+                },10)
             }
             this.isShowChat = !this.isShowChat
         },
@@ -263,15 +241,28 @@ export default {
                 this.banforever ? this.noSpeak('-1') : this.breakSpeak('-1')
             }
         },
-        async noSpeak () {
-            let uid = this.controlRoomMsg.uid
+        async noSpeak (val) {
             // 禁言  24 or 永久
-            let data = await this.$store.dispatch('noSpeak', uid)
+            let currObj = {
+                block_uid: this.controlRoomMsg.content.uid,
+                block_type: val === '-1' ? 'permanent' : '24h',
+                chatroom_id: '1'
+            }
+            let data = await this.$store.dispatch('noSpeak', currObj)
+            if(data && data.status === '100'){
+                this.$success(_('禁言操作成功'))
+                // 更新数据
+                this.controlRoom( this.controlRoomMsg )
+            }
+            console.log(data)
         },
-        async breakSpeak () {
-            let uid = this.controlRoomMsg.uid
+        async breakSpeak (val) {
             // 解除禁言
-            let data = await this.$store.dispatch('noSpeak', uid)
+            let currObj = {
+                block_uid: this.controlRoomMsg.content.uid,
+                block_type: val === '-1' ? 'permanent' : '24h'
+            }
+            let data = await this.$store.dispatch('breakSpeak', currObj)
         },
         async removeAllMsg (msgIdArr) {
             // 删除指定msg
@@ -282,14 +273,28 @@ export default {
             let data = await this.$store.dispatch('delCurrMsg', msgId)
         },
         async controlRoom (item) {
-            console.log(item)
+            // 直接请求数据
             this.controlRoomMsg = item
-            // 0 -1 1  24 永久 无
-            this.ban24 = item.speakState === '0'
-            this.banforever = item.speakState === '-1'
-            this.isShowChatAdmin = true
+            // // 0 -1 1  24 永久 无
+            // this.ban24 = item.speakState === '0'
+            // this.banforever = item.speakState === '-1'
             // 请求用户信息 列表 removeAll 会用到
-            let msg = await this.$store.dispatch('getChatlist', item)
+            let sendObj = {
+                check_uid: item.content.uid,
+                chatroom_id: '1'
+            }
+            let msgback = await this.$store.dispatch('getOneChatmsg', sendObj)
+            if(msgback.data){
+                this.ban24 = msgback.data.block_24h !== null
+                this.banforever = msgback.data.block_permanent === 'True'
+                this.isShowChatAdmin = true
+                this.checkOneMsgArr = msgback.data.recent_message
+            }
+            console.log(msgback)
+            console.log(msgback)
+            console.log(msgback)
+
+
         },
         banScroll (evt) {
             evt.preventDefault()
@@ -312,6 +317,9 @@ export default {
         },
         recentChatmsg () {
             return this.$store.state.pop.recentChatmsg
+        },
+        chatmsg(){
+            return this.$store.state.pop.chatmsg
         }
     },
     components: {},

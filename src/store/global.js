@@ -209,134 +209,139 @@ const actions = {
 
                     // 总的分发
                     if (msg && msg.content) {
-                        switch (msg.content.action) {
-                        case 'syxw.init':
-                            // 初始化
-                            //  初始化倒计时 o
-                            if (msg.content.timer !== undefined && msg.content.timer !== null) {
-                                dispatch(aTypes.formate_countDown, msg.content.timer)
-                            }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.content)
-                            // 当前期号
-                            if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.content.expectid)
-                            }
-                            // recent bet
-                            if (msg.content.top) {
-                                dispatch(aTypes.formate_recentBet, msg.content.top)
-                            }
-                            break
-                        case 'syxw.count_down':
-                            //  初始化倒计时
-                            if (msg.content.timer !== undefined && msg.content.timer !== null) {
-                                dispatch(aTypes.formate_countDown, msg.content.timer)
-                            }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.content)
-                            // 当前期号
-                            if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.content.expectid)
-                            }
-                            /*
-                            *  处理 区块链阻塞
-                            * */
-                            let jsStartBetBtn = document.getElementById('js_startBetBtn')
-                            // msg.content.block_status = '0' 报错错误
-                            if (jsStartBetBtn) {
-                                if (msg.content.block_status.toString() === '1') {
-                                    //  健康
-                                    if (~jsStartBetBtn.className.indexOf('unable')) {
-                                        jsStartBetBtn.className = 'btn-play-now'
+                        if (msg.conversation_type === 'betblock.im.conversation.chatroom') {
+                            // chat消息推送
+                            dispatch('fomateChatpush', msg)
+                        } else {
+                            switch (msg.content.action) {
+                            case 'syxw.init':
+                                // 初始化
+                                //  初始化倒计时 o
+                                if (msg.content.timer !== undefined && msg.content.timer !== null) {
+                                    dispatch(aTypes.formate_countDown, msg.content.timer)
+                                }
+                                // 初始化上一期结果
+                                dispatch(aTypes.formate_Result, msg.content)
+                                // 当前期号
+                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
+                                }
+                                // recent bet
+                                if (msg.content.top) {
+                                    dispatch(aTypes.formate_recentBet, msg.content.top)
+                                }
+                                break
+                            case 'syxw.count_down':
+                                //  初始化倒计时
+                                if (msg.content.timer !== undefined && msg.content.timer !== null) {
+                                    dispatch(aTypes.formate_countDown, msg.content.timer)
+                                }
+                                // 初始化上一期结果
+                                dispatch(aTypes.formate_Result, msg.content)
+                                // 当前期号
+                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
+                                }
+                                /*
+                                    *  处理 区块链阻塞
+                                    * */
+                                let jsStartBetBtn = document.getElementById('js_startBetBtn')
+                                // msg.content.block_status = '0' 报错错误
+                                if (jsStartBetBtn) {
+                                    if (msg.content.block_status.toString() === '1') {
+                                        //  健康
+                                        if (~jsStartBetBtn.className.indexOf('unable')) {
+                                            jsStartBetBtn.className = 'btn-play-now'
+                                        }
+                                    } else if (msg.content.block_status.toString() === '0') {
+                                        // 不健康  添加unable
+                                        Message({
+                                            message: _('The network is blocking, please retry later'),
+                                            type: 'error',
+                                            duration: tipsTime
+                                        })
+                                        jsStartBetBtn.className = 'btn-play-now unable'
                                     }
-                                } else if (msg.content.block_status.toString() === '0') {
-                                    // 不健康  添加unable
-                                    Message({
-                                        message: _('The network is blocking, please retry later'),
-                                        type: 'error',
-                                        duration: tipsTime
-                                    })
-                                    jsStartBetBtn.className = 'btn-play-now unable'
                                 }
-                            }
-                            break
-                        case 'syxw.expect_settle':
-                            // 开奖结果消息  更新 my Bet  todo
-                            if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.content.expectid)
-                            }
-                            // recent bet
-                            if (msg.content.top) {
-                                dispatch(aTypes.formate_recentBet, msg.content.top)
-                            }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.content)
+                                break
+                            case 'syxw.expect_settle':
+                                // 开奖结果消息  更新 my Bet  todo
+                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
+                                }
+                                // recent bet
+                                if (msg.content.top) {
+                                    dispatch(aTypes.formate_recentBet, msg.content.top)
+                                }
+                                // 初始化上一期结果
+                                dispatch(aTypes.formate_Result, msg.content)
 
-                            if (~state.route.path.indexOf('lucky')) {
-                                // mybet 弹窗
-                                if (state.isLog) {
-                                    dispatch('cs_1105/updateMyBets')
+                                if (~state.route.path.indexOf('lucky')) {
+                                    // mybet 弹窗
+                                    if (state.isLog) {
+                                        dispatch('cs_1105/updateMyBets')
+                                    }
+                                    dispatch('cs_1105/updateHistoryDraw')
+                                    // 更新用户信息
+                                    dispatch('getUserInfo')
                                 }
-                                dispatch('cs_1105/updateHistoryDraw')
-                                // 更新用户信息
-                                dispatch('getUserInfo')
+                                break
+                            case 'syxw.order_change':
+                                /* 投注推送  和 更新 my bet todo  */
+                                if (msg.content && msg.content.orders) {
+                                    dispatch(aTypes.formate_pushBetData, msg.content.orders)
+                                }
+                                break
+                            case 'syxw.expect_prize':
+                                // 奖池中奖
+                                if (msg.content) {
+                                    dispatch(aTypes.fomateJackPot, msg.content)
+                                }
+                                ;
+                                break
+                            case 'megacoin.good':
+                                msg.content.state === '4' || msg.content.state === '5'
+                                    ? dispatch('cs_luckycoin/updateBets', msg.content)
+                                    : commit('cs_luckycoin/updateBet', msg.content)
+                                break
+                            case 'megacoin.order':
+                                commit('cs_luckycoin/updateRecentBet', msg.content.orders)
+                                commit('cs_luckycoin/handleMyBet', msg.content.orders)
+                                break
+                            case 'megacoin.cancel':
+                                commit('cs_luckycoin/updateCurrentPage')
+                                break
+                            case 'slots.init':
+                                // 老虎机初始化
+                                if (msg.content) {
+                                    dispatch(actionTypes.formateTiger, msg.content)
+                                }
+                                break
+                                // case '20011':
+                            case 'first_recharge':
+                                //  首充充值奖励
+                                commit('cs_activity/sockMsg', msg.content)
+                                break
+                            case 'slots.prize':
+                                // 老虎机初始化
+                                if (msg.content) {
+                                    Object.assign(msg.content, {
+                                        addNewRecord: true
+                                    })
+                                    dispatch(actionTypes.addRecentList, msg.content)
+                                }
+                                break
+                            case 'dice.init':
+                                commit('cs_luckypoker/setBetList', msg.content.top)
+                                commit('cs_luckypoker/setSelfBetList', msg.content.self_top)
+                                break
+                            case 'dice.bet':
+                                commit('cs_luckypoker/addBetList', msg.content.top)
+                                break
+                            case 'chatroom.init':
+                                commit('setrecentChatmsg', msg.content.recent_msg)
+                                break
                             }
-                            break
-                        case 'syxw.order_change':
-                            /* 投注推送  和 更新 my bet todo  */
-                            if (msg.content && msg.content.orders) {
-                                dispatch(aTypes.formate_pushBetData, msg.content.orders)
-                            }
-                            break
-                        case 'syxw.expect_prize':
-                            // 奖池中奖
-                            if (msg.content) {
-                                dispatch(aTypes.fomateJackPot, msg.content)
-                            }
-                            ;
-                            break
-                        case 'megacoin.good':
-                            msg.content.state === '4' || msg.content.state === '5'
-                                ? dispatch('cs_luckycoin/updateBets', msg.content)
-                                : commit('cs_luckycoin/updateBet', msg.content)
-                            break
-                        case 'megacoin.order':
-                            commit('cs_luckycoin/updateRecentBet', msg.content.orders)
-                            commit('cs_luckycoin/handleMyBet', msg.content.orders)
-                            break
-                        case 'megacoin.cancel':
-                            commit('cs_luckycoin/updateCurrentPage')
-                            break
-                        case 'slots.init':
-                            // 老虎机初始化
-                            if (msg.content) {
-                                dispatch(actionTypes.formateTiger, msg.content)
-                            }
-                            break
-                        // case '20011':
-                        case 'first_recharge':
-                            //  首充充值奖励
-                            commit('cs_activity/sockMsg', msg.content)
-                            break
-                        case 'slots.prize':
-                            // 老虎机初始化
-                            if (msg.content) {
-                                Object.assign(msg.content, {
-                                    addNewRecord: true
-                                })
-                                dispatch(actionTypes.addRecentList, msg.content)
-                            }
-                            break
-                        case 'dice.init':
-                            commit('cs_luckypoker/setBetList', msg.content.top)
-                            commit('cs_luckypoker/setSelfBetList', msg.content.self_top)
-                            break
-                        case 'dice.bet':
-                            commit('cs_luckypoker/addBetList', msg.content.top)
-                            break
-                        case 'chatroom.init':
-                            commit('setrecentChatmsg', msg.content.recent_msg)
-                            break
                         }
                     }
                 }
@@ -498,6 +503,15 @@ const actions = {
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
         } catch (e) {
             console.error(e.message + type + ' error')
+        }
+    },
+    sendchatMsg ({commit, state, dispatch}, msgObj) {
+        try {
+            state.socket.sock && state.socket.sock.send(JSON.stringify(msgObj))
+        } catch (e) {
+            setTimeout(() => {
+                dispatch('sendchatMsg', msgObj)
+            }, 100)
         }
     },
     ...common.actions

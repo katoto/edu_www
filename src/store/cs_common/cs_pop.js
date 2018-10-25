@@ -35,13 +35,18 @@ const state = {
         inviterObj: null, // 邀请接收
 
         showFirstLogin: false, // 邀请用（激活处）
-        recentChatmsg: null // 近期投注记录
+        recentChatmsg: null, // 近期投注记录
+        chatmsg: null
     }
 }
 
 const mutations = {
+    getchatmsg (state, data) {
+        // 用于清空msg
+        state.pop.chatmsg = data
+    },
     setrecentChatmsg (state, data) {
-        console.log(data)
+        // chat msg init
         state.pop.recentChatmsg = data
     },
     setMailType (state, data) {
@@ -60,7 +65,6 @@ const mutations = {
     hideFreeplay (state) {
         state.pop.showFreeplay = false
     },
-
     //  激活用的
     showFirstLogin (state, data) {
         state.pop.showFirstLogin = data
@@ -69,7 +73,6 @@ const mutations = {
     setInviterObj (state, msg) {
         state.pop.inviterObj = msg
     },
-
     setResetObj (state, msg) {
         state.pop.resetObj.email = msg.email
         state.pop.resetObj.sign = msg.sign
@@ -90,7 +93,6 @@ const mutations = {
     hideTransfer (state) {
         state.pop.showTransfer = false
     },
-
     showLoginPop (state) {
         state.pop.showLoginPop = true
     },
@@ -150,8 +152,27 @@ const mutations = {
     }
 }
 const actions = {
-    async noSpeak ({commit, dispatch}, item) {
-        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    /* 聊天消息 */
+    fomateChatpush ({state, commit, dispatch}, msg) {
+        if (msg) {
+            if (state.pop.recentChatmsg) {
+                if (state.pop.recentChatmsg > 130) {
+                    state.pop.recentChatmsg = state.pop.recentChatmsg.slice(1)
+                }
+                Object.assign(msg, {
+                    isNew: true
+                })
+                state.pop.recentChatmsg.push(msg)
+                commit('setrecentChatmsg', state.pop.recentChatmsg)
+                commit('getchatmsg', msg)
+            }
+        }
+    },
+    async noSpeak ({commit, dispatch}, msg) {
+        return ajax.post(`/im/chatroom/block`, msg)
+    },
+    async breakSpeak ({commit, dispatch}, msg) {
+        return ajax.post(`/im/unblock`, msg)
     },
     /* chat delAllMsg */
     async delAllMsg ({commit, dispatch}, item) {
@@ -162,8 +183,8 @@ const actions = {
         return ajax.get(`/faucet/tasks?cointype=${item}`)
     },
     /* chat 聊天室个人信息获取 */
-    async getChatlist ({commit, dispatch}, item) {
-        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    async getOneChatmsg ({commit, dispatch}, msg) {
+        return ajax.post(`/im/chatroom/user_info`, msg)
     },
 
     /* 水龙头邀请 */
@@ -280,7 +301,6 @@ const actions = {
             })
         }
     },
-
     /*  reset password  重置密码  */
     async resetPasswordFn ({state, commit, dispatch}, pageData) {
         try {
