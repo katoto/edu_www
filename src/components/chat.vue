@@ -1,146 +1,100 @@
 <template>
 
     <div class="page_chat" :class="[isShowChat?'on':'close']">
-        <a href="javascript:;" class="enter_chat" @click="isShowChat = !isShowChat">
+        <a href="javascript:;" class="enter_chat" @click="controlShowChat">
             <img src="@/assets/img/enter_chat.png" alt="">
         </a>
         <div class="chat_admin" :class="{on:isShowChatAdmin}">
             <a href="javascript:;" class="chat_admin_close" @click="isShowChatAdmin = !isShowChatAdmin"></a>
             <div class="chat_admin_head" v-if="controlRoomMsg">
                 <p class="user_emain">
-                    {{ controlRoomMsg.email }}
+                    {{ controlRoomMsg.content.username }}
                 </p>
                 <p class="user_id">
-                    ID: {{ controlRoomMsg.uid }}
+                    ID: {{ controlRoomMsg.content.uid }}
                 </p>
             </div>
             <div class="chat_admin_body">
-                <ul class="choose_ban" v-if="controlRoomMsg">
+                <ul class="choose_ban">
                     <li :class="{'on':ban24}">
                         <input type="checkbox" id="ban24" v-model="ban24" @change="controlSpeak('24')">
-                        <label for="ban24">24 hours silence</label>
+                        <label for="ban24">{{ $lang.chat.a1 }}</label>
+                        <!-- <label for="ban24" v-else>{{ $lang.chat.a4 }}</label> -->
                     </li>
                     <li :class="{'on':banforever}">
                         <input type="checkbox" id="banforever" v-model="banforever" @change="controlSpeak('-1')">
-                        <label for="banforever">Permanently banned</label>
+                        <label for="banforever">{{ $lang.chat.a2 }}</label>
                     </li>
                 </ul>
                 <div class="chat_admin_msg">
                     <div>
-                        <span>
-                            Topics
+                        <span v-lang="$lang.chat.a13">
                         </span>
-                        <a href="javascript:;" class="remove">
-                            Remove&nbsp;All
+                        <a href="javascript:;" class="remove" @click="removeAllMsg" v-lang="$lang.chat.a14">
                         </a>
                     </div>
                     <ul class="admin_msg_items">
-                        <li v-for="(item,index) in initMsgArr" :key="index">
-                            {{ item.chatMsg }}
-                            <a href="javascript:;" class="remove" @click="removeCurrMsg">Remove</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                        <li v-for="(item,index) in checkOneMsgArr" :key="index">
+                            {{ item.content.msg }}
+                            <a href="javascript:;" class="remove" @click="removeCurrMsg(item.content.msg_id)">{{ $lang.chat.a15 }}</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="chat_room ">
+        <div class="chat_room">
             <div class="chat_room_head">
-                <p>
+                <p v-lang="$lang.chat.a16">
                     <!-- ,isShowChatAdmin = false -->
-                    ChartRoom
                 </p>
-                <a href="javascript:;" @click="isShowChat = !isShowChat"></a>
+                <a href="javascript:;" @click="controlShowChat"></a>
             </div>
             <div class="chat_room_main">
                 <!-- admin self  -->
                 <ul>
-                    <li v-if="isRootUser" v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)" @click="controlRoom(item)">
-                        <div :class="{'admin':true,'slef':true}">
-                            <div class="user_shortName">
-                                {{ item.email.slice(0,2).toUpperCase() }}
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        {{ formateEmail(item.email,true) }}
-                                    </p>
-                                    <span class="user_time">
-                                        {{ item.msgTime }}
-                                    </span>
+                    <template v-if="userInfo && userInfo.is_im_admin === 'True'">
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)" @click="controlRoom(item)">
+                            <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
+                                <div class="user_shortName">
+                                    {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
-                                <p class="user_msg" v-html="item.chatMsg.httpParse()">
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-else v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)">
-                        <div :class="{'admin':true,'slef':true}">
-                            <div class="user_shortName">
-                                {{ item.email.slice(0,2).toUpperCase() }}
-                            </div>
-                            <div class="user_view">
-                                <div class="user_row1">
-                                    <p class="user_name">
-                                        {{ formateEmail(item.email,true) }}
+                                <div class="user_view">
+                                    <div class="user_row1">
+                                        <p class="user_name">
+                                            {{ formateEmail(item.content.username,true) }}
+                                        </p>
+                                        <span class="user_time">
+                                            {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
+                                        </span>
+                                    </div>
+                                    <p class="user_msg" v-html="item.content.msg.httpParse()">
                                     </p>
-                                    <span class="user_time">
-                                        {{ item.msgTime }}
-                                    </span>
                                 </div>
-                                <p class="user_msg" v-html="item.chatMsg.httpParse()">
-                                </p>
                             </div>
-                        </div>
-                    </li>
-                    <li :class="[isAdmin?'admin':'']">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    Dominator
-                                </p>
-                                <span class="user_isAdmin" v-if="isAdmin">
-                                    Admin
-                                </span>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
+                        </li>
+                    </template>
+                    <template v-else>
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)">
+                            <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
+                                <div class="user_shortName">
+                                    {{ item.content.username.slice(0,2).toUpperCase() }}
+                                </div>
+                                <div class="user_view">
+                                    <div class="user_row1">
+                                        <p class="user_name">
+                                            {{ formateEmail(item.content.username,true) }}
+                                        </p>
+                                        <span class="user_time">
+                                            {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
+                                        </span>
+                                    </div>
+                                    <p class="user_msg" v-html="item.content.msg.httpParse()">
+                                    </p>
+                                </div>
                             </div>
-                            <p class="user_msg">
-                                system charge : Daniel is permanently banned.
-                                Please speak in a civilized manner.
-                            </p>
-                        </div>
-                    </li>
-                    <li :class="getUserColor">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
-                                </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                this is my money <a href="http://www.coinsprize.com" target="_blank">http://www.coinsprize.com</a>
-                            </p>
-                        </div>
-                    </li>
+                        </li>
+                    </template>
+
                     <li :class="getUserColor" class="self">
                         <div class="user_shortName">
                             DO
@@ -160,30 +114,36 @@
                             </p>
                         </div>
                     </li>
+
                 </ul>
             </div>
             <div class="chat_room_foot">
                 <div class="row0">
                     <p class="system_t">
-                        system messages
+                        {{$lang.chat.a10}}
                     </p>
                     <p class="system_m">
-                        Message sending failed, you are currently banned, 23 hours remaining
+                        <!-- 永久禁言todo -->
+                        {{$lang.chat.a5}}
+                    </p>
+                    <p class="system_m">
+                        <!-- 永久2小时todo  -->
+                        {{$lang.chat.a6}}
                     </p>
                 </div>
-                <div class="row1" :class="{'isOver100':isOver100}">
-                    <p>Maximum input&nbsp;0/100</p>
-                    <i v-if="isOver100">!</i>
+                <div class="row1" :class="{'isOver100':getByteLen(myMsg) >100}">
+                    <p>{{ getByteLen(myMsg) }}/100&nbsp;{{$lang.chat.a11}}</p>
+                    <i v-if="getByteLen(myMsg)>100">!</i>
                 </div>
                 <div class="row2">
                     <div class="row2_left">
                         <div class="placeholder">
                             {{myMsg}}
                         </div>
-                        <textarea @focus="checkUse" v-model="myMsg" placeholder="Say something...">
+                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12">
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send"></a>
+                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > 100 || myMsg === ''}"></a>
                 </div>
             </div>
         </div>
@@ -191,7 +151,7 @@
 </template>
 
 <script>
-import { formatTime, formateEmail, isIOS } from '~common/util'
+import { formatTime, formateEmail, isIOS, getByteLen, cutStr, getCK } from '~common/util'
 export default {
     data () {
         return {
@@ -201,90 +161,10 @@ export default {
             banforever: false,
             isAdmin: true,
             myMsg: '',
-            isOver100: true,
 
             isShowChatAdmin: false, // admin 页面
-            isRootUser: true,
             controlRoomMsg: null, // 控制中心数据
-            initMsgArr: [
-                {
-                    'uid': 123,
-                    'msgid': 1,
-                    'email': '84fds9246@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540245873',
-                    'speakState': '-1'
-                }, {
-                    'uid': 1234,
-                    'msgid': 2,
-                    'email': 'asfd9246@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540165873',
-                    'speakState': '-1'
-                }, {
-                    'uid': 1111,
-                    'msgid': 3,
-                    'email': 'qwerw39246@qq.com',
-                    'chatMsg': 'this is my money http://www.coinsprize.com',
-                    'msgTime': '1542265873',
-                    'speakState': '-1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540275833',
-                    'speakState': '0'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540269873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540465873',
-                    'speakState': '1'
-                }, {
-                    'uid': 1414223,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540269873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540266873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540267873',
-                    'speakState': '1'
-                }, {
-                    'uid': 123,
-                    'msgid': 4,
-                    'email': '11321321@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540266873',
-                    'speakState': '0'
-                }, {
-                    'uid': 1234134,
-                    'msgid': 5,
-                    'email': 'qrewqr@qq.com',
-                    'chatMsg': 'this is my money',
-                    'msgTime': '1540265972',
-                    'speakState': '-1'
-                }],
+            checkOneMsgArr: [], // admin 查询用户列表用
             newMsgArr: []
         }
     },
@@ -305,10 +185,54 @@ export default {
                     document.getElementById('app').childNodes[0].removeEventListener('touchmove', this.banScroll, { passive: false })
                 }
             }
+        },
+        chatmsg (data) {
+            if (data.content.uid === this.userInfo.uid) {
+                this.myMsg = ''
+            }
+            document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
         }
     },
     methods: {
         formateEmail,
+        getByteLen,
+        cutStr,
+        formatTime,
+        sendMsg () {
+            // 发送msg
+            this.checkUse()
+            if (this.getByteLen(this.myMsg) > 100 || this.getByteLen(this.myMsg) <= 0) {
+                return false
+            }
+            let currObj = {
+                action: 'chatroom_send',
+                type: 'im',
+                chatroom_id: '1',
+                uid: this.userInfo.uid,
+                username: this.userInfo.username,
+                ck: getCK(),
+                msg_type: 'betblock.im.message.text',
+                msg: this.myMsg
+            }
+            this.$store.dispatch('sendchatMsg', currObj)
+        },
+        controlShowChat () {
+            if (this.isShowChat) {
+                this.$store.dispatch('subOutMsg', { type: 'im', chatroomId: '1' })
+            } else {
+                this.$store.dispatch('subInMsg', { type: 'im', chatroomId: '1' })
+                // 默认到最底部
+                setTimeout(() => {
+                    document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+                }, 10)
+            }
+            this.isShowChat = !this.isShowChat
+        },
+        myMsgInput () {
+            if (this.getByteLen(this.myMsg) > 100) {
+                this.myMsg = this.cutStr(this.myMsg, 101)
+            }
+        },
         controlSpeak (val = '24') {
             if (val === '24') {
                 this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
@@ -316,15 +240,32 @@ export default {
                 this.banforever ? this.noSpeak('-1') : this.breakSpeak('-1')
             }
         },
-        async noSpeak () {
-            let uid = this.controlRoomMsg.uid
+        async noSpeak (val) {
             // 禁言  24 or 永久
-            let data = await this.$store.dispatch('noSpeak', uid)
+            let currObj = {
+                block_uid: this.controlRoomMsg.content.uid,
+                block_type: val === '-1' ? 'permanent' : '24h',
+                chatroom_id: '1'
+            }
+            let data = await this.$store.dispatch('noSpeak', currObj)
+            if (data && data.status === '100') {
+                this.$success(_('禁言操作成功'))
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }
         },
-        async breakSpeak () {
-            let uid = this.controlRoomMsg.uid
+        async breakSpeak (val) {
             // 解除禁言
-            let data = await this.$store.dispatch('noSpeak', uid)
+            let currObj = {
+                block_uid: this.controlRoomMsg.content.uid,
+                block_type: val === '-1' ? 'permanent' : '24h'
+            }
+            let data = await this.$store.dispatch('breakSpeak', currObj)
+            if (data && data.status === '100') {
+                this.$success(_('解除禁言操作成功'))
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }
         },
         async removeAllMsg (msgIdArr) {
             // 删除指定msg
@@ -335,33 +276,35 @@ export default {
             let data = await this.$store.dispatch('delCurrMsg', msgId)
         },
         async controlRoom (item) {
-            console.log(item)
+            // 直接请求数据
             this.controlRoomMsg = item
-            // 0 -1 1  24 永久 无
-            this.ban24 = item.speakState === '0'
-            this.banforever = item.speakState === '-1'
-            this.isShowChatAdmin = true
+            // // 0 -1 1  24 永久 无
+            // this.ban24 = item.speakState === '0'
+            // this.banforever = item.speakState === '-1'
             // 请求用户信息 列表 removeAll 会用到
-            let msg = await this.$store.dispatch('getChatlist', item)
+            let sendObj = {
+                check_uid: item.content.uid,
+                chatroom_id: '1'
+            }
+            let msgback = await this.$store.dispatch('getOneChatmsg', sendObj)
+            if (msgback.data) {
+                this.ban24 = msgback.data.block_24h !== null
+                this.banforever = msgback.data.block_permanent === 'True'
+                this.isShowChatAdmin = true
+                this.checkOneMsgArr = msgback.data.recent_message
+            }
+            console.log(msgback)
+            console.log(msgback)
+            console.log(msgback)
         },
         banScroll (evt) {
             evt.preventDefault()
         },
         checkUse (evt) {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
-                // this.$store.commit('showLoginPop')
-                // evt.target.blur()
+                this.$store.commit('showLoginPop')
+                evt.target.blur()
             }
-        },
-
-        formateMsgArr (list = []) {
-            list.forEach((item, index) => {
-                item.msgTime = formatTime(item.msgTime, 'HH:mm AMPM')
-            })
-            return list
-        },
-        initChat () {
-            this.newMsgArr = this.formateMsgArr(this.initMsgArr)
         },
         getUserColor (ind) {
             // return 'userColor' + (~~(Math.random() * 12) + 1)
@@ -372,11 +315,16 @@ export default {
     computed: {
         userInfo () {
             return this.$store.state.userInfo
+        },
+        recentChatmsg () {
+            return this.$store.state.pop.recentChatmsg
+        },
+        chatmsg () {
+            return this.$store.state.pop.chatmsg
         }
     },
     components: {},
     mounted () {
-        this.initChat()
     },
     destroyed () {
 

@@ -174,7 +174,7 @@ let routesArr = [{
         component: luckcoinMoreBids
     },
     {
-        path: 'detailed',
+        path: 'detailed/:number?',
         name: _('detailed'),
         component: luckycoinDetailed
     },

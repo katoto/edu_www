@@ -1050,7 +1050,10 @@ export default {
         // 首页 冒泡效果
         setTimeout(() => {
             /* 订阅lucky11 sock */
-            this.$store.dispatch('subInLucky')
+            this.$store.dispatch('subInMsg', {
+                type: 'lottery',
+                lotid: 1
+            })
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
             /* 动态结构化 */
@@ -1077,7 +1080,10 @@ export default {
         }
     },
     beforeDestroy () {
-        this.$store.dispatch('subOutLucky')
+        this.$store.dispatch('subOutMsg', {
+            type: 'lottery',
+            lotid: 1
+        })
     },
     destroyed () {
         window.removeEventListener('scroll', this.fixNav, true)

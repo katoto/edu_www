@@ -170,7 +170,7 @@
         },
         methods: {
             ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
-            ...mapActions(['subInLuckyCoin']),
+            ...mapActions(['subInMsg']),
             initPop () {
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())
