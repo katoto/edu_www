@@ -116,7 +116,7 @@
             </div>
             <div class="chat_room_foot">
                 <div class="row0" :class="{'hide': getByteLen(myMsg) <= vipChatLen}">
-                    <p class="system_t" >
+                    <p class="system_t">
                         {{$lang.chat.a10}}
                     </p>
                     <p class="system_m" v-html="_($lang.chat.a17, vipChatLen )">
@@ -135,7 +135,7 @@
                         <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keypress="sendMsg">
                         </textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send" @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">{{ baseTime }}</a>
+                    <a href="javascript:;" class="btn_send " @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble}">{{ baseTime + 's'}}</a>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@ export default {
             newMsgArr: [],
             sendTimeInterval: null, // 控制发消息频率
             isBtnAble: true,
-            baseTime: null, // 倒计时
+            baseTime: 0 // 倒计时
         }
     },
     watch: {
@@ -197,10 +197,10 @@ export default {
             clearInterval(this.sendTimeInterval)
             this.isBtnAble = false
             this.baseTime = this.vipChatLen === 200 ? 5 : 10
-            this.sendTimeInterval = setInterval(()=>{
+            this.sendTimeInterval = setInterval(() => {
                 this.baseTime--
-                if(!this.baseTime){
-                    clearInterval( this.sendTimeInterval )
+                if (!this.baseTime) {
+                    clearInterval(this.sendTimeInterval)
                     this.isBtnAble = true
                 }
             }, 1000)
@@ -798,8 +798,18 @@ export default {
         background-size: 24px;
         border-radius: 6px;
         overflow: hidden;
+        font-size: 0;
+        text-indent: 99999px;
         &:hover {
           filter: brightness(1.1);
+        }
+        &.time_down {
+          text-align: center;
+          line-height: 35px;
+          color: #fff;
+          background-image: none;
+          font-size: 16;
+          text-indent: 0;
         }
       }
     }
