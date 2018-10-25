@@ -53,11 +53,9 @@
                 <!-- admin self  -->
                 <ul>
                     <template v-if="userInfo && userInfo.is_im_admin === 'True'">
-                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)"
-                            @click="controlRoom(item)"
-                        >
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
                             <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
-                                <div class="user_shortName">
+                                <div class="user_shortName" @click="controlRoom(item)">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
                                 <div class="user_view">
@@ -76,7 +74,7 @@
                         </li>                        
                     </template>
                     <template v-else>
-                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item.content.uid)">
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
                             <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
                                 <div class="user_shortName">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
@@ -96,25 +94,6 @@
                             </div>
                         </li>                       
                     </template>
-                    <li :class="getUserColor" class="self">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
-                                </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                HELLO, I have some questions, who can
-                                help me ?
-                            </p>
-                        </div>
-                    </li>
                 </ul>
             </div>
             <div class="chat_room_foot">
@@ -126,7 +105,7 @@
                         <!-- 永久禁言todo -->
                         {{$lang.chat.a5}}
                     </p>
-                    <p class="system_m">
+                    <p class="system_m hide">
                         <!-- 永久2小时todo  -->                        
                         {{$lang.chat.a6}}
                     </p>
@@ -163,7 +142,7 @@ export default {
             myMsg: '',
             isShowChatAdmin: false, // admin 页面
             controlRoomMsg: null, // 控制中心数据
-            checkOneMsgArr: [],  // admin 查询用户列表用
+            checkOneMsgArr: [], // admin 查询用户列表用
             newMsgArr: []
         }
     },
@@ -185,8 +164,8 @@ export default {
                 }
             }
         },
-        chatmsg(data){
-            if(data.content.uid === this.userInfo.uid){
+        chatmsg (data) {
+            if (data.content.uid === this.userInfo.uid) {
                 this.myMsg = ''
             }
             document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
@@ -221,26 +200,26 @@ export default {
             } else {
                 this.$store.dispatch('subInMsg', { type: 'im', chatroomId: '1' })
                 // 默认到最底部
-                setTimeout(()=>{
+                setTimeout(() => {
                     document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
-                },10)
+                }, 10)
             }
             this.isShowChat = !this.isShowChat
         },
         myMsgInput () {
             if (this.getByteLen(this.myMsg) > this.vipChatLen) {
-                this.myMsg = this.cutStr(this.myMsg, this.vipChatLen+1 )
+                this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 1)
             }
         },
         controlSpeak (val = '24') {
-            let confirmMsg = '';
-            if( val === '24' ){
+            let confirmMsg = ''
+            if (val === '24') {
                 confirmMsg = this.ban24 ? '确定禁言24小时？' : '解除禁言24小时？'
-            }else{
+            } else {
                 confirmMsg = this.banforever ? '确定永久禁言？' : '解除永久禁言？'
             }
-            let isconfirm = confirm( confirmMsg )
-            if(!isconfirm) return false
+            let isconfirm = confirm(confirmMsg)
+            if (!isconfirm) return false
             if (val === '24') {
                 this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
             } else {
@@ -255,10 +234,10 @@ export default {
                 chatroom_id: '1'
             }
             let data = await this.$store.dispatch('noSpeak', currObj)
-            if(data && data.status === '100'){
+            if (data && data.status === '100') {
                 this.$success(_('禁言操作成功'))
                 // 更新数据
-                this.controlRoom( this.controlRoomMsg )
+                this.controlRoom(this.controlRoomMsg)
             }
         },
         async breakSpeak (val) {
@@ -268,10 +247,10 @@ export default {
                 block_type: val === '-1' ? 'permanent' : '24h'
             }
             let data = await this.$store.dispatch('breakSpeak', currObj)
-            if(data && data.status === '100'){
+            if (data && data.status === '100') {
                 this.$success(_('解除禁言操作成功'))
                 // 更新数据
-                this.controlRoom( this.controlRoomMsg )
+                this.controlRoom(this.controlRoomMsg)
             }
         },
         async removeAllMsg (msgIdArr) {
@@ -291,7 +270,7 @@ export default {
                 chatroom_id: '1'
             }
             let msgback = await this.$store.dispatch('getOneChatmsg', sendObj)
-            if(msgback.data){
+            if (msgback.data) {
                 // null 是无禁言状态
                 this.ban24 = msgback.data.block_24h !== null
                 this.banforever = msgback.data.block_permanent === 'True'
@@ -299,7 +278,6 @@ export default {
                 this.checkOneMsgArr = msgback.data.recent_message
             }
             console.log(msgback)
-
         },
         banScroll (evt) {
             evt.preventDefault()
@@ -310,15 +288,24 @@ export default {
                 evt.target.blur()
             }
         },
-        getUserColor (ind) {
-            // return 'userColor' + (~~(Math.random() * 12) + 1)
-            // return 'userColor' + ind % 13
-            return 'userColor' + ind % 13
+        getUserColor (item) {
+            // 处理类名
+            let classArr = []
+            if (item.content.uid) {
+                classArr.push('userColor' + item.content.uid % 13)
+            }
+            if (this.userInfo.is_im_admin === 'True') {
+                classArr.push('admin')
+            }
+            if (item.content.uid === this.userInfo.uid) {
+                classArr.push('self')
+            }
+            return classArr
         }
     },
     computed: {
         userInfo () {
-            if(this.$store.state.userInfo){
+            if (this.$store.state.userInfo) {
                 this.vipChatLen = this.$store.state.userInfo.is_recharged_user === 'True' ? 200 : 100
             }
             return this.$store.state.userInfo
@@ -326,7 +313,7 @@ export default {
         recentChatmsg () {
             return this.$store.state.pop.recentChatmsg
         },
-        chatmsg(){
+        chatmsg () {
             return this.$store.state.pop.chatmsg
         }
     },
