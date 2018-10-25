@@ -254,7 +254,6 @@ export default {
                 // 更新数据
                 this.controlRoom( this.controlRoomMsg )
             }
-            console.log(data)
         },
         async breakSpeak (val) {
             // 解除禁言
@@ -263,6 +262,11 @@ export default {
                 block_type: val === '-1' ? 'permanent' : '24h'
             }
             let data = await this.$store.dispatch('breakSpeak', currObj)
+            if(data && data.status === '100'){
+                this.$success(_('解除禁言操作成功'))
+                // 更新数据
+                this.controlRoom( this.controlRoomMsg )
+            }
         },
         async removeAllMsg (msgIdArr) {
             // 删除指定msg
