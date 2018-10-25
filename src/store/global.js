@@ -341,6 +341,9 @@ const actions = {
                             case 'chatroom.init':
                                 commit('setrecentChatmsg', msg.content.recent_msg)
                                 break
+                            case 'chatroom.clear_record':
+                                dispatch('clearChatmsg', msg.content.msg_id_list)
+                                break
                             }
                         }
                     }

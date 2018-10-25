@@ -152,6 +152,13 @@ const mutations = {
     }
 }
 const actions = {
+    clearChatmsg ({state, commit, dispatch}, list) {
+        if (state.pop) {
+            if (!state.pop.recentChatmsg) state.pop.recentChatmsg = []
+            const bifurcateBy = (arr, fn) => arr.reduce((acc, val, i) => (acc[fn(val, i) ? 0 : 1].push(val), acc), [[], []])
+            commit('setrecentChatmsg', bifurcateBy(state.pop.recentChatmsg, x => list.includes(x.content.msg_id))[1])
+        }
+    },
     /* 聊天消息 */
     fomateChatpush ({state, commit, dispatch}, msg) {
         if (msg) {
@@ -187,7 +194,6 @@ const actions = {
     async getOneChatmsg ({commit, dispatch}, msg) {
         return ajax.post(`/im/chatroom/user_info`, msg)
     },
-
     /* 水龙头邀请 */
     async faucetTask ({commit, dispatch}, coinType) {
         return ajax.get(`/faucet/tasks?cointype=${coinType}`)

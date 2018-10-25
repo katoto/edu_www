@@ -181,9 +181,9 @@ export default {
                 this.myMsg = ''
                 this.controlInterval()
             }
-            setTimeout(()=>{
+            setTimeout(() => {
                 document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
-            },0)
+            }, 0)
         }
     },
     methods: {
@@ -292,7 +292,7 @@ export default {
                 this.$success(_('全部删除操作成功'))
                 // 更新数据
                 this.controlRoom(this.controlRoomMsg)
-            }            
+            }
         },
         async removeCurrMsg (msgId) {
             // 删除指定msg
@@ -300,13 +300,13 @@ export default {
                 msg_id: msgId,
                 clear_uid: this.controlRoomMsg.content.uid,
                 chatroom_id: '1'
-            }            
+            }
             let data = await this.$store.dispatch('delCurrMsg', currObj)
             if (data && data.status === '100') {
                 this.$success(_('删除指定消息成功'))
                 // 更新数据
                 this.controlRoom(this.controlRoomMsg)
-            }            
+            }
         },
         async controlRoom (item) {
             this.controlRoomMsg = item
@@ -333,11 +333,10 @@ export default {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
                 this.$store.commit('showLoginPop')
                 evt.target.blur()
-            }else if(this.userInfo.status === '0'){
+            } else if (this.userInfo.status === '0') {
                 this.$store.commit('showNoVerify')
             }
             return false
-
         },
         getUserColor (item) {
             // 处理类名  system
@@ -345,11 +344,11 @@ export default {
             if (item.content.uid) {
                 classArr.push('userColor' + item.content.uid % 13)
             }
-            if (this.userInfo){
-                if ( this.userInfo.is_im_admin === 'True') {
+            if (this.userInfo) {
+                if (this.userInfo.is_im_admin === 'True') {
                     classArr.push('admin')
                 }
-                if ( item.content.uid === this.userInfo.uid) {
+                if (item.content.uid === this.userInfo.uid) {
                     classArr.push('self')
                 }
             }
