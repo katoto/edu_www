@@ -456,144 +456,40 @@ const actions = {
             console.error(e.message)
         }
     },
-    subInTiger ({commit, state, dispatch}) {
-        /* 进入老虎机页面 订阅 */
+    subInMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1}) {
+        //  1 slots  老虎机  2 ( lottery lotdi 2 ) LuckyCoin  3 dice 4 ( lottery lotdi 1 ) lucky11
+        let data = {
+            action: 'sub',
+            type: type
+        }
+        if (isLog && isLog()) {
+            data.ck = getCK()
+        }
+        if (lotid !== -1) {
+            data.lotid = lotid
+        }
         try {
-            let subTigerStr = null
-            if (isLog && isLog()) {
-                subTigerStr = {
-                    action: 'sub',
-                    ck: getCK(),
-                    type: 'slots'
-                }
-            } else {
-                subTigerStr = {
-                    action: 'sub',
-                    type: 'slots'
-                }
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
+            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
         } catch (e) {
-            console.error(e.message + 'subInTiger error')
             setTimeout(() => {
-                dispatch('subInTiger')
+                dispatch('subInMsg', {type, lotid})
             }, 100)
         }
     },
-    subOutTiger () {
-        /* 离开老虎机页面 解订阅 */
-        try {
-            let unsubTigerStr = {
-                action: 'unsub',
-                type: 'slots'
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
-        } catch (e) {
-            console.error(e.message + 'subOutTiger error')
-        }
-    },
-    subInLucky ({commit, state, dispatch}) {
-        /* 进入lucky11页面 订阅 */
-        try {
-            let subLuckyStr = null
-            if (isLog && isLog()) {
-                subLuckyStr = {
-                    action: 'sub',
-                    lotid: 1,
-                    ck: getCK(),
-                    type: 'lottery'
-                }
-            } else {
-                subLuckyStr = {
-                    action: 'sub',
-                    lotid: 1,
-                    type: 'lottery'
-                }
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
-        } catch (e) {
-            setTimeout(() => {
-                dispatch('subInLucky')
-            }, 100)
-            // console.error(e.message + 'subInLucky error')
-        }
-    },
-    subOutLucky () {
-        /* 离开lucky页面 解订阅 */
+    subOutMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1}) {
+        /* 页面 解订阅 */
         try {
             let unsubLuckyStr = {
                 action: 'unsub',
-                lotid: 1,
-                type: 'lottery'
+                type: type
+            }
+            if (lotid !== -1) {
+                unsubLuckyStr.lotid = lotid
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
         } catch (e) {
-            console.error(e.message + 'subOutLucky error')
+            console.error(e.message + type + ' error')
         }
-    },
-    subInLuckyCoin ({state, dispatch}) {
-        let data = null
-        if (isLog && isLog()) {
-            data = {
-                action: 'sub',
-                lotid: 2,
-                ck: getCK(),
-                type: 'lottery'
-            }
-        } else {
-            data = {
-                action: 'sub',
-                lotid: 2,
-                type: 'lottery'
-            }
-        }
-        if (isLog && isLog()) {
-            data.ck = getCK()
-        }
-        try {
-            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
-        } catch (e) {
-            setTimeout(() => {
-                dispatch('subInLuckyCoin')
-            }, 100)
-        }
-    },
-    subOutLuckyCoin () {
-        let data = {
-            action: 'unsub',
-            lotid: 2,
-            type: 'lottery'
-        }
-        if (isLog && isLog()) {
-            data.ck = getCK()
-        }
-        state.socket.sock && state.socket.sock.send(JSON.stringify(data))
-    },
-    subInDice ({dispatch}) {
-        let data = {
-            action: 'sub',
-            type: 'dice'
-        }
-        if (isLog && isLog()) {
-            data.ck = getCK()
-        }
-        try {
-            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
-        } catch (e) {
-            setTimeout(() => {
-                dispatch('subInDice')
-            }, 100)
-        }
-    },
-    subOutDice () {
-        let data = {
-            action: 'unsub',
-            type: 'dice'
-        }
-        if (isLog && isLog()) {
-            data.ck = getCK()
-        }
-        state.socket.sock && state.socket.sock.send(JSON.stringify(data))
     },
     ...common.actions
 }

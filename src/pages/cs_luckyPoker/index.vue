@@ -592,7 +592,7 @@ export default {
     },
     methods: {
         ...mapActions('cs_luckypoker', ['getHome', 'bet']),
-        ...mapActions(['subInDice', 'subOutDice', 'getUserInfo']),
+        ...mapActions(['subInMsg', 'subOutMsg', 'getUserInfo']),
         accMul,
         formateCoinType,
         getElementAbsolutePosition,
@@ -1157,7 +1157,9 @@ export default {
         this.createClientSeed()
         this.getHistoryMostNum()
         this.disableContext()
-        this.subInDice()
+        this.subInMsg({
+            type: 'dice'
+        })
         this.loadMusicSrc()
         this.getUserInfo()
         window.addEventListener('resize', this.onResize)
@@ -1165,7 +1167,9 @@ export default {
     destroyed () {
         document.oncontextmenu = null
         window.removeEventListener('resize', this.onResize)
-        this.subOutDice()
+        this.subOutMsg({
+            type: 'dice'
+        })
     }
 }
 </script>

@@ -42,7 +42,10 @@ export default {
     },
     components: { Header, Footer },
     mounted () {
-        this.$store.dispatch('subInLuckyCoin')
+        this.$store.dispatch('subInMsg',{
+            type: 'lottery',
+            lotid: 2
+        })
     },
     beforeRouteEnter (to, from, next) {
         next(vm => {
@@ -94,7 +97,10 @@ export default {
         })
     },
     beforeDestroy () {
-        this.$store.dispatch('subOutLuckyCoin')
+        this.$store.dispatch('subOutMsg',{
+            type: 'lottery',
+            lotid: 2
+        })
     }
 }
 </script>
