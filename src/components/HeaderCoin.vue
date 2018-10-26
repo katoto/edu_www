@@ -554,11 +554,7 @@ export default {
                     this.showUserMsg()
                     this.$emit('freshSlot', '')
                 } else {
-                    this.$message({
-                        message: 'faucetGet error',
-                        type: 'error',
-                        duration: 1500
-                    })
+                    this.$error('faucetGet error')
                 }
             }
         },

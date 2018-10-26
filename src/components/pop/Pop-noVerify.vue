@@ -49,10 +49,7 @@
                             this.$store.dispatch('startBackTime')
                         }
                     } else {
-                        Message({
-                            message: _('Please enter your email address'),
-                            type: 'error'
-                        })
+                        this.$error(_('Please enter your email address'))
                     }
                 }
             }
@@ -65,18 +62,12 @@
             },
             show: {
                 set: function (isShow) {
-                    if (!!isShow === true) {
-                        this.$store.commit('showNoVerify')
-                    } else {
-                        this.$store.commit('hideNoVerify')
-                    }
+                    !!isShow === true ? this.$store.commit('showNoVerify') : this.$store.commit('hideNoVerify')
                 },
                 get: function () {
                     return this.$store.state.pop.showNoVerify
                 }
             }
-        },
-        mounted () {
         }
     }
 </script>

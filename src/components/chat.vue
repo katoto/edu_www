@@ -319,7 +319,6 @@ export default {
                 this.isShowChatAdmin = true
                 this.checkOneMsgArr = msgback.data.recent_message
             }
-            console.log(msgback)
         },
         banScroll (evt) {
             evt.preventDefault()
@@ -334,7 +333,7 @@ export default {
             return false
         },
         getUserColor (item) {
-            // 处理类名  system
+            // 处理类名  system  good 的样式处理 system_m 处
             let classArr = []
             if (item.content.uid) classArr.push('userColor' + item.content.uid % 13)
             if (this.userInfo) {
@@ -361,7 +360,6 @@ export default {
     mounted () {
     },
     destroyed () {
-
     }
 }
 </script>
