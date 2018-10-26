@@ -19,6 +19,7 @@
         "seo": "node ./seo.js",
         "deploy167": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/",
         "deploy-offline": "scp -r dist/* root@10.0.1.167:/var/www/richole-test",
+        "build-offline": "npm run build-test && npm run deploy-offline",
         "deploy-lang": "scp -r dist/* root@10.0.1.167:/var/www/coinslot-lang"
     },
     "dependencies": {

@@ -286,21 +286,12 @@ export default {
                 })
             }
         },
-        test () {
-            this.message(_(this.$lang.halloween.a2, _('LuckyPoker')), () => {
-                this.$router.push({
-                    path: `/${path}`
-                }, () => {
-                    this.jumpToOtherScene = true
-                })
-            })
-        },
         message (message, callback = () => { }) {
             Notification({
                 message: message,
                 dangerouslyUseHTMLString: true,
                 position: 'bottom-left',
-                duration: 1000000,
+                duration: 5000,
                 customClass: 'halloween-msg',
                 onClick: callback,
                 showClose: false
