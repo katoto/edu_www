@@ -152,17 +152,20 @@ const mutations = {
     }
 }
 const actions = {
+    clearChatmsg ({state, commit, dispatch}, list) {
+        if (state.pop) {
+            if (!state.pop.recentChatmsg) state.pop.recentChatmsg = []
+            const bifurcateBy = (arr, fn) => arr.reduce((acc, val, i) => (acc[fn(val, i) ? 0 : 1].push(val), acc), [[], []])
+            commit('setrecentChatmsg', bifurcateBy(state.pop.recentChatmsg, x => list.includes(x.content.msg_id))[1])
+        }
+    },
     /* 聊天消息 */
     fomateChatpush ({state, commit, dispatch}, msg) {
         if (msg) {
             if (state.pop) {
                 if (!state.pop.recentChatmsg) state.pop.recentChatmsg = []
-                if (state.pop.recentChatmsg > 130) {
-                    state.pop.recentChatmsg = state.pop.recentChatmsg.slice(1)
-                }
-                Object.assign(msg, {
-                    isNew: true
-                })
+                if (state.pop.recentChatmsg > 130) state.pop.recentChatmsg = state.pop.recentChatmsg.slice(1)
+                Object.assign(msg, {isNew: true})
                 state.pop.recentChatmsg.push(msg)
                 commit('setrecentChatmsg', state.pop.recentChatmsg)
                 commit('getchatmsg', msg)
@@ -176,18 +179,17 @@ const actions = {
         return ajax.post(`/im/chatroom/unblock`, msg)
     },
     /* chat delAllMsg */
-    async delAllMsg ({commit, dispatch}, item) {
-        return ajax.get(`/faucet/tasks?cointype=${item}`)
+    async delAllMsg ({commit, dispatch}, msg) {
+        return ajax.post(`/im/chatroom/clear_record`, msg)
     },
     /* chat 聊天室msg 删除 */
     async delCurrMsg ({commit, dispatch}, item) {
-        return ajax.get(`/faucet/tasks?cointype=${item}`)
+        return ajax.post(`/im/chatroom/clear_record`, item)
     },
     /* chat 聊天室个人信息获取 */
     async getOneChatmsg ({commit, dispatch}, msg) {
         return ajax.post(`/im/chatroom/user_info`, msg)
     },
-
     /* 水龙头邀请 */
     async faucetTask ({commit, dispatch}, coinType) {
         return ajax.get(`/faucet/tasks?cointype=${coinType}`)

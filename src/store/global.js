@@ -81,9 +81,7 @@ const actions = {
             let adMsg = await ajax.get(`/ad/list`)
             if (adMsg.status.toString() === '100') {
                 /* btc add */
-                if (adMsg.data) {
-                    commit('setAdList', adMsg.data)
-                }
+                if (adMsg.data) commit('setAdList', adMsg.data)
             }
             return adMsg
         } catch (e) {
@@ -102,22 +100,15 @@ const actions = {
                     commit(mTypes.syxw_bettype_odds, homeMsg.data.syxw_bettype_odds)
                 }
                 /* btc add */
-                if (homeMsg.data.bet_limit) {
-                    commit(mTypes.bet_limit, homeMsg.data.bet_limit)
-                }
+                if (homeMsg.data.bet_limit) commit(mTypes.bet_limit, homeMsg.data.bet_limit)
             }
 
             // todo
             if (homeMsg.data.invite_tips.toString() === '0') {
                 commit('hideFreeplay')
             } else {
-                if (commit.isLog) {
-                    commit('hideFreeplay')
-                } else {
-                    commit('showFreeplay')
-                }
+                commit.isLog ? commit('hideFreeplay') : commit('showFreeplay')
             }
-
             return homeMsg
         } catch (e) {
             Message({
@@ -206,7 +197,6 @@ const actions = {
             sock.onmessage = function (e) {
                 if (!~e.data.indexOf('you said') && !(e.data === 'pong')) {
                     let msg = JSON.parse(e.data)
-
                     // 总的分发
                     if (msg && msg.content) {
                         if (msg.conversation_type === 'betblock.im.conversation.chatroom') {
@@ -341,20 +331,17 @@ const actions = {
                             case 'chatroom.init':
                                 commit('setrecentChatmsg', msg.content.recent_msg)
                                 break
+                            case 'chatroom.clear_record':
+                                dispatch('clearChatmsg', msg.content.msg_id_list)
+                                break
                             }
                         }
                     }
                 }
             }
             sock.onopen = function () {
-                let webSockaction = null
-                // let currUid = null
                 fn()
                 clearInterval(interval)
-                // webSockaction = {
-                //     action: 'sub',
-                //     lotid: 1
-                // }
                 interval = setInterval(() => {
                     sock.send(JSON.stringify({
                         action: 'ping'
@@ -363,7 +350,6 @@ const actions = {
                 sock.send(JSON.stringify({
                     action: 'ping'
                 }))
-                // sock.send(JSON.stringify(webSockaction))
                 commit('initSocket', {sock, interval})
                 flag = 1
                 if (hasFinished) return
@@ -399,31 +385,11 @@ const actions = {
     sub2out ({commit, state}) {
         let sub2outStr = null
         try {
-            // if (isLog && isLog()) {
-            //     // sub2outStr = {
-            //     //     action: 'unsub',
-            //     //     ck: getCK(),
-            //     //     lotid: 1
-            //     // }
-            //     sub2outStr = {
-            //         action: 'unsync',
-            //         ck: getCK(),
-            //     }
-            //     state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
-            // }
             sub2outStr = {
                 action: 'unsync',
                 ck: getCK()
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
-            // if (state.socket.interval) {
-            //     clearInterval(state.socket.interval)
-            //     state.socket.interval = setInterval(function () {
-            //         state.socket.sock.send(JSON.stringify({
-            //             action: 'ping'
-            //         }))
-            //     }, 5000)
-            // }
         } catch (e) {
             console.error(e.message)
         }
@@ -431,35 +397,14 @@ const actions = {
     },
     sub2In ({commit, state, dispatch}) {
         let sub2InStr = null
-        // let currUid = null
         try {
-            // sub2InStr = {
-            //     action: 'unsub',
-            //     lotid: 1
-            // }
-            // state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
             if (isLog && isLog()) {
-                // sub2InStr = {
-                //     action: 'sub',
-                //     ck: getCK(),
-                //     lotid: 1
-                // }
                 sub2InStr = {
                     action: 'sync',
                     ck: getCK()
                 }
-                // currUid = state.userInfo.uid
                 state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
             }
-            // if (state.socket.interval) {
-            //     clearInterval(state.socket.interval)
-            //     state.socket.interval = setInterval(function () {
-            //         state.socket.sock.send(JSON.stringify({
-            //             action: 'ping',
-            //             uid: currUid
-            //         }))
-            //     }, 5000)
-            // }
         } catch (e) {
             console.error(e.message)
         }
@@ -470,15 +415,9 @@ const actions = {
             action: 'sub',
             type: type
         }
-        if (isLog && isLog()) {
-            data.ck = getCK()
-        }
-        if (lotid !== -1) {
-            data.lotid = lotid
-        }
-        if (chatroomId !== '-1') {
-            data.chatroom_id = chatroomId
-        }
+        if (isLog && isLog()) data.ck = getCK()
+        if (lotid !== -1) data.lotid = lotid
+        if (chatroomId !== '-1') data.chatroom_id = chatroomId
         try {
             state.socket.sock && state.socket.sock.send(JSON.stringify(data))
         } catch (e) {
@@ -494,12 +433,8 @@ const actions = {
                 action: 'unsub',
                 type: type
             }
-            if (lotid !== -1) {
-                unsubLuckyStr.lotid = lotid
-            }
-            if (chatroomId !== '-1') {
-                unsubLuckyStr.chatroom_id = chatroomId
-            }
+            if (lotid !== -1) unsubLuckyStr.lotid = lotid
+            if (chatroomId !== '-1') unsubLuckyStr.chatroom_id = chatroomId
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
         } catch (e) {
             console.error(e.message + type + ' error')
