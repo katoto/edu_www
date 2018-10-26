@@ -8,7 +8,7 @@
         </i>
         <i class="hammer-btn" :style="{transform: `translate(${hammerX}px,${hammerY}px)`}" v-if="!hideHammer">
         </i>
-        <i class="ghost1-ct" :style="{transform: `translate(${ghost1.x}px,${ghost1.y}px) `}" @click="beatIt('ghost', 'ghost1')" :class="{beating: isBeating, isWin: ghost1.isWin, filp: !ghost1.direction}" ref="ghost1" v-if="witchs.length > 0">
+        <i class="ghost1-ct" :style="{transform: `translate(${ghost1.x}px,${ghost1.y}px) `, top: `${ghost1.top}px`}" @click="beatIt('ghost', 'ghost1', ghost1.monsterId)" :class="{beating: isBeating, isWin: ghost1.isWin, filp: !ghost1.direction}" ref="ghost1" v-if="ghost1">
             <p class="prize">+1.0CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -16,7 +16,7 @@
             <img src="@/assets/img/halloween/monster01.png" :style="{transform: `rotateY(${ghost1.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-if="ghost1.animate">
             <img src="@/assets/img/halloween/monster02.png" :style="{transform: `rotateY(${ghost1.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-else>
         </i>
-        <i class="ghost11-ct" :style="{transform: `translate(${ghost11.x}px,${ghost11.y}px) `}" @click="beatIt('ghost', 'ghost11')" :class="{beating: isBeating, isWin: ghost11.isWin, filp: !ghost11.direction}" ref="ghost11" v-if="witchs.length >= 2">
+        <i class="ghost11-ct" :style="{transform: `translate(${ghost11.x}px,${ghost11.y}px) `, top: `${ghost11.top}px`}" @click="beatIt('ghost', 'ghost11', ghost11.monsterId)" :class="{beating: isBeating, isWin: ghost11.isWin, filp: !ghost11.direction}" ref="ghost11" v-if="ghost11">
             <p class="prize">+1.0CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -24,7 +24,7 @@
             <img src="@/assets/img/halloween/monster01.png" :style="{transform: `rotateY(${ghost11.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-if="ghost11.animate">
             <img src="@/assets/img/halloween/monster02.png" :style="{transform: `rotateY(${ghost11.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-else>
         </i>
-        <i class="ghost2-ct" @click="beatIt('jackolantern', 'ghost2')" :class="{beating: isBeating, isWin: ghost2.isWin}" ref="ghost2" v-if="spiders.length > 0">
+        <i class="ghost2-ct" :style="{ left: `${ghost2.left}px`}" @click="beatIt('jackolantern', 'ghost2', ghost2.monsterId)" :class="{beating: isBeating, isWin: ghost2.isWin}" ref="ghost2" v-if="ghost2">
             <p class="prize">+0.5CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -32,7 +32,7 @@
             <img src="@/assets/img/halloween/monster11.png" draggable="false" class="ghost2" v-if="animateStatus <= 2">
             <img src="@/assets/img/halloween/monster12.png" draggable="false" class="ghost2" v-else>
         </i>
-        <i class="ghost21-ct" @click="beatIt('jackolantern', 'ghost21')" :class="{beating: isBeating, isWin: ghost21.isWin}" ref="ghost21" v-if="spiders.length >= 2">
+        <i class="ghost21-ct" :style="{ left: `${ghost21.left}px`}"  @click="beatIt('jackolantern', 'ghost21', ghost21.monsterId)" :class="{beating: isBeating, isWin: ghost21.isWin}" ref="ghost21" v-if="ghost21">
             <p class="prize">+0.5CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -40,7 +40,7 @@
             <img src="@/assets/img/halloween/monster11.png" draggable="false" class="ghost2" v-if="animateStatus >= 2">
             <img src="@/assets/img/halloween/monster12.png" draggable="false" class="ghost2" v-else>
         </i>
-        <i class="ghost3-ct" @click="beatIt('demon', 'ghost3')" :class="{beating: isBeating, isWin: ghost3.isWin}" :style="{bottom: `${ghost3.bottom}px`}" ref="ghost3" v-if="skulls.length > 0">
+        <i class="ghost3-ct" @click="beatIt('demon', 'ghost3', ghost3.monsterId)" :class="{beating: isBeating, isWin: ghost3.isWin}" :style="{bottom: `${ghost3Bottom}px`}" ref="ghost3" v-if="ghost3">
             <p class="prize">+1.5CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -69,11 +69,11 @@ export default {
             loadMusic: null,
             musicSrc: '',
             isPause: false,
-            ghost1: { x: -169, y: 0, direction: true, speed: 0.01, animate: false, isWin: false },
-            ghost11: { x: window.document.body.clientWidth, y: 0, direction: false, speed: 0.01, animate: false, isWin: false },
-            ghost2: { isWin: false },
-            ghost21: { isWin: false },
-            ghost3: { isWin: false, bottom: 0 },
+            ghost1: null,
+            ghost11: null,
+            ghost2: null,
+            ghost21: null,
+            ghost3: null,
             currentData: null,
             gameWidth: null,
             gameHeight: null,
@@ -86,10 +86,32 @@ export default {
             nextTimer: null,
             animateTimer: null,
             animateStatus: 1,
-            jumpToOtherScene: false
+            lastHightIndex: 0,
+            lastWidthIndex: 0,
+            ghost3Bottom: 0
         }
     },
     methods: {
+        getRandomLeft () {
+            let random
+            if (this.lastWidthIndex === 0) {
+                random = Math.floor((Math.random()) * 500)
+            } else {
+                random = Math.floor((Math.random()) * 500) + 500
+            }
+            this.lastWidthIndex = this.lastWidthIndex === 0 ? 1 : 0
+            return random
+        },
+        getRandomHeight () {
+            let random
+            if (this.lastHightIndex === 0) {
+                random = Math.floor((Math.random()) * 150)
+            } else {
+                random = Math.floor((Math.random()) * 150) + 200
+            }
+            this.lastHightIndex = this.lastHightIndex === 0 ? 1 : 0
+            return random
+        },
         isCCAccount () {
             return this.currBalance.cointype === '2000'
         },
@@ -101,6 +123,55 @@ export default {
             if (CCAccount && CCAccount[0]) {
                 this.$store.commit('setCurrBalance', CCAccount[0])
             }
+        },
+        createMonster (ghostType) {
+            let monsterId
+            if (ghostType === 'ghost1' && this.witchs[0]) {
+                monsterId = this.witchs[0].monster_id
+                this.ghost1 = {
+                    x: -169,
+                    y: 0,
+                    direction: true,
+                    speed: 0.01,
+                    animate: false,
+                    isWin: false,
+                    top: this.getRandomHeight(),
+                    monsterId
+                }
+            } else if (ghostType === 'ghost11' && this.witchs[0]) {
+                monsterId = this.witchs[0].monster_id
+                this.ghost11 = {
+                    x: window.document.body.clientWidth,
+                    y: 0,
+                    direction: false,
+                    speed: 0.01,
+                    animate: false,
+                    isWin: false,
+                    top: this.getRandomHeight(),
+                    monsterId
+                }
+            } else if (ghostType === 'ghost2' && this.spiders[0]) {
+                monsterId = this.spiders[0].monster_id
+                this.ghost2 = {
+                    isWin: false,
+                    left: this.getRandomLeft(),
+                    monsterId
+                }
+            } else if (ghostType === 'ghost21' && this.spiders[0]) {
+                monsterId = this.spiders[0].monster_id
+                this.ghost21 = {
+                    isWin: false,
+                    left: this.getRandomLeft(),
+                    monsterId
+                }
+            } else if (ghostType === 'ghost3' && this.skulls[0]) {
+                monsterId = this.skulls[0].monster_id
+                this.ghost3 = {
+                    isWin: false,
+                    monsterId
+                }
+            }
+            this.removeMonster(ghostType, monsterId)
         },
         updateCC (money) {
             let updateMoney = Number(money).toFixed(4)
@@ -139,7 +210,10 @@ export default {
             this.animateTimer = setTimeout(this.startAnimate.bind(this), 1000 / 60)
             this.renderNextFrame()
         },
-        moveGhost1 (ghost) {
+        moveGhost (ghost) {
+            if (ghost === null) {
+                return
+            }
             if (ghost.direction) {
                 if (ghost.x >= (this.gameWidth + 200)) {
                     ghost.direction = false
@@ -159,13 +233,13 @@ export default {
             ghost.speed += 0.05
         },
         renderNextFrame () {
-            this.moveGhost1(this.ghost1)
-            this.moveGhost1(this.ghost11)
+            this.moveGhost(this.ghost1)
+            this.moveGhost(this.ghost11)
         },
         startGame () {
             if (this.animateTimer) {
-                this.animateTimer = null
                 clearTimeout(this.animateTimer)
+                this.animateTimer = null
             }
             this.startAnimate()
             this.timer = setInterval(() => {
@@ -182,19 +256,18 @@ export default {
                 jackolantern: this.spiders
             }[ghostType] || []
         },
-        selectRandomMonster (ghostType) {
+        selectMonster (ghostType) {
             let arr = this.getGhostsByGhostType(ghostType)
-            let randomIndex = Math.floor(Math.random() * arr.length)
-            return arr[randomIndex]
+            return arr[0]
         },
         isNoGhost () {
-            return this.currentData[this.scene].length === 0
+            return this.currentData[this.scene].length === 0 && this.ghost1 === null && this.ghost11 === null && this.ghost2 === null && this.ghost21 === null && this.ghost3 === null
         },
         isAllNoGhost () {
             let currentData = this.currentData
 
             if (currentData) {
-                return currentData.lucky11.length === 0 && currentData.luckycoin.length === 0 && currentData.poker.length === 0 && currentData.slot.length === 0
+                return currentData.lucky11.length === 0 && currentData.luckycoin.length === 0 && currentData.poker.length === 0 && currentData.slot.length === 0 && this.isNoGhost()
             }
             return true
         },
@@ -215,7 +288,7 @@ export default {
                 }, 1000)
             }
         },
-        beatIt (ghostType, ghostRefName) {
+        beatIt (ghostType, ghostRefName, monsterId) {
             // demon 1.5, ghost 1.0 jackolantern 0.5
             if (!this.isBeating) {
                 setTimeout(() => {
@@ -223,22 +296,33 @@ export default {
                 }, 100)
                 this.isBeating = true
             }
+            if (this[ghostRefName] && this[ghostRefName].isWin) {
+                return
+            }
             this.onSecondRunOnce(() => {
-                let randomMonster = this.selectRandomMonster(ghostType)
                 this.beatAjax({
-                    monster_id: randomMonster.monster_id,
+                    monster_id: monsterId,
                     monster_type: ghostType,
                     last_time: this.nextRefreshTime,
                     scene: this.scene
                 }).then(res => {
+                    console.log(monsterId, ghostRefName, res.data.remain)
                     this[ghostRefName].isWin = true
                     setTimeout(() => {
-                        this[ghostRefName].isWin = false
-                    }, 2000)
+                        if (this[ghostRefName]) {
+                            this[ghostRefName].isWin = false
+                        }
+                    }, 1000)
                     this.updateCC(res.data.total)
                     if (Number(res.data.remain) === 0) {
                         // 怪物被自己打死
-                        this.removeMonster(ghostType, randomMonster.monster_id)
+
+                        setTimeout(() => {
+                            this[ghostRefName] = null
+                        }, 1000)
+                        setTimeout(() => {
+                            this.createMonster(ghostRefName)
+                        }, 3000)
                         if (this.isAllNoGhost()) {
                             this.message('妖怪已被消灭完，请稍后再来')
                             return
@@ -248,14 +332,11 @@ export default {
                         }
                     }
                 }).catch(err => {
-                    if (err.status === '470') {
-                        // 怪物被别人打死，如果骷髅怪数量等于1个或女巫和蜘蛛数量少于2个，提示怪物被别人打死
-                        let arr = this.getGhostsByGhostType(ghostType)
-                        if ((arr.length <= 2 && ghostType !== 'demon') || (arr.length === 1 && ghostType === 'demon')) {
-                            this.message(err.message)
-                            this.removeMonster(ghostType, randomMonster.monster_id)
-                        }
-                    }
+                    this.message(err.message)
+                    this[ghostRefName] = null
+                    setTimeout(() => {
+                        this.createMonster(ghostRefName)
+                    }, 3000)
                 })
             })
         },
@@ -277,11 +358,9 @@ export default {
                 path = 'luckycoin'
             }
             if (scene) {
-                this.message(_(this.$lang.halloween.a2, _('LuckyPoker')), () => {
+                this.message(_(this.$lang.halloween.a2, scene), () => {
                     this.$router.push({
                         path: `/${path}`
-                    }, () => {
-                        this.jumpToOtherScene = true
                     })
                 })
             }
@@ -307,30 +386,64 @@ export default {
             if (footerTop) {
                 let dis = window.scrollY + window.innerHeight
                 if (dis > footerTop) {
-                    this.ghost3.bottom = dis - footerTop
+                    this.ghost3Bottom = dis - footerTop
                 } else {
-                    this.ghost3.bottom = 0
+                    this.ghost3Bottom = 0
                 }
             }
+        },
+        renderGhosts () {
+            if (this.skulls.length > 0) {
+                this.createMonster('ghost3')
+            } else {
+                this.ghost3 = null
+            }
+            if (this.witchs.length > 0) {
+                this.createMonster('ghost1')
+                this.createMonster('ghost11')
+            } else {
+                this.ghost1 = null
+                this.ghost11 = null
+            }
+            if (this.spiders.length > 0) {
+                this.createMonster('ghost2')
+                this.createMonster('ghost21')
+                this.ghost2 = null
+                this.ghost21 = null
+            }
+        },
+        updateCurrenData (data) {
+            if (this.currentData === null) {
+                this.currentData = {...data}
+                this.renderGhosts()
+                return
+            }
+            this.currentData = {...data}
+            this.currentData[this.scene] = [...this.currentData[this.scene].filter(item => {
+                return item.monster_id !== this.ghost1.monsterId &&
+                        item.monster_id !== this.ghost11.monsterId &&
+                        item.monster_id !== this.ghost2.monsterId &&
+                        item.monster_id !== this.ghost21.monsterId &&
+                        item.monster_id !== this.ghost3.monsterId
+            })]
+            let arr = ['ghost1', 'ghost12', 'ghost2', 'ghost21', 'ghost3']
+            arr.forEach(name => {
+                if (data[this.scene].filter(monster => monster.monster_id === this[name].monsterId).length === 0) {
+                    console.log(`怪物${name},id :${this[name].monsterId}已移除到其他场景`)
+                    this[name] = null
+                    this.createMonster(name)
+                }
+            })
         },
         getGhosts () {
             return this.$store.dispatch('cs_halloween/getGhosts')
                 .then(res => {
                     // demon 1.5, ghost 1.0 jackolantern 0.5
                     clearTimeout(this.nextTimer)
-                    this.nextRefreshTime = res.data.last_time
+                    this.nextRefreshTime = res.data.next_time
                     this.setNextRefresh(this.nextRefreshTime)
-                    this.currentData = res.data
-                    if (this.jumpToOtherScene) {
-                        if (this.isNoGhost()) {
-                            this.message(this.$lang.halloween.a1)
-                            if (!this.isAllNoGhost()) {
-                                setTimeout(() => this.goToOtherScene(), 1000)
-                            }
-                        } else {
-                            this.jumpToOtherScene = false
-                        }
-                    }
+                    this.updateCurrenData(res.data)
+                    this.startGame()
                     return res
                 })
         },
@@ -338,26 +451,31 @@ export default {
             let time = Number(nextTime) * 1000
             let offset = time - Date.now()
             if (offset > 0) {
-                let nextTime = offset + Math.randm() * 600
+                let offsetTime = offset + Math.random() * 600
                 this.nextTimer = setTimeout(() => {
+                    console.log('catch refresh game')
                     this.getGhosts()
-                }, nextTime)
+                }, offsetTime)
             }
         },
         clearGhostStatus () {
-            this.ghost1 = { x: -169, y: 0, direction: true, speed: 0.01, animate: false, isWin: false }
-            this.ghost11 = { x: window.document.body.clientWidth, y: 0, direction: false, speed: 0.01, animate: false, isWin: false }
-            this.ghost2 = { isWin: false }
-            this.ghost22 = { isWin: false }
-            this.ghost3 = { isWin: false, bottom: 0 }
             this.isAjax = false
             this.currentData = null
+            this.ghost1 = null
+            this.ghost11 = null
+            this.ghost2 = null
+            this.ghost21 = null
+            this.ghost3 = null
         },
         refreshGame () {
             this.$nextTick(() => {
                 this.clearGhostStatus()
                 this.onScroll()
-                this.getGhosts()
+                this.getGhosts().then(res => {
+                    if (this.isNoGhost()) {
+                        this.message(this.$lang.halloween.a1)
+                    }
+                })
             })
         },
         closeGame () {
@@ -368,15 +486,14 @@ export default {
             this.$emit('update:show', false)
         }
     },
+    created () {
+        this.gameWidth = window.document.body.clientWidth
+        this.gameHeight = window.document.body.clientHeight
+    },
     mounted () {
-        this.test()
-        this.$nextTick(() => {
-            this.gameWidth = window.document.body.clientWidth
-            this.gameHeight = window.document.body.clientHeight
-            this.loadMusic = bgMusic().then(res => {
-                this.musicSrc = res
-                return res
-            })
+        this.loadMusic = bgMusic().then(res => {
+            this.musicSrc = res
+            return res
         })
 
         window.addEventListener('scroll', this.onScroll)
@@ -417,6 +534,25 @@ export default {
                 return this.currentData[this.scene].filter(ghost => ghost.monster_type === 'jackolantern')
             }
             return []
+        },
+        showMosterIds () {
+            let arr = []
+            if (this.ghost1) {
+                arr.push(this.ghost1.monsterId)
+            }
+            if (this.ghost11) {
+                arr.push(this.ghost11.monsterId)
+            }
+            if (this.ghost2) {
+                arr.push(this.ghost2.monsterId)
+            }
+            if (this.ghost21) {
+                arr.push(this.ghost21.monsterId)
+            }
+            if (this.ghost3) {
+                arr.push(this.ghost3.monsterId)
+            }
+            return arr
         }
     },
     watch: {
@@ -425,7 +561,6 @@ export default {
         },
         show (value) {
             value && this.playMusic()
-            value && this.startGame()
             value && this.$nextTick(() => {
                 this.refreshGame()
             })
@@ -632,7 +767,7 @@ export default {
   .ghost21-ct {
     position: fixed;
     top: 0;
-    right: 100px;
+    left: 100px;
     padding: 50px;
     animation: ghost2Down 10s infinite ease-in-out;
   }
