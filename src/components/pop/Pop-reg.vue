@@ -181,7 +181,7 @@
             },
             show: {
                 set: function (isShow) {
-                    !!isShow === true? this.$store.commit('showRegPop') : this.$store.commit('hideRegPop')
+                    !!isShow === true ? this.$store.commit('showRegPop') : this.$store.commit('hideRegPop')
                 },
                 get: function () {
                     this.reloadVerifyImg()
