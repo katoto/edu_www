@@ -13,6 +13,7 @@
                 <p class="user_id">
                     ID: {{ controlRoomMsg.content.uid }}
                 </p>
+
             </div>
             <div class="chat_admin_body">
                 <ul class="choose_ban">
@@ -51,14 +52,17 @@
                 <ul>
                     <template v-if="userInfo && userInfo.is_im_admin === 'True'">
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
-                            <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
+                            <div>
                                 <div class="user_shortName" @click="controlRoom(item)" v-if="item.content.username">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
                                 <div class="user_view">
                                     <div class="user_row1">
-                                        <p class="user_name">
+                                        <p class="user_name" v-if="item.content.username">
                                             {{ formateEmail(item.content.username,true) }}
+                                        </p>
+                                        <p v-else>
+                                            {{ $lang.chat.a10 }}
                                         </p>
                                         <span class="user_time" v-if="item.content.username">
                                             {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
@@ -72,14 +76,17 @@
                     </template>
                     <template v-else>
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
-                            <div :class="{'admin':userInfo && userInfo.is_im_admin === 'True','self': userInfo && item.content.uid === userInfo.uid}">
+                            <div>
                                 <div class="user_shortName" v-if="item.content.username">
                                     {{ item.content.username.slice(0,2).toUpperCase() }}
                                 </div>
                                 <div class="user_view">
                                     <div class="user_row1">
-                                        <p class="user_name">
+                                        <p class="user_name" v-if="item.content.username">
                                             {{ formateEmail(item.content.username,true) }}
+                                        </p>
+                                        <p v-else>
+                                            {{ $lang.chat.a10 }}
                                         </p>
                                         <span class="user_time" v-if="item.content.username">
                                             {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
@@ -91,23 +98,6 @@
                             </div>
                         </li>
                     </template>
-                    <li class="system">
-                        <div class="user_shortName hide">
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    【系统消息】
-                                </p>
-                                <span class="user_time hide">
-
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                您已被永久禁言，消息不可发送
-                            </p>
-                        </div>
-                    </li>
                 </ul>
             </div>
             <div class="chat_room_foot">
@@ -255,7 +245,8 @@ export default {
             let currObj = {
                 block_uid: this.controlRoomMsg.content.uid,
                 block_type: val === '-1' ? 'permanent' : '24h',
-                chatroom_id: '1'
+                chatroom_id: '1',
+                username: this.controlRoomMsg.content.username,
             }
             let data = await this.$store.dispatch('noSpeak', currObj)
             if (data && data.status === '100') {
@@ -268,7 +259,8 @@ export default {
             // 解除禁言
             let currObj = {
                 block_uid: this.controlRoomMsg.content.uid,
-                block_type: val === '-1' ? 'permanent' : '24h'
+                block_type: val === '-1' ? 'permanent' : '24h',
+                username: this.controlRoomMsg.content.username,
             }
             let data = await this.$store.dispatch('breakSpeak', currObj)
             if (data && data.status === '100') {
@@ -340,9 +332,10 @@ export default {
             let classArr = []
             if (item.content.uid) classArr.push('userColor' + item.content.uid % 13)
             if (this.userInfo) {
-                if (this.userInfo.is_im_admin === 'True') classArr.push('admin')
+                if (item.content.is_im_admin === 'True') classArr.push('admin')
                 if (item.content.uid === this.userInfo.uid) classArr.push('self')
             }
+            if(item.sender_id==='betblock.im.admin') classArr.push('system')
             return classArr
         }
     },
