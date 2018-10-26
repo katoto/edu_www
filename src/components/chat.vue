@@ -98,7 +98,7 @@
                                             {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                         </span>
                                     </div>
-                                    <p class="user_msg" v-html="item.content.msg.httpParse()">
+                                    <p class="user_msg" v-text="item.content.msg.httpParse()">
                                     </p>
                                 </div>
                             </div>
@@ -339,9 +339,9 @@ export default {
             let classArr = []
             if (item.content.uid) classArr.push('userColor' + item.content.uid % 13)
             if (this.userInfo) {
-                if (item.content.is_im_admin === 'True') classArr.push('admin')
                 if (item.content.uid === this.userInfo.uid) classArr.push('self')
             }
+            if (item.content.is_im_admin === 'True') classArr.push('admin')
             if (item.sender_id === 'betblock.im.admin') classArr.push('system')
             return classArr
         }

@@ -868,6 +868,17 @@ export function getCCDeductionMoney (total, rate) {
  *   正则 加入a
  * */
 String.prototype.httpParse = function () {
+    let htmlDecode = (html) => {
+        var temp = document.createElement('div')
+        if (!typeof html !== 'String') {
+            html.toString()
+        }
+        (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html)
+        var output = temp.innerHTML
+        temp = null
+        return output
+    }
+    htmlDecode(this)
     let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|:)+)/g
-    return this.replace(reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
+    return htmlDecode(this).replace(reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
 }
