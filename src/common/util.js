@@ -870,8 +870,10 @@ export function getCCDeductionMoney (total, rate) {
 String.prototype.httpParse = function () {
     let htmlDecode = (html) => {
         var temp = document.createElement('div')
-        if (!typeof html !== 'String') html.toString()
-        (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html)
+        if (!typeof html !== 'String') {
+            html.toString()
+            (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html)
+        }
         var output = temp.innerHTML
         temp = null
         return output

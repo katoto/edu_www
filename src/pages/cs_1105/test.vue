@@ -6,7 +6,6 @@
     </div>
 </template>
 <script>
-
 export default {
     data () {
         return {
@@ -30,11 +29,8 @@ export default {
             this.on = true
         }
     },
-    computed: {
-
-    },
-    components: {
-    },
+    computed: {},
+    components: {},
     mounted () {
         console.log(window.innerHeight)
     }
