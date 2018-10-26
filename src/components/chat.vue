@@ -13,7 +13,6 @@
                 <p class="user_id">
                     ID: {{ controlRoomMsg.content.uid }}
                 </p>
-
             </div>
             <div class="chat_admin_body">
                 <ul class="choose_ban">
@@ -667,6 +666,11 @@ export default {
             word-wrap: break-word;
             word-break: break-all;
           }
+          &.good {
+            .user_msg {
+              color: #36c57a;
+            }
+          }
         }
         & + li {
           margin-top: 30px;
@@ -739,6 +743,9 @@ export default {
           color: #ef7e7e;
           word-wrap: break-word;
           word-break: break-all;
+          &.good {
+            color: #36c57a;
+          }
         }
       }
       .row1 {
