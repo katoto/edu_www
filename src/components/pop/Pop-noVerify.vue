@@ -23,7 +23,6 @@
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
 
     export default {
         data () {

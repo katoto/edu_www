@@ -29,7 +29,6 @@
 
 <script>
 import Pop from './Pop'
-import { Message } from 'element-ui'
 
 export default {
     data () {
@@ -51,10 +50,7 @@ export default {
                         this.$store.dispatch('startBackTime')
                     }
                 } else {
-                    Message({
-                        message: _('Please enter your email address'),
-                        type: 'error'
-                    })
+                    this.$error(_('Please enter your email address'))
                 }
             }
         },
