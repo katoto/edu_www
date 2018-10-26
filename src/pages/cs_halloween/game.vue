@@ -338,7 +338,7 @@ export default {
                 path = 'luckycoin'
             }
             if (scene) {
-                this.message(`当前${scene}战场有怪，点击立即前往！`, () => {
+                this.message(_(this.$lang.halloween.a2, _('LuckyPoker')), () => {
                     this.$router.push({
                         path: `/${path}`
                     }, () => {
@@ -384,7 +384,7 @@ export default {
                     this.currentData = res.data
                     if (this.jumpToOtherScene) {
                         if (this.isNoGhost()) {
-                            this.message('您来晚了一步，妖怪已被消灭！')
+                            this.message(this.$lang.halloween.a1)
                             if (!this.isAllNoGhost()) {
                                 setTimeout(() => this.goToOtherScene(), 1000)
                             }
@@ -685,13 +685,6 @@ export default {
         animation: ghost3Walk 30s infinite linear;
     }
 
-    .demo {
-        position: fixed;
-        bottom: 100px;
-        left: 0%;
-        animation: demoFly 30s infinite linear;
-    }
-
     @keyframes ghost2Down {
         0%, 100% {
             transform: translate(0, -200px);
@@ -750,6 +743,13 @@ export default {
 }
 </style>
 <style>
+.go-now {
+    background: #f66400;
+    padding: 2px 10px;
+    color: #FFF !important;
+    border-radius: 3px;
+    margin: 0 10px;
+}
 .halloween-msg {
     background: url(../../assets/img/halloween/messageBox.png) no-repeat;
     background-size: 100% 100%;
