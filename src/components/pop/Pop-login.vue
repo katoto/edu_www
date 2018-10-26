@@ -53,8 +53,7 @@
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
-    import {tipsTime, setCK, removeCK, wait} from '~common/util'
+    import {setCK, removeCK, wait} from '~common/util'
     import {baseURL, isProduction} from '~common/ajax'
 
     export default {
@@ -114,11 +113,7 @@
                             setCK(loginMsg.ck)
                             let userMsg = await this.$store.dispatch('getUserInfo')
                             if (userMsg && userMsg.status.toString() === '100') {
-                                Message({
-                                    message: _('Log in successfully'),
-                                    type: 'success',
-                                    duration: tipsTime
-                                })
+                                this.$success(_('Log in successfully'))
                                 this.$store.commit('setIsLog', true)
                                 this.$store.commit('setUserInfo', userMsg.data)
                                 this.$store.dispatch('sub2In')
@@ -134,11 +129,7 @@
                         this.reloadVerifyImg()
                     }
                 } else {
-                    Message({
-                        message: _('Please enter your email address'),
-                        type: 'error',
-                        duration: tipsTime
-                    })
+                    this.$error(_('Please enter your email address'))
                 }
             },
             onSignUp () {
@@ -161,11 +152,7 @@
             },
             show: {
                 set: function (isShow) {
-                    if (!!isShow === true) {
-                        this.$store.commit('showLoginPop')
-                    } else {
-                        this.$store.commit('hideLoginPop')
-                    }
+                    !!isShow === true ? this.$store.commit('showLoginPop') : this.$store.commit('hideLoginPop')
                 },
                 get: function () {
                     this.reloadVerifyImg()

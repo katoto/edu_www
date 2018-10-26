@@ -94,8 +94,14 @@
                                         {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                     </span>
                                 </div>
-                                <p class="user_msg" v-html="item.content.msg.httpParse()">
+                                <p class="user_msg" v-text="item.content.msg.httpParse()">
                                 </p>
+                                <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                    admin
+                                </span>
+                                <span class="user_time" v-if="item.content.username">
+                                    {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
+                                </span>
                             </div>
                         </li>
                     </template>
@@ -315,7 +321,6 @@ export default {
                 this.isShowChatAdmin = true
                 this.checkOneMsgArr = msgback.data.recent_message
             }
-            console.log(msgback)
         },
         banScroll (evt) {
             evt.preventDefault()
@@ -330,13 +335,13 @@ export default {
             return false
         },
         getUserColor (item) {
-            // 处理类名  system
+            // 处理类名  system  good 的样式处理 system_m 处
             let classArr = []
             if (item.content.uid) classArr.push('userColor' + item.content.uid % 13)
             if (this.userInfo) {
-                if (item.content.is_im_admin === 'True') classArr.push('admin')
                 if (item.content.uid === this.userInfo.uid) classArr.push('self')
             }
+            if (item.content.is_im_admin === 'True') classArr.push('admin')
             if (item.sender_id === 'betblock.im.admin') classArr.push('system')
             return classArr
         }
@@ -357,7 +362,6 @@ export default {
     mounted () {
     },
     destroyed () {
-
     }
 }
 </script>

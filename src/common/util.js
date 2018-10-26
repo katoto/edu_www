@@ -7,7 +7,7 @@ import {
 } from 'element-ui'
 
 export const src = 'pc'
-export const tipsTime = 3000
+export const tipsTime = 2000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
 
@@ -868,6 +868,16 @@ export function getCCDeductionMoney (total, rate) {
  *   正则 加入a
  * */
 String.prototype.httpParse = function () {
+    let htmlDecode = (html) => {
+        var temp = document.createElement('div')
+        if (!typeof html !== 'String') {
+            html.toString()
+            (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html)
+        }
+        var output = temp.innerHTML
+        temp = null
+        return output
+    }
     let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|:)+)/g
-    return this.replace(reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
+    return htmlDecode(this).replace(reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
 }
