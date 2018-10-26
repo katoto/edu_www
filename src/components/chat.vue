@@ -229,7 +229,7 @@ export default {
             this.isShowChat = !this.isShowChat
         },
         myMsgInput () {
-            this.myMsg = this.myMsg.replace(/\n|\r/g,'')
+            this.myMsg = this.myMsg.replace(/\n|\r/g, '')
             if (this.getByteLen(this.myMsg) > this.vipChatLen) this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 2)
         },
         controlSpeak (val = '24') {
@@ -253,7 +253,7 @@ export default {
                 block_uid: this.controlRoomMsg.content.uid,
                 block_type: val === '-1' ? 'permanent' : '24h',
                 chatroom_id: '1',
-                username: this.controlRoomMsg.content.username,
+                username: this.controlRoomMsg.content.username
             }
             let data = await this.$store.dispatch('noSpeak', currObj)
             if (data && data.status === '100') {
@@ -267,7 +267,7 @@ export default {
             let currObj = {
                 block_uid: this.controlRoomMsg.content.uid,
                 block_type: val === '-1' ? 'permanent' : '24h',
-                username: this.controlRoomMsg.content.username,
+                username: this.controlRoomMsg.content.username
             }
             let data = await this.$store.dispatch('breakSpeak', currObj)
             if (data && data.status === '100') {
@@ -342,7 +342,7 @@ export default {
                 if (item.content.is_im_admin === 'True') classArr.push('admin')
                 if (item.content.uid === this.userInfo.uid) classArr.push('self')
             }
-            if(item.sender_id==='betblock.im.admin') classArr.push('system')
+            if (item.sender_id === 'betblock.im.admin') classArr.push('system')
             return classArr
         }
     },
@@ -400,6 +400,7 @@ export default {
       height: 686px;
       .enter_chat {
         transform: scale(0);
+        width: 0;
       }
     }
     &.close {
@@ -504,6 +505,8 @@ export default {
         line-height: 20px;
         font-size: 14px;
         border-bottom: 1px solid #a4a5a7;
+        word-wrap: break-word;
+        word-break: break-all;
       }
     }
 
@@ -616,7 +619,8 @@ export default {
             background: rgba(177, 99, 72, 0.2);
           }
         }
-        &.userColor12 {
+        &.userColor12,
+        &.userColor0 {
           .user_shortName {
             color: #90947d;
             background: rgba(144, 148, 125, 0.2);
@@ -660,6 +664,7 @@ export default {
             line-height: 20px;
             font-size: 14px;
             color: #ef7e7e;
+            word-wrap: break-word;
             word-break: break-all;
           }
         }
@@ -716,6 +721,7 @@ export default {
         line-height: 20px;
         font-size: 14px;
         color: #fff;
+        word-wrap: break-word;
         word-break: break-all;
       }
     }
@@ -731,6 +737,7 @@ export default {
           line-height: 20px;
           font-size: 14px;
           color: #ef7e7e;
+          word-wrap: break-word;
           word-break: break-all;
         }
       }

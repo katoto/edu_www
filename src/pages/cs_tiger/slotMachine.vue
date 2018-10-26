@@ -1309,7 +1309,9 @@ export default {
 @import "../../styles/lib-mixins.less";
 @import "../../styles/lib-media.less";
 @import "../../styles/lib-font.less";
-
+.tiger-contain {
+  background-color: #151515;
+}
 .notice {
   height: 100%;
 }
