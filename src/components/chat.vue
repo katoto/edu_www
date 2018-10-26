@@ -64,6 +64,9 @@
                                         <p v-else>
                                             {{ $lang.chat.a10 }}
                                         </p>
+                                        <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                            admin
+                                        </span>
                                         <span class="user_time" v-if="item.content.username">
                                             {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                         </span>
@@ -88,6 +91,9 @@
                                         <p v-else>
                                             {{ $lang.chat.a10 }}
                                         </p>
+                                        <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                            admin
+                                        </span>
                                         <span class="user_time" v-if="item.content.username">
                                             {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                         </span>
