@@ -1,80 +1,30 @@
 <template>
     <div class="game-main" ref="game" v-if="isLogin && show">
-        <audio
-            :src="musicSrc"
-            class="poker-audio"
-            ref="musicObj"
-            loop="loop">
+        <audio :src="musicSrc" class="poker-audio" ref="musicObj" loop="loop">
         </audio>
-        <i
-            class="music-btn"
-            @click="switchMusic"
-            ref="musicBtn">
+        <i class="music-btn" @click="switchMusic" ref="musicBtn" :class="{'pause':isPause}">
         </i>
-        <i
-            class="close-btn"
-            @click="closeGame"
-            ref="closeBtn">
+        <i class="close-btn" @click="closeGame" ref="closeBtn">
         </i>
-        <i
-            class="hammer-btn"
-            :style="{transform: `translate(${hammerX}px,${hammerY}px)`}"
-            v-if="!hideHammer">
+        <i class="hammer-btn" :style="{transform: `translate(${hammerX}px,${hammerY}px)`}" v-if="!hideHammer">
         </i>
-        <i
-            class="ghost1-ct"
-            :style="{transform: `translate(${ghost1.x}px,${ghost1.y}px) `}"
-            @click="beatIt('ghost', 'ghost1')"
-            :class="{beating: isBeating, isWin: ghost1.isWin, filp: !ghost1.direction}"
-            ref="ghost1"
-            v-if="witchs.length > 0">
+        <i class="ghost1-ct" :style="{transform: `translate(${ghost1.x}px,${ghost1.y}px) `}" @click="beatIt('ghost', 'ghost1')" :class="{beating: isBeating, isWin: ghost1.isWin, filp: !ghost1.direction}" ref="ghost1" v-if="witchs.length > 0">
             <p class="prize">+1.0CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
             <i class="star3"></i>
-            <img
-                src="@/assets/img/halloween/monster01.png"
-                :style="{transform: `rotateY(${ghost1.direction ? '0deg' : '180deg'})`}"
-                draggable="false"
-                class="ghost1"
-                v-if="ghost1.animate">
-            <img
-                src="@/assets/img/halloween/monster02.png"
-                :style="{transform: `rotateY(${ghost1.direction ? '0deg' : '180deg'})`}"
-                draggable="false"
-                class="ghost1"
-                v-else>
+            <img src="@/assets/img/halloween/monster01.png" :style="{transform: `rotateY(${ghost1.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-if="ghost1.animate">
+            <img src="@/assets/img/halloween/monster02.png" :style="{transform: `rotateY(${ghost1.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-else>
         </i>
-        <i 
-            class="ghost11-ct"
-            :style="{transform: `translate(${ghost11.x}px,${ghost11.y}px) `}"
-            @click="beatIt('ghost', 'ghost11')"
-            :class="{beating: isBeating, isWin: ghost11.isWin, filp: !ghost11.direction}"
-            ref="ghost11"
-            v-if="witchs.length >= 2">
+        <i class="ghost11-ct" :style="{transform: `translate(${ghost11.x}px,${ghost11.y}px) `}" @click="beatIt('ghost', 'ghost11')" :class="{beating: isBeating, isWin: ghost11.isWin, filp: !ghost11.direction}" ref="ghost11" v-if="witchs.length >= 2">
             <p class="prize">+1.0CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
             <i class="star3"></i>
-            <img
-                src="@/assets/img/halloween/monster01.png"
-                :style="{transform: `rotateY(${ghost11.direction ? '0deg' : '180deg'})`}"
-                draggable="false"
-                class="ghost1"
-                v-if="ghost11.animate">
-            <img
-                src="@/assets/img/halloween/monster02.png"
-                :style="{transform: `rotateY(${ghost11.direction ? '0deg' : '180deg'})`}"
-                draggable="false"
-                class="ghost1"
-                v-else>
+            <img src="@/assets/img/halloween/monster01.png" :style="{transform: `rotateY(${ghost11.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-if="ghost11.animate">
+            <img src="@/assets/img/halloween/monster02.png" :style="{transform: `rotateY(${ghost11.direction ? '0deg' : '180deg'})`}" draggable="false" class="ghost1" v-else>
         </i>
-        <i
-            class="ghost2-ct"
-            @click="beatIt('jackolantern', 'ghost2')"
-            :class="{beating: isBeating, isWin: ghost2.isWin}"
-            ref="ghost2"
-            v-if="spiders.length > 0">
+        <i class="ghost2-ct" @click="beatIt('jackolantern', 'ghost2')" :class="{beating: isBeating, isWin: ghost2.isWin}" ref="ghost2" v-if="spiders.length > 0">
             <p class="prize">+0.5CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -82,12 +32,7 @@
             <img src="@/assets/img/halloween/monster11.png" draggable="false" class="ghost2" v-if="animateStatus <= 2">
             <img src="@/assets/img/halloween/monster12.png" draggable="false" class="ghost2" v-else>
         </i>
-        <i
-            class="ghost21-ct"
-            @click="beatIt('jackolantern', 'ghost21')"
-            :class="{beating: isBeating, isWin: ghost21.isWin}"
-            ref="ghost21"
-            v-if="spiders.length >= 2">
+        <i class="ghost21-ct" @click="beatIt('jackolantern', 'ghost21')" :class="{beating: isBeating, isWin: ghost21.isWin}" ref="ghost21" v-if="spiders.length >= 2">
             <p class="prize">+0.5CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -95,13 +40,7 @@
             <img src="@/assets/img/halloween/monster11.png" draggable="false" class="ghost2" v-if="animateStatus >= 2">
             <img src="@/assets/img/halloween/monster12.png" draggable="false" class="ghost2" v-else>
         </i>
-        <i
-            class="ghost3-ct"
-            @click="beatIt('demon', 'ghost3')"
-            :class="{beating: isBeating, isWin: ghost3.isWin}"
-            :style="{bottom: `${ghost3.bottom}px`}"
-            ref="ghost3"
-            v-if="skulls.length > 0">
+        <i class="ghost3-ct" @click="beatIt('demon', 'ghost3')" :class="{beating: isBeating, isWin: ghost3.isWin}" :style="{bottom: `${ghost3.bottom}px`}" ref="ghost3" v-if="skulls.length > 0">
             <p class="prize">+1.5CC</p>
             <i class="star1"></i>
             <i class="star2"></i>
@@ -166,7 +105,7 @@ export default {
         updateCC (money) {
             let updateMoney = Number(money).toFixed(4)
             if (this.isCCAccount() && !isNaN(Number(updateMoney))) {
-                let data = {...this.currBalance, balance: updateMoney}
+                let data = { ...this.currBalance, balance: updateMoney }
                 this.$store.commit('setCurrBalance', data)
             }
             let userInfo = JSON.parse(JSON.stringify(this.$store.state.userInfo))
@@ -347,7 +286,7 @@ export default {
                 })
             }
         },
-        message (message, callback = () => {}) {
+        message (message, callback = () => { }) {
             Notification({
                 message: message,
                 dangerouslyUseHTMLString: true,
@@ -509,250 +448,277 @@ export default {
 </script>
 
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
+#lucky11 + .game-main {
+  top: 160px;
+}
 .game-main {
-    *{
-        moz-user-select: -moz-none;
-        -moz-user-select: none;
-        -o-user-select:none;
-        -khtml-user-select:none;
-        -webkit-user-select:none;
-        -ms-user-select:none;
-        user-select:none;
+  * {
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  position: fixed;
+  z-index: 999;
+  top: 70px;
+  left: 0;
+  .isWin .prize {
+    display: block;
+    animation: moneyMove 0.8s forwards ease-in;
+    animation-delay: 0.2s;
+  }
+  .star1,
+  .star2,
+  .star3 {
+    display: none;
+  }
+  .isWin {
+    .star1,
+    .star2,
+    .star3 {
+      display: block;
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background: url(../../assets/img/halloween/star.png) no-repeat;
+      background-size: 100% 100%;
+      animation: starFade 0.8s forwards ease-in;
     }
-    position: fixed;
-    z-index: 100000000000000;
-    top: 70px;
-    left: 0;
-    .isWin .prize {
-        display: block;
-        animation: moneyMove 0.8s forwards ease-in;
-        animation-delay: 0.2s;
+  }
+  .ghost1-ct,
+  .ghost11-ct {
+    &.isWin {
+      .star1 {
+        right: 39px;
+        top: 69px;
+        width: 33px !important;
+      }
+      .star2 {
+        left: 63px;
+        bottom: 85px;
+        transform: rotate(30deg);
+      }
+      .star3 {
+        bottom: 61px;
+        right: 71px;
+      }
     }
-    .star1, .star2, .star3 {
-        display: none;
+    &.filp.isWin {
+      .star1 {
+        left: 39px;
+        top: 69px;
+        width: 33px !important;
+      }
+      .star2 {
+        left: 63px;
+        bottom: 65px;
+        transform: rotate(30deg);
+      }
+      .star3 {
+        bottom: 91px;
+        right: 71px;
+      }
     }
-    .isWin {
-        .star1, .star2, .star3 {
-            display: block;
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            background: url(../../assets/img/halloween/star.png) no-repeat;
-            background-size: 100% 100%;
-            animation: starFade 0.8s forwards ease-in;
-        }
+  }
+  .ghost2-ct,
+  .ghost21-ct {
+    &.isWin {
+      .star1 {
+        right: 39px;
+        top: 39px;
+        width: 33px !important;
+      }
+      .star2 {
+        left: 25px;
+        bottom: 85px;
+        transform: rotate(30deg);
+      }
+      .star3 {
+        bottom: 31px;
+        right: 51px;
+      }
     }
-    .ghost1-ct, .ghost11-ct {
-        &.isWin {
-            .star1 {
-                right: 39px;
-                top: 69px;
-                width: 33px !important;
-            }
-            .star2 {
-                left: 63px;
-                bottom: 85px;
-                transform: rotate(30deg)
-            }
-            .star3 {
-                bottom: 61px;
-                right: 71px;
-            }
-        }
-        &.filp.isWin {
-            .star1 {
-                left: 39px;
-                top: 69px;
-                width: 33px !important;
-            }
-            .star2 {
-                left: 63px;
-                bottom: 65px;
-                transform: rotate(30deg)
-            }
-            .star3 {
-                bottom: 91px;
-                right: 71px;
-            }
-        }
-    }
-    .ghost2-ct, .ghost21-ct {
-        &.isWin {
-            .star1 {
-                right: 39px;
-                top: 39px;
-                width: 33px !important;
-            }
-            .star2 {
-                left: 25px;
-                bottom: 85px;
-                transform: rotate(30deg)
-            }
-            .star3 {
-                bottom: 31px;
-                right: 51px;
-            }
-        }
-    }
+  }
 
-    .ghost3-ct{
-        &.isWin {
-            .star1 {
-                right: 0;
-                top: 0;
-                width: 33px !important;
-            }
-            .star2 {
-                left: -40px;
-                bottom: 100px;
-                transform: rotate(30deg)
-            }
-            .star3 {
-                bottom: 0;
-                right: 0;
-            }
-        }
-    }
-    .prize {
-        text-align: center;
-        font-size: 30px;
-        color: #efb811;
-        font-family: sans-eb;
-        display: none;
-    }
-    .music-btn {
-        position: fixed;
-        top: 100px;
-        right: 100px;
-        width: 23px;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAWlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9ZMre9AAAAHXRSTlMAHfcFfGGv6dvWkYczKSIR4bihb1ZPQDkN686pR8NwSlAAAACQSURBVBjTfdFZEoMwDANQ4bATSNm76f7XLNCQpGGm+nzjD1vGmXt+U4jSVWQS2VrwgpPwiyrVp6WkxY5MD1IDHSIjx22qLOhRbSoJSHpsZUbOJkIWSvP5i+i5QiTCgcsFVSlGs4KEOLLBizWyvvRopn3R9ugnWH4WexIah4mwhk3mCqnfcFkeO/4r2ccE7/gAJV0Tm68GtGMAAAAASUVORK5CYII=) no-repeat;
-        height: 20px;
-        cursor: pointer !important;
-    }
-    .close-btn {
-        position: fixed;
-        top: 100px;
-        right: 50px;
-        width: 23px;
-        background: url(../../assets/img/halloween/close.png);
-        height: 23px;
-        cursor: pointer !important;
-        background-size: 100% 100%;
-    }
-    .ghost1-ct, .ghost11-ct, .ghost2-ct, .ghost21-ct, .ghost3-ct {
-        position: relative;
-        cursor: url(../../assets/img/halloween/01.png), auto;
-        &.beating  {
-            cursor: url(../../assets/img/halloween/02.png), auto;
-        }
-    }
-    .ghost1-ct {
-        position: fixed;
-        top: 90px;
-        left: 0%;
-        padding: 50px;
-    }
-
-    .ghost11-ct {
-        position: fixed;
-        top: 300px;
-        left: 0%;
-        padding: 50px;
-    }
-
-    .ghost2-ct {
-        position: fixed;
-        top: -140px;
-        left: 100px;
-        padding: 50px;
-        animation: ghost2Down 10s infinite ease-in-out;
-        animation-delay: 3s;
-    }
-
-    .ghost21-ct {
-        position: fixed;
+  .ghost3-ct {
+    &.isWin {
+      .star1 {
+        right: 0;
         top: 0;
-        right: 100px;
-        padding: 50px;
-        animation: ghost2Down 10s infinite ease-in-out;
-    }
-
-    .ghost3-ct {
-        position: fixed;
-        bottom: 0;
-        left: 0%;
-        animation: ghost3Walk 30s infinite linear;
-    }
-
-    .demo {
-        position: fixed;
+        width: 33px !important;
+      }
+      .star2 {
+        left: -40px;
         bottom: 100px;
-        left: 0%;
-        animation: demoFly 30s infinite linear;
+        transform: rotate(30deg);
+      }
+      .star3 {
+        bottom: 0;
+        right: 0;
+      }
     }
+  }
+  .prize {
+    text-align: center;
+    font-size: 30px;
+    color: #efb811;
+    font-family: sans-eb;
+    display: none;
+  }
+  .music-btn {
+    display: block;
+    width: 36px;
+    height: 36px;
+    cursor: pointer !important;
+    background: url(../../assets/img/halloween/btn-music.png);
+    margin: 10px 0 0 10px;
+    &.pause {
+      background: url(../../assets/img/halloween/btn-music2.png);
+    }
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+  .close-btn {
+    display: block;
+    width: 36px;
+    height: 36px;
+    background: url(../../assets/img/halloween/btn-close.png);
+    cursor: pointer !important;
+    margin: 10px 0 0 10px;
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+  .ghost1-ct,
+  .ghost11-ct,
+  .ghost2-ct,
+  .ghost21-ct,
+  .ghost3-ct {
+    position: relative;
+    cursor: url(../../assets/img/halloween/01.png), auto;
+    &.beating {
+      cursor: url(../../assets/img/halloween/02.png), auto;
+    }
+  }
+  .ghost1-ct {
+    position: fixed;
+    top: 90px;
+    left: 0%;
+    padding: 50px;
+  }
 
-    @keyframes ghost2Down {
-        0%, 100% {
-            transform: translate(0, -200px);
-        }
-        20%, 40%, 60%, 80% {
-            transform: translate(0, 150px);
-        }
-        10%, 30%, 50%, 70%, 90% {
-            transform: translate(0, 200px);
-        }
-    }
+  .ghost11-ct {
+    position: fixed;
+    top: 300px;
+    left: 0%;
+    padding: 50px;
+  }
 
-    @keyframes moneyMove {
-        from {
-            opacity: 1;
-            transform: translate(0, 0)
-        }
-        to {
-            opacity: 0;
-            transform: translate(0, -100px)
-        }
-    }
+  .ghost2-ct {
+    position: fixed;
+    top: -140px;
+    left: 100px;
+    padding: 50px;
+    animation: ghost2Down 10s infinite ease-in-out;
+    animation-delay: 3s;
+  }
 
-    @keyframes starFade {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
+  .ghost21-ct {
+    position: fixed;
+    top: 0;
+    right: 100px;
+    padding: 50px;
+    animation: ghost2Down 10s infinite ease-in-out;
+  }
 
-    @keyframes ghost3Walk {
-        0% {
-            transform: translate(-200px, 0);
-            img {
-                transform: rotateY(0deg);
-            }
-        }
-        50% {
-            transform: translate(2000px, 0);
-        }
-        51%{
-            transform: translate(2000px, 0);
-            img {
-                transform: rotateY(180deg);
-            }
-        }
-        100% {
-            transform: translate(-200px, 0);
-            img {
-                transform: rotateY(180deg);
-            }
-        }
+  .ghost3-ct {
+    position: fixed;
+    bottom: 0;
+    left: 0%;
+    animation: ghost3Walk 30s infinite linear;
+  }
+
+  .demo {
+    position: fixed;
+    bottom: 100px;
+    left: 0%;
+    animation: demoFly 30s infinite linear;
+  }
+
+  @keyframes ghost2Down {
+    0%,
+    100% {
+      transform: translate(0, -200px);
     }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translate(0, 150px);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translate(0, 200px);
+    }
+  }
+
+  @keyframes moneyMove {
+    from {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(0, -100px);
+    }
+  }
+
+  @keyframes starFade {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes ghost3Walk {
+    0% {
+      transform: translate(-200px, 0);
+      img {
+        transform: rotateY(0deg);
+      }
+    }
+    50% {
+      transform: translate(2000px, 0);
+    }
+    51% {
+      transform: translate(2000px, 0);
+      img {
+        transform: rotateY(180deg);
+      }
+    }
+    100% {
+      transform: translate(-200px, 0);
+      img {
+        transform: rotateY(180deg);
+      }
+    }
+  }
 }
 </style>
 <style>
 .halloween-msg {
-    background: url(../../assets/img/halloween/messageBox.png) no-repeat;
-    background-size: 100% 100%;
-    cursor: pointer;
+  background: url(../../assets/img/halloween/messageBox.png) no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
 </style>
