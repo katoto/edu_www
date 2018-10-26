@@ -229,6 +229,7 @@ export default {
             this.isShowChat = !this.isShowChat
         },
         myMsgInput () {
+            this.myMsg = this.myMsg.replace(/\n|\r/g,'')
             if (this.getByteLen(this.myMsg) > this.vipChatLen) this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 2)
         },
         controlSpeak (val = '24') {
