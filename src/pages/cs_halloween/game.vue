@@ -277,7 +277,7 @@ export default {
                 path = 'luckycoin'
             }
             if (scene) {
-                this.message(`当前${scene}战场有怪，点击立即前往！`, () => {
+                this.message(_(this.$lang.halloween.a2, _('LuckyPoker')), () => {
                     this.$router.push({
                         path: `/${path}`
                     }, () => {
@@ -286,12 +286,21 @@ export default {
                 })
             }
         },
+        test () {
+            this.message(_(this.$lang.halloween.a2, _('LuckyPoker')), () => {
+                this.$router.push({
+                    path: `/${path}`
+                }, () => {
+                    this.jumpToOtherScene = true
+                })
+            })
+        },
         message (message, callback = () => { }) {
             Notification({
                 message: message,
                 dangerouslyUseHTMLString: true,
                 position: 'bottom-left',
-                duration: 5000,
+                duration: 1000000,
                 customClass: 'halloween-msg',
                 onClick: callback,
                 showClose: false
@@ -323,7 +332,7 @@ export default {
                     this.currentData = res.data
                     if (this.jumpToOtherScene) {
                         if (this.isNoGhost()) {
-                            this.message('您来晚了一步，妖怪已被消灭！')
+                            this.message(this.$lang.halloween.a1)
                             if (!this.isAllNoGhost()) {
                                 setTimeout(() => this.goToOtherScene(), 1000)
                             }
@@ -369,6 +378,7 @@ export default {
         }
     },
     mounted () {
+        this.test()
         this.$nextTick(() => {
             this.gameWidth = window.document.body.clientWidth
             this.gameHeight = window.document.body.clientHeight
@@ -643,13 +653,6 @@ export default {
     animation: ghost3Walk 30s infinite linear;
   }
 
-  .demo {
-    position: fixed;
-    bottom: 100px;
-    left: 0%;
-    animation: demoFly 30s infinite linear;
-  }
-
   @keyframes ghost2Down {
     0%,
     100% {
@@ -715,10 +718,31 @@ export default {
   }
 }
 </style>
-<style>
+<style lang="less"  type="text/less">
 .halloween-msg {
+  box-sizing: border-box;
+  width: 270px;
+  padding: 25px 17px;
+  text-align: left;
+  color: #ffffff;
+  font-weight: bold;
   background: url(../../assets/img/halloween/messageBox.png) no-repeat;
-  background-size: 100% 100%;
-  cursor: pointer;
+  .el-notification__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .go-now {
+    height: 22px;
+    padding: 0 13px;
+    border-radius: 6px;
+    background: #f66400;
+    color: #fff;
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
 }
 </style>
