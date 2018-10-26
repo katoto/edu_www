@@ -51,55 +51,57 @@
                 <ul>
                     <template v-if="userInfo && userInfo.is_im_admin === 'True'">
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
-                            <div>
-                                <div class="user_shortName" @click="controlRoom(item)" v-if="item.content.username">
-                                    {{ item.content.username.slice(0,2).toUpperCase() }}
-                                </div>
-                                <div class="user_view">
-                                    <div class="user_row1">
-                                        <p class="user_name" v-if="item.content.username">
-                                            {{ formateEmail(item.content.username,true) }}
-                                        </p>
-                                        <p v-else>
-                                            {{ $lang.chat.a10 }}
-                                        </p>
-                                        <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
-                                            admin
-                                        </span>
-                                        <span class="user_time" v-if="item.content.username">
-                                            {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
-                                        </span>
-                                    </div>
-                                    <p class="user_msg" v-html="item.content.msg.httpParse()">
+                            <div class="user_shortName" @click="controlRoom(item)" v-if="item.content.username">
+                                {{ item.content.username.slice(0,2).toUpperCase() }}
+                            </div>
+                            <div class="user_view">
+                                <div class="user_row1">
+                                    <p class="user_name" v-if="item.content.username">
+                                        {{ formateEmail(item.content.username,true) }}
                                     </p>
+                                    <p v-else>
+                                        {{ $lang.chat.a10 }}
+                                    </p>
+                                    <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                        admin
+                                    </span>
+                                    <span class="user_time" v-if="item.content.username">
+                                        {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
+                                    </span>
                                 </div>
+                                <p class="user_msg" v-html="item.content.msg.httpParse()">
+                                </p>
                             </div>
                         </li>
                     </template>
                     <template v-else>
                         <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
-                            <div>
-                                <div class="user_shortName" v-if="item.content.username">
-                                    {{ item.content.username.slice(0,2).toUpperCase() }}
-                                </div>
-                                <div class="user_view">
-                                    <div class="user_row1">
-                                        <p class="user_name" v-if="item.content.username">
-                                            {{ formateEmail(item.content.username,true) }}
-                                        </p>
-                                        <p v-else>
-                                            {{ $lang.chat.a10 }}
-                                        </p>
-                                        <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
-                                            admin
-                                        </span>
-                                        <span class="user_time" v-if="item.content.username">
-                                            {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
-                                        </span>
-                                    </div>
-                                    <p class="user_msg" v-text="item.content.msg.httpParse()">
+                            <div class="user_shortName" v-if="item.content.username">
+                                {{ item.content.username.slice(0,2).toUpperCase() }}
+                            </div>
+                            <div class="user_view">
+                                <div class="user_row1">
+                                    <p class="user_name" v-if="item.content.username">
+                                        {{ formateEmail(item.content.username,true) }}
                                     </p>
+                                    <p v-else>
+                                        {{ $lang.chat.a10 }}
+                                    </p>
+                                    <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                        admin
+                                    </span>
+                                    <span class="user_time" v-if="item.content.username">
+                                        {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
+                                    </span>
                                 </div>
+                                <p class="user_msg" v-text="item.content.msg.httpParse()">
+                                </p>
+                                <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                    admin
+                                </span>
+                                <span class="user_time" v-if="item.content.username">
+                                    {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
+                                </span>
                             </div>
                         </li>
                     </template>
@@ -856,10 +858,10 @@ export default {
   }
   .chat_room_main {
     .link {
-      color: #fd9644;
+      color: #fd9644 !important;
       &:hover {
         filter: brightness(1.2);
-        color: #fd9644;
+        color: #fd9644 !important;
       }
     }
   }
