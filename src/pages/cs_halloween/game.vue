@@ -188,7 +188,7 @@ export default {
             this.$store.commit('setUserInfo', userInfo)
         },
         playMusic () {
-            this.loadMusic.then(() => {
+            !this.isPause && this.loadMusic.then(() => {
                 let musicObj = this.$refs.musicObj
                 musicObj.currentTime = 0
                 this.$refs.musicObj.volume = 0.5
@@ -319,17 +319,17 @@ export default {
 
                         setTimeout(() => {
                             this[ghostRefName] = null
+                            if (this.isAllNoGhost()) {
+                                this.message('妖怪已被消灭完，请稍后再来')
+                                return
+                            }
+                            if (this.isNoGhost()) {
+                                this.goToOtherScene()
+                            }
                         }, 1000)
                         setTimeout(() => {
                             this.createMonster(ghostRefName)
                         }, 3000)
-                        if (this.isAllNoGhost()) {
-                            this.message('妖怪已被消灭完，请稍后再来')
-                            return
-                        }
-                        if (this.isNoGhost()) {
-                            this.goToOtherScene()
-                        }
                     }
                 }).catch(err => {
                     this.message(err.message)
@@ -408,6 +408,7 @@ export default {
             if (this.spiders.length > 0) {
                 this.createMonster('ghost2')
                 this.createMonster('ghost21')
+            } else {
                 this.ghost2 = null
                 this.ghost21 = null
             }
@@ -420,18 +421,20 @@ export default {
             }
             this.currentData = {...data}
             this.currentData[this.scene] = [...this.currentData[this.scene].filter(item => {
-                return item.monster_id !== this.ghost1.monsterId &&
-                        item.monster_id !== this.ghost11.monsterId &&
-                        item.monster_id !== this.ghost2.monsterId &&
-                        item.monster_id !== this.ghost21.monsterId &&
-                        item.monster_id !== this.ghost3.monsterId
+                return item.monster_id !== (this.ghost1 && this.ghost1.monsterId) &&
+                        item.monster_id !== (this.ghost11 && this.ghost11.monsterId) &&
+                        item.monster_id !== (this.ghost2 && this.ghost2.monsterId) &&
+                        item.monster_id !== (this.ghost21 && this.ghost21.monsterId) &&
+                        item.monster_id !== (this.ghost3 && this.ghost3.monsterId)
             })]
             let arr = ['ghost1', 'ghost12', 'ghost2', 'ghost21', 'ghost3']
             arr.forEach(name => {
-                if (data[this.scene].filter(monster => monster.monster_id === this[name].monsterId).length === 0) {
-                    console.log(`怪物${name},id :${this[name].monsterId}已移除到其他场景`)
-                    this[name] = null
-                    this.createMonster(name)
+                if (data[this.scene].filter(monster => monster.monster_id === (this[name] && this[name].monsterId)).length === 0) {
+                    if (this[name]) {
+                        console.log(`怪物${name},id :${this[name].monsterId}已移除到其他场景`)
+                        this[name] = null
+                        this.createMonster(name)
+                    }
                 }
             })
         },
