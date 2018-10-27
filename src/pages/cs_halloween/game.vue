@@ -245,6 +245,10 @@ export default {
                 clearTimeout(this.animateTimer)
                 this.animateTimer = null
             }
+            if (this.timer) {
+                clearInterval(this.timer)
+                this.timer = null
+            }
             this.startAnimate()
             this.timer = setInterval(() => {
                 this.animateStatus += 1
