@@ -744,9 +744,9 @@ export default {
   .ghost21-ct,
   .ghost3-ct {
     position: relative;
-    cursor: url(../../assets/img/halloween/01.png), auto;
+    cursor: url(../../assets/img/halloween/01.ico), auto;
     &.beating {
-      cursor: url(../../assets/img/halloween/02.png), auto;
+      cursor: url(../../assets/img/halloween/02.ico), auto;
     }
   }
   .ghost1-ct {
