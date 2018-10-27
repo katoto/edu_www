@@ -477,6 +477,11 @@ export default {
                 this.getGhosts().then(res => {
                     if (this.isNoGhost()) {
                         this.message(this.$lang.halloween.a1)
+                        if (!this.isAllNoGhost()) {
+                            setTimeout(() => {
+                                this.goToOtherScene()
+                            }, 1000)
+                        }
                     }
                 })
             })
