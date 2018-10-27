@@ -190,8 +190,12 @@ export default {
         playMusic () {
             !this.isPause && this.loadMusic.then(() => {
                 let musicObj = this.$refs.musicObj
-                musicObj.currentTime = 0
-                this.$refs.musicObj.volume = 0.5
+                try {
+                    musicObj.currentTime = 0
+                    this.$refs.musicObj.volume = 0.5
+                } catch (e) {
+                    // IE 会报错
+                }
                 musicObj.play && musicObj.play()
             })
         },
