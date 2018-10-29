@@ -234,27 +234,21 @@ export default {
             } else {
                 confirmMsg = this.banforever ? '确定永久禁言？' : '解除永久禁言？'
             }
+            if (this.controlRoomMsg.content.is_im_admin === 'True') {
+                // 管理员
+                val === '24' ? this.ban24 = !this.ban24 : this.banforever = !this.banforever
+                this.$error('都是管理员请不要互相伤害~')
+                return false
+            }
             let isconfirm = confirm(confirmMsg)
             if (!isconfirm) {
                 val === '24' ? this.ban24 = !this.ban24 : this.banforever = !this.banforever
                 return false
             }
             if (val === '24') {
-                if (this.ban24) {
-                    this.noSpeak('24')
-                } else {
-                    this.breakSpeak('24')
-                    this.breakSpeak('-1')
-                    this.banforever = false
-                }
+                this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
             } else {
-                if (this.banforever) {
-                    this.noSpeak('-1')
-                    this.noSpeak('24')
-                    this.ban24 = true
-                } else {
-                    this.breakSpeak('-1')
-                }
+                this.banforever ? this.noSpeak('-1') : this.breakSpeak('-1')
             }
         },
         async noSpeak (val) {
@@ -327,13 +321,6 @@ export default {
                 // null 是无禁言状态
                 this.ban24 = msgback.data.block_24h !== null
                 this.banforever = msgback.data.block_permanent === 'True'
-                if (msgback.data.block_permanent === 'True') {
-                    // 永久禁言
-                    this.ban24 = true
-                } else if (msgback.data.block_24h === null) {
-                    // 取消24小时
-                    this.banforever = false
-                }
                 this.isShowChatAdmin = true
                 this.checkOneMsgArr = msgback.data.recent_message
             }
