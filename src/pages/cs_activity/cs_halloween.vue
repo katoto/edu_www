@@ -261,6 +261,7 @@ export default {
     color: #8765ff;
     .title {
       margin-bottom: 20px;
+      line-height: 190px;
     }
   }
 }
