@@ -130,9 +130,9 @@ export default {
       center;
     margin: 0 auto;
     text-align: center;
-    line-height: 230px;
+    line-height: 220px;
     font-size: 32px;
-    color: #8765ff;
+    color: #42afee;
     font-weight: bold;
   }
   .main {
@@ -142,7 +142,7 @@ export default {
     background-size: 1920px;
   }
   .banner {
-    height: 534px;
+    height: 440px;
     text-align: center;
     color: #fff;
     font-family: sans-eb;
@@ -178,14 +178,14 @@ export default {
       overflow: hidden;
       line-height: 60px;
       font-size: 24px;
-      color: #8765ff;
+      color: #42afee;
       font-weight: bold;
     }
     .guidance_m {
       height: 32px;
       line-height: 32px;
       font-size: 16px;
-      color: #8765ff;
+      color: #42afee;
       i {
         font-size: 20px;
         color: #ffaf24;
@@ -258,10 +258,10 @@ export default {
     word-wrap: break-word;
     line-height: 28px;
     font-size: 16px;
-    color: #8765ff;
+    color: #42afee;
     .title {
       margin-bottom: 20px;
-      line-height: 190px;
+      line-height: 220px;
     }
   }
 }
