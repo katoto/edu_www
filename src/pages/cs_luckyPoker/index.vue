@@ -1266,14 +1266,13 @@ export default {
           }
           i {
             display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             width: percentage(18/217);
             img {
-              position: absolute;
               width: 100%;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
             }
           }
         }
@@ -1316,17 +1315,20 @@ export default {
       }
       li {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         float: left;
         width: 25%;
         overflow: hidden;
         background-color: #386363;
         cursor: pointer;
         img {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          display: block;
+          //   position: absolute;
+          //   left: 50%;
+          //   top: 50%;
+          //   transform: translate(-50%, -50%);
+          //   display: block;
         }
         &:first-child,
         &:nth-child(3) {
