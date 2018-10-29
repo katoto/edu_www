@@ -1,21 +1,20 @@
-import ajax, {sockURL} from '~common/ajax'
-import {tipsTime, removeCK, isLog, getCK} from '~common/util'
-import {Message} from 'element-ui'
-import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-import {actionTypes} from '~/store/cs_page/cs_tiger'
+import ajax, { sockURL } from '~common/ajax'
+import { removeCK, isLog, getCK } from '~common/util'
+import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
+import { actionTypes } from '~/store/cs_page/cs_tiger'
 
 function combimeStore (store, newStore) {
     return {
-        state: {...store.state, ...newStore.state},
-        mutations: {...store.mutations, ...newStore.mutations},
-        actions: {...store.actions, ...newStore.actions},
-        getters: {...store.getters, ...newStore.getters}
+        state: { ...store.state, ...newStore.state },
+        mutations: { ...store.mutations, ...newStore.mutations },
+        actions: { ...store.actions, ...newStore.actions },
+        getters: { ...store.getters, ...newStore.getters }
     }
 }
 
 // 获取所有 cs_common 文件的 state getters mutations actions 注入到global
 const csCommon = require.context('~store/cs_common', true, /\.js$/)
-let common = {state: {}, mutations: {}, getters: {}, actions: {}}
+let common = { state: {}, mutations: {}, getters: {}, actions: {} }
 csCommon.keys().forEach(function (commonPath) {
     common = combimeStore(common, csCommon(commonPath).default)
 })
@@ -62,7 +61,7 @@ const mutations = {
     setIsLog (state, msg) {
         state.isLog = msg
     },
-    initSocket (state, {sock, interval}) {
+    initSocket (state, { sock, interval }) {
         state.socket.sock = sock
         state.socket.interval = interval
     },
@@ -76,7 +75,7 @@ const actions = {
         return ajax.get('/activity/center')
     },
     // 广告图
-    async adList ({state, commit, dispatch}) {
+    async adList ({ state, commit, dispatch }) {
         try {
             let adMsg = await ajax.get(`/ad/list`)
             if (adMsg.status.toString() === '100') {
@@ -89,7 +88,7 @@ const actions = {
         }
     },
     /* home info */
-    async homeInfo ({state, commit, dispatch}) {
+    async homeInfo ({ state, commit, dispatch }) {
         try {
             let homeMsg = await ajax.get(`/home/info`)
             if (homeMsg.ip_status !== undefined || homeMsg.ip_status !== null) {
@@ -111,16 +110,12 @@ const actions = {
             }
             return homeMsg
         } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+            this.$error(e.message)
         }
     },
 
     /* user info */
-    async getUserInfo ({state, commit, dispatch}) {
+    async getUserInfo ({ state, commit, dispatch }) {
         try {
             let userMsg = null
             if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
@@ -188,7 +183,7 @@ const actions = {
     },
 
     /* websocket */
-    initWebsocket ({commit, state, dispatch}, fn) {
+    initWebsocket ({ commit, state, dispatch }, fn) {
         return new Promise((resolve, reject) => {
             let sock = new WebSocket(`${sockURL}`)
             let interval = null
@@ -233,8 +228,8 @@ const actions = {
                                     dispatch(aTypes.formate_expectid, msg.content.expectid)
                                 }
                                 /*
-                                    *  处理 区块链阻塞
-                                    * */
+                                                        *  处理 区块链阻塞
+                                                        * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {
@@ -245,11 +240,7 @@ const actions = {
                                         }
                                     } else if (msg.content.block_status.toString() === '0') {
                                         // 不健康  添加unable
-                                        Message({
-                                            message: _('The network is blocking, please retry later'),
-                                            type: 'error',
-                                            duration: tipsTime
-                                        })
+                                        this.$error(_('The network is blocking, please retry later'))
                                         jsStartBetBtn.className = 'btn-play-now unable'
                                     }
                                 }
@@ -350,7 +341,7 @@ const actions = {
                 sock.send(JSON.stringify({
                     action: 'ping'
                 }))
-                commit('initSocket', {sock, interval})
+                commit('initSocket', { sock, interval })
                 flag = 1
                 if (hasFinished) return
                 hasFinished = true
@@ -379,10 +370,10 @@ const actions = {
                 error.code = '103'
                 reject(error)
             }, 15000)
-            commit('initSocket', {sock, interval})
+            commit('initSocket', { sock, interval })
         })
     },
-    sub2out ({commit, state}) {
+    sub2out ({ commit, state }) {
         let sub2outStr = null
         try {
             sub2outStr = {
@@ -395,7 +386,7 @@ const actions = {
         }
         removeCK()
     },
-    sub2In ({commit, state, dispatch}) {
+    sub2In ({ commit, state, dispatch }) {
         let sub2InStr = null
         try {
             if (isLog && isLog()) {
@@ -409,7 +400,7 @@ const actions = {
             console.error(e.message)
         }
     },
-    subInMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1, chatroomId = '-1'}) {
+    subInMsg ({ commit, state, dispatch }, { type = 'dice', lotid = -1, chatroomId = '-1' }) {
         //  1 slots  老虎机  2 ( lottery lotdi 2 ) LuckyCoin  3 dice 4 ( lottery lotdi 1 ) lucky11
         let data = {
             action: 'sub',
@@ -422,11 +413,11 @@ const actions = {
             state.socket.sock && state.socket.sock.send(JSON.stringify(data))
         } catch (e) {
             setTimeout(() => {
-                dispatch('subInMsg', {type, lotid})
+                dispatch('subInMsg', { type, lotid })
             }, 100)
         }
     },
-    subOutMsg ({commit, state, dispatch}, {type = 'dice', lotid = -1, chatroomId = '-1'}) {
+    subOutMsg ({ commit, state, dispatch }, { type = 'dice', lotid = -1, chatroomId = '-1' }) {
         /* 页面 解订阅 */
         try {
             let unsubLuckyStr = {
@@ -440,7 +431,7 @@ const actions = {
             console.error(e.message + type + ' error')
         }
     },
-    sendchatMsg ({commit, state, dispatch}, msgObj) {
+    sendchatMsg ({ commit, state, dispatch }, msgObj) {
         try {
             state.socket.sock && state.socket.sock.send(JSON.stringify(msgObj))
         } catch (e) {
