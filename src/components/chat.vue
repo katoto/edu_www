@@ -235,7 +235,11 @@ export default {
                 confirmMsg = this.banforever ? '确定永久禁言？' : '解除永久禁言？'
             }
             let isconfirm = confirm(confirmMsg)
-            if (!isconfirm) return false
+            if (!isconfirm) {
+                val === '24' ? this.ban24 = !this.ban24 : this.banforever = !this.banforever
+                return false
+            }
+            console.log('==========')
             if (val === '24') {
                 this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
             } else {

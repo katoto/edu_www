@@ -535,7 +535,6 @@ import PlayArea from '~pages/cs_1105/PlayArea.vue'
 import H5PlayArea from '~pages/cs_1105/H5PlayArea.vue'
 import Footer from '~components/Footer.vue'
 import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
-import { Message } from 'element-ui'
 import {
     formateCoinType,
     formatMatch,
@@ -694,7 +693,6 @@ export default {
             if (~jsStartBetBtn.className.indexOf('unable')) {
                 return false
             }
-
             // 未登录 的情况
             if (!this.isLog) {
                 this.$store.commit('showLoginPop')
@@ -706,22 +704,15 @@ export default {
                 return false
             }
             // 判断 余额是否足
-            if (
-                parseFloat(this.currBalance.balance) < parseFloat(this.totalPay)
-            ) {
-                Message({
-                    message: _('Your balance is insufficient, please top up'),
-                    type: 'error'
-                })
+            if (parseFloat(this.currBalance.balance) < parseFloat(this.totalPay)) {
+                this.$error(_('Your balance is insufficient, please top up'))
                 setTimeout(() => {
                     this.$router.push('/account/deposit')
                 }, 3000)
                 return false
             }
-
             // 出现loading
             document.getElementById('jsLoading').style.display = 'block'
-
             // 选号是否完成
             if (this.playArea) {
                 let noComplete = []
@@ -810,13 +801,7 @@ export default {
                     }
                     document.getElementById('jsLoading').style.display = 'none'
                 } else {
-                    Message({
-                        message: _(
-                            'Please pick correct numbers in {0}',
-                            noComplete.join(' && ')
-                        ),
-                        type: 'error'
-                    })
+                    this.$error(_('Please pick correct numbers in {0}', noComplete.join(' && ')))
                     // 震动 报错
                     // js_playArea-li
                     noCompleteIndex.forEach((val, index) => {
@@ -865,10 +850,7 @@ export default {
                     ...this.baseAreaMsg
                 })
             } else {
-                Message({
-                    message: _('No more than 5 tickets'),
-                    type: 'error'
-                })
+                this.$error(_('No more than 5 tickets'))
             }
         },
         fixNav () {
@@ -975,10 +957,7 @@ export default {
                             this.$store.dispatch('getUserInfo')
                             this.$store.commit('showRegSuccess')
                         } else {
-                            Message({
-                                message: mailBack.message,
-                                type: 'error'
-                            })
+                            this.$error(mailBack.message)
                         }
                     }
                     this.$router.push('')
