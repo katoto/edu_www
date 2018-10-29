@@ -239,7 +239,6 @@ export default {
                 val === '24' ? this.ban24 = !this.ban24 : this.banforever = !this.banforever
                 return false
             }
-            console.log('==========')
             if (val === '24') {
                 this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
             } else {
