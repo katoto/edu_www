@@ -137,9 +137,6 @@ export default {
         background: #2a1236 url("../../assets/img/luckyCoin/bg-page.jpg")
             no-repeat center top;
         background-size: 1920px;
-        &.halloween {
-            background: url("../../assets/img/halloween/bg.jpg") no-repeat #162222;
-        }
     }
     .red {
         color: #ff5b4a;

@@ -1,8 +1,8 @@
 let en = {
     a1: "You're late. Ghosts were hunted by other users",
     a2: 'Hunting ghost in {0} now <a  href="javascript:;" class="go-now">Go</a>',
-    a3: '',
-    a4: '',
+    a3: 'Beating the ghost to win CC reward',
+    a4: 'Promo-Halloween',
     a5: '',
     a6: '',
     a7: '',
@@ -104,8 +104,8 @@ let en = {
 let zhCn = {
     a1: '您来晚了一步，妖怪已被消灭！',
     a2: '当前{0}战场有怪，点击<a href="javascript:;" class="go-now">立即前往</a>',
-    a3: '',
-    a4: '',
+    a3: '当您见到妖怪时，仅需敲击它即可获赠CC币',
+    a4: '万圣节活动送',
     a5: '',
     a6: '',
     a7: '',
@@ -205,10 +205,10 @@ let zhCn = {
 }
 
 let zhTw = {
-    a1: '您来晚了一步，妖怪已被消灭！',
-    a2: '当前{0}战场有怪，点击<a  href="javascript:;" class="go-now">立即前往</a>',
-    a3: '',
-    a4: '',
+    a1: '您來晚了一步，妖怪已被消滅！',
+    a2: '當前{0}戰場有怪，點擊<a href="javascript:;" class="go-now">立即前往</a>',
+    a3: '當您見到妖怪時，僅需敲擊它即可獲贈CC幣',
+    a4: '萬聖節活動送',
     a5: '',
     a6: '',
     a7: '',

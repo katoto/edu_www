@@ -2575,9 +2575,6 @@ export default {
         .luckyPoker{
             background:#1b262c url("../../assets/img/luckyPoker/bg-pc.jpg") no-repeat center top;
             background-size: 1920px;
-            &.halloween {
-                background: url("../../assets/img/halloween/bg.jpg") no-repeat #162222;
-            }
             .main{
                 position: relative;
                 width: 1107px;

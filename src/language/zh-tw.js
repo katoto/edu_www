@@ -842,6 +842,8 @@ module.exports = {
     'SuperCoin': '超級奪幣',
     'Win 10 ETH Prize Pool Every 2 Hours': '每2小時贏取10ETH',
     'Insufficient ETH': 'ETH餘額不足',
-    'The blockchain-based gaming platform': '區塊鏈博彩平臺'
+    'The blockchain-based gaming platform': '區塊鏈博彩平臺',
     /* super coin end */
+    'Promo-Halloween': '萬聖節活動送',
+    'You have not verified your email, please verify first': '您尚未驗證郵箱，請先驗證'
 }
