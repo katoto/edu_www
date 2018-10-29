@@ -3,90 +3,101 @@
         <Header></Header>
         <div class="main">
             <div class="banner">
-                <h1>
-                    Halloween
+                <h1 v-html="$lang.halloween.a5">
                 </h1>
-                <h2>
-                    Ghost Hunting
-                </h2>
                 <h3>
-                    Free CC for every beating of the ghost
+                    {{this.$lang.halloween.a6}}
                 </h3>
             </div>
             <div class="modules_guidance">
                 <div class="title">
-                    Hunting Guidance
+                    {{this.$lang.halloween.a8}}
                 </div>
                 <ul>
                     <li class="poker">
                         <p class="guidance_t">
-                            Skeleton
+                            {{this.$lang.halloween.a9}}
                         </p>
                         <p class="guidance_m">
-                            beating Times <i>30</i>
+                            {{this.$lang.halloween.a12}} <i>30</i>
                         </p>
-                        <p class="guidance_m">
-                            Reward / Beating <i>1.5CC</i>
+                        <p class="guidance_m" v-if="$isEn()">
+                            <i>1.5CC</i> {{this.$lang.halloween.a13}}
+                        </p>
+                        <p class="guidance_m" v-else>
+                            {{this.$lang.halloween.a13}} <i>1.5CC</i>
                         </p>
                         <div class="img"></div>
-                        <a href="javascript:;" class="btn">Poker</a>
+                        <router-link :to="{path: '/luckyPoker/'}" active-class="on" class="btn">
+                            {{$lang.poker.a39}}
+                        </router-link>
                     </li>
                     <li class="lucky11">
                         <p class="guidance_t">
-                            Witch
+                            {{this.$lang.halloween.a10}}
                         </p>
                         <p class="guidance_m">
-                            Beating Times <i>30</i>
+                            {{this.$lang.halloween.a12}} <i>20</i>
                         </p>
-                        <p class="guidance_m">
-                            Reward / Beating <i>1.5CC</i>
+                        <p class="guidance_m" v-if="$isEn()">
+                            <i>1.0CC</i> {{this.$lang.halloween.a13}}
+                        </p>
+                        <p class="guidance_m" v-else>
+                            {{this.$lang.halloween.a13}} <i>1.0CC</i>
                         </p>
                         <div class="img"></div>
-                        <a href="javascript:;" class="btn">Lucky11</a>
+                        <router-link :to="{path: '/lucky11/'}" active-class="on" class="btn">
+                            {{$lang.risk.a38}}
+                        </router-link>
                     </li>
                     <li class="luckyCoin">
                         <p class="guidance_t">
-                            Skeleton
+                            {{this.$lang.halloween.a11}}
                         </p>
                         <p class="guidance_m">
-                            beating Times <i>30</i>
+                            {{this.$lang.halloween.a12}} <i>10</i>
                         </p>
-                        <p class="guidance_m">
-                            Reward / Beating <i>1.5CC</i>
+                        <p class="guidance_m" v-if="$isEn()">
+                            <i>0.5CC</i> {{this.$lang.halloween.a13}}
+                        </p>
+                        <p class="guidance_m" v-else>
+                            {{this.$lang.halloween.a13}} <i>0.5CC</i>
                         </p>
                         <div class="img"></div>
-                        <a href="javascript:;" class="btn">LuclyCoin</a>
+                        <router-link :to="{path: '/luckycoin/'}" active-class="on" class="btn">
+                            {{$lang.risk.a37}}
+                        </router-link>
                     </li>
                 </ul>
             </div>
             <div class="modules_rule">
                 <div class="title">
-                    Rules
+                    {{this.$lang.halloween.a14}}
                 </div>
                 <ul>
                     <li>
                         <p>
-                            1. Time: 2018-10-30 00:00 ~ 2018-11-3 23:59 GMT
+                            {{this.$lang.halloween.a15}}
                         </p>
                     </li>
                     <li>
                         <p>
-                            2. Eligible Participants: All the users registered on Coinsprize
+                            {{this.$lang.halloween.a16}}
                         </p>
                     </li>
                     <li>
                         <p>
-                            3. Participation: Click little pumkin on the page to turn on the hunting mode. Beating it hard when you see the ghost, and every beating comes with CC reward. All the reward will be recorded in My Transactions.
+                            {{this.$lang.halloween.a17}}
                         </p>
                     </li>
                     <li>
                         <p>
-                            4. The system will generate 1-3 ghost each munite, so you may encounter couples of ghost at one time or none(if the hunting field was cleared by other users). Have fun with your hunting.
+                            {{this.$lang.halloween.a18}}
                         </p>
                     </li>
                     <li>
                         <p>
-                            5. About CC: CC is free for users to experience our games. For more details a ter > Coin-Coin(CC).
+                            {{this.$lang.halloween.a19}} <router-link :to="{path: '/help/helpView/0/1/'}">{{$lang.halloween.a20}}</router-link>
                         </p>
                     </li>
                 </ul>
@@ -254,7 +265,6 @@ export default {
   .modules_rule {
     width: 910px;
     margin: 47px auto 160px;
-    word-break: break-all;
     word-wrap: break-word;
     line-height: 28px;
     font-size: 16px;
