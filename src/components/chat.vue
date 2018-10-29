@@ -692,6 +692,7 @@ export default {
       .user_view {
         overflow: hidden;
       }
+
       .user_row1 {
         display: flex;
         margin: 1px 0 2px 0;
@@ -721,13 +722,6 @@ export default {
         color: #fff;
         word-wrap: break-word;
         word-break: break-all;
-        a {
-          color: #fd9644;
-          &:hover {
-            color: currentColor;
-            filter: brightness(1.1);
-          }
-        }
       }
     }
     .chat_room_foot {
@@ -855,15 +849,6 @@ export default {
     height: 100%;
     overflow: hidden;
     #app > div:first-child {
-    }
-  }
-  .chat_room_main {
-    .link {
-      color: #fd9644 !important;
-      &:hover {
-        filter: brightness(1.2);
-        color: #fd9644 !important;
-      }
     }
   }
 }
