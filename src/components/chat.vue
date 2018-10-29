@@ -94,14 +94,8 @@
                                         {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
                                     </span>
                                 </div>
-                                <p class="user_msg" v-text="item.content.msg.httpParse()">
+                                <p class="user_msg" v-html="item.content.msg.httpParse()">
                                 </p>
-                                <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
-                                    admin
-                                </span>
-                                <span class="user_time" v-if="item.content.username">
-                                    {{ formatTime(item.content.msg_time, 'HH:mm AMPM') }}
-                                </span>
                             </div>
                         </li>
                     </template>
