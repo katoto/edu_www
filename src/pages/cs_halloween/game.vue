@@ -551,7 +551,7 @@ export default {
             } catch (e) {}
             return res
         })
-
+        document.ondragstart = function () { return false }
         window.addEventListener('scroll', this.onScroll)
         setTimeout(() => {
             this.onScroll()
@@ -638,6 +638,8 @@ export default {
     },
     destroyed () {
         this.closeGame()
+        window.removeEventListener('scroll', this.onScroll)
+        document.ondragstart = null
     }
 }
 </script>
