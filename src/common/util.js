@@ -2,10 +2,6 @@
  *  相关的工具函数
  */
 
-import {
-    Message
-} from 'element-ui'
-
 export const src = 'pc'
 export const tipsTime = 2000
 export const ethUrl = 'https://etherscan.io/'
@@ -414,27 +410,17 @@ export function commonErrorHandler (data) {
         removeCK()
         break
     default:
-        Message({
-            message: data.message,
-            type: 'error',
-            duration: tipsTime
-        })
+        this.$error(data.message)
         break
     }
 }
 
 export function copySucc () {
-    Message({
-        message: _('Copied to clipboard'),
-        type: 'success'
-    })
+    this.$success(_('Copied to clipboard'))
 }
 
 export function copyError () {
-    Message({
-        message: _('Failed to copy, please retry'),
-        type: 'error'
-    })
+    this.$error(_('Failed to copy, please retry'))
 }
 
 /* float 浮点精度问题  0.001 * 9 */
@@ -516,10 +502,10 @@ export function accDiv (arg1, arg2) {
     let r2
     try {
         t1 = arg1.toString().split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     try {
         t2 = arg2.toString().split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     r1 = Number(arg1.toString().replace('.', ''))
     r2 = Number(arg2.toString().replace('.', ''))
     return (r1 / r2) * Math.pow(10, t2 - t1)
@@ -532,10 +518,10 @@ export function accMul (arg1, arg2) {
     let s2 = arg2.toString()
     try {
         m += s1.split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     try {
         m += s2.split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
 }
 
@@ -825,7 +811,7 @@ export function cutStr (str, len) {
     let strlen = str.length // 字符串长度
     let chrlen = str.replace(/[^\x00-\xff]/g, '**').length // 字节长度
     if (chrlen <= len) { return str }
-    for (var i = 0, j = 0;i < strlen;i++) {
+    for (var i = 0, j = 0; i < strlen; i++) {
         var chr = str.charAt(i)
         if (/[\x00-\xff]/.test(chr)) {
             j++ // ascii码为0-255，一个字符就是一个字节的长度
