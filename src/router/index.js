@@ -84,6 +84,9 @@ const adHomeDetail = () =>
 // 充值送
 const actFirstCharge = () =>
     import('~/pages/cs_activity/cs_actFirstCharge')
+// 万圣节活动
+const halloween = () =>
+    import('~/pages/cs_activity/cs_halloween')
 
 /* Dapp 一元夺币 */
 const supercoin = () =>
@@ -98,6 +101,11 @@ let routesArr = [{
     path: '/firstCharge',
     name: 'firstCharge',
     component: actFirstCharge
+},
+{
+    path: '/halloween',
+    name: 'halloween',
+    component: halloween
 },
 {
     path: '/help',
