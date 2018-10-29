@@ -727,6 +727,13 @@ export default {
         color: #fff;
         word-wrap: break-word;
         word-break: break-all;
+        a {
+          color: #fd9644;
+          &:hover {
+            color: currentColor;
+            filter: brightness(1.1);
+          }
+        }
       }
     }
     .chat_room_foot {
