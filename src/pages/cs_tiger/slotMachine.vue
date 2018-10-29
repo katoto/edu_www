@@ -559,8 +559,7 @@ Vue.use(vueClipboard)
                 }, // 显示大奖用的
                 winRadioHtml: '', // 处理成展示结构html
                 fastClick: false,
-                isUseCC: false,
-                showHalloween: false
+                isUseCC: false
             }
         },
         watch: {
@@ -2360,10 +2359,6 @@ Vue.use(vueClipboard)
             height: 586px;
             background: url("../../assets/img/tiger/bg-pc.jpg") no-repeat top center;
             background-size: 1920px 586px;
-            &.halloween {
-                background: url("../../assets/img/halloween/bg.jpg") no-repeat #162222;
-                background-position: 0 70px;
-            }
         }
         .tiger-main {
             height: 100%;

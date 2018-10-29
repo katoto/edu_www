@@ -1,7 +1,9 @@
 <template>
     <div class="game-main" ref="game" v-if="isLogin && show">
-        <audio :src="musicSrc" class="poker-audio" ref="musicObj" loop="loop">
-        </audio>
+        <audio :src="musicSrc" class="poker-audio" ref="musicObj" loop="loop"></audio>
+        <audio :src="ghost1Src" class="poker-audio" ref="ghost1Obj"></audio>
+        <audio :src="ghost2Src" class="poker-audio" ref="ghost2Obj"></audio>
+        <audio :src="ghost3Src" class="poker-audio" ref="ghost3Obj"></audio>
         <i class="music-btn" @click="switchMusic" ref="musicBtn" :class="{'pause':isPause}">
         </i>
         <i class="close-btn" @click="closeGame" ref="closeBtn">
@@ -57,6 +59,9 @@
 import { getElementAbsolutePosition } from '~common/util'
 import { Notification } from 'element-ui'
 const bgMusic = () => import('~static/audio/halloween/halloween.mp3')
+const ghost1Music = () => import('~static/audio/halloween/ghost01.mp3')
+const ghost2Music = () => import('~static/audio/halloween/ghost02.mp3')
+const ghost3Music = () => import('~static/audio/halloween/ghost03.mp3')
 export default {
     props: {
         show: {
@@ -68,6 +73,9 @@ export default {
         return {
             loadMusic: null,
             musicSrc: '',
+            ghost1Src: '',
+            ghost2Src: '',
+            ghost3Src: '',
             isPause: false,
             ghost1: null,
             ghost11: null,
@@ -199,6 +207,14 @@ export default {
                 musicObj.play && musicObj.play()
             })
         },
+        beatMusic (ghostType) {
+            let obj = {
+                demon: this.$refs.ghost1Obj,
+                ghost: this.$refs.ghost2Obj,
+                jackolantern: this.$refs.ghost3Obj
+            }[ghostType]
+            return obj.play && obj.play()
+        },
         switchMusic () {
             this.loadMusic.then(() => {
                 let musicObj = this.$refs.musicObj
@@ -299,6 +315,7 @@ export default {
         beatIt (ghostType, ghostRefName, monsterId) {
             // demon 1.5, ghost 1.0 jackolantern 0.5
             if (!this.isBeating) {
+                this.beatMusic(ghostType)
                 setTimeout(() => {
                     this.isBeating = false
                 }, 100)
@@ -315,7 +332,9 @@ export default {
                     scene: this.scene
                 }).then(res => {
                     console.log(monsterId, ghostRefName, res.data.remain)
-                    this[ghostRefName].isWin = true
+                    if (this[ghostRefName]) {
+                        this[ghostRefName].isWin = true
+                    }
                     setTimeout(() => {
                         if (this[ghostRefName]) {
                             this[ghostRefName].isWin = false
@@ -342,6 +361,14 @@ export default {
                 }).catch(err => {
                     this.message(err.message)
                     this[ghostRefName] = null
+                    if (this.isAllNoGhost()) {
+                        this.message('妖怪已被消灭完，请稍后再来')
+                        return
+                    }
+                    if (this.isNoGhost()) {
+                        this.goToOtherScene()
+                        return
+                    }
                     setTimeout(() => {
                         this.createMonster(ghostRefName)
                     }, 3000)
@@ -374,13 +401,16 @@ export default {
             }
         },
         message (message, callback = () => { }) {
-            Notification({
+            let not = Notification({
                 message: message,
                 dangerouslyUseHTMLString: true,
                 position: 'bottom-left',
                 duration: 5000,
                 customClass: 'halloween-msg',
-                onClick: callback,
+                onClick: () => {
+                    not.close()
+                    callback && callback.call(this)
+                },
                 showClose: false
             })
         },
@@ -478,7 +508,7 @@ export default {
             this.ghost21 = null
             this.ghost3 = null
         },
-        refreshGame () {
+        refreshGame (isShowTip) {
             this.$nextTick(() => {
                 this.clearGhostStatus()
                 this.onScroll()
@@ -490,6 +520,8 @@ export default {
                                 this.goToOtherScene()
                             }, 1000)
                         }
+                    } else {
+                        isShowTip && this.message(this.$lang.halloween.a3)
                     }
                 })
             })
@@ -507,8 +539,16 @@ export default {
         this.gameHeight = window.document.body.clientHeight
     },
     mounted () {
-        this.loadMusic = bgMusic().then(res => {
-            this.musicSrc = res
+        this.loadMusic = Promise.all([bgMusic(), ghost1Music(), ghost2Music(), ghost3Music()]).then(res => {
+            this.musicSrc = res[0]
+            this.ghost1Src = res[1]
+            this.ghost2Src = res[2]
+            this.ghost3Src = res[3]
+            try {
+                this.$refs.ghost1Obj.volume = 0.5
+                this.$refs.ghost2Obj.volume = 0.5
+                this.$refs.ghost3Obj.volume = 0.5
+            } catch (e) {}
             return res
         })
 
@@ -578,7 +618,7 @@ export default {
         show (value) {
             value && this.playMusic()
             value && this.$nextTick(() => {
-                this.refreshGame()
+                this.refreshGame(true)
             })
             if (value && !this.isCCAccount()) {
                 this.changeToCCAccount()
@@ -601,6 +641,7 @@ export default {
 
 
 <style lang="less" scoped type="text/less">
+
 #lucky11 + .game-main {
   top: 160px;
 }

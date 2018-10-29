@@ -1,5 +1,5 @@
 <template>
-    <div id="app" @scroll.native="test" :class="isReady ? 'ready' : ''">
+    <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
         <router-view v-if="isReady" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
         <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
@@ -37,6 +37,10 @@ export default {
         playHalloween () {
             if (!this.isLogin) {
                 this.$store.commit('showLoginPop')
+                return
+            }
+            if (this.$store.state.userInfo && this.$store.state.userInfo.status !== '1') {
+                this.$error(_('You have not verified your email, please verify first'))
                 return
             }
             this.isShowHalloween = !this.isShowHalloween
@@ -129,13 +133,58 @@ export default {
     }
 }
 </script>
+<style lang="less">
+.halloween-mode .halloween {
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("../assets/img/halloween/bg.jpg") no-repeat #162222 center top;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: showBackground 0.5s forwards ease-out;
+    }
+}
+.halloween-mode .nav#nav {
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("../assets/img/halloween/bg0.jpg") no-repeat #162222 center top;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: showBackground 0.5s forwards ease-out;
+    }
+}
+.halloween-mode .play-area {
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("../assets/img/halloween/bg.jpg") no-repeat #162222 center top;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        animation: showBackground 0.5s forwards ease-out;
+    }
+}
 
-<style lang="less" type="text/less">
-@import "../styles/lib-reset.css";
-@import "../styles/lib-font.less";
-@import "../styles/lib-public.less";
-@import "../styles/lib-media.less";
-@import "../styles/lib-mixins.less";
+@keyframes showBackground {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 .halloween-entry {
   position: fixed;
   top: 50%;
@@ -143,6 +192,14 @@ export default {
   cursor: pointer;
   z-index: 999;
 }
+</style>
+
+<style lang="less" type="text/less">
+@import "../styles/lib-reset.css";
+@import "../styles/lib-font.less";
+@import "../styles/lib-public.less";
+@import "../styles/lib-media.less";
+@import "../styles/lib-mixins.less";
 #app {
   position: relative;
   background: #eef1f9;

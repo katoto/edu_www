@@ -235,7 +235,6 @@ export default {
   height: 60px;
   line-height: 60px;
   background: linear-gradient(to right, #4b6584, #655aae, #545f94);
-  background: url("../../assets/img/halloween/bg0.jpg") no-repeat center top;
   color: #fff;
   transition: all 0.2s;
   &.fix {

@@ -353,7 +353,7 @@ export function formateMoneyFlow (flowtype, lotid) {
     case '21':
         return _('LuckyPoker Prize')// 幸运扑克中奖
     case '22':
-        return _('万圣节活动送') // 万圣节活动送
+        return _('Promo-Halloween') // 万圣节活动送
     default:
         return _('Bet')
     }

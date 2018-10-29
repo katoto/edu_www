@@ -1116,10 +1116,6 @@ export default {
   width: 100%;
   // overflow: hidden !important;
   //玩法区
-  &.halloween .play-area {
-    background: #162222 url("../../assets/img/halloween/bg.jpg") no-repeat
-      center top;
-  }
   .play-area {
     position: relative;
     z-index: 6;
