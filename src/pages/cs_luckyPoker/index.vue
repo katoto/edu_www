@@ -1273,6 +1273,7 @@ export default {
             width: percentage(18/217);
             img {
               width: 100%;
+              height: auto;
             }
           }
         }
@@ -2047,6 +2048,7 @@ export default {
           cursor: pointer;
           img {
             width: percentage(53/170);
+            height: auto;
             max-width: 34px;
           }
         }
