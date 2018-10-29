@@ -141,11 +141,14 @@ export default {
         position: absolute;
         width: 100%;
         height: 100%;
-        background: url("../assets/img/halloween/bg.jpg") no-repeat #162222 center top;
+        background: url("../assets/img/halloween/bg2.jpg") no-repeat #162222 center top;
         top: 0;
         left: 0;
         opacity: 0;
         animation: showBackground 0.5s forwards ease-out;
+    }
+    &.tiger-pc::before {
+        background-position-y: 70px;
     }
 }
 .halloween-mode .nav#nav {

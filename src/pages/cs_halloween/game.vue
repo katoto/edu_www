@@ -631,6 +631,9 @@ export default {
             if (!this.isCCAccount()) {
                 this.changeToCCAccount()
             }
+            setTimeout(() => {
+                this.onScroll()
+            }, 200)
         }
     },
     destroyed () {
@@ -833,6 +836,7 @@ export default {
     position: fixed;
     bottom: 0;
     left: 0%;
+    padding: 50px 50px 0;
     animation: ghost3Walk 30s infinite linear;
   }
 
@@ -910,6 +914,7 @@ export default {
   color: #ffffff;
   font-weight: bold;
   background: url(../../assets/img/halloween/messageBox.png) no-repeat;
+  min-height: 103px;
   .el-notification__content {
     display: flex;
     flex-direction: column;
@@ -923,6 +928,8 @@ export default {
     border-radius: 6px;
     background: #f66400;
     color: #fff;
+    white-space: nowrap;
+    margin: 0 10px;
     &:hover {
       filter: brightness(1.2);
     }
