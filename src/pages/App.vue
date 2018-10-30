@@ -2,7 +2,8 @@
     <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
         <router-view v-if="isReady" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
-        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
+        <!-- v-if="isShowEntry||1" -->
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween">
     </div>
 </template>
 
@@ -193,10 +194,31 @@ export default {
 }
 .halloween-entry {
   position: fixed;
-  top: 50%;
+  top: 470px;
+  //   top: 50px;
   left: 40px;
   cursor: pointer;
   z-index: 98;
+  transform-origin: center bottom;
+  animation: flip 5s ease-in-out infinite;
+}
+@keyframes flip {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60%,
+  70%,
+  80% {
+    transform: rotateZ(20deg);
+  }
+  40%,
+  65%,
+  75%,
+  85% {
+    transform: rotateZ(-21deg);
+  }
 }
 </style>
 
@@ -240,6 +262,32 @@ export default {
     display: block;
     width: 22px;
     height: 22px;
+  }
+}
+
+//临时蜘蛛线条
+.ghost2-ct,
+.ghost21-ct {
+  img {
+    z-index: 2;
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: -65px;
+    left: 51%;
+    width: 2px;
+    height: 150px;
+    background: #410414;
+  }
+}
+.ghost21-ct {
+  &::before {
+    content: "";
+    top: -235px;
+    height: 300px;
   }
 }
 </style>
