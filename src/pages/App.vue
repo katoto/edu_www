@@ -58,7 +58,7 @@ export default {
             return this.$store.state.isLog
         },
         isShowEntry () {
-            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1 && window.halloween === 1
+            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
         }
     },
     async mounted () {
