@@ -347,7 +347,7 @@ export default {
                         setTimeout(() => {
                             this[ghostRefName] = null
                             if (this.isAllNoGhost()) {
-                                this.message('妖怪已被消灭完，请稍后再来')
+                                this.message(this.$lang.halloween.a21)
                                 return
                             }
                             if (this.isNoGhost()) {
@@ -362,7 +362,7 @@ export default {
                     this.message(err.message)
                     this[ghostRefName] = null
                     if (this.isAllNoGhost()) {
-                        this.message('妖怪已被消灭完，请稍后再来')
+                        this.message(this.$lang.halloween.a21)
                         return
                     }
                     if (this.isNoGhost()) {
