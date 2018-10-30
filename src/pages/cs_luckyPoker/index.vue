@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <div class="luckyPoker " @click="initPop" @resize="onResize" :class="{'small':is14}">
+        <div class="luckyPoker halloween" @click="initPop" @resize="onResize" :class="{'small':is14}">
             <audio :src="music.fapai" class="poker-audio" ref="fapaiMusic"></audio>
             <audio :src="music.pay" class="poker-audio" ref="payMusic"></audio>
             <audio :src="music.win" class="poker-audio" ref="winMusic"></audio>
@@ -470,11 +470,12 @@ import PopCharge from '~components/Pop-charge.vue'
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum, getCCAcount, getCCDeductionMoney } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout, clearTimeout } from 'timers'
-const betMusic = () => import('~static/audio/dice/bet.wav')
-const faPaiMusic = () => import('~static/audio/dice/fapai.ogg')
-const winMusic = () => import('~static/audio/dice/win.ogg')
-const payMusic = () => import('~static/audio/dice/pay.ogg')
-const loseMusic = () => import('~static/audio/dice/lose.ogg')
+
+const betMusic = () => import('~static/audio/dice/bet.mp3')
+const faPaiMusic = () => import('~static/audio/dice/fapai.mp3')
+const winMusic = () => import('~static/audio/dice/win.mp3')
+const payMusic = () => import('~static/audio/dice/pay.mp3')
+const loseMusic = () => import('~static/audio/dice/lose.mp3')
 export default {
     components: { Header, Footer, PopCharge },
     data () {
