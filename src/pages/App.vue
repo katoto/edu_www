@@ -2,7 +2,7 @@
     <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
         <router-view v-if="isReady" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
-        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry||1">
     </div>
 </template>
 
@@ -193,10 +193,30 @@ export default {
 }
 .halloween-entry {
   position: fixed;
-  top: 50%;
+  top: 470px;
   left: 40px;
   cursor: pointer;
   z-index: 98;
+  transform-origin: center bottom;
+  animation: flip 5s ease-in-out infinite;
+}
+@keyframes flip {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60%,
+  70%,
+  80% {
+    transform: rotateZ(20deg);
+  }
+  40%,
+  65%,
+  75%,
+  85% {
+    transform: rotateZ(-21deg);
+  }
 }
 </style>
 
