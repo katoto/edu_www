@@ -2,7 +2,8 @@
     <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
         <router-view v-if="isReady" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
-        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
+        <!-- v-if="isShowEntry||1" -->
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween">
     </div>
 </template>
 
@@ -58,7 +59,7 @@ export default {
             return this.$store.state.isLog
         },
         isShowEntry () {
-            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1 && window.halloween === 1
+            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
         }
     },
     async mounted () {
@@ -194,6 +195,7 @@ export default {
 .halloween-entry {
   position: fixed;
   top: 470px;
+  //   top: 50px;
   left: 40px;
   cursor: pointer;
   z-index: 98;
@@ -260,6 +262,32 @@ export default {
     display: block;
     width: 22px;
     height: 22px;
+  }
+}
+
+//临时蜘蛛线条
+.ghost2-ct,
+.ghost21-ct {
+  img {
+    z-index: 2;
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: -65px;
+    left: 51%;
+    width: 2px;
+    height: 150px;
+    background: #410414;
+  }
+}
+.ghost21-ct {
+  &::before {
+    content: "";
+    top: -235px;
+    height: 300px;
   }
 }
 </style>
