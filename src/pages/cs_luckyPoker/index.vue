@@ -456,6 +456,7 @@
                     </div> -->
                 </div>
             </div>
+            <PopCharge ref="popChargeDom"></PopCharge>
         </div>
         <Footer></Footer>
     </div>
@@ -464,6 +465,8 @@
 <script>
 import Header from '~components/Header'
 import Footer from '~components/Footer'
+import PopCharge from '~components/Pop-charge.vue'
+
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum, getCCAcount, getCCDeductionMoney } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout, clearTimeout } from 'timers'
@@ -474,7 +477,7 @@ const winMusic = () => import('~static/audio/dice/win.mp3')
 const payMusic = () => import('~static/audio/dice/pay.mp3')
 const loseMusic = () => import('~static/audio/dice/lose.mp3')
 export default {
-    components: { Header, Footer },
+    components: { Header, Footer, PopCharge },
     data () {
         return {
             coin: {
@@ -598,6 +601,12 @@ export default {
         formatNum,
         getCCAcount,
         getCCDeductionMoney,
+        superPopCharge () {
+            /* 调 pop-charge 的方法  修改按钮状态 */
+            if (this.$refs) {
+                this.$refs.popChargeDom.showPopCharge(true)
+            }
+        },
         formatEmail (email) {
             let arr = email.split('@')
             if (arr.length !== 2) {
@@ -869,7 +878,7 @@ export default {
                 return
             }
             if (this.balance < this.total) {
-                this.$error(this.$lang.poker.a35)
+                this.account.cointype === '2000' ? this.$error(this.$lang.poker.a35) : this.superPopCharge(true)
                 return
             }
             if (this.total === 0) {
