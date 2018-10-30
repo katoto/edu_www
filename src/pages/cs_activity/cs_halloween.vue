@@ -108,6 +108,11 @@
                             {{this.$lang.halloween.a19}} <router-link :to="{path: 'help/helpView/0/1/Coin-Coin(CC)'}">{{$lang.halloween.a20}}</router-link>
                         </p>
                     </li>
+                    <li>
+                        <p>
+                            {{this.$lang.halloween.a22}}
+                        </p>
+                    </li>
                 </ul>
             </div>
         </div>
