@@ -878,6 +878,12 @@ String.prototype.httpParse = function () {
         temp = null
         return output
     }
-    let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|:)+)/g
-    return htmlDecode(this).replace(reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
+    var reg = /((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/g
+    return htmlDecode(this).replace(reg, (a) => {
+        if (!a.indexOf('http')) {
+            return `<a class="link" href="${a}" target="_blank">${a}</a>`
+        } else {
+            return `<a class="link" href="http://${a}" target="_blank">${a}</a>`
+        }
+    })
 }

@@ -331,7 +331,7 @@ export default {
             evt.preventDefault()
         },
         checkUse (evt) {
-            if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
+            if (!this.userInfo || Object.keys(this.userInfo).length === 0) {
                 this.$store.commit('showLoginPop')
                 evt.target.blur()
             } else if (this.userInfo.status === '0') {
