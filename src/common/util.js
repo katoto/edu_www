@@ -1,12 +1,12 @@
 /**
  *  相关的工具函数
  */
+import { Message } from 'element-ui'
 
 export const src = 'pc'
 export const tipsTime = 2000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
-
 //  社区地址 online
 export const coinAffAddr = '0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF'
 // 线下社区地址
@@ -410,17 +410,29 @@ export function commonErrorHandler (data) {
         removeCK()
         break
     default:
-        this.$error(data.message)
+        Message({
+            message: data.message,
+            type: 'error',
+            duration: tipsTime
+        })
         break
     }
 }
 
 export function copySucc () {
-    this.$success(_('Copied to clipboard'))
+    Message({
+        message: _('Copied to clipboard'),
+        type: 'success',
+        duration: tipsTime
+    })
 }
 
 export function copyError () {
-    this.$error(_('Failed to copy, please retry'))
+    Message({
+        message: _('Failed to copy, please retry'),
+        type: 'error',
+        duration: tipsTime
+    })
 }
 
 /* float 浮点精度问题  0.001 * 9 */

@@ -166,14 +166,16 @@ export default {
                 }
             }
         },
+        recentChatmsg () {
+            setTimeout(() => {
+                document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+            }, 0)
+        },
         chatmsg (data) {
             if (data.content.uid === this.userInfo.uid) {
                 this.myMsg = ''
                 this.controlInterval()
             }
-            setTimeout(() => {
-                document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
-            }, 0)
         }
     },
     methods: {
