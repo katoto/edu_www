@@ -1,5 +1,5 @@
 <template>
-    <div class="main"  @click="initPop">
+    <div class="main halloween"  @click="initPop">
         <div class="container">
             <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
             <div class="row">

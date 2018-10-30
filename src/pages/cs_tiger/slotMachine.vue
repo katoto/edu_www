@@ -1,6 +1,6 @@
 <template>
     <div class="tiger-contain" :class="{'cc-mode': currBalance.cointype === '2000'}">
-        <div class="tiger-pc ">
+        <div class="tiger-pc halloween">
             <Header v-on:freshSlot="changePageState"></Header>
             <div class="tiger-main" @click="initPop">
                 <div class="tiger ">
