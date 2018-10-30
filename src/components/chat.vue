@@ -132,7 +132,7 @@
 <script>
 import { formatTime, formateEmail, isIOS, getByteLen, cutStr, getCK } from '~common/util'
 export default {
-    data() {
+    data () {
         return {
             vipChatLen: 100,
             scrollTop: 0,
@@ -166,12 +166,12 @@ export default {
                 }
             }
         },
-        recentChatmsg() {
+        recentChatmsg () {
             setTimeout(() => {
                 document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
             }, 0)
         },
-        chatmsg(data) {
+        chatmsg (data) {
             if (data.content.uid === this.userInfo.uid) {
                 this.myMsg = ''
                 this.controlInterval()
@@ -183,7 +183,7 @@ export default {
         getByteLen,
         cutStr,
         formatTime,
-        controlInterval() {
+        controlInterval () {
             clearInterval(this.sendTimeInterval)
             this.isBtnAble = false
             this.baseTime = this.vipChatLen === 200 ? 5 : 10
@@ -195,7 +195,7 @@ export default {
                 }
             }, 1000)
         },
-        sendMsg() {
+        sendMsg () {
             // 发送msg
             this.checkUse()
             if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0 || !this.isBtnAble) {
@@ -213,7 +213,7 @@ export default {
             }
             this.$store.dispatch('sendchatMsg', currObj)
         },
-        controlShowChat() {
+        controlShowChat () {
             if (this.isShowChat) {
                 this.$store.dispatch('subOutMsg', { type: 'im', chatroomId: '1' })
             } else {
@@ -225,11 +225,11 @@ export default {
             }
             this.isShowChat = !this.isShowChat
         },
-        myMsgInput() {
+        myMsgInput () {
             this.myMsg = this.myMsg.replace(/\n|\r/g, '')
             if (this.getByteLen(this.myMsg) > this.vipChatLen) this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 2)
         },
-        controlSpeak(val = '24') {
+        controlSpeak (val = '24') {
             let confirmMsg = ''
             if (val === '24') {
                 confirmMsg = this.ban24 ? '确定禁言24小时？' : '解除禁言24小时？'
@@ -253,7 +253,7 @@ export default {
                 this.banforever ? this.noSpeak('-1') : this.breakSpeak('-1')
             }
         },
-        async noSpeak(val) {
+        async noSpeak (val) {
             // 禁言  24 or 永久
             let currObj = {
                 block_uid: this.controlRoomMsg.content.uid,
@@ -268,7 +268,7 @@ export default {
                 this.controlRoom(this.controlRoomMsg)
             }
         },
-        async breakSpeak(val) {
+        async breakSpeak (val) {
             // 解除禁言
             let currObj = {
                 block_uid: this.controlRoomMsg.content.uid,
@@ -282,7 +282,7 @@ export default {
                 this.controlRoom(this.controlRoomMsg)
             }
         },
-        async removeAllMsg() {
+        async removeAllMsg () {
             // 删除指定msg
             let currObj = {
                 msg_id: '',
@@ -296,7 +296,7 @@ export default {
                 this.controlRoom(this.controlRoomMsg)
             }
         },
-        async removeCurrMsg(msgId) {
+        async removeCurrMsg (msgId) {
             // 删除指定msg
             let currObj = {
                 msg_id: msgId,
@@ -310,7 +310,7 @@ export default {
                 this.controlRoom(this.controlRoomMsg)
             }
         },
-        async controlRoom(item) {
+        async controlRoom (item) {
             this.controlRoomMsg = item
             // 0 -1 1  24 永久 无
             // 请求用户信息 列表 removeAll 会用到
@@ -327,10 +327,10 @@ export default {
                 this.checkOneMsgArr = msgback.data.recent_message
             }
         },
-        banScroll(evt) {
+        banScroll (evt) {
             evt.preventDefault()
         },
-        checkUse(evt) {
+        checkUse (evt) {
             if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
                 this.$store.commit('showLoginPop')
                 evt.target.blur()
@@ -339,7 +339,7 @@ export default {
             }
             return false
         },
-        getUserColor(item) {
+        getUserColor (item) {
             // 处理类名  system  good 的样式处理 system_m 处
             let classArr = []
             if (item.content.uid) classArr.push('userColor' + item.content.uid % 13)
@@ -352,21 +352,21 @@ export default {
         }
     },
     computed: {
-        userInfo() {
+        userInfo () {
             if (this.$store.state.userInfo) this.vipChatLen = this.$store.state.userInfo.is_recharged_user === 'True' ? 200 : 100
             return this.$store.state.userInfo
         },
-        recentChatmsg() {
+        recentChatmsg () {
             return this.$store.state.pop.recentChatmsg
         },
-        chatmsg() {
+        chatmsg () {
             return this.$store.state.pop.chatmsg
         }
     },
     components: {},
-    mounted() {
+    mounted () {
     },
-    destroyed() {
+    destroyed () {
     }
 }
 </script>
