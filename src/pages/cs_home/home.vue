@@ -9,6 +9,18 @@
                         <!--banner-->
                         <el-carousel :interval="5000" @change="bgchange">
                             <el-carousel-item>
+                                <div class="banner-t1">
+                                    <lang>Halloween Ghost Hunting</lang>
+                                </div>
+                                <!--visible-md visible-lg-->
+                                <p class="banner-t11 ">
+                                    <lang>Free CC for every beating on the ghost</lang>
+                                </p>
+                                <router-link to="/halloween" class="banner-firstCharge">
+                                    <lang>More Info</lang>
+                                </router-link>
+                            </el-carousel-item>
+                            <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
                                         <lang>SUPERCOIN</lang>
@@ -759,18 +771,34 @@ export default {
   width: 100%;
   background-size: 1920px;
   transition: all 0.5s ease-in-out;
+<<<<<<< HEAD
   &.bghome2 {
     background: #181633 url("../../assets/img/home/bg0.jpg") no-repeat top
+=======
+  &.bghome0 {
+    background: #011025 url("../../assets/img/home/bg0.jpg") no-repeat top
+>>>>>>> online
       center;
   }
   &.bghome1 {
     background: #181633 url("../../assets/img/home/bg1.jpg") no-repeat top
       center;
   }
+<<<<<<< HEAD
   &.bghome0 {
     background: #181633 url("../../assets/img/home/bg2.jpg") no-repeat top
       center;
   }
+=======
+  &.bghome2 {
+    background: #181633 url("../../assets/img/home/bg2.jpg") no-repeat top
+      center;
+  }
+  &.bghome3 {
+    background: #181633 url("../../assets/img/home/bg3.jpg") no-repeat top
+      center;
+  }
+>>>>>>> online
   .main {
     width: 100%;
     max-width: @screen-lg;
@@ -964,6 +992,7 @@ export default {
         font-family: sans-r;
         font-weight: bold;
       }
+<<<<<<< HEAD
     }
     .msg5 {
       height: 20px;
@@ -971,6 +1000,15 @@ export default {
       font-size: 16px;
       color: #ffce5a;
     }
+=======
+    }
+    .msg5 {
+      height: 20px;
+      line-height: 20px;
+      font-size: 16px;
+      color: #ffce5a;
+    }
+>>>>>>> online
   }
   .game-poker {
     background: url("../../assets/img/home/game-poker.png") no-repeat left top;
@@ -1135,6 +1173,7 @@ export default {
           }
         }
       }
+<<<<<<< HEAD
     }
 
     .icon-eth {
@@ -1164,6 +1203,37 @@ export default {
         background: #36c57a;
       }
     }
+=======
+    }
+
+    .icon-eth {
+      i {
+        background: url("../../assets/img/home/table-eth.png") no-repeat center;
+        background-size: cover;
+      }
+    }
+    .icon-cc {
+      i {
+        background: url("../../assets/img/home/table-cc.png") no-repeat center;
+        background-size: cover;
+      }
+    }
+    .icon-btc {
+      i {
+        background: url("../../assets/img/home/table-bth.png") no-repeat center;
+        background-size: cover;
+      }
+    }
+    &.recent-win {
+      span {
+        display: block;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 8px;
+        background: #36c57a;
+      }
+    }
+>>>>>>> online
   }
 }
 
@@ -1377,6 +1447,7 @@ export default {
       width: 1080px;
       overflow: hidden;
       margin: 0 auto;
+<<<<<<< HEAD
     }
     .game_list {
       width: 99999px;
@@ -1415,6 +1486,46 @@ export default {
         visibility: visible;
       }
     }
+=======
+    }
+    .game_list {
+      width: 99999px;
+      padding-top: 10px;
+      height: 300px;
+      > div {
+        float: left;
+        width: 340px;
+      }
+      > div + div {
+        margin-left: 30px;
+        margin-top: 0;
+      }
+    }
+    .game-poker,
+    .game-11t5,
+    .game-slot,
+    .game-onecoin,
+    .game-supercoin {
+      width: 100%;
+      transition: all 0.2s;
+      transform-origin: bottom;
+      &:hover {
+        // filter: brightness(1.1);
+        transform: translateY(-10px);
+      }
+    }
+    .game-btn {
+      transition: all 0.2s;
+      &:hover {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+      }
+    }
+    &:hover {
+      .game-change {
+        visibility: visible;
+      }
+    }
+>>>>>>> online
   }
 
   .safe-msg {
@@ -1429,6 +1540,7 @@ export default {
     /*banner*/
     .el-carousel {
       height: 450-48px;
+<<<<<<< HEAD
     }
     .el-carousel__item {
       .banner-t1 {
@@ -1466,6 +1578,52 @@ export default {
     /*banner*/
   }
 
+=======
+    }
+    .el-carousel__item {
+      .banner-t1 {
+        margin-top: 80px;
+        line-height: 66px;
+        font-size: 52px;
+      }
+      .banner-t11 {
+        line-height: 32px;
+        font-size: 23px;
+      }
+      .banner-t2 {
+        line-height: 28px;
+        font-size: 16px;
+      }
+
+      .banner-superCoin {
+        padding-left: 353px;
+      }
+      .banner-superCoin-t1 {
+        margin-top: 52px;
+        line-height: 94px;
+        font-size: 56px;
+      }
+      .banner-superCoin-t2 {
+        line-height: 60px;
+        font-size: 60px;
+        font-weight: bold;
+      }
+      .btn-superCoin {
+        line-height: 70px;
+        font-size: 30px;
+      }
+    }
+    /*banner*/
+    &.bghome0 {
+      .el-carousel__item {
+        .banner-t1 {
+          margin-top: 35px;
+        }
+      }
+    }
+  }
+
+>>>>>>> online
   .for-full {
     margin: 0;
   }
