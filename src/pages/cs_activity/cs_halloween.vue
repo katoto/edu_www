@@ -15,57 +15,65 @@
                 </div>
                 <ul>
                     <li class="poker">
-                        <p class="guidance_t">
-                            {{this.$lang.halloween.a9}}
-                        </p>
-                        <p class="guidance_m">
-                            {{this.$lang.halloween.a12}} <i>30</i>
-                        </p>
-                        <p class="guidance_m" v-if="$isEn()">
-                            <i>1.5CC</i> {{this.$lang.halloween.a13}}
-                        </p>
-                        <p class="guidance_m" v-else>
-                            {{this.$lang.halloween.a13}} <i>1.5CC</i>
-                        </p>
-                        <div class="img"></div>
-                        <router-link :to="{path: '/luckyPoker/'}" active-class="on" class="btn">
-                            {{$lang.poker.a39}}
+                        <router-link :to="{path: '/luckyPoker/'}" active-class="on" class="btn_more">
+                            <p class="guidance_t">
+                                {{this.$lang.halloween.a9}}
+                            </p>
+                            <p class="guidance_m">
+                                {{this.$lang.halloween.a12}} <i>30</i>
+                            </p>
+                            <p class="guidance_m" v-if="$isEn()">
+                                <i>1.5CC</i> {{this.$lang.halloween.a13}}
+                            </p>
+                            <p class="guidance_m" v-else>
+                                {{this.$lang.halloween.a13}} <i>1.5CC</i>
+                            </p>
+                            <div class="img"></div>
+                            <div class="btn">
+                                {{$lang.poker.a39}}
+                            </div>
                         </router-link>
                     </li>
                     <li class="lucky11">
-                        <p class="guidance_t">
-                            {{this.$lang.halloween.a10}}
-                        </p>
-                        <p class="guidance_m">
-                            {{this.$lang.halloween.a12}} <i>20</i>
-                        </p>
-                        <p class="guidance_m" v-if="$isEn()">
-                            <i>1.0CC</i> {{this.$lang.halloween.a13}}
-                        </p>
-                        <p class="guidance_m" v-else>
-                            {{this.$lang.halloween.a13}} <i>1.0CC</i>
-                        </p>
-                        <div class="img"></div>
-                        <router-link :to="{path: '/lucky11/'}" active-class="on" class="btn">
-                            {{$lang.risk.a38}}
+                        <router-link :to="{path: '/lucky11/'}" active-class="on" class="btn_more">
+                            <p class="guidance_t">
+                                {{this.$lang.halloween.a10}}
+                            </p>
+                            <p class="guidance_m">
+                                {{this.$lang.halloween.a12}} <i>20</i>
+                            </p>
+                            <p class="guidance_m" v-if="$isEn()">
+                                <i>1.0CC</i> {{this.$lang.halloween.a13}}
+                            </p>
+                            <p class="guidance_m" v-else>
+                                {{this.$lang.halloween.a13}} <i>1.0CC</i>
+                            </p>
+                            <div class="img"></div>
+
+                            <div class="btn">
+                                {{$lang.risk.a38}}
+                            </div>
                         </router-link>
                     </li>
                     <li class="luckyCoin">
-                        <p class="guidance_t">
-                            {{this.$lang.halloween.a11}}
-                        </p>
-                        <p class="guidance_m">
-                            {{this.$lang.halloween.a12}} <i>10</i>
-                        </p>
-                        <p class="guidance_m" v-if="$isEn()">
-                            <i>0.5CC</i> {{this.$lang.halloween.a13}}
-                        </p>
-                        <p class="guidance_m" v-else>
-                            {{this.$lang.halloween.a13}} <i>0.5CC</i>
-                        </p>
-                        <div class="img"></div>
-                        <router-link :to="{path: '/luckycoin/'}" active-class="on" class="btn">
-                            {{$lang.risk.a37}}
+                        <router-link :to="{path: '/luckycoin/'}" active-class="on" class="btn_more">
+                            <p class="guidance_t">
+                                {{this.$lang.halloween.a11}}
+                            </p>
+                            <p class="guidance_m">
+                                {{this.$lang.halloween.a12}} <i>10</i>
+                            </p>
+                            <p class="guidance_m" v-if="$isEn()">
+                                <i>0.5CC</i> {{this.$lang.halloween.a13}}
+                            </p>
+                            <p class="guidance_m" v-else>
+                                {{this.$lang.halloween.a13}} <i>0.5CC</i>
+                            </p>
+                            <div class="img"></div>
+                            <div class="btn">
+                                {{$lang.risk.a37}}
+
+                            </div>
                         </router-link>
                     </li>
                 </ul>
@@ -97,7 +105,7 @@
                     </li>
                     <li>
                         <p>
-                            {{this.$lang.halloween.a19}} <router-link :to="{path: '/help/helpView/0/1/'}">{{$lang.halloween.a20}}</router-link>
+                            {{this.$lang.halloween.a19}} <router-link :to="{path: 'help/helpView/0/1/Coin-Coin(CC)'}">{{$lang.halloween.a20}}</router-link>
                         </p>
                     </li>
                 </ul>
@@ -183,6 +191,13 @@ export default {
       background: url(../../assets/img/halloween/active/bg_li.png) no-repeat
         center top;
       text-align: center;
+      a {
+        display: block;
+        height: 100%;
+      }
+      &:hover .btn {
+        font-size: 34px;
+      }
     }
     .guidance_t {
       height: 57px;
@@ -227,9 +242,6 @@ export default {
       color: #fff;
       font-weight: bold;
       transition: all 0.2s;
-      &:hover {
-        font-size: 34px;
-      }
     }
     .poker {
       .img {
@@ -272,6 +284,13 @@ export default {
     .title {
       margin-bottom: 20px;
       line-height: 220px;
+    }
+    a {
+      color: #42afee;
+      text-decoration: underline;
+      &:hover {
+        filter: brightness(1.2);
+      }
     }
   }
 }
