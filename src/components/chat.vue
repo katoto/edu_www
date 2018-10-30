@@ -374,8 +374,8 @@ export default {
 @media (min-width: 769px) {
   .page_chat {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 35px;
+    right: 33px;
     overflow: hidden;
     z-index: 11;
     .remove {
