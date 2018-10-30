@@ -9,6 +9,18 @@
                         <!--banner-->
                         <el-carousel :interval="5000" @change="bgchange">
                             <el-carousel-item>
+                                <div class="banner-t1">
+                                    <lang>Halloween Ghost Hunting</lang>
+                                </div>
+                                <!--visible-md visible-lg-->
+                                <p class="banner-t11 ">
+                                    <lang>Free CC for every beating on the ghost</lang>
+                                </p>
+                                <router-link to="/halloween" class="banner-firstCharge">
+                                    <lang>More Info</lang>
+                                </router-link>
+                            </el-carousel-item>
+                            <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
                                         <lang>SUPERCOIN</lang>
@@ -1472,6 +1484,13 @@ export default {
       }
     }
     /*banner*/
+    &.bghome0 {
+      .el-carousel__item {
+        .banner-t1 {
+          margin-top: 35px;
+        }
+      }
+    }
   }
 
   .for-full {
