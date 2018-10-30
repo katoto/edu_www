@@ -6,7 +6,7 @@ let en = {
     a5: 'You have been permanently banned',
     a6: 'You have been banned, please retry after 2 hours',
     a9: 'Send',
-    a10: 'System Info',
+    a10: 'system info',
     a11: 'characters',
     a12: 'What\'s on your mind?',
     a13: 'Recent&nbsp;Chats',
