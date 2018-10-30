@@ -102,14 +102,14 @@
                 </ul>
             </div>
             <div class="chat_room_foot">
-                <div class="row0" :class="{'hide': getByteLen(myMsg) <= vipChatLen}">
+                <!-- <div class="row0" :class="{'hide': getByteLen(myMsg) <= vipChatLen}">
                     <p class="system_t">
                         {{$lang.chat.a10}}
                     </p>
                     <p class="system_m" v-html="_($lang.chat.a17, vipChatLen )">
-                        <!-- 永久禁言todo {{$lang.chat.a5}} {{$lang.chat.a6}} -->
-                    </p>
-                </div>
+                        <! 永久禁言todo {{$lang.chat.a5}} {{$lang.chat.a6}} 
+                </p>
+            </div> -->
                 <div class="row1" :class="{'isOver100':getByteLen(myMsg) > vipChatLen}">
                     <p>{{ getByteLen(myMsg) }}/{{ vipChatLen }}&nbsp;{{$lang.chat.a11}}</p>
                     <i v-if="getByteLen(myMsg)>vipChatLen">!</i>
