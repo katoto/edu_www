@@ -40,7 +40,7 @@ export default {
                 return
             }
             if (this.$store.state.userInfo && this.$store.state.userInfo.status !== '1') {
-                this.$error(_('You have not verified your email, please verify first'))
+                this.$store.commit('showNoVerify')
                 return
             }
             this.isShowHalloween = !this.isShowHalloween

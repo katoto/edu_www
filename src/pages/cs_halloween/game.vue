@@ -907,8 +907,8 @@ export default {
   }
 }
 </style>
-<style lang="less"  type="text/less">
-.halloween-msg {
+<style lang="less" type="text/less">
+.el-notification.halloween-msg {
   box-sizing: border-box;
   width: 270px;
   padding: 25px 17px;
