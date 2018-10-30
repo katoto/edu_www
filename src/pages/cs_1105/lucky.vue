@@ -7,7 +7,7 @@
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
         <div>
-            <div class="main  visible-lg  " @click="initPop">
+            <div class="main visible-lg halloween" @click="initPop">
                 <!--玩法区-->
                 <div class="play-area" id="play-area">
                     <ul class="play-area-items">

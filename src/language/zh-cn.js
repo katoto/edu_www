@@ -852,5 +852,7 @@ module.exports = {
     'The blockchain-based gaming platform': '区块链博彩平台',
     /* super coin end */
     'Coin-Coin(CC)': 'CC币介绍',
-    'Play LuckyPoker': '幸运扑克怎么玩'
+    'Play LuckyPoker': '幸运扑克怎么玩',
+    'Promo-Halloween': '万圣节活动送',
+    'You have not verified your email, please verify first': '您尚未验证邮箱，请先验证'
 }
