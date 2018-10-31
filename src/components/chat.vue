@@ -193,10 +193,8 @@ export default {
         },
         sendMsg () {
             // 发送msg
-            console.log('===========')
-            console.log(this.myMsg)
-            console.log('===========')
             this.checkUse()
+            this.myMsg = this.myMsg.replace(/^\s+|\s+$/, '')
             if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0 || !this.isBtnAble) {
                 return false
             }
