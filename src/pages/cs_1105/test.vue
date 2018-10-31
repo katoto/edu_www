@@ -1,28 +1,29 @@
 <template>
-    <div id="test">
-
+    <div class="test">
+        <div class="inputContent" contenteditable="true"></div>
     </div>
 </template>
 <script>
-
 export default {
     data () {
         return {
+            top1: '',
+            top2: '',
+            interval: '',
+            on: false
         }
     },
     watch: {},
     methods: {
 
     },
-    computed: {
-
-    },
-    components: {
-    },
+    computed: {},
+    components: {},
     mounted () {
+        console.log(window.innerHeight)
     }
 }
 </script>
 
-<style scope lang="less" type="text/less">
+<style  lang="less" type="text/less">
 </style>

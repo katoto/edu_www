@@ -1272,8 +1272,9 @@ export default {
             localStorage.setItem('firstJackpot', true)
         }
         structDom('slot')
-        this.$store.dispatch('subInTiger')
-
+        this.$store.dispatch('subInMsg', {
+            type: 'slots'
+        })
         this.slotSound = new Howl({
             src: ['../../../../static/audio/slotMusic.mp3'],
             volume: 0.7,
@@ -1297,7 +1298,9 @@ export default {
     },
     beforeDestroy () {
         document.documentElement.className = ''
-        this.$store.dispatch('subOutTiger')
+        this.$store.dispatch('subOutMsg', {
+            type: 'slots'
+        })
         this.stopAutoPlay()
     }
 }
@@ -1306,7 +1309,9 @@ export default {
 @import "../../styles/lib-mixins.less";
 @import "../../styles/lib-media.less";
 @import "../../styles/lib-font.less";
-
+.tiger-contain {
+  background-color: #151515;
+}
 .notice {
   height: 100%;
 }

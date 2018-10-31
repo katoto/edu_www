@@ -8,11 +8,13 @@
         <div class="_download_bg2"></div>
         <div class="_download_bg0"></div>
         <div class="_download_bg"></div>
+        <CHAT v-if="testUrl"></CHAT>
     </div>
 </template>
 
 <script>
-import { isLog, defaultLanguage, isForbitPage } from '~common/util'
+import CHAT from '~components/Chat'
+import { isLog, defaultLanguage, isForbitPage, setCK } from '~common/util'
 import Halloween from './cs_halloween/game'
 import Banner from '~components/banner'
 import Header from '~components/Header.vue'
@@ -20,11 +22,12 @@ export default {
     data () {
         return {
             isReady: false,
-            isShowHalloween: false
+            isShowHalloween: false,
+            testUrl: null
         }
     },
     components: {
-        Halloween, Banner, Header
+        Halloween, Banner, Header,CHAT
     },
     methods: {
         handleInit () {
@@ -114,7 +117,10 @@ export default {
                 }
             })
         }(window, document))
-
+        // app是否元素注入了 app_ck
+        if (window.app_ck && window.app_ck !== 'undefined') {
+            window.app_ck === '-1' ? setCK('') : setCK(window.app_ck)
+        }
         this.handleInit()
         let userMsg = await this.$store.dispatch('getUserInfo')
         if (isLog()) {
@@ -154,6 +160,7 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
+        window.location.href.indexOf('test') > -1 ? this.testUrl = true : this.testUrl = false
     }
 }
 </script>

@@ -591,7 +591,7 @@ export default {
     },
     methods: {
         ...mapActions('cs_luckypoker', ['getHome', 'bet']),
-        ...mapActions(['subInDice', 'subOutDice', 'getUserInfo']),
+        ...mapActions(['subInMsg', 'subOutMsg', 'getUserInfo']),
         accMul,
         formateCoinType,
         getElementAbsolutePosition,
@@ -1152,7 +1152,9 @@ export default {
         this.createClientSeed()
         this.getHistoryMostNum()
         this.disableContext()
-        this.subInDice()
+        this.subInMsg({
+            type: 'dice'
+        })
         this.loadMusicSrc()
         this.getUserInfo()
         window.addEventListener('resize', this.onResize)
@@ -1160,7 +1162,9 @@ export default {
     destroyed () {
         document.oncontextmenu = null
         window.removeEventListener('resize', this.onResize)
-        this.subOutDice()
+        this.subOutMsg({
+            type: 'dice'
+        })
     }
 }
 </script>
@@ -1257,14 +1261,14 @@ export default {
           }
           i {
             display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             width: percentage(18/217);
             img {
-              position: absolute;
               width: 100%;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
+              height: auto;
             }
           }
         }
@@ -1307,17 +1311,20 @@ export default {
       }
       li {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         float: left;
         width: 25%;
         overflow: hidden;
         background-color: #386363;
         cursor: pointer;
         img {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          display: block;
+          //   position: absolute;
+          //   left: 50%;
+          //   top: 50%;
+          //   transform: translate(-50%, -50%);
+          //   display: block;
         }
         &:first-child,
         &:nth-child(3) {
@@ -2036,6 +2043,7 @@ export default {
           cursor: pointer;
           img {
             width: percentage(53/170);
+            height: auto;
             max-width: 34px;
           }
         }

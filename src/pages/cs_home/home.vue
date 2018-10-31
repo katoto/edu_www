@@ -505,7 +505,6 @@ import {
     structDom
 } from '~/common/util'
 import { aTypes } from '~/store/cs_page/cs_1105'
-import { Message } from 'element-ui'
 
 export default {
     data () {
@@ -645,10 +644,7 @@ export default {
                             this.$store.dispatch('getUserInfo')
                             this.$store.commit('showRegSuccess')
                         } else {
-                            Message({
-                                message: mailBack.message,
-                                type: 'error'
-                            })
+                            this.$error(mailBack.message)
                         }
                     }
                     this.$router.push('')

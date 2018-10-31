@@ -10,7 +10,7 @@
                 <input type="text" v-model="reg_email" @blur="checkEmail" name="email" :placeholder="_('Email')">
                 <input type="password" v-model="reg_pass" @blur="checkPass"
                        :placeholder="_('New Password(6-15 numbers and letters)')">
-                <input type="password" v-model="reg_againPass" @blur="checkagainPass"
+                <input type="password" v-model="reg_againPass"
                        :placeholder="_('Confirm Password')">
                 <div class="verCode">
                     <input type="text" :placeholder="_('Verification Code')" class="msg-ver" v-model="verifyCode">
@@ -46,7 +46,6 @@
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
     import {tipsTime, setCK} from '~common/util'
     import {baseURL, isProduction} from '~common/ajax'
 
@@ -90,33 +89,17 @@
                 this.verifyImgPath = (isProduction ? baseURL.replace('http://', 'https://') : baseURL) + '/alert/verifycode/img?random=' + new Date().getTime()
             },
             showSucc () {
-                // this.$store.commit('setRegVerifyEmail', '846359246@qq.com')
                 this.$store.commit('hideRegPop')
                 this.$store.commit('showVerifyEmail')
                 // 执行倒计时 todo
                 this.$store.dispatch('startBackTime')
-            },
-            checkagainPass () {
-                // if (this.reg_pass !== '' && this.reg_againPass !== '') {
-                //     if (this.reg_pass !== this.reg_againPass) {
-                //         Message({
-                //             message: 'Confirm password not match',
-                //             type: 'error',
-                //             duration: tipsTime
-                //         })
-                //     }
-                // }
             },
             checkPass () {
                 /* 检测密码 */
                 let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
                 if (!passReg.test(this.reg_pass)) {
                     if (this.reg_pass !== '') {
-                        Message({
-                            message: _('Password must contain 6-15 characters with both numbers and letters'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Password must contain 6-15 characters with both numbers and letters'))
                     }
                     return false
                 }
@@ -129,11 +112,7 @@
                         // let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
                         this.$store.dispatch('beforeReg', this.reg_email)
                     } else {
-                        Message({
-                            message: _('Please enter your email address'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Please enter your email address'))
                     }
                 }
             },
@@ -146,11 +125,7 @@
                 }
                 if (emailReg.test(this.reg_email)) {
                     if (this.reg_pass !== this.reg_againPass) {
-                        Message({
-                            message: _('Confirm password not match'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Confirm password not match'))
                         return false
                     }
                     Object.assign(regObj, {
@@ -183,11 +158,7 @@
                             this.reloadVerifyImg()
                         })
                 } else {
-                    Message({
-                        message: _('Please enter your email address'),
-                        type: 'error',
-                        duration: tipsTime
-                    })
+                    this.$error(_('Please enter your email address'))
                 }
             },
             showSignIn () {
@@ -210,11 +181,7 @@
             },
             show: {
                 set: function (isShow) {
-                    if (!!isShow === true) {
-                        this.$store.commit('showRegPop')
-                    } else {
-                        this.$store.commit('hideRegPop')
-                    }
+                    !!isShow === true ? this.$store.commit('showRegPop') : this.$store.commit('hideRegPop')
                 },
                 get: function () {
                     this.reloadVerifyImg()

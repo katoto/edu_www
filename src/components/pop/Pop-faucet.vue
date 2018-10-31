@@ -1,6 +1,5 @@
 <template>
-    <!--拉新活动-->
-    <!--链接邀请-->
+    <!--拉新活动  链接邀请-->
     <Pop class="pop-faucet" :show.sync="show">
         <div class="pop-main" v-if="faucetMsg">
             <h3 class="font26">
@@ -44,7 +43,6 @@
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
     import { formateCoinType } from '~common/util'
 
     export default {
@@ -55,11 +53,7 @@
             },
             show: {
                 set: function (isShow) {
-                    if (!!isShow === true) {
-                        this.$store.commit('showFaucet')
-                    } else {
-                        this.$store.commit('hideFaucet')
-                    }
+                    !!isShow === true ? this.$store.commit('showFaucet') : this.$store.commit('hideFaucet')
                 },
                 get: function () {
                     return this.$store.state.pop.showFaucet
@@ -69,16 +63,10 @@
         methods: {
             formateCoinType,
             copySucc () {
-                Message({
-                    message: _('Copied to clipboard'),
-                    type: 'success'
-                })
+                this.$success(_('Copied to clipboard'))
             },
             copyError () {
-                Message({
-                    message: _('Failed to copy, please retry'),
-                    type: 'success'
-                })
+                this.$error(_('Failed to copy, please retry'))
             }
         }
     }

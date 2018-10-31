@@ -338,7 +338,8 @@ import {
     copyError,
     formateBalance,
     formateCoinType,
-    formateEmail
+    formateEmail,
+    getCK
     // isForbitPage
 } from '~common/util'
 
@@ -394,8 +395,14 @@ export default {
             this.isShowChoose = false
             this.freeWaterPop = false
         },
-        isLog () {
+        isLog (val) {
             this.autoChangeDefaultAccount(true)
+            // 通知app 切换了登陆
+            if (window.coinsprize) {
+                val ? window.coinsprize.logIn(getCK(), this.userInfo.username, this.userInfo.uid) : window.coinsprize.logOut()
+            } else {
+                console.error('none coinsprize inset')
+            }
         },
         CCNum (newVal, val) {
             newVal = Number(newVal)
@@ -557,11 +564,7 @@ export default {
                     this.showUserMsg()
                     this.$emit('freshSlot', '')
                 } else {
-                    this.$message({
-                        message: 'faucetGet error',
-                        type: 'error',
-                        duration: 1500
-                    })
+                    this.$error('faucetGet error')
                 }
             }
         },

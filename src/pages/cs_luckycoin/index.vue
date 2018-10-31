@@ -41,21 +41,27 @@
                             <p>
                                 <lang>Reward is here: Blockchain-based draw</lang>
                             </p>
-                            <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true"><lang>Next</lang></a>
+                            <a href="javascript:;" class="btn-next" @click="isShowStep1 = false, isShowStep2 = true">
+                                <lang>Next</lang>
+                            </a>
                             <img src="../../assets/img/luckyCoin/line.png" alt="">
                         </div>
                         <div class="step bounceIn animated step2 " :class="[isShowStep2 ? '' : 'hide']">
                             <p>
                                 <lang>Available bid is here: Draw will proceed after all bids are sold out</lang>
                             </p>
-                            <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true"><lang>Next</lang></a>
+                            <a href="javascript:;" class="btn-next" @click="isShowStep2 = false, isShowStep3 = true">
+                                <lang>Next</lang>
+                            </a>
                             <img src="../../assets/img/luckyCoin/line.png" alt="">
                         </div>
                         <div class="step bounceIn animated step3 " :class="[isShowStep3 ? '' : 'hide']">
                             <p>
                                 <lang>If bids are not sold out, draw will proceed after the countdown</lang>
                             </p>
-                            <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false"><lang>OK</lang></a>
+                            <a href="javascript:;" class="btn-next" @click="isShowStep4 = true, isShowStep3 = false">
+                                <lang>OK</lang>
+                            </a>
                             <img src="../../assets/img/luckyCoin/line.png" alt="">
                         </div>
                         <div class="step bounceIn animated step4" :class="[isShowStep4 ? '' : 'hide']">
@@ -63,7 +69,9 @@
                             <p>
                                 <lang>Click here to play: Bid more, win more</lang>
                             </p>
-                            <a href="javascript:;" class="btn-next" @click="isShowNew = false"><lang>OK</lang></a>
+                            <a href="javascript:;" class="btn-next" @click="isShowNew = false">
+                                <lang>OK</lang>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -74,8 +82,12 @@
                         <div class="col-xs-12 ">
                             <div class="title">
                                 <div class="left">
-                                    <p class="t1"><lang>Win Instant Reward</lang></p>
-                                    <p class="t2 hidden-xs hidden-sm"><lang>Small cost, big profit!</lang></p>
+                                    <p class="t1">
+                                        <lang>Win Instant Reward</lang>
+                                    </p>
+                                    <p class="t2 hidden-xs hidden-sm">
+                                        <lang>Small cost, big profit!</lang>
+                                    </p>
                                     <router-link :to="{path:'/help/helpView/2/1/Play LuckyCoin'}" class="play">
                                         <lang>How to play?</lang>
                                     </router-link>
@@ -106,8 +118,12 @@
                         <div class="col-xs-12 ">
                             <div class="title">
                                 <div class="left">
-                                    <p class="t1"><lang>Draw History</lang></p>
-                                    <p class="t2  hidden-xs hidden-sm"><lang>Transparent blockchain-based draw</lang></p>
+                                    <p class="t1">
+                                        <lang>Draw History</lang>
+                                    </p>
+                                    <p class="t2  hidden-xs hidden-sm">
+                                        <lang>Transparent blockchain-based draw</lang>
+                                    </p>
                                     <router-link :to="{path:'/check'}" class="check">
                                         <lang>Details Checking ></lang>
                                     </router-link>
@@ -136,7 +152,9 @@
                     <div class="recent-bets">
                         <div class="title">
                             <div class="left">
-                                <p class="t1"><lang>Recent Bids</lang></p>
+                                <p class="t1">
+                                    <lang>Recent Bids</lang>
+                                </p>
                             </div>
                         </div>
                         <recent-bets :data="recentBetsList"></recent-bets>
@@ -150,215 +168,220 @@
 
 
 <script>
-    import { mapActions, mapState } from 'vuex'
-    import betBox from './components/bet-box'
-    import recentBets from './components/recent-bets'
-    import historyBetBox from './components/history-bet-box'
-    import { structDom } from '~/common/util'
-    export default {
-        data () {
-            return {
-                isShowNew: false,
-                isShowStep1: true,
-                isShowStep2: false,
-                isShowStep3: false,
-                isShowStep4: false,
-                isReady: false,
-                discountRate: {},
-                priceData: {}
-            }
+import { mapActions, mapState } from 'vuex'
+import betBox from './components/bet-box'
+import recentBets from './components/recent-bets'
+import historyBetBox from './components/history-bet-box'
+import { structDom } from '~/common/util'
+export default {
+    data () {
+        return {
+            isShowNew: false,
+            isShowStep1: true,
+            isShowStep2: false,
+            isShowStep3: false,
+            isShowStep4: false,
+            isReady: false,
+            discountRate: {},
+            priceData: {}
+        }
+    },
+    methods: {
+        ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
+        ...mapActions(['subInMsg']),
+        howToPlayHandler () {
+            this.isShowNew = true
+            this.isShowStep1 = true
+            this.isShowStep2 = false
+            this.isShowStep3 = false
+            this.isShowStep4 = false
         },
-        methods: {
-            ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
-            ...mapActions(['subInLuckyCoin']),
-            howToPlayHandler () {
-                this.isShowNew = true
-                this.isShowStep1 = true
-                this.isShowStep2 = false
-                this.isShowStep3 = false
-                this.isShowStep4 = false
-            },
-            closeOtherBet () {
-                ['betBoxList1', 'betBoxList2', 'betBoxList3', 'betBoxList4', 'betBoxList5', 'betBoxList6', 'betBoxList7'].forEach(bet => this.$refs[bet].closeWindow())
-            },
-            updateBets () {
+        closeOtherBet () {
+            ['betBoxList1', 'betBoxList2', 'betBoxList3', 'betBoxList4', 'betBoxList5', 'betBoxList6', 'betBoxList7'].forEach(bet => this.$refs[bet].closeWindow())
+        },
+        updateBets () {
+            this.updateLuckyCoinPage()
+        }
+    },
+    components: { betBox, recentBets, historyBetBox },
+    computed: {
+        ...mapState('cs_luckycoin', {
+            betsList: state => state.betsList,
+            drawHistoryList: state => state.drawHistoryList,
+            recentBetsList: state => state.recentBetsList,
+            otherWin: state => state.otherWin,
+            selfWin: state => state.selfWin
+        }),
+        ...mapState({
+            isLogin: state => !!state.isLog,
+            adList: state => state.adList
+        })
+    },
+    watch: {
+        isLogin () {
+            this.getBetsList()
+        }
+    },
+    mounted () {
+        if (!localStorage.getItem('firstLuckycoin')) {
+            this.howToPlayHandler()
+            localStorage.setItem('firstLuckycoin', true)
+        }
+        this.updateLuckyCoinPage()
+            .then((res) => {
+                this.discountRate = res[0][0].data.discount_rate
+                this.priceData = res[0][0].data.price_data
+                this.$nextTick(() => {
+                    this.$store.commit('cs_luckycoin/updateBets', res[0][0].data.goods)
+                    this.$store.commit('cs_luckycoin/updateDrawHistory', res[0][1].data.drawRecords)
+                    this.isReady = true
+                })
+            })
+        structDom('luckycoin')
+        this.$store.commit('cs_luckycoin/bindPageListener', {
+            index: () => {
                 this.updateLuckyCoinPage()
             }
-        },
-        components: { betBox, recentBets, historyBetBox },
-        computed: {
-            ...mapState('cs_luckycoin', {
-                betsList: state => state.betsList,
-                drawHistoryList: state => state.drawHistoryList,
-                recentBetsList: state => state.recentBetsList,
-                otherWin: state => state.otherWin,
-                selfWin: state => state.selfWin
-            }),
-            ...mapState({
-                isLogin: state => !!state.isLog,
-                adList: state => state.adList
-            })
-        },
-        watch: {
-            isLogin () {
-                this.getBetsList()
-            }
-        },
-        mounted () {
-            if (!localStorage.getItem('firstLuckycoin')) {
-                this.howToPlayHandler()
-                localStorage.setItem('firstLuckycoin', true)
-            }
-            this.updateLuckyCoinPage()
-                .then((res) => {
-                    this.discountRate = res[0][0].data.discount_rate
-                    this.priceData = res[0][0].data.price_data
-                    this.$nextTick(() => {
-                        this.$store.commit('cs_luckycoin/updateBets', res[0][0].data.goods)
-                        this.$store.commit('cs_luckycoin/updateDrawHistory', res[0][1].data.drawRecords)
-                        this.isReady = true
-                    })
-                })
-            structDom('luckycoin')
-            this.$store.commit('cs_luckycoin/bindPageListener', {
-                index: () => {
-                    this.updateLuckyCoinPage()
-                }
-            })
-        },
-        destroyed () {
-            this.$store.commit('cs_luckycoin/unbindPageListener', 'index')
-        }
+        })
+    },
+    destroyed () {
+        this.$store.commit('cs_luckycoin/unbindPageListener', 'index')
     }
+}
 </script>
 <style lang="less" type="text/less">
-    .banner .el-carousel__arrow{
-        display: none !important;
-    }
+.banner .el-carousel__arrow {
+  display: none !important;
+}
 </style>
 <style scope lang="less" type="text/less">
-    /*.main /deep/ .el-carousel__indicators {*/
-        /*display: none;*/
-    /*}*/
+/*.main /deep/ .el-carousel__indicators {*/
+/*display: none;*/
+/*}*/
 
-    .page-luckycoin{
-        .carousel__arrow{
-            display: none;
-        }
+.page-luckycoin {
+  .carousel__arrow {
+    display: none;
+  }
+}
+#app {
+  .for-new,
+  .pop-mask,
+  .pop-new {
+    display: none;
+  }
+  &.ready {
+    .for-new,
+    .pop-mask,
+    .pop-new {
+      display: block;
     }
-    #app{
-        .for-new,.pop-mask,.pop-new{
-            display: none;
-        }
-        &.ready{
-            .for-new,.pop-mask,.pop-new{
-                display: block;
-            }
-        }
+  }
+}
+.for-new {
+  position: relative;
+  z-index: 11;
+}
+.pop-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9;
+}
+.pop-new {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 12;
+  text-align: center;
+  font-size: 20px;
+  color: #ffdd8e;
+  .new-main {
+    position: relative;
+    width: 100%;
+    max-width: 1190px;
+    margin: 0 auto;
+  }
+  .btn-next {
+    display: table;
+    padding: 0 16px;
+    min-width: 67px;
+    margin: 6px auto 0;
+    line-height: 28px;
+    color: #fff;
+    background: #20bf6b;
+    border-radius: 6px;
+    &:hover {
+      filter: brightness(1.1);
     }
-    .for-new{
-        position: relative;
-        z-index: 11;
+  }
+  .step {
+    position: relative;
+    z-index: 12;
+    animation: bounceIn 1s;
+  }
+  .step1 {
+    position: absolute;
+    width: 367px;
+    left: -210px;
+    top: -45px;
+    img {
+      display: block;
+      position: absolute;
+      top: 60px;
+      left: 50%;
     }
-    .pop-mask{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        z-index: 9;
+  }
+  .step2 {
+    position: absolute;
+    width: 255px;
+    top: 75px;
+    left: -255px;
+    img {
+      display: block;
+      position: absolute;
+      top: 52px;
+      right: -32px;
+      transform: scaleY(-1) rotateZ(-90deg);
     }
-    .pop-new{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 12;
-        text-align: center;
-        font-size: 20px;
-        color: #ffdd8e;
-        .new-main{
-            position: relative;
-            width: 100%;
-            max-width: 1190px;
-            margin: 0 auto;
-        }
-        .btn-next{
-            display: table;
-            padding: 0 16px;
-            min-width: 67px;
-            margin: 6px auto 0;
-            line-height: 28px;
-            color: #fff;
-            background: #20bf6b;
-            border-radius: 6px;
-            &:hover{
-                filter:brightness(1.1);
-            }
-        }
-        .step{
-            position: relative;
-            z-index: 12;
-            animation: bounceIn 1s;
-        }
-        .step1{
-            position: absolute;
-            width: 367px;
-            left: -210px;
-            top: -45px;
-            img{
-                display: block;
-                position: absolute;
-                top: 60px;
-                left: 50%;
-            }
-        }
-        .step2{
-            position: absolute;
-            width: 255px;
-            top: 75px;
-            left: -255px;
-            img{
-                display: block;
-                position: absolute;
-                top: 52px;
-                right: -32px;
-                transform:scaleY(-1) rotateZ(-90deg);
-            }
-        }
-        .step3{
-            position: absolute;
-            width: 400px;
-            top: -44px;
-            left: -60%;
-            line-height: 27px;
-            img{
-                display: block;
-                position: absolute;
-                bottom: -100%;
-                right: 33%;
-            }
-        }
-        .step4{
-            position: absolute;
-            width: 100%;
-            left: 50%;
-            margin-left: -200px;
-            bottom: -140px;
-            img{
-                display: block;
-                margin: 0 auto 15px;
-                transform: rotateZ(120deg) scaleX(-1);
-            }
-        }
+  }
+  .step3 {
+    position: absolute;
+    width: 400px;
+    top: -44px;
+    left: -60%;
+    line-height: 27px;
+    img {
+      display: block;
+      position: absolute;
+      bottom: -100%;
+      right: 33%;
     }
-    /* lg大屏幕（大桌面显示器，大于等于 1200px） */
+  }
+  .step4 {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    margin-left: -200px;
+    bottom: -140px;
+    img {
+      display: block;
+      margin: 0 auto 15px;
+      transform: rotateZ(120deg) scaleX(-1);
+    }
+  }
+}
+/* lg大屏幕（大桌面显示器，大于等于 1200px） */
 
-    @media (max-width: 1200px) {
-        .pop-mask,.pop-new{
-            display: none !important;
-        }
-    }
+@media (max-width: 1200px) {
+  .pop-mask,
+  .pop-new {
+    display: none !important;
+  }
+}
 </style>
