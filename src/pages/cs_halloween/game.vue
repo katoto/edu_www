@@ -121,6 +121,9 @@ export default {
             return this.currBalance.cointype === '2000'
         },
         changeToCCAccount () {
+            if (!this.isLogin) {
+                return
+            }
             let accounts = this.$store.state.userInfo.accounts
             let CCAccount = accounts.filter(
                 account => account.cointype === '2000'
