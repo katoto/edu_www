@@ -331,7 +331,6 @@ export default {
                     last_time: this.nextRefreshTime,
                     scene: this.scene
                 }).then(res => {
-                    console.log(monsterId, ghostRefName, res.data.remain)
                     if (this[ghostRefName]) {
                         this[ghostRefName].isWin = true
                     }
@@ -485,7 +484,6 @@ export default {
             arr.forEach(name => {
                 if (data[this.scene].filter(monster => monster.monster_id === (this[name] && this[name].monsterId)).length === 0) {
                     if (this[name]) {
-                        console.log(`怪物${name},id :${this[name].monsterId}已移除到其他场景`)
                         this[name] = null
                         this.createMonster(name)
                     }
