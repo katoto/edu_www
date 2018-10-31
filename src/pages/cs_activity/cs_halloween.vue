@@ -96,8 +96,14 @@
                         </p>
                     </li>
                     <li>
-                        <p>
-                            {{this.$lang.halloween.a17}}
+                        <p v-if="$isZhCn()">
+                            3. 活动参与：通过点击页面上的小南瓜进入到捉妖模式，遇妖即捶，捶打越多，赢得CC币越多，万圣节活动赢得的CC币可在<router-link :to="{ path: '/account/myTransactions' }"><lang>My Transactions</lang></router-link>里查看
+                        </p>
+                        <p v-else-if="$isZhTw()">
+                            3. 活動參與：通過點擊頁面上的小南瓜進入到捉妖模式，遇妖即捶，捶打越多，贏得CC幣越多，萬聖節活動贏得的CC幣可在<router-link :to="{ path: '/account/myTransactions' }"><lang>My Transactions</lang></router-link>裏查看
+                        </p>
+                        <p v-else>
+                            3. Participation: Click little pumkin on the page to turn on the hunting mode. Beating it hard when you see the ghost, and every beating comes with CC reward. All the reward will be recorded in <router-link :to="{ path: '/account/myTransactions' }"><lang>My Transactions</lang></router-link>.
                         </p>
                     </li>
                     <li>
@@ -133,7 +139,9 @@ export default {
         }
     },
     methods: {
-
+        show () {
+            alert(1)
+        }
     },
 
     components: {
