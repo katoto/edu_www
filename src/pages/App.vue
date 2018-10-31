@@ -193,8 +193,7 @@ export default {
 }
 .halloween-entry {
   position: fixed;
-  top: 470px;
-  //   top: 50px;
+  top: 400px;
   left: 40px;
   cursor: pointer;
   z-index: 98;
@@ -280,13 +279,14 @@ export default {
     width: 2px;
     height: 150px;
     background: #410414;
+    z-index: -1;
   }
 }
 .ghost21-ct {
   &::before {
     content: "";
-    top: -235px;
-    height: 300px;
+    top: -230px;
+    height: 350px;
   }
 }
 </style>
