@@ -5,6 +5,8 @@
             <div class="banner">
                 <h1 v-html="$lang.halloween.a5">
                 </h1>
+                <h2 v-html="$lang.halloween.a51">
+                </h2>
                 <h3>
                     {{this.$lang.halloween.a6}}
                 </h3>
@@ -173,11 +175,9 @@ export default {
     color: #fff;
     font-family: sans-eb;
     line-height: 1;
-    h1 {
-      font-size: 66px;
-    }
+    h1,
     h2 {
-      font-size: 68px;
+      font-size: 66px;
     }
     h3 {
       margin-top: 15px;
@@ -344,7 +344,8 @@ export default {
       font-size: 24px;
     }
     .banner {
-      h1 {
+      h1,
+      h2 {
         font-size: 1rem;
       }
       h3 {
