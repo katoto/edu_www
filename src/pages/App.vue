@@ -3,6 +3,9 @@
         <router-view v-if="isReady" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
         <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry && !isShowHalloween">
+        <div class="_download_bg2"></div>
+        <div class="_download_bg0"></div>
+        <div class="_download_bg"></div>
     </div>
 </template>
 
@@ -134,6 +137,36 @@ export default {
 }
 </script>
 <style lang="less">
+._download_bg2 {
+    background: url("../assets/img/halloween/bg2.jpg");
+    width: 0;
+    height: 0;
+    z-index: 0;
+    opacity: 0;
+    top: 1000000px;
+    left: 0;
+    position: fixed;
+}
+._download_bg0 {
+    background: url("../assets/img/halloween/bg0.jpg");
+    width: 0;
+    height: 0;
+    z-index: 0;
+    opacity: 0;
+    top: 1000000px;
+    left: 0;
+    position: fixed;
+}
+._download_bg{
+    background: url("../assets/img/halloween/bg.jpg");
+    width: 0;
+    height: 0;
+    z-index: 0;
+    opacity: 0;
+    top: 1000000px;
+    left: 0;
+    position: fixed;
+}
 .halloween-mode .halloween {
   position: relative;
   &::before {
