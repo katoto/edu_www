@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="nav" class="nav visible-lg" :class="{fix:navFix}" @click="initPop">
+        <div id="nav" class="nav visible-lg" :class="{fix:navFix}">
             <div class="nav-main">
                 <h2 class="logo11to5">
                     <lang>Lucky11</lang>
@@ -59,7 +59,7 @@
                 </p>
             </div>
         </div>
-        <div class="h5nav hidden-lg" :class="{fix:navFix}" @click="initPop">
+        <div class="h5nav hidden-lg" :class="{fix:navFix}">
             <div class="nav-main clearfix">
                 <h2 class="logo">
                     <img src="@/assets/img/lucky11/logo-lucky11.png" alt="logo">
@@ -141,10 +141,6 @@ export default {
         }
     },
     methods: {
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         formateCoinType,
         superInPage () {
             /* 执行到父组件 */

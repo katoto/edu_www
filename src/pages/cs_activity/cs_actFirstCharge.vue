@@ -1,7 +1,6 @@
 <template>
     <section>
-        <Header></Header>
-        <div class="act_box" @click="initPop">
+        <div class="act_box">
             <div class="top_banner">
                 <h2><lang>50% Bonus</lang></h2>
                 <h2 class="color"><lang>for Your First Top-Up</lang></h2>
@@ -42,7 +41,6 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import FirstChargeMixin from './cs_firstCharge_mixin'
 
@@ -56,14 +54,10 @@ export default {
     methods: {
         onClose () {
             this.showEligible = false
-        },
-        initPop () {
-            this.$store.commit('initHeadState', new Date().getTime())
         }
     },
 
     components: {
-        Header,
         Footer
     },
     filters: {

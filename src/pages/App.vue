@@ -1,6 +1,8 @@
 <template>
     <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
-        <router-view v-if="isReady" />
+        <Banner v-if="isLucky11"></Banner>
+        <Header v-if="!isSlot && !isDapp && isReady"></Header>
+        <router-view v-if="isReady" @click.native="initPop" class="page_all" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
         <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry && !isShowHalloween">
         <div class="_download_bg2"></div>
@@ -12,6 +14,8 @@
 <script>
 import { isLog, defaultLanguage, isForbitPage } from '~common/util'
 import Halloween from './cs_halloween/game'
+import Banner from '~components/banner'
+import Header from '~components/Header.vue'
 export default {
     data () {
         return {
@@ -20,7 +24,7 @@ export default {
         }
     },
     components: {
-        Halloween
+        Halloween, Banner, Header
     },
     methods: {
         handleInit () {
@@ -47,6 +51,13 @@ export default {
                 return
             }
             this.isShowHalloween = !this.isShowHalloween
+        },
+        initPop () {
+            /* head 弹窗 */
+            if (this.isSlot || this.isDapp) {
+                return
+            }
+            this.$store.commit('initHeadState', new Date().getTime())
         }
     },
     watch: {
@@ -62,7 +73,17 @@ export default {
         },
         isShowEntry () {
             return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1 && window.halloween === 1
+        },
+        isLucky11 () {
+            return this.$route.name === 'lucky11'
+        },
+        isSlot () {
+            return this.$route.name === 'luckySlot'
+        },
+        isDapp () {
+            return this.$route.name === 'supercoin'
         }
+
     },
     async mounted () {
         (function flexible (window, document) {
@@ -95,9 +116,9 @@ export default {
         }(window, document))
 
         this.handleInit()
+        let userMsg = await this.$store.dispatch('getUserInfo')
         if (isLog()) {
             this.$store.commit('setIsLog', true)
-            let userMsg = await this.$store.dispatch('getUserInfo')
             if (userMsg && userMsg.status.toString() === '100') {
                 this.$store.commit('setIsLog', true)
             }

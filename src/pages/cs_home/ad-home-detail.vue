@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Header></Header>
         <div class="main">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: '优惠中心', path: '/ad' }, { name: '活动'}]"></BreadCrumbs>
             <div class="container">
@@ -27,11 +26,10 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import BreadCrumbs from '~/components/BreadCrumbs.vue'
 export default {
-    components: { Header, Footer, BreadCrumbs },
+    components: { Footer, BreadCrumbs },
     data () {
         return {
             list: []

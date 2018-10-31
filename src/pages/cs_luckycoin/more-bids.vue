@@ -1,5 +1,5 @@
 <template>
-    <div class="main flex1" @click="initPop">
+    <div class="main flex1">
             <BreadCrumbs :pageName="activeName === 'bids' ? _('More Available Bids') : _('Draw History')"></BreadCrumbs>
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                 <el-tab-pane :label="_('More Available Bids')" name="bids"></el-tab-pane>
@@ -79,7 +79,6 @@
         </div>
 </template>
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import betBox from './components/bet-box'
 import historyBetBox from './components/history-bet-box'
@@ -120,10 +119,6 @@ export default {
             'getBetsPageList',
             'getBetsPageHistory'
         ]),
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         closeOtherBet () {
             this.$refs.betBoxList.forEach(bet => bet.closeWindow())
         },
@@ -306,7 +301,7 @@ export default {
             historyList: state => state.drawHistoryList
         })
     },
-    components: { Header, Footer, betBox, historyBetBox, BreadCrumbs },
+    components: { Footer, betBox, historyBetBox, BreadCrumbs },
     mounted () {
         document.documentElement.className = mobileCheck() ? '' : 'flexhtml'
         this.activeName = this.$route.meta.history ? 'history' : 'bids'

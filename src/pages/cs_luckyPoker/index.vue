@@ -1,7 +1,6 @@
 <template>
     <div>
-        <Header></Header>
-        <div class="luckyPoker halloween" @click="initPop" @resize="onResize" :class="{'small':is14}">
+        <div class="luckyPoker halloween" @resize="onResize" :class="{'small':is14}">
             <audio :src="music.fapai" class="poker-audio" ref="fapaiMusic"></audio>
             <audio :src="music.pay" class="poker-audio" ref="payMusic"></audio>
             <audio :src="music.win" class="poker-audio" ref="winMusic"></audio>
@@ -463,7 +462,6 @@
 </template>
 
 <script>
-import Header from '~components/Header'
 import Footer from '~components/Footer'
 import PopCharge from '~components/Pop-charge.vue'
 
@@ -477,7 +475,7 @@ const winMusic = () => import('~static/audio/dice/win.mp3')
 const payMusic = () => import('~static/audio/dice/pay.mp3')
 const loseMusic = () => import('~static/audio/dice/lose.mp3')
 export default {
-    components: { Header, Footer, PopCharge },
+    components: { Footer, PopCharge },
     data () {
         return {
             coin: {
@@ -626,10 +624,6 @@ export default {
                 return new Array(num)
             }
             return []
-        },
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
         },
         getBetsList () {
             if (this.isLoading || this.showOpen) {

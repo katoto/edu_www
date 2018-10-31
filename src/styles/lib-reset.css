@@ -317,7 +317,7 @@ html.flexhtml, .flexhtml body,.flexhtml #app{
     overflow-y: auto;
 }
 
-.flexhtml #app >div{
+.flexhtml #app .page_all{
     display: flex;
     flex-direction: column;
     flex-grow: 1;

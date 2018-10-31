@@ -1,6 +1,5 @@
 <template>
     <div class="page_halloween">
-        <Header></Header>
         <div class="main">
             <div class="banner">
                 <h1 v-html="$lang.halloween.a5">
@@ -127,7 +126,6 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 
 export default {
@@ -143,7 +141,6 @@ export default {
     },
 
     components: {
-        Header,
         Footer
     },
     filters: {

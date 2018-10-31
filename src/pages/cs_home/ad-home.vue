@@ -1,8 +1,7 @@
 <template>
     <div class="page_act_center">
-        <Header></Header>
         <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
-        <div class="main" @click="initPop" :class="{en: $isEn()}">
+        <div class="main" :class="{en: $isEn()}">
             <ul class="act_items " v-if="this.list.length > 0">
                 <li v-for="(item, index) in list" :key="index" :style="`background: ${item.bg_color || '#3b2860'}`" class="icon_over" :datamsg="getMsgTab(item)">
                     <img :src="`https://www.coinsprize.com${item.img_url}`" alt="" class="img_ad">
@@ -37,12 +36,11 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { formatTime } from '~/common/util'
 import FirstChargeMixin from '../cs_activity/cs_firstCharge_mixin'
 export default {
-    components: { Header, Footer },
+    components: { Footer },
     mixins: [FirstChargeMixin],
     data () {
         return {
@@ -57,9 +55,6 @@ export default {
     },
     methods: {
         formatTime,
-        initPop () {
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         isNew (startTime, endTime) {
             let thisTime = new Date().getTime()
             return (
