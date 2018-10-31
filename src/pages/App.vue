@@ -27,7 +27,7 @@ export default {
         }
     },
     components: {
-        Halloween, Banner, Header,CHAT
+        Halloween, Banner, Header, CHAT
     },
     methods: {
         handleInit () {
@@ -166,34 +166,34 @@ export default {
 </script>
 <style lang="less">
 ._download_bg2 {
-    background: url("../assets/img/halloween/bg2.jpg");
-    width: 0;
-    height: 0;
-    z-index: 0;
-    opacity: 0;
-    top: 1000000px;
-    left: 0;
-    position: fixed;
+  background: url("../assets/img/halloween/bg2.jpg");
+  width: 0;
+  height: 0;
+  z-index: 0;
+  opacity: 0;
+  top: 1000000px;
+  left: 0;
+  position: fixed;
 }
 ._download_bg0 {
-    background: url("../assets/img/halloween/bg0.jpg");
-    width: 0;
-    height: 0;
-    z-index: 0;
-    opacity: 0;
-    top: 1000000px;
-    left: 0;
-    position: fixed;
+  background: url("../assets/img/halloween/bg0.jpg");
+  width: 0;
+  height: 0;
+  z-index: 0;
+  opacity: 0;
+  top: 1000000px;
+  left: 0;
+  position: fixed;
 }
-._download_bg{
-    background: url("../assets/img/halloween/bg.jpg");
-    width: 0;
-    height: 0;
-    z-index: 0;
-    opacity: 0;
-    top: 1000000px;
-    left: 0;
-    position: fixed;
+._download_bg {
+  background: url("../assets/img/halloween/bg.jpg");
+  width: 0;
+  height: 0;
+  z-index: 0;
+  opacity: 0;
+  top: 1000000px;
+  left: 0;
+  position: fixed;
 }
 .halloween-mode .halloween {
   position: relative;
