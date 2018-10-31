@@ -1,8 +1,13 @@
 <template>
     <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
-        <router-view v-if="isReady" />
+        <Banner v-if="isLucky11"></Banner>
+        <Header v-if="!isSlot && !isDapp && isReady"></Header>
+        <router-view v-if="isReady" @click.native="initPop" class="page_all" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
-        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry && !isShowHalloween">
+        <div class="_download_bg2"></div>
+        <div class="_download_bg0"></div>
+        <div class="_download_bg"></div>
         <CHAT v-if="testUrl"></CHAT>
     </div>
 </template>
@@ -11,6 +16,8 @@
 import CHAT from '~components/Chat'
 import { isLog, defaultLanguage, isForbitPage, setCK } from '~common/util'
 import Halloween from './cs_halloween/game'
+import Banner from '~components/banner'
+import Header from '~components/Header.vue'
 export default {
     data () {
         return {
@@ -20,8 +27,7 @@ export default {
         }
     },
     components: {
-        Halloween,
-        CHAT
+        Halloween, Banner, Header,CHAT
     },
     methods: {
         handleInit () {
@@ -48,6 +54,13 @@ export default {
                 return
             }
             this.isShowHalloween = !this.isShowHalloween
+        },
+        initPop () {
+            /* head 弹窗 */
+            if (this.isSlot || this.isDapp) {
+                return
+            }
+            this.$store.commit('initHeadState', new Date().getTime())
         }
     },
     watch: {
@@ -62,8 +75,18 @@ export default {
             return this.$store.state.isLog
         },
         isShowEntry () {
-            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1 && window.halloween === 1
+            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
+        },
+        isLucky11 () {
+            return this.$route.name === 'lucky11'
+        },
+        isSlot () {
+            return this.$route.name === 'luckySlot'
+        },
+        isDapp () {
+            return this.$route.name === 'supercoin'
         }
+
     },
     async mounted () {
         (function flexible (window, document) {
@@ -99,9 +122,9 @@ export default {
             window.app_ck === '-1' ? setCK('') : setCK(window.app_ck)
         }
         this.handleInit()
+        let userMsg = await this.$store.dispatch('getUserInfo')
         if (isLog()) {
             this.$store.commit('setIsLog', true)
-            let userMsg = await this.$store.dispatch('getUserInfo')
             if (userMsg && userMsg.status.toString() === '100') {
                 this.$store.commit('setIsLog', true)
             }
@@ -142,6 +165,36 @@ export default {
 }
 </script>
 <style lang="less">
+._download_bg2 {
+    background: url("../assets/img/halloween/bg2.jpg");
+    width: 0;
+    height: 0;
+    z-index: 0;
+    opacity: 0;
+    top: 1000000px;
+    left: 0;
+    position: fixed;
+}
+._download_bg0 {
+    background: url("../assets/img/halloween/bg0.jpg");
+    width: 0;
+    height: 0;
+    z-index: 0;
+    opacity: 0;
+    top: 1000000px;
+    left: 0;
+    position: fixed;
+}
+._download_bg{
+    background: url("../assets/img/halloween/bg.jpg");
+    width: 0;
+    height: 0;
+    z-index: 0;
+    opacity: 0;
+    top: 1000000px;
+    left: 0;
+    position: fixed;
+}
 .halloween-mode .halloween {
   position: relative;
   &::before {
@@ -201,10 +254,30 @@ export default {
 }
 .halloween-entry {
   position: fixed;
-  top: 50%;
+  top: 400px;
   left: 40px;
   cursor: pointer;
   z-index: 98;
+  transform-origin: center bottom;
+  animation: flipEntry 5s ease-in-out infinite;
+}
+@keyframes flipEntry {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60%,
+  70%,
+  80% {
+    transform: rotateZ(20deg);
+  }
+  40%,
+  65%,
+  75%,
+  85% {
+    transform: rotateZ(-21deg);
+  }
 }
 </style>
 
@@ -248,6 +321,33 @@ export default {
     display: block;
     width: 22px;
     height: 22px;
+  }
+}
+
+//临时蜘蛛线条
+.ghost2-ct,
+.ghost21-ct {
+  img {
+    z-index: 2;
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: -65px;
+    left: 51%;
+    width: 2px;
+    height: 150px;
+    background: #410414;
+    z-index: -1;
+  }
+}
+.ghost21-ct {
+  &::before {
+    content: "";
+    top: -230px;
+    height: 350px;
   }
 }
 </style>

@@ -426,7 +426,7 @@ html.flexhtml,
     overflow-y: auto;
 }
 
-.flexhtml #app>div:first-child {
+.flexhtml #app .page_all{
     display: flex;
     flex-direction: column;
     flex-grow: 1;

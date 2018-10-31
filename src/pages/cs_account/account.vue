@@ -1,7 +1,6 @@
 <template>
     <div class="account">
-        <Header></Header>
-        <div class="main flex1" @click="initPop">
+        <div class="main flex1">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Account Center'), path: '/account' }]"></BreadCrumbs>
             <!--侧边栏-->
             <div class="slide-bar visible-lg" :data-msg="_('Free Bonus ')">
@@ -42,7 +41,6 @@
 
 <script>
 import Vue from 'vue'
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import BreadCrumbs from '~/components/BreadCrumbs.vue'
 
@@ -73,10 +71,6 @@ export default {
         }
     },
     methods: {
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         changH5Msg (value) {
             this.isShowH5SideBar = false
             this.$store.commit('cs_account/setH5NavMsg', value)
@@ -84,7 +78,6 @@ export default {
     },
     components: {
         Footer,
-        Header,
         BreadCrumbs
     },
     mounted () {

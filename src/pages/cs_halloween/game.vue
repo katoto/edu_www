@@ -4,11 +4,9 @@
         <audio :src="ghost1Src" class="poker-audio" ref="ghost1Obj"></audio>
         <audio :src="ghost2Src" class="poker-audio" ref="ghost2Obj"></audio>
         <audio :src="ghost3Src" class="poker-audio" ref="ghost3Obj"></audio>
-        <i class="music-btn" @click="switchMusic" ref="musicBtn" :class="{'pause':isPause}">
-        </i>
         <i class="close-btn" @click="closeGame" ref="closeBtn">
         </i>
-        <i class="hammer-btn" :style="{transform: `translate(${hammerX}px,${hammerY}px)`}" v-if="!hideHammer">
+        <i class="music-btn" @click="switchMusic" ref="musicBtn" :class="{'pause':isPause}">
         </i>
         <i class="ghost1-ct" :style="{transform: `translate(${ghost1.x}px,${ghost1.y}px) `, top: `${ghost1.top}px`}" @click="beatIt('ghost', 'ghost1', ghost1.monsterId)" :class="{beating: isBeating, isWin: ghost1.isWin, filp: !ghost1.direction}" ref="ghost1" v-if="ghost1">
             <p class="prize">+1.0CC</p>
@@ -85,18 +83,17 @@ export default {
             currentData: null,
             gameWidth: null,
             gameHeight: null,
-            hammerX: -10000,
-            hammerY: -10000,
             isBeating: false,
             isAjax: false,
-            hideHammer: true,
             timer: null,
             nextTimer: null,
             animateTimer: null,
             animateStatus: 1,
             lastHightIndex: 0,
             lastWidthIndex: 0,
-            ghost3Bottom: 0
+            ghost3Bottom: 0,
+            nextMessageTime: Date.now(),
+            isTip: false
         }
     },
     methods: {
@@ -124,6 +121,9 @@ export default {
             return this.currBalance.cointype === '2000'
         },
         changeToCCAccount () {
+            if (!this.isLogin) {
+                return
+            }
             let accounts = this.$store.state.userInfo.accounts
             let CCAccount = accounts.filter(
                 account => account.cointype === '2000'
@@ -379,6 +379,9 @@ export default {
             let scene
             let path
             let currentData = this.currentData
+            if (this.isTip) {
+                return
+            }
             if (currentData.lucky11.length !== 0) {
                 scene = _('Lucky11')
                 path = 'lucky11'
@@ -399,8 +402,21 @@ export default {
                     })
                 })
             }
+            this.isTip = true
         },
         message (message, callback = () => { }) {
+            let thisTime = Date.now()
+            if (this.nextMessageTime - thisTime >= 0) {
+                setTimeout(() => {
+                    this._message(message, callback)
+                }, this.nextMessageTime - thisTime + 500)
+                this.nextMessageTime += 500
+                return
+            }
+            this._message(message, callback)
+            this.nextMessageTime = Date.now()
+        },
+        _message (message, callback = () => { }) {
             let not = Notification({
                 message: message,
                 dangerouslyUseHTMLString: true,
@@ -475,6 +491,12 @@ export default {
                     }
                 }
             })
+            arr.forEach(name => {
+                if (this[name] === null) {
+                    this.createMonster(name)
+                }
+            })
+            this.isTip = false
         },
         getGhosts () {
             return this.$store.dispatch('cs_halloween/getGhosts')
@@ -497,6 +519,11 @@ export default {
                     console.log('catch refresh game')
                     this.getGhosts()
                 }, offsetTime)
+            } else {
+                this.nextTimer = setTimeout(() => {
+                    console.log('catch refresh game')
+                    this.getGhosts()
+                }, 10000)
             }
         },
         clearGhostStatus () {
@@ -623,6 +650,7 @@ export default {
             if (value && !this.isCCAccount()) {
                 this.changeToCCAccount()
             }
+            this.isTip = false
         },
         scene () {
             this.$nextTick(() => {
@@ -634,6 +662,7 @@ export default {
             setTimeout(() => {
                 this.onScroll()
             }, 200)
+            this.isTip = false
         }
     },
     destroyed () {
