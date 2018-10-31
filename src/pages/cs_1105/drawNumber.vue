@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Header></Header>
         <div class="main">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Lucky11'), path: '/lucky11' }, { name: _('Draw Records'), path: '/drawNumber' }]"></BreadCrumbs>
             <div class="main-reward visible-lg">
@@ -200,7 +199,6 @@
 import { aTypes } from '~/store/cs_page/cs_1105'
 import { ethUrl, formatTime } from '~common/util'
 
-import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 import BreadCrumbs from '~/components/BreadCrumbs.vue'
 export default {
@@ -304,7 +302,6 @@ export default {
         }
     },
     components: {
-        Header,
         Footer,
         BreadCrumbs
     },

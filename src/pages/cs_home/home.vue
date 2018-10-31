@@ -1,23 +1,20 @@
 <template>
     <!--bg1 bg2 bg3-->
     <div class="home" :class="bghome">
-        <Header></Header>
-        <div class="main" @click="initPop">
+        <div class="main">
             <div class="container">
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
                         <el-carousel :interval="5000" @change="bgchange">
                             <el-carousel-item>
-                                <div class="banner-t1">
-                                    <lang>Halloween Ghost Hunting</lang>
+                                <div class="banner-t1" v-html="$lang.halloween.a23">
                                 </div>
-                                <!--visible-md visible-lg-->
                                 <p class="banner-t11 ">
-                                    <lang>Free CC for every beating on the ghost</lang>
+                                    {{$lang.halloween.a6}}
                                 </p>
                                 <router-link to="/halloween" class="banner-firstCharge">
-                                    <lang>More Info</lang>
+                                    {{$lang.halloween.a24}}
                                 </router-link>
                             </el-carousel-item>
                             <el-carousel-item>
@@ -495,7 +492,6 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { luckyCoinApi } from '~/dappApi/luckycoinApi'
 import { mapActions } from 'vuex'
@@ -629,10 +625,6 @@ export default {
             let money = formatNum(Number(num), 5).toFixed(5)
             return money.length > 7 ? money.substring(0, 7) : money
         },
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         async indexRouter (query) {
             /* 邮箱注册 找回密码  邀请等 */
             if (query.sign) {
@@ -723,7 +715,7 @@ export default {
             })
         }
     },
-    components: { Header, Footer },
+    components: { Footer },
     computed: {
         isLog () {
             return this.$store.state.isLog
