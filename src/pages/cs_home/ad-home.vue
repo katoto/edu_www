@@ -14,7 +14,7 @@
                             {{$lang.risk.a32}}: {{formatTime(Number(item.start), 'yyyy-MM-dd HH:mm:ss')}} - {{formatTime(Number(item.end), 'yyyy-MM-dd HH:mm:ss')}}
                         </p>
                         <div class="ad_btn_box" v-if="item.title_key !== 'register_gift'">
-                            <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)" :class="{disabled: isDisableJoin(item)}">
+                            <a href="javascript:;" class="ad_btn ad_btn_join" @click="join(item)" :class="{disabled: isDisableJoin(item)}" v-if="item.title_key !== 'halloween'">
                                 {{isDisableJoin(item) ? _('You are eligible now') :$lang.risk.a33}}
                             </a>
                             <router-link :to="{path: item.target, query: { id: item.id }}" v-if="item.target && item.target.length > 0" class="ad_btn ad_btn_more">
@@ -130,6 +130,8 @@ export default {
       width: percentage(702/750);
       margin: 0 auto;
       padding: 57px 0 110px;
+      min-height: 586px;
+      box-sizing: border-box;
     }
     .nomsg {
       margin: 30px auto;

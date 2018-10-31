@@ -524,7 +524,6 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
 import Banner from '~components/banner'
 import PlayArea from '~pages/cs_1105/PlayArea.vue'
@@ -1000,7 +999,6 @@ export default {
     },
     components: {
         Footer,
-        Header,
         HeaderNav,
         PlayArea,
         H5PlayArea,
