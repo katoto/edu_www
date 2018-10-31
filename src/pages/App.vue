@@ -3,7 +3,7 @@
         <router-view v-if="isReady" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
         <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
-        <CHAT></CHAT>
+        <CHAT v-if="testUrl"></CHAT>
     </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
     data () {
         return {
             isReady: false,
-            isShowHalloween: false
+            isShowHalloween: false,
+            testUrl: null
         }
     },
     components: {
@@ -136,6 +137,7 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
+        window.location.href.indexOf('test') > -1 ? this.testUrl = true : this.testUrl = false
     }
 }
 </script>
