@@ -1,8 +1,8 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}">
         <!-- <Banner class="hide" v-on:superBannerChange="superChange"></Banner> -->
-        <Banner v-if="adList.home_top_1 && adList.home_top_1.length>0"></Banner>
-        <Banner v-else></Banner>
+        <!-- <Banner v-if="adList.home_top_1 && adList.home_top_1.length>0"></Banner>
+        <Banner v-else></Banner> -->
         <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>

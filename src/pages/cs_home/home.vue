@@ -8,18 +8,16 @@
                     <div class="col-xs-12">
                         <!--banner-->
                         <el-carousel :interval="5000" @change="bgchange">
-                            <el-carousel-item>
-                                <div class="banner-t1">
-                                    <lang>Halloween Ghost Hunting</lang>
+                            <!-- <el-carousel-item>
+                                <div class="banner-t1" v-html="$lang.halloween.a23">
                                 </div>
-                                <!--visible-md visible-lg-->
                                 <p class="banner-t11 ">
-                                    <lang>Free CC for every beating on the ghost</lang>
+                                    {{$lang.halloween.a6}}
                                 </p>
                                 <router-link to="/halloween" class="banner-firstCharge">
-                                    <lang>More Info</lang>
+                                    {{$lang.halloween.a24}}
                                 </router-link>
-                            </el-carousel-item>
+                            </el-carousel-item> -->
                             <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
@@ -776,15 +774,15 @@ export default {
   background-size: 1920px;
   transition: all 0.5s ease-in-out;
   &.bghome0 {
-    background: #011025 url("../../assets/img/home/bg0.jpg") no-repeat top
+    background: #011025 url("../../assets/img/home/bg1.jpg") no-repeat top
       center;
   }
   &.bghome1 {
-    background: #181633 url("../../assets/img/home/bg1.jpg") no-repeat top
+    background: #181633 url("../../assets/img/home/bg2.jpg") no-repeat top
       center;
   }
   &.bghome2 {
-    background: #181633 url("../../assets/img/home/bg2.jpg") no-repeat top
+    background: #181633 url("../../assets/img/home/bg3.jpg") no-repeat top
       center;
   }
   &.bghome3 {

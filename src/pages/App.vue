@@ -2,8 +2,7 @@
     <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
         <router-view v-if="isReady" />
         <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
-        <!-- v-if="isShowEntry||1" -->
-        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween">
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry && !isShowHalloween">
     </div>
 </template>
 
@@ -59,7 +58,7 @@ export default {
             return this.$store.state.isLog
         },
         isShowEntry () {
-            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
+            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1 && window.halloween === 1
         }
     },
     async mounted () {
@@ -200,9 +199,9 @@ export default {
   cursor: pointer;
   z-index: 98;
   transform-origin: center bottom;
-  animation: flip 5s ease-in-out infinite;
+  animation: flipEntry 5s ease-in-out infinite;
 }
-@keyframes flip {
+@keyframes flipEntry {
   0%,
   100% {
     transform: rotate(0);
