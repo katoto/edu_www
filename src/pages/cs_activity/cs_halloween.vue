@@ -148,10 +148,12 @@ export default {
 .page_halloween {
   background: #001025;
   .title {
-    width: 522px;
+    width: 80%;
+    max-width: 522px;
     height: 170px;
     background: url(../../assets/img/halloween/active/bg_title.png) no-repeat
       center;
+    background-size: contain;
     margin: 0 auto;
     text-align: center;
     line-height: 220px;
@@ -186,7 +188,8 @@ export default {
     ul {
       display: flex;
       justify-content: space-between;
-      width: 1120px;
+      max-width: 1120px;
+      width: 92%;
       margin: 30px auto 0;
     }
     li {
@@ -280,7 +283,8 @@ export default {
     }
   }
   .modules_rule {
-    width: 910px;
+    width: 92%;
+    max-width: 910px;
     margin: 47px auto 160px;
     word-wrap: break-word;
     line-height: 28px;
@@ -330,6 +334,31 @@ export default {
   }
   50% {
     background: url(../../assets/img/halloween/monster02.png) no-repeat center;
+  }
+}
+@media (max-width: 1200px) {
+  .page_halloween {
+    .title,
+    .modules_rule .title {
+      line-height: 190px;
+      font-size: 24px;
+    }
+    .banner {
+      h1 {
+        font-size: 1rem;
+      }
+      h3 {
+        font-size: 0.7rem;
+      }
+    }
+    .modules_guidance {
+      ul {
+        display: block;
+      }
+      li {
+        margin: 20px auto;
+      }
+    }
   }
 }
 </style>
