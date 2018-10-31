@@ -249,7 +249,8 @@ export default {
       font-size: 20px;
       font-weight: bold;
       &:hover {
-        filter: brightness(1.2);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
       }
       &.ad_btn_join {
         background: #fb8221;
