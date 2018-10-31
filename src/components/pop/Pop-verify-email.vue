@@ -10,9 +10,12 @@
             <p class="verify-tips">
                 <lang>Activate account now to start your lucky journey!</lang>
             </p>
-            <input type="submit" @click.stop.prevent="againVerify" :value="_('Verify Now')" :class="{'no':emailBackTime!==0}">
+            <!-- <input type="submit" @click.stop.prevent="againVerify" :value="_('Verify Now')" :class="{'no':emailBackTime!==0}"> -->
+            <input type="submit" @click.stop.prevent="goVerify" :value="_('Verify Now')">
             <div class="pop_email_bottom">
-                <a href="javascript:;">Resent</a>
+                <a href="javascript:;" @click.stop.prevent="againVerify">
+                    <lang>Resent</lang>
+                </a>
                 <p v-if="emailBackTime !== 0"><span>{{ _('{0}s left', emailBackTime) }} </span></p>
             </div>
         </div>
@@ -36,6 +39,10 @@ export default {
     },
     components: { Pop },
     methods: {
+        goVerify () {
+            // todo 如何跳转
+            window.open('https://www.baidu.com')
+        },
         async againVerify () {
             let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
             let sendObj = {}

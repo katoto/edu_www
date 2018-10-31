@@ -856,7 +856,12 @@ module.exports = {
     'Promo-Halloween': '万圣节活动送',
     'You have not verified your email, please verify first': '您尚未验证邮箱，请先验证',
     /* 触达  start */
-    'You\'ve got 1 CC for free': '注册奖励已到账'
+    'You\'ve got 1 CC for free': '注册奖励已到账',
+    'Activate account now to start your lucky journey!': '世界上最遥远的距离是，因为懒得激活只能与大奖擦肩而过！',
+    'Resent': '再次发送',
+    'Verify Now': '立马验证',
+    '50% bonus only for the first top-up.<br /> Let your happiness continue!': '首次充值，余额翻倍！',
+    '50% bonus': '50% 奖池'
 
     /* 触达  end */
 

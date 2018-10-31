@@ -138,7 +138,10 @@ export default {
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
 
+        // test
         this.selfNotify(_('You\'ve got 1 CC for free'))
+        // this.$store.commit('showNoVerify')
+        // this.$store.commit('showVerifyEmail')
     }
 }
 </script>
