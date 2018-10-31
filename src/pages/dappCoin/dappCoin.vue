@@ -609,7 +609,7 @@
 <script>
 import { aTypes } from '~/store/cs_page/dappCoin'
 import {
-    copySucc, copyError, formateCoinType, formatTime, formateCoinAddr, coinAffAddr
+    copySucc, copyError, formateCoinType, formatTime, formateCoinAddr, coinAffAddr, selfNotify
 } from '~common/util'
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
@@ -703,6 +703,7 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
+        selfNotify,
         initEasyPlay () {
             this.isNew = false
             this.isShowStep1 = true
@@ -1447,18 +1448,7 @@ export default {
                     currGas
                 )
             }
-            buyBack
-                ? this.selfNotify('Order Successful')
-                : this.selfNotify('Purchase Cancelled', 'error')
-        },
-        selfNotify (val, typeVal = 'success') {
-            Notification({
-                dangerouslyUseHTMLString: true,
-                type: typeVal,
-                message: _(val),
-                position: 'bottom-right',
-                duration: 5000
-            })
+            buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         async registerName () {
             let buyNameBack = null

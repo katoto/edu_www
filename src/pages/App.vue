@@ -9,7 +9,7 @@
 
 <script>
 import CHAT from '~components/Chat'
-import { isLog, defaultLanguage, isForbitPage, setCK } from '~common/util'
+import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
 import Halloween from './cs_halloween/game'
 export default {
     data () {
@@ -23,6 +23,7 @@ export default {
         CHAT
     },
     methods: {
+        selfNotify,
         handleInit () {
             document.getElementById('app').style.visibility = 'visible'
             switch (defaultLanguage) {
@@ -136,6 +137,8 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
+
+        this.selfNotify(_('You\'ve got 1 CC for free'))
     }
 }
 </script>
