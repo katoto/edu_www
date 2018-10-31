@@ -116,11 +116,7 @@
                 </div>
                 <div class="row2">
                     <div class="row2_left">
-                        <div class="placeholder">
-                            {{myMsg}}
-                        </div>
-                        <textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keyup.enter="sendMsg">
-                        </textarea>
+                        <div class="placeholder">{{myMsg}}</div><textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keyup.enter="sendMsg"></textarea>
                     </div>
                     <a href="javascript:;" class="btn_send " @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble, 'time_down':baseTime!==0}">{{ baseTime + 's'}}</a>
                 </div>
@@ -197,6 +193,9 @@ export default {
         },
         sendMsg () {
             // 发送msg
+            console.log('===========')
+            console.log(this.myMsg)
+            console.log('===========')
             this.checkUse()
             if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0 || !this.isBtnAble) {
                 return false
@@ -384,6 +383,9 @@ export default {
       &:hover {
         filter: brightness(1.1);
       }
+    }
+    .whiteColor {
+      color: #fff !important ;
     }
     * {
       box-sizing: border-box;
@@ -822,6 +824,7 @@ export default {
         resize: none;
         word-wrap: break-word;
         word-break: break-all;
+        font-family: Helvetica, "Microsoft YaHei";
       }
       .btn_send {
         display: block;

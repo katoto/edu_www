@@ -63,6 +63,7 @@ export const isWeiX = (function () {
     let ua = navigator.userAgent.toLowerCase()
     return ~ua.indexOf('micromessenger')
 })()
+
 export const isIOS = (function () {
     let ua = navigator.userAgent
     let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
@@ -882,8 +883,10 @@ String.prototype.httpParse = function () {
     return htmlDecode(this).replace(reg, (a) => {
         if (!a.indexOf('http')) {
             return `<a class="link" href="${a}" target="_blank">${a}</a>`
-        } else {
-            return `<a class="link" href="http://${a}" target="_blank">${a}</a>`
         }
+        return `${a}`
+        // else {
+        //     return `<a class="link" href="http://${a}" target="_blank">${a}</a>`
+        // }
     })
 }
