@@ -24,7 +24,6 @@
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
     import {tipsTime} from '~common/util'
 
     export default {
@@ -42,11 +41,7 @@
                 let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
                 if (!passReg.test(this.resetPsw)) {
                     if (this.resetPsw !== '') {
-                        Message({
-                            message: _('Password must contain 6-15 characters with both numbers and letters'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Password must contain 6-15 characters with both numbers and letters'))
                     }
                     return false
                 }
@@ -70,11 +65,7 @@
                             this.$store.dispatch('startBackTime')
                         }
                     } else {
-                        Message({
-                            message: _('Please enter your email address'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Please enter your email address'))
                     }
                 }
             },
@@ -85,19 +76,11 @@
                     return false
                 }
                 if (this.resetPsw !== this.resetPsw2) {
-                    Message({
-                        message: _('Confirm password not match'),
-                        type: 'error',
-                        duration: tipsTime
-                    })
+                    this.$error(_('Confirm password not match'))
                     return false
                 }
                 if (!this.resetObj.email || !this.resetObj.sign) {
-                    Message({
-                        message: _('reset password error'),
-                        type: 'error',
-                        duration: tipsTime
-                    })
+                    this.$error(_('reset password error'))
                     return false
                 }
                 Object.assign(regObj, {
@@ -107,11 +90,7 @@
                 })
                 let resetMsg = await this.$store.dispatch('resetPasswordFn', regObj)
                 if (resetMsg && resetMsg.status.toString() === '100') {
-                    Message({
-                        message: _('Reset successfully，sign in now'),
-                        type: 'success',
-                        duration: tipsTime
-                    })
+                    this.$success(_('Reset successfully，sign in now'))
                     setTimeout(() => {
                         this.$store.commit('hideResetPwd')
                         this.$store.commit('showLoginPop')
@@ -127,11 +106,7 @@
             },
             show: {
                 set: function (isShow) {
-                    if (!!isShow === true) {
-                        this.$store.commit('showResetPwd')
-                    } else {
-                        this.$store.commit('hideResetPwd')
-                    }
+                    !!isShow === true ? this.$store.commit('showResetPwd') : this.$store.commit('hideResetPwd')
                 },
                 get: function () {
                     return this.$store.state.pop.showResetPwd

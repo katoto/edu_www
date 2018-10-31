@@ -1,5 +1,5 @@
 <template>
-    <div class="main"  @click="initPop">
+    <div class="main halloween"  @click="initPop">
         <div class="container">
             <img class="loading" :class="[isReady?'':'show']" src="@/assets/img/loading.gif" alt="">
             <div class="row">
@@ -170,7 +170,7 @@
         },
         methods: {
             ...mapActions('cs_luckycoin', ['updateLuckyCoinPage', 'getBetsList']),
-            ...mapActions(['subInLuckyCoin']),
+            ...mapActions(['subInMsg']),
             initPop () {
                 /* head 弹窗 */
                 this.$store.commit('initHeadState', new Date().getTime())

@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <a href="javascript:;" class=" btn btn-normal" @click="handleBetEvent" :class="{ blinking: this.isBlinking, disabled: this.disableBet }">
-                            {{ this.isBlinking ? _('Insufficient Available Bids') : _('Pay') }}
+                            {{ this.isBlinking ? _('Max Bids Change') : _('Pay') }}
                         </a>
                         <!-- 新增cc 20180926 -->
                         <div class="cc-group cc-luckycoin" v-if="coinType !== '2000' && isLogin">
@@ -231,7 +231,7 @@
 
                     </el-tab-pane>
                 </el-tabs>
-                <el-table :data="totalBids" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}" v-show="activeName === 'all' && totalBids.length > 0" :row-class-name="getRowClass">
+                <el-table :data="showTotalBids" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}" v-show="activeName === 'all' && showTotalBids.length > 0" :row-class-name="getRowClass">
                     <el-table-column prop="crtime" :label="_('Time')" sortable width="137">
                     </el-table-column>
                     <el-table-column prop="username" :label="_('User ID')" width="440">
@@ -347,6 +347,7 @@ export default {
             PageTotal: 10,
             betData: {},
             totalBids: [],
+            showTotalBids: [],
             isShowNumberPop: false,
             numbers: [],
             myNumbers: [],
@@ -400,8 +401,8 @@ export default {
         },
         init () {
             let params = getURLParams()
-            if (params.number || this.number !== '') {
-                this.number = params.number || this.number
+            if ((this.$route.params && this.$route.params.number) || this.number !== '') {
+                this.number = this.$route.params.number || this.number
                 this.getDetailInfo()
                 this.getAllBidsInfo()
                 this.getMyBidsInfo()
@@ -413,7 +414,7 @@ export default {
                     if (data && data[0]) {
                         this.number = data[0].exceptId
                         this.$router.replace(
-                            `/luckycoin/detailed?number=${this.number}`
+                            `/luckycoin/detailed/${this.number}`
                         )
                         this.init()
                     }
@@ -487,7 +488,7 @@ export default {
             this.getAllBids({
                 expectId: this.number,
                 lotid: '2',
-                pagesize: this.pageSize,
+                pagesize: 10000000000,
                 pageno: this.pageno
             }).then(res => {
                 this.totalBids = [
@@ -496,7 +497,8 @@ export default {
                         res.data.goodsinfo
                     )
                 ]
-                this.PageTotal = Number(res.data.pages)
+                this.PageTotal = Number(Math.ceil(this.totalBids.length / 10))
+                this.showTotalBids = this.totalBids.filter((item, index) => index < 10)
             })
         },
         showAllNumber (uid, infoName) {
@@ -622,7 +624,15 @@ export default {
             this.betMoney = price === 0 ? 0 : price
         },
         handleAllBidsChange () {
-            this.getAllBidsInfo()
+            // this.getAllBidsInfo()
+            this.showTotalBids = this.totalBids.filter((item, index) => {
+                let size = (Number(this.pageno) - 1) * Number(this.pageSize)
+
+                if (size <= index && index <= size + 9) {
+                    return true
+                }
+                return false
+            })
         },
         chooseHalf () {
             this.betValue = Number(this.betValue)

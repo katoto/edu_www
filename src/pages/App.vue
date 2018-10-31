@@ -1,6 +1,8 @@
 <template>
-    <div id="app" @scroll.native="test" :class="isReady ? 'ready' : ''">
+    <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
         <router-view v-if="isReady" />
+        <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry">
         <CHAT></CHAT>
     </div>
 </template>
@@ -8,15 +10,16 @@
 <script>
 import CHAT from '~components/Chat'
 import { isLog, defaultLanguage, isForbitPage, setCK } from '~common/util'
+import Halloween from './cs_halloween/game'
 export default {
     data () {
         return {
-            isReady: false
+            isReady: false,
+            isShowHalloween: false
         }
     },
-    computed: {
-    },
     components: {
+        Halloween,
         CHAT
     },
     methods: {
@@ -33,6 +36,32 @@ export default {
                 document.getElementById('contentLanguange').setAttribute('content', 'zh-cn')
                 break
             }
+        },
+        playHalloween () {
+            if (!this.isLogin) {
+                this.$store.commit('showLoginPop')
+                return
+            }
+            if (this.$store.state.userInfo && this.$store.state.userInfo.status !== '1') {
+                this.$store.commit('showNoVerify')
+                return
+            }
+            this.isShowHalloween = !this.isShowHalloween
+        }
+    },
+    watch: {
+        isLogin (value) {
+            if (!value) {
+                this.isShowHalloween = false
+            }
+        }
+    },
+    computed: {
+        isLogin () {
+            return this.$store.state.isLog
+        },
+        isShowEntry () {
+            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1 && window.halloween === 1
         }
     },
     async mounted () {
@@ -53,7 +82,9 @@ export default {
                 }
                 docEl.style.fontSize = rem + 'px'
             }
+
             setRemUnit()
+
             // reset rem unit on page resize
             window.addEventListener('resize', setRemUnit)
             window.addEventListener('pageshow', function (e) {
@@ -76,8 +107,8 @@ export default {
         } else {
             this.$store.commit('setIsLog', false)
         }
-
         this.isReady = true
+
         /* 老虎机和首页 */
         if (isForbitPage()) {
             setTimeout(function () {
@@ -108,6 +139,72 @@ export default {
     }
 }
 </script>
+<style lang="less">
+.halloween-mode .halloween {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/img/halloween/bg2.jpg") no-repeat #162222 center
+      top;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: showBackground 0.5s forwards ease-out;
+  }
+  &.tiger-pc::before {
+    background-position-y: 70px;
+  }
+}
+.halloween-mode .nav#nav {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/img/halloween/bg0.jpg") no-repeat #162222 center
+      top;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: showBackground 0.5s forwards ease-out;
+  }
+}
+.halloween-mode .play-area {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/img/halloween/bg.jpg") no-repeat #162222 center
+      top;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: showBackground 0.5s forwards ease-out;
+  }
+}
+
+@keyframes showBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.halloween-entry {
+  position: fixed;
+  top: 50%;
+  left: 40px;
+  cursor: pointer;
+  z-index: 98;
+}
+</style>
 
 <style lang="less" type="text/less">
 @import "../styles/lib-reset.css";

@@ -1,16 +1,12 @@
 /**
  *  相关的工具函数
  */
-
-import {
-    Message
-} from 'element-ui'
+import { Message } from 'element-ui'
 
 export const src = 'pc'
-export const tipsTime = 3000
+export const tipsTime = 2000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
-
 //  社区地址 online
 export const coinAffAddr = '0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF'
 // 线下社区地址
@@ -67,6 +63,7 @@ export const isWeiX = (function () {
     let ua = navigator.userAgent.toLowerCase()
     return ~ua.indexOf('micromessenger')
 })()
+
 export const isIOS = (function () {
     let ua = navigator.userAgent
     let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
@@ -372,7 +369,9 @@ export function formateMoneyFlow (flowtype, lotid) {
     case '20':
         return _('LuckyPoker Bet') // 幸运扑克投注
     case '21':
-        return _('LuckyPoker Prize') // 幸运扑克中奖
+        return _('LuckyPoker Prize')// 幸运扑克中奖
+    case '22':
+        return _('Promo-Halloween') // 万圣节活动送
     default:
         return _('Bet')
     }
@@ -426,14 +425,16 @@ export function commonErrorHandler (data) {
 export function copySucc () {
     Message({
         message: _('Copied to clipboard'),
-        type: 'success'
+        type: 'success',
+        duration: tipsTime
     })
 }
 
 export function copyError () {
     Message({
         message: _('Failed to copy, please retry'),
-        type: 'error'
+        type: 'error',
+        duration: tipsTime
     })
 }
 
@@ -516,10 +517,10 @@ export function accDiv (arg1, arg2) {
     let r2
     try {
         t1 = arg1.toString().split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     try {
         t2 = arg2.toString().split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     r1 = Number(arg1.toString().replace('.', ''))
     r2 = Number(arg2.toString().replace('.', ''))
     return (r1 / r2) * Math.pow(10, t2 - t1)
@@ -532,10 +533,10 @@ export function accMul (arg1, arg2) {
     let s2 = arg2.toString()
     try {
         m += s1.split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     try {
         m += s2.split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
 }
 
@@ -816,6 +817,30 @@ export function getByteLen (str) {
     return str.replace(/[^\x00-\xff]/g, '01').length
 }
 
+/*
+ *      切割字节长度字符
+ *      @return 字节长度
+ * */
+export function cutStr (str, len) {
+    let result = ''
+    let strlen = str.length // 字符串长度
+    let chrlen = str.replace(/[^\x00-\xff]/g, '**').length // 字节长度
+    if (chrlen <= len) { return str }
+    for (var i = 0, j = 0; i < strlen; i++) {
+        var chr = str.charAt(i)
+        if (/[\x00-\xff]/.test(chr)) {
+            j++ // ascii码为0-255，一个字符就是一个字节的长度
+        } else {
+            j += 2 // ascii码为0-255以外，一个字符就是两个字节的长度
+        }
+        if (j <= len) { // 当加上当前字符以后，如果总字节长度小于等于L，则将当前字符真实的+在result后
+            result += chr
+        } else { // 反之则说明result已经是不拆分字符的情况下最接近L的值了，直接返回
+            return result
+        }
+    }
+}
+
 export function getCCAcount (userInfo) {
     if (userInfo && userInfo.accounts && userInfo.accounts.length >= 1) {
         let accounts = this.userInfo.accounts
@@ -844,6 +869,24 @@ export function getCCDeductionMoney (total, rate) {
  *   正则 加入a
  * */
 String.prototype.httpParse = function () {
-    let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g
-    return this.replace(reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
+    let htmlDecode = (html) => {
+        var temp = document.createElement('div')
+        if (typeof html !== 'String') {
+            html.toString()
+        }
+        (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html)
+        var output = temp.innerHTML
+        temp = null
+        return output
+    }
+    var reg = /((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/g
+    return htmlDecode(this).replace(reg, (a) => {
+        if (!a.indexOf('http')) {
+            return `<a class="link" href="${a}" target="_blank">${a}</a>`
+        }
+        return `${a}`
+        // else {
+        //     return `<a class="link" href="http://${a}" target="_blank">${a}</a>`
+        // }
+    })
 }

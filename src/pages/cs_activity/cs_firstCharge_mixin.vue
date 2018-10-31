@@ -1,5 +1,4 @@
 <script>
-import { Message } from 'element-ui'
 export default {
     watch: {
         isLog () {
@@ -54,10 +53,7 @@ export default {
         async getChance () {
             let msg = await this.$store.dispatch('cs_activity/getChance')
             if (msg.status === '100') {
-                Message({
-                    message: _('You are eligible now'),
-                    type: 'success'
-                })
+                this.$success(_('You are eligible now'))
                 this.$store.dispatch('cs_activity/getChargeState')
             }
         }

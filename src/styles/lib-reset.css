@@ -99,9 +99,11 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
 }
 
-input {
+input,textarea {
     -moz-appearance: textfield;
 }
+textarea::-ms-clear { display: none;}
+textarea::-ms-reveal { display: none;}
 
 a:active,
 a:hover {

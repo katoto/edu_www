@@ -9,6 +9,18 @@
                         <!--banner-->
                         <el-carousel :interval="5000" @change="bgchange">
                             <el-carousel-item>
+                                <div class="banner-t1">
+                                    <lang>Halloween Ghost Hunting</lang>
+                                </div>
+                                <!--visible-md visible-lg-->
+                                <p class="banner-t11 ">
+                                    <lang>Free CC for every beating on the ghost</lang>
+                                </p>
+                                <router-link to="/halloween" class="banner-firstCharge">
+                                    <lang>More Info</lang>
+                                </router-link>
+                            </el-carousel-item>
+                            <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
                                         <lang>SUPERCOIN</lang>
@@ -497,7 +509,6 @@ import {
     structDom
 } from '~/common/util'
 import { aTypes } from '~/store/cs_page/cs_1105'
-import { Message } from 'element-ui'
 
 export default {
     data () {
@@ -641,10 +652,7 @@ export default {
                             this.$store.dispatch('getUserInfo')
                             this.$store.commit('showRegSuccess')
                         } else {
-                            Message({
-                                message: mailBack.message,
-                                type: 'error'
-                            })
+                            this.$error(mailBack.message)
                         }
                     }
                     this.$router.push('')
@@ -763,16 +771,20 @@ export default {
   width: 100%;
   background-size: 1920px;
   transition: all 0.5s ease-in-out;
-  &.bghome2 {
-    background: #181633 url("../../assets/img/home/bg0.jpg") no-repeat top
+  &.bghome0 {
+    background: #011025 url("../../assets/img/home/bg0.jpg") no-repeat top
       center;
   }
   &.bghome1 {
     background: #181633 url("../../assets/img/home/bg1.jpg") no-repeat top
       center;
   }
-  &.bghome0 {
+  &.bghome2 {
     background: #181633 url("../../assets/img/home/bg2.jpg") no-repeat top
+      center;
+  }
+  &.bghome3 {
+    background: #181633 url("../../assets/img/home/bg3.jpg") no-repeat top
       center;
   }
   .main {
@@ -1468,6 +1480,13 @@ export default {
       }
     }
     /*banner*/
+    &.bghome0 {
+      .el-carousel__item {
+        .banner-t1 {
+          margin-top: 35px;
+        }
+      }
+    }
   }
 
   .for-full {

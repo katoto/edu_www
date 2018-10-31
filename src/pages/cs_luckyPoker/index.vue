@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <div class="luckyPoker " @click="initPop" @resize="onResize" :class="{'small':is14}">
+        <div class="luckyPoker halloween" @click="initPop" @resize="onResize" :class="{'small':is14}">
             <audio :src="music.fapai" class="poker-audio" ref="fapaiMusic"></audio>
             <audio :src="music.pay" class="poker-audio" ref="payMusic"></audio>
             <audio :src="music.win" class="poker-audio" ref="winMusic"></audio>
@@ -456,6 +456,7 @@
                     </div> -->
                 </div>
             </div>
+            <PopCharge ref="popChargeDom"></PopCharge>
         </div>
         <Footer></Footer>
     </div>
@@ -464,16 +465,19 @@
 <script>
 import Header from '~components/Header'
 import Footer from '~components/Footer'
+import PopCharge from '~components/Pop-charge.vue'
+
 import { accAdd, accSub, accDiv, getElementAbsolutePosition, getElementCenterPosition, formateCoinType, accMul, formatNum, getCCAcount, getCCDeductionMoney } from '~common/util'
 import { mapActions, mapState } from 'vuex'
 import { setTimeout, clearTimeout } from 'timers'
-const betMusic = () => import('~static/audio/dice/bet.wav')
-const faPaiMusic = () => import('~static/audio/dice/fapai.ogg')
-const winMusic = () => import('~static/audio/dice/win.ogg')
-const payMusic = () => import('~static/audio/dice/pay.ogg')
-const loseMusic = () => import('~static/audio/dice/lose.ogg')
+
+const betMusic = () => import('~static/audio/dice/bet.mp3')
+const faPaiMusic = () => import('~static/audio/dice/fapai.mp3')
+const winMusic = () => import('~static/audio/dice/win.mp3')
+const payMusic = () => import('~static/audio/dice/pay.mp3')
+const loseMusic = () => import('~static/audio/dice/lose.mp3')
 export default {
-    components: { Header, Footer },
+    components: { Header, Footer, PopCharge },
     data () {
         return {
             coin: {
@@ -589,7 +593,7 @@ export default {
     },
     methods: {
         ...mapActions('cs_luckypoker', ['getHome', 'bet']),
-        ...mapActions(['subInDice', 'subOutDice', 'getUserInfo']),
+        ...mapActions(['subInMsg', 'subOutMsg', 'getUserInfo']),
         accMul,
         formateCoinType,
         getElementAbsolutePosition,
@@ -597,6 +601,12 @@ export default {
         formatNum,
         getCCAcount,
         getCCDeductionMoney,
+        superPopCharge () {
+            /* 调 pop-charge 的方法  修改按钮状态 */
+            if (this.$refs) {
+                this.$refs.popChargeDom.showPopCharge(true)
+            }
+        },
         formatEmail (email) {
             let arr = email.split('@')
             if (arr.length !== 2) {
@@ -868,7 +878,7 @@ export default {
                 return
             }
             if (this.balance < this.total) {
-                this.$error(this.$lang.poker.a35)
+                this.account.cointype === '2000' ? this.$error(this.$lang.poker.a35) : this.superPopCharge(true)
                 return
             }
             if (this.total === 0) {
@@ -1148,7 +1158,9 @@ export default {
         this.createClientSeed()
         this.getHistoryMostNum()
         this.disableContext()
-        this.subInDice()
+        this.subInMsg({
+            type: 'dice'
+        })
         this.loadMusicSrc()
         this.getUserInfo()
         window.addEventListener('resize', this.onResize)
@@ -1156,7 +1168,9 @@ export default {
     destroyed () {
         document.oncontextmenu = null
         window.removeEventListener('resize', this.onResize)
-        this.subOutDice()
+        this.subOutMsg({
+            type: 'dice'
+        })
     }
 }
 </script>
@@ -1253,14 +1267,14 @@ export default {
           }
           i {
             display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             width: percentage(18/217);
             img {
-              position: absolute;
               width: 100%;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
+              height: auto;
             }
           }
         }
@@ -1303,17 +1317,20 @@ export default {
       }
       li {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         float: left;
         width: 25%;
         overflow: hidden;
         background-color: #386363;
         cursor: pointer;
         img {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          display: block;
+          //   position: absolute;
+          //   left: 50%;
+          //   top: 50%;
+          //   transform: translate(-50%, -50%);
+          //   display: block;
         }
         &:first-child,
         &:nth-child(3) {
@@ -2032,6 +2049,7 @@ export default {
           cursor: pointer;
           img {
             width: percentage(53/170);
+            height: auto;
             max-width: 34px;
           }
         }

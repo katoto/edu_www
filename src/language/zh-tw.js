@@ -650,7 +650,7 @@ module.exports = {
     'Insufficient Balance': '余額不足',
     'Please top up first.': '您的余額不足以投註，請先充值',
     'Bid For {0}': '贏取 {0}',
-    'Insufficient Available Bids': '註數有變化',
+    'Max Bids Change': '註數有變化',
     'Pay': '立即支付',
     'All Bids': '全部投註',
     'You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!': '您獲得1個號碼，若與開獎號碼相同就可獲得獎金{0} {1}。投註越多，中獎概率越高，祝妳好運~',
@@ -848,9 +848,12 @@ module.exports = {
     'SUPERCOIN': '超級奪幣',
     'SuperCoin': '超級奪幣',
     'Win 10 ETH Prize Pool Every 2 Hours': '每2小時贏取10ETH',
-    'Insufficient ETH': 'ETH 余額不足',
-    'The blockchain-based gaming platform': '區塊鏈博彩平臺',
     /* super coin end */
     'Coin-Coin(CC)': 'CC幣介紹',
-    'Play LuckyPoker': '幸運撲克怎麽玩'
+    'Play LuckyPoker': '幸運撲克怎麽玩',
+    'Insufficient ETH': 'ETH餘額不足',
+    'The blockchain-based gaming platform': '區塊鏈博彩平臺',
+    /* super coin end */
+    'Promo-Halloween': '萬聖節活動送',
+    'You have not verified your email, please verify first': '您尚未驗證郵箱，請先驗證'
 }
