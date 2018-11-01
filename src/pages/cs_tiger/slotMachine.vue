@@ -40,9 +40,6 @@
                                         </span>
                                     </span>
                                 </p>
-                                <!--<span>-->
-                                <!--ETH-->
-                                <!--</span>-->
                             </div>
                         </div>
                         <!--中奖播报  -->
@@ -112,14 +109,6 @@
                                             {{ formateCoinType(currBalance.cointype) }}
                                         </div>
                                     </li>
-                                    <!--<li>-->
-                                    <!--<div class="single-amount">-->
-                                    <!--0.0001-->
-                                    <!--</div>-->
-                                    <!--<div class="single-unit">-->
-                                    <!--ETH-->
-                                    <!--</div>-->
-                                    <!--</li>-->
                                 </ul>
                             </div>
                             <div class="all">
@@ -450,32 +439,6 @@
                     </div>
                     <!--充值-->
                     <PopCharge ref="popChargeDom"></PopCharge>
-                    <!-- <div class="pop pop-recharge" :class="{'show':showRecharge}">
-                        <a @click="showRecharge=false" href="javascript:;" class="recharge-close"></a>
-                        <div class="title">
-                            <div v-if="currBalance.cointype==='2001'">
-                                <p>
-                                    <lang>Copy the Ethereum wallet address</lang>
-                                </p>
-                                <p>(<lang>only supports ETH</lang>)</p>
-                            </div>
-                            <div v-if="currBalance.cointype==='1001'">
-                                <p>
-                                    <lang>Copy the Bitcoin wallet address</lang>
-                                </p>
-                                <p>(<lang>only supports BTC</lang>)</p>
-                            </div>
-                        </div>
-                        <div class="copy" v-if="currBalance">
-                            <a href="javascript:;" rel="nofollow" v-clipboard:copy="currBalance.address" v-clipboard:success="copySucc" v-clipboard:error="copyError">COPY</a>
-                            <p v-if="currBalance">{{ currBalance.address }}</p>
-                        </div>
-                        <div class="msg">
-                            <lang>or scan to get the address</lang>
-                        </div>
-                        <img v-if="currBalance.cointype==='1001'" :src="'http://mobile.qq.com/qrcode?url=bitcoin:'+ currBalance.address " alt="recharge">
-                        <img v-if="currBalance.cointype==='2001'" :src="'http://mobile.qq.com/qrcode?url= '+ currBalance.address " alt="recharge">
-                    </div> -->
                 </div>
                 <div class="tiger-pc-msg">
                     <h3>
@@ -533,7 +496,6 @@
                         </div>
                         <div class="fr">
                             <!--  二维码  -->
-                            <!--<img src="@/assets/img/tiger/code.jpg" alt="">-->
                             <img :src="'http://mobile.qq.com/qrcode?url=https://2018.Coinsprize.com'">
                         </div>
                     </div>
@@ -564,7 +526,6 @@ export default {
         return {
             slotSound: null,
             showFirstBaxi: false, // 首次提示
-            // showRecharge: false, // 显示充值弹窗
             hideBarLycky: true,
             tab_t: 1, // 规则
             tranitionTiming: false, // 运动是否需要过程
@@ -678,11 +639,7 @@ export default {
             this.$store.commit('initHeadState', new Date().getTime())
         },
         initLacal (head = false) {
-            /* new  结果的走  */
-            // this.axes.forEach((val, index) => {
-            //     /* 打乱 */
-            //     // val2 = val2.sort(function () { return 0.5 - Math.random() }).concat(dft)
-            // })
+            /* new */
             this.axes.forEach((val, index) => {
                 let dft = null
                 if (head) {
@@ -1069,11 +1026,7 @@ export default {
                 this.dft_bet = currVal.bet
                 this.barProcess = (parseFloat(currVal.lucky) * (96 / 100)).toFixed(0)
                 this.beforeBarProcess = parseFloat(currVal.lucky)
-                if (parseFloat(currVal.lucky) >= 100) {
-                    this.hideBarLycky = false
-                } else {
-                    this.hideBarLycky = true
-                }
+                parseFloat(currVal.lucky) >= 100 ? this.hideBarLycky = false : this.hideBarLycky = true
                 this.showSingleBet = true
             }
         },
@@ -1120,11 +1073,7 @@ export default {
                     if (val.bet === (this.dft_bet || '').toString()) {
                         this.barProcess = ((96 / 100) * parseFloat(val.lucky)).toFixed(0)
                         this.beforeBarProcess = parseFloat(val.lucky)
-                        if (parseFloat(val.lucky) >= 100) {
-                            this.hideBarLycky = false
-                        } else {
-                            this.hideBarLycky = true
-                        }
+                        parseFloat(val.lucky) >= 100 ? this.hideBarLycky = false : this.hideBarLycky = true
                     }
                 })
             }
