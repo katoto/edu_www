@@ -400,8 +400,6 @@ export default {
             // 通知app 切换了登陆
             if (window.coinsprize) {
                 val ? window.coinsprize.logIn(getCK(), this.userInfo.username, this.userInfo.uid) : window.coinsprize.logOut()
-            } else {
-                console.error('none coinsprize inset')
             }
         },
         CCNum (newVal, val) {
