@@ -123,34 +123,33 @@ const webpackConfig = merge(baseWebpackConfig, {
                 from: path.resolve(__dirname, '../static'),
                 to: config.build.assetsSubDirectory,
                 ignore: ['.*']
-            },{
+            }, {
                 from: path.resolve(__dirname, '../sitemap.xml'),
                 to: '../dist',
                 ignore: ['.*']
             }
         ]),
         new prerenderSPAPlugin({
-            staticDir:path.join(__dirname,'../dist'),
-            routes:['/','/lucky11','/luckyslot', '/luckycoin', '/luckypoker'],
-            minify:{
+            staticDir: path.join(__dirname, '../dist'),
+            routes: ['/', '/lucky11', '/luckyslot', '/luckycoin', '/luckypoker'],
+            minify: {
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,
                 decodeEntities: true,
                 keepClosingSlash: true,
                 sortAttributes: true
             },
-            server:{
+            server: {
                 port: 8070
             },
-            renderer:new Renderer({
+            renderer: new Renderer({
                 headless: false,
-                renderAfterElementExists:'#app',
-                renderAfterTime:5000
+                renderAfterElementExists: '#app',
+                renderAfterTime: 5000
             }),
-            postProcess (renderedRoute) {
-                renderedRoute.html = renderedRoute.html.replace(/[\n]/g,"")
-                    .replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-                    .replace(/<div id="app"[^>]*>/i,'<div id="app" style="visibility:hidden">');
+            postProcess(renderedRoute) {
+                renderedRoute.html = renderedRoute.html.replace(/[\n]|\n/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                    .replace(/<div id="app"[^>]*>/i, '<div id="app" style="visibility:hidden">');
                 return renderedRoute
             }
         })
