@@ -861,8 +861,11 @@ module.exports = {
     'Resent': '再次发送',
     'Verify Now': '立马验证',
     '50% bonus only for the first top-up.<br /> Let your happiness continue!': '首次充值，余额翻倍！',
-    '50% bonus': '50% 奖池'
-
+    '50% bonus': '50% 奖池',
+    'Free bonus is non-withdrawable, while your winning reward is withdrawable. Why not try free CC play ?': '免费奖励需要满足一定条件才可提款~但是中奖金额随时可提哦~可以先来CC游戏场免费体验~',
+    '{0} top-up has been sent to you.': '{0} 充值已到账。',
+    'You\'ve received {0} top-up bonus.': '获得充值奖励{0}',
+    'Get 50% top-up bonus (only for the first top-up) ': '首次充值，余额翻倍！'
     /* 触达  end */
 
 }
