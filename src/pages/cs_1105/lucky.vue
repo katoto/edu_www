@@ -1,13 +1,9 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}">
-        <!-- <Banner class="hide" v-on:superBannerChange="superChange"></Banner> -->
-        <Banner v-if="adList.home_top_1 && adList.home_top_1.length>0"></Banner>
-        <Banner v-else></Banner>
-        <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
         <div>
-            <div class="main visible-lg halloween" @click="initPop">
+            <div class="main visible-lg halloween">
                 <!--玩法区-->
                 <div class="play-area" id="play-area">
                     <ul class="play-area-items">
@@ -258,7 +254,7 @@
                 </div>
 
             </div>
-            <div class="h5main  hidden-lg " @click="initPop">
+            <div class="h5main  hidden-lg ">
                 <!--玩法区-->
                 <div class="play-area">
                     <ul class="play-area-items">
@@ -528,7 +524,6 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
 import Banner from '~components/banner'
 import PlayArea from '~pages/cs_1105/PlayArea.vue'
@@ -638,10 +633,6 @@ export default {
         formateCoinType,
         getCCAcount,
         getCCDeductionMoney,
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         superChange (msg = 'superIn') {
             /* headerNav 调的 */
             if (msg === 'superIn') {
@@ -986,7 +977,6 @@ export default {
     },
     components: {
         Footer,
-        Header,
         HeaderNav,
         PlayArea,
         H5PlayArea,

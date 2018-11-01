@@ -1,6 +1,5 @@
 <template>
     <div class="page-check">
-        <Header></Header>
         <div class="main">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Transparency&nbsp;Checking'), path: '/check' }]"></BreadCrumbs>
             <!--查询框-->
@@ -118,7 +117,6 @@
 </template>
 
 <script>
-import Header from '~components/Header'
 import Footer from '~components/Footer'
 import BreadCrumbs from '~/components/BreadCrumbs'
 import ScrollTop from '~/components/ScrollTop'
@@ -308,7 +306,6 @@ export default {
         }
     },
     components: {
-        Header,
         Footer,
         BreadCrumbs,
         ScrollTop,

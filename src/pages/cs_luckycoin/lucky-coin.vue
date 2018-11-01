@@ -1,6 +1,5 @@
 <template>
     <div class="page-luckycoin">
-        <Header></Header>
         <router-view ref="child"></router-view>
         <Footer></Footer>
         <!--show-->
@@ -30,7 +29,6 @@
     </div>
 </template>
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { mapActions, mapState } from 'vuex'
 
@@ -40,7 +38,7 @@ export default {
             profitPopPromise: null
         }
     },
-    components: { Header, Footer },
+    components: { Footer },
     mounted () {
         this.$store.dispatch('subInMsg', {
             type: 'lottery',

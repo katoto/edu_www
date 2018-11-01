@@ -1,10 +1,11 @@
 <template>
     <div class="page_halloween">
-        <Header></Header>
         <div class="main">
             <div class="banner">
                 <h1 v-html="$lang.halloween.a5">
                 </h1>
+                <h2 v-html="$lang.halloween.a51">
+                </h2>
                 <h3>
                     {{this.$lang.halloween.a6}}
                 </h3>
@@ -94,8 +95,14 @@
                         </p>
                     </li>
                     <li>
-                        <p>
-                            {{this.$lang.halloween.a17}}
+                        <p v-if="$isZhCn()">
+                            3. 活动参与：通过点击页面上的小南瓜进入到捉妖模式，遇妖即捶，捶打越多，赢得CC币越多，万圣节活动赢得的CC币可在<router-link :to="{ path: '/account/myTransactions' }"><lang>My Transactions</lang></router-link>里查看
+                        </p>
+                        <p v-else-if="$isZhTw()">
+                            3. 活動參與：通過點擊頁面上的小南瓜進入到捉妖模式，遇妖即捶，捶打越多，贏得CC幣越多，萬聖節活動贏得的CC幣可在<router-link :to="{ path: '/account/myTransactions' }"><lang>My Transactions</lang></router-link>裏查看
+                        </p>
+                        <p v-else>
+                            3. Participation: Click little pumkin on the page to turn on the hunting mode. Beating it hard when you see the ghost, and every beating comes with CC reward. All the reward will be recorded in <router-link :to="{ path: '/account/myTransactions' }"><lang>My Transactions</lang></router-link>.
                         </p>
                     </li>
                     <li>
@@ -108,6 +115,11 @@
                             {{this.$lang.halloween.a19}} <router-link :to="{path: 'help/helpView/0/1/Coin-Coin(CC)'}">{{$lang.halloween.a20}}</router-link>
                         </p>
                     </li>
+                    <li>
+                        <p>
+                            {{this.$lang.halloween.a22}}
+                        </p>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -116,7 +128,6 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 
 export default {
@@ -126,11 +137,12 @@ export default {
         }
     },
     methods: {
-
+        show () {
+            alert(1)
+        }
     },
 
     components: {
-        Header,
         Footer
     },
     filters: {
@@ -143,10 +155,12 @@ export default {
 .page_halloween {
   background: #001025;
   .title {
-    width: 522px;
+    width: 80%;
+    max-width: 522px;
     height: 170px;
     background: url(../../assets/img/halloween/active/bg_title.png) no-repeat
       center;
+    background-size: contain;
     margin: 0 auto;
     text-align: center;
     line-height: 220px;
@@ -166,11 +180,9 @@ export default {
     color: #fff;
     font-family: sans-eb;
     line-height: 1;
-    h1 {
-      font-size: 66px;
-    }
+    h1,
     h2 {
-      font-size: 68px;
+      font-size: 66px;
     }
     h3 {
       margin-top: 15px;
@@ -181,7 +193,8 @@ export default {
     ul {
       display: flex;
       justify-content: space-between;
-      width: 1120px;
+      max-width: 1120px;
+      width: 92%;
       margin: 30px auto 0;
     }
     li {
@@ -275,7 +288,8 @@ export default {
     }
   }
   .modules_rule {
-    width: 910px;
+    width: 92%;
+    max-width: 910px;
     margin: 47px auto 160px;
     word-wrap: break-word;
     line-height: 28px;
@@ -325,6 +339,32 @@ export default {
   }
   50% {
     background: url(../../assets/img/halloween/monster02.png) no-repeat center;
+  }
+}
+@media (max-width: 1200px) {
+  .page_halloween {
+    .title,
+    .modules_rule .title {
+      line-height: 190px;
+      font-size: 24px;
+    }
+    .banner {
+      h1,
+      h2 {
+        font-size: 1rem;
+      }
+      h3 {
+        font-size: 0.7rem;
+      }
+    }
+    .modules_guidance {
+      ul {
+        display: block;
+      }
+      li {
+        margin: 20px auto;
+      }
+    }
   }
 }
 </style>

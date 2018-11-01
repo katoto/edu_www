@@ -168,8 +168,11 @@
             </div>
             <div class="winning">
                 <lang>Winning</lang>
-                <i class="winMoney">
+                <i class="winMoney" v-if="areaMsg.pickType !== '5J'">
                     {{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType))] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}
+                </i>
+                <i class="winMoney" v-else>
+                    &nbsp;<i class="winMoney">{{ formateJackPot(areaMsg.pickMoney , this.poolAmount , this.poolRatio,this.bet_limit ,currBalance.cointype ) + parseFloat( syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney ) ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
                 </i>
             </div>
         </div>
@@ -356,7 +359,6 @@ export default {
     },
     filters: {
         formateBalance,
-        formateJackPot,
         formateCoinType
     }
 }

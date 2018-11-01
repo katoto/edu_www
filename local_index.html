@@ -51,7 +51,7 @@
         }
 
         .animation {
-            background: url("./static/loading.png") no-repeat center;
+            background: url("https://www.coinsprize.com/static/loading.png") no-repeat center;
             background-size: 60px;
             /*animation: keyframes-loading 1.36s steps(33, end) infinite;*/
         }
@@ -78,24 +78,23 @@
         </div>
     </div>
     <script>
-        function preloadImage (names, cb, prefix) {
-            window.gkaCache = window.gkaCache || []
-            var n = 0,
-                img, imgs = {}
+        function preloadImage(names, cb, prefix) {
+            window.gkaCache = window.gkaCache || [];
+            var n = 0, img, imgs = {};
             names.forEach(function (name) {
-                img = new Image()
-                window.gkaCache.push(img)
+                img = new Image();
+                window.gkaCache.push(img);
                 img.onload = (function (name, img) {
                     return function () {
                         imgs[name] = img;
-                        (++n === names.length) && cb && cb(imgs)
+                        (++n === names.length) && cb && cb(imgs);
                     }
-                })(name, img)
+                })(name, img);
                 img.src = (prefix || '') + name
             })
         }
         preloadImage(['loading.png'], function () {
-            document.getElementById('cs').className += ' animation'
+            document.getElementById('cs').className += ' animation';
         }, '/static/')
     </script>
 </body>

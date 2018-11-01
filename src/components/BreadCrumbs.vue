@@ -46,10 +46,6 @@ export default {
             }
         },
         methods: {
-            initPop () {
-                /* head 弹窗 */
-                this.$store.commit('initHeadState', new Date().getTime())
-            }
         }
     },
     components: { bread }

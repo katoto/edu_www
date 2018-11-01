@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Coinsprize-the fair game platform for casino games,based on blockchain technology.</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-    <meta name="keywords" content="casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet"/>
-    <meta name="description" content="Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games."/>
-    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="casino,game,lottery,digit,blockchain,ethereum,coins,jackpot,bet" />
+    <meta name="description" content="Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games." />
+    <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no">
     <meta name="renderer" content="webkit">
-    <link rel="alternate" type="text/html" hreflang="en-us" id="USseo" href="https://www.coinsprize.com/" title="English (US)"/>
-    <link rel="alternate" type="text/html" hreflang="en-gb" id="UKseo" href="https://www.coinsprize.com/" title="English (UK)"/>
-    <link rel="alternate" type="text/html" hreflang="zh-tw" id="zhTwseo" href="https://www.coinsprize.com/?language=zhTw" title="繁體中文"/>
-    <link rel="alternate" type="text/html" hreflang="zh-cn" id="zhCnseo" href="https://www.coinsprize.com/?language=zhCn" title="简体中文"/>
+    <link rel="alternate" type="text/html" hreflang="en-us" id="USseo" href="https://www.coinsprize.com/" title="English (US)" />
+    <link rel="alternate" type="text/html" hreflang="en-gb" id="UKseo" href="https://www.coinsprize.com/" title="English (UK)" />
+    <link rel="alternate" type="text/html" hreflang="zh-tw" id="zhTwseo" href="https://www.coinsprize.com/?language=zhTw"
+        title="繁體中文" />
+    <link rel="alternate" type="text/html" hreflang="zh-cn" id="zhCnseo" href="https://www.coinsprize.com/?language=zhCn"
+        title="简体中文" />
     <meta id="contentLanguange" http-equiv="content-language" content="en-us" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="robots" content="index,follow">
-    <link id="canonicalLink" rel="canonical" href="https://www.coinsprize.com/"/>
-    <link id="canonicalMobileLink" rel="alternate" media="handheld" href="https://www.coinslot.com/"/>
+    <link id="canonicalLink" rel="canonical" href="https://www.coinsprize.com/" />
+    <link id="canonicalMobileLink" rel="alternate" media="handheld" href="https://www.coinslot.com/" />
     <meta content="PC,mobile" name="applicable-device">
-    <link href="./static/icon.ico" rel="shortcut icon"/>
+    <link href="./static/icon.ico" rel="shortcut icon" />
     <style>
         #csLoading {
             position: fixed;
@@ -34,7 +37,7 @@
             font-weight: bold;
         }
 
-        #csLoading > div {
+        #csLoading>div {
             position: absolute;
             left: 50%;
             top: 50%;
@@ -48,7 +51,7 @@
         }
 
         .animation {
-            background: url("./static/loading.png") no-repeat center;
+            background: url("https://www.coinsprize.com/static/loading.png") no-repeat center;
             background-size: 60px;
             /*animation: keyframes-loading 1.36s steps(33, end) infinite;*/
         }
@@ -57,50 +60,53 @@
             0% {
                 background-position: 0px 0px;
             }
+
             100% {
                 background-position: -3300px 0px;
             }
         }
     </style>
 </head>
+
 <body>
-<div id="app">
-</div>
-<div id="csLoading">
-    <div>
-        <div id="cs" class=""></div>
-        <p>Coinsprize</p>
+    <div id="app">
     </div>
-</div>
-<script>
-    function preloadImage (names, cb, prefix) {
-        window.gkaCache = window.gkaCache || [];
-        var n = 0, img, imgs = {};
-        names.forEach(function (name) {
-            img = new Image();
-            window.gkaCache.push(img);
-            img.onload = (function (name, img) {
-                return function () {
-                    imgs[name] = img;
-                    (++n === names.length) && cb && cb(imgs);
-                }
-            })(name, img);
-            img.src = (prefix || '') + name;
-        })
-    };
-    preloadImage(['loading.png'], function () {
-        document.getElementById('cs').className += ' animation';
-    }, '/static/')
-</script>
+    <div id="csLoading">
+        <div>
+            <div id="cs" class=""></div>
+            <p>Coinsprize</p>
+        </div>
+    </div>
+    <script>
+        function preloadImage(names, cb, prefix) {
+            window.gkaCache = window.gkaCache || [];
+            var n = 0, img, imgs = {};
+            names.forEach(function (name) {
+                img = new Image();
+                window.gkaCache.push(img);
+                img.onload = (function (name, img) {
+                    return function () {
+                        imgs[name] = img;
+                        (++n === names.length) && cb && cb(imgs);
+                    }
+                })(name, img);
+                img.src = (prefix || '') + name;
+            })
+        };
+        preloadImage(['loading.png'], function () {
+            document.getElementById('cs').className += ' animation';
+        }, '/static/')
+    </script>
 </body>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123327740-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag () {
-            window.dataLayer.push(arguments);
+    function gtag() {
+        window.dataLayer.push(arguments);
     }
     gtag('js', new Date());
     gtag('config', 'UA-123327740-1');
 </script>
+
 </html>

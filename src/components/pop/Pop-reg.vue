@@ -46,7 +46,7 @@
 
 <script>
     import Pop from './Pop'
-    import {tipsTime, setCK} from '~common/util'
+    import {setCK} from '~common/util'
     import {baseURL, isProduction} from '~common/ajax'
 
     export default {

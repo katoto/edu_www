@@ -100,6 +100,10 @@ const actions = {
                 }
                 /* btc add */
                 if (homeMsg.data.bet_limit) commit(mTypes.bet_limit, homeMsg.data.bet_limit)
+                // add jackpot radio
+                if (homeMsg.data.jackpot_info) {
+                    commit(mTypes.poolRatio, homeMsg.data.jackpot_info)
+                }
             }
 
             // todo
@@ -228,8 +232,8 @@ const actions = {
                                     dispatch(aTypes.formate_expectid, msg.content.expectid)
                                 }
                                 /*
-                                                        *  处理 区块链阻塞
-                                                        * */
+                                                                    *  处理 区块链阻塞
+                                                                    * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {
