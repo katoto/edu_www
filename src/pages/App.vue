@@ -8,7 +8,7 @@
         <div class="_download_bg2"></div>
         <div class="_download_bg0"></div>
         <div class="_download_bg"></div>
-        <CHAT v-if="testUrl"></CHAT>
+        <CHAT></CHAT>
     </div>
 </template>
 
@@ -22,8 +22,7 @@ export default {
     data () {
         return {
             isReady: false,
-            isShowHalloween: false,
-            testUrl: null
+            isShowHalloween: false
         }
     },
     components: {
@@ -160,7 +159,6 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
-        window.location.href.indexOf('test') > -1 ? this.testUrl = true : this.testUrl = false
     }
 }
 </script>

@@ -356,10 +356,7 @@ export default {
     },
     filters: {
         formateBalance,
-<<<<<<< HEAD
-=======
         formateJackPot,
->>>>>>> parent of de24cbdf... '111'
         formateCoinType
     }
 }

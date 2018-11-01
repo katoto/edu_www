@@ -113,6 +113,7 @@ export function formateJackPot (money, poolAmount, poolRatio) {
             return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
         }
     }
+    return parseFloat((parseFloat(poolAmount) * 0.1).toFixed(5))
 }
 
 /*
@@ -226,8 +227,6 @@ export function formateSlotBalance (val = 0) {
     return this.formateBalance(val)
 }
 
-<<<<<<< HEAD
-=======
 export function formateJackpot (val = 0) {
     let newEth = null
     if (isNaN(val) || isNaN(Number(val))) {
@@ -251,7 +250,6 @@ export function formateJackpot (val = 0) {
     return newEth
 }
 
->>>>>>> parent of de24cbdf... '111'
 /*
  *   金币类型
  * */
