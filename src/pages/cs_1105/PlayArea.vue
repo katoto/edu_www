@@ -162,17 +162,15 @@
             </div>
             <span>{{ currBalance.cointype | formateCoinType }}</span>
             <div class="winning" v-if="areaMsg.pickType !== '5J'">
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType)
-                    )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ parseFloat(syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType))]) * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType
                     }}</i>
             </div>
             <div class="winning" v-else>
                 <!-- 奖池 -->
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot(
-                    this.poolAmount[currBalance.cointype] , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ formateJackPot(areaMsg.pickMoney , this.poolAmount , this.poolRatio,this.bet_limit ,currBalance.cointype ) + parseFloat( syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney ) ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
                     {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ),
-                    formateJackPot(areaMsg.pickMoney, this.poolAmount[currBalance.cointype], this.poolRatio)) + formateCoinType ( currBalance.cointype ) }}
+                    formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio,this.bet_limit ,currBalance.cointype)) + formateCoinType ( currBalance.cointype ) }}
                 </i>
             </div>
         </div>
@@ -397,8 +395,8 @@ export default {
     },
     filters: {
         formateBalance,
-        formateJackPot,
-        formateCoinType
+        formateCoinType,
+        formateJackPot
     }
 }
 </script>

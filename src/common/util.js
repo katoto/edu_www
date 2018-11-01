@@ -89,7 +89,7 @@ export function isLog () {
     return !((getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === ''))
 }
 
-export function formateJackPot (money, poolAmount, poolRatio) {
+export function formateJackPot (money, poolAmount, poolRatio, betLimit, cointype) {
     money = parseFloat(money)
     if (!poolAmount) {
         console.error('poolAmount error at formateJackPot')
@@ -99,20 +99,31 @@ export function formateJackPot (money, poolAmount, poolRatio) {
         console.error('poolRatio error at formateJackPot')
         return 0
     }
-    if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
-        if (money < parseFloat(poolRatio[0].value)) {
-            return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money < parseFloat(poolRatio[1].value)) {
-            return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money < parseFloat(poolRatio[2].value)) {
-            return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money <= parseFloat(poolRatio[3].value)) {
-            return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
+    if (!betLimit) {
+        console.error('betLimit error at formateJackPot')
+        return 0
+    }
+    if (!cointype) {
+        console.error('cointype error at formateJackPot')
+        return 0
+    }
+    if (cointype === '2000') {
+        return parseFloat(parseFloat(poolAmount[cointype]) * 0.1)
+    }
+    let currSplitVal = 0
+    if (betLimit && betLimit[cointype] && poolRatio) {
+        currSplitVal = parseFloat(betLimit[cointype].max_limit) * (parseFloat(poolRatio.percent))
+    }
+    if (currSplitVal && poolRatio && poolRatio.ratio) {
+        if (money < currSplitVal) {
+            return parseFloat((parseFloat(poolAmount[cointype]) * parseFloat(poolRatio.ratio[0])).toFixed(5))
+        } else if (money >= currSplitVal && money < parseFloat(betLimit[cointype].max_limit)) {
+            return parseFloat((parseFloat(poolAmount[cointype]) * parseFloat(poolRatio.ratio[1])).toFixed(5))
+        } else {
+            return parseFloat((parseFloat(poolAmount[cointype]) * parseFloat(poolRatio.ratio[2])).toFixed(5))
         }
     }
+    return 0
 }
 
 /*
@@ -206,6 +217,7 @@ export function formateBalance (val = 0) {
     let isF = false
     if (isNaN(val) || isNaN(Number(val))) {
         console.error('formateBalance error' + val)
+        console.log('==========')
         return 0
     }
     val = Number(val)
@@ -226,10 +238,11 @@ export function formateSlotBalance (val = 0) {
     return this.formateBalance(val)
 }
 
-export function formateJackpot (val = 0) {
+export function formateJackpotMoney (val = 0) {
     let newEth = null
     if (isNaN(val) || isNaN(Number(val))) {
-        console.error('formateBalance error' + val)
+        console.error('formateJackpotMoney error' + val)
+        console.log('========')
         return 0
     }
     val = Number(val)

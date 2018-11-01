@@ -102,14 +102,6 @@
                 </ul>
             </div>
             <div class="chat_room_foot">
-                <!-- <div class="row0" :class="{'hide': getByteLen(myMsg) <= vipChatLen}">
-                    <p class="system_t">
-                        {{$lang.chat.a10}}
-                    </p>
-                    <p class="system_m" v-html="_($lang.chat.a17, vipChatLen )">
-                        <! 永久禁言todo {{$lang.chat.a5}} {{$lang.chat.a6}} 
-                </p>
-            </div> -->
                 <div class="row1" :class="{'isOver100':getByteLen(myMsg) > vipChatLen}">
                     <p>{{ getByteLen(myMsg) }}/{{ vipChatLen }}&nbsp;{{$lang.chat.a11}}</p>
                     <i v-if="getByteLen(myMsg)>vipChatLen">!</i>
@@ -126,7 +118,7 @@
 </template>
 
 <script>
-import { formatTime, formateEmail, isIOS, getByteLen, cutStr, getCK } from '~common/util'
+import { formatTime, formateEmail, getByteLen, cutStr, getCK } from '~common/util'
 export default {
     data () {
         return {
@@ -260,7 +252,7 @@ export default {
             }
             let data = await this.$store.dispatch('noSpeak', currObj)
             if (data && data.status === '100') {
-                this.$success(_('禁言操作成功'))
+                this.$success(this.$lang.chat.a3)
                 // 更新数据
                 this.controlRoom(this.controlRoomMsg)
             }
@@ -274,7 +266,8 @@ export default {
             }
             let data = await this.$store.dispatch('breakSpeak', currObj)
             if (data && data.status === '100') {
-                this.$success(_('解除禁言操作成功'))
+                // this.$success(_('解除禁言操作成功'))
+                this.$success(this.$lang.chat.a4)
                 // 更新数据
                 this.controlRoom(this.controlRoomMsg)
             }
@@ -359,11 +352,6 @@ export default {
         chatmsg () {
             return this.$store.state.pop.chatmsg
         }
-    },
-    components: {},
-    mounted () {
-    },
-    destroyed () {
     }
 }
 </script>
