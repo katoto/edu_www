@@ -401,6 +401,7 @@ export default {
     &.on {
       display: flex;
       align-items: flex-end;
+      max-height: 95%;
       height: 686px;
       .enter_chat {
         transform: scale(0);
@@ -518,7 +519,7 @@ export default {
       display: flex;
       flex-direction: column;
       width: 386px;
-      height: 686px;
+      height: 100%;
       overflow: hidden;
       background: #36393e;
       border-radius: 6px;
