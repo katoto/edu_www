@@ -224,7 +224,14 @@
                                 </a>
                                 <div v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</div>
                             </li>
-
+                            <li>
+                                <p>
+                                    <lang>Get 50% top-up bonus (only for the first top-up)</lang>
+                                </p>
+                                <router-link to="/account/deposit" class="btn btn-green">
+                                    <lang>Top Up</lang>
+                                </router-link>
+                            </li>
                         </ul>
                     </div>
                     <!--浮层 -->
