@@ -148,7 +148,7 @@ const webpackConfig = merge(baseWebpackConfig, {
                 renderAfterTime: 5000
             }),
             postProcess(renderedRoute) {
-                renderedRoute.html = renderedRoute.html.replace(/[\n]|\n/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                renderedRoute.html = renderedRoute.html.replace(/[\n]|[\r]/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
                     .replace(/<div id="app"[^>]*>/i, '<div id="app" style="visibility:hidden">');
                 return renderedRoute
             }
