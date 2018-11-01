@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import { randomNumber, formateBalance, formateJackPot, formateJackpotMoney, formateCoinType } from '~common/util'
+import { randomNumber, formateBalance, formateJackPot, formateCoinType } from '~common/util'
 
 export default {
     data () {
@@ -359,8 +359,7 @@ export default {
     },
     filters: {
         formateBalance,
-        formateCoinType,
-        formateJackpotMoney
+        formateCoinType
     }
 }
 </script>
