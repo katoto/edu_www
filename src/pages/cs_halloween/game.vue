@@ -358,19 +358,23 @@ export default {
                         }, 3000)
                     }
                 }).catch(err => {
-                    this.message(err.message)
-                    this[ghostRefName] = null
-                    if (this.isAllNoGhost()) {
-                        this.message(this.$lang.halloween.a21)
-                        return
+                    if (err.status === '472') {
+                        this.message(this.$lang.halloween.a25)
+                    } else {
+                        this.message(err.message)
+                        this[ghostRefName] = null
+                        if (this.isAllNoGhost()) {
+                            this.message(this.$lang.halloween.a21)
+                            return
+                        }
+                        if (this.isNoGhost()) {
+                            this.goToOtherScene()
+                            return
+                        }
+                        setTimeout(() => {
+                            this.createMonster(ghostRefName)
+                        }, 3000)
                     }
-                    if (this.isNoGhost()) {
-                        this.goToOtherScene()
-                        return
-                    }
-                    setTimeout(() => {
-                        this.createMonster(ghostRefName)
-                    }, 3000)
                 })
             })
         },
