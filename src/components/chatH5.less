@@ -142,6 +142,8 @@
                 line-height: 20px;
                 font-size: 14px;
                 border-bottom: 1px solid #a4a5a7;
+                word-wrap: break-word;
+                word-break: break-all;
             }
         }
 
@@ -177,7 +179,8 @@
         .chat_room_main {
             flex: 1;
             overflow: auto;
-            -webkit-touch-callout: touch;
+            -webkit-touch-callout: none;
+            -webkit-overflow-scrolling: touch;
             padding: 25/75rem 25/75rem 0;
             &::-webkit-scrollbar {
                 width: 6/75rem;
@@ -257,7 +260,8 @@
                         background: rgba(177, 99, 72, 0.2);
                     }
                 }
-                &.userColor12 {
+                &.userColor12,
+                &.userColor0 {
                     .user_shortName {
                         color: #90947d;
                         background: rgba(144, 148, 125, 0.2);
@@ -289,6 +293,25 @@
                         padding: 8/75rem 20/75rem;
                         background: #57595d;
                         border-radius: 6/75rem;
+                    }
+                }
+                &.system {
+                    .user_name {
+                        line-height: 28/75rem;
+                        font-size: 24/75rem;
+                        color: #aaabad;
+                    }
+                    .user_msg {
+                        line-height: 32/75rem;
+                        font-size: 32/75rem;
+                        color: #ef7e7e;
+                        word-wrap: break-word;
+                        word-break: break-all;
+                    }
+                    &.good {
+                        .user_msg {
+                            color: #36c57a;
+                        }
                     }
                 }
                 & + li {
@@ -344,6 +367,7 @@
                 line-height: 32/75rem;
                 font-size: 32/75rem;
                 color: #fff;
+                word-wrap: break-word;
                 word-break: break-all;
             }
         }
@@ -359,6 +383,7 @@
                     line-height: 32/75rem;
                     font-size: 32/75rem;
                     color: #ef7e7e;
+                    word-wrap: break-word;
                     word-break: break-all;
                 }
             }
@@ -410,7 +435,7 @@
                 visibility: hidden;
                 word-wrap: break-word;
                 word-break: break-all;
-                padding: 24/75rem 20/75rem;
+                padding: 20/75rem 20/75rem;
                 line-height: 40/75rem;
                 font-size: 32/75rem;
             }
@@ -444,6 +469,16 @@
                 background-size: 51/75rem;
                 border-radius: 6/75rem;
                 overflow: hidden;
+                font-size: 0;
+                text-indent: 99999px;
+            }
+            &.time_down {
+                text-align: center;
+                line-height: 80/75rem;
+                color: #fff;
+                background-image: none;
+                font-size: 28/75rem;
+                text-indent: 0;
             }
         }
     }

@@ -1,6 +1,5 @@
 <template>
     <div class="page-luckycoin">
-        <Header></Header>
         <router-view ref="child"></router-view>
         <Footer></Footer>
         <!--show-->
@@ -21,7 +20,7 @@
                     <p class="p3">
                         +{{selfWin.num}}<i>{{selfWin.type}}</i>
                     </p>
-                    <router-link :to="{path: `/luckycoin/detailed?number=${selfWin.exceptId}&go=mybets`}" class="btn-see" @click.native="hideMyWinHandler">
+                    <router-link :to="{path: `/luckycoin/detailed/${selfWin.exceptId}?go=mybets`}" class="btn-see" @click.native="hideMyWinHandler">
                         <lang>Details</lang>
                     </router-link>
                 </div>
@@ -30,7 +29,6 @@
     </div>
 </template>
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { mapActions, mapState } from 'vuex'
 
@@ -40,9 +38,12 @@ export default {
             profitPopPromise: null
         }
     },
-    components: { Header, Footer },
+    components: { Footer },
     mounted () {
-        this.$store.dispatch('subInLuckyCoin')
+        this.$store.dispatch('subInMsg', {
+            type: 'lottery',
+            lotid: 2
+        })
     },
     beforeRouteEnter (to, from, next) {
         next(vm => {
@@ -94,7 +95,10 @@ export default {
         })
     },
     beforeDestroy () {
-        this.$store.dispatch('subOutLuckyCoin')
+        this.$store.dispatch('subOutMsg', {
+            type: 'lottery',
+            lotid: 2
+        })
     }
 }
 </script>

@@ -1,7 +1,6 @@
 <template>
     <div class="page-help">
-        <Header></Header>
-        <div class="main flex1" @click="initPop">
+        <div class="main flex1">
             <BreadCrumbs
                 :data="[{ name: _('Home'), path: '/' }, { name: _('Help&nbsp;Center'), path: '/help' }]"></BreadCrumbs>
             <router-view :dataMenu="dataMenu"></router-view>
@@ -12,7 +11,6 @@
 
 <script>
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
-    import Header from '~/components/Header.vue'
     import Footer from '~/components/Footer.vue'
 
     export default {
@@ -31,14 +29,9 @@
         },
         watch: {},
         methods: {
-            initPop () {
-                /* head 弹窗 */
-                this.$store.commit('initHeadState', new Date().getTime())
-            }
         },
         computed: {},
         components: {
-            Header,
             BreadCrumbs,
             Footer
         },

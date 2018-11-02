@@ -1,16 +1,12 @@
 /**
  *  相关的工具函数
  */
-
-import {
-    Message
-} from 'element-ui'
+import { Message, Notification } from 'element-ui'
 
 export const src = 'pc'
-export const tipsTime = 3000
+export const tipsTime = 2000
 export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
-
 //  社区地址 online
 export const coinAffAddr = '0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF'
 // 线下社区地址
@@ -67,6 +63,7 @@ export const isWeiX = (function () {
     let ua = navigator.userAgent.toLowerCase()
     return ~ua.indexOf('micromessenger')
 })()
+
 export const isIOS = (function () {
     let ua = navigator.userAgent
     let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
@@ -92,7 +89,7 @@ export function isLog () {
     return !((getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === ''))
 }
 
-export function formateJackPot (money, poolAmount, poolRatio) {
+export function formateJackPot (money, poolAmount, poolRatio, betLimit, cointype) {
     money = parseFloat(money)
     if (!poolAmount) {
         console.error('poolAmount error at formateJackPot')
@@ -102,20 +99,31 @@ export function formateJackPot (money, poolAmount, poolRatio) {
         console.error('poolRatio error at formateJackPot')
         return 0
     }
-    if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
-        if (money < parseFloat(poolRatio[0].value)) {
-            return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money < parseFloat(poolRatio[1].value)) {
-            return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money < parseFloat(poolRatio[2].value)) {
-            return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money <= parseFloat(poolRatio[3].value)) {
-            return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
+    if (!betLimit) {
+        console.error('betLimit error at formateJackPot')
+        return 0
+    }
+    if (!cointype) {
+        console.error('cointype error at formateJackPot')
+        return 0
+    }
+    if (cointype === '2000') {
+        return parseFloat(parseFloat(poolAmount[cointype]) * 0.1)
+    }
+    let currSplitVal = 0
+    if (betLimit && betLimit[cointype] && poolRatio) {
+        currSplitVal = parseFloat(betLimit[cointype].max_limit) * (parseFloat(poolRatio.percent))
+    }
+    if (currSplitVal && poolRatio && poolRatio.ratio) {
+        if (money < currSplitVal) {
+            return parseFloat((parseFloat(poolAmount[cointype]) * parseFloat(poolRatio.ratio[0])).toFixed(5))
+        } else if (money >= currSplitVal && money < parseFloat(betLimit[cointype].max_limit)) {
+            return parseFloat((parseFloat(poolAmount[cointype]) * parseFloat(poolRatio.ratio[1])).toFixed(5))
+        } else {
+            return parseFloat((parseFloat(poolAmount[cointype]) * parseFloat(poolRatio.ratio[2])).toFixed(5))
         }
     }
+    return 0
 }
 
 /*
@@ -209,6 +217,7 @@ export function formateBalance (val = 0) {
     let isF = false
     if (isNaN(val) || isNaN(Number(val))) {
         console.error('formateBalance error' + val)
+        console.log('==========')
         return 0
     }
     val = Number(val)
@@ -227,29 +236,6 @@ export function formateBalance (val = 0) {
 
 export function formateSlotBalance (val = 0) {
     return this.formateBalance(val)
-}
-
-export function formateJackpot (val = 0) {
-    let newEth = null
-    if (isNaN(val) || isNaN(Number(val))) {
-        console.error('formateBalance error' + val)
-        return 0
-    }
-    val = Number(val)
-    if (val > 10000000) {
-        newEth = (val / 100000000).toFixed(1) + '亿'
-    } else if (val > 100000) {
-        newEth = (val).toFixed(1)
-    } else if (val > 100) {
-        newEth = (val).toFixed(2)
-    } else if (val > 10) {
-        newEth = (val).toFixed(3)
-    } else if (val > 1) {
-        newEth = (val).toFixed(4)
-    } else {
-        newEth = (val).toFixed(5)
-    }
-    return newEth
 }
 
 /*
@@ -372,7 +358,9 @@ export function formateMoneyFlow (flowtype, lotid) {
     case '20':
         return _('LuckyPoker Bet') // 幸运扑克投注
     case '21':
-        return _('LuckyPoker Prize') // 幸运扑克中奖
+        return _('LuckyPoker Prize')// 幸运扑克中奖
+    case '22':
+        return _('Promo-Halloween') // 万圣节活动送
     default:
         return _('Bet')
     }
@@ -426,14 +414,16 @@ export function commonErrorHandler (data) {
 export function copySucc () {
     Message({
         message: _('Copied to clipboard'),
-        type: 'success'
+        type: 'success',
+        duration: tipsTime
     })
 }
 
 export function copyError () {
     Message({
         message: _('Failed to copy, please retry'),
-        type: 'error'
+        type: 'error',
+        duration: tipsTime
     })
 }
 
@@ -516,10 +506,10 @@ export function accDiv (arg1, arg2) {
     let r2
     try {
         t1 = arg1.toString().split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     try {
         t2 = arg2.toString().split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     r1 = Number(arg1.toString().replace('.', ''))
     r2 = Number(arg2.toString().replace('.', ''))
     return (r1 / r2) * Math.pow(10, t2 - t1)
@@ -532,10 +522,10 @@ export function accMul (arg1, arg2) {
     let s2 = arg2.toString()
     try {
         m += s1.split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     try {
         m += s2.split('.')[1].length
-    } catch (e) {}
+    } catch (e) { }
     return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
 }
 
@@ -816,6 +806,30 @@ export function getByteLen (str) {
     return str.replace(/[^\x00-\xff]/g, '01').length
 }
 
+/*
+ *      切割字节长度字符
+ *      @return 字节长度
+ * */
+export function cutStr (str, len) {
+    let result = ''
+    let strlen = str.length // 字符串长度
+    let chrlen = str.replace(/[^\x00-\xff]/g, '**').length // 字节长度
+    if (chrlen <= len) { return str }
+    for (var i = 0, j = 0; i < strlen; i++) {
+        var chr = str.charAt(i)
+        if (/[\x00-\xff]/.test(chr)) {
+            j++ // ascii码为0-255，一个字符就是一个字节的长度
+        } else {
+            j += 2 // ascii码为0-255以外，一个字符就是两个字节的长度
+        }
+        if (j <= len) { // 当加上当前字符以后，如果总字节长度小于等于L，则将当前字符真实的+在result后
+            result += chr
+        } else { // 反之则说明result已经是不拆分字符的情况下最接近L的值了，直接返回
+            return result
+        }
+    }
+}
+
 export function getCCAcount (userInfo) {
     if (userInfo && userInfo.accounts && userInfo.accounts.length >= 1) {
         let accounts = this.userInfo.accounts
@@ -844,6 +858,34 @@ export function getCCDeductionMoney (total, rate) {
  *   正则 加入a
  * */
 String.prototype.httpParse = function () {
-    let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g
-    return this.replace(reg, '<a class="link" href="$1$2" target="_blank">$1$2</a>')
+    let htmlDecode = (html) => {
+        var temp = document.createElement('div')
+        if (typeof html !== 'String') {
+            html.toString()
+        }
+        (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html)
+        var output = temp.innerHTML
+        temp = null
+        return output
+    }
+    var reg = /((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/g
+    return htmlDecode(this).replace(reg, (a) => {
+        if (!a.indexOf('http')) {
+            return `<a class="link" href="${a}" target="_blank">${a}</a>`
+        }
+        return `${a}`
+        // else {
+        //     return `<a class="link" href="http://${a}" target="_blank">${a}</a>`
+        // }
+    })
+}
+
+export function selfNotify (val, typeVal = 'success') {
+    Notification({
+        dangerouslyUseHTMLString: true,
+        type: typeVal,
+        message: _(val),
+        position: 'bottom-right',
+        duration: 5000
+    })
 }

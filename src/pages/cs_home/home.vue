@@ -1,13 +1,22 @@
 <template>
     <!--bg1 bg2 bg3-->
     <div class="home" :class="bghome">
-        <Header></Header>
-        <div class="main" @click="initPop">
+        <div class="main">
             <div class="container">
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
                         <el-carousel :interval="5000" @change="bgchange">
+                            <el-carousel-item>
+                                <div class="banner-t1" v-html="$lang.halloween.a23">
+                                </div>
+                                <p class="banner-t11 ">
+                                    {{$lang.halloween.a6}}
+                                </p>
+                                <router-link to="/halloween" class="banner-firstCharge">
+                                    {{$lang.halloween.a24}}
+                                </router-link>
+                            </el-carousel-item>
                             <el-carousel-item>
                                 <router-link to="/superCoin" class="banner-superCoin" style="display: block;">
                                     <div class="banner-superCoin-t1">
@@ -483,7 +492,6 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import Footer from '~components/Footer.vue'
 import { luckyCoinApi } from '~/dappApi/luckycoinApi'
 import { mapActions } from 'vuex'
@@ -497,7 +505,6 @@ import {
     structDom
 } from '~/common/util'
 import { aTypes } from '~/store/cs_page/cs_1105'
-import { Message } from 'element-ui'
 
 export default {
     data () {
@@ -617,10 +624,6 @@ export default {
             let money = formatNum(Number(num), 5).toFixed(5)
             return money.length > 7 ? money.substring(0, 7) : money
         },
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         async indexRouter (query) {
             /* 邮箱注册 找回密码  邀请等 */
             if (query.sign) {
@@ -641,10 +644,7 @@ export default {
                             this.$store.dispatch('getUserInfo')
                             this.$store.commit('showRegSuccess')
                         } else {
-                            Message({
-                                message: mailBack.message,
-                                type: 'error'
-                            })
+                            this.$error(mailBack.message)
                         }
                     }
                     this.$router.push('')
@@ -711,7 +711,7 @@ export default {
             })
         }
     },
-    components: { Header, Footer },
+    components: { Footer },
     computed: {
         isLog () {
             return this.$store.state.isLog
@@ -763,16 +763,20 @@ export default {
   width: 100%;
   background-size: 1920px;
   transition: all 0.5s ease-in-out;
-  &.bghome2 {
-    background: #181633 url("../../assets/img/home/bg0.jpg") no-repeat top
+  &.bghome0 {
+    background: #011025 url("../../assets/img/home/bg0.jpg") no-repeat top
       center;
   }
   &.bghome1 {
     background: #181633 url("../../assets/img/home/bg1.jpg") no-repeat top
       center;
   }
-  &.bghome0 {
+  &.bghome2 {
     background: #181633 url("../../assets/img/home/bg2.jpg") no-repeat top
+      center;
+  }
+  &.bghome3 {
+    background: #181633 url("../../assets/img/home/bg3.jpg") no-repeat top
       center;
   }
   .main {
@@ -1468,6 +1472,13 @@ export default {
       }
     }
     /*banner*/
+    &.bghome0 {
+      .el-carousel__item {
+        .banner-t1 {
+          margin-top: 35px;
+        }
+      }
+    }
   }
 
   .for-full {

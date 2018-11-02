@@ -1,7 +1,6 @@
 <template>
     <div>
-        <Header></Header>
-        <div class="main" @click="initPop">
+        <div class="main">
             <BreadCrumbs :data="[{ name: _('Home'), path: '/' }, { name: _('Privacy Policy'), path: '/policy' }]"></BreadCrumbs>
             <div id="main-policy" class="main-policy">
                 <h1>
@@ -384,7 +383,6 @@
 </template>
 
 <script>
-    import Header from '~/components/Header.vue'
     import BreadCrumbs from '~/components/BreadCrumbs.vue'
     import Footer from '~/components/Footer.vue'
     import ScrollTop from '~/components/ScrollTop'
@@ -396,14 +394,9 @@
             }
         },
         methods: {
-            initPop () {
-                /* head 弹窗 */
-                this.$store.commit('initHeadState', new Date().getTime())
-            }
         },
         components: {
             Footer,
-            Header,
             BreadCrumbs,
             ScrollTop
         }

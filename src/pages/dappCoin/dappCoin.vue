@@ -609,7 +609,7 @@
 <script>
 import { aTypes } from '~/store/cs_page/dappCoin'
 import {
-    copySucc, copyError, formateCoinType, formatTime, formateCoinAddr, coinAffAddr
+    copySucc, copyError, formateCoinType, formatTime, formateCoinAddr, coinAffAddr, selfNotify
 } from '~common/util'
 import Vue from 'vue'
 import BannerScroll from '~components/BannerScroll.vue'
@@ -617,7 +617,7 @@ import Footer from '~components/Footer.vue'
 import HeaderCoin from '~components/HeaderCoin.vue'
 import vueClipboard from 'vue-clipboard2'
 import { web3, luckyCoinApi, contractNet } from '~/dappApi/luckycoinApi'
-import { Message, Notification } from 'element-ui'
+import { Notification } from 'element-ui'
 import ScrollTop from '~/components/ScrollTop'
 
 Vue.use(vueClipboard)
@@ -703,6 +703,7 @@ export default {
         formateCoinType,
         formatTime,
         formateCoinAddr,
+        selfNotify,
         initEasyPlay () {
             this.isNew = false
             this.isShowStep1 = true
@@ -1011,10 +1012,7 @@ export default {
         },
         checkTicket () {
             if (isNaN(Number(this.tickNum))) {
-                Message({
-                    message: _('Please enter the correct number '),
-                    type: 'error'
-                })
+                this.$error(_('Please enter the correct number '))
                 this.tickNum = 0
                 return false
             }
@@ -1450,18 +1448,7 @@ export default {
                     currGas
                 )
             }
-            buyBack
-                ? this.selfNotify('Order Successful')
-                : this.selfNotify('Purchase Cancelled', 'error')
-        },
-        selfNotify (val, typeVal = 'success') {
-            Notification({
-                dangerouslyUseHTMLString: true,
-                type: typeVal,
-                message: _(val),
-                position: 'bottom-right',
-                duration: 5000
-            })
+            buyBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
         },
         async registerName () {
             let buyNameBack = null
@@ -1470,14 +1457,8 @@ export default {
                 return false
             }
             // 判断是否符合规则
-            if (
-                !this.beforeInviteName ||
-                !this.isVerifyName(this.beforeInviteName)
-            ) {
-                Message({
-                    message: _('Please enter the correct referral link'),
-                    type: 'error'
-                })
+            if (!this.beforeInviteName || !this.isVerifyName(this.beforeInviteName)) {
+                this.$error(_('Please enter the correct referral link'))
                 return false
             }
             // 判断是否已经被购买
@@ -1501,14 +1482,9 @@ export default {
                         currGas
                     )
                 }
-                buyNameBack
-                    ? this.selfNotify('Order Successful')
-                    : this.selfNotify('Purchase Cancelled', 'error')
+                buyNameBack ? this.selfNotify('Order Successful') : this.selfNotify('Purchase Cancelled', 'error')
             } else {
-                Message({
-                    message: 'The name has been registered',
-                    type: 'error'
-                })
+                this.$error('The name has been registered')
             }
         },
         async withdraw () {
@@ -1677,7 +1653,7 @@ export default {
                             }
                         } else if (res.event === 'onWithdraw') {
                             // 提现
-                            let withdrawNum = formatesuperCoin(
+                            let withdrawNum = this.formatesuperCoin(
                                 web3.fromWei(res.args.ethOut.toNumber())
                             )
                             if (name === '') {

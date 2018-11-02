@@ -252,9 +252,9 @@ const actionsInfo = mapActions({
             commit(mTypes.setPoolAmount, msg.pools_amount)
         }
         /* 比例 */
-        if (msg.pool_ratio) {
-            commit(mTypes.poolRatio, msg.pool_ratio)
-        }
+        // if (msg.pool_ratio) {
+        //     commit(mTypes.poolRatio, msg.pool_ratio)
+        // }
 
         // msg.expectid !== expectId  ??
         if (msg.expectid !== state.currExpectId) {

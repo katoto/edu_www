@@ -84,6 +84,9 @@ const adHomeDetail = () =>
 // 充值送
 const actFirstCharge = () =>
     import('~/pages/cs_activity/cs_actFirstCharge')
+// 万圣节活动
+const halloween = () =>
+    import('~/pages/cs_activity/cs_halloween')
 
 /* Dapp 一元夺币 */
 const supercoin = () =>
@@ -98,6 +101,11 @@ let routesArr = [{
     path: '/firstCharge',
     name: 'firstCharge',
     component: actFirstCharge
+},
+{
+    path: '/halloween',
+    name: 'halloween',
+    component: halloween
 },
 {
     path: '/help',
@@ -159,6 +167,7 @@ let routesArr = [{
 },
 {
     path: '/luckycoin',
+    name: 'luckycoin',
     component: luckycoin,
     children: [{
         path: 'drawHistory',
@@ -174,20 +183,20 @@ let routesArr = [{
         component: luckcoinMoreBids
     },
     {
-        path: 'detailed',
+        path: 'detailed/:number?',
         name: _('detailed'),
         component: luckycoinDetailed
     },
     {
         path: '',
-        name: _('Home'),
+        name: 'luckycoin-home',
         component: luckcoinIndex
     }
     ]
 },
 {
     path: '/luckyPoker',
-    name: _('luckyPoker'),
+    name: 'luckyPoker',
     component: csPoker
 },
 {

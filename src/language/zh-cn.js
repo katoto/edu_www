@@ -650,7 +650,7 @@ module.exports = {
     'Insufficient Balance': '余额不足',
     'Please top up first.': '您的余额不足以投注，请先充值',
     'Bid For {0}': '赢取 {0}',
-    'Insufficient Available Bids': '注数有变化',
+    'Max Bids Change': '注数有变化',
     'Pay': '立即支付',
     'All Bids': '全部投注',
     'You have bought 1 bid. Winner will get {0} {1} reward. Bid more, win more! Good Luck!': '您获得1个号码，若与开奖号码相同就可获得奖金{0} {1}。投注越多，中奖概率越高，祝你好运~',
@@ -852,5 +852,20 @@ module.exports = {
     'The blockchain-based gaming platform': '区块链博彩平台',
     /* super coin end */
     'Coin-Coin(CC)': 'CC币介绍',
-    'Play LuckyPoker': '幸运扑克怎么玩'
+    'Play LuckyPoker': '幸运扑克怎么玩',
+    'Promo-Halloween': '万圣节活动送',
+    'You have not verified your email, please verify first': '您尚未验证邮箱，请先验证',
+    /* 触达  start */
+    'You\'ve got 1 CC for free': '注册奖励已到账',
+    'Activate account now to start your lucky journey!': '世界上最遥远的距离是，因为懒得激活只能与大奖擦肩而过！',
+    'Resent': '再次发送',
+    'Verify Now': '立马验证',
+    '50% bonus only for the first top-up.<br /> Let your happiness continue!': '首次充值，余额翻倍！',
+    '50% bonus': '50% 奖池',
+    'Free bonus is non-withdrawable, while your winning reward is withdrawable. Why not try free CC play ?': '免费奖励需要满足一定条件才可提款~但是中奖金额随时可提哦~可以先来CC游戏场免费体验~',
+    '{0} top-up has been sent to you.': '{0} 充值已到账。',
+    'You\'ve received {0} top-up bonus.': '获得充值奖励{0}',
+    'Get 50% top-up bonus (only for the first top-up)': '首次充值，余额翻倍！'
+    /* 触达  end */
+
 }

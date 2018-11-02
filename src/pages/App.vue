@@ -1,25 +1,36 @@
 <template>
-    <div id="app" @scroll.native="test" :class="isReady ? 'ready' : ''">
-        <router-view v-if="isReady" />
-        <CHAT></CHAT>
+    <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
+        <Banner v-if="isLucky11"></Banner>
+        <Header v-if="!isSlot && !isDapp && isReady"></Header>
+        <router-view v-if="isReady" @click.native="initPop" class="page_all" />
+        <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
+        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry && !isShowHalloween">
+        <div class="_download_bg2"></div>
+        <div class="_download_bg0"></div>
+        <div class="_download_bg"></div>
+        <CHAT v-if="testUrl"></CHAT>
     </div>
 </template>
 
 <script>
 import CHAT from '~components/Chat'
-import { isLog, defaultLanguage, isForbitPage, setCK } from '~common/util'
+import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
+import Halloween from './cs_halloween/game'
+import Banner from '~components/banner'
+import Header from '~components/Header.vue'
 export default {
     data () {
         return {
-            isReady: false
+            isReady: false,
+            isShowHalloween: false,
+            testUrl: null
         }
     },
-    computed: {
-    },
     components: {
-        CHAT
+        Halloween, Banner, Header, CHAT
     },
     methods: {
+        selfNotify,
         handleInit () {
             document.getElementById('app').style.visibility = 'visible'
             switch (defaultLanguage) {
@@ -33,7 +44,50 @@ export default {
                 document.getElementById('contentLanguange').setAttribute('content', 'zh-cn')
                 break
             }
+        },
+        playHalloween () {
+            if (!this.isLogin) {
+                this.$store.commit('showLoginPop')
+                return
+            }
+            if (this.$store.state.userInfo && this.$store.state.userInfo.status !== '1') {
+                this.$store.commit('showNoVerify')
+                return
+            }
+            this.isShowHalloween = !this.isShowHalloween
+        },
+        initPop () {
+            /* head 弹窗 */
+            if (this.isSlot || this.isDapp) {
+                return
+            }
+            this.$store.commit('initHeadState', new Date().getTime())
         }
+    },
+    watch: {
+        isLogin (value) {
+            if (!value) {
+                this.isShowHalloween = false
+            }
+        }
+    },
+    computed: {
+        isLogin () {
+            return this.$store.state.isLog
+        },
+        isShowEntry () {
+            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
+        },
+        isLucky11 () {
+            return this.$route.name === 'lucky11'
+        },
+        isSlot () {
+            return this.$route.name === 'luckySlot'
+        },
+        isDapp () {
+            return this.$route.name === 'supercoin'
+        }
+
     },
     async mounted () {
         (function flexible (window, document) {
@@ -53,7 +107,9 @@ export default {
                 }
                 docEl.style.fontSize = rem + 'px'
             }
+
             setRemUnit()
+
             // reset rem unit on page resize
             window.addEventListener('resize', setRemUnit)
             window.addEventListener('pageshow', function (e) {
@@ -67,17 +123,17 @@ export default {
             window.app_ck === '-1' ? setCK('') : setCK(window.app_ck)
         }
         this.handleInit()
+        let userMsg = await this.$store.dispatch('getUserInfo')
         if (isLog()) {
             this.$store.commit('setIsLog', true)
-            let userMsg = await this.$store.dispatch('getUserInfo')
             if (userMsg && userMsg.status.toString() === '100') {
                 this.$store.commit('setIsLog', true)
             }
         } else {
             this.$store.commit('setIsLog', false)
         }
-
         this.isReady = true
+
         /* 老虎机和首页 */
         if (isForbitPage()) {
             setTimeout(function () {
@@ -105,9 +161,131 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
+
+        // test
+        this.selfNotify(_('You\'ve got 1 CC for free'))
+        // this.$store.commit('showNoVerify')
+        // this.$store.commit('showVerifyEmail')
+        window.location.href.indexOf('test') > -1 ? this.testUrl = true : this.testUrl = false
     }
 }
 </script>
+<style lang="less">
+._download_bg2 {
+  background: url("../assets/img/halloween/bg2.jpg");
+  width: 0;
+  height: 0;
+  z-index: 0;
+  opacity: 0;
+  top: 1000000px;
+  left: 0;
+  position: fixed;
+}
+._download_bg0 {
+  background: url("../assets/img/halloween/bg0.jpg");
+  width: 0;
+  height: 0;
+  z-index: 0;
+  opacity: 0;
+  top: 1000000px;
+  left: 0;
+  position: fixed;
+}
+._download_bg {
+  background: url("../assets/img/halloween/bg.jpg");
+  width: 0;
+  height: 0;
+  z-index: 0;
+  opacity: 0;
+  top: 1000000px;
+  left: 0;
+  position: fixed;
+}
+.halloween-mode .halloween {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/img/halloween/bg2.jpg") no-repeat #162222 center
+      top;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: showBackground 0.5s forwards ease-out;
+  }
+  &.tiger-pc::before {
+    background-position-y: 70px;
+  }
+}
+.halloween-mode .nav#nav {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/img/halloween/bg0.jpg") no-repeat #162222 center
+      top;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: showBackground 0.5s forwards ease-out;
+  }
+}
+.halloween-mode .play-area {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../assets/img/halloween/bg.jpg") no-repeat #162222 center
+      top;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: showBackground 0.5s forwards ease-out;
+  }
+}
+
+@keyframes showBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.halloween-entry {
+  position: fixed;
+  top: 400px;
+  left: 40px;
+  cursor: pointer;
+  z-index: 98;
+  transform-origin: center bottom;
+  animation: flipEntry 5s ease-in-out infinite;
+}
+@keyframes flipEntry {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60%,
+  70%,
+  80% {
+    transform: rotateZ(20deg);
+  }
+  40%,
+  65%,
+  75%,
+  85% {
+    transform: rotateZ(-21deg);
+  }
+}
+</style>
 
 <style lang="less" type="text/less">
 @import "../styles/lib-reset.css";
@@ -149,6 +327,33 @@ export default {
     display: block;
     width: 22px;
     height: 22px;
+  }
+}
+
+//临时蜘蛛线条
+.ghost2-ct,
+.ghost21-ct {
+  img {
+    z-index: 2;
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: -65px;
+    left: 51%;
+    width: 2px;
+    height: 150px;
+    background: #410414;
+    z-index: -1;
+  }
+}
+.ghost21-ct {
+  &::before {
+    content: "";
+    top: -230px;
+    height: 350px;
   }
 }
 </style>

@@ -1,12 +1,9 @@
 <template>
-    <div class="test" :class="{'on':on}">
-        <a href="javascript:;" @click="add">btn</a>
-        <div></div>
-        <input type="text" ref="input" @focus="test" @blur="test2">
+    <div class="test">
+        <div class="inputContent" contenteditable="true"></div>
     </div>
 </template>
 <script>
-
 export default {
     data () {
         return {
@@ -18,23 +15,10 @@ export default {
     },
     watch: {},
     methods: {
-        test () {
-            setInterval(function () {
-                console.log(window.innerHeight)
-            }, 1000)
-        },
-        test2 () {
-            this.on = false
-        },
-        add () {
-            this.on = true
-        }
-    },
-    computed: {
 
     },
-    components: {
-    },
+    computed: {},
+    components: {},
     mounted () {
         console.log(window.innerHeight)
     }
@@ -42,27 +26,4 @@ export default {
 </script>
 
 <style  lang="less" type="text/less">
-.test {
-  position: relative;
-  &.on {
-    transform: translateY(-50%);
-  }
-  div {
-    height: 1000px;
-    background: #000;
-  }
-  a,
-  input {
-    position: fixed;
-    width: 50px;
-    height: 50px;
-    margin: 50px auto;
-  }
-  a {
-    top: 0;
-  }
-  input {
-    bottom: 0;
-  }
-}
 </style>

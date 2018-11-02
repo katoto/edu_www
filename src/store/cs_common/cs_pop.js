@@ -1,13 +1,14 @@
 import md5 from 'md5'
-import {Message} from 'element-ui'
+import { Message } from 'element-ui'
 import ajax from '~common/ajax'
 
 import router from '@/router'
 
-import {removeCK, tipsTime} from '~common/util'
+import { removeCK, tipsTime } from '~common/util'
 
 const state = {
     pop: {
+        showPopFirstTopup: false,
         showNoVerify: false,
 
         showFreeplay: false,
@@ -34,19 +35,21 @@ const state = {
         faucetMsg: null, // 邀请的msg
         inviterObj: null, // 邀请接收
 
-        // loginSucc: null, // 登陆成功后的数据
-
-        showFirstLogin: false // 邀请用（激活处）
-        // loginSucc: { //  登陆
-        //     login_times: '0', // 用户信息的地方没有这个字段
-        //     invite_status: '0',
-        //     invite_prize_chances: 2,
-        //     tasks: []
-        // }
+        showFirstLogin: false, // 邀请用（激活处）
+        recentChatmsg: null, // 近期投注记录
+        chatmsg: null
     }
 }
 
 const mutations = {
+    getchatmsg (state, data) {
+        // 用于清空msg
+        state.pop.chatmsg = data
+    },
+    setrecentChatmsg (state, data) {
+        // chat msg init
+        state.pop.recentChatmsg = data
+    },
     setMailType (state, data) {
         state.pop.mailType = data
     },
@@ -63,20 +66,14 @@ const mutations = {
     hideFreeplay (state) {
         state.pop.showFreeplay = false
     },
-
     //  激活用的
     showFirstLogin (state, data) {
         state.pop.showFirstLogin = data
     },
-    //  登陆回来的数据
-    // setLoginSucc (state, msg) {
-    //     state.pop.loginSucc = msg
-    // },
     // 邀请用
     setInviterObj (state, msg) {
         state.pop.inviterObj = msg
     },
-
     setResetObj (state, msg) {
         state.pop.resetObj.email = msg.email
         state.pop.resetObj.sign = msg.sign
@@ -97,7 +94,6 @@ const mutations = {
     hideTransfer (state) {
         state.pop.showTransfer = false
     },
-
     showLoginPop (state) {
         state.pop.showLoginPop = true
     },
@@ -124,6 +120,13 @@ const mutations = {
     },
     hideResetPwd (state) {
         state.pop.showResetPwd = false
+    },
+    // 验证 top up 首充
+    showPopFirstTopup (state) {
+        state.pop.showPopFirstTopup = true
+    },
+    hidePopFirstTopup (state) {
+        state.pop.showPopFirstTopup = false
     },
     // 邮箱验证错误弹窗显示隐藏
     showVerifyEmailError (state) {
@@ -157,16 +160,54 @@ const mutations = {
     }
 }
 const actions = {
+    clearChatmsg ({ state, commit, dispatch }, list) {
+        if (state.pop) {
+            if (!state.pop.recentChatmsg) state.pop.recentChatmsg = []
+            const bifurcateBy = (arr, fn) => arr.reduce((acc, val, i) => (acc[fn(val, i) ? 0 : 1].push(val), acc), [[], []])
+            commit('setrecentChatmsg', bifurcateBy(state.pop.recentChatmsg, x => list.includes(x.content.msg_id))[1])
+        }
+    },
+    /* 聊天消息 */
+    fomateChatpush ({ state, commit, dispatch }, msg) {
+        if (msg) {
+            if (state.pop) {
+                if (!state.pop.recentChatmsg) state.pop.recentChatmsg = []
+                if (state.pop.recentChatmsg > 130) state.pop.recentChatmsg = state.pop.recentChatmsg.slice(1)
+                Object.assign(msg, { isNew: true })
+                state.pop.recentChatmsg.push(msg)
+                commit('setrecentChatmsg', state.pop.recentChatmsg)
+                commit('getchatmsg', msg)
+            }
+        }
+    },
+    async noSpeak ({ commit, dispatch }, msg) {
+        return ajax.post(`/im/chatroom/block`, msg)
+    },
+    async breakSpeak ({ commit, dispatch }, msg) {
+        return ajax.post(`/im/chatroom/unblock`, msg)
+    },
+    /* chat delAllMsg */
+    async delAllMsg ({ commit, dispatch }, msg) {
+        return ajax.post(`/im/chatroom/clear_record`, msg)
+    },
+    /* chat 聊天室msg 删除 */
+    async delCurrMsg ({ commit, dispatch }, item) {
+        return ajax.post(`/im/chatroom/clear_record`, item)
+    },
+    /* chat 聊天室个人信息获取 */
+    async getOneChatmsg ({ commit, dispatch }, msg) {
+        return ajax.post(`/im/chatroom/user_info`, msg)
+    },
     /* 水龙头邀请 */
-    async faucetTask ({commit, dispatch}, coinType) {
+    async faucetTask ({ commit, dispatch }, coinType) {
         return ajax.get(`/faucet/tasks?cointype=${coinType}`)
     },
     /* 水龙头领取 */
-    async faucetGet ({commit, dispatch}, taskid) {
+    async faucetGet ({ commit, dispatch }, taskid) {
         return ajax.get(`/faucet/get?task_id=${taskid}`)
     },
     /* login 登陆 */
-    async userLogin ({commit, dispatch}, pageData) {
+    async userLogin ({ commit, dispatch }, pageData) {
         try {
             let InfoData = null
             if (pageData) {
@@ -192,7 +233,7 @@ const actions = {
     },
 
     /* 退出登录 */
-    loginOut ({state, commit, dispatch}) {
+    loginOut ({ state, commit, dispatch }) {
         commit('setIsLog', false)
         removeCK()
         commit('setUserInfo', {})
@@ -203,7 +244,7 @@ const actions = {
     },
 
     /* reg 注册 => 邮箱验证 */
-    async beforeReg ({commit, dispatch}, pageData) {
+    async beforeReg ({ commit, dispatch }, pageData) {
         try {
             let InfoData
             if (pageData) {
@@ -228,7 +269,7 @@ const actions = {
         }
     },
     /* reg 注册 */
-    async reg ({commit, dispatch}, params) {
+    async reg ({ commit, dispatch }, params) {
         let data = {
             ...params,
             password: md5(md5(params.password))
@@ -242,7 +283,7 @@ const actions = {
         return ajax.get('/user/mail/reg', data)
     },
     /*  倒计时 */
-    startBackTime ({state, commit, dispatch}, pageData) {
+    startBackTime ({ state, commit, dispatch }, pageData) {
         // 新增一个  再次发生邮件的倒计时
         clearInterval(state.pop.verifyTime)
         commit('emailBackTime', 60)
@@ -254,7 +295,7 @@ const actions = {
         }, 1000)
     },
     /* 发送邮件  reg: 注册, reset: 重置密码 */
-    async sendEmail ({commit, dispatch}, pageData) {
+    async sendEmail ({ commit, dispatch }, pageData) {
         try {
             let InfoData = null
             if (pageData) {
@@ -271,9 +312,8 @@ const actions = {
             })
         }
     },
-
     /*  reset password  重置密码  */
-    async resetPasswordFn ({state, commit, dispatch}, pageData) {
+    async resetPasswordFn ({ state, commit, dispatch }, pageData) {
         try {
             let InfoData = null
             if (pageData) {

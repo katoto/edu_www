@@ -1,69 +1,41 @@
 <template>
 
     <div class="page_chat" :class="[isShowChat?'on':'close']">
-        <a href="javascript:;" class="enter_chat" @click="isShowChat = !isShowChat">
+        <a href="javascript:;" class="enter_chat" @click="controlShowChat">
             <img src="@/assets/img/enter_chat.png" alt="">
         </a>
         <div class="chat_admin" :class="{on:isShowChatAdmin}">
             <a href="javascript:;" class="chat_admin_close" @click="isShowChatAdmin = !isShowChatAdmin"></a>
-            <div class="chat_admin_head">
+            <div class="chat_admin_head" v-if="controlRoomMsg">
                 <p class="user_emain">
-                    Sauwyeye@gmail.com
+                    {{ controlRoomMsg.content.username }}
                 </p>
                 <p class="user_id">
-                    ID: 1000394
+                    ID: {{ controlRoomMsg.content.uid }}
                 </p>
             </div>
             <div class="chat_admin_body">
                 <ul class="choose_ban">
                     <li :class="{'on':ban24}">
-                        <input type="checkbox" id="ban24" v-model="ban24">
-                        <label for="ban24">24 hours silence</label>
+                        <input type="checkbox" id="ban24" v-model="ban24" @change="controlSpeak('24')">
+                        <label for="ban24">{{ $lang.chat.a1 }}</label>
                     </li>
                     <li :class="{'on':banforever}">
-                        <input type="checkbox" id="banforever" v-model="banforever">
-                        <label for="banforever">Permanently banned</label>
+                        <input type="checkbox" id="banforever" v-model="banforever" @change="controlSpeak('-1')">
+                        <label for="banforever">{{ $lang.chat.a2 }}</label>
                     </li>
                 </ul>
                 <div class="chat_admin_msg">
                     <div>
-                        <span>
-                            Topics
+                        <span v-lang="$lang.chat.a13">
                         </span>
-                        <a href="javascript:;" class="remove">
-                            Remove&nbsp;All
+                        <a href="javascript:;" class="remove" @click="removeAllMsg" v-lang="$lang.chat.a14">
                         </a>
                     </div>
-                    <ul class="admin_msg_items ">
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            fuck all!! <a href="javascript:;" class="remove">Remove&nbsp;All</a>
-                        </li>
-                        <li>
-                            system charge : Daniel is permanently banned.Please speak in a civilized manner. <a href="javascript:;" class="remove">Remove&nbsp;All</a>
+                    <ul class="admin_msg_items">
+                        <li v-for="(item,index) in checkOneMsgArr" :key="index">
+                            {{ item.content.msg }}
+                            <a href="javascript:;" class="remove" @click="removeCurrMsg(item.content.msg_id)">{{ $lang.chat.a15 }}</a>
                         </li>
                     </ul>
                 </div>
@@ -71,135 +43,74 @@
         </div>
         <div class="chat_room">
             <div class="chat_room_head">
-                <p>
-                    ChartRoom
+                <p v-lang="$lang.chat.a16">
                 </p>
-                <a href="javascript:;" @click="isShowChat = !isShowChat,isShowChatAdmin = false"></a>
+                <a href="javascript:;" @click="controlShowChat"></a>
             </div>
             <div class="chat_room_main">
-                <!-- admin self  -->
                 <ul>
-                    <li v-for="(item,index) in newMsgArr" :key="index" :class="getUserColor(item.uid)">
-                        <div class="user_shortName">
-                            {{ item.email.slice(0,2).toUpperCase() }}
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    {{ formateEmail(item.email,true) }}
-                                </p>
-                                <span class="user_time">
-                                    {{ item.msgTime }}
-                                </span>
+                    <template v-if="userInfo && userInfo.is_im_admin === 'True'">
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
+                            <div class="user_shortName" @click="controlRoom(item)" v-if="item.content.username">
+                                {{ item.content.username.slice(0,2).toUpperCase() }}
                             </div>
-                            <p class="user_msg">
-                                {{ item.chatMsg }}
-                            </p>
-                        </div>
-                    </li>
-                    <li :class="[isAdmin?'admin':'']">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    Dominator
+                            <div class="user_view">
+                                <div class="user_row1">
+                                    <p class="user_name" v-if="item.content.username">
+                                        {{ formateEmail(item.content.username,true) }}
+                                    </p>
+                                    <p v-else class="systemp">
+                                        {{ $lang.chat.a10 }}
+                                    </p>
+                                    <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                        admin
+                                    </span>
+                                    <span class="user_time" v-if="item.content.username">
+                                        {{ formatTime(item.content.msg_time, 'MM/dd HH:mm AMPM') }}
+                                    </span>
+                                </div>
+                                <p class="user_msg" v-html="item.content.msg.httpParse()">
                                 </p>
-                                <span class="user_isAdmin" v-if="isAdmin">
-                                    Admin
-                                </span>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
                             </div>
-                            <p class="user_msg">
-                                system charge : Daniel is permanently banned.
-                                Please speak in a civilized manner.
-                            </p>
-                        </div>
-                    </li>
-                    <li :class="getUserColor">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
+                        </li>
+                    </template>
+                    <template v-else>
+                        <li v-for="(item,index) in recentChatmsg" :key="index" :class="getUserColor(item)">
+                            <div class="user_shortName" v-if="item.content.username">
+                                {{ item.content.username.slice(0,2).toUpperCase() }}
+                            </div>
+                            <div class="user_view">
+                                <div class="user_row1">
+                                    <p class="user_name" v-if="item.content.username">
+                                        {{ formateEmail(item.content.username,true) }}
+                                    </p>
+                                    <p v-else class="systemp">
+                                        {{ $lang.chat.a10 }}
+                                    </p>
+                                    <span class="user_isAdmin" v-if="item.content.is_im_admin==='True'">
+                                        admin
+                                    </span>
+                                    <span class="user_time" v-if="item.content.username">
+                                        {{ formatTime(item.content.msg_time, 'MM/dd HH:mm AMPM') }}
+                                    </span>
+                                </div>
+                                <p class="user_msg" v-html="item.content.msg.httpParse()">
                                 </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
                             </div>
-                            <p class="user_msg">
-                                this is my money <a href="http://www.coinsprize.com" target="_blank">http://www.coinsprize.com</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li :class="getUserColor" class="self">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
-                                </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                HELLO, I have some questions, who can
-                                help me ?
-                            </p>
-                        </div>
-                    </li>
-                    <li :class="getUserColor">
-                        <div class="user_shortName">
-                            DO
-                        </div>
-                        <div class="user_view">
-                            <div class="user_row1">
-                                <p class="user_name">
-                                    sa....6@gmail.com
-                                </p>
-                                <span class="user_time">
-                                    9:46 PM
-                                </span>
-                            </div>
-                            <p class="user_msg">
-                                this is my money
-                            </p>
-                        </div>
-                    </li>
-
+                        </li>
+                    </template>
                 </ul>
             </div>
             <div class="chat_room_foot">
-                <div class="row0">
-                    <p class="system_t">
-                        system messages
-                    </p>
-                    <p class="system_m">
-                        Message sending failed, you are currently banned, 23 hours remaining
-                    </p>
-                </div>
-                <div class="row1" :class="{'isOver100':isOver100}">
-                    <p>Maximum input&nbsp;0/100</p>
-                    <i v-if="isOver100">!</i>
+                <div class="row1" :class="{'isOver100':getByteLen(myMsg) > vipChatLen}">
+                    <p>{{ getByteLen(myMsg) }}/{{ vipChatLen }}&nbsp;{{$lang.chat.a11}}</p>
+                    <i v-if="getByteLen(myMsg)>vipChatLen">!</i>
                 </div>
                 <div class="row2">
                     <div class="row2_left">
-                        <div class="placeholder">
-                            {{myMsg}}
-                        </div>
-                        <textarea @focus="checkUse" v-model="myMsg" placeholder="Say something...">
-
-                        </textarea>
+                        <div class="placeholder">{{myMsg}}</div><textarea @focus="checkUse" v-model="myMsg" @input="myMsgInput" :placeholder="$lang.chat.a12" @keyup.enter="sendMsg"></textarea>
                     </div>
-                    <a href="javascript:;" class="btn_send"></a>
+                    <a href="javascript:;" class="btn_send " @click="sendMsg" :class="{'p_btn_disable':getByteLen(myMsg) > vipChatLen || myMsg === '' || !isBtnAble, 'time_down':baseTime!==0}">{{ baseTime + 's'}}</a>
                 </div>
             </div>
         </div>
@@ -207,86 +118,22 @@
 </template>
 
 <script>
-import { formatTime, formateEmail, isIOS } from '~common/util'
+import { formatTime, formateEmail, getByteLen, cutStr, getCK } from '~common/util'
 export default {
     data () {
         return {
+            vipChatLen: 100,
             scrollTop: 0,
             isShowChat: false,
-            isShowChatAdmin: false,
             ban24: false,
             banforever: false,
-            isAdmin: true,
             myMsg: '',
-            isOver100: true,
-            initMsgArr: [{
-                'uid': 123,
-                'msgid': 1,
-                'email': '84fds9246@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 1234,
-                'msgid': 2,
-                'email': 'asfd9246@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 1111,
-                'msgid': 3,
-                'email': 'qwerw39246@qq.com',
-                'chatMsg': 'this is my money http://www.coinsprize.com',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 123,
-                'msgid': 4,
-                'email': '11321321@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265873'
-            }, {
-                'uid': 1234134,
-                'msgid': 5,
-                'email': 'qrewqr@qq.com',
-                'chatMsg': 'this is my money',
-                'msgTime': '1540265872'
-            }],
-            newMsgArr: []
+            isShowChatAdmin: false, // admin 页面
+            controlRoomMsg: null, // 控制中心数据
+            checkOneMsgArr: [], // admin 查询用户列表用
+            sendTimeInterval: null, // 控制发消息频率
+            isBtnAble: true,
+            baseTime: 0 // 倒计时
         }
     },
     watch: {
@@ -306,45 +153,205 @@ export default {
                     document.getElementById('app').childNodes[0].removeEventListener('touchmove', this.banScroll, { passive: false })
                 }
             }
+        },
+        recentChatmsg () {
+            setTimeout(() => {
+                document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+            }, 0)
+        },
+        chatmsg (data) {
+            if (data.content.uid === this.userInfo.uid) {
+                this.myMsg = ''
+                this.controlInterval()
+            }
         }
     },
     methods: {
         formateEmail,
+        getByteLen,
+        cutStr,
+        formatTime,
+        controlInterval () {
+            clearInterval(this.sendTimeInterval)
+            this.isBtnAble = false
+            this.baseTime = this.vipChatLen === 200 ? 5 : 10
+            this.sendTimeInterval = setInterval(() => {
+                this.baseTime--
+                if (!this.baseTime) {
+                    clearInterval(this.sendTimeInterval)
+                    this.isBtnAble = true
+                }
+            }, 1000)
+        },
+        sendMsg () {
+            // 发送msg
+            this.checkUse()
+            this.myMsg = this.myMsg.replace(/^\s+|\s+$/, '')
+            if (this.getByteLen(this.myMsg) > this.vipChatLen || this.getByteLen(this.myMsg) <= 0 || !this.isBtnAble) {
+                return false
+            }
+            let currObj = {
+                action: 'chatroom_send',
+                type: 'im',
+                chatroom_id: '1',
+                uid: this.userInfo.uid,
+                username: this.userInfo.username,
+                ck: getCK(),
+                msg_type: 'betblock.im.message.text',
+                msg: this.myMsg
+            }
+            this.$store.dispatch('sendchatMsg', currObj)
+        },
+        controlShowChat () {
+            if (this.isShowChat) {
+                this.$store.dispatch('subOutMsg', { type: 'im', chatroomId: '1' })
+            } else {
+                this.$store.dispatch('subInMsg', { type: 'im', chatroomId: '1' })
+                // 默认到最底部
+                setTimeout(() => {
+                    document.querySelector('.chat_room .chat_room_main').scrollTop = document.querySelector('.chat_room .chat_room_main ul').offsetHeight
+                }, 10)
+            }
+            this.isShowChat = !this.isShowChat
+        },
+        myMsgInput () {
+            this.myMsg = this.myMsg.replace(/\n|\r/g, '')
+            if (this.getByteLen(this.myMsg) > this.vipChatLen) this.myMsg = this.cutStr(this.myMsg, this.vipChatLen + 2)
+        },
+        controlSpeak (val = '24') {
+            let confirmMsg = ''
+            if (val === '24') {
+                confirmMsg = this.ban24 ? '确定禁言24小时？' : '解除禁言24小时？'
+            } else {
+                confirmMsg = this.banforever ? '确定永久禁言？' : '解除永久禁言？'
+            }
+            if (this.controlRoomMsg.content.is_im_admin === 'True') {
+                // 管理员
+                val === '24' ? this.ban24 = !this.ban24 : this.banforever = !this.banforever
+                this.$error('都是管理员请不要互相伤害~')
+                return false
+            }
+            let isconfirm = confirm(confirmMsg)
+            if (!isconfirm) {
+                val === '24' ? this.ban24 = !this.ban24 : this.banforever = !this.banforever
+                return false
+            }
+            if (val === '24') {
+                this.ban24 ? this.noSpeak('24') : this.breakSpeak('24')
+            } else {
+                this.banforever ? this.noSpeak('-1') : this.breakSpeak('-1')
+            }
+        },
+        async noSpeak (val) {
+            // 禁言  24 or 永久
+            let currObj = {
+                block_uid: this.controlRoomMsg.content.uid,
+                block_type: val === '-1' ? 'permanent' : '24h',
+                chatroom_id: '1',
+                username: this.controlRoomMsg.content.username
+            }
+            let data = await this.$store.dispatch('noSpeak', currObj)
+            if (data && data.status === '100') {
+                this.$success(this.$lang.chat.a3)
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }
+        },
+        async breakSpeak (val) {
+            // 解除禁言
+            let currObj = {
+                block_uid: this.controlRoomMsg.content.uid,
+                block_type: val === '-1' ? 'permanent' : '24h',
+                username: this.controlRoomMsg.content.username
+            }
+            let data = await this.$store.dispatch('breakSpeak', currObj)
+            if (data && data.status === '100') {
+                // this.$success(_('解除禁言操作成功'))
+                this.$success(this.$lang.chat.a4)
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }
+        },
+        async removeAllMsg () {
+            // 删除指定msg
+            let currObj = {
+                msg_id: '',
+                clear_uid: this.controlRoomMsg.content.uid,
+                chatroom_id: '1'
+            }
+            let data = await this.$store.dispatch('delAllMsg', currObj)
+            if (data && data.status === '100') {
+                this.$success(_('全部删除操作成功'))
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }
+        },
+        async removeCurrMsg (msgId) {
+            // 删除指定msg
+            let currObj = {
+                msg_id: msgId,
+                clear_uid: this.controlRoomMsg.content.uid,
+                chatroom_id: '1'
+            }
+            let data = await this.$store.dispatch('delCurrMsg', currObj)
+            if (data && data.status === '100') {
+                this.$success(_('删除指定消息成功'))
+                // 更新数据
+                this.controlRoom(this.controlRoomMsg)
+            }
+        },
+        async controlRoom (item) {
+            this.controlRoomMsg = item
+            // 0 -1 1  24 永久 无
+            // 请求用户信息 列表 removeAll 会用到
+            let sendObj = {
+                check_uid: item.content.uid,
+                chatroom_id: '1'
+            }
+            let msgback = await this.$store.dispatch('getOneChatmsg', sendObj)
+            if (msgback.data) {
+                // null 是无禁言状态
+                this.ban24 = msgback.data.block_24h !== null
+                this.banforever = msgback.data.block_permanent === 'True'
+                this.isShowChatAdmin = true
+                this.checkOneMsgArr = msgback.data.recent_message
+            }
+        },
         banScroll (evt) {
             evt.preventDefault()
         },
         checkUse (evt) {
-            if (!this.userInfo || Object.keys(this.userInfo).length === 0 || this.userInfo.status === '0') {
-                // this.$store.commit('showLoginPop')
-                // evt.target.blur()
+            if (!this.userInfo || Object.keys(this.userInfo).length === 0) {
+                this.$store.commit('showLoginPop')
+                evt.target.blur()
+            } else if (this.userInfo.status === '0') {
+                this.$store.commit('showNoVerify')
             }
+            return false
         },
-
-        formateMsgArr (list = []) {
-            list.forEach((item, index) => {
-                item.msgTime = formatTime(item.msgTime)
-            })
-            return list
-        },
-        initChat () {
-            this.newMsgArr = this.formateMsgArr(this.initMsgArr)
-        },
-        getUserColor (ind) {
-            // return 'userColor' + (~~(Math.random() * 12) + 1)
-            return 'userColor' + ind % 13
+        getUserColor (item) {
+            // 处理类名  system  good 的样式处理 system_m 处
+            let classArr = []
+            if (item.content.uid) classArr.push('userColor' + item.content.uid % 13)
+            if (this.userInfo) {
+                if (item.content.uid && (item.content.uid === this.userInfo.uid)) classArr.push('self')
+            }
+            if (item.content.is_im_admin === 'True') classArr.push('admin')
+            if (item.sender_id === 'betblock.im.admin') classArr.push('system')
+            return classArr
         }
     },
     computed: {
         userInfo () {
+            if (this.$store.state.userInfo) this.vipChatLen = this.$store.state.userInfo.is_recharged_user === 'True' ? 200 : 100
             return this.$store.state.userInfo
+        },
+        recentChatmsg () {
+            return this.$store.state.pop.recentChatmsg
+        },
+        chatmsg () {
+            return this.$store.state.pop.chatmsg
         }
-    },
-    components: {},
-    mounted () {
-        this.initChat()
-    },
-    destroyed () {
-
     }
 }
 </script>
@@ -352,8 +359,8 @@ export default {
 @media (min-width: 769px) {
   .page_chat {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 35px;
+    right: 33px;
     overflow: hidden;
     z-index: 11;
     .remove {
@@ -362,6 +369,9 @@ export default {
       &:hover {
         filter: brightness(1.1);
       }
+    }
+    .whiteColor {
+      color: #fff !important ;
     }
     * {
       box-sizing: border-box;
@@ -382,6 +392,7 @@ export default {
       height: 686px;
       .enter_chat {
         transform: scale(0);
+        width: 0;
       }
     }
     &.close {
@@ -486,6 +497,8 @@ export default {
         line-height: 20px;
         font-size: 14px;
         border-bottom: 1px solid #a4a5a7;
+        word-wrap: break-word;
+        word-break: break-all;
       }
     }
 
@@ -598,7 +611,8 @@ export default {
             background: rgba(177, 99, 72, 0.2);
           }
         }
-        &.userColor12 {
+        &.userColor12,
+        &.userColor0 {
           .user_shortName {
             color: #90947d;
             background: rgba(144, 148, 125, 0.2);
@@ -632,6 +646,28 @@ export default {
             border-radius: 6px;
           }
         }
+        &.system {
+          .user_name {
+            line-height: 18px;
+            font-size: 12px;
+            color: #aaabad;
+          }
+          .systemp {
+            color: #aaabad;
+          }
+          .user_msg {
+            line-height: 20px;
+            font-size: 14px;
+            color: #ef7e7e;
+            word-wrap: break-word;
+            word-break: break-all;
+          }
+          &.good {
+            .user_msg {
+              color: #36c57a;
+            }
+          }
+        }
         & + li {
           margin-top: 30px;
         }
@@ -658,6 +694,7 @@ export default {
       .user_view {
         overflow: hidden;
       }
+
       .user_row1 {
         display: flex;
         margin: 1px 0 2px 0;
@@ -685,6 +722,7 @@ export default {
         line-height: 20px;
         font-size: 14px;
         color: #fff;
+        word-wrap: break-word;
         word-break: break-all;
       }
     }
@@ -700,7 +738,11 @@ export default {
           line-height: 20px;
           font-size: 14px;
           color: #ef7e7e;
+          word-wrap: break-word;
           word-break: break-all;
+          &.good {
+            color: #36c57a;
+          }
         }
       }
       .row1 {
@@ -768,6 +810,7 @@ export default {
         resize: none;
         word-wrap: break-word;
         word-break: break-all;
+        font-family: Helvetica, "Microsoft YaHei";
       }
       .btn_send {
         display: block;
@@ -779,8 +822,18 @@ export default {
         background-size: 24px;
         border-radius: 6px;
         overflow: hidden;
+        font-size: 0;
+        text-indent: 99999px;
         &:hover {
           filter: brightness(1.1);
+        }
+        &.time_down {
+          text-align: center;
+          line-height: 35px;
+          color: #fff;
+          background-image: none;
+          font-size: 16px;
+          text-indent: 0;
         }
       }
     }

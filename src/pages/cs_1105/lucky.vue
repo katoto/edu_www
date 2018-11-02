@@ -1,13 +1,9 @@
 <template>
     <div id="lucky11" :class="{'superActive':superClass}">
-        <!-- <Banner class="hide" v-on:superBannerChange="superChange"></Banner> -->
-        <Banner v-if="adList.home_top_1 && adList.home_top_1.length>0"></Banner>
-        <Banner v-else></Banner>
-        <Header></Header>
         <HeaderNav ref="headerNav" v-on:superChange="superChange"></HeaderNav>
         <Lucky-mybet class="visible-lg"></Lucky-mybet>
         <div>
-            <div class="main  visible-lg  " @click="initPop">
+            <div class="main visible-lg halloween">
                 <!--玩法区-->
                 <div class="play-area" id="play-area">
                     <ul class="play-area-items">
@@ -258,7 +254,7 @@
                 </div>
 
             </div>
-            <div class="h5main  hidden-lg " @click="initPop">
+            <div class="h5main  hidden-lg ">
                 <!--玩法区-->
                 <div class="play-area">
                     <ul class="play-area-items">
@@ -528,14 +524,12 @@
 </template>
 
 <script>
-import Header from '~components/Header.vue'
 import HeaderNav from '~pages/cs_1105/HeaderNav.vue'
 import Banner from '~components/banner'
 import PlayArea from '~pages/cs_1105/PlayArea.vue'
 import H5PlayArea from '~pages/cs_1105/H5PlayArea.vue'
 import Footer from '~components/Footer.vue'
 import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
-import { Message } from 'element-ui'
 import {
     formateCoinType,
     formatMatch,
@@ -639,10 +633,6 @@ export default {
         formateCoinType,
         getCCAcount,
         getCCDeductionMoney,
-        initPop () {
-            /* head 弹窗 */
-            this.$store.commit('initHeadState', new Date().getTime())
-        },
         superChange (msg = 'superIn') {
             /* headerNav 调的 */
             if (msg === 'superIn') {
@@ -694,7 +684,6 @@ export default {
             if (~jsStartBetBtn.className.indexOf('unable')) {
                 return false
             }
-
             // 未登录 的情况
             if (!this.isLog) {
                 this.$store.commit('showLoginPop')
@@ -706,22 +695,15 @@ export default {
                 return false
             }
             // 判断 余额是否足
-            if (
-                parseFloat(this.currBalance.balance) < parseFloat(this.totalPay)
-            ) {
-                Message({
-                    message: _('Your balance is insufficient, please top up'),
-                    type: 'error'
-                })
+            if (parseFloat(this.currBalance.balance) < parseFloat(this.totalPay)) {
+                this.$error(_('Your balance is insufficient, please top up'))
                 setTimeout(() => {
                     this.$router.push('/account/deposit')
                 }, 3000)
                 return false
             }
-
             // 出现loading
             document.getElementById('jsLoading').style.display = 'block'
-
             // 选号是否完成
             if (this.playArea) {
                 let noComplete = []
@@ -810,13 +792,7 @@ export default {
                     }
                     document.getElementById('jsLoading').style.display = 'none'
                 } else {
-                    Message({
-                        message: _(
-                            'Please pick correct numbers in {0}',
-                            noComplete.join(' && ')
-                        ),
-                        type: 'error'
-                    })
+                    this.$error(_('Please pick correct numbers in {0}', noComplete.join(' && ')))
                     // 震动 报错
                     // js_playArea-li
                     noCompleteIndex.forEach((val, index) => {
@@ -865,10 +841,7 @@ export default {
                     ...this.baseAreaMsg
                 })
             } else {
-                Message({
-                    message: _('No more than 5 tickets'),
-                    type: 'error'
-                })
+                this.$error(_('No more than 5 tickets'))
             }
         },
         fixNav () {
@@ -963,7 +936,6 @@ export default {
                         aTypes.mailActivate,
                         query.sign
                     )
-                    console.log(mailBack)
                     if (mailBack) {
                         if (mailBack.status === '100') {
                             if (parseFloat(mailBack.data.login_times) >= 0) {
@@ -975,10 +947,7 @@ export default {
                             this.$store.dispatch('getUserInfo')
                             this.$store.commit('showRegSuccess')
                         } else {
-                            Message({
-                                message: mailBack.message,
-                                type: 'error'
-                            })
+                            this.$error(mailBack.message)
                         }
                     }
                     this.$router.push('')
@@ -1008,7 +977,6 @@ export default {
     },
     components: {
         Footer,
-        Header,
         HeaderNav,
         PlayArea,
         H5PlayArea,
@@ -1050,7 +1018,10 @@ export default {
         // 首页 冒泡效果
         setTimeout(() => {
             /* 订阅lucky11 sock */
-            this.$store.dispatch('subInLucky')
+            this.$store.dispatch('subInMsg', {
+                type: 'lottery',
+                lotid: 1
+            })
             /* 开启动态数据定时器 */
             this.$store.dispatch(aTypes.recentBetAdd)
             /* 动态结构化 */
@@ -1077,7 +1048,10 @@ export default {
         }
     },
     beforeDestroy () {
-        this.$store.dispatch('subOutLucky')
+        this.$store.dispatch('subOutMsg', {
+            type: 'lottery',
+            lotid: 1
+        })
     },
     destroyed () {
         window.removeEventListener('scroll', this.fixNav, true)

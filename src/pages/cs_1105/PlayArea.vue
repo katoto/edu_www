@@ -1,10 +1,11 @@
 <template>
     <li class="js_playArea-li">
         <div class="play-area-top">
-            <div id="play-type-choose" class="play-type-choose" :class="{'super-active':areaMsg.pickType === '5J'}"
-                 @mouseover="slideDown = true" @mouseout="slideDown = false">
+            <div id="play-type-choose" class="play-type-choose" :class="{'super-active':areaMsg.pickType === '5J'}" @mouseover="slideDown = true" @mouseout="slideDown = false">
                 <span v-if="areaMsg.pickType === '5J'" v-lang="'Super&ensp;5'"></span>
-                <span v-else><lang>Pick</lang> {{ areaMsg.pickType}}</span>
+                <span v-else>
+                    <lang>Pick</lang> {{ areaMsg.pickType}}
+                </span>
                 <ul @click="chosePickType( $event )" class="slide" :class="{'slide-show':slideDown}">
                     <li data-index="1" v-lang="'Pick 1'"></li>
                     <li data-index="2" v-lang="'Pick 2'"></li>
@@ -34,7 +35,9 @@
                     <!-- Lucky 11 show -->
                     <div class="pop pop-rewardTable" :class="{hide: !rewardTable}">
                         <!-- <img src="../../assets/img/pop-rewardTable.png" alt=""> -->
-                        <h3><lang>Lucky11</lang></h3>
+                        <h3>
+                            <lang>Lucky11</lang>
+                        </h3>
                         <div class="pay-items">
                             <table>
                                 <thead>
@@ -123,22 +126,21 @@
                                             </i>
                                         </td>
                                     </tr>
-                                 </tbody>
+                                </tbody>
                             </table>
                         </div>
-                     </div>
+                    </div>
                 </a>
             </p>
-        <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">
-            <lang>Limit number list</lang>
-        </a>
+            <a href="javascript:;" class="limit-tips js_limit-tips" @click="showPopLimit">
+                <lang>Limit number list</lang>
+            </a>
         </div>
-        <span class="line js_line"><lang>Ticket</lang> {{ currIndex + 1 }}</span>
+        <span class="line js_line">
+            <lang>Ticket</lang> {{ currIndex + 1 }}
+        </span>
         <ul class="number-box" v-if="areaMsg" @click="lineNumClick">
-            <li v-for="(number,index) in playList"
-                :data-flag="(index+1)" class="on"
-                :key="index"
-                v-if="areaMsg.pickNum && areaMsg.pickNum.indexOf( number ) > -1">
+            <li v-for="(number,index) in playList" :data-flag="(index+1)" class="on" :key="index" v-if="areaMsg.pickNum && areaMsg.pickNum.indexOf( number ) > -1">
                 {{ number }}
             </li>
             <li :data-flag="(index+1)" v-else>{{ number }}</li>
@@ -149,27 +151,26 @@
         <a href="javascript:;" class="btn-delete" @click="clearNumber"></a>
         <a href="javascript:;" :data-delIndex="currIndex" @click="delTicket" class="btn-close"></a>
         <div class="beting">
-            <span><lang>Bet</lang></span>
+            <span>
+                <lang>Bet</lang>
+            </span>
             <div class="btn-beting">
                 <!-- 差额化 金额 -->
-                <input type="text" name="bet1" @input="checkMoneyLen" @blur="checkBetMoney" v-model="areaMsg.pickMoney"
-                       :placeholder="min_limit.toString()">
+                <input type="text" name="bet1" @input="checkMoneyLen" @blur="checkBetMoney" v-model="areaMsg.pickMoney" :placeholder="min_limit.toString()">
                 <a href="javascript:;" @click="js_beting_add" class="btn-beting-add">add</a>
                 <a href="javascript:;" @click="js_beting_low" class="btn-beting-low">low</a>
             </div>
             <span>{{ currBalance.cointype | formateCoinType }}</span>
             <div class="winning" v-if="areaMsg.pickType !== '5J'">
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType)
-                )] * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType
-                }}</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ parseFloat(syxw_bettype_odds['110'+( parseFloat( areaMsg.pickType))]) * parseFloat( areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType
+                    }}</i>
             </div>
             <div class="winning" v-else>
                 <!-- 奖池 -->
-                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ areaMsg.pickMoney | formateJackPot(
-                this.poolAmount[currBalance.cointype] , this.poolRatio ) + syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
+                <lang>Winning</lang>&nbsp;<i class="winMoney">{{ formateJackPot(areaMsg.pickMoney , this.poolAmount , this.poolRatio,this.bet_limit ,currBalance.cointype ) + parseFloat( syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney ) ) | formateBalance }}&nbsp;{{ currBalance.cointype | formateCoinType }}</i>
                 <i class="winjackport" v-if="areaMsg.pickType === '5J'">
                     {{ _('including C5: {0}; jackpot {1}', formateBalance(syxw_bettype_odds[11051] * parseFloat(areaMsg.pickMoney)) + formateCoinType ( currBalance.cointype ),
-                    formateJackPot(areaMsg.pickMoney, this.poolAmount[currBalance.cointype], this.poolRatio)) + formateCoinType ( currBalance.cointype ) }}
+                    formateJackPot(areaMsg.pickMoney, this.poolAmount, this.poolRatio,this.bet_limit ,currBalance.cointype)) + formateCoinType ( currBalance.cointype ) }}
                 </i>
             </div>
         </div>
@@ -177,10 +178,7 @@
             <p v-lang="'Picking&ensp;Order'"></p>
             <ul class="num-box js_num-box-5">
                 <!--flipInY on-->
-                <li v-for="(baseItem, index) in baseJackPot"
-                    class="flipInY on"
-                    :key="index"
-                    v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}
+                <li v-for="(baseItem, index) in baseJackPot" class="flipInY on" :key="index" v-if="playList.indexOf( areaMsg.pickJackPot[index] )> -1 ">{{ areaMsg.pickJackPot[index] }}
                 </li>
                 <li v-else>-</li>
             </ul>
@@ -189,265 +187,238 @@
 </template>
 
 <script>
-    import {randomNumber, formateBalance, formateJackPot, formateCoinType, accDiv} from '~common/util'
-    import {Message} from 'element-ui'
+import { randomNumber, formateBalance, formateJackPot, formateCoinType, accDiv } from '~common/util'
 
-    export default {
-        data () {
-            return {
-                playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                baseJackPot: [1, 2, 3, 4, 5],
-                limitUnit: 0.0001, // 减去最小单位
-                slideDown: false,
-                rewardTable: false,
-                min_limit: 0.0002, // 限额
-                max_limit: 0.01, // 限额
-                curCoinType: '1001'
-            }
-        },
-        props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
-        watch: {
-            currBalance: {
-                deep: true,
-                handler (balance) {
+export default {
+    data () {
+        return {
+            playList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            baseJackPot: [1, 2, 3, 4, 5],
+            limitUnit: 0.0001, // 减去最小单位
+            slideDown: false,
+            rewardTable: false,
+            min_limit: 0.0002, // 限额
+            max_limit: 0.01, // 限额
+            curCoinType: '1001'
+        }
+    },
+    props: ['areaMsg', 'data', 'allplayArea', 'currIndex'],
+    watch: {
+        currBalance: {
+            deep: true,
+            handler (balance) {
                 /* 切换金额变化对应的选项 */
-                    if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype !== this.curCoinType) {
-                        this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
-                        this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
-                        console.log(balance)
-                        this.areaMsg.pickMoney = Number(this.min_limit)
-                        this.setLimitUnit()
-                        this.curCoinType = balance.cointype
-                    }
+                if (balance && this.bet_limit && this.bet_limit[balance.cointype] && balance.cointype !== this.curCoinType) {
+                    this.min_limit = this.bet_limit[balance.cointype].min_limit.toString()
+                    this.max_limit = this.bet_limit[balance.cointype].max_limit.toString()
+                    this.areaMsg.pickMoney = Number(this.min_limit)
+                    this.setLimitUnit()
+                    this.curCoinType = balance.cointype
                 }
             }
+        }
+    },
+    methods: {
+        formateBalance,
+        formateJackPot,
+        formateCoinType,
+        checkMoneyLen () {
+            if (this.areaMsg.pickMoney.toString().length > 8) {
+                this.areaMsg.pickMoney = this.areaMsg.pickMoney.toString().slice(0, 8)
+            }
         },
-        methods: {
-            formateBalance,
-            formateJackPot,
-            formateCoinType,
-            checkMoneyLen () {
-                if (this.areaMsg.pickMoney.toString().length > 8) {
-                    this.areaMsg.pickMoney = this.areaMsg.pickMoney.toString().slice(0, 8)
-                }
-            },
-            showPopLimit () {
-                this.$store.commit('showPopLimit')
-            },
-            checkBetMoney () {
-                if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
-                    this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
-                    this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
-                }
-                if (isNaN(this.areaMsg.pickMoney)) {
-                    Message({
-                        message: _('Please enter the correct number'),
-                        type: 'error'
+        showPopLimit () {
+            this.$store.commit('showPopLimit')
+        },
+        checkBetMoney () {
+            if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
+                this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
+                this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
+            }
+            if (isNaN(this.areaMsg.pickMoney)) {
+                this.$error(_('Please enter the correct number'))
+                return false
+            }
+            if (Number(this.areaMsg.pickMoney) > parseFloat(this.max_limit)) {
+                this.areaMsg.pickMoney = parseFloat(this.max_limit)
+                this.$error(_('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)))
+                return false
+            }
+            if (Number(this.areaMsg.pickMoney) < parseFloat(this.min_limit)) {
+                this.areaMsg.pickMoney = parseFloat(this.min_limit)
+                this.$error(_('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)))
+                return false
+            }
+            return true
+        },
+        delTicket ($event) {
+            // 删除
+            if ($event.target.tagName === 'A') {
+                this.allplayArea.splice(parseFloat($event.target.getAttribute('data-delIndex')), 1)
+                this.$emit('update:allplayArea', this.allplayArea)
+            }
+        },
+        setLimitUnit () {
+            let min = Number(this.min_limit)
+            if (this.min_limit >= 1) {
+                this.limitUnit = 1
+            } else {
+                let minString = min.toString()
+                let num = accDiv(min, Number(minString[minString.length - 1]))
+                this.limitUnit = num
+            }
+        },
+        js_beting_add () {
+            // 加钱  （上限）
+            let currpickMoney = this.areaMsg.pickMoney
+            if (currpickMoney >= parseFloat(this.max_limit)) {
+                this.$error(_('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)))
+            } else {
+                this.$emit('update:data', {
+                    ...this.areaMsg,
+                    pickMoney: parseFloat((parseFloat(currpickMoney) + parseFloat(this.limitUnit)).toFixed(5))
+                })
+            }
+        },
+        js_beting_low () {
+            // 减钱  （下限）
+            let currpickMoney = this.areaMsg.pickMoney
+            if (currpickMoney <= parseFloat(this.min_limit)) {
+                this.areaMsg.pickMoney = parseFloat(this.min_limit)
+                this.$error(_('The minimum bet is {0} {1}', this.min_limit, formateCoinType(this.currBalance.cointype)))
+            } else {
+                if (parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5)) < parseFloat(this.min_limit)) {
+                    this.$emit('update:data', {
+                        ...this.areaMsg,
+                        pickMoney: parseFloat(this.min_limit)
                     })
-                    return false
-                }
-                if (Number(this.areaMsg.pickMoney) > parseFloat(this.max_limit)) {
-                    this.areaMsg.pickMoney = parseFloat(this.max_limit)
-                    Message({
-                        message: _('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)),
-                        // message: _(`Bet amount is between ${this.min_limit} and ${this.max_limit} ${formateCoinType(this.currBalance.cointype)}`),
-                        type: 'error'
-                    })
-                    return false
-                }
-                if (Number(this.areaMsg.pickMoney) < parseFloat(this.min_limit)) {
-                    this.areaMsg.pickMoney = parseFloat(this.min_limit)
-                    Message({
-                        message: _('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)),
-                        type: 'error'
-                    })
-                    return false
-                }
-                return true
-            },
-            delTicket ($event) {
-                // 删除
-                if ($event.target.tagName === 'A') {
-                    this.allplayArea.splice(parseFloat($event.target.getAttribute('data-delIndex')), 1)
-                    this.$emit('update:allplayArea', this.allplayArea)
-                }
-            },
-            setLimitUnit () {
-                let min = Number(this.min_limit)
-                if (this.min_limit >= 1) {
-                    this.limitUnit = 1
-                } else {
-                    let minString = min.toString()
-                    let num = accDiv(min, Number(minString[minString.length - 1]))
-                    this.limitUnit = num
-                }
-            },
-            js_beting_add () {
-                // 加钱  （上限）
-                let currpickMoney = this.areaMsg.pickMoney
-                if (currpickMoney >= parseFloat(this.max_limit)) {
-                    Message({
-                        message: _('Bet amount is between {0} and {1} {2}', this.min_limit, this.max_limit, formateCoinType(this.currBalance.cointype)),
-                        type: 'error'
-                    })
+                    this.$error(_('The minimum bet is {0} {1}', this.min_limit, formateCoinType(this.currBalance.cointype)))
                 } else {
                     this.$emit('update:data', {
                         ...this.areaMsg,
-                        pickMoney: parseFloat((parseFloat(currpickMoney) + parseFloat(this.limitUnit)).toFixed(5))
+                        pickMoney: parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5))
                     })
                 }
-            },
-            js_beting_low () {
-                // 减钱  （下限）
-                let currpickMoney = this.areaMsg.pickMoney
-                if (currpickMoney <= parseFloat(this.min_limit)) {
-                    this.areaMsg.pickMoney = parseFloat(this.min_limit)
-                    Message({
-                        message: _('The minimum bet is {0} {1}', this.min_limit, formateCoinType(this.currBalance.cointype)),
-                        type: 'error'
-                    })
-                } else {
-                    if (parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5)) < parseFloat(this.min_limit)) {
-                        this.$emit('update:data', {
-                            ...this.areaMsg,
-                            pickMoney: parseFloat(this.min_limit)
-                        })
-                        Message({
-                            message: _('The minimum bet is {0} {1}', this.min_limit, formateCoinType(this.currBalance.cointype)),
-                            type: 'error'
-                        })
+            }
+        },
+        clearNumber () {
+            //  清空当前选号
+            this.$emit('update:data', {
+                ...this.areaMsg,
+                pickNum: [],
+                pickJackPot: []
+            })
+        },
+        lineNumClick ($event) {
+            /* 选号 */
+            let currpickNum = []
+
+            if (this.areaMsg && this.areaMsg.pickNum) {
+                currpickNum = JSON.parse(JSON.stringify(this.areaMsg.pickNum))
+            }
+            if ($event.target.tagName === 'LI') {
+                let dataFlag = parseFloat($event.target.getAttribute('data-flag'))
+                if ($event.target.className === 'on') {
+                    /* 清楚数据 */
+                    if (currpickNum.indexOf(dataFlag) !== -1) {
+                        currpickNum.splice(currpickNum.indexOf(dataFlag), 1)
                     } else {
-                        this.$emit('update:data', {
-                            ...this.areaMsg,
-                            pickMoney: parseFloat((parseFloat(currpickMoney) - parseFloat(this.limitUnit)).toFixed(5))
-                        })
+                        console.warn('lineNumClick error')
+                    }
+                } else {
+                    if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
+                        if (parseFloat(this.areaMsg.pickType) === 1) {
+                            currpickNum.pop()
+                            currpickNum.push(parseFloat(dataFlag))
+                        } else {
+                            this.$error(_('You have already chosen {0} number', parseFloat(this.areaMsg.pickType)))
+                        }
+                    } else {
+                        currpickNum.push(parseFloat(dataFlag))
                     }
                 }
-            },
-            clearNumber () {
-                //  清空当前选号
+
+                this.$emit('update:data', {
+                    ...this.areaMsg,
+                    pickNum: currpickNum,
+                    pickJackPot: currpickNum
+                })
+            }
+        },
+        randomPickFn () {
+            //  随机选号
+            let randomNum = randomNumber(parseFloat(this.areaMsg.pickType))
+            this.$emit('update:data', {
+                ...this.areaMsg,
+                pickNum: randomNum,
+                pickJackPot: randomNum
+            })
+        },
+        chosePickType ($event) {
+            if ($event.target.tagName === 'LI') {
                 this.$emit('update:data', {
                     ...this.areaMsg,
                     pickNum: [],
-                    pickJackPot: []
+                    pickJackPot: [],
+                    pickType: $event.target.getAttribute('data-index')
                 })
-            },
-            lineNumClick ($event) {
-                /* 选号 */
-                let currpickNum = []
-
-                if (this.areaMsg && this.areaMsg.pickNum) {
-                    currpickNum = JSON.parse(JSON.stringify(this.areaMsg.pickNum))
-                }
-                if ($event.target.tagName === 'LI') {
-                    let dataFlag = parseFloat($event.target.getAttribute('data-flag'))
-                    if ($event.target.className === 'on') {
-                        /* 清楚数据 */
-                        if (currpickNum.indexOf(dataFlag) !== -1) {
-                            currpickNum.splice(currpickNum.indexOf(dataFlag), 1)
-                        } else {
-                            console.warn('lineNumClick error')
-                        }
-                    } else {
-                        if (currpickNum.length >= parseFloat(this.areaMsg.pickType)) {
-                            if (parseFloat(this.areaMsg.pickType) === 1) {
-                                currpickNum.pop()
-                                currpickNum.push(parseFloat(dataFlag))
-                            } else {
-                                Message({
-                                    message: _('You have already chosen {0} number', parseFloat(this.areaMsg.pickType)),
-                                    type: 'error'
-                                })
-                            }
-                        } else {
-                            currpickNum.push(parseFloat(dataFlag))
-                        }
-                    }
-
-                    this.$emit('update:data', {
-                        ...this.areaMsg,
-                        pickNum: currpickNum,
-                        pickJackPot: currpickNum
-                    })
-                }
-            },
-            randomPickFn () {
-                //  随机选号
-                let randomNum = randomNumber(parseFloat(this.areaMsg.pickType))
-                this.$emit('update:data', {
-                    ...this.areaMsg,
-                    pickNum: randomNum,
-                    pickJackPot: randomNum
-                })
-            },
-            chosePickType ($event) {
-                if ($event.target.tagName === 'LI') {
-                    this.$emit('update:data', {
-                        ...this.areaMsg,
-                        pickNum: [],
-                        pickJackPot: [],
-                        pickType: $event.target.getAttribute('data-index')
-                    })
-                }
             }
-
-        },
-        computed: {
-            syxw_bettype_odds () {
-                return this.$store.state.cs_1105.syxw_bettype_odds
-            },
-            poolAmount () {
-                return this.$store.state.cs_1105.poolAmount
-            },
-            poolRatio () {
-                return this.$store.state.cs_1105.poolRatio
-            },
-            currBalance () {
-                return this.$store.state.currBalance
-            },
-            bet_limit () {
-                return this.$store.state.cs_1105.bet_limit
-            }
-        },
-        mounted () {
-            this.$store.dispatch('homeInfo')
-                .then(res => {
-                    console.log(this.currBalance, this.bet_limit)
-                    if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
-                        this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
-                        this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
-                        console.log(this.min_limit)
-                        this.areaMsg.pickMoney = Number(this.min_limit)
-                    }
-                })
-        },
-        filters: {
-            formateBalance,
-            formateJackPot,
-            formateCoinType
         }
+
+    },
+    computed: {
+        syxw_bettype_odds () {
+            return this.$store.state.cs_1105.syxw_bettype_odds
+        },
+        poolAmount () {
+            return this.$store.state.cs_1105.poolAmount
+        },
+        poolRatio () {
+            return this.$store.state.cs_1105.poolRatio
+        },
+        currBalance () {
+            return this.$store.state.currBalance
+        },
+        bet_limit () {
+            return this.$store.state.cs_1105.bet_limit
+        }
+    },
+    mounted () {
+        this.$store.dispatch('homeInfo')
+            .then(res => {
+                if (this.currBalance && this.bet_limit && this.bet_limit[this.currBalance.cointype]) {
+                    this.min_limit = this.bet_limit[this.currBalance.cointype].min_limit.toString()
+                    this.max_limit = this.bet_limit[this.currBalance.cointype].max_limit.toString()
+                    this.areaMsg.pickMoney = Number(this.min_limit)
+                }
+            })
+    },
+    filters: {
+        formateBalance,
+        formateCoinType,
+        formateJackPot
     }
+}
 </script>
 <style scoped>
+.pop-rewardTable {
+  overflow: hidden;
+  transition: all 0.2s;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
 
-    .pop-rewardTable {
-        overflow: hidden;
-        transition: all .2s;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2)
-    }
+.reward-table-tip {
+  font-size: 12px;
+  color: #778ca3;
+  line-height: 15px;
+}
 
-    .reward-table-tip {
-        font-size: 12px;
-        color: #778ca3;
-        line-height: 15px;
-    }
+.reward-pick-five-title {
+  line-height: 15px;
+  margin-bottom: 10px;
+}
 
-    .reward-pick-five-title {
-        line-height: 15px;
-        margin-bottom: 10px;
-    }
-
-    .reward-tip-box {
-        padding: 15px 0 20px;
-    }
+.reward-tip-box {
+  padding: 15px 0 20px;
+}
 </style>

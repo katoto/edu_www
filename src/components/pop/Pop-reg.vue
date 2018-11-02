@@ -46,8 +46,7 @@
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
-    import {tipsTime, setCK} from '~common/util'
+    import {setCK} from '~common/util'
     import {baseURL, isProduction} from '~common/ajax'
 
     export default {
@@ -100,11 +99,7 @@
                 let passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/
                 if (!passReg.test(this.reg_pass)) {
                     if (this.reg_pass !== '') {
-                        Message({
-                            message: _('Password must contain 6-15 characters with both numbers and letters'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Password must contain 6-15 characters with both numbers and letters'))
                     }
                     return false
                 }
@@ -117,11 +112,7 @@
                         // let regMsg = await this.$store.dispatch('beforeReg', this.reg_email)
                         this.$store.dispatch('beforeReg', this.reg_email)
                     } else {
-                        Message({
-                            message: _('Please enter your email address'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Please enter your email address'))
                     }
                 }
             },
@@ -134,11 +125,7 @@
                 }
                 if (emailReg.test(this.reg_email)) {
                     if (this.reg_pass !== this.reg_againPass) {
-                        Message({
-                            message: _('Confirm password not match'),
-                            type: 'error',
-                            duration: tipsTime
-                        })
+                        this.$error(_('Confirm password not match'))
                         return false
                     }
                     Object.assign(regObj, {
@@ -171,11 +158,7 @@
                             this.reloadVerifyImg()
                         })
                 } else {
-                    Message({
-                        message: _('Please enter your email address'),
-                        type: 'error',
-                        duration: tipsTime
-                    })
+                    this.$error(_('Please enter your email address'))
                 }
             },
             showSignIn () {
@@ -198,11 +181,7 @@
             },
             show: {
                 set: function (isShow) {
-                    if (!!isShow === true) {
-                        this.$store.commit('showRegPop')
-                    } else {
-                        this.$store.commit('hideRegPop')
-                    }
+                    !!isShow === true ? this.$store.commit('showRegPop') : this.$store.commit('hideRegPop')
                 },
                 get: function () {
                     this.reloadVerifyImg()

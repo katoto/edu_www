@@ -1,17 +1,14 @@
 <template>
-    <!--  弹窗-首充  -->
-    <Pop class="Pop_firstTopUp ">
+    <!--  弹窗-首充 触达新增  -->
+    <Pop class="Pop_firstTopUp " :show.sync="show">
         <div class="pop-main">
             <h3>
                 <lang>50% bonus</lang>
             </h3>
-            <p class="firstTopUp_msg">
-                50% bonus only for the first top-up
-                Let your happiness continue!
-            </p>
-            <a href="javascript:;" class="pop-btn">
-                TOP UP
-            </a>
+            <p class="firstTopUp_msg" v-lang="'50% bonus only for the first top-up.<br /> Let your happiness continue!'"></p>
+            <router-link to="/account/deposit" class="pop-btn">
+                <lang>Top Up </lang>
+            </router-link>
         </div>
     </Pop>
 </template>
@@ -22,12 +19,21 @@ export default {
         return {
         }
     },
-    watch: {},
     methods: {
-
     },
     computed: {
-
+        show: {
+            set: function (isShow) {
+                if (!!isShow === true) {
+                    this.$store.commit('showPopFirstTopup')
+                } else {
+                    this.$store.commit('hidePopFirstTopup')
+                }
+            },
+            get: function () {
+                return this.$store.state.pop.showPopFirstTopup
+            }
+        }
     },
     components: { Pop },
     mounted () {

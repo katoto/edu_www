@@ -1,22 +1,20 @@
-import ajax, {sockURL} from '~common/ajax'
-import {tipsTime, removeCK} from '~common/util'
-import {Message} from 'element-ui'
-import {mTypes, aTypes} from '~/store/cs_page/cs_1105'
-import {actionTypes} from '~/store/cs_page/cs_tiger'
-import {getCK} from '../common/util'
+import ajax, { sockURL } from '~common/ajax'
+import { removeCK, isLog, getCK } from '~common/util'
+import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
+import { actionTypes } from '~/store/cs_page/cs_tiger'
 
 function combimeStore (store, newStore) {
     return {
-        state: {...store.state, ...newStore.state},
-        mutations: {...store.mutations, ...newStore.mutations},
-        actions: {...store.actions, ...newStore.actions},
-        getters: {...store.getters, ...newStore.getters}
+        state: { ...store.state, ...newStore.state },
+        mutations: { ...store.mutations, ...newStore.mutations },
+        actions: { ...store.actions, ...newStore.actions },
+        getters: { ...store.getters, ...newStore.getters }
     }
 }
 
 // 获取所有 cs_common 文件的 state getters mutations actions 注入到global
 const csCommon = require.context('~store/cs_common', true, /\.js$/)
-let common = {state: {}, mutations: {}, getters: {}, actions: {}}
+let common = { state: {}, mutations: {}, getters: {}, actions: {} }
 csCommon.keys().forEach(function (commonPath) {
     common = combimeStore(common, csCommon(commonPath).default)
 })
@@ -63,12 +61,9 @@ const mutations = {
     setIsLog (state, msg) {
         state.isLog = msg
     },
-    initSocket (state, {sock, interval}) {
+    initSocket (state, { sock, interval }) {
         state.socket.sock = sock
         state.socket.interval = interval
-    },
-    addConnectNum (state) {
-        state.socket.reconnect++
     },
     setAotoRefresh (state, param) {
         state.autoRefreshAccount = param
@@ -80,14 +75,12 @@ const actions = {
         return ajax.get('/activity/center')
     },
     // 广告图
-    async adList ({state, commit, dispatch}) {
+    async adList ({ state, commit, dispatch }) {
         try {
             let adMsg = await ajax.get(`/ad/list`)
             if (adMsg.status.toString() === '100') {
                 /* btc add */
-                if (adMsg.data) {
-                    commit('setAdList', adMsg.data)
-                }
+                if (adMsg.data) commit('setAdList', adMsg.data)
             }
             return adMsg
         } catch (e) {
@@ -95,7 +88,7 @@ const actions = {
         }
     },
     /* home info */
-    async homeInfo ({state, commit, dispatch}) {
+    async homeInfo ({ state, commit, dispatch }) {
         try {
             let homeMsg = await ajax.get(`/home/info`)
             if (homeMsg.ip_status !== undefined || homeMsg.ip_status !== null) {
@@ -106,8 +99,10 @@ const actions = {
                     commit(mTypes.syxw_bettype_odds, homeMsg.data.syxw_bettype_odds)
                 }
                 /* btc add */
-                if (homeMsg.data.bet_limit) {
-                    commit(mTypes.bet_limit, homeMsg.data.bet_limit)
+                if (homeMsg.data.bet_limit) commit(mTypes.bet_limit, homeMsg.data.bet_limit)
+                // add jackpot radio
+                if (homeMsg.data.jackpot_info) {
+                    commit(mTypes.poolRatio, homeMsg.data.jackpot_info)
                 }
             }
 
@@ -115,25 +110,16 @@ const actions = {
             if (homeMsg.data.invite_tips.toString() === '0') {
                 commit('hideFreeplay')
             } else {
-                if (commit.isLog) {
-                    commit('hideFreeplay')
-                } else {
-                    commit('showFreeplay')
-                }
+                commit.isLog ? commit('hideFreeplay') : commit('showFreeplay')
             }
-
             return homeMsg
         } catch (e) {
-            Message({
-                message: e.message,
-                type: 'error',
-                duration: tipsTime
-            })
+            this.$error(e.message)
         }
     },
 
     /* user info */
-    async getUserInfo ({state, commit, dispatch}) {
+    async getUserInfo ({ state, commit, dispatch }) {
         try {
             let userMsg = null
             if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
@@ -201,180 +187,165 @@ const actions = {
     },
 
     /* websocket */
-    initWebsocket ({commit, state, dispatch}, fn) {
+    initWebsocket ({ commit, state, dispatch }, fn) {
         return new Promise((resolve, reject) => {
             let sock = new WebSocket(`${sockURL}`)
             let interval = null
             let flag = 0
             let hasFinished = false
             sock.onmessage = function (e) {
-                if (!~e.data.indexOf('you said')) {
+                if (!~e.data.indexOf('you said') && !(e.data === 'pong')) {
                     let msg = JSON.parse(e.data)
-
                     // 总的分发
-                    if (msg && msg.data) {
-                        switch (msg.msg_code.toString()) {
-                        case '1001':
-                            // 初始化
-                            //  初始化倒计时 o
-                            if (msg.data.timer !== undefined && msg.data.timer !== null) {
-                                dispatch(aTypes.formate_countDown, msg.data.timer)
-                            }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
-                            // 当前期号
-                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.data.expectid)
-                            }
-                            // recent bet
-                            if (msg.data.top) {
-                                dispatch(aTypes.formate_recentBet, msg.data.top)
-                            }
-                            break
-                        case '1002':
-                            //  初始化倒计时
-                            if (msg.data.timer !== undefined && msg.data.timer !== null) {
-                                dispatch(aTypes.formate_countDown, msg.data.timer)
-                            }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
-                            // 当前期号
-                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.data.expectid)
-                            }
-                            /*
-                            *  处理 区块链阻塞
-                            * */
-                            let jsStartBetBtn = document.getElementById('js_startBetBtn')
-                            // msg.data.block_status = '0' 报错错误
-                            if (jsStartBetBtn) {
-                                if (msg.data.block_status.toString() === '1') {
-                                    //  健康
-                                    if (~jsStartBetBtn.className.indexOf('unable')) {
-                                        jsStartBetBtn.className = 'btn-play-now'
+                    if (msg && msg.content) {
+                        if (msg.conversation_type === 'betblock.im.conversation.chatroom') {
+                            // chat消息推送
+                            dispatch('fomateChatpush', msg)
+                        } else {
+                            switch (msg.content.action) {
+                            case 'syxw.init':
+                                // 初始化
+                                //  初始化倒计时
+                                if (msg.content.timer !== undefined && msg.content.timer !== null) {
+                                    dispatch(aTypes.formate_countDown, msg.content.timer)
+                                }
+                                // 初始化上一期结果
+                                dispatch(aTypes.formate_Result, msg.content)
+                                // 当前期号
+                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
+                                }
+                                // recent bet
+                                if (msg.content.top) {
+                                    dispatch(aTypes.formate_recentBet, msg.content.top)
+                                }
+                                break
+                            case 'syxw.count_down':
+                                //  初始化倒计时
+                                if (msg.content.timer !== undefined && msg.content.timer !== null) {
+                                    dispatch(aTypes.formate_countDown, msg.content.timer)
+                                }
+                                // 初始化上一期结果
+                                dispatch(aTypes.formate_Result, msg.content)
+                                // 当前期号
+                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
+                                }
+                                /*
+                                                                    *  处理 区块链阻塞
+                                                                    * */
+                                let jsStartBetBtn = document.getElementById('js_startBetBtn')
+                                // msg.content.block_status = '0' 报错错误
+                                if (jsStartBetBtn) {
+                                    if (msg.content.block_status.toString() === '1') {
+                                        //  健康
+                                        if (~jsStartBetBtn.className.indexOf('unable')) {
+                                            jsStartBetBtn.className = 'btn-play-now'
+                                        }
+                                    } else if (msg.content.block_status.toString() === '0') {
+                                        // 不健康  添加unable
+                                        this.$error(_('The network is blocking, please retry later'))
+                                        jsStartBetBtn.className = 'btn-play-now unable'
                                     }
-                                } else if (msg.data.block_status.toString() === '0') {
-                                    // 不健康  添加unable
-                                    Message({
-                                        message: _('The network is blocking, please retry later'),
-                                        type: 'error',
-                                        duration: tipsTime
-                                    })
-                                    jsStartBetBtn.className = 'btn-play-now unable'
                                 }
-                            }
-                            break
-                        case '1003':
-                            // 开奖结果消息  更新 my Bet  todo
-                            if (msg.data.expectid !== undefined && msg.data.expectid !== null) {
-                                dispatch(aTypes.formate_expectid, msg.data.expectid)
-                            }
-                            // recent bet
-                            if (msg.data.top) {
-                                dispatch(aTypes.formate_recentBet, msg.data.top)
-                            }
-                            // 初始化上一期结果
-                            dispatch(aTypes.formate_Result, msg.data)
+                                break
+                            case 'syxw.expect_settle':
+                                // 开奖结果消息  更新 my Bet  todo
+                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
+                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
+                                }
+                                // recent bet
+                                if (msg.content.top) {
+                                    dispatch(aTypes.formate_recentBet, msg.content.top)
+                                }
+                                // 初始化上一期结果
+                                dispatch(aTypes.formate_Result, msg.content)
 
-                            if (~state.route.path.indexOf('lucky')) {
-                                // mybet 弹窗
-                                if (state.isLog) {
-                                    dispatch('cs_1105/updateMyBets')
+                                if (~state.route.path.indexOf('lucky')) {
+                                    // mybet 弹窗
+                                    if (state.isLog) {
+                                        dispatch('cs_1105/updateMyBets')
+                                    }
+                                    dispatch('cs_1105/updateHistoryDraw')
+                                    // 更新用户信息
+                                    dispatch('getUserInfo')
                                 }
-                                dispatch('cs_1105/updateHistoryDraw')
-                                // 更新用户信息
-                                dispatch('getUserInfo')
+                                break
+                            case 'syxw.order_change':
+                                /* 投注推送  和 更新 my bet todo  */
+                                if (msg.content && msg.content.orders) {
+                                    dispatch(aTypes.formate_pushBetData, msg.content.orders)
+                                }
+                                break
+                            case 'syxw.expect_prize':
+                                // 奖池中奖
+                                if (msg.content) {
+                                    dispatch(aTypes.fomateJackPot, msg.content)
+                                }
+                                ;
+                                break
+                            case 'megacoin.good':
+                                msg.content.state === '4' || msg.content.state === '5'
+                                    ? dispatch('cs_luckycoin/updateBets', msg.content)
+                                    : commit('cs_luckycoin/updateBet', msg.content)
+                                break
+                            case 'megacoin.order':
+                                commit('cs_luckycoin/updateRecentBet', msg.content.orders)
+                                commit('cs_luckycoin/handleMyBet', msg.content.orders)
+                                break
+                            case 'megacoin.cancel':
+                                commit('cs_luckycoin/updateCurrentPage')
+                                break
+                            case 'slots.init':
+                                // 老虎机初始化
+                                if (msg.content) {
+                                    dispatch(actionTypes.formateTiger, msg.content)
+                                }
+                                break
+                                // case '20011':
+                            case 'first_recharge':
+                                //  首充充值奖励
+                                commit('cs_activity/sockMsg', msg.content)
+                                break
+                            case 'slots.prize':
+                                // 老虎机初始化
+                                if (msg.content) {
+                                    Object.assign(msg.content, {
+                                        addNewRecord: true
+                                    })
+                                    dispatch(actionTypes.addRecentList, msg.content)
+                                }
+                                break
+                            case 'dice.init':
+                                commit('cs_luckypoker/setBetList', msg.content.top)
+                                commit('cs_luckypoker/setSelfBetList', msg.content.self_top)
+                                break
+                            case 'dice.bet':
+                                commit('cs_luckypoker/addBetList', msg.content.top)
+                                break
+                            case 'chatroom.init':
+                                commit('setrecentChatmsg', msg.content.recent_msg)
+                                break
+                            case 'chatroom.clear_record':
+                                dispatch('clearChatmsg', msg.content.msg_id_list)
+                                break
                             }
-                            break
-                        case '1004':
-                            /* 投注推送  和 更新 my bet todo  */
-                            if (msg.data && msg.data.orders) {
-                                dispatch(aTypes.formate_pushBetData, msg.data.orders)
-                            }
-                            break
-                        case '1005':
-                            // 奖池中奖
-                            if (msg.data) {
-                                dispatch(aTypes.fomateJackPot, msg.data)
-                            }
-                            ;
-                            break
-                        case '1007':
-                            msg.data.state === '4' || msg.data.state === '5'
-                                ? dispatch('cs_luckycoin/updateBets', msg.data)
-                                : commit('cs_luckycoin/updateBet', msg.data)
-                            break
-                        case '1008':
-                            commit('cs_luckycoin/updateRecentBet', msg.data.orders)
-                            commit('cs_luckycoin/handleMyBet', msg.data.orders)
-                            break
-                        case '1009':
-                            commit('cs_luckycoin/updateCurrentPage')
-                            break
-                        case '2001':
-                            // 老虎机初始化
-                            if (msg.data) {
-                                dispatch(actionTypes.formateTiger, msg.data)
-                            }
-                            break
-                        case '20011':
-                            //  首充充值奖励
-                            commit('cs_activity/sockMsg', msg.data)
-                            break
-                        case '2002':
-                            // 老虎机初始化
-                            if (msg.data) {
-                                Object.assign(msg.data, {
-                                    addNewRecord: true
-                                })
-                                dispatch(actionTypes.addRecentList, msg.data)
-                            }
-                            break
-                        case 4001:
-                        case '4001':
-                            commit('cs_luckypoker/setBetList', msg.data.top)
-                            commit('cs_luckypoker/setSelfBetList', msg.data.self_top)
-                            break
-                        case 4002:
-                        case '4002':
-                            commit('cs_luckypoker/addBetList', msg.data.top)
-                            break
                         }
                     }
                 }
             }
             sock.onopen = function () {
-                let webSockaction = null
-                let currUid = null
                 fn()
                 clearInterval(interval)
-                if (state.userInfo && state.userInfo.uid) {
-                    webSockaction = {
-                        action: 'sub',
-                        uid: state.userInfo.uid,
-                        lotid: 1
-                    }
-                    currUid = state.userInfo.uid
-                    interval = setInterval(() => {
-                        sock.send(JSON.stringify({
-                            action: 'ping',
-                            uid: currUid
-                        }))
-                    }, 5000)
-                } else {
-                    webSockaction = {
-                        action: 'sub',
-                        lotid: 1
-                    }
-                    interval = setInterval(() => {
-                        sock.send(JSON.stringify({
-                            action: 'ping'
-                        }))
-                    }, 5000)
-                }
-                sock.send(JSON.stringify(webSockaction))
-
-                commit('initSocket', {sock, interval})
+                interval = setInterval(() => {
+                    sock.send(JSON.stringify({
+                        action: 'ping'
+                    }))
+                }, 5000)
+                sock.send(JSON.stringify({
+                    action: 'ping'
+                }))
+                commit('initSocket', { sock, interval })
                 flag = 1
                 if (hasFinished) return
                 hasFinished = true
@@ -384,7 +355,6 @@ const actions = {
                 console.warn('websocket reconnect')
                 clearInterval(interval)
                 setTimeout(() => {
-                    commit('addConnectNum')
                     dispatch('initWebsocket', fn)
                 }, 5000)
             }
@@ -404,215 +374,75 @@ const actions = {
                 error.code = '103'
                 reject(error)
             }, 15000)
-            commit('initSocket', {sock, interval})
+            commit('initSocket', { sock, interval })
         })
     },
-    sub2out ({commit, state}) {
+    sub2out ({ commit, state }) {
         let sub2outStr = null
         try {
-            if (state.userInfo && state.userInfo.uid) {
-                sub2outStr = {
-                    action: 'unsub',
-                    uid: state.userInfo.uid,
-                    lotid: 1
-                }
-                state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
-            }
             sub2outStr = {
-                action: 'sub',
-                lotid: 1
+                action: 'unsync',
+                ck: getCK()
             }
             state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
-
-            if (state.socket.interval) {
-                clearInterval(state.socket.interval)
-                state.socket.interval = setInterval(function () {
-                    state.socket.sock.send(JSON.stringify({
-                        action: 'ping'
-                    }))
-                }, 5000)
-            }
         } catch (e) {
             console.error(e.message)
         }
-        localStorage.setItem('block_ck', '')
-        localStorage.setItem('block_uid', '0')
-        removeCK('block_ck')
+        removeCK()
     },
-    sub2In ({commit, state, dispatch}) {
+    sub2In ({ commit, state, dispatch }) {
         let sub2InStr = null
-        let currUid = null
         try {
-            sub2InStr = {
-                action: 'unsub',
-                lotid: 1
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
-            if (state.userInfo && state.userInfo.uid) {
+            if (isLog && isLog()) {
                 sub2InStr = {
-                    action: 'sub',
-                    uid: state.userInfo.uid,
-                    lotid: 1
+                    action: 'sync',
+                    ck: getCK()
                 }
-                currUid = state.userInfo.uid
                 state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
-            } else {
-                currUid = null
-            }
-            if (state.socket.interval) {
-                clearInterval(state.socket.interval)
-                state.socket.interval = setInterval(function () {
-                    state.socket.sock.send(JSON.stringify({
-                        action: 'ping',
-                        uid: currUid
-                    }))
-                }, 5000)
             }
         } catch (e) {
             console.error(e.message)
         }
     },
-    subInTiger ({commit, state, dispatch}) {
-        /* 进入老虎机页面 订阅 */
+    subInMsg ({ commit, state, dispatch }, { type = 'dice', lotid = -1, chatroomId = '-1' }) {
+        //  1 slots  老虎机  2 ( lottery lotdi 2 ) LuckyCoin  3 dice 4 ( lottery lotdi 1 ) lucky11
+        let data = {
+            action: 'sub',
+            type: type
+        }
+        if (isLog && isLog()) data.ck = getCK()
+        if (lotid !== -1) data.lotid = lotid
+        if (chatroomId !== '-1') data.chatroom_id = chatroomId
         try {
-            let subTigerStr = null
-            if (state.userInfo && state.userInfo.uid) {
-                subTigerStr = {
-                    action: 'sub',
-                    lotid: 1,
-                    uid: state.userInfo.uid,
-                    type: 'slots'
-                }
-            } else {
-                subTigerStr = {
-                    action: 'sub',
-                    lotid: 1,
-                    type: 'slots'
-                }
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(subTigerStr))
+            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
         } catch (e) {
-            console.error(e.message + 'subInTiger error')
             setTimeout(() => {
-                dispatch('subInTiger')
+                dispatch('subInMsg', { type, lotid })
             }, 100)
         }
     },
-    subOutTiger () {
-        /* 离开老虎机页面 解订阅 */
-        try {
-            let unsubTigerStr = {
-                action: 'unsub',
-                lotid: 1,
-                type: 'slots'
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(unsubTigerStr))
-        } catch (e) {
-            console.error(e.message + 'subOutTiger error')
-        }
-    },
-    subInLucky ({commit, state, dispatch}) {
-        /* 进入lucky11页面 订阅 */
-        try {
-            let subLuckyStr = null
-            if (state.userInfo && state.userInfo.uid) {
-                subLuckyStr = {
-                    action: 'sub',
-                    lotid: 1,
-                    uid: state.userInfo.uid,
-                    type: 'lottery'
-                }
-            } else {
-                subLuckyStr = {
-                    action: 'sub',
-                    lotid: 1,
-                    type: 'lottery'
-                }
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(subLuckyStr))
-        } catch (e) {
-            setTimeout(() => {
-                dispatch('subInLucky')
-            }, 100)
-            // console.error(e.message + 'subInLucky error')
-        }
-    },
-    subOutLucky () {
-        /* 离开lucky页面 解订阅 */
+    subOutMsg ({ commit, state, dispatch }, { type = 'dice', lotid = -1, chatroomId = '-1' }) {
+        /* 页面 解订阅 */
         try {
             let unsubLuckyStr = {
                 action: 'unsub',
-                lotid: 1,
-                type: 'lottery'
+                type: type
             }
+            if (lotid !== -1) unsubLuckyStr.lotid = lotid
+            if (chatroomId !== '-1') unsubLuckyStr.chatroom_id = chatroomId
             state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
         } catch (e) {
-            console.error(e.message + 'subOutLucky error')
+            console.error(e.message + type + ' error')
         }
     },
-    subInLuckyCoin ({state, dispatch}) {
-        let data = null
-        if (state.userInfo && state.userInfo.uid) {
-            data = {
-                action: 'sub',
-                lotid: 2,
-                uid: state.userInfo.uid,
-                type: 'lottery'
-            }
-        } else {
-            data = {
-                action: 'sub',
-                lotid: 2,
-                type: 'lottery'
-            }
-        }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
-        }
+    sendchatMsg ({ commit, state, dispatch }, msgObj) {
         try {
-            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
+            state.socket.sock && state.socket.sock.send(JSON.stringify(msgObj))
         } catch (e) {
             setTimeout(() => {
-                dispatch('subInLuckyCoin')
+                dispatch('sendchatMsg', msgObj)
             }, 100)
         }
-    },
-    subOutLuckyCoin () {
-        let data = {
-            action: 'unsub',
-            lotid: 2,
-            type: 'lottery'
-        }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
-        }
-        state.socket.sock && state.socket.sock.send(JSON.stringify(data))
-    },
-    subInDice ({dispatch}) {
-        let data = {
-            action: 'sub',
-            type: 'dice'
-        }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
-        }
-        try {
-            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
-        } catch (e) {
-            setTimeout(() => {
-                dispatch('subInDice')
-            }, 100)
-        }
-    },
-    subOutDice () {
-        let data = {
-            action: 'unsub',
-            type: 'dice'
-        }
-        if (state.userInfo && state.userInfo.uid) {
-            data.uid = state.userInfo.uid
-        }
-        state.socket.sock && state.socket.sock.send(JSON.stringify(data))
     },
     ...common.actions
 }

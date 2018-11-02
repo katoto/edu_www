@@ -60,7 +60,6 @@
 
 <script>
     import Pop from './Pop'
-    import {Message} from 'element-ui'
     import {formatTime, formatMatch} from '~common/util'
     import {aTypes} from '~/store/cs_page/cs_1105'
 
@@ -87,10 +86,7 @@
                         this.noLimit = false
                     }
                 } else {
-                    Message({
-                        message: _('limit error'),
-                        type: 'error'
-                    })
+                    this.$error(_('limit error'))
                 }
             }
         },
@@ -104,11 +100,7 @@
         computed: {
             show: {
                 set: function (isShow) {
-                    if (!!isShow === true) {
-                        this.$store.commit('showPopLimit')
-                    } else {
-                        this.$store.commit('hidePopLimit')
-                    }
+                    !!isShow === true ? this.$store.commit('showPopLimit') : this.$store.commit('hidePopLimit')
                 },
                 get: function () {
                     return this.$store.state.pop.showPopLimit

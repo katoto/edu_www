@@ -224,7 +224,14 @@
                                 </a>
                                 <div v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</div>
                             </li>
-
+                            <li>
+                                <p>
+                                    <lang>Get 50% top-up bonus (only for the first top-up)</lang>
+                                </p>
+                                <router-link to="/account/deposit" class="btn btn-green">
+                                    <lang>Top Up</lang>
+                                </router-link>
+                            </li>
                         </ul>
                     </div>
                     <!--浮层 -->
@@ -399,12 +406,7 @@ export default {
             this.autoChangeDefaultAccount(true)
             // 通知app 切换了登陆
             if (window.coinsprize) {
-                console.log(val)
-                console.log('========islog===')
-                console.log(val)
-                val ? window.coinsprize.logIn(getCK()) : window.coinsprize.logOut()
-            } else {
-                console.error('none coinsprize inset')
+                val ? window.coinsprize.logIn(getCK(), this.userInfo.username, this.userInfo.uid) : window.coinsprize.logOut()
             }
         },
         CCNum (newVal, val) {
@@ -567,11 +569,7 @@ export default {
                     this.showUserMsg()
                     this.$emit('freshSlot', '')
                 } else {
-                    this.$message({
-                        message: 'faucetGet error',
-                        type: 'error',
-                        duration: 1500
-                    })
+                    this.$error('faucetGet error')
                 }
             }
         },
