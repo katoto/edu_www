@@ -1,5 +1,5 @@
 import ajax, { sockURL } from '~common/ajax'
-import { removeCK, isLog, getCK } from '~common/util'
+import { removeCK, isLog, getCK, selfNotify, formateCoinType } from '~common/util'
 import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
 import { actionTypes } from '~/store/cs_page/cs_tiger'
 
@@ -232,8 +232,8 @@ const actions = {
                                     dispatch(aTypes.formate_expectid, msg.content.expectid)
                                 }
                                 /*
-                                                                        *  处理 区块链阻塞
-                                                                        * */
+                                                                                                                                *  处理 区块链阻塞
+                                                                                                                                * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {
@@ -334,21 +334,21 @@ const actions = {
                                     switch (msg.content.event) {
                                     case 'register.bonus':
                                         // 注册送
-                                        dispatch('cd_regisFn', msg.content)
+                                        selfNotify(_('You\'ve got {0} {1} for free', msg.content.money, formateCoinType(msg.content.cointype)))
                                         break
                                     case 'topup.bonus':
                                         // 充值送
-                                        dispatch('cd_topupbonus', msg.content)
+                                        selfNotify(_('You\'ve received {0} {1} top-up bonus.', msg.content.money, formateCoinType(msg.content.cointype)))
                                         break
                                     case 'topup.confirm':
                                         // 充值到账
-                                        dispatch('cd_topupconfirm', msg.content)
+                                        selfNotify(_('{0} {1} top-up has been sent to you.', msg.content.money, formateCoinType(msg.content.cointype)))
                                         break
                                     }
                                 }
                                 break
                             case 'popup.center':
-                                dispatch('cd_popcenter', msg.content)
+                                commit('showPopFirstTopup')
                                 break
                             }
                         }
@@ -366,6 +366,7 @@ const actions = {
                 sock.send(JSON.stringify({
                     action: 'ping'
                 }))
+                if (isLog && isLog()) dispatch('sub2In')
                 commit('initSocket', { sock, interval })
                 flag = 1
                 if (hasFinished) return

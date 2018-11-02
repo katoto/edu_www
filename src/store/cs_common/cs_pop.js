@@ -39,9 +39,6 @@ const state = {
         recentChatmsg: null, // 近期投注记录
         chatmsg: null,
 
-        cd_regis: null, // 注册送
-        cd_topupbonus: null, // 充值送
-        cd_topupconfirm: null, // 充值到账
         cd_popcenter: null // 页面中间弹窗通知推送
 
     }
@@ -166,22 +163,6 @@ const mutations = {
     }
 }
 const actions = {
-    // cd 触达
-    cd_regisFn ({ state, commit, dispatch }, list) {
-        if (state.pop) {
-            state.pop.cd_regis = list
-        }
-    },
-    cd_topupbonus ({ state, commit, dispatch }, list) {
-        if (state.pop) {
-            state.pop.cd_topupbonus = list
-        }
-    },
-    cd_topupconfirm ({ state, commit, dispatch }, list) {
-        if (state.pop) {
-            state.pop.cd_topupconfirm = list
-        }
-    },
     cd_popcenter ({ state, commit, dispatch }, list) {
         if (state.pop) {
             state.pop.cd_popcenter = list
