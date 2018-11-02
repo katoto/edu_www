@@ -232,8 +232,8 @@ const actions = {
                                     dispatch(aTypes.formate_expectid, msg.content.expectid)
                                 }
                                 /*
-                                                                    *  处理 区块链阻塞
-                                                                    * */
+                                                                        *  处理 区块链阻塞
+                                                                        * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {
@@ -328,6 +328,27 @@ const actions = {
                                 break
                             case 'chatroom.clear_record':
                                 dispatch('clearChatmsg', msg.content.msg_id_list)
+                                break
+                            case 'popup.bottom_right':
+                                if (msg.content.event) {
+                                    switch (msg.content.event) {
+                                    case 'register.bonus':
+                                        // 注册送
+                                        dispatch('cd_regisFn', msg.content)
+                                        break
+                                    case 'topup.bonus':
+                                        // 充值送
+                                        dispatch('cd_topupbonus', msg.content)
+                                        break
+                                    case 'topup.confirm':
+                                        // 充值到账
+                                        dispatch('cd_topupconfirm', msg.content)
+                                        break
+                                    }
+                                }
+                                break
+                            case 'popup.center':
+                                dispatch('cd_popcenter', msg.content)
                                 break
                             }
                         }

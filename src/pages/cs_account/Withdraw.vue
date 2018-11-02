@@ -389,7 +389,7 @@ export default {
     data () {
         return {
             ShowMarkView: false,
-            showMarkcd: true, // cd
+            showMarkcd: false, // cd
             showTransferSucc: false,
             showTransferError: false,
             transferMsg: '* *',
@@ -472,7 +472,9 @@ export default {
         },
         jump2home () {
             this.$router.push('/home')
-            document.getElementById('js_faucetDom').click()
+            setTimeout(() => {
+                document.getElementById('js_faucetDom').click()
+            }, 200)
         },
         withdrawSizeChange (size) {
             this.pageSize = size
@@ -506,9 +508,7 @@ export default {
             return newEth
         },
         checkAddrLen () {
-            if (this.withdrawAddr.length >= 50) {
-                this.withdrawAddr = this.withdrawAddr.slice(0, 50)
-            }
+            if (this.withdrawAddr.length >= 50) this.withdrawAddr = this.withdrawAddr.slice(0, 50)
         },
         changeCoin (val) {
             if (val) {
@@ -550,11 +550,7 @@ export default {
             this.$store.dispatch('cs_account/getWithdrawApply', params).then(data => {
                 this.$store.dispatch('getUserInfo')
                 data = data.data
-                if (data.drawid) {
-                    this.showTransferSucc = true
-                } else {
-                    this.error(_('Failed to withdraw, please retry'))
-                }
+                data.drawid ? this.showTransferSucc = true : this.$error(_('Failed to withdraw, please retry'))
             }).catch(data => {
                 this.showTransferError = true
                 this.transferMsg = data.message
@@ -564,31 +560,31 @@ export default {
         checkMaximum () {
             if (this.currBalance && this.currBalance.balance) {
                 if (Number(this.currBalance.balance) < parseFloat(this.currBalance.draw_limit)) {
-                    this.error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
+                    this.$error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
                     return false
                 }
                 this.withdrawAmount = formateBalance(parseFloat(this.currBalance.balance) - parseFloat(this.currBalance.fee))
             }
         },
         copySucc () {
-            this.success(_('Copied to clipboard'))
+            this.$success(_('Copied to clipboard'))
         },
         copyError () {
-            this.success(_('Failed to copy, please retry'))
+            this.$success(_('Failed to copy, please retry'))
         },
         sendDraw () {
             if (this.withdrawAddr === '') {
-                this.error(_('Please enter the correct wallet address'))
+                this.$error(_('Please enter the correct wallet address'))
                 return false
             }
             switch (this.currBalance.cointype) {
             case '1001':
                 if (!(this.withdrawAddr[0].toString() === '0' || this.withdrawAddr[0].toString() === '1' || this.withdrawAddr[0].toString() === '2')) {
-                    this.error(_('Please enter the correct BTC wallet address'))
+                    this.$error(_('Please enter the correct BTC wallet address'))
                     this.withdrawAddr = ''
                     return false
                 } else if (!(this.withdrawAddr.length > 25 && this.withdrawAddr.length <= 35)) {
-                    this.error(_('Please enter the correct length wallet address'))
+                    this.$error(_('Please enter the correct length wallet address'))
                     this.withdrawAddr = ''
                     return false
                 }
@@ -596,11 +592,11 @@ export default {
                 break
             case '2001':
                 if (!~this.withdrawAddr.indexOf('0x')) {
-                    this.error(_('Please enter the correct ETH wallet address'))
+                    this.$error(_('Please enter the correct ETH wallet address'))
                     this.withdrawAddr = ''
                     return false
                 } else if (this.withdrawAddr.length !== 42) {
-                    this.error(_('Please enter the correct length wallet address'))
+                    this.$error(_('Please enter the correct length wallet address'))
                     this.withdrawAddr = ''
                     return false
                 }
@@ -608,7 +604,7 @@ export default {
                 break
             }
             if (isNaN(Number(this.withdrawAmount))) {
-                this.error(_('Please enter the correct amount'))
+                this.$error(_('Please enter the correct amount'))
                 this.withdrawAmount = ''
                 return false
             }
@@ -617,22 +613,22 @@ export default {
                 this.withdrawAmount.toString() === '0' ||
                 Number(this.withdrawAmount) < parseFloat(this.currBalance.draw_limit)
             ) {
-                this.error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
+                this.$error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
                 return false
             }
 
             if (this.withdrawPsw === '') {
-                this.error(_('Please input wallet password'))
+                this.$error(_('Please input wallet password'))
                 return false
             }
 
             if (this.currBalance) {
                 if (this.currBalance.cointype === '2000') {
                     if (this.getEthBalance() < 0.0003) {
-                        this.error(_('Insufficient ETH'))
+                        this.$error(_('Insufficient ETH'))
                         return false
                     } else if (Number(this.withdrawAmount) > Number(this.currBalance.balance)) {
-                        this.error(_(
+                        this.$error(_(
                             'The maximum withdrawal is {0} {1}',
                             Number(this.currBalance.balance),
                             this.formateCoinType(this.currBalance.cointype)
@@ -643,14 +639,14 @@ export default {
                 } else if (Number(this.withdrawAmount) > accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee))) {
                     if (accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee)) >= parseFloat(this.currBalance.draw_limit)) {
                         this.withdrawAmount = accSub(parseFloat(this.currBalance.balance), parseFloat(this.currBalance.fee))
-                        this.error(_(
+                        this.$error(_(
                             'The maximum withdrawal is {0} {1}',
                             this.withdrawAmount,
                             this.formateCoinType(this.currBalance.cointype)
                         )
                         )
                     } else {
-                        this.error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
+                        this.$error(_('The minimum withdrawal is') + ' ' + this.currBalance.draw_limit + formateCoinType(this.currBalance.cointype))
                         this.withdrawAmount = ''
                     }
                     return false
@@ -663,25 +659,18 @@ export default {
             let num = 0
             this.userInfo.accounts && this.userInfo.accounts.forEach(account => {
                 if (account.cointype === '2001') {
-                    console.log(num)
                     num = Number(account.balance)
                 }
             })
             return num
         },
         async handleClick (tab, msg) {
-            if (tab.label === _('Records')) {
-                this.handleCurrentChange()
-            }
+            if (tab.label === _('Records')) this.handleCurrentChange()
         },
         async handleCurrentChange (val = this.pageno) {
             let params = {}
-            if (this.withdrawOptionVal !== '1') {
-                params.drawstatus = this.withdrawOptionVal
-            }
-            if (this.ethOptionVal !== '1') {
-                params.cointype = this.ethOptionVal
-            }
+            if (this.withdrawOptionVal !== '1') params.drawstatus = this.withdrawOptionVal
+            if (this.ethOptionVal !== '1') params.cointype = this.ethOptionVal
             let data = await this.$store.dispatch('cs_account/getWithdrawRecords',
                 {
                     pageno: val,
@@ -694,7 +683,6 @@ export default {
             if (data) {
                 this.orderList = this.formatWithdrawList(data.list)
                 this.PageTotal = Number(data.counter)
-
                 this.h5orderList = this.h5orderList.concat(this.orderList)
                 if (data.list.length === 0 || data.list.length !== 10) {
                     this.isShowMoreBtn = false
@@ -760,19 +748,6 @@ export default {
                 })
                 return Msg
             }
-        },
-        error (message) {
-            Message({
-                message: message,
-                type: 'error',
-                duration: tipsTime
-            })
-        },
-        success (message) {
-            Message({
-                message: message,
-                type: 'success'
-            })
         }
     },
     computed: {
@@ -794,6 +769,15 @@ export default {
     async mounted () {
         this.handleCurrentChange()
         this.tranOptionVal = this.formateCoinType(this.currBalance.cointype)
+        //  可提现
+        if (1) {
+            setTimeout(() => {
+                this.showMarkcd = true
+                setTimeout(() => {
+                    this.showMarkcd = false
+                }, 10000)
+            }, 5000)
+        }
     }
 }
 </script>

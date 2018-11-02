@@ -9,16 +9,16 @@
                         <el-carousel :interval="50000" @change="bgchange">
                             <el-carousel-item>
                                 <p class="banner-cc banner-cc1">
-                                    1 CC For Free
+                                    Get Free Tokens
                                 </p>
                                 <p class="banner-cc ">
                                     Sign Up Now
                                 </p>
                                 <p class="banner-cc2">
-                                    CC will help you have a taste of our games
+                                    You can play games by using tokens
                                 </p>
                                 <router-link to="/halloween" class="banner-firstCharge">
-                                    Get Bonus
+                                    Sign Up
                                 </router-link>
                             </el-carousel-item>
                             <el-carousel-item>
@@ -575,7 +575,6 @@ export default {
     methods: {
         /* 背景图轮播 */
         bgchange (currenindex, index) {
-            console.log(index)
             this.bghome = 'bghome' + currenindex
         },
         async getRoundInfo () {
