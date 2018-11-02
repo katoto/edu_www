@@ -6,7 +6,21 @@
                 <div class="row clearfix">
                     <div class="col-xs-12">
                         <!--banner-->
-                        <el-carousel :interval="5000" @change="bgchange">
+                        <el-carousel :interval="50000" @change="bgchange">
+                            <el-carousel-item>
+                                <p class="banner-cc banner-cc1">
+                                    1 CC For Free
+                                </p>
+                                <p class="banner-cc ">
+                                    Sign Up Now
+                                </p>
+                                <p class="banner-cc2">
+                                    CC will help you have a taste of our games
+                                </p>
+                                <router-link to="/halloween" class="banner-firstCharge">
+                                    Get Bonus
+                                </router-link>
+                            </el-carousel-item>
                             <el-carousel-item>
                                 <div class="banner-t1" v-html="$lang.halloween.a23">
                                 </div>
@@ -57,7 +71,6 @@
                                     <lang>Details </lang>
                                 </router-link>
                             </el-carousel-item>
-
                         </el-carousel>
                     </div>
                 </div>
@@ -562,6 +575,7 @@ export default {
     methods: {
         /* 背景图轮播 */
         bgchange (currenindex, index) {
+            console.log(index)
             this.bghome = 'bghome' + currenindex
         },
         async getRoundInfo () {
@@ -779,6 +793,10 @@ export default {
     background: #181633 url("../../assets/img/home/bg3.jpg") no-repeat top
       center;
   }
+  &.bghome4 {
+    background: #181633 url("../../assets/img/home/bg4.jpg") no-repeat top
+      center;
+  }
   .main {
     width: 100%;
     max-width: @screen-lg;
@@ -806,6 +824,15 @@ export default {
       line-height: 27px;
       font-size: 23px;
       // font-size: 56px;
+      overflow: hidden;
+      font-weight: bold;
+    }
+    .banner-cc1 {
+      margin-top: 70px;
+    }
+    .banner-cc {
+      line-height: 27px;
+      font-size: 23px;
       overflow: hidden;
       font-weight: bold;
     }
@@ -1324,11 +1351,8 @@ export default {
     &.bghome2 {
       background-size: 1190px;
     }
-    .el-carousel__item {
-      .banner-t11 {
-        // line-height: 26px;
-        // font-size: (1600)/1920vw;
-      }
+    &.bghome0 {
+      background-size: 730px;
     }
   }
 }
@@ -1345,6 +1369,19 @@ export default {
       .banner-t11 {
         line-height: 26px;
         font-size: (1600)/1920vw;
+      }
+      .banner-cc {
+        line-height: 42px;
+        font-family: sans-eb;
+        font-size: 36px;
+      }
+      .banner-cc1 {
+        margin-top: 30px;
+      }
+      .banner-cc2 {
+        margin-top: 8px;
+        line-height: 24px;
+        font-size: 18px;
       }
       .banner-superCoin {
         padding-left: 106px;
@@ -1451,6 +1488,19 @@ export default {
       .banner-t2 {
         line-height: 28px;
         font-size: 16px;
+      }
+      .banner-cc {
+        line-height: 82px;
+        font-family: sans-eb;
+        font-size: 76px;
+      }
+      .banner-cc1 {
+        margin-top: 80px;
+      }
+      .banner-cc2 {
+        margin-top: 10px;
+        line-height: 32px;
+        font-size: 24px;
       }
 
       .banner-superCoin {
