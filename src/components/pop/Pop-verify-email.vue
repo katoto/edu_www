@@ -40,8 +40,20 @@ export default {
     components: { Pop },
     methods: {
         goVerify () {
+            let jumpUrl = 'https://www.google.com'
+            console.log(this.lastEmail)
+            switch (this.lastEmail) {
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case '126.com':
+                this.jumpUrl = 'https://mail.126.com'
+                break
+            default:
+                this.jumpUrl = 'https://gmail.com/'
+            }
             // todo 如何跳转
-            window.open('https://www.baidu.com')
+            window.open(this.jumpUrl)
         },
         async againVerify () {
             let emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
@@ -68,7 +80,11 @@ export default {
     },
     computed: {
         regVerifyEmail () {
-            return this.$store.state.pop.regVerifyEmail
+            let regEmail = this.$store.state.pop.regVerifyEmail
+            if (regEmail) {
+                this.lastEmail = regEmail.slice(regEmail.indexOf('@') + 1)
+            }
+            return regEmail
         },
         emailBackTime () {
             return this.$store.state.pop.emailBackTime

@@ -22,14 +22,27 @@
                                 <lang>Balance</lang>:{{ formateBalance(currBalance.balance) }} {{formateCoinType(currBalance.cointype) }} &nbsp;
                                 <lang>Withdrawable Amount</lang>:<i class="addColor">{{ formateBalance_sub(currBalance.checkout_balance) }} {{formateCoinType(currBalance.cointype) }}
                                 </i>
-                                <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
-                                    <div class="mark-view" :class="{on:ShowMarkView}">
-                                        {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance((parseFloat( currBalance.balance ) - parseFloat(currBalance.checkout_balance))*20),formateCoinType(currBalance.cointype)) }}
-                                        &nbsp;<a href="javascript:;" @click="jump2help">
-                                            <lang>Details</lang>
-                                        </a>
-                                    </div>
-                                </i>
+                                <template v-if="!showMarkcd">
+                                    <i class="icon-mark" @mousemove="ShowMarkView=true" @mouseout="ShowMarkView=false">
+                                        <div class="mark-view" :class="{on:ShowMarkView}">
+                                            {{ _('Eligible user can withdraw bonus! Still need {0} {1} transfer to be eligible!',formateBalance((parseFloat( currBalance.balance ) - parseFloat(currBalance.checkout_balance))*20),formateCoinType(currBalance.cointype)) }}
+                                            &nbsp;<a href="javascript:;" @click="jump2help">
+                                                <lang>Details</lang>
+                                            </a>
+                                        </div>
+                                    </i>
+                                </template>
+                                <template v-else>
+                                    <!--  liumx cd  -->
+                                    <i class="icon-mark">
+                                        <div class="mark-view" :class="{on:showMarkcd}">
+                                            <lang>Free bonus is non-withdrawable, while your winning reward is withdrawable. Why not try free CC play?</lang>
+                                            &nbsp;<a href="javascript:;" @click="jump2home">
+                                                <lang>Play Now</lang>
+                                            </a>
+                                        </div>
+                                    </i>
+                                </template>
                             </p>
                         </div>
                         <div class="wallet-add">
@@ -376,6 +389,7 @@ export default {
     data () {
         return {
             ShowMarkView: false,
+            showMarkcd: true, // cd
             showTransferSucc: false,
             showTransferError: false,
             transferMsg: '* *',
@@ -455,6 +469,12 @@ export default {
         formateCoinType,
         jump2help () {
             this.$router.push('/help/helpView/1/2')
+        },
+        jump2home () {
+            console.log(this.$refs)
+            console.log(this.$refs.faucetDom)
+            console.log(this.$refs.faucetDom)
+            // this.$router.push('/home')
         },
         withdrawSizeChange (size) {
             this.pageSize = size
