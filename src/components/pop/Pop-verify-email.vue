@@ -46,6 +46,33 @@ export default {
             case 'qq.com':
                 this.jumpUrl = 'https://mail.qq.com'
                 break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
+            case 'qq.com':
+                this.jumpUrl = 'https://mail.qq.com'
+                break
             case '126.com':
                 this.jumpUrl = 'https://mail.126.com'
                 break
