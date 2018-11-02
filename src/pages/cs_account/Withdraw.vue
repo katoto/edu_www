@@ -471,10 +471,8 @@ export default {
             this.$router.push('/help/helpView/1/2')
         },
         jump2home () {
-            console.log(this.$refs)
-            console.log(this.$refs.faucetDom)
-            console.log(this.$refs.faucetDom)
-            // this.$router.push('/home')
+            this.$router.push('/home')
+            document.getElementById('js_faucetDom').click()
         },
         withdrawSizeChange (size) {
             this.pageSize = size

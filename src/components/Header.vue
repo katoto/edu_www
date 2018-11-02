@@ -182,7 +182,7 @@
                 <!--拉新活動 on 水龙头new -->
                 <div class="cs-faucet" v-if="isLog">
                     <div>
-                        <a href="javascript:;" ref="faucetDom" @click="showFaucet" class="btn-faucet">
+                        <a href="javascript:;" id="js_faucetDom" @click="showFaucet" class="btn-faucet">
                         </a>
                         <p class="redPoint" style="" v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
                     </div>
