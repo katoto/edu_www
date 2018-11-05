@@ -6,16 +6,6 @@ import language from '../plugins/language'
 
 Vue.use(Router)
 
-const help = () =>
-    import('~/pages/cs_help/help')
-const helpIndex = () =>
-    import('~/pages/cs_help/helpIndex')
-const helpView = () =>
-    import('~/pages/cs_help/helpView')
-
-const test = () =>
-    import('~/pages/cs_1105/test')
-
 /* 品牌首页 */
 const Home = () =>
     import('~/pages/cs_home/home')
@@ -28,44 +18,27 @@ const adHome = () =>
 const adHomeDetail = () =>
     import('~/pages/cs_home/ad-home-detail')
 
-let routesArr = [{
-    path: '/test',
-    name: 'test',
-    component: test
-},
-{
-    path: '/help',
-    component: help,
-    children: [{
-        path: 'helpView/:a/:b/:c',
-        name: 'helpView',
-        component: helpView
-    }, {
-        path: '',
-        name: 'helpIndex',
-        component: helpIndex
-    }]
-},
-{
-    path: '/home',
-    name: 'home',
-    component: home
-},
-{
-    path: '/promotions',
-    name: 'promotions',
-    component: adHome
-},
-{
-    path: '/adDetail',
-    name: 'adDetail',
-    component: adHomeDetail
-},
-{
-    path: '/*',
-    name: _('Home'),
-    component: Home
-}
+let routesArr = [
+    {
+        path: '/home',
+        name: 'home',
+        component: home
+    },
+    {
+        path: '/promotions',
+        name: 'promotions',
+        component: adHome
+    },
+    {
+        path: '/adDetail',
+        name: 'adDetail',
+        component: adHomeDetail
+    },
+    {
+        path: '/*',
+        name: _('Home'),
+        component: Home
+    }
 ]
 
 //     linkActiveClass: 'on',
