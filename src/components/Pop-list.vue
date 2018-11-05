@@ -22,7 +22,6 @@ import PopResetPwd from './pop/Pop-reset-pwd'
 import PopVerifyEmailError from './pop/Pop-verify-email-error'
 import PopRegSuccess from './pop/Pop-reg-success'
 import PopRegFailure from './pop/Pop-reg-failure'
-import PopLimit from './pop/Pop-limit'
 import PopNoVerify from './pop/Pop-noVerify'
 import Next from './pop/Next'
 import PopFirstTopUp from './pop/Pop-firstTopUp'
@@ -36,7 +35,6 @@ export default {
         PopVerifyEmailError,
         PopRegSuccess,
         PopRegFailure,
-        PopLimit,
         PopNoVerify,
         Next,
         PopFirstTopUp

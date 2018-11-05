@@ -117,6 +117,10 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
+
+        setTimeout(function () {
+            document.getElementById('csLoading').style.display = 'none'
+        }, 0)
     }
 }
 </script>

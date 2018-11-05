@@ -175,20 +175,6 @@
                 </div>
             </div>
 
-            <!--  弹窗- 充值到账弹窗  -->
-            <div class="pop pop-getFirstCharge" v-if="firstCharge && firstCharge.activity_status==='2'&&firstCharge.is_alert==='0'">
-                <div class="cnt">
-                    <h2>
-                        <lang>Congratulations</lang>
-                    </h2>
-                    <div class="content ">
-                        <a href="javascript:;" class="btnclose" @click="readyGetFirst"></a>
-                        <p class="anount">+{{ firstCharge.reward_money }}<i>{{ firstCharge.cointype | formateCoinType }}</i></p>
-                        <p class="msg" v-lang="_('First top-up {0} {1} Bonus has been sent to your wallet',formateBalance(firstCharge.recharge_money),formateCoinType( firstCharge.cointype ))"></p>
-                    </div>
-                </div>
-            </div>
-
         </div>
         <!-- 公用的模态框列表 -->
         <pop-list></pop-list>
@@ -363,9 +349,6 @@ export default {
             get () {
                 return this.$store.state.language
             }
-        },
-        firstCharge () {
-            return this.$store.state.cs_activity.firstCharge
         },
         showEmailErr () {
             return this.$store.state.showEmailErr
