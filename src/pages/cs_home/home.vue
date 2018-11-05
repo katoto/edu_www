@@ -506,7 +506,6 @@
 
 <script>
 import Footer from '~components/Footer.vue'
-import { luckyCoinApi } from '~/dappApi/luckycoinApi'
 import { mapActions } from 'vuex'
 import {
     formatTime,
@@ -577,7 +576,7 @@ export default {
             this.bghome = 'bghome' + currenindex
         },
         async getRoundInfo () {
-            this.roundInfo = await luckyCoinApi.getCurrentRoundInfo()
+            this.roundInfo = 10
             if (this.roundInfo && parseInt(this.roundInfo.jackpot) < 10) {
                 this.roundInfo.jackpot = 10
             }

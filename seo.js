@@ -1,8 +1,7 @@
-const config = require('./i18n-config');
 const path = require('path')
 const fs = require('fs')
 
-function searchFile (filepath) {
+function searchFile(filepath) {
     let thisArr = []
     let data = getDirFile(filepath)
     data.forEach(item => {
@@ -12,15 +11,15 @@ function searchFile (filepath) {
     return thisArr
 }
 
-function stats (filepath) {
+function stats(filepath) {
     return fs.statSync(path.resolve(__dirname, filepath))
 }
 
-function getDirFile (filepath) {
+function getDirFile(filepath) {
     return fs.readdirSync(path.resolve(__dirname, filepath))
 }
 
-function deal (arr) {
+function deal(arr) {
     let reg = /[^.]+\.([^.]+\.)/
     arr.forEach(filepath => {
         let fileHash = filepath.match(reg)
@@ -33,7 +32,6 @@ function deal (arr) {
 }
 
 console.log('执行seo打包后的静态资源文件名称优化')
-
 deal(searchFile('./dist/static/css'))
 deal(searchFile('./dist/static/fonts'))
 deal(searchFile('./dist/static/img'))

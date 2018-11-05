@@ -41,7 +41,6 @@ let routesArr = [
     }
 ]
 
-//     linkActiveClass: 'on',
 export default new Router({
     mode: 'history',
     routes: routesArr
