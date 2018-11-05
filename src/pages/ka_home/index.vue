@@ -1,13 +1,13 @@
 <template>
     <div>
-        <br>
-
+        <Search></Search>
         <div class="test">
             <h1>home</h1>
         </div>
     </div>
 </template>
 <script>
+import Search from '~/pages/ka_home/search.vue'
 export default {
     data () {
         return {
@@ -19,6 +19,7 @@ export default {
     },
     computed: {},
     components: {
+        Search
     },
     mounted () {
 
