@@ -67,7 +67,6 @@
                     <router-link :to="{path: '/promotions/'}" active-class="on" class="nav_gift">
                         {{$lang.risk.a36}}
                     </router-link>
-                    <!--<a class="hide" href="javascript:;" @click="jump2Page('slotmachine')" ><lang>SlotMachine</lang></a>-->
                     <a href="javascript:;" class="hide">APP</a>
                 </div>
                 <!-- 修改切换语言 -->
@@ -84,10 +83,6 @@
                             <img :src="item.lanLogo" width="27" height="15" alt="">
                             <span>{{ item.label }}</span>
                         </li>
-                        <!--<li>-->
-                        <!--<img src="../assets/slice/lan-cn.jpg" width="27" height="15" alt="">-->
-                        <!--<span>中文(繁)</span>-->
-                        <!--</li>-->
                     </ul>
                 </div>
                 <!-- 登录  -->
@@ -177,88 +172,6 @@
                             </router-link>
                         </div>
                     </section>
-                </div>
-
-                <!--拉新活動 on 水龙头new -->
-                <div class="cs-faucet" v-if="isLog">
-                    <div>
-                        <a href="javascript:;" id="js_faucetDom" @click="showFaucet" class="btn-faucet">
-                        </a>
-                        <p class="redPoint" style="" v-if="parseFloat(received_counter) !== 0">{{ received_counter }}</p>
-                    </div>
-                    <div class="faucet-detailed" :class="{'show':freeWaterPop}">
-                        <div class="faucet-title">
-                            <lang>Free Bonus</lang>
-                        </div>
-                        <ul>
-                            <li>
-                                <p v-lang="$lang.risk.a26"></p>
-                                <a href="javascript:;" v-if="tasks_2==='-1'" class="btn btn-gray">{{$lang.risk.a28}}</a>
-                                <a href="javascript:;" v-if="tasks_2==='1'" @click="taskClick('task_2',tasks_2)" class="btn btn-green">{{$lang.risk.a28}}</a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_2)>1" @click="taskClick('task_2',tasks_2)" class="btn btn-yellow">{{$lang.risk.a28}}</a>
-                                <a href="javascript:;" v-if="tasks_2==='0'" class="btn btn-gray">{{$lang.risk.a28}}</a>
-                            </li>
-                            <li>
-                                <p v-lang="$lang.risk.a27"></p>
-                                <a href="javascript:;" v-if="tasks_3==='-1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green">
-                                    <lang>Top Up</lang>
-                                </a>
-                                <a href="javascript:;" v-if="tasks_3==='1'" @click="taskClick('task_3',tasks_3)" class="btn btn-green">
-                                    <lang>Free Spin</lang>
-                                </a>
-                                <a href="javascript:;" v-if="parseFloat(tasks_3)>1" @click="taskClick('task_3',tasks_3)" class="btn btn-yellow">
-                                    <lang>Play</lang>
-                                </a>
-                                <a href="javascript:;" v-if="tasks_3==='0'" class="btn-comeTom">
-                                    <lang>Come Tomorrow</lang>
-                                </a>
-                            </li>
-                            <li v-if="userInfo">
-                                <p v-if="userInfo.last_recharge==='BTC'" v-lang="'Get <b>0.0001BTC</b>/ 0.001ETH (Log in for 7 consecutive days)'"></p>
-                                <p v-else v-lang="'Get 0.0001BTC/ <b>0.001ETH</b> (Log in for 7 consecutive days)'"></p>
-                                <a href="javascript:;" v-if="tasks_4==='1'" @click="taskClick('task_4',tasks_4)" class="btn btn-green">
-                                    <lang>Free Spin</lang>
-                                </a>
-                                <a href="javascript:;" v-if="tasks_4==='0'" class="btn btn-gray">
-                                    <lang>Come Tomorrow</lang>
-                                </a>
-                                <div v-if="parseFloat(tasks_day)>0 && (tasks_4!=='0'&&tasks_4!=='1')" class="btn-signDay">{{ _('{0}/7 Days', tasks_day ) }}</div>
-                            </li>
-                            <li>
-                                <p>
-                                    <lang>Get 50% top-up bonus (only for the first top-up)</lang>
-                                </p>
-                                <router-link to="/account/deposit" class="btn btn-green">
-                                    <lang>Top Up</lang>
-                                </router-link>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--浮层 -->
-                    <!--第一次登陆 -->
-                    <section v-if="showFirstLogin&&isLog">
-                        <div class="newFirst">
-                            <div class="msg">
-                                <p>
-                                    <lang>Sign Up to Get 1CC for Free</lang>
-                                </p>
-                                <a href="javascript:;" class="btn-luck" @click="hideFirstLoginAll">
-                                    <lang>Get it !</lang>
-                                </a>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-
-            <div class="jackpot hide" v-show="jackPotMsg">
-                <div class="jackpot-box">
-                    <el-carousel :interval="5000" arrow="never" height="72px">
-                        <el-carousel-item v-for="(item,index) in jackPotMsg" :key="index" v-if="item">
-                            <span>{{ _('Congratulations to {0} hit {1},', (item.uid) || '', (item.expectid) || '') }}</span>
-                            <span class="jackpot-money">{{ _('Win {0} {1}', formateBalance ( item.prize ) || '') , formateCoinType ( item.cointype ) }}</span>
-                        </el-carousel-item>
-                    </el-carousel>
                 </div>
             </div>
 
@@ -431,9 +344,6 @@ export default {
             /* 去除所有弹层 */
             return this.$store.state.initHeadState
         },
-        jackPotMsg () {
-            return this.$store.state.cs_1105.jackPotMsg
-        },
         showFirstLogin () {
             return this.$store.state.pop.showFirstLogin
         },
@@ -585,7 +495,6 @@ export default {
             switch (tab) {
             case 'showChoose':
                 this.isShowLanguage = false
-                // this.isShowMycount = false
                 this.isChooseCoin = false
                 this.isShowChoose = !this.isShowChoose
                 break
