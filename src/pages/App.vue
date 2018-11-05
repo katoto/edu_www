@@ -3,11 +3,6 @@
         <Banner v-if="isLucky11"></Banner>
         <Header v-if="!isSlot && !isDapp && isReady"></Header>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
-        <Halloween :show.sync="isShowHalloween" v-if="isShowEntry" class="hidden-xs hidden-sm"></Halloween>
-        <img class="halloween-entry hidden-xs hidden-sm" src="@assets/img/halloween/pumpkin.png" @click="playHalloween" v-if="isShowEntry && !isShowHalloween">
-        <div class="_download_bg2"></div>
-        <div class="_download_bg0"></div>
-        <div class="_download_bg"></div>
         <CHAT></CHAT>
     </div>
 </template>
@@ -171,102 +166,6 @@ export default {
 }
 </script>
 <style lang="less">
-._download_bg2 {
-  background: url("../assets/img/halloween/bg2.jpg");
-  width: 0;
-  height: 0;
-  z-index: 0;
-  opacity: 0;
-  top: 1000000px;
-  left: 0;
-  position: fixed;
-}
-._download_bg0 {
-  background: url("../assets/img/halloween/bg0.jpg");
-  width: 0;
-  height: 0;
-  z-index: 0;
-  opacity: 0;
-  top: 1000000px;
-  left: 0;
-  position: fixed;
-}
-._download_bg {
-  background: url("../assets/img/halloween/bg.jpg");
-  width: 0;
-  height: 0;
-  z-index: 0;
-  opacity: 0;
-  top: 1000000px;
-  left: 0;
-  position: fixed;
-}
-.halloween-mode .halloween {
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url("../assets/img/halloween/bg2.jpg") no-repeat #162222 center
-      top;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    animation: showBackground 0.5s forwards ease-out;
-  }
-  &.tiger-pc::before {
-    background-position-y: 70px;
-  }
-}
-.halloween-mode .nav#nav {
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url("../assets/img/halloween/bg0.jpg") no-repeat #162222 center
-      top;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    animation: showBackground 0.5s forwards ease-out;
-  }
-}
-.halloween-mode .play-area {
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url("../assets/img/halloween/bg.jpg") no-repeat #162222 center
-      top;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    animation: showBackground 0.5s forwards ease-out;
-  }
-}
-
-@keyframes showBackground {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.halloween-entry {
-  position: fixed;
-  top: 400px;
-  left: 40px;
-  cursor: pointer;
-  z-index: 98;
-  transform-origin: center bottom;
-  animation: flipEntry 5s ease-in-out infinite;
-}
 @keyframes flipEntry {
   0%,
   100% {
