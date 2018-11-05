@@ -148,14 +148,6 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
-
-        // this.selfNotify(_('You\'ve got {0} {1} for free', 1, 2))
-        // this.selfNotify(_('You\'ve received {0} {1} top-up bonus.', 12, 12))
-        // this.selfNotify(_('{0} {1} top-up has been sent to you.', 33, 11))
-        // this.$store.commit('showNoVerify')
-        // this.$store.commit('showVerifyEmail')
-        // this.$store.commit('showPopFirstTopup')
-        window.location.href.indexOf('test') > -1 ? this.testUrl = true : this.testUrl = false
     }
 }
 </script>
