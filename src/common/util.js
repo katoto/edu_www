@@ -5,10 +5,7 @@ import { Message, Notification } from 'element-ui'
 
 export const src = 'pc'
 export const tipsTime = 2000
-export const ethUrl = 'https://etherscan.io/'
 export const channel = 2000 // 暂时就sign 注册用到
-//  社区地址 online
-export const coinAffAddr = '0xfd76dB2AF819978d43e07737771c8D9E8bd8cbbF'
 
 export function mapActions (acts, ns) {
     const aTypes = {}
@@ -22,9 +19,7 @@ export function mapActions (acts, ns) {
         aTypes
     }
 }
-
 export const platform = 'pc'
-
 export function isForbitPage () {
     // 无需要刷接口 (禁止请求页面接口、websocket)
     let forbitName = ['/supercoin']
@@ -87,119 +82,6 @@ export function isLog () {
     return !((getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === ''))
 }
 
-export function formateJackPot (money, poolAmount, poolRatio) {
-    money = parseFloat(money)
-    if (!poolAmount) {
-        console.error('poolAmount error at formateJackPot')
-        return 0
-    }
-    if (!poolRatio) {
-        console.error('poolRatio error at formateJackPot')
-        return 0
-    }
-    if (poolRatio && poolRatio[0] && poolRatio[1] && poolRatio[2] && poolRatio[3]) {
-        if (money < parseFloat(poolRatio[0].value)) {
-            return parseFloat((parseFloat(poolRatio[0].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money < parseFloat(poolRatio[1].value)) {
-            return parseFloat((parseFloat(poolRatio[1].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money < parseFloat(poolRatio[2].value)) {
-            return parseFloat((parseFloat(poolRatio[2].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-        if (money <= parseFloat(poolRatio[3].value)) {
-            return parseFloat((parseFloat(poolRatio[3].ratio) * parseFloat(poolAmount)).toFixed(5))
-        }
-    }
-    return parseFloat((parseFloat(poolAmount) * 0.1).toFixed(5))
-}
-
-/*
- *   format_match  玩法选择
- * */
-export function formatMatchAccount (match) {
-    if (isNaN(match)) {
-        return ''
-    }
-    match = match.toString()
-    switch (match) {
-    case '1101':
-        return _('Lucky 11/P1')
-    case '1102':
-        return _('Lucky 11/P2')
-    case '1103':
-        return _('Lucky 11/P3')
-    case '1104':
-        return _('Lucky 11/P4')
-    case '1105':
-        return _('Lucky 11/P5')
-    case '11051':
-        return _('Super 5')
-    }
-}
-
-export function formatTime (time, format = 'MM-dd HH:mm:ss') {
-    if (isNaN(time)) {
-        return false
-    }
-    let t = new Date(+time * 1000)
-    let tf = function (i) {
-        return (i < 10 ? '0' : '') + i
-    }
-    let tfAMPM = function (i) {
-        if (~format.indexOf('AMPM')) {
-            i = i % 12
-            i = i || 12
-        }
-        return (i < 10 ? '0' : '') + i
-    }
-    let amName = function (hour) {
-        return hour >= 12 ? 'PM' : 'AM'
-    }
-    return format.replace(/yyyy|MM|dd|HH|mm|ss|AMPM/g, function (a) {
-        switch (a) {
-        case 'yyyy':
-            return tf(t.getFullYear())
-        case 'MM':
-            return tf(t.getMonth() + 1)
-        case 'mm':
-            return tf(t.getMinutes())
-        case 'dd':
-            return tf(t.getDate())
-        case 'HH':
-            return tfAMPM(t.getHours())
-        case 'ss':
-            return tf(t.getSeconds())
-        case 'AMPM':
-            return amName(t.getHours())
-        }
-    })
-}
-
-/*
- *   format_match  玩法选择
- * */
-export function formatMatch (match) {
-    if (isNaN(match)) {
-        return ''
-    }
-    match = match.toString()
-    switch (match) {
-    case '1101':
-        return _('P1')
-    case '1102':
-        return _('P2')
-    case '1103':
-        return _('P3')
-    case '1104':
-        return _('P4')
-    case '1105':
-        return _('P5')
-    default:
-        return _('Super 5')
-    }
-}
-
 export function formateBalance (val = 0) {
     let newEth = null
     let isF = false
@@ -223,29 +105,6 @@ export function formateBalance (val = 0) {
 
 export function formateSlotBalance (val = 0) {
     return this.formateBalance(val)
-}
-
-export function formateJackpot (val = 0) {
-    let newEth = null
-    if (isNaN(val) || isNaN(Number(val))) {
-        console.error('formateBalance error' + val)
-        return 0
-    }
-    val = Number(val)
-    if (val > 10000000) {
-        newEth = (val / 100000000).toFixed(1) + '亿'
-    } else if (val > 100000) {
-        newEth = (val).toFixed(1)
-    } else if (val > 100) {
-        newEth = (val).toFixed(2)
-    } else if (val > 10) {
-        newEth = (val).toFixed(3)
-    } else if (val > 1) {
-        newEth = (val).toFixed(4)
-    } else {
-        newEth = (val).toFixed(5)
-    }
-    return newEth
 }
 
 /*
@@ -304,75 +163,6 @@ export function formateEmail (email, isFull) {
     } else {
         console.error('email error at formate_email')
         return false
-    }
-}
-
-/*
- *   formate_moneyFlow  格式化 流水类型
- *   // 明细状态 1：recharge   2：bet    3：prize    4:withdraw
- * */
-export function formateMoneyFlow (flowtype, lotid) {
-    if (isNaN(flowtype)) {
-        console.error('formate_moneyFlow error' + flowtype)
-        return false
-    }
-    flowtype = flowtype.toString()
-    switch (flowtype) {
-    case '1':
-        if (lotid === '1') {
-            return _('Lucky11 Bet')
-        } else if (lotid === '2') {
-            return _('LuckyCoin Bet')
-        }
-        return _('Bet') // 投注消费
-    case '2':
-        if (lotid === '1') {
-            return _('Lucky11 Prize')
-        } else if (lotid === '2') {
-            return _('LuckyCoin Prize')
-        }
-        return _('Prize') // 投注中奖
-    case '3':
-        return _('Bet Refund') // 投注退款
-    case '4':
-        return _('Withdrawal') // 提款扣除
-    case '5':
-        return _('fee') // 提款手续费
-    case '6':
-        return _('Withdrawal Refund') // 提款失败退款
-    case '7':
-        return _('fee refund') // 提款失败手续退款
-    case '8':
-        return _('Top-up') // 充值
-    case '9':
-        return _('Top-up Refund') // 充值失败扣款
-    case '10':
-        return _('Registration') // 注册送
-    case '11':
-        return _('Inviting') // 邀请送
-    case '12':
-        return _('World cup') // 世界杯
-    case '13':
-        return _('World cup') // 世界杯中奖
-    case '14':
-        return _('LuckySlot Bet') // 老虎机投注
-    case '15':
-        return _('LuckySlot Prize') // 老虎机中奖
-    case '16':
-    case '17':
-        return _('Bonus') // 每日送1CC
-    case '18':
-        return _('Sign gift') // 连续七天送
-    case '19':
-        return _('Top-Up Bonus') // 首充送
-    case '20':
-        return _('LuckyPoker Bet') // 幸运扑克投注
-    case '21':
-        return _('LuckyPoker Prize')// 幸运扑克中奖
-    case '22':
-        return _('Promo-Halloween') // 万圣节活动送
-    default:
-        return _('Bet')
     }
 }
 
@@ -463,7 +253,6 @@ export function numberComma (source, length = 3) {
 }
 
 function isThisLang (lang) {
-    // let source = navigator.language || navigator.browserLanguage || navigator.userLanguage || 'en'
     let source = 'en'
     if (typeof source === 'string') {
         return source.toLowerCase() === lang
