@@ -24,7 +24,6 @@ import PopRegSuccess from './pop/Pop-reg-success'
 import PopRegFailure from './pop/Pop-reg-failure'
 import PopNoVerify from './pop/Pop-noVerify'
 import Next from './pop/Next'
-import PopFirstTopUp from './pop/Pop-firstTopUp'
 
 export default {
     components: {
@@ -36,8 +35,7 @@ export default {
         PopRegSuccess,
         PopRegFailure,
         PopNoVerify,
-        Next,
-        PopFirstTopUp
+        Next
     }
 }
 </script>
