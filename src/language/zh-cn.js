@@ -854,5 +854,23 @@ module.exports = {
     'Coin-Coin(CC)': 'CC币介绍',
     'Play LuckyPoker': '幸运扑克怎么玩',
     'Promo-Halloween': '万圣节活动送',
-    'You have not verified your email, please verify first': '您尚未验证邮箱，请先验证'
+    'You have not verified your email, please verify first': '您尚未验证邮箱，请先验证',
+    /* 触达  start */
+    'You\'ve got {0} {1} for free': '注册奖励已到账',
+    'Activate account now to start your lucky journey!': '世界上最遥远的距离是，因为懒得激活只能与大奖擦肩而过！',
+    'Resent': '再次发送',
+    'Verify Now': '立马验证',
+    '50% bonus only for the first top-up.<br /> Let your happiness continue!': '首次充值，余额翻倍！',
+    '50% bonus': '50% 奖池',
+    'Free bonus is non-withdrawable, while your winning reward is withdrawable. Why not try free CC play ?': '免费奖励需要满足一定条件才可提款~但是中奖金额随时可提哦~可以先来CC游戏场免费体验~',
+    '{0} {1} top-up has been sent to you.': '{0} {1} 充值已到账。',
+    'You\'ve received {0} {1} top-up bonus.': '获得充值奖励{0} {1}。',
+    'Get 50% top-up bonus (only for the first top-up)': '首次充值，余额翻倍！',
+    'Free bonus is non-withdrawable, while your winning reward is withdrawable. Why not try free CC play?': '免费奖励需要满足一定条件才可提款~但是中奖金额随时可提哦~可以先来CC游戏场免费体验~',
+    'Insufficient CC': 'CC币余额不足',
+    '50% bonus only for the first top-up. Let your happiness continue!': '首次充值，余额翻倍！',
+    'Get 10 CC for free if your top-up reaches 0.001BTC or 0.01ETH': '充值0.001 BTC或0.01 ETH，立即赠送10CC',
+    'Insufficient {0}': '{0} 余额不足'
+    /* 触达  end */
+
 }

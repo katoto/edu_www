@@ -14,7 +14,7 @@
 
 <script>
 import CHAT from '~components/Chat'
-import { isLog, defaultLanguage, isForbitPage, setCK } from '~common/util'
+import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
 import Halloween from './cs_halloween/game'
 import Banner from '~components/banner'
 import Header from '~components/Header.vue'
@@ -29,6 +29,7 @@ export default {
         Halloween, Banner, Header, CHAT
     },
     methods: {
+        selfNotify,
         handleInit () {
             document.getElementById('app').style.visibility = 'visible'
             switch (defaultLanguage) {
@@ -159,6 +160,14 @@ export default {
             yEnd = evt.touches[0].pageY
             Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
         }, false)
+
+        // this.selfNotify(_('You\'ve got {0} {1} for free', 1, 2))
+        // this.selfNotify(_('You\'ve received {0} {1} top-up bonus.', 12, 12))
+        // this.selfNotify(_('{0} {1} top-up has been sent to you.', 33, 11))
+        // this.$store.commit('showNoVerify')
+        // this.$store.commit('showVerifyEmail')
+        // this.$store.commit('showPopFirstTopup')
+        window.location.href.indexOf('test') > -1 ? this.testUrl = true : this.testUrl = false
     }
 }
 </script>

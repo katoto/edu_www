@@ -1,7 +1,7 @@
 /**
  *  相关的工具函数
  */
-import { Message } from 'element-ui'
+import { Message, Notification } from 'element-ui'
 
 export const src = 'pc'
 export const tipsTime = 2000
@@ -889,5 +889,15 @@ String.prototype.httpParse = function () {
         // else {
         //     return `<a class="link" href="http://${a}" target="_blank">${a}</a>`
         // }
+    })
+}
+
+export function selfNotify (val, typeVal = 'success') {
+    Notification({
+        dangerouslyUseHTMLString: true,
+        type: typeVal,
+        message: _(val),
+        position: 'bottom-right',
+        duration: 5000
     })
 }
