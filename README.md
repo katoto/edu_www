@@ -1,9 +1,9 @@
-# coinslot_pc
+# baseVueProject  基础描述整体功能
 
 > A Vue.js project
 
 ## Build Setup
-
+// 待整理
 ``` bash
 # install dependencies
 npm install
