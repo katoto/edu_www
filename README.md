@@ -1,9 +1,10 @@
-# baseVueProject  基础描述整体功能
+# baseVueProject  
 
-> A Vue.js project
+基础描述整体功能
+
+> 这是一个单页，集成多语言(中文、繁体、English)、SEO（部分静态化）、ElementUI、响应式。基本上能应付常见的站点了
 
 ## Build Setup
-// 待整理
 ``` bash
 # install dependencies
 npm install
@@ -14,17 +15,23 @@ npm run dev
 # build for production with minification
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
+### sitemap.xml
+> 每新增一个页面就对应新增对应的sitemap.xml 文件。
+### package.json
+- howler 用于多语音断点播放。
+- vue-clipboard2  用于复制
+- md5  密码加密
+- axios  ajax使用
+- element-ui  滚动，分页等
+- es6-promise  promise 兼容处理
+- vue 这个就没啥好说的了
+- vue-router  路由
+- vuex  store 管理
+- vuex-router-sync
 
-let reg = /let routesArr = (\[.*?\])/gi
+### i18n.js && i18n-config.js && plugins > language.vue 
+> 这个数对应多语音使用的，最终语言相关的都写在language 目录下。
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-sitemap //  手动维护
-
-// jaxx 插件 教程
-http://8btc.com/thread-87320-1-3.html
-# baseVueProject
-基础常用的vue-cli
+### prerender-spa-plugin
+> 用于渲染出静态页
