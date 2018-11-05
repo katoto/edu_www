@@ -189,34 +189,14 @@ const actions = {
                             case 'syxw.init':
                                 // 初始化
                                 //  初始化倒计时
-                                if (msg.content.timer !== undefined && msg.content.timer !== null) {
-                                    dispatch(aTypes.formate_countDown, msg.content.timer)
-                                }
-                                // 初始化上一期结果
-                                dispatch(aTypes.formate_Result, msg.content)
-                                // 当前期号
-                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
-                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
-                                }
-                                // recent bet
-                                if (msg.content.top) {
-                                    dispatch(aTypes.formate_recentBet, msg.content.top)
-                                }
+
                                 break
                             case 'syxw.count_down':
                                 //  初始化倒计时
-                                if (msg.content.timer !== undefined && msg.content.timer !== null) {
-                                    dispatch(aTypes.formate_countDown, msg.content.timer)
-                                }
-                                // 初始化上一期结果
-                                dispatch(aTypes.formate_Result, msg.content)
-                                // 当前期号
-                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
-                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
-                                }
+
                                 /*
-                                                    *  处理 区块链阻塞
-                                                    * */
+                                                        *  处理 区块链阻塞
+                                                        * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {
@@ -234,16 +214,6 @@ const actions = {
                                 break
                             case 'syxw.expect_settle':
                                 // 开奖结果消息  更新 my Bet  todo
-                                if (msg.content.expectid !== undefined && msg.content.expectid !== null) {
-                                    dispatch(aTypes.formate_expectid, msg.content.expectid)
-                                }
-                                // recent bet
-                                if (msg.content.top) {
-                                    dispatch(aTypes.formate_recentBet, msg.content.top)
-                                }
-                                // 初始化上一期结果
-                                dispatch(aTypes.formate_Result, msg.content)
-
                                 if (~state.route.path.indexOf('lucky')) {
                                     // mybet 弹窗
                                     if (state.isLog) {
@@ -256,16 +226,11 @@ const actions = {
                                 break
                             case 'syxw.order_change':
                                 /* 投注推送  和 更新 my bet todo  */
-                                if (msg.content && msg.content.orders) {
-                                    dispatch(aTypes.formate_pushBetData, msg.content.orders)
-                                }
+
                                 break
                             case 'syxw.expect_prize':
                                 // 奖池中奖
-                                if (msg.content) {
-                                    dispatch(aTypes.fomateJackPot, msg.content)
-                                }
-                                ;
+
                                 break
                             case 'megacoin.good':
                                 msg.content.state === '4' || msg.content.state === '5'
@@ -279,12 +244,6 @@ const actions = {
                             case 'megacoin.cancel':
                                 commit('cs_luckycoin/updateCurrentPage')
                                 break
-                            case 'slots.init':
-                                // 老虎机初始化
-                                if (msg.content) {
-                                    dispatch(actionTypes.formateTiger, msg.content)
-                                }
-                                break
                                 // case '20011':
                             case 'first_recharge':
                                 //  首充充值奖励
@@ -296,7 +255,6 @@ const actions = {
                                     Object.assign(msg.content, {
                                         addNewRecord: true
                                     })
-                                    dispatch(actionTypes.addRecentList, msg.content)
                                 }
                                 break
                             case 'dice.init':

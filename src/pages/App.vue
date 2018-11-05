@@ -1,5 +1,5 @@
 <template>
-    <div id="app" @scroll.native="test" :class="{ready: isReady}">
+    <div id="app" :class="{ready: isReady}">
         <Header></Header>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
     </div>
@@ -7,7 +7,6 @@
 
 <script>
 import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
-import Banner from '~components/banner'
 import Header from '~components/Header.vue'
 export default {
     data () {
@@ -17,7 +16,7 @@ export default {
         }
     },
     components: {
-        Banner, Header
+        Header
     },
     methods: {
         selfNotify,
@@ -34,17 +33,6 @@ export default {
                 document.getElementById('contentLanguange').setAttribute('content', 'zh-cn')
                 break
             }
-        },
-        playHalloween () {
-            if (!this.isLogin) {
-                this.$store.commit('showLoginPop')
-                return
-            }
-            if (this.$store.state.userInfo && this.$store.state.userInfo.status !== '1') {
-                this.$store.commit('showNoVerify')
-                return
-            }
-            this.isShowHalloween = !this.isShowHalloween
         },
         initPop () {
             /* head 弹窗 */
@@ -105,10 +93,7 @@ export default {
                 }
             })
         }(window, document))
-        // app是否元素注入了 app_ck
-        if (window.app_ck && window.app_ck !== 'undefined') {
-            window.app_ck === '-1' ? setCK('') : setCK(window.app_ck)
-        }
+
         this.handleInit()
         let userMsg = await this.$store.dispatch('getUserInfo')
         if (isLog()) {
@@ -120,22 +105,6 @@ export default {
             this.$store.commit('setIsLog', false)
         }
         this.isReady = true
-
-        /* 老虎机和首页 */
-        if (isForbitPage()) {
-            setTimeout(function () {
-                document.getElementById('csLoading').style.display = 'none'
-            }, 0)
-        } else {
-            if (!(this.socket && this.socket.sock)) {
-                this.$store.dispatch('initWebsocket', () => {
-                    this.$store.dispatch('homeInfo')
-                    setTimeout(function () {
-                        document.getElementById('csLoading').style.display = 'none'
-                    }, 0)
-                })
-            }
-        }
 
         /* 禁止左右滚动 */
         let xStart, xEnd, yStart, yEnd

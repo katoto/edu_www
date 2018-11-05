@@ -339,7 +339,6 @@
 
 <script>
 import PopList from '~components/Pop-list'
-import PopIpLimit from '~components/Pop-ipLimit.vue'
 import {
     copySucc,
     copyError,
@@ -355,7 +354,7 @@ import vueClipboard from 'vue-clipboard2'
 Vue.use(vueClipboard)
 
 export default {
-    components: { PopList, PopIpLimit },
+    components: { PopList },
     data () {
         return {
             showFirstGet: false,
