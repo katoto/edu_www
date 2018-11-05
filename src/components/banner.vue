@@ -7,7 +7,7 @@
         </template>
         <template v-else>
             <router-link class="banner-main" to="/halloween">
-                <img src="../assets/img/lucky11/banner-halloween.jpg" alt="">
+                <!-- <img src="../assets/img/lucky11/banner-halloween.jpg" alt=""> -->
             </router-link>
         </template>
         <a href="javascript:;" class="banner-close" @click="closeBanner"></a>

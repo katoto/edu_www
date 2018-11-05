@@ -739,7 +739,7 @@ export default {
       color: #3f2c65;
       font-family: sans-eb;
       font-weight: bold;
-      background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
+    //   background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
       background-size: cover;
     }
     .content {
@@ -771,7 +771,7 @@ export default {
       overflow: hidden;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      background: url("../assets/img/paysend/btn-close.png") no-repeat center;
+      //   background: url("../assets/img/paysend/btn-close.png") no-repeat center;
       background-size: 16px;
     }
   }

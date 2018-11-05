@@ -15,9 +15,6 @@ const helpView = () =>
 
 const test = () =>
     import('~/pages/cs_1105/test')
-/* cs_1105 开奖页 */
-const csDrawNum = () =>
-    import('~/pages/cs_1105/drawNumber')
 
 /* 品牌首页 */
 const Home = () =>
@@ -54,12 +51,6 @@ let routesArr = [{
     name: 'home',
     component: home
 },
-
-{
-    path: '/drawNumber',
-    name: _('Draw Number'),
-    component: csDrawNum
-},
 {
     path: '/promotions',
     name: 'promotions',
@@ -72,7 +63,6 @@ let routesArr = [{
 },
 {
     path: '/*',
-    // redirect: '/lucky11'
     name: _('Home'),
     component: Home
 }
