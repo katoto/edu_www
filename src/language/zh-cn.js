@@ -866,7 +866,11 @@ module.exports = {
     '{0} {1} top-up has been sent to you.': '{0} {1} 充值已到账。',
     'You\'ve received {0} {1} top-up bonus.': '获得充值奖励{0} {1}。',
     'Get 50% top-up bonus (only for the first top-up)': '首次充值，余额翻倍！',
-    'Free bonus is non-withdrawable, while your winning reward is withdrawable. Why not try free CC play?': '免费奖励需要满足一定条件才可提款~但是中奖金额随时可提哦~可以先来CC游戏场免费体验~'
+    'Free bonus is non-withdrawable, while your winning reward is withdrawable. Why not try free CC play?': '免费奖励需要满足一定条件才可提款~但是中奖金额随时可提哦~可以先来CC游戏场免费体验~',
+    'Insufficient CC': 'CC币余额不足',
+    '50% bonus only for the first top-up. Let your happiness continue!': '首次充值，余额翻倍！',
+    'Get 10 CC for free if your top-up reaches 0.001BTC or 0.01ETH': '充值0.001 BTC或0.01 ETH，立即赠送10CC',
+    'Insufficient {0}': '{0} 余额不足'
     /* 触达  end */
 
 }

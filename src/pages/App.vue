@@ -8,7 +8,7 @@
         <div class="_download_bg2"></div>
         <div class="_download_bg0"></div>
         <div class="_download_bg"></div>
-        <CHAT v-if="testUrl"></CHAT>
+        <CHAT></CHAT>
     </div>
 </template>
 
@@ -22,8 +22,7 @@ export default {
     data () {
         return {
             isReady: false,
-            isShowHalloween: false,
-            testUrl: null
+            isShowHalloween: false
         }
     },
     components: {
