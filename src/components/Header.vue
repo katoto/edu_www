@@ -686,30 +686,6 @@ export default {
     },
     async mounted () {
         this.showUserMsg()
-        setTimeout(() => {
-            if (this.isLog) {
-                this.faucetTask()
-            }
-            if (
-                !localStorage.getItem('waterPop') ||
-                localStorage.getItem('waterPop') !==
-                new Date().getDay().toString()
-            ) {
-                localStorage.setItem('waterPop', new Date().getDay())
-                this.freeWaterPop = true
-            }
-        }, 0)
-        // let isReadyAlert = false
-        // setInterval(async () => {
-        //     if (this.isLog && !isReadyAlert && !isForbitPage()) {
-        //         let msg = await this.$store.dispatch('cs_activity/getChargeState')
-        //         if (msg && msg.is_alert === '1') {
-        //             isReadyAlert = true
-        //         }
-        //     }
-        // }, 15000)
-        this.$store.dispatch('adList')
-        this.autoChangeDefaultAccount()
     }
 }
 </script>
@@ -739,7 +715,7 @@ export default {
       color: #3f2c65;
       font-family: sans-eb;
       font-weight: bold;
-    //   background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
+      //   background: url("../assets/img/paysend/fir_titlebg.png") no-repeat center;
       background-size: cover;
     }
     .content {

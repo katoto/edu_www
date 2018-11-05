@@ -92,14 +92,6 @@ const actions = {
             if (homeMsg.ip_status !== undefined || homeMsg.ip_status !== null) {
                 commit('setIp_status', homeMsg.ip_status)
             }
-            if (homeMsg.status.toString() === '100') {
-                if (homeMsg.data.syxw_bettype_odds) {
-                    commit(mTypes.syxw_bettype_odds, homeMsg.data.syxw_bettype_odds)
-                }
-                /* btc add */
-                if (homeMsg.data.bet_limit) commit(mTypes.bet_limit, homeMsg.data.bet_limit)
-            }
-
             // todo
             if (homeMsg.data.invite_tips.toString() === '0') {
                 commit('hideFreeplay')
@@ -119,9 +111,6 @@ const actions = {
             if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
                 userMsg = await ajax.get(`/user/info`)
                 if (userMsg.status.toString() === '100') {
-                    if (userMsg.data.uid) {
-                        commit(mTypes.setUid, userMsg.data.uid)
-                    }
                     if (userMsg.data.status !== undefined && userMsg.data.status.toString() === '-1') {
                         commit('showEmailErr', true)
                     } else {
@@ -226,8 +215,8 @@ const actions = {
                                     dispatch(aTypes.formate_expectid, msg.content.expectid)
                                 }
                                 /*
-                                            *  处理 区块链阻塞
-                                            * */
+                                                    *  处理 区块链阻塞
+                                                    * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {
