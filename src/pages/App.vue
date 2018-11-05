@@ -1,14 +1,11 @@
 <template>
-    <div id="app" @scroll.native="test" :class="{ready: isReady, 'halloween-mode': isShowHalloween}">
-        <Banner v-if="isLucky11"></Banner>
-        <Header v-if="!isSlot && !isDapp && isReady"></Header>
+    <div id="app" @scroll.native="test" :class="{ready: isReady}">
+        <Header></Header>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
-        <CHAT></CHAT>
     </div>
 </template>
 
 <script>
-import CHAT from '~components/Chat'
 import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
 import Banner from '~components/banner'
 import Header from '~components/Header.vue'
@@ -20,7 +17,7 @@ export default {
         }
     },
     components: {
-        Banner, Header, CHAT
+        Banner, Header
     },
     methods: {
         selfNotify,
@@ -70,9 +67,6 @@ export default {
         },
         isShowEntry () {
             return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
-        },
-        isLucky11 () {
-            return this.$route.name === 'lucky11'
         },
         isSlot () {
             return this.$route.name === 'luckySlot'

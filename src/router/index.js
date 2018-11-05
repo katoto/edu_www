@@ -7,18 +7,19 @@ import language from '../plugins/language'
 Vue.use(Router)
 
 /* 品牌首页 */
-const Home = () =>
-    import('~/pages/cs_home/home')
-const home = () =>
-    import('~/pages/cs_home/home')
+const Home = () => import('~/pages/cs_home/home')
+const home = () => import('~/pages/cs_home/home')
+const adHome = () => import('~/pages/cs_home/ad-home')
+const adHomeDetail = () => import('~/pages/cs_home/ad-home-detail')
 
-const adHome = () =>
-    import('~/pages/cs_home/ad-home')
-
-const adHomeDetail = () =>
-    import('~/pages/cs_home/ad-home-detail')
-
+// index页
+const index = () => import('~/pages/ka_home/index')
 let routesArr = [
+    {
+        path: '/index',
+        name: 'index',
+        component: index
+    },
     {
         path: '/home',
         name: 'home',
