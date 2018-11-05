@@ -7,100 +7,22 @@
         <changefreq>always</changefreq>
     </url>
     <url>
-        <loc>https://www.coinsprize.com/home</loc>
-        <priority>0.8</priority>
-        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
-        <changefreq>always</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/check</loc>
-        <priority>0.8</priority>
-        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
-        <changefreq>always</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/lucky11</loc>
-        <priority>0.8</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>daily</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/slot</loc>
-        <priority>0.8</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>daily</changefreq>
-    </url>
-    <url>
         <loc>https://www.coinsprize.com/luckycoin</loc>
         <priority>0.8</priority>
         <lastmod>2018-08-13T08:00:00+08:00</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://www.coinsprize.com/policy</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/policy_zhCn</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
         <loc>https://www.coinsprize.com/policy_zhTw</loc>
         <priority>0.5</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
         <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/policy_zhTw</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/drawNumber</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>always</changefreq>
     </url>
     <url>
         <loc>https://www.coinsprize.com/account</loc>
         <priority>0.8</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
         <changefreq>always</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/account/general</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/account/deposit</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/account/myBets</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>always</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/account/myTransactions</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://www.coinsprize.com/account/withdraw</loc>
-        <priority>0.5</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
-        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://www.coinsprize.com/help</loc>
