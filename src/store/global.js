@@ -1,7 +1,5 @@
 import ajax, { sockURL } from '~common/ajax'
 import { removeCK, isLog, getCK, selfNotify, formateCoinType } from '~common/util'
-import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
-import { actionTypes } from '~/store/cs_page/cs_tiger'
 
 function combimeStore (store, newStore) {
     return {
@@ -228,8 +226,8 @@ const actions = {
                                     dispatch(aTypes.formate_expectid, msg.content.expectid)
                                 }
                                 /*
-                                    *  处理 区块链阻塞
-                                    * */
+                                        *  处理 区块链阻塞
+                                        * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {

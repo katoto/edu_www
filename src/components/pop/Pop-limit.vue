@@ -61,7 +61,6 @@
 <script>
     import Pop from './Pop'
     import {formatTime, formatMatch} from '~common/util'
-    import {aTypes} from '~/store/cs_page/cs_1105'
 
     export default {
         data () {

@@ -15,7 +15,6 @@
 <script>
 import CHAT from '~components/Chat'
 import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
-import Halloween from './cs_halloween/game'
 import Banner from '~components/banner'
 import Header from '~components/Header.vue'
 export default {
@@ -26,7 +25,7 @@ export default {
         }
     },
     components: {
-        Halloween, Banner, Header, CHAT
+        Banner, Header, CHAT
     },
     methods: {
         selfNotify,

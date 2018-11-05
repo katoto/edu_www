@@ -40,10 +40,8 @@
 <script>
 import Footer from '~components/Footer.vue'
 import { formatTime } from '~/common/util'
-import FirstChargeMixin from '../cs_activity/cs_firstCharge_mixin'
 export default {
     components: { Footer },
-    mixins: [FirstChargeMixin],
     data () {
         return {
             list: [],

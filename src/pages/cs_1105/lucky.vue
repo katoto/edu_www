@@ -529,7 +529,6 @@ import Banner from '~components/banner'
 import PlayArea from '~pages/cs_1105/PlayArea.vue'
 import H5PlayArea from '~pages/cs_1105/H5PlayArea.vue'
 import Footer from '~components/Footer.vue'
-import { mTypes, aTypes } from '~/store/cs_page/cs_1105'
 import {
     formateCoinType,
     formatMatch,
