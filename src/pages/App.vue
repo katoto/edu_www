@@ -1,13 +1,16 @@
 <template>
     <div id="app" :class="{ready: isReady}">
-        <Header></Header>
+
+        <HEAD></HEAD>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
     </div>
 </template>
 
 <script>
 import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
+import HEAD from '~components/Head.vue'
 import Header from '~components/Header.vue'
+
 export default {
     data () {
         return {
@@ -16,6 +19,7 @@ export default {
         }
     },
     components: {
+        HEAD,
         Header
     },
     methods: {

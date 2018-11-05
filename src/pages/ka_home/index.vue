@@ -1,6 +1,10 @@
 <template>
-    <div class="test">
-        <h1>home</h1>
+    <div>
+        <br>
+
+        <div class="test">
+            <h1>home</h1>
+        </div>
     </div>
 </template>
 <script>
@@ -14,7 +18,8 @@ export default {
     methods: {
     },
     computed: {},
-    components: {},
+    components: {
+    },
     mounted () {
 
     }
