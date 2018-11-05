@@ -26,3 +26,5 @@ sitemap //  手动维护
 
 // jaxx 插件 教程
 http://8btc.com/thread-87320-1-3.html
+# baseVueProject
+基础常用的vue-cli
