@@ -1,5 +1,7 @@
 <template>
-
+    <div>
+        <p class="waiting">敬请期待~</p>
+    </div>
 </template>
 <script>
 export default {
@@ -16,4 +18,10 @@ export default {
 }
 </script>
 <style lang="less" scoped type="text/less">
+.waiting {
+  width: 100%;
+  height: 500px;
+  line-height: 500px;
+  font-size: 22px;
+}
 </style>

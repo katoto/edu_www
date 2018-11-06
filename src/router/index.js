@@ -6,22 +6,25 @@ import language from '../plugins/language'
 
 /* 品牌首页(这种写法就不是按需加载) */
 // import Home from '~/pages/cs_home/home'
+
 Vue.use(Router)
 
-// index页
+// index 首页
 const index = () => import('~/pages/ka_home/index')
 const play = () => import('~/pages/ka_home/play')
+const movie = () => import('~/pages/ka_movie/index')
+const tvplay = () => import('~/pages/ka_tvplay/index')
 
 let routesArr = [
     {
-        path: '/index',
-        name: 'index',
-        component: index
+        path: '/movie',
+        name: 'movie',
+        component: movie
     },
     {
-        path: '/index',
-        name: 'index',
-        component: index
+        path: '/tvplay',
+        name: 'tvplay',
+        component: tvplay
     },
     {
         path: '/play/:urlVal?',
