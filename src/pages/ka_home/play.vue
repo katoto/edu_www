@@ -23,6 +23,8 @@ export default {
     mounted () {
         if (this.$route.params && this.$route.params.urlVal) {
             this.currSrc = this.$route.params.urlVal
+            console.log(this.currSrc)
+            history.replaceState({}, '', `${location.origin}${location.pathname}/play/`)
         }
     }
 }

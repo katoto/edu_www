@@ -2,7 +2,6 @@
     <div>
         <Search></Search>
         <div class="test">
-            <h1>home</h1>
         </div>
     </div>
 </template>

@@ -17,7 +17,7 @@ import vueClipboard from 'vue-clipboard2'
 import '@/styles/element.css'
 import '@/styles/animate.css'
 //  按需加载
-import { Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane, RadioButton, RadioGroup } from 'element-ui'
+import { Input, Icon, Button, Carousel, CarouselItem, Table, Pagination, TableColumn, Select, Option, Tabs, TabPane, RadioButton, RadioGroup } from 'element-ui'
 
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
@@ -34,6 +34,9 @@ locale.i18n((key, value) => {
 })
 
 Vue.component(Table.name, Table)
+Vue.component(Button.name, Button)
+Vue.component(Icon.name, Icon)
+Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
 Vue.component(TableColumn.name, TableColumn)
 Vue.component(Option.name, Option)

@@ -19,6 +19,11 @@ let routesArr = [
         component: index
     },
     {
+        path: '/index',
+        name: 'index',
+        component: index
+    },
+    {
         path: '/play/:urlVal?',
         name: 'play',
         component: play
