@@ -37,7 +37,13 @@ let routesArr = [
 
 export default new Router({
     mode: 'history',
-    routes: routesArr
+    routes: routesArr,
+    scrollBehavior (to, from, savedPosition) { // vue-router的滚动行为，避免当前页面滚动到底部，跳转其他页面时也在底部
+        return {
+            x: 0,
+            y: 0
+        }
+    }
 })
 if (location.search) {
     let queryObj = {}
