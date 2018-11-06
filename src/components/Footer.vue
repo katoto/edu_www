@@ -3,7 +3,6 @@
         <div class="fmain">
             <div class="reserved">
                 <p>
-
                 </p>
             </div>
             <div class="foot-mid clearfix">
@@ -15,29 +14,33 @@
                 </div>
             </div>
             <div class="contact">
-                <div class="ftitle">
-                    <lang>Contact Us</lang>
-                </div>
-                <p>
-                    <lang>QQ:</lang>
-                    <a href="javascript" target="_blank">1196781017</a>
-                </p>
-                <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
-                    <div class="language-choose" v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
-                        <img :src="item.lanLogo" alt="">
-                        {{ item.label }}
+                <section>
+                    <div class="contact_box">
+                        <div class="ftitle">
+                            <lang>Contact Us</lang>
+                        </div>
+                        <p>
+                            <lang>QQ:</lang>
+                            <a href="javascript:;">1196781017</a>
+                        </p>
                     </div>
-                    <ul>
-                        <li v-for="(item, index) in languageOptions" :key="index" v-if="item.value!==languageVal" @click="handleLanguageChange(item.value)">
-                            <img :src="item.lanLogo" width="27" height="15" alt="">
-                            <span>{{ item.label }}</span>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="language hide" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
+                        <div class="language-choose" v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
+                            <img :src="item.lanLogo" alt="">
+                            {{ item.label }}
+                        </div>
+                        <ul>
+                            <li v-for="(item, index) in languageOptions" :key="index" v-if="item.value!==languageVal" @click="handleLanguageChange(item.value)">
+                                <img :src="item.lanLogo" width="27" height="15" alt="">
+                                <span>{{ item.label }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
             </div>
             <div class="cs-copyright">
                 <p>本站提供的最新电影和电视剧资源均系收集于各大视频网站,本站只提供web页面服务,并不提供影片资源存储,也不参与录制、上传。</p>
-                ©Coinsprize 2018. All Rights Reserved
+                ©Katoto 2018. All Rights Reserved
             </div>
         </div>
 
@@ -69,21 +72,6 @@ export default {
 
     },
     methods: {
-        jump2Page () {
-            let lan = this.$store.state.language
-            switch (lan) {
-            case 'en':
-                window.open('/policy', '_blank')
-                break
-            case 'zhCn':
-                window.open('/policy_zhCn', '_blank')
-                break
-            case 'zhTw':
-                window.open('/policy_zhTw', '_blank')
-                break
-            }
-            this.$store.commit('hideLoginPop')
-        },
         scroll () {
             window.scrollTo(0, 0)
         },
@@ -105,21 +93,6 @@ export default {
         }
     },
     mounted () {
-        if (~window.location.href.indexOf('policy')) {
-            let lan = this.$store.state.language
-            switch (lan) {
-            case 'en':
-                this.$router.push('/policy')
-                break
-            case 'zhCn':
-                this.$router.push('/policy_zhCn')
-                break
-            case 'zhTw':
-                this.$router.push('/policy_zhTw')
-                break
-            }
-            this.$store.commit('hideLoginPop')
-        }
     }
 }
 </script>
@@ -128,7 +101,7 @@ export default {
 
 .footer {
   position: relative;
-  height: 310px;
+  height: 200px;
   z-index: 5;
   background: #151515;
   color: rgba(255, 255, 255, 0.4);
@@ -149,9 +122,13 @@ export default {
     max-width: 1190px;
     width: 100%;
     height: 100%;
-    padding-top: 58px;
+    padding-top: 44px;
     overflow: hidden;
     background: transparent;
+    .contact_box {
+      float: right;
+      margin-left: 26px;
+    }
   }
   .ftitle {
     line-height: 32px;
@@ -188,6 +165,7 @@ export default {
     position: relative;
     text-align: right;
     overflow: hidden;
+    margin-bottom: 30px;
     z-index: 2;
     a {
       color: #6f88cb;
@@ -196,7 +174,7 @@ export default {
   .language {
     position: relative;
     float: right;
-    margin-top: 27px;
+    margin-top: 10px;
     width: 130px;
     border: 1px solid #6f8198;
     line-height: 16px;

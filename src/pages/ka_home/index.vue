@@ -31,6 +31,10 @@
                             <p>电影名称</p>
                         </li>
                     </ul>
+                    <router-link to="/movie" class="more" href="javascript:;">
+                        更多电影》》
+                    </router-link>
+                    <a></a>
                 </div>
             </section>
             <section class="tvContent">
@@ -62,6 +66,9 @@
                             <p>电影名称</p>
                         </li>
                     </ul>
+                    <router-link to="/tvplay" class="more" href="javascript:;">
+                        更多电视剧》》
+                    </router-link>
                 </div>
             </section>
         </section>
@@ -100,6 +107,7 @@ export default {
   }
   .movieContent,
   .tvContent {
+    margin-bottom: 30px;
     li {
       text-align: center;
       cursor: pointer;
@@ -108,6 +116,13 @@ export default {
         height: 240px;
       }
     }
+    .more {
+      float: right;
+      margin-top: 30px;
+    }
+  }
+  .tvContent {
+    margin-bottom: 60px;
   }
 }
 </style>

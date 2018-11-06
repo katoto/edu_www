@@ -10,10 +10,9 @@
                 </div>
                 <p class="hot-search">
                     <span>热门搜索：</span>
-                    <a href="">aaa</a>
-                    <a href="">bbb</a>
-                    <a href="">ccc</a>
-                    <a href="">ddd</a>
+                    <a href="javascript:;">西虹市首富</a>
+                    <a href="javascript:;">虎胆追凶</a>
+                    <a href="javascript:;">盖世英雄</a>
                 </p>
             </div>
         </div>
