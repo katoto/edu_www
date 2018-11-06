@@ -2,11 +2,11 @@
     <div>
         <div class="search_box">
             <div class="search_content">
-                <h3>vip电影免费观看，还不快邀请你的小伙伴！</h3>
+                <h3><span style="color:red">vip电影</span>免费观看，还不快邀请你的小伙伴！</h3>
                 <div class="search_inp">
                     <input v-model="searchVal" placeholder="黏贴小电影链接"></input>
-                    <el-button icon="el-icon-search" @click='jump2Play'>开启</el-button>
-                    <el-button type="primary" @click='jump2baidu'>百度搜索</el-button>
+                    <p @click='jump2Play'>开启</p>
+                    <p @click='jump2baidu'>百度搜索</p>
                 </div>
                 <p class="hot-search">
                     <span>热门搜索：</span>
@@ -52,21 +52,45 @@ export default {
 .search_box {
   height: 320px;
   width: 100%;
+  font-size: 14px;
   background: url("../../assets/images/kv.jpg") top center;
   .search_content {
     width: 100%;
     max-width: 664px;
     margin: 0 auto;
-  }
-  .search_inp {
-    width: 100%;
-    height: 40px;
-    position: relative;
-    input {
-      height: 100%;
-      border-radius: 4px;
-      padding-left: 10px;
-      border: 1px solid #fff;
+    padding-top: 70px;
+    h3 {
+      font-size: 18px;
+      line-height: 28px;
+      padding: 10px 0;
+    }
+    .search_inp {
+      width: 100%;
+      height: 40px;
+      position: relative;
+      input {
+        height: 38px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding-left: 10px;
+        float: left;
+        width: 100%;
+        max-width: 400px;
+        margin-right: 10px;
+      }
+      p {
+        float: left;
+        text-align: center;
+        line-height: 40px;
+        padding: 0 16px;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #409eff;
+        cursor: pointer;
+      }
+      p:last-child {
+        margin-left: 10px;
+      }
     }
   }
 }
