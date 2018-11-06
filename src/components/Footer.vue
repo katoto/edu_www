@@ -17,7 +17,7 @@
                 <section>
                     <div class="contact_box">
                         <div class="ftitle">
-                            <lang>Contact Us</lang>
+                            联系我们
                         </div>
                         <p>
                             <lang>QQ:</lang>
