@@ -1,7 +1,10 @@
 <template>
     <div id="app" :class="{ready: isReady}">
+
         <HEAD></HEAD>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
+        <!--返回顶部-->
+        <ScrollTop></ScrollTop>
     </div>
 </template>
 
@@ -9,6 +12,7 @@
 import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
 import HEAD from '~components/Head.vue'
 import Header from '~components/Header.vue'
+import ScrollTop from '~components/ScrollTop.vue'
 
 export default {
     data () {
@@ -19,7 +23,8 @@ export default {
     },
     components: {
         HEAD,
-        Header
+        Header,
+        ScrollTop
     },
     methods: {
         selfNotify,
