@@ -4,7 +4,7 @@
             <div class="search_content">
                 <h3>vip电影免费观看，还不快邀请你的小伙伴！</h3>
                 <div class="search_inp">
-                    <el-input v-model="searchVal" placeholder="黏贴小电影链接"></el-input>
+                    <input v-model="searchVal" placeholder="黏贴小电影链接"></input>
                     <el-button icon="el-icon-search" @click='jump2Play'>开启</el-button>
                     <el-button type="primary" @click='jump2baidu'>百度搜索</el-button>
                 </div>
@@ -64,6 +64,7 @@ export default {
     position: relative;
     input {
       height: 100%;
+      border-radius: 4px;
       padding-left: 10px;
       border: 1px solid #fff;
     }
