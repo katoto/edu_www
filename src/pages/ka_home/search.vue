@@ -2,9 +2,9 @@
     <div>
         <div class="search_box">
             <div class="search_content">
-                <h3><span style="color:red">vip电影</span>免费观看，还不快邀请你的小伙伴！</h3>
+                <h3><span style="color:red;font-size:20px;">vip电影</span> 免费观看，还不快邀请你的小伙伴！</h3>
                 <div class="search_inp">
-                    <input v-model="searchVal" placeholder="黏贴小电影链接"></input>
+                    <input v-model="searchVal" placeholder="黏贴小电影链接" />
                     <p @click='jump2Play'>开启</p>
                     <p @click='jump2baidu'>百度搜索</p>
                 </div>

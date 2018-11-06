@@ -114,6 +114,14 @@ export default {
       img {
         display: inline;
         height: 240px;
+        transition: all 0.3s;
+        &:hover{
+          transform: scale(1.1);
+        }
+      }
+      p{
+          margin-top: 12px;
+          font-size: 16px;
       }
     }
     .more {

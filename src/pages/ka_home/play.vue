@@ -1,6 +1,6 @@
 <template>
     <div class="test">
-        <p class="ka_tips">温馨提示：当前打不开，可以选择换个线路~</p>
+        <p class="ka_tips">温馨提示：如果当前打不开，可以选择换个线路~</p>
         <div style="width:100%;padding-bottom:40px;">
             <iframe class="iframeStyle" :src="currSrc" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen">
             </iframe>

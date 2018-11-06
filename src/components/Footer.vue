@@ -17,7 +17,7 @@
                 <section>
                     <div class="contact_box">
                         <div class="ftitle">
-                            联系我们
+                            联系
                         </div>
                         <p>
                             <lang>QQ:</lang>
@@ -40,6 +40,8 @@
             </div>
             <div class="cs-copyright">
                 <p>本站提供的最新电影和电视剧资源均系收集于各大视频网站,本站只提供web页面服务,并不提供影片资源存储,也不参与录制、上传。</p>
+                <p>若本站收录的节目无意侵犯了贵司版权，请给网页底部邮箱地址来信,我们会及时处理和回复,谢谢。</p>
+                <p>管理员邮箱：****@163.com</p>
                 ©Katoto 2018. All Rights Reserved
             </div>
         </div>
@@ -102,27 +104,20 @@ export default {
 .footer {
   position: relative;
   height: 200px;
+  width: 100%;
   z-index: 5;
   background: #151515;
   color: rgba(255, 255, 255, 0.4);
   line-height: 24px;
   font-size: 14px;
   overflow: hidden;
-  flex-shrink: 0;
-  &.lucky11 {
-    border-top: 50px solid #eef1f9;
-    //用border代替margin挡住冒泡
-  }
   .fmain {
     box-sizing: border-box;
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
     max-width: 1190px;
     width: 100%;
     height: 100%;
-    padding-top: 44px;
+    margin: 0 auto;
+    padding-top: 22px;
     overflow: hidden;
     background: transparent;
     .contact_box {
@@ -138,7 +133,6 @@ export default {
     line-height: 24px;
     font-size: 14px;
     color: rgba(255, 255, 255, 0.4);
-    transform: translate3d(0, 0, 0);
     &:hover {
       filter: brightness(1.3);
     }
@@ -165,7 +159,7 @@ export default {
     position: relative;
     text-align: right;
     overflow: hidden;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     z-index: 2;
     a {
       color: #6f88cb;
@@ -185,40 +179,24 @@ export default {
       height: 16px;
       margin-right: 6px;
     }
-    .language-choose {
-      position: relative;
-      display: flex;
-      justify-content: flex-start;
-      padding: 6px;
-      cursor: pointer;
-      &::after {
-        position: absolute;
-        top: 11px;
-        right: 11px;
-        content: "";
-        display: block;
-        width: 13px;
-        height: 8px;
-        background: url(../assets/img/icon-arrow-down.png) no-repeat center;
-        background-size: 13px 8px;
-      }
-    }
-
-    ul {
-      display: none;
-      li {
-        display: flex;
-        justify-content: flex-start;
-        padding: 6px;
-        cursor: pointer;
-        background: #151515;
-        &.on {
-          background: #6683c5;
-          color: #fff;
-        }
-      }
-    }
-
+    // .language-choose {
+    //   position: relative;
+    //   display: flex;
+    //   justify-content: flex-start;
+    //   padding: 6px;
+    //   cursor: pointer;
+    //   &::after {
+    //     position: absolute;
+    //     top: 11px;
+    //     right: 11px;
+    //     content: "";
+    //     display: block;
+    //     width: 13px;
+    //     height: 8px;
+    //     background: url(../assets/img/icon-arrow-down.png) no-repeat center;
+    //     background-size: 13px 8px;
+    //   }
+    // }
     &.on {
       border-color: #698cdd;
       ul {
