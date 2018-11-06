@@ -58,7 +58,7 @@ export default {
     width: 100%;
     max-width: 664px;
     margin: 0 auto;
-    padding-top: 70px;
+    padding-top: 80px;
     h3 {
       font-size: 18px;
       line-height: 28px;
@@ -75,14 +75,14 @@ export default {
         padding-left: 10px;
         float: left;
         width: 100%;
-        max-width: 400px;
+        max-width: 450px;
         margin-right: 10px;
       }
       p {
         float: left;
         text-align: center;
         line-height: 40px;
-        padding: 0 16px;
+        padding: 0 18px;
         border-radius: 4px;
         color: #fff;
         background-color: #409eff;
@@ -92,6 +92,10 @@ export default {
         margin-left: 10px;
       }
     }
+  }
+  .hot-search {
+    margin-top: 10px;
+    font-size: 16px;
   }
 }
 </style>
