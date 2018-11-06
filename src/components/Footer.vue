@@ -3,41 +3,15 @@
         <div class="fmain">
             <div class="reserved">
                 <p>
-                    <lang>Welcome to Coinsprize, experience your new gaming journey here! As a game platform based on Ethereum, Coinsprize is fair, just and open. All information on Ethereum cannot be modified, you can check draw details to see open and transparent information at any time.</lang>
+
                 </p>
             </div>
             <div class="foot-mid clearfix">
                 <div class="about">
-                    <div class="ftitle">
-                        <lang>General </lang>
-                    </div>
-                    <a href="javascript:;" @click="jump2Page">
-                        <lang>Terms of Use</lang>
-                    </a>
-                    <router-link :to="{path: '/check'}" v-lang="'Transparency&nbsp;Checking'">
-                    </router-link>
-                    <router-link :to="{path: '/help'}" v-lang="_('Help&nbsp;Center')">
-                    </router-link>
+
                 </div>
                 <div class="game">
-                    <div class="ftitle">
-                        <lang>Games</lang>
-                    </div>
-                    <router-link :to="{path: '/luckyslot/'}">
-                        <lang>LuckySlot</lang>
-                    </router-link>
-                    <router-link :to="{path: '/luckycoin/'}">
-                        <lang>LuckyCoin</lang>
-                    </router-link>
-                    <router-link :to="{path: '/lucky11/'}">
-                        <lang>Lucky11</lang>
-                    </router-link>
-                    <router-link :to="{path: '/luckypoker/'}">
-                        {{$lang.poker.a39}}
-                    </router-link>
-                    <router-link :to="{path: '/supercoin/'}">
-                        <lang>SuperCoin</lang>
-                    </router-link>
+
                 </div>
             </div>
             <div class="contact">
@@ -45,20 +19,8 @@
                     <lang>Contact Us</lang>
                 </div>
                 <p>
-                    <lang>Telegram:</lang>
-                    <a href="https://t.me/Coinsprizeoffice" target="_blank">https://t.me/Coinsprizeoffice</a>
-                </p>
-                <!-- <p>
-                    <lang>Lucky11 issues:</lang>
-                    <a href="mailto:lucky11@Coinsprize.com">lucky11@Coinsprize.com</a>
-                </p>
-                <p>
-                    <lang>LuckyCoin issues:</lang>
-                    <a href="mailto:lucky11@Coinsprize.com">luckycoin@Coinsprize.com</a>
-                </p> -->
-                <p>
-                    <lang>Support service:</lang>
-                    <a href="mailto:support@Coinsprize.com">support@Coinsprize.com</a>
+                    <lang>QQ:</lang>
+                    <a href="javascript" target="_blank">1196781017</a>
                 </p>
                 <div class="language" :class="{on:isShowLanguage}" @click="headControlPop('showLanguage')">
                     <div class="language-choose" v-for="(item, index) in languageOptions" :key="index" v-if="item.value===languageVal">
@@ -74,9 +36,11 @@
                 </div>
             </div>
             <div class="cs-copyright">
+                <p>本站提供的最新电影和电视剧资源均系收集于各大视频网站,本站只提供web页面服务,并不提供影片资源存储,也不参与录制、上传。</p>
                 ©Coinsprize 2018. All Rights Reserved
             </div>
         </div>
+
     </div>
 </template>
 
@@ -285,10 +249,9 @@ export default {
     }
   }
   .cs-copyright {
-    position: absolute;
-    left: 50%;
-    bottom: 50px;
-    transform: translateX(-50%);
+    position: relative;
+    width: 100%;
+    text-align: center;
   }
 }
 

@@ -5,6 +5,7 @@
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
         <!--返回顶部-->
         <ScrollTop></ScrollTop>
+        <Footer></Footer>
     </div>
 </template>
 
@@ -12,6 +13,7 @@
 import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
 import HEAD from '~components/Head.vue'
 import Header from '~components/Header.vue'
+import Footer from '~components/Footer.vue'
 import ScrollTop from '~components/ScrollTop.vue'
 
 export default {
@@ -24,7 +26,8 @@ export default {
     components: {
         HEAD,
         Header,
-        ScrollTop
+        ScrollTop,
+        Footer
     },
     methods: {
         selfNotify,

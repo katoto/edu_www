@@ -22,9 +22,9 @@ export default {
     components: {},
     mounted () {
         if (this.$route.params && this.$route.params.urlVal) {
-            this.currSrc = this.$route.params.urlVal
+            this.currSrc = `http://api.nohacks.cn/index.php?url=${decodeURIComponent(this.$route.params.urlVal)}`
             console.log(this.currSrc)
-            history.replaceState({}, '', `${location.origin}${location.pathname}/play/`)
+            history.replaceState({}, '', `${location.origin}/play/`)
         }
     }
 }

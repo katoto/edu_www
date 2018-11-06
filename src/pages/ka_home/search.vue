@@ -20,6 +20,7 @@
     </div>
 </template>
 <script>
+
 export default {
     data () {
         return {
@@ -30,14 +31,17 @@ export default {
     methods: {
         jump2Play () {
             if (this.searchVal !== '' && this.searchVal.indexOf('http') > -1) {
-                this.$router.push('/play/' + this.searchVal)
+                this.$router.push('/play/' + encodeURIComponent(this.searchVal))
             } else {
                 this.$error('请输入正确的查询链接')
+                setTimeout(() => {
+                    this.jump2baidu()
+                }, 2000)
             }
         },
         jump2baidu () {
             if (this.searchVal !== '') {
-                window.open('https://www.baidu.com/s?wd=' + this.searchVal)
+                window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(this.searchVal))
             } else {
                 this.$error('请输入查询信息')
             }
