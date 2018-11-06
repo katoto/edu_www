@@ -1,8 +1,26 @@
 <template>
     <div>
         <Search></Search>
-        <div class="test">
-        </div>
+        <section class="movieContent">
+            <h2>热门电影</h2>
+            <div class="container">
+                <ul class="row">
+                    <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6"><img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt=""></li>
+                    <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6"><img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt=""></li>
+                    <li class="col-lg-2 col-md-4 col-sm-4 hidden-xs"><img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt=""></li>
+                    <li class="col-lg-2 hidden-md hidden-sm hidden-xs"><img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt=""></li>
+                    <li class="col-lg-2 hidden-md hidden-sm hidden-xs"><img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt=""></li>
+                    <li class="col-lg-2 hidden-md hidden-sm hidden-xs"><img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt=""></li>
+                </ul>
+            </div>
+        </section>
+        <section class="tvContent">
+            <h2>热门电视剧</h2>
+            <ul>
+                <li><img src="" alt=""></li>
+                <li><img src="" alt=""></li>
+            </ul>
+        </section>
     </div>
 </template>
 <script>
@@ -21,10 +39,20 @@ export default {
         Search
     },
     mounted () {
-
     }
 }
 </script>
 
 <style  lang="less" type="text/less">
+@import "../../styles/lib-media.less";
+.movieContent {
+  li {
+    background-color: aqua;
+    img {
+      display: inline-block;
+      width: 100%;
+      height: 240px;
+    }
+  }
+}
 </style>

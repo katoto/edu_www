@@ -36,12 +36,15 @@ export default {
             }
         },
         jump2baidu () {
-            window.open('https://www.baidu.com/s?wd=' + this.searchVal)
+            if (this.searchVal !== '') {
+                window.open('https://www.baidu.com/s?wd=' + this.searchVal)
+            } else {
+                this.$error('请输入查询信息')
+            }
         }
     },
     computed: {},
     components: {
-
     },
     mounted () {
 
