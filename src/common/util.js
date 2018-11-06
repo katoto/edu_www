@@ -661,3 +661,14 @@ export function selfNotify (val, typeVal = 'success') {
         duration: 5000
     })
 }
+
+/**
+ *  scrollTop 快速回到顶部
+ */
+export function scrollTop () {
+    const c = document.documentElement.scrollTop || document.body.scrollTop
+    if (c > 0) {
+        window.requestAnimationFrame(scrollTop)
+        window.scrollTop(0, c - c / 8)
+    }
+}

@@ -9,6 +9,7 @@
     <meta name="description" content="Coinsprize is the world's first fair game platform based on blockchain technology.We have provided provably fair,de-centralized Ethereum,smart-contract,high betting casino games." />
     <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no">
+    <meta name="referrer" content="no-referrer" />
     <meta name="renderer" content="webkit">
     <link rel="alternate" type="text/html" hreflang="en-us" id="USseo" href="https://www.coinsprize.com/" title="English (US)" />
     <link rel="alternate" type="text/html" hreflang="en-gb" id="UKseo" href="https://www.coinsprize.com/" title="English (UK)" />
@@ -78,23 +79,23 @@
         </div>
     </div>
     <script>
-        function preloadImage(names, cb, prefix) {
-            window.gkaCache = window.gkaCache || [];
-            var n = 0, img, imgs = {};
+        function preloadImage (names, cb, prefix) {
+            window.gkaCache = window.gkaCache || []
+            var n = 0, img, imgs = {}
             names.forEach(function (name) {
-                img = new Image();
-                window.gkaCache.push(img);
+                img = new Image()
+                window.gkaCache.push(img)
                 img.onload = (function (name, img) {
                     return function () {
                         imgs[name] = img;
-                        (++n === names.length) && cb && cb(imgs);
+                        (++n === names.length) && cb && cb(imgs)
                     }
-                })(name, img);
+                })(name, img)
                 img.src = (prefix || '') + name
             })
         }
         preloadImage(['loading.png'], function () {
-            document.getElementById('cs').className += ' animation';
+            document.getElementById('cs').className += ' animation'
         }, '/static/')
     </script>
 </body>

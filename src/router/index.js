@@ -4,17 +4,32 @@ import Router from 'vue-router'
 // 勿删
 import language from '../plugins/language'
 
+/* 品牌首页(这种写法就不是按需加载) */
+// import Home from '~/pages/cs_home/home'
+
 Vue.use(Router)
 
-/* 品牌首页 */
-
-// index页
+// index 首页
 const index = () => import('~/pages/ka_home/index')
+const play = () => import('~/pages/ka_home/play')
+const movie = () => import('~/pages/ka_movie/index')
+const tvplay = () => import('~/pages/ka_tvplay/index')
+
 let routesArr = [
     {
-        path: '/index',
-        name: 'index',
-        component: index
+        path: '/movie',
+        name: 'movie',
+        component: movie
+    },
+    {
+        path: '/tvplay',
+        name: 'tvplay',
+        component: tvplay
+    },
+    {
+        path: '/play/:urlVal?',
+        name: 'play',
+        component: play
     },
     {
         path: '/*',
@@ -25,7 +40,13 @@ let routesArr = [
 
 export default new Router({
     mode: 'history',
-    routes: routesArr
+    routes: routesArr,
+    scrollBehavior (to, from, savedPosition) { // vue-router的滚动行为，避免当前页面滚动到底部，跳转其他页面时也在底部
+        return {
+            x: 0,
+            y: 0
+        }
+    }
 })
 if (location.search) {
     let queryObj = {}

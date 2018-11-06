@@ -43,6 +43,7 @@ const options = {
             'zhCn': 'zh-cn',
             'zhTw': 'zh-ft'
         }[defaultLanguage]
+        // 'Referer': 'https://www.iqiyi.com/'
     }
 }
 
