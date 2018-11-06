@@ -1,6 +1,5 @@
 <template>
     <div id="app" :class="{ready: isReady}">
-
         <HEAD></HEAD>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
     </div>

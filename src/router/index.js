@@ -4,17 +4,24 @@ import Router from 'vue-router'
 // 勿删
 import language from '../plugins/language'
 
+/* 品牌首页(这种写法就不是按需加载) */
+// import Home from '~/pages/cs_home/home'
 Vue.use(Router)
-
-/* 品牌首页 */
 
 // index页
 const index = () => import('~/pages/ka_home/index')
+const play = () => import('~/pages/ka_home/play')
+
 let routesArr = [
     {
         path: '/index',
         name: 'index',
         component: index
+    },
+    {
+        path: '/play/:urlVal?',
+        name: 'play',
+        component: play
     },
     {
         path: '/*',
