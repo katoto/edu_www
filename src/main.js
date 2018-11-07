@@ -66,22 +66,21 @@ Vue.use(message, store)
 Vue.use(vueClipboard)
 
 router.beforeEach((to, from, next) => {
-    document.getElementById('canonicalLink').setAttribute('href', 'https://www.coinsprize.com' + to.path)
-    document.getElementById('canonicalMobileLink').setAttribute('href', 'https://www.coinsprize.com' + to.path)
-    document.getElementById('zhTwseo').setAttribute('href', 'https://www.coinsprize.com' + to.path + '?language=zhTw')
-    document.getElementById('zhCnseo').setAttribute('href', 'https://www.coinsprize.com' + to.path + '?language=zhCn')
-    document.getElementById('USseo').setAttribute('href', 'https://www.coinsprize.com' + to.path)
-    document.getElementById('UKseo').setAttribute('href', 'https://www.coinsprize.com' + to.path)
-
-    if (to.path.indexOf('lucky11') > -1) {
-        document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Lucky11, blockchain-based lottery, Ethereum lottery, bitcoin lottery, high frequency bitcoin play, token bet'))
-        document.title = _('Lucky11-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- Coinsprize')
-        document.getElementsByTagName('meta')['description'].setAttribute('content', _('Lucky11 is a high frequency Ether game developed by Coinsprize. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!'))
-    } else {
-        document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Coinsprize, bitcoin game, Ethereum game, bitcoin lottery, bitcoin casino game, Ethereum lottery, Ethereum casino game, smart contract game, blockchain-based gaming, Ethereum gaming'))
-        document.title = _('Coinsprize-- A Blockchain-Based Gaming Platform for Bitcoin and Ethereum Play')
-        document.getElementsByTagName('meta')['description'].setAttribute('content', _('Coinsprize is a blockchain-based gaming platform with openness, transparency and checkable smart contracts. Players can get rewards from games. Bitcoin and Ethereum are supported by various games including high frequency Ether games, lotteries, poker games and bid games.'))
-    }
+    document.getElementById('canonicalLink').setAttribute('href', 'https://www.katoto.cn' + to.path)
+    document.getElementById('canonicalMobileLink').setAttribute('href', 'https://www.katoto.cn' + to.path)
+    // document.getElementById('zhTwseo').setAttribute('href', 'https://www.katoto.cn' + to.path + '?language=zhTw')
+    // document.getElementById('zhCnseo').setAttribute('href', 'https://www.katoto.cn' + to.path + '?language=zhCn')
+    // document.getElementById('USseo').setAttribute('href', 'https://www.katoto.cn' + to.path)
+    // document.getElementById('UKseo').setAttribute('href', 'https://www.katoto.cn' + to.path)
+    // if (to.path.indexOf('lucky11') > -1) {
+    //     document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Lucky11, blockchain-based lottery, Ethereum lottery, bitcoin lottery, high frequency bitcoin play, token bet'))
+    //     document.title = _('Lucky11-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- katoto')
+    //     document.getElementsByTagName('meta')['description'].setAttribute('content', _('Lucky11 is a high frequency Ether game developed by katoto. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!'))
+    // } else {
+    //     document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('katoto, bitcoin game, Ethereum game, bitcoin lottery, bitcoin casino game, Ethereum lottery, Ethereum casino game, smart contract game, blockchain-based gaming, Ethereum gaming'))
+    //     document.title = _('katoto-- A Blockchain-Based Gaming Platform for Bitcoin and Ethereum Play')
+    //     document.getElementsByTagName('meta')['description'].setAttribute('content', _('katoto is a blockchain-based gaming platform with openness, transparency and checkable smart contracts. Players can get rewards from games. Bitcoin and Ethereum are supported by various games including high frequency Ether games, lotteries, poker games and bid games.'))
+    // }
     next()
 })
 
