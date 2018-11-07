@@ -14,7 +14,9 @@ export default {
     computed: {
 
     },
-    mounted () { }
+    mounted () {
+        console.log('========puppeteer==')
+    }
 }
 </script>
 <style lang="less" scoped type="text/less">
