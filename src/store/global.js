@@ -72,6 +72,10 @@ const actions = {
     getAdListInfo () {
         return ajax.get('/activity/center')
     },
+    getiqiyiInfo () {
+        return ajax.get('http://47.96.234.59:7001/iqiyi')
+        // return ajax.get('http://192.168.1.101:7001/iqiyi')
+    },
     // 广告图
     async adList ({ state, commit, dispatch }) {
         try {
@@ -195,8 +199,8 @@ const actions = {
                                 //  初始化倒计时
 
                                 /*
-                                                        *  处理 区块链阻塞
-                                                        * */
+                                                                                                *  处理 区块链阻塞
+                                                                                                * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {

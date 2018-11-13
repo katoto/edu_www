@@ -6,29 +6,11 @@
                 <h2>热门电影</h2>
                 <div class="container">
                     <ul class="row">
-                        <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                            <img src="//pic2.iqiyipic.com/image/20181031/70/7c/v_120365437_m_601_m3_260_360.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 col-md-4 col-sm-4 hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 hidden-md hidden-sm hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 hidden-md hidden-sm hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 hidden-md hidden-sm hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
+                        <li v-for="item in movie" class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                            <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">
+                                <img :src="item.pic" :alt="item.desc">
+                            </router-link>
+                            <p>{{ item.name }}</p>
                         </li>
                     </ul>
                     <router-link to="/movie" class="more" href="javascript:;">
@@ -38,36 +20,18 @@
                 </div>
             </section>
             <section class="tvContent">
-                <h2>热门电视剧</h2>
+                <h2>热门MV</h2>
                 <div class="container">
                     <ul class="row">
-                        <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                            <img src="//pic2.iqiyipic.com/image/20181031/70/7c/v_120365437_m_601_m3_260_360.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 col-md-4 col-sm-4 hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 hidden-md hidden-sm hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 hidden-md hidden-sm hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
-                        </li>
-                        <li class="col-lg-2 hidden-md hidden-sm hidden-xs">
-                            <img src="http://pic6.iqiyipic.com/image/20180220/42/9e/v_114654279_m_601_m3_180_236.jpg" alt="">
-                            <p>电影名称</p>
+                        <li v-for="item in music" class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
+                            <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">
+                                <img :src="item.pic" :alt="item.name">
+                            </router-link>
+                            <p>{{ item.name }}</p>
                         </li>
                     </ul>
                     <router-link to="/tvplay" class="more" href="javascript:;">
-                        更多电视剧》》
+                        更多MV》》
                     </router-link>
                 </div>
             </section>
@@ -79,17 +43,29 @@ import Search from '~/pages/ka_home/search.vue'
 export default {
     data () {
         return {
-            top1: ''
+            top1: '',
+            movie: null,
+            music: null
         }
     },
     watch: {},
     methods: {
+        async initPage () {
+            let list = await this.$store.dispatch('getiqiyiInfo')
+            if (list && list.status === '100') {
+                this.movie = list.data.movie.slice(0, 12)
+                this.music = list.data.music.slice(0, 12)
+            }
+            console.log(list)
+        }
     },
     computed: {},
     components: {
         Search
     },
     mounted () {
+        console.log(123)
+        this.initPage()
     }
 }
 </script>
@@ -111,17 +87,28 @@ export default {
     li {
       text-align: center;
       cursor: pointer;
-      img {
-        display: inline;
-        height: 240px;
-        transition: all 0.3s;
-        &:hover{
-          transform: scale(1.1);
+      margin-bottom: 20px;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        img {
+          display: inline-block;
+          width: 100%;
+          height: 240px;
+          transition: all 0.3s;
+          &:hover {
+            transform: scale(1.1);
+          }
         }
       }
-      p{
-          margin-top: 12px;
-          font-size: 16px;
+      p {
+        margin-top: 12px;
+        font-size: 16px;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
     .more {

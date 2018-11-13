@@ -9,7 +9,7 @@
                     电影
                 </router-link>
                 <router-link :to="{path: '/tvplay'}">
-                    电视剧
+                    热门MV
                 </router-link>
             </div>
         </div>
