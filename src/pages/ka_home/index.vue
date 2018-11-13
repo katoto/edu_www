@@ -43,7 +43,6 @@ import Search from '~/pages/ka_home/search.vue'
 export default {
     data () {
         return {
-            top1: '',
             movie: null,
             music: null
         }
@@ -56,7 +55,6 @@ export default {
                 this.movie = list.data.movie.slice(0, 12)
                 this.music = list.data.music.slice(0, 12)
             }
-            console.log(list)
         }
     },
     computed: {},
@@ -64,7 +62,6 @@ export default {
         Search
     },
     mounted () {
-        console.log(123)
         this.initPage()
     }
 }

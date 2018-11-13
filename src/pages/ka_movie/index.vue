@@ -1,177 +1,50 @@
 <template>
     <div class="container b-listtab-main">
         <ul class="list clearfix" style="margin-top: 16px;">
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="">
+            <li class="item" v-for="(item,index) in movie">
+                <router-link class="js-tongjic" :to="`/play/${encodeURIComponent(item.picLink)}`">
                     <div class="cover g-playicon">
-                        <img src="http://p2.qhimg.com/d/dy_0863f344d2238900a8ed0cd1e250ab5f.jpg">
+                        <img :src="item.pic" :alt="item.desc">
                         <span class="pay">免费看</span>
                         <div class="mask-wrap">
                             <span class="hint">2018</span>
-                            <span class="point">6.7</span>
+                            <span class="point">{{ item.score }}</span>
                         </div>
                     </div>
                     <div class="detail">
                         <p class="title g-clear">
-                            <span class="s1">西虹市首富</span>
+                            <span class="s1">{{ item.name }}</span>
                         </p>
-                        <p class="star">主演：沈腾 宋芸桦 张一鸣 张晨光 常远</p>
+                        <p class="star">{{ item.desc }}</p>
                     </div>
-                </a>
+                </router-link>
             </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="">
-                    <div class="cover g-playicon">
-                        <img src="http://p2.qhimg.com/d/dy_0863f344d2238900a8ed0cd1e250ab5f.jpg">
-                        <span class="pay">免费看</span>
-                        <div class="mask-wrap">
-                            <span class="hint">2018</span>
-                            <span class="point">6.7</span>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">西虹市首富</span>
-                        </p>
-                        <p class="star">主演：沈腾 宋芸桦 张一鸣 张晨光 常远</p>
-                    </div>
-                </a>
-            </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="/play?make=dianying&amp;id=gqbkYxH4Q0L4SB.html">
-                    <div class="cover g-playicon">
-                        <img src="http://p0.qhimg.com/t0133c839dfe3c19225.jpg">
-                        <div class="mask-wrap">
-                            <span class="hint">2017</span>
-                            <span class="point">4.4</span> </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">奇门遁甲</span>
-                        </p>
-                        <p class="star">主演：大鹏 倪妮 李治廷 周冬雨 董成鹏</p>
-                    </div>
-                </a>
-            </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="">
-                    <div class="cover g-playicon">
-                        <img src="http://p2.qhimg.com/d/dy_0863f344d2238900a8ed0cd1e250ab5f.jpg">
-                        <span class="pay">免费看</span>
-                        <div class="mask-wrap">
-                            <span class="hint">2018</span>
-                            <span class="point">6.7</span>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">西虹市首富</span>
-                        </p>
-                        <p class="star">主演：沈腾 宋芸桦 张一鸣 张晨光 常远</p>
-                    </div>
-                </a>
-            </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="">
-                    <div class="cover g-playicon">
-                        <img src="http://p2.qhimg.com/d/dy_0863f344d2238900a8ed0cd1e250ab5f.jpg">
-                        <span class="pay">免费看</span>
-                        <div class="mask-wrap">
-                            <span class="hint">2018</span>
-                            <span class="point">6.7</span>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">西虹市首富</span>
-                        </p>
-                        <p class="star">主演：沈腾 宋芸桦 张一鸣 张晨光 常远</p>
-                    </div>
-                </a>
-            </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="/play?make=dianying&amp;id=gqbkYxH4Q0L4SB.html">
-                    <div class="cover g-playicon">
-                        <img src="http://p0.qhimg.com/t0133c839dfe3c19225.jpg">
-                        <div class="mask-wrap">
-                            <span class="hint">2017</span>
-                            <span class="point">4.4</span> </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">奇门遁甲</span>
-                        </p>
-                        <p class="star">主演：大鹏 倪妮 李治廷 周冬雨 董成鹏</p>
-                    </div>
-                </a>
-            </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="">
-                    <div class="cover g-playicon">
-                        <img src="http://p2.qhimg.com/d/dy_0863f344d2238900a8ed0cd1e250ab5f.jpg">
-                        <span class="pay">免费看</span>
-                        <div class="mask-wrap">
-                            <span class="hint">2018</span>
-                            <span class="point">6.7</span>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">西虹市首富</span>
-                        </p>
-                        <p class="star">主演：沈腾 宋芸桦 张一鸣 张晨光 常远</p>
-                    </div>
-                </a>
-            </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="">
-                    <div class="cover g-playicon">
-                        <img src="http://p2.qhimg.com/d/dy_0863f344d2238900a8ed0cd1e250ab5f.jpg">
-                        <span class="pay">免费看</span>
-                        <div class="mask-wrap">
-                            <span class="hint">2018</span>
-                            <span class="point">6.7</span>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">西虹市首富</span>
-                        </p>
-                        <p class="star">主演：沈腾 宋芸桦 张一鸣 张晨光 常远</p>
-                    </div>
-                </a>
-            </li>
-            <li class="item">
-                <a target="_blank" class="js-tongjic" href="/play?make=dianying&amp;id=gqbkYxH4Q0L4SB.html">
-                    <div class="cover g-playicon">
-                        <img src="http://p0.qhimg.com/t0133c839dfe3c19225.jpg">
-                        <div class="mask-wrap">
-                            <span class="hint">2017</span>
-                            <span class="point">4.4</span> </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">奇门遁甲</span>
-                        </p>
-                        <p class="star">主演：大鹏 倪妮 李治廷 周冬雨 董成鹏</p>
-                    </div>
-                </a>
-            </li>
+
         </ul>
     </div>
 </template>
 <script>
 export default {
     data () {
-        return {}
+        return {
+            movie: null
+        }
     },
     watch: {},
     components: {},
-    methods: {},
-    computed: {
-
+    methods: {
+        async initPage () {
+            let list = await this.$store.dispatch('getiqiyiInfo')
+            if (list && list.status === '100') {
+                this.movie = list.data.movie
+            }
+        }
     },
-    mounted () { }
+    computed: {
+    },
+    mounted () {
+        this.initPage()
+    }
 }
 </script>
 <style lang="less" scoped type="text/less">
