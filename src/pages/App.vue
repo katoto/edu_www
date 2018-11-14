@@ -61,23 +61,12 @@ export default {
     computed: {
         isLogin () {
             return this.$store.state.isLog
-        },
-        isShowEntry () {
-            return ['lucky11', 'luckySlot', 'luckycoin', 'luckyPoker', 'luckycoin-home'].indexOf(this.$route.name) !== -1
-        },
-        isSlot () {
-            return this.$route.name === 'luckySlot'
-        },
-        isDapp () {
-            return this.$route.name === 'supercoin'
         }
 
     },
     async mounted () {
         (function flexible (window, document) {
             var docEl = document.documentElement
-            // var dpr = window.devicePixelRatio || 1
-            // set 1rem = viewWidth / 10
             function setRemUnit () {
                 var rem = '75'
                 if (docEl.clientWidth > 1200) {

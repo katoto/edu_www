@@ -84,39 +84,37 @@
     <div id="csLoading">
         <div>
             <div id="cs" class=""></div>
-            <p>Coinsprize</p>
+            <p>Katoto</p>
         </div>
     </div>
     <script>
         function preloadImage (names, cb, prefix) {
-            window.gkaCache = window.gkaCache || [];
-            var n = 0, img, imgs = {};
-            names.forEach(function (name) {
-                img = new Image();
-                window.gkaCache.push(img);
-                img.onload = (function (name, img) {
+            window.gkaCache = window.gkaCache || []
+    var n = 0, img, imgs = {}
+    names.forEach(function (name) {
+                img = new Image()
+        window.gkaCache.push(img)
+        img.onload = (function (name, img) {
                     return function () {
                         imgs[name] = img;
-                        (++n === names.length) && cb && cb(imgs);
+                        (++n === names.length) && cb && cb(imgs)
                     }
-                })(name, img);
-                img.src = (prefix || '') + name;
-            })
+                })(name, img)
+        img.src = (prefix || '') + name
+    })
         };
         preloadImage(['loading.png'], function () {
-            document.getElementById('cs').className += ' animation';
-        }, '/static/')
+            document.getElementById('cs').className += ' animation'
+}, '/static/')
     </script>
 </body>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129157777-1"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag () { dataLayer.push(arguments) }
-    gtag('js', new Date());
-    gtag('config', 'UA-129157777-1');
-</script>
-
+    window.dataLayer = window.dataLayer || []
+function gtag () { dataLayer.push(arguments) }
+    gtag('js', new Date())
+gtag('config', 'UA-129157777-1')
 </script>
 
 </html>

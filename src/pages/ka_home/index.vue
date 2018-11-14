@@ -55,8 +55,6 @@ export default {
                 this.movie = list.data.movie.slice(0, 12)
                 this.music = list.data.music.slice(0, 12)
             }
-            let aa = await this.$store.dispatch('geqiyiInfo')
-            console.log(aa)
         }
     },
     computed: {},

@@ -73,10 +73,7 @@ const actions = {
         return ajax.get('/activity/center')
     },
     getiqiyiInfo () {
-        return ajax.get('http://47.96.234.59:7001/iqiyi')
-    },
-    geqiyiInfo () {
-        return ajax.get('http://www.katoto.cn/api/iqiyi')
+        return ajax.get('/iqiyi')
     },
     // 广告图
     async adList ({ state, commit, dispatch }) {
@@ -201,8 +198,8 @@ const actions = {
                                 //  初始化倒计时
 
                                 /*
-                                                                                                                            *  处理 区块链阻塞
-                                                                                                                            * */
+                                                                                                                                            *  处理 区块链阻塞
+                                                                                                                                            * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {

@@ -54,7 +54,7 @@ let _isDev = false
 const isHttp = window.location.protocol === 'http:'
 if (process && process.env && process.env.NODE_ENV === 'production') {
     // 线上
-    options.baseURL = window.location.protocol + '//api.coinsprize.com'
+    options.baseURL = window.location.protocol + '//www.katoto.cn/api'
     websocketUrl = `${isHttp ? 'ws' : 'wss'}://ws.coinsprize.com/betblock`
     _isProduction = true
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
@@ -64,13 +64,7 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     _isRelease = true
 } else {
     // 开发环境
-    // options.baseURL = 'http://10.0.1.41:8075'// 成哥web  superCoin Dapp
-    // options.baseURL = 'http://10.0.0.176:8000'// 建清web
-    // options.baseURL = 'http://10.0.1.41:5001'// 建清web
-    options.baseURL = 'http://10.0.1.41:3333' // 线下测试web
-    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://192.168.30.13:7999/betblock`// 张旭ws
-    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.0.171:8089/betblock`// 成哥ws
-    // websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:5002/betblock`// 建清ws
+    options.baseURL = 'http://47.96.234.59:7001/' // 线下测试web
     websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock` // 线下测试环境ws
     _isDev = true
 }
