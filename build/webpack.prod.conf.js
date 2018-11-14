@@ -131,7 +131,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]),
         new prerenderSPAPlugin({
             staticDir: path.join(__dirname, '../dist'),
-            routes: ['/', '/movie', '/', '/tvplay'],
+            routes: ['/', '/movie', '/tvplay'],
             minify: {
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,

@@ -11,12 +11,12 @@
 export default {
     data () {
         return {
-            currSrc: '//api.nohacks.cn/index.php?url=https://www.iqiyi.com/v_19rrfnf1gk.html#vfrm=19-9-0-1'
+            currSrc: '//api.nohacks.cn/index.php?url=https://www.iqiyi.com/v_19rrfnf1gk.html#vfrm=19-9-0-1',
+            consoleTime: null
         }
     },
     watch: {},
     methods: {
-
     },
     computed: {},
     components: {},
@@ -26,7 +26,18 @@ export default {
             console.log(this.currSrc)
             history.replaceState({}, '', `${location.origin}/play/`)
         }
+        setTimeout(() => {
+            console.clear()
+            console.log('%c欢迎访问 katoto.cn', 'background:blue; color:white; font-size:16px')
+            console.log('想看代码？联系我1196781017@qq.com')
+            setTimeout(() => {
+                console.clear()
+                console.log('%c欢迎访问 katoto.cn', 'background:blue; color:white; font-size:16px')
+                console.log('想看代码？联系我1196781017@qq.com')
+            }, 1000)
+        }, 500)
     }
+
 }
 </script>
 

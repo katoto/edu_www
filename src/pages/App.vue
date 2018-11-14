@@ -1,5 +1,6 @@
 <template>
     <div id="app" :class="{ready: isReady}">
+
         <HEAD></HEAD>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
         <!--返回顶部-->
@@ -103,12 +104,9 @@ export default {
         }(window, document))
 
         this.handleInit()
-        let userMsg = await this.$store.dispatch('getUserInfo')
+        // let userMsg = await this.$store.dispatch('getUserInfo')
         if (isLog()) {
             this.$store.commit('setIsLog', true)
-            if (userMsg && userMsg.status.toString() === '100') {
-                this.$store.commit('setIsLog', true)
-            }
         } else {
             this.$store.commit('setIsLog', false)
         }
@@ -129,7 +127,18 @@ export default {
         setTimeout(function () {
             document.getElementById('csLoading').style.display = 'none'
         }, 0)
-        
+
+        // document.onkeydown = function (e) {
+        //     let currKey = 0
+        //     let evt = e || window.event
+        //     currKey = evt.keyCode || evt.which || evt.charCode
+        //     if (currKey === 123) {
+        //         window.event.cancelBubble = true
+        //         window.event.returnValue = false
+        //     }
+        // }
+        // document.oncontextmenu = new Function('event.returnValue=false;')
+        // document.onselectstart = new Function('event.returnValue=false;')
     }
 }
 </script>
