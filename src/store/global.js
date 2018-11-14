@@ -88,89 +88,6 @@ const actions = {
             console.error('adList error')
         }
     },
-    /* home info */
-    async homeInfo ({ state, commit, dispatch }) {
-        try {
-            let homeMsg = await ajax.get(`/home/info`)
-            if (homeMsg.ip_status !== undefined || homeMsg.ip_status !== null) {
-                commit('setIp_status', homeMsg.ip_status)
-            }
-            // todo
-            if (homeMsg.data.invite_tips.toString() === '0') {
-                commit('hideFreeplay')
-            } else {
-                commit.isLog ? commit('hideFreeplay') : commit('showFreeplay')
-            }
-            return homeMsg
-        } catch (e) {
-            this.$error(e.message)
-        }
-    },
-
-    /* user info */
-    async getUserInfo ({ state, commit, dispatch }) {
-        try {
-            let userMsg = null
-            if (!(getCK() === '0' || !getCK() || getCK() === 'null' || getCK() === '')) {
-                userMsg = await ajax.get(`/user/info`)
-                if (userMsg.status.toString() === '100') {
-                    if (userMsg.data.status !== undefined && userMsg.data.status.toString() === '-1') {
-                        commit('showEmailErr', true)
-                    } else {
-                        if (state.showEmailErr) {
-                            commit('showEmailErr', false)
-                        }
-                    }
-                    // 未激活，无钱包
-                    if (userMsg.data.accounts.length === 0) {
-                        userMsg.data.accounts.push({
-                            address: '',
-                            balance: '0',
-                            cointype: '2001',
-                            fee: '0.003',
-                            freez: '0.0'
-                        })
-                    }
-                    /* 防止刷地址 */
-                    if (userMsg.data.accounts && !state.currBalance.address) {
-                        let findEthSucc = false
-                        let bigItem = userMsg.data.accounts[0]
-                        userMsg.data.accounts.forEach((item, index) => {
-                            if (item.cointype === '1001') {
-                                findEthSucc = true
-                            }
-                            if (parseFloat(bigItem.balance) < parseFloat(item.balance)) {
-                                bigItem = item
-                            }
-                        })
-                        commit('setCurrBalance', bigItem)
-                        if (!findEthSucc) {
-                            commit('setCurrBalance', userMsg.data.accounts[0])
-                        }
-                    }
-                    /* 更新currBalance */
-                    let findIndex = 0
-                    userMsg.data.accounts.forEach((val, index) => {
-                        if (val.cointype === state.currBalance.cointype) {
-                            findIndex = index
-                        }
-                    })
-                    commit('setCurrBalance', userMsg.data.accounts[findIndex])
-                    commit('setUserInfo', userMsg.data)
-                }
-            }
-            return userMsg
-        } catch (e) {
-            if (e && e.status) {
-                if (e.status === '214' || e.status === '206') {
-                    removeCK()
-                    commit('setIsLog', false)
-                    commit('setUserInfo', {})
-                    commit('showLoginPop')
-                }
-            }
-        }
-    },
 
     /* websocket */
     initWebsocket ({ commit, state, dispatch }, fn) {
@@ -198,8 +115,8 @@ const actions = {
                                 //  初始化倒计时
 
                                 /*
-                                                                                                                                            *  处理 区块链阻塞
-                                                                                                                                            * */
+                                                                                                                                                            *  处理 区块链阻塞
+                                                                                                                                                            * */
                                 let jsStartBetBtn = document.getElementById('js_startBetBtn')
                                 // msg.content.block_status = '0' 报错错误
                                 if (jsStartBetBtn) {
@@ -342,73 +259,6 @@ const actions = {
             }, 15000)
             commit('initSocket', { sock, interval })
         })
-    },
-    sub2out ({ commit, state }) {
-        let sub2outStr = null
-        try {
-            sub2outStr = {
-                action: 'unsync',
-                ck: getCK()
-            }
-            state.socket.sock && state.socket.sock.send(JSON.stringify(sub2outStr))
-        } catch (e) {
-            console.error(e.message)
-        }
-        removeCK()
-    },
-    sub2In ({ commit, state, dispatch }) {
-        let sub2InStr = null
-        try {
-            if (isLog && isLog()) {
-                sub2InStr = {
-                    action: 'sync',
-                    ck: getCK()
-                }
-                state.socket.sock && state.socket.sock.send(JSON.stringify(sub2InStr))
-            }
-        } catch (e) {
-            console.error(e.message)
-        }
-    },
-    subInMsg ({ commit, state, dispatch }, { type = 'dice', lotid = -1, chatroomId = '-1' }) {
-        //  1 slots  老虎机  2 ( lottery lotdi 2 ) LuckyCoin  3 dice 4 ( lottery lotdi 1 ) lucky11
-        let data = {
-            action: 'sub',
-            type: type
-        }
-        if (isLog && isLog()) data.ck = getCK()
-        if (lotid !== -1) data.lotid = lotid
-        if (chatroomId !== '-1') data.chatroom_id = chatroomId
-        try {
-            state.socket.sock && state.socket.sock.send(JSON.stringify(data))
-        } catch (e) {
-            setTimeout(() => {
-                dispatch('subInMsg', { type, lotid })
-            }, 100)
-        }
-    },
-    subOutMsg ({ commit, state, dispatch }, { type = 'dice', lotid = -1, chatroomId = '-1' }) {
-        /* 页面 解订阅 */
-        try {
-            let unsubLuckyStr = {
-                action: 'unsub',
-                type: type
-            }
-            if (lotid !== -1) unsubLuckyStr.lotid = lotid
-            if (chatroomId !== '-1') unsubLuckyStr.chatroom_id = chatroomId
-            state.socket.sock && state.socket.sock.send(JSON.stringify(unsubLuckyStr))
-        } catch (e) {
-            console.error(e.message + type + ' error')
-        }
-    },
-    sendchatMsg ({ commit, state, dispatch }, msgObj) {
-        try {
-            state.socket.sock && state.socket.sock.send(JSON.stringify(msgObj))
-        } catch (e) {
-            setTimeout(() => {
-                dispatch('sendchatMsg', msgObj)
-            }, 100)
-        }
     },
     ...common.actions
 }

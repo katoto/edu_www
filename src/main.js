@@ -6,12 +6,6 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import lanaguage from './plugins/language'
 import message from './plugins/message'
-import vueClipboard from 'vue-clipboard2'
-// 全局
-// import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-chalk/index.css'
-// import locale from 'element-ui/lib/locale/lang/en'
-// Vue.use(ElementUI, { locale });
 
 // 全局 end
 import '@/styles/element.css'
@@ -51,36 +45,24 @@ Vue.component(RadioGroup.name, RadioGroup)
 
 //  按需加载 end
 
-// import '~/icons'
-// Vue.use(ElementUI)
-
-// import $ from 'jquery'
-// import vueTap from 'v-tap'
-// Vue.use(vueTap)
-
 const store = storeFactory()
 sync(store, router)
 
 Vue.use(lanaguage, store)
 Vue.use(message, store)
-Vue.use(vueClipboard)
 
 router.beforeEach((to, from, next) => {
     document.getElementById('canonicalLink').setAttribute('href', 'https://www.katoto.cn' + to.path)
     document.getElementById('canonicalMobileLink').setAttribute('href', 'https://www.katoto.cn' + to.path)
-    // document.getElementById('zhTwseo').setAttribute('href', 'https://www.katoto.cn' + to.path + '?language=zhTw')
-    // document.getElementById('zhCnseo').setAttribute('href', 'https://www.katoto.cn' + to.path + '?language=zhCn')
-    // document.getElementById('USseo').setAttribute('href', 'https://www.katoto.cn' + to.path)
-    // document.getElementById('UKseo').setAttribute('href', 'https://www.katoto.cn' + to.path)
-    // if (to.path.indexOf('lucky11') > -1) {
-    //     document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('Lucky11, blockchain-based lottery, Ethereum lottery, bitcoin lottery, high frequency bitcoin play, token bet'))
-    //     document.title = _('Lucky11-- A High Frequency Ether Game Supports Bitcoin and Ethereum Play-- katoto')
-    //     document.getElementsByTagName('meta')['description'].setAttribute('content', _('Lucky11 is a high frequency Ether game developed by katoto. Players can win rewards from easy games on the platform. Since games are based on blockchain, the draw is open, transparent and checkable. Try your luck and experience exciting games now!'))
-    // } else {
-    //     document.getElementsByTagName('meta')['keywords'].setAttribute('content', _('katoto, bitcoin game, Ethereum game, bitcoin lottery, bitcoin casino game, Ethereum lottery, Ethereum casino game, smart contract game, blockchain-based gaming, Ethereum gaming'))
-    //     document.title = _('katoto-- A Blockchain-Based Gaming Platform for Bitcoin and Ethereum Play')
-    //     document.getElementsByTagName('meta')['description'].setAttribute('content', _('katoto is a blockchain-based gaming platform with openness, transparency and checkable smart contracts. Players can get rewards from games. Bitcoin and Ethereum are supported by various games including high frequency Ether games, lotteries, poker games and bid games.'))
-    // }
+    if (to.path.indexOf('movie') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto影院,katotoMV, 爱奇艺, 土豆, 腾讯, 优酷, 会员免费视频, VIP免费视频,免费VIP视频')
+        document.title = 'katoto - 最新海量高清VIP视频_katoto网'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto影院 - 海量高清VIP视频, MV免费看、看电影找katoto、看MV找katoto、刷资讯找katoto')
+    } else if (to.path.indexOf('tvplay') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto影院,katotoMV, 爱奇艺, 土豆, 腾讯, 优酷, 会员免费视频, VIP免费视频,免费VIP视频')
+        document.title = 'katoto - 最新MV_音乐_katoto网'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', '2018最新的高清音乐MTV大全，海量的大陆、港台、日韩、欧美音乐MTV视频大全就在katoto_MV大全')
+    }
     next()
 })
 
