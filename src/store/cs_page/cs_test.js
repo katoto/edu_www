@@ -1,5 +1,4 @@
 import ajax from '~common/ajax'
-import { formateCoinType } from '~common/util'
 import router from '~router'
 
 const state = {}
@@ -10,4 +9,4 @@ const actions = {
     }
 }
 
-export default {state, mutations, actions, namespaced: true }
+export default { state, mutations, actions, namespaced: true }
