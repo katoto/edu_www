@@ -80,6 +80,7 @@ export default {
   }
   .movieContent,
   .tvContent {
+    min-height: 600px;
     margin-bottom: 30px;
     li {
       text-align: center;

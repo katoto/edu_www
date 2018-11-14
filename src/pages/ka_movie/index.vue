@@ -1,6 +1,6 @@
 <template>
     <div class="container b-listtab-main">
-        <ul class="list clearfix" style="margin-top: 16px;">
+        <ul class="list clearfix" style="margin-top: 16px;min-height:600px;">
             <li class="item" v-for="(item,index) in movie">
                 <router-link class="js-tongjic" :to="`/play/${encodeURIComponent(item.picLink)}`">
                     <div class="cover g-playicon">
