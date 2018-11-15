@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://www.coinsprize.com/</loc>
+        <loc>https://www.katoto.com/</loc>
         <priority>1.0</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
         <changefreq>always</changefreq>
     </url>
     <url>
-        <loc>https://www.coinsprize.com/movie</loc>
+        <loc>https://www.katoto.com/movie</loc>
         <priority>0.8</priority>
         <lastmod>2018-08-13T08:00:00+08:00</lastmod>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://www.coinsprize.com/tvplay</loc>
+        <loc>https://www.katoto.com/tvplay</loc>
         <priority>0.5</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
         <changefreq>weekly</changefreq>
