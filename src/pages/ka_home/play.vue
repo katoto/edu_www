@@ -121,7 +121,7 @@ export default {
 }
 </script>
 
-<style  lang="less" type="text/less">
+<style lang="less" scoped type="text/less" >
 .iframeBox {
   width: 100%;
   padding-bottom: 10px;

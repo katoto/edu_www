@@ -67,7 +67,7 @@ export default {
 }
 </script>
 
-<style  lang="less" type="text/less">
+<style  lang="less" scoped type="text/less">
 @import "../../styles/lib-media.less";
 .ka_body {
   h2 {
