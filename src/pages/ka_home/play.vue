@@ -109,11 +109,11 @@ export default {
         setTimeout(() => {
             console.clear()
             console.log('%c欢迎访问 katoto.cn', 'background:blue; color:white; font-size:16px')
-            console.log('想看代码？源码？联系我1196781017@qq.com')
+            console.log('想看代码？源码？联系')
             setTimeout(() => {
                 console.clear()
                 console.log('%c欢迎访问 katoto.cn', 'background:blue; color:white; font-size:16px')
-                console.log('想看代码？源码？联系我1196781017@qq.com')
+                console.log('想看代码？源码？联系')
             }, 1000)
         }, 500)
     }
