@@ -67,12 +67,9 @@
 </template>
 <script>
 // <button onclick="xldata('http://api.jrzsz.com/index.php?url=')">线路一</button>
-// <button onclick="xldata('http://api.baiyug.cn/vip/index.php?url=')">线路二</button>
 // <button onclick="xldata('https://api.47ks.com/webcloud/?v=')">线路三</button>
 // <button onclick="xldata('http://jx.ejiafarm.com/dy.php?url=')">线路四</button>
 // <button onclick="xldata('http://jx.aeidu.cn/index.php?url=')">线路五</button>
-// <button onclick="xldata('https://beaacc.com/api.php?url=')">线路六</button>
-// <button onclick="xldata('http://jiexi.071811.cc/jx2.php?url=')">线路七</button>
 // <button onclick="xldata('http://api.wlzhan.com/sudu/?url=')">线路八</button>
 // <button onclick="xldata('http://jx.598110.com/duo/index.php?url=')">线路九</button>
 // <button onclick="xldata('http://api.kf4.cc/?url=')">线路十</button></div>
@@ -82,17 +79,16 @@ export default {
             currSrc: '//api.nohacks.cn/index.php?url=https://www.iqiyi.com/v_19rr6l5770.html',
             consoleTime: null,
             playMore: {
-
                 play1: '//api.nohacks.cn/index.php?url=',
                 play2: '//jx.biaoge.tv/index.php?url=',
                 play3: '//api.zuilingxian.com/jiexi.php?url=',
                 play4: '//app.baiyug.cn:2019/vip/?url=', // 不是很高清 可以看电视
-                play5: '//jqaaa.com/jx.php?url=', // 不是很高清
+                play5: '//api.kf4.cc/?url=', // 不是很高清 有点差
                 // play6: '//vip.jlsprh.com/index.php?url=', // 高清 有他人广告
                 play6: '//app.baiyug.cn:2019/vip/?url=', //
-                play7: '//jiexi.92fz.cn/player/vip.php?url=', //
-                play8: '//www.wq114.org/yun.php?url=', //
-                play9: '//api.wlzhan.com/sudu/?url=',
+                play7: '//jiexi.071811.cc/jx2.php?url=', // 有点差
+                play8: '//beaacc.com/api.php?url=', //
+                play9: '//api.wlzhan.com/sudu/?url=', // 有点差
                 play10: '//api.pucms.com/?url=', // 有广告
                 play11: '//2gty.com/apiurl/yun.php?url=' // 乐视专用
             }
