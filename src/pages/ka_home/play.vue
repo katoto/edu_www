@@ -66,18 +66,29 @@
     </div>
 </template>
 <script>
+// <button onclick="xldata('http://api.jrzsz.com/index.php?url=')">线路一</button>
+// <button onclick="xldata('http://api.baiyug.cn/vip/index.php?url=')">线路二</button>
+// <button onclick="xldata('https://api.47ks.com/webcloud/?v=')">线路三</button>
+// <button onclick="xldata('http://jx.ejiafarm.com/dy.php?url=')">线路四</button>
+// <button onclick="xldata('http://jx.aeidu.cn/index.php?url=')">线路五</button>
+// <button onclick="xldata('https://beaacc.com/api.php?url=')">线路六</button>
+// <button onclick="xldata('http://jiexi.071811.cc/jx2.php?url=')">线路七</button>
+// <button onclick="xldata('http://api.wlzhan.com/sudu/?url=')">线路八</button>
+// <button onclick="xldata('http://jx.598110.com/duo/index.php?url=')">线路九</button>
+// <button onclick="xldata('http://api.kf4.cc/?url=')">线路十</button></div>
 export default {
     data () {
         return {
-            currSrc: '//api.nohacks.cn/index.php?url=https://www.iqiyi.com/v_19rrf2nw1g.html',
+            currSrc: '//api.nohacks.cn/index.php?url=https://www.iqiyi.com/v_19rr6l5770.html',
             consoleTime: null,
             playMore: {
+
                 play1: '//api.nohacks.cn/index.php?url=',
                 play2: '//jx.biaoge.tv/index.php?url=',
                 play3: '//api.zuilingxian.com/jiexi.php?url=',
                 play4: '//app.baiyug.cn:2019/vip/?url=', // 不是很高清 可以看电视
                 play5: '//jqaaa.com/jx.php?url=', // 不是很高清
-                play6: '//vip.jlsprh.com/index.php?url=', // 高清 有他人广告
+                play6: '//jx.biaoge.tv/?url=', // 高清
                 play7: '//jiexi.92fz.cn/player/vip.php?url=', //
                 play8: '//www.wq114.org/yun.php?url=', //
                 play9: '//api.wlzhan.com/sudu/?url=',
@@ -121,7 +132,8 @@ export default {
 }
 </script>
 
-<style  lang="less" type="text/less">
+<style lang="less" scope type="text/less">
+@import "../../styles/lib-media.less";
 .iframeBox {
   width: 100%;
   padding-bottom: 10px;
@@ -152,9 +164,6 @@ export default {
     background: #fff;
     border: 1px solid #ededed;
     border-radius: 5px;
-    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
     a {
       display: inline-block;
@@ -176,6 +185,22 @@ export default {
         0 0 8px rgba(82, 168, 236, 0.6);
       box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
         0 0 8px rgba(82, 168, 236, 0.6);
+    }
+  }
+}
+/* xs超小屏幕（手机，最大 480） */
+@media (max-width: @screen-phone) {
+  .iframeStyle {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .ka_tips {
+    padding: 4px 0;
+  }
+  .moreLine {
+    margin-bottom: 4px;
+    .el-button {
+      margin-bottom: 8px;
     }
   }
 }

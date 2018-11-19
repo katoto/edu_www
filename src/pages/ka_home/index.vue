@@ -94,9 +94,17 @@ export default {
           display: inline-block;
           width: 100%;
           height: 240px;
-          transition: all 0.3s;
+          transition: border linear 0.2s, box-shadow linear 0.2s;
           &:hover {
-            transform: scale(1.1);
+            // transform: scale(1.1);
+            border-color: rgba(82, 168, 236, 0.8);
+            outline: 0;
+            -webkit-box-shadow: inset 0 8px 8px rgba(0, 0, 0, 0.075),
+              0 0 15px rgba(82, 168, 236, 0.6);
+            -moz-box-shadow: inset 0 8px 8px rgba(0, 0, 0, 0.075),
+              0 0 15px rgba(82, 168, 236, 0.6);
+            box-shadow: inset 0 8px 8px rgba(0, 0, 0, 0.075),
+              0 0 15px rgba(82, 168, 236, 0.6);
           }
         }
       }
@@ -118,4 +126,40 @@ export default {
     margin-bottom: 60px;
   }
 }
+
+/* xs超小屏幕（手机，最大 480） */
+@media (max-width: @screen-phone) {
+  .ka_body {
+    h2 {
+      margin-top: 0px;
+      font-size: 18px;
+      line-height: 50px;
+      .movieContent,
+      .tvContent {
+        min-height: 400px;
+        margin-bottom: 10px;
+        li {
+          margin-bottom: 10px;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            img {
+              display: inline-block;
+              width: 100%;
+            }
+          }
+        }
+      }
+      .tvContent {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+/* md中等屏幕（桌面显示器，大于等于 992px） */
+@media (min-width: @screen-desktop) {
+}
+/* lg大屏幕（大桌面显示器，大于等于 1200px） */
 </style>

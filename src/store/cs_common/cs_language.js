@@ -1,18 +1,10 @@
 import { getURLParams, defaultLanguage, setLocalStorageLanguage } from '~/common/util'
 let modules = {}
 
-const csPageModules = require.context('~language/varPack', true, /\.js$/)
-csPageModules.keys().forEach(function (modulesPath) {
-    const modulesName = modulesPath.replace(/(\.\/)|(\.js$)/g, '')
-    modules[modulesName] = csPageModules(modulesPath).default
-})
-
 let params = getURLParams()
 const state = {
-    language: defaultLanguage,
-    langs: {
-        ...modules
-    }
+    language: defaultLanguage
+
 }
 
 const mutations = {
@@ -36,13 +28,13 @@ const mutations = {
     }
 }
 const actions = {
-    changeToZhCN ({commit}) {
+    changeToZhCN ({ commit }) {
         commit('changeLanguage', 'zhCn')
     },
-    changeToZhTw ({commit}) {
+    changeToZhTw ({ commit }) {
         commit('changeLanguage', 'zhTw')
     },
-    changeToEn ({commit}) {
+    changeToEn ({ commit }) {
         commit('changeLanguage', 'en')
     }
 }

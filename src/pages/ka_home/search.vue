@@ -3,10 +3,10 @@
         <div class="search_box">
             <div class="search_content">
                 <h3><span style="color:red;font-size:20px;">vip电影</span> 免费观看，还不快邀请你的小伙伴！</h3>
-                <div class="search_inp">
+                <div class="search_inp clearfix">
                     <input v-model="searchVal" placeholder="黏贴小电影链接" />
                     <p @click='jump2Play'>开启</p>
-                    <p @click='jump2baidu'>百度搜索</p>
+                    <p class="hidden-sm hidden-xs" @click='jump2baidu'>百度搜索</p>
                 </div>
                 <p class="hot-search">
                     <span>热门搜索：</span>
@@ -55,6 +55,8 @@ export default {
 }
 </script>
 <style scoped lang="less" type="text/less">
+@import "../../styles/lib-media.less";
+
 .search_box {
   height: 320px;
   width: 100%;
@@ -103,6 +105,38 @@ export default {
     margin-top: 10px;
     font-size: 16px;
   }
+}
+
+@media (max-width: @screen-phone) {
+  .search_box {
+    height: 200px;
+    .search_content {
+      width: 95%;
+      margin: 0 auto;
+      max-width: 400px;
+      padding-top: 30px;
+      h3 {
+        font-size: 14px;
+        line-height: 24px;
+      }
+      .search_inp {
+        width: 100%;
+        height: 40px;
+        input {
+          max-width: 250px;
+          margin-right: 5px;
+        }
+      }
+    }
+    .hot-search {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  }
+}
+// 平板，
+/* md中等屏幕（桌面显示器，大于等于 992px） */
+@media (min-width: @screen-desktop) {
 }
 </style>
 

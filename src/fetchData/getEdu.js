@@ -3,9 +3,29 @@ let getList = async () => {
     const browser = await (puppeteer.launch({
         ignoreHTTPSErrors: true,
         devtools: false,
-        headless: true,
+        headless: false,
         args: ['--no-sandbox']
     }))
+    let getUrlObj = {
+
+        // < ul class="nav navbar-nav sub-nav hidden-xs" >
+        // <li class="active"><a href="/class/2250">幼儿读物</a></li> <li><a href="/class/2251">儿童英语</a></li> <li><a href="/class/2252">拼音汉字</a></li> <li><a href="/class/2253">启蒙教育</a></li> <li><a href="/class/2254">儿童歌曲</a></li> <li><a href="/class/2255">其他</a></li>					  </ul >
+
+        preschool: ['/class/2250', '/class/2251', '/class/2252', '/class/2253', '/class/2254', '/class/2255'], // 学前教育
+        primaryschool: [], // 小学教育
+        middleschool: [], // 初中教育
+        highschool: [], // 高中教育
+        university: [], // 高等教育
+        edupapers: [], // 论文
+        masterschool: [], // 研究生考试
+        industrydocuments: [], // 行业资料
+        management: [], // 管理
+        foreignlanguage: [], // 外语学习
+        informationtechnology: [], // IT计算机
+        qualificationexamination: [], // 资格/认证考试
+        otherdocs: [] // 其他
+    }
+
     const page = await browser.newPage()
     await page.goto('https://www.iqiyi.com/dianying_new/i_list_paihangbang.html')
     const movieList = await page.evaluate(() => {
@@ -48,21 +68,15 @@ var url = 'mongodb://47.96.234.59:27017/'
 MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err
     var dbo = db.db('katoto')
-    setInterval(async () => {
+    setTimeout(async () => {
         let backData = null
         backData = await getList()
-        console.log(new Date())
         backData.movieList.forEach((item, index) => {
             dbo.collection('movie').save(item)
         })
         backData.musicList.forEach((item, index) => {
             dbo.collection('music').save(item)
         })
-    }, 30000)
+        // 4个小时抓一次
+    }, 1000)
 })
-// dbo.collection('demo').insertMany(backData.movieList)
-
-// movieList = movieList.slice(0, 10)
-// db.test.update({ '_id': '1' }, { '$set': { 'html': '3', 'qeew': '1' } })
-// 如果集合内部已经存在一个和obj相同的"_id"的记录，Mongodb会把obj对象替换集合内已存在的记录，如果不存在，则会插入obj对象。
-// db.test.save({''})

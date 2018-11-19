@@ -55,24 +55,18 @@ const isHttp = window.location.protocol === 'http:'
 if (process && process.env && process.env.NODE_ENV === 'production') {
     // 线上
     options.baseURL = window.location.protocol + '//www.katoto.cn/api'
-    websocketUrl = `${isHttp ? 'ws' : 'wss'}://ws.coinsprize.com/betblock`
     _isProduction = true
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
     // 线下167
     options.baseURL = 'http://10.0.1.41:3333' // 线下测试web
-    websocketUrl = `ws://10.0.1.41:4444/betblock` // 线下测试环境ws
     _isRelease = true
 } else {
     // 开发环境
     options.baseURL = 'http://47.96.234.59:7001/' // 线下测试web
-    websocketUrl = `${isHttp ? 'ws' : 'wss'}://10.0.1.41:4444/betblock` // 线下测试环境ws
     _isDev = true
 }
 
-export const sockURL = websocketUrl
-
 export const baseURL = options.baseURL
-
 export const isProduction = _isProduction
 export const isDev = _isDev
 export const isRelease = _isRelease
