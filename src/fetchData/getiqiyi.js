@@ -7,7 +7,7 @@ let getList = async () => {
         args: ['--no-sandbox']
     }))
     const page = await browser.newPage()
-    await page.goto('https://www.iqiyi.com/dianying_new/i_list_paihangbang.html')
+    await page.goto('https://list.iqiyi.com/www/2/-------------24-1-1-iqiyi--.html')
     const movieList = await page.evaluate(() => {
         let movieList = []
         document.querySelectorAll('.site-piclist .J_videoLi').forEach((item, index) => {

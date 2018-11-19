@@ -4,6 +4,8 @@
 
 > 这是一个单页，集成多语言(中文、繁体、English)、SEO（部分静态化）、ElementUI、响应式。基本上能应付常见的站点了
 
+http://cache.video.iqiyi.com/jp/avlist/216274801/1/50/?albumId=216274801&pageNum=50&pageNo=1&callback=aa
+
 ## Build Setup
 ``` bash
 # install dependencies
