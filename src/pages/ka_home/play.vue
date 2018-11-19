@@ -77,7 +77,7 @@
 // <button onclick="xldata('http://jx.598110.com/duo/index.php?url=')">线路九</button>
 // <button onclick="xldata('http://api.kf4.cc/?url=')">线路十</button></div>
 export default {
-    data() {
+    data () {
         return {
             currSrc: '//api.nohacks.cn/index.php?url=https://www.iqiyi.com/v_19rr6l5770.html',
             consoleTime: null,
@@ -88,12 +88,8 @@ export default {
                 play3: '//api.zuilingxian.com/jiexi.php?url=',
                 play4: '//app.baiyug.cn:2019/vip/?url=', // 不是很高清 可以看电视
                 play5: '//jqaaa.com/jx.php?url=', // 不是很高清
-<<<<<<< HEAD
-                play6: '//jx.biaoge.tv/?url=', // 高清
-=======
                 // play6: '//vip.jlsprh.com/index.php?url=', // 高清 有他人广告
                 play6: '//app.baiyug.cn:2019/vip/?url=', //
->>>>>>> 9ffbaddb47d6a1fef47aed6844c921c61307ef4e
                 play7: '//jiexi.92fz.cn/player/vip.php?url=', //
                 play8: '//www.wq114.org/yun.php?url=', //
                 play9: '//api.wlzhan.com/sudu/?url=',
@@ -104,13 +100,13 @@ export default {
     },
     watch: {},
     methods: {
-        changeLine(num) {
+        changeLine (num) {
             this.currSrc = this.playMore['play' + num] + decodeURIComponent(localStorage.getItem('nowUrl'))
         }
     },
     computed: {},
     components: {},
-    mounted() {
+    mounted () {
         let num = parseInt(Math.random() * 10) + 1
         if (this.$route.params && this.$route.params.urlVal) {
             localStorage.setItem('nowUrl', this.$route.params.urlVal)

@@ -76,7 +76,8 @@ const actions = {
         return ajax.get('/iqiyi')
     },
     getiqiyiTvMsg () {
-        return ajax.get('/iqiyiTvMsg')
+        // return ajax.get('/iqiyiTvMsg')
+        return ajax.get('http://127.0.0.1:7001/iqiyiTvMsg?tvid=216274801')
     },
     // 广告图
     async adList ({ state, commit, dispatch }) {
