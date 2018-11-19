@@ -75,6 +75,9 @@ const actions = {
     getiqiyiInfo () {
         return ajax.get('/iqiyi')
     },
+    getiqiyiTvMsg () {
+        return ajax.get('/iqiyiTvMsg')
+    },
     // 广告图
     async adList ({ state, commit, dispatch }) {
         try {

@@ -77,7 +77,8 @@ export default {
                 play3: '//api.zuilingxian.com/jiexi.php?url=',
                 play4: '//app.baiyug.cn:2019/vip/?url=', // 不是很高清 可以看电视
                 play5: '//jqaaa.com/jx.php?url=', // 不是很高清
-                play6: '//vip.jlsprh.com/index.php?url=', // 高清 有他人广告
+                // play6: '//vip.jlsprh.com/index.php?url=', // 高清 有他人广告
+                play6: '//app.baiyug.cn:2019/vip/?url=', //
                 play7: '//jiexi.92fz.cn/player/vip.php?url=', //
                 play8: '//www.wq114.org/yun.php?url=', //
                 play9: '//api.wlzhan.com/sudu/?url=',
