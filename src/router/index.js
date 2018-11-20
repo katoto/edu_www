@@ -14,6 +14,7 @@ const index = () => import('~/pages/ka_home/index')
 const play = () => import('~/pages/ka_home/play')
 const movie = () => import('~/pages/ka_movie/index')
 const tvplay = () => import('~/pages/ka_tvplay/index')
+const tvMsg = () => import('~/pages/ka_tvplay/tvMsg')
 
 let routesArr = [
     {
@@ -25,6 +26,11 @@ let routesArr = [
         path: '/tvplay',
         name: 'tvplay',
         component: tvplay
+    },
+    {
+        path: '/tvMsg/:tvid?',
+        name: 'tvMsg',
+        component: tvMsg
     },
     {
         path: '/play/:urlVal?',

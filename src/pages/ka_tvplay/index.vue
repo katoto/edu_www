@@ -2,7 +2,7 @@
     <div class="container b-listtab-main">
         <ul class="list clearfix" style="margin-top: 16px;min-height:600px;">
             <li class="item" v-for="(item,index) in tvlist">
-                <router-link class="js-tongjic" :to="`/play/${encodeURIComponent(item.picLink)}`">
+                <router-link class="js-tongjic" :to="`/tvMsg/${item._id}`">
                     <div class="cover g-playicon">
                         <img :src="item.pic" :alt="item.name">
                         <span class="pay">免费看</span>

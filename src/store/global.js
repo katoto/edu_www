@@ -81,8 +81,8 @@ const actions = {
         console.log(msg)
         return ajax.get(`iqiyiTvlist?pageno=${msg.pageno}&pagesize=${msg.pagesize}`)
     },
-    getiqiyiTvMsg () {
-        // return ajax.get('/iqiyiTvMsg')
+    getiqiyiTvMsg ({ state }, msg = {}) {
+        return ajax.get(`/iqiyiTvMsg?tvid=${msg.tvid}`)
         return ajax.get('http://127.0.0.1:7001/iqiyiTvMsg?tvid=216274801')
     },
     // 广告图
