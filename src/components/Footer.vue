@@ -69,10 +69,6 @@ export default {
             isShowLanguage: false
         }
     },
-    watch: {},
-    components: {
-
-    },
     methods: {
         scroll () {
             window.scrollTo(0, 0)
@@ -179,24 +175,6 @@ export default {
       height: 16px;
       margin-right: 6px;
     }
-    // .language-choose {
-    //   position: relative;
-    //   display: flex;
-    //   justify-content: flex-start;
-    //   padding: 6px;
-    //   cursor: pointer;
-    //   &::after {
-    //     position: absolute;
-    //     top: 11px;
-    //     right: 11px;
-    //     content: "";
-    //     display: block;
-    //     width: 13px;
-    //     height: 8px;
-    //     background: url(../assets/img/icon-arrow-down.png) no-repeat center;
-    //     background-size: 13px 8px;
-    //   }
-    // }
     &.on {
       border-color: #698cdd;
       ul {
@@ -211,48 +189,17 @@ export default {
   }
 }
 
-@media (max-width: @screen-lg-desktop) {
+/* xs超小屏幕（手机，最大 480） */
+@media (max-width: @screen-phone) {
   .footer {
-    height: 560px;
-    line-height: 20px;
-    .fmain {
-      padding: 0 percentage(30/750) 0;
-    }
-    .ftitle {
-      margin-top: 17/2px;
-      margin-bottom: 0;
-      line-height: 57/2px;
-      font-size: 18px;
-    }
-    .reserved {
-      width: 100%;
-      padding: 55/2px 0 0 0;
-    }
-    .foot-mid {
-      width: 100%;
-      .about,
-      .game {
-        a {
-          line-height: 24px;
-          font-size: 14px;
-        }
-      }
-    }
-    .contact {
-      width: 100%;
-      text-align: left;
-      p {
-        line-height: 24px;
-      }
-      .language {
-        float: left;
-      }
-    }
     .cs-copyright {
-      position: absolute;
-      left: 4%;
-      transform: translateX(0);
+      position: relative;
+      margin: 0 auto;
+      width: 96%;
     }
+  }
+  .contact {
+    display: none;
   }
 }
 </style>
