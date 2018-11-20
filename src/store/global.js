@@ -75,6 +75,12 @@ const actions = {
     getiqiyiInfo () {
         return ajax.get('/iqiyi')
     },
+    iqiyiTvlist ({ store }, msg = {}) {
+        // 返回电视剧列表  分页信息
+        console.log(msg)
+        console.log(msg)
+        return ajax.get(`iqiyiTvlist?pageno=${msg.pageno}&pagesize=${msg.pagesize}`)
+    },
     getiqiyiTvMsg () {
         // return ajax.get('/iqiyiTvMsg')
         return ajax.get('http://127.0.0.1:7001/iqiyiTvMsg?tvid=216274801')
