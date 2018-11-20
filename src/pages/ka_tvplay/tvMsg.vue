@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div style="font-size:30px">
+            敬请期待~
+        </div>
         <div class="wrapper-content">
             <div id="widget-tab-0" data-tabname="ablumTab0" data-widget-hoverclick="true" data-album-score="main">
                 <div class=" album-head-v2 " id="block-BB" data-lequid="2771" data-asyn-pb="true">
@@ -66,9 +69,7 @@
                 </div>
             </div>
         </div>
-        <div>
-            敬请期待{{ tvid }} {{allMsg }}~
-        </div>
+
     </div>
 </template>
 <script>
