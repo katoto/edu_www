@@ -41,7 +41,7 @@
             <div class="cs-copyright">
                 <p>本站提供的最新电影和电视剧资源均系收集于各大视频网站,本站只提供web页面服务,并不提供影片资源存储,也不参与录制、上传。</p>
                 <p>若本站收录的节目无意侵犯了贵司版权，请给网页底部邮箱地址来信,我们会及时处理和回复,谢谢。</p>
-                <p>管理员邮箱：zgxie@126.com</p>
+                <p>管理员邮箱：1196781017@qq.com</p>
                 ©Katoto 2018. All Rights Reserved
             </div>
         </div>
@@ -68,10 +68,6 @@ export default {
             }],
             isShowLanguage: false
         }
-    },
-    watch: {},
-    components: {
-
     },
     methods: {
         scroll () {
@@ -179,24 +175,6 @@ export default {
       height: 16px;
       margin-right: 6px;
     }
-    // .language-choose {
-    //   position: relative;
-    //   display: flex;
-    //   justify-content: flex-start;
-    //   padding: 6px;
-    //   cursor: pointer;
-    //   &::after {
-    //     position: absolute;
-    //     top: 11px;
-    //     right: 11px;
-    //     content: "";
-    //     display: block;
-    //     width: 13px;
-    //     height: 8px;
-    //     background: url(../assets/img/icon-arrow-down.png) no-repeat center;
-    //     background-size: 13px 8px;
-    //   }
-    // }
     &.on {
       border-color: #698cdd;
       ul {
@@ -211,48 +189,17 @@ export default {
   }
 }
 
-@media (max-width: @screen-lg-desktop) {
+/* xs超小屏幕（手机，最大 480） */
+@media (max-width: @screen-phone) {
   .footer {
-    height: 560px;
-    line-height: 20px;
-    .fmain {
-      padding: 0 percentage(30/750) 0;
-    }
-    .ftitle {
-      margin-top: 17/2px;
-      margin-bottom: 0;
-      line-height: 57/2px;
-      font-size: 18px;
-    }
-    .reserved {
-      width: 100%;
-      padding: 55/2px 0 0 0;
-    }
-    .foot-mid {
-      width: 100%;
-      .about,
-      .game {
-        a {
-          line-height: 24px;
-          font-size: 14px;
-        }
-      }
-    }
-    .contact {
-      width: 100%;
-      text-align: left;
-      p {
-        line-height: 24px;
-      }
-      .language {
-        float: left;
-      }
-    }
     .cs-copyright {
-      position: absolute;
-      left: 4%;
-      transform: translateX(0);
+      position: relative;
+      margin: 0 auto;
+      width: 96%;
     }
+  }
+  .contact {
+    display: none;
   }
 }
 </style>

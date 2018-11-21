@@ -8,12 +8,12 @@
                         <span class="pay">免费看</span>
                         <div class="mask-wrap">
                             <span class="hint">2018</span>
-                            <span class="point">{{ item.score }}</span>
                         </div>
                     </div>
                     <div class="detail">
                         <p class="title g-clear">
                             <span class="s1">{{ item.name }}</span>
+                            <span class="point fr">{{ item.score }}</span>
                         </p>
                         <p class="star">{{ item.desc }}</p>
                     </div>
@@ -48,6 +48,8 @@ export default {
 }
 </script>
 <style lang="less" scoped type="text/less">
+@import "../../styles/lib-media.less";
+
 .waiting {
   width: 100%;
   height: 500px;
@@ -95,6 +97,10 @@ export default {
   .detail {
     width: 100%;
     background: #fff;
+    .point {
+      margin-right: 5px;
+      color: #ff722c;
+    }
   }
   .hint {
     position: absolute;
@@ -119,6 +125,22 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+}
+/* xs超小屏幕（手机，最大 480） */
+@media (max-width: @screen-phone) {
+  .b-listtab-main {
+    .item {
+      width: 45%;
+      height: 254px;
+      max-width: 150px;
+      border-bottom: 1px solid #e9e9e9;
+      margin: 0 0 10px 10px;
+    }
+    .cover {
+      width: 100%;
+      height: 200px;
+    }
   }
 }
 </style>
