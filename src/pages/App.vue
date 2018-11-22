@@ -3,7 +3,7 @@
 
         <HEAD></HEAD>
         <router-view v-if="isReady" @click.native="initPop" class="page_all" />
-        <!--返回顶部-->
+        <!-- 返回顶部  -->
         <ScrollTop></ScrollTop>
         <Footer></Footer>
     </div>

@@ -3,7 +3,7 @@
         <Search></Search>
         <section class="ka_body">
             <section class="movieContent">
-                <h2>热门电影</h2>
+                <h2>热门电影1</h2>
                 <div class="container">
                     <ul class="row">
                         <li v-for="item in movie" class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
