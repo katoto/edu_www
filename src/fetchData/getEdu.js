@@ -9,7 +9,7 @@ let getList = async () => {
     let getUrlObj = {
 
         // < ul class="nav navbar-nav sub-nav hidden-xs" >
-        // <li class="active"><a href="/class/2250">幼儿读物</a></li> <li><a href="/class/2251">儿童英语</a></li> <li><a href="/class/2252">拼音汉字</a></li> <li><a href="/class/2253">启蒙教育</a></li> <li><a href="/class/2254">儿童歌曲</a></li> <li><a href="/class/2255">其他</a></li>					  </ul >
+        // <li class="active"><a href="/class/2250">幼儿读物</a></li> <li><a href="/class/2251">儿童英语</a></li> <li><a href="/class/2252">拼音汉字</a></li> <li><a href="/class/2253">启蒙教育</a></li> <li><a href="/class/2254">儿童歌曲</a></li> <li><a href="/class/2255">其他</a></li>	</ul >
 
         preschool: ['/class/2250', '/class/2251', '/class/2252', '/class/2253', '/class/2254', '/class/2255'], // 学前教育
         primaryschool: [], // 小学教育

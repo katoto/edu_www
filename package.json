@@ -6,19 +6,13 @@
     "scripts": {
         "prebuild": "npm run clean",
         "build": "cross-env NODE_ENV=production node build/build.js",
-        "postbuild": "npm run create404 && npm run seo",
         "prebuild-test": "npm run clean",
         "build-test": "cross-env NODE_ENV=preRelease node build/build.js",
-        "postbuild-test": "npm run create404",
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
-        "create404": "cp ./dist/index.html ./dist/404.html",
         "lint-fix": "eslint --ext .js,.vue src --fix",
         "clean": "rimraf dist/*",
         "i18n": "node ./i18n.js",
-        "seo": "node ./seo.js",
-        "deploy167": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/",
-        "build-offline": "npm run build-test && npm run deploy-offline",
-        "deploy-lang": "scp -r dist/* root@10.0.1.167:/var/www/coinslot-lang"
+        "deploy167": "scp -r dist/* root@10.0.1.167:/home/service/xiezg/koademo/static/"
     },
     "dependencies": {
         "axios": "^0.18.0",
