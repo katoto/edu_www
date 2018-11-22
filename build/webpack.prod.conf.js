@@ -143,9 +143,10 @@ const webpackConfig = merge(baseWebpackConfig, {
                 port: 4570
             },
             renderer: new Renderer({
-                headless: false,
+                headless: true,
                 renderAfterElementExists: '#app',
-                renderAfterTime: 5000
+                renderAfterTime: 5000,
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
             }),
             postProcess(renderedRoute) {
                 renderedRoute.html = renderedRoute.html.replace(/[\n]|[\r]/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
