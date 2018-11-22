@@ -140,7 +140,7 @@ const webpackConfig = merge(baseWebpackConfig, {
                 sortAttributes: true
             },
             server: {
-                port: 8071
+                port: 4570
             },
             renderer: new Renderer({
                 headless: false,
