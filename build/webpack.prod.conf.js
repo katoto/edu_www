@@ -11,8 +11,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-// const prerenderSPAPlugin = require('prerender-spa-plugin')
-// const Renderer = prerenderSPAPlugin.PuppeteerRenderer
+const prerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = prerenderSPAPlugin.PuppeteerRenderer
 
 const env = require('../config/prod.env')
 
@@ -128,32 +128,32 @@ const webpackConfig = merge(baseWebpackConfig, {
                 to: '../dist',
                 ignore: ['.*']
             }
-        ])
-        // new prerenderSPAPlugin({
-        //     staticDir: path.join(__dirname, '../dist'),
-        //     routes: ['/', '/movie', '/tvplay'],
-        //     minify: {
-        //         collapseBooleanAttributes: true,
-        //         collapseWhitespace: true,
-        //         decodeEntities: true,
-        //         keepClosingSlash: true,
-        //         sortAttributes: true
-        //     },
-        //     server: {
-        //         port: 4570
-        //     },
-        //     renderer: new Renderer({
-        //         headless: true,
-        //         renderAfterElementExists: '#app',
-        //         renderAfterTime: 5000,
-        //         args: ['--no-sandbox', '--disable-setuid-sandbox']
-        //     }),
-        //     postProcess(renderedRoute) {
-        //         renderedRoute.html = renderedRoute.html.replace(/[\n]|[\r]/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-        //             .replace(/<div id="app"[^>]*>/i, '<div id="app" style="visibility:hidden">');
-        //         return renderedRoute
-        //     }
-        // })
+        ]),
+        new prerenderSPAPlugin({
+            staticDir: path.join(__dirname, '../dist'),
+            routes: ['/', '/movie', '/tvplay'],
+            minify: {
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true,
+                decodeEntities: true,
+                keepClosingSlash: true,
+                sortAttributes: true
+            },
+            server: {
+                port: 4570
+            },
+            renderer: new Renderer({
+                headless: true,
+                renderAfterElementExists: '#app',
+                renderAfterTime: 5000,
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
+            }),
+            postProcess(renderedRoute) {
+                renderedRoute.html = renderedRoute.html.replace(/[\n]|[\r]/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                    .replace(/<div id="app"[^>]*>/i, '<div id="app" style="visibility:hidden">');
+                return renderedRoute
+            }
+        })
     ]
 })
 
