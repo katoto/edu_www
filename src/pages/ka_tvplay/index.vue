@@ -82,7 +82,6 @@ export default {
 .b-listtab-main {
   margin-top: 0px;
   padding-top: 0px;
-  overflow: hidden;
   border-top: 1px solid #eee;
   .item {
     float: left;
