@@ -16,11 +16,24 @@ const movie = () => import('~/pages/ka_movie/index')
 const tvplay = () => import('~/pages/ka_tvplay/index')
 const tvMsg = () => import('~/pages/ka_tvplay/tvMsg')
 
+const htmlnav = () => import('~/pages/ka_nav/htmlnav')
+const pmnav = () => import('~/pages/ka_nav/pmnav')
+
 let routesArr = [
     {
         path: '/movie',
         name: 'movie',
         component: movie
+    },
+    {
+        path: '/htmlnav',
+        name: 'htmlnav',
+        component: htmlnav
+    },
+    {
+        path: '/pmnav',
+        name: 'pmnav',
+        component: pmnav
     },
     {
         path: '/tvplay',

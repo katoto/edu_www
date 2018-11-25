@@ -11,6 +11,12 @@
                 <router-link :to="{path: '/tvplay'}">
                     电视剧
                 </router-link>
+                <router-link :to="{path: '/htmlnav'}">
+                    前端猿导航
+                </router-link>
+                <router-link :to="{path: '/pmnav'}">
+                    产品狗导航
+                </router-link>
             </div>
         </div>
     </div>
