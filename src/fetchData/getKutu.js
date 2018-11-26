@@ -9,7 +9,8 @@ let getList = async () => {
     let kutuImg = []
     for (let i = 0; i < 1; i++) {
         const page = await browser.newPage()
-        await page.goto('http://www.win4000.com/meinvtag4_' + (i + 1) + '.html')
+        // await page.goto('http://www.win4000.com/meinvtag4_' + (i + 1) + '.html')
+        await page.goto('http://www.win4000.com/meinvtag24_2.html')
         const basekutuImg = await page.evaluate(() => {
             let kutu = []
             document.querySelectorAll('.w1180 .list_cont .tab_box li').forEach((item, index) => {
@@ -26,6 +27,9 @@ let getList = async () => {
         })
         kutuImg = kutuImg.concat(basekutuImg)
     }
+    console.log(kutuImg.length)
+    console.log('===========')
+    console.log(kutuImg.length)
     for (let i = 0; i < kutuImg.length; i++) {
         const page = await browser.newPage()
         await page.goto(kutuImg[i].picLink)
