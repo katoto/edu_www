@@ -10,51 +10,66 @@ import language from '../plugins/language'
 Vue.use(Router)
 
 // index 首页
-const index = () => import('~/pages/ka_home/index')
-const play = () => import('~/pages/ka_home/play')
-const movie = () => import('~/pages/ka_movie/index')
-const tvplay = () => import('~/pages/ka_tvplay/index')
-const tvMsg = () => import('~/pages/ka_tvplay/tvMsg')
+const index = () =>
+    import('~/pages/ka_home/index')
+const play = () =>
+    import('~/pages/ka_home/play')
+const movie = () =>
+    import('~/pages/ka_movie/index')
+const tvplay = () =>
+    import('~/pages/ka_tvplay/index')
+const tvMsg = () =>
+    import('~/pages/ka_tvplay/tvMsg')
 
-const htmlnav = () => import('~/pages/ka_nav/htmlnav')
-const pmnav = () => import('~/pages/ka_nav/pmnav')
+const htmlnav = () =>
+    import('~/pages/ka_nav/htmlnav')
+const pmnav = () =>
+    import('~/pages/ka_nav/pmnav')
 
-let routesArr = [
-    {
-        path: '/movie',
-        name: 'movie',
-        component: movie
-    },
-    {
-        path: '/htmlnav',
-        name: 'htmlnav',
-        component: htmlnav
-    },
-    {
-        path: '/pmnav',
-        name: 'pmnav',
-        component: pmnav
-    },
-    {
-        path: '/tvplay',
-        name: 'tvplay',
-        component: tvplay
-    },
-    {
-        path: '/tvMsg/:tvid?',
-        name: 'tvMsg',
-        component: tvMsg
-    },
-    {
-        path: '/play/:urlVal?',
-        name: 'play',
-        component: play
-    },
-    {
-        path: '/*',
-        name: _('Home'),
-        component: index
-    }
+// 年级资讯详情
+const eduIndex = () =>
+    import('~/pages/ka_edu/classpage')
+
+let routesArr = [{
+    path: '/movie',
+    name: 'movie',
+    component: movie
+},
+{
+    path: '/htmlnav',
+    name: 'htmlnav',
+    component: htmlnav
+},
+{
+    path: '/pmnav',
+    name: 'pmnav',
+    component: pmnav
+},
+{
+    path: '/tvplay',
+    name: 'tvplay',
+    component: tvplay
+},
+{
+    path: '/tvMsg/:tvid?',
+    name: 'tvMsg',
+    component: tvMsg
+},
+{
+    path: '/eduIndex/:classNum?',
+    name: 'eduIndex',
+    component: eduIndex
+},
+{
+    path: '/play/:urlVal?',
+    name: 'play',
+    component: play
+},
+{
+    path: '/*',
+    name: _('Home'),
+    component: index
+}
 ]
 
 export default new Router({

@@ -19,7 +19,7 @@
                     <a></a>
                 </div>
             </section>
-            <section class="tvContent">
+            <section class="tvContent hide">
                 <h2>热门MV</h2>
                 <div class="container">
                     <ul class="row">

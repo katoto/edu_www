@@ -1,11 +1,6 @@
 <template>
-    <div id="app" :class="{ready: isReady}">
-
-        <HEAD v-if="showMovieHead"></HEAD>
-        <router-view v-if="isReady" @click.native="initPop" class="page_all" />
-        <!-- 返回顶部  -->
-        <ScrollTop></ScrollTop>
-        <Footer v-if="showMovieHead"></Footer>
+    <div class="eduContain">
+        edu Page
     </div>
 </template>
 
@@ -14,8 +9,7 @@ import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common
 import HEAD from '~components/Head.vue'
 import Footer from '~components/Footer.vue'
 import ScrollTop from '~components/ScrollTop.vue'
-import eduHEAD from '~components/eduHead.vue'
-import eduFooter from '~components/eduFooter.vue'
+
 export default {
     data () {
         return {
@@ -26,9 +20,7 @@ export default {
     components: {
         HEAD,
         ScrollTop,
-        Footer,
-        eduHEAD,
-        eduFooter
+        Footer
     },
     methods: {
         selfNotify,
@@ -127,94 +119,9 @@ export default {
 }
 </script>
 <style lang="less">
-@keyframes flipEntry {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  20%,
-  60%,
-  70%,
-  80% {
-    transform: rotateZ(20deg);
-  }
-  40%,
-  65%,
-  75%,
-  85% {
-    transform: rotateZ(-21deg);
-  }
-}
+
 </style>
 
 <style lang="less" type="text/less">
-@import "../styles/lib-reset.css";
-@import "../styles/lib-font.less";
-@import "../styles/lib-public.less";
-@import "../styles/lib-media.less";
-@import "../styles/lib-mixins.less";
 
-#app {
-  position: relative;
-  background: #eef1f9;
-  font-size: 14px;
-  line-height: 20px;
-  font-family: sans-r, Microsoft Yahei;
-  color: #263648;
-  -webkit-overflow-scrolling: touch;
-  overflow: hidden;
-}
-.noscrolling {
-  #app {
-    -webkit-overflow-scrolling: auto;
-  }
-}
-.radioLi {
-  display: flex;
-  justify-content: center;
-  height: 22px;
-  line-height: 22px;
-  overflow: hidden;
-  font-size: 12px;
-  color: #fff;
-  li {
-    display: flex;
-    justify-content: center;
-  }
-  li + li {
-    margin-left: 5px;
-  }
-  img {
-    display: block;
-    width: 22px;
-    height: 22px;
-  }
-}
-
-//临时蜘蛛线条
-.ghost2-ct,
-.ghost21-ct {
-  img {
-    z-index: 2;
-  }
-  &::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: 1;
-    top: -65px;
-    left: 51%;
-    width: 2px;
-    height: 150px;
-    background: #410414;
-    z-index: -1;
-  }
-}
-.ghost21-ct {
-  &::before {
-    content: "";
-    top: -230px;
-    height: 350px;
-  }
-}
 </style>
