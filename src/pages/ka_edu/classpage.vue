@@ -1,6 +1,55 @@
 <template>
     <div class="eduContain">
         edu Page
+        <div>
+            <p>yuwen</p>
+            <ul>
+                <li v-for="item in yuwenArr">
+                    {{ item.titleName }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <p>yingyu</p>
+            <ul>
+                <li v-for="item in yingyuArr">
+                    {{ item.titleName }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <p>shuxue</p>
+            <ul>
+                <li v-for="item in shuxueArr">
+                    {{ item.titleName }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <p>zixun</p>
+            <ul>
+                <li v-for="item in zixunArr">
+                    {{ item }}
+                </li>
+            </ul>
+        </div>
+        <div class="pagination">
+            <el-pagination @current-change="yuwen_handleCurrentChange" background :current-page.sync="yuwen_pageno" size="small" :page-size="yuwen_pageSize" layout="prev, pager, next" :page-count="yuwen_PageTotal" :next-text="'下一页'" :prev-text="'上一页'">
+            </el-pagination>
+        </div>
+        <div class="pagination">
+            <el-pagination @current-change="shuxue_handleCurrentChange" background :current-page.sync="shuxue_pageno" size="small" :page-size="shuxue_pageSize" layout="prev, pager, next" :page-count="shuxue_PageTotal" :next-text="'下一页'" :prev-text="'上一页'">
+            </el-pagination>
+        </div>        
+        <div class="pagination">
+            <el-pagination @current-change="yingyu_handleCurrentChange" background :current-page.sync="yingyu_pageno" size="small" :page-size="yingyu_pageSize" layout="prev, pager, next" :page-count="yingyu_PageTotal" :next-text="'下一页'" :prev-text="'上一页'">
+            </el-pagination>
+        </div>
+        
+        <div class="pagination">
+            <el-pagination @current-change="zixun_handleCurrentChange" background :current-page.sync="zixun_pageno" size="small" :page-size="zixun_pageSize" layout="prev, pager, next" :page-count="zixun_PageTotal" :next-text="'下一页'" :prev-text="'上一页'">
+            </el-pagination>
+        </div>        
     </div>
 </template>
 
@@ -14,7 +63,25 @@ export default {
     data () {
         return {
             isReady: false,
-            showMovieHead: true
+            showMovieHead: true,
+            
+            currClassNum: 'Class1',
+            yingyu_pageno: 1,
+            yingyu_pageSize: 8,
+            yingyu_PageTotal: 3,
+            yingyuArr: [],
+            shuxue_pageno: 1,
+            shuxue_pageSize: 8,
+            shuxue_PageTotal: 4,
+            shuxueArr: [],
+            yuwen_pageno: 1,
+            yuwen_pageSize: 8,
+            yuwen_PageTotal: 5,
+            yuwenArr: [],
+            zixun_pageno: 1,
+            zixun_pageSize: 8,
+            zixun_PageTotal: 5,
+            zixunArr: []
         }
     },
     components: {
@@ -24,26 +91,62 @@ export default {
     },
     methods: {
         selfNotify,
-        handleInit () {
-            document.getElementById('app').style.visibility = 'visible'
-            switch (defaultLanguage) {
-            case 'en':
-                document.getElementById('contentLanguange').setAttribute('content', 'en-us')
-                break
-            case 'zhTw':
-                document.getElementById('contentLanguange').setAttribute('content', 'zh-tw')
-                break
-            case 'zhCn':
-                document.getElementById('contentLanguange').setAttribute('content', 'zh-cn')
-                break
+        async yingyu_handleCurrentChange (yingyu_pageno = this.yingyu_pageno) {
+            let params = {
+                pageno: yingyu_pageno,
+                pagesize: 8,
+                className: this.currClassNum,
+                xueke: 'Yingyu'
+            }
+            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
+            if (data && data.status === '100') {
+                this.yingyuArr = data.data.msg
+                this.yingyu_PageTotal = data.data.totalPages
             }
         },
-        initPop () {
-            /* head 弹窗 */
-            if (this.isSlot || this.isDapp) {
-                return
+        async shuxue_handleCurrentChange (shuxue_pageno = this.shuxue_pageno) {
+            let params = {
+                pageno: shuxue_pageno,
+                pagesize: 8,
+                className: this.currClassNum,
+                xueke: 'Shuxue'
             }
-            this.$store.commit('initHeadState', new Date().getTime())
+            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
+            if (data && data.status === '100') {
+                this.shuxueArr = data.data.msg
+                this.shuxue_PageTotal = data.data.totalPages
+            }
+        },
+        async yuwen_handleCurrentChange (yuwen_pageno = this.yuwen_pageno) {
+            let params = {
+                pageno: yuwen_pageno,
+                pagesize: 8,
+                className: this.currClassNum,
+                xueke: 'Yuwen'
+            }
+            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
+            if (data && data.status === '100') {
+                this.yuwenArr = data.data.msg
+                this.yuwen_PageTotal = data.data.totalPages
+            }
+        },
+        async zixun_handleCurrentChange (zixun_pageno = this.zixun_pageno) {
+            let params = {
+                pageno: zixun_pageno,
+                pagesize: 8
+            }
+            let data = await this.$store.dispatch('ka_edu/getzixun', params)
+            if (data && data.status === '100') {
+                this.zixunArr = data.data.msg
+                this.zixun_PageTotal = data.data.totalPages
+            }
+        },
+        async pageInit () {
+            // 请求当前年级数据
+            this.yingyu_handleCurrentChange()
+            this.shuxue_handleCurrentChange()
+            this.yuwen_handleCurrentChange()
+            this.zixun_handleCurrentChange()
         }
     },
     watch: {
@@ -60,61 +163,11 @@ export default {
 
     },
     async mounted () {
-        (function flexible (window, document) {
-            var docEl = document.documentElement
-            function setRemUnit () {
-                var rem = '75'
-                if (docEl.clientWidth > 1200) {
-                    // rem = 1920 because px
-                    rem = 75
-                } else if (docEl.clientWidth > 768 && docEl.clientWidth < 1200) {
-                    // rem = 768 because px
-                    rem = 75
-                } else if (docEl.clientWidth < 768) {
-                    rem = docEl.clientWidth / 10
-                }
-                docEl.style.fontSize = rem + 'px'
-            }
-
-            setRemUnit()
-
-            // reset rem unit on page resize
-            window.addEventListener('resize', setRemUnit)
-            window.addEventListener('pageshow', function (e) {
-                if (e.persisted) {
-                    setRemUnit()
-                }
-            })
-        }(window, document))
-
-        this.handleInit()
-        // let userMsg = await this.$store.dispatch('getUserInfo')
-        if (isLog()) {
-            this.$store.commit('setIsLog', true)
-        } else {
-            this.$store.commit('setIsLog', false)
+        if (this.$route.params && this.$route.params.classNum) {
+            this.currClassNum = this.$route.params.classNum
         }
-        this.isReady = true
-
-        /* 禁止左右滚动 */
-        let xStart, xEnd, yStart, yEnd
-        document.addEventListener('touchstart', function (evt) {
-            xStart = evt.touches[0].pageX
-            yStart = evt.touches[0].pageY
-        }, false)
-        document.addEventListener('touchmove', function (evt) {
-            xEnd = evt.touches[0].pageX
-            yEnd = evt.touches[0].pageY
-            Math.abs(xStart - xEnd) > Math.abs(yStart - yEnd) && evt.preventDefault()
-        }, false)
-
-        setTimeout(function () {
-            document.getElementById('csLoading').style.display = 'none'
-        }, 0)
-        
-        if (window.location.href.indexOf('edu') > -1) {
-            this.showMovieHead = false
-        }
+        console.log( this.currClassNum )
+        this.pageInit()
     }
 }
 </script>
