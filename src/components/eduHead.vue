@@ -5,17 +5,23 @@
                 <img src="../assets/images/katoto.png" alt="">
             </a>
             <div class="h_list icon-new">
-                <router-link :to="{path: '/movie'}">
-                    电影edu
+                <router-link :to="{path: '/eduIndex/Class1'}">
+                    小学一年级
                 </router-link>
-                <router-link :to="{path: '/tvplay'}">
-                    电视剧
+                <router-link :to="{path: '/eduIndex/Class2'}">
+                    小学二年级
                 </router-link>
-                <router-link :to="{path: '/htmlnav'}">
-                    前端猿导航
+                <router-link :to="{path: '/eduIndex/Class3'}">
+                    小学三年级
                 </router-link>
-                <router-link :to="{path: '/pmnav'}">
-                    产品狗导航
+                <router-link :to="{path: '/eduIndex/Class4'}">
+                    小学四年级
+                </router-link>
+                <router-link :to="{path: '/eduIndex/Class5'}">
+                    小学五年级
+                </router-link>
+                <router-link :to="{path: '/eduIndex/Class6'}">
+                    小学六年级
                 </router-link>
             </div>
         </div>

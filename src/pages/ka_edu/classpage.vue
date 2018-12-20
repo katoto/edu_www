@@ -1,6 +1,24 @@
 <template>
     <div class="eduContain">
-        edu Page
+        <section>
+            <div class="seat daily-zy" >
+                <div class="seat-mt" >
+                    <strong><i class="icon"></i>每日推荐</strong>
+                    <div class="seat-nav">
+                        <a class="active" @click="zixun_handleCurrentChange(1)" >热门推荐</a>
+                        <a class="active" @click="zixun_handleCurrentChange(2)" >精选推荐</a>
+                    </div>
+                </div>
+                <div class="seat-mc daily-zy-bd" style="display: block;">
+                    <ul class="seat-list clearfix" _num="18">
+                        <li v-for="(item,index) in zixunArr" :key="index">
+                            <a :href="item.titleLink" target="_blank"><b></b>{{ item.titleName }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
         <div>
             <p>yuwen</p>
             <ul>
@@ -45,11 +63,7 @@
             <el-pagination @current-change="yingyu_handleCurrentChange" background :current-page.sync="yingyu_pageno" size="small" :page-size="yingyu_pageSize" layout="prev, pager, next" :page-count="yingyu_PageTotal" :next-text="'下一页'" :prev-text="'上一页'">
             </el-pagination>
         </div>
-        
-        <div class="pagination">
-            <el-pagination @current-change="zixun_handleCurrentChange" background :current-page.sync="zixun_pageno" size="small" :page-size="zixun_pageSize" layout="prev, pager, next" :page-count="zixun_PageTotal" :next-text="'下一页'" :prev-text="'上一页'">
-            </el-pagination>
-        </div>        
+
     </div>
 </template>
 
@@ -64,23 +78,23 @@ export default {
         return {
             isReady: false,
             showMovieHead: true,
-            
+
             currClassNum: 'Class1',
             yingyu_pageno: 1,
             yingyu_pageSize: 8,
-            yingyu_PageTotal: 3,
+            yingyu_PageTotal: 2,
             yingyuArr: [],
             shuxue_pageno: 1,
             shuxue_pageSize: 8,
-            shuxue_PageTotal: 4,
+            shuxue_PageTotal: 2,
             shuxueArr: [],
             yuwen_pageno: 1,
             yuwen_pageSize: 8,
-            yuwen_PageTotal: 5,
+            yuwen_PageTotal: 2,
             yuwenArr: [],
             zixun_pageno: 1,
-            zixun_pageSize: 8,
-            zixun_PageTotal: 5,
+            zixun_pageSize: 12,
+            zixun_PageTotal: 2,
             zixunArr: []
         }
     },
@@ -120,7 +134,7 @@ export default {
         async yuwen_handleCurrentChange (yuwen_pageno = this.yuwen_pageno) {
             let params = {
                 pageno: yuwen_pageno,
-                pagesize: 8,
+                pagesize: this.yuwen_pageSize,
                 className: this.currClassNum,
                 xueke: 'Yuwen'
             }
@@ -133,7 +147,7 @@ export default {
         async zixun_handleCurrentChange (zixun_pageno = this.zixun_pageno) {
             let params = {
                 pageno: zixun_pageno,
-                pagesize: 8
+                pagesize: this.zixun_pageSize
             }
             let data = await this.$store.dispatch('ka_edu/getzixun', params)
             if (data && data.status === '100') {
@@ -154,6 +168,12 @@ export default {
             if (!value) {
                 this.isShowHalloween = false
             }
+        },
+        $route (to, from) {
+            if (this.$route.params && this.$route.params.classNum) {
+                this.currClassNum = this.$route.params.classNum
+            }
+            this.pageInit()
         }
     },
     computed: {
@@ -166,7 +186,7 @@ export default {
         if (this.$route.params && this.$route.params.classNum) {
             this.currClassNum = this.$route.params.classNum
         }
-        console.log( this.currClassNum )
+        console.log(this.currClassNum)
         this.pageInit()
     }
 }
@@ -176,5 +196,90 @@ export default {
 </style>
 
 <style lang="less" type="text/less">
-
+    .seat {
+        margin-left: auto;
+        margin-right: auto;
+        width: 1200px;
+        background: #fff;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        margin-top: 20px;
+        .seat-mt{
+            height: 83px;
+            display: block;
+            zoom: 1;
+            position: relative;
+            line-height: 24px;
+            strong{
+                font-size: 22px;
+                font-weight: 400;
+                float: left;
+                height: 24px;
+                margin-top: 30px;
+                .icon{
+                    float: left;
+                    height: 22px;
+                    margin-top: 1px;
+                    margin-right: 16px;
+                    font-size: 0;
+                    border-left: 4px solid #2bbb61;
+                    width: 0;
+                }
+            }
+        }
+        .seat-nav{
+            margin-left: 40px;
+            float: left;
+            padding-top: 26px;
+            a{
+                height: 24px;
+                padding: 0 5px 4px 5px;
+                border-bottom: 2px solid #fff;
+                color: #333;
+                font-size: 14px;
+                margin-right: 20px;
+                &:hover{
+                    border-bottom: 2px solid #2bbb61;
+                    text-decoration: none;
+                    color: #2bbb61;                    
+                }
+            }
+        }
+    }
+    .daily-zy {
+        .seat-mc{
+            position: relative;
+            overflow: hidden;
+            .seat-list{
+                line-height: 1;
+                font-size: 14px;
+                margin-left: 20px;
+                margin-right: -20px;
+                padding-bottom: 8px;
+                li{
+                    padding-bottom: 22px;
+                    width: 400px;
+                    float: left;
+                    b{
+                        float: left;
+                        width: 4px;
+                        height: 4px;
+                        font-size: 0;
+                        line-height: 0;
+                        background: #999;
+                        margin-right: 10px;
+                        margin-top: 5px;
+                        border-radius: 2px;
+                    }
+                }
+            }
+        }
+    }
+    a{
+        text-decoration: none;
+        cursor: pointer;
+        outline: 0;
+        color: #333;
+    }
 </style>
