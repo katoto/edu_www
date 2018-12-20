@@ -1,5 +1,8 @@
 <template>
     <div class="eduContain">
+        <div class="topImg">
+            <img :src="topMonthImg">
+        </div>
         <section>
             <div class="seat daily-zy" >
                 <div class="seat-mt" >
@@ -95,7 +98,8 @@ export default {
             zixun_pageno: 1,
             zixun_pageSize: 12,
             zixun_PageTotal: 2,
-            zixunArr: []
+            zixunArr: [],
+            topMonthImg: '../../../static/eduImg/1.jpg'
         }
     },
     components: {
@@ -188,6 +192,7 @@ export default {
         }
         console.log(this.currClassNum)
         this.pageInit()
+        this.topMonthImg = '../../../static/eduImg/' + (new Date().getMonth() + 1) + '.jpg'
     }
 }
 </script>
@@ -196,6 +201,15 @@ export default {
 </style>
 
 <style lang="less" type="text/less">
+    .topImg{
+        margin-left: auto;
+        margin-right: auto;
+        width: 1200px;
+        img{
+            display: block;
+            width: 100%
+        }
+    }
     .seat {
         margin-left: auto;
         margin-right: auto;
@@ -204,7 +218,7 @@ export default {
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
-        margin-top: 20px;
+        margin-top: 2px;
         .seat-mt{
             height: 83px;
             display: block;

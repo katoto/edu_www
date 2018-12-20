@@ -39,6 +39,7 @@ export default {
   width: 100%;
   height: 70px;
   background-color: #151515;
+  border-bottom: 1px solid transparent;
   .head {
     width: 100%;
     max-width: 1190px;
