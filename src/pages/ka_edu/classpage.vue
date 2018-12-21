@@ -21,7 +21,82 @@
                 </div>
             </div>
         </section>
-        
+        <section>
+            <div class="main-row-box section-djtj clearfix">
+                <div class="container-half djtj-box">
+                    <span class="title-tips">语文</span>
+                    <div class="list-table-wrap">
+                        <ul class="djtj-news-list ">
+                            <li class="djtj-news-title clearfix">
+                                <img src="http://zxxkstatic.zxxk.com/zxxk/skins/images/baiqiang.png" class="exam-title-thumb fl" alt="">
+                                <div class="exam-title-box fl">
+                                    <p><a href="http://www.zxxk.com/set/s1-123468.html" title="江西省南昌市第十中学2018-2019学年高一上学期第二次月考试题" target="_blank">江西省南昌市第十中学2018-2019学年高一上学期第二次月考试题</a></p>
+                                    <p class="author-date">
+                                            <span class="sm-tips-font">高一</span>
+                                        <span class="sm-tips-font fr  ">12-20</span>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="sm-tips-font fl red date">
+                                    12-21
+                                </div>
+                                <p class="title">
+                                    <a href="http://www.zxxk.com/set/s1-123500.html" title="河南省商丘市回民高级中学2019届高三12月月考试题" target="_blank">河南省商丘市回民高级中学2019届高三12月月考试题</a>
+                                </p>
+                                <div class="list-rt-tag-box sm-tips-font">
+                                    <span class="djtj-tag">高三</span>
+                                    <span class="vertical-line"></span>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li>
+                                <div class="sm-tips-font fl red date">
+                                    12-21
+                                </div>
+                                <p class="title">
+                                    <a href="http://www.zxxk.com/set/s1-123486.html" title="四川省宜宾市第四中学2019届高三12月月考试题" target="_blank">四川省宜宾市第四中学2019届高三12月月考试题</a>
+                                </p>
+                                <div class="list-rt-tag-box sm-tips-font">
+                                    <span class="djtj-tag">高三</span>
+                                    <span class="vertical-line"></span>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="container-half zlzj-box" style="position: relative;margin-left: 40px;">
+                    <span class="title-tips">数学</span>
+                    <div class="list-table-wrap">
+                        <ul class="djtj-news-list" id="elitefeature">
+                            <li class="djtj-news-title">
+                                <img src="http://zxxkstatic.zxxk.com/zxxk/skins/images/jingxuan.png" class="exam-title-thumb fl" alt="">
+                                <div class="exam-title-box fl">
+                                    <p><a href="http://www.zxxk.com/zj/info-171841.html" title="【众淘精优推荐】2019年高考数学之联考君(文科)" target="_blank">【众淘精优推荐】2019年高考数学之联考君(文科)</a></p>
+                                    <p class="author-date">
+                                        <span class="sm-tips-font">高三</span>
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="sm-tips-font fl red date">
+                                    12-21
+                                </div>
+                                <p class="title">
+                                    <a href="http://www.zxxk.com/zj/info-171849.html" title="2019届九年级化学上学期期末单元复习导学案" target="_blank">2019届九年级化学上学期期末单元复习导学案</a>
+                                </p>
+                                <div class="list-rt-tag-box sm-tips-font">
+                                    <span class="vertical-line"></span>
+                                    <span class="djtj-tag">初三</span>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
         <div>
             <p>yuwen</p>
             <ul>
@@ -210,6 +285,92 @@ export default {
             width: 100%
         }
     }
+    // ======== 课程 ========
+    .main-row-box{
+        background: #fff;
+        clear: both;
+        width: 1200px;
+        margin: 0 auto;
+        margin-top: 20px;
+        padding-top: 24px;
+        padding-bottom: 30px;
+        .container-half{
+            width: 570px;
+            margin-left: 0px;
+            float: left;
+            .title-tips{
+                height: 40px;
+                margin: 0 0 15px;
+                border-left: 3px solid #0d75d9;
+                font-size: 22px;
+                color: #057ee1;
+                padding-left: 17px;
+            }
+            .list-table-wrap{
+                padding-left: 20px;
+                margin-top: 15px;
+                .djtj-news-list{
+                    .djtj-news-title{
+                        min-height: 52px;
+                        margin-bottom: 20px;
+                        font-size: 16px;
+                        line-height: 26px;
+                        a{
+                            width: 468px;
+                            font-weight: 600;
+                        }
+                    }
+                    .author-date{
+                        padding: 6px 0 2px;
+                        clear: both;
+                    }
+                    .exam-title-thumb{
+                        width: 62px;
+                        height: 62px;
+                        float: left;
+                        border-radius: 5px;
+                    }
+                    .exam-title-box{
+                        float: left;
+                        margin-left: 20px;
+                        width: 468px;
+                    }
+                    .date{
+                        width: 45px;
+                    }
+                    .title{
+                        float: left;
+                    }
+                    li{
+                        a{
+                            display: inline-block;
+                            float: left;
+                        }
+                    }
+                    .list-rt-tag-box{
+                        float: right;
+                    }
+                }
+                
+            }
+            .sm-tips-font{
+                font-size: 12px;
+                color: #a0a0a0;
+                line-height: 19px;
+            }
+        }
+    }
+    .red {
+        color: #ff0000 !important;
+    }
+    .vertical-line{
+        display: inline-block;
+        height: 16px;
+        border-left: 1px solid #e6e6e6;
+        margin: 2px 5px;
+        float: right;
+    }
+    // ========每日推荐=========
     .seat {
         margin-left: auto;
         margin-right: auto;
@@ -296,4 +457,5 @@ export default {
         outline: 0;
         color: #333;
     }
+    // ========end=========
 </style>
