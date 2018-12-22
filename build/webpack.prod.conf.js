@@ -131,7 +131,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]),
         new prerenderSPAPlugin({
             staticDir: path.join(__dirname, '../dist'),
-            routes: ['/', '/movie', '/tvplay','/htmlnav', '/pmnav'],
+            routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6'],
             minify: {
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,
