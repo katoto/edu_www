@@ -10,11 +10,11 @@ import language from '../plugins/language'
 Vue.use(Router)
 
 // index 首页
-const index = () =>
+const movie = () =>
     import('~/pages/ka_home/index')
 const play = () =>
     import('~/pages/ka_home/play')
-const movie = () =>
+const moremovie = () =>
     import('~/pages/ka_movie/index')
 const tvplay = () =>
     import('~/pages/ka_tvplay/index')
@@ -34,6 +34,11 @@ let routesArr = [{
     path: '/movie',
     name: 'movie',
     component: movie
+},
+{
+    path: '/moremovie',
+    name: 'moremovie',
+    component: moremovie
 },
 {
     path: '/htmlnav',
@@ -68,7 +73,7 @@ let routesArr = [{
 {
     path: '/*',
     name: _('Home'),
-    component: index
+    component: eduIndex
 }
 ]
 

@@ -57,11 +57,19 @@ router.beforeEach((to, from, next) => {
     if (to.path.indexOf('movie') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto影院,katotoMV, 爱奇艺, 土豆, 腾讯, 优酷, 会员免费视频, VIP免费视频,免费VIP视频')
         document.title = 'katoto - 最新海量高清VIP视频_katoto网'
-        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto影院 - 海量高清VIP视频, MV免费看、看电影找katoto、看MV找katoto、刷资讯找katoto')
+        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto影院 - 海量高清VIP视频,看电影找katoto、刷资讯找katoto')
     } else if (to.path.indexOf('tvplay') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto影院,katotoMV, 爱奇艺, 土豆, 腾讯, 优酷, 会员免费视频, VIP免费视频,免费VIP视频')
-        document.title = 'katoto - 最新MV_音乐_katoto网'
-        document.getElementsByTagName('meta')['description'].setAttribute('content', '2018最新的高清音乐MTV大全，海量的大陆、港台、日韩、欧美音乐MTV视频大全就在katoto_MV大全')
+        document.title = 'katoto - 最新电视剧——katoto网'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto影院 - 海量高清VIP视频, 看电视剧找katoto、刷资讯找katoto')
+    } else if (to.path.indexOf('htmlnav') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto导航,前端网址导航、最新前端网址导航')
+        document.title = 'katoto - 前端网址导航'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto导航,前端网址导航, 海量高清VIP视频, 看电视剧找katoto、刷资讯找katoto')
+    } else if (to.path.indexOf('pmnav') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto导航,高级产品经理网址导航、最新产品经理网址导航')
+        document.title = 'katoto - 产品经理网址导航'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto导航,高级产品经理网址导航 海量高清VIP视频, 看电视剧找katoto、刷资讯找katoto')
     }
     next()
 })

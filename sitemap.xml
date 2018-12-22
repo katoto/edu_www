@@ -3,8 +3,68 @@
     <url>
         <loc>https://www.katoto.com/</loc>
         <priority>1.0</priority>
-        <lastmod>2018-07-24T04:20:32+08:00</lastmod>
+        <lastmod>2018-12-22T04:20:32+08:00</lastmod>
         <changefreq>always</changefreq>
+    </url>
+    <url>
+        <loc>https://www.katoto.com/eduIndex/Class1</loc>
+        <priority>1</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>    
+    <url>
+        <loc>https://www.katoto.com/eduIndex/Class2</loc>
+        <priority>1</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>    
+    <url>
+        <loc>https://www.katoto.com/eduIndex/Class3</loc>
+        <priority>1</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>    
+    <url>
+        <loc>https://www.katoto.com/eduIndex/Class4</loc>
+        <priority>1</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>    
+    <url>
+        <loc>https://www.katoto.com/eduIndex/Class5</loc>
+        <priority>1</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>    
+    <url>
+        <loc>https://www.katoto.com/eduIndex/Class6</loc>
+        <priority>1</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>always</changefreq>
+    </url>    
+    <url>
+        <loc>https://www.katoto.com/htmlnav</loc>
+        <priority>0.8</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
+        <loc>https://www.katoto.com/pmnav</loc>
+        <priority>0.8</priority>
+        <lastmod>2018-12-22T08:00:00+08:00</lastmod>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
+        <loc>https://www.katoto.com/movie</loc>
+        <priority>0.8</priority>
+        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
+        <changefreq>daily</changefreq>
+    </url>            
+    <url>
+        <loc>https://www.katoto.com/moremovie</loc>
+        <priority>0.8</priority>
+        <lastmod>2018-08-13T08:00:00+08:00</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
         <loc>https://www.katoto.com/movie</loc>
@@ -14,7 +74,7 @@
     </url>
     <url>
         <loc>https://www.katoto.com/tvplay</loc>
-        <priority>0.5</priority>
+        <priority>0.8</priority>
         <lastmod>2018-07-24T04:20:32+08:00</lastmod>
         <changefreq>weekly</changefreq>
     </url>

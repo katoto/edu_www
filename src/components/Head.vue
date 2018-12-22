@@ -3,7 +3,7 @@
     <div class="head">
       <a
         class="h_logo"
-        href="/eduIndex/Class1"
+        href="/"
         title="katotoLogo"
       >
         <img
@@ -15,13 +15,13 @@
         <div class="h_list icon-new">
           <router-link
             class="tophead"
-            :to="{path: '/eduIndex/Class1'}"
+            :to="{path: '/'}"
           >
             小学资源
             <div class="nexthead selftab1">
               <ul>
                 <li>
-                  <router-link :to="{path: '/eduIndex/Class1'}">
+                  <router-link :to="{path: '/'}">
                     小学一年级
                   </router-link>
                 </li>
@@ -67,8 +67,7 @@
           </router-link>
           <router-link
             class="tophead"
-            :to="{path: '/eduIndex/Class2'}"
-            @mouseenter.native="showTab4=true"
+            :to="{path: '/movie'}"
           >
             <span>katoto休闲</span>
             <div class="nexthead selftab4">
@@ -87,17 +86,6 @@
             </div>
           </router-link>
         </div>
-        <div
-          class="Tab1 selftab1"
-          :class="{'hide':!showTab1}"
-        >
-
-        </div>
-        <!-- <div
-          class="Tab4 selftab4"
-          :class="{'hide':!showTab4}"
-        >
-        </div> -->
       </section>
     </div>
   </div>
@@ -106,8 +94,7 @@
 export default {
     data () {
         return {
-            showTab1: false,
-            showTab4: false
+
         }
     }
 }

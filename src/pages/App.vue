@@ -5,7 +5,6 @@
   >
 
     <HEAD></HEAD>
-    <!-- <eduHEAD v-else></eduHEAD> -->
     <router-view
       v-if="isReady"
       @click.native="initPop"
@@ -13,7 +12,7 @@
     />
     <!-- 返回顶部  -->
     <ScrollTop></ScrollTop>
-    <Footer v-if="showMovieHead"></Footer>
+    <Footer v-if="showMovieFoot"></Footer>
     <eduFooter v-else></eduFooter>
   </div>
 </template>
@@ -29,7 +28,7 @@ export default {
     data () {
         return {
             isReady: false,
-            showMovieHead: true
+            showMovieFoot: false
         }
     },
     components: {
@@ -68,13 +67,17 @@ export default {
             if (!value) {
                 this.isShowHalloween = false
             }
+        },
+        $route (to, from) {
+            if (to.path.indexOf('movie') > -1 || to.path.indexOf('tvplay') > -1) {
+                this.showMovieFoot = true
+            }
         }
     },
     computed: {
         isLogin () {
             return this.$store.state.isLog
         }
-
     },
     async mounted () {
         (function flexible (window, document) {
@@ -129,8 +132,8 @@ export default {
             document.getElementById('csLoading').style.display = 'none'
         }, 0)
 
-        if (window.location.href.indexOf('edu') > -1) {
-            this.showMovieHead = false
+        if (window.location.href.indexOf('movie') > -1 || window.location.href.indexOf('tvplay') > -1) {
+            this.showMovieFoot = true
         }
     }
 }

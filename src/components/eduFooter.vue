@@ -19,7 +19,7 @@
             </div>
             <p>
               <lang>QQ:</lang>
-              <a href="javascript:;">846359246</a>
+              <a href="javascript:;">1196781017</a>
             </p>
           </div>
           <div
@@ -60,7 +60,7 @@
       </div>
       <div class="cs-copyright">
         <p>若本站无意侵犯了贵司版权，请给网页底部邮箱地址来信,我们会及时处理和回复,谢谢。</p>
-        <p>管理员邮箱：846359246@qq.com</p>
+        <p>管理员邮箱：zgxie@126.com</p>
         ©Katoto 2018. All Rights Reserved
       </div>
     </div>

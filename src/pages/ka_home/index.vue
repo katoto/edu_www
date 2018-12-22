@@ -1,42 +1,62 @@
 <template>
-    <div>
-        <Search></Search>
-        <section class="ka_body">
-            <section class="movieContent">
-                <h2>热门电影</h2>
-                <div class="container">
-                    <ul class="row">
-                        <li v-for="item in movie" class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                            <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">
-                                <img :src="item.pic" :alt="item.desc">
-                            </router-link>
-                            <p>{{ item.name }}</p>
-                        </li>
-                    </ul>
-                    <router-link to="/movie" class="more" href="javascript:;">
-                        更多电影》》
-                    </router-link>
-                    <a></a>
-                </div>
-            </section>
-            <section class="tvContent hide">
-                <h2>热门MV</h2>
-                <div class="container">
-                    <ul class="row">
-                        <li v-for="item in music" class="col-lg-2 col-md-4 col-sm-4 col-xs-6">
-                            <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">
-                                <img :src="item.pic" :alt="item.name">
-                            </router-link>
-                            <p>{{ item.name }}</p>
-                        </li>
-                    </ul>
-                    <router-link to="/tvplay" class="more" href="javascript:;">
-                        更多MV》》
-                    </router-link>
-                </div>
-            </section>
-        </section>
-    </div>
+  <div>
+    <Search></Search>
+    <section class="ka_body">
+      <section class="movieContent">
+        <h2>热门电影</h2>
+        <div class="container">
+          <ul class="row">
+            <li
+              v-for="item in movie"
+              class="col-lg-2 col-md-4 col-sm-4 col-xs-6"
+            >
+              <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">
+                <img
+                  :src="item.pic"
+                  :alt="item.desc"
+                >
+              </router-link>
+              <p>{{ item.name }}</p>
+            </li>
+          </ul>
+          <router-link
+            to="/moremovie"
+            class="more"
+            href="javascript:;"
+          >
+            更多电影》》
+          </router-link>
+          <a></a>
+        </div>
+      </section>
+      <section class="tvContent hide">
+        <h2>热门MV</h2>
+        <div class="container">
+          <ul class="row">
+            <li
+              v-for="item in music"
+              class="col-lg-2 col-md-4 col-sm-4 col-xs-6"
+            >
+              <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">
+                <img
+                  :src="item.pic"
+                  :alt="item.name"
+                >
+              </router-link>
+              <p>{{ item.name }}</p>
+            </li>
+          </ul>
+          <router-link
+            to="/tvplay"
+            class="more"
+            href="javascript:;"
+          >
+            更多MV》》
+          </router-link>
+        </div>
+      </section>
+    </section>
+  </div>
 </template>
 <script>
 import Search from '~/pages/ka_home/search.vue'
