@@ -1,40 +1,121 @@
 <template>
-    <div class="headbox">
-        <div class="head">
-            <a class="h_logo" href="/" title="katotoLogo">
-                <img src="../assets/images/katoto.png" alt="">
-            </a>
-            <div class="h_list icon-new">
-                <router-link :to="{path: '/eduIndex/Class1'}">
-                    小学一年级
-                </router-link>
-                <router-link :to="{path: '/eduIndex/Class2'}">
-                    小学二年级
-                </router-link>
-                <router-link :to="{path: '/eduIndex/Class3'}">
-                    小学三年级
-                </router-link>
-                <router-link :to="{path: '/eduIndex/Class4'}">
-                    小学四年级
-                </router-link>
-                <router-link :to="{path: '/eduIndex/Class5'}">
-                    小学五年级
-                </router-link>
-                <router-link :to="{path: '/eduIndex/Class6'}">
-                    小学六年级
-                </router-link>
-            </div>
+  <div class="headbox">
+    <div class="head">
+      <a
+        class="h_logo"
+        href="/eduIndex/Class1"
+        title="katotoLogo"
+      >
+        <img
+          src="../assets/images/katoto.png"
+          alt=""
+        >
+      </a>
+      <section class="subhead">
+        <div class="h_list icon-new">
+          <router-link :to="{path: '/eduIndex/Class1'}">
+            小学资源
+          </router-link>
+          <router-link :to="{path: '/htmlnav'}">
+            前端猿导航
+          </router-link>
+          <router-link :to="{path: '/pmnav'}">
+            产品狗导航
+          </router-link>
+          <router-link :to="{path: '/eduIndex/Class2'}">
+            katoto休闲
+          </router-link>
         </div>
+        <div class="Tab1 selftab1">
+          <ul>
+            <li>
+              <router-link :to="{path: '/eduIndex/Class1'}">
+                小学一年级
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="{path: '/eduIndex/Class2'}">
+                小学二年级
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="{path: '/eduIndex/Class3'}">
+                小学三年级
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="{path: '/eduIndex/Class4'}">
+                小学四年级
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="{path: '/eduIndex/Class5'}">
+                小学五年级
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="{path: '/eduIndex/Class6'}">
+                小学六年级
+              </router-link>
+            </li>
+          </ul>
+        </div>
+        <div class="Tab4 selftab4">
+          <ul>
+            <li>
+              <router-link :to="{path: '/movie'}">
+                vip免费电影
+              </router-link>
+            </li>
+            <li>
+              <router-link :to="{path: '/tvplay'}">
+                电视剧
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </section>
     </div>
+  </div>
 </template>
-
 <script>
-
 export default {
-
 }
 </script>
 <style scoped lang="less" type="text/less">
+.subhead {
+  position: relative;
+  .Tab1,
+  .Tab4 {
+    position: absolute;
+
+    z-index: 10;
+    background-color: #151515;
+    width: 95px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+    li {
+      a {
+        color: #fff;
+      }
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+  .selftab1 {
+    left: 127px;
+    top: 70px;
+  }
+  .selftab4 {
+    left: 454px;
+    top: 70px;
+    width: 110px;
+  }
+}
+
 .headbox {
   width: 100%;
   height: 70px;

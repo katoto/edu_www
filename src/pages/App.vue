@@ -1,14 +1,21 @@
 <template>
-    <div id="app" :class="{ready: isReady}">
+  <div
+    id="app"
+    :class="{ready: isReady}"
+  >
 
-        <HEAD v-if="showMovieHead"></HEAD>
-        <eduHEAD v-else></eduHEAD>
-        <router-view v-if="isReady" @click.native="initPop" class="page_all" />
-        <!-- 返回顶部  -->
-        <ScrollTop></ScrollTop>
-        <Footer v-if="showMovieHead"></Footer>
-        <eduFooter v-else></eduFooter>
-    </div>
+    <HEAD></HEAD>
+    <!-- <eduHEAD v-else></eduHEAD> -->
+    <router-view
+      v-if="isReady"
+      @click.native="initPop"
+      class="page_all"
+    />
+    <!-- 返回顶部  -->
+    <ScrollTop></ScrollTop>
+    <Footer v-if="showMovieHead"></Footer>
+    <eduFooter v-else></eduFooter>
+  </div>
 </template>
 
 <script>
@@ -121,7 +128,7 @@ export default {
         setTimeout(function () {
             document.getElementById('csLoading').style.display = 'none'
         }, 0)
-        
+
         if (window.location.href.indexOf('edu') > -1) {
             this.showMovieHead = false
         }

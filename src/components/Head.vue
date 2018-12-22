@@ -1,31 +1,115 @@
 <template>
-    <div class="headbox">
-        <div class="head">
-            <a class="h_logo" href="/" title="katotoLogo">
-                <img src="../assets/images/katoto.png" alt="">
-            </a>
-            <div class="h_list icon-new">
-                <router-link :to="{path: '/movie'}">
-                    电影
-                </router-link>
-                <router-link :to="{path: '/tvplay'}">
-                    电视剧
-                </router-link>
-                <router-link :to="{path: '/htmlnav'}">
-                    前端猿导航
-                </router-link>
-                <router-link :to="{path: '/pmnav'}">
-                    产品狗导航
-                </router-link>
+  <div class="headbox">
+    <div class="head">
+      <a
+        class="h_logo"
+        href="/eduIndex/Class1"
+        title="katotoLogo"
+      >
+        <img
+          src="../assets/images/katoto.png"
+          alt=""
+        >
+      </a>
+      <section class="subhead">
+        <div class="h_list icon-new">
+          <router-link
+            class="tophead"
+            :to="{path: '/eduIndex/Class1'}"
+          >
+            小学资源
+            <div class="nexthead selftab1">
+              <ul>
+                <li>
+                  <router-link :to="{path: '/eduIndex/Class1'}">
+                    小学一年级
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{path: '/eduIndex/Class2'}">
+                    小学二年级
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{path: '/eduIndex/Class3'}">
+                    小学三年级
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{path: '/eduIndex/Class4'}">
+                    小学四年级
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{path: '/eduIndex/Class5'}">
+                    小学五年级
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{path: '/eduIndex/Class6'}">
+                    小学六年级
+                  </router-link>
+                </li>
+              </ul>
             </div>
+          </router-link>
+          <router-link
+            class="tophead"
+            :to="{path: '/htmlnav'}"
+          >
+            前端猿导航
+          </router-link>
+          <router-link
+            class="tophead"
+            :to="{path: '/pmnav'}"
+          >
+            产品狗导航
+          </router-link>
+          <router-link
+            class="tophead"
+            :to="{path: '/eduIndex/Class2'}"
+            @mouseenter.native="showTab4=true"
+          >
+            <span>katoto休闲</span>
+            <div class="nexthead selftab4">
+              <ul>
+                <li>
+                  <router-link :to="{path: '/movie'}">
+                    vip免费电影
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{path: '/tvplay'}">
+                    电视剧
+                  </router-link>
+                </li>
+              </ul>
+            </div>
+          </router-link>
         </div>
+        <div
+          class="Tab1 selftab1"
+          :class="{'hide':!showTab1}"
+        >
+
+        </div>
+        <!-- <div
+          class="Tab4 selftab4"
+          :class="{'hide':!showTab4}"
+        >
+        </div> -->
+      </section>
     </div>
+  </div>
 </template>
-
 <script>
-
 export default {
-
+    data () {
+        return {
+            showTab1: false,
+            showTab4: false
+        }
+    }
 }
 </script>
 <style scoped lang="less" type="text/less">
@@ -33,6 +117,7 @@ export default {
   width: 100%;
   height: 70px;
   background-color: #151515;
+  border-bottom: 1px solid transparent;
   .head {
     width: 100%;
     max-width: 1190px;
@@ -51,7 +136,37 @@ export default {
     float: left;
     line-height: 70px;
     position: relative;
-    a {
+
+    .nexthead {
+      position: absolute;
+      left: 0;
+      z-index: 10;
+      opacity: 0.3;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background-color: #151515;
+      border-radius: 0 0 5px 5px;
+      width: 95px;
+      li {
+        line-height: 36px;
+        text-align: center;
+        font-size: 14px;
+        a {
+          color: #fff;
+        }
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.05);
+        }
+      }
+    }
+    .selftab4 {
+      left: 327px;
+      width: 110px;
+    }
+
+    .tophead {
       padding: 0 15px;
       height: 100%;
       font-size: 16px;
@@ -61,6 +176,14 @@ export default {
       color: #fff;
       &:hover {
         background-color: rgba(255, 255, 255, 0.05);
+        .selftab4 {
+          opacity: 1;
+          height: 72px;
+        }
+        .selftab1 {
+          opacity: 1;
+          height: 216px;
+        }
       }
     }
     &.icon-new {

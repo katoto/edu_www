@@ -7,17 +7,17 @@ const mutations = {}
 
 const actions = {
     // 首页获奖列表 班级列表
-    getClassMsg({ commit }, params = {}) {
+    getClassMsg ({ commit }, params = {}) {
         console.log(params)
         return ajax.get(`http://127.0.0.1:7001/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
     },
     // 首页获奖列表
-    getClassMsg({ commit }, params = {}) {
+    getClassMsg ({ commit }, params = {}) {
         console.log(params)
         return ajax.get(`http://127.0.0.1:7001/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
     },
     // get msg zixun
-    getzixun({ commit }, params = {}) {
+    getzixun ({ commit }, params = {}) {
         return ajax.get(`http://127.0.0.1:7001/eduZixun?pageno=${params.pageno}&pagesize=${params.pagesize}`)
     }
 }

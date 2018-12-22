@@ -60,7 +60,6 @@ MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     }, 1000)
 })
 
-
 // dbo.collection('demo').insertMany(backData.movieList)
 
 // movieList = movieList.slice(0, 10)
