@@ -54,7 +54,7 @@
         }
 
         .animation {
-            background: url("http://www.katoto.cn/images/loading.png") no-repeat center;
+            background: url("http://www.katoto.cn/static/loading.png") no-repeat center;
             background-size: 60px;
         }
 
@@ -68,7 +68,6 @@
             }
         }
     </style>
-
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
@@ -76,7 +75,6 @@
             enable_page_level_ads: true
         })
     </script>
-
 </head>
 
 <body>
@@ -89,23 +87,23 @@
         </div>
     </div>
     <script>
-        function preloadImage (names, cb, prefix) {
-            window.gkaCache = window.gkaCache || []
-            var n = 0, img, imgs = {}
+        function preloadImage(names, cb, prefix) {
+            var n = 0, img, imgs = {};
+            window.gkaCache = window.gkaCache || [];
             names.forEach(function (name) {
-                img = new Image()
-                window.gkaCache.push(img)
+                img = new Image();
+                window.gkaCache.push(img);
                 img.onload = (function (name, img) {
                     return function () {
                         imgs[name] = img;
-                        (++n === names.length) && cb && cb(imgs)
+                        (++n === names.length) && cb && cb(imgs);
                     }
                 })(name, img)
-                img.src = (prefix || '') + name
+                img.src = (prefix || '') + name;
             })
         };
         preloadImage(['loading.png'], function () {
-            document.getElementById('cs').className += ' animation'
+            document.getElementById('cs').className += ' animation';
         }, '/static/')
     </script>
 </body>
@@ -113,7 +111,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129157777-1"></script>
 <script>
     window.dataLayer = window.dataLayer || []
-    function gtag () { dataLayer.push(arguments) }
+    function gtag() { dataLayer.push(arguments) }
     gtag('js', new Date())
     gtag('config', 'UA-129157777-1')
 </script>

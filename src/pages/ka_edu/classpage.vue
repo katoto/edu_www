@@ -9,11 +9,11 @@
           <strong><i class="icon"></i>每日推荐</strong>
           <div class="seat-nav">
             <a
-              class="active"
+              :class="{'active':!isActive}"
               @click="zixun_handleCurrentChange(1)"
             >热门推荐</a>
             <a
-              class="active"
+              :class="{'active':isActive}"
               @click="zixun_handleCurrentChange(2)"
             >精选推荐</a>
           </div>
@@ -63,8 +63,8 @@
                         :href="item.titleLink"
                         :title="item.titleName"
                         target="_blank"
+                        v-html="item.titleName"
                       >
-                        {{ item.titleName }}
                       </a>
                     </p>
                     <p class="author-date">
@@ -82,7 +82,8 @@
                       :href="item.titleLink"
                       :title="item.titleName"
                       target="_blank"
-                    >{{ item.titleName }}</a>
+                      v-html="item.titleName"
+                    ></a>
                   </p>
                   <div class="list-rt-tag-box sm-tips-font">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
@@ -132,8 +133,8 @@
                         :href="item.titleLink"
                         :title="item.titleName"
                         target="_blank"
+                        v-html="item.titleName"
                       >
-                        {{ item.titleName }}
                       </a>
                     </p>
                     <p class="author-date">
@@ -151,7 +152,8 @@
                       :href="item.titleLink"
                       :title="item.titleName"
                       target="_blank"
-                    >{{ item.titleName }}</a>
+                      v-html="item.titleName"
+                    ></a>
                   </p>
                   <div class="list-rt-tag-box sm-tips-font">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
@@ -203,8 +205,8 @@
                         :href="item.titleLink"
                         :title="item.titleName"
                         target="_blank"
+                        v-html="item.titleName"
                       >
-                        {{ item.titleName }}
                       </a>
                     </p>
                     <p class="author-date">
@@ -222,7 +224,8 @@
                       :href="item.titleLink"
                       :title="item.titleName"
                       target="_blank"
-                    >{{ item.titleName }}</a>
+                      v-html="item.titleName"
+                    ></a>
                   </p>
                   <div class="list-rt-tag-box sm-tips-font">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
@@ -278,6 +281,7 @@ import ScrollTop from '~components/ScrollTop.vue'
 export default {
     data () {
         return {
+            isActive: false,
             isReady: false,
             showMovieHead: true,
 
@@ -347,9 +351,14 @@ export default {
                 this.yuwen_PageTotal = data.data.totalPages
             }
         },
-        async zixun_handleCurrentChange (zixun_pageno = this.zixun_pageno) {
+        async zixun_handleCurrentChange (zixunPageno = this.zixun_pageno) {
+            if (zixunPageno === 1) {
+                this.isActive = false
+            } else {
+                this.isActive = true
+            }
             let params = {
-                pageno: zixun_pageno,
+                pageno: zixunPageno,
                 pagesize: this.zixun_pageSize
             }
             let data = await this.$store.dispatch('ka_edu/getzixun', params)
@@ -557,6 +566,11 @@ export default {
       color: #333;
       font-size: 14px;
       margin-right: 20px;
+      &.active {
+        border-bottom: 2px solid #2bbb61;
+        text-decoration: none;
+        color: #2bbb61;
+      }
       &:hover {
         border-bottom: 2px solid #2bbb61;
         text-decoration: none;

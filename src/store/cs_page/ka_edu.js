@@ -9,16 +9,16 @@ const actions = {
     // 首页获奖列表 班级列表
     getClassMsg ({ commit }, params = {}) {
         console.log(params)
-        return ajax.get(`http://127.0.0.1:7001/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
+        return ajax.get(`/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
     },
     // 首页获奖列表
-    getClassMsg ({ commit }, params = {}) {
-        console.log(params)
-        return ajax.get(`http://127.0.0.1:7001/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
-    },
+    // getClassMsg ({ commit }, params = {}) {
+    //     console.log(params)
+    //     return ajax.get(`/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
+    // },
     // get msg zixun
     getzixun ({ commit }, params = {}) {
-        return ajax.get(`http://127.0.0.1:7001/eduZixun?pageno=${params.pageno}&pagesize=${params.pagesize}`)
+        return ajax.get(`/eduZixun?pageno=${params.pageno}&pagesize=${params.pagesize}`)
     }
 }
 
