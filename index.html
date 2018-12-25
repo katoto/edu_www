@@ -68,13 +68,7 @@
             }
         }
     </style>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: 'ca-pub-3002119464548226',
-            enable_page_level_ads: true
-        })
-    </script>
+
 </head>
 
 <body>
@@ -98,7 +92,7 @@
                         imgs[name] = img;
                         (++n === names.length) && cb && cb(imgs);
                     }
-                })(name, img)
+                })(name, img);
                 img.src = (prefix || '') + name;
             })
         };
@@ -107,13 +101,20 @@
         }, '/static/')
     </script>
 </body>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: 'ca-pub-3002119464548226',
+            enable_page_level_ads: true
+        })
+</script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129157777-1"></script>
 <script>
-    window.dataLayer = window.dataLayer || []
+    window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments) }
-    gtag('js', new Date())
-    gtag('config', 'UA-129157777-1')
+    gtag('js', new Date());
+    gtag('config', 'UA-129157777-1');
 </script>
 
 </html>
