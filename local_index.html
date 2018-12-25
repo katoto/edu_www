@@ -39,7 +39,7 @@
             text-align: center;
             font-weight: bold;
         }
-
+        
         #csLoading>div {
             position: absolute;
             left: 50%;
@@ -47,25 +47,42 @@
             transform: translate(-50%, -50%);
             font-size: 16px;
         }
-
+        
         #cs {
             width: 100px;
             height: 100px;
         }
-
+        
         .animation {
             background: url("http://www.katoto.cn/static/loading.png") no-repeat center;
             background-size: 60px;
         }
-
+        
         @keyframes keyframes-loading {
             0% {
                 background-position: 0px 0px;
             }
-
             100% {
                 background-position: -3300px 0px;
             }
+        }
+
+        /* // live 2d */
+        #landlord{
+            position: fixed;
+            font-size: 14px;
+            left: 0;
+            bottom: 0;
+            z-index: 6;
+        }
+        #landlord .message{
+            text-align: center;
+            color: coral;
+        }
+        #landlord .hide-button{
+            position: absolute;
+            right: 0;
+            top: 0;
         }
     </style>
 
@@ -80,9 +97,17 @@
             <p>Katoto</p>
         </div>
     </div>
+
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+        <div class="hide-button hide">隐藏</div>
+    </div>
+
     <script>
         function preloadImage(names, cb, prefix) {
-            var n = 0, img, imgs = {};
+            var n = 0,
+                img, imgs = {};
             window.gkaCache = window.gkaCache || [];
             names.forEach(function (name) {
                 img = new Image();
@@ -115,6 +140,18 @@
     function gtag() { dataLayer.push(arguments) }
     gtag('js', new Date());
     gtag('config', 'UA-129157777-1');
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var message_Path = '/static/live2d/'
+    var home_Path = '//katoto.cn/'
+</script>
+<script type="text/javascript" src="/static/live2d/js/live2d.js"></script>
+<script type="text/javascript" src="/static/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "/static/live2d/model/tia/model.json");
+    // loadlive2d("live2d", "/static/live2d/model/koharu/koharu.model.json");
 </script>
 
 </html>
