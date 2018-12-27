@@ -69,7 +69,7 @@
             class="tophead"
             :to="{path: '/movie'}"
           >
-            <span>katoto休闲</span>
+            <span>kan休闲</span>
             <div class="nexthead selftab4">
               <ul>
                 <li>
@@ -92,11 +92,11 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
+  data() {
+    return {
 
-        }
     }
+  }
 }
 </script>
 <style scoped lang="less" type="text/less">
