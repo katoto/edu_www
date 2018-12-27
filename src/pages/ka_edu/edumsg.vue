@@ -90,18 +90,16 @@ export default {
   max-width: 1200px;
 }
 .content {
-  /* width: 1000px; */
-  /* height: auto!important; */
-  padding: 20px 0;
+  padding: 20px 12px;
+  background-color: #fff;
+  box-sizing: border-box;
   position: relative;
   margin: 0 auto;
   min-width: 1000px;
   width: 90%;
-  /* overflow: hidden; */
   height: auto;
   .conL-box {
     float: left;
-    // width: 100%;
     padding-right: 345px;
     .conL {
       margin-right: 355px;
