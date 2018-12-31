@@ -10,11 +10,11 @@
           <div class="seat-nav">
             <a
               :class="{'active':!isActive}"
-              @click="zixun_handleCurrentChange(1)"
+              @click="zixun_handleCurrentChange('one')"
             >热门推荐</a>
             <a
               :class="{'active':isActive}"
-              @click="zixun_handleCurrentChange(2)"
+              @click="zixun_handleCurrentChange('two')"
             >精选推荐</a>
           </div>
         </div>
@@ -283,7 +283,6 @@ export default {
             isActive: false,
             isReady: false,
             showMovieHead: true,
-
             currClassNum: 'Class1',
             yingyu_pageno: 1,
             yingyu_pageSize: 12,
@@ -350,10 +349,19 @@ export default {
                 this.yuwen_PageTotal = data.data.totalPages
             }
         },
-        async zixun_handleCurrentChange (zixunPageno = this.zixun_pageno) {
-            if (zixunPageno === 1) {
+        async zixun_handleCurrentChange (tab = 'one') {
+            let classnum = null
+            if (this.$route.params.classNum) {
+                classnum = parseFloat(this.$route.params.classNum.replace('Class', ''))
+            } else {
+                classnum = 1
+            }
+            let zixunPageno = 0
+            if (tab === 'one') {
+                zixunPageno = classnum * 2 - 1
                 this.isActive = false
             } else {
+                zixunPageno = classnum * 2
                 this.isActive = true
             }
             let params = {
@@ -574,14 +582,18 @@ export default {
     overflow: hidden;
     .seat-list {
       line-height: 1;
+      width: 100%;
       font-size: 14px;
-      margin-left: 20px;
-      margin-right: -20px;
+      padding-left: 20px;
       padding-bottom: 8px;
       li {
         padding-bottom: 22px;
-        width: 400px;
+        width: 390px;
         float: left;
+        overflow: hidden;
+        word-break: keep-all;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         b {
           float: left;
           width: 4px;
