@@ -30,12 +30,23 @@
           阅读排行榜
         </p>
         <ul class="r_news_list">
-          <li><a href="http://xiaoxue.xdf.cn/201811/10825052.html">面对五岁“牛娃”简历要有教育定力</a></li>
+          <li
+            v-for="(item,index) in zixunArr"
+            :key="index"
+          >
+            <router-link
+              :to="{path:`/edumsg/${item._id.replace(/\//g,'$')}`}"
+              target="_blank"
+            >
+              <b></b>{{ item.titleName }}
+            </router-link>
+          </li>
+          <!-- <li><a href="http://xiaoxue.xdf.cn/201811/10825052.html">面对五岁“牛娃”简历要有教育定力</a></li>
           <li><a href="http://xiaoxue.xdf.cn/201811/10825047.html">家长交流群成“马屁群”的背后是教育焦虑</a></li>
           <li><a href="http://xiaoxue.xdf.cn/201811/10825044.html">家长应该怎样面对未来教育</a></li>
           <li><a href="http://xiaoxue.xdf.cn/201809/10812172.html">教育热评：孩子几岁入学合适？当前的入学标准是否合理</a></li>
           <li><a href="http://xiaoxue.xdf.cn/201809/10810458.html">多品牌儿童书桌椅不符合国标</a></li>
-          <li><a href="http://xiaoxue.xdf.cn/201809/10810456.html">成功学：“娘气”亚文化放过我的儿子吧</a></li>
+          <li><a href="http://xiaoxue.xdf.cn/201809/10810456.html">成功学：“娘气”亚文化放过我的儿子吧</a></li> -->
         </ul>
       </div>
       <!--右侧广告位2 S-->
@@ -58,7 +69,6 @@
           </div>
         </div>
       </div>
-      <!--热门专题 S-->
     </div>
   </div>
 </template>
@@ -69,7 +79,8 @@ export default {
     data () {
         return {
             id: '201811/10825047',
-            currMsg: null
+            currMsg: null,
+            zixunArr: []
         }
     },
     components: {
@@ -82,9 +93,20 @@ export default {
                 this.currMsg = data.data.msg
             }
         },
+        async zixun_handleCurrentChange (tab = 'one') {
+            let params = {
+                pageno: 1,
+                pagesize: 6
+            }
+            let data = await this.$store.dispatch('ka_edu/getzixun', params)
+            if (data && data.status === '100') {
+                this.zixunArr = data.data.msg
+            }
+        },
         pageInit () {
             // 请求当前数据
             this.zixunmsg()
+            this.zixun_handleCurrentChange()
         }
     },
     watch: {

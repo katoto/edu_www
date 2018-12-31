@@ -8,7 +8,6 @@ const mutations = {}
 const actions = {
     // 首页获奖列表 班级列表
     getClassMsg ({ commit }, params = {}) {
-        console.log(params)
         return ajax.get(`/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
     },
     // 首页获奖列表

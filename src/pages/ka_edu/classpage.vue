@@ -358,10 +358,11 @@ export default {
             }
             let zixunPageno = 0
             if (tab === 'one') {
-                zixunPageno = classnum * 2 - 1
+                // zixunPageno = classnum * 2 - 1
+                zixunPageno = classnum
                 this.isActive = false
             } else {
-                zixunPageno = classnum * 2
+                zixunPageno = classnum + 1
                 this.isActive = true
             }
             let params = {
