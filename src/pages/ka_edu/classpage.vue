@@ -30,10 +30,9 @@
               v-for="(item,index) in zixunArr"
               :key="index"
             >
-              <a
-                :href="item.titleLink"
-                target="_blank"
-              ><b></b>{{ item.titleName }}</a>
+              <router-link :to="{path:`/edumsg/${item._id.replace(/\//g,'$')}`}">
+                <b></b>{{ item.titleName }}
+              </router-link>
             </li>
           </ul>
         </div>
@@ -376,11 +375,6 @@ export default {
         }
     },
     watch: {
-        isLogin (value) {
-            if (!value) {
-                this.isShowHalloween = false
-            }
-        },
         $route (to, from) {
             if (this.$route.params && this.$route.params.classNum) {
                 this.currClassNum = this.$route.params.classNum
@@ -389,16 +383,11 @@ export default {
         }
     },
     computed: {
-        isLogin () {
-            return this.$store.state.isLog
-        }
-
     },
     async mounted () {
         if (this.$route.params && this.$route.params.classNum) {
             this.currClassNum = this.$route.params.classNum
         }
-        console.log(this.currClassNum)
         this.pageInit()
         this.topMonthImg = '../../../static/eduImg/' + (new Date().getMonth() + 1) + '.jpg'
     },

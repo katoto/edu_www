@@ -19,6 +19,10 @@ const actions = {
     // get msg zixun
     getzixun ({ commit }, params = {}) {
         return ajax.get(`/eduZixun?pageno=${params.pageno}&pagesize=${params.pagesize}`)
+    },
+    // msg 详情接口
+    getzixunmsg ({ commit }, id = '201811/10825047') {
+        return ajax.get(`/edumsg?id=${id}`)
     }
 }
 
