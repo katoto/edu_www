@@ -21,13 +21,14 @@
             v-html="currMsg.artmsg"
           >
           </div>
+          <p>温馨提示：试卷文档详情请下载</p>
         </div>
       </div>
     </div>
     <!--左侧 E-->
     <!--右侧 S-->
-    <div class="mainR f-f0 floatR">
-      <div class="r_news ">
+    <div class="mainR f-f0 floatR ">
+      <div class="r_news hide">
         <p class="title3 f-f0">
           阅读排行榜
         </p>
@@ -37,7 +38,7 @@
             :key="index"
           >
             <router-link
-              :to="{path:`/edumsg/${item._id.replace(/\//g,'$')}`}"
+              :to="{path:`/artdetail/${pathStr.split('_')[0]}_${pathStr.split('_')[1]}_${item._id.replace(/\//g,'$')}`}"
               target="_blank"
             >
               <b></b>{{ item.titleName }}
@@ -93,13 +94,16 @@ export default {
             let data = await this.$store.dispatch('ka_edu/getartdetail', obj)
             if (data && data.status === '100') {
                 this.currMsg = data.data.msg
+                if (this.currMsg.artmsg) {
+                    this.currMsg.artmsg = this.currMsg.artmsg.replace(/href="\//g, 'href="http://www.dlrzy.com/')
+                }
             }
         },
         async zixun_handleCurrentChange (tab = 'one') {
             let para = this.pathStr.split('_')
             let params = {
                 pageno: 1,
-                pagesize: 6,
+                pagesize: 4,
                 className: para[0],
                 xueke: para[1]
             }
@@ -111,7 +115,7 @@ export default {
         pageInit () {
             // 请求当前数据
             this.zixunmsg()
-            this.zixun_handleCurrentChange()
+            // this.zixun_handleCurrentChange()
         }
     },
     watch: {
@@ -151,6 +155,7 @@ table tbody {
   .conL-box {
     float: left;
     padding-right: 345px;
+    max-width: 800px;
     .conL {
       margin-right: 355px;
       position: relative;

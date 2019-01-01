@@ -21,7 +21,7 @@
             <div class="nexthead selftab1">
               <ul>
                 <li>
-                  <router-link :to="{path: '/'}">
+                  <router-link :to="{path: '/eduIndex/Class1'}">
                     小学一年级
                   </router-link>
                 </li>
@@ -92,11 +92,11 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
+    data () {
+        return {
 
+        }
     }
-  }
 }
 </script>
 <style scoped lang="less" type="text/less">

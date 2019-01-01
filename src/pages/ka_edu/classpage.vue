@@ -77,12 +77,13 @@
                     {{ item._id.slice(0, -5) }}
                   </div>
                   <p class="title">
-                    <a
-                      :href="item.titleLink"
-                      :title="item.titleName"
+                    <router-link
+                      :to="{path:`/artdetail/${currClassNum}_Yuwen_${item._id.replace(/\//g,'$')}`}"
                       target="_blank"
+                      :title="item.titleName"
                       v-html="item.titleName"
-                    ></a>
+                    >
+                    </router-link>
                   </p>
                   <div class="list-rt-tag-box sm-tips-font">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
@@ -147,12 +148,13 @@
                     {{ item._id.slice(0, -5) }}
                   </div>
                   <p class="title">
-                    <a
-                      :href="item.titleLink"
-                      :title="item.titleName"
+                    <router-link
+                      :to="{path:`/artdetail/${currClassNum}_Shuxue_${item._id.replace(/\//g,'$')}`}"
                       target="_blank"
+                      :title="item.titleName"
                       v-html="item.titleName"
-                    ></a>
+                    >
+                    </router-link>
                   </p>
                   <div class="list-rt-tag-box sm-tips-font">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
@@ -200,13 +202,13 @@
                   >
                   <div class="exam-title-box fl">
                     <p>
-                      <a
-                        :href="item.titleLink"
-                        :title="item.titleName"
-                        target="_blank"
-                        v-html="item.titleName"
-                      >
-                      </a>
+                    <router-link
+                      :to="{path:`/artdetail/${currClassNum}_Yingyu_${item._id.replace(/\//g,'$')}`}"
+                      target="_blank"
+                      :title="item.titleName"
+                      v-html="item.titleName"
+                    >
+                    </router-link>
                     </p>
                     <p class="author-date">
                       <span class="sm-tips-font">{{ currClassNum | classNameFn }}</span>

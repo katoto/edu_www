@@ -136,6 +136,7 @@ export default {
   .conL-box {
     float: left;
     padding-right: 345px;
+    max-width: 800px;
     .conL {
       margin-right: 355px;
       position: relative;
