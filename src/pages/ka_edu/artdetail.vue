@@ -33,7 +33,7 @@
         </p>
         <ul class="r_news_list">
           <li
-            v-for="(item,index) in zixunArr"
+            v-for="(item,index) in classArr"
             :key="index"
           >
             <router-link
@@ -74,9 +74,9 @@ import ScrollTop from '~components/ScrollTop.vue'
 export default {
     data () {
         return {
-            id: '201811/10825047',
             currMsg: null,
-            zixunArr: []
+            classArr: [],
+            pathStr: null
         }
     },
     components: {
@@ -84,19 +84,28 @@ export default {
     },
     methods: {
         async zixunmsg () {
-            let data = await this.$store.dispatch('ka_edu/getzixunmsg', this.id)
+            let para = this.pathStr.split('_')
+            let obj = {
+                className: para[0],
+                xueke: para[1],
+                id: para[2]
+            }
+            let data = await this.$store.dispatch('ka_edu/getartdetail', obj)
             if (data && data.status === '100') {
                 this.currMsg = data.data.msg
             }
         },
         async zixun_handleCurrentChange (tab = 'one') {
+            let para = this.pathStr.split('_')
             let params = {
                 pageno: 1,
-                pagesize: 6
+                pagesize: 6,
+                className: para[0],
+                xueke: para[1]
             }
-            let data = await this.$store.dispatch('ka_edu/getzixun', params)
+            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
             if (data && data.status === '100') {
-                this.zixunArr = data.data.msg
+                this.classArr = data.data.msg
             }
         },
         pageInit () {
@@ -111,13 +120,19 @@ export default {
     },
     async mounted () {
         if (this.$route.params && this.$route.params.id) {
-            this.id = this.$route.params.id.replace(/\$/g, '/')
+            this.pathStr = this.$route.params.id.replace(/\$/g, '/')
         }
         this.pageInit()
     }
 }
 </script>
 <style lang="less" type="text/less">
+.tagcoloer {
+  padding-left: 10px;
+}
+table tbody {
+  text-align: left;
+}
 .wrap1000 {
   margin: 0 auto;
   width: 95%;

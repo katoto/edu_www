@@ -22,7 +22,12 @@ const actions = {
     // msg 详情接口
     getzixunmsg ({ commit }, id = '201811/10825047') {
         return ajax.get(`/edumsg?id=${id}`)
+    },
+    getartdetail ({ commit }, params = {}) {
+        return ajax.get(`http://127.0.0.1:7001/artdetail?className=${params.className}&xueke=${params.xueke}&id=${params.id}`)
+        return ajax.get(`/edumsg?id=${id}`)
     }
+
 }
 
 export default { state, mutations, actions, namespaced: true }
