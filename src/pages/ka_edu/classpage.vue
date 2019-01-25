@@ -78,7 +78,7 @@
                   </div>
                   <p class="title">
                     <router-link
-                      :to="{path:`/artdetail/${currClassNum}_Yuwen_${item._id.replace(/\//g,'$')}`}"
+                      :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
                       target="_blank"
                       :title="item.titleName"
                       v-html="item.titleName"
@@ -149,7 +149,7 @@
                   </div>
                   <p class="title">
                     <router-link
-                      :to="{path:`/artdetail/${currClassNum}_Shuxue_${item._id.replace(/\//g,'$')}`}"
+                      :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
                       target="_blank"
                       :title="item.titleName"
                       v-html="item.titleName"
@@ -203,7 +203,7 @@
                   <div class="exam-title-box fl">
                     <p>
                     <router-link
-                      :to="{path:`/artdetail/${currClassNum}_Yingyu_${item._id.replace(/\//g,'$')}`}"
+                      :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
                       target="_blank"
                       :title="item.titleName"
                       v-html="item.titleName"

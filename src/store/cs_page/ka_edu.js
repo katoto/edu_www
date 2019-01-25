@@ -7,7 +7,7 @@ const mutations = {}
 
 const actions = {
     // 首页获奖列表 班级列表
-    getClassMsg ({ commit }, params = {}) {
+    getClassMsg({ commit }, params = {}) {
         return ajax.get(`/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
     },
     // 首页获奖列表
@@ -16,15 +16,16 @@ const actions = {
     //     return ajax.get(`/educlassmsg?pageno=${params.pageno}&pagesize=${params.pagesize}&className=${params.className}&xueke=${params.xueke}`)
     // },
     // get msg zixun
-    getzixun ({ commit }, params = {}) {
+    getzixun({ commit }, params = {}) {
         return ajax.get(`/eduZixun?pageno=${params.pageno}&pagesize=${params.pagesize}`)
     },
     // msg 详情接口
-    getzixunmsg ({ commit }, id = '201811/10825047') {
+    getzixunmsg({ commit }, id = '201811/10825047') {
         return ajax.get(`/edumsg?id=${id}`)
     },
-    getartdetail ({ commit }, params = {}) {
-        return ajax.get(`http://127.0.0.1:7001/artdetail?className=${params.className}&xueke=${params.xueke}&id=${params.id}`)
+    getartdetail({ commit }, params = {}) {
+        return ajax.get(`http://127.0.0.1:7001/artdetail?id=${params.id}`)
+            // return ajax.get(`http://127.0.0.1:7001/artdetail?id=20180504/8565`)
         return ajax.get(`/edumsg?id=${id}`)
     }
 

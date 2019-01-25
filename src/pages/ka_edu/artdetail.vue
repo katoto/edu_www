@@ -8,7 +8,7 @@
         <!--内容部分 S-->
         <div
           class="article "
-          v-if="currMsg"
+          v-if="currMsg && currMsg.artmsg"
         >
           <p class="title1 f-f0">{{ currMsg.titleName }}</p>
           <div class="art_xin">
@@ -38,7 +38,7 @@
             :key="index"
           >
             <router-link
-              :to="{path:`/artdetail/${pathStr.split('_')[0]}_${pathStr.split('_')[1]}_${item._id.replace(/\//g,'$')}`}"
+              :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
               target="_blank"
             >
               <b></b>{{ item.titleName }}
@@ -85,37 +85,21 @@ export default {
     },
     methods: {
         async zixunmsg () {
-            let para = this.pathStr.split('_')
+            let para = this.pathStr
             let obj = {
-                className: para[0],
-                xueke: para[1],
-                id: para[2]
+                id: para
             }
             let data = await this.$store.dispatch('ka_edu/getartdetail', obj)
             if (data && data.status === '100') {
                 this.currMsg = data.data.msg
-                if (this.currMsg.artmsg) {
+                if (this.currMsg && this.currMsg.artmsg) {
                     this.currMsg.artmsg = this.currMsg.artmsg.replace(/href="\//g, 'href="http://www.dlrzy.com/')
                 }
-            }
-        },
-        async zixun_handleCurrentChange (tab = 'one') {
-            let para = this.pathStr.split('_')
-            let params = {
-                pageno: 1,
-                pagesize: 4,
-                className: para[0],
-                xueke: para[1]
-            }
-            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
-            if (data && data.status === '100') {
-                this.classArr = data.data.msg
             }
         },
         pageInit () {
             // 请求当前数据
             this.zixunmsg()
-            // this.zixun_handleCurrentChange()
         }
     },
     watch: {

@@ -1,9 +1,6 @@
 <template>
   <div
-    id="app"
-    :class="{ready: isReady}"
-  >
-
+    id="app" :class="{ready: isReady}">
     <HEAD></HEAD>
     <router-view
       v-if="isReady"

@@ -1,5 +1,5 @@
 <template>
-  <!-- 资讯详情 -->
+  <!-- 新东方资讯详情 -->
   <!-- http://xiaoxue.xdf.cn/201811/10825052.html -->
   <div class="content clearfix wrap1000 ">
     <!--左侧 S-->
