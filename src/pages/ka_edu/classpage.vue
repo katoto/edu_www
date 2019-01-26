@@ -202,13 +202,13 @@
                   >
                   <div class="exam-title-box fl">
                     <p>
-                    <router-link
-                      :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
-                      target="_blank"
-                      :title="item.titleName"
-                      v-html="item.titleName"
-                    >
-                    </router-link>
+                      <router-link
+                        :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
+                        target="_blank"
+                        :title="item.titleName"
+                        v-html="item.titleName"
+                      >
+                      </router-link>
                     </p>
                     <p class="author-date">
                       <span class="sm-tips-font">{{ currClassNum | classNameFn }}</span>
@@ -527,6 +527,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 1200px;
+  min-height: 220px;
   background: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

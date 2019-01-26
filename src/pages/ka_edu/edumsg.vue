@@ -181,7 +181,7 @@ export default {
             line-height: 30px;
             font-size: 14px;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
           }
         }
       }

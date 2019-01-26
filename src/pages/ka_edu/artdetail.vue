@@ -93,7 +93,7 @@ export default {
             if (data && data.status === '100') {
                 this.currMsg = data.data.msg
                 if (this.currMsg && this.currMsg.artmsg) {
-                    this.currMsg.artmsg = this.currMsg.artmsg.replace(/href="\//g, 'href="http://www.dlrzy.com/')
+                    this.currMsg.artmsg = this.currMsg.artmsg.replace(/href="\//g, 'href="http://www.dlrzy.com/').replace(/\/uploads\/allimg/g, 'http://www.dlrzy.com/uploads/allimg/').replace(/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/g, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
                 }
             }
         },
@@ -144,7 +144,7 @@ table tbody {
       margin-right: 355px;
       position: relative;
       height: auto !important;
-      width: 100%;
+      width: 105%;
       .article {
         height: auto !important;
         .f-f0 {
@@ -184,7 +184,7 @@ table tbody {
             line-height: 30px;
             font-size: 14px;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
           }
         }
       }

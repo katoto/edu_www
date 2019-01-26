@@ -11,7 +11,7 @@ import {
     getURLParams
 } from '~common/util'
 
-function getCommonParams() {
+function getCommonParams () {
     let ck = getCK() || ''
     let urlParams = getURLParams() || null
     let channel = null
@@ -63,7 +63,7 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
 } else {
     // 开发环境
     // options.baseURL = 'http://47.96.234.59:7001/' // 线下测试web
-    options.baseURL = 'http://192.168.50.47:7001' // 线下测试web
+    options.baseURL = 'http://192.168.0.102:7001' // 线下测试web
     _isDev = true
 }
 
@@ -74,7 +74,7 @@ export const isRelease = _isRelease
 
 const _axios = axios.create(options)
 
-const ajax = function(url, config = {
+const ajax = function (url, config = {
     ignore: true
 }) {
     return _axios.get(url, config).then((response) => {
@@ -88,7 +88,7 @@ const ajax = function(url, config = {
         throw new Error(response.message)
     })
 }
-ajax.get = function(url, params, noMessage = false) {
+ajax.get = function (url, params, noMessage = false) {
     let config = {
         params: {
             ...getCommonParams(),
@@ -113,7 +113,7 @@ ajax.get = function(url, params, noMessage = false) {
         })
 }
 
-ajax.post = function(url, params, noMessage = false) {
+ajax.post = function (url, params, noMessage = false) {
     let data = {
         ...getCommonParams(),
         ...params
