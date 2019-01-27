@@ -85,7 +85,7 @@
                     >
                     </router-link>
                   </p>
-                  <div class="list-rt-tag-box sm-tips-font">
+                  <div class="list-rt-tag-box sm-tips-font visible-pc">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
                     <span class="vertical-line"></span>
                   </div>
@@ -108,10 +108,7 @@
             </el-pagination>
           </div>
         </div>
-        <div
-          class="container-half zlzj-box"
-          style="position: relative;margin-left: 40px;"
-        >
+        <div class="container-half zlzj-box h5_ctrl">
           <span class="title-tips">{{ currClassNum | classNameFn }}数学</span>
           <div class="list-table-wrap">
             <ul class="djtj-news-list ">
@@ -156,7 +153,7 @@
                     >
                     </router-link>
                   </p>
-                  <div class="list-rt-tag-box sm-tips-font">
+                  <div class="list-rt-tag-box sm-tips-font visible-pc">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
                     <span class="vertical-line"></span>
                   </div>
@@ -228,7 +225,7 @@
                       v-html="item.titleName"
                     ></a>
                   </p>
-                  <div class="list-rt-tag-box sm-tips-font">
+                  <div class="list-rt-tag-box sm-tips-font visible-pc">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
                     <span class="vertical-line"></span>
                   </div>
@@ -251,10 +248,7 @@
             </el-pagination>
           </div>
         </div>
-        <div
-          class="container-half zlzj-box"
-          style="position: relative;margin-left: 40px;"
-        >
+        <div class="container-half zlzj-box h5_ctrl">
           <span class="title-tips">更多精彩</span>
           <div class="list-table-wrap">
             <img
@@ -262,7 +256,7 @@
               alt=""
             >
             <img
-              style="margin-left:38px"
+              class="h5_ctrl2 visible-pc"
               src="../../../static/eduImg/kt5u.jpg"
               alt=""
             >
@@ -417,10 +411,15 @@ export default {
     }
 }
 </script>
-<style lang="less">
-</style>
 
 <style lang="less" type="text/less">
+.h5_ctrl {
+  position: relative;
+  margin-left: 40px;
+}
+.h5_ctrl2 {
+  margin-left: 38px;
+}
 .pagination {
   text-align: center;
   margin-top: 20px;
@@ -428,7 +427,8 @@ export default {
 .topImg {
   margin-left: auto;
   margin-right: auto;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   img {
     display: block;
     width: 100%;
@@ -438,13 +438,15 @@ export default {
 .main-row-box {
   background: #fff;
   clear: both;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   margin-top: 20px;
   padding-top: 24px;
   padding-bottom: 30px;
   .container-half {
-    width: 570px;
+    max-width: 570px;
+    width: 100%;
     margin-left: 0px;
     float: left;
     .title-tips {
@@ -466,7 +468,7 @@ export default {
           font-size: 16px;
           line-height: 26px;
           a {
-            width: 468px;
+            max-width: 468px;
             font-weight: 600;
           }
         }
@@ -483,18 +485,32 @@ export default {
         .exam-title-box {
           float: left;
           margin-left: 20px;
-          width: 468px;
+          max-width: 468px;
+          width: 70%;
+          a {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
         }
         .date {
           width: 72px;
         }
         .title {
           float: left;
+          width: 76%;
+          a {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
         }
         li {
           a {
             display: inline-block;
-            float: left;
+            // float: left;
             &:hover {
               color: #2695ff;
             }
@@ -526,7 +542,9 @@ export default {
 .seat {
   margin-left: auto;
   margin-right: auto;
-  width: 1200px;
+  //   width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   min-height: 220px;
   background: #fff;
   -webkit-border-radius: 5px;
@@ -620,4 +638,40 @@ a {
   color: #333;
 }
 // ========end=========
+// h5
+@media (max-width: 992px) {
+  .h5_ctrl {
+    position: relative;
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+  .h5_ctrl2 {
+    margin-left: 0px;
+  }
+  .seat {
+    .seat-mt {
+      height: 58px;
+      strong {
+        margin-top: 14px;
+      }
+    }
+    .seat-nav {
+      margin-left: 40px;
+      float: left;
+      padding-top: 12px;
+    }
+  }
+  .daily-zy {
+    .seat-mc {
+      position: relative;
+      overflow: hidden;
+      .seat-list {
+        li {
+          width: 340px;
+          padding-bottom: 14px;
+        }
+      }
+    }
+  }
+}
 </style>

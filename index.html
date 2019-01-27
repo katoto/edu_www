@@ -106,52 +106,52 @@
     </div>
 
     <script>
-        function preloadImage(names, cb, prefix) {
+        function preloadImage (names, cb, prefix) {
             var n = 0,
-                img, imgs = {};
-            window.gkaCache = window.gkaCache || [];
-            names.forEach(function (name) {
-                img = new Image();
-                window.gkaCache.push(img);
-                img.onload = (function (name, img) {
+                img, imgs = {}
+    window.gkaCache = window.gkaCache || []
+    names.forEach(function (name) {
+                img = new Image()
+        window.gkaCache.push(img)
+        img.onload = (function (name, img) {
                     return function () {
                         imgs[name] = img;
-                        (++n === names.length) && cb && cb(imgs);
-                    }
-                })(name, img);
-                img.src = (prefix || '') + name;
-            })
+                        (++n === names.length) && cb && cb(imgs)
+            }
+                })(name, img)
+        img.src = (prefix || '') + name
+    })
         };
         preloadImage(['loading.png'], function () {
-            document.getElementById('cs').className += ' animation';
-        }, '/static/')
+            document.getElementById('cs').className += ' animation'
+}, '/static/')
     </script>
 </body>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
         (adsbygoogle = window.adsbygoogle || []).push({
             google_ad_client: 'ca-pub-3002119464548226',
             enable_page_level_ads: true
         })
-</script>
+</script> -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129157777-1"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments) }
-    gtag('js', new Date());
-    gtag('config', 'UA-129157777-1');
+    window.dataLayer = window.dataLayer || []
+function gtag () { dataLayer.push(arguments) }
+    gtag('js', new Date())
+gtag('config', 'UA-129157777-1')
 </script>
 
 <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-    var message_Path = '/static/live2d/';
-    var home_Path = '//katoto.cn/';
+    var message_Path = '/static/live2d/'
+var home_Path = '//katoto.cn/'
 </script>
 <script type="text/javascript" src="/static/live2d/js/live2d.js"></script>
 <script type="text/javascript" src="/static/live2d/js/message.js"></script>
 <script type="text/javascript">
-    loadlive2d("live2d", "/static/live2d/model/tia/model.json");
+    loadlive2d('live2d', '/static/live2d/model/tia/model.json')
     // loadlive2d("live2d", "/static/live2d/model/koharu/koharu.model.json");
 </script>
 

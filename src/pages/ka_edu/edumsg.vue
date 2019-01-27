@@ -26,7 +26,7 @@
     </div>
     <!--左侧 E-->
     <!--右侧 S-->
-    <div class="mainR f-f0 floatR">
+    <div class="mainR f-f0 floatR visible-pc">
       <div class="r_news ">
         <p class="title3 f-f0">
           阅读排行榜
@@ -130,8 +130,8 @@ export default {
   box-sizing: border-box;
   position: relative;
   margin: 0 auto;
-  min-width: 1000px;
-  width: 90%;
+  //   min-width: 1000px;
+  width: 96%;
   height: auto;
   .conL-box {
     float: left;
@@ -240,6 +240,19 @@ export default {
   }
   .floatR {
     float: right;
+  }
+}
+
+@media (max-width: 992px) {
+  .content {
+    padding: 10px 12px;
+    .conL-box {
+      float: none;
+      padding-right: 0;
+      .conL .article .title1 {
+        margin-bottom: 6px;
+      }
+    }
   }
 }
 </style>
