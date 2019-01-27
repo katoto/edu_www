@@ -1,78 +1,142 @@
 <template>
-    <div class="test">
-        <p class="ka_tips">温馨提示：如果当前打不开，可以选择换个线路~</p>
-        <div class="iframeBox">
-            <iframe class="iframeStyle" :src="currSrc" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen">
-            </iframe>
-        </div>
-        <div class="moreLine">
-            <span>更多线路选择 : &nbsp;</span>
-            <el-button @click="changeLine(1)" type="primary" size="small">1</el-button>
-            <el-button @click="changeLine(2)" type="primary" size="small">2</el-button>
-            <el-button @click="changeLine(3)" type="primary" size="small">3</el-button>
-            <el-button @click="changeLine(4)" type="primary" size="small">4</el-button>
-            <el-button @click="changeLine(5)" type="primary" size="small">5</el-button>
-            <el-button @click="changeLine(6)" type="primary" size="small">6</el-button>
-            <el-button @click="changeLine(7)" type="primary" size="small">7</el-button>
-            <el-button @click="changeLine(8)" type="primary" size="small">8</el-button>
-            <el-button @click="changeLine(9)" type="primary" size="small">9</el-button>
-            <el-button @click="changeLine(10)" type="primary" size="small">10</el-button>
-            <el-button @click="changeLine(11)" type="primary" size="small">乐视专用</el-button>
-        </div>
-        <div class="logos_lists_box">
-            <ul class="logos_lists clearfix">
-                <li>
-                    <p><a href="http://www.iqiyi.com/" target="_blank"><img src="../../assets/images/otherLog/aqylogo.png"></a></p>
-                    <span>爱奇艺视频</span>
-                </li>
-                <li>
-                    <p><a href="http://www.youku.com/" target="_blank"><img src="../../assets/images/otherLog/youkulogo.png"></a></p>
-                    <span>优酷视频</span>
-                </li>
-                <li>
-                    <p><a href="http://www.le.com/" target="_blank"><img src="../../assets/images/otherLog/letvlogo.png"></a></p>
-                    <span>乐视TV视频</span>
-                </li>
-                <li>
-                    <p><a href="http://v.qq.com/" target="_blank"><img src="../../assets/images/otherLog/qqlogo.png"></a></p>
-                    <span>腾讯视频</span>
-                </li>
-                <li>
-                    <p><a href="http://www.tudou.com/" target="_blank"><img src="../../assets/images/otherLog/tudoulogo.png"></a></p>
-                    <span>土豆视频</span>
-                </li>
-                <li>
-                    <p><a href="http://tv.sohu.com/" target="_blank"><img src="../../assets/images/otherLog/sohulogo.png"></a></p>
-                    <span>搜狐视频</span>
-                </li>
-                <li>
-                    <p><a href="http://www.56.com/" target="_blank"><img src="../../assets/images/otherLog/56logo.png"></a></p>
-                    <span>56视频</span>
-                </li>
-                <li>
-                    <p><a href="http://www.wasu.cn/" target="_blank"><img src="../../assets/images/otherLog/wasulogo.png"></a></p>
-                    <span>WASU华数视频</span>
-                </li>
-                <li>
-                    <p><a href="http://www.mgtv.com/" target="_blank"><img src="../../assets/images/otherLog/hunantvlogo.png"></a></p>
-                    <span>芒果TV视频</span>
-                </li>
-                <li>
-                    <p><a href="http://v.163.com/" target="_blank"><img src="../../assets/images/otherLog/163logo.png"></a></p>
-                    <span>网易视频</span>
-                </li>
-            </ul>
-        </div>
+  <div class="test">
+    <p class="ka_tips">温馨提示：如果当前打不开，可以选择换个线路~</p>
+    <div class="iframeBox">
+      <iframe
+        class="iframeStyle"
+        :src="currSrc"
+        frameborder="0"
+        allowfullscreen="allowfullscreen"
+        mozallowfullscreen="mozallowfullscreen"
+        msallowfullscreen="msallowfullscreen"
+        oallowfullscreen="oallowfullscreen"
+        webkitallowfullscreen="webkitallowfullscreen"
+      >
+      </iframe>
     </div>
+    <div class="moreLine">
+      <span>更多线路选择 : &nbsp;</span>
+      <el-button
+        @click="changeLine(1)"
+        type="primary"
+        size="small"
+      >1</el-button>
+      <el-button
+        @click="changeLine(2)"
+        type="primary"
+        size="small"
+      >2</el-button>
+      <el-button
+        @click="changeLine(3)"
+        type="primary"
+        size="small"
+      >3</el-button>
+      <el-button
+        @click="changeLine(4)"
+        type="primary"
+        size="small"
+      >4</el-button>
+      <el-button
+        @click="changeLine(5)"
+        type="primary"
+        size="small"
+      >5</el-button>
+      <el-button
+        @click="changeLine(6)"
+        type="primary"
+        size="small"
+      >6</el-button>
+      <el-button
+        @click="changeLine(7)"
+        type="primary"
+        size="small"
+      >7</el-button>
+      <el-button
+        @click="changeLine(8)"
+        type="primary"
+        size="small"
+      >8</el-button>
+      <el-button
+        @click="changeLine(9)"
+        type="primary"
+        size="small"
+      >10</el-button>
+      <el-button
+        @click="changeLine(10)"
+        type="primary"
+        size="small"
+      >乐视专用</el-button>
+    </div>
+    <div class="logos_lists_box">
+      <ul class="logos_lists clearfix">
+        <li>
+          <p><a
+              href="http://www.iqiyi.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/aqylogo.png"></a></p>
+          <span>爱奇艺视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://www.youku.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/youkulogo.png"></a></p>
+          <span>优酷视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://www.le.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/letvlogo.png"></a></p>
+          <span>乐视TV视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://v.qq.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/qqlogo.png"></a></p>
+          <span>腾讯视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://www.tudou.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/tudoulogo.png"></a></p>
+          <span>土豆视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://tv.sohu.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/sohulogo.png"></a></p>
+          <span>搜狐视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://www.56.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/56logo.png"></a></p>
+          <span>56视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://www.wasu.cn/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/wasulogo.png"></a></p>
+          <span>WASU华数视频</span>
+        </li>
+        <li>
+          <p><a
+              href="http://www.mgtv.com/"
+              target="_blank"
+            ><img src="../../assets/images/otherLog/hunantvlogo.png"></a></p>
+          <span>芒果TV视频</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 <script>
-// <button onclick="xldata('http://api.jrzsz.com/index.php?url=')">线路一</button>
-// <button onclick="xldata('https://api.47ks.com/webcloud/?v=')">线路三</button>
-// <button onclick="xldata('http://jx.ejiafarm.com/dy.php?url=')">线路四</button>
-// <button onclick="xldata('http://jx.aeidu.cn/index.php?url=')">线路五</button>
-// <button onclick="xldata('http://api.wlzhan.com/sudu/?url=')">线路八</button>
-// <button onclick="xldata('http://jx.598110.com/duo/index.php?url=')">线路九</button>
-// <button onclick="xldata('http://api.kf4.cc/?url=')">线路十</button></div>
 export default {
     data () {
         return {
@@ -83,14 +147,12 @@ export default {
                 play2: '//jx.biaoge.tv/index.php?url=',
                 play3: '//api.zuilingxian.com/jiexi.php?url=',
                 play4: '//app.baiyug.cn:2019/vip/?url=', // 不是很高清 可以看电视
-                play5: '//api.kf4.cc/?url=', // 不是很高清 有点差
-                // play6: '//vip.jlsprh.com/index.php?url=', // 高清 有他人广告
+                play5: '//api.kf4.cc/?url=', // 不是很高清 有点差  ..
                 play6: '//app.baiyug.cn:2019/vip/?url=', //
-                play7: '//jiexi.071811.cc/jx2.php?url=', // 有点差
-                play8: '//beaacc.com/api.php?url=', //
-                play9: '//api.wlzhan.com/sudu/?url=', // 有点差
-                play10: '//api.pucms.com/?url=', // 有广告
-                play11: '//2gty.com/apiurl/yun.php?url=' // 乐视专用
+                play7: '//beaacc.com/api.php?url=', //
+                play8: '//jx.ejiafarm.com/dy.php?url=', //
+                play9: '//jx.aeidu.cn/index.php?url=', //
+                play10: '//2gty.com/apiurl/yun.php?url=' // 乐视专用
             }
         }
     },
