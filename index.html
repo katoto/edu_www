@@ -39,7 +39,7 @@
             text-align: center;
             font-weight: bold;
         }
-        
+
         #csLoading>div {
             position: absolute;
             left: 50%;
@@ -47,28 +47,29 @@
             transform: translate(-50%, -50%);
             font-size: 16px;
         }
-        
+
         #cs {
             width: 100px;
             height: 100px;
         }
-        
+
         .animation {
             background: url("http://www.katoto.cn/static/loading.png") no-repeat center;
             background-size: 60px;
         }
-        
+
         @keyframes keyframes-loading {
             0% {
                 background-position: 0px 0px;
             }
+
             100% {
                 background-position: -3300px 0px;
             }
         }
 
         /* // live 2d */
-        #landlord{
+        /* #landlord {
             position: fixed;
             font-size: 14px;
             z-index: 6;
@@ -76,15 +77,17 @@
             bottom: -20px;
             transform: scale(0.8);
         }
-        #landlord .message{
+
+        #landlord .message {
             text-align: center;
             color: coral;
         }
-        #landlord .hide-button{
+
+        #landlord .hide-button {
             position: absolute;
             right: 0;
             top: 0;
-        }
+        } */
     </style>
 
 </head>
@@ -99,32 +102,32 @@
         </div>
     </div>
 
-    <div id="landlord">
+    <!-- <div id="landlord">
         <div class="message" style="opacity:0"></div>
         <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
         <div class="hide-button hide">隐藏</div>
-    </div>
+    </div> -->
 
     <script>
-        function preloadImage (names, cb, prefix) {
+        function preloadImage(names, cb, prefix) {
             var n = 0,
-                img, imgs = {}
-    window.gkaCache = window.gkaCache || []
-    names.forEach(function (name) {
-                img = new Image()
-        window.gkaCache.push(img)
-        img.onload = (function (name, img) {
+                img, imgs = {};
+            window.gkaCache = window.gkaCache || [];
+            names.forEach(function (name) {
+                img = new Image();
+                window.gkaCache.push(img);
+                img.onload = (function (name, img) {
                     return function () {
                         imgs[name] = img;
-                        (++n === names.length) && cb && cb(imgs)
-            }
-                })(name, img)
-        img.src = (prefix || '') + name
-    })
+                        (++n === names.length) && cb && cb(imgs);
+                    }
+                })(name, img);
+                img.src = (prefix || '') + name;
+            })
         };
         preloadImage(['loading.png'], function () {
-            document.getElementById('cs').className += ' animation'
-}, '/static/')
+            document.getElementById('cs').className += ' animation';
+        }, '/static/')
     </script>
 </body>
 <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -137,13 +140,13 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129157777-1"></script>
 <script>
-    window.dataLayer = window.dataLayer || []
-function gtag () { dataLayer.push(arguments) }
-    gtag('js', new Date())
-gtag('config', 'UA-129157777-1')
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments) }
+    gtag('js', new Date());
+    gtag('config', 'UA-129157777-1');
 </script>
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
     var message_Path = '/static/live2d/'
 var home_Path = '//katoto.cn/'
@@ -153,6 +156,6 @@ var home_Path = '//katoto.cn/'
 <script type="text/javascript">
     loadlive2d('live2d', '/static/live2d/model/tia/model.json')
     // loadlive2d("live2d", "/static/live2d/model/koharu/koharu.model.json");
-</script>
+</script> -->
 
 </html>
