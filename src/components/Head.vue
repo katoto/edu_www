@@ -65,7 +65,7 @@
           </router-link>
           <router-link
             class="tophead"
-            :to="{path: '/htmlnav'}"
+            :to="{path: '/tuzhai'}"
           >
             图摘
           </router-link>
@@ -138,7 +138,7 @@
           <li class="icon-new">
             <router-link
               class="tophead"
-              :to="{path: '/htmlnav'}"
+              :to="{path: '/tuzhai'}"
             >
               图摘
             </router-link>

@@ -192,6 +192,7 @@ export default {
 /* xs超小屏幕（手机，最大 480） */
 @media (max-width: @screen-phone) {
   .footer {
+    height: 160px;
     .cs-copyright {
       position: relative;
       margin: 0 auto;

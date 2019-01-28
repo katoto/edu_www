@@ -30,8 +30,17 @@ const pmnav = () =>
 const eduIndex = () =>
     import('~/pages/ka_edu/classpage')
 
-const edumsg = () => import('~/pages/ka_edu/edumsg')
-const artdetail = () => import('~/pages/ka_edu/artdetail')
+const edumsg = () =>
+    import('~/pages/ka_edu/edumsg')
+const artdetail = () =>
+    import('~/pages/ka_edu/artdetail')
+    // 图摘页面列表
+const tuzhai = () =>
+    import('~/pages/ka_tuzhai/index')
+
+// 图摘详情
+const tuzhaiMsg = () =>
+    import('~/pages/ka_tuzhai/tuzhaiMsg')
 
 let routesArr = [{
     path: '/movie',
@@ -67,6 +76,16 @@ let routesArr = [{
     path: '/eduIndex/:classNum?',
     name: 'eduIndex',
     component: eduIndex
+},
+{
+    path: '/tuzhai',
+    name: 'tuzhai',
+    component: tuzhai
+},
+{
+    path: '/tuzhaimsg/:tuzhaiid?',
+    name: 'tuzhaimsg',
+    component: tuzhaiMsg
 },
 {
     path: '/edumsg/:id?',
@@ -113,11 +132,7 @@ if (location.search) {
             history.replaceState({}, '', `${location.origin}/?inviter=${queryObj.inviter}&sign=${queryObj.sign}`)
         }
         if (queryObj.from) {
-            if (queryObj.from === 'resetPassword') {
-                history.replaceState({}, '', `${location.origin}/?from=${queryObj.from}&sign=${queryObj.sign}&email=${queryObj.email}`)
-            } else {
-                history.replaceState({}, '', `${location.origin}${location.pathname}/?from=${queryObj.from}&sign=${queryObj.sign}`)
-            }
+
         }
     }
 }

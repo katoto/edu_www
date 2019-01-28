@@ -1,5 +1,4 @@
 import ajax from '~common/ajax'
-import router from '~router'
 
 const state = {}
 const mutations = {}

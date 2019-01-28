@@ -52,7 +52,7 @@ export default {
             }
         },
         initPop () {
-            /* head 弹窗 */
+            /* head  弹窗  */
             if (this.isSlot || this.isDapp) {
                 return
             }

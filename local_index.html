@@ -15,10 +15,8 @@
     <meta name="referrer" content="no-referrer" />
     <link rel="alternate" type="text/html" hreflang="en-us" id="USseo" href="https://www.katoto.cn/" title="English (US)" />
     <link rel="alternate" type="text/html" hreflang="en-gb" id="UKseo" href="https://www.katoto.cn/" title="English (UK)" />
-    <link rel="alternate" type="text/html" hreflang="zh-tw" id="zhTwseo" href="https://www.katoto.cn/?language=zhTw"
-        title="繁體中文" />
-    <link rel="alternate" type="text/html" hreflang="zh-cn" id="zhCnseo" href="https://www.katoto.cn/?language=zhCn"
-        title="简体中文" />
+    <link rel="alternate" type="text/html" hreflang="zh-tw" id="zhTwseo" href="https://www.katoto.cn/?language=zhTw" title="繁體中文" />
+    <link rel="alternate" type="text/html" hreflang="zh-cn" id="zhCnseo" href="https://www.katoto.cn/?language=zhCn" title="简体中文" />
     <meta id="contentLanguange" http-equiv="content-language" content="zhCn" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="robots" content="index,follow">
@@ -66,9 +64,8 @@
                 background-position: -3300px 0px;
             }
         }
-
         /* // live 2d */
-        #landlord{
+        /* #landlord {
             position: fixed;
             font-size: 14px;
             z-index: 6;
@@ -76,15 +73,17 @@
             bottom: -20px;
             transform: scale(0.8);
         }
-        #landlord .message{
+        
+        #landlord .message {
             text-align: center;
             color: coral;
         }
-        #landlord .hide-button{
+        
+        #landlord .hide-button {
             position: absolute;
             right: 0;
             top: 0;
-        }
+        } */
     </style>
 
 </head>
@@ -99,22 +98,22 @@
         </div>
     </div>
 
-    <div id="landlord">
+    <!-- <div id="landlord">
         <div class="message" style="opacity:0"></div>
         <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
         <div class="hide-button hide">隐藏</div>
-    </div>
+    </div> -->
 
     <script>
-        function preloadImage (names, cb, prefix) {
+        function preloadImage(names, cb, prefix) {
             var n = 0,
                 img, imgs = {}
             window.gkaCache = window.gkaCache || []
-            names.forEach(function (name) {
+            names.forEach(function(name) {
                 img = new Image()
                 window.gkaCache.push(img)
-                img.onload = (function (name, img) {
-                    return function () {
+                img.onload = (function(name, img) {
+                    return function() {
                         imgs[name] = img;
                         (++n === names.length) && cb && cb(imgs)
                     }
@@ -122,17 +121,17 @@
                 img.src = (prefix || '') + name
             })
         };
-        preloadImage(['loading.png'], function () {
+        preloadImage(['loading.png'], function() {
             document.getElementById('cs').className += ' animation'
         }, '/static/')
     </script>
 </body>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: 'ca-pub-3002119464548226',
-            enable_page_level_ads: true
-        })
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: 'ca-pub-3002119464548226',
+        enable_page_level_ads: true
+    })
 </script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129157777-1"></script>
@@ -143,7 +142,7 @@
     gtag('config', 'UA-129157777-1');
 </script> -->
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
     var message_Path = '/static/live2d/'
     var home_Path = '//katoto.cn/'
@@ -153,6 +152,6 @@
 <script type="text/javascript">
     loadlive2d('live2d', '/static/live2d/model/tia/model.json')
     // loadlive2d("live2d", "/static/live2d/model/koharu/koharu.model.json");
-</script>
+</script> -->
 
 </html>

@@ -70,47 +70,47 @@
 
 <script>
 export default {
-  data() {
-    return {
-      languageOptions: [{
-        value: 'en',
-        label: 'English',
-        lanLogo: '../../../static/staticImg/lan-en.jpg'
-      }, {
-        value: 'zhCn',
-        label: '中文简体',
-        lanLogo: '../../../static/staticImg/lan-cn.jpg'
-      }, {
-        value: 'zhTw',
-        label: '中文繁體',
-        lanLogo: '../../../static/staticImg/lan-cn.jpg'
-      }],
-      isShowLanguage: false
-    }
-  },
-  methods: {
-    scroll() {
-      window.scrollTo(0, 0)
+    data () {
+        return {
+            languageOptions: [{
+                value: 'en',
+                label: 'English',
+                lanLogo: '../../../static/staticImg/lan-en.jpg'
+            }, {
+                value: 'zhCn',
+                label: '中文简体',
+                lanLogo: '../../../static/staticImg/lan-cn.jpg'
+            }, {
+                value: 'zhTw',
+                label: '中文繁體',
+                lanLogo: '../../../static/staticImg/lan-cn.jpg'
+            }],
+            isShowLanguage: false
+        }
     },
-    handleLanguageChange(val) {
-      this.$store.commit('changeLanguage', val)
+    methods: {
+        scroll () {
+            window.scrollTo(0, 0)
+        },
+        handleLanguageChange (val) {
+            this.$store.commit('changeLanguage', val)
+        },
+        headControlPop () {
+            this.isShowLanguage = !this.isShowLanguage
+        }
     },
-    headControlPop() {
-      this.isShowLanguage = !this.isShowLanguage
+    computed: {
+        languageVal: {
+            set (val) {
+                this.$store.commit('changeLanguage', val)
+            },
+            get () {
+                return this.$store.state.language
+            }
+        }
+    },
+    mounted () {
     }
-  },
-  computed: {
-    languageVal: {
-      set(val) {
-        this.$store.commit('changeLanguage', val)
-      },
-      get() {
-        return this.$store.state.language
-      }
-    }
-  },
-  mounted() {
-  }
 }
 </script>
 <style lang="less" scoped type="text/less">
