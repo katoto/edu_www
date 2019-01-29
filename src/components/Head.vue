@@ -183,11 +183,11 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-            showH5Nav: false
-        }
+  data() {
+    return {
+      showH5Nav: false
     }
+  }
 }
 </script>
 <style lang="less" type="text/less">
@@ -246,7 +246,7 @@ export default {
   .h5head {
     .mobile_nav {
       position: relative;
-      z-index: 2;
+      z-index: 6;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;

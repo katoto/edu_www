@@ -111,7 +111,7 @@ export default {
 @import "../../styles/lib-media.less";
 
 .containbox {
-  border-bottom: 2px solid #55a5d8;
+//   border-bottom: 2px solid #55a5d8;
   .navHead {
     padding: 20px 0;
     h1 {
