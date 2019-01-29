@@ -78,7 +78,6 @@ export default {
                             if (item.img) item.img = '//qingniantuzhai.com' + item.img
                             if (item.titleLink) {
                                 item.titleLink = '/tuzhaimsg/' + item.titleLink.replace(/\//g, '$')
-                                console.log(item.titleLink)
                             }
                         }
                     })
@@ -86,10 +85,13 @@ export default {
                     this.isLoading = false
                 }
             }
-        },
+		},
+		getScrollTop () {
+			let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			return scrollTop
+		},
         scrollGet () {
-            let bottomHei = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 350
-            console.log(bottomHei)
+            let bottomHei = (document.documentElement.offsetHeight - this.getScrollTop() - window.innerHeight) <= 350
             if (!this.isLoading && bottomHei) {
                 this.isLoading = true
                 this.currPage = this.currPage + 1
