@@ -92,9 +92,6 @@ export default {
 		},
         scrollGet () {
             let bottomHei = (document.documentElement.offsetHeight - this.getScrollTop() - window.innerHeight) <= 350
-			console.log(document.documentElement.offsetHeight)
-			console.log(this.getScrollTop())
-			console.log('-------')
             if (!this.isLoading && bottomHei) {
                 this.isLoading = true
                 this.currPage = this.currPage + 1
