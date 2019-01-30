@@ -183,11 +183,11 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      showH5Nav: false
+    data () {
+        return {
+            showH5Nav: false
+        }
     }
-  }
 }
 </script>
 <style lang="less" type="text/less">

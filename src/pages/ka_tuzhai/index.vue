@@ -85,11 +85,11 @@ export default {
                     this.isLoading = false
                 }
             }
-		},
-		getScrollTop () {
-			let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-			return scrollTop
-		},
+        },
+        getScrollTop () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+            return scrollTop
+        },
         scrollGet () {
             let bottomHei = (document.documentElement.offsetHeight - this.getScrollTop() - window.innerHeight) <= 350
             if (!this.isLoading && bottomHei) {

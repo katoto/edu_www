@@ -59,37 +59,37 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      tuzhaimsg: null,
-      currid: null,
-      storetuzhai: null
+    data () {
+        return {
+            tuzhaimsg: null,
+            currid: null,
+            storetuzhai: null
+        }
+    },
+    methods: {
+        async pageMsg (id = '/qing-nian-tu-zhai-0103-2/') {
+            let data = await this.$store.dispatch('ka_tuzhai/getTuzhaimsg', id)
+            if (data && data.data && data.data.msg) {
+                this.tuzhaimsg = data.data.msg
+            }
+        }
+    },
+    mounted () {
+        if (localStorage.getItem('tuzhai')) {
+            this.storetuzhai = JSON.parse(localStorage.getItem('tuzhai'))
+        } else {
+            this.$router.push('/tuzhai')
+        }
+        if (this.$route.params && this.$route.params.tuzhaiid) {
+            this.currid = this.$route.params.tuzhaiid.replace(/\$/g, '/')
+        }
+        console.log(this.currid)
+        console.log('======')
+        console.log(this.storetuzhai)
+        this.pageMsg(this.currid)
+    },
+    destroyed () {
     }
-  },
-  methods: {
-    async pageMsg(id = '/qing-nian-tu-zhai-0103-2/') {
-      let data = await this.$store.dispatch('ka_tuzhai/getTuzhaimsg', id)
-      if (data && data.data && data.data.msg) {
-        this.tuzhaimsg = data.data.msg
-      }
-    }
-  },
-  mounted() {
-    if (localStorage.getItem('tuzhai')) {
-      this.storetuzhai = JSON.parse(localStorage.getItem('tuzhai'))
-    } else {
-      this.$router.push('/tuzhai')
-    }
-    if (this.$route.params && this.$route.params.tuzhaiid) {
-      this.currid = this.$route.params.tuzhaiid.replace(/\$/g, '/')
-    }
-    console.log(this.currid)
-    console.log('======')
-    console.log(this.storetuzhai)
-    this.pageMsg(this.currid)
-  },
-  destroyed() {
-  }
 }
 </script>
 <style lang="less" type="text/less">
