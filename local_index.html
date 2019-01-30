@@ -118,7 +118,7 @@
                         (++n === names.length) && cb && cb(imgs)
                     }
                 })(name, img)
-                img.src = (prefix || '') + name
+                img.src = (prefix || '') + name;
             })
         };
         preloadImage(['loading.png'], function() {
