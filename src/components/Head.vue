@@ -70,8 +70,8 @@
             图摘
           </router-link>
           <router-link
-            class="tophead hide"
-            :to="{path: '/htmlnav'}"
+            class="tophead"
+            :to="{path: '/meitu'}"
           >
             K美图
           </router-link>
@@ -146,7 +146,7 @@
           <li>
             <router-link
               class="tophead"
-              :to="{path: '/htmlnav'}"
+              :to="{path: '/meitu'}"
             >
               K美图
             </router-link>
@@ -183,11 +183,11 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-            showH5Nav: false
-        }
+  data() {
+    return {
+      showH5Nav: false
     }
+  }
 }
 </script>
 <style lang="less" type="text/less">

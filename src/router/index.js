@@ -34,13 +34,19 @@ const edumsg = () =>
     import('~/pages/ka_edu/edumsg')
 const artdetail = () =>
     import('~/pages/ka_edu/artdetail')
-    // 图摘页面列表
+// 图摘页面列表
 const tuzhai = () =>
     import('~/pages/ka_tuzhai/index')
-
 // 图摘详情
 const tuzhaiMsg = () =>
     import('~/pages/ka_tuzhai/tuzhaiMsg')
+
+// 美图页面列表
+const meitu = () =>
+    import('~/pages/ka_meitu/index')
+// 美图详情
+const meitumsg = () =>
+    import('~/pages/ka_meitu/meituMsg')
 
 let routesArr = [{
     path: '/movie',
@@ -78,6 +84,16 @@ let routesArr = [{
     component: eduIndex
 },
 {
+    path: '/meitu',
+    name: 'meitu',
+    component: meitu
+},
+{
+    path: '/meitumsg/:meituid?',
+    name: 'meitumsg',
+    component: meitumsg
+},
+{
     path: '/tuzhai',
     name: 'tuzhai',
     component: tuzhai
@@ -112,7 +128,7 @@ let routesArr = [{
 export default new Router({
     mode: 'history',
     routes: routesArr,
-    scrollBehavior (to, from, savedPosition) { // vue-router的滚动行为，避免当前页面滚动到底部，跳转其他页面时也在底部
+    scrollBehavior(to, from, savedPosition) { // vue-router的滚动行为，避免当前页面滚动到底部，跳转其他页面时也在底部
         return {
             x: 0,
             y: 0
