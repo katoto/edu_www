@@ -11,136 +11,17 @@
         <div class="tab_zt">
           <div class="tab_box">
             <ul class="clearfix">
-              <li>
+              <li
+                v-for="(item,index) in meitu"
+                @click="jump2msg(item)"
+              >
                 <a href="javascript:;">
                   <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
+                    :src="item.pic"
+                    :alt="item.desc"
                     style="display: inline;"
                   >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.win4000.com/meinv170333.html">
-                  <img
-                    src="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    data-original="http://pic1.win4000.com/pic/8/90/8002015eb0_250_350.jpg"
-                    alt="丰满美女前凸后翘诱惑性感写真"
-                    style="display: inline;"
-                  >
-                  <p>丰满美女前凸后翘诱惑性感写真</p>
+                  <p>{{ item.desc }}</p>
                 </a>
               </li>
             </ul>
@@ -156,39 +37,26 @@ export default {
     return {
       currPage: 1,
       isLoading: false,
-      pagesize: 12,
-      tuzhai: []
+      pagesize: 15,
+      meitu: []
     }
   },
   methods: {
     jump2msg(item) {
-      delete item.baseDesc
+      delete item.picLink
       delete item._id
-      localStorage.setItem('tuzhai', JSON.stringify(item))
-      this.$router.push(item.titleLink)
-    },
-    async initPage() {
-      let list = await this.$store.dispatch('getiqiyiInfo')
-      if (list && list.status === '100') {
-      }
+      localStorage.setItem('meitu', JSON.stringify(item))
+      this.$router.push('/meitumsg')
     },
     async pageMsg(pageno = 1) {
       let params = {
         pageno,
         pagesize: this.pagesize
       }
-      let data = await this.$store.dispatch('ka_tuzhai/getTuzhailist', params)
+      let data = await this.$store.dispatch('ka_meitu/getKutulist', params)
       if (data && data.data && data.data.msg) {
         if (data.data.msg.length > 0) {
-          data.data.msg.forEach((item, index) => {
-            if (item) {
-              if (item.img) item.img = '//qingniantuzhai.com' + item.img
-              if (item.titleLink) {
-                item.titleLink = '/tuzhaimsg/' + item.titleLink.replace(/\//g, '$')
-              }
-            }
-          })
-          this.tuzhai = this.tuzhai.concat(data.data.msg)
+          this.meitu = this.meitu.concat(data.data.msg)
           this.isLoading = false
         }
       }
@@ -281,6 +149,7 @@ export default {
     }
   }
 }
+
 .w1180 {
   width: 1180px;
   margin: 0 auto 20px;
@@ -288,6 +157,64 @@ export default {
 
 /* xs超小屏幕（手机，最大 480） */
 @media (max-width: @screen-phone) {
+  // 美图
+  .list_cont2 {
+    .tab_box {
+      li {
+        height: auto;
+        a {
+          height: 330px;
+        }
+      }
+    }
+  }
+
+  .list_cont {
+    position: relative;
+    .tab_box {
+      ul {
+        overflow: hidden;
+        padding: 0 10px;
+        margin: 0;
+        li {
+          float: left;
+          width: 33.33%;
+          margin: 0 0 8px 0;
+          p {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            line-height: 20px;
+            height: auto;
+            padding: 0 10px;
+            background-color: #fff;
+            color: #666666;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          a {
+            display: block;
+            margin: 0 3px;
+            height: 0;
+            padding-bottom: 144%;
+            overflow: hidden;
+            img {
+              height: auto;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .w1180 {
+    width: 100%;
+    margin: 0 auto 20px;
+  }
   .containbox {
     border-bottom: 0;
     .navHead {

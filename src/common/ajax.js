@@ -64,7 +64,7 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     // 开发  环境
     // options.baseURL = 'http://47.96.234.59:7001/' // 线下测试web
     // options.baseURL = 'http://192.168.0.102:7001' // 线下测试web
-    options.baseURL = 'http://192.168.0.100:7001' // 线下测试web
+    options.baseURL = 'http://172.20.10.3:7001' // 线下测试web
     // options.baseURL = 'http://192.168.50.47:7001' // 线下测试web
     _isDev = true
 }
