@@ -4,7 +4,6 @@
       <div class="container navHead">
         <h1>超级美图</h1>
         <span class="visible-pc">每日热点美图</span>
-        <span>faffsadffsd</span>
       </div>
     </div>
     <div class="container">
@@ -48,7 +47,7 @@ export default {
             delete item.picLink
             delete item._id
             localStorage.setItem('meitu', JSON.stringify(item))
-            this.$router.push('/meitumsg');
+            this.$router.push('/meitumsg')
         },
         async pageMsg (pageno = 1) {
             let params = {
