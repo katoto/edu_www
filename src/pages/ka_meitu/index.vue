@@ -48,7 +48,7 @@ export default {
             delete item.picLink
             delete item._id
             localStorage.setItem('meitu', JSON.stringify(item))
-            this.$router.push('/meitumsg')
+            this.$router.push('/meitumsg');
         },
         async pageMsg (pageno = 1) {
             let params = {
