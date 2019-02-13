@@ -11,7 +11,7 @@ import {
     getURLParams
 } from '~common/util'
 
-function getCommonParams() {
+function getCommonParams () {
     let ck = getCK() || ''
     let urlParams = getURLParams() || null
     let channel = null
@@ -31,9 +31,9 @@ function getCommonParams() {
         ck,
         channel
     } : {
-            ...params,
-            ck
-        }
+        ...params,
+        ck
+    }
 }
 
 const options = {
