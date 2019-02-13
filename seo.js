@@ -15,7 +15,7 @@ function stats(filepath) {
     return fs.statSync(path.resolve(__dirname, filepath))
 }
 
-function getDirFile(filepath) {
+function getDirFile(filepath) { 
     return fs.readdirSync(path.resolve(__dirname, filepath))
 }
 

@@ -47,11 +47,9 @@ const options = {
     }
 }
 
-let websocketUrl = ''
 let _isProduction = false
 let _isRelease = false
 let _isDev = false
-const isHttp = window.location.protocol === 'http:'
 if (process && process.env && process.env.NODE_ENV === 'production') {
     // 线上
     options.baseURL = window.location.protocol + '//www.katoto.cn/api'

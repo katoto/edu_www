@@ -4,6 +4,7 @@
       <div class="container navHead">
         <h1>超级美图</h1>
         <span class="visible-pc">每日热点美图</span>
+        <span>faffsadffsd</span>
       </div>
     </div>
     <div class="container">
@@ -13,7 +14,7 @@
             <ul class="clearfix">
               <li
                 v-for="(item,index) in meitu"
-                @click="jump2msg(item)"
+                @click="jump2msg(item)" :key="index"
               >
                 <a href="javascript:;">
                   <img
@@ -23,6 +24,7 @@
                   >
                   <p>{{ item.desc }}</p>
                 </a>
+                
               </li>
             </ul>
           </div>
