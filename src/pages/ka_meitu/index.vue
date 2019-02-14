@@ -3,7 +3,7 @@
     <div class="containbox">
       <div class="container navHead">
         <h1>超级美图</h1>
-        <span class="visible-pc">每日热点美图</span>
+        <span class="visible-pc">每日热点美图</span> 
       </div>
     </div>
     <div class="container">
