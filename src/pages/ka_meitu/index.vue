@@ -78,6 +78,7 @@ export default {
     mounted () {
         this.pageMsg()
         document.addEventListener('scroll', this.scrollGet, true)
+        console.log('start 215')
     },
     destroyed () {
         window.removeEventListener('scroll', this.scrollGet, true)
