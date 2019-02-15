@@ -23,7 +23,6 @@
                   >
                   <p>{{ item.desc }}</p>
                 </a>
-                
               </li>
             </ul>
           </div>
