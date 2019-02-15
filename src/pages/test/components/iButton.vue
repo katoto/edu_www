@@ -1,7 +1,7 @@
 <template>
 <!-- 再复杂的组件，都是由三部分组成：prop、event、slot  -->
 <!-- 当有多个slot 的时候，用name 进行区分  引用方式 slot="icon"  -->
-<!-- 自定义事件  todo -->
+<!-- 自定义事件  disabled 会禁止事件 -->
 	<button :class="'i-button-size ' + size" :disabled="disabled" @click="handleClick">
         <slot name="icon"></slot>
         <slot>默认展示值</slot>
@@ -43,7 +43,10 @@ export default {
     button{
         width: 100px;
         height: 100px;
-        border: 2px solid rebeccapurple
+        border: 2px solid rebeccapurple;
+        position: relative;
+        z-index: 10;
+        cursor: pointer;
     }
     .large{
         width: 130px;

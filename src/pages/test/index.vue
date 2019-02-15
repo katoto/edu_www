@@ -2,7 +2,7 @@
     <div>
         测试测试
         <br>
-        <i-button id="123" size="small" disabled='disabled' data-id='123' @on-click="handleClick">
+        <i-button id="123" size="small" data-id='123' @abc="aa">
             <strong>aaader</strong>
             <!-- 指定具名位置 -->
             <span slot="icon">pps</span>
@@ -19,12 +19,9 @@ export default {
         iButton
     },
     methods: {
-        handleClick () {
+        aa () {
             console.log('11111')
             alert('123')
-        },
-        abc () {
-            alert('12344')
         }
     }
 }
