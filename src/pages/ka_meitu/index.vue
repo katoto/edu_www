@@ -3,7 +3,7 @@
     <div class="containbox">
       <div class="container navHead">
         <h1>超级美图</h1>
-        <span class="visible-pc">每日热点美图</span> 
+        <span class="visible-pc">每日热点美图</span>
       </div>
     </div>
     <div class="container">
@@ -23,7 +23,6 @@
                   >
                   <p>{{ item.desc }}</p>
                 </a>
-                
               </li>
             </ul>
           </div>
@@ -71,7 +70,6 @@ export default {
             if (!this.isLoading && bottomHei) {
                 this.isLoading = true
                 this.currPage = this.currPage + 1
-                console.log(this.currPage)
                 this.pageMsg(this.currPage)
             }
         }
@@ -79,6 +77,7 @@ export default {
     mounted () {
         this.pageMsg()
         document.addEventListener('scroll', this.scrollGet, true)
+        console.log('jenkins ok')
     },
     destroyed () {
         window.removeEventListener('scroll', this.scrollGet, true)
