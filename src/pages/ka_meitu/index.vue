@@ -70,7 +70,6 @@ export default {
             if (!this.isLoading && bottomHei) {
                 this.isLoading = true
                 this.currPage = this.currPage + 1
-                console.log(this.currPage)
                 this.pageMsg(this.currPage)
             }
         }
@@ -78,6 +77,7 @@ export default {
     mounted () {
         this.pageMsg()
         document.addEventListener('scroll', this.scrollGet, true)
+        console.log('start 215')
         console.log('start 215')
     },
     destroyed () {
