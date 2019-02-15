@@ -55,9 +55,12 @@ if (process && process.env && process.env.NODE_ENV === 'production') {
     options.baseURL = window.location.protocol + '//www.katoto.cn/api'
     _isProduction = true
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
-    // 线下167
-    options.baseURL = 'http://10.0.1.41:3333' // 线下测试web
-    _isRelease = true
+    // 线上
+    options.baseURL = window.location.protocol + '//www.katoto.cn/api'
+    _isProduction = true
+    // // 线下167
+    // options.baseURL = 'http://10.0.1.41:3333' // 线下测试web
+    // _isRelease = true
 } else {
     // 开发  环境
     // options.baseURL = 'http://47.96.234.59:7001/' // 线下测试web
