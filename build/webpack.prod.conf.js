@@ -16,8 +16,135 @@ const Renderer = prerenderSPAPlugin.PuppeteerRenderer
 
 const env = require('../config/prod.env')
 
+let _isPreRelease = process && process.env && process.env.NODE_ENV === 'preRelease'
+
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
+}
+
+let plugins = [
+    // http://vuejs.github.io/vue-loader/en/workflow/production.html
+    new webpack.DefinePlugin({
+        'process.env': {
+            ...env,
+            NODE_ENV: `"${process.env.NODE_ENV}"`
+        }
+    }),
+    new UglifyJsPlugin({
+        uglifyOptions: {
+            compress: {
+                warnings: false
+            }
+        },
+        sourceMap: config.build.productionSourceMap,
+        parallel: true
+    }),
+    // extract css into its own file
+    new ExtractTextPlugin({
+        filename: utils.assetsPath('css/[name].[contenthash:7].css'),
+        // Setting the following option to `false` will not extract CSS from codesplit chunks.
+        // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
+        // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
+        allChunks: false,
+    }),
+    // Compress extracted CSS. We are using this plugin so that possible
+    // duplicated CSS from different components can be deduped.
+    new OptimizeCSSPlugin({
+        cssProcessorOptions: config.build.productionSourceMap
+            ? { safe: true, map: { inline: false } }
+            : { safe: true }
+    }),
+    // generate dist index.html with correct asset hash for caching.
+    // you can customize output by editing /index.html
+    // see https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+        filename: config.build.index,
+        template: 'index.html',
+        inject: true,
+        favicon: resolve('favicon.ico'),
+        minify: {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true
+            // more options:
+            // https://github.com/kangax/html-minifier#options-quick-reference
+        },
+        // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+        chunksSortMode: 'dependency'
+    }),
+    // keep module.id stable when vendor modules does not change
+    new webpack.HashedModuleIdsPlugin(),
+    // enable scope hoisting
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    // split vendor js into its own file
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks(module) {
+            // any required modules inside node_modules are extracted to vendor
+            return (
+                module.resource &&
+                /\.js$/.test(module.resource) &&
+                module.resource.indexOf(
+                    path.join(__dirname, '../node_modules')
+                ) === 0
+            )
+        }
+    }),
+    // extract webpack runtime and module manifest to its own file in order to
+    // prevent vendor hash from being updated whenever app bundle is updated
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest',
+        minChunks: Infinity
+    }),
+    // This instance extracts shared chunks from code splitted chunks and bundles them
+    // in a separate chunk, similar to the vendor chunk
+    // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'app',
+        async: 'vendor-async',
+        children: true,
+        minChunks: 3
+    }),
+    // copy custom static assets
+    new CopyWebpackPlugin([
+        {
+            from: path.resolve(__dirname, '../static'),
+            to: config.build.assetsSubDirectory,
+            ignore: ['.*']
+        }, {
+            from: path.resolve(__dirname, '../sitemap.xml'),
+            to: '../dist',
+            ignore: ['.*']
+        }
+    ]),
+]
+
+if (!_isPreRelease) {
+    plugins.push(new prerenderSPAPlugin({
+        staticDir: path.join(__dirname, '../dist'),
+        routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6'],
+        minify: {
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            decodeEntities: true,
+            keepClosingSlash: true,
+            sortAttributes: true
+        },
+        server: {
+            port: 4570
+        },
+        renderer: new Renderer({
+            headless: false,
+            renderAfterElementExists: '#app',
+            renderAfterTime: 5000,
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        }),
+        postProcess(renderedRoute) {
+            renderedRoute.html = renderedRoute.html.replace(/[\n]|[\r]/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
+                .replace(/<div id="app"[^>]*>/i, '<div id="app" style="visibility:hidden">');
+            return renderedRoute
+        }
+    }))
 }
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -34,127 +161,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         filename: utils.assetsPath('js/[name].[chunkhash:7].js'),
         chunkFilename: utils.assetsPath('js/[id].[chunkhash:7].js')
     },
-    plugins: [
-        // http://vuejs.github.io/vue-loader/en/workflow/production.html
-        new webpack.DefinePlugin({
-            'process.env': {
-                ...env,
-                NODE_ENV: `"${process.env.NODE_ENV}"`
-            }
-        }),
-        new UglifyJsPlugin({
-            uglifyOptions: {
-                compress: {
-                    warnings: false
-                }
-            },
-            sourceMap: config.build.productionSourceMap,
-            parallel: true
-        }),
-        // extract css into its own file
-        new ExtractTextPlugin({
-            filename: utils.assetsPath('css/[name].[contenthash:7].css'),
-            // Setting the following option to `false` will not extract CSS from codesplit chunks.
-            // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
-            // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-            allChunks: false,
-        }),
-        // Compress extracted CSS. We are using this plugin so that possible
-        // duplicated CSS from different components can be deduped.
-        new OptimizeCSSPlugin({
-            cssProcessorOptions: config.build.productionSourceMap
-                ? { safe: true, map: { inline: false } }
-                : { safe: true }
-        }),
-        // generate dist index.html with correct asset hash for caching.
-        // you can customize output by editing /index.html
-        // see https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: config.build.index,
-            template: 'index.html',
-            inject: true,
-            favicon: resolve('favicon.ico'),
-            minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeAttributeQuotes: true
-                // more options:
-                // https://github.com/kangax/html-minifier#options-quick-reference
-            },
-            // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-            chunksSortMode: 'dependency'
-        }),
-        // keep module.id stable when vendor modules does not change
-        new webpack.HashedModuleIdsPlugin(),
-        // enable scope hoisting
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        // split vendor js into its own file
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks(module) {
-                // any required modules inside node_modules are extracted to vendor
-                return (
-                    module.resource &&
-                    /\.js$/.test(module.resource) &&
-                    module.resource.indexOf(
-                        path.join(__dirname, '../node_modules')
-                    ) === 0
-                )
-            }
-        }),
-        // extract webpack runtime and module manifest to its own file in order to
-        // prevent vendor hash from being updated whenever app bundle is updated
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-            minChunks: Infinity
-        }),
-        // This instance extracts shared chunks from code splitted chunks and bundles them
-        // in a separate chunk, similar to the vendor chunk
-        // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'app',
-            async: 'vendor-async',
-            children: true,
-            minChunks: 3
-        }),
-        // copy custom static assets
-        new CopyWebpackPlugin([
-            {
-                from: path.resolve(__dirname, '../static'),
-                to: config.build.assetsSubDirectory,
-                ignore: ['.*']
-            }, {
-                from: path.resolve(__dirname, '../sitemap.xml'),
-                to: '../dist',
-                ignore: ['.*']
-            }
-        ]),
-        new prerenderSPAPlugin({
-            staticDir: path.join(__dirname, '../dist'),
-            routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6', '/meitu', '/tuzhai'],
-            minify: {
-                collapseBooleanAttributes: true,
-                collapseWhitespace: true,
-                decodeEntities: true,
-                keepClosingSlash: true,
-                sortAttributes: true
-            },
-            server: {
-                port: 4570
-            },
-            renderer: new Renderer({
-                headless: false,
-                renderAfterElementExists: '#app',
-                renderAfterTime: 5000,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
-            }),
-            postProcess(renderedRoute) {
-                renderedRoute.html = renderedRoute.html.replace(/[\n]|[\r]/g, "").replace(/(\<head\>.*?)(\<script.*?\<\/script\>){1,}(.*\<\/head\>)/g, '$1$3')
-                    .replace(/<div id="app"[^>]*>/i, '<div id="app" style="visibility:hidden">');
-                return renderedRoute
-            }
-        })
-    ]
+    plugins
 })
 
 if (config.build.productionGzip) {

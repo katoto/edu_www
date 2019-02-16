@@ -11,7 +11,7 @@ import {
     getURLParams
 } from '~common/util'
 
-function getCommonParams() {
+function getCommonParams () {
     let ck = getCK() || ''
     let urlParams = getURLParams() || null
     let channel = null
@@ -31,9 +31,9 @@ function getCommonParams() {
         ck,
         channel
     } : {
-            ...params,
-            ck
-        }
+        ...params,
+        ck
+    }
 }
 
 const options = {
@@ -47,19 +47,20 @@ const options = {
     }
 }
 
-let websocketUrl = ''
 let _isProduction = false
 let _isRelease = false
 let _isDev = false
-const isHttp = window.location.protocol === 'http:'
 if (process && process.env && process.env.NODE_ENV === 'production') {
     // 线上
     options.baseURL = window.location.protocol + '//www.katoto.cn/api'
     _isProduction = true
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
-    // 线下167
-    options.baseURL = 'http://10.0.1.41:3333' // 线下测试web
-    _isRelease = true
+    // 线上
+    options.baseURL = window.location.protocol + '//www.katoto.cn/api'
+    _isProduction = true
+    // // 线下167
+    // options.baseURL = 'http://10.0.1.41:3333' // 线下测试web
+    // _isRelease = true
 } else {
     // 开发  环境
     // options.baseURL = 'http://47.96.234.59:7001/' // 线下测试web

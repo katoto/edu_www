@@ -32,28 +32,28 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      meitumsg: null
+    data () {
+        return {
+            meitumsg: null
+        }
+    },
+    methods: {
+        jump2msg (item) {
+            delete item.picLink
+            delete item._id
+            localStorage.setItem('meitu', JSON.stringify(item))
+            this.$router.push('/meitumsg')
+        }
+    },
+    mounted () {
+        if (localStorage.getItem('meitu')) {
+            this.meitumsg = JSON.parse(localStorage.getItem('meitu'))
+        } else {
+            this.$router.push('/meitu')
+        }
+    },
+    destroyed () {
     }
-  },
-  methods: {
-    jump2msg(item) {
-      delete item.picLink
-      delete item._id
-      localStorage.setItem('meitu', JSON.stringify(item))
-      this.$router.push('/meitumsg')
-    }
-  },
-  mounted() {
-    if (localStorage.getItem('meitu')) {
-      this.meitumsg = JSON.parse(localStorage.getItem('meitu'))
-    } else {
-      this.$router.push('/meitu')
-    }
-  },
-  destroyed() {
-  }
 }
 </script>
 <style scoped lang="less" type="text/less">

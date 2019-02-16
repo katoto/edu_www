@@ -13,7 +13,7 @@
             <ul class="clearfix">
               <li
                 v-for="(item,index) in meitu"
-                @click="jump2msg(item)"
+                @click="jump2msg(item)" :key="index"
               >
                 <a href="javascript:;">
                   <img
@@ -33,55 +33,55 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      currPage: 1,
-      isLoading: false,
-      pagesize: 15,
-      meitu: []
-    }
-  },
-  methods: {
-    jump2msg(item) {
-      delete item.picLink
-      delete item._id
-      localStorage.setItem('meitu', JSON.stringify(item))
-      this.$router.push('/meitumsg')
-    },
-    async pageMsg(pageno = 1) {
-      let params = {
-        pageno,
-        pagesize: this.pagesize
-      }
-      let data = await this.$store.dispatch('ka_meitu/getKutulist', params)
-      if (data && data.data && data.data.msg) {
-        if (data.data.msg.length > 0) {
-          this.meitu = this.meitu.concat(data.data.msg)
-          this.isLoading = false
+    data () {
+        return {
+            currPage: 1,
+            isLoading: false,
+            pagesize: 15,
+            meitu: []
         }
-      }
     },
-    getScrollTop() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-      return scrollTop
+    methods: {
+        jump2msg (item) {
+            delete item.picLink
+            delete item._id
+            localStorage.setItem('meitu', JSON.stringify(item))
+            this.$router.push('/meitumsg')
+        },
+        async pageMsg (pageno = 1) {
+            let params = {
+                pageno,
+                pagesize: this.pagesize
+            }
+            let data = await this.$store.dispatch('ka_meitu/getKutulist', params)
+            if (data && data.data && data.data.msg) {
+                if (data.data.msg.length > 0) {
+                    this.meitu = this.meitu.concat(data.data.msg)
+                    this.isLoading = false
+                }
+            }
+        },
+        getScrollTop () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+            return scrollTop
+        },
+        scrollGet () {
+            let bottomHei = (document.documentElement.offsetHeight - this.getScrollTop() - window.innerHeight) <= 350
+            if (!this.isLoading && bottomHei) {
+                this.isLoading = true
+                this.currPage = this.currPage + 1
+                this.pageMsg(this.currPage)
+            }
+        }
     },
-    scrollGet() {
-      let bottomHei = (document.documentElement.offsetHeight - this.getScrollTop() - window.innerHeight) <= 350
-      if (!this.isLoading && bottomHei) {
-        this.isLoading = true
-        this.currPage = this.currPage + 1
-        console.log(this.currPage)
-        this.pageMsg(this.currPage)
-      }
+    mounted () {
+        this.pageMsg()
+        document.addEventListener('scroll', this.scrollGet, true)
+        console.log('jenkins ok')
+    },
+    destroyed () {
+        window.removeEventListener('scroll', this.scrollGet, true)
     }
-  },
-  mounted() {
-    this.pageMsg()
-    document.addEventListener('scroll', this.scrollGet, true)
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.scrollGet, true)
-  }
 }
 </script>
 <style scoped lang="less" type="text/less">
