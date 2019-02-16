@@ -131,7 +131,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]),
         new prerenderSPAPlugin({
             staticDir: path.join(__dirname, '../dist'),
-            routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6'],
+            routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6', '/meitu', '/tuzhai'],
             minify: {
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,
@@ -143,7 +143,7 @@ const webpackConfig = merge(baseWebpackConfig, {
                 port: 4570
             },
             renderer: new Renderer({
-                headless: true,
+                headless: false,
                 renderAfterElementExists: '#app',
                 renderAfterTime: 5000,
                 args: ['--no-sandbox', '--disable-setuid-sandbox']
