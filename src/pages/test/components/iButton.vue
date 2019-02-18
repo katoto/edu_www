@@ -33,9 +33,13 @@ export default {
     inheritAttrs: true,
     methods: {
         handleClick (event) {
-            console.log('1118811')
             this.$emit('abc', event)
         }
+    },
+    inject: ['app'],
+    mounted () {
+        console.log(this.app)
+        console.log('=====')
     }
 }
 </script>

@@ -14,15 +14,28 @@
 </template>
 <script>
 import iButton from '~/pages/test/components/iButton.vue'
+import mixinsUser from '~/pages/test/mixins/mixins_user.js'
+
+// mixins 混合
 export default {
+    mixins: [mixinsUser],
     components: {
         iButton
     },
     methods: {
-        aa () {
-            console.log('11111')
-            alert('123')
+    },
+    // provide: {
+    //     name: 'Asesn'
+    // }
+    provide () {
+        return {
+            app: this
         }
+    },
+    mounted () {
+        this.aa()
+        this.bb()
     }
+    
 }
 </script>
