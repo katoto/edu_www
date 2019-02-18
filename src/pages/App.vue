@@ -11,7 +11,7 @@
       class="page_all"
     />
     <!-- 返回顶部  -->  
-    <!--   -->
+    <!--     -->
     <ScrollTop></ScrollTop>
     <Footer v-if="showMovieFoot"></Footer>
     <eduFooter v-else></eduFooter>
