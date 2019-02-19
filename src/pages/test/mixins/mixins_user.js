@@ -1,3 +1,5 @@
+// this.$children
+// this.$parent
 export default {
     data () {
         return {

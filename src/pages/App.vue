@@ -4,7 +4,7 @@
     :class="{ready: isReady}"
   >
 
-    <HEAD></HEAD>
+    <!-- <HEAD></HEAD> -->
     <router-view
       v-if="isReady"
       @click.native="initPop"

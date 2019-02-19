@@ -37,6 +37,15 @@ export default {
         }
     },
     inject: ['app'],
+    created () {
+        // 先于子组件create
+        this.$on('on-form-item-add', (field) => {
+            if (field) this.fields.push(field)
+        })
+        this.$on('on-form-item-remove', (field) => {
+            if (field.prop) this.fields.splice(this.fields.indexOf(field), 1)
+        })
+    },
     mounted () {
         console.log(this.app)
         console.log('=====')
