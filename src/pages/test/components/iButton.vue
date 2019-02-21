@@ -8,6 +8,7 @@
 	</button>
 </template>
 <script>
+
 // 判断参数是否是其中一个
 function oneOf (value, validList) {
     for (let i = 0;i < validList.length;i++) {
