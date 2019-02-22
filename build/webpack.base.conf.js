@@ -1,4 +1,6 @@
 'use strict'
+
+
 require('./clean')
 const path = require('path')
 const utils = require('./utils')
@@ -67,6 +69,8 @@ module.exports = {
             '@': resolve('src')
 		}
 	},
+	// exclude: /(node_modules)/,
+	// babel-loader?cacheDirectory=true  开启缓存将转译结果缓存至文件系统
 	module: {
 		rules: [
 			...(config.dev.useEslint ? [createLintingRule()] : []),
@@ -81,7 +85,7 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
+				loader: 'babel-loader?cacheDirectory=true',
 				include: [resolve('src'), resolve('test') ,resolve('node_modules/webpack-dev-server/client')]
 			},
 			{
@@ -133,10 +137,14 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin('common.js'),
-		new webpack.ProvidePlugin({
-			jQuery: "jquery",
-			$: "jquery"
-		}),
+		// new webpack.DllReferencePlugin({
+		// 	context: __dirname,
+		// 	manifest: require('../dist/site/vendor-manifest.json')
+		// })
+		// new webpack.ProvidePlugin({
+		// 	jQuery: "jquery",
+		// 	$: "jquery"
+		// }),
 		// new vConsolePlugin({enable:!isDebug}),
 	]
 }

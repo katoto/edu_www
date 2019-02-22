@@ -33,11 +33,17 @@ let plugins = [
     new UglifyJsPlugin({
         uglifyOptions: {
             compress: {
-                warnings: false
-            }
+                warnings: false,
+                drop_console:true,
+                drop_debugger:true
+            },
+            output:{
+                // 去掉注释内容
+                comments: false,
+            },
         },
         sourceMap: config.build.productionSourceMap,
-        parallel: true
+        parallel: true,
     }),
     // extract css into its own file
     new ExtractTextPlugin({
