@@ -12,27 +12,21 @@ import {
 } from '~common/util'
 
 function getCommonParams () {
-    let ck = getCK() || ''
     let urlParams = getURLParams() || null
     let channel = null
     let params = {
         platform,
-        src,
-        lotid: 1
+        src
     }
-    if (!ck || ck === 'null') {
-        ck = ''
-    }
+
     if (urlParams && urlParams.utm_source) {
         channel = urlParams.utm_medium ? `${urlParams.utm_source}_${urlParams.utm_medium}` : urlParams.utm_source
     }
     return channel ? {
         ...params,
-        ck,
         channel
     } : {
-        ...params,
-        ck
+        ...params
     }
 }
 
@@ -52,11 +46,11 @@ let _isRelease = false
 let _isDev = false
 if (process && process.env && process.env.NODE_ENV === 'production') {
     // 线上
-    options.baseURL = window.location.protocol + '//www.katoto.cn/api'
+    options.baseURL = window.location.protocol + `//${window.location.host}/api`
     _isProduction = true
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
     // 线上
-    options.baseURL = window.location.protocol + '//www.katoto.cn/api'
+    options.baseURL = window.location.protocol + `//${window.location.host}/api`
     _isProduction = true
     // // 线下167
     // options.baseURL = 'http://10.0.1.41:3333' // 线下测试web
