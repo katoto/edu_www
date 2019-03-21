@@ -42,98 +42,98 @@ export default {
         goVerify () {
             let jumpUrl = 'https://www.google.com'
             switch (this.lastEmail) {
-            case 'gmail.com':
-                this.jumpUrl = 'https://accounts.google.com/signin/v2/sl/pwd?flowName=GlifWebSignIn&flowEntry=ServiceLogin'
-                break
-            case 'yahoo.com':
-                this.jumpUrl = 'https://login.yahoo.com/'
-                break
-            case 'hotmail.com':
-                this.jumpUrl = 'https://outlook.live.com/owa/'
-                break
-            case 'mail.ru':
-                this.jumpUrl = 'https://mail.ru/'
-                break
-            case 'outlook.com':
-                this.jumpUrl = 'https://outlook.live.com/mail/'
-                break
-            case 'yandex.ru':
-                this.jumpUrl = 'https://passport.yandex.ru/'
-                break
-            case 'qq.com':
-                this.jumpUrl = 'https://mail.qq.com'
-                break
-            case 'yahoo.co.id':
-                this.jumpUrl = 'https://login.yahoo.com/'
-                break
-            case 'icloud.com':
-                this.jumpUrl = 'https://www.icloud.com/'
-                break
-            case 'protonmail.com':
-                this.jumpUrl = 'https://protonmail.com/'
-                break
-            case 'abv.bg':
-                this.jumpUrl = 'https://www.abv.bg/'
-                break
-            case 'bk.ru':
-                this.jumpUrl = 'https://mail.ru/'
-                break
-            case 'live.com':
-                this.jumpUrl = 'https://outlook.live.com/owa/'
-                break
-            case 'ymail.com':
-                this.jumpUrl = 'https://login.yahoo.com/'
-                break
-            case '163.com':
-                this.jumpUrl = 'https://mail.163.com'
-                break
-            case '126.com':
-                this.jumpUrl = 'https://mail.126.com'
-                break
-            case 'gmx.de':
-                this.jumpUrl = 'https://www.gmx.net/'
-                break
-            case 'yahoo.com.br':
-                this.jumpUrl = 'https://login.yahoo.com/'
-                break
-            case 'wp.pl':
-                this.jumpUrl = 'https://profil.wp.pl/login.html'
-                break
-            case 'inbox.ru':
-                this.jumpUrl = 'https://mail.ru/'
-                break
-            case 'yahoo.fr':
-                this.jumpUrl = 'https://login.yahoo.com/'
-                break
-            case 'web.de':
-                this.jumpUrl = 'https://web.de/'
-                break
-            case 'yahoo.com.ph':
-                this.jumpUrl = 'https://login.yahoo.com/'
-                break
-            case 'list.ru':
-                this.jumpUrl = 'https://mail.ru/'
-                break
-            case 'yandex.com':
-                this.jumpUrl = 'https://passport.yandex.com/'
-                break
-            case 'gmx.com':
-                this.jumpUrl = 'https://www.gmx.com/'
-                break
-            case 'inbox.lv':
-                this.jumpUrl = 'https://www.inbox.lv/'
-                break
-            case 'seznam.cz':
-                this.jumpUrl = 'https://www.seznam.cz/'
-                break
-            case 'mail.com':
-                this.jumpUrl = 'https://www.mail.com/'
-                break
-            case 'aol.com':
-                this.jumpUrl = 'https://www.aol.co.uk/'
-                break
-            default:
-                this.jumpUrl = 'http://www.google.com/'
+                    case 'gmail.com':
+                        this.jumpUrl = 'https://accounts.google.com/signin/v2/sl/pwd?flowName=GlifWebSignIn&flowEntry=ServiceLogin'
+                        break
+                    case 'yahoo.com':
+                        this.jumpUrl = 'https://login.yahoo.com/'
+                        break
+                    case 'hotmail.com':
+                        this.jumpUrl = 'https://outlook.live.com/owa/'
+                        break
+                    case 'mail.ru':
+                        this.jumpUrl = 'https://mail.ru/'
+                        break
+                    case 'outlook.com':
+                        this.jumpUrl = 'https://outlook.live.com/mail/'
+                        break
+                    case 'yandex.ru':
+                        this.jumpUrl = 'https://passport.yandex.ru/'
+                        break
+                    case 'qq.com':
+                        this.jumpUrl = 'https://mail.qq.com'
+                        break
+                    case 'yahoo.co.id':
+                        this.jumpUrl = 'https://login.yahoo.com/'
+                        break
+                    case 'icloud.com':
+                        this.jumpUrl = 'https://www.icloud.com/'
+                        break
+                    case 'protonmail.com':
+                        this.jumpUrl = 'https://protonmail.com/'
+                        break
+                    case 'abv.bg':
+                        this.jumpUrl = 'https://www.abv.bg/'
+                        break
+                    case 'bk.ru':
+                        this.jumpUrl = 'https://mail.ru/'
+                        break
+                    case 'live.com':
+                        this.jumpUrl = 'https://outlook.live.com/owa/'
+                        break
+                    case 'ymail.com':
+                        this.jumpUrl = 'https://login.yahoo.com/'
+                        break
+                    case '163.com':
+                        this.jumpUrl = 'https://mail.163.com'
+                        break
+                    case '126.com':
+                        this.jumpUrl = 'https://mail.126.com'
+                        break
+                    case 'gmx.de':
+                        this.jumpUrl = 'https://www.gmx.net/'
+                        break
+                    case 'yahoo.com.br':
+                        this.jumpUrl = 'https://login.yahoo.com/'
+                        break
+                    case 'wp.pl':
+                        this.jumpUrl = 'https://profil.wp.pl/login.html'
+                        break
+                    case 'inbox.ru':
+                        this.jumpUrl = 'https://mail.ru/'
+                        break
+                    case 'yahoo.fr':
+                        this.jumpUrl = 'https://login.yahoo.com/'
+                        break
+                    case 'web.de':
+                        this.jumpUrl = 'https://web.de/'
+                        break
+                    case 'yahoo.com.ph':
+                        this.jumpUrl = 'https://login.yahoo.com/'
+                        break
+                    case 'list.ru':
+                        this.jumpUrl = 'https://mail.ru/'
+                        break
+                    case 'yandex.com':
+                        this.jumpUrl = 'https://passport.yandex.com/'
+                        break
+                    case 'gmx.com':
+                        this.jumpUrl = 'https://www.gmx.com/'
+                        break
+                    case 'inbox.lv':
+                        this.jumpUrl = 'https://www.inbox.lv/'
+                        break
+                    case 'seznam.cz':
+                        this.jumpUrl = 'https://www.seznam.cz/'
+                        break
+                    case 'mail.com':
+                        this.jumpUrl = 'https://www.mail.com/'
+                        break
+                    case 'aol.com':
+                        this.jumpUrl = 'https://www.aol.co.uk/'
+                        break
+                    default:
+                        this.jumpUrl = 'http://www.google.com/'
             }
             // todo 如何跳转
             window.open(this.jumpUrl)

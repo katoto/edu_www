@@ -400,12 +400,12 @@ export default {
         classNameFn (classStr) {
             if (!classStr) classStr = '一年级'
             switch (classStr) {
-            case 'Class1': return '一年级'
-            case 'Class2': return '二年级'
-            case 'Class3': return '三年级'
-            case 'Class4': return '四年级'
-            case 'Class5': return '五年级'
-            case 'Class6': return '六年级'
+                    case 'Class1': return '一年级'
+                    case 'Class2': return '二年级'
+                    case 'Class3': return '三年级'
+                    case 'Class4': return '四年级'
+                    case 'Class5': return '五年级'
+                    case 'Class6': return '六年级'
             }
         }
     }

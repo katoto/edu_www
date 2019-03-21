@@ -1,19 +1,21 @@
 <script>
-// 国际化组件
+// 以插件形式引入国际化组件
 import zhCn from '../language/zh-cn'
+
 const MyPlugin = {}
 const languagePackage = {
-    zhCn,
-    'en': zhCn
+    zhCn
 }
 
-window._ = null
+window._ = string => string
 
 MyPlugin.install = function (Vue, store) {
+    // 注册全局翻译函数
+
     window._ = function () {
         let string = arguments[0] || ''
         let thisString = (languagePackage[store.state.language] && languagePackage[store.state.language][string]) || string
-        //  带变量
+
         if (arguments.length > 1) {
             for (let index = 1; index < arguments.length; index++) {
                 thisString = thisString.replace(new RegExp('\\{' + (index - 1) + '\\}', 'g'), arguments[index])
@@ -21,29 +23,41 @@ MyPlugin.install = function (Vue, store) {
         }
         return thisString
     }
-    // vue 注册公共组件
+
+    // 注册组件公共翻译函数
     Vue.prototype._ = function () {
         return window._.apply(this, arguments)
     }
-    // 往store 注入语言
-    //   Vue.prototype.$isZhcn = function () {
-    //     return store.state.language === 'zhCn'
-    //   }
-    //   Vue.prototype.$lang = $lang
+    // 注册组件公共相关函数
+    Vue.prototype.$isZhCn = function () {
+        return store.state.language === 'zhCn'
+    }
+    Vue.prototype.$isZhTw = function () {
+        return store.state.language === 'zhTw'
+    }
+    Vue.prototype.$isEn = function () {
+        return store.state.language === 'en'
+    }
 
-    // <lang></lang> 实现标签slot
+    let $lang = {}
+    for (let packName in store.state.langs) {
+        $lang[packName] = ((store.state.langs[packName])[store.state.language])
+    }
+    Vue.prototype.$lang = $lang
+
+    // 注册全局lang翻译组件
     Vue.component('lang', {
         render: function (h) {
             if (this.$slots.default.length > 1) {
-                console.log('error')
+                console.error(`该lang标签暂不支持包含html, 请使用v-lang指令：${this.$slots.default}`)
             }
             return (
-                <em domPropsInnerHTML={window._(this.$slots.default[0].text)} ></em>
+                <em domPropsInnerHTML={window._(this.$slots.default[0].text)}></em>
             )
         }
     })
 
-    // 添加全局指令 v-XX 这种
+    // 2. 添加全局翻译指令
     Vue.directive('lang', {
         bind: function (el, binding) {
             el.innerHTML = window._(binding.value || '')
@@ -52,10 +66,15 @@ MyPlugin.install = function (Vue, store) {
             el.innerHTML = window._(binding.value || '')
         },
         update: function (el, binding) {
-            el.innerHTML = window._('')
+            el.innerHTML = window._(binding.value || '')
+        },
+        componentUpdated: function (el, binding) {
+            el.innerHTML = window._(binding.value || '')
         }
     })
 }
 
 export default MyPlugin
 </script>
+
+

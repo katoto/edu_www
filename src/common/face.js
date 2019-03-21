@@ -1,6 +1,6 @@
 // 深拷贝函数
-function deepClone(obj) {
-    function isObject(o) {
+function deepClone (obj) {
+    function isObject (o) {
         return (typeof o === 'object' || typeof o === 'function') && o !== null
     }
     if (!isObject(obj)) {
@@ -25,13 +25,13 @@ let obj = {
 let newObj = deepClone(obj)
 
 // 组合继承
-function Parent(value) {
+function Parent (value) {
     this.val = value
 }
 Parent.prototype.getValue = function () {
     console.log(this.value)
 }
-function Child(value) {
+function Child (value) {
     Parent.call(this, value)
 }
 Child.prototype = new Parent()

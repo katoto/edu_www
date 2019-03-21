@@ -147,16 +147,16 @@ export function randomNumber (len) {
 export function commonErrorHandler (data) {
     let status = data.status
     switch (status) {
-    case '214':
-        removeCK()
-        break
-    default:
-        Message({
-            message: data.message,
-            type: 'error',
-            duration: tipsTime
-        })
-        break
+            case '214':
+                removeCK()
+                break
+            default:
+                Message({
+                    message: data.message,
+                    type: 'error',
+                    duration: tipsTime
+                })
+                break
     }
 }
 
