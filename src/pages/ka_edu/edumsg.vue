@@ -10,17 +10,18 @@
           class="article "
           v-if="currMsg"
         >
-          <p class="title1 f-f0">{{ currMsg.titleName }}</p>
+          <h1 class="title1 f-f0">{{ currMsg.titleName }}</h1>
           <div class="art_xin">
             <p class="art_time">{{ currMsg.titletime }}</p>
             <p class="art_ly">来源：<span>{{ currMsg.artLy }}</span></p>
-            <p class="art_zz">作者：<span>匿名</span></p>
+            <p class="art_zz">作者：<span>今日头条官方邀请</span></p>
           </div>
           <div
             class="air_con f-f0"
             v-html="currMsg.artmsg"
           >
           </div>
+
         </div>
       </div>
     </div>
