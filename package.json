@@ -6,6 +6,7 @@
     "scripts": {
         "prebuild": "npm run clean",
         "build": "cross-env NODE_ENV=production node build/build.js",
+        "build-dll": "cross-env NODE_ENV=production node build/build_dll.js",
         "prebuild-test": "npm run clean",
         "build-test": "cross-env NODE_ENV=preRelease node build/build.js",
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",

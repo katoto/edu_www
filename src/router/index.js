@@ -48,10 +48,19 @@ const meitu = () =>
 const meitumsg = () =>
     import('~/pages/ka_meitu/meituMsg')
 
+//
+const test = () =>
+    import('~/pages/test/index')
+
 let routesArr = [{
     path: '/movie',
     name: 'movie',
     component: movie
+},
+{
+    path: '/test',
+    name: 'test',
+    component: test
 },
 {
     path: '/moremovie',

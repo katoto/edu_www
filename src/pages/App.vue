@@ -5,17 +5,17 @@
   >
 
     <HEAD></HEAD>
-    <div style="height:100px;width:100%">
+    <!-- <div style="height:100px;width:100%">
       <p>翻译插件问题</p>
       <p>{{ _('Free Bouns{0} {1}', '哈哈', '啊啊') }}</p>
-      <!-- <p>{{ this }}</p> -->
-    </div>
+    </div> -->
     <router-view
       v-if="isReady"
       @click.native="initPop"
       class="page_all"
     />
     <!-- 返回顶部  -->
+    <!--     -->
     <ScrollTop></ScrollTop>
     <Footer v-if="showMovieFoot"></Footer>
     <eduFooter v-else></eduFooter>
@@ -140,6 +140,9 @@ export default {
         if (window.location.href.indexOf('movie') > -1 || window.location.href.indexOf('tvplay') > -1) {
             this.showMovieFoot = true
         }
+
+        console.log('1111111')
+        console.log('1112211')
     }
 }
 </script>

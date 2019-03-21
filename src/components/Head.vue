@@ -112,10 +112,11 @@
       </section>
     </div>
     <!-- h5 -->
-    <section class="h5head">
+    <section class="h5head" >
       <div
         class="mobile_nav hidden-pc"
         :class="{on:showH5Nav}"
+        @click="showH5Nav=false"
       >
         <div
           href="javascript:;"

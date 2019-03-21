@@ -187,6 +187,21 @@ export function getURLParams () {
     })
     return obj
 }
+// 字符串替换 取url 数据
+export function param2Obj (url) {
+    const search = url.split('?')[1]
+    if (!search) {
+        return {}
+    }
+    return JSON.parse(
+        '{"' +
+        decodeURIComponent(search)
+            .replace(/"/g, '\\"')
+            .replace(/&/g, '","')
+            .replace(/=/g, '":"') +
+        '"}'
+    )
+}
 
 export function numberComma (source, length = 3) {
     source = String(source).split('.')
