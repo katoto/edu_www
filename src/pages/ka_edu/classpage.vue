@@ -1,5 +1,13 @@
 <template>
   <div class="eduContain">
+    <section class="topImg">
+      <el-button size="small">小学一年级</el-button>
+      <el-button size="small">小学二年级</el-button>
+      <el-button size="small">小学三年级</el-button>
+      <el-button size="small">小学四年级</el-button>
+      <el-button size="small">小学五年级</el-button>
+      <el-button size="small">小学六年级</el-button>
+    </section>
     <div class="topImg">
       <img :src="topMonthImg">
     </div>
@@ -453,6 +461,10 @@ export default {
   margin-right: auto;
   max-width: 1200px;
   width: 100%;
+  .el-button{
+    margin: 0;
+    border-radius: 0;
+  }
   img {
     display: block;
     width: 100%;
