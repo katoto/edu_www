@@ -46,7 +46,8 @@ let _isRelease = false
 let _isDev = false
 if (process && process.env && process.env.NODE_ENV === 'production') {
     // 线上
-    options.baseURL = window.location.protocol + `//${window.location.host}/api`
+    // options.baseURL = window.location.protocol + `//${window.location.host}/api`
+    options.baseURL = window.location.protocol + `//www.katoto.cn/api`
     _isProduction = true
 } else if (process && process.env && process.env.NODE_ENV === 'preRelease') {
     // 线上

@@ -140,9 +140,6 @@ export default {
         if (window.location.href.indexOf('movie') > -1 || window.location.href.indexOf('tvplay') > -1) {
             this.showMovieFoot = true
         }
-
-        console.log('1111111')
-        console.log('1112211')
     }
 }
 </script>
