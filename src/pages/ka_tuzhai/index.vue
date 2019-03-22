@@ -44,6 +44,7 @@
     </div>
 </template>
 <script>
+import {structDom} from '@/common/util.js'
 export default {
     data () {
         return {
@@ -103,6 +104,7 @@ export default {
     mounted () {
         this.pageMsg()
         document.addEventListener('scroll', this.scrollGet, true)
+        structDom('图摘')
     },
     destroyed () {
         window.removeEventListener('scroll', this.scrollGet, true)

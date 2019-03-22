@@ -24,6 +24,7 @@
     </div>
 </template>
 <script>
+import { structDom } from '~common/util'
 export default {
     data () {
         return {
@@ -44,6 +45,7 @@ export default {
     },
     mounted () {
         this.initPage()
+        structDom('movie')
     }
 }
 </script>

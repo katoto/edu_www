@@ -32,6 +32,7 @@
   </div>
 </template>
 <script>
+import { structDom } from '~common/util'
 export default {
     data () {
         return {
@@ -77,7 +78,7 @@ export default {
     mounted () {
         this.pageMsg()
         document.addEventListener('scroll', this.scrollGet, true)
-        console.log('jenkins ok')
+        structDom('meitu')
     },
     destroyed () {
         window.removeEventListener('scroll', this.scrollGet, true)

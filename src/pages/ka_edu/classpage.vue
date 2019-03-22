@@ -268,7 +268,7 @@
 </template>
 
 <script>
-import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
+import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify, structDom } from '~common/util'
 import HEAD from '~components/Head.vue'
 import Footer from '~components/Footer.vue'
 import ScrollTop from '~components/ScrollTop.vue'
@@ -418,6 +418,7 @@ export default {
         }
         this.pageInit()
         this.topMonthImg = '../../../static/eduImg/' + (new Date().getMonth() + 1) + '.jpg'
+        structDom()
     },
     filters: {
         classNameFn (classStr) {

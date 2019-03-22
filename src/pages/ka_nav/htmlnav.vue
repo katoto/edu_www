@@ -700,11 +700,14 @@
     </div>
 </template>
 <script>
+import { structDom } from '~common/util'
 export default {
     data () {
         return {
-
         }
+    },
+    mounted () {
+        structDom('htmlnav')
     }
 }
 </script>

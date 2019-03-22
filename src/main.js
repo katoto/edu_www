@@ -65,11 +65,19 @@ router.beforeEach((to, from, next) => {
     } else if (to.path.indexOf('htmlnav') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto导航,前端网址导航、最新前端网址导航')
         document.title = 'katoto - 前端网址导航'
-        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto导航,前端网址导航, 海量高清VIP视频, 看电视剧找katoto、刷资讯找katoto')
+        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto导航,前端网址导航,前端网址导航是由katoto前端提供的专为前端开发者服务的网址导航产品，前端网址导航整理了国内外非常优秀的前端开发网站，并提供更多相关行业的网站网址，意图给到前端开发者一个完善而又良好的网址导航，是前端行业人员值得收藏的前端导航')
     } else if (to.path.indexOf('pmnav') > -1) {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', 'katoto导航,高级产品经理网址导航、最新产品经理网址导航')
         document.title = 'katoto - 产品经理网址导航'
-        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto导航,高级产品经理网址导航 海量高清VIP视频, 看电视剧找katoto、刷资讯找katoto')
+        document.getElementsByTagName('meta')['description'].setAttribute('content', 'katoto导航,高级产品经理网址导航 收录产品、运营、交互设计、用户体验、行业资讯、数据分析、电子商务、产品运营必备工具、国外优秀网站等相关网站。')
+    } else if (to.path.indexOf('tuzhai') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', '青年图摘 katoto图摘 小哲理 小温暖  囧图  暴走漫画  创意 新奇  糗事 搞笑gif  可爱卖萌 2B青年 邪恶 重口味 雷人 宅腐 猥琐 伤不起 潮流 恶搞 牛逼 蛋疼经痛 是不是 震惊了 碉堡了 凌乱了 吓尿了 不淡定了。')
+        document.title = 'katoto图摘 - 每天十分钟，开心一整天'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', '青年图摘 katoto图摘 小哲理 小温暖  囧图  暴走漫画  创意 新奇  糗事 搞笑gif  可爱卖萌 2B青年 邪恶 重口味 雷人 宅腐 猥琐 伤不起 潮流 恶搞 牛逼 蛋疼经痛 是不是 震惊了 碉堡了 凌乱了 吓尿了 不淡定了。')
+    } else if (to.path.indexOf('meitu') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', '美女图片大全_精选美女图片_katoto网')
+        document.title = 'katoto美图 - 每天十张图，美丽一整天'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', '美女图片大全_精选美女图片_katoto网')
     }
     next()
 })

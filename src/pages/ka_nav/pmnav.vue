@@ -358,7 +358,11 @@
 
 </template>
 <script>
+import { structDom } from '~common/util'
 export default {
+    mounted () {
+        structDom('pmnav')
+    }
 }
 </script>
 <style scoped lang="less" type="text/less">
