@@ -128,7 +128,7 @@ let plugins = [
 if (!_isPreRelease) {
     plugins.push(new prerenderSPAPlugin({
         staticDir: path.join(__dirname, '../dist'),
-        routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6'],
+        routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6', '/edumsg/201988$888888'],
         minify: {
             collapseBooleanAttributes: true,
             collapseWhitespace: true,

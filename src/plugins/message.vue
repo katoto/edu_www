@@ -1,7 +1,7 @@
 <script>
 
-import {tipsTime} from '~common/util'
-import {Message} from 'element-ui'
+import { tipsTime } from '~common/util'
+import { Message } from 'element-ui'
 
 const MyPlugin = {}
 
@@ -13,7 +13,6 @@ MyPlugin.install = function (Vue, store) {
             duration: tipsTime
         })
     }
-
     store.$success = Vue.prototype.$success = function (msg) {
         Message({
             message: msg,

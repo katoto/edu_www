@@ -34,8 +34,8 @@ import mixinsUser from '~/pages/test/mixins/mixins_user.js'
 
 // $set 有些会遇到不响应的情况 用到场景
 // 1、由于javascript 的限制，vue 不能检测以下变动的数组
-        // 当利用索引直接设置一个项时， eg this.items[index] = value
-        // 修改数组的长度是，eg vm.items.length = newLength
+// 当利用索引直接设置一个项时， eg this.items[index] = value
+// 修改数组的长度是，eg vm.items.length = newLength
 // 2、由于js 的限制，vue不能检测对象属性的添加或删除
 
 // computed 如果为function 形式，默认使用的是它的get 方法，当写为object 的，即set get 方法
@@ -73,7 +73,7 @@ export default {
             // const data = [...this.items]
             // data[1] = 'fdsfs'
             // this.items = data
-            
+
             // this.$set(this.items, 1, 'ff')
             // this.$set(this.items, b, 'ff')
             this.show = true

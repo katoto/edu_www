@@ -129,7 +129,7 @@ let routesArr = [{
 },
 {
     path: '/*',
-    name: _('Home'),
+    name: 'Home',
     component: eduIndex
 }
 ]
