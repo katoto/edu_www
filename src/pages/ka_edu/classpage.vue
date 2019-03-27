@@ -1,12 +1,26 @@
 <template>
   <div class="eduContain">
     <section class="topImg">
-      <el-button size="small">小学一年级</el-button>
-      <el-button size="small">小学二年级</el-button>
-      <el-button size="small">小学三年级</el-button>
-      <el-button size="small">小学四年级</el-button>
-      <el-button size="small">小学五年级</el-button>
-      <el-button size="small">小学六年级</el-button>
+      <ul class="pc-topflx" v-if="!ismobile" style="width: 100%">
+        <router-link tag='li' to="/eduIndex/Class1">
+          小学一年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class2">
+          小学二年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class3">
+          小学三年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class4">
+          小学四年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class5">
+          小学五年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class6">
+          小学六年级
+        </router-link>
+      </ul>
     </section>
     <div class="topImg">
       <img :src="topMonthImg">
@@ -276,7 +290,7 @@
 </template>
 
 <script>
-import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify, structDom } from '~common/util'
+import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify, structDom, isMobile } from '~common/util'
 import HEAD from '~components/Head.vue'
 import Footer from '~components/Footer.vue'
 import ScrollTop from '~components/ScrollTop.vue'
@@ -284,6 +298,7 @@ import ScrollTop from '~components/ScrollTop.vue'
 export default {
     data () {
         return {
+            ismobile: false,
             isActive: false,
             isReady: false,
             showMovieHead: true,
@@ -421,6 +436,7 @@ export default {
     computed: {
     },
     async mounted () {
+        this.ismobile = isMobile
         if (this.$route.params && this.$route.params.classNum) {
             this.currClassNum = this.$route.params.classNum
         }
@@ -457,6 +473,31 @@ export default {
   margin-top: 20px;
 }
 .topImg {
+  width: 100%;
+  overflow: auto;
+  .pc-topflx, .mobile-topflx{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 16px;
+    height: 42px;
+    box-shadow: 2px 2px 4px #ccc;
+    z-index: 2;
+    margin-bottom: 6px;
+    border-radius: 2px;
+    background-color: #fff;
+    transition: all 0.5s;
+    font-weight: 600;
+    li{
+      flex:1;
+      cursor: pointer;
+      text-align: center;
+      &:hover{
+        filter:brightness(1.8)
+      }
+    }
+  }
   margin-left: auto;
   margin-right: auto;
   max-width: 1200px;
@@ -676,6 +717,22 @@ a {
 // ========end=========
 // h5
 @media (max-width: 992px) {
+  .topImg {
+    .mobile-topflx{
+      width: 260%;
+      font-size: 12px;
+      margin-bottom: 2px;
+      border-radius: 2px;
+      background-color: #fff;
+      transition: all 0.5s;
+      font-weight: 500;
+      li{
+        flex:1;
+        cursor: pointer;
+      }
+    }
+  }
+  
   .h5_ctrl {
     position: relative;
     margin-left: 0px;

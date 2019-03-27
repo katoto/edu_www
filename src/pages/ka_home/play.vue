@@ -140,14 +140,15 @@
 export default {
     data () {
         return {
-            currSrc: '//api.nohacks.cn/index.php?url=https://www.iqiyi.com/v_19rr6l5770.html',
+            currSrc: '//wq114.org:88/yun.php?url=https://www.iqiyi.com/v_19rr6l5770.html',
             consoleTime: null,
             playMore: {
-                play1: '//api.nohacks.cn/index.php?url=',
+                play1: '//wq114.org:88/yun.php?url=',
                 play2: '//jx.biaoge.tv/index.php?url=',
                 play3: '//api.zuilingxian.com/jiexi.php?url=',
-                play4: '//app.baiyug.cn:2019/vip/?url=', // 不是很高清 可以看电视
-                play5: '//api.kf4.cc/?url=', // 不是很高清 有点差  ..
+                // play4: '//app.baiyug.cn:2019/vip/?url=', // 不是很高清 可以看电视
+                play4: '//2gty.com/apiurl/yun.php?url=', // 不是很高清 可以看电视
+                play5: '//api.kf4.cc/?url=', // 不是很高清 有点差
                 play6: '//app.baiyug.cn:2019/vip/?url=', //
                 play7: '//beaacc.com/api.php?url=', //
                 play8: '//jx.ejiafarm.com/dy.php?url=', //

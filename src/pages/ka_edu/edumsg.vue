@@ -14,7 +14,7 @@
           <div class="art_xin">
             <p class="art_time">{{ currMsg.titletime }}</p>
             <p class="art_ly">来源：<span>{{ currMsg.artLy }}</span></p>
-            <p class="art_zz">作者：<span>今日头条官方邀请</span></p>
+            <p class="art_zz">作者：<span v-if="$router.history.current.path === '/edumsg/201988$888888'">今日头条官方邀请</span><span v-else>匿名</span></p>
           </div>
           <div
             class="air_con f-f0"
@@ -111,6 +111,7 @@ export default {
     computed: {
     },
     async mounted () {
+        console.log(this.$router.history.current.path)
         if (this.$route.params && this.$route.params.id) {
             this.id = this.$route.params.id.replace(/\$/g, '/')
         }

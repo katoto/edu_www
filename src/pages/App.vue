@@ -5,6 +5,44 @@
   >
 
     <HEAD></HEAD>
+    <section class="topImg">
+    <ul ref="ulflxDom" v-if="ismobile" class="mobile-topflx" >
+      <router-link tag='li' to="/eduIndex/Class1">
+          小学一年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class2">
+          小学二年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class3">
+          小学三年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class4">
+          小学四年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class5">
+          小学五年级
+        </router-link>
+        <router-link tag='li' to="/eduIndex/Class6">
+          小学六年级
+        </router-link>
+        <router-link tag='li' to="/tuzhai">
+          图摘
+        </router-link>
+        <router-link tag='li' to="/meitu">
+          K美图
+        </router-link>
+        <router-link tag='li' to="/htmlnav">
+          前端猿导航
+        </router-link>
+        <router-link tag='li' to="/pmnav">
+          产品狗导航
+        </router-link>
+        <router-link tag='li' to="/movie">
+          看休闲
+        </router-link>
+      </ul>      
+    </section>
+    
     <!-- <div style="height:100px;width:100%">
       <p>翻译插件问题</p>
       <p>{{ _('Free Bouns{0} {1}', '哈哈', '啊啊') }}</p>
@@ -23,7 +61,7 @@
 </template>
 
 <script>
-import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify } from '~common/util'
+import { isLog, defaultLanguage, isForbitPage, setCK, selfNotify, isMobile } from '~common/util'
 import HEAD from '~components/Head.vue'
 import Footer from '~components/Footer.vue'
 import ScrollTop from '~components/ScrollTop.vue'
@@ -32,6 +70,7 @@ import eduFooter from '~components/eduFooter.vue'
 export default {
     data () {
         return {
+            ismobile: false,
             isReady: false,
             showMovieFoot: false
         }
@@ -85,6 +124,7 @@ export default {
         }
     },
     async mounted () {
+        this.ismobile = isMobile;
         (function flexible (window, document) {
             var docEl = document.documentElement
             function setRemUnit () {
@@ -144,6 +184,33 @@ export default {
 }
 </script>
 <style lang="less">
+.topImg {
+  width: 100%;
+  overflow: auto;
+  .mobile-topflx{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 16px;
+    height: 42px;
+    box-shadow: 2px 2px 4px #ccc;
+    z-index: 2;
+    margin-bottom: 6px;
+    border-radius: 2px;
+    background-color: #fff;
+    transition: all 0.5s;
+    font-weight: 600;
+    li{
+      flex:1;
+      cursor: pointer;
+      text-align: center;
+      &:hover{
+        filter:brightness(1.8)
+      }
+    }
+  }
+}
 @keyframes flipEntry {
   0%,
   100% {
@@ -162,6 +229,25 @@ export default {
     transform: rotateZ(-21deg);
   }
 }
+// h5
+@media (max-width: 992px) {
+  .topImg {
+    .mobile-topflx{
+      width: 260%;
+      font-size: 12px;
+      margin-bottom: 2px;
+      border-radius: 2px;
+      background-color: #fff;
+      transition: all 0.5s;
+      font-weight: 500;
+      li{
+        flex:1;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
 </style>
 
 <style lang="less" type="text/less">
