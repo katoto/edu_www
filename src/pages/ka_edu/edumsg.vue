@@ -73,50 +73,50 @@
 import ScrollTop from '~components/ScrollTop.vue'
 
 export default {
-  data() {
-    return {
-      id: '201811/10825047',
-      currMsg: null,
-      zixunArr: []
-    }
-  },
-  components: {
-    ScrollTop
-  },
-  methods: {
-    async zixunmsg() {
-      let data = await this.$store.dispatch('ka_edu/getzixunmsg', this.id)
-      if (data && data.status === '100') {
-        this.currMsg = data.data.msg
-      }
+    data () {
+        return {
+            id: '201811/10825047',
+            currMsg: null,
+            zixunArr: []
+        }
     },
-    async zixun_handleCurrentChange(tab = 'one') {
-      let params = {
-        pageno: 1,
-        pagesize: 6
-      }
-      let data = await this.$store.dispatch('ka_edu/getzixun', params)
-      if (data && data.status === '100') {
-        this.zixunArr = data.data.msg
-      }
+    components: {
+        ScrollTop
     },
-    pageInit() {
-      // 请求当前数据
-      this.zixunmsg()
-      this.zixun_handleCurrentChange()
+    methods: {
+        async zixunmsg () {
+            let data = await this.$store.dispatch('ka_edu/getzixunmsg', this.id)
+            if (data && data.status === '100') {
+                this.currMsg = data.data.msg
+            }
+        },
+        async zixun_handleCurrentChange (tab = 'one') {
+            let params = {
+                pageno: 1,
+                pagesize: 6
+            }
+            let data = await this.$store.dispatch('ka_edu/getzixun', params)
+            if (data && data.status === '100') {
+                this.zixunArr = data.data.msg
+            }
+        },
+        pageInit () {
+            // 请求当前数据
+            this.zixunmsg()
+            this.zixun_handleCurrentChange()
+        }
+    },
+    watch: {
+    },
+    computed: {
+    },
+    async mounted () {
+        console.log(this.$router.history.current.path)
+        if (this.$route.params && this.$route.params.id) {
+            this.id = this.$route.params.id.replace(/\$/g, '/')
+        }
+        this.pageInit()
     }
-  },
-  watch: {
-  },
-  computed: {
-  },
-  async mounted() {
-    console.log(this.$router.history.current.path)
-    if (this.$route.params && this.$route.params.id) {
-      this.id = this.$route.params.id.replace(/\$/g, '/')
-    }
-    this.pageInit()
-  }
 }
 </script>
 <style lang="less" type="text/less">
