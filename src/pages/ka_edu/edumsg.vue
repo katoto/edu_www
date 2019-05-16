@@ -16,34 +16,19 @@
             <p class="art_ly">来源：<span>{{ currMsg.artLy }}</span></p>
             <p class="art_zz">作者 ：<span v-if="$router.history.current.path === '/edumsg/201988$888888'">今日头条官方邀请</span><span v-else>匿名</span></p>
           </div>
-          <!-- <div
+          <div
             class="air_con f-f0"
             v-html="currMsg.artmsg"
           >
-          </div> -->
-          <div class="air_con f-f0">
-            <p><strong>进击的巨人第三季：玛利亚之墙最终夺回作战! 最新PART2播放地址</strong></p>
-            <p><strong>进击的巨人第三季：13集《初始的街道》播放地址</strong></p>
-            <p><strong>进击的巨人第三季：14集《雷枪》播放地址</strong></p>
-            <p><strong>进击的巨人第三季：15集《光临》播放地址</strong></p>
-            <p>
-              　　简介：世界突然出现了身长15公尺的迷之怪物「巨人」捕食着人类，面临着生存危机而残存下来的人类，建造了三重巨大防护墙在内侧以确保生活圈的安全，以及人类生命得延续，在这隔绝的环境里享受了一百年的和平，直到「超大型巨人」的出现。艾连・叶卡十岁那年、突然出现一个前所未见的「超大型巨人」，压倒性的力量破坏巨墙，其后瞬间消失，巨人们成群的冲进墙内进行人类捕食。艾连・叶卡看到了人们、伙伴、母亲先后被巨人杀死，怀着对巨人无以形容的恨意，誓言杀死全部巨人，母亲死亡、父亲失踪，其父可能掌握了巨人之谜，艾连・叶卡因父亲获得了巨人之力，在同期生里有着其他人无法比拟的强悍精神力，即使见过地狱也依然向巨人挑战，进而加入向往以久的调查兵团。
-              <p>风格：<strong>热血/奇幻/战斗</strong></p>
-              <img
-                src="//user-gold-cdn.xitu.io/2019/5/15/16abc024c45aa2b4?w=1210&h=910&f=png&s=863584"
-                style="display: inline-block; width: 350px;"
-              >&nbsp;&nbsp;&nbsp;&nbsp;
-              <img
-                src="//user-gold-cdn.xitu.io/2019/5/15/16abc0291ffa9897?w=1425&h=866&f=png&s=1189405"
-                style="display: inline-block; width: 350px;"
-              ></p>
-            <p><strong>进击的巨人第三季：<a href="//pan.baidu.com/s/1mtadkcE7f-nR7lxmchuTQA">13集《初始的街道》播放地址 </a>提取码：z5kn</strong></p>
-            <p><strong>进击的巨人第三季：<a href="//yun.baidu.com/s/1MBDeLqP7qMTgkfxINXnqBQ">14集《雷枪》播放地址 </a>提取码：w6ns</strong></strong></p>
-            <p><strong>进击的巨人第三季：<a href="//yun.baidu.com/s/1eJBaNtNTrHFDTJxlPiQv6Q">14集《雷枪》播放地址 </a>提取码：b5tb</strong></strong></p>
-            <p>未完待续...</p>
-            以上就是小编为大家带来的内容。
-            </p>
           </div>
+          <!--
+              <div class="air_con f-f0">
+                文章
+                <p>未完待续...</p>
+                以上就是小编为大家带来的内容。
+                </p>
+            </div>
+           -->
 
         </div>
       </div>

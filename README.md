@@ -1,4 +1,4 @@
-# baseVueProject  
+# baseVueProject
 
 基础描述整体功能
 
@@ -32,8 +32,19 @@ npm run build
 - vuex  store 管理
 - vuex-router-sync
 
-### i18n.js && i18n-config.js && plugins > language.vue 
+### i18n.js && i18n-config.js && plugins > language.vue
 > 这个数对应多语音使用的，最终语言相关的都写在language 目录下。
 
 ### prerender-spa-plugin
 > 用于渲染出静态页
+
+
+### 如何快速个人新增文章
+1、在edu_www 的edumsg 页上编辑文章
+```
+<div class="air_con f-f0">
+// 文章内容
+</div>
+```
+2、在edu_page 出将文件写入到mongodb
+3、将每日推荐中的其中一条写死那个id
