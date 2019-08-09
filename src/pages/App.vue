@@ -3,8 +3,7 @@
     id="app"
     :class="{ready: isReady}"
   >
-
-    <HEAD></HEAD>
+    <!-- <HEAD></HEAD>
     <section class="topImg">
     <ul ref="ulflxDom" v-if="ismobile" class="mobile-topflx" >
       <router-link tag='li' to="/eduIndex/Class1">
@@ -41,7 +40,7 @@
           看休闲
         </router-link>
       </ul>      
-    </section>
+    </section> -->
     
     <!-- <div style="height:100px;width:100%">
       <p>翻译插件问题</p>
@@ -54,9 +53,9 @@
     />
     <!-- 返回顶部  -->
     <!--     -->
-    <ScrollTop></ScrollTop>
+    <!-- <ScrollTop></ScrollTop>
     <Footer v-if="showMovieFoot"></Footer>
-    <eduFooter v-else></eduFooter>
+    <eduFooter v-else></eduFooter> -->
   </div>
 </template>
 

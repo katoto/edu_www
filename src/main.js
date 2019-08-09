@@ -16,6 +16,10 @@ import { Input, Icon, Button, Carousel, CarouselItem, Table, Pagination, TableCo
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 
+// =======bus测试=======
+Vue.prototype.$bus = new Vue()
+// =======bus测试=======
+
 // 设置语言
 locale.use(lang)
 // 特定國際化

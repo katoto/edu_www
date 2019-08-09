@@ -80,7 +80,7 @@ export default {
             pathStr: null
         }
     },
-    components: {
+    components: { 
         ScrollTop
     },
     methods: {
