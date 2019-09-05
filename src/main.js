@@ -16,10 +16,6 @@ import { Input, Icon, Button, Carousel, CarouselItem, Table, Pagination, TableCo
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 
-// =======bus测试=======
-Vue.prototype.$bus = new Vue()
-// =======bus测试=======
-
 // 设置语言
 locale.use(lang)
 // 特定國際化
@@ -82,6 +78,10 @@ router.beforeEach((to, from, next) => {
         document.getElementsByTagName('meta')['keywords'].setAttribute('content', '美女图片大全_精选美女图片_katoto网')
         document.title = 'katoto美图 - 每天十张图，美丽一整天'
         document.getElementsByTagName('meta')['description'].setAttribute('content', '美女图片大全_精选美女图片_katoto网')
+    } else if (to.path.indexOf('dapenti') > -1) {
+        document.getElementsByTagName('meta')['keywords'].setAttribute('content', '图卦;katoto图卦;段子')
+        document.title = 'katoto图卦 - 每天一图卦，美丽一整天'
+        document.getElementsByTagName('meta')['description'].setAttribute('content', '图卦;katoto图卦;段子_katoto网')
     }
     next()
 })

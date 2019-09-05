@@ -368,6 +368,15 @@ export function structDom (msg = 'eduIndex') {
           "name": "产品经理网址导航 产品经理,产品经理导航,设计师导航产品运营,产品设计,数据分析导航,产品经理网址导航,用户体验,交互设计",
           "description": "收录产品、运营、交互设计、用户体验、行业资讯、数据分析、电子商务、产品运营必备工具、国外优秀网站等相关网站。",
           `
+    } else if (msg === 'dapenti') {
+        baseDes = `
+      {
+        "@context":"http://schema.org",
+        "@type": "BreadcrumbList", 
+        "url": "https://www.katoto.cn/dapenti",
+        "name": "图卦;katoto图卦;段子",
+        "description": "图卦;katoto图卦;段子;阅读、发现和分享：8小时外的健康生活！您的网络博客文摘，原创社会人文书评，每天只需5分钟的精神享受",
+        `
     } else {
         baseDes = `
         {

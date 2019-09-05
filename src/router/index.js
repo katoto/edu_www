@@ -48,6 +48,13 @@ const meitu = () =>
 const meitumsg = () =>
     import('~/pages/ka_meitu/meituMsg')
 
+// 图卦页面列表
+const dapenti = () =>
+    import('~/pages/ka_dapenti/index')
+// 图卦详情
+const dapentimsg = () =>
+    import('~/pages/ka_dapenti/dapentimsg')
+
 //
 const test = () =>
     import('~/pages/test/index')
@@ -111,6 +118,16 @@ let routesArr = [{
     path: '/tuzhaimsg/:tuzhaiid?',
     name: 'tuzhaimsg',
     component: tuzhaiMsg
+},
+{
+    path: '/dapenti',
+    name: 'dapenti',
+    component: dapenti
+},
+{
+    path: '/dapentimsg/:dapentiid?',
+    name: 'dapentimsg',
+    component: dapentimsg
 },
 {
     path: '/edumsg/:id?',

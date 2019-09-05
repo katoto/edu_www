@@ -71,6 +71,12 @@
           </router-link>
           <router-link
             class="tophead"
+            :to="{path: '/dapenti'}"
+          >
+            图卦
+          </router-link>
+          <router-link
+            class="tophead"
             :to="{path: '/meitu'}"
           >
             K美图
@@ -144,6 +150,14 @@
               图摘
             </router-link>
           </li>
+          <li class="icon-new">
+            <router-link
+              class="tophead"
+              :to="{path: '/dapenti'}"
+            >
+              图卦
+            </router-link>
+          </li>          
           <li>
             <router-link
               class="tophead"

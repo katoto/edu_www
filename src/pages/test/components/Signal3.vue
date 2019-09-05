@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>signal3子组件的值为：{{ app.indexVal }} </p>
+    <p>signal3子组件的值为：{{ app.indexVal }}</p>
     <section>
       <button @click="handleClick">signal3子组件provide/inject修改index</button>
     </section>

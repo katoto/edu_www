@@ -1,26 +1,24 @@
 <template>
     <div>
-      <!-- <section>
+      <section>
         <p>通信方式1 <button @click="addIndex">点击父组件修改index</button></p><br/>
         <Signal1 :index="indexVal" :randomVal="randomVal"></Signal1>
-      </section> -->
+      </section>
       
-      <!-- <section>
+      <section>
         <p>测试子父组件通信2</p>
         <Signal2 :index="indexVal" @upIndex="addIndex"></Signal2>
-      </section> -->
+      </section>
       
-      <!-- <section>
+      <section>
         <h1>provide/inject通信</h1>
         <Signal3 :index="indexVal"></Signal3>
       </section>
-       -->
        
-      <!-- <section>
+      <section>
         <h1>bus组件通信</h1>
         <Signal4 :index="indexVal"></Signal4>
       </section>
-       -->
       
       <section>
         <h1>findComponent 方式改变值</h1>
