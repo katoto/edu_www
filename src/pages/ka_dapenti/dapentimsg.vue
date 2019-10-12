@@ -35,15 +35,6 @@
           v-html="dapentimsg.artmsg"
         >
         </div>
-        <div
-          class="post-declare"
-          v-if="storedapenti"
-        >
-          <!-- <p>
-            原创文章，作者：<a href="javascript:;">Chris</a>，
-            {{ storedapenti.titleName }}
-          </p> -->
-        </div>
       </div>
     </div>
   </div>
@@ -53,8 +44,7 @@ export default {
     data () {
         return {
             dapentimsg: null,
-            currid: null,
-            storedapenti: null
+            currid: null
         }
     },
     methods: {
@@ -66,11 +56,6 @@ export default {
         }
     },
     mounted () {
-        if (localStorage.getItem('dapenti')) {
-            this.storedapenti = JSON.parse(localStorage.getItem('dapenti'))
-        } else {
-            this.$router.push('/dapenti')
-        }
         if (this.$route.params && this.$route.params.dapentiid) {
             this.currid = this.$route.params.dapentiid
         }
