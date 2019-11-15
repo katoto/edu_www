@@ -150,7 +150,7 @@
               图摘
             </router-link>
           </li>
-          <li class="icon-new">
+          <!-- <li class="icon-new">
             <router-link
               class="tophead"
               :to="{path: '/dapenti'}"
@@ -165,7 +165,7 @@
             >
               K美图
             </router-link>
-          </li>
+          </li> -->
           <li>
             <router-link
               class="tophead"
