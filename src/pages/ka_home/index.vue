@@ -7,7 +7,7 @@
         <div class="container">
           <ul class="row">
             <li
-              v-for="item in movie"
+              v-for="item in movie" :key="item"
               class="col-lg-2 col-md-4 col-sm-4 col-xs-6"
             >
               <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">
@@ -34,7 +34,7 @@
         <div class="container">
           <ul class="row">
             <li
-              v-for="item in music"
+              v-for="item in music" :key="item"
               class="col-lg-2 col-md-4 col-sm-4 col-xs-6"
             >
               <router-link :to="`/play/${encodeURIComponent(item.picLink)}`">

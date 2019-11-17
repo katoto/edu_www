@@ -719,7 +719,7 @@ a {
 @media (max-width: 992px) {
   .topImg {
     .mobile-topflx{
-      width: 260%;
+      width: 130%;
       font-size: 12px;
       margin-bottom: 2px;
       border-radius: 2px;

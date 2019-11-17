@@ -7,29 +7,17 @@
     <section class="topImg">
     <ul ref="ulflxDom" v-if="ismobile" class="mobile-topflx" >
       <router-link tag='li' to="/eduIndex/Class1">
-          小学一年级
-        </router-link>
-        <router-link tag='li' to="/eduIndex/Class2">
           小学二年级
-        </router-link>
-        <router-link tag='li' to="/eduIndex/Class3">
-          小学三年级
-        </router-link>
-        <router-link tag='li' to="/eduIndex/Class4">
-          小学四年级
-        </router-link>
-        <router-link tag='li' to="/eduIndex/Class5">
-          小学五年级
-        </router-link>
-        <router-link tag='li' to="/eduIndex/Class6">
-          小学六年级
         </router-link>
         <router-link tag='li' to="/tuzhai">
           图摘
         </router-link>
-        <router-link tag='li' to="/meitu">
-          K美图
+        <router-link tag='li' to="/dapenti">
+          图挂
         </router-link>
+        <!-- <router-link tag='li' to="/meitu">
+          K美图
+        </router-link> -->
         <router-link tag='li' to="/htmlnav">
           前端猿导航
         </router-link>
@@ -39,9 +27,8 @@
         <router-link tag='li' to="/movie">
           看休闲
         </router-link>
-      </ul>      
+      </ul>
     </section>
-    
     <!-- <div style="height:100px;width:100%">
       <p>翻译插件问题</p>
       <p>{{ _('Free Bouns{0} {1}', '哈哈', '啊啊') }}</p>
@@ -231,7 +218,7 @@ export default {
 @media (max-width: 992px) {
   .topImg {
     .mobile-topflx{
-      width: 260%;
+      width: 130%;
       font-size: 12px;
       margin-bottom: 2px;
       border-radius: 2px;
