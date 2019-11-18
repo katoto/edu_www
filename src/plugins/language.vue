@@ -37,9 +37,8 @@ MyPlugin.install = function (Vue, store) {
             if (this.$slots.default.length > 1) {
                 console.log('error')
             }
-            return (
-                <em domPropsInnerHTML={window._(this.$slots.default[0].text)} ></em>
-            )
+            // return (<em domPropsInnerHTML={window._(this.$slots.default[0].text)} ></em>)
+            return ''
         }
     })
 

@@ -1,56 +1,54 @@
 <template>
-    <div class="container b-listtab-main">
-        <ul class="list clearfix" style="margin-top: 16px;min-height:600px;">
-            <li class="item" v-for="(item,index) in movie">
-                <router-link class="js-tongjic" :to="`/play/${encodeURIComponent(item.picLink)}`">
-                    <div class="cover g-playicon">
-                        <img :src="item.pic" :alt="item.desc">
-                        <span class="pay">免费看</span>
-                        <div class="mask-wrap">
-                            <span class="hint">2018</span>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">{{ item.name }}</span>
-                            <span class="point fr">{{ item.score }}</span>
-                        </p>
-                        <p class="star">{{ item.desc }}</p>
-                    </div>
-                </router-link>
-            </li>
-
-        </ul>
-    </div>
+  <div class="container b-listtab-main">
+    <ul class="list clearfix" style="margin-top: 16px;min-height:600px;">
+      <li class="item" v-for="(item, index) in movie" :key="index">
+        <router-link class="js-tongjic" :to="`/play/${encodeURIComponent(item.picLink)}`">
+          <div class="cover g-playicon">
+            <img :src="item.pic" :alt="item.desc" />
+            <span class="pay">免费看</span>
+            <div class="mask-wrap">
+              <span class="hint">2018</span>
+            </div>
+          </div>
+          <div class="detail">
+            <p class="title g-clear">
+              <span class="s1">{{ item.name }}</span>
+              <span class="point fr">{{ item.score }}</span>
+            </p>
+            <p class="star">{{ item.desc }}</p>
+          </div>
+        </router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 import { structDom } from '~common/util'
 export default {
-    data () {
-        return {
-            movie: null
-        }
-    },
-    watch: {},
-    components: {},
-    methods: {
-        async initPage () {
-            let list = await this.$store.dispatch('getiqiyiInfo')
-            if (list && list.status === '100') {
-                this.movie = list.data.movie
-            }
-        }
-    },
-    computed: {
-    },
-    mounted () {
-        this.initPage()
-        structDom('movie')
+  data() {
+    return {
+      movie: null
     }
+  },
+  watch: {},
+  components: {},
+  methods: {
+    async initPage() {
+      let list = await this.$store.dispatch('getiqiyiInfo')
+      if (list && list.status === '100') {
+        this.movie = list.data.movie
+      }
+    }
+  },
+  computed: {},
+  mounted() {
+    this.initPage()
+    structDom('movie')
+  }
 }
 </script>
 <style lang="less" scoped type="text/less">
-@import "../../styles/lib-media.less";
+@import '../../styles/lib-media.less';
 
 .waiting {
   width: 100%;

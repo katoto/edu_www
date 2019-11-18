@@ -172,7 +172,7 @@ export default {
 .topImg {
   width: 100%;
   overflow: auto;
-  .mobile-topflx{
+  .mobile-topflx {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
@@ -186,12 +186,12 @@ export default {
     background-color: #fff;
     transition: all 0.5s;
     font-weight: 600;
-    li{
-      flex:1;
+    li {
+      flex: 1;
       cursor: pointer;
       text-align: center;
-      &:hover{
-        filter:brightness(1.8)
+      &:hover {
+        filter: brightness(1.8);
       }
     }
   }
@@ -217,7 +217,7 @@ export default {
 // h5
 @media (max-width: 992px) {
   .topImg {
-    .mobile-topflx{
+    .mobile-topflx {
       width: 130%;
       font-size: 12px;
       margin-bottom: 2px;
@@ -225,14 +225,13 @@ export default {
       background-color: #fff;
       transition: all 0.5s;
       font-weight: 500;
-      li{
-        flex:1;
+      li {
+        flex: 1;
         cursor: pointer;
       }
     }
   }
 }
-
 </style>
 
 <style lang="less" type="text/less">

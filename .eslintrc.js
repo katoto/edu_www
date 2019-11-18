@@ -1,34 +1,26 @@
 module.exports = {
-	root: true,
-	parser: 'babel-eslint',
-	env: {
-		browser: true,
-		node: true,
-		es6: true,
-	},
-	extends: 'standard',
-	// required to lint *.vue files
-	plugins: [
-		'html'
-	],
-	// add your custom rules here
-	//it is base on https://github.com/vuejs/eslint-config-vue
-	rules: {
-        "no-debugger": 0,
-		"indent": ["error", 4, {
-			'SwitchCase': 2
-		}],
-		'semi': ['error','never'],
-		'semi-spacing': [0, {
-			'before': false,
-			'after': false
-		}],
-		"no-var": 0,//禁用var，用let和const代替
-		"no-console":0,
-		"no-unused-vars":1,
-		"no-mixed-spaces-and-tabs":0
-    },
-    globals: {
-        "_": true
-    }
+  root: true,
+  env: {
+    browser: true,
+    es6: true
+  },
+  extends: ['eslint:recommended', 'plugin:vue/essential', 'prettier'],
+  globals: {
+    axios: 'readonly',
+    Vue: 'readonly',
+    weex: 'readonly',
+    loginReady: 'readonly'
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module'
+  },
+  plugins: ['vue', 'prettier'],
+  rules: {
+    'prettier/prettier': ['warn', { printWidth: 120, endOfLine: 'auto' }],
+    'no-debugger': process.env.NODE_ENV === '"production"' ? 'error' : 'off',
+    'no-empty': ['error', { allowEmptyCatch: true }],
+    'no-unused-vars': ['error', { args: 'none' }],
+    'no-control-regex': 'off'
+  }
 }

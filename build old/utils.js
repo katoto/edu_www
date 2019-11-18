@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const config = require('../config')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const packageConfig = require('../package.json')
 
@@ -14,6 +15,7 @@ exports.assetsPath = function (_path) {
 
 exports.cssLoaders = function (options) {
   options = options || {}
+
   const cssLoader = {
     loader: 'css-loader',
     options: {
@@ -45,6 +47,7 @@ exports.cssLoaders = function (options) {
       ].concat(loaders)
   }
 
+  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
