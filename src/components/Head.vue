@@ -2,112 +2,80 @@
   <div class="headbox">
     <div class="head clearfix">
       <!-- 三个横线 -->
-      <div
-        class="btn_mobile hidden-pc"
-        @click="showH5Nav=true"
-      >
+      <div class="btn_mobile hidden-pc" @click="showH5Nav = true">
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <a
-        class="h_logo"
-        href="/"
-        title="katotoLogo"
-      >
-        <img
-          src="../assets/images/katoto.png"
-          alt=""
-        >
+      <a class="h_logo" href="/" title="katotoLogo">
+        <img src="../assets/images/katoto.png" alt="" />
       </a>
       <!-- pc -->
       <section class="subhead visible-pc">
         <div class="h_list icon-new">
-          <router-link
-            class="tophead"
-            :to="{path: '/'}"
-          >
+          <router-link class="tophead" :to="{ path: '/' }">
             小学资源
             <div class="nexthead selftab1">
               <ul>
                 <li>
-                  <router-link :to="{path: '/eduIndex/Class1'}">
+                  <router-link :to="{ path: '/eduIndex/Class1' }">
                     小学一年级
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{path: '/eduIndex/Class2'}">
+                  <router-link :to="{ path: '/eduIndex/Class2' }">
                     小学二年级
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{path: '/eduIndex/Class3'}">
+                  <router-link :to="{ path: '/eduIndex/Class3' }">
                     小学三年级
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{path: '/eduIndex/Class4'}">
+                  <router-link :to="{ path: '/eduIndex/Class4' }">
                     小学四年级
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{path: '/eduIndex/Class5'}">
+                  <router-link :to="{ path: '/eduIndex/Class5' }">
                     小学五年级
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{path: '/eduIndex/Class6'}">
+                  <router-link :to="{ path: '/eduIndex/Class6' }">
                     小学六年级
                   </router-link>
                 </li>
               </ul>
             </div>
           </router-link>
-          <router-link
-            class="tophead"
-            :to="{path: '/tuzhai'}"
-          >
+          <router-link class="tophead" :to="{ path: '/tuzhai' }">
             图摘
           </router-link>
-          <router-link
-            class="tophead"
-            :to="{path: '/dapenti'}"
-          >
+          <router-link class="tophead" :to="{ path: '/dapenti' }">
             图卦
           </router-link>
-          <router-link
-            class="tophead"
-            :to="{path: '/meitu'}"
-          >
+          <router-link class="tophead" :to="{ path: '/meitu' }">
             K美图
           </router-link>
-          <router-link
-            class="tophead"
-            :to="{path: '/htmlnav'}"
-          >
+          <router-link class="tophead" :to="{ path: '/htmlnav' }">
             前端猿导航
           </router-link>
-          <router-link
-            class="tophead"
-            :to="{path: '/pmnav'}"
-          >
+          <router-link class="tophead" :to="{ path: '/pmnav' }">
             产品狗导航
           </router-link>
-          <router-link
-            class="tophead"
-            style="position:relative"
-            :to="{path: '/movie'}"
-          >
+          <router-link class="tophead" style="position:relative" :to="{ path: '/movie' }">
             <span>kan休闲</span>
             <div class="nexthead selftab4">
               <ul>
                 <li>
-                  <router-link :to="{path: '/movie'}">
+                  <router-link :to="{ path: '/movie' }">
                     vip免费电影
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{path: '/tvplay'}">
+                  <router-link :to="{ path: '/tvplay' }">
                     电视剧
                   </router-link>
                 </li>
@@ -118,35 +86,21 @@
       </section>
     </div>
     <!-- h5 -->
-    <section class="h5head" >
-      <div
-        class="mobile_nav hidden-pc"
-        :class="{on:showH5Nav}"
-        @click="showH5Nav=false"
-      >
-        <div
-          href="javascript:;"
-          class="btn_mobile"
-          @click="showH5Nav=false"
-        >
+    <section class="h5head">
+      <div class="mobile_nav hidden-pc" :class="{ on: showH5Nav }" @click="showH5Nav = false">
+        <div href="javascript:;" class="btn_mobile" @click="showH5Nav = false">
           <span></span>
           <span></span>
           <span></span>
         </div>
         <ul class="nav_regular">
           <li>
-            <router-link
-              class="tophead"
-              :to="{path: '/'}"
-            >
+            <router-link class="tophead" :to="{ path: '/' }">
               小学资源
             </router-link>
           </li>
           <li class="icon-new">
-            <router-link
-              class="tophead"
-              :to="{path: '/tuzhai'}"
-            >
+            <router-link class="tophead" :to="{ path: '/tuzhai' }">
               图摘
             </router-link>
           </li>
@@ -167,27 +121,17 @@
             </router-link>
           </li> -->
           <li>
-            <router-link
-              class="tophead"
-              :to="{path: '/htmlnav'}"
-            >
+            <router-link class="tophead" :to="{ path: '/htmlnav' }">
               前端猿导航
             </router-link>
           </li>
           <li>
-            <router-link
-              class="tophead"
-              :to="{path: '/pmnav'}"
-            >
+            <router-link class="tophead" :to="{ path: '/pmnav' }">
               产品狗导航
             </router-link>
           </li>
           <li>
-            <router-link
-              class="tophead"
-              style="position:relative"
-              :to="{path: '/movie'}"
-            >
+            <router-link class="tophead" style="position:relative" :to="{ path: '/movie' }">
               <span>kan休闲</span>
             </router-link>
           </li>
@@ -198,11 +142,11 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-            showH5Nav: false
-        }
+  data() {
+    return {
+      showH5Nav: false
     }
+  }
 }
 </script>
 <style lang="less" type="text/less">
@@ -297,7 +241,7 @@ export default {
             a {
               position: relative;
               &::after {
-                content: "N";
+                content: 'N';
                 display: inline-block;
                 margin: -20/75rem 0 0 5px;
                 border-radius: 2px;
@@ -392,7 +336,7 @@ export default {
       }
       &.icon-new {
         &::after {
-          content: "N";
+          content: 'N';
           display: block;
           position: absolute;
           top: 10px;

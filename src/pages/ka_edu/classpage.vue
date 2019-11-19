@@ -2,57 +2,42 @@
   <div class="eduContain">
     <section class="topImg">
       <ul class="pc-topflx" v-if="!ismobile" style="width: 100%">
-        <router-link tag='li' to="/eduIndex/Class1">
+        <router-link tag="li" to="/eduIndex/Class1">
           小学一年级
         </router-link>
-        <router-link tag='li' to="/eduIndex/Class2">
+        <router-link tag="li" to="/eduIndex/Class2">
           小学二年级
         </router-link>
-        <router-link tag='li' to="/eduIndex/Class3">
+        <router-link tag="li" to="/eduIndex/Class3">
           小学三年级
         </router-link>
-        <router-link tag='li' to="/eduIndex/Class4">
+        <router-link tag="li" to="/eduIndex/Class4">
           小学四年级
         </router-link>
-        <router-link tag='li' to="/eduIndex/Class5">
+        <router-link tag="li" to="/eduIndex/Class5">
           小学五年级
         </router-link>
-        <router-link tag='li' to="/eduIndex/Class6">
+        <router-link tag="li" to="/eduIndex/Class6">
           小学六年级
         </router-link>
       </ul>
     </section>
     <div class="topImg">
-      <img :src="topMonthImg">
+      <img :src="topMonthImg" />
     </div>
     <section>
       <div class="seat daily-zy">
         <div class="seat-mt">
           <strong><i class="icon"></i>每日推荐</strong>
           <div class="seat-nav">
-            <a
-              :class="{'active':!isActive}"
-              @click="zixun_handleCurrentChange('one')"
-            >热门推荐</a>
-            <a
-              :class="{'active':isActive}"
-              @click="zixun_handleCurrentChange('two')"
-            >精选推荐</a>
+            <a :class="{ active: !isActive }" @click="zixun_handleCurrentChange('one')">热门推荐</a>
+            <a :class="{ active: isActive }" @click="zixun_handleCurrentChange('two')">精选推荐</a>
           </div>
         </div>
-        <div
-          class="seat-mc daily-zy-bd"
-          style="display: block;"
-        >
-          <ul
-            class="seat-list clearfix"
-            _num="18"
-          >
-            <li
-              v-for="(item,index) in zixunArr"
-              :key="index"
-            >
-              <router-link :to="{path:`/edumsg/${item._id.replace(/\//g,'$')}`}">
+        <div class="seat-mc daily-zy-bd" style="display: block;">
+          <ul class="seat-list clearfix" _num="18">
+            <li v-for="(item, index) in zixunArr" :key="index">
+              <router-link :to="{ path: `/edumsg/${item._id.replace(/\//g, '$')}` }">
                 <b></b>{{ item.titleName }}
               </router-link>
             </li>
@@ -67,26 +52,20 @@
           <div class="list-table-wrap">
             <ul class="djtj-news-list ">
               <li
-                v-for="(item,index) in yuwenArr"
+                v-for="(item, index) in yuwenArr"
                 :key="index"
                 class="clearfix"
-                :class="{'djtj-news-title': index === 0 }"
+                :class="{ 'djtj-news-title': index === 0 }"
               >
                 <template v-if="index === 0">
                   <img
                     src="http://zxxkstatic.zxxk.com/zxxk/skins/images/jingxuan.png"
                     class="exam-title-thumb fl"
                     alt=""
-                  >
+                  />
                   <div class="exam-title-box fl">
                     <p>
-                      <a
-                        :href="item.titleLink"
-                        :title="item.titleName"
-                        target="_blank"
-                        v-html="item.titleName"
-                      >
-                      </a>
+                      <a :href="item.titleLink" :title="item.titleName" target="_blank" v-html="item.titleName"> </a>
                     </p>
                     <p class="author-date">
                       <span class="sm-tips-font">{{ currClassNum | classNameFn }}</span>
@@ -100,7 +79,7 @@
                   </div>
                   <p class="title">
                     <router-link
-                      :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
+                      :to="{ path: `/artdetail/${item._id.replace(/\//g, '$')}` }"
                       target="_blank"
                       :title="item.titleName"
                       v-html="item.titleName"
@@ -135,26 +114,20 @@
           <div class="list-table-wrap">
             <ul class="djtj-news-list ">
               <li
-                v-for="(item,index) in shuxueArr"
+                v-for="(item, index) in shuxueArr"
                 :key="index"
                 class="clearfix"
-                :class="{'djtj-news-title': index === 0 }"
+                :class="{ 'djtj-news-title': index === 0 }"
               >
                 <template v-if="index === 0">
                   <img
                     src="http://zxxkstatic.zxxk.com/zxxk/skins/images/jingxuan.png"
                     class="exam-title-thumb fl"
                     alt=""
-                  >
+                  />
                   <div class="exam-title-box fl">
                     <p>
-                      <a
-                        :href="item.titleLink"
-                        :title="item.titleName"
-                        target="_blank"
-                        v-html="item.titleName"
-                      >
-                      </a>
+                      <a :href="item.titleLink" :title="item.titleName" target="_blank" v-html="item.titleName"> </a>
                     </p>
                     <p class="author-date">
                       <span class="sm-tips-font">{{ currClassNum | classNameFn }}</span>
@@ -168,7 +141,7 @@
                   </div>
                   <p class="title">
                     <router-link
-                      :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
+                      :to="{ path: `/artdetail/${item._id.replace(/\//g, '$')}` }"
                       target="_blank"
                       :title="item.titleName"
                       v-html="item.titleName"
@@ -208,21 +181,21 @@
           <div class="list-table-wrap">
             <ul class="djtj-news-list ">
               <li
-                v-for="(item,index) in yingyuArr"
+                v-for="(item, index) in yingyuArr"
                 :key="index"
                 class="clearfix"
-                :class="{'djtj-news-title': index === 0 }"
+                :class="{ 'djtj-news-title': index === 0 }"
               >
                 <template v-if="index === 0">
                   <img
                     src="http://zxxkstatic.zxxk.com/zxxk/skins/images/jingxuan.png"
                     class="exam-title-thumb fl"
                     alt=""
-                  >
+                  />
                   <div class="exam-title-box fl">
                     <p>
                       <router-link
-                        :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
+                        :to="{ path: `/artdetail/${item._id.replace(/\//g, '$')}` }"
                         target="_blank"
                         :title="item.titleName"
                         v-html="item.titleName"
@@ -240,12 +213,7 @@
                     {{ item._id.slice(0, -5) }}
                   </div>
                   <p class="title">
-                    <a
-                      :href="item.titleLink"
-                      :title="item.titleName"
-                      target="_blank"
-                      v-html="item.titleName"
-                    ></a>
+                    <a :href="item.titleLink" :title="item.titleName" target="_blank" v-html="item.titleName"></a>
                   </p>
                   <div class="list-rt-tag-box sm-tips-font visible-pc">
                     <span class="djtj-tag">{{ currClassNum | classNameFn }}</span>
@@ -273,15 +241,8 @@
         <div class="container-half zlzj-box h5_ctrl">
           <span class="title-tips">更多精彩</span>
           <div class="list-table-wrap">
-            <img
-              src="../../../static/eduImg/tegs.jpg"
-              alt=""
-            >
-            <img
-              class="h5_ctrl2 visible-pc"
-              src="../../../static/eduImg/kt5u.jpg"
-              alt=""
-            >
+            <img src="../../../static/eduImg/tegs.jpg" alt="" />
+            <img class="h5_ctrl2 visible-pc" src="../../../static/eduImg/kt5u.jpg" alt="" />
           </div>
         </div>
       </div>
@@ -296,104 +257,104 @@ import Footer from '~components/Footer.vue'
 import ScrollTop from '~components/ScrollTop.vue'
 
 export default {
-    data () {
-        return {
-            ismobile: false,
-            isActive: false,
-            isReady: false,
-            showMovieHead: true,
-            currClassNum: 'Class1',
-            yingyu_pageno: 1,
-            yingyu_pageSize: 12,
-            yingyu_PageTotal: 2,
-            yingyuArr: [],
-            shuxue_pageno: 1,
-            shuxue_pageSize: 12,
-            shuxue_PageTotal: 2,
-            shuxueArr: [],
-            yuwen_pageno: 1,
-            yuwen_pageSize: 12,
-            yuwen_PageTotal: 2,
-            yuwenArr: [],
-            zixun_pageno: 1,
-            zixun_pageSize: 11,
-            zixun_PageTotal: 2,
-            zixunArr: [],
-            topMonthImg: '../../../static/eduImg/1.jpg'
-        }
+  data() {
+    return {
+      ismobile: false,
+      isActive: false,
+      isReady: false,
+      showMovieHead: true,
+      currClassNum: 'Class1',
+      yingyu_pageno: 1,
+      yingyu_pageSize: 12,
+      yingyu_PageTotal: 2,
+      yingyuArr: [],
+      shuxue_pageno: 1,
+      shuxue_pageSize: 12,
+      shuxue_PageTotal: 2,
+      shuxueArr: [],
+      yuwen_pageno: 1,
+      yuwen_pageSize: 12,
+      yuwen_PageTotal: 2,
+      yuwenArr: [],
+      zixun_pageno: 1,
+      zixun_pageSize: 11,
+      zixun_PageTotal: 2,
+      zixunArr: [],
+      topMonthImg: '../../../static/eduImg/1.jpg'
+    }
+  },
+  components: {
+    HEAD,
+    ScrollTop,
+    Footer
+  },
+  methods: {
+    selfNotify,
+    async yingyu_handleCurrentChange(yingyu_pageno = this.yingyu_pageno) {
+      let params = {
+        pageno: yingyu_pageno,
+        pagesize: this.yingyu_pageSize,
+        className: this.currClassNum,
+        xueke: 'Yingyu'
+      }
+      let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
+      if (data && data.status === '100') {
+        this.yingyuArr = data.data.msg
+        this.yingyu_PageTotal = data.data.totalPages
+      }
     },
-    components: {
-        HEAD,
-        ScrollTop,
-        Footer
+    async shuxue_handleCurrentChange(shuxue_pageno = this.shuxue_pageno) {
+      let params = {
+        pageno: shuxue_pageno,
+        pagesize: this.shuxue_pageSize,
+        className: this.currClassNum,
+        xueke: 'Shuxue'
+      }
+      let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
+      if (data && data.status === '100') {
+        this.shuxueArr = data.data.msg
+        this.shuxue_PageTotal = data.data.totalPages
+      }
     },
-    methods: {
-        selfNotify,
-        async yingyu_handleCurrentChange (yingyu_pageno = this.yingyu_pageno) {
-            let params = {
-                pageno: yingyu_pageno,
-                pagesize: this.yingyu_pageSize,
-                className: this.currClassNum,
-                xueke: 'Yingyu'
-            }
-            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
-            if (data && data.status === '100') {
-                this.yingyuArr = data.data.msg
-                this.yingyu_PageTotal = data.data.totalPages
-            }
-        },
-        async shuxue_handleCurrentChange (shuxue_pageno = this.shuxue_pageno) {
-            let params = {
-                pageno: shuxue_pageno,
-                pagesize: this.shuxue_pageSize,
-                className: this.currClassNum,
-                xueke: 'Shuxue'
-            }
-            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
-            if (data && data.status === '100') {
-                this.shuxueArr = data.data.msg
-                this.shuxue_PageTotal = data.data.totalPages
-            }
-        },
-        async yuwen_handleCurrentChange (yuwen_pageno = this.yuwen_pageno) {
-            let params = {
-                pageno: yuwen_pageno,
-                pagesize: this.yuwen_pageSize,
-                className: this.currClassNum,
-                xueke: 'Yuwen'
-            }
-            let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
-            if (data && data.status === '100') {
-                this.yuwenArr = data.data.msg
-                this.yuwen_PageTotal = data.data.totalPages
-            }
-        },
-        async zixun_handleCurrentChange (tab = 'one') {
-            let classnum = null
-            if (this.$route.params.classNum) {
-                classnum = parseFloat(this.$route.params.classNum.replace('Class', ''))
-            } else {
-                classnum = 1
-            }
-            let zixunPageno = 0
-            if (tab === 'one') {
-                // zixunPageno = classnum * 2 - 1
-                zixunPageno = classnum
-                this.isActive = false
-            } else {
-                zixunPageno = classnum + 1
-                this.isActive = true
-            }
-            let params = {
-                pageno: zixunPageno,
-                pagesize: this.zixun_pageSize
-            }
-            let data = await this.$store.dispatch('ka_edu/getzixun', params)
-            if (data && data.status === '100') {
-                this.zixunArr = data.data.msg
-                this.zixunArr.unshift({
-                    artLy: '新华社',
-                    artmsg: `<p><strong>今日头条极速版邀请码：CJ8L4QKV 最新2019今日头条极速版邀请码，有三元，看新闻、看资讯赚钱。</strong></p> <p>
+    async yuwen_handleCurrentChange(yuwen_pageno = this.yuwen_pageno) {
+      let params = {
+        pageno: yuwen_pageno,
+        pagesize: this.yuwen_pageSize,
+        className: this.currClassNum,
+        xueke: 'Yuwen'
+      }
+      let data = await this.$store.dispatch('ka_edu/getClassMsg', params)
+      if (data && data.status === '100') {
+        this.yuwenArr = data.data.msg
+        this.yuwen_PageTotal = data.data.totalPages
+      }
+    },
+    async zixun_handleCurrentChange(tab = 'one') {
+      let classnum = null
+      if (this.$route.params.classNum) {
+        classnum = parseFloat(this.$route.params.classNum.replace('Class', ''))
+      } else {
+        classnum = 1
+      }
+      let zixunPageno = 0
+      if (tab === 'one') {
+        // zixunPageno = classnum * 2 - 1
+        zixunPageno = classnum
+        this.isActive = false
+      } else {
+        zixunPageno = classnum + 1
+        this.isActive = true
+      }
+      let params = {
+        pageno: zixunPageno,
+        pagesize: this.zixun_pageSize
+      }
+      let data = await this.$store.dispatch('ka_edu/getzixun', params)
+      if (data && data.status === '100') {
+        this.zixunArr = data.data.msg
+        this.zixunArr.unshift({
+          artLy: '新华社',
+          artmsg: `<p><strong>今日头条极速版邀请码：CJ8L4QKV 最新2019今日头条极速版邀请码，有三元，看新闻、看资讯赚钱。</strong></p> <p>
               　　现在<strong>看新闻赚零花钱</strong>的手机软件越来越多，许多知名互联网公司也纷纷加入，像：搜狐、凤凰新闻等。今日头条也砸钱加入了这一行列。经实测，使用今日头条极速版填写我的邀请码 <strong> CJ8L4QKV </strong> 确实可以得到三元现金红包，可以直接提现，目前小伙伴们已经通过我的邀请码得到了现金红包了，大家去速度参与！下图是我的收益，快快复制试一试：
               <img src="//user-gold-cdn.xitu.io/2019/3/21/169a0bca0bc139c5?w=750&amp;h=1334&amp;f=jpeg&amp;s=70812" style="display: inline-block; width: 340px;">&nbsp;&nbsp;&nbsp;&nbsp;
               <img src="//user-gold-cdn.xitu.io/2019/3/21/169a0bc525a2608b?w=750&amp;h=1334&amp;f=jpeg&amp;s=67674" style="display: inline-block; width: 340px;"></p> <p>
@@ -409,54 +370,59 @@ export default {
                   <img src="//www.haotui.net/res/2018/12-01/21/2eee0844e456a13d5a994555b48bfb46.png" style="display: inline-block; width: 340px;"></li> <li> 2、进入到输入邀请码的页面之后，填写邀请码<strong> CJ8L4QKV </strong>进行提交，就可以成功领取3元红包了。</li> <li> 3、对此感兴趣的朋友还可以通过“邀请好友”功能复制自己的邀请码，让其他人注册今日头条极速版并填写邀请码，就可以获得现金收益哦!</li></ul>
               以上就是小编为大家带来的额外收入的内容。
             </p>`,
-                    titleLink: 'CJ8L4QKV 最新2019今日头条极速版邀请码',
-                    titleName: 'CJ8L4QKV 最新2019今日头条极速版邀请码，有三元！今日头条极速版邀请码',
-                    titletime: new Date(),
-                    _id: '201988/888888'
-                })
-                this.zixun_PageTotal = data.data.totalPages
-            }
-        },
-        async pageInit () {
-            // 请求当前年级数据
-            this.yingyu_handleCurrentChange()
-            this.shuxue_handleCurrentChange()
-            this.yuwen_handleCurrentChange()
-            this.zixun_handleCurrentChange()
-        }
+          titleLink: 'CJ8L4QKV 最新2019今日头条极速版邀请码',
+          titleName: 'CJ8L4QKV 最新2019今日头条极速版邀请码，有三元！今日头条极速版邀请码',
+          titletime: new Date(),
+          _id: '201988/888888'
+        })
+        this.zixun_PageTotal = data.data.totalPages
+      }
     },
-    watch: {
-        $route (to, from) {
-            if (this.$route.params && this.$route.params.classNum) {
-                this.currClassNum = this.$route.params.classNum
-            }
-            this.pageInit()
-        }
-    },
-    computed: {
-    },
-    async mounted () {
-        this.ismobile = isMobile
-        if (this.$route.params && this.$route.params.classNum) {
-            this.currClassNum = this.$route.params.classNum
-        }
-        this.pageInit()
-        this.topMonthImg = '../../../static/eduImg/' + (new Date().getMonth() + 1) + '.jpg'
-        structDom()
-    },
-    filters: {
-        classNameFn (classStr) {
-            if (!classStr) classStr = '一年级'
-            switch (classStr) {
-                    case 'Class1': return '一年级'
-                    case 'Class2': return '二年级'
-                    case 'Class3': return '三年级'
-                    case 'Class4': return '四年级'
-                    case 'Class5': return '五年级'
-                    case 'Class6': return '六年级'
-            }
-        }
+    async pageInit() {
+      // 请求当前年级数据
+      this.yingyu_handleCurrentChange()
+      this.shuxue_handleCurrentChange()
+      this.yuwen_handleCurrentChange()
+      this.zixun_handleCurrentChange()
     }
+  },
+  watch: {
+    $route(to, from) {
+      if (this.$route.params && this.$route.params.classNum) {
+        this.currClassNum = this.$route.params.classNum
+      }
+      this.pageInit()
+    }
+  },
+  computed: {},
+  async mounted() {
+    this.ismobile = isMobile
+    if (this.$route.params && this.$route.params.classNum) {
+      this.currClassNum = this.$route.params.classNum
+    }
+    this.pageInit()
+    this.topMonthImg = '../../../static/eduImg/' + (new Date().getMonth() + 1) + '.jpg'
+    structDom()
+  },
+  filters: {
+    classNameFn(classStr) {
+      if (!classStr) classStr = '一年级'
+      switch (classStr) {
+        case 'Class1':
+          return '一年级'
+        case 'Class2':
+          return '二年级'
+        case 'Class3':
+          return '三年级'
+        case 'Class4':
+          return '四年级'
+        case 'Class5':
+          return '五年级'
+        case 'Class6':
+          return '六年级'
+      }
+    }
+  }
 }
 </script>
 
@@ -475,7 +441,8 @@ export default {
 .topImg {
   width: 100%;
   overflow: auto;
-  .pc-topflx, .mobile-topflx{
+  .pc-topflx,
+  .mobile-topflx {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
@@ -489,12 +456,12 @@ export default {
     background-color: #fff;
     transition: all 0.5s;
     font-weight: 600;
-    li{
-      flex:1;
+    li {
+      flex: 1;
       cursor: pointer;
       text-align: center;
-      &:hover{
-        filter:brightness(1.8)
+      &:hover {
+        filter: brightness(1.8);
       }
     }
   }
@@ -502,7 +469,7 @@ export default {
   margin-right: auto;
   max-width: 1200px;
   width: 100%;
-  .el-button{
+  .el-button {
     margin: 0;
     border-radius: 0;
   }
@@ -718,7 +685,7 @@ a {
 // h5
 @media (max-width: 992px) {
   .topImg {
-    .mobile-topflx{
+    .mobile-topflx {
       width: 130%;
       font-size: 12px;
       margin-bottom: 2px;
@@ -726,13 +693,13 @@ a {
       background-color: #fff;
       transition: all 0.5s;
       font-weight: 500;
-      li{
-        flex:1;
+      li {
+        flex: 1;
         cursor: pointer;
       }
     }
   }
-  
+
   .h5_ctrl {
     position: relative;
     margin-left: 0px;

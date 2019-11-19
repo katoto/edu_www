@@ -1,22 +1,14 @@
 <template>
-  <div
-    class="row container"
-    v-if="tuzhaimsg"
-  >
+  <div class="row container" v-if="tuzhaimsg">
     <div class="article">
-      <div
-        v-if="storetuzhai"
-        class="post-timthumb"
-        :style="{backgroundImage: 'url('+ storetuzhai.img +')'}"
-      >
+      <div v-if="storetuzhai" class="post-timthumb" :style="{ backgroundImage: 'url(' + storetuzhai.img + ')' }">
         <h1>
           {{ storetuzhai.titleName }}
         </h1>
       </div>
       <div class="post">
         <div class="post-title">
-          <div class="post-entry-categories">
-          </div>
+          <div class="post-entry-categories"></div>
           <div class="post_icon">
             <span class="postauthor">
               <img
@@ -27,27 +19,16 @@
                 height="96"
                 width="96"
                 style="display: inline-block;"
-              >
+              />
               <a href="javascript:;">Chris</a>
             </span>
-            <span class="postclock">
-              <i class="icon-clock-1"></i> 2019-01-26
-            </span>
-            <span class="posteye">
-              <i class="icon-eye-4"></i> 12,627
-            </span>
+            <span class="postclock"> <i class="icon-clock-1"></i> 2019-01-26 </span>
+            <span class="posteye"> <i class="icon-eye-4"></i> 12,627 </span>
           </div>
         </div>
         <!-- 主题内容 -->
-        <div
-          class="post-content"
-          v-html="tuzhaimsg.artmsg"
-        >
-        </div>
-        <div
-          class="post-declare"
-          v-if="storetuzhai"
-        >
+        <div class="post-content" v-html="tuzhaimsg.artmsg"></div>
+        <div class="post-declare" v-if="storetuzhai">
           <p>
             原创文章，作者：<a href="javascript:;">Chris</a>，
             {{ storetuzhai.titleName }}
@@ -59,41 +40,40 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-            tuzhaimsg: null,
-            currid: null,
-            storetuzhai: null
-        }
-    },
-    methods: {
-        async pageMsg (id = '/qing-nian-tu-zhai-0103-2/') {
-            let data = await this.$store.dispatch('ka_tuzhai/getTuzhaimsg', id)
-            if (data && data.data && data.data.msg) {
-                this.tuzhaimsg = data.data.msg
-            }
-        }
-    },
-    mounted () {
-        if (localStorage.getItem('tuzhai')) {
-            this.storetuzhai = JSON.parse(localStorage.getItem('tuzhai'))
-        } else {
-            this.$router.push('/tuzhai')
-        }
-        if (this.$route.params && this.$route.params.tuzhaiid) {
-            this.currid = this.$route.params.tuzhaiid.replace(/\$/g, '/')
-        }
-        console.log(this.currid)
-        console.log('======')
-        console.log(this.storetuzhai)
-        this.pageMsg(this.currid)
-    },
-    destroyed () {
+  data() {
+    return {
+      tuzhaimsg: null,
+      currid: null,
+      storetuzhai: null
     }
+  },
+  methods: {
+    async pageMsg(id = '/qing-nian-tu-zhai-0103-2/') {
+      let data = await this.$store.dispatch('ka_tuzhai/getTuzhaimsg', id)
+      if (data && data.data && data.data.msg) {
+        this.tuzhaimsg = data.data.msg
+      }
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('tuzhai')) {
+      this.storetuzhai = JSON.parse(localStorage.getItem('tuzhai'))
+    } else {
+      this.$router.push('/tuzhai')
+    }
+    if (this.$route.params && this.$route.params.tuzhaiid) {
+      this.currid = this.$route.params.tuzhaiid.replace(/\$/g, '/')
+    }
+    console.log(this.currid)
+    console.log('======')
+    console.log(this.storetuzhai)
+    this.pageMsg(this.currid)
+  },
+  destroyed() {}
 }
 </script>
 <style lang="less" type="text/less">
-@import "../../styles/lib-media.less";
+@import '../../styles/lib-media.less';
 .post-content {
   p {
     font-size: 16px;
@@ -125,7 +105,7 @@ export default {
 </style>
 
 <style scoped lang="less" type="text/less">
-@import "../../styles/lib-media.less";
+@import '../../styles/lib-media.less';
 .post-declare p {
   font-size: 15px;
   line-height: 1.5;
@@ -156,21 +136,9 @@ export default {
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    background-image: -webkit-linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.01) 5%,
-      rgba(0, 0, 0, 0.75) 100%
-    );
-    background-image: -moz-linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.01) 5%,
-      rgba(0, 0, 0, 0.75) 100%
-    );
-    background-image: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.01) 0,
-      rgba(0, 0, 0, 0.65) 100%
-    );
+    background-image: -webkit-linear-gradient(180deg, rgba(0, 0, 0, 0.01) 5%, rgba(0, 0, 0, 0.75) 100%);
+    background-image: -moz-linear-gradient(180deg, rgba(0, 0, 0, 0.01) 5%, rgba(0, 0, 0, 0.75) 100%);
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.01) 0, rgba(0, 0, 0, 0.65) 100%);
   }
 }
 .post {
@@ -248,4 +216,3 @@ export default {
   }
 }
 </style>
-

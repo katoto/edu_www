@@ -6,21 +6,19 @@
     <div class="conL-box">
       <div class="conL">
         <!--内容部分 S-->
-        <div
-          class="article "
-          v-if="currMsg"
-        >
+        <div class="article " v-if="currMsg">
           <h1 class="title1 f-f0">{{ currMsg.titleName }}</h1>
           <div class="art_xin">
             <p class="art_time">{{ currMsg.titletime }}</p>
-            <p class="art_ly">来源：<span>{{ currMsg.artLy }}</span></p>
-            <p class="art_zz">作者 ：<span v-if="$router.history.current.path === '/edumsg/201988$888888'">今日头条官方邀请</span><span v-else>匿名</span></p>
+            <p class="art_ly">
+              来源：<span>{{ currMsg.artLy }}</span>
+            </p>
+            <p class="art_zz">
+              作者 ：<span v-if="$router.history.current.path === '/edumsg/201988$888888'">今日头条官方邀请</span
+              ><span v-else>匿名</span>
+            </p>
           </div>
-          <div
-            class="air_con f-f0"
-            v-html="currMsg.artmsg"
-          >
-          </div>
+          <div class="air_con f-f0" v-html="currMsg.artmsg"></div>
           <!--
               <div class="air_con f-f0">
                 文章
@@ -29,7 +27,6 @@
                 </p>
             </div>
            -->
-
         </div>
       </div>
     </div>
@@ -41,14 +38,8 @@
           阅读排行榜
         </p>
         <ul class="r_news_list">
-          <li
-            v-for="(item,index) in zixunArr"
-            :key="index"
-          >
-            <router-link
-              :to="{path:`/edumsg/${item._id.replace(/\//g,'$')}`}"
-              target="_blank"
-            >
+          <li v-for="(item, index) in zixunArr" :key="index">
+            <router-link :to="{ path: `/edumsg/${item._id.replace(/\//g, '$')}` }" target="_blank">
               <b></b>{{ item.titleName }}
             </router-link>
           </li>
@@ -57,19 +48,9 @@
       <!--右侧广告位2 S-->
       <div class="ad2 ">
         <div id="adModel_366">
-          <div
-            style="width: 320px; height: 250px;"
-            id="adMod_366"
-          >
-            <a
-              target="_blank"
-              style="height: 100%; width: 100%;"
-              href="javascript:;"
-            >
-              <img
-                style="height: 100%; width: 100%;"
-                src="http://file.xdf.cn/new_www/20180905/op_5b8f3bf05fbd9.jpeg"
-              >
+          <div style="width: 320px; height: 250px;" id="adMod_366">
+            <a target="_blank" style="height: 100%; width: 100%;" href="javascript:;">
+              <img style="height: 100%; width: 100%;" src="http://file.xdf.cn/new_www/20180905/op_5b8f3bf05fbd9.jpeg" />
             </a>
           </div>
         </div>
@@ -81,50 +62,48 @@
 import ScrollTop from '~components/ScrollTop.vue'
 
 export default {
-    data () {
-        return {
-            id: '201811/10825047',
-            currMsg: null,
-            zixunArr: []
-        }
-    },
-    components: {
-        ScrollTop
-    },
-    methods: {
-        async zixunmsg () {
-            let data = await this.$store.dispatch('ka_edu/getzixunmsg', this.id)
-            if (data && data.status === '100') {
-                this.currMsg = data.data.msg
-            }
-        },
-        async zixun_handleCurrentChange (tab = 'one') {
-            let params = {
-                pageno: 1,
-                pagesize: 6
-            }
-            let data = await this.$store.dispatch('ka_edu/getzixun', params)
-            if (data && data.status === '100') {
-                this.zixunArr = data.data.msg
-            }
-        },
-        pageInit () {
-            // 请求当前数据
-            this.zixunmsg()
-            this.zixun_handleCurrentChange()
-        }
-    },
-    watch: {
-    },
-    computed: {
-    },
-    async mounted () {
-        console.log(this.$router.history.current.path)
-        if (this.$route.params && this.$route.params.id) {
-            this.id = this.$route.params.id.replace(/\$/g, '/')
-        }
-        this.pageInit()
+  data() {
+    return {
+      id: '201811/10825047',
+      currMsg: null,
+      zixunArr: []
     }
+  },
+  components: {
+    ScrollTop
+  },
+  methods: {
+    async zixunmsg() {
+      let data = await this.$store.dispatch('ka_edu/getzixunmsg', this.id)
+      if (data && data.status === '100') {
+        this.currMsg = data.data.msg
+      }
+    },
+    async zixun_handleCurrentChange(tab = 'one') {
+      let params = {
+        pageno: 1,
+        pagesize: 6
+      }
+      let data = await this.$store.dispatch('ka_edu/getzixun', params)
+      if (data && data.status === '100') {
+        this.zixunArr = data.data.msg
+      }
+    },
+    pageInit() {
+      // 请求当前数据
+      this.zixunmsg()
+      this.zixun_handleCurrentChange()
+    }
+  },
+  watch: {},
+  computed: {},
+  async mounted() {
+    console.log(this.$router.history.current.path)
+    if (this.$route.params && this.$route.params.id) {
+      this.id = this.$route.params.id.replace(/\$/g, '/')
+    }
+    this.pageInit()
+  }
 }
 </script>
 <style lang="less" type="text/less">
@@ -155,7 +134,7 @@ export default {
       .article {
         height: auto !important;
         .f-f0 {
-          font-family: "Microsoft YaHei", "Helvetica", "sans-serif";
+          font-family: 'Microsoft YaHei', 'Helvetica', 'sans-serif';
         }
         .title1 {
           width: 100%;
@@ -207,8 +186,7 @@ export default {
       width: 320px;
       height: 225px;
       .title3 {
-        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png)
-          no-repeat 0 -342px;
+        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png) no-repeat 0 -342px;
         height: 32px;
         border-bottom: 1px solid #98dfd2;
         padding-left: 10px;
@@ -223,8 +201,7 @@ export default {
         overflow: hidden;
         max-height: 170px;
         overflow: hidden;
-        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png)
-          no-repeat 0 -400px;
+        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png) no-repeat 0 -400px;
         padding-left: 20px;
         li {
           width: 300px;
@@ -266,4 +243,3 @@ export default {
   }
 }
 </style>
-

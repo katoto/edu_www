@@ -1,73 +1,82 @@
 <template>
-    <div class="container b-listtab-main">
-        <ul class="list clearfix" style="margin-top: 16px;min-height:600px;">
-            <li class="item" v-for="(item,index) in tvlist">
-                <router-link class="js-tongjic" :to="`/tvMsg/${item._id}`">
-                    <div class="cover g-playicon">
-                        <img :src="item.pic" :alt="item.name">
-                        <span class="pay">免费看</span>
-                        <div class="mask-wrap">
-                            <span class="hint">{{ item.tvLenDesc }}</span>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <p class="title g-clear">
-                            <span class="s1">{{ item.name }}</span>
-                            <span class="point fr">2018</span>
-                        </p>
-                        <!-- <p class="star">{{ item.desc }}</p> -->
-                    </div>
-                </router-link>
-            </li>
-
-        </ul>
-        <div class="pagination">
-            <el-pagination @current-change="handleCurrentChange" @size-change="sizeChange" background :current-page.sync="pageno" size="small" :page-size="pageSize" layout="prev, pager, next,jumper" :page-count="PageTotal" :next-text="'下一页'" :prev-text="'上一页'">
-            </el-pagination>
-        </div>
+  <div class="container b-listtab-main">
+    <ul class="list clearfix" style="margin-top: 16px;min-height:600px;">
+      <li class="item" v-for="(item, index) in tvlist">
+        <router-link class="js-tongjic" :to="`/tvMsg/${item._id}`">
+          <div class="cover g-playicon">
+            <img :src="item.pic" :alt="item.name" />
+            <span class="pay">免费看</span>
+            <div class="mask-wrap">
+              <span class="hint">{{ item.tvLenDesc }}</span>
+            </div>
+          </div>
+          <div class="detail">
+            <p class="title g-clear">
+              <span class="s1">{{ item.name }}</span>
+              <span class="point fr">2018</span>
+            </p>
+            <!-- <p class="star">{{ item.desc }}</p> -->
+          </div>
+        </router-link>
+      </li>
+    </ul>
+    <div class="pagination">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        @size-change="sizeChange"
+        background
+        :current-page.sync="pageno"
+        size="small"
+        :page-size="pageSize"
+        layout="prev, pager, next,jumper"
+        :page-count="PageTotal"
+        :next-text="'下一页'"
+        :prev-text="'上一页'"
+      >
+      </el-pagination>
     </div>
+  </div>
 </template>
 <script>
 export default {
-    data () {
-        return {
-            tvlist: [],
-            pageSize: 15,
-            PageTotal: 3,
-            pageno: 1
-        }
-    },
-    watch: {},
-    components: {},
-    methods: {
-        sizeChange (size) {
-            this.pageSize = size
-            this.handleCurrentChange()
-        },
-        async handleCurrentChange (pageno = this.pageno) {
-            this.h5pageno += 1
-            let params = {
-                pageno,
-                pagesize: this.pageSize
-            }
-            let data = await this.$store.dispatch('iqiyiTvlist', params)
-            console.log(data)
-            data = data.data
-            if (data) {
-                this.tvlist = data.tvMsg
-                this.PageTotal = data.totalPages
-            }
-        }
-    },
-    computed: {
-    },
-    async mounted () {
-        this.handleCurrentChange()
+  data() {
+    return {
+      tvlist: [],
+      pageSize: 15,
+      PageTotal: 3,
+      pageno: 1
     }
+  },
+  watch: {},
+  components: {},
+  methods: {
+    sizeChange(size) {
+      this.pageSize = size
+      this.handleCurrentChange()
+    },
+    async handleCurrentChange(pageno = this.pageno) {
+      this.h5pageno += 1
+      let params = {
+        pageno,
+        pagesize: this.pageSize
+      }
+      let data = await this.$store.dispatch('iqiyiTvlist', params)
+      console.log(data)
+      data = data.data
+      if (data) {
+        this.tvlist = data.tvMsg
+        this.PageTotal = data.totalPages
+      }
+    }
+  },
+  computed: {},
+  async mounted() {
+    this.handleCurrentChange()
+  }
 }
 </script>
 <style lang="less" scoped type="text/less">
-@import "../../styles/lib-media.less";
+@import '../../styles/lib-media.less';
 
 .waiting {
   width: 100%;

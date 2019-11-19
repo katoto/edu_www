@@ -1,17 +1,17 @@
 <template>
-    <div class="pop-list">
-        <pop-login></pop-login>
-        <pop-reg></pop-reg>
-        <pop-verify-email></pop-verify-email>
-        <pop-reset-pwd></pop-reset-pwd>
-        <pop-verify-email-error></pop-verify-email-error>
-        <pop-reg-success></pop-reg-success>
-        <pop-reg-failure></pop-reg-failure>
-        <pop-limit></pop-limit>
-        <pop-noVerify></pop-noVerify>
-        <Next></Next>
-        <PopFirstTopUp></PopFirstTopUp>
-    </div>
+  <div class="pop-list">
+    <pop-login></pop-login>
+    <pop-reg></pop-reg>
+    <pop-verify-email></pop-verify-email>
+    <pop-reset-pwd></pop-reset-pwd>
+    <pop-verify-email-error></pop-verify-email-error>
+    <pop-reg-success></pop-reg-success>
+    <pop-reg-failure></pop-reg-failure>
+    <pop-limit></pop-limit>
+    <pop-noVerify></pop-noVerify>
+    <Next></Next>
+    <PopFirstTopUp></PopFirstTopUp>
+  </div>
 </template>
 
 <script>
@@ -26,16 +26,16 @@ import PopNoVerify from './pop/Pop-noVerify'
 import Next from './pop/Next'
 
 export default {
-    components: {
-        PopLogin,
-        PopReg,
-        PopVerifyEmail,
-        PopResetPwd,
-        PopVerifyEmailError,
-        PopRegSuccess,
-        PopRegFailure,
-        PopNoVerify,
-        Next
-    }
+  components: {
+    PopLogin,
+    PopReg,
+    PopVerifyEmail,
+    PopResetPwd,
+    PopVerifyEmailError,
+    PopRegSuccess,
+    PopRegFailure,
+    PopNoVerify,
+    Next
+  }
 }
 </script>

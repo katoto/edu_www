@@ -1,60 +1,53 @@
 <template>
   <div class="headbox">
     <div class="head">
-      <a
-        class="h_logo"
-        href="/eduIndex/Class1"
-        title="katotoLogo"
-      >
-        <img
-          src="../assets/images/katoto.png"
-          alt=""
-        >
+      <a class="h_logo" href="/eduIndex/Class1" title="katotoLogo">
+        <img src="../assets/images/katoto.png" alt="" />
       </a>
       <section class="subhead">
         <div class="h_list icon-new">
-          <router-link :to="{path: '/eduIndex/Class1'}">
+          <router-link :to="{ path: '/eduIndex/Class1' }">
             小学资源
           </router-link>
-          <router-link :to="{path: '/htmlnav'}">
+          <router-link :to="{ path: '/htmlnav' }">
             前端猿导航
           </router-link>
-          <router-link :to="{path: '/pmnav'}">
+          <router-link :to="{ path: '/pmnav' }">
             产品狗导航
           </router-link>
-          <router-link :to="{path: '/eduIndex/Class2'}">
+          <router-link :to="{ path: '/eduIndex/Class2' }">
             katoto休闲
           </router-link>
         </div>
         <div class="Tab1 selftab1">
           <ul>
             <li>
-              <router-link :to="{path: '/eduIndex/Class1'}">
+              <router-link :to="{ path: '/eduIndex/Class1' }">
                 小学一年级
               </router-link>
             </li>
             <li>
-              <router-link :to="{path: '/eduIndex/Class2'}">
+              <router-link :to="{ path: '/eduIndex/Class2' }">
                 小学二年级
               </router-link>
             </li>
             <li>
-              <router-link :to="{path: '/eduIndex/Class3'}">
+              <router-link :to="{ path: '/eduIndex/Class3' }">
                 小学三年级
               </router-link>
             </li>
             <li>
-              <router-link :to="{path: '/eduIndex/Class4'}">
+              <router-link :to="{ path: '/eduIndex/Class4' }">
                 小学四年级
               </router-link>
             </li>
             <li>
-              <router-link :to="{path: '/eduIndex/Class5'}">
+              <router-link :to="{ path: '/eduIndex/Class5' }">
                 小学五年级
               </router-link>
             </li>
             <li>
-              <router-link :to="{path: '/eduIndex/Class6'}">
+              <router-link :to="{ path: '/eduIndex/Class6' }">
                 小学六年级
               </router-link>
             </li>
@@ -63,12 +56,12 @@
         <div class="Tab4 selftab4">
           <ul>
             <li>
-              <router-link :to="{path: '/movie'}">
+              <router-link :to="{ path: '/movie' }">
                 vip免费电影
               </router-link>
             </li>
             <li>
-              <router-link :to="{path: '/tvplay'}">
+              <router-link :to="{ path: '/tvplay' }">
                 电视剧
               </router-link>
             </li>
@@ -79,8 +72,7 @@
   </div>
 </template>
 <script>
-export default {
-}
+export default {}
 </script>
 <style scoped lang="less" type="text/less">
 .subhead {
@@ -153,7 +145,7 @@ export default {
     }
     &.icon-new {
       &::after {
-        content: "N";
+        content: 'N';
         display: block;
         position: absolute;
         top: 10px;

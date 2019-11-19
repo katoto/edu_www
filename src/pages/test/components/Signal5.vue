@@ -9,30 +9,30 @@
 <script>
 import { findComponentUpward } from '~/common/assist.js'
 export default {
-    name: 'signal4',
-    inject: ['app'],
-    methods: {
-        handleClick () {
-            const currcom = findComponentUpward(this, 'signalroot')
-            alert(currcom.indexVal)
-            currcom.addIndex()
-        }
+  name: 'signal4',
+  inject: ['app'],
+  methods: {
+    handleClick() {
+      const currcom = findComponentUpward(this, 'signalroot')
+      alert(currcom.indexVal)
+      currcom.addIndex()
     }
+  }
 }
 </script>
 <style lang="less">
-    button{
-        width: 300px;
-        height: 50px;
-        border: 2px solid rebeccapurple;
-        position: relative;
-        z-index: 10;
-        cursor: pointer;
-    }
-    .large{
-        width: 130px;
-    }
-    .small{
-        width: 40px;
-    }
+button {
+  width: 300px;
+  height: 50px;
+  border: 2px solid rebeccapurple;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+}
+.large {
+  width: 130px;
+}
+.small {
+  width: 40px;
+}
 </style>

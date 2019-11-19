@@ -10,16 +10,10 @@
       <div class="list_cont list_cont2 w1180">
         <div class="tab_zt">
           <div class="tab_box">
-            <ul
-              class="clearfix"
-              v-if="meitumsg"
-            >
-              <li v-for="(item,index) in meitumsg.nextPageMsg.nextkutu">
+            <ul class="clearfix" v-if="meitumsg">
+              <li v-for="(item, index) in meitumsg.nextPageMsg.nextkutu">
                 <a href="javascript:;">
-                  <img
-                    :src="item"
-                    style="display: inline;"
-                  >
+                  <img :src="item" style="display: inline;" />
                   <p>{{ meitumsg.nextPageMsg.nextdesc }}</p>
                 </a>
               </li>
@@ -32,32 +26,31 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-            meitumsg: null
-        }
-    },
-    methods: {
-        jump2msg (item) {
-            delete item.picLink
-            delete item._id
-            localStorage.setItem('meitu', JSON.stringify(item))
-            this.$router.push('/meitumsg')
-        }
-    },
-    mounted () {
-        if (localStorage.getItem('meitu')) {
-            this.meitumsg = JSON.parse(localStorage.getItem('meitu'))
-        } else {
-            this.$router.push('/meitu')
-        }
-    },
-    destroyed () {
+  data() {
+    return {
+      meitumsg: null
     }
+  },
+  methods: {
+    jump2msg(item) {
+      delete item.picLink
+      delete item._id
+      localStorage.setItem('meitu', JSON.stringify(item))
+      this.$router.push('/meitumsg')
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('meitu')) {
+      this.meitumsg = JSON.parse(localStorage.getItem('meitu'))
+    } else {
+      this.$router.push('/meitu')
+    }
+  },
+  destroyed() {}
 }
 </script>
 <style scoped lang="less" type="text/less">
-@import "../../styles/lib-media.less";
+@import '../../styles/lib-media.less';
 .containbox {
   .navHead {
     padding: 20px 0;
@@ -201,4 +194,3 @@ export default {
   }
 }
 </style>
-

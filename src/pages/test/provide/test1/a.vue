@@ -1,10 +1,8 @@
-<template>
-	
-</template>
+<template> </template>
 <script>
 export default {
-    provide: {
-        name: 'Aresn'
-    }
+  provide: {
+    name: 'Aresn'
+  }
 }
 </script>

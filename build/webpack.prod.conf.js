@@ -63,7 +63,7 @@ let plugins = [
     ]),
 ]
 
-if (!_isPreRelease) {
+if (!_isPreRelease && 0) {
     plugins.push(new prerenderSPAPlugin({
         staticDir: path.join(__dirname, '../dist'),
         routes: ['/', '/movie', '/tvplay', '/htmlnav', '/pmnav', '/eduIndex/Class1', '/eduIndex/Class2', '/eduIndex/Class3', '/eduIndex/Class4', '/eduIndex/Class5', '/eduIndex/Class6', '/edumsg/201988$888888'],

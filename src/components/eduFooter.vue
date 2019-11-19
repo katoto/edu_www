@@ -2,14 +2,11 @@
   <div class="footer">
     <div class="fmain">
       <div class="reserved">
-        <p>
-        </p>
+        <p></p>
       </div>
       <div class="foot-mid clearfix">
-        <div class="about">
-        </div>
-        <div class="game">
-        </div>
+        <div class="about"></div>
+        <div class="game"></div>
       </div>
       <div class="contact">
         <section>
@@ -22,36 +19,24 @@
               <a href="javascript:;">1196781017</a>
             </p>
           </div>
-          <div
-            class="language hide"
-            :class="{on:isShowLanguage}"
-            @click="headControlPop('showLanguage')"
-          >
+          <div class="language hide" :class="{ on: isShowLanguage }" @click="headControlPop('showLanguage')">
             <div
               class="language-choose"
               v-for="(item, index) in languageOptions"
               :key="index"
-              v-if="item.value===languageVal"
+              v-if="item.value === languageVal"
             >
-              <img
-                :src="item.lanLogo"
-                alt=""
-              >
+              <img :src="item.lanLogo" alt="" />
               {{ item.label }}
             </div>
             <ul>
               <li
                 v-for="(item, index) in languageOptions"
                 :key="index"
-                v-if="item.value!==languageVal"
+                v-if="item.value !== languageVal"
                 @click="handleLanguageChange(item.value)"
               >
-                <img
-                  :src="item.lanLogo"
-                  width="27"
-                  height="15"
-                  alt=""
-                >
+                <img :src="item.lanLogo" width="27" height="15" alt="" />
                 <span>{{ item.label }}</span>
               </li>
             </ul>
@@ -64,57 +49,59 @@
         ©Katoto 2018. All Rights Reserved
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return {
-            languageOptions: [{
-                value: 'en',
-                label: 'English',
-                lanLogo: '../../../static/staticImg/lan-en.jpg'
-            }, {
-                value: 'zhCn',
-                label: '中文简体',
-                lanLogo: '../../../static/staticImg/lan-cn.jpg'
-            }, {
-                value: 'zhTw',
-                label: '中文繁體',
-                lanLogo: '../../../static/staticImg/lan-cn.jpg'
-            }],
-            isShowLanguage: false
-        }
-    },
-    methods: {
-        scroll () {
-            window.scrollTo(0, 0)
+  data() {
+    return {
+      languageOptions: [
+        {
+          value: 'en',
+          label: 'English',
+          lanLogo: '../../../static/staticImg/lan-en.jpg'
         },
-        handleLanguageChange (val) {
-            this.$store.commit('changeLanguage', val)
+        {
+          value: 'zhCn',
+          label: '中文简体',
+          lanLogo: '../../../static/staticImg/lan-cn.jpg'
         },
-        headControlPop () {
-            this.isShowLanguage = !this.isShowLanguage
+        {
+          value: 'zhTw',
+          label: '中文繁體',
+          lanLogo: '../../../static/staticImg/lan-cn.jpg'
         }
-    },
-    computed: {
-        languageVal: {
-            set (val) {
-                this.$store.commit('changeLanguage', val)
-            },
-            get () {
-                return this.$store.state.language
-            }
-        }
-    },
-    mounted () {
+      ],
+      isShowLanguage: false
     }
+  },
+  methods: {
+    scroll() {
+      window.scrollTo(0, 0)
+    },
+    handleLanguageChange(val) {
+      this.$store.commit('changeLanguage', val)
+    },
+    headControlPop() {
+      this.isShowLanguage = !this.isShowLanguage
+    }
+  },
+  computed: {
+    languageVal: {
+      set(val) {
+        this.$store.commit('changeLanguage', val)
+      },
+      get() {
+        return this.$store.state.language
+      }
+    }
+  },
+  mounted() {}
 }
 </script>
 <style lang="less" scoped type="text/less">
-@import "../styles/lib-public.less";
+@import '../styles/lib-public.less';
 
 .footer {
   position: relative;

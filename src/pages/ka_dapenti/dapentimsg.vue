@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="row container"
-    v-if="dapentimsg"
-  >
+  <div class="row container" v-if="dapentimsg">
     <div class="article">
       <div class="post">
         <div class="post-title">
-          <div class="post-entry-categories">
-          </div>
+          <div class="post-entry-categories"></div>
           <div class="post_icon">
             <span class="postauthor">
               <img
@@ -18,53 +14,45 @@
                 height="96"
                 width="96"
                 style="display: inline-block;"
-              >
+              />
               <a href="javascript:;">Chris</a>
             </span>
-            <span class="postclock">
-              <i class="icon-clock-1"></i> 2019-01-26
-            </span>
-            <span class="posteye">
-              <i class="icon-eye-4"></i> {{ parseInt(Math.random() * 100) + 1000 }}
-            </span>
+            <span class="postclock"> <i class="icon-clock-1"></i> 2019-01-26 </span>
+            <span class="posteye"> <i class="icon-eye-4"></i> {{ parseInt(Math.random() * 100) + 1000 }} </span>
           </div>
         </div>
         <!-- 主题内容 -->
-        <div
-          class="post-content"
-          v-html="dapentimsg.artmsg"
-        >
-        </div>
+        <div class="post-content" v-html="dapentimsg.artmsg"></div>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-    data () {
-        return {
-            dapentimsg: null,
-            currid: null
-        }
-    },
-    methods: {
-        async pageMsg (id = '142898') {
-            let data = await this.$store.dispatch('ka_dapenti/getdapentimsg', id)
-            if (data && data.data && data.data.msg) {
-                this.dapentimsg = data.data.msg
-            }
-        }
-    },
-    mounted () {
-        if (this.$route.params && this.$route.params.dapentiid) {
-            this.currid = this.$route.params.dapentiid
-        }
-        this.pageMsg(this.currid)
+  data() {
+    return {
+      dapentimsg: null,
+      currid: null
     }
+  },
+  methods: {
+    async pageMsg(id = '142898') {
+      let data = await this.$store.dispatch('ka_dapenti/getdapentimsg', id)
+      if (data && data.data && data.data.msg) {
+        this.dapentimsg = data.data.msg
+      }
+    }
+  },
+  mounted() {
+    if (this.$route.params && this.$route.params.dapentiid) {
+      this.currid = this.$route.params.dapentiid
+    }
+    this.pageMsg(this.currid)
+  }
 }
 </script>
 <style lang="less" type="text/less">
-@import "../../styles/lib-media.less";
+@import '../../styles/lib-media.less';
 .post-content {
   p {
     font-size: 16px;
@@ -96,7 +84,7 @@ export default {
 </style>
 
 <style scoped lang="less" type="text/less">
-@import "../../styles/lib-media.less";
+@import '../../styles/lib-media.less';
 .post-declare p {
   font-size: 15px;
   line-height: 1.5;
@@ -127,21 +115,9 @@ export default {
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    background-image: -webkit-linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.01) 5%,
-      rgba(0, 0, 0, 0.75) 100%
-    );
-    background-image: -moz-linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.01) 5%,
-      rgba(0, 0, 0, 0.75) 100%
-    );
-    background-image: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.01) 0,
-      rgba(0, 0, 0, 0.65) 100%
-    );
+    background-image: -webkit-linear-gradient(180deg, rgba(0, 0, 0, 0.01) 5%, rgba(0, 0, 0, 0.75) 100%);
+    background-image: -moz-linear-gradient(180deg, rgba(0, 0, 0, 0.01) 5%, rgba(0, 0, 0, 0.75) 100%);
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.01) 0, rgba(0, 0, 0, 0.65) 100%);
   }
 }
 .post {
@@ -219,4 +195,3 @@ export default {
   }
 }
 </style>
-

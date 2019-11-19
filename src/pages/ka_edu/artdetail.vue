@@ -6,21 +6,16 @@
     <div class="conL-box">
       <div class="conL">
         <!--内容部分 S-->
-        <div
-          class="article "
-          v-if="currMsg && currMsg.artmsg"
-        >
+        <div class="article " v-if="currMsg && currMsg.artmsg">
           <p class="title1 f-f0">{{ currMsg.titleName }}</p>
           <div class="art_xin">
             <p class="art_time">{{ currMsg.titletime }}</p>
-            <p class="art_ly">来源：<span>{{ currMsg.artLy }}</span></p>
+            <p class="art_ly">
+              来源：<span>{{ currMsg.artLy }}</span>
+            </p>
             <p class="art_zz">作者：<span>匿名</span></p>
           </div>
-          <div
-            class="air_con f-f0"
-            v-html="currMsg.artmsg"
-          >
-          </div>
+          <div class="air_con f-f0" v-html="currMsg.artmsg"></div>
           <p>温馨提示：试卷文档详情请下载</p>
         </div>
       </div>
@@ -33,14 +28,8 @@
           阅读排行榜
         </p>
         <ul class="r_news_list">
-          <li
-            v-for="(item,index) in classArr"
-            :key="index"
-          >
-            <router-link
-              :to="{path:`/artdetail/${item._id.replace(/\//g,'$')}`}"
-              target="_blank"
-            >
+          <li v-for="(item, index) in classArr" :key="index">
+            <router-link :to="{ path: `/artdetail/${item._id.replace(/\//g, '$')}` }" target="_blank">
               <b></b>{{ item.titleName }}
             </router-link>
           </li>
@@ -49,19 +38,9 @@
       <!--右侧广告位2 S-->
       <div class="ad2 ">
         <div id="adModel_366">
-          <div
-            style="width: 320px; height: 250px;"
-            id="adMod_366"
-          >
-            <a
-              target="_blank"
-              style="height: 100%; width: 100%;"
-              href="javascript:;"
-            >
-              <img
-                style="height: 100%; width: 100%;"
-                src="http://file.xdf.cn/new_www/20180905/op_5b8f3bf05fbd9.jpeg"
-              >
+          <div style="width: 320px; height: 250px;" id="adMod_366">
+            <a target="_blank" style="height: 100%; width: 100%;" href="javascript:;">
+              <img style="height: 100%; width: 100%;" src="http://file.xdf.cn/new_www/20180905/op_5b8f3bf05fbd9.jpeg" />
             </a>
           </div>
         </div>
@@ -73,45 +52,46 @@
 import ScrollTop from '~components/ScrollTop.vue'
 
 export default {
-    data () {
-        return {
-            currMsg: null,
-            classArr: [],
-            pathStr: null
-        }
-    },
-    components: { 
-        ScrollTop
-    },
-    methods: {
-        async zixunmsg () {
-            let para = this.pathStr
-            let obj = {
-                id: para
-            }
-            let data = await this.$store.dispatch('ka_edu/getartdetail', obj)
-            if (data && data.status === '100') {
-                this.currMsg = data.data.msg
-                if (this.currMsg && this.currMsg.artmsg) {
-                    this.currMsg.artmsg = this.currMsg.artmsg.replace(/href="\//g, 'href="http://www.dlrzy.com/').replace(/\/uploads\/allimg/g, 'http://www.dlrzy.com/uploads/allimg/').replace(/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/g, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
-                }
-            }
-        },
-        pageInit () {
-            // 请求当前数据
-            this.zixunmsg()
-        }
-    },
-    watch: {
-    },
-    computed: {
-    },
-    async mounted () {
-        if (this.$route.params && this.$route.params.id) {
-            this.pathStr = this.$route.params.id.replace(/\$/g, '/')
-        }
-        this.pageInit()
+  data() {
+    return {
+      currMsg: null,
+      classArr: [],
+      pathStr: null
     }
+  },
+  components: {
+    ScrollTop
+  },
+  methods: {
+    async zixunmsg() {
+      let para = this.pathStr
+      let obj = {
+        id: para
+      }
+      let data = await this.$store.dispatch('ka_edu/getartdetail', obj)
+      if (data && data.status === '100') {
+        this.currMsg = data.data.msg
+        if (this.currMsg && this.currMsg.artmsg) {
+          this.currMsg.artmsg = this.currMsg.artmsg
+            .replace(/href="\//g, 'href="http://www.dlrzy.com/')
+            .replace(/\/uploads\/allimg/g, 'http://www.dlrzy.com/uploads/allimg/')
+            .replace(/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/g, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+        }
+      }
+    },
+    pageInit() {
+      // 请求当前数据
+      this.zixunmsg()
+    }
+  },
+  watch: {},
+  computed: {},
+  async mounted() {
+    if (this.$route.params && this.$route.params.id) {
+      this.pathStr = this.$route.params.id.replace(/\$/g, '/')
+    }
+    this.pageInit()
+  }
 }
 </script>
 <style lang="less" type="text/less">
@@ -148,7 +128,7 @@ table tbody {
       .article {
         height: auto !important;
         .f-f0 {
-          font-family: "Microsoft YaHei", "Helvetica", "sans-serif";
+          font-family: 'Microsoft YaHei', 'Helvetica', 'sans-serif';
         }
         .title1 {
           width: 100%;
@@ -200,8 +180,7 @@ table tbody {
       width: 320px;
       height: 225px;
       .title3 {
-        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png)
-          no-repeat 0 -342px;
+        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png) no-repeat 0 -342px;
         height: 32px;
         border-bottom: 1px solid #98dfd2;
         padding-left: 10px;
@@ -216,8 +195,7 @@ table tbody {
         overflow: hidden;
         max-height: 170px;
         overflow: hidden;
-        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png)
-          no-repeat 0 -400px;
+        background: url(http://www.xdf.cn/zhuanti/toefl/public/img/index_bg.png) no-repeat 0 -400px;
         padding-left: 20px;
         li {
           width: 300px;
@@ -246,4 +224,3 @@ table tbody {
   }
 }
 </style>
-
