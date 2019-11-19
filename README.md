@@ -309,10 +309,15 @@ module.exports = {
 旧打包时间和文件大小，总体时间 74s。升级后64s。整体时间慢是因为生成静态文件造成的。
 去除静态配置生成的时间17-18秒。体积也有对象缩小
 
+####  old 打包
+![old](https://raw.githubusercontent.com/katoto/edu_www/master/old.png)
+####  new 打包
+![new](https://raw.githubusercontent.com/katoto/edu_www/master/new.png)
+
 
 ### 参考资料
 
 [webpack4](http://louiszhai.github.io/2019/01/04/webpack4/)
-
+https://zhuanlan.zhihu.com/p/81839632
 https://segmentfault.com/a/1190000014247030?utm_source=tag-newest
 https://www.jianshu.com/p/0a91fd682f66

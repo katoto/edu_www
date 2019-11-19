@@ -155,15 +155,25 @@ module.exports = {
         default: {
           // 模块缓存规则，设置为false，默认缓存组将禁用
           minChunks: 2, // 模块被引用>=2次，拆分至vendors公共模块
-          priority: -20, // 优先级
+          priority: -10, // 优先级
           reuseExistingChunk: true // 默认使用已有的模块
         },
-        vendors: {
-          test: /[\\/]node_modules[\\/]/, // 表示默认拆分node_modules中的模块
-          priority: -10
+        elementUI: {
+            name: "chunk-elementUI", // 单独将 elementUI 拆包
+            priority: 10, // 权重需大于其它缓存组
+            test: /[\/]node_modules[\/]element-ui[\/]/
+        },
+        commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
         }
       }
     }
+  },
+  // 配置如何展示性能提示
+  performance: {
+    hints: false
   },
   plugins: [
     new VueLoaderPlugin(),
